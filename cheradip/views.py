@@ -192,7 +192,7 @@ def save_json_data(request):
                         new_order.orderDetails.add(order_detail)
 
                     return JsonResponse({'message': 'Order Created Successfully'})
-                return JsonResponse({'message': 'You already have an Order with this TrxId'})
+                return JsonResponse({'message': 'You already have an Order with this TrxId!'})
             else:
                 return JsonResponse({'error': 'Your TrxId / Account has not been found! Please Check your TrxId and Account Number, Or Contact Us'})
 
