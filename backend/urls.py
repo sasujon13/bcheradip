@@ -15,8 +15,8 @@ from cheradip.views import (
     PasswordExistsView,
 )
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # path('api/admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),
     path('api/item/', ItemListCreateView.as_view(), name='item'),
     path('api/cart/', CartListCreateView.as_view(), name='cart'),
     path('api/divisions/', DivisionsView.as_view(), name='divisions'),
