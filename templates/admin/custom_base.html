@@ -1,0 +1,20 @@
+{% extends "api/admin/base.html" %}
+
+{% block title %}Custom Admin{% endblock %}
+
+{% block content %}
+<div class="custom-admin">
+    <header>
+        <h1>Welcome to the Custom Admin</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'api/admin:index' %}">Home</a></li>
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </nav>
+    <main>
+        {% block admin_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}
