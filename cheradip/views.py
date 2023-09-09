@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Cart, Item, Customer, NewOrder, OrderDetail, Transaction
-from .serializers import CartSerializer, ItemSerializer, CustomerSerializer
+from .serializers import CartSerializer, ItemSerializer, CustomerSerializer, CustomerUpdateSerializer
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
 from django.http import JsonResponse
@@ -134,6 +134,43 @@ class CustomerRetrieveView(APIView):
             return Response({'error': 'Not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+
+class CustomerUpdateView(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            serializer = CustomerUpdateSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                token = self.generate_unique_key()
+                return Response({'authToken': token}, status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def generate_unique_key(self):
+            length = 40
+            characters = string.ascii_letters + string.digits
+            key = ''.join(random.choice(characters) for _ in range(length))
+            return key 
+
+class CustomerResetView(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Assuming 'user' is the customer instance
+            serializer = CustomerSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                # ... (generate and return authToken and other fields)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class MobileNumberExistsView(APIView):
     def get(self, request, *args, **kwargs):
         username = request.query_params.get('username')
@@ -200,4 +237,23 @@ def save_json_data(request):
             return JsonResponse({'error': str(e)}, status=400)
     else:
         return JsonResponse({'message': 'Invalid request method'}, status=405)
-# i am here
+
+
+class PasswordUpdateView(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        newpassword = request.data.get('newpassword')
+        user = Customer.objects.get(username=username, password=password)
+        if user is not None:
+            user.password = newpassword 
+            user.save()
+            token = self.generate_unique_key()
+            return Response({'authToken': token}, status=status.HTTP_200_OK)
+        
+
+    def generate_unique_key(self):
+        length = 40
+        characters = string.ascii_letters + string.digits
+        key = ''.join(random.choice(characters) for _ in range(length))
+        return key 
