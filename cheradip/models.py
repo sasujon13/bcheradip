@@ -107,6 +107,7 @@ class OrderDetail(models.Model):
     GrandTotal = models.DecimalField(max_digits=10, decimal_places=0, blank=False, null=True)
     Paid = models.DecimalField(max_digits=10, decimal_places=0, blank=False, null=True)
     Due = models.DecimalField(max_digits=10, decimal_places=0, blank=False, null=True)
+    ShipingCost = models.DecimalField(max_digits=8, decimal_places=0, blank=False, null=True)
 
     def __str__(self):
         return self.Name

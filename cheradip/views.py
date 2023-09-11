@@ -30,7 +30,7 @@ class ItemListCreateView(generics.ListCreateAPIView):
 def item_list(request):
     items = Item.objects.all()
     serializer = ItemSerializer(items, many=True)
-    return Response(serializer.data)  # Use Response object from rest_framework.response
+    return Response(serializer.data) 
 
 
 class CartListCreateView(generics.ListCreateAPIView):
@@ -45,7 +45,7 @@ class CartListCreateView(generics.ListCreateAPIView):
 def cart(request):
     cart = Cart.objects.all()
     serializer = CartSerializer(cart, many=True)
-    return Response(serializer.data)  # Use Response object from rest_framework.response
+    return Response(serializer.data) 
 
 
 class DivisionsView(APIView):
@@ -123,11 +123,9 @@ class CustomerRetrieveView(APIView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            # Retrieve customer information for the authenticated user
             customer_data = {
-                'username': request.user.username,  # Assuming username is used as username
-                'fullName': request.user.full_name,  # Replace with actual field name
-                # Add more fields as needed
+                'username': request.user.username, 
+                'fullName': request.user.full_name,  
             }
             return Response(customer_data, status=status.HTTP_200_OK)
         else:
@@ -182,11 +180,9 @@ class CustomerResetView(APIView):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            # Assuming 'user' is the customer instance
             serializer = CustomerSerializer(user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                # ... (generate and return authToken and other fields)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
