@@ -3,10 +3,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Cart, Item, Customer, NewOrder, OrderDetail, Transaction
-from .serializers import CartSerializer, ItemSerializer, CustomerSerializer, CustomerUpdateSerializer
+from .serializers import CartSerializer, ItemSerializer, CustomerSerializer, CustomerUpdateSerializer, NewOrderSerializer
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 import logging, random, string, json  
@@ -134,6 +134,26 @@ class CustomerRetrieveView(APIView):
             return Response({'error': 'Not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+
+class OrderRetrieveView(generics.RetrieveAPIView):
+    serializer_class = NewOrderSerializer
+    lookup_field = 'username'
+
+    def get_object(self):
+        username = self.kwargs['username']
+        try:
+            return NewOrder.objects.filter(username=username)
+        except NewOrder.DoesNotExist:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):
+        instances = self.get_object()
+        if instances.exists():
+            serializer = self.get_serializer(instances, many=True)
+            return Response(serializer.data)
+        else:
+            return Response("0 orders")
+        
 
 class CustomerUpdateView(APIView):
     def post(self, request, *args, **kwargs):

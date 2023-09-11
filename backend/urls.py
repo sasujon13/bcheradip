@@ -16,6 +16,7 @@ from cheradip.views import (
     CustomerUpdateView,
     CustomerResetView,
     PasswordUpdateView,
+    OrderRetrieveView,
     
 )
 urlpatterns = [
@@ -33,6 +34,7 @@ urlpatterns = [
     path('api/password_reset/', CustomerResetView.as_view(), name='password_reset'),
     path('api/username/', MobileNumberExistsView.as_view(), name='username'),
     path('api/password/', PasswordExistsView.as_view(), name='password'),
+    path('api/myorder/<str:username>/', OrderRetrieveView.as_view(), name='myorder'),
     path('api/save_json_data/', views.save_json_data, name='save_json_data'),
 ]
 
