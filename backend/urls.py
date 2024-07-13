@@ -5,7 +5,7 @@ from django.conf import settings
 from cheradip import views
 from cheradip.views import (
     ItemListCreateView,
-    CartListCreateView,
+    # CartListCreateView
     DivisionsView,
     DistrictsView,
     ThanasView,
@@ -21,21 +21,21 @@ from cheradip.views import (
 )
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('api/admin/', admin.site.urls),
-    path('api/item/', ItemListCreateView.as_view(), name='item'),
-    path('api/cart/', CartListCreateView.as_view(), name='cart'),
-    path('api/divisions/', DivisionsView.as_view(), name='divisions'),
-    path('api/districts/', DistrictsView.as_view(), name='districts'),
-    path('api/thanas/', ThanasView.as_view(), name='thanas'),
-    path('api/signup/', CustomerCreateView.as_view(), name='signup'),
-    path('api/login/', CustomerRetrieveView.as_view(), name='login'),
-    path('api/profile_update/', CustomerUpdateView.as_view(), name='profile_update'),
-    path('api/password_update/', PasswordUpdateView.as_view(), name='password_update'),
-    path('api/password_reset/', CustomerResetView.as_view(), name='password_reset'),
-    path('api/username/', MobileNumberExistsView.as_view(), name='username'),
-    path('api/password/', PasswordExistsView.as_view(), name='password'),
-    path('api/myorder/<str:username>/', OrderRetrieveView.as_view(), name='myorder'),
-    path('api/save_json_data/', views.save_json_data, name='save_json_data'),
+    path('admin/', admin.site.urls),
+    path('item/', ItemListCreateView.as_view(), name='item'),
+    # path('cart/', CartListCreateView.as_view(), name='cart'),
+    path('divisions/', DivisionsView.as_view(), name='divisions'),
+    path('districts/', DistrictsView.as_view(), name='districts'),
+    path('thanas/', ThanasView.as_view(), name='thanas'),
+    path('signup/', CustomerCreateView.as_view(), name='signup'),
+    path('login/', CustomerRetrieveView.as_view(), name='login'),
+    path('profile_update/', CustomerUpdateView.as_view(), name='profile_update'),
+    path('password_update/', PasswordUpdateView.as_view(), name='password_update'),
+    path('password_reset/', CustomerResetView.as_view(), name='password_reset'),
+    path('username/', MobileNumberExistsView.as_view(), name='username'),
+    path('password/', PasswordExistsView.as_view(), name='password'),
+    path('myorder/<str:username>/', OrderRetrieveView.as_view(), name='myorder'),
+    path('save_json_data/', views.save_json_data, name='save_json_data'),
 ]
 
 if settings.DEBUG:

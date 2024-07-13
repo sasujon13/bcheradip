@@ -1,15 +1,9 @@
 from rest_framework import serializers
-from .models import Item, Cart, Customer, NewOrder, OrderDetail, Transaction
+from .models import Item, Customer, Order, Ordered, OrderDetail, Transaction
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = '__all__'
-
-
-class CartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cart
         fields = '__all__'
 
 
@@ -44,9 +38,9 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         model = OrderDetail
         fields = '__all__'
 
-class NewOrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     orderDetails = OrderDetailSerializer(many=True, read_only=True)
     transaction = TransactionSerializer(many=True, read_only=True)
     class Meta:
-        model = NewOrder
+        model = Order
         fields = '__all__'   

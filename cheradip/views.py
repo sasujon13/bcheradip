@@ -1,15 +1,17 @@
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .models import Cart, Item, Customer, NewOrder, OrderDetail, Transaction
-from .serializers import CartSerializer, ItemSerializer, CustomerSerializer, CustomerUpdateSerializer, NewOrderSerializer
+from .models import Item, Customer, Order, OrderDetail, Transaction, Ordered, Canceled
+from .serializers import ItemSerializer, CustomerSerializer, CustomerUpdateSerializer, OrderSerializer
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
-from django.http import Http404, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 import logging, random, string, json  
+from django.conf import settings
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -24,27 +26,22 @@ class ItemListCreateView(generics.ListCreateAPIView):
             return [PublicAccess()]
         else:
             return [IsSuperUserOrStaff()]
+            
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+
+        # Update image URLs to include 'manage' prefix
+        for item_data in response.data:
+            if 'image' in item_data and item_data['image']:
+                item_data['image'] = f'{settings.HOST_URL}/manage/media/{item_data["image"].split("/media/")[-1]}'
+
+        return response
 
 @api_view(['GET'])
 @permission_classes([IsSuperUserOrStaff])
 def item_list(request):
     items = Item.objects.all()
     serializer = ItemSerializer(items, many=True)
-    return Response(serializer.data) 
-
-
-class CartListCreateView(generics.ListCreateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
-
-    def get_permissions(self):
-            return [PublicAccess()]
-
-@api_view(['GET'])
-@permission_classes([PublicAccess])
-def cart(request):
-    cart = Cart.objects.all()
-    serializer = CartSerializer(cart, many=True)
     return Response(serializer.data) 
 
 
@@ -134,14 +131,14 @@ class CustomerRetrieveView(APIView):
 
 
 class OrderRetrieveView(generics.RetrieveAPIView):
-    serializer_class = NewOrderSerializer
+    serializer_class = OrderSerializer
     lookup_field = 'username'
 
     def get_object(self):
         username = self.kwargs['username']
         try:
-            return NewOrder.objects.filter(username=username)
-        except NewOrder.DoesNotExist:
+            return Order.objects.filter(username=username)
+        except Order.DoesNotExist:
             raise Http404
 
     def get(self, request, *args, **kwargs):
@@ -233,19 +230,22 @@ def save_json_data(request):
             
             if transaction:
                 if username != transaction.username:
-                    transaction.username = username 
-                    transaction.save()
-                
-                    new_order = NewOrder(**json_data)
+                    
+                    new_order = Order(**json_data)
                     new_order.save()
                     new_order.transaction.add(transaction)
                     
                     for detail_data in order_details_data:
+                        logger.debug(detail_data)
                         order_detail = OrderDetail.objects.create(**detail_data)
                         new_order.orderDetails.add(order_detail)
+                        
+                    transaction.username = username 
+                    transaction.save()
 
                     return JsonResponse({'message': 'Order Created Successfully'})
-                return JsonResponse({'message': 'You already have an Order with this TrxId!'})
+                else:
+                    return JsonResponse({'message': 'You already have an Order with this TrxId!'})
             else:
                 return JsonResponse({'error': 'Your TrxId / Account has not been found! Please Check your TrxId and Account Number, Or Contact Us'})
 
@@ -273,3 +273,193 @@ class PasswordUpdateView(APIView):
         characters = string.ascii_letters + string.digits
         key = ''.join(random.choice(characters) for _ in range(length))
         return key 
+
+
+
+def view_order(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    # Render the 'view_order.html' template with the order details
+    return render(request, 'cheradip/view_order.html', {'order': order})
+
+
+def view_ordered(request, pk):
+    order = get_object_or_404(Ordered, pk=pk)
+    # Render the 'view_order.html' template with the order details
+    return render(request, 'cheradip/view_order.html', {'order': order})
+
+
+def view_canceled(request, pk):
+    order = get_object_or_404(Canceled, pk=pk)
+    # Render the 'view_order.html' template with the order details
+    return render(request, 'cheradip/view_order.html', {'order': order})
+
+
+def update_shipped_status(request, order_id, is_shipped):
+    try:
+        # Get the Order instance by order_id
+        order = get_object_or_404(Order, id=order_id)
+
+        # Convert the 'is_shipped' string to a boolean
+        is_shipped = is_shipped.lower() == 'true'
+
+        # Update the 'shipped' field in the database
+        order.shipped = is_shipped
+        order.save()
+
+        # Assuming the update was successful
+        response_data = {"updated": True}
+        return JsonResponse(response_data)
+    except Exception as e:
+        # Handle any exceptions or errors
+        response_data = {"error": str(e)}
+        return JsonResponse(response_data, status=500)
+    
+
+def move_completed_orders(request, pk):
+    completed_orders = Order.objects.filter(shipped=True, pk=pk)
+
+    for new_order in completed_orders:
+        order = Ordered.objects.create(
+            id=new_order.id,
+            division=new_order.division,
+            district=new_order.district,
+            thana=new_order.thana,
+            paymentMethod=new_order.paymentMethod,
+            username=new_order.username,
+            fullName=new_order.fullName,
+            gender=new_order.gender,
+            union=new_order.union,
+            village=new_order.village,
+            altMobileNo=new_order.altMobileNo,
+            shipped=new_order.shipped,
+        )
+
+        order.orderDetails.set(new_order.orderDetails.all())
+        order.transaction.set(new_order.transaction.all())
+
+        for order_detail in order.orderDetails.all():
+            try:
+                item = Item.objects.get(id=order_detail.id)  # Retrieve the correct Item
+                item.in_stock -= order_detail.Quantity 
+                item.save()
+            except Item.DoesNotExist:
+                # Print or log the problematic OrderDetail
+                print(f"Item not found for OrderDetail: {order_detail.Name}")
+
+
+        new_order.delete()
+
+        message = "Completed Orders moved successfully"
+        return HttpResponse(message)
+    message = "Sorry! First check the Shipping Status and then Move again!"
+    return HttpResponse(message)
+
+def move_canceled_orders(request, pk):
+    canceled_orders = Order.objects.filter(pk=pk)
+
+    for new_order in canceled_orders:
+        order = Canceled.objects.create(
+            id=new_order.id,
+            division=new_order.division,
+            district=new_order.district,
+            thana=new_order.thana,
+            paymentMethod=new_order.paymentMethod,
+            username=new_order.username,
+            fullName=new_order.fullName,
+            gender=new_order.gender,
+            union=new_order.union,
+            village=new_order.village,
+            altMobileNo=new_order.altMobileNo,
+            shipped=new_order.shipped,
+        )
+
+        order.orderDetails.set(new_order.orderDetails.all())
+        order.transaction.set(new_order.transaction.all())
+
+        new_order.delete()
+
+        message = "Canceled Orders moved successfully"
+        return HttpResponse(message)
+    message = "Sorry! First check the Shipping Status and then Move again!"
+    return HttpResponse(message)
+
+
+def retrieve_canceled_orders(request, pk):
+    canceled_orders = Canceled.objects.filter(pk=pk)
+
+    for new_order in canceled_orders:
+        order = Order.objects.create(
+            id=new_order.id,
+            division=new_order.division,
+            district=new_order.district,
+            thana=new_order.thana,
+            paymentMethod=new_order.paymentMethod,
+            username=new_order.username,
+            fullName=new_order.fullName,
+            gender=new_order.gender,
+            union=new_order.union,
+            village=new_order.village,
+            altMobileNo=new_order.altMobileNo,
+            shipped=new_order.shipped,
+        )
+
+        order.orderDetails.set(new_order.orderDetails.all())
+        order.transaction.set(new_order.transaction.all())
+
+        new_order.delete()
+
+        message = "Canceled Ordered retrieved successfully"
+        return HttpResponseRedirect('/admin/cheradip/canceled/')
+    message = "Sorry! Canceled Ordered failed to retrieve!"
+    return HttpResponse(message)
+
+
+def retrieve_ordered_orders(request, pk):
+    ordered_orders = Ordered.objects.filter(pk=pk)
+
+    for new_order in ordered_orders:
+        order = Order.objects.create(
+            id=new_order.id,
+            division=new_order.division,
+            district=new_order.district,
+            thana=new_order.thana,
+            paymentMethod=new_order.paymentMethod,
+            username=new_order.username,
+            fullName=new_order.fullName,
+            gender=new_order.gender,
+            union=new_order.union,
+            village=new_order.village,
+            altMobileNo=new_order.altMobileNo,
+            shipped=new_order.shipped,
+        )
+
+        # Transfer many-to-many relations
+        order.orderDetails.set(new_order.orderDetails.all())
+        order.transaction.set(new_order.transaction.all())
+        
+        for order_detail in order.orderDetails.all():
+            try:
+                item = Item.objects.get(id=order_detail.id)  # Retrieve the correct Item
+                item.in_stock += order_detail.Quantity 
+                item.save()
+            except Item.DoesNotExist:
+                # Print or log the problematic OrderDetail
+                print(f"Item not found for OrderDetail: {order_detail.Name}")
+
+        new_order.delete()
+
+        message = "Ordered Orders retrieved successfully"
+        return HttpResponseRedirect('/admin/cheradip/ordered/')
+    message = "Sorry! Ordered Orders failed retrieve!"
+    return HttpResponse(message)
+
+
+
+def get_shipped_status(request, order_id):
+    try:
+        # Fetch the Order record by its ID
+        new_order = Order.objects.get(pk=order_id)
+        shipped = new_order.shipped
+        return JsonResponse({'shipped': shipped})
+    except Order.DoesNotExist:
+        return JsonResponse({'error': 'Order not found'}, status=404)
