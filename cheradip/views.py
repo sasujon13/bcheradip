@@ -91,8 +91,12 @@ class CustomerRetrieveView(APIView):
             password = request.data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                if hasattr(user, 'acctype'):acctype = user.acctype
+                else:acctype = None
                 if hasattr(user, 'fullName'):fullName = user.fullName
                 else:fullName = None
+                if hasattr(user, 'group'):group = user.group
+                else:group = None
                 if hasattr(user, 'gender'):gender = user.gender
                 else:gender = None
                 if hasattr(user, 'division'):division = user.division
@@ -106,7 +110,7 @@ class CustomerRetrieveView(APIView):
                 if hasattr(user, 'village'):village = user.village
                 else:village = None
                 token = self.generate_unique_key()
-                return Response({'authToken': token, 'username': username, 'fullName': fullName, 'gender': gender, 'division': division, 'district': district, 'thana': thana, 'union': union, 'village': village}, status=status.HTTP_200_OK)
+                return Response({'authToken': token, 'acctype': acctype, 'fullName': fullName, 'group': group, 'gender': gender, 'division': division, 'district': district, 'thana': thana, 'union': union, 'village': village}, status=status.HTTP_200_OK)
             else:
                 return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -263,6 +267,27 @@ class PasswordUpdateView(APIView):
         user = Customer.objects.get(username=username, password=password)
         if user is not None:
             user.password = newpassword 
+            user.save()
+            token = self.generate_unique_key()
+            return Response({'authToken': token}, status=status.HTTP_200_OK)
+        
+
+    def generate_unique_key(self):
+        length = 40
+        characters = string.ascii_letters + string.digits
+        key = ''.join(random.choice(characters) for _ in range(length))
+        return key 
+
+
+
+class MobileUpdateView(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        newusername = request.data.get('newusername')
+        password = request.data.get('password')
+        user = Customer.objects.get(username=username, password=password)
+        if user is not None:
+            user.username = newusername 
             user.save()
             token = self.generate_unique_key()
             return Response({'authToken': token}, status=status.HTTP_200_OK)

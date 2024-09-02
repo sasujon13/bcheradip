@@ -16,7 +16,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 class CustomerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['fullName', 'gender', 'division', 'district', 'thana', 'union', 'village']
+        fields = ['acctype', 'fullName', 'group', 'gender', 'division', 'district', 'thana', 'union', 'village']
 
     def update(self, instance, validated_data):
         # Exclude 'username' and 'password' fields from the update

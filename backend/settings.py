@@ -1,7 +1,8 @@
 from pathlib import Path
 import os
 
-HOST_URL = 'https://cheradip.com'
+# HOST_URL = 'https://cheradip.com' # for launcing
+HOST_URL = 'http://127.0.0.1:8000' # for local host
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,7 +19,6 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOWED_ORIGINS = [
     "https://cheradip.com",
-    "https://manage.cheradip.com",
     "http://localhost:4200" 
 ]
 
