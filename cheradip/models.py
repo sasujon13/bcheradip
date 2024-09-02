@@ -259,6 +259,18 @@ class Topic(models.Model):
         return f"{self.chapter.subject.subject_code} {self.topic_no} {self.topic_name}"
 
 
+class Subtopic(models.Model):
+    topic = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='subtopics')
+    subtopic_no = models.CharField(max_length=2)
+    subtopic_name = models.CharField(max_length=100)
+
+    class Meta:
+        unique_together = ('topic', 'subtopic_no')
+
+    def __str__(self):
+        return f"{self.chapter.subject.subject_code} {self.subtopic_no} {self.subtopic_name}"
+
+
 def question_image_path(instance, filename):
     # File will be uploaded to MEDIA_ROOT/images/mcq/<subject_code>/<chapter_no>/<filename>
     return f'images/mcq/{instance.subject.subject_code}/{instance.chapter.chapter_no}/{filename}'
@@ -268,6 +280,7 @@ class Mcq_ict(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='questions')
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='questions')
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='questions')
+    subtopic = models.ForeignKey(Subtopic, on_delete=models.CASCADE, related_name='questions')
     uddipok = models.TextField(null=True, blank=True, max_length=1000)
     question = models.TextField(max_length=300)
     option1 = models.TextField(max_length=200)

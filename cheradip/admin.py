@@ -55,4 +55,3 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ('qid', 'subject', 'chapter', 'topic', 'subtopic', 'question')
     search_fields = ('qid', 'question', 'subject__subject_code', 'chapter__chapter_name', 'topic__topic_name')
     list_filter = ('subject', 'chapter', 'topic', 'subtopic')
-    readonly_fields = ('qid',)  # Make qid read-only if it’s auto-generated
