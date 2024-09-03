@@ -219,7 +219,12 @@ class JsonData(models.Model):
 
 
 class Group(models.Model):
-    group_name = models.CharField(max_length=50)
+    GROUP_CHOICES = [
+        ('Science', 'Science'),
+        ('Business Studies', 'Business Studies'),
+        ('Humanities', 'Humanities'),
+    ]
+    group_name = models.CharField(max_length=50, choices=GROUP_CHOICES, default="Science")
     group_code = models.CharField(max_length=1, unique=True)
 
     def __str__(self):
@@ -229,7 +234,7 @@ class Group(models.Model):
 class Subject(models.Model):
     group = models.ManyToManyField(Group, related_name='subjects')
     subject_code = models.CharField(max_length=3, unique=True)
-    subject_name = models.CharField(max_length=50)
+    subject_name = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return f"{self.group} {self.subject_code} {self.subject_name}"
@@ -237,8 +242,8 @@ class Subject(models.Model):
 
 class Chapter(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='chapters')
-    chapter_no = models.CharField(max_length=2)
-    chapter_name = models.CharField(max_length=100)
+    chapter_no = models.CharField(max_length=2, blank=True)
+    chapter_name = models.CharField(max_length=100, blank=True)
 
     class Meta:
         unique_together = ('subject', 'chapter_no')
@@ -249,8 +254,8 @@ class Chapter(models.Model):
 
 class Topic(models.Model):
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='topics')
-    topic_no = models.CharField(max_length=2)
-    topic_name = models.CharField(max_length=100)
+    topic_no = models.CharField(max_length=2, blank=True)
+    topic_name = models.CharField(max_length=100, blank=True)
 
     class Meta:
         unique_together = ('chapter', 'topic_no')
@@ -261,8 +266,8 @@ class Topic(models.Model):
 
 class Subtopic(models.Model):
     topic = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='subtopics')
-    subtopic_no = models.CharField(max_length=2)
-    subtopic_name = models.CharField(max_length=100)
+    subtopic_no = models.CharField(max_length=2, blank=True)
+    subtopic_name = models.CharField(max_length=100, blank=True)
 
     class Meta:
         unique_together = ('topic', 'subtopic_no')
@@ -322,4 +327,10 @@ class Mcq_ict(models.Model):
 
 
 
+class Notifications(models.Model):
+    text = models.TextField(max_length=1024, null=True, blank=True)
+    link = models.URLField(max_length=512, null=True, blank=True)
+
+    def __str__(self):
+        return self.text
                    

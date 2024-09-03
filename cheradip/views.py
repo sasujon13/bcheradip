@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import Item, Customer, Order, OrderDetail, Transaction, Ordered, Canceled
-from .serializers import ItemSerializer, CustomerSerializer, CustomerUpdateSerializer, OrderSerializer
+from .serializers import ItemSerializer, CustomerSerializer, CustomerUpdateSerializer, OrderSerializer, NotificationSerializer
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
@@ -186,6 +186,14 @@ class CustomerResetView(APIView):
                 serializer.save()
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class NotificationExistsView(APIView):
+    def get(self, request, *args, **kwargs):
+        notification = Notification.objects.all()
+        serializer = NotificationSerializer(notification, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class MobileNumberExistsView(APIView):

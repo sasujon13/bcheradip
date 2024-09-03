@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Item, Customer, Order, Ordered, OrderDetail, Transaction
+from .models import Item, Customer, Order, Ordered, OrderDetail, Transaction, Notifications
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,3 +44,8 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'   
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notifications
+        fields = ['text', 'link']

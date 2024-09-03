@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, Customer, Order, Ordered, Canceled, OrderDetail, Transaction, Group, Subject, Chapter, Topic, Subtopic, Mcq_ict
+from .models import Item, Customer, Order, Ordered, Canceled, OrderDetail, Transaction, Group, Subject, Chapter, Topic, Subtopic, Mcq_ict, Notifications
 
 admin.site.register(Customer)
 admin.site.register(Item)
@@ -26,6 +26,11 @@ def completed_button(self, obj):
 class SubjectAdmin(admin.ModelAdmin):
     list_display = ('group_code', 'group_name')
     search_fields = ('group_code', 'group_name')
+
+@admin.register(Notifications)
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ('text', 'link')
+    search_fields = ('text', 'link')
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
