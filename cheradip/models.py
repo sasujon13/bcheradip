@@ -326,11 +326,10 @@ class Mcq_ict(models.Model):
         super().save(*args, **kwargs)
 
 
-
-class Notifications(models.Model):
+class Notification(models.Model):
     text = models.TextField(max_length=1024, null=True, blank=True)
     link = models.URLField(max_length=512, null=True, blank=True)
 
     def __str__(self):
-        return self.text
+        return f"{self.text} {self.link}"
                    
