@@ -219,13 +219,8 @@ class JsonData(models.Model):
 
 
 class Group(models.Model):
-    GROUP_CHOICES = [
-        ('Science', 'Science'),
-        ('Business Studies', 'Business Studies'),
-        ('Humanities', 'Humanities'),
-    ]
-    group_name = models.CharField(max_length=50, choices=GROUP_CHOICES, default="Science")
-    group_code = models.CharField(max_length=1, unique=True)
+    group_name = models.CharField(max_length=50, default="")
+    group_code = models.CharField(max_length=1, unique=True, primary_key=True)
 
     def __str__(self):
         return f"{self.group_code} {self.group_name}"
@@ -233,11 +228,12 @@ class Group(models.Model):
 
 class Subject(models.Model):
     group = models.ManyToManyField(Group, related_name='subjects')
-    subject_code = models.CharField(max_length=3, unique=True)
+    subject_code = models.CharField(max_length=3, unique=True, primary_key=True)
     subject_name = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
-        return f"{self.group} {self.subject_code} {self.subject_name}"
+        group_codes = ', '.join([group.group_code for group in self.group.all()])
+        return f"{group_codes} {self.subject_code} {self.subject_name}"
 
 
 class Chapter(models.Model):
@@ -264,28 +260,33 @@ class Topic(models.Model):
         return f"{self.chapter.subject.subject_code} {self.topic_no} {self.topic_name}"
 
 
-class Subtopic(models.Model):
-    topic = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='subtopics')
-    subtopic_no = models.CharField(max_length=2, blank=True)
-    subtopic_name = models.CharField(max_length=100, blank=True)
-
-    class Meta:
-        unique_together = ('topic', 'subtopic_no')
+class Institute(models.Model):
+    institute_code = models.CharField(max_length=14, unique=True, primary_key=True)
+    institute_name = models.CharField(max_length=127, blank=True, unique=True)
+    institute_type = models.CharField(max_length=127, blank=True)
 
     def __str__(self):
-        return f"{self.chapter.subject.subject_code} {self.subtopic_no} {self.subtopic_name}"
+        return f"{self.institute_code} {self.institute_name} {self.institute_type}"
+
+
+class Year(models.Model):
+    year_code = models.CharField(max_length=5, unique=True, primary_key=True)
+    year_name = models.CharField(max_length=9, blank=True, unique=True)
+
+    def __str__(self):
+        return f"{self.year_code} {self.year_name}"
 
 
 def question_image_path(instance, filename):
     # File will be uploaded to MEDIA_ROOT/images/mcq/<subject_code>/<chapter_no>/<filename>
-    return f'images/mcq/{instance.subject.subject_code}/{instance.chapter.chapter_no}/{filename}'
+    return f'images/mcq/{instance.subject.subject_code}/{instance.chapter.chapter_no}/{instance.qid}.png'
 
 
 class Mcq_ict(models.Model):
+    qid = models.CharField(max_length=10, unique=True, editable=False, primary_key=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='questions')
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='questions')
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='questions')
-    subtopic = models.ForeignKey(Subtopic, on_delete=models.CASCADE, related_name='questions')
     uddipok = models.TextField(null=True, blank=True, max_length=1000)
     question = models.TextField(max_length=300)
     option1 = models.TextField(max_length=200)
@@ -294,10 +295,11 @@ class Mcq_ict(models.Model):
     option4 = models.TextField(max_length=200)
     answer = models.CharField(max_length=1, choices=[('1', 'ক'), ('2', 'খ'), ('3', 'গ'), ('4', 'ঘ')])
     explanation = models.TextField(null=True, blank=True, max_length=1000)
-    image = models.ImageField(upload_to=question_image_path, null=True, blank=True)
-    year = models.PositiveIntegerField(null=True, blank=True)
-    board = models.CharField(max_length=100, null=True, blank=True)
-    qid = models.CharField(max_length=10, unique=True, editable=False)
+    img_uddipok = models.ImageField(upload_to=question_image_path, null=True, blank=True)
+    img_question = models.ImageField(upload_to=question_image_path, null=True, blank=True)
+    img_explanation = models.ImageField(upload_to=question_image_path, null=True, blank=True)
+    institutes = models.ManyToManyField(Institute, related_name='questions')
+    years = models.ManyToManyField(Year, related_name='questions')
 
     def __str__(self):
         return f"Question ID: {self.qid} ({self.subject.subject_code})"
@@ -309,7 +311,7 @@ class Mcq_ict(models.Model):
             topic_no = f'{int(self.topic.topic_no):02}'
             
             # Generate qid as subject_code + chapter_no + topic_no + 3 digit sequence number
-            last_question = Question.objects.filter(
+            last_question = Mcq_ict.objects.filter(
                 subject=self.subject,
                 chapter=self.chapter,
                 topic=self.topic

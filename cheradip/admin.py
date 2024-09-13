@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, Customer, Order, Ordered, Canceled, OrderDetail, Transaction, Group, Subject, Chapter, Topic, Subtopic, Mcq_ict, Notification
+from .models import Item, Customer, Order, Ordered, Canceled, OrderDetail, Transaction, Group, Subject, Chapter, Topic, Mcq_ict, Notification, Institute, Year
 
 admin.site.register(Customer)
 admin.site.register(Item)
@@ -23,12 +23,12 @@ def completed_button(self, obj):
 
 
 @admin.register(Group)
-class SubjectAdmin(admin.ModelAdmin):
+class GroupAdmin(admin.ModelAdmin):
     list_display = ('group_code', 'group_name')
     search_fields = ('group_code', 'group_name')
 
 @admin.register(Notification)
-class SubjectAdmin(admin.ModelAdmin):
+class NotificationAdmin(admin.ModelAdmin):
     list_display = ('text', 'link')
     search_fields = ('text', 'link')
 
@@ -41,22 +41,29 @@ class SubjectAdmin(admin.ModelAdmin):
 class ChapterAdmin(admin.ModelAdmin):
     list_display = ('subject', 'chapter_no', 'chapter_name')
     search_fields = ('subject__subject_name', 'chapter_no', 'chapter_name')
-    list_filter = ('subject',)
+    list_filter = ('subject', 'chapter_no')
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     list_display = ('chapter', 'topic_no', 'topic_name')
     search_fields = ('chapter__chapter_name', 'topic_no', 'topic_name')
-    list_filter = ('chapter',)
+    list_filter = ('chapter', 'topic_no')
 
-@admin.register(Subtopic)
-class SubtopicAdmin(admin.ModelAdmin):
-    list_display = ('topic', 'subtopic_name')
-    search_fields = ('topic__topic_name', 'subtopic_name')
-    list_filter = ('topic',)
 
 @admin.register(Mcq_ict)
-class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('qid', 'subject', 'chapter', 'topic', 'subtopic', 'question')
+class McqIctAdmin(admin.ModelAdmin):
+    list_display = ('qid', 'subject', 'chapter', 'topic', 'question')
     search_fields = ('qid', 'question', 'subject__subject_code', 'chapter__chapter_name', 'topic__topic_name')
-    list_filter = ('subject', 'chapter', 'topic', 'subtopic')
+    list_filter = ('subject', 'chapter', 'topic')
+
+@admin.register(Institute)
+class InstituteAdmin(admin.ModelAdmin):
+    list_display = ('institute_code', 'institute_name', 'institute_type')
+    search_fields = ('institute_code', 'institute_name', 'institute_type')
+    list_filter = ('institute_code', 'institute_name', 'institute_type')
+
+@admin.register(Year)
+class YearAdmin(admin.ModelAdmin):
+    list_display = ('year_code', 'year_name')
+    search_fields = ('year_code', 'year_name')
+    list_filter = ('year_code', 'year_name')
