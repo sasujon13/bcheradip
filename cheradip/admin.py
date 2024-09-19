@@ -50,11 +50,57 @@ class TopicAdmin(admin.ModelAdmin):
     list_filter = ('chapter', 'topic_no')
 
 
+class InstituteNameByTypeFilter(admin.SimpleListFilter):
+    title = 'Institute Name'
+    parameter_name = 'institute_name'
+
+    def lookups(self, request, model_admin):
+        # Check if an institute type is selected in InstituteTypeFilter
+        selected_type = request.GET.get('institute_type')
+        
+        if selected_type:
+            # Fetch institute names for the selected institute type
+            names = Institute.objects.filter(institute_type=selected_type).values_list('institute_name', flat=True).distinct()
+            return [(name, name) for name in names]
+        return []
+
+    def queryset(self, request, queryset):
+        if self.value():
+            # Filter queryset by selected institute_name
+            return queryset.filter(institutes__institute_name=self.value()).distinct()
+        return queryset
+
+
+class InstituteTypeFilter(admin.SimpleListFilter):
+    title = 'Institute Type'
+    parameter_name = 'institute_type'
+
+    def lookups(self, request, model_admin):
+        # Get distinct institute types
+        types = Institute.objects.values_list('institute_type', flat=True).distinct()
+        return [(institute_type, institute_type) for institute_type in types if institute_type]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            # Filter by the selected institute type
+            return queryset.filter(institutes__institute_type=self.value()).distinct()
+        return queryset
+
+
 @admin.register(Mcq_ict)
 class McqIctAdmin(admin.ModelAdmin):
-    list_display = ('qid', 'subject', 'chapter', 'topic', 'question')
-    search_fields = ('qid', 'question', 'subject__subject_code', 'chapter__chapter_name', 'topic__topic_name')
-    list_filter = ('subject', 'chapter', 'topic')
+    list_display = ('qid', 'subject', 'chapter', 'topic', 'question', 'option1', 'option2', 'option3', 'option4', 'answer', 'explanation', 'img_uddipok', 'img_question')
+    search_fields = (
+        'qid',
+        'question',
+        'answer',
+        'explanation',
+        'subject__subject_code',  # Search in related Subject model
+        'chapter__chapter_no',    # Search in related Chapter model
+        'topic__topic_no',        # Search in related Topic model
+    )
+    list_filter = ('qid', 'subject', 'chapter', 'topic', InstituteTypeFilter, InstituteNameByTypeFilter, 'years')
+
 
 @admin.register(Institute)
 class InstituteAdmin(admin.ModelAdmin):
