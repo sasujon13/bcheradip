@@ -12,10 +12,10 @@ from cheradip.models import Subject, Chapter, Topic, Mcq_ict, Institute, Year
 csv_file_path = 'C:\\Users\\sasha\\Desktop\\mcq_ict.csv'
 
 answer_mapping = {
-    '1': 'ক',
-    '2': 'খ',
-    '3': 'গ',
-    '4': 'ঘ'
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '4': '4'
 }
 
 with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
