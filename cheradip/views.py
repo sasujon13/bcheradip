@@ -336,15 +336,19 @@ class GroupsByCountryLevelView(APIView):
             except (TypeError, ValueError, json.JSONDecodeError):
                 pass
 
-        # Resolve to Group model by group_name for group_code and group_name_bn
-        groups_qs = Group.objects.filter(group_name__in=group_names).order_by('group_code')
-        serializer = GroupSerializer(groups_qs, many=True)
-        groups_data = []
-        for i, g in enumerate(groups_qs):
-            row = dict(serializer.data[i]) if i < len(serializer.data) else {'group_code': g.group_code, 'group_name': g.group_name}
-            row['group_name_bn'] = getattr(g, 'group_name_bn', None) or ''
-            groups_data.append(row)
+        # Fallback: SSC rows in cheradip_subject often have groups=[]. For BD+SSC or BD+HSC use default groups when none found.
+        if not group_names and level in ('SSC', 'HSC'):
+            default_bd_groups = [
+                'Science', 'Humanities', 'Business Studies', 'Islamic Studies',
+                'Home Science', 'Music',
+            ]
+            group_names = set(default_bd_groups)
 
+        # Return groups from cheradip_subject.groups only (no Group table lookup; no group_name_bn column)
+        groups_data = [
+            {'group_code': name[:30], 'group_name': name}
+            for name in sorted(group_names) if name
+        ]
         return Response({'groups': groups_data, 'country_code': country_code, 'level': level})
 
 
