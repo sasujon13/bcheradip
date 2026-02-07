@@ -120,13 +120,14 @@ class CheradipTeacherSerializer(serializers.ModelSerializer):
     teacher_level = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
     teacher_subject_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=10)
     teacher_department_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    teacher_department_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=200)
     email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
 
     class Meta:
         model = CheradipTeacher
         fields = [
             'fullName', 'username', 'password', 'date_of_birth',
-            'teacher_level', 'teacher_subject_code', 'teacher_department_code',
+            'teacher_level', 'teacher_subject_code', 'teacher_department_code', 'teacher_department_name',
             'gender', 'email', 'country_code',
         ]
 

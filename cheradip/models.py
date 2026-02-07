@@ -560,6 +560,7 @@ class CheradipTeacher(models.Model):
     teacher_level = models.CharField(max_length=20, blank=True, null=True)
     teacher_subject_code = models.CharField(max_length=10, blank=True, null=True)
     teacher_department_code = models.CharField(max_length=20, blank=True, null=True)
+    teacher_department_name = models.CharField(max_length=200, blank=True, null=True, help_text='Custom department name when code is OTHER')
     gender = models.CharField(max_length=10, default='Male', blank=True)
     email = models.EmailField(blank=True, null=True)
     country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD

@@ -18,7 +18,7 @@ from .location import Bangladesh
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
-import logging, random, string, json, requests
+import logging, random, string, json, requests, os
 from rest_framework.decorators import action
 from django.conf import settings
 from django.db.models import Q
@@ -204,6 +204,148 @@ class AllCountriesView(APIView):
         countries = Country.objects.filter(is_active=True).order_by('display_order', 'country_name')
         serializer = CountryListSerializer(countries, many=True)
         return Response(serializer.data)
+
+
+class LevelsByCountryView(APIView):
+    """
+    GET /api/levels_by_country/?country_code=BD
+    Returns unique Level/Class values from cheradip_subject for the given country.
+    Level column may contain comma-separated values (e.g. 'SSC,JSC,PSC'); we split and return unique sorted list.
+    Used by signup to populate Class (Student) and Level (Teacher) dropdowns.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    # Display order for levels (PSC, JSC, SSC, HSC, University)
+    LEVEL_ORDER = ('PSC', 'JSC', 'SSC', 'HSC', 'University')
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        if not country_code:
+            return Response({'levels': [], 'error': 'country_code is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        from django.db import connection
+        table = 'cheradip_subject'
+        levels_set = set()
+        with connection.cursor() as cur:
+            cur.execute(
+                f"SELECT DISTINCT level FROM {table} WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''",
+                [country_code]
+            )
+            for (level_str,) in cur.fetchall():
+                if level_str:
+                    for part in level_str.replace(',', ' ').split():
+                        levels_set.add(part.strip())
+
+        # Sort by LEVEL_ORDER (excluding University), then any extras alphabetically, then University last
+        order_without_uni = ('PSC', 'JSC', 'SSC', 'HSC')
+        ordered = [l for l in order_without_uni if l in levels_set]
+        extras = sorted(levels_set - set(self.LEVEL_ORDER))
+        levels = ordered + extras
+        if 'University' not in levels:
+            levels.append('University')
+
+        return Response({'levels': levels, 'country_code': country_code})
+
+
+class SubjectsByCountryLevelView(APIView):
+    """
+    GET /api/subjects_by_country_level/?country_code=BD&level=HSC
+    Returns subjects from cheradip_subject for the given country and level (for Teacher signup).
+    Level matches exact or comma-separated (e.g. level LIKE '%HSC%').
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        level = (request.query_params.get('level') or '').strip()
+        if not country_code or not level:
+            return Response(
+                {'subjects': [], 'error': 'country_code and level are required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        from django.db import connection
+        table = 'cheradip_subject'
+        # Match level: exact or as part of comma-separated (e.g. "SSC,JSC" for level "SSC")
+        with connection.cursor() as cur:
+            cur.execute(
+                f"""
+                SELECT id, subject_code, subject_name, subject_name_tr
+                FROM {table}
+                WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''
+                  AND (level = %s OR level LIKE %s OR level LIKE %s OR level LIKE %s)
+                ORDER BY subject_code
+                """,
+                [country_code, level, f'%{level},%', f'{level},%', f'%,{level}']
+            )
+            rows = cur.fetchall()
+
+        subjects = [
+            {'id': r[0], 'subject_code': r[1], 'subject_name': r[2] or '', 'subject_name_tr': r[3] or ''}
+            for r in rows
+        ]
+        return Response({'subjects': subjects, 'country_code': country_code, 'level': level})
+
+
+class GroupsByCountryLevelView(APIView):
+    """
+    GET /api/groups_by_country_level/?country_code=BD&level=HSC
+    Returns unique groups from cheradip_subject.groups for the given country and level (for Student signup).
+    Parses JSON/longtext groups column and resolves to Group model (group_code, group_name) where possible.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        level = (request.query_params.get('level') or '').strip()
+        if not country_code or not level:
+            return Response(
+                {'groups': [], 'error': 'country_code and level are required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        from django.db import connection
+        import json
+        table = 'cheradip_subject'
+        with connection.cursor() as cur:
+            cur.execute(
+                f"""
+                SELECT groups FROM {table}
+                WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''
+                  AND (level = %s OR level LIKE %s OR level LIKE %s OR level LIKE %s)
+                """,
+                [country_code, level, f'%{level},%', f'{level},%', f'%,{level}']
+            )
+            rows = cur.fetchall()
+
+        group_names = set()
+        for (groups_raw,) in rows:
+            if not groups_raw:
+                continue
+            try:
+                if isinstance(groups_raw, str):
+                    parsed = json.loads(groups_raw)
+                else:
+                    parsed = groups_raw if isinstance(groups_raw, (list, tuple)) else []
+                for g in parsed:
+                    if g and isinstance(g, str):
+                        group_names.add(g.strip())
+            except (TypeError, ValueError, json.JSONDecodeError):
+                pass
+
+        # Resolve to Group model by group_name for group_code and group_name_bn
+        groups_qs = Group.objects.filter(group_name__in=group_names).order_by('group_code')
+        serializer = GroupSerializer(groups_qs, many=True)
+        groups_data = []
+        for i, g in enumerate(groups_qs):
+            row = dict(serializer.data[i]) if i < len(serializer.data) else {'group_code': g.group_code, 'group_name': g.group_name}
+            row['group_name_bn'] = getattr(g, 'group_name_bn', None) or ''
+            groups_data.append(row)
+
+        return Response({'groups': groups_data, 'country_code': country_code, 'level': level})
 
 
 # ==============================================================================
@@ -681,6 +823,7 @@ class CustomerCreateView(APIView):
                     'teacher_level': _get(raw, 'teacher_level'),
                     'teacher_subject_code': _get(raw, 'teacher_subject_code'),
                     'teacher_department_code': _get(raw, 'teacher_department_code'),
+                    'teacher_department_name': _get(raw, 'teacher_department_name'),
                     'gender': _get(raw, 'gender', 'Male'),
                     'email': _get(raw, 'email'),
                     'country_code': _get(raw, 'country_code') or _get(raw, 'countryCode') or 'US',
@@ -704,6 +847,11 @@ class CustomerCreateView(APIView):
             if user_serializer.is_valid():
                 try:
                     user_serializer.save()
+                    if acctype == 'Teacher':
+                        tcode = _get(raw, 'teacher_department_code', '')
+                        tname = _get(raw, 'teacher_department_name', '')
+                        if (tcode or '').strip().upper() == 'OTHER' and (tname or '').strip():
+                            _append_department_to_json((tname or '').strip(), None)
                 except Exception as e:
                     logger.warning('Signup table save failed (non-blocking): %s', e)
             token = self.generate_unique_key()
@@ -1695,8 +1843,99 @@ class GetGroupsByClassView(APIView):
         }, status=status.HTTP_200_OK)
 
 
+def _university_departments_json_path():
+    """Path to departments.json (university departments list for Teacher signup)."""
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'departments.json')
+
+
+def _append_department_to_json(dept_name, faculty=None):
+    """Append a department to departments.json (e.g. from signup 'Others')."""
+    if not dept_name or len(dept_name) > 200:
+        return
+    path = _university_departments_json_path()
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = {'departments': []}
+    departments = data.get('departments', [])
+    if any((d.get('dept_name') or '').strip().lower() == dept_name.lower() for d in departments):
+        return
+    departments.append({
+        'dept_code': 'CUSTOM_' + str(len(departments) + 1),
+        'dept_name': dept_name,
+        'faculty': faculty
+    })
+    data['departments'] = departments
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+    except OSError as e:
+        logger.warning('Could not write departments.json: %s', e)
+
+
+class UniversityDepartmentsView(APIView):
+    """
+    GET: Return university departments from departments.json (all aspects of knowledge, worldwide).
+    Used for Teacher signup when Level = University. Not from database.
+    POST: Append a new department (when user selects "Others" and enters name); adds to departments.json.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        path = _university_departments_json_path()
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            departments = data.get('departments', [])
+            # Sort by dept_name ascending (Others is added by frontend at the end)
+            departments = sorted(departments, key=lambda d: (d.get('dept_name') or '').strip().lower())
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            logger.warning('University departments JSON not found or invalid: %s', e)
+            departments = []
+        return Response({'departments': departments, 'count': len(departments)}, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        """Append a department to departments.json (e.g. when user chose 'Others' and entered a name)."""
+        dept_name = (request.data.get('dept_name') or request.data.get('department_name') or '').strip()
+        if not dept_name or len(dept_name) > 200:
+            return Response(
+                {'error': 'dept_name is required and must be 1–200 characters'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        path = _university_departments_json_path()
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            data = {'departments': []}
+        departments = data.get('departments', [])
+        faculty = (request.data.get('faculty') or '').strip() or None
+        dept_code = (request.data.get('dept_code') or '').strip()
+        if not dept_code:
+            dept_code = 'CUSTOM_' + str(len(departments) + 1)
+        if any(d.get('dept_name', '').strip().lower() == dept_name.lower() for d in departments):
+            return Response({'departments': data.get('departments', []), 'count': len(departments)}, status=status.HTTP_200_OK)
+        departments.append({
+            'dept_code': dept_code[:20],
+            'dept_name': dept_name,
+            'faculty': faculty
+        })
+        data['departments'] = departments
+        try:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except OSError as e:
+            logger.warning('Could not write departments.json: %s', e)
+            return Response({'error': 'Could not save department'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'departments': departments, 'count': len(departments)}, status=status.HTTP_201_CREATED)
+
+
 class GetDepartmentsView(APIView):
-    """Get all university departments for Class 13-16"""
+    """Get all university departments for Class 13-16 (from database)."""
     permission_classes = [PublicAccess]
     authentication_classes = []
     

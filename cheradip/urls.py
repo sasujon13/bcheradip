@@ -52,7 +52,11 @@ from .views import (
     UpdateWhatsAppApiKeyView,
     GetGroupsByClassView,
     GetDepartmentsView,
+    UniversityDepartmentsView,
     GetClassInfoView,
+    LevelsByCountryView,
+    SubjectsByCountryLevelView,
+    GroupsByCountryLevelView,
 )
 
 router = DefaultRouter()
@@ -108,6 +112,10 @@ urlpatterns = [
     path('class_info/', GetClassInfoView.as_view(), name='class_info'),
     path('groups_by_class/', GetGroupsByClassView.as_view(), name='groups_by_class'),
     path('departments/', GetDepartmentsView.as_view(), name='departments'),
+    path('university_departments/', UniversityDepartmentsView.as_view(), name='university_departments'),
+    path('levels_by_country/', LevelsByCountryView.as_view(), name='levels_by_country'),
+    path('subjects_by_country_level/', SubjectsByCountryLevelView.as_view(), name='subjects_by_country_level'),
+    path('groups_by_country_level/', GroupsByCountryLevelView.as_view(), name='groups_by_country_level'),
     # All countries as array for <option> dropdowns (GET /api/country/)
     path('country/', AllCountriesView.as_view(), name='country_list'),
     # Bangladesh location dropdowns (used by auth, profile, order, etc.)
