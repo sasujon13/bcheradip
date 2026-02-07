@@ -18,12 +18,14 @@ from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
 import logging, random, string, json, requests, os
 from rest_framework.decorators import action
 from django.conf import settings
 from django.db.models import Q
 from django.db.models.expressions import RawSQL
+from django.db.utils import ProgrammingError, OperationalError
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -985,51 +987,130 @@ class SignupProfileView(APIView):
 
 
 class CustomerRetrieveView(APIView):
-    def post(self, request, *args, **kwargs):
-            username = request.data.get('username')
-            password = request.data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                if hasattr(user, 'acctype'):acctype = user.acctype
-                else:acctype = None
-                if hasattr(user, 'fullName'):fullName = user.fullName
-                else:fullName = None
-                if hasattr(user, 'group'):group = user.group
-                else:group = None
-                if hasattr(user, 'gender'):gender = user.gender
-                else:gender = None
-                if hasattr(user, 'division'):division = user.division
-                else:division = None 
-                if hasattr(user, 'district'): district = user.district
-                else:district = None
-                if hasattr(user, 'thana'):thana = user.thana
-                else:thana = None
-                if hasattr(user, 'union'):union = user.union
-                else:union = None
-                if hasattr(user, 'village'):village = user.village
-                else:village = None
-                token = self.generate_unique_key()
-                return Response({'authToken': token, 'acctype': acctype, 'fullName': fullName, 'group': group, 'gender': gender, 'division': division, 'district': district, 'thana': thana, 'union': union, 'village': village}, status=status.HTTP_200_OK)
-            else:
-                return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    """Login: allow unauthenticated POST. Authenticate by trying cheradip_student → cheradip_jobseeker → cheradip_teacher → Customer (auth), optionally filtered by country_code."""
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
+    def _check_password(self, raw_password, stored_password):
+        if not stored_password:
+            return False
+        if stored_password.startswith('pbkdf2_') or stored_password.startswith('argon2'):
+            return check_password(raw_password, stored_password)
+        return raw_password == stored_password
+
+    def _try_cheradip_login(self, username, password, country_code=None, only_source=None):
+        """Try student → jobseeker → teacher (optional country filter). If only_source is set, try only that table. Return (acctype, fullName, username, group, gender, division, district, thana, union, village) or None."""
+        qs_base = Q(username=username)
+        if country_code:
+            qs_base &= Q(country_code=(country_code or '').strip().upper() or country_code)
+
+        sources = []
+        if only_source is None:
+            sources = [('student', CheradipStudent), ('jobseeker', CheradipJobseeker), ('teacher', CheradipTeacher)]
+        elif only_source == 'student':
+            sources = [('student', CheradipStudent)]
+        elif only_source == 'jobseeker':
+            sources = [('jobseeker', CheradipJobseeker)]
+        elif only_source == 'teacher':
+            sources = [('teacher', CheradipTeacher)]
+
+        for _name, model in sources:
+            try:
+                obj = model.objects.filter(qs_base).first()
+                if obj and self._check_password(password, obj.password):
+                    acctype = 'JobSeeker' if _name == 'jobseeker' else ('Teacher' if _name == 'teacher' else getattr(obj, 'acctype', 'Student'))
+                    return (
+                        acctype,
+                        obj.fullName,
+                        obj.username,
+                        getattr(obj, 'group', None),
+                        getattr(obj, 'gender', None),
+                        None, None, None, None, None,
+                    )
+            except (ProgrammingError, OperationalError):
+                pass
+        return None
+
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        found_in = (request.data.get('found_in') or request.data.get('foundIn') or '').strip().lower() or None
+        raw_country = request.data.get('countryCode') or request.data.get('country_code')
+        if hasattr(raw_country, 'get'):
+            country_code = (raw_country.get('country_code') or raw_country.get('countryCode') or '').strip().upper() or None
+        else:
+            country_code = (str(raw_country).strip().upper() or None) if raw_country else None
+        if not username or not password:
+            return Response({'error': 'Username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        only_source = found_in if found_in in ('student', 'jobseeker', 'teacher') else None
+        try_customer = found_in == 'customer' or found_in is None
+
+        if found_in != 'customer':
+            cheradip_result = self._try_cheradip_login(username, password, country_code, only_source=only_source)
+            if cheradip_result is not None:
+                acctype, fullName, uname, group, gender, division, district, thana, union, village = cheradip_result
+                token = self.generate_unique_key()
+                return Response({
+                    'authToken': token,
+                    'acctype': acctype,
+                    'fullName': fullName,
+                    'username': uname,
+                    'group': group,
+                    'gender': gender,
+                    'division': division,
+                    'district': district,
+                    'thana': thana,
+                    'union': union,
+                    'village': village,
+                }, status=status.HTTP_200_OK)
+
+        user = None
+        if try_customer:
+            try:
+                user = authenticate(request, username=username, password=password)
+            except (ProgrammingError, OperationalError):
+                user = None
+        if user is not None:
+            acctype = getattr(user, 'acctype', None)
+            fullName = getattr(user, 'fullName', None)
+            group = getattr(user, 'group', None)
+            gender = getattr(user, 'gender', None)
+            division = getattr(user, 'division', None)
+            district = getattr(user, 'district', None)
+            thana = getattr(user, 'thana', None)
+            union = getattr(user, 'union', None)
+            village = getattr(user, 'village', None)
+            token = self.generate_unique_key()
+            return Response({
+                'authToken': token,
+                'acctype': acctype,
+                'fullName': fullName,
+                'username': user.username,
+                'group': group,
+                'gender': gender,
+                'division': division,
+                'district': district,
+                'thana': thana,
+                'union': union,
+                'village': village,
+            }, status=status.HTTP_200_OK)
+
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
     def generate_unique_key(self):
-            length = 40
-            characters = string.ascii_letters + string.digits
-            key = ''.join(random.choice(characters) for _ in range(length))
-            return key 
-    
+        length = 40
+        characters = string.ascii_letters + string.digits
+        return ''.join(random.choice(characters) for _ in range(length))
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             customer_data = {
-                'username': request.user.username, 
-                'fullName': request.user.full_name,  
+                'username': request.user.username,
+                'fullName': getattr(request.user, 'fullName', getattr(request.user, 'full_name', '')),
             }
             return Response(customer_data, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'error': 'Not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 
@@ -1097,36 +1178,111 @@ class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class MobileNumberExistsView(APIView):
+    """Check username (mobile) in order: cheradip_student → cheradip_jobseeker → cheradip_teacher → Customer. Returns exists and found_in (so password/login can check only that table). Skips Customer if table missing."""
     permission_classes = [AllowAny]
     authentication_classes = []
 
     def get(self, request, *args, **kwargs):
         username = request.query_params.get('username')
-        
+        country_code = (request.query_params.get('countryCode') or request.query_params.get('country_code') or '').strip().upper() or None
+
+        if not username:
+            return Response({'exists': False}, status=status.HTTP_200_OK)
+
+        q = Q(username=username)
+        if country_code:
+            q &= Q(country_code=country_code)
+
         try:
-            exists = Customer.objects.filter(username=username).exists()
-        except Customer.DoesNotExist:
-            exists = False
-        
-        return Response({'exists': exists}, status=status.HTTP_200_OK)
+            if CheradipStudent.objects.filter(q).exists():
+                return Response({'exists': True, 'found_in': 'student'}, status=status.HTTP_200_OK)
+        except (ProgrammingError, OperationalError):
+            pass
+        try:
+            if CheradipJobseeker.objects.filter(q).exists():
+                return Response({'exists': True, 'found_in': 'jobseeker'}, status=status.HTTP_200_OK)
+        except (ProgrammingError, OperationalError):
+            pass
+        try:
+            if CheradipTeacher.objects.filter(q).exists():
+                return Response({'exists': True, 'found_in': 'teacher'}, status=status.HTTP_200_OK)
+        except (ProgrammingError, OperationalError):
+            pass
+        try:
+            if Customer.objects.filter(username=username).exists():
+                return Response({'exists': True, 'found_in': 'customer'}, status=status.HTTP_200_OK)
+        except (ProgrammingError, OperationalError):
+            pass
+
+        return Response({'exists': False}, status=status.HTTP_200_OK)
 
 
 class PasswordExistsView(APIView):
+    """Check username+password in one source. If found_in=student|jobseeker|teacher|customer, only that table; else try all in order. Skips Customer if table missing."""
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def _check_password(self, raw_password, stored_password):
+        if not stored_password:
+            return False
+        if stored_password.startswith('pbkdf2_') or stored_password.startswith('argon2'):
+            return check_password(raw_password, stored_password)
+        return raw_password == stored_password
+
     def get(self, request, *args, **kwargs):
         username = request.query_params.get('username')
         password = request.query_params.get('password')
-        
-        try:
-            customer = Customer.objects.get(username=username)
-            # Use check_password for both hashed and plain text passwords
-            if customer.password.startswith('pbkdf2_') or customer.password.startswith('argon2'):
-                exists = customer.check_password(password)
-            else:
-                # Legacy: compare plain text
-                exists = (customer.password == password)
-        except Customer.DoesNotExist:
-            exists = False
-        return Response({'exists': exists}, status=status.HTTP_200_OK)
+        found_in = (request.query_params.get('found_in') or request.query_params.get('foundIn') or '').strip().lower() or None
+        country_code = (request.query_params.get('countryCode') or request.query_params.get('country_code') or '').strip().upper() or None
+
+        if not username or not password:
+            return Response({'exists': False}, status=status.HTTP_200_OK)
+
+        q = Q(username=username)
+        if country_code:
+            q &= Q(country_code=country_code)
+
+        def try_student():
+            try:
+                obj = CheradipStudent.objects.filter(q).first()
+                return obj and self._check_password(password, obj.password)
+            except (ProgrammingError, OperationalError):
+                return False
+        def try_jobseeker():
+            try:
+                obj = CheradipJobseeker.objects.filter(q).first()
+                return obj and self._check_password(password, obj.password)
+            except (ProgrammingError, OperationalError):
+                return False
+        def try_teacher():
+            try:
+                obj = CheradipTeacher.objects.filter(q).first()
+                return obj and self._check_password(password, obj.password)
+            except (ProgrammingError, OperationalError):
+                return False
+        def try_customer():
+            try:
+                customer = Customer.objects.get(username=username)
+                if customer.password.startswith('pbkdf2_') or customer.password.startswith('argon2'):
+                    return customer.check_password(password)
+                return customer.password == password
+            except Customer.DoesNotExist:
+                return False
+            except (ProgrammingError, OperationalError):
+                return False
+
+        if found_in == 'student':
+            return Response({'exists': try_student()}, status=status.HTTP_200_OK)
+        if found_in == 'jobseeker':
+            return Response({'exists': try_jobseeker()}, status=status.HTTP_200_OK)
+        if found_in == 'teacher':
+            return Response({'exists': try_teacher()}, status=status.HTTP_200_OK)
+        if found_in == 'customer':
+            return Response({'exists': try_customer()}, status=status.HTTP_200_OK)
+
+        if try_student() or try_jobseeker() or try_teacher() or try_customer():
+            return Response({'exists': True}, status=status.HTTP_200_OK)
+        return Response({'exists': False}, status=status.HTTP_200_OK)
     
 
 @csrf_exempt
