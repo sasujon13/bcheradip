@@ -4,13 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import (Institutes, Token, Item, Merit, Merit5, Merit6, Banbeis, Recommend, Recommend5, Recommend6, 
-                     Vacancy, Vacancy5, Vacancy6, Customer, CheradipUser, Order, OrderDetail, Transaction, Ordered, Canceled,
+                     Vacancy, Vacancy5, Vacancy6, Customer, CheradipUser, CheradipTeacher, Order, OrderDetail, Transaction, Ordered, Canceled,
                      Notification, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country, Location,
                      ClassLevel, ClassGroupMapping, Department)
 from .serializers import (InstitutesSerializer, TokenSerializer, RecommendSerializer, Recommend5Serializer, 
                          Recommend6Serializer, BanbeisSerializer, MeritSerializer, Merit5Serializer, Merit6Serializer, 
                          VacancySerializer, Vacancy5Serializer, Vacancy6Serializer, ItemSerializer, CustomerSerializer, 
-                         CheradipUserSerializer, CustomerUpdateSerializer, OrderSerializer, NotificationSerializer, GroupSerializer, 
+                         CheradipUserSerializer, CheradipTeacherSerializer, CustomerUpdateSerializer, OrderSerializer, NotificationSerializer, GroupSerializer, 
                          SubjectSerializer, ChapterSerializer, TopicSerializer, McqIctSerializer, InstituteSerializer, 
                          YearSerializer, CountrySerializer, CountryListSerializer)
 from .permissions import IsSuperUserOrStaff, PublicAccess
@@ -666,33 +666,46 @@ class CustomerCreateView(APIView):
         serializer = CustomerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            # Also save to cheradip_users table (signup form data)
+            # Also save to cheradip_teacher (Teacher) or cheradip_users (Student/Job Seeker)
             def _get(d, key, default=None):
                 v = d.get(key, default)
                 return v[0] if isinstance(v, (list, tuple)) and len(v) else v
             raw = request.data
-            user_data = {
-                'acctype': _get(raw, 'acctype', 'Student'),
-                'fullName': _get(raw, 'fullName', ''),
-                'username': _get(raw, 'username', ''),
-                'password': _get(raw, 'password', ''),
-                'date_of_birth': _get(raw, 'date_of_birth'),
-                'class_name': _get(raw, 'class_name'),
-                'group': _get(raw, 'group'),
-                'department': _get(raw, 'department'),
-                'teacher_level': _get(raw, 'teacher_level'),
-                'teacher_subject_code': _get(raw, 'teacher_subject_code'),
-                'teacher_department_code': _get(raw, 'teacher_department_code'),
-                'gender': _get(raw, 'gender', 'Male'),
-                'email': _get(raw, 'email'),
-                'country_code': _get(raw, 'country_code') or _get(raw, 'countryCode') or 'US',
-            }
-            user_serializer = CheradipUserSerializer(data=user_data)
+            acctype = _get(raw, 'acctype', 'Student')
+            if acctype == 'Teacher':
+                user_data = {
+                    'fullName': _get(raw, 'fullName', ''),
+                    'username': _get(raw, 'username', ''),
+                    'password': _get(raw, 'password', ''),
+                    'date_of_birth': _get(raw, 'date_of_birth'),
+                    'teacher_level': _get(raw, 'teacher_level'),
+                    'teacher_subject_code': _get(raw, 'teacher_subject_code'),
+                    'teacher_department_code': _get(raw, 'teacher_department_code'),
+                    'gender': _get(raw, 'gender', 'Male'),
+                    'email': _get(raw, 'email'),
+                    'country_code': _get(raw, 'country_code') or _get(raw, 'countryCode') or 'US',
+                }
+                user_serializer = CheradipTeacherSerializer(data=user_data)
+            else:
+                user_data = {
+                    'acctype': acctype if acctype in ('Student', 'JobSeeker') else 'Student',
+                    'fullName': _get(raw, 'fullName', ''),
+                    'username': _get(raw, 'username', ''),
+                    'password': _get(raw, 'password', ''),
+                    'date_of_birth': _get(raw, 'date_of_birth'),
+                    'class_name': _get(raw, 'class_name'),
+                    'group': _get(raw, 'group'),
+                    'department': _get(raw, 'department'),
+                    'gender': _get(raw, 'gender', 'Male'),
+                    'email': _get(raw, 'email'),
+                    'country_code': _get(raw, 'country_code') or _get(raw, 'countryCode') or 'US',
+                }
+                user_serializer = CheradipUserSerializer(data=user_data)
             if user_serializer.is_valid():
                 try:
                     user_serializer.save()
                 except Exception as e:
-                    logger.warning('CheradipUser save failed (non-blocking): %s', e)
+                    logger.warning('Signup table save failed (non-blocking): %s', e)
             token = self.generate_unique_key()
             return Response({'authToken': token}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

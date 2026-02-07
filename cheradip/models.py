@@ -547,14 +547,47 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         return self.fullName.split()[0] if self.fullName else self.username
 
 
+class CheradipTeacher(models.Model):
+    """
+    Teacher signup data (table cheradip_teacher).
+    Receives signup form data when account type is Teacher; auth/login continues to use Customer.
+    """
+    id = models.AutoField(primary_key=True)
+    fullName = models.CharField(max_length=31)
+    username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
+    password = models.CharField(max_length=128)  # hashed
+    date_of_birth = models.DateField(null=True, blank=True)
+    teacher_level = models.CharField(max_length=20, blank=True, null=True)
+    teacher_subject_code = models.CharField(max_length=10, blank=True, null=True)
+    teacher_department_code = models.CharField(max_length=20, blank=True, null=True)
+    gender = models.CharField(max_length=10, default='Male', blank=True)
+    email = models.EmailField(blank=True, null=True)
+    country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD
+    date_joined = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_teacher'
+        ordering = ['-date_joined']
+        indexes = [
+            models.Index(fields=['username']),
+            models.Index(fields=['email']),
+            models.Index(fields=['country_code']),
+        ]
+        verbose_name = 'Cheradip Teacher'
+        verbose_name_plural = 'Cheradip Teachers'
+
+    def __str__(self):
+        return f"{self.fullName} ({self.username})"
+
+
 class CheradipUser(models.Model):
     """
-    User table that receives signup form data (cheradip_users).
-    Stores the same data as signup for records; auth/login continues to use Customer.
+    Student and Job Seeker signup data (table cheradip_users).
+    Receives signup form data when account type is Student or Job Seeker; auth/login continues to use Customer.
     """
     ACCTYPE_CHOICES = [
         ('Student', 'Student'),
-        ('Teacher', 'Teacher'),
         ('JobSeeker', 'Job Seeker'),
     ]
     id = models.AutoField(primary_key=True)
@@ -562,15 +595,10 @@ class CheradipUser(models.Model):
     fullName = models.CharField(max_length=31)
     username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
     password = models.CharField(max_length=128)  # hashed
-    date_of_birth = models.DateField(null=True, blank=True)  # year can be extracted from this
-    # Student
+    date_of_birth = models.DateField(null=True, blank=True)
     class_name = models.CharField(max_length=20, blank=True, null=True)
     group = models.CharField(max_length=30, blank=True, null=True)
     department = models.CharField(max_length=50, blank=True, null=True)
-    # Teacher
-    teacher_level = models.CharField(max_length=20, blank=True, null=True)
-    teacher_subject_code = models.CharField(max_length=10, blank=True, null=True)
-    teacher_department_code = models.CharField(max_length=20, blank=True, null=True)
     gender = models.CharField(max_length=10, default='Male', blank=True)
     email = models.EmailField(blank=True, null=True)
     country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD
