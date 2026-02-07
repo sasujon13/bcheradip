@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (Institutes, Item, Token, Merit, Merit5, Merit6, Recommend, Recommend5, Recommend6, 
-                     Banbeis, Customer, Order, Ordered, OrderDetail, Transaction, Notification, Vacancy, 
+                     Banbeis, Customer, CheradipUser, Order, Ordered, OrderDetail, Transaction, Notification, Vacancy, 
                      Vacancy5, Vacancy6, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country,
                      ClassLevel, ClassGroupMapping, Department, Location)
 
@@ -111,6 +111,32 @@ class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ['id', 'country', 'division', 'district', 'thana', 'local_address']
+
+
+class CheradipUserSerializer(serializers.ModelSerializer):
+    """Write-only serializer for saving signup data into cheradip_users."""
+    password = serializers.CharField(write_only=True)
+    date_of_birth = serializers.DateField(required=False, allow_null=True)
+    class_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    group = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=30)
+    department = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=50)
+    teacher_level = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    teacher_subject_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=10)
+    teacher_department_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
+
+    class Meta:
+        model = CheradipUser
+        fields = [
+            'acctype', 'fullName', 'username', 'password', 'date_of_birth',
+            'class_name', 'group', 'department', 'teacher_level', 'teacher_subject_code',
+            'teacher_department_code', 'gender', 'email', 'country_code',
+        ]
+
+    def create(self, validated_data):
+        from django.contrib.auth.hashers import make_password
+        validated_data['password'] = make_password(validated_data.pop('password'))
+        return super().create(validated_data)
 
 
 class CustomerSerializer(serializers.ModelSerializer):

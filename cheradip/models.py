@@ -547,6 +547,52 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         return self.fullName.split()[0] if self.fullName else self.username
 
 
+class CheradipUser(models.Model):
+    """
+    User table that receives signup form data (cheradip_users).
+    Stores the same data as signup for records; auth/login continues to use Customer.
+    """
+    ACCTYPE_CHOICES = [
+        ('Student', 'Student'),
+        ('Teacher', 'Teacher'),
+        ('JobSeeker', 'Job Seeker'),
+    ]
+    id = models.AutoField(primary_key=True)
+    acctype = models.CharField(max_length=10, choices=ACCTYPE_CHOICES, default='Student', db_index=True)
+    fullName = models.CharField(max_length=31)
+    username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
+    password = models.CharField(max_length=128)  # hashed
+    date_of_birth = models.DateField(null=True, blank=True)  # year can be extracted from this
+    # Student
+    class_name = models.CharField(max_length=20, blank=True, null=True)
+    group = models.CharField(max_length=30, blank=True, null=True)
+    department = models.CharField(max_length=50, blank=True, null=True)
+    # Teacher
+    teacher_level = models.CharField(max_length=20, blank=True, null=True)
+    teacher_subject_code = models.CharField(max_length=10, blank=True, null=True)
+    teacher_department_code = models.CharField(max_length=20, blank=True, null=True)
+    gender = models.CharField(max_length=10, default='Male', blank=True)
+    email = models.EmailField(blank=True, null=True)
+    country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD
+    date_joined = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_users'
+        ordering = ['-date_joined']
+        indexes = [
+            models.Index(fields=['username']),
+            models.Index(fields=['email']),
+            models.Index(fields=['acctype']),
+            models.Index(fields=['country_code']),
+        ]
+        verbose_name = 'Cheradip User'
+        verbose_name_plural = 'Cheradip Users'
+
+    def __str__(self):
+        return f"{self.fullName} ({self.username})"
+
+
 class CustomerToken(models.Model):
     """Authentication Token for Customer"""
     # Primary Key
@@ -681,10 +727,11 @@ class ClassGroupMapping(models.Model):
 class Subject(models.Model):
     """Subject model (e.g., ICT, Physics, Chemistry)"""
     # Primary Key
-    subject_code = models.CharField(max_length=3, unique=True, primary_key=True, db_index=True)
+    subject_code = models.CharField(max_length=4, unique=True, primary_key=True, db_index=True)
     
     # Subject Information
     subject_name = models.CharField(max_length=50, blank=True)
+    subject_name_tr = models.CharField(max_length=50, blank=True, null=True)  # copied from cheradip_subject_translated.subject_name
     subject_name_bn = models.CharField(max_length=50, blank=True, null=True)
     
     # Relationships

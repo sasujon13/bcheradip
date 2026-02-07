@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from .models import (
     Institutes, Item, Token, Banbeis, Recommend, Recommend5, Recommend6, 
-    Vacancy, Vacancy5, Vacancy6, Merit, Merit5, Merit6, Customer, 
+    Vacancy, Vacancy5, Vacancy6, Merit, Merit5, Merit6, Customer, CheradipUser,
     CustomerToken, Order, Ordered, Canceled, OrderDetail, Transaction, 
     Group, Subject, Chapter, Topic, Mcq_ict, Notification, Institute, Year, JsonData
 )
@@ -19,6 +19,14 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ('username', 'fullName', 'email', 'division', 'district')
     list_filter = ('acctype', 'group', 'gender', 'is_active', 'date_joined')
     readonly_fields = ('date_joined', 'last_login', 'updated_at')
+
+
+@admin.register(CheradipUser)
+class CheradipUserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'fullName', 'acctype', 'email', 'country_code', 'date_joined')
+    search_fields = ('username', 'fullName', 'email')
+    list_filter = ('acctype', 'country_code', 'date_joined')
+    readonly_fields = ('date_joined', 'updated_at')
 
 
 @admin.register(CustomerToken)
