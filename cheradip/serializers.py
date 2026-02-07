@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (Institutes, Item, Token, Merit, Merit5, Merit6, Recommend, Recommend5, Recommend6, 
-                     Banbeis, Customer, CheradipUser, CheradipTeacher, Order, Ordered, OrderDetail, Transaction, Notification, Vacancy, 
+                     Banbeis, Customer, CheradipStudent, CheradipTeacher, CheradipJobseeker, Order, Ordered, OrderDetail, Transaction, Notification, Vacancy, 
                      Vacancy5, Vacancy6, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country,
                      ClassLevel, ClassGroupMapping, Department, Location)
 
@@ -137,8 +137,8 @@ class CheradipTeacherSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
-class CheradipUserSerializer(serializers.ModelSerializer):
-    """Write-only serializer for saving Student/Job Seeker signup data into cheradip_users."""
+class CheradipStudentSerializer(serializers.ModelSerializer):
+    """Write-only serializer for saving Student signup data into cheradip_student."""
     password = serializers.CharField(write_only=True)
     date_of_birth = serializers.DateField(required=False, allow_null=True)
     class_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
@@ -147,9 +147,32 @@ class CheradipUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
 
     class Meta:
-        model = CheradipUser
+        model = CheradipStudent
         fields = [
             'acctype', 'fullName', 'username', 'password', 'date_of_birth',
+            'class_name', 'group', 'department', 'gender', 'email', 'country_code',
+        ]
+
+    def create(self, validated_data):
+        from django.contrib.auth.hashers import make_password
+        validated_data.setdefault('acctype', 'Student')
+        validated_data['password'] = make_password(validated_data.pop('password'))
+        return super().create(validated_data)
+
+
+class CheradipJobseekerSerializer(serializers.ModelSerializer):
+    """Write-only serializer for saving Job Seeker signup data into cheradip_jobseeker."""
+    password = serializers.CharField(write_only=True)
+    date_of_birth = serializers.DateField(required=False, allow_null=True)
+    class_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    group = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=30)
+    department = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=50)
+    email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
+
+    class Meta:
+        model = CheradipJobseeker
+        fields = [
+            'fullName', 'username', 'password', 'date_of_birth',
             'class_name', 'group', 'department', 'gender', 'email', 'country_code',
         ]
 
@@ -160,65 +183,51 @@ class CheradipUserSerializer(serializers.ModelSerializer):
 
 
 class CustomerSerializer(serializers.ModelSerializer):
+    """Serializer for Customer (auth table). Signup only needs core fields; address can be empty."""
     password = serializers.CharField(write_only=True, required=False, min_length=4, allow_blank=True)
-    year_of_birth = serializers.IntegerField(required=False, allow_null=True)
-    location = LocationSerializer(read_only=True)
-    location_id = serializers.PrimaryKeyRelatedField(
-        queryset=Location.objects.all(), write_only=True, required=False, allow_null=True
-    )
-    
+
     class Meta:
         model = Customer
-        fields = ['acctype', 'fullName', 'username', 'password', 'year_of_birth', 'class_name',
-                  'group', 'gender', 'teacher_level', 'teacher_subject_code', 'teacher_department_code',
-                  'email', 'location', 'location_id']
+        fields = [
+            'acctype', 'fullName', 'username', 'password', 'group', 'gender',
+            'division', 'district', 'thana', 'union', 'village', 'email',
+        ]
         extra_kwargs = {
             'password': {'write_only': True},
             'email': {'required': False, 'allow_blank': True, 'allow_null': True},
-            'teacher_level': {'required': False, 'allow_blank': True, 'allow_null': True},
-            'teacher_subject_code': {'required': False, 'allow_blank': True, 'allow_null': True},
-            'teacher_department_code': {'required': False, 'allow_blank': True, 'allow_null': True},
+            'division': {'required': False, 'allow_blank': True, 'default': ''},
+            'district': {'required': False, 'allow_blank': True, 'default': ''},
+            'thana': {'required': False, 'allow_blank': True, 'default': ''},
+            'union': {'required': False, 'allow_blank': True, 'default': ''},
+            'village': {'required': False, 'allow_blank': True, 'default': ''},
         }
-    
-    def generate_default_password(self, fullName, year_of_birth):
-        """Generate default password: First 3 letters of name + @ + year of birth (e.g., Sha@1993)"""
-        if fullName and year_of_birth:
-            # Get first 3 letters of the name (capitalize first letter)
-            name_part = fullName[:3].strip()
-            if len(name_part) > 0:
-                name_part = name_part[0].upper() + name_part[1:].lower()
-            return f"{name_part}@{year_of_birth}"
-        return None
-    
+
+    def generate_default_password(self, fullName, year_of_birth=None):
+        """Generate default password: First 3 letters of name + @ + year (e.g., Sha@1993)."""
+        name_part = (fullName or '')[:3].strip()
+        if not name_part:
+            name_part = 'Usr'
+        else:
+            name_part = name_part[0].upper() + name_part[1:].lower()
+        year = year_of_birth if year_of_birth else 2000
+        return f"{name_part}@{year}"
+
     def create(self, validated_data):
-        # Generate default password if not provided
         password = validated_data.pop('password', None)
-        location = validated_data.pop('location_id', None)
-        if location is not None:
-            validated_data['location'] = location
         fullName = validated_data.get('fullName', '')
-        year_of_birth = validated_data.get('year_of_birth')
-        
+        for key in ('division', 'district', 'thana', 'union', 'village'):
+            validated_data.setdefault(key, '')
         if not password or password == '':
-            password = self.generate_default_password(fullName, year_of_birth)
-            if not password:
-                # Fallback: use first 3 letters of name + @2000
-                name_part = fullName[:3].strip() if fullName else 'Usr'
-                if len(name_part) > 0:
-                    name_part = name_part[0].upper() + name_part[1:].lower()
-                password = f"{name_part}@2000"
-        
+            password = self.generate_default_password(fullName)
         user = Customer.objects.create(**validated_data)
         user.set_password(password)
         user.save()
         return user
-    
+
     def update(self, instance, validated_data):
-        # Handle password update if provided
         password = validated_data.pop('password', None)
         if password and password != '':
             instance.set_password(password)
-        
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()

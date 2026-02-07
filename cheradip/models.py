@@ -528,7 +528,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     )
     
     class Meta:
-        db_table = 'customers'
+        db_table = 'cheradip_customers'
         ordering = ['-date_joined']
         indexes = [
             models.Index(fields=['username']),
@@ -582,17 +582,13 @@ class CheradipTeacher(models.Model):
         return f"{self.fullName} ({self.username})"
 
 
-class CheradipUser(models.Model):
+class CheradipStudent(models.Model):
     """
-    Student and Job Seeker signup data (table cheradip_users).
-    Receives signup form data when account type is Student or Job Seeker; auth/login continues to use Customer.
+    Student signup data (table cheradip_student).
+    Receives signup form data when account type is Student.
     """
-    ACCTYPE_CHOICES = [
-        ('Student', 'Student'),
-        ('JobSeeker', 'Job Seeker'),
-    ]
     id = models.AutoField(primary_key=True)
-    acctype = models.CharField(max_length=10, choices=ACCTYPE_CHOICES, default='Student', db_index=True)
+    acctype = models.CharField(max_length=10, default='Student', db_index=True)  # kept for DB compatibility
     fullName = models.CharField(max_length=31)
     username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
     password = models.CharField(max_length=128)  # hashed
@@ -607,16 +603,49 @@ class CheradipUser(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'cheradip_users'
+        db_table = 'cheradip_student'
         ordering = ['-date_joined']
         indexes = [
             models.Index(fields=['username']),
             models.Index(fields=['email']),
-            models.Index(fields=['acctype']),
             models.Index(fields=['country_code']),
         ]
-        verbose_name = 'Cheradip User'
-        verbose_name_plural = 'Cheradip Users'
+        verbose_name = 'Cheradip Student'
+        verbose_name_plural = 'Cheradip Students'
+
+    def __str__(self):
+        return f"{self.fullName} ({self.username})"
+
+
+class CheradipJobseeker(models.Model):
+    """
+    Job Seeker signup data (table cheradip_jobseeker).
+    Receives signup form data when account type is Job Seeker; auth/login continues to use Customer.
+    """
+    id = models.AutoField(primary_key=True)
+    fullName = models.CharField(max_length=31)
+    username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
+    password = models.CharField(max_length=128)  # hashed
+    date_of_birth = models.DateField(null=True, blank=True)
+    class_name = models.CharField(max_length=20, blank=True, null=True)
+    group = models.CharField(max_length=30, blank=True, null=True)
+    department = models.CharField(max_length=50, blank=True, null=True)
+    gender = models.CharField(max_length=10, default='Male', blank=True)
+    email = models.EmailField(blank=True, null=True)
+    country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD
+    date_joined = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_jobseeker'
+        ordering = ['-date_joined']
+        indexes = [
+            models.Index(fields=['username']),
+            models.Index(fields=['email']),
+            models.Index(fields=['country_code']),
+        ]
+        verbose_name = 'Cheradip Job Seeker'
+        verbose_name_plural = 'Cheradip Job Seekers'
 
     def __str__(self):
         return f"{self.fullName} ({self.username})"

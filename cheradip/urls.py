@@ -10,6 +10,7 @@ from .views import (
     ItemListCreateView,
     CustomerCreateView,
     CustomerRetrieveView,
+    SignupProfileView,
     MobileNumberExistsView,
     NotificationViewSet,
     PasswordExistsView,
@@ -88,6 +89,7 @@ router.register(r'notification', NotificationViewSet, basename='notification')
 urlpatterns = [
     path('item/', ItemListCreateView.as_view(), name='item'),
     path('signup/', CustomerCreateView.as_view(), name='signup'),
+    path('signup_profile/', SignupProfileView.as_view(), name='signup_profile'),
     path('login/', CustomerRetrieveView.as_view(), name='login'),
     path('profile_update/', CustomerUpdateView.as_view(), name='profile_update'),
     path('password_update/', PasswordUpdateView.as_view(), name='password_update'),
