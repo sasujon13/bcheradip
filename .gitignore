@@ -1,0 +1,15 @@
+node_modules
+.env
+*.log
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+ENV/
+env/
+*.db
+*.sqlite3
+media/
+static/

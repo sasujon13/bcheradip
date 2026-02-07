@@ -1,8 +1,10 @@
 from pathlib import Path
 import os
+import pymysql
+from decouple import config, Csv
 
-# HOST_URL = 'https://cheradip.com' # for launcing
-HOST_URL = 'http://127.0.0.1:8000' # for local host
+pymysql.install_as_MySQLdb()
+
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -10,17 +12,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
-SECRET_KEY = 'django-insecure-d37cp#^cs90*bzhh+pvvv$6+h$tm@crx6$=_*^=d&g)k@+c%rj'
+# Environment Variables Configuration
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-d37cp#^cs90*bzhh+pvvv$6+h$tm@crx6$=_*^=d&g)k@+c%rj', cast=str)
 
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)  # Default True for local development
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
 
+# Host URL Configuration
+HOST_URL = config('HOST_URL', default='http://127.0.0.1:8000', cast=str)
 
-CORS_ALLOWED_ORIGINS = [
-    "https://cheradip.com",
-    "http://localhost:4200" 
-]
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    default='https://cheradip.com,http://localhost:4200,http://127.0.0.1:4200',
+    cast=Csv()
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -44,12 +50,41 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'backend.translation_middleware.TranslateResponseMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS Configuration - More secure (default True for local development)
+CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL', default=True, cast=bool)  # True for local dev, False for production
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+CORS_ALLOWED_HEADERS = ['Content-Type', 'Authorization', 'X-CSRFToken', 'X-Language']
 
 ROOT_URLCONF = 'backend.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100,  # Adjust this number based on your needs
+    'DEFAULT_FILTER_BACKENDS': [
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ],
+}
 
 TEMPLATES = [
     {
@@ -69,14 +104,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+# Database Configuration from Environment Variables
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cheradip_cheradip',
-        'USER': 'cheradip_cheradip',
-        'PASSWORD': 'Sa@2271029867',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'backend.db_backend',
+        'NAME': config('DATABASE_NAME', default='cheradip_cheradip', cast=str),
+        'USER': config('DATABASE_USER', default='root', cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD', default='', cast=str),
+        'HOST': config('DATABASE_HOST', default='localhost', cast=str),
+        'PORT': config('DATABASE_PORT', default='3306', cast=str),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
@@ -102,6 +142,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+# Google Cloud Translation API key for translating website data to country language.
+# Set in .env as GOOGLE_TRANSLATE_API_KEY. Get from: https://console.cloud.google.com/apis/credentials
+GOOGLE_TRANSLATE_API_KEY = config('GOOGLE_TRANSLATE_API_KEY', default='', cast=str)
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
@@ -134,6 +178,9 @@ LOGGING = {
         },
     }
 }
+
+# Custom User Model Configuration
+AUTH_USER_MODEL = 'cheradip.Customer'
 
 AUTHENTICATION_BACKENDS = [
     'cheradip.backends.CustomBackend',
