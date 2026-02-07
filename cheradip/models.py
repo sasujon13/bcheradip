@@ -179,7 +179,7 @@ class Item(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_items'
+        db_table = 'items'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['code']),
@@ -224,7 +224,7 @@ class Transaction(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_transactions'
+        db_table = 'transactions'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['trxid']),
@@ -263,7 +263,7 @@ class OrderDetail(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        db_table = 'cheradip_order_details'
+        db_table = 'order_details'
         ordering = ['SN']
         indexes = [
             models.Index(fields=['item']),
@@ -324,7 +324,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_orders'
+        db_table = 'orders'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['username']),
@@ -385,7 +385,7 @@ class Ordered(models.Model):
     delivered_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'cheradip_ordered'
+        db_table = 'ordered'
         ordering = ['-delivered_at', '-created_at']
         indexes = [
             models.Index(fields=['username']),
@@ -440,7 +440,7 @@ class Canceled(models.Model):
     cancelled_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_canceled'
+        db_table = 'canceled'
         ordering = ['-cancelled_at']
         indexes = [
             models.Index(fields=['username']),
@@ -664,7 +664,7 @@ class CustomerToken(models.Model):
     expires_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'cheradip_customer_tokens'
+        db_table = 'customer_tokens'
         ordering = ['-created']
         indexes = [
             models.Index(fields=['key']),
@@ -693,7 +693,7 @@ class Group(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_groups'
+        db_table = 'groups'
         ordering = ['group_code']
         indexes = [
             models.Index(fields=['group_code']),
@@ -717,7 +717,7 @@ class ClassLevel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'cheradip_class_levels'
+        db_table = 'class_levels'
         ordering = ['display_order', 'class_code']
         indexes = [
             models.Index(fields=['class_code']),
@@ -744,7 +744,7 @@ class Department(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'cheradip_departments'
+        db_table = 'departments'
         ordering = ['display_order', 'dept_name']
         indexes = [
             models.Index(fields=['dept_code']),
@@ -765,7 +765,7 @@ class ClassGroupMapping(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'cheradip_class_group_mappings'
+        db_table = 'class_group_mappings'
         unique_together = (('class_level', 'group_codes'),)
         indexes = [
             models.Index(fields=['class_level']),
@@ -793,14 +793,14 @@ class Subject(models.Model):
     subject_name_bn = models.CharField(max_length=50, blank=True, null=True)
     
     # Relationships
-    groups = models.ManyToManyField(Group, related_name='subjects', db_table='cheradip_subject_groups')
+    groups = models.ManyToManyField(Group, related_name='subjects', db_table='subject_groups')
     
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_subject'
+        db_table = 'subjects'
         ordering = ['subject_code']
         indexes = [
             models.Index(fields=['subject_code']),
@@ -829,7 +829,7 @@ class Chapter(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_chapters'
+        db_table = 'chapters'
         ordering = ['subject', 'chapter_no']
         unique_together = ('subject', 'chapter_no')
         indexes = [
@@ -858,7 +858,7 @@ class Topic(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_topics'
+        db_table = 'topics'
         ordering = ['chapter', 'topic_no']
         unique_together = ('chapter', 'topic_no')
         indexes = [
@@ -884,7 +884,7 @@ class Institute(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_institute_types'
+        db_table = 'cheradip_institute'
         ordering = ['institute_name']
         indexes = [
             models.Index(fields=['institute_code']),
@@ -912,7 +912,7 @@ class Year(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_years'
+        db_table = 'years'
         ordering = ['-year_code']
         indexes = [
             models.Index(fields=['year_code']),
@@ -960,8 +960,8 @@ class Mcq_ict(models.Model):
     img_explanation = models.ImageField(upload_to=question_image_path, null=True, blank=True)
     
     # Relationships
-    institutes = models.ManyToManyField(Institute, related_name='questions', blank=True, db_table='cheradip_mcq_institutes')
-    years = models.ManyToManyField(Year, related_name='questions', blank=True, db_table='cheradip_mcq_years')
+    institutes = models.ManyToManyField(Institute, related_name='questions', blank=True, db_table='mcq_institutes')
+    years = models.ManyToManyField(Year, related_name='questions', blank=True, db_table='mcq_years')
     
     # Metadata
     difficulty_level = models.CharField(max_length=20, choices=[
@@ -976,7 +976,7 @@ class Mcq_ict(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_mcq_ict'
+        db_table = 'mcq_ict'
         ordering = ['subject', 'chapter', 'topic', 'qid']
         indexes = [
             models.Index(fields=['qid']),
@@ -1030,7 +1030,7 @@ class Notification(models.Model):
     link = models.URLField(max_length=512, null=True, blank=True)
 
     class Meta:
-        db_table = 'cheradip_notifications'
+        db_table = 'cheradip_notification'
 
     def __str__(self):
         return f"Notification: {(self.text or '')[:50]}"
@@ -1077,7 +1077,7 @@ class Vacancy(models.Model):
     deadline = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'cheradip_vacancies'
+        db_table = 'vacancies'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['VPID']),
@@ -1124,7 +1124,7 @@ class Vacancy5(models.Model):
     deadline = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'cheradip_vacancies_5'
+        db_table = 'vacancies_5'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['VPID']),
@@ -1170,7 +1170,7 @@ class Vacancy6(models.Model):
     deadline = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'cheradip_vacancies_6'
+        db_table = 'vacancies_6'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['VPID']),
@@ -1210,7 +1210,7 @@ class Merit(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        db_table = 'cheradip_merits'
+        db_table = 'merits'
         ordering = ['Batch', 'Rank', 'SL']
         indexes = [
             models.Index(fields=['Code']),
@@ -1244,7 +1244,7 @@ class Merit5(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        db_table = 'cheradip_merits_5'
+        db_table = 'merits_5'
         ordering = ['Batch', 'Rank', 'SL']
         indexes = [
             models.Index(fields=['Batch', 'Rank']),
@@ -1276,7 +1276,7 @@ class Merit6(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        db_table = 'cheradip_merits_6'
+        db_table = 'merits_6'
         ordering = ['Batch', 'Rank', 'SL']
         indexes = [
             models.Index(fields=['Batch', 'Rank']),
@@ -1326,7 +1326,7 @@ class Recommend(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_recommendations'
+        db_table = 'recommendations'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['EIIN']),
@@ -1365,7 +1365,7 @@ class Recommend5(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_recommendations_5'
+        db_table = 'recommendations_5'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['EIIN', 'Roll']),
@@ -1401,7 +1401,7 @@ class Recommend6(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_recommendations_6'
+        db_table = 'recommendations_6'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['EIIN', 'Roll']),
@@ -1455,7 +1455,7 @@ class Banbeis(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_banbeis'
+        db_table = 'banbeis'
         ordering = ['EIIN']
         indexes = [
             models.Index(fields=['EIIN']),
@@ -1548,7 +1548,7 @@ class Token(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_tokens'
+        db_table = 'tokens'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['Token']),
@@ -1577,7 +1577,7 @@ class JsonData(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'cheradip_json_data'
+        db_table = 'json_data'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['data_type']),
