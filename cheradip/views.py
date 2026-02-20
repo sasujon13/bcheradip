@@ -4,13 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import (Institutes, Token, Item, Merit, Merit5, Merit6, Banbeis, Recommend, Recommend5, Recommend6, 
-                     Vacancy, Vacancy5, Vacancy6, Customer, CheradipStudent, CheradipTeacher, CheradipJobseeker, Order, OrderDetail, Transaction, Ordered, Canceled,
+                     Vacancy, Vacancy5, Vacancy6, Customer, Order, OrderDetail, Transaction, Ordered, Canceled,
                      Notification, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country, Location,
                      ClassLevel, ClassGroupMapping, Department)
 from .serializers import (InstitutesSerializer, TokenSerializer, RecommendSerializer, Recommend5Serializer, 
                          Recommend6Serializer, BanbeisSerializer, MeritSerializer, Merit5Serializer, Merit6Serializer, 
                          VacancySerializer, Vacancy5Serializer, Vacancy6Serializer, ItemSerializer, 
-                         CheradipStudentSerializer, CheradipTeacherSerializer, CheradipJobseekerSerializer, CustomerUpdateSerializer, OrderSerializer, NotificationSerializer, GroupSerializer, 
+                         CustomerSignupSerializer, CustomerUpdateSerializer, OrderSerializer, NotificationSerializer, GroupSerializer, 
                          SubjectSerializer, ChapterSerializer, TopicSerializer, McqIctSerializer, InstituteSerializer, 
                          YearSerializer, CountrySerializer, CountryListSerializer)
 from rest_framework.permissions import AllowAny
@@ -63,9 +63,8 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
     
     def get_queryset(self):
         queryset = super().get_queryset()
-        # Avoid loading datetime columns on list (MySQL can return them as str → is_aware fails)
-        if self.action == 'list':
-            queryset = queryset.defer('created_at', 'updated_at')
+        # Avoid loading datetime columns (MySQL/PyMySQL can return them as str → 'utcoffset' error)
+        queryset = queryset.defer('created_at', 'updated_at')
 
         # Filter by featured
         featured = self.request.query_params.get('featured')
@@ -106,7 +105,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
         if ip in ['127.0.0.1', 'localhost', '::1']:
             # Return Bangladesh as default for localhost
             try:
-                country = Country.objects.get(country_code='BD')
+                country = Country.objects.defer('created_at', 'updated_at').get(country_code='BD')
                 serializer = CountrySerializer(country)
                 return Response({
                     'detected': True,
@@ -148,7 +147,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
         # Return detected country
         if country_code:
             try:
-                country = Country.objects.get(country_code=country_code)
+                country = Country.objects.defer('created_at', 'updated_at').get(country_code=country_code)
                 serializer = CountrySerializer(country)
                 return Response({
                     'detected': True,
@@ -166,7 +165,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
         
         # Fallback to default (Bangladesh)
         try:
-            country = Country.objects.get(country_code='BD')
+            country = Country.objects.defer('created_at', 'updated_at').get(country_code='BD')
             serializer = CountrySerializer(country)
             return Response({
                 'detected': False,
@@ -185,7 +184,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['get'])
     def featured(self, request):
         """Get featured countries for quick selection"""
-        countries = Country.objects.filter(is_active=True, is_featured=True).order_by('display_order')
+        countries = Country.objects.filter(is_active=True, is_featured=True).order_by('display_order').defer('created_at', 'updated_at')
         serializer = CountryListSerializer(countries, many=True)
         return Response(serializer.data)
     
@@ -196,7 +195,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
         result = {}
         for continent in continents:
             if continent:
-                countries = Country.objects.filter(is_active=True, continent=continent).order_by('country_name')
+                countries = Country.objects.filter(is_active=True, continent=continent).order_by('country_name').defer('created_at', 'updated_at')
                 result[continent] = CountryListSerializer(countries, many=True).data
         return Response(result)
 
@@ -204,7 +203,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
 class AllCountriesView(APIView):
     """GET /api/country/ - Return all active countries as array (for <option> dropdowns)."""
     def get(self, request):
-        countries = Country.objects.filter(is_active=True).order_by('display_order', 'country_name')
+        countries = Country.objects.filter(is_active=True).order_by('display_order', 'country_name').defer('created_at', 'updated_at')
         serializer = CountryListSerializer(countries, many=True)
         return Response(serializer.data)
 
@@ -249,6 +248,67 @@ class LevelsByCountryView(APIView):
             levels.append('University')
 
         return Response({'levels': levels, 'country_code': country_code})
+
+
+class LocationDivisionsView(APIView):
+    """
+    GET /api/locations/divisions/?country_code=BD
+    Returns distinct division names from cheradip_location for the given country.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        if not country_code:
+            return Response([], status=status.HTTP_200_OK)
+        qs = Location.objects.filter(country_id=country_code).exclude(
+            division__isnull=True
+        ).exclude(division='').values_list('division', flat=True).distinct().order_by('division')
+        return Response(list(qs))
+
+
+class LocationDistrictsView(APIView):
+    """
+    GET /api/locations/districts/?country_code=BD&division=Dhaka
+    Returns distinct district names from cheradip_location for the given country and division.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        division = (request.query_params.get('division') or '').strip()
+        if not country_code or not division:
+            return Response([], status=status.HTTP_200_OK)
+        qs = Location.objects.filter(
+            country_id=country_code, division=division
+        ).exclude(district__isnull=True).exclude(district='').values_list(
+            'district', flat=True
+        ).distinct().order_by('district')
+        return Response(list(qs))
+
+
+class LocationThanasView(APIView):
+    """
+    GET /api/locations/thanas/?country_code=BD&division=Dhaka&district=Dhaka
+    Returns distinct thana names from cheradip_location for the given country, division, district.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        division = (request.query_params.get('division') or '').strip()
+        district = (request.query_params.get('district') or '').strip()
+        if not country_code or not division or not district:
+            return Response([], status=status.HTTP_200_OK)
+        qs = Location.objects.filter(
+            country_id=country_code, division=division, district=district
+        ).exclude(thana__isnull=True).exclude(thana='').values_list(
+            'thana', flat=True
+        ).distinct().order_by('thana')
+        return Response(list(qs))
 
 
 class SubjectsByCountryLevelView(APIView):
@@ -849,52 +909,24 @@ class CustomerCreateView(APIView):
         acctype = self._get(raw, 'acctype', 'Student')
         country_code = self._get(raw, 'country_code') or self._get(raw, 'countryCode') or 'US'
         date_of_birth = self._date_to_iso(self._get(raw, 'date_of_birth'))
-
-        if acctype == 'Teacher':
-            user_data = {
-                'fullName': self._get(raw, 'fullName', ''),
-                'username': self._get(raw, 'username', ''),
-                'password': self._get(raw, 'password', ''),
-                'date_of_birth': date_of_birth,
-                'teacher_level': self._get(raw, 'teacher_level'),
-                'teacher_subject_code': self._get(raw, 'teacher_subject_code'),
-                'teacher_department_code': self._get(raw, 'teacher_department_code'),
-                'teacher_department_name': self._get(raw, 'teacher_department_name'),
-                'gender': self._get(raw, 'gender', 'Male'),
-                'email': self._get(raw, 'email'),
-                'country_code': country_code,
-            }
-            serializer = CheradipTeacherSerializer(data=user_data)
-        elif acctype == 'JobSeeker':
-            user_data = {
-                'fullName': self._get(raw, 'fullName', ''),
-                'username': self._get(raw, 'username', ''),
-                'password': self._get(raw, 'password', ''),
-                'date_of_birth': date_of_birth,
-                'class_name': self._get(raw, 'class_name'),
-                'group': self._get(raw, 'group'),
-                'department': self._get(raw, 'department'),
-                'gender': self._get(raw, 'gender', 'Male'),
-                'email': self._get(raw, 'email'),
-                'country_code': country_code,
-            }
-            serializer = CheradipJobseekerSerializer(data=user_data)
-        else:
-            user_data = {
-                'acctype': 'Student',
-                'fullName': self._get(raw, 'fullName', ''),
-                'username': self._get(raw, 'username', ''),
-                'password': self._get(raw, 'password', ''),
-                'date_of_birth': date_of_birth,
-                'class_name': self._get(raw, 'class_name'),
-                'group': self._get(raw, 'group'),
-                'department': self._get(raw, 'department'),
-                'gender': self._get(raw, 'gender', 'Male'),
-                'email': self._get(raw, 'email'),
-                'country_code': country_code,
-            }
-            serializer = CheradipStudentSerializer(data=user_data)
-
+        user_data = {
+            'acctype': acctype,
+            'fullName': self._get(raw, 'fullName', ''),
+            'username': self._get(raw, 'username', ''),
+            'password': self._get(raw, 'password', ''),
+            'country_code': country_code,
+            'date_of_birth': date_of_birth,
+            'class_name': self._get(raw, 'class_name'),
+            'group': self._get(raw, 'group'),
+            'department': self._get(raw, 'department'),
+            'teacher_level': self._get(raw, 'teacher_level'),
+            'teacher_subject_code': self._get(raw, 'teacher_subject_code'),
+            'teacher_department_code': self._get(raw, 'teacher_department_code'),
+            'teacher_department_name': self._get(raw, 'teacher_department_name'),
+            'gender': self._get(raw, 'gender', 'Male'),
+            'email': self._get(raw, 'email'),
+        }
+        serializer = CustomerSignupSerializer(data=user_data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         try:
@@ -919,8 +951,7 @@ class CustomerCreateView(APIView):
 class SignupProfileView(APIView):
     """
     GET /api/signup_profile/?username=xxx&acctype=Teacher|Student|JobSeeker
-    Returns profile data from the correct table (cheradip_teacher, cheradip_student, or cheradip_jobseeker).
-    Password is never returned.
+    Returns profile data from Customer table. Password is never returned.
     """
     permission_classes = [AllowAny]
     authentication_classes = []
@@ -930,111 +961,48 @@ class SignupProfileView(APIView):
         acctype = (request.query_params.get('acctype') or '').strip()
         if not username:
             return Response({'detail': 'username is required'}, status=status.HTTP_400_BAD_REQUEST)
-        acctype = acctype or 'Student'
-        if acctype not in ('Teacher', 'Student', 'JobSeeker'):
-            return Response({'detail': 'acctype must be Teacher, Student, or JobSeeker'}, status=status.HTTP_400_BAD_REQUEST)
-
         try:
-            if acctype == 'Teacher':
-                obj = CheradipTeacher.objects.get(username=username)
-                data = {
-                    'acctype': 'Teacher',
-                    'fullName': obj.fullName,
-                    'username': obj.username,
-                    'date_of_birth': obj.date_of_birth.isoformat() if obj.date_of_birth else None,
-                    'teacher_level': obj.teacher_level,
-                    'teacher_subject_code': obj.teacher_subject_code,
-                    'teacher_department_code': obj.teacher_department_code,
-                    'teacher_department_name': obj.teacher_department_name,
-                    'gender': obj.gender,
-                    'email': obj.email,
-                    'country_code': obj.country_code,
-                    'date_joined': obj.date_joined.isoformat() if obj.date_joined else None,
-                }
-            elif acctype == 'JobSeeker':
-                obj = CheradipJobseeker.objects.get(username=username)
-                data = {
-                    'acctype': 'JobSeeker',
-                    'fullName': obj.fullName,
-                    'username': obj.username,
-                    'date_of_birth': obj.date_of_birth.isoformat() if obj.date_of_birth else None,
-                    'class_name': obj.class_name,
-                    'group': obj.group,
-                    'department': obj.department,
-                    'gender': obj.gender,
-                    'email': obj.email,
-                    'country_code': obj.country_code,
-                    'date_joined': obj.date_joined.isoformat() if obj.date_joined else None,
-                }
-            else:
-                obj = CheradipStudent.objects.get(username=username)
-                data = {
-                    'acctype': getattr(obj, 'acctype', 'Student'),
-                    'fullName': obj.fullName,
-                    'username': obj.username,
-                    'date_of_birth': obj.date_of_birth.isoformat() if obj.date_of_birth else None,
-                    'class_name': obj.class_name,
-                    'group': obj.group,
-                    'department': obj.department,
-                    'gender': obj.gender,
-                    'email': obj.email,
-                    'country_code': obj.country_code,
-                    'date_joined': obj.date_joined.isoformat() if obj.date_joined else None,
-                }
+            q = Customer.objects.filter(username=username)
+            if acctype and acctype in ('Teacher', 'Student', 'JobSeeker'):
+                q = q.filter(acctype=acctype)
+            obj = q.first()
+            if not obj:
+                return Response({'detail': 'Profile not found for this username and account type.'}, status=status.HTTP_404_NOT_FOUND)
+            data = {
+                'acctype': obj.acctype,
+                'fullName': obj.fullName,
+                'username': obj.username,
+                'date_of_birth': obj.date_of_birth.isoformat() if obj.date_of_birth else None,
+                'class_name': getattr(obj, 'class_name', None),
+                'group': obj.group,
+                'department': getattr(obj, 'department', None),
+                'teacher_level': getattr(obj, 'teacher_level', None),
+                'teacher_subject_code': getattr(obj, 'teacher_subject_code', None),
+                'teacher_department_code': getattr(obj, 'teacher_department_code', None),
+                'teacher_department_name': getattr(obj, 'teacher_department_name', None),
+                'gender': obj.gender,
+                'email': obj.email,
+                'country_code': getattr(obj, 'country_code', None),
+                'division': obj.division,
+                'district': obj.district,
+                'thana': obj.thana,
+                'union': obj.union,
+                'village': obj.village,
+                'date_joined': obj.date_joined.isoformat() if obj.date_joined else None,
+            }
             return Response(data, status=status.HTTP_200_OK)
-        except (CheradipTeacher.DoesNotExist, CheradipStudent.DoesNotExist, CheradipJobseeker.DoesNotExist):
+        except Customer.DoesNotExist:
             return Response({'detail': 'Profile not found for this username and account type.'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class CustomerRetrieveView(APIView):
-    """Login: allow unauthenticated POST. Authenticate by trying cheradip_student → cheradip_jobseeker → cheradip_teacher → Customer (auth), optionally filtered by country_code."""
+    """Login: authenticate against Customer only. Optional country_code filter on username lookup."""
     permission_classes = [AllowAny]
     authentication_classes = []
-
-    def _check_password(self, raw_password, stored_password):
-        if not stored_password:
-            return False
-        if stored_password.startswith('pbkdf2_') or stored_password.startswith('argon2'):
-            return check_password(raw_password, stored_password)
-        return raw_password == stored_password
-
-    def _try_cheradip_login(self, username, password, country_code=None, only_source=None):
-        """Try student → jobseeker → teacher (optional country filter). If only_source is set, try only that table. Return (acctype, fullName, username, group, gender, division, district, thana, union, village) or None."""
-        qs_base = Q(username=username)
-        if country_code:
-            qs_base &= Q(country_code=(country_code or '').strip().upper() or country_code)
-
-        sources = []
-        if only_source is None:
-            sources = [('student', CheradipStudent), ('jobseeker', CheradipJobseeker), ('teacher', CheradipTeacher)]
-        elif only_source == 'student':
-            sources = [('student', CheradipStudent)]
-        elif only_source == 'jobseeker':
-            sources = [('jobseeker', CheradipJobseeker)]
-        elif only_source == 'teacher':
-            sources = [('teacher', CheradipTeacher)]
-
-        for _name, model in sources:
-            try:
-                obj = model.objects.filter(qs_base).first()
-                if obj and self._check_password(password, obj.password):
-                    acctype = 'JobSeeker' if _name == 'jobseeker' else ('Teacher' if _name == 'teacher' else getattr(obj, 'acctype', 'Student'))
-                    return (
-                        acctype,
-                        obj.fullName,
-                        obj.username,
-                        getattr(obj, 'group', None),
-                        getattr(obj, 'gender', None),
-                        None, None, None, None, None,
-                    )
-            except (ProgrammingError, OperationalError):
-                pass
-        return None
 
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
-        found_in = (request.data.get('found_in') or request.data.get('foundIn') or '').strip().lower() or None
         raw_country = request.data.get('countryCode') or request.data.get('country_code')
         if hasattr(raw_country, 'get'):
             country_code = (raw_country.get('country_code') or raw_country.get('countryCode') or '').strip().upper() or None
@@ -1043,34 +1011,16 @@ class CustomerRetrieveView(APIView):
         if not username or not password:
             return Response({'error': 'Username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        only_source = found_in if found_in in ('student', 'jobseeker', 'teacher') else None
-        try_customer = found_in == 'customer' or found_in is None
-
-        if found_in != 'customer':
-            cheradip_result = self._try_cheradip_login(username, password, country_code, only_source=only_source)
-            if cheradip_result is not None:
-                acctype, fullName, uname, group, gender, division, district, thana, union, village = cheradip_result
-                token = self.generate_unique_key()
-                return Response({
-                    'authToken': token,
-                    'acctype': acctype,
-                    'fullName': fullName,
-                    'username': uname,
-                    'group': group,
-                    'gender': gender,
-                    'division': division,
-                    'district': district,
-                    'thana': thana,
-                    'union': union,
-                    'village': village,
-                }, status=status.HTTP_200_OK)
-
         user = None
-        if try_customer:
-            try:
+        try:
+            if country_code:
+                user = Customer.objects.filter(username=username, country_code=country_code).first()
+                if user and not user.check_password(password):
+                    user = None
+            else:
                 user = authenticate(request, username=username, password=password)
-            except (ProgrammingError, OperationalError):
-                user = None
+        except (ProgrammingError, OperationalError):
+            user = None
         if user is not None:
             acctype = getattr(user, 'acctype', None)
             fullName = getattr(user, 'fullName', None)
@@ -1139,20 +1089,19 @@ class CustomerUpdateView(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         user = authenticate(request, username=username, password=password)
-        if user is not None:
-            serializer = CustomerUpdateSerializer(user, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                token = self.generate_unique_key()
-                return Response({'authToken': token}, status=status.HTTP_200_OK)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if user is None:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        serializer = CustomerUpdateSerializer(user, data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        token = self.generate_unique_key()
+        return Response({'authToken': token, 'token': token}, status=status.HTTP_200_OK)
 
     def generate_unique_key(self):
-            length = 40
-            characters = string.ascii_letters + string.digits
-            key = ''.join(random.choice(characters) for _ in range(length))
-            return key 
+        length = 40
+        characters = string.ascii_letters + string.digits
+        return ''.join(random.choice(characters) for _ in range(length))
 
 class CustomerResetView(APIView):
     def post(self, request, *args, **kwargs):
@@ -1178,7 +1127,7 @@ class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class MobileNumberExistsView(APIView):
-    """Check username (mobile) in order: cheradip_student → cheradip_jobseeker → cheradip_teacher → Customer. Returns exists and found_in (so password/login can check only that table). Skips Customer if table missing."""
+    """Check username (mobile) in Customer table. Optional country_code filter. Returns exists and found_in='customer' when found."""
     permission_classes = [AllowAny]
     authentication_classes = []
 
@@ -1188,100 +1137,35 @@ class MobileNumberExistsView(APIView):
 
         if not username:
             return Response({'exists': False}, status=status.HTTP_200_OK)
-
         q = Q(username=username)
         if country_code:
             q &= Q(country_code=country_code)
-
-        try:
-            if CheradipStudent.objects.filter(q).exists():
-                return Response({'exists': True, 'found_in': 'student'}, status=status.HTTP_200_OK)
-        except (ProgrammingError, OperationalError):
-            pass
-        try:
-            if CheradipJobseeker.objects.filter(q).exists():
-                return Response({'exists': True, 'found_in': 'jobseeker'}, status=status.HTTP_200_OK)
-        except (ProgrammingError, OperationalError):
-            pass
-        try:
-            if CheradipTeacher.objects.filter(q).exists():
-                return Response({'exists': True, 'found_in': 'teacher'}, status=status.HTTP_200_OK)
-        except (ProgrammingError, OperationalError):
-            pass
-        try:
-            if Customer.objects.filter(username=username).exists():
-                return Response({'exists': True, 'found_in': 'customer'}, status=status.HTTP_200_OK)
-        except (ProgrammingError, OperationalError):
-            pass
-
+        if Customer.objects.filter(q).exists():
+            return Response({'exists': True, 'found_in': 'customer'}, status=status.HTTP_200_OK)
         return Response({'exists': False}, status=status.HTTP_200_OK)
 
 
 class PasswordExistsView(APIView):
-    """Check username+password in one source. If found_in=student|jobseeker|teacher|customer, only that table; else try all in order. Skips Customer if table missing."""
+    """Check username+password in Customer table. Optional country_code filter."""
     permission_classes = [AllowAny]
     authentication_classes = []
-
-    def _check_password(self, raw_password, stored_password):
-        if not stored_password:
-            return False
-        if stored_password.startswith('pbkdf2_') or stored_password.startswith('argon2'):
-            return check_password(raw_password, stored_password)
-        return raw_password == stored_password
 
     def get(self, request, *args, **kwargs):
         username = request.query_params.get('username')
         password = request.query_params.get('password')
-        found_in = (request.query_params.get('found_in') or request.query_params.get('foundIn') or '').strip().lower() or None
         country_code = (request.query_params.get('countryCode') or request.query_params.get('country_code') or '').strip().upper() or None
 
         if not username or not password:
             return Response({'exists': False}, status=status.HTTP_200_OK)
-
         q = Q(username=username)
         if country_code:
             q &= Q(country_code=country_code)
-
-        def try_student():
-            try:
-                obj = CheradipStudent.objects.filter(q).first()
-                return obj and self._check_password(password, obj.password)
-            except (ProgrammingError, OperationalError):
-                return False
-        def try_jobseeker():
-            try:
-                obj = CheradipJobseeker.objects.filter(q).first()
-                return obj and self._check_password(password, obj.password)
-            except (ProgrammingError, OperationalError):
-                return False
-        def try_teacher():
-            try:
-                obj = CheradipTeacher.objects.filter(q).first()
-                return obj and self._check_password(password, obj.password)
-            except (ProgrammingError, OperationalError):
-                return False
-        def try_customer():
-            try:
-                customer = Customer.objects.get(username=username)
-                if customer.password.startswith('pbkdf2_') or customer.password.startswith('argon2'):
-                    return customer.check_password(password)
-                return customer.password == password
-            except Customer.DoesNotExist:
-                return False
-            except (ProgrammingError, OperationalError):
-                return False
-
-        if found_in == 'student':
-            return Response({'exists': try_student()}, status=status.HTTP_200_OK)
-        if found_in == 'jobseeker':
-            return Response({'exists': try_jobseeker()}, status=status.HTTP_200_OK)
-        if found_in == 'teacher':
-            return Response({'exists': try_teacher()}, status=status.HTTP_200_OK)
-        if found_in == 'customer':
-            return Response({'exists': try_customer()}, status=status.HTTP_200_OK)
-
-        if try_student() or try_jobseeker() or try_teacher() or try_customer():
-            return Response({'exists': True}, status=status.HTTP_200_OK)
+        try:
+            customer = Customer.objects.filter(q).first()
+            if customer and customer.check_password(password):
+                return Response({'exists': True}, status=status.HTTP_200_OK)
+        except (ProgrammingError, OperationalError):
+            pass
         return Response({'exists': False}, status=status.HTTP_200_OK)
     
 
@@ -1613,16 +1497,12 @@ class SubjectViewSet(viewsets.ModelViewSet):
         subject_code = self.request.query_params.get('subject_code')
         
         if group_codes:
-            from django.db.models import Q
-            from functools import reduce
-            from operator import or_
-            q = reduce(or_, [Q(groups__contains=[c]) for c in group_codes], Q())
-            queryset = queryset.filter(q)
+            queryset = queryset.filter(groups__group_code__in=group_codes).distinct()
         
         if subject_code:
             queryset = queryset.filter(subject_code=subject_code)
         
-        return queryset.order_by('id')
+        return queryset.order_by('subject_code')
 
 
 class ChapterViewSet(viewsets.ModelViewSet):

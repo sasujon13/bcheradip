@@ -102,7 +102,7 @@ After migrations, you should see these tables in `cheradip_cheradip`:
 - ✅ `cheradip_mcq_ict` - MCQ questions (main table)
 - ✅ `cheradip_mcq_ict_institutes` - Question-Institute relationships
 - ✅ `cheradip_mcq_ict_years` - Question-Year relationships
-- ✅ `cheradip_customer` - User accounts
+- ✅ `cheradip_customers` - User accounts
 - ✅ `cheradip_item` - Products/Items
 - ✅ `cheradip_order` - Orders
 - ✅ `cheradip_orderdetail` - Order details

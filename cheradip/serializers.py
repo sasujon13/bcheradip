@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (Institutes, Item, Token, Merit, Merit5, Merit6, Recommend, Recommend5, Recommend6, 
-                     Banbeis, Customer, CheradipStudent, CheradipTeacher, CheradipJobseeker, Order, Ordered, OrderDetail, Transaction, Notification, Vacancy, 
+                     Banbeis, Customer, Order, Ordered, OrderDetail, Transaction, Notification, Vacancy, 
                      Vacancy5, Vacancy6, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country,
                      ClassLevel, ClassGroupMapping, Department, Location)
 
@@ -113,10 +113,14 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = ['id', 'country', 'division', 'district', 'thana', 'local_address']
 
 
-class CheradipTeacherSerializer(serializers.ModelSerializer):
-    """Write-only serializer for saving Teacher signup data into cheradip_teacher."""
-    password = serializers.CharField(write_only=True)
+class CustomerSignupSerializer(serializers.ModelSerializer):
+    """Write-only serializer for signup: create Customer with all account-type fields. Password is hashed on create."""
+    password = serializers.CharField(write_only=True, min_length=4)
     date_of_birth = serializers.DateField(required=False, allow_null=True)
+    country_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=2)
+    class_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    group = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=30)
+    department = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=50)
     teacher_level = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
     teacher_subject_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=10)
     teacher_department_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
@@ -124,62 +128,33 @@ class CheradipTeacherSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
 
     class Meta:
-        model = CheradipTeacher
+        model = Customer
         fields = [
-            'fullName', 'username', 'password', 'date_of_birth',
+            'acctype', 'fullName', 'username', 'password', 'country_code', 'date_of_birth',
+            'class_name', 'group', 'department',
             'teacher_level', 'teacher_subject_code', 'teacher_department_code', 'teacher_department_name',
-            'gender', 'email', 'country_code',
+            'gender', 'email',
+            'division', 'district', 'thana', 'union', 'village',
         ]
+        extra_kwargs = {
+            'division': {'required': False, 'allow_blank': True, 'default': ''},
+            'district': {'required': False, 'allow_blank': True, 'default': ''},
+            'thana': {'required': False, 'allow_blank': True, 'default': ''},
+            'union': {'required': False, 'allow_blank': True, 'default': ''},
+            'village': {'required': False, 'allow_blank': True, 'default': ''},
+        }
 
     def create(self, validated_data):
         from django.contrib.auth.hashers import make_password
-        validated_data['password'] = make_password(validated_data.pop('password'))
-        return super().create(validated_data)
-
-
-class CheradipStudentSerializer(serializers.ModelSerializer):
-    """Write-only serializer for saving Student signup data into cheradip_student."""
-    password = serializers.CharField(write_only=True)
-    date_of_birth = serializers.DateField(required=False, allow_null=True)
-    class_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
-    group = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=30)
-    department = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=50)
-    email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
-
-    class Meta:
-        model = CheradipStudent
-        fields = [
-            'acctype', 'fullName', 'username', 'password', 'date_of_birth',
-            'class_name', 'group', 'department', 'gender', 'email', 'country_code',
-        ]
-
-    def create(self, validated_data):
-        from django.contrib.auth.hashers import make_password
+        password = validated_data.pop('password')
+        for key in ('division', 'district', 'thana', 'union', 'village'):
+            validated_data.setdefault(key, '')
+        validated_data.setdefault('group', 'Science')
         validated_data.setdefault('acctype', 'Student')
-        validated_data['password'] = make_password(validated_data.pop('password'))
-        return super().create(validated_data)
-
-
-class CheradipJobseekerSerializer(serializers.ModelSerializer):
-    """Write-only serializer for saving Job Seeker signup data into cheradip_jobseeker."""
-    password = serializers.CharField(write_only=True)
-    date_of_birth = serializers.DateField(required=False, allow_null=True)
-    class_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
-    group = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=30)
-    department = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=50)
-    email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
-
-    class Meta:
-        model = CheradipJobseeker
-        fields = [
-            'fullName', 'username', 'password', 'date_of_birth',
-            'class_name', 'group', 'department', 'gender', 'email', 'country_code',
-        ]
-
-    def create(self, validated_data):
-        from django.contrib.auth.hashers import make_password
-        validated_data['password'] = make_password(validated_data.pop('password'))
-        return super().create(validated_data)
+        user = Customer.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -239,21 +214,42 @@ class CustomerUpdateSerializer(serializers.ModelSerializer):
     location_id = serializers.PrimaryKeyRelatedField(
         queryset=Location.objects.all(), write_only=True, required=False, allow_null=True
     )
-    
+    division = serializers.CharField(required=False, allow_blank=True, max_length=31)
+    district = serializers.CharField(required=False, allow_blank=True, max_length=31)
+    thana = serializers.CharField(required=False, allow_blank=True, max_length=31)
+    union = serializers.CharField(required=False, allow_blank=True, max_length=31)
+    village = serializers.CharField(required=False, allow_blank=True, max_length=255)
+    country_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=2)
+    date_of_birth = serializers.DateField(required=False, allow_null=True)
+    class_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    department = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=50)
+    teacher_level = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    teacher_subject_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=10)
+    teacher_department_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
+    teacher_department_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=200)
+    email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
+
     class Meta:
         model = Customer
-        fields = ['acctype', 'fullName', 'group', 'gender', 'location', 'location_id']
+        fields = [
+            'acctype', 'fullName', 'group', 'gender',
+            'country_code', 'date_of_birth', 'class_name', 'department',
+            'teacher_level', 'teacher_subject_code', 'teacher_department_code', 'teacher_department_name',
+            'email',
+            'division', 'district', 'thana', 'union', 'village',
+            'location', 'location_id'
+        ]
 
     def update(self, instance, validated_data):
-        # Exclude 'username' and 'password' fields from the update
         validated_data.pop('username', None)
         validated_data.pop('password', None)
+        validated_data.pop('countryCode', None)
         location = validated_data.pop('location_id', None)
-        if location is not None:
+        if location is not None and hasattr(instance, 'location'):
             instance.location = location
-
         for attr, value in validated_data.items():
-            setattr(instance, attr, value)
+            if hasattr(instance, attr):
+                setattr(instance, attr, value)
         instance.save()
         return instance
     
@@ -300,21 +296,19 @@ class InstituteSerializer(serializers.ModelSerializer):
 
 
 class SubjectSerializer(serializers.ModelSerializer):
-    """Subject with groups (list on model); group_list = resolved Group objects for those codes.
-    Primary key is id = country_code + '_' + subject_code (e.g. BD_101)."""
+    """Subject model (table subjects): subject_code PK, subject_name, groups (M2M). group_list = resolved Group objects."""
     group_list = serializers.SerializerMethodField()
     
     class Meta:
         model = Subject
-        fields = ['id', 'subject_code', 'level', 'country', 'subject_name', 'subject_name_bn', 'groups', 'group_list', 'created_at', 'updated_at']
+        fields = ['subject_code', 'subject_name', 'subject_name_bn', 'subject_name_tr', 'groups', 'group_list']
     
     def get_group_list(self, obj):
-        codes = getattr(obj, 'groups', None) or []
-        if not codes:
+        # obj.groups is M2M: use .all() for related Group instances
+        try:
+            return GroupSerializer(obj.groups.all().order_by('group_code'), many=True).data
+        except Exception:
             return []
-        from .models import Group
-        qs = Group.objects.filter(group_code__in=codes).order_by('group_code')
-        return GroupSerializer(qs, many=True).data
 
 
 class ClassLevelSerializer(serializers.ModelSerializer):

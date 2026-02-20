@@ -487,28 +487,37 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     TYPE_CHOICES = [
         ('Teacher', 'Teacher'),
         ('Student', 'Student'),
+        ('JobSeeker', 'Job Seeker'),
     ]
     
     # Primary Key (inherited from AbstractBaseUser)
     # id is auto-created
     
     # Account Information
-    acctype = models.CharField(max_length=7, choices=TYPE_CHOICES, default="Student")
-    username = models.CharField(max_length=11, unique=True, db_index=True)
+    acctype = models.CharField(max_length=12, choices=TYPE_CHOICES, default="Student")
+    username = models.CharField(max_length=15, unique=True, db_index=True)
     password = models.CharField(max_length=128)  # This is handled by AbstractBaseUser
     fullName = models.CharField(max_length=31)
-    group = models.CharField(max_length=18, choices=GROUP_CHOICES, default="Science")
-    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default="Male")
-    
+    group = models.CharField(max_length=30, blank=True, default="Science")
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="Male")
+    country_code = models.CharField(max_length=2, blank=True, null=True, db_index=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    # Student/JobSeeker
+    class_name = models.CharField(max_length=20, blank=True, null=True)
+    department = models.CharField(max_length=50, blank=True, null=True)
+    # Teacher
+    teacher_level = models.CharField(max_length=20, blank=True, null=True)
+    teacher_subject_code = models.CharField(max_length=10, blank=True, null=True)
+    teacher_department_code = models.CharField(max_length=20, blank=True, null=True)
+    teacher_department_name = models.CharField(max_length=200, blank=True, null=True)
     # Address Information
-    division = models.CharField(max_length=31)
-    district = models.CharField(max_length=31)
-    thana = models.CharField(max_length=31)
-    union = models.CharField(max_length=31, blank=True)
-    village = models.CharField(max_length=255)
-    
+    division = models.CharField(max_length=31, blank=True, default='')
+    district = models.CharField(max_length=31, blank=True, default='')
+    thana = models.CharField(max_length=31, blank=True, default='')
+    union = models.CharField(max_length=31, blank=True, default='')
+    village = models.CharField(max_length=255, blank=True, default='')
     # Additional Fields
-    email = models.EmailField(blank=True, null=True, unique=True)
+    email = models.EmailField(blank=True, null=True)
     phone_alternate = models.CharField(max_length=11, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -547,110 +556,6 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         return self.fullName.split()[0] if self.fullName else self.username
 
 
-class CheradipTeacher(models.Model):
-    """
-    Teacher signup data (table cheradip_teacher).
-    Receives signup form data when account type is Teacher; auth/login continues to use Customer.
-    """
-    id = models.AutoField(primary_key=True)
-    fullName = models.CharField(max_length=31)
-    username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
-    password = models.CharField(max_length=128)  # hashed
-    date_of_birth = models.DateField(null=True, blank=True)
-    teacher_level = models.CharField(max_length=20, blank=True, null=True)
-    teacher_subject_code = models.CharField(max_length=10, blank=True, null=True)
-    teacher_department_code = models.CharField(max_length=20, blank=True, null=True)
-    teacher_department_name = models.CharField(max_length=200, blank=True, null=True, help_text='Custom department name when code is OTHER')
-    gender = models.CharField(max_length=10, default='Male', blank=True)
-    email = models.EmailField(blank=True, null=True)
-    country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD
-    date_joined = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_teacher'
-        ordering = ['-date_joined']
-        indexes = [
-            models.Index(fields=['username']),
-            models.Index(fields=['email']),
-            models.Index(fields=['country_code']),
-        ]
-        verbose_name = 'Cheradip Teacher'
-        verbose_name_plural = 'Cheradip Teachers'
-
-    def __str__(self):
-        return f"{self.fullName} ({self.username})"
-
-
-class CheradipStudent(models.Model):
-    """
-    Student signup data (table cheradip_student).
-    Receives signup form data when account type is Student.
-    """
-    id = models.AutoField(primary_key=True)
-    acctype = models.CharField(max_length=10, default='Student', db_index=True)  # kept for DB compatibility
-    fullName = models.CharField(max_length=31)
-    username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
-    password = models.CharField(max_length=128)  # hashed
-    date_of_birth = models.DateField(null=True, blank=True)
-    class_name = models.CharField(max_length=20, blank=True, null=True)
-    group = models.CharField(max_length=30, blank=True, null=True)
-    department = models.CharField(max_length=50, blank=True, null=True)
-    gender = models.CharField(max_length=10, default='Male', blank=True)
-    email = models.EmailField(blank=True, null=True)
-    country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD
-    date_joined = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_student'
-        ordering = ['-date_joined']
-        indexes = [
-            models.Index(fields=['username']),
-            models.Index(fields=['email']),
-            models.Index(fields=['country_code']),
-        ]
-        verbose_name = 'Cheradip Student'
-        verbose_name_plural = 'Cheradip Students'
-
-    def __str__(self):
-        return f"{self.fullName} ({self.username})"
-
-
-class CheradipJobseeker(models.Model):
-    """
-    Job Seeker signup data (table cheradip_jobseeker).
-    Receives signup form data when account type is Job Seeker; auth/login continues to use Customer.
-    """
-    id = models.AutoField(primary_key=True)
-    fullName = models.CharField(max_length=31)
-    username = models.CharField(max_length=15, unique=True, db_index=True)  # mobile number
-    password = models.CharField(max_length=128)  # hashed
-    date_of_birth = models.DateField(null=True, blank=True)
-    class_name = models.CharField(max_length=20, blank=True, null=True)
-    group = models.CharField(max_length=30, blank=True, null=True)
-    department = models.CharField(max_length=50, blank=True, null=True)
-    gender = models.CharField(max_length=10, default='Male', blank=True)
-    email = models.EmailField(blank=True, null=True)
-    country_code = models.CharField(max_length=2, db_index=True)  # e.g. US, BD
-    date_joined = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_jobseeker'
-        ordering = ['-date_joined']
-        indexes = [
-            models.Index(fields=['username']),
-            models.Index(fields=['email']),
-            models.Index(fields=['country_code']),
-        ]
-        verbose_name = 'Cheradip Job Seeker'
-        verbose_name_plural = 'Cheradip Job Seekers'
-
-    def __str__(self):
-        return f"{self.fullName} ({self.username})"
-
-
 class CustomerToken(models.Model):
     """Authentication Token for Customer"""
     # Primary Key
@@ -664,7 +569,7 @@ class CustomerToken(models.Model):
     expires_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'customer_tokens'
+        db_table = 'cheradip_customer_tokens'
         ordering = ['-created']
         indexes = [
             models.Index(fields=['key']),

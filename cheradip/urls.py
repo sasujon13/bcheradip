@@ -58,6 +58,9 @@ from .views import (
     LevelsByCountryView,
     SubjectsByCountryLevelView,
     GroupsByCountryLevelView,
+    LocationDivisionsView,
+    LocationDistrictsView,
+    LocationThanasView,
 )
 
 router = DefaultRouter()
@@ -124,6 +127,10 @@ urlpatterns = [
     path('divisions/', DivisionsView.as_view(), name='divisions'),
     path('districts/', DistrictsView.as_view(), name='districts'),
     path('thanas/', ThanasView.as_view(), name='thanas'),
+    # Location by country (from cheradip_location table)
+    path('locations/divisions/', LocationDivisionsView.as_view(), name='locations_divisions'),
+    path('locations/districts/', LocationDistrictsView.as_view(), name='locations_districts'),
+    path('locations/thanas/', LocationThanasView.as_view(), name='locations_thanas'),
     path('', include(router.urls)),
     re_path(r'^favicon\.ico$', serve, {'path': 'static/favicon.ico'}),
     # re_path(r'^manage/media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),

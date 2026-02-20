@@ -201,7 +201,7 @@ Open phpMyAdmin → `cheradip_cheradip` → Check for these tables:
 - `cheradip_mcq_ict` ✅ (Main questions table)
 - `cheradip_mcq_ict_institutes` ✅ (ManyToMany)
 - `cheradip_mcq_ict_years` ✅ (ManyToMany)
-- `cheradip_customer` ✅
+- `cheradip_customers` ✅
 - `cheradip_item` ✅
 - `cheradip_order` ✅
 - `cheradip_orderdetail` ✅
