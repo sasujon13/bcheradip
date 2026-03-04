@@ -5,7 +5,8 @@ from .models import (
     Institutes, Item, Token, Banbeis, Recommend, Recommend5, Recommend6, 
     Vacancy, Vacancy5, Vacancy6, Merit, Merit5, Merit6, Customer,
     CustomerToken, Order, Ordered, Canceled, OrderDetail, Transaction, 
-    Group, Subject, Chapter, Topic, Mcq_ict, Notification, Institute, Year, JsonData
+    Group, Subject, Chapter, Topic, Mcq_ict, Notification, Institute, Year, JsonData,
+    ScraperPreset
 )
 
 admin.site.register(Item)
@@ -72,24 +73,21 @@ class BanbeisAdmin(admin.ModelAdmin):
 
 @admin.register(Recommend)
 class RecommendAdmin(admin.ModelAdmin):
-    list_display = ('id', 'EIIN', 'Name', 'Roll', 'Subject', 'Rank', 'status', 'created_at')
+    list_display = ('id', 'EIIN', 'Name', 'Roll', 'Subject', 'Rank')
     search_fields = ('EIIN', 'Name', 'Roll', 'Subject', 'District', 'Thana')
-    list_filter = ('status', 'Subject', 'District', 'created_at')
-    readonly_fields = ('created_at', 'updated_at')
+    list_filter = ('Subject', 'District')
 
 
 @admin.register(Recommend5)
 class Recommend5Admin(admin.ModelAdmin):
-    list_display = ('Code', 'Name', 'Batch', 'Roll', 'Mark', 'Rank', 'Subject')
-    search_fields = ('Code', 'Name', 'Batch', 'Roll', 'Mark', 'Rank', 'Subject')
-    readonly_fields = ('created_at', 'updated_at')
+    list_display = ('id', 'EIIN', 'Name', 'Roll', 'Subject', 'Rank')
+    search_fields = ('EIIN', 'Name', 'Roll', 'Subject', 'District', 'Thana')
 
 
 @admin.register(Recommend6)
 class Recommend6Admin(admin.ModelAdmin):
-    list_display = ('Code', 'Name', 'Batch', 'Roll', 'Mark', 'Rank', 'Subject')
-    search_fields = ('Code', 'Name', 'Batch', 'Roll', 'Mark', 'Rank', 'Subject')
-    readonly_fields = ('created_at', 'updated_at')
+    list_display = ('id', 'EIIN', 'Name', 'Roll', 'Subject', 'Rank')
+    search_fields = ('EIIN', 'Name', 'Roll', 'Subject', 'District', 'Thana')
 
 @admin.register(Merit)
 class MeritAdmin(admin.ModelAdmin):
@@ -246,9 +244,17 @@ class YearAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
 
 
+@admin.register(ScraperPreset)
+class ScraperPresetAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'base_url', 'is_active', 'created_at')
+    search_fields = ('name', 'base_url', 'description')
+    list_filter = ('is_active', 'created_at')
+    prepopulated_fields = {'slug': ('name',)}
+    readonly_fields = ('created_at', 'updated_at')
+
+
 @admin.register(Institutes)
 class InstitutesAdmin(admin.ModelAdmin):
-    list_display = ('eiinNo', 'instituteName', 'instituteTypeName', 'districtName', 'isGovt', 'created_at')
+    list_display = ('eiinNo', 'instituteName', 'instituteTypeName', 'districtName', 'isGovt')
     search_fields = ('eiinNo', 'instituteName', 'instituteNameBn', 'districtName', 'thanaName')
-    list_filter = ('instituteTypeName', 'isGovt', 'divisionName', 'districtName', 'created_at')
-    readonly_fields = ('created_at', 'updated_at')
+    list_filter = ('instituteTypeName', 'isGovt', 'divisionName', 'districtName')

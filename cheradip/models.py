@@ -140,6 +140,12 @@ class Item(models.Model):
         ('ac', 'AC'),
         ('sc', 'SC'),
     ]
+    PRODUCT_TYPE_CHOICES = [
+        ('package', 'Education Package'),
+        ('book', 'Book'),
+        ('service', 'Question-making / Service'),
+        ('other', 'Other'),
+    ]
     
     # Primary Key
     id = models.AutoField(primary_key=True)
@@ -168,6 +174,7 @@ class Item(models.Model):
     # Additional Info
     supplier = models.CharField(max_length=54, null=True, blank=True)
     types = models.CharField(max_length=15, choices=TYPE_CHOICES, default="humanities")
+    product_type = models.CharField(max_length=20, choices=PRODUCT_TYPE_CHOICES, default='other', blank=True, db_index=True)
     reviews = models.TextField(null=True, blank=True, default="Rated By @Author")
     ratings = models.DecimalField(max_digits=3, decimal_places=2, default=5.00, validators=[MinValueValidator(0)])
     shipping = models.TextField(null=True, blank=True, default="NA")
@@ -185,6 +192,7 @@ class Item(models.Model):
             models.Index(fields=['code']),
             models.Index(fields=['types']),
             models.Index(fields=['name']),
+            models.Index(fields=['product_type']),
         ]
     
     def __str__(self):
@@ -263,7 +271,7 @@ class OrderDetail(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        db_table = 'order_details'
+        db_table = 'cheradip_orderdetail'
         ordering = ['SN']
         indexes = [
             models.Index(fields=['item']),
@@ -316,15 +324,15 @@ class Order(models.Model):
     shipped = models.BooleanField(default=False)
     
     # Relationships
-    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='orders')
-    transactions = models.ManyToManyField(Transaction, blank=True, related_name='orders')
+    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='orders', db_table='cheradip_order_orderdetails')
+    transactions = models.ManyToManyField(Transaction, blank=True, related_name='orders', db_table='cheradip_order_transaction')
     
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'orders'
+        db_table = 'cheradip_order'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['username']),
@@ -376,8 +384,8 @@ class Ordered(models.Model):
     shipped = models.BooleanField(default=True)
     
     # Relationships
-    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='ordered_items')
-    transactions = models.ManyToManyField(Transaction, blank=True, related_name='ordered_items')
+    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='ordered_items', db_table='cheradip_ordered_orderdetails')
+    transactions = models.ManyToManyField(Transaction, blank=True, related_name='ordered_items', db_table='cheradip_ordered_transaction')
     
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -385,7 +393,7 @@ class Ordered(models.Model):
     delivered_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'ordered'
+        db_table = 'cheradip_ordered'
         ordering = ['-delivered_at', '-created_at']
         indexes = [
             models.Index(fields=['username']),
@@ -432,15 +440,15 @@ class Canceled(models.Model):
     cancellation_reason = models.TextField(null=True, blank=True)
     
     # Relationships
-    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='cancelled_orders')
-    transactions = models.ManyToManyField(Transaction, blank=True, related_name='cancelled_orders')
+    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='cancelled_orders', db_table='cheradip_canceled_orderdetails')
+    transactions = models.ManyToManyField(Transaction, blank=True, related_name='cancelled_orders', db_table='cheradip_canceled_transaction')
     
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     cancelled_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'canceled'
+        db_table = 'cheradip_canceled'
         ordering = ['-cancelled_at']
         indexes = [
             models.Index(fields=['username']),
@@ -499,7 +507,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length=128)  # This is handled by AbstractBaseUser
     fullName = models.CharField(max_length=31)
     group = models.CharField(max_length=30, blank=True, default="Science")
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="Male")
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, default='')
     country_code = models.CharField(max_length=2, blank=True, null=True, db_index=True)
     date_of_birth = models.DateField(blank=True, null=True)
     # Student/JobSeeker
@@ -569,7 +577,7 @@ class CustomerToken(models.Model):
     expires_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'cheradip_customer_tokens'
+        db_table = 'customer_tokens'
         ordering = ['-created']
         indexes = [
             models.Index(fields=['key']),
@@ -946,7 +954,7 @@ class Notification(models.Model):
 # ==============================================================================
 
 class Vacancy(models.Model):
-    """Vacancy model - General vacancies"""
+    """Vacancy model - General vacancies (table cheradip_vacancy7: VPID, EIIN, Name, District, Thana, Designation, Subject, Vacancy, Type, Status)"""
     VACANCY_TYPES = [
         ('regular', 'Regular'),
         ('temporary', 'Temporary'),
@@ -966,24 +974,15 @@ class Vacancy(models.Model):
     Name = models.CharField(max_length=255, db_index=True)
     District = models.CharField(max_length=255, db_index=True)
     Thana = models.CharField(max_length=255)
-    Designation = models.CharField(max_length=255)
-    Subject = models.CharField(max_length=255)
+    Designation = models.CharField(max_length=255, db_index=True)
+    Subject = models.CharField(max_length=255, db_index=True)
     Vacancy = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     Type = models.CharField(max_length=15, choices=VACANCY_TYPES, default='regular')
     Status = models.CharField(max_length=31, choices=STATUS_CHOICES, default='open')
     
-    # Additional Info
-    description = models.TextField(null=True, blank=True)
-    salary_range = models.CharField(max_length=100, null=True, blank=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateTimeField(null=True, blank=True)
-    
     class Meta:
-        db_table = 'vacancies'
-        ordering = ['-created_at']
+        db_table = 'cheradip_vacancy7'
+        ordering = ['VPID']
         indexes = [
             models.Index(fields=['VPID']),
             models.Index(fields=['EIIN']),
@@ -997,7 +996,7 @@ class Vacancy(models.Model):
 
 
 class Vacancy5(models.Model):
-    """Vacancy model for Grade 5 positions"""
+    """Vacancy model for Grade 5 (table cheradip_vacancy5: VPID, EIIN, Name, District, Thana, Designation, Subject, Vacancy, Type, Status)"""
     VACANCY_TYPES = [
         ('regular', 'Regular'),
         ('temporary', 'Temporary'),
@@ -1009,28 +1008,20 @@ class Vacancy5(models.Model):
         ('filled', 'Filled'),
     ]
     
-    # Primary Key
     VPID = models.BigIntegerField(primary_key=True, db_index=True)
-    
-    # Vacancy Information
     EIIN = models.BigIntegerField(db_index=True)
     Name = models.CharField(max_length=255, db_index=True)
     District = models.CharField(max_length=255, db_index=True)
     Thana = models.CharField(max_length=255)
-    Designation = models.CharField(max_length=255)
-    Subject = models.CharField(max_length=255)
+    Designation = models.CharField(max_length=255, db_index=True)
+    Subject = models.CharField(max_length=255, db_index=True)
     Vacancy = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     Type = models.CharField(max_length=15, choices=VACANCY_TYPES, default='regular')
     Status = models.CharField(max_length=31, choices=STATUS_CHOICES, default='open')
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateTimeField(null=True, blank=True)
-    
     class Meta:
-        db_table = 'vacancies_5'
-        ordering = ['-created_at']
+        db_table = 'cheradip_vacancy5'
+        ordering = ['VPID']
         indexes = [
             models.Index(fields=['VPID']),
             models.Index(fields=['EIIN']),
@@ -1043,7 +1034,7 @@ class Vacancy5(models.Model):
 
 
 class Vacancy6(models.Model):
-    """Vacancy model for Grade 6 positions"""
+    """Vacancy model for Grade 6 (table cheradip_vacancy6: VPID, EIIN, Name, District, Thana, Designation, Subject, Vacancy, Type, Status)"""
     VACANCY_TYPES = [
         ('regular', 'Regular'),
         ('temporary', 'Temporary'),
@@ -1055,28 +1046,20 @@ class Vacancy6(models.Model):
         ('filled', 'Filled'),
     ]
     
-    # Primary Key
     VPID = models.BigIntegerField(primary_key=True, db_index=True)
-    
-    # Vacancy Information
     EIIN = models.BigIntegerField(db_index=True)
     Name = models.CharField(max_length=255, db_index=True)
     District = models.CharField(max_length=255, db_index=True)
     Thana = models.CharField(max_length=255)
-    Designation = models.CharField(max_length=255)
-    Subject = models.CharField(max_length=255)
+    Designation = models.CharField(max_length=255, db_index=True)
+    Subject = models.CharField(max_length=255, db_index=True)
     Vacancy = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     Type = models.CharField(max_length=15, choices=VACANCY_TYPES, default='regular')
     Status = models.CharField(max_length=31, choices=STATUS_CHOICES, default='open')
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateTimeField(null=True, blank=True)
-    
     class Meta:
-        db_table = 'vacancies_6'
-        ordering = ['-created_at']
+        db_table = 'cheradip_vacancy6'
+        ordering = ['VPID']
         indexes = [
             models.Index(fields=['VPID']),
             models.Index(fields=['EIIN']),
@@ -1093,11 +1076,11 @@ class Vacancy6(models.Model):
 # ==============================================================================
 
 class Merit(models.Model):
-    """Merit list model - General merit positions"""
+    """Merit list model - General merit positions (table cheradip_merit7: Code, Name, Batch, Roll, Mark, Rank, SL, Subject, id only)"""
     # Primary Key
     id = models.AutoField(primary_key=True)
     
-    # Merit Information
+    # Merit Information (matches cheradip_merit7 columns)
     Code = models.IntegerField(db_index=True)
     Name = models.CharField(max_length=255, db_index=True)
     Batch = models.IntegerField(db_index=True)
@@ -1107,22 +1090,14 @@ class Merit(models.Model):
     SL = models.IntegerField()
     Subject = models.CharField(max_length=127, db_index=True)
     
-    # Additional Info
-    EIIN = models.BigIntegerField(null=True, blank=True, db_index=True)
-    InstituteName = models.CharField(max_length=255, null=True, blank=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    
     class Meta:
-        db_table = 'merits'
+        db_table = 'cheradip_merit7'
         ordering = ['Batch', 'Rank', 'SL']
         indexes = [
             models.Index(fields=['Code']),
             models.Index(fields=['Batch', 'Rank']),
             models.Index(fields=['Roll']),
             models.Index(fields=['Subject', 'Rank']),
-            models.Index(fields=['EIIN']),
         ]
         unique_together = ('Batch', 'Roll', 'Subject')
     
@@ -1145,11 +1120,8 @@ class Merit5(models.Model):
     SL = models.IntegerField()
     Subject = models.CharField(max_length=127, db_index=True)
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    
     class Meta:
-        db_table = 'merits_5'
+        db_table = 'cheradip_merit5'
         ordering = ['Batch', 'Rank', 'SL']
         indexes = [
             models.Index(fields=['Batch', 'Rank']),
@@ -1177,11 +1149,8 @@ class Merit6(models.Model):
     SL = models.IntegerField()
     Subject = models.CharField(max_length=127, db_index=True)
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    
     class Meta:
-        db_table = 'merits_6'
+        db_table = 'cheradip_merit6'
         ordering = ['Batch', 'Rank', 'SL']
         indexes = [
             models.Index(fields=['Batch', 'Rank']),
@@ -1199,7 +1168,7 @@ class Merit6(models.Model):
 # ==============================================================================
 
 class Recommend(models.Model):
-    """Recommendation model - General recommendations"""
+    """Recommendation model - General recommendations (table cheradip_recommend7: id, EIIN, District, Thana, Designation, Batch, Merit, Roll, Name, Code, Mark, Rank, Serial, Subject)"""
     # Primary Key
     id = models.AutoField(primary_key=True)
     
@@ -1208,7 +1177,6 @@ class Recommend(models.Model):
     District = models.CharField(max_length=127, null=True, blank=True, db_index=True)
     Thana = models.CharField(max_length=127, null=True, blank=True)
     Designation = models.CharField(max_length=255, null=True, blank=True)
-    Post = models.CharField(max_length=255, null=True, blank=True)
     Batch = models.CharField(max_length=255, null=True, blank=True)
     Merit = models.CharField(max_length=63, null=True, blank=True)
     Roll = models.BigIntegerField(null=True, blank=True, db_index=True)
@@ -1219,26 +1187,14 @@ class Recommend(models.Model):
     Serial = models.IntegerField(null=True, blank=True)
     Subject = models.CharField(max_length=255, null=True, blank=True, db_index=True)
     
-    # Status
-    status = models.CharField(max_length=50, default='pending', choices=[
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('rejected', 'Rejected'),
-    ])
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
     class Meta:
-        db_table = 'recommendations'
-        ordering = ['-created_at']
+        db_table = 'cheradip_recommend7'
+        ordering = ['id']
         indexes = [
             models.Index(fields=['EIIN']),
             models.Index(fields=['Roll']),
             models.Index(fields=['Name']),
             models.Index(fields=['Subject', 'Rank']),
-            models.Index(fields=['status']),
         ]
     
     def __str__(self):
@@ -1246,11 +1202,8 @@ class Recommend(models.Model):
 
 
 class Recommend5(models.Model):
-    """Recommendation model for Grade 5"""
-    # Primary Key
+    """Recommendation model for Grade 5 (table cheradip_recommend5: same columns as recommend7, no created_at/updated_at)"""
     id = models.AutoField(primary_key=True)
-    
-    # Recommendation Information
     EIIN = models.BigIntegerField(db_index=True)
     District = models.CharField(max_length=127, null=True, blank=True)
     Thana = models.CharField(max_length=127, null=True, blank=True)
@@ -1265,13 +1218,9 @@ class Recommend5(models.Model):
     Serial = models.IntegerField(null=True, blank=True)
     Subject = models.CharField(max_length=255, null=True, blank=True)
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
     class Meta:
-        db_table = 'recommendations_5'
-        ordering = ['-created_at']
+        db_table = 'cheradip_recommend5'
+        ordering = ['id']
         indexes = [
             models.Index(fields=['EIIN', 'Roll']),
             models.Index(fields=['Subject']),
@@ -1282,11 +1231,8 @@ class Recommend5(models.Model):
 
 
 class Recommend6(models.Model):
-    """Recommendation model for Grade 6"""
-    # Primary Key
+    """Recommendation model for Grade 6 (table cheradip_recommend6: same columns as recommend7, no created_at/updated_at)"""
     id = models.AutoField(primary_key=True)
-    
-    # Recommendation Information
     EIIN = models.BigIntegerField(db_index=True)
     District = models.CharField(max_length=127, null=True, blank=True)
     Thana = models.CharField(max_length=127, null=True, blank=True)
@@ -1301,13 +1247,9 @@ class Recommend6(models.Model):
     Serial = models.IntegerField(null=True, blank=True)
     Subject = models.CharField(max_length=255, null=True, blank=True)
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
     class Meta:
-        db_table = 'recommendations_6'
-        ordering = ['-created_at']
+        db_table = 'cheradip_recommend6'
+        ordering = ['id']
         indexes = [
             models.Index(fields=['EIIN', 'Roll']),
             models.Index(fields=['Subject']),
@@ -1355,12 +1297,8 @@ class Banbeis(models.Model):
         (1, 'Government'),
     ])
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
     class Meta:
-        db_table = 'banbeis'
+        db_table = 'cheradip_banbeis'
         ordering = ['EIIN']
         indexes = [
             models.Index(fields=['EIIN']),
@@ -1406,9 +1344,7 @@ class Institutes(models.Model):
     isGovt = models.BooleanField(null=True, blank=True, default=False)
     submissionDate = models.DateField(null=True, blank=True)
     
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    # Note: cheradip_institutes table has no created_at/updated_at columns
     
     class Meta:
         db_table = 'cheradip_institutes'
@@ -1491,3 +1427,23 @@ class JsonData(models.Model):
     
     def __str__(self):
         return f"JSON Data #{self.id} - Type: {self.data_type or 'N/A'}"
+
+
+class ScraperPreset(models.Model):
+    """Preset for the web scraper UI (Django Admin menu: Scraper)."""
+    name = models.CharField(max_length=120)
+    slug = models.SlugField(max_length=80, unique=True, blank=True, null=True)
+    base_url = models.URLField(max_length=512)
+    default_params = models.JSONField(blank=True, null=True, help_text='Default query params as JSON object or array of key-value pairs.')
+    default_headers = models.JSONField(blank=True, null=True, help_text='Default request headers as JSON object.')
+    description = models.CharField(max_length=255, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created_at = DateTimeFieldSafeTZ(auto_now_add=True)
+    updated_at = DateTimeFieldSafeTZ(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_scraper_preset'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name

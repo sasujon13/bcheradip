@@ -112,7 +112,7 @@ Open phpMyAdmin and check that these tables exist in `cheradip_cheradip` databas
 
 ### Application Tables:
 - `cheradip_item`
-- `cheradip_customers`
+- `cheradip_customer`
 - `cheradip_order`
 - `cheradip_orderdetail`
 - `cheradip_transaction`

@@ -51,7 +51,7 @@ After running migrations, these tables will be created in `cheradip_cheradip`:
 - `cheradip_year` - Exam years
 
 ### User & E-commerce Tables
-- `cheradip_customers` - User accounts
+- `cheradip_customer` - User accounts
 - `cheradip_item` - Products/Items
 - `cheradip_order` - Orders
 - `cheradip_orderdetail` - Order details

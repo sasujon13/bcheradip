@@ -114,7 +114,7 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class CustomerSignupSerializer(serializers.ModelSerializer):
-    """Write-only serializer for signup: create Customer with all account-type fields. Password is hashed on create."""
+    """Write-only serializer for signup: create Customer (Student, Teacher, Job Seeker) in one table. Password is hashed on create."""
     password = serializers.CharField(write_only=True, min_length=4)
     date_of_birth = serializers.DateField(required=False, allow_null=True)
     country_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=2)
@@ -125,6 +125,7 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
     teacher_subject_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=10)
     teacher_department_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=20)
     teacher_department_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=200)
+    gender = serializers.CharField(required=False, allow_blank=True, max_length=10)
     email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
 
     class Meta:
@@ -145,12 +146,19 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        from django.contrib.auth.hashers import make_password
         password = validated_data.pop('password')
+        # Model has no null=True on group/address; coerce None to defaults
         for key in ('division', 'district', 'thana', 'union', 'village'):
-            validated_data.setdefault(key, '')
-        validated_data.setdefault('group', 'Science')
-        validated_data.setdefault('acctype', 'Student')
+            if validated_data.get(key) is None:
+                validated_data[key] = ''
+        acctype = (validated_data.get('acctype') or 'Student').strip()
+        if acctype == 'Job Seeker':
+            acctype = 'JobSeeker'
+        validated_data['acctype'] = acctype
+        # Group: only default to Science for Student; Teacher/Job Seeker get empty string
+        validated_data['group'] = validated_data.get('group') or ('Science' if acctype == 'Student' else '')
+        # Gender: leave empty when not provided (no default for signup)
+        validated_data['gender'] = validated_data.get('gender') or ''
         user = Customer.objects.create(**validated_data)
         user.set_password(password)
         user.save()

@@ -20,7 +20,8 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonRespons
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-import logging, random, string, json, requests, os
+import logging, random, string, json, requests, os, re, csv, time
+from urllib import parse as urllib_parse
 from rest_framework.decorators import action
 from django.conf import settings
 from django.db.models import Q
@@ -872,8 +873,8 @@ def item_list(request):
 
 class CustomerCreateView(APIView):
     """
-    Signup: send data to cheradip_teacher (Teacher), cheradip_student (Student), or cheradip_jobseeker (Job Seeker).
-    No Customer model used.
+    Signup: create one Customer row in cheradip_customers for Student, Teacher, or Job Seeker.
+    Same table and same endpoint for all account types.
     """
     permission_classes = [AllowAny]
     authentication_classes = []
@@ -881,6 +882,16 @@ class CustomerCreateView(APIView):
     def _get(self, raw, key, default=None):
         v = raw.get(key, default)
         return v[0] if isinstance(v, (list, tuple)) and len(v) else v
+
+    @staticmethod
+    def _normalize_acctype(value):
+        """Normalize acctype to model choice: Student, Teacher, JobSeeker."""
+        if not value or not str(value).strip():
+            return 'Student'
+        v = str(value).strip()
+        if v == 'Job Seeker':
+            return 'JobSeeker'
+        return v
 
     @staticmethod
     def _date_to_iso(value):
@@ -906,11 +917,11 @@ class CustomerCreateView(APIView):
 
     def post(self, request, *args, **kwargs):
         raw = request.data
-        acctype = self._get(raw, 'acctype', 'Student')
+        acctype = self._normalize_acctype(self._get(raw, 'acctype', 'Student'))
         country_code = self._get(raw, 'country_code') or self._get(raw, 'countryCode') or 'US'
         date_of_birth = self._date_to_iso(self._get(raw, 'date_of_birth'))
         user_data = {
-            'acctype': acctype,
+            'acctype': acctype,  # Student | Teacher | JobSeeker
             'fullName': self._get(raw, 'fullName', ''),
             'username': self._get(raw, 'username', ''),
             'password': self._get(raw, 'password', ''),
@@ -938,7 +949,10 @@ class CustomerCreateView(APIView):
                     _append_department_to_json((tname or '').strip(), None)
         except Exception as e:
             logger.exception('Signup save failed: %s', e)
-            return Response({'detail': 'Signup failed. Please try again.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            err_msg = 'Signup failed. Please try again.'
+            if getattr(settings, 'DEBUG', False):
+                err_msg = str(e)
+            return Response({'detail': err_msg}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         token = self.generate_unique_key()
         return Response({'authToken': token}, status=status.HTTP_200_OK)
 
@@ -1209,6 +1223,1447 @@ def save_json_data(request):
             return JsonResponse({'error': str(e)}, status=400)
     else:
         return JsonResponse({'message': 'Invalid request method'}, status=405)
+
+
+@csrf_exempt
+def run_scraper(request):
+    """Proxy scraper: fetch paginated API (from frontend config), return combined JSON."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        import time
+        body = json.loads(request.body.decode('utf-8'))
+        base_url = (body.get('base_url') or '').strip()
+        params = body.get('params') or {}
+        headers = body.get('headers') or {}
+        page_param = (body.get('page_param') or 'page').strip() or 'page'
+        delay_seconds = float(body.get('delay_seconds') or 1)
+        delay_seconds = max(0, min(10, delay_seconds))
+        chapter_name = body.get('chapter_name') or 'scraped_data'
+
+        if not base_url:
+            return JsonResponse({'error': 'base_url is required'}, status=400)
+
+        # Normalize params: ensure page_param is not in params yet for first request
+        req_params = dict(params) if isinstance(params, dict) else {}
+        if not isinstance(params, dict):
+            req_params = {}
+            for item in params if isinstance(params, list) else []:
+                k = item.get('key') or item.get('name')
+                v = item.get('value')
+                if k:
+                    req_params[k] = v
+
+        all_data = []
+        page = 1
+        while True:
+            req_params[page_param] = page
+            resp = requests.get(base_url, headers=headers, params=req_params, timeout=30)
+            if resp.status_code != 200:
+                return JsonResponse({
+                    'error': f'HTTP {resp.status_code} at page {page}',
+                    'data': all_data,
+                    'chapter_name': chapter_name
+                }, status=200)
+            try:
+                data = resp.json()
+            except Exception:
+                return JsonResponse({
+                    'error': f'Non-JSON response at page {page}',
+                    'data': all_data,
+                    'chapter_name': chapter_name
+                }, status=200)
+            if data is None or (isinstance(data, list) and len(data) == 0) or (isinstance(data, dict) and not data):
+                break
+            all_data.append(data)
+            time.sleep(delay_seconds)
+            page += 1
+            if page > 500:
+                break
+
+        return JsonResponse({'data': all_data, 'chapter_name': chapter_name})
+    except json.JSONDecodeError as e:
+        return JsonResponse({'error': f'Invalid JSON: {e}'}, status=400)
+    except Exception as e:
+        logger.exception('run_scraper failed')
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def run_scraper_page(request):
+    """POST: fetch a single page. Returns { data, has_more } for progress bar."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        import time
+        body = json.loads(request.body.decode('utf-8'))
+        base_url = (body.get('base_url') or '').strip()
+        params = body.get('params') or {}
+        headers = body.get('headers') or {}
+        page_param = (body.get('page_param') or 'page').strip() or 'page'
+        page_number = int(body.get('page_number') or 1)
+        delay_seconds = float(body.get('delay_seconds') or 1)
+        delay_seconds = max(0, min(10, delay_seconds))
+
+        if not base_url:
+            return JsonResponse({'error': 'base_url is required'}, status=400)
+
+        req_params = dict(params) if isinstance(params, dict) else {}
+        if not isinstance(params, dict):
+            req_params = {}
+            for item in params if isinstance(params, list) else []:
+                k = item.get('key') or item.get('name')
+                v = item.get('value')
+                if k:
+                    req_params[k] = v
+        req_params[page_param] = page_number
+
+        if page_number > 1:
+            time.sleep(delay_seconds)
+
+        resp = requests.get(base_url, headers=headers, params=req_params, timeout=30)
+        if resp.status_code != 200:
+            return JsonResponse({'error': f'HTTP {resp.status_code}', 'data': None, 'has_more': False})
+
+        try:
+            data = resp.json()
+        except Exception:
+            return JsonResponse({'error': 'Non-JSON response', 'data': None, 'has_more': False})
+
+        has_more = data is not None and (
+            (isinstance(data, list) and len(data) > 0) or
+            (isinstance(data, dict) and bool(data))
+        )
+        return JsonResponse({'data': data, 'has_more': has_more})
+    except json.JSONDecodeError as e:
+        return JsonResponse({'error': str(e)}, status=400)
+    except Exception as e:
+        logger.exception('run_scraper_page failed')
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+def _scraper_desktop_path():
+    """Return user's Desktop directory (Windows: USERPROFILE\\Desktop, else ~/Desktop). Works on any computer."""
+    home = os.environ.get('USERPROFILE') or os.environ.get('HOME') or os.path.expanduser('~')
+    return os.path.join(home, 'Desktop')
+
+
+def _scraper_root_config_path():
+    """Path to project config file that stores custom scraper root (one line). Enables different root per computer."""
+    return os.path.join(settings.BASE_DIR, 'scraper_root.txt')
+
+
+def _scraper_get_root_override():
+    """Return custom root folder from config file, or None to use default Desktop."""
+    path = _scraper_root_config_path()
+    if not os.path.isfile(path):
+        return None
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            line = (f.read() or '').strip()
+        if line:
+            return line
+    except Exception:
+        pass
+    return None
+
+
+def _scraper_base_path():
+    """Scraper folder: {root}/Scraper. Root = custom from scraper_root.txt or Desktop. Creates folder if not exists."""
+    root_override = _scraper_get_root_override()
+    if root_override:
+        base = os.path.join(root_override, 'Scraper')
+    else:
+        base = os.path.join(_scraper_desktop_path(), 'Scraper')
+    try:
+        os.makedirs(base, exist_ok=True)
+    except Exception:
+        pass
+    return base
+
+
+def _scraper_site_dir(website, group):
+    """Return directory path Desktop/Scraper/{website}/{group}/. Creates Scraper and subdirs if needed. Group is uppercase (HSC, JSC)."""
+    root = _scraper_base_path()
+    safe_website = re.sub(r'[^\w\-]', '', (website or 'daricomma').strip()).lower() or 'daricomma'
+    safe_group = (re.sub(r'[^\w\-]', '', (group or 'default').strip()) or 'default').upper()
+    dir_path = os.path.join(root, safe_website, safe_group)
+    try:
+        os.makedirs(dir_path, exist_ok=True)
+    except Exception:
+        pass
+    return dir_path
+
+
+def _scraper_helper_json():
+    """Path to Scraper/helper.json. Default: {root}/Scraper/helper.json (e.g. C:\\Users\\sasha\\Desktop\\Scraper\\helper.json).
+    Tries: 1) SCRAPER_HELPER_JSON env (exact path), 2) {root}/Scraper/helper.json, 3) project BASE_DIR/helper.json."""
+    env_path = (os.environ.get('SCRAPER_HELPER_JSON') or '').strip()
+    if env_path and os.path.isfile(env_path):
+        return os.path.normpath(env_path)
+    path = os.path.normpath(os.path.join(_scraper_base_path(), 'helper.json'))
+    if os.path.isfile(path):
+        return path
+    fallback = os.path.normpath(os.path.join(settings.BASE_DIR, 'helper.json'))
+    if os.path.isfile(fallback):
+        return fallback
+    return path
+
+
+def _scraper_api_txt():
+    """Path to Desktop/Scraper/api.txt – one API URL per line (script-compatible). Do not clear on start; clear only when all tasks done."""
+    return os.path.join(_scraper_base_path(), 'api.txt')
+
+
+def _scraper_load_seen_apis(api_base_prefix=None):
+    """Load already-used API URLs from Desktop/Scraper/api.txt. Do not clear file on new run (same as script)."""
+    seen = set()
+    path = _scraper_api_txt()
+    if not os.path.isfile(path):
+        return seen
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            for line in f:
+                url = line.strip()
+                if not url or url.startswith('#'):
+                    continue
+                if api_base_prefix is None or url.startswith(api_base_prefix):
+                    seen.add(url)
+    except Exception:
+        pass
+    return seen
+
+
+def _scraper_add_api_to_file(api_url, api_base_prefix=None):
+    """Append one API URL to Desktop/Scraper/api.txt (script add_api_to_file)."""
+    if not api_url or not isinstance(api_url, str):
+        return
+    api_url = api_url.strip()
+    if api_base_prefix and not api_url.startswith(api_base_prefix):
+        return
+    try:
+        _scraper_base_path()
+        with open(_scraper_api_txt(), 'a', encoding='utf-8') as f:
+            f.write(api_url + '\n')
+    except Exception:
+        pass
+
+
+def _scraper_clear_api_file():
+    """Remove all URLs from Desktop/Scraper/api.txt – call only after all tasks completed (script clear_api_file)."""
+    try:
+        _scraper_base_path()
+        open(_scraper_api_txt(), 'w', encoding='utf-8').close()
+    except Exception:
+        pass
+
+
+def _normalize_library_for_response(lib):
+    """Ensure library dict has camelCase keys so frontend (loginUrl, apiBaseUrl, etc.) always receives them.
+    Accepts both camelCase and snake_case keys from helper.json."""
+    if not isinstance(lib, dict):
+        return lib
+    # (camelCase_key, snake_case_alias_or_same)
+    key_map = [
+        ('loginUrl', 'login_url'), ('username',), ('password',), ('groups',),
+        ('apiBaseUrl', 'api_base_url'), ('apiUrlTemplate', 'api_url_template'),
+        ('bearerToken', 'bearer_token'), ('questionPerPage', 'question_per_page'),
+    ]
+    out = {}
+    for names in key_map:
+        camel = names[0]
+        val = None
+        for key in names:
+            if key in lib:
+                val = lib[key]
+                break
+        if val is not None:
+            out[camel] = val
+        elif camel == 'groups':
+            out[camel] = []
+        elif camel == 'questionPerPage':
+            out[camel] = 200
+        else:
+            out[camel] = ''
+    if not isinstance(out.get('groups'), list):
+        out['groups'] = [{'name': 'Default', 'urls': []}]
+    return out
+
+
+def _default_libraries():
+    """Default library entries per site (daricomma, other). HSC group includes the 4 chapter URLs."""
+    _HSC_CHAPTER_URLS = [
+        'https://daricomma.com/academic/HSC%20-%20ICT/chapter/default&page=1',
+        'https://daricomma.com/academic/HSC%20-%20%E0%A6%89%E0%A6%9A%E0%A7%8D%E0%A6%9A%E0%A6%A4%E0%A6%B0%20%E0%A6%97%E0%A6%A3%E0%A6%BF%E0%A6%A4%20%E0%A7%A7%E0%A6%AE%20%E0%A6%AA%E0%A6%A4%E0%A7%8D%E0%A6%B0/chapter/default&page=1',
+        'https://daricomma.com/academic/HSC%20-%20%E0%A6%89%E0%A7%8E%E0%A6%AA%E0%A6%BE%E0%A6%A6%E0%A6%A8%20%E0%A6%AC%E0%A7%8D%E0%A6%AF%E0%A6%AC%E0%A6%B8%E0%A7%8D%E0%A6%A5%E0%A6%BE%E0%A6%AA%E0%A6%A8%E0%A6%BE%20%E0%A6%93%20%E0%A6%AC%E0%A6%BF%E0%A6%AA%E0%A6%A3%E0%A6%A8%20%E0%A7%A8%E0%A7%9F%20%E0%A6%AA%E0%A6%A4%E0%A7%8D%E0%A6%B0/chapter/default&page=1',
+        'https://daricomma.com/academic/HSC%20-%20%E0%A6%85%E0%A6%B0%E0%A7%8D%E0%A6%A5%E0%A6%A8%E0%A7%80%E0%A6%A4%E0%A6%BF%20%E0%A7%A8%E0%A7%9F%20%E0%A6%AA%E0%A6%A4%E0%A7%8D%E0%A6%B0/chapter/default&page=1',
+    ]
+    _base = {
+        'loginUrl': '',
+        'username': '',
+        'password': '',
+        'groups': [{'name': 'Default', 'urls': []}],
+        'apiBaseUrl': '',
+        'apiUrlTemplate': '',
+        'bearerToken': '',
+        'questionPerPage': 200,
+    }
+    return {
+        'daricomma': {
+            'loginUrl': 'https://www.daricomma.com/sign-in',
+            'username': '',
+            'password': '',
+            'groups': [{'name': 'HSC', 'urls': _HSC_CHAPTER_URLS}],
+            'apiBaseUrl': 'https://api.daricomma.com/v2/question/',
+            'apiUrlTemplate': 'https://api.daricomma.com/v2/question/7e93e529-3405-40ad-b003-895dacf21e9f',
+            'bearerToken': '',
+            'questionPerPage': 200,
+        },
+        'chorcha': {**_base},
+        'eprosnobank': {**_base},
+        'livemcq': {**_base},
+        'other': {**_base},
+    }
+
+
+@csrf_exempt
+def scraper_helper(request):
+    """GET: return { lastSite, libraries: { daricomma: {...}, other: {...} } }. POST: save body { lastSite, libraries }."""
+    if request.method == 'GET':
+        try:
+            _scraper_base_path()
+            defaults = _default_libraries()
+            with open(_scraper_helper_json(), 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            # Migrate old format { groups } to new format
+            if 'libraries' not in data:
+                groups = data.get('groups') if isinstance(data.get('groups'), list) else []
+                data = {
+                    'lastSite': data.get('lastSite', 'daricomma'),
+                    'libraries': {
+                        'daricomma': {**defaults['daricomma'], 'groups': groups or defaults['daricomma']['groups']},
+                        'other': defaults['other'],
+                    },
+                }
+            last_site = (data.get('lastSite') or 'daricomma').strip().lower() or 'daricomma'
+            if last_site not in defaults:
+                last_site = 'daricomma'
+            libs_raw = data.get('libraries') or {}
+            # Normalize keys to lowercase so frontend (sitePreset='daricomma') always finds the library
+            libs = {}
+            for k, v in libs_raw.items():
+                if isinstance(v, dict):
+                    libs[str(k).lower()] = v
+            for key in defaults:
+                if key not in libs or not isinstance(libs[key], dict):
+                    libs[key] = defaults[key]
+                else:
+                    for k, v in defaults[key].items():
+                        if k not in libs[key]:
+                            libs[key][k] = v
+            # If daricomma HSC group has no URLs, fill with default 4 chapter URLs
+            if libs.get('daricomma') and isinstance(libs['daricomma'].get('groups'), list) and libs['daricomma']['groups']:
+                first = libs['daricomma']['groups'][0]
+                if isinstance(first, dict) and first.get('name') == 'HSC' and not (first.get('urls') or []):
+                    first['urls'] = list(defaults['daricomma']['groups'][0]['urls'])
+            # Normalize each library to camelCase so frontend always gets loginUrl, apiBaseUrl, bearerToken, apiUrlTemplate
+            libs = {k: _normalize_library_for_response(v) for k, v in libs.items()}
+            return JsonResponse({'lastSite': last_site, 'libraries': libs})
+        except FileNotFoundError:
+            return JsonResponse({'lastSite': 'daricomma', 'libraries': _default_libraries()})
+        except Exception as e:
+            logger.exception('scraper_helper GET failed')
+            return JsonResponse({'error': str(e), 'lastSite': 'daricomma', 'libraries': _default_libraries()})
+    if request.method == 'POST':
+        try:
+            body = json.loads(request.body.decode('utf-8'))
+            last_site = (body.get('lastSite') or 'daricomma').strip() or 'daricomma'
+            libraries = body.get('libraries')
+            if not isinstance(libraries, dict):
+                return JsonResponse({'error': 'libraries must be an object'}, status=400)
+            defaults = _default_libraries()
+            for key in defaults:
+                if key not in libraries or not isinstance(libraries[key], dict):
+                    libraries[key] = defaults[key]
+            _scraper_base_path()
+            with open(_scraper_helper_json(), 'w', encoding='utf-8') as f:
+                json.dump({'lastSite': last_site, 'libraries': libraries}, f, ensure_ascii=False, indent=2)
+            return JsonResponse({'ok': True})
+        except (json.JSONDecodeError, TypeError) as e:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            logger.exception('scraper_helper POST failed')
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def scraper_clear_api_file(request):
+    """POST: Clear Scrape/api.txt (call only after all tasks completed – same as script clear_api_file())."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        _scraper_clear_api_file()
+        return JsonResponse({'ok': True})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def scraper_root_get(request):
+    """GET: Return current scraper root folder (custom or default Desktop). Used so UI can show and change it."""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    root = _scraper_get_root_override()
+    if not root:
+        root = _scraper_desktop_path()
+    return JsonResponse({'path': root})
+
+
+@csrf_exempt
+def scraper_default_root_get(request):
+    """GET: Return default Desktop path for this machine. Use for 'Use default (Desktop)' button."""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    return JsonResponse({'path': _scraper_desktop_path()})
+
+
+@csrf_exempt
+def scraper_root_post(request):
+    """POST: Set custom scraper root folder. Body: { path: "C:\\Users\\...\\Desktop" }. Creates scraper_root.txt in project."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        path = (body.get('path') or '').strip()
+        if not path:
+            config_path = _scraper_root_config_path()
+            if os.path.isfile(config_path):
+                try:
+                    os.remove(config_path)
+                except Exception:
+                    pass
+            return JsonResponse({'ok': True})
+        config_path = _scraper_root_config_path()
+        with open(config_path, 'w', encoding='utf-8') as f:
+            f.write(path)
+        return JsonResponse({'ok': True})
+    except (json.JSONDecodeError, TypeError) as e:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+def _scraper_safe_request(url, headers=None, params=None, max_retry=5, timeout=30):
+    """Fetch URL with retries (matches script safe_request)."""
+    headers = headers or {}
+    params = params or {}
+    for attempt in range(max_retry):
+        try:
+            resp = requests.get(url, headers=headers, params=params, timeout=timeout)
+            if resp.status_code == 200:
+                return resp
+            _scraper_progress('API error {}, retrying...'.format(resp.status_code))
+        except Exception as e:
+            _scraper_progress('Network error: {}, retrying...'.format(e))
+        if attempt < max_retry - 1:
+            time.sleep(3)
+    return None
+
+
+def _scraper_parse_academic_url(url):
+    """Parse daricomma academic URL; return (subject_from_url, chapter_no, chapter_slug)."""
+    try:
+        if '/academic/' not in url or '/chapter/' not in url:
+            return ('', '', '')
+        parts = url.split('/chapter/', 1)
+        if len(parts) != 2:
+            return ('', '', '')
+        subject_encoded = parts[0].rstrip('/').split('/academic/')[-1]
+        rest = parts[1].split('&')[0].split('?')[0]
+        subject_from_url = urllib_parse.unquote(subject_encoded)
+        chapter_slug = urllib_parse.unquote(rest)
+        chapter_no = _scraper_extract_chapter_no_from_slug(chapter_slug)
+        return (subject_from_url, chapter_no, chapter_slug)
+    except Exception:
+        return ('', '', '')
+
+
+def _scraper_extract_chapter_no_from_slug(chapter_slug):
+    """Extract chapter number from URL slug (e.g. অধ্যায়-০১ঃ or 1.)."""
+    if not chapter_slug or not isinstance(chapter_slug, str):
+        return ''
+    s = chapter_slug.strip()
+    if 'অধ্যায়' in s:
+        parts = s.split(None, 1)
+        return parts[0].strip() if parts else (s.split()[0] if s.split() else '')
+    m = re.match(r'^(\d+\.)', s)
+    return m.group(1) if m else ''
+
+
+def _scraper_extract_chapter_no_from_option_text(level2_text):
+    """Get ChapterNo from Level2 dropdown option text (e.g. 'অধ্যায়-০১ঃ ম্যাট্রিক্স' or '1. Text Book')."""
+    if not level2_text or not isinstance(level2_text, str):
+        return ''
+    s = level2_text.strip()
+    if 'অধ্যায়' in s:
+        parts = s.split(None, 1)
+        return parts[0].strip() if parts else (s.split()[0] if s.split() else '')
+    m = re.match(r'^(\d+\.)', s)
+    return m.group(1) if m else ''
+
+
+def _scraper_sanitize_filename(name):
+    """Sanitize for file paths (matches script: replace / and \ with -)."""
+    if not name:
+        return ''
+    return name.replace('/', '-').replace('\\', '-').strip()
+
+
+@csrf_exempt
+def scraper_fetch_and_save(request):
+    """POST { group, base_url, params, headers, filename } - Fetch from API (with pagination, retry, dedupe) and save. Returns all questions in data."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        group = (body.get('group') or '').strip()
+        website = (body.get('website') or body.get('site') or 'daricomma').strip()
+        base_url = (body.get('base_url') or '').strip()
+        params = body.get('params') or {}
+        headers = body.get('headers') or {}
+        filename = (body.get('filename') or 'data').strip()
+        level1_name = (body.get('level1_name') or body.get('level1') or '').strip()
+        level2_label = (body.get('level2_label') or body.get('level2') or '').strip()
+        chapter_no = (body.get('chapter_no') or '').strip()
+        session_id = (body.get('session_id') or '').strip()
+        if not group or not base_url:
+            return JsonResponse({'error': 'group and base_url are required'}, status=400)
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    if session_id and session_id in _scraper_aborted_sessions:
+        return JsonResponse({'ok': False, 'error': 'Scraper stopped', 'data': []})
+    dir_path = _scraper_site_dir(website, group)
+    filename = _scraper_sanitize_filename(filename) or 'data'
+    if not filename.endswith('.json'):
+        filename = filename + '.json'
+    file_path = os.path.join(dir_path, filename)
+    if isinstance(params, dict):
+        req_params = dict(params)
+    else:
+        req_params = {}
+        for item in params if isinstance(params, list) else []:
+            k = item.get('key') or item.get('name')
+            v = item.get('value')
+            if k:
+                req_params[k] = v
+    chapter_id = req_params.get('chapter_id', '')
+    per_page = int(req_params.get('questionPerPage') or 200)
+    if per_page <= 0:
+        per_page = 200
+    # Script: use Bearer token from the same browser session (localStorage) so API returns questions
+    request_headers = dict(headers) if isinstance(headers, dict) else {}
+    request_headers.setdefault('Accept', 'application/json')
+    request_headers.setdefault('User-Agent', 'Mozilla/5.0')
+    if session_id:
+        driver = _scraper_sessions.get(session_id)
+        if driver:
+            try:
+                local_storage = driver.execute_script('return window.localStorage;')
+                if isinstance(local_storage, dict):
+                    access_token = None
+                    for k, v in local_storage.items():
+                        if 'token' in (k or '').lower():
+                            access_token = v
+                            break
+                    if access_token:
+                        request_headers['Authorization'] = 'Bearer %s' % (access_token,)
+                        _scraper_progress('Using token from session browser for API request.')
+            except Exception:
+                pass
+    try:
+        _scraper_progress('Fetching API: {}?chapter_id={} (paginated)'.format(
+            base_url.rstrip('/'), chapter_id[:36] if chapter_id else ''))
+        max_fetch_retries = 5
+        wait_between_retries_sec = 10
+        all_questions = []
+        for fetch_attempt in range(max_fetch_retries):
+            if session_id and session_id in _scraper_aborted_sessions:
+                _scraper_progress('Scraper stopped by user.')
+                return JsonResponse({'ok': False, 'error': 'Scraper stopped', 'data': []})
+            all_questions = []
+            seen_ids = set()
+            total_questions = None
+            page = 1
+            page_retry = 0
+            max_page_retry = 3
+            while True:
+                if session_id and session_id in _scraper_aborted_sessions:
+                    _scraper_progress('Scraper stopped by user.')
+                    return JsonResponse({'ok': False, 'error': 'Scraper stopped', 'data': []})
+                # Like script: only page and questionPerPage (no chapter_id/subject in request)
+                page_params = {'page': page, 'questionPerPage': per_page}
+                resp = _scraper_safe_request(base_url, headers=request_headers, params=page_params, timeout=45)
+                if not resp:
+                    if page > 1 and page_retry < max_page_retry:
+                        page_retry += 1
+                        _scraper_progress('Page {} request failed, retrying ({}/{})...'.format(page, page_retry, max_page_retry))
+                        time.sleep(2)
+                        continue
+                    break
+                page_retry = 0
+                try:
+                    raw = resp.json()
+                except Exception:
+                    break
+                data = raw.get('data', raw) if isinstance(raw, dict) else raw
+                if total_questions is None and isinstance(raw, dict):
+                    total_questions = raw.get('total') or raw.get('totalQuestions')
+                if total_questions is None and isinstance(data, dict):
+                    total_questions = data.get('total') or data.get('totalQuestions')
+                # Parse questions like script: data.questions or raw.questions or data if list; fallbacks for other APIs
+                questions = None
+                if isinstance(data, dict):
+                    questions = data.get('questions') or data.get('results') or data.get('items')
+                if not questions and isinstance(raw, dict):
+                    questions = raw.get('questions') or raw.get('results') or raw.get('items')
+                if questions is None and isinstance(data, list):
+                    questions = data
+                if not questions:
+                    questions = []
+                if not questions:
+                    break
+                for q in questions:
+                    if not isinstance(q, dict):
+                        continue
+                    qid = q.get('id')
+                    if qid and qid not in seen_ids:
+                        all_questions.append(q)
+                        seen_ids.add(qid)
+                _scraper_progress('Fetched page {}, {} questions (total so far {})'.format(page, len(questions), len(all_questions)))
+                # Script: only break when no questions; otherwise continue to next page
+                if len(questions) < per_page:
+                    break
+                page += 1
+            if all_questions:
+                break
+            if session_id and session_id in _scraper_aborted_sessions:
+                _scraper_progress('Scraper stopped by user.')
+                return JsonResponse({'ok': False, 'error': 'Scraper stopped', 'data': []})
+            if fetch_attempt < max_fetch_retries - 1:
+                _scraper_progress('No questions returned, retrying ({}/{}) in {}s...'.format(
+                    fetch_attempt + 2, max_fetch_retries, wait_between_retries_sec))
+                for _ in range(wait_between_retries_sec):
+                    if session_id and session_id in _scraper_aborted_sessions:
+                        return JsonResponse({'ok': False, 'error': 'Scraper stopped', 'data': []})
+                    time.sleep(1)
+        if all_questions:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(all_questions, f, ensure_ascii=False, indent=2)
+            _scraper_progress('Saved {} questions to {}'.format(len(all_questions), file_path))
+            if level1_name or level2_label:
+                csv_path = file_path.replace('.json', '.csv') if file_path.endswith('.json') else (file_path + '.csv')
+                csv_header = ['ID', 'Subject', 'ChapterNo', 'Chapter', 'Topic', 'Question', 'Option 1', 'Option 2', 'Option 3', 'Option 4',
+                              'Answer', 'Explanation', 'Question Type', 'Level', 'Subsources']
+                with open(csv_path, 'w', newline='', encoding='utf-8-sig') as cf:
+                    writer = csv.writer(cf)
+                    writer.writerow(csv_header)
+                    for idx, q in enumerate(all_questions, start=1):
+                        if not isinstance(q, dict):
+                            continue
+                        options = q.get('option') or []
+                        correct_index = q.get('mcq_solution_index')
+                        correct_answer = options[correct_index] if isinstance(correct_index, int) and 0 <= correct_index < len(options) else ''
+                        expl = _scraper_extract_text(q.get('answer_text')) or _scraper_extract_text(q.get('explanation_text'))
+                        writer.writerow([
+                            idx, level1_name, chapter_no, level2_label, _scraper_format_topics(q),
+                            _scraper_extract_text(q.get('question_text')),
+                            options[0] if len(options) > 0 else '', options[1] if len(options) > 1 else '',
+                            options[2] if len(options) > 2 else '', options[3] if len(options) > 3 else '',
+                            correct_answer, expl,
+                            (q.get('question_type') or {}).get('name', ''),
+                            (q.get('question_level') or {}).get('name', ''),
+                            _scraper_format_subsources(q)
+                        ])
+                _scraper_progress('Saved chapter CSV: {}'.format(csv_path))
+            _scraper_add_api_to_file(base_url.split('?')[0].strip())
+            return JsonResponse({'ok': True, 'path': file_path, 'data': all_questions})
+        empty_data = {'error': 'No data (after {} attempts)'.format(max_fetch_retries), 'data': [], 'chapter_id': chapter_id}
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(empty_data, f, ensure_ascii=False, indent=2)
+        _scraper_progress('Saved (no data after {} retries) to {}'.format(max_fetch_retries, file_path))
+        return JsonResponse({'ok': True, 'path': file_path, 'data': [], 'error': 'No questions returned (tried {} times)'.format(max_fetch_retries)})
+    except Exception as e:
+        logger.exception('scraper_fetch_and_save failed')
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump({'error': str(e), 'data': []}, f, ensure_ascii=False, indent=2)
+            _scraper_progress('Saved (error) to {}'.format(file_path))
+            return JsonResponse({'ok': True, 'path': file_path, 'data': [], 'error': str(e)})
+        except Exception:
+            return JsonResponse({'error': str(e), 'path': None, 'data': None}, status=500)
+
+
+def _scraper_extract_text(editor_obj):
+    """Extract plain text from editor JSON (blocks[].text)."""
+    if not isinstance(editor_obj, dict):
+        return ''
+    blocks = editor_obj.get('blocks') or []
+    return '\n'.join(block.get('text', '') for block in blocks if isinstance(block, dict))
+
+
+def _scraper_format_topics(q):
+    """Format topic names for CSV."""
+    topic_names = []
+    topics = q.get('topic')
+    if isinstance(topics, list):
+        for t in topics:
+            if isinstance(t, dict) and t.get('name'):
+                topic_names.append('"{}"'.format(t['name']))
+    elif isinstance(topics, dict) and topics.get('name'):
+        topic_names.append('"{}"'.format(topics['name']))
+    return ', '.join(topic_names)
+
+
+def _scraper_format_subsources(q):
+    """Format question_subsources for CSV."""
+    out = []
+    for sub in (q.get('question_subsources') or []):
+        if not isinstance(sub, dict):
+            continue
+        sub_source = sub.get('sub_source') or {}
+        year_obj = sub.get('year') or {}
+        short_name = sub_source.get('name', '')
+        year_name = year_obj.get('name', '')
+        if short_name and year_name:
+            formatted = short_name + "'" + (year_name[-2:] if len(year_name) >= 2 else year_name)
+            out.append('"{}"'.format(formatted))
+    return ', '.join(out)
+
+
+def _scraper_subject_file_has_questions(json_path):
+    """Return True if json_path exists and contains at least one question (so we don't skip based on empty failed-run files)."""
+    if not os.path.isfile(json_path):
+        return False
+    try:
+        with open(json_path, 'r', encoding='utf-8') as f:
+            content = json.load(f)
+        if isinstance(content, list):
+            return len(content) > 0
+        if isinstance(content, dict):
+            data = content.get('data', content)
+            if isinstance(data, list):
+                return len(data) > 0
+            qs = content.get('questions')
+            if not qs and isinstance(data, dict):
+                qs = data.get('questions')
+            return isinstance(qs, list) and len(qs) > 0
+    except Exception:
+        pass
+    return False
+
+
+@csrf_exempt
+def scraper_file_exists(request):
+    """GET ?group=...&filename=...&website=... (base name). Returns { exists: true } only if both .json and .csv exist AND json has at least one question (avoids skip from empty failed runs). Also returns path for UI."""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    group = (request.GET.get('group') or '').strip()
+    filename = (request.GET.get('filename') or '').strip()
+    website = (request.GET.get('website') or request.GET.get('site') or 'daricomma').strip()
+    if not group or not filename:
+        return JsonResponse({'error': 'group and filename are required'}, status=400)
+    safe_name = re.sub(r'[^\w\-]', '_', _scraper_sanitize_filename(filename) or filename).strip('_') or 'data'
+    dir_path = _scraper_site_dir(website, group)
+    json_path = os.path.join(dir_path, safe_name + '.json')
+    csv_path = os.path.join(dir_path, safe_name + '.csv')
+    files_exist = os.path.isfile(json_path) and os.path.isfile(csv_path)
+    has_questions = _scraper_subject_file_has_questions(json_path)
+    exists = files_exist and has_questions
+    return JsonResponse({'exists': exists, 'path': dir_path})
+
+
+@csrf_exempt
+def scraper_save_subject(request):
+    """POST { group, level1_name, questions: [...] }. Writes level1_name.json and level1_name.csv (same format as Python script)."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        group = (body.get('group') or '').strip()
+        website = (body.get('website') or body.get('site') or 'daricomma').strip()
+        level1_name = (body.get('level1_name') or '').strip()
+        questions = body.get('questions')
+        if not isinstance(questions, list):
+            questions = []
+        if not group or not level1_name:
+            return JsonResponse({'error': 'group and level1_name are required'}, status=400)
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    safe_name = re.sub(r'[^\w\-]', '_', _scraper_sanitize_filename(level1_name) or level1_name).strip('_') or 'subject'
+    dir_path = _scraper_site_dir(website, group)
+    json_path = os.path.join(dir_path, safe_name + '.json')
+    csv_path = os.path.join(dir_path, safe_name + '.csv')
+    try:
+        # JSON: copy without internal fields (same as script)
+        json_questions = []
+        for q in questions:
+            if isinstance(q, dict):
+                qcopy = {k: v for k, v in q.items() if k not in ('_chapter', '_chapter_no', '_level1')}
+                json_questions.append(qcopy)
+            else:
+                json_questions.append(q)
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(json_questions, f, ensure_ascii=False, indent=2)
+        csv_header = ['ID', 'Subject', 'ChapterNo', 'Chapter', 'Topic', 'Question', 'Option 1', 'Option 2', 'Option 3', 'Option 4',
+                      'Answer', 'Explanation', 'Question Type', 'Level', 'Subsources']
+        with open(csv_path, 'w', newline='', encoding='utf-8-sig') as f:
+            writer = csv.writer(f)
+            writer.writerow(csv_header)
+            for idx, q in enumerate(questions, start=1):
+                if not isinstance(q, dict):
+                    continue
+                level1 = q.get('_level1', level1_name)
+                chapter_no = q.get('_chapter_no', '')
+                chapter = q.get('_chapter', '')
+                options = q.get('option') or []
+                correct_index = q.get('mcq_solution_index')
+                correct_answer = options[correct_index] if isinstance(correct_index, int) and 0 <= correct_index < len(options) else ''
+                expl = _scraper_extract_text(q.get('answer_text')) or _scraper_extract_text(q.get('explanation_text'))
+                qtype = (q.get('question_type') or {}).get('name', '')
+                qlevel = (q.get('question_level') or {}).get('name', '')
+                writer.writerow([
+                    idx, level1, chapter_no, chapter, _scraper_format_topics(q),
+                    _scraper_extract_text(q.get('question_text')),
+                    options[0] if len(options) > 0 else '', options[1] if len(options) > 1 else '',
+                    options[2] if len(options) > 2 else '', options[3] if len(options) > 3 else '',
+                    correct_answer, expl, qtype, qlevel, _scraper_format_subsources(q)
+                ])
+        _scraper_progress('Saved subject files: {}'.format(safe_name))
+        return JsonResponse({'ok': True, 'path_json': json_path, 'path_csv': csv_path})
+    except Exception as e:
+        logger.exception('scraper_save_subject failed')
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+# Persistent Selenium sessions for scraper (session_id -> driver). Headed browser for "Load website".
+_scraper_sessions = {}
+_scraper_aborted_sessions = set()  # session_ids for which user clicked Stop; in-flight fetch_and_save will exit
+_SCRAPER_SESSION_TIMEOUT = 3600  # 1 hour
+
+
+def _scraper_progress(msg):
+    """Log and print scraper progress so it appears in the terminal (e.g. runserver)."""
+    logger.info('[Scraper] %s', msg)
+    try:
+        print('[Scraper]', msg, flush=True)
+    except Exception:
+        pass
+
+
+def _get_selenium_driver(headed=False, enable_performance_log=False):
+    """Return Chrome WebDriver. headed=True shows the browser window. enable_performance_log=True for capturing API URLs from network."""
+    try:
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+        opts = Options()
+        if not headed:
+            opts.add_argument('--headless')
+        opts.add_argument('--no-sandbox')
+        opts.add_argument('--disable-dev-shm-usage')
+        opts.add_argument('--disable-gpu')
+        opts.add_argument('--disable-software-rasterizer')
+        if enable_performance_log:
+            opts.set_capability('goog:loggingPrefs', {'performance': 'ALL', 'browser': 'ALL'})
+        try:
+            from selenium.webdriver.chrome.service import Service
+            from webdriver_manager.chrome import ChromeDriverManager
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=opts)
+        except Exception:
+            driver = webdriver.Chrome(options=opts)
+        if enable_performance_log:
+            try:
+                driver.execute_cdp_cmd('Network.enable', {})
+            except Exception:
+                pass
+        return driver
+    except Exception as e:
+        logger.warning('Selenium/Chrome not available: %s', e)
+        return None
+
+
+@csrf_exempt
+def scraper_load_website(request):
+    """POST { url, headless?: bool } - Open Chrome (headed or headless) and load URL. Returns session_id."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        url = (body.get('url') or '').strip()
+        headless = bool(body.get('headless'))
+        if not url:
+            return JsonResponse({'error': 'url is required'}, status=400)
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    _scraper_progress('Opening browser (headless={})...'.format(headless))
+    driver = _get_selenium_driver(headed=not headless, enable_performance_log=True)
+    if not driver:
+        return JsonResponse({'error': 'Selenium/Chrome not available. Install Chrome and: pip install selenium webdriver-manager'})
+    try:
+        import time
+        import uuid
+        _scraper_progress('Loading URL: {}'.format(url[:80] + ('...' if len(url) > 80 else '')))
+        driver.get(url)
+        wait_sec = 4 if headless else 2
+        _scraper_progress('Waiting {}s for page load...'.format(wait_sec))
+        time.sleep(wait_sec)
+        session_id = str(uuid.uuid4())
+        _scraper_sessions[session_id] = driver
+        _scraper_progress('Session created: {}'.format(session_id[:8]))
+        return JsonResponse({'session_id': session_id, 'url': url})
+    except Exception as e:
+        _scraper_progress('Load failed: {}'.format(e))
+        try:
+            driver.quit()
+        except Exception:
+            pass
+        return JsonResponse({'error': str(e)})
+
+
+@csrf_exempt
+def scraper_navigate(request):
+    """POST { session_id, url } - Navigate the session browser to url."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        session_id = (body.get('session_id') or '').strip()
+        url = (body.get('url') or '').strip()
+        if not session_id or not url:
+            return JsonResponse({'error': 'session_id and url are required'}, status=400)
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    driver = _scraper_sessions.get(session_id)
+    if not driver:
+        return JsonResponse({'error': 'Session not found.'}, status=400)
+    try:
+        import time
+        _scraper_progress('Navigating to: {}'.format(url[:70] + ('...' if len(url) > 70 else '')))
+        driver.get(url)
+        _scraper_progress('Waiting 4s for page load...')
+        time.sleep(4)
+        # If the site (e.g. Daricomma) redirects to a placeholder route, force the target URL again
+        current = (driver.current_url or '')
+        if '[subjectName]' in current or '[chapterId]' in current:
+            _scraper_progress('Redirect detected; re-navigating to target URL...')
+            driver.get(url)
+            time.sleep(2)
+        _scraper_progress('Navigate done.')
+        return JsonResponse({'ok': True, 'url': url})
+    except Exception as e:
+        _scraper_progress('Navigate failed: {}'.format(e))
+        return JsonResponse({'error': str(e)})
+
+
+@csrf_exempt
+def scraper_daricomma_login(request):
+    """POST { session_id, login_url, username, password } - Navigate to login, fill form, submit."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        session_id = (body.get('session_id') or '').strip()
+        login_url = (body.get('login_url') or '').strip()
+        username = (body.get('username') or '').strip()
+        password = (body.get('password') or '').strip()
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    if not session_id or not login_url:
+        return JsonResponse({'error': 'session_id and login_url are required'}, status=400)
+    driver = _scraper_sessions.get(session_id)
+    if not driver:
+        return JsonResponse({'error': 'Session not found.'}, status=400)
+    try:
+        import time
+        from selenium.webdriver.common.by import By
+        _scraper_progress('Loading login page...')
+        driver.get(login_url)
+        _scraper_progress('Waiting 4s for login form...')
+        time.sleep(4)
+        username_el = None
+        pwd_el = None
+        _scraper_progress('Looking for username/email field...')
+        for sel in ['input[name="email"]', 'input[name="username"]', 'input[type="email"]', 'input#email', 'input#username']:
+            try:
+                username_el = driver.find_element(By.CSS_SELECTOR, sel)
+                break
+            except Exception:
+                continue
+        if not username_el:
+            _scraper_progress('Trying Mantine form (first form text + password)...')
+            # Daricomma sign-in uses Mantine: first field is mobile (type=text), second is password
+            # Scope to first form (login tab) so we don't hit register form fields
+            try:
+                forms = driver.find_elements(By.CSS_SELECTOR, 'form')
+                if forms:
+                    form = forms[0]
+                    username_el = form.find_element(By.CSS_SELECTOR, 'input[type="text"]')
+                    pwd_el = form.find_element(By.CSS_SELECTOR, 'input[type="password"]')
+            except Exception:
+                pass
+        if not username_el:
+            return JsonResponse({'error': 'Could not find email/username field.'})
+        if not pwd_el:
+            try:
+                pwd_el = driver.find_element(By.CSS_SELECTOR, 'input[name="password"], input[type="password"], input#password')
+            except Exception:
+                if username_el:
+                    try:
+                        form = username_el.find_element(By.XPATH, './ancestor::form[1]')
+                        pwd_el = form.find_element(By.CSS_SELECTOR, 'input[type="password"]')
+                    except Exception:
+                        pass
+        if not pwd_el:
+            return JsonResponse({'error': 'Could not find password field.'})
+        _scraper_progress('Filling username and password...')
+        username_el.clear()
+        username_el.send_keys(username)
+        pwd_el.clear()
+        pwd_el.send_keys(password)
+        _scraper_progress('Submitting login form...')
+        try:
+            form = pwd_el.find_element(By.XPATH, './ancestor::form')
+            form.submit()
+        except Exception:
+            for el in driver.find_elements(By.CSS_SELECTOR, 'button[type="submit"], input[type="submit"]'):
+                try:
+                    el.click()
+                    break
+                except Exception:
+                    continue
+        _scraper_progress('Waiting 3s after submit...')
+        time.sleep(3)
+        _scraper_progress('Login done.')
+        return JsonResponse({'ok': True})
+    except Exception as e:
+        logger.exception('scraper_daricomma_login failed')
+        return JsonResponse({'error': str(e)})
+
+
+def _mantine_options(driver, combobox_index, previous_selections):
+    """Get options from Mantine Select by index (0=first, 1=second). previous_selections for level 2."""
+    import time
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.common.keys import Keys
+    roots = driver.find_elements(By.CSS_SELECTOR, '.mantine-Select-root')
+    if combobox_index >= len(roots):
+        return []
+    for i, val in enumerate(previous_selections):
+        roots = driver.find_elements(By.CSS_SELECTOR, '.mantine-Select-root')
+        if i >= len(roots):
+            break
+        try:
+            cb = roots[i].find_element(By.CSS_SELECTOR, '[role="combobox"]')
+            cb.click()
+            time.sleep(0.9)
+            listboxes = driver.find_elements(By.CSS_SELECTOR, '[role="listbox"]')
+            options_to_use = []
+            for lb in listboxes:
+                try:
+                    if lb.is_displayed():
+                        options_to_use = lb.find_elements(By.CSS_SELECTOR, '[role="option"]')
+                        break
+                except Exception:
+                    pass
+            if not options_to_use:
+                options_to_use = driver.find_elements(By.CSS_SELECTOR, '[role="listbox"] [role="option"]')
+            for opt in options_to_use:
+                ov = (opt.get_attribute('data-value') or opt.get_attribute('value') or '').strip()
+                ot = (opt.text or '').strip()
+                if ov == str(val).strip() or ot == str(val).strip():
+                    opt.click()
+                    break
+            time.sleep(0.8)
+        except Exception:
+            try:
+                driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)
+            except Exception:
+                pass
+        time.sleep(0.6)
+    # After selecting Level1 (for Level2 dropdown), wait longer for API to populate options (script: wait_after_select=4)
+    wait_after_selections = 4.0 if (combobox_index == 1 and previous_selections) else 1.5
+    time.sleep(wait_after_selections)
+    roots = driver.find_elements(By.CSS_SELECTOR, '.mantine-Select-root')
+    if combobox_index >= len(roots):
+        return []
+    try:
+        root = roots[combobox_index]
+        combobox_el = root.find_element(By.CSS_SELECTOR, '[role="combobox"]')
+        combobox_el.click()
+        time.sleep(1.2)
+        listbox_els = driver.find_elements(By.CSS_SELECTOR, '[role="listbox"]')
+        active_listbox = None
+        for lb in listbox_els:
+            try:
+                if lb.is_displayed():
+                    active_listbox = lb
+                    break
+            except Exception:
+                pass
+        if active_listbox is None:
+            active_listbox = driver
+        option_selector = '[role="listbox"] [role="option"]' if active_listbox == driver else '[role="option"]'
+        try:
+            option_els = active_listbox.find_elements(By.CSS_SELECTOR, option_selector)
+        except Exception:
+            option_els = driver.find_elements(By.CSS_SELECTOR, '[role="listbox"] [role="option"]')
+        opts = []
+        # Script get_all_options: open dropdown, collect option text/value, close – no selecting each option
+        for opt in (option_els or []):
+            try:
+                driver.execute_script('arguments[0].scrollIntoView({block: "nearest"});', opt)
+                time.sleep(0.03)
+            except Exception:
+                pass
+            text = (opt.text or '').strip()
+            v = opt.get_attribute('data-value') or opt.get_attribute('value') or text
+            opts.append({'value': v or text, 'text': text or v})
+        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)
+        return opts
+    except Exception:
+        try:
+            driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)
+        except Exception:
+            pass
+        return []
+
+
+@csrf_exempt
+def scraper_capture_mantine(request):
+    """POST { session_id, combobox_index (0|1), previous_selections: [] } - Get Mantine Select options."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        session_id = (body.get('session_id') or '').strip()
+        combobox_index = int(body.get('combobox_index') or 0)
+        previous_selections = body.get('previous_selections') or []
+        if not session_id:
+            return JsonResponse({'error': 'session_id is required'}, status=400)
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    driver = _scraper_sessions.get(session_id)
+    if not driver:
+        return JsonResponse({'error': 'Session not found.', 'options': []})
+    try:
+        _scraper_progress('Capturing Mantine options (combobox_index={})...'.format(combobox_index))
+        opts = _mantine_options(driver, combobox_index, previous_selections)
+        _scraper_progress('Got {} options.'.format(len(opts)))
+        return JsonResponse({'options': opts})
+    except Exception as e:
+        _scraper_progress('Capture failed: {}'.format(e))
+        logger.exception('scraper_capture_mantine failed')
+        return JsonResponse({'error': str(e), 'options': []})
+
+
+def _scraper_wait_for_chapter_url(driver, timeout=12, poll_interval=0.5):
+    """After Level2 selection, wait until URL contains /academic/ and /chapter/ with non-empty chapter part (script: timeout=12)."""
+    start = time.time()
+    while (time.time() - start) < timeout:
+        url = (driver.current_url or '').strip()
+        if '/academic/' in url and '/chapter/' in url:
+            parts = url.split('/chapter/', 1)
+            if len(parts) == 2:
+                rest = (parts[1].split('&')[0].split('?')[0] or '').strip()
+                if rest:
+                    return True
+        time.sleep(poll_interval)
+    return False
+
+
+def _scraper_capture_question_api_url(driver, prefix, wait_after=1.5):
+    """Capture the first request URL starting with prefix from performance log (script: wait_after=1.5)."""
+    time.sleep(wait_after)
+    try:
+        logs = driver.get_log('performance')
+    except Exception:
+        return None
+    for entry in logs:
+        try:
+            msg = json.loads(entry.get('message', '{}'))
+            event = msg.get('message') or msg
+            method = event.get('method')
+            if method not in ('Network.requestWillBeSent', 'Network.responseReceived'):
+                continue
+            params = event.get('params') or {}
+            req_url = ''
+            if method == 'Network.requestWillBeSent':
+                req_url = (params.get('request') or {}).get('url') or ''
+            else:
+                req_url = (params.get('response') or {}).get('url') or ''
+            if req_url.startswith(prefix):
+                return req_url.split('?')[0].strip()
+        except Exception:
+            continue
+    return None
+
+
+@csrf_exempt
+def scraper_capture_question_url(request):
+    """POST { session_id, level1_value, level2_value, level1_label?, level2_label?, api_base_prefix? } - Select Level1 & Level2 by visible text (script: uses option text). Wait for chapter URL, capture question API URL. Returns { url }."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        session_id = (body.get('session_id') or '').strip()
+        level1_value = (body.get('level1_value') or body.get('level1') or '').strip()
+        level2_value = (body.get('level2_value') or body.get('level2') or '').strip()
+        level1_label = (body.get('level1_label') or '').strip()
+        level2_label = (body.get('level2_label') or '').strip()
+        api_base_prefix = (body.get('api_base_prefix') or 'https://api.daricomma.com/v2/question/').strip()
+        if not session_id:
+            return JsonResponse({'error': 'session_id is required'}, status=400)
+        # Script selects by visible text (option text); prefer label when provided
+        level1_selection = level1_label or level1_value
+        level2_selection = level2_label or level2_value
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    driver = _scraper_sessions.get(session_id)
+    if not driver:
+        return JsonResponse({'error': 'Session not found.', 'url': ''})
+    try:
+        from selenium.webdriver.common.by import By
+        from selenium.webdriver.common.keys import Keys
+        _scraper_progress('Capturing question API URL for chapter...')
+        # Apply Level1 then Level2 selection by visible text (script: select_mantine_option uses option_text)
+        for i, val in enumerate([level1_selection, level2_selection]):
+            if not val:
+                continue
+            roots = driver.find_elements(By.CSS_SELECTOR, '.mantine-Select-root')
+            if i >= len(roots):
+                break
+            try:
+                cb = roots[i].find_element(By.CSS_SELECTOR, '[role="combobox"]')
+                cb.click()
+                time.sleep(0.9)
+                listboxes = driver.find_elements(By.CSS_SELECTOR, '[role="listbox"]')
+                options_to_use = []
+                for lb in listboxes:
+                    try:
+                        if lb.is_displayed():
+                            options_to_use = lb.find_elements(By.CSS_SELECTOR, '[role="option"]')
+                            break
+                    except Exception:
+                        pass
+                if not options_to_use:
+                    options_to_use = driver.find_elements(By.CSS_SELECTOR, '[role="listbox"] [role="option"]')
+                for opt in options_to_use:
+                    ov = (opt.get_attribute('data-value') or opt.get_attribute('value') or '').strip()
+                    ot = (opt.text or '').strip()
+                    if ov == str(val).strip() or ot == str(val).strip():
+                        opt.click()
+                        break
+                time.sleep(0.8)
+            except Exception:
+                try:
+                    driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)
+                except Exception:
+                    pass
+            time.sleep(0.6)
+        time.sleep(1.0)
+        _scraper_wait_for_chapter_url(driver, timeout=12)
+        captured = _scraper_capture_question_api_url(driver, prefix=api_base_prefix, wait_after=1.5)
+        if captured:
+            _scraper_progress('Captured API URL: {}...'.format(captured[:60]))
+            return JsonResponse({'url': captured})
+        return JsonResponse({'url': '', 'error': 'No question API URL found in network log'})
+    except Exception as e:
+        _scraper_progress('Capture question URL failed: {}'.format(e))
+        logger.exception('scraper_capture_question_url failed')
+        return JsonResponse({'error': str(e), 'url': ''})
+
+
+@csrf_exempt
+def scraper_capture_dropdown(request):
+    """POST { session_id, level, previous_selections: [] } - Get options for level (1-based). Applies previous selections first."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        session_id = (body.get('session_id') or '').strip()
+        level = int(body.get('level') or 1)
+        previous_selections = body.get('previous_selections') or []
+        if not session_id:
+            return JsonResponse({'error': 'session_id is required'}, status=400)
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    driver = _scraper_sessions.get(session_id)
+    if not driver:
+        return JsonResponse({'error': 'Session not found. Load website again.', 'options': []})
+    try:
+        import time
+        from selenium.webdriver.support.ui import Select
+        from selenium.webdriver.common.by import By
+        selects = driver.find_elements(By.CSS_SELECTOR, 'select')
+        if level < 1 or level > len(selects):
+            return JsonResponse({'options': [], 'message': 'No select at this level.'})
+        # Apply previous selections so level 2+ options are correct
+        for i, val in enumerate(previous_selections):
+            if i >= len(selects):
+                break
+            try:
+                Select(selects[i]).select_by_value(val)
+                time.sleep(0.5)
+            except Exception:
+                pass
+        time.sleep(0.5)
+        selects = driver.find_elements(By.CSS_SELECTOR, 'select')
+        if level > len(selects):
+            return JsonResponse({'options': []})
+        sel = selects[level - 1]
+        opts = []
+        for opt in sel.find_elements(By.TAG_NAME, 'option'):
+            v = opt.get_attribute('value')
+            if v is None:
+                v = ''
+            text = (opt.text or '').strip() or v
+            opts.append({'value': v, 'text': text})
+        return JsonResponse({'options': opts})
+    except Exception as e:
+        logger.exception('scraper_capture_dropdown failed')
+        return JsonResponse({'error': str(e), 'options': []})
+
+
+@csrf_exempt
+def scraper_close_session(request):
+    """POST { session_id } - Close browser and remove session."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        session_id = (body.get('session_id') or '').strip()
+    except Exception:
+        session_id = ''
+    if session_id:
+        _scraper_aborted_sessions.add(session_id)
+        driver = _scraper_sessions.pop(session_id, None)
+        if driver:
+            try:
+                driver.quit()
+            except Exception:
+                pass
+    return JsonResponse({'ok': True})
+
+
+@csrf_exempt
+def scraper_discover_dropdowns(request):
+    """GET ?url=... - Open page with Selenium, find all <select>, return groups (one per dropdown)."""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    url = (request.GET.get('url') or '').strip()
+    if not url:
+        return JsonResponse({'error': 'url is required'}, status=400)
+    driver = _get_selenium_driver()
+    if not driver:
+        return JsonResponse({
+            'error': 'Selenium/Chrome not available. Install: 1) Chrome browser, 2) pip install selenium webdriver-manager. Or use "Capture by your activity" above instead.',
+            'groups': []
+        })
+    try:
+        import time
+        driver.get(url)
+        time.sleep(2)
+        try:
+            from selenium.webdriver.support.ui import WebDriverWait
+            from selenium.webdriver.support import expected_conditions as EC
+            from selenium.webdriver.common.by import By
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+            time.sleep(2)
+        except Exception:
+            pass
+        selects = driver.find_elements('css selector', 'select')
+        groups = []
+        for i, sel in enumerate(selects):
+            name = sel.get_attribute('name') or sel.get_attribute('id') or ('Dropdown_%d' % (i + 1))
+            opts = []
+            for opt in sel.find_elements('tag name', 'option'):
+                v = opt.get_attribute('value')
+                if v is None:
+                    v = ''
+                text = (opt.text or '').strip() or v
+                opts.append({'value': v, 'text': text})
+            groups.append({'name': name, 'options': opts})
+        if not groups:
+            return JsonResponse({
+                'groups': [],
+                'message': 'No native <select> dropdowns found on this page. Many sites use custom dropdowns (divs). Use "Capture by your activity" to add options manually.'
+            })
+        return JsonResponse({'groups': groups})
+    except Exception as e:
+        logger.exception('scraper_discover_dropdowns failed')
+        return JsonResponse({'error': str(e), 'groups': []})
+    finally:
+        try:
+            driver.quit()
+        except Exception:
+            pass
+
+
+@csrf_exempt
+def scraper_dynamic_dropdown(request):
+    """POST { url, level_index, selections: [] } - Open page, set prior selects, return options for level level_index."""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        url = (body.get('url') or '').strip()
+        level_index = int(body.get('level_index') or 0)
+        selections = body.get('selections') or []
+        if not url:
+            return JsonResponse({'error': 'url is required'}, status=400)
+    except (json.JSONDecodeError, TypeError) as e:
+        return JsonResponse({'error': str(e)}, status=400)
+    driver = _get_selenium_driver()
+    if not driver:
+        return JsonResponse({'error': 'Selenium/Chrome not available.', 'options': []})
+    try:
+        driver.get(url)
+        import time
+        time.sleep(2)
+        selects = driver.find_elements('css selector', 'select')
+        if level_index <= 0 or level_index > len(selects):
+            return JsonResponse({'options': []})
+        try:
+            from selenium.webdriver.support.ui import Select
+            for i, val in enumerate(selections):
+                if i >= len(selects):
+                    break
+                Select(selects[i]).select_by_value(val)
+                time.sleep(0.6)
+        except Exception:
+            pass
+        time.sleep(0.8)
+        selects = driver.find_elements('css selector', 'select')
+        sel = selects[level_index - 1] if level_index <= len(selects) else None
+        if not sel:
+            return JsonResponse({'options': []})
+        opts = []
+        for opt in sel.find_elements('tag name', 'option'):
+            v = opt.get_attribute('value')
+            if v is None:
+                v = ''
+            text = (opt.text or '').strip() or v
+            opts.append({'value': v, 'text': text})
+        return JsonResponse({'options': opts})
+    except Exception as e:
+        logger.exception('scraper_dynamic_dropdown failed')
+        return JsonResponse({'error': str(e), 'options': []})
+    finally:
+        try:
+            driver.quit()
+        except Exception:
+            pass
 
 
 class PasswordUpdateView(APIView):

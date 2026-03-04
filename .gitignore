@@ -13,3 +13,4 @@ env/
 *.sqlite3
 media/
 static/
+scraper_root.txt
