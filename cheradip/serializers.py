@@ -304,19 +304,14 @@ class InstituteSerializer(serializers.ModelSerializer):
 
 
 class SubjectSerializer(serializers.ModelSerializer):
-    """Subject model (table subjects): subject_code PK, subject_name, groups (M2M). group_list = resolved Group objects."""
-    group_list = serializers.SerializerMethodField()
-    
+    """Subject model (table cheradip_subject): id, level, level_tr, groups (JSON), class_level, subject_name, subject_translated, subject_code, country_id, language_code."""
     class Meta:
         model = Subject
-        fields = ['subject_code', 'subject_name', 'subject_name_bn', 'subject_name_tr', 'groups', 'group_list']
-    
-    def get_group_list(self, obj):
-        # obj.groups is M2M: use .all() for related Group instances
-        try:
-            return GroupSerializer(obj.groups.all().order_by('group_code'), many=True).data
-        except Exception:
-            return []
+        fields = [
+            'id', 'level', 'level_tr', 'groups', 'class_level',
+            'subject_name', 'subject_translated', 'subject_code',
+            'country_id', 'language_code', 'created_at', 'updated_at'
+        ]
 
 
 class ClassLevelSerializer(serializers.ModelSerializer):
@@ -344,29 +339,32 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 
 class ChapterSerializer(serializers.ModelSerializer):
-    subject = SubjectSerializer(read_only=True)
-    subject_code = serializers.CharField(source='subject.subject_code', read_only=True)
-    subject_name = serializers.CharField(source='subject.subject_name', read_only=True)
-    
+    subject_code = serializers.CharField(read_only=True)
+    subject_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Chapter
-        fields = ['id', 'subject', 'subject_code', 'subject_name', 'chapter_no', 'chapter_name']
+        fields = ['id', 'subject_code', 'subject_name', 'chapter_no', 'chapter_name']
+
+    def get_subject_name(self, obj):
+        s = Subject.objects.filter(subject_code=obj.subject_code).first()
+        return (s.subject_translated or s.subject_name or obj.subject_code) if s else obj.subject_code
 
 
 class TopicSerializer(serializers.ModelSerializer):
     chapter = ChapterSerializer(read_only=True)
     chapter_no = serializers.CharField(source='chapter.chapter_no', read_only=True)
     chapter_name = serializers.CharField(source='chapter.chapter_name', read_only=True)
-    subject_code = serializers.CharField(source='chapter.subject.subject_code', read_only=True)
-    
+    subject_code = serializers.CharField(source='chapter.subject_code', read_only=True)
+
     class Meta:
         model = Topic
         fields = ['id', 'chapter', 'chapter_no', 'chapter_name', 'subject_code', 'topic_no', 'topic_name']
 
 
 class McqIctSerializer(serializers.ModelSerializer):
-    subject = SubjectSerializer(read_only=True)
-    subject_code = serializers.CharField(source='subject.subject_code', read_only=True, required=False)
+    subject_code = serializers.CharField(read_only=True, required=False)
+    subject_name = serializers.SerializerMethodField()
     chapter = ChapterSerializer(read_only=True)
     chapter_no = serializers.CharField(source='chapter.chapter_no', read_only=True, required=False)
     chapter_name = serializers.CharField(source='chapter.chapter_name', read_only=True, required=False)
@@ -401,16 +399,19 @@ class McqIctSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mcq_ict
         fields = [
-            'qid', 'subject', 'subject_code', 'chapter', 'chapter_no', 'chapter_name',
-            'topic', 'topic_no', 'topic_name', 'uddipok', 'question', 'option1', 
+            'qid', 'subject_code', 'subject_name', 'chapter', 'chapter_no', 'chapter_name',
+            'topic', 'topic_no', 'topic_name', 'uddipok', 'question', 'option1',
             'option2', 'option3', 'option4', 'answer', 'explanation',
             'img_uddipok', 'img_question', 'img_explanation',
             'institutes', 'years',
-            # Write-only fields
             'subject_code_write', 'chapter_no_write', 'topic_no_write',
             'institute_codes', 'year_codes'
         ]
         read_only_fields = ['qid']
+
+    def get_subject_name(self, obj):
+        s = Subject.objects.filter(subject_code=obj.subject_code).first()
+        return (s.subject_translated or s.subject_name or obj.subject_code) if s else (obj.subject_code or '')
     
     def to_representation(self, instance):
         """Override to include full image URLs"""
@@ -440,21 +441,16 @@ class McqIctSerializer(serializers.ModelSerializer):
         institute_codes = validated_data.pop('institute_codes', [])
         year_codes = validated_data.pop('year_codes', [])
         
-        # Get related objects (subject_code is local code; use filter().first() when id not provided)
         if subject_code:
-            subject = Subject.objects.filter(subject_code=subject_code).first()
-            if not subject:
+            if not Subject.objects.filter(subject_code=subject_code).exists():
                 raise serializers.ValidationError(f"Subject with code {subject_code} does not exist")
-            validated_data['subject'] = subject
-        
+            validated_data['subject_code'] = subject_code
         if chapter_no and subject_code:
-            subject = validated_data.get('subject')
-            if subject:
-                try:
-                    chapter = Chapter.objects.get(subject=subject, chapter_no=chapter_no)
-                    validated_data['chapter'] = chapter
-                except Chapter.DoesNotExist:
-                    raise serializers.ValidationError(f"Chapter {chapter_no} not found for subject {subject_code}")
+            try:
+                chapter = Chapter.objects.get(subject_code=subject_code, chapter_no=chapter_no)
+                validated_data['chapter'] = chapter
+            except Chapter.DoesNotExist:
+                raise serializers.ValidationError(f"Chapter {chapter_no} not found for subject {subject_code}")
         
         if topic_no and chapter_no and subject_code:
             chapter = validated_data.get('chapter')
@@ -487,17 +483,14 @@ class McqIctSerializer(serializers.ModelSerializer):
         institute_codes = validated_data.pop('institute_codes', None)
         year_codes = validated_data.pop('year_codes', None)
         
-        # Update related objects if provided
         if subject_code:
-            subject = Subject.objects.filter(subject_code=subject_code).first()
-            if not subject:
+            if not Subject.objects.filter(subject_code=subject_code).exists():
                 raise serializers.ValidationError(f"Subject with code {subject_code} does not exist")
-            validated_data['subject'] = subject
-        
+            validated_data['subject_code'] = subject_code
         if chapter_no:
-            subject_obj = validated_data.get('subject', instance.subject)
+            subj_code = validated_data.get('subject_code', instance.subject_code)
             try:
-                chapter = Chapter.objects.get(subject=subject_obj, chapter_no=chapter_no)
+                chapter = Chapter.objects.get(subject_code=subj_code, chapter_no=chapter_no)
                 validated_data['chapter'] = chapter
             except Chapter.DoesNotExist:
                 raise serializers.ValidationError(f"Chapter {chapter_no} not found")

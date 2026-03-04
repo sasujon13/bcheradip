@@ -186,7 +186,7 @@ class Item(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'items'
+        db_table = 'cheradip_items'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['code']),
@@ -232,7 +232,7 @@ class Transaction(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'transactions'
+        db_table = 'cheradip_transactions'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['trxid']),
@@ -577,7 +577,7 @@ class CustomerToken(models.Model):
     expires_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
-        db_table = 'customer_tokens'
+        db_table = 'cheradip_customer_tokens'
         ordering = ['-created']
         indexes = [
             models.Index(fields=['key']),
@@ -606,7 +606,7 @@ class Group(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'groups'
+        db_table = 'cheradip_groups'
         ordering = ['group_code']
         indexes = [
             models.Index(fields=['group_code']),
@@ -630,7 +630,7 @@ class ClassLevel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'class_levels'
+        db_table = 'cheradip_class_levels'
         ordering = ['display_order', 'class_code']
         indexes = [
             models.Index(fields=['class_code']),
@@ -657,7 +657,7 @@ class Department(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'departments'
+        db_table = 'cheradip_departments'
         ordering = ['display_order', 'dept_name']
         indexes = [
             models.Index(fields=['dept_code']),
@@ -678,7 +678,7 @@ class ClassGroupMapping(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'class_group_mappings'
+        db_table = 'cheradip_class_group_mappings'
         unique_together = (('class_level', 'group_codes'),)
         indexes = [
             models.Index(fields=['class_level']),
@@ -696,61 +696,56 @@ class ClassGroupMapping(models.Model):
 
 
 class Subject(models.Model):
-    """Subject model (e.g., ICT, Physics, Chemistry)"""
-    # Primary Key
-    subject_code = models.CharField(max_length=4, unique=True, primary_key=True, db_index=True)
-    
-    # Subject Information
-    subject_name = models.CharField(max_length=50, blank=True)
-    subject_name_tr = models.CharField(max_length=50, blank=True, null=True)  # copied from cheradip_subject_translated.subject_name
-    subject_name_bn = models.CharField(max_length=50, blank=True, null=True)
-    
-    # Relationships
-    groups = models.ManyToManyField(Group, related_name='subjects', db_table='subject_groups')
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
+    """
+    Subject model — table cheradip_subject (replaces subjects + cheradip_subject_translated).
+    One row per (subject_code, level, country, language). CSV: id, level, level_tr, groups, class, subject_name, subject_translated, subject_code, country_id, language_code, created_at, updated_at.
+    """
+    id = models.AutoField(primary_key=True)
+    level = models.CharField(max_length=100, blank=True, null=True, db_index=True)
+    level_tr = models.CharField(max_length=100, blank=True, null=True)
+    groups = models.JSONField(blank=True, null=True, help_text='JSON array of group names/codes')
+    class_level = models.IntegerField(blank=True, null=True)  # "class" in CSV; avoid Python keyword
+    subject_name = models.CharField(max_length=255, blank=True, null=True)  # e.g. Bengali name
+    subject_translated = models.CharField(max_length=255, blank=True, null=True)  # e.g. English name
+    subject_code = models.CharField(max_length=12, db_index=True)
+    country_id = models.CharField(max_length=2, blank=True, null=True, db_index=True)
+    language_code = models.CharField(max_length=10, blank=True, null=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
     class Meta:
-        db_table = 'subjects'
-        ordering = ['subject_code']
+        db_table = 'cheradip_subject'
+        ordering = ['subject_code', 'level', 'country_id']
         indexes = [
             models.Index(fields=['subject_code']),
+            models.Index(fields=['country_id', 'level']),
         ]
-    
+
     def __str__(self):
-        group_codes = ', '.join([group.group_code for group in self.groups.all()])
-        return f"{group_codes} {self.subject_code} - {self.subject_name}"
+        return f"{self.subject_code} - {self.subject_translated or self.subject_name or 'N/A'}"
 
 
 class Chapter(models.Model):
-    """Chapter model - Chapters within a Subject"""
-    # Primary Key
+    """Chapter model - Chapters within a Subject (linked by subject_code)."""
     id = models.AutoField(primary_key=True)
-    
-    # Foreign Keys
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='chapters', db_index=True)
-    
-    # Chapter Information
+    subject_code = models.CharField(max_length=12, db_index=True)
+
     chapter_no = models.CharField(max_length=2, blank=True, db_index=True)
     chapter_name = models.CharField(max_length=100, blank=True)
     chapter_name_bn = models.CharField(max_length=100, blank=True, null=True)
-    
-    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
-        db_table = 'chapters'
-        ordering = ['subject', 'chapter_no']
-        unique_together = ('subject', 'chapter_no')
+        db_table = 'cheradip_chapters'
+        ordering = ['subject_code', 'chapter_no']
+        unique_together = (('subject_code', 'chapter_no'),)
         indexes = [
-            models.Index(fields=['subject', 'chapter_no']),
+            models.Index(fields=['subject_code', 'chapter_no']),
         ]
-    
+
     def __str__(self):
-        return f"{self.subject.subject_code} Chapter {self.chapter_no} - {self.chapter_name}"
+        return f"{self.subject_code} Chapter {self.chapter_no} - {self.chapter_name}"
 
 
 class Topic(models.Model):
@@ -771,7 +766,7 @@ class Topic(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'topics'
+        db_table = 'cheradip_topics'
         ordering = ['chapter', 'topic_no']
         unique_together = ('chapter', 'topic_no')
         indexes = [
@@ -779,7 +774,7 @@ class Topic(models.Model):
         ]
     
     def __str__(self):
-        return f"{self.chapter.subject.subject_code} Topic {self.topic_no} - {self.topic_name}"
+        return f"{self.chapter.subject_code} Topic {self.topic_no} - {self.topic_name}"
 
 
 class Institute(models.Model):
@@ -825,7 +820,7 @@ class Year(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'years'
+        db_table = 'cheradip_years'
         ordering = ['-year_code']
         indexes = [
             models.Index(fields=['year_code']),
@@ -837,7 +832,7 @@ class Year(models.Model):
 
 def question_image_path(instance, filename):
     """Generate path for question images"""
-    return f'images/mcq/{instance.subject.subject_code}/{instance.chapter.chapter_no}/{instance.qid}/{filename}'
+    return f'images/mcq/{instance.subject_code}/{instance.chapter.chapter_no}/{instance.qid}/{filename}'
 
 
 class Mcq_ict(models.Model):
@@ -852,8 +847,7 @@ class Mcq_ict(models.Model):
     # Primary Key
     qid = models.CharField(max_length=10, unique=True, editable=False, primary_key=True, db_index=True)
     
-    # Foreign Keys
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='questions', db_index=True)
+    subject_code = models.CharField(max_length=12, db_index=True)
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='questions', db_index=True)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='questions', db_index=True)
     
@@ -874,7 +868,7 @@ class Mcq_ict(models.Model):
     
     # Relationships
     institutes = models.ManyToManyField(Institute, related_name='questions', blank=True, db_table='mcq_institutes')
-    years = models.ManyToManyField(Year, related_name='questions', blank=True, db_table='mcq_years')
+    years = models.ManyToManyField(Year, related_name='questions', blank=True, db_table='cheradip_mcq_years')
     
     # Metadata
     difficulty_level = models.CharField(max_length=20, choices=[
@@ -889,31 +883,28 @@ class Mcq_ict(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'mcq_ict'
-        ordering = ['subject', 'chapter', 'topic', 'qid']
+        db_table = 'cheradip_mcq_ict'
+        ordering = ['subject_code', 'chapter', 'topic', 'qid']
         indexes = [
             models.Index(fields=['qid']),
-            models.Index(fields=['subject', 'chapter', 'topic']),
+            models.Index(fields=['subject_code', 'chapter', 'topic']),
             models.Index(fields=['is_active']),
             models.Index(fields=['difficulty_level']),
         ]
     
     def __str__(self):
-        return f"Question {self.qid} ({self.subject.subject_code})"
-    
+        return f"Question {self.qid} ({self.subject_code})"
+
     def save(self, *args, **kwargs):
         if not self.qid:
-            # Zero-pad chapter_no and topic_no to ensure they are two digits
             try:
                 chapter_no = f'{int(self.chapter.chapter_no):02d}'
                 topic_no = f'{int(self.topic.topic_no):02d}'
             except (ValueError, AttributeError):
                 chapter_no = self.chapter.chapter_no.zfill(2) if self.chapter.chapter_no else '00'
                 topic_no = self.topic.topic_no.zfill(2) if self.topic.topic_no else '00'
-            
-            # Generate qid as subject_code + chapter_no + topic_no + 3 digit sequence number
             last_question = Mcq_ict.objects.filter(
-                subject=self.subject,
+                subject_code=self.subject_code,
                 chapter=self.chapter,
                 topic=self.topic
             ).order_by('qid').last()
@@ -927,7 +918,7 @@ class Mcq_ict(models.Model):
             else:
                 new_qid = '001'
             
-            self.qid = f'{self.subject.subject_code}{chapter_no}{topic_no}{new_qid}'
+            self.qid = f'{self.subject_code}{chapter_no}{topic_no}{new_qid}'
         
         super().save(*args, **kwargs)
 
@@ -1389,7 +1380,7 @@ class Token(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'tokens'
+        db_table = 'cheradip_tokens'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['Token']),
@@ -1418,7 +1409,7 @@ class JsonData(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        db_table = 'json_data'
+        db_table = 'cheradip_json_data'
         ordering = ['-created_at']
         indexes = [
             models.Index(fields=['data_type']),
@@ -1429,21 +1420,3 @@ class JsonData(models.Model):
         return f"JSON Data #{self.id} - Type: {self.data_type or 'N/A'}"
 
 
-class ScraperPreset(models.Model):
-    """Preset for the web scraper UI (Django Admin menu: Scraper)."""
-    name = models.CharField(max_length=120)
-    slug = models.SlugField(max_length=80, unique=True, blank=True, null=True)
-    base_url = models.URLField(max_length=512)
-    default_params = models.JSONField(blank=True, null=True, help_text='Default query params as JSON object or array of key-value pairs.')
-    default_headers = models.JSONField(blank=True, null=True, help_text='Default request headers as JSON object.')
-    description = models.CharField(max_length=255, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    created_at = DateTimeFieldSafeTZ(auto_now_add=True)
-    updated_at = DateTimeFieldSafeTZ(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_scraper_preset'
-        ordering = ['name']
-
-    def __str__(self):
-        return self.name

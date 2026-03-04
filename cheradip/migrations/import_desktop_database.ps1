@@ -35,7 +35,6 @@ $files = @(
     "cheradip_vacancy5.sql",
     "cheradip_vacancy6.sql",
     "cheradip_vacancy7.sql",
-    "cheradip_subject_translated.sql",
     "cheradip_token.sql"
 )
 
@@ -61,7 +60,7 @@ foreach ($f in $files) {
 # cheradip_token.sql creates table cheradip_token; Django uses table name "tokens"
 Write-Host ""
 Write-Host "Copying cheradip_token -> tokens ..."
-$copySql = "INSERT IGNORE INTO tokens (id, Token, Counter, Status, purpose, expires_at, created_at, updated_at) SELECT id, CAST(Token AS UNSIGNED), COALESCE(CAST(Counter AS CHAR), ''), Status, NULL, NULL, NOW(), NOW() FROM cheradip_token;"
+$copySql = "INSERT IGNORE INTO cheradip_tokens (id, Token, Counter, Status, purpose, expires_at, created_at, updated_at) SELECT id, CAST(Token AS UNSIGNED), COALESCE(CAST(Counter AS CHAR), ''), Status, NULL, NULL, NOW(), NOW() FROM cheradip_token;"
 $copySql | & $mysql -u $user --default-character-set=$charset $dbName 2>&1
 # cheradip_merit7.sql dump uses table name cheradip_merit
 Write-Host "Copying cheradip_merit -> cheradip_merit7 ..."

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Insert Bengali (and other) translations into cheradip_subject_translated.
+Insert Bengali (and other) translations into cheradip_subject.
 Format: lang, level, country, subject_code, subject_name, groups (tab-separated).
 - subject_name holds the translated name; level and groups are stored exactly as in your data.
-- Level/code in Bengali are normalized to English only for subject_id lookup (not for storage).
-- subject_id: HSC with code -> BD + digits; SSC/JSC/PSC with blank code -> BD_ + BN_NAME_TO_CODE[name].
+- subject_code: HSC with code -> BD + digits; SSC/JSC/PSC with blank code -> BD_ + BN_NAME_TO_CODE[name].
 Run: python manage.py insert_subject_translations
 """
 import json
@@ -21,7 +20,7 @@ LEVEL_BN_TO_EN = {
     'পিএসসি': 'PSC',
 }
 
-# Bengali subject name -> local_code (for rows with empty subject_code); subject_id = country + '_' + code
+# Bengali subject name -> local_code (for rows with empty subject_code); subject_code = country + '_' + code
 BN_NAME_TO_CODE = {
     'বাংলা সাহিত্য': 'BLL',
     'বাংলা ব্যাকরণ': 'BLG',
@@ -193,14 +192,14 @@ bn	পিএসসি	BD		ইংরেজি
 
 
 class Command(BaseCommand):
-    help = 'Insert Bengali translations into cheradip_subject_translated; subject_id from code or BN name'
+    help = 'Insert Bengali translations into cheradip_subject; subject_code from code or BN name'
 
     def add_arguments(self, parser):
         parser.add_argument('--dry-run', action='store_true', help='No DB writes')
         parser.add_argument('--lang', default='bn', help='Language code (default: bn)')
 
-    def resolve_subject_id(self, country, code_raw, subject_name_bn, level_bn):
-        """Resolve subject_id for a translated row. country is e.g. 'BD'."""
+    def resolve_subject_code(self, country, code_raw, subject_name_bn, level_bn):
+        """Resolve subject_code for a translated row. country is e.g. 'BD'."""
         code_norm = normalize_bn_digits(code_raw).strip() if code_raw else ''
         if code_norm and re.match(r'^\d+$', code_norm):
             # HSC-style: id = BD101, BD102, ...
@@ -225,15 +224,14 @@ class Command(BaseCommand):
                 return
             cur.execute("""
                 SELECT COLUMN_NAME FROM information_schema.COLUMNS
-                WHERE table_schema = DATABASE() AND table_name = 'cheradip_subject_translated'
+                WHERE table_schema = DATABASE() AND table_name = 'cheradip_subject'
             """)
             cols = {r[0] for r in cur.fetchall()}
         if not cols:
-            self.stdout.write(self.style.ERROR('Table cheradip_subject_translated not found.'))
+            self.stdout.write(self.style.ERROR('Table cheradip_subject not found.'))
             return
 
-        # subject_name_bn dropped; include created_at/updated_at if present (MySQL needs explicit values)
-        want = ['subject_id', 'language_code', 'level', 'country_id', 'subject_name', 'groups', 'created_at', 'updated_at']
+        want = ['subject_code', 'language_code', 'level', 'country_id', 'subject_name', 'groups', 'created_at', 'updated_at']
         use_cols = [c for c in want if c in cols]
         created = 0
         updated = 0
@@ -257,66 +255,64 @@ class Command(BaseCommand):
             if not subject_name or not country:
                 continue
 
-            # level_en only for subject_id resolution; stored level = level_raw (as you gave)
             level_en = LEVEL_BN_TO_EN.get(level_raw) or level_raw
-            subject_id = self.resolve_subject_id(country, code_raw, subject_name, level_raw)
-            if subject_id:
-                subject_id = str(subject_id)[:12]  # match Subject.id max_length
-            if not subject_id:
+            subject_code = self.resolve_subject_code(country, code_raw, subject_name, level_raw)
+            if subject_code:
+                subject_code = str(subject_code)[:12]
+            if not subject_code:
                 skipped += 1
                 if dry_run:
-                    self.stdout.write(self.style.WARNING(f"  skip (no subject_id): {subject_name[:40]}"))
+                    self.stdout.write(self.style.WARNING(f"  skip (no subject_code): {subject_name[:40]}"))
                 continue
 
-            # Ensure subject exists
+            # Ensure row exists in cheradip_subject (by subject_code, country_id, language_code)
             with connection.cursor() as cur:
-                cur.execute("SELECT 1 FROM cheradip_subject WHERE id = %s", [subject_id])
-                if not cur.fetchone():
-                    skipped += 1
-                    if dry_run:
-                        self.stdout.write(self.style.WARNING(f"  skip (subject missing): {subject_id} {subject_name[:30]}"))
-                    continue
+                cur.execute(
+                    "SELECT 1 FROM cheradip_subject WHERE subject_code = %s AND country_id = %s AND language_code = %s",
+                    [subject_code, country, (row_lang or lang)[:10]],
+                )
+                exists = cur.fetchone() is not None
 
-            subject_name = (subject_name or '')[:50]
+            subject_name = (subject_name or '')[:255]
             groups = parse_groups(groups_str)
             use_lang = (row_lang or lang)[:10]
+            level_to_store = (level_raw or level_en or '')[:100]
 
             if dry_run:
-                self.stdout.write(f"  {subject_id} | {level_raw or level_en} | {subject_name[:35]} | lang={use_lang}")
+                self.stdout.write(f"  {subject_code} | {level_raw or level_en} | {subject_name[:35]} | lang={use_lang}")
                 created += 1
                 continue
 
             now = timezone.now()
-            subject_id_val = (subject_id or '')[:12]  # fit DB column (matches Subject.id)
-            # Store level and groups exactly as in your data (Bengali levels, your group names)
-            level_to_store = (level_raw or level_en or '')[:20]
-            val_map = {
-                'subject_id': subject_id_val,
-                'language_code': use_lang,
-                'level': level_to_store,
-                'country_id': country,
-                'subject_name': subject_name,
-                'groups': json.dumps(groups) if groups else json.dumps([]),
-                'created_at': now,
-                'updated_at': now,
-            }
-            values = [val_map[c] for c in use_cols]
-            ph = ', '.join(['%s'] * len(use_cols))
-            col_list = ', '.join(f'`{c}`' for c in use_cols)
-            # On duplicate, update everything except subject_id, language_code, and created_at
-            skip_on_update = {'subject_id', 'language_code', 'created_at'}
-            ups = ', '.join(f'`{c}`=VALUES(`{c}`)' for c in use_cols if c not in skip_on_update)
+            groups_json = json.dumps(groups, ensure_ascii=False) if groups else json.dumps([])
 
             with connection.cursor() as cur:
-                cur.execute(
-                    f"INSERT INTO cheradip_subject_translated ({col_list}) VALUES ({ph}) "
-                    f"ON DUPLICATE KEY UPDATE {ups}",
-                    values,
-                )
-                rc = cur.rowcount
-            if rc == 1:
-                created += 1
-            elif rc == 2:
-                updated += 1
+                if exists:
+                    cur.execute(
+                        """UPDATE cheradip_subject SET level = %s, subject_name = %s, `groups` = %s, updated_at = %s
+                           WHERE subject_code = %s AND country_id = %s AND language_code = %s""",
+                        [level_to_store, subject_name, groups_json, now, subject_code, country, use_lang],
+                    )
+                    if cur.rowcount:
+                        updated += 1
+                else:
+                    val_map = {
+                        'subject_code': subject_code,
+                        'language_code': use_lang,
+                        'level': level_to_store,
+                        'country_id': country,
+                        'subject_name': subject_name,
+                        'groups': groups_json,
+                        'created_at': now,
+                        'updated_at': now,
+                    }
+                    values = [val_map[c] for c in use_cols]
+                    ph = ', '.join(['%s'] * len(use_cols))
+                    col_list = ', '.join(f'`{c}`' for c in use_cols)
+                    cur.execute(
+                        f"INSERT INTO cheradip_subject ({col_list}) VALUES ({ph})",
+                        values,
+                    )
+                    created += 1
 
         self.stdout.write(self.style.SUCCESS(f'Done. Created {created}, updated {updated}, skipped {skipped}.'))

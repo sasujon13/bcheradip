@@ -1,7 +1,7 @@
 -- UTF-8; Bengali/Unicode preserved. Import with mysql --default-character-set=utf8mb4
 SET NAMES 'utf8mb4';
 
-INSERT INTO cheradip_subject_translated (`subject_id`, `language_code`, `level`, `subject_name`, `groups`, `created_at`, `updated_at`, `country_id`) VALUES
+INSERT INTO cheradip_subject (`subject_code`, `language_code`, `level`, `subject_name`, `groups`, `created_at`, `updated_at`, `country_id`) VALUES
   ('BD101', 'bn', 'এইসএসসি', 'বাংলা ১ম পত্র', '["Science", "Humanities", "Business Studies", "Islamic Studies", "Home Science", "Music"]', '2026-01-27 18:09:19.324152', '2026-01-27 18:22:08.079526', 'BD'),
   ('BD102', 'bn', 'এইসএসসি', 'বাংলা ২য় পত্র', '["Science", "Humanities", "Business Studies", "Islamic Studies", "Home Science", "Music"]', '2026-01-27 18:09:19.328716', '2026-01-27 18:22:08.083372', 'BD'),
   ('BD107', 'bn', 'এইসএসসি', 'ইংরেজি ১ম পত্র', '["Science", "Humanities", "Business Studies", "Islamic Studies", "Home Science", "Music"]', '2026-01-27 18:09:19.334122', '2026-01-27 18:22:08.085442', 'BD'),

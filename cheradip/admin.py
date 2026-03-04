@@ -6,7 +6,6 @@ from .models import (
     Vacancy, Vacancy5, Vacancy6, Merit, Merit5, Merit6, Customer,
     CustomerToken, Order, Ordered, Canceled, OrderDetail, Transaction, 
     Group, Subject, Chapter, Topic, Mcq_ict, Notification, Institute, Year, JsonData,
-    ScraperPreset
 )
 
 admin.site.register(Item)
@@ -132,23 +131,23 @@ class NotificationAdmin(admin.ModelAdmin):
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ('subject_code', 'subject_name', 'subject_name_bn', 'created_at')
-    search_fields = ('subject_code', 'subject_name', 'subject_name_bn')
-    filter_horizontal = ('groups',)
+    list_display = ('id', 'subject_code', 'level', 'level_tr', 'subject_name', 'subject_translated', 'country_id', 'language_code')
+    search_fields = ('subject_code', 'subject_name', 'subject_translated', 'level', 'level_tr')
+    list_filter = ('country_id', 'language_code', 'level')
     readonly_fields = ('created_at', 'updated_at')
 
 @admin.register(Chapter)
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ('id', 'subject', 'chapter_no', 'chapter_name', 'chapter_name_bn', 'created_at')
-    search_fields = ('subject__subject_name', 'subject__subject_code', 'chapter_no', 'chapter_name', 'chapter_name_bn')
-    list_filter = ('subject', 'chapter_no', 'created_at')
+    list_display = ('id', 'subject_code', 'chapter_no', 'chapter_name', 'chapter_name_bn', 'created_at')
+    search_fields = ('subject_code', 'chapter_no', 'chapter_name', 'chapter_name_bn')
+    list_filter = ('subject_code', 'chapter_no', 'created_at')
     readonly_fields = ('created_at', 'updated_at')
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     list_display = ('id', 'chapter', 'topic_no', 'topic_name', 'topic_name_bn', 'created_at')
-    search_fields = ('chapter__chapter_name', 'chapter__subject__subject_code', 'topic_no', 'topic_name', 'topic_name_bn')
-    list_filter = ('chapter', 'chapter__subject', 'topic_no', 'created_at')
+    search_fields = ('chapter__chapter_name', 'chapter__subject_code', 'topic_no', 'topic_name', 'topic_name_bn')
+    list_filter = ('chapter', 'chapter__subject_code', 'topic_no', 'created_at')
     readonly_fields = ('created_at', 'updated_at')
 
 
@@ -191,26 +190,18 @@ class InstituteTypeFilter(admin.SimpleListFilter):
 
 @admin.register(Mcq_ict)
 class McqIctAdmin(admin.ModelAdmin):
-    list_display = ('qid', 'subject', 'chapter', 'topic', 'difficulty_level', 'is_active', 'answer', 'created_at')
+    list_display = ('qid', 'subject_code', 'chapter', 'topic', 'difficulty_level', 'is_active', 'answer', 'created_at')
     search_fields = (
-        'qid',
-        'question',
-        'uddipok',
-        'answer',
-        'explanation',
-        'subject__subject_code',
-        'subject__subject_name',
-        'chapter__chapter_no',
-        'chapter__chapter_name',
-        'topic__topic_no',
-        'topic__topic_name',
+        'qid', 'question', 'uddipok', 'answer', 'explanation',
+        'subject_code', 'chapter__chapter_no', 'chapter__chapter_name',
+        'topic__topic_no', 'topic__topic_name',
     )
-    list_filter = ('subject', 'chapter', 'topic', 'difficulty_level', 'is_active', 'answer', InstituteTypeFilter, InstituteNameByTypeFilter, 'years', 'created_at')
+    list_filter = ('subject_code', 'chapter', 'topic', 'difficulty_level', 'is_active', 'answer', InstituteTypeFilter, InstituteNameByTypeFilter, 'years', 'created_at')
     filter_horizontal = ('institutes', 'years')
     readonly_fields = ('qid', 'created_at', 'updated_at')
     fieldsets = (
         ('Question Information', {
-            'fields': ('qid', 'subject', 'chapter', 'topic', 'question', 'uddipok', 'img_question', 'img_uddipok')
+            'fields': ('qid', 'subject_code', 'chapter', 'topic', 'question', 'uddipok', 'img_question', 'img_uddipok')
         }),
         ('Options', {
             'fields': ('option1', 'option2', 'option3', 'option4', 'answer')
@@ -241,15 +232,6 @@ class YearAdmin(admin.ModelAdmin):
     list_display = ('year_code', 'year_name', 'year_name_bn', 'start_year', 'end_year', 'created_at')
     search_fields = ('year_code', 'year_name', 'year_name_bn')
     list_filter = ('year_code', 'start_year', 'end_year', 'created_at')
-    readonly_fields = ('created_at', 'updated_at')
-
-
-@admin.register(ScraperPreset)
-class ScraperPresetAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'base_url', 'is_active', 'created_at')
-    search_fields = ('name', 'base_url', 'description')
-    list_filter = ('is_active', 'created_at')
-    prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ('created_at', 'updated_at')
 
 

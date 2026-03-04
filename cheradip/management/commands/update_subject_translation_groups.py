@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Update groups in cheradip_subject_translated for Bengali (language_code='bn').
-Format: groups (Bengali, comma-separated) TAB subject_id, one per line.
+Update groups in cheradip_subject for Bengali (language_code='bn').
+Format: groups (Bengali, comma-separated) TAB subject_code, one per line.
 Stores groups as JSON array of trimmed strings.
 
 Run: python manage.py update_subject_translation_groups
@@ -11,7 +11,7 @@ import json
 from django.core.management.base import BaseCommand
 from django.db import connection
 
-# groups (Bengali, comma-separated) TAB subject_id
+# groups (Bengali, comma-separated) TAB subject_code
 RAW_ROWS = """
 বিজ্ঞান, মানবিক, ব্যবসায় শিক্ষা, ইসলাম শিক্ষা, গার্হস্থ্যবিজ্ঞান, সঙ্গীত	BD101
 বিজ্ঞান, মানবিক, ব্যবসায় শিক্ষা, ইসলাম শিক্ষা, গার্হস্থ্যবিজ্ঞান, সঙ্গীত	BD102
@@ -98,7 +98,7 @@ def parse_groups(s):
 
 
 class Command(BaseCommand):
-    help = "Update groups in cheradip_subject_translated for bn by subject_id (Bengali group names)"
+    help = "Update groups in cheradip_subject for bn by subject_code (Bengali group names)"
 
     def add_arguments(self, parser):
         parser.add_argument('--dry-run', action='store_true', help='No DB writes')
@@ -121,8 +121,8 @@ class Command(BaseCommand):
             if len(parts) < 2:
                 continue
             groups_str = (parts[0] or '').strip()
-            subject_id = (parts[1] or '').strip()[:12]
-            if not subject_id:
+            subject_code = (parts[1] or '').strip()[:12]
+            if not subject_code:
                 skipped += 1
                 continue
 
@@ -130,14 +130,14 @@ class Command(BaseCommand):
             groups_json = json.dumps(groups, ensure_ascii=False)
 
             if dry_run:
-                self.stdout.write(f"  {subject_id} | {len(groups)} groups")
+                self.stdout.write(f"  {subject_code} | {len(groups)} groups")
                 updated += 1
                 continue
 
             with connection.cursor() as cur:
                 cur.execute(
-                    "UPDATE cheradip_subject_translated SET `groups` = %s WHERE subject_id = %s AND language_code = %s",
-                    [groups_json, subject_id, lang],
+                    "UPDATE cheradip_subject SET `groups` = %s WHERE subject_code = %s AND language_code = %s",
+                    [groups_json, subject_code, lang],
                 )
                 if cur.rowcount:
                     updated += 1

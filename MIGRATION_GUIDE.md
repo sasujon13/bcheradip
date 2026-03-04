@@ -480,7 +480,7 @@ After migration, consider:
 
 1. **Add Database Indexes** (already added in models, but verify):
    ```sql
-   SHOW INDEX FROM items;
+   SHOW INDEX FROM cheradip_items;
    ```
 
 2. **Analyze Tables** (MySQL):

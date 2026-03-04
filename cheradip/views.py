@@ -212,15 +212,15 @@ class AllCountriesView(APIView):
 class LevelsByCountryView(APIView):
     """
     GET /api/levels_by_country/?country_code=BD
-    Returns unique Level/Class values from cheradip_subject for the given country.
-    Level column may contain comma-separated values (e.g. 'SSC,JSC,PSC'); we split and return unique sorted list.
+    Returns unique Level/Class values from cheradip_subject for the given country, with level_tr.
+    Level column may contain comma-separated values (e.g. 'SSC,JSC,PSC'); we split and return unique list
+    ordered by class_level ascending. Each item has level, level_tr, and label = "level (level_tr)".
     Used by signup to populate Class (Student) and Level (Teacher) dropdowns.
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
 
-    # Display order for levels (PSC, JSC, SSC, HSC, University)
-    LEVEL_ORDER = ('PSC', 'JSC', 'SSC', 'HSC', 'University')
+    DEFAULT_CLASS_FOR_UNKNOWN = 999
 
     def get(self, request):
         country_code = (request.query_params.get('country_code') or '').strip().upper()
@@ -229,24 +229,36 @@ class LevelsByCountryView(APIView):
 
         from django.db import connection
         table = 'cheradip_subject'
-        levels_set = set()
+        # level_name -> (min_class_level, level_tr to show)
+        level_info = {}
         with connection.cursor() as cur:
             cur.execute(
-                f"SELECT DISTINCT level FROM {table} WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''",
+                f"SELECT level, level_tr, class_level FROM {table} WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''",
                 [country_code]
             )
-            for (level_str,) in cur.fetchall():
-                if level_str:
-                    for part in level_str.replace(',', ' ').split():
-                        levels_set.add(part.strip())
+            for (level_str, level_tr_str, class_level) in cur.fetchall():
+                if not level_str:
+                    continue
+                cl = class_level if class_level is not None else self.DEFAULT_CLASS_FOR_UNKNOWN
+                level_parts = [p.strip() for p in level_str.split(',') if p.strip()]
+                level_tr_parts = [p.strip() for p in (level_tr_str or '').split(',') if p.strip()] if level_tr_str else []
+                for i, part in enumerate(level_parts):
+                    tr = level_tr_parts[i] if i < len(level_tr_parts) else (level_tr_parts[0] if level_tr_parts else None)
+                    if part not in level_info or cl < level_info[part][0]:
+                        level_info[part] = (cl, tr)
 
-        # Sort by LEVEL_ORDER (excluding University), then any extras alphabetically, then University last
-        order_without_uni = ('PSC', 'JSC', 'SSC', 'HSC')
-        ordered = [l for l in order_without_uni if l in levels_set]
-        extras = sorted(levels_set - set(self.LEVEL_ORDER))
-        levels = ordered + extras
-        if 'University' not in levels:
-            levels.append('University')
+        # Sort by class_level ascending, then by level name
+        def sort_key(item):
+            level_name = item[0]
+            min_cl = item[1][0]
+            return (min_cl, level_name)
+
+        levels = []
+        for lev, (min_cl, level_tr) in sorted(level_info.items(), key=sort_key):
+            label = f"{lev} ({level_tr})" if level_tr else lev
+            levels.append({'level': lev, 'level_tr': level_tr or '', 'label': label})
+        if not any(item['level'] == 'University' for item in levels):
+            levels.append({'level': 'University', 'level_tr': 'University', 'label': 'University (University)'})
 
         return Response({'levels': levels, 'country_code': country_code})
 
@@ -336,7 +348,7 @@ class SubjectsByCountryLevelView(APIView):
         with connection.cursor() as cur:
             cur.execute(
                 f"""
-                SELECT id, subject_code, subject_name, subject_name_tr
+                SELECT id, subject_code, subject_name, subject_translated
                 FROM {table}
                 WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''
                   AND (level = %s OR level LIKE %s OR level LIKE %s OR level LIKE %s)
@@ -2964,24 +2976,21 @@ class ChapterViewSet(viewsets.ModelViewSet):
     serializer_class = ChapterSerializer
     
     def get_queryset(self):
-        queryset = Chapter.objects.all().select_related('subject')
+        queryset = Chapter.objects.all()
         subject_codes = self.request.query_params.getlist('subjects')
         chapter_no = self.request.query_params.get('chapter_no')
-        
         if subject_codes:
-            queryset = queryset.filter(subject__subject_code__in=subject_codes)
-        
+            queryset = queryset.filter(subject_code__in=subject_codes)
         if chapter_no:
             queryset = queryset.filter(chapter_no=chapter_no)
-        
-        return queryset.order_by('subject__subject_code', 'chapter_no')
+        return queryset.order_by('subject_code', 'chapter_no')
 
 
 class TopicViewSet(viewsets.ModelViewSet):
     serializer_class = TopicSerializer
     
     def get_queryset(self):
-        queryset = Topic.objects.all().select_related('chapter', 'chapter__subject')
+        queryset = Topic.objects.all().select_related('chapter')
         chapter_ids = self.request.query_params.getlist('chapters')
         topic_no = self.request.query_params.get('topic_no')
         
@@ -2991,7 +3000,7 @@ class TopicViewSet(viewsets.ModelViewSet):
         if topic_no:
             queryset = queryset.filter(topic_no=topic_no)
         
-        return queryset.order_by('chapter__subject__subject_code', 'chapter__chapter_no', 'topic_no')
+        return queryset.order_by('chapter__subject_code', 'chapter__chapter_no', 'topic_no')
 
 
 class InstituteViewSet(viewsets.ModelViewSet):
@@ -3033,19 +3042,17 @@ class YearViewSet(viewsets.ModelViewSet):
 
 class McqIctViewSet(viewsets.ModelViewSet):
     serializer_class = McqIctSerializer
-    queryset = Mcq_ict.objects.all().select_related('subject', 'chapter', 'topic').prefetch_related(
+    queryset = Mcq_ict.objects.all().select_related('chapter', 'topic').prefetch_related(
         'institutes', 'years'
     )
-    
+
     def get_queryset(self):
         queryset = Mcq_ict.objects.all().select_related(
-            'subject', 'chapter', 'topic'
+            'chapter', 'topic'
         ).prefetch_related('institutes', 'years')
-        
-        # Filter by subject code(s)
         subject_codes = self.request.query_params.getlist('subject')
         if subject_codes:
-            queryset = queryset.filter(subject__subject_code__in=subject_codes)
+            queryset = queryset.filter(subject_code__in=subject_codes)
         
         # Filter by chapter
         chapter_nos = self.request.query_params.getlist('chapter')
@@ -3085,15 +3092,16 @@ class McqIctViewSet(viewsets.ModelViewSet):
                 Q(option4__icontains=search)
             )
         
-        # Filter by group code(s) (subject.groups overlaps requested codes)
+        # Filter by group code(s): subject_code in Subject rows whose groups JSON contains any requested code
         group_codes = self.request.query_params.getlist('group')
         if group_codes:
-            from django.db.models import Q
-            from functools import reduce
-            from operator import or_
-            q = reduce(or_, [Q(subject__groups__contains=[c]) for c in group_codes], Q())
-            queryset = queryset.filter(q).distinct()
-        
+            codes_in_groups = set()
+            for c in group_codes:
+                codes_in_groups.update(
+                    Subject.objects.filter(groups__contains=[c]).values_list('subject_code', flat=True)
+                )
+            if codes_in_groups:
+                queryset = queryset.filter(subject_code__in=codes_in_groups)
         return queryset.order_by('qid')
     
     def get_serializer_context(self):
@@ -3117,15 +3125,14 @@ class McqIctViewSet(viewsets.ModelViewSet):
         
         # Count by subject
         from django.db.models import Count
-        subject_counts = queryset.values('subject__subject_code', 'subject__subject_name').annotate(
+        subject_counts = queryset.values('subject_code').annotate(
             count=Count('qid')
-        ).order_by('subject__subject_code')
-        
+        ).order_by('subject_code')
         for item in subject_counts:
-            stats['by_subject'][item['subject__subject_code']] = {
-                'name': item['subject__subject_name'],
-                'count': item['count']
-            }
+            code = item['subject_code']
+            subj = Subject.objects.filter(subject_code=code).first()
+            name = (subj.subject_translated or subj.subject_name or code) if subj else code
+            stats['by_subject'][code] = {'name': name, 'count': item['count']}
         
         # Count by year
         year_counts = queryset.values('years__year_code', 'years__year_name').annotate(

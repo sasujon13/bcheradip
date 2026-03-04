@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Export cheradip_subject_translated to CSV or SQL as UTF-8 so Bengali/Unicode
+Export cheradip_subject to CSV or SQL as UTF-8 so Bengali/Unicode
 stays correct when downloading or opening in Excel/SQL tools.
 
 CSV: uses utf-8-sig (UTF-8 with BOM) so Excel opens Bengali correctly.
@@ -47,15 +47,14 @@ class Command(BaseCommand):
 
         with connection.cursor() as cur:
             cur.execute("SET NAMES 'utf8mb4'")
-            where = "WHERE st.language_code = %s" if lang_filter else ""
+            where = "WHERE s.language_code = %s" if lang_filter else ""
             params = [lang_filter] if lang_filter else []
             cur.execute(f"""
-                SELECT st.subject_id, st.language_code, st.level, st.subject_name, st.`groups`, st.created_at, st.updated_at,
-                       s.country_id
-                FROM cheradip_subject_translated st
-                LEFT JOIN cheradip_subject s ON s.id = st.subject_id
+                SELECT s.subject_code, s.language_code, s.level, s.level_tr, s.subject_name, s.subject_translated,
+                       s.`groups`, s.class_level, s.country_id, s.created_at, s.updated_at
+                FROM cheradip_subject s
                 {where}
-                ORDER BY st.language_code, st.subject_id
+                ORDER BY s.language_code, s.subject_code
             """, params)
             rows = cur.fetchall()
             cols = [d[0] for d in cur.description]
@@ -81,7 +80,7 @@ class Command(BaseCommand):
             f.write("SET NAMES 'utf8mb4';\n\n")
             if rows:
                 col_list = ', '.join(f'`{c}`' for c in cols)
-                f.write("INSERT INTO cheradip_subject_translated (%s) VALUES\n" % col_list)
+                f.write("INSERT INTO cheradip_subject (%s) VALUES\n" % col_list)
                 lines = []
                 for row in rows:
                     vals = ', '.join(self._sql_val(x) for x in row)
