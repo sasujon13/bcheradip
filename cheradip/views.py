@@ -239,7 +239,19 @@ class LevelsByCountryView(APIView):
             for (level_str, level_tr_str, class_level) in cur.fetchall():
                 if not level_str:
                     continue
-                cl = class_level if class_level is not None else self.DEFAULT_CLASS_FOR_UNKNOWN
+                s = (class_level or '').strip()
+                if not s:
+                    cl = self.DEFAULT_CLASS_FOR_UNKNOWN
+                elif s.isdigit():
+                    cl = int(s)
+                elif s == '9-10':
+                    cl = 9
+                elif s == '11-12':
+                    cl = 11
+                elif s == '13-16':
+                    cl = 13
+                else:
+                    cl = self.DEFAULT_CLASS_FOR_UNKNOWN
                 level_parts = [p.strip() for p in level_str.split(',') if p.strip()]
                 level_tr_parts = [p.strip() for p in (level_tr_str or '').split(',') if p.strip()] if level_tr_str else []
                 for i, part in enumerate(level_parts):
@@ -247,7 +259,7 @@ class LevelsByCountryView(APIView):
                     if part not in level_info or cl < level_info[part][0]:
                         level_info[part] = (cl, tr)
 
-        # Sort by class_level ascending, then by level name
+        # Order levels by relevant class ascending (class_level), then by level name
         def sort_key(item):
             level_name = item[0]
             min_cl = item[1][0]
@@ -261,6 +273,64 @@ class LevelsByCountryView(APIView):
             levels.append({'level': 'University', 'level_tr': 'University', 'label': 'University (University)'})
 
         return Response({'levels': levels, 'country_code': country_code})
+
+
+# Class number to display name for Student signup (Class Zero, Class One, ...)
+CLASS_LEVEL_LABELS = {
+    0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six',
+    7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve',
+    13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen',
+}
+CLASSES_WITH_GROUPS = {9, 10, 11, 12}  # Show Group dropdown for these
+
+
+class ClassesByCountryView(APIView):
+    """
+    GET /api/classes_by_country/?country_code=BD
+    Returns distinct class_level from cheradip_subject for the given country, ordered ascending.
+    Each item: value (class number), label (e.g. "Class Zero", "Class One"), has_groups (true for 9,10,11,12).
+    Used for Student signup Class dropdown.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        if not country_code:
+            return Response({'classes': [], 'error': 'country_code is required'}, status=status.HTTP_400_BAD_REQUEST)
+        from django.db import connection
+        with connection.cursor() as cur:
+            cur.execute(
+                """
+                SELECT DISTINCT TRIM(class_level) FROM cheradip_subject
+                WHERE country_id = %s AND class_level IS NOT NULL AND TRIM(class_level) != ''
+                """,
+                [country_code]
+            )
+            rows = cur.fetchall()
+        distinct_class = set((r[0].strip() for r in rows if r[0] and r[0].strip()))
+        # Always include Class Zero through Class Eight so dropdown is complete
+        single_classes = [str(i) for i in range(0, 9)]
+        classes = []
+        for c in single_classes:
+            n = int(c)
+            label_name = CLASS_LEVEL_LABELS.get(n)
+            label = f"Class {label_name}" if label_name is not None else f"Class {n}"
+            classes.append({
+                'value': c,
+                'label': label,
+                'has_groups': False,
+            })
+        if '9-10' in distinct_class:
+            classes.append({'value': '9-10', 'label': 'Class 9-10', 'has_groups': True})
+        if '11-12' in distinct_class:
+            classes.append({'value': '11-12', 'label': 'Class 11-12', 'has_groups': True})
+        classes.append({
+            'value': '13-16',
+            'label': 'Degree / University',
+            'has_groups': False,
+        })
+        return Response({'classes': classes, 'country_code': country_code})
 
 
 class LocationDivisionsView(APIView):
@@ -327,42 +397,63 @@ class LocationThanasView(APIView):
 class SubjectsByCountryLevelView(APIView):
     """
     GET /api/subjects_by_country_level/?country_code=BD&level=HSC
-    Returns subjects from cheradip_subject for the given country and level (for Teacher signup).
-    Level matches exact or comma-separated (e.g. level LIKE '%HSC%').
+    GET /api/subjects_by_country_level/?country_code=BD&level=SSC,JSC
+    Returns subjects from cheradip_subject for the given country and level(s) (for Teacher signup).
+    Level may be comma-separated (e.g. SSC,JSC); subjects matching ANY of those levels are returned.
+    Each level matches exact or as part of comma-separated in DB (e.g. level LIKE '%SSC%').
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
 
     def get(self, request):
         country_code = (request.query_params.get('country_code') or '').strip().upper()
-        level = (request.query_params.get('level') or '').strip()
-        if not country_code or not level:
+        level_param = (request.query_params.get('level') or '').strip()
+        if not country_code or not level_param:
             return Response(
                 {'subjects': [], 'error': 'country_code and level are required'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        # Support comma-separated levels: retrieve subjects for all of them
+        level_parts = [p.strip() for p in level_param.split(',') if p.strip()]
+        if not level_parts:
+            return Response({'subjects': [], 'country_code': country_code, 'level': level_param})
+
         from django.db import connection
         table = 'cheradip_subject'
-        # Match level: exact or as part of comma-separated (e.g. "SSC,JSC" for level "SSC")
+        # Broad SQL match so subjects load; then filter in Python so "প্রাথমিক" does NOT match "প্রাক-প্রাথমিক"
+        per_part = '(level = %s OR level LIKE %s)'
+        level_conditions = ' OR '.join([per_part] * len(level_parts))
+        params = [country_code]
+        for part in level_parts:
+            params.extend([part, f'%{part}%'])
+
         with connection.cursor() as cur:
             cur.execute(
                 f"""
-                SELECT id, subject_code, subject_name, subject_translated
+                SELECT id, subject_code, subject_name, subject_translated, level
                 FROM {table}
                 WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''
-                  AND (level = %s OR level LIKE %s OR level LIKE %s OR level LIKE %s)
-                ORDER BY subject_code
+                  AND ({level_conditions})
                 """,
-                [country_code, level, f'%{level},%', f'{level},%', f'%,{level}']
+                params
             )
             rows = cur.fetchall()
 
-        subjects = [
-            {'id': r[0], 'subject_code': r[1], 'subject_name': r[2] or '', 'subject_name_tr': r[3] or ''}
-            for r in rows
-        ]
-        return Response({'subjects': subjects, 'country_code': country_code, 'level': level})
+        # Keep only rows where each selected part appears as a whole token (comma-separated), not substring
+        def level_matches(level_str, parts):
+            if not level_str or not parts:
+                return False
+            tokens = [t.strip() for t in level_str.split(',') if t.strip()]
+            return any(p in tokens for p in parts)
+
+        selected_parts = set(level_parts)
+        subjects = []
+        for r in rows:
+            level_val = (r[4] or '').strip()
+            if level_matches(level_val, selected_parts):
+                subjects.append({'id': r[0], 'subject_code': r[1], 'subject_name': r[2] or '', 'subject_name_tr': r[3] or ''})
+        return Response({'subjects': subjects, 'country_code': country_code, 'level': level_param})
 
 
 class GroupsByCountryLevelView(APIView):
@@ -3427,7 +3518,7 @@ class GenerateDefaultPasswordView(APIView):
 
 
 class GetGroupsByClassView(APIView):
-    """Get available groups for a specific class (9-10, 11-12)"""
+    """Get available groups for a specific class (9-10, 11-12). Returns exactly groups from Group/ClassGroupMapping, else none."""
     permission_classes = [PublicAccess]
     authentication_classes = []
     
@@ -3445,15 +3536,13 @@ class GetGroupsByClassView(APIView):
         if not class_level.has_groups:
             return Response({'groups': [], 'message': 'This class does not have groups'}, status=status.HTTP_200_OK)
         
-        # Get group mappings for this class
         mappings = ClassGroupMapping.objects.filter(class_level=class_level)
         all_group_codes = set()
         for mapping in mappings:
-            all_group_codes.update(mapping.get_group_list())
+            codes = [c.strip() for c in mapping.group_codes.split(',') if c.strip()]
+            all_group_codes.update(codes)
         
-        # Get group details
         groups = Group.objects.filter(group_code__in=all_group_codes).order_by('group_code')
-        
         from .serializers import GroupSerializer
         serializer = GroupSerializer(groups, many=True)
         

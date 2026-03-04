@@ -704,7 +704,7 @@ class Subject(models.Model):
     level = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     level_tr = models.CharField(max_length=100, blank=True, null=True)
     groups = models.JSONField(blank=True, null=True, help_text='JSON array of group names/codes')
-    class_level = models.IntegerField(blank=True, null=True)  # "class" in CSV; avoid Python keyword
+    class_level = models.CharField(max_length=10, blank=True, null=True, db_index=True)  # '0'..'8', '9-10', '11-12', '13-16'
     subject_name = models.CharField(max_length=255, blank=True, null=True)  # e.g. Bengali name
     subject_translated = models.CharField(max_length=255, blank=True, null=True)  # e.g. English name
     subject_code = models.CharField(max_length=12, db_index=True)
@@ -723,6 +723,11 @@ class Subject(models.Model):
 
     def __str__(self):
         return f"{self.subject_code} - {self.subject_translated or self.subject_name or 'N/A'}"
+
+    def get_class_display(self):
+        """Class value for display: 0, 1, ... 8, 9-10, 11-12, 13-16."""
+        return (self.class_level or '').strip() or '—'
+    get_class_display.short_description = 'Class'
 
 
 class Chapter(models.Model):

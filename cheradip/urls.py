@@ -56,6 +56,7 @@ from .views import (
     UniversityDepartmentsView,
     GetClassInfoView,
     LevelsByCountryView,
+    ClassesByCountryView,
     SubjectsByCountryLevelView,
     GroupsByCountryLevelView,
     LocationDivisionsView,
@@ -138,6 +139,7 @@ urlpatterns = [
     path('departments/', GetDepartmentsView.as_view(), name='departments'),
     path('university_departments/', UniversityDepartmentsView.as_view(), name='university_departments'),
     path('levels_by_country/', LevelsByCountryView.as_view(), name='levels_by_country'),
+    path('classes_by_country/', ClassesByCountryView.as_view(), name='classes_by_country'),
     path('subjects_by_country_level/', SubjectsByCountryLevelView.as_view(), name='subjects_by_country_level'),
     path('groups_by_country_level/', GroupsByCountryLevelView.as_view(), name='groups_by_country_level'),
     # All countries as array for <option> dropdowns (GET /api/country/)

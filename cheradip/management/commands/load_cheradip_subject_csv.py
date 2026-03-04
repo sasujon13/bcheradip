@@ -52,7 +52,16 @@ class Command(BaseCommand):
                 else:
                     groups = None
                 class_val = row.get('class', '').strip()
-                class_level = int(class_val) if class_val.isdigit() else None
+                if class_val.isdigit():
+                    class_level = class_val
+                elif class_val in ('9-10', '9–10'):
+                    class_level = '9-10'
+                elif class_val in ('11-12', '11–12'):
+                    class_level = '11-12'
+                elif class_val in ('13-16', '13–16'):
+                    class_level = '13-16'
+                else:
+                    class_level = None
                 Subject.objects.create(
                     level=(row.get('level') or '').strip() or None,
                     level_tr=(row.get('level_tr') or '').strip() or None,
@@ -64,8 +73,8 @@ class Command(BaseCommand):
                     country_id=(row.get('country_id') or '').strip() or None,
                     language_code=(row.get('language_code') or '').strip() or None,
                 )
+                created += 1
             except Exception as e:
                 self.stdout.write(self.style.WARNING(f'Skip row: {e}'))
                 continue
-            created += 1
         self.stdout.write(self.style.SUCCESS(f'Loaded {created} rows into cheradip_subject.'))

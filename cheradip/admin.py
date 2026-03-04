@@ -131,9 +131,9 @@ class NotificationAdmin(admin.ModelAdmin):
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'subject_code', 'level', 'level_tr', 'subject_name', 'subject_translated', 'country_id', 'language_code')
+    list_display = ('id', 'level', 'level_tr', 'groups', 'get_class_display', 'subject_name', 'subject_translated', 'subject_code', 'country_id', 'language_code', 'created_at', 'updated_at')
     search_fields = ('subject_code', 'subject_name', 'subject_translated', 'level', 'level_tr')
-    list_filter = ('country_id', 'language_code', 'level')
+    list_filter = ('country_id', 'language_code', 'level', 'class_level')
     readonly_fields = ('created_at', 'updated_at')
 
 @admin.register(Chapter)
