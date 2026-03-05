@@ -23,7 +23,7 @@ class Command(BaseCommand):
         path = options['csv_path']
         truncate = options['truncate']
         try:
-            with open(path, 'r', encoding='utf-8-sig', newline='') as f:
+            with open(path, 'r', encoding='utf-8-sig', newline='', errors='replace') as f:
                 reader = csv.DictReader(f)
                 rows = list(reader)
         except FileNotFoundError:
@@ -62,16 +62,21 @@ class Command(BaseCommand):
                     class_level = '13-16'
                 else:
                     class_level = None
-                Subject.objects.create(
-                    level=(row.get('level') or '').strip() or None,
-                    level_tr=(row.get('level_tr') or '').strip() or None,
-                    groups=groups,
-                    class_level=class_level,
-                    subject_name=(row.get('subject_name') or '').strip() or None,
-                    subject_translated=(row.get('subject_translated') or '').strip() or None,
-                    subject_code=(row.get('subject_code') or '').strip() or '',
-                    country_id=(row.get('country_id') or '').strip() or None,
-                    language_code=(row.get('language_code') or '').strip() or None,
+                subject_code = (row.get('subject_code') or '').strip() or ''
+                if not subject_code:
+                    continue
+                Subject.objects.update_or_create(
+                    subject_code=subject_code,
+                    defaults={
+                        'level': (row.get('level') or '').strip() or None,
+                        'level_tr': (row.get('level_tr') or '').strip() or None,
+                        'groups': groups,
+                        'class_level': class_level,
+                        'subject_name': (row.get('subject_name') or '').strip() or None,
+                        'subject_translated': (row.get('subject_translated') or '').strip() or None,
+                        'country_id': (row.get('country_id') or '').strip() or None,
+                        'language_code': (row.get('language_code') or '').strip() or None,
+                    }
                 )
                 created += 1
             except Exception as e:

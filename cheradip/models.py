@@ -707,7 +707,7 @@ class Subject(models.Model):
     class_level = models.CharField(max_length=10, blank=True, null=True, db_index=True)  # '0'..'8', '9-10', '11-12', '13-16'
     subject_name = models.CharField(max_length=255, blank=True, null=True)  # e.g. Bengali name
     subject_translated = models.CharField(max_length=255, blank=True, null=True)  # e.g. English name
-    subject_code = models.CharField(max_length=12, db_index=True)
+    subject_code = models.CharField(max_length=12, unique=True, db_index=True)
     country_id = models.CharField(max_length=2, blank=True, null=True, db_index=True)
     language_code = models.CharField(max_length=10, blank=True, null=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -728,6 +728,59 @@ class Subject(models.Model):
         """Class value for display: 0, 1, ... 8, 9-10, 11-12, 13-16."""
         return (self.class_level or '').strip() or '—'
     get_class_display.short_description = 'Class'
+
+
+def _slug(s):
+    """Lowercase, spaces and hyphens to underscore, collapse non-alphanumeric to single underscore."""
+    if not s or not isinstance(s, str):
+        return 'unknown'
+    import re
+    s = s.strip().lower().replace(' ', '_').replace('-', '_')
+    s = re.sub(r'[^a-z0-9_]', '_', s)
+    s = re.sub(r'_+', '_', s).strip('_')
+    return s or 'unknown'
+
+
+def subject_question_table_name(level_tr, class_level, subject_translated):
+    """Build table name: cheradip_{level_tr}_{class_level}_{subject_translated} (lowercase, spaces/hyphens to underscore, max 64 chars for MySQL)."""
+    a = _slug(level_tr)[:12]
+    b = _slug(class_level)[:8]
+    c = _slug(subject_translated)[:36]
+    name = f'cheradip_{a}_{b}_{c}'.rstrip('_')
+    if len(name) > 64:
+        name = name[:64].rstrip('_')
+    return name
+
+
+class SubjectQuestionBase(models.Model):
+    """
+    Abstract base for per-subject question tables. Each table stores: ID, Subject, Chapter#, Chapter, Topic,
+    Question, Option 1-4, Answer, Explanation, QuestionLevel, Subsource (schema from MCQ image).
+    Concrete tables are created dynamically from cheradip_subject (e.g. cheradip_pre_primary_0_story_book).
+    """
+    id = models.AutoField(primary_key=True)
+    subject = models.CharField(max_length=255, blank=True, null=True)
+    chapter_no = models.CharField(max_length=50, blank=True, null=True)
+    chapter = models.CharField(max_length=255, blank=True, null=True)
+    topic = models.CharField(max_length=255, blank=True, null=True)
+    question = models.TextField(blank=True, null=True)
+    option_1 = models.CharField(max_length=500, blank=True, null=True)
+    option_2 = models.CharField(max_length=500, blank=True, null=True)
+    option_3 = models.CharField(max_length=500, blank=True, null=True)
+    option_4 = models.CharField(max_length=500, blank=True, null=True)
+    answer = models.CharField(max_length=500, blank=True, null=True)
+    explanation = models.TextField(blank=True, null=True)
+    explanation2 = models.TextField(blank=True, null=True)
+    explanation3 = models.TextField(blank=True, null=True)
+    type = models.CharField(max_length=100, blank=True, null=True)
+    level = models.CharField(max_length=100, blank=True, null=True)
+    subsource = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True)
+    updated_at = models.DateTimeField(blank=True, null=True)
+    updated_by = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        abstract = True
 
 
 class Chapter(models.Model):

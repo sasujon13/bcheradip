@@ -3517,6 +3517,63 @@ class GenerateDefaultPasswordView(APIView):
         }, status=status.HTTP_200_OK)
 
 
+def _subject_question_table_name(level_tr, class_level, subject_translated):
+    from .models import subject_question_table_name
+    return subject_question_table_name(level_tr, class_level, subject_translated)
+
+
+def _allowed_question_table(name):
+    """Allow only table names that match cheradip_ + alphanumeric/underscore (no SQL injection)."""
+    import re
+    return isinstance(name, str) and bool(re.match(r'^cheradip_[a-z0-9_]+$', name.strip().lower()))
+
+
+class SubjectQuestionTablesView(APIView):
+    """GET: List question table names from cheradip_subject (level_tr, class_level, subject_translated)."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        # One table per (class_level, subject_translated); use first row (by id) for level_tr.
+        seen_key = set()
+        tables = []
+        for row in Subject.objects.order_by('id').values_list('level_tr', 'class_level', 'subject_translated'):
+            level_tr = row[0] or ''
+            class_level = row[1] or ''
+            subject_translated = row[2] or ''
+            key = (class_level, subject_translated)
+            if key in seen_key:
+                continue
+            seen_key.add(key)
+            name = _subject_question_table_name(level_tr, class_level, subject_translated)
+            tables.append({
+                'table_name': name,
+                'level_tr': level_tr,
+                'class_level': class_level,
+                'subject_translated': subject_translated,
+            })
+        return Response({'tables': tables})
+
+
+class SubjectQuestionDataView(APIView):
+    """GET: Return rows from a subject question table. Query param: table_name (e.g. cheradip_pre_primary_0_story_book)."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        table_name_param = (request.query_params.get('table_name') or '').strip()
+        if not table_name_param:
+            return Response({'error': 'table_name is required'}, status=status.HTTP_400_BAD_REQUEST)
+        if not _allowed_question_table(table_name_param):
+            return Response({'error': 'Invalid table_name'}, status=status.HTTP_400_BAD_REQUEST)
+        from django.db import connection
+        with connection.cursor() as cur:
+            cur.execute(f"SELECT id, subject, chapter_no, chapter, topic, question, option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3, type, level, subsource, created_at, updated_at, updated_by FROM `{table_name_param}` ORDER BY id")
+            columns = [col[0] for col in cur.description]
+            rows = [dict(zip(columns, row)) for row in cur.fetchall()]
+        return Response({'table_name': table_name_param, 'questions': rows})
+
+
 class GetGroupsByClassView(APIView):
     """Get available groups for a specific class (9-10, 11-12). Returns exactly groups from Group/ClassGroupMapping, else none."""
     permission_classes = [PublicAccess]

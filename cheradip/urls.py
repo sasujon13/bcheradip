@@ -52,6 +52,8 @@ from .views import (
     UpdateEmailView,
     UpdateWhatsAppApiKeyView,
     GetGroupsByClassView,
+    SubjectQuestionTablesView,
+    SubjectQuestionDataView,
     GetDepartmentsView,
     UniversityDepartmentsView,
     GetClassInfoView,
@@ -136,6 +138,8 @@ urlpatterns = [
     # Class, Group, and Department Endpoints
     path('class_info/', GetClassInfoView.as_view(), name='class_info'),
     path('groups_by_class/', GetGroupsByClassView.as_view(), name='groups_by_class'),
+    path('subject_question_tables/', SubjectQuestionTablesView.as_view(), name='subject_question_tables'),
+    path('subject_question_data/', SubjectQuestionDataView.as_view(), name='subject_question_data'),
     path('departments/', GetDepartmentsView.as_view(), name='departments'),
     path('university_departments/', UniversityDepartmentsView.as_view(), name='university_departments'),
     path('levels_by_country/', LevelsByCountryView.as_view(), name='levels_by_country'),
