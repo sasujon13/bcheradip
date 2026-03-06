@@ -1,0 +1,54 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  #content h1, #content-main h1 { display: none; }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:databases_list' %}">{% translate 'Databases' %}</a>
+    &rsaquo; <a href="{% url 'admin:database_tables' db_alias %}">{{ db_label }}</a>
+    &rsaquo; <a href="{{ table_data_url }}">{{ table_name }}</a>
+    &rsaquo; Edit #{{ pk }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <p><a href="{{ table_data_url }}">&larr; Back to table</a></p>
+
+    {% if messages %}
+    <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    <div class="module">
+        <form method="post" action="">
+            {% csrf_token %}
+            <table>
+                <tr><th>Column</th><th>Value</th></tr>
+                {% for col, val in row_items %}
+                <tr>
+                    <td>{{ col }}</td>
+                    <td>
+                        {% if col == 'id' %}
+                        <input type="text" name="field_{{ col }}" value="{{ val }}" readonly size="10">
+                        {% elif col == 'question' or col == 'explanation' or col == 'explanation2' or col == 'explanation3' %}
+                        <textarea name="field_{{ col }}" rows="4" cols="60" style="max-width: 95%;">{{ val|default:'' }}</textarea>
+                        {% else %}
+                        <input type="text" name="field_{{ col }}" value="{{ val|default:'' }}" size="50" style="max-width: 90%;">
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="{% translate 'Save' %}">
+        </form>
+    </div>
+</div>
+{% endblock %}

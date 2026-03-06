@@ -1,0 +1,32 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  #content h1, #content-main h1 { display: none; }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+    &rsaquo; {{ title }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <ul class="database-list" style="list-style: none; padding-left: 0;">
+        {% for db in db_list %}
+        <li style="margin: 0.75em 0;">
+            <a href="{{ db.url }}" style="font-size: 1.1em; font-weight: 500;">{{ db.label }}</a>
+            <span style="color: #666; font-size: 0.9em;"> ({{ db.name }})</span>
+        </li>
+        {% empty %}
+        <li>{% translate 'No databases configured.' %}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

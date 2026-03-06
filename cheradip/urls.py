@@ -60,11 +60,17 @@ from .views import (
     LevelsByCountryView,
     ClassesByCountryView,
     SubjectsByCountryLevelView,
+    SubjectsForDegreeView,
+    PendingSubjectRequestCreateView,
     GroupsByCountryLevelView,
     LocationDivisionsView,
     LocationDistrictsView,
     LocationThanasView,
 )
+
+# Models whose table is missing in their routed DB are excluded from admin and API
+from cheradip.model_table_check import get_models_with_missing_tables
+_MISSING = get_models_with_missing_tables()
 
 router = DefaultRouter()
 # Country API: GET /api/countries/, /api/countries/{code}/, /api/countries/detect/, /api/countries/featured/ (CHERADIP_PROJECT.md § Country Autocomplete API)
@@ -82,14 +88,21 @@ router.register(r'recommend6', Recommend6ViewSet, basename='recommend6')
 router.register(r'institute', BanbeisViewSet, basename='institute')
 router.register(r'institutes', InstitutesViewSet, basename='institutes')
 
-# MCQ and Related Endpoints
-router.register(r'groups', GroupViewSet, basename='groups')
-router.register(r'subjects', SubjectViewSet, basename='subjects')
-router.register(r'chapters', ChapterViewSet, basename='chapters')
-router.register(r'topics', TopicViewSet, basename='topics')
-router.register(r'instituteTypes', InstituteViewSet, basename='instituteTypes')  # Alias for frontend compatibility
-router.register(r'years', YearViewSet, basename='years')
-router.register(r'questions', McqIctViewSet, basename='questions')  # Main endpoint for MCQ questions
+# MCQ and Related Endpoints — only register if model's table exists in its DB
+if ('cheradip', 'group') not in _MISSING:
+    router.register(r'groups', GroupViewSet, basename='groups')
+if ('cheradip', 'subject') not in _MISSING:
+    router.register(r'subjects', SubjectViewSet, basename='subjects')
+if ('cheradip', 'chapter') not in _MISSING:
+    router.register(r'chapters', ChapterViewSet, basename='chapters')
+if ('cheradip', 'topic') not in _MISSING:
+    router.register(r'topics', TopicViewSet, basename='topics')
+if ('cheradip', 'institute') not in _MISSING:
+    router.register(r'instituteTypes', InstituteViewSet, basename='instituteTypes')  # Alias for frontend compatibility
+if ('cheradip', 'year') not in _MISSING:
+    router.register(r'years', YearViewSet, basename='years')
+if ('cheradip', 'mcq_ict') not in _MISSING:
+    router.register(r'questions', McqIctViewSet, basename='questions')  # Main endpoint for MCQ questions
 router.register(r'notification', NotificationViewSet, basename='notification')
 
 urlpatterns = [
@@ -138,14 +151,25 @@ urlpatterns = [
     # Class, Group, and Department Endpoints
     path('class_info/', GetClassInfoView.as_view(), name='class_info'),
     path('groups_by_class/', GetGroupsByClassView.as_view(), name='groups_by_class'),
-    path('subject_question_tables/', SubjectQuestionTablesView.as_view(), name='subject_question_tables'),
-    path('subject_question_data/', SubjectQuestionDataView.as_view(), name='subject_question_data'),
     path('departments/', GetDepartmentsView.as_view(), name='departments'),
     path('university_departments/', UniversityDepartmentsView.as_view(), name='university_departments'),
     path('levels_by_country/', LevelsByCountryView.as_view(), name='levels_by_country'),
     path('classes_by_country/', ClassesByCountryView.as_view(), name='classes_by_country'),
-    path('subjects_by_country_level/', SubjectsByCountryLevelView.as_view(), name='subjects_by_country_level'),
-    path('groups_by_country_level/', GroupsByCountryLevelView.as_view(), name='groups_by_country_level'),
+]
+# Subject-related endpoints only if Subject (and related) table exists in its DB
+if ('cheradip', 'subject') not in _MISSING:
+    urlpatterns += [
+        path('subject_question_tables/', SubjectQuestionTablesView.as_view(), name='subject_question_tables'),
+        path('subject_question_data/', SubjectQuestionDataView.as_view(), name='subject_question_data'),
+        path('subjects_by_country_level/', SubjectsByCountryLevelView.as_view(), name='subjects_by_country_level'),
+        path('subjects_for_degree/', SubjectsForDegreeView.as_view(), name='subjects_for_degree'),
+        path('groups_by_country_level/', GroupsByCountryLevelView.as_view(), name='groups_by_country_level'),
+    ]
+if ('cheradip', 'pendingsubjectrequest') not in _MISSING:
+    urlpatterns += [
+        path('pending_subject_request/', PendingSubjectRequestCreateView.as_view(), name='pending_subject_request'),
+    ]
+urlpatterns += [
     # All countries as array for <option> dropdowns (GET /api/country/)
     path('country/', AllCountriesView.as_view(), name='country_list'),
     # Bangladesh location dropdowns (used by auth, profile, order, etc.)

@@ -117,8 +117,50 @@ DATABASES = {
             'charset': 'utf8mb4',
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
-    }
+    },
+    'honours': {
+        'ENGINE': 'backend.db_backend',
+        'NAME': config('DATABASE_HONOURS_NAME', default='cheradip_honours', cast=str),
+        'USER': config('DATABASE_USER', default='root', cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD', default='', cast=str),
+        'HOST': config('DATABASE_HOST', default='localhost', cast=str),
+        'PORT': config('DATABASE_PORT', default='3306', cast=str),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    },
+    'hsc': {
+        'ENGINE': 'backend.db_backend',
+        'NAME': config('DATABASE_HSC_NAME', default='cheradip_hsc', cast=str),
+        'USER': config('DATABASE_USER', default='root', cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD', default='', cast=str),
+        'HOST': config('DATABASE_HOST', default='localhost', cast=str),
+        'PORT': config('DATABASE_PORT', default='3306', cast=str),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    },
+    'job': {
+        'ENGINE': 'backend.db_backend',
+        'NAME': config('DATABASE_JOB_NAME', default='cheradip_job', cast=str),
+        'USER': config('DATABASE_USER', default='root', cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD', default='', cast=str),
+        'HOST': config('DATABASE_HOST', default='localhost', cast=str),
+        'PORT': config('DATABASE_PORT', default='3306', cast=str),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    },
 }
+
+# Route models to cheradip_job and cheradip_hsc (order: first non-None wins)
+DATABASE_ROUTERS = [
+    'cheradip.db_routers.JobRouter',
+    'cheradip.db_routers.HSCRouter',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {

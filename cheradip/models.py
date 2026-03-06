@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 from django.core.validators import MinValueValidator
+from django.conf import settings
 
 
 # ==============================================================================
@@ -728,6 +729,53 @@ class Subject(models.Model):
         """Class value for display: 0, 1, ... 8, 9-10, 11-12, 13-16."""
         return (self.class_level or '').strip() or '—'
     get_class_display.short_description = 'Class'
+
+    def delete(self, using=None, keep_parents=False):
+        level_tr = self.level_tr or ''
+        class_level = self.class_level or ''
+        subject_translated = self.subject_translated or ''
+        super().delete(using=using, keep_parents=keep_parents)
+        from cheradip.subject_question_tables import drop_subject_question_table_if_unused
+        drop_subject_question_table_if_unused(level_tr, class_level, subject_translated)
+
+
+class PendingSubjectRequest(models.Model):
+    """
+    Subject requested during signup (Degree / Honours / Masters). Pending until approved in admin.
+    When approved, a Subject row is created and this request is marked approved.
+    """
+    STATUS_PENDING = 'pending'
+    STATUS_APPROVED = 'approved'
+    STATUS_REJECTED = 'rejected'
+    STATUS_CHOICES = [
+        (STATUS_PENDING, 'Pending'),
+        (STATUS_APPROVED, 'Approved'),
+        (STATUS_REJECTED, 'Rejected'),
+    ]
+    subject_name = models.CharField(max_length=255)
+    subject_translated = models.CharField(max_length=255)
+    degree_type = models.CharField(max_length=50, blank=True, null=True, help_text='Degree Type: Degree, Honours (Pass), Honours, B.Sc, BSS, BBA, MBA, MSS, MSC, Others; stored in Subject.groups on approve.')
+    country_id = models.CharField(max_length=2, blank=True, null=True, db_index=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    reviewed_at = models.DateTimeField(blank=True, null=True)
+    reviewed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='reviewed_pending_subject_requests',
+    )
+    notes = models.TextField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'cheradip_pending_subject_request'
+        ordering = ['-created_at']
+        verbose_name = 'Pending subject request'
+        verbose_name_plural = 'Pending subject requests'
+
+    def __str__(self):
+        return f"{self.subject_name} / {self.subject_translated} ({self.get_status_display()})"
 
 
 def _slug(s):

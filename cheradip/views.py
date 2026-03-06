@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import (Institutes, Token, Item, Merit, Merit5, Merit6, Banbeis, Recommend, Recommend5, Recommend6, 
                      Vacancy, Vacancy5, Vacancy6, Customer, Order, OrderDetail, Transaction, Ordered, Canceled,
                      Notification, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country, Location,
-                     ClassLevel, ClassGroupMapping, Department)
+                     ClassLevel, ClassGroupMapping, Department, PendingSubjectRequest)
 from .serializers import (InstitutesSerializer, TokenSerializer, RecommendSerializer, Recommend5Serializer, 
                          Recommend6Serializer, BanbeisSerializer, MeritSerializer, Merit5Serializer, Merit6Serializer, 
                          VacancySerializer, Vacancy5Serializer, Vacancy6Serializer, ItemSerializer, 
@@ -212,10 +212,10 @@ class AllCountriesView(APIView):
 class LevelsByCountryView(APIView):
     """
     GET /api/levels_by_country/?country_code=BD
-    Returns unique Level/Class values from cheradip_subject for the given country, with level_tr.
-    Level column may contain comma-separated values (e.g. 'SSC,JSC,PSC'); we split and return unique list
-    ordered by class_level ascending. Each item has level, level_tr, and label = "level (level_tr)".
-    Used by signup to populate Class (Student) and Level (Teacher) dropdowns.
+    Returns unique Level/Class values from cheradip_hsc.cheradip_subject for the given country,
+    then appends Degree / Honours / Masters at the bottom.
+    Level column may contain comma-separated values; we split and return unique list ordered by
+    class_level ascending. Each item has level, level_tr, and label. Used by signup for Class/Level dropdowns.
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
@@ -223,17 +223,17 @@ class LevelsByCountryView(APIView):
     DEFAULT_CLASS_FOR_UNKNOWN = 999
 
     def get(self, request):
+        from django.db import connections
         country_code = (request.query_params.get('country_code') or '').strip().upper()
         if not country_code:
             return Response({'levels': [], 'error': 'country_code is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        from django.db import connection
+        conn = connections['hsc']
         table = 'cheradip_subject'
-        # level_name -> (min_class_level, level_tr to show)
         level_info = {}
-        with connection.cursor() as cur:
+        with conn.cursor() as cur:
             cur.execute(
-                f"SELECT level, level_tr, class_level FROM {table} WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''",
+                "SELECT level, level_tr, class_level FROM %s WHERE country_id = %%s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''" % table,
                 [country_code]
             )
             for (level_str, level_tr_str, class_level) in cur.fetchall():
@@ -249,7 +249,7 @@ class LevelsByCountryView(APIView):
                 elif s == '11-12':
                     cl = 11
                 elif s == '13-16':
-                    cl = 13
+                    continue
                 else:
                     cl = self.DEFAULT_CLASS_FOR_UNKNOWN
                 level_parts = [p.strip() for p in level_str.split(',') if p.strip()]
@@ -259,7 +259,6 @@ class LevelsByCountryView(APIView):
                     if part not in level_info or cl < level_info[part][0]:
                         level_info[part] = (cl, tr)
 
-        # Order levels by relevant class ascending (class_level), then by level name
         def sort_key(item):
             level_name = item[0]
             min_cl = item[1][0]
@@ -269,8 +268,7 @@ class LevelsByCountryView(APIView):
         for lev, (min_cl, level_tr) in sorted(level_info.items(), key=sort_key):
             label = f"{lev} ({level_tr})" if level_tr else lev
             levels.append({'level': lev, 'level_tr': level_tr or '', 'label': label})
-        if not any(item['level'] == 'University' for item in levels):
-            levels.append({'level': 'University', 'level_tr': 'University', 'label': 'University (University)'})
+        levels.append({'level': 'University', 'level_tr': 'Degree / Honours / Masters', 'label': 'Degree / Honours / Masters'})
 
         return Response({'levels': levels, 'country_code': country_code})
 
@@ -327,7 +325,7 @@ class ClassesByCountryView(APIView):
             classes.append({'value': '11-12', 'label': 'Class 11-12', 'has_groups': True})
         classes.append({
             'value': '13-16',
-            'label': 'Degree / University',
+            'label': 'Degree / Honours / Masters',
             'has_groups': False,
         })
         return Response({'classes': classes, 'country_code': country_code})
@@ -397,15 +395,15 @@ class LocationThanasView(APIView):
 class SubjectsByCountryLevelView(APIView):
     """
     GET /api/subjects_by_country_level/?country_code=BD&level=HSC
-    GET /api/subjects_by_country_level/?country_code=BD&level=SSC,JSC
-    Returns subjects from cheradip_subject for the given country and level(s) (for Teacher signup).
-    Level may be comma-separated (e.g. SSC,JSC); subjects matching ANY of those levels are returned.
-    Each level matches exact or as part of comma-separated in DB (e.g. level LIKE '%SSC%').
+    Returns subjects from cheradip_hsc.cheradip_subject (HSC database) for the given country and level(s).
+    Used when Teacher selects a level other than Degree / Honours / Masters (e.g. PSC, JSC, SSC, HSC).
+    Level may be comma-separated; subjects matching ANY of those levels are returned.
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
 
     def get(self, request):
+        from django.db import connections
         country_code = (request.query_params.get('country_code') or '').strip().upper()
         level_param = (request.query_params.get('level') or '').strip()
         if not country_code or not level_param:
@@ -414,33 +412,28 @@ class SubjectsByCountryLevelView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Support comma-separated levels: retrieve subjects for all of them
         level_parts = [p.strip() for p in level_param.split(',') if p.strip()]
         if not level_parts:
             return Response({'subjects': [], 'country_code': country_code, 'level': level_param})
 
-        from django.db import connection
-        table = 'cheradip_subject'
-        # Broad SQL match so subjects load; then filter in Python so "প্রাথমিক" does NOT match "প্রাক-প্রাথমিক"
+        conn = connections['hsc']
         per_part = '(level = %s OR level LIKE %s)'
         level_conditions = ' OR '.join([per_part] * len(level_parts))
         params = [country_code]
         for part in level_parts:
             params.extend([part, f'%{part}%'])
 
-        with connection.cursor() as cur:
-            cur.execute(
-                f"""
-                SELECT id, subject_code, subject_name, subject_translated, level
-                FROM {table}
-                WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''
-                  AND ({level_conditions})
-                """,
-                params
-            )
+        # HSC DB uses subject_tr (renamed from subject_translated)
+        query = (
+            "SELECT id, subject_code, subject_name, subject_tr, level "
+            "FROM cheradip_subject "
+            "WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != '' "
+            "AND (" + level_conditions + ")"
+        )
+        with conn.cursor() as cur:
+            cur.execute(query, params)
             rows = cur.fetchall()
 
-        # Keep only rows where each selected part appears as a whole token (comma-separated), not substring
         def level_matches(level_str, parts):
             if not level_str or not parts:
                 return False
@@ -454,6 +447,106 @@ class SubjectsByCountryLevelView(APIView):
             if level_matches(level_val, selected_parts):
                 subjects.append({'id': r[0], 'subject_code': r[1], 'subject_name': r[2] or '', 'subject_name_tr': r[3] or ''})
         return Response({'subjects': subjects, 'country_code': country_code, 'level': level_param})
+
+
+class SubjectsForDegreeView(APIView):
+    """
+    GET /api/subjects_for_degree/?country_code=BD
+    Returns subjects from cheradip_honours.cheradip_subject (honours database).
+    Used only when Teacher selects Level = Degree / Honours / Masters (value "University").
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        from django.db import connections
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        if not country_code:
+            return Response(
+                {'subjects': [], 'error': 'country_code is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        conn = connections['honours']
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT id, subject_code, subject_name, subject_tr
+                FROM cheradip_subject
+                WHERE (country_id = %s OR country_id IS NULL OR country_id = '')
+                ORDER BY subject_tr, subject_name
+                """,
+                [country_code]
+            )
+            rows = cur.fetchall()
+        seen = set()
+        subjects = []
+        for r in rows:
+            id_, subject_code, subject_name, subject_tr = r
+            key = (subject_tr or '').strip() or (subject_name or '').strip()
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            subjects.append({
+                'id': id_,
+                'subject_code': subject_code or '',
+                'subject_name': subject_name or '',
+                'subject_name_tr': subject_tr or '',
+            })
+        subjects.sort(key=lambda x: (x['subject_name_tr'] or '').strip().lower())
+        return Response({'subjects': subjects, 'country_code': country_code})
+
+
+DEGREE_TYPE_CHOICES = [
+    'Degree', 'Honours (Pass)', 'Honours', 'B.Sc', 'BSS', 'BBA', 'MBA', 'MSS', 'MSC', 'Others'
+]
+
+
+class PendingSubjectRequestCreateView(APIView):
+    """
+    POST /api/pending_subject_request/
+    Body: { "subject_name": "...", "subject_translated": "...", "degree_type": "Honours" (optional), "country_code": "BD" (optional) }
+    Creates a pending subject request (Degree / Honours / Masters). degree_type is stored in Subject.groups on approve.
+    """
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def post(self, request):
+        subject_name = (request.data.get('subject_name') or '').strip()
+        subject_translated = (request.data.get('subject_translated') or '').strip()
+        degree_type = (request.data.get('degree_type') or '').strip() or None
+        country_code = (request.data.get('country_code') or '').strip().upper() or None
+        if not subject_name:
+            return Response(
+                {'error': 'subject_name is required and cannot be empty'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if not subject_translated:
+            return Response(
+                {'error': 'subject_translated is required and cannot be empty'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if degree_type is not None and degree_type not in DEGREE_TYPE_CHOICES:
+            return Response(
+                {'error': 'degree_type must be one of: ' + ', '.join(DEGREE_TYPE_CHOICES)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if len(subject_name) > 255:
+            return Response({'error': 'subject_name is too long'}, status=status.HTTP_400_BAD_REQUEST)
+        if len(subject_translated) > 255:
+            return Response({'error': 'subject_translated is too long'}, status=status.HTTP_400_BAD_REQUEST)
+        if degree_type and len(degree_type) > 50:
+            return Response({'error': 'degree_type is too long'}, status=status.HTTP_400_BAD_REQUEST)
+        obj = PendingSubjectRequest.objects.create(
+            subject_name=subject_name,
+            subject_translated=subject_translated,
+            degree_type=degree_type,
+            country_id=country_code,
+            status=PendingSubjectRequest.STATUS_PENDING,
+        )
+        return Response(
+            {'id': obj.id, 'message': 'Your subject request has been submitted for review.'},
+            status=status.HTTP_201_CREATED
+        )
 
 
 class GroupsByCountryLevelView(APIView):

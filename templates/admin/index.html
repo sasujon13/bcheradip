@@ -1,0 +1,166 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  /* Remove "Site administration" h1 to save space */
+  body.dashboard #content h1,
+  body.dashboard #content-main ~ h1,
+  body.dashboard .main h1:first-child {
+    display: none;
+  }
+  .dashboard #content {
+    width: auto;
+    max-width: none;
+  }
+  /* No black dots: remove bullets from menus and model lists on dashboard */
+  #content-main .module ul,
+  #content-main ul,
+  body.dashboard #content-main ul,
+  body.dashboard .module ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  #content-main .module ul li,
+  #content-main ul li {
+    list-style: none;
+  }
+  /* Tabs: max-content width, 20px side padding, centred */
+  .admin-db-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    margin: 0 auto 20px;
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px;
+    list-style: none;
+    width: max-content;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .admin-db-tabs li {
+    margin: 0;
+    flex: 0 1 auto;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .admin-db-tabs a {
+    display: block;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    color: #417690;
+    font-weight: 500;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-bottom: -1px;
+    background: #f8f8f8;
+    white-space: nowrap;
+  }
+  .admin-db-tabs a:hover {
+    background: #e8e8e8;
+    color: #205067;
+  }
+  .admin-db-tabs li.active a {
+    background: #fff;
+    color: #333;
+    border-bottom: 1px solid #fff;
+    position: relative;
+    top: 1px;
+  }
+  /* App section and table: full width, text centre */
+  #content-main .app-cheradip.module {
+    width: 100%;
+    max-width: 100%;
+  }
+  #content-main .app-cheradip.module table {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+  #content-main .app-cheradip.module caption {
+    text-align: center;
+  }
+  #content-main .app-cheradip.module td {
+    text-align: center;
+  }
+  /* Table list: full width; columns from max content length, no overlap */
+  #content-main .admin-tables-wrapper {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+  .admin-tables-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    column-width: 320px;
+    column-gap: 2em;
+    column-fill: balance;
+    width: 100%;
+  }
+  .admin-tables-grid li {
+    break-inside: avoid;
+    margin: 0.35em 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .admin-tables-grid a {
+    text-decoration: none;
+    color: #417690;
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-word;
+  }
+  .admin-tables-grid a:hover {
+    color: #205067;
+    text-decoration: underline;
+  }
+</style>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <ul class="admin-db-tabs">
+    {% for tab in db_tabs %}
+    <li class="{% if tab.active %}active{% endif %}">
+      <a href="{{ tab.url }}">{{ tab.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% if table_links_only %}
+  {% for app in app_list %}
+  <div class="app-cheradip module">
+    <table style="width: 100%;">
+      <caption><a href="{{ app.app_url }}" class="section" title="{{ app.name }}">{{ app.name }}</a></caption>
+      <tbody>
+        <tr>
+          <td>
+            <div class="admin-tables-wrapper">
+              <ul class="admin-tables-grid">
+                {% for model in app.models %}
+                <li><a href="{{ model.admin_url }}">{{ model.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endfor %}
+  {% else %}
+  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+  {% endif %}
+</div>
+{% endblock %}

@@ -82,3 +82,19 @@ def ensure_subject_question_tables(verbose=False):
             if verbose:
                 print(f'Created {name}')
     return created, len(seen_key)
+
+
+def drop_subject_question_table_if_unused(level_tr, class_level, subject_translated):
+    """
+    Drop the subject question table for (level_tr, class_level, subject_translated)
+    if it exists. Call this when a Subject is deleted and no other Subject row
+    has the same (class_level, subject_translated).
+    """
+    from cheradip.models import Subject
+    if Subject.objects.filter(class_level=class_level, subject_translated=subject_translated).exists():
+        return
+    name = subject_question_table_name(level_tr or '', class_level or '', subject_translated or '')
+    with connection.cursor() as cur:
+        cur.execute("SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s", [name])
+        if cur.fetchone():
+            cur.execute(f"DROP TABLE IF EXISTS `{name}`")

@@ -1,0 +1,169 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  /* Remove duplicate title h1 to save vertical space */
+  #content h1, #content-main h1 { display: none; }
+  .table-data-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+  }
+  .table-data-header .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .table-data-header .header-actions button {
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:databases_list' %}">{% translate 'Databases' %}</a>
+    &rsaquo; <a href="{{ tables_url }}">{{ db_label }}</a>
+    &rsaquo; {{ table_name }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    {% if messages %}
+    <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    <div class="module">
+        <div id="add-row-module" class="toggle-panel" style="display: none;">
+            <h2>{% translate 'Add row' %}</h2>
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add">
+                <table>
+                    <tr>
+                        {% for col in columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for col in columns %}
+                        <td>
+                            {% if col == 'id' %}
+                            <input type="text" name="field_{{ col }}" placeholder="(auto)" size="6">
+                            {% elif col == 'question' or col == 'explanation' or col == 'explanation2' or col == 'explanation3' %}
+                            <textarea name="field_{{ col }}" rows="2" cols="40"></textarea>
+                            {% else %}
+                            <input type="text" name="field_{{ col }}" size="20">
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <input type="submit" value="{% translate 'Add row' %}">
+            </form>
+        </div>
+
+        <div id="import-module" class="toggle-panel" style="display: none;">
+            <h2>{% translate 'Bulk import (CSV or JSON)' %}</h2>
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="import">
+                <p>
+                    <label>File: <input type="file" name="import_file" accept=".csv,.json"></label>
+                </p>
+                <p>
+                    <label>Format: <select name="import_format">
+                        <option value="csv">CSV</option>
+                        <option value="json">JSON</option>
+                    </select></label>
+                </p>
+                <p>
+                    <label><input type="checkbox" name="csv_has_header" checked> CSV first row is header</label>
+                </p>
+                <p>JSON: array of objects, keys = column names (e.g. [{"subject":"...", "question":"..."}]).</p>
+                <input type="submit" value="{% translate 'Import' %}">
+            </form>
+        </div>
+
+        <h2 class="table-data-header">
+            <span>{{ total }} {% translate 'Rows' %} <a href="{{ tables_url }}" style="font-size: 0.85em; font-weight: normal;">&larr; Back to tables</a></span>
+            <span class="header-actions">
+                <button type="button" id="btn-add-row">{% translate 'Add Row' %}</button>
+                <button type="button" id="btn-import">{% translate 'Import (CSV/JSON)' %}</button>
+            </span>
+        </h2>
+
+        <form method="post" action="" id="delete-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="delete">
+            <p><input type="submit" value="{% translate 'Delete selected' %}" onclick="return confirm('Delete selected rows?');"></p>
+            <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        {% for col in columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                        <th>{% translate 'Edit' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for values, row_id in row_list %}
+                    <tr>
+                        <td><input type="checkbox" name="ids" value="{{ row_id }}"></td>
+                        {% for val in values %}
+                        <td>{{ val|default:""|truncatewords:12 }}</td>
+                        {% endfor %}
+                        <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="{{ columns|length|add:2 }}">No rows.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </form>
+
+        {% if num_pages > 1 %}
+        <p class="paginator">
+            Page {{ page_num }} of {{ num_pages }}.
+            {% if page_num > 1 %}<a href="{{ table_data_url }}?p={{ page_num|add:'-1' }}">Previous</a>{% endif %}
+            {% if page_num < num_pages %}<a href="{{ table_data_url }}?p={{ page_num|add:1 }}">Next</a>{% endif %}
+        </p>
+        {% endif %}
+    </div>
+</div>
+<script>
+(function() {
+    var addRowPanel = document.getElementById('add-row-module');
+    var importPanel = document.getElementById('import-module');
+    var btnAddRow = document.getElementById('btn-add-row');
+    var btnImport = document.getElementById('btn-import');
+
+    function showAddRow() {
+        addRowPanel.style.display = 'block';
+        importPanel.style.display = 'none';
+    }
+    function showImport() {
+        addRowPanel.style.display = 'none';
+        importPanel.style.display = 'block';
+    }
+
+    if (btnAddRow) btnAddRow.addEventListener('click', showAddRow);
+    if (btnImport) btnImport.addEventListener('click', showImport);
+})();
+var selectAll = document.getElementById('select-all');
+if (selectAll) selectAll.addEventListener('change', function() {
+    document.querySelectorAll('#delete-form input[name="ids"]').forEach(function(cb) { cb.checked = this.checked; }, this);
+});
+</script>
+{% endblock %}
