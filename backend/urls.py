@@ -1,9 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.template.response import TemplateResponse
+from django.conf import settings
 
 # Add custom admin views: Databases list and Tables per database
 from backend import database_admin_views
+
+# Branding: title, site name, favicon and teal theme are in templates/admin/base_site.html
+admin.site.site_header = getattr(settings, 'ADMIN_SITE_HEADER', 'Cheradip Administration')
+admin.site.site_title = getattr(settings, 'ADMIN_SITE_TITLE', 'admin')
+admin.site.index_title = 'Cheradip administration'
 from backend.admin_app_list import get_app_list_by_database, get_current_db, DATABASE_SECTIONS, build_db_tabs_for_index
 
 _original_admin_get_urls = admin.site.get_urls

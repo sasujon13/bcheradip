@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 ADMIN_SITE_HEADER = "Cheradip Administration"
-ADMIN_SITE_TITLE = "Cheradip Admin"
+ADMIN_SITE_TITLE = "admin"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -190,12 +190,13 @@ USE_TZ = True
 GOOGLE_TRANSLATE_API_KEY = config('GOOGLE_TRANSLATE_API_KEY', default='', cast=str)
 
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_src')]
 
 
 

@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block favicon %}<link rel="icon" type="image/x-icon" href="{% static 'admin/favicon.ico' %}">{% endblock %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:"admin" }}{% endblock %}
+
+{% block branding %}
+<a href="{% url 'admin:index' %}" class="branding-logo" aria-hidden="true">
+  <img src="{% static 'admin/cheradip.svg' %}" alt="" class="branding-logo-img">
+</a>
+{% endblock %}

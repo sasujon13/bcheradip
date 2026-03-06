@@ -25,14 +25,13 @@
   #content-main ul li {
     list-style: none;
   }
-  /* Tabs: max-content width, 20px side padding, centred */
+  /* Tabs: max-content width, centred */
   .admin-db-tabs {
     display: flex;
     flex-wrap: nowrap;
     gap: 0;
     margin: 0 auto 20px;
     border-bottom: 1px solid #ddd;
-    padding: 0 20px;
     list-style: none;
     width: max-content;
     max-width: 100%;
@@ -50,7 +49,7 @@
     padding: 10px 12px;
     text-align: center;
     text-decoration: none;
-    color: #417690;
+    color: var(--primary, #008080);
     font-weight: 500;
     border: 1px solid #ddd;
     border-bottom: none;
@@ -60,7 +59,7 @@
   }
   .admin-db-tabs a:hover {
     background: #e8e8e8;
-    color: #205067;
+    color: var(--primary-hover, #006666);
   }
   .admin-db-tabs li.active a {
     background: #fff;
@@ -109,14 +108,18 @@
   }
   .admin-tables-grid a {
     text-decoration: none;
-    color: #417690;
+    color: var(--primary, #008080);
     display: inline-block;
     max-width: 100%;
     word-break: break-word;
   }
   .admin-tables-grid a:hover {
-    color: #205067;
+    color: var(--primary-hover, #006666);
     text-decoration: underline;
+  }
+  /* Remove sidebar margin on all viewport sizes */
+  .colMS {
+    margin-right: 0 !important;
   }
 </style>
 {% endblock %}
