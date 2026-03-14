@@ -539,28 +539,171 @@ class InstituteDetailView(APIView):
         return Response({}, status=status.HTTP_404_NOT_FOUND)
 
 
+SITEMAP_URLS_PER_FILE = 50000  # Sitemap spec limit
+
+# XSL so browsers render sitemap XML as a readable page (removes "no style information" message)
+SITEMAP_XSL = '''<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:sm="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <xsl:output method="html" doctype-system="about:legacy-compat" encoding="UTF-8"/>
+  <xsl:template match="/">
+    <html>
+      <head><meta charset="UTF-8"/><title>Sitemap</title>
+        <style>
+          body { font-family: system-ui, sans-serif; margin: 1rem 2rem; background: #f5f5f5; }
+          h1 { color: #333; }
+          table { border-collapse: collapse; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+          th, td { padding: .5rem .75rem; text-align: left; border-bottom: 1px solid #eee; }
+          th { background: #1976d2; color: #fff; }
+          a { color: #1976d2; }
+          tr:hover { background: #f9f9f9; }
+        </style>
+      </head>
+      <body>
+        <h1>Sitemap</h1>
+        <xsl:choose>
+          <xsl:when test="sm:sitemapindex">
+            <table><tr><th>#</th><th>Sitemap</th></tr>
+              <xsl:for-each select="sm:sitemapindex/sm:sitemap">
+                <tr><td><xsl:value-of select="position()"/></td>
+                  <td><a><xsl:attribute name="href"><xsl:value-of select="sm:loc"/></xsl:attribute><xsl:value-of select="sm:loc"/></a></td></tr>
+              </xsl:for-each>
+            </table>
+          </xsl:when>
+          <xsl:otherwise>
+            <table><tr><th>#</th><th>URL</th></tr>
+              <xsl:for-each select="sm:urlset/sm:url">
+                <tr><td><xsl:value-of select="position()"/></td>
+                  <td><a><xsl:attribute name="href"><xsl:value-of select="sm:loc"/></xsl:attribute><xsl:value-of select="sm:loc"/></a></td></tr>
+              </xsl:for-each>
+            </table>
+          </xsl:otherwise>
+        </xsl:choose>
+      </body>
+    </html>
+  </xsl:template>
+</xsl:stylesheet>'''
+
+
+def _sitemap_base_url(request):
+    """Base URL for sitemap. Set SITEMAP_BASE_URL in settings for production (e.g. https://cheradip.com)."""
+    base = getattr(settings, 'SITEMAP_BASE_URL', None)
+    if base:
+        return base.rstrip('/')
+    # Local dev: point to Angular app so sitemap URLs are openable (default 4200)
+    if getattr(settings, 'DEBUG', False):
+        return 'http://localhost:4200'
+    return request.build_absolute_uri('/').rstrip('/') or 'https://cheradip.com'
+
+
+def _sitemap_static_pages(base_url):
+    """Yield <url> lines for all navigable app routes (fcheradip), in hierarchical order."""
+    # Grouped so sitemap is easy to scan; comments mark sections.
+    sections = [
+        ('Home', ['index']),
+        ('Products / Shop', ['packages', 'books', 'cart', 'choice', 'order']),
+        ('User / Account', ['about_us', 'faqs', 'live_chat', 'login', 'auth', 'admin', 'profile', 'password', 'mobile', 'myorder']),
+        ('NTRCA', ['ntrca', 'institute', 'institutes', 'vacant7', 'vacant5', 'vacant6', 'merit7', 'merit5', 'merit6', 'recommend7', 'recommend5', 'recommend6']),
+        ('Student', ['student', 'student/dashboard', 'student/liveexam', 'student/archive', 'student/report', 'student/stats', 'student/leaderboard', 'student/tutor']),
+        ('Question Bank', ['question']),
+        ('Other', ['scrape']),
+    ]
+    for label, paths in sections:
+        yield f'  <!-- {label} -->'
+        for path in paths:
+            loc = f'{base_url}/{path}' if path else base_url
+            yield f'  <url><loc>{loc}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>'
+
+
+def _sitemap_slug_for_url(slug):
+    """Encode slug for URL in sitemap: keep Bengali/Unicode as literal; encode space, %, &, etc."""
+    if not slug:
+        return slug
+    return slug.replace('%', '%25').replace('&', '%26').replace(' ', '%20')
+
+
+def _sitemap_institute_url_entries(base_url):
+    """Yield <url>...</url> lines for all institutes: EIIN-only, EIIN-English name, EIIN-Bengali name.
+    Bengali and other Unicode appear as literal characters in the XML (UTF-8) so they display correctly."""
+    for inst in Institutes.objects.all().values('eiinNo', 'instituteName', 'instituteNameBn').iterator(chunk_size=5000):
+        eiin = (inst.get('eiinNo') or '').strip()
+        if not eiin:
+            continue
+        name_en = (inst.get('instituteName') or '').strip()
+        name_bn = (inst.get('instituteNameBn') or '').strip()
+        yield f'  <url><loc>{base_url}/institutes/{_sitemap_slug_for_url(eiin)}</loc><changefreq>weekly</changefreq></url>'
+        if name_en:
+            slug_en = f"{eiin}-{name_en}"
+            yield f'  <url><loc>{base_url}/institutes/{_sitemap_slug_for_url(slug_en)}</loc><changefreq>weekly</changefreq></url>'
+        if name_bn:
+            slug_bn = f"{eiin}-{name_bn}"
+            yield f'  <url><loc>{base_url}/institutes/{_sitemap_slug_for_url(slug_bn)}</loc><changefreq>weekly</changefreq></url>'
+
+
+def sitemap_xsl(request):
+    """Serve XSL stylesheet so browsers render sitemap XML as a readable page."""
+    return HttpResponse(SITEMAP_XSL.encode('utf-8'), content_type='application/xml; charset=utf-8')
+
+
+def sitemap_pages(request):
+    """Serve sitemap_pages.xml: all static app URLs from fcheradip (hierarchical)."""
+    base = _sitemap_base_url(request)
+    url_lines = list(_sitemap_static_pages(base))
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + '\n'.join(url_lines) + '\n'
+        '</urlset>'
+    )
+    return HttpResponse(xml.encode('utf-8'), content_type='application/xml; charset=utf-8')
+
+
 def sitemap_institutes(request):
-    """Serve sitemap.xml with all institute detail URLs (EIIN-only: /institutes/100002)."""
-    base = getattr(settings, 'SITEMAP_BASE_URL', None) or request.build_absolute_uri('/').rstrip('/')
-    seen = set()
+    """Serve sitemap index at sitemap.xml: pages first, then institute parts (111k+ URLs)."""
+    base = _sitemap_base_url(request)
+    # Hierarchy: 1) App pages, 2) Institute detail URLs (3 parts)
+    index_lines = [
+        f'  <sitemap><loc>{base}/sitemap_pages.xml</loc></sitemap>',
+        f'  <sitemap><loc>{base}/sitemap_institutes_1.xml</loc></sitemap>',
+        f'  <sitemap><loc>{base}/sitemap_institutes_2.xml</loc></sitemap>',
+        f'  <sitemap><loc>{base}/sitemap_institutes_3.xml</loc></sitemap>',
+    ]
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>\n'
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + '\n'.join(index_lines) + '\n'
+        '</sitemapindex>'
+    )
+    return HttpResponse(xml.encode('utf-8'), content_type='application/xml; charset=utf-8')
+
+
+def sitemap_institutes_part(request, page):
+    """Serve one sitemap part (page 1, 2, or 3) with up to 50,000 institute URLs."""
+    if page not in (1, 2, 3):
+        return HttpResponse(status=404)
+    base = _sitemap_base_url(request)
+    skip = (page - 1) * SITEMAP_URLS_PER_FILE
+    take = SITEMAP_URLS_PER_FILE
     url_lines = []
     try:
-        for inst in Institutes.objects.all().values_list('eiinNo', flat=True):
-            eiin_no = (inst or '').strip() if inst else ''
-            if eiin_no and eiin_no not in seen:
-                seen.add(eiin_no)
-                url_lines.append(f'  <url><loc>{base}/institutes/{quote(eiin_no, safe="")}</loc><changefreq>weekly</changefreq></url>')
-        for b in Banbeis.objects.all().values_list('EIIN', flat=True):
-            if b is None:
+        for line in _sitemap_institute_url_entries(base):
+            if skip > 0:
+                skip -= 1
                 continue
-            eiin_val = str(b).strip()
-            if eiin_val and eiin_val not in seen:
-                seen.add(eiin_val)
-                url_lines.append(f'  <url><loc>{base}/institutes/{quote(eiin_val, safe="")}</loc><changefreq>weekly</changefreq></url>')
+            url_lines.append(line)
+            if len(url_lines) >= take:
+                break
     except Exception as e:
-        logger.warning("Sitemap generation failed: %s", e)
-    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + '\n'.join(url_lines) + '\n</urlset>'
-    return HttpResponse(xml, content_type='application/xml')
+        logger.warning("Sitemap part %s generation failed: %s", page, e)
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + '\n'.join(url_lines) + '\n'
+        '</urlset>'
+    )
+    return HttpResponse(xml.encode('utf-8'), content_type='application/xml; charset=utf-8')
 
 
 class TokenViewSet(viewsets.ReadOnlyModelViewSet):

@@ -91,6 +91,9 @@ urlpatterns = [
     path('locations/thanas/', LocationThanasView.as_view(), name='locations_thanas'),
     path('institute/', InstituteDetailView.as_view(), name='institute_detail'),
     path('sitemap.xml', views.sitemap_institutes),
+    path('sitemap.xsl', views.sitemap_xsl),
+    path('sitemap_pages.xml', views.sitemap_pages),
+    path('sitemap_institutes_<int:page>.xml', views.sitemap_institutes_part),
     path('', include(router.urls)),
     re_path(r'^favicon\.ico$', serve, {'path': 'static/favicon.ico'}),
 ]
