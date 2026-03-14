@@ -1,14 +1,11 @@
 import datetime as dt
 
-from django.contrib.auth.models import AbstractUser, Group as AuthGroup, Permission
-from django.utils.translation import gettext as _
+from django.contrib.auth.models import Group as AuthGroup, Permission
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 from django.core.validators import MinValueValidator
-from django.conf import settings
-
 
 # ==============================================================================
 # FIELDS (DB drivers may return datetime as str; ensure we always have datetime)
@@ -37,7 +34,7 @@ class DateTimeFieldSafeTZ(models.DateTimeField):
 
 
 # ==============================================================================
-# COUNTRY & LOCATION (must be defined first for views/serializers imports)
+# COUNTRY & LOCATION
 # ==============================================================================
 
 class Country(models.Model):
@@ -86,7 +83,7 @@ class Country(models.Model):
 
 
 class Location(models.Model):
-    """Address/location (country, division, district, thana, local_address). Referenced by Customer, Order, etc."""
+    """Address/location (country, division, district, thana, local_address)."""
     id = models.AutoField(primary_key=True)
     country = models.ForeignKey(
         Country,
@@ -147,32 +144,21 @@ class Item(models.Model):
         ('service', 'Question-making / Service'),
         ('other', 'Other'),
     ]
-    
-    # Primary Key
+
     id = models.AutoField(primary_key=True)
-    
-    # Item Details
     code = models.CharField(max_length=4, unique=True, null=True, blank=True, db_index=True)
     name = models.CharField(max_length=63, null=True, blank=True)
     bangla_name = models.CharField(max_length=63, null=True, blank=True)
     size = models.CharField(max_length=14, choices=SIZE_CHOICES, null=True, blank=True)
     weight = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(0)])
-    
-    # Status Fields
     love = models.BooleanField(default=False)
     add_to_cart = models.BooleanField(default=False)
     in_stock = models.IntegerField(default=0, validators=[MinValueValidator(0)])
-    
-    # Pricing
     price = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, validators=[MinValueValidator(0)])
     discount = models.DecimalField(max_digits=2, decimal_places=0, default=0, validators=[MinValueValidator(0)])
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])
-    
-    # Media
     image = models.ImageField(upload_to='images/items/', null=True, blank=True)
     videos = models.URLField(blank=True, null=True)
-    
-    # Additional Info
     supplier = models.CharField(max_length=54, null=True, blank=True)
     types = models.CharField(max_length=15, choices=TYPE_CHOICES, default="humanities")
     product_type = models.CharField(max_length=20, choices=PRODUCT_TYPE_CHOICES, default='other', blank=True, db_index=True)
@@ -181,11 +167,9 @@ class Item(models.Model):
     shipping = models.TextField(null=True, blank=True, default="NA")
     payment_method = models.CharField(max_length=28, choices=PAYMENT_CHOICES, default="bkash")
     details = models.TextField(null=True, blank=True, default="NA")
-    
-    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
         db_table = 'cheradip_items'
         ordering = ['-created_at']
@@ -195,7 +179,7 @@ class Item(models.Model):
             models.Index(fields=['name']),
             models.Index(fields=['product_type']),
         ]
-    
+
     def __str__(self):
         return self.name or f"Item #{self.id}"
 
@@ -209,29 +193,22 @@ class Transaction(models.Model):
         ('rocket', 'Rocket'),
         ('cash', 'Cash'),
     ]
-    
-    # Primary Key
+
     id = models.AutoField(primary_key=True)
-    
-    # Transaction Details
     trxid = models.CharField(max_length=31, unique=True, db_index=True)
     username = models.CharField(max_length=11, null=True, blank=True, db_index=True)
     paidFrom = models.CharField(max_length=31, default='', blank=True)
     Paid = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, validators=[MinValueValidator(0)])
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS, default='bkash')
-    
-    # Status
     status = models.CharField(max_length=20, default='pending', choices=[
         ('pending', 'Pending'),
         ('completed', 'Completed'),
         ('failed', 'Failed'),
         ('refunded', 'Refunded'),
     ])
-    
-    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
         db_table = 'cheradip_transactions'
         ordering = ['-created_at']
@@ -240,21 +217,15 @@ class Transaction(models.Model):
             models.Index(fields=['username']),
             models.Index(fields=['status', 'created_at']),
         ]
-    
+
     def __str__(self):
         return f"Transaction {self.trxid}"
 
 
 class OrderDetail(models.Model):
     """Order Detail/Line Item model"""
-    
-    # Primary Key
     id = models.AutoField(primary_key=True)
-    
-    # Foreign Keys
     item = models.ForeignKey(Item, on_delete=models.SET_NULL, null=True, blank=True, related_name='order_details')
-    
-    # Order Detail Information
     SN = models.IntegerField(default=0)
     Name = models.CharField(max_length=127)
     Image = models.URLField(blank=True, null=True)
@@ -267,206 +238,26 @@ class OrderDetail(models.Model):
     Paid = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True, validators=[MinValueValidator(0)])
     Due = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
     ShipingCost = models.DecimalField(max_digits=8, decimal_places=0, null=True, blank=True, validators=[MinValueValidator(0)], default=0)
-    
-    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         db_table = 'cheradip_orderdetail'
         ordering = ['SN']
         indexes = [
             models.Index(fields=['item']),
         ]
-    
+
     def __str__(self):
         return f"Order Detail: {self.Name}"
 
 
-class Order(models.Model):
-    """Order model - Active orders"""
-    ORDER_STATUS = [
-        ('pending', 'Pending'),
-        ('processing', 'Processing'),
-        ('shipped', 'Shipped'),
-        ('delivered', 'Delivered'),
-        ('cancelled', 'Cancelled'),
-    ]
-    
-    PAYMENT_METHODS = [
-        ('cod', 'Cash on Delivery'),
-        ('bkash', 'bKash'),
-        ('nagad', 'Nagad'),
-        ('dbbl', 'DBBL'),
-        ('other', 'Other'),
-    ]
-    
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Foreign Keys
-    customer = models.ForeignKey('Customer', on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
-    
-    # Customer Information
-    username = models.CharField(max_length=11, db_index=True)
-    fullName = models.CharField(max_length=31, null=True, blank=True)
-    gender = models.CharField(max_length=10, null=True, blank=True)
-    altMobileNo = models.CharField(max_length=11, null=True, blank=True)
-    
-    # Address Information
-    division = models.CharField(max_length=31, null=True, blank=True)
-    district = models.CharField(max_length=31, null=True, blank=True)
-    thana = models.CharField(max_length=31, null=True, blank=True)
-    union = models.CharField(max_length=31, null=True, blank=True)
-    village = models.TextField(max_length=255, null=True, blank=True)
-    
-    # Order Information
-    paymentMethod = models.CharField(max_length=31, choices=PAYMENT_METHODS, null=True, blank=True)
-    status = models.CharField(max_length=20, choices=ORDER_STATUS, default='pending')
-    shipped = models.BooleanField(default=False)
-    
-    # Relationships
-    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='orders', db_table='cheradip_order_orderdetails')
-    transactions = models.ManyToManyField(Transaction, blank=True, related_name='orders', db_table='cheradip_order_transaction')
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_order'
-        ordering = ['-created_at']
-        indexes = [
-            models.Index(fields=['username']),
-            models.Index(fields=['status']),
-            models.Index(fields=['customer', 'created_at']),
-        ]
-    
-    def __str__(self):
-        return f"Order #{self.id} - {self.username}"
-
-
-class Ordered(models.Model):
-    """Completed/Delivered Orders model"""
-    ORDER_STATUS = [
-        ('shipped', 'Shipped'),
-        ('delivered', 'Delivered'),
-    ]
-    
-    PAYMENT_METHODS = [
-        ('cod', 'Cash on Delivery'),
-        ('bkash', 'bKash'),
-        ('nagad', 'Nagad'),
-        ('dbbl', 'DBBL'),
-        ('other', 'Other'),
-    ]
-    
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Foreign Keys
-    customer = models.ForeignKey('Customer', on_delete=models.SET_NULL, null=True, blank=True, related_name='ordered_items')
-    
-    # Customer Information
-    username = models.CharField(max_length=11, db_index=True)
-    fullName = models.CharField(max_length=31, null=True, blank=True)
-    gender = models.CharField(max_length=10, null=True, blank=True)
-    altMobileNo = models.CharField(max_length=11, null=True, blank=True)
-    
-    # Address Information
-    division = models.CharField(max_length=31, null=True, blank=True)
-    district = models.CharField(max_length=31, null=True, blank=True)
-    thana = models.CharField(max_length=31, null=True, blank=True)
-    union = models.CharField(max_length=31, null=True, blank=True)
-    village = models.TextField(max_length=255, null=True, blank=True)
-    
-    # Order Information
-    paymentMethod = models.CharField(max_length=31, choices=PAYMENT_METHODS, null=True, blank=True)
-    status = models.CharField(max_length=20, choices=ORDER_STATUS, default='delivered')
-    shipped = models.BooleanField(default=True)
-    
-    # Relationships
-    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='ordered_items', db_table='cheradip_ordered_orderdetails')
-    transactions = models.ManyToManyField(Transaction, blank=True, related_name='ordered_items', db_table='cheradip_ordered_transaction')
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    delivered_at = models.DateTimeField(null=True, blank=True)
-    
-    class Meta:
-        db_table = 'cheradip_ordered'
-        ordering = ['-delivered_at', '-created_at']
-        indexes = [
-            models.Index(fields=['username']),
-            models.Index(fields=['status']),
-            models.Index(fields=['customer', 'delivered_at']),
-        ]
-    
-    def __str__(self):
-        return f"Ordered #{self.id} - {self.username}"
-
-
-class Canceled(models.Model):
-    """Cancelled Orders model"""
-    PAYMENT_METHODS = [
-        ('cod', 'Cash on Delivery'),
-        ('bkash', 'bKash'),
-        ('nagad', 'Nagad'),
-        ('dbbl', 'DBBL'),
-        ('other', 'Other'),
-    ]
-    
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Foreign Keys
-    customer = models.ForeignKey('Customer', on_delete=models.SET_NULL, null=True, blank=True, related_name='cancelled_orders')
-    
-    # Customer Information
-    username = models.CharField(max_length=11, db_index=True)
-    fullName = models.CharField(max_length=31, null=True, blank=True)
-    gender = models.CharField(max_length=10, null=True, blank=True)
-    altMobileNo = models.CharField(max_length=11, null=True, blank=True)
-    
-    # Address Information
-    division = models.CharField(max_length=31, null=True, blank=True)
-    district = models.CharField(max_length=31, null=True, blank=True)
-    thana = models.CharField(max_length=31, null=True, blank=True)
-    union = models.CharField(max_length=31, null=True, blank=True)
-    village = models.TextField(max_length=255, null=True, blank=True)
-    
-    # Order Information
-    paymentMethod = models.CharField(max_length=31, choices=PAYMENT_METHODS, null=True, blank=True)
-    shipped = models.BooleanField(default=False)
-    cancellation_reason = models.TextField(null=True, blank=True)
-    
-    # Relationships
-    orderDetails = models.ManyToManyField(OrderDetail, blank=True, related_name='cancelled_orders', db_table='cheradip_canceled_orderdetails')
-    transactions = models.ManyToManyField(Transaction, blank=True, related_name='cancelled_orders', db_table='cheradip_canceled_transaction')
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    cancelled_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_canceled'
-        ordering = ['-cancelled_at']
-        indexes = [
-            models.Index(fields=['username']),
-            models.Index(fields=['customer', 'cancelled_at']),
-        ]
-    
-    def __str__(self):
-        return f"Cancelled Order #{self.id} - {self.username}"
-
-
 # ==============================================================================
-# USER MANAGEMENT MODELS
+# CUSTOMER (AUTH USER)
 # ==============================================================================
 
 class CustomerManager(BaseUserManager):
     """Custom User Manager for Customer model"""
-    
+
     def create_user(self, username, password=None, **extra_fields):
         if not username:
             raise ValueError("The Mobile Number must be set")
@@ -498,45 +289,35 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         ('Student', 'Student'),
         ('JobSeeker', 'Job Seeker'),
     ]
-    
-    # Primary Key (inherited from AbstractBaseUser)
-    # id is auto-created
-    
-    # Account Information
+
     acctype = models.CharField(max_length=12, choices=TYPE_CHOICES, default="Student")
     username = models.CharField(max_length=15, unique=True, db_index=True)
-    password = models.CharField(max_length=128)  # This is handled by AbstractBaseUser
+    password = models.CharField(max_length=128)
     fullName = models.CharField(max_length=31)
     group = models.CharField(max_length=30, blank=True, default="Science")
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, default='')
     country_code = models.CharField(max_length=2, blank=True, null=True, db_index=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    # Student/JobSeeker
     class_name = models.CharField(max_length=20, blank=True, null=True)
     department = models.CharField(max_length=50, blank=True, null=True)
-    # Teacher
     teacher_level = models.CharField(max_length=20, blank=True, null=True)
     teacher_subject_code = models.CharField(max_length=10, blank=True, null=True)
     teacher_department_code = models.CharField(max_length=20, blank=True, null=True)
     teacher_department_name = models.CharField(max_length=200, blank=True, null=True)
-    # Address Information
     division = models.CharField(max_length=31, blank=True, default='')
     district = models.CharField(max_length=31, blank=True, default='')
     thana = models.CharField(max_length=31, blank=True, default='')
     union = models.CharField(max_length=31, blank=True, default='')
     village = models.CharField(max_length=255, blank=True, default='')
-    # Additional Fields
     email = models.EmailField(blank=True, null=True)
     phone_alternate = models.CharField(max_length=11, blank=True, null=True)
+    whatsapp_apikey = models.CharField(max_length=255, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    
-    # Timestamps (last_login from AbstractBaseUser)
     date_joined = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
-    objects = CustomerManager()
 
+    objects = CustomerManager()
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ['fullName']
 
@@ -544,7 +325,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     user_permissions = models.ManyToManyField(
         Permission, related_name="customer_set", blank=True
     )
-    
+
     class Meta:
         db_table = 'cheradip_customers'
         ordering = ['-date_joined']
@@ -567,16 +348,11 @@ class Customer(AbstractBaseUser, PermissionsMixin):
 
 class CustomerToken(models.Model):
     """Authentication Token for Customer"""
-    # Primary Key
     key = models.CharField("Key", max_length=40, primary_key=True)
-    
-    # Foreign Keys
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='cheradip_customer_token')
-    
-    # Timestamps
     created = models.DateTimeField("Created", default=timezone.now, db_index=True)
     expires_at = models.DateTimeField(null=True, blank=True)
-    
+
     class Meta:
         db_table = 'cheradip_customer_tokens'
         ordering = ['-created']
@@ -590,451 +366,11 @@ class CustomerToken(models.Model):
 
 
 # ==============================================================================
-# EDUCATIONAL CONTENT MODELS
-# ==============================================================================
-
-class Group(models.Model):
-    """Educational Group model (Science, Business, Humanities)"""
-    # Primary Key
-    group_code = models.CharField(max_length=1, unique=True, primary_key=True, db_index=True)
-    
-    # Group Information
-    group_name = models.CharField(max_length=50, default="")
-    group_name_bn = models.CharField(max_length=50, blank=True, null=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_groups'
-        ordering = ['group_code']
-        indexes = [
-            models.Index(fields=['group_code']),
-        ]
-    
-    def __str__(self):
-        return f"{self.group_code} - {self.group_name}"
-
-
-class ClassLevel(models.Model):
-    """Class level (e.g. 5, 8, 9-10, 11-12, 13-16) with flags for groups/departments."""
-    class_code = models.CharField(max_length=10, primary_key=True, unique=True, db_index=True)
-    class_name = models.CharField(max_length=50)
-    class_name_bn = models.CharField(max_length=50, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    has_groups = models.BooleanField(default=False)
-    has_departments = models.BooleanField(default=False)
-    display_order = models.IntegerField(default=0)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_class_levels'
-        ordering = ['display_order', 'class_code']
-        indexes = [
-            models.Index(fields=['class_code']),
-            models.Index(fields=['has_groups', 'has_departments']),
-        ]
-
-    def __str__(self):
-        return f"{self.class_code} - {self.class_name}"
-
-
-class Department(models.Model):
-    """Department (e.g. for 13-16 / university)."""
-    dept_code = models.CharField(max_length=20, primary_key=True, unique=True, db_index=True)
-    dept_name = models.CharField(max_length=100)
-    dept_name_bn = models.CharField(max_length=100, blank=True, null=True)
-    dept_name_short = models.CharField(max_length=20, blank=True, null=True)
-    faculty = models.CharField(max_length=100, blank=True, null=True, help_text='Faculty name (e.g., Engineering, Arts)')
-    faculty_bn = models.CharField(max_length=100, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    degree_type = models.CharField(max_length=50, blank=True, null=True, help_text='e.g., BSc, BA, BBA, MBBS')
-    display_order = models.IntegerField(default=0)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_departments'
-        ordering = ['display_order', 'dept_name']
-        indexes = [
-            models.Index(fields=['dept_code']),
-            models.Index(fields=['faculty']),
-            models.Index(fields=['is_active', 'display_order']),
-        ]
-
-    def __str__(self):
-        return f"{self.dept_code} - {self.dept_name}"
-
-
-class ClassGroupMapping(models.Model):
-    """Maps a class level to allowed group codes (comma-separated)."""
-    id = models.BigAutoField(primary_key=True, auto_created=True)
-    class_level = models.ForeignKey(ClassLevel, on_delete=models.CASCADE, related_name='group_mappings')
-    group_codes = models.CharField(max_length=50, help_text='Comma-separated group codes (e.g., S,A,B)')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_class_group_mappings'
-        unique_together = (('class_level', 'group_codes'),)
-        indexes = [
-            models.Index(fields=['class_level']),
-        ]
-
-    def get_group_list(self):
-        """Return list of Group serialized data for group_codes."""
-        from .serializers import GroupSerializer
-        codes = [c.strip() for c in self.group_codes.split(',') if c.strip()]
-        qs = Group.objects.filter(group_code__in=codes).order_by('group_code')
-        return GroupSerializer(qs, many=True).data
-
-    def __str__(self):
-        return f"{self.class_level_id} -> {self.group_codes}"
-
-
-class Subject(models.Model):
-    """
-    Subject model — table cheradip_subject (replaces subjects + cheradip_subject_translated).
-    One row per (subject_code, level, country, language). CSV: id, level, level_tr, groups, class, subject_name, subject_translated, subject_code, country_id, language_code, created_at, updated_at.
-    """
-    id = models.AutoField(primary_key=True)
-    level = models.CharField(max_length=100, blank=True, null=True, db_index=True)
-    level_tr = models.CharField(max_length=100, blank=True, null=True)
-    groups = models.JSONField(blank=True, null=True, help_text='JSON array of group names/codes')
-    class_level = models.CharField(max_length=10, blank=True, null=True, db_index=True)  # '0'..'8', '9-10', '11-12', '13-16'
-    subject_name = models.CharField(max_length=255, blank=True, null=True)  # e.g. Bengali name
-    subject_translated = models.CharField(max_length=255, blank=True, null=True)  # e.g. English name
-    subject_code = models.CharField(max_length=12, unique=True, db_index=True)
-    country_id = models.CharField(max_length=2, blank=True, null=True, db_index=True)
-    language_code = models.CharField(max_length=10, blank=True, null=True, db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
-
-    class Meta:
-        db_table = 'cheradip_subject'
-        ordering = ['subject_code', 'level', 'country_id']
-        indexes = [
-            models.Index(fields=['subject_code']),
-            models.Index(fields=['country_id', 'level']),
-        ]
-
-    def __str__(self):
-        return f"{self.subject_code} - {self.subject_translated or self.subject_name or 'N/A'}"
-
-    def get_class_display(self):
-        """Class value for display: 0, 1, ... 8, 9-10, 11-12, 13-16."""
-        return (self.class_level or '').strip() or '—'
-    get_class_display.short_description = 'Class'
-
-    def delete(self, using=None, keep_parents=False):
-        level_tr = self.level_tr or ''
-        class_level = self.class_level or ''
-        subject_translated = self.subject_translated or ''
-        super().delete(using=using, keep_parents=keep_parents)
-        from cheradip.subject_question_tables import drop_subject_question_table_if_unused
-        drop_subject_question_table_if_unused(level_tr, class_level, subject_translated)
-
-
-class PendingSubjectRequest(models.Model):
-    """
-    Subject requested during signup (Degree / Honours / Masters). Pending until approved in admin.
-    When approved, a Subject row is created and this request is marked approved.
-    """
-    STATUS_PENDING = 'pending'
-    STATUS_APPROVED = 'approved'
-    STATUS_REJECTED = 'rejected'
-    STATUS_CHOICES = [
-        (STATUS_PENDING, 'Pending'),
-        (STATUS_APPROVED, 'Approved'),
-        (STATUS_REJECTED, 'Rejected'),
-    ]
-    subject_name = models.CharField(max_length=255)
-    subject_translated = models.CharField(max_length=255)
-    degree_type = models.CharField(max_length=50, blank=True, null=True, help_text='Degree Type: Degree, Honours (Pass), Honours, B.Sc, BSS, BBA, MBA, MSS, MSC, Others; stored in Subject.groups on approve.')
-    country_id = models.CharField(max_length=2, blank=True, null=True, db_index=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING, db_index=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    reviewed_at = models.DateTimeField(blank=True, null=True)
-    reviewed_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='reviewed_pending_subject_requests',
-    )
-    notes = models.TextField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'cheradip_pending_subject_request'
-        ordering = ['-created_at']
-        verbose_name = 'Pending subject request'
-        verbose_name_plural = 'Pending subject requests'
-
-    def __str__(self):
-        return f"{self.subject_name} / {self.subject_translated} ({self.get_status_display()})"
-
-
-def _slug(s):
-    """Lowercase, spaces and hyphens to underscore, collapse non-alphanumeric to single underscore."""
-    if not s or not isinstance(s, str):
-        return 'unknown'
-    import re
-    s = s.strip().lower().replace(' ', '_').replace('-', '_')
-    s = re.sub(r'[^a-z0-9_]', '_', s)
-    s = re.sub(r'_+', '_', s).strip('_')
-    return s or 'unknown'
-
-
-def subject_question_table_name(level_tr, class_level, subject_translated):
-    """Build table name: cheradip_{level_tr}_{class_level}_{subject_translated} (lowercase, spaces/hyphens to underscore, max 64 chars for MySQL)."""
-    a = _slug(level_tr)[:12]
-    b = _slug(class_level)[:8]
-    c = _slug(subject_translated)[:36]
-    name = f'cheradip_{a}_{b}_{c}'.rstrip('_')
-    if len(name) > 64:
-        name = name[:64].rstrip('_')
-    return name
-
-
-class SubjectQuestionBase(models.Model):
-    """
-    Abstract base for per-subject question tables. Each table stores: ID, Subject, Chapter#, Chapter, Topic,
-    Question, Option 1-4, Answer, Explanation, QuestionLevel, Subsource (schema from MCQ image).
-    Concrete tables are created dynamically from cheradip_subject (e.g. cheradip_pre_primary_0_story_book).
-    """
-    id = models.AutoField(primary_key=True)
-    subject = models.CharField(max_length=255, blank=True, null=True)
-    chapter_no = models.CharField(max_length=50, blank=True, null=True)
-    chapter = models.CharField(max_length=255, blank=True, null=True)
-    topic = models.CharField(max_length=255, blank=True, null=True)
-    question = models.TextField(blank=True, null=True)
-    option_1 = models.CharField(max_length=500, blank=True, null=True)
-    option_2 = models.CharField(max_length=500, blank=True, null=True)
-    option_3 = models.CharField(max_length=500, blank=True, null=True)
-    option_4 = models.CharField(max_length=500, blank=True, null=True)
-    answer = models.CharField(max_length=500, blank=True, null=True)
-    explanation = models.TextField(blank=True, null=True)
-    explanation2 = models.TextField(blank=True, null=True)
-    explanation3 = models.TextField(blank=True, null=True)
-    type = models.CharField(max_length=100, blank=True, null=True)
-    level = models.CharField(max_length=100, blank=True, null=True)
-    subsource = models.CharField(max_length=255, blank=True, null=True)
-    created_at = models.DateTimeField(blank=True, null=True)
-    updated_at = models.DateTimeField(blank=True, null=True)
-    updated_by = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        abstract = True
-
-
-class Chapter(models.Model):
-    """Chapter model - Chapters within a Subject (linked by subject_code)."""
-    id = models.AutoField(primary_key=True)
-    subject_code = models.CharField(max_length=12, db_index=True)
-
-    chapter_no = models.CharField(max_length=2, blank=True, db_index=True)
-    chapter_name = models.CharField(max_length=100, blank=True)
-    chapter_name_bn = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'cheradip_chapters'
-        ordering = ['subject_code', 'chapter_no']
-        unique_together = (('subject_code', 'chapter_no'),)
-        indexes = [
-            models.Index(fields=['subject_code', 'chapter_no']),
-        ]
-
-    def __str__(self):
-        return f"{self.subject_code} Chapter {self.chapter_no} - {self.chapter_name}"
-
-
-class Topic(models.Model):
-    """Topic model - Topics within a Chapter"""
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Foreign Keys
-    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='topics', db_index=True)
-    
-    # Topic Information
-    topic_no = models.CharField(max_length=2, blank=True, db_index=True)
-    topic_name = models.CharField(max_length=100, blank=True)
-    topic_name_bn = models.CharField(max_length=100, blank=True, null=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_topics'
-        ordering = ['chapter', 'topic_no']
-        unique_together = ('chapter', 'topic_no')
-        indexes = [
-            models.Index(fields=['chapter', 'topic_no']),
-        ]
-    
-    def __str__(self):
-        return f"{self.chapter.subject_code} Topic {self.topic_no} - {self.topic_name}"
-
-
-class Institute(models.Model):
-    """Institute model - Educational Institutes (MCQ / NTRCA filter)"""
-    # Primary Key
-    institute_code = models.CharField(max_length=14, unique=True, primary_key=True, db_index=True)
-    
-    # Institute Information
-    institute_name = models.CharField(max_length=127, blank=True, unique=True)
-    institute_name_bn = models.CharField(max_length=127, blank=True, null=True)
-    institute_type = models.CharField(max_length=127, blank=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_institute'
-        ordering = ['institute_name']
-        indexes = [
-            models.Index(fields=['institute_code']),
-            models.Index(fields=['institute_name']),
-            models.Index(fields=['institute_type']),
-        ]
-    
-    def __str__(self):
-        return f"{self.institute_code} - {self.institute_name} ({self.institute_type})"
-
-
-class Year(models.Model):
-    """Year model - Academic Years"""
-    # Primary Key
-    year_code = models.CharField(max_length=5, unique=True, primary_key=True, db_index=True)
-    
-    # Year Information
-    year_name = models.CharField(max_length=9, blank=True, unique=True)
-    year_name_bn = models.CharField(max_length=9, blank=True, null=True)
-    start_year = models.IntegerField(null=True, blank=True)
-    end_year = models.IntegerField(null=True, blank=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_years'
-        ordering = ['-year_code']
-        indexes = [
-            models.Index(fields=['year_code']),
-        ]
-    
-    def __str__(self):
-        return f"{self.year_code} - {self.year_name}"
-
-
-def question_image_path(instance, filename):
-    """Generate path for question images"""
-    return f'images/mcq/{instance.subject_code}/{instance.chapter.chapter_no}/{instance.qid}/{filename}'
-
-
-class Mcq_ict(models.Model):
-    """MCQ/ICT Question model"""
-    ANSWER_CHOICES = [
-        ('1', 'ক'),
-        ('2', 'খ'),
-        ('3', 'গ'),
-        ('4', 'ঘ'),
-    ]
-    
-    # Primary Key
-    qid = models.CharField(max_length=10, unique=True, editable=False, primary_key=True, db_index=True)
-    
-    subject_code = models.CharField(max_length=12, db_index=True)
-    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='questions', db_index=True)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='questions', db_index=True)
-    
-    # Question Content
-    uddipok = models.TextField(null=True, blank=True, max_length=1000, help_text="Question context/hint")
-    question = models.TextField(max_length=300)
-    option1 = models.TextField(max_length=200)
-    option2 = models.TextField(max_length=200)
-    option3 = models.TextField(max_length=200)
-    option4 = models.TextField(max_length=200)
-    answer = models.CharField(max_length=1, choices=ANSWER_CHOICES)
-    explanation = models.TextField(null=True, blank=True, max_length=1000)
-    
-    # Images
-    img_uddipok = models.ImageField(upload_to=question_image_path, null=True, blank=True)
-    img_question = models.ImageField(upload_to=question_image_path, null=True, blank=True)
-    img_explanation = models.ImageField(upload_to=question_image_path, null=True, blank=True)
-    
-    # Relationships
-    institutes = models.ManyToManyField(Institute, related_name='questions', blank=True, db_table='mcq_institutes')
-    years = models.ManyToManyField(Year, related_name='questions', blank=True, db_table='cheradip_mcq_years')
-    
-    # Metadata
-    difficulty_level = models.CharField(max_length=20, choices=[
-        ('easy', 'Easy'),
-        ('medium', 'Medium'),
-        ('hard', 'Hard'),
-    ], default='medium', null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_mcq_ict'
-        ordering = ['subject_code', 'chapter', 'topic', 'qid']
-        indexes = [
-            models.Index(fields=['qid']),
-            models.Index(fields=['subject_code', 'chapter', 'topic']),
-            models.Index(fields=['is_active']),
-            models.Index(fields=['difficulty_level']),
-        ]
-    
-    def __str__(self):
-        return f"Question {self.qid} ({self.subject_code})"
-
-    def save(self, *args, **kwargs):
-        if not self.qid:
-            try:
-                chapter_no = f'{int(self.chapter.chapter_no):02d}'
-                topic_no = f'{int(self.topic.topic_no):02d}'
-            except (ValueError, AttributeError):
-                chapter_no = self.chapter.chapter_no.zfill(2) if self.chapter.chapter_no else '00'
-                topic_no = self.topic.topic_no.zfill(2) if self.topic.topic_no else '00'
-            last_question = Mcq_ict.objects.filter(
-                subject_code=self.subject_code,
-                chapter=self.chapter,
-                topic=self.topic
-            ).order_by('qid').last()
-            
-            if last_question:
-                try:
-                    last_qid = int(last_question.qid[-3:])
-                    new_qid = f'{last_qid + 1:03d}'
-                except ValueError:
-                    new_qid = '001'
-            else:
-                new_qid = '001'
-            
-            self.qid = f'{self.subject_code}{chapter_no}{topic_no}{new_qid}'
-        
-        super().save(*args, **kwargs)
-
-
-# ==============================================================================
-# NOTIFICATION MODELS
+# NOTIFICATION & JSON DATA
 # ==============================================================================
 
 class Notification(models.Model):
-    """Notification model – table cheradip_notification has only: id (bigint), text (longtext), link (varchar 512)."""
+    """Notification model – table cheradip_notification."""
     id = models.BigAutoField(primary_key=True)
     text = models.TextField(null=True, blank=True)
     link = models.URLField(max_length=512, null=True, blank=True)
@@ -1046,474 +382,15 @@ class Notification(models.Model):
         return f"Notification: {(self.text or '')[:50]}"
 
 
-# ==============================================================================
-# JOB/VACANCY MODELS
-# ==============================================================================
-
-class Vacancy(models.Model):
-    """Vacancy model - General vacancies (table cheradip_vacancy7: VPID, EIIN, Name, District, Thana, Designation, Subject, Vacancy, Type, Status)"""
-    VACANCY_TYPES = [
-        ('regular', 'Regular'),
-        ('temporary', 'Temporary'),
-        ('contract', 'Contract'),
-    ]
-    STATUS_CHOICES = [
-        ('open', 'Open'),
-        ('closed', 'Closed'),
-        ('filled', 'Filled'),
-    ]
-    
-    # Primary Key
-    VPID = models.BigIntegerField(primary_key=True, db_index=True)
-    
-    # Vacancy Information
-    EIIN = models.BigIntegerField(db_index=True)
-    Name = models.CharField(max_length=255, db_index=True)
-    District = models.CharField(max_length=255, db_index=True)
-    Thana = models.CharField(max_length=255)
-    Designation = models.CharField(max_length=255, db_index=True)
-    Subject = models.CharField(max_length=255, db_index=True)
-    Vacancy = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    Type = models.CharField(max_length=15, choices=VACANCY_TYPES, default='regular')
-    Status = models.CharField(max_length=31, choices=STATUS_CHOICES, default='open')
-    
-    class Meta:
-        db_table = 'cheradip_vacancy7'
-        ordering = ['VPID']
-        indexes = [
-            models.Index(fields=['VPID']),
-            models.Index(fields=['EIIN']),
-            models.Index(fields=['Status', 'Type']),
-            models.Index(fields=['District', 'Thana']),
-            models.Index(fields=['Subject']),
-        ]
-    
-    def __str__(self):
-        return f"{self.Name} - {self.Designation} ({self.Subject})"
-
-
-class Vacancy5(models.Model):
-    """Vacancy model for Grade 5 (table cheradip_vacancy5: VPID, EIIN, Name, District, Thana, Designation, Subject, Vacancy, Type, Status)"""
-    VACANCY_TYPES = [
-        ('regular', 'Regular'),
-        ('temporary', 'Temporary'),
-        ('contract', 'Contract'),
-    ]
-    STATUS_CHOICES = [
-        ('open', 'Open'),
-        ('closed', 'Closed'),
-        ('filled', 'Filled'),
-    ]
-    
-    VPID = models.BigIntegerField(primary_key=True, db_index=True)
-    EIIN = models.BigIntegerField(db_index=True)
-    Name = models.CharField(max_length=255, db_index=True)
-    District = models.CharField(max_length=255, db_index=True)
-    Thana = models.CharField(max_length=255)
-    Designation = models.CharField(max_length=255, db_index=True)
-    Subject = models.CharField(max_length=255, db_index=True)
-    Vacancy = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    Type = models.CharField(max_length=15, choices=VACANCY_TYPES, default='regular')
-    Status = models.CharField(max_length=31, choices=STATUS_CHOICES, default='open')
-    
-    class Meta:
-        db_table = 'cheradip_vacancy5'
-        ordering = ['VPID']
-        indexes = [
-            models.Index(fields=['VPID']),
-            models.Index(fields=['EIIN']),
-            models.Index(fields=['Status']),
-            models.Index(fields=['District', 'Subject']),
-        ]
-    
-    def __str__(self):
-        return f"Grade 5: {self.Name} ({self.Subject})"
-
-
-class Vacancy6(models.Model):
-    """Vacancy model for Grade 6 (table cheradip_vacancy6: VPID, EIIN, Name, District, Thana, Designation, Subject, Vacancy, Type, Status)"""
-    VACANCY_TYPES = [
-        ('regular', 'Regular'),
-        ('temporary', 'Temporary'),
-        ('contract', 'Contract'),
-    ]
-    STATUS_CHOICES = [
-        ('open', 'Open'),
-        ('closed', 'Closed'),
-        ('filled', 'Filled'),
-    ]
-    
-    VPID = models.BigIntegerField(primary_key=True, db_index=True)
-    EIIN = models.BigIntegerField(db_index=True)
-    Name = models.CharField(max_length=255, db_index=True)
-    District = models.CharField(max_length=255, db_index=True)
-    Thana = models.CharField(max_length=255)
-    Designation = models.CharField(max_length=255, db_index=True)
-    Subject = models.CharField(max_length=255, db_index=True)
-    Vacancy = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    Type = models.CharField(max_length=15, choices=VACANCY_TYPES, default='regular')
-    Status = models.CharField(max_length=31, choices=STATUS_CHOICES, default='open')
-    
-    class Meta:
-        db_table = 'cheradip_vacancy6'
-        ordering = ['VPID']
-        indexes = [
-            models.Index(fields=['VPID']),
-            models.Index(fields=['EIIN']),
-            models.Index(fields=['Status']),
-            models.Index(fields=['District', 'Subject']),
-        ]
-    
-    def __str__(self):
-        return f"Grade 6: {self.Name} ({self.Subject})"
-
-
-# ==============================================================================
-# MERIT LIST MODELS
-# ==============================================================================
-
-class Merit(models.Model):
-    """Merit list model - General merit positions (table cheradip_merit7: Code, Name, Batch, Roll, Mark, Rank, SL, Subject, id only)"""
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Merit Information (matches cheradip_merit7 columns)
-    Code = models.IntegerField(db_index=True)
-    Name = models.CharField(max_length=255, db_index=True)
-    Batch = models.IntegerField(db_index=True)
-    Roll = models.BigIntegerField(db_index=True)
-    Mark = models.IntegerField()
-    Rank = models.IntegerField()
-    SL = models.IntegerField()
-    Subject = models.CharField(max_length=127, db_index=True)
-    
-    class Meta:
-        db_table = 'cheradip_merit7'
-        ordering = ['Batch', 'Rank', 'SL']
-        indexes = [
-            models.Index(fields=['Code']),
-            models.Index(fields=['Batch', 'Rank']),
-            models.Index(fields=['Roll']),
-            models.Index(fields=['Subject', 'Rank']),
-        ]
-        unique_together = ('Batch', 'Roll', 'Subject')
-    
-    def __str__(self):
-        return f"Batch {self.Batch} - Roll {self.Roll} - Mark {self.Mark} - Rank {self.Rank}"
-
-
-class Merit5(models.Model):
-    """Merit list model for Grade 5"""
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Merit Information
-    Code = models.IntegerField(db_index=True)
-    Name = models.CharField(max_length=255, db_index=True)
-    Batch = models.IntegerField(db_index=True)
-    Roll = models.BigIntegerField(db_index=True)
-    Mark = models.IntegerField()
-    Rank = models.IntegerField()
-    SL = models.IntegerField()
-    Subject = models.CharField(max_length=127, db_index=True)
-    
-    class Meta:
-        db_table = 'cheradip_merit5'
-        ordering = ['Batch', 'Rank', 'SL']
-        indexes = [
-            models.Index(fields=['Batch', 'Rank']),
-            models.Index(fields=['Roll']),
-            models.Index(fields=['Subject']),
-        ]
-        unique_together = ('Batch', 'Roll', 'Subject')
-    
-    def __str__(self):
-        return f"Grade 5 - Batch {self.Batch} - Roll {self.Roll} - Rank {self.Rank}"
-
-
-class Merit6(models.Model):
-    """Merit list model for Grade 6"""
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Merit Information
-    Code = models.IntegerField(db_index=True)
-    Name = models.CharField(max_length=255, db_index=True)
-    Batch = models.IntegerField(db_index=True)
-    Roll = models.BigIntegerField(db_index=True)
-    Mark = models.IntegerField()
-    Rank = models.IntegerField()
-    SL = models.IntegerField()
-    Subject = models.CharField(max_length=127, db_index=True)
-    
-    class Meta:
-        db_table = 'cheradip_merit6'
-        ordering = ['Batch', 'Rank', 'SL']
-        indexes = [
-            models.Index(fields=['Batch', 'Rank']),
-            models.Index(fields=['Roll']),
-            models.Index(fields=['Subject']),
-        ]
-        unique_together = ('Batch', 'Roll', 'Subject')
-    
-    def __str__(self):
-        return f"Grade 6 - Batch {self.Batch} - Roll {self.Roll} - Rank {self.Rank}"
-
-
-# ==============================================================================
-# RECOMMENDATION MODELS
-# ==============================================================================
-
-class Recommend(models.Model):
-    """Recommendation model - General recommendations (table cheradip_recommend7: id, EIIN, District, Thana, Designation, Batch, Merit, Roll, Name, Code, Mark, Rank, Serial, Subject)"""
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Recommendation Information
-    EIIN = models.BigIntegerField(db_index=True)
-    District = models.CharField(max_length=127, null=True, blank=True, db_index=True)
-    Thana = models.CharField(max_length=127, null=True, blank=True)
-    Designation = models.CharField(max_length=255, null=True, blank=True)
-    Batch = models.CharField(max_length=255, null=True, blank=True)
-    Merit = models.CharField(max_length=63, null=True, blank=True)
-    Roll = models.BigIntegerField(null=True, blank=True, db_index=True)
-    Name = models.CharField(max_length=255, null=True, blank=True, db_index=True)
-    Code = models.IntegerField(null=True, blank=True)
-    Mark = models.IntegerField(null=True, blank=True)
-    Rank = models.IntegerField(null=True, blank=True)
-    Serial = models.IntegerField(null=True, blank=True)
-    Subject = models.CharField(max_length=255, null=True, blank=True, db_index=True)
-    
-    class Meta:
-        db_table = 'cheradip_recommend7'
-        ordering = ['id']
-        indexes = [
-            models.Index(fields=['EIIN']),
-            models.Index(fields=['Roll']),
-            models.Index(fields=['Name']),
-            models.Index(fields=['Subject', 'Rank']),
-        ]
-    
-    def __str__(self):
-        return f"Recommendation: {self.Name or 'N/A'} ({self.Roll or 'N/A'})"
-
-
-class Recommend5(models.Model):
-    """Recommendation model for Grade 5 (table cheradip_recommend5: same columns as recommend7, no created_at/updated_at)"""
-    id = models.AutoField(primary_key=True)
-    EIIN = models.BigIntegerField(db_index=True)
-    District = models.CharField(max_length=127, null=True, blank=True)
-    Thana = models.CharField(max_length=127, null=True, blank=True)
-    Designation = models.CharField(max_length=255, null=True, blank=True)
-    Batch = models.CharField(max_length=255, null=True, blank=True)
-    Merit = models.CharField(max_length=63, null=True, blank=True)
-    Roll = models.BigIntegerField(null=True, blank=True, db_index=True)
-    Name = models.CharField(max_length=255, null=True, blank=True)
-    Code = models.IntegerField(null=True, blank=True)
-    Mark = models.IntegerField(null=True, blank=True)
-    Rank = models.IntegerField(null=True, blank=True)
-    Serial = models.IntegerField(null=True, blank=True)
-    Subject = models.CharField(max_length=255, null=True, blank=True)
-    
-    class Meta:
-        db_table = 'cheradip_recommend5'
-        ordering = ['id']
-        indexes = [
-            models.Index(fields=['EIIN', 'Roll']),
-            models.Index(fields=['Subject']),
-        ]
-    
-    def __str__(self):
-        return f"Grade 5 Recommendation: {self.Name or 'N/A'} ({self.Roll or 'N/A'})"
-
-
-class Recommend6(models.Model):
-    """Recommendation model for Grade 6 (table cheradip_recommend6: same columns as recommend7, no created_at/updated_at)"""
-    id = models.AutoField(primary_key=True)
-    EIIN = models.BigIntegerField(db_index=True)
-    District = models.CharField(max_length=127, null=True, blank=True)
-    Thana = models.CharField(max_length=127, null=True, blank=True)
-    Designation = models.CharField(max_length=255, null=True, blank=True)
-    Batch = models.CharField(max_length=255, null=True, blank=True)
-    Merit = models.CharField(max_length=63, null=True, blank=True)
-    Roll = models.BigIntegerField(null=True, blank=True, db_index=True)
-    Name = models.CharField(max_length=255, null=True, blank=True)
-    Code = models.IntegerField(null=True, blank=True)
-    Mark = models.IntegerField(null=True, blank=True)
-    Rank = models.IntegerField(null=True, blank=True)
-    Serial = models.IntegerField(null=True, blank=True)
-    Subject = models.CharField(max_length=255, null=True, blank=True)
-    
-    class Meta:
-        db_table = 'cheradip_recommend6'
-        ordering = ['id']
-        indexes = [
-            models.Index(fields=['EIIN', 'Roll']),
-            models.Index(fields=['Subject']),
-        ]
-    
-    def __str__(self):
-        return f"Grade 6 Recommendation: {self.Name or 'N/A'} ({self.Roll or 'N/A'})"
-
-
-# ==============================================================================
-# INSTITUTE DATA MODELS
-# ==============================================================================
-
-class Banbeis(models.Model):
-    """BANBEIS (Bangladesh Bureau of Educational Information and Statistics) Institute Data"""
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Institute Information
-    EIIN = models.BigIntegerField(unique=True, db_index=True)
-    Name = models.CharField(max_length=255, null=True, blank=True, db_index=True)
-    District = models.CharField(max_length=255, null=True, blank=True, db_index=True)
-    Thana = models.CharField(max_length=255, null=True, blank=True)
-    Rejion = models.CharField(max_length=255, null=True, blank=True)  # Note: Typo in original field name
-    PostOffice = models.CharField(max_length=127, null=True, blank=True)
-    PostCode = models.CharField(max_length=7, null=True, blank=True)
-    WardNo = models.CharField(max_length=7, null=True, blank=True)
-    Mouza = models.CharField(max_length=127, null=True, blank=True)
-    
-    # Institute Details
-    InstituteType = models.CharField(max_length=127, null=True, blank=True, db_index=True)
-    EducationLevels = models.CharField(max_length=255, null=True, blank=True)
-    SSCDepts = models.CharField(max_length=255, null=True, blank=True)
-    HSCDepts = models.CharField(max_length=255, null=True, blank=True)
-    
-    # Additional Information
-    Linked = models.TextField(null=True, blank=True)
-    MPO = models.CharField(max_length=255, null=True, blank=True)
-    PreStats = models.TextField(null=True, blank=True)
-    Record = models.TextField(null=True, blank=True)
-    Record2 = models.TextField(null=True, blank=True)
-    Contact = models.CharField(max_length=255, null=True, blank=True)
-    GovtStatus = models.IntegerField(null=True, blank=True, choices=[
-        (0, 'Non-Government'),
-        (1, 'Government'),
-    ])
-    
-    class Meta:
-        db_table = 'cheradip_banbeis'
-        ordering = ['EIIN']
-        indexes = [
-            models.Index(fields=['EIIN']),
-            models.Index(fields=['Name']),
-            models.Index(fields=['District', 'Thana']),
-            models.Index(fields=['InstituteType']),
-            models.Index(fields=['GovtStatus']),
-        ]
-    
-    def __str__(self):
-        return f"EIIN: {self.EIIN} | {self.Name or 'N/A'} | Type: {self.InstituteType or 'N/A'}"
-
-
-class Institutes(models.Model):
-    """Institute model - Detailed institute information"""
-    # Primary Key
-    eiinNo = models.CharField(max_length=15, primary_key=True, db_index=True)
-    
-    # Basic Information
-    id = models.IntegerField(null=True, blank=True)
-    instituteName = models.CharField(max_length=255, null=True, blank=True, db_index=True)
-    instituteNameBn = models.CharField(max_length=255, null=True, blank=True)
-    
-    # Contact Information
-    mobile = models.CharField(max_length=15, null=True, blank=True)
-    mobileAlternate = models.CharField(max_length=15, null=True, blank=True)
-    email = models.CharField(max_length=100, null=True, blank=True, db_index=True)
-    
-    # Location Information
-    year = models.IntegerField(null=True, blank=True)
-    divisionName = models.CharField(max_length=100, null=True, blank=True, db_index=True)
-    divisionNameBn = models.CharField(max_length=100, null=True, blank=True)
-    districtName = models.CharField(max_length=100, null=True, blank=True, db_index=True)
-    districtNameBn = models.CharField(max_length=100, null=True, blank=True)
-    thanaName = models.CharField(max_length=100, null=True, blank=True, db_index=True)
-    thanaNameBn = models.CharField(max_length=100, null=True, blank=True)
-    mouzaName = models.CharField(max_length=255, null=True, blank=True)
-    mouzaNameBn = models.CharField(max_length=255, null=True, blank=True)
-    
-    # Institute Details
-    instituteTypeName = models.CharField(max_length=100, null=True, blank=True, db_index=True)
-    instituteTypeNameBn = models.CharField(max_length=100, null=True, blank=True)
-    isGovt = models.BooleanField(null=True, blank=True, default=False)
-    submissionDate = models.DateField(null=True, blank=True)
-    
-    # Note: cheradip_institutes table has no created_at/updated_at columns
-    
-    class Meta:
-        db_table = 'cheradip_institutes'
-        ordering = ['eiinNo']
-        indexes = [
-            models.Index(fields=['eiinNo']),
-            models.Index(fields=['instituteName']),
-            models.Index(fields=['divisionName', 'districtName', 'thanaName']),
-            models.Index(fields=['instituteTypeName']),
-            models.Index(fields=['isGovt']),
-        ]
-    
-    def __str__(self):
-        return f"{self.eiinNo} - {self.instituteName or 'N/A'}"
-
-
-# ==============================================================================
-# UTILITY MODELS
-# ==============================================================================
-
-class Token(models.Model):
-    """Token model for various token-based operations"""
-    # Primary Key
-    id = models.AutoField(primary_key=True)
-    
-    # Token Information
-    Token = models.BigIntegerField(unique=True, db_index=True)
-    Counter = models.CharField(max_length=255, null=True, blank=True)
-    Status = models.IntegerField(null=True, blank=True, default=1, choices=[
-        (0, 'Inactive'),
-        (1, 'Active'),
-        (2, 'Used'),
-        (3, 'Expired'),
-    ])
-    
-    # Additional Info
-    purpose = models.CharField(max_length=50, null=True, blank=True)
-    expires_at = models.DateTimeField(null=True, blank=True)
-    
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'cheradip_tokens'
-        ordering = ['-created_at']
-        indexes = [
-            models.Index(fields=['Token']),
-            models.Index(fields=['Status']),
-            models.Index(fields=['purpose']),
-        ]
-    
-    def __str__(self):
-        return f"Token: {self.Token} | Counter: {self.Counter or 'N/A'} | Status: {self.Status}"
-
-
 class JsonData(models.Model):
     """JSON Data storage model for flexible data storage"""
-    # Primary Key
     id = models.AutoField(primary_key=True)
-    
-    # JSON Data
     data = models.JSONField()
-    
-    # Metadata
     data_type = models.CharField(max_length=50, null=True, blank=True, db_index=True)
     description = models.CharField(max_length=255, null=True, blank=True)
-    
-    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
         db_table = 'cheradip_json_data'
         ordering = ['-created_at']
@@ -1521,8 +398,209 @@ class JsonData(models.Model):
             models.Index(fields=['data_type']),
             models.Index(fields=['created_at']),
         ]
-    
+
     def __str__(self):
         return f"JSON Data #{self.id} - Type: {self.data_type or 'N/A'}"
 
 
+# ==============================================================================
+# JOB DB MODELS (cheradip_job) – NTRCA / institutes / tokens
+# Tables created by ensure_job or import_to_job; managed=False.
+# ==============================================================================
+
+class _MeritBase(models.Model):
+    """Base fields for merit5/merit6/merit7 (same structure)."""
+    id = models.AutoField(primary_key=True)
+    Code = models.BigIntegerField()
+    Name = models.CharField(max_length=255)
+    Batch = models.BigIntegerField()
+    Roll = models.BigIntegerField()
+    Mark = models.BigIntegerField()
+    Rank = models.BigIntegerField()
+    SL = models.BigIntegerField()
+    Subject = models.CharField(max_length=127)
+
+    class Meta:
+        abstract = True
+
+
+class Merit5(_MeritBase):
+    class Meta:
+        db_table = 'cheradip_merit5'
+        managed = False
+
+
+class Merit6(_MeritBase):
+    class Meta:
+        db_table = 'cheradip_merit6'
+        managed = False
+
+
+class Merit7(_MeritBase):
+    class Meta:
+        db_table = 'cheradip_merit7'
+        managed = False
+
+
+class _VacancyBase(models.Model):
+    VPID = models.BigIntegerField(primary_key=True)
+    EIIN = models.BigIntegerField()
+    Name = models.CharField(max_length=255)
+    District = models.CharField(max_length=255)
+    Thana = models.CharField(max_length=255)
+    Designation = models.CharField(max_length=255)
+    Subject = models.CharField(max_length=255)
+    Vacancy = models.IntegerField()
+    Type = models.CharField(max_length=15)
+    Status = models.CharField(max_length=31)
+
+    class Meta:
+        abstract = True
+
+
+class Vacancy5(_VacancyBase):
+    class Meta:
+        db_table = 'cheradip_vacancy5'
+        managed = False
+
+
+class Vacancy6(_VacancyBase):
+    class Meta:
+        db_table = 'cheradip_vacancy6'
+        managed = False
+
+
+class Vacancy7(_VacancyBase):
+    class Meta:
+        db_table = 'cheradip_vacancy7'
+        managed = False
+
+
+class Recommend5(models.Model):
+    id = models.AutoField(primary_key=True)
+    EIIN = models.BigIntegerField(null=True, blank=True)
+    District = models.CharField(max_length=127, null=True, blank=True)
+    Thana = models.CharField(max_length=127, null=True, blank=True)
+    Designation = models.CharField(max_length=255, null=True, blank=True)
+    Post = models.CharField(max_length=255, null=True, blank=True)
+    Merit = models.CharField(max_length=63, null=True, blank=True)
+    Roll = models.BigIntegerField(null=True, blank=True)
+    Name = models.CharField(max_length=255, null=True, blank=True)
+    Code = models.IntegerField(null=True, blank=True)
+    Mark = models.IntegerField(null=True, blank=True)
+    Rank = models.IntegerField(null=True, blank=True)
+    Serial = models.IntegerField(null=True, blank=True)
+    Subject = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = 'cheradip_recommend5'
+        managed = False
+
+
+class Recommend6(models.Model):
+    id = models.AutoField(primary_key=True)
+    EIIN = models.BigIntegerField(null=True, blank=True)
+    District = models.CharField(max_length=127, null=True, blank=True)
+    Thana = models.CharField(max_length=127, null=True, blank=True)
+    Designation = models.CharField(max_length=255, null=True, blank=True)
+    Post = models.CharField(max_length=255, null=True, blank=True)
+    Merit = models.CharField(max_length=63, null=True, blank=True)
+    Roll = models.BigIntegerField(null=True, blank=True)
+    Name = models.CharField(max_length=255, null=True, blank=True)
+    Code = models.IntegerField(null=True, blank=True)
+    Mark = models.IntegerField(null=True, blank=True)
+    Rank = models.IntegerField(null=True, blank=True)
+    Serial = models.IntegerField(null=True, blank=True)
+    Subject = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = 'cheradip_recommend6'
+        managed = False
+
+
+class Recommend7(models.Model):
+    id = models.AutoField(primary_key=True)
+    EIIN = models.BigIntegerField(null=True, blank=True)
+    District = models.CharField(max_length=127, null=True, blank=True)
+    Thana = models.CharField(max_length=127, null=True, blank=True)
+    Designation = models.CharField(max_length=255, null=True, blank=True)
+    Post = models.CharField(max_length=255, null=True, blank=True)
+    Merit = models.CharField(max_length=63, null=True, blank=True)
+    Roll = models.BigIntegerField(null=True, blank=True)
+    Name = models.CharField(max_length=255, null=True, blank=True)
+    Code = models.IntegerField(null=True, blank=True)
+    Mark = models.IntegerField(null=True, blank=True)
+    Rank = models.IntegerField(null=True, blank=True)
+    Serial = models.IntegerField(null=True, blank=True)
+    Subject = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        db_table = 'cheradip_recommend7'
+        managed = False
+
+
+class Banbeis(models.Model):
+    id = models.AutoField(primary_key=True)
+    EIIN = models.BigIntegerField()
+    Name = models.CharField(max_length=255, null=True, blank=True)
+    District = models.CharField(max_length=255, null=True, blank=True)
+    Thana = models.CharField(max_length=255, null=True, blank=True)
+    Rejion = models.CharField(max_length=255, null=True, blank=True)
+    PostOffice = models.CharField(max_length=127, null=True, blank=True)
+    PostCode = models.CharField(max_length=7, null=True, blank=True)
+    WardNo = models.CharField(max_length=7, null=True, blank=True)
+    Mouza = models.CharField(max_length=127, null=True, blank=True)
+    InstituteType = models.CharField(max_length=127, null=True, blank=True)
+    EducationLevels = models.CharField(max_length=255, null=True, blank=True)
+    SSCDepts = models.CharField(max_length=255, null=True, blank=True)
+    HSCDepts = models.CharField(max_length=255, null=True, blank=True)
+    Linked = models.TextField(null=True, blank=True)
+    MPO = models.CharField(max_length=255, null=True, blank=True)
+    PreStats = models.TextField(null=True, blank=True)
+    Record = models.TextField(null=True, blank=True)
+    Record2 = models.TextField(null=True, blank=True)
+    Contact = models.CharField(max_length=255, null=True, blank=True)
+    GovtStatus = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'cheradip_banbeis'
+        managed = False
+
+
+class Institutes(models.Model):
+    id = models.IntegerField(null=True, blank=True)
+    mobile = models.CharField(max_length=15, null=True, blank=True)
+    mobileAlternate = models.CharField(max_length=15, null=True, blank=True)
+    instituteName = models.CharField(max_length=255, null=True, blank=True)
+    instituteNameBn = models.CharField(max_length=255, null=True, blank=True)
+    eiinNo = models.CharField(max_length=15, primary_key=True)
+    year = models.IntegerField(null=True, blank=True)
+    divisionName = models.CharField(max_length=100, null=True, blank=True)
+    divisionNameBn = models.CharField(max_length=100, null=True, blank=True)
+    districtName = models.CharField(max_length=100, null=True, blank=True)
+    districtNameBn = models.CharField(max_length=100, null=True, blank=True)
+    thanaName = models.CharField(max_length=100, null=True, blank=True)
+    thanaNameBn = models.CharField(max_length=100, null=True, blank=True)
+    instituteTypeName = models.CharField(max_length=100, null=True, blank=True)
+    instituteTypeNameBn = models.CharField(max_length=100, null=True, blank=True)
+    submissionDate = models.DateField(null=True, blank=True)
+    mouzaName = models.CharField(max_length=255, null=True, blank=True)
+    mouzaNameBn = models.CharField(max_length=255, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
+    isGovt = models.BooleanField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'cheradip_institutes'
+        managed = False
+
+
+class Token(models.Model):
+    """NTRCA token – table cheradip_tokens. Status: 0=unused, 1=used."""
+    id = models.AutoField(primary_key=True)
+    Token = models.BigIntegerField()
+    Counter = models.CharField(max_length=255, null=True, blank=True)
+    Status = models.IntegerField(default=0)  # 0=not used, 1=used
+
+    class Meta:
+        db_table = 'cheradip_tokens'
+        managed = False

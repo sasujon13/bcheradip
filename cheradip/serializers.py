@@ -1,9 +1,25 @@
 from rest_framework import serializers
-from .models import (Institutes, Item, Token, Merit, Merit5, Merit6, Recommend, Recommend5, Recommend6, 
-                     Banbeis, Customer, Order, Ordered, OrderDetail, Transaction, Notification, Vacancy, 
-                     Vacancy5, Vacancy6, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country,
-                     ClassLevel, ClassGroupMapping, Department, Location)
-
+from .models import (
+    Item,
+    Customer,
+    OrderDetail,
+    Transaction,
+    Notification,
+    Country,
+    Location,
+    Merit5,
+    Merit6,
+    Merit7,
+    Vacancy5,
+    Vacancy6,
+    Vacancy7,
+    Recommend5,
+    Recommend6,
+    Recommend7,
+    Banbeis,
+    Institutes,
+    Token,
+)
 
 # ==============================================================================
 # COUNTRY SERIALIZERS
@@ -37,68 +53,19 @@ class CountryListSerializer(serializers.ModelSerializer):
 
 
 # ==============================================================================
-# TOKEN AND OTHER SERIALIZERS
+# LOCATION
 # ==============================================================================
 
-class TokenSerializer(serializers.ModelSerializer):
+class LocationSerializer(serializers.ModelSerializer):
+    """Location (country, division, district, thana, local_address)."""
     class Meta:
-        model = Token
-        fields = '__all__'
+        model = Location
+        fields = ['id', 'country', 'division', 'district', 'thana', 'local_address']
 
-class InstitutesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Institutes
-        fields = '__all__'
 
-class RecommendSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Recommend
-        fields = '__all__'
-
-class Recommend5Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Recommend5
-        fields = '__all__'
-
-class Recommend6Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Recommend6
-        fields = '__all__'
-
-class BanbeisSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Banbeis
-        fields = '__all__'
-
-class VacancySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vacancy
-        fields = '__all__'
-
-class Vacancy5Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vacancy5
-        fields = '__all__'
-
-class Vacancy6Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vacancy6
-        fields = '__all__'
-
-class MeritSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Merit
-        fields = '__all__'
-
-class Merit5Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Merit5
-        fields = '__all__'
-
-class Merit6Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Merit6
-        fields = '__all__'
+# ==============================================================================
+# ITEM, TRANSACTION, ORDER DETAIL, NOTIFICATION
+# ==============================================================================
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -106,15 +73,30 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class LocationSerializer(serializers.ModelSerializer):
-    """Location (country, division, district, thana, local_address). Loaded by id for profile/orders."""
+class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Location
-        fields = ['id', 'country', 'division', 'district', 'thana', 'local_address']
+        model = Transaction
+        fields = '__all__'
 
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderDetail
+        fields = '__all__'
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ['id', 'text', 'link']
+
+
+# ==============================================================================
+# CUSTOMER
+# ==============================================================================
 
 class CustomerSignupSerializer(serializers.ModelSerializer):
-    """Write-only serializer for signup: create Customer (Student, Teacher, Job Seeker) in one table. Password is hashed on create."""
+    """Write-only serializer for signup: create Customer. Password is hashed on create."""
     password = serializers.CharField(write_only=True, min_length=4)
     date_of_birth = serializers.DateField(required=False, allow_null=True)
     country_code = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=2)
@@ -147,7 +129,6 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password')
-        # Model has no null=True on group/address; coerce None to defaults
         for key in ('division', 'district', 'thana', 'union', 'village'):
             if validated_data.get(key) is None:
                 validated_data[key] = ''
@@ -155,9 +136,7 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
         if acctype == 'Job Seeker':
             acctype = 'JobSeeker'
         validated_data['acctype'] = acctype
-        # Group: only default to Science for Student; Teacher/Job Seeker get empty string
         validated_data['group'] = validated_data.get('group') or ('Science' if acctype == 'Student' else '')
-        # Gender: leave empty when not provided (no default for signup)
         validated_data['gender'] = validated_data.get('gender') or ''
         user = Customer.objects.create(**validated_data)
         user.set_password(password)
@@ -166,7 +145,7 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-    """Serializer for Customer (auth table). Signup only needs core fields; address can be empty."""
+    """Serializer for Customer (auth table)."""
     password = serializers.CharField(write_only=True, required=False, min_length=4, allow_blank=True)
 
     class Meta:
@@ -186,7 +165,6 @@ class CustomerSerializer(serializers.ModelSerializer):
         }
 
     def generate_default_password(self, fullName, year_of_birth=None):
-        """Generate default password: First 3 letters of name + @ + year (e.g., Sha@1993)."""
         name_part = (fullName or '')[:3].strip()
         if not name_part:
             name_part = 'Usr'
@@ -218,10 +196,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class CustomerUpdateSerializer(serializers.ModelSerializer):
-    location = LocationSerializer(read_only=True)
-    location_id = serializers.PrimaryKeyRelatedField(
-        queryset=Location.objects.all(), write_only=True, required=False, allow_null=True
-    )
+    """Profile update: no location FK on Customer; address fields only."""
     division = serializers.CharField(required=False, allow_blank=True, max_length=31)
     district = serializers.CharField(required=False, allow_blank=True, max_length=31)
     thana = serializers.CharField(required=False, allow_blank=True, max_length=31)
@@ -245,276 +220,90 @@ class CustomerUpdateSerializer(serializers.ModelSerializer):
             'teacher_level', 'teacher_subject_code', 'teacher_department_code', 'teacher_department_name',
             'email',
             'division', 'district', 'thana', 'union', 'village',
-            'location', 'location_id'
         ]
 
     def update(self, instance, validated_data):
         validated_data.pop('username', None)
         validated_data.pop('password', None)
         validated_data.pop('countryCode', None)
-        location = validated_data.pop('location_id', None)
-        if location is not None and hasattr(instance, 'location'):
-            instance.location = location
         for attr, value in validated_data.items():
             if hasattr(instance, attr):
                 setattr(instance, attr, value)
         instance.save()
         return instance
-    
-class TransactionSerializer(serializers.ModelSerializer):
+
+
+# ==============================================================================
+# JOB DB SERIALIZERS (cheradip_job – NTRCA / institutes / tokens)
+# ==============================================================================
+
+class Merit5Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Transaction
+        model = Merit5
         fields = '__all__'
 
-class OrderDetailSerializer(serializers.ModelSerializer):
+
+class Merit6Serializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderDetail
+        model = Merit6
         fields = '__all__'
 
-class OrderSerializer(serializers.ModelSerializer):
-    orderDetails = OrderDetailSerializer(many=True, read_only=True)
-    transaction = TransactionSerializer(many=True, read_only=True)
+
+class Merit7Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Order
-        fields = '__all__'   
+        model = Merit7
+        fields = '__all__'
 
-class NotificationSerializer(serializers.ModelSerializer):
+
+class Vacancy5Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Notification
-        fields = ['id', 'text', 'link']
+        model = Vacancy5
+        fields = '__all__'
 
 
-# MCQ and Related Model Serializers
-class GroupSerializer(serializers.ModelSerializer):
+class Vacancy6Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Group
-        fields = ['group_code', 'group_name']
+        model = Vacancy6
+        fields = '__all__'
 
 
-class YearSerializer(serializers.ModelSerializer):
+class Vacancy7Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Year
-        fields = ['year_code', 'year_name']
+        model = Vacancy7
+        fields = '__all__'
 
 
-class InstituteSerializer(serializers.ModelSerializer):
+class Recommend5Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Institute
-        fields = ['institute_code', 'institute_name', 'institute_type']
+        model = Recommend5
+        fields = '__all__'
 
 
-class SubjectSerializer(serializers.ModelSerializer):
-    """Subject model (table cheradip_subject): id, level, level_tr, groups (JSON), class_level, subject_name, subject_translated, subject_code, country_id, language_code."""
+class Recommend6Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Subject
-        fields = [
-            'id', 'level', 'level_tr', 'groups', 'class_level',
-            'subject_name', 'subject_translated', 'subject_code',
-            'country_id', 'language_code', 'created_at', 'updated_at'
-        ]
+        model = Recommend6
+        fields = '__all__'
 
 
-class ClassLevelSerializer(serializers.ModelSerializer):
+class Recommend7Serializer(serializers.ModelSerializer):
     class Meta:
-        model = ClassLevel
-        fields = ['class_code', 'class_name', 'class_name_bn', 'has_groups', 'has_departments', 'display_order']
+        model = Recommend7
+        fields = '__all__'
 
 
-class ClassGroupMappingSerializer(serializers.ModelSerializer):
-    class_level = ClassLevelSerializer(read_only=True)
-    group_list = serializers.SerializerMethodField()
-    
+class BanbeisSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ClassGroupMapping
-        fields = ['id', 'class_level', 'group_codes', 'group_list']
-    
-    def get_group_list(self, obj):
-        return obj.get_group_list()
+        model = Banbeis
+        fields = '__all__'
 
 
-class DepartmentSerializer(serializers.ModelSerializer):
+class InstitutesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Department
-        fields = ['dept_code', 'dept_name', 'dept_name_bn', 'dept_name_short', 'faculty', 'faculty_bn', 'degree_type', 'display_order']
+        model = Institutes
+        fields = '__all__'
 
 
-class ChapterSerializer(serializers.ModelSerializer):
-    subject_code = serializers.CharField(read_only=True)
-    subject_name = serializers.SerializerMethodField()
-
+class TokenSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Chapter
-        fields = ['id', 'subject_code', 'subject_name', 'chapter_no', 'chapter_name']
-
-    def get_subject_name(self, obj):
-        s = Subject.objects.filter(subject_code=obj.subject_code).first()
-        return (s.subject_translated or s.subject_name or obj.subject_code) if s else obj.subject_code
-
-
-class TopicSerializer(serializers.ModelSerializer):
-    chapter = ChapterSerializer(read_only=True)
-    chapter_no = serializers.CharField(source='chapter.chapter_no', read_only=True)
-    chapter_name = serializers.CharField(source='chapter.chapter_name', read_only=True)
-    subject_code = serializers.CharField(source='chapter.subject_code', read_only=True)
-
-    class Meta:
-        model = Topic
-        fields = ['id', 'chapter', 'chapter_no', 'chapter_name', 'subject_code', 'topic_no', 'topic_name']
-
-
-class McqIctSerializer(serializers.ModelSerializer):
-    subject_code = serializers.CharField(read_only=True, required=False)
-    subject_name = serializers.SerializerMethodField()
-    chapter = ChapterSerializer(read_only=True)
-    chapter_no = serializers.CharField(source='chapter.chapter_no', read_only=True, required=False)
-    chapter_name = serializers.CharField(source='chapter.chapter_name', read_only=True, required=False)
-    topic = TopicSerializer(read_only=True)
-    topic_no = serializers.CharField(source='topic.topic_no', read_only=True, required=False)
-    topic_name = serializers.CharField(source='topic.topic_name', read_only=True, required=False)
-    institutes = InstituteSerializer(many=True, read_only=True)
-    years = YearSerializer(many=True, read_only=True)
-    
-    # For write operations
-    subject_code_write = serializers.CharField(write_only=True, required=False)
-    chapter_no_write = serializers.CharField(write_only=True, required=False)
-    topic_no_write = serializers.CharField(write_only=True, required=False)
-    institute_codes = serializers.ListField(
-        child=serializers.CharField(), 
-        write_only=True, 
-        required=False,
-        allow_empty=True
-    )
-    year_codes = serializers.ListField(
-        child=serializers.CharField(), 
-        write_only=True, 
-        required=False,
-        allow_empty=True
-    )
-    
-    # Image fields with full URLs
-    img_uddipok = serializers.ImageField(required=False, allow_null=True)
-    img_question = serializers.ImageField(required=False, allow_null=True)
-    img_explanation = serializers.ImageField(required=False, allow_null=True)
-    
-    class Meta:
-        model = Mcq_ict
-        fields = [
-            'qid', 'subject_code', 'subject_name', 'chapter', 'chapter_no', 'chapter_name',
-            'topic', 'topic_no', 'topic_name', 'uddipok', 'question', 'option1',
-            'option2', 'option3', 'option4', 'answer', 'explanation',
-            'img_uddipok', 'img_question', 'img_explanation',
-            'institutes', 'years',
-            'subject_code_write', 'chapter_no_write', 'topic_no_write',
-            'institute_codes', 'year_codes'
-        ]
-        read_only_fields = ['qid']
-
-    def get_subject_name(self, obj):
-        s = Subject.objects.filter(subject_code=obj.subject_code).first()
-        return (s.subject_translated or s.subject_name or obj.subject_code) if s else (obj.subject_code or '')
-    
-    def to_representation(self, instance):
-        """Override to include full image URLs"""
-        representation = super().to_representation(instance)
-        
-        # Add full URLs for images
-        request = self.context.get('request')
-        if request:
-            for img_field in ['img_uddipok', 'img_question', 'img_explanation']:
-                if representation.get(img_field):
-                    representation[img_field] = request.build_absolute_uri(representation[img_field])
-            # Use HOST_URL from settings if request not available
-        else:
-            from django.conf import settings
-            base_url = getattr(settings, 'HOST_URL', '')
-            for img_field in ['img_uddipok', 'img_question', 'img_explanation']:
-                if representation.get(img_field):
-                    representation[img_field] = f"{base_url}/manage/media/{representation[img_field]}"
-        
-        return representation
-    
-    def create(self, validated_data):
-        # Extract write-only fields
-        subject_code = validated_data.pop('subject_code_write', None)
-        chapter_no = validated_data.pop('chapter_no_write', None)
-        topic_no = validated_data.pop('topic_no_write', None)
-        institute_codes = validated_data.pop('institute_codes', [])
-        year_codes = validated_data.pop('year_codes', [])
-        
-        if subject_code:
-            if not Subject.objects.filter(subject_code=subject_code).exists():
-                raise serializers.ValidationError(f"Subject with code {subject_code} does not exist")
-            validated_data['subject_code'] = subject_code
-        if chapter_no and subject_code:
-            try:
-                chapter = Chapter.objects.get(subject_code=subject_code, chapter_no=chapter_no)
-                validated_data['chapter'] = chapter
-            except Chapter.DoesNotExist:
-                raise serializers.ValidationError(f"Chapter {chapter_no} not found for subject {subject_code}")
-        
-        if topic_no and chapter_no and subject_code:
-            chapter = validated_data.get('chapter')
-            if chapter:
-                try:
-                    topic = Topic.objects.get(chapter=chapter, topic_no=topic_no)
-                    validated_data['topic'] = topic
-                except Topic.DoesNotExist:
-                    raise serializers.ValidationError(f"Topic {topic_no} not found")
-        
-        # Create question
-        question = Mcq_ict.objects.create(**validated_data)
-        
-        # Add many-to-many relationships
-        if institute_codes:
-            institutes = Institute.objects.filter(institute_code__in=institute_codes)
-            question.institutes.set(institutes)
-        
-        if year_codes:
-            years = Year.objects.filter(year_code__in=year_codes)
-            question.years.set(years)
-        
-        return question
-    
-    def update(self, instance, validated_data):
-        # Extract write-only fields
-        subject_code = validated_data.pop('subject_code_write', None)
-        chapter_no = validated_data.pop('chapter_no_write', None)
-        topic_no = validated_data.pop('topic_no_write', None)
-        institute_codes = validated_data.pop('institute_codes', None)
-        year_codes = validated_data.pop('year_codes', None)
-        
-        if subject_code:
-            if not Subject.objects.filter(subject_code=subject_code).exists():
-                raise serializers.ValidationError(f"Subject with code {subject_code} does not exist")
-            validated_data['subject_code'] = subject_code
-        if chapter_no:
-            subj_code = validated_data.get('subject_code', instance.subject_code)
-            try:
-                chapter = Chapter.objects.get(subject_code=subj_code, chapter_no=chapter_no)
-                validated_data['chapter'] = chapter
-            except Chapter.DoesNotExist:
-                raise serializers.ValidationError(f"Chapter {chapter_no} not found")
-        
-        if topic_no:
-            chapter_obj = validated_data.get('chapter', instance.chapter)
-            try:
-                topic = Topic.objects.get(chapter=chapter_obj, topic_no=topic_no)
-                validated_data['topic'] = topic
-            except Topic.DoesNotExist:
-                raise serializers.ValidationError(f"Topic {topic_no} not found")
-        
-        # Update instance
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
-        
-        # Update many-to-many relationships
-        if institute_codes is not None:
-            institutes = Institute.objects.filter(institute_code__in=institute_codes)
-            instance.institutes.set(institutes)
-        
-        if year_codes is not None:
-            years = Year.objects.filter(year_code__in=year_codes)
-            instance.years.set(years)
-        
-        return instance
+        model = Token
+        fields = '__all__'

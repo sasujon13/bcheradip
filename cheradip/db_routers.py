@@ -7,13 +7,17 @@ APP_LABEL = 'cheradip'
 
 # Models whose tables live in cheradip_job (used by NTRCA, institute list, tokens)
 JOB_MODEL_NAMES = {
-    'institutes', 'token', 'banbeis', 'merit', 'merit5', 'merit6',
-    'vacancy', 'vacancy5', 'vacancy6', 'recommend', 'recommend5', 'recommend6',
+    'institutes', 'token', 'banbeis',
+    'merit5', 'merit6', 'merit7',
+    'vacancy5', 'vacancy6', 'vacancy7',
+    'recommend5', 'recommend6', 'recommend7',
 }
 
-# Models that would live in cheradip_hsc - left empty so they use default DB only.
-# (Tables Subject, Chapter, Topic, Mcq_ict are not in cheradip_hsc; routing here caused ProgrammingError.)
-HSC_MODEL_NAMES = set()
+# Only these models live in cheradip_hsc: Subject, PendingSubjectRequestHsc, and dynamic subject question tables (created by app, not migrations). All other models stay in default (cheradip_cheradip).
+HSC_MODEL_NAMES = {'subject', 'pendingsubjectrequesthsc'}
+
+# Models whose tables live in cheradip_honours
+HONOURS_MODEL_NAMES = {'pendingsubjectrequesthonours'}
 
 
 def _is_job_model(model):
@@ -27,6 +31,13 @@ def _is_hsc_model(model):
     return (
         model._meta.app_label == APP_LABEL
         and model._meta.model_name in HSC_MODEL_NAMES
+    )
+
+
+def _is_honours_model(model):
+    return (
+        model._meta.app_label == APP_LABEL
+        and model._meta.model_name in HONOURS_MODEL_NAMES
     )
 
 
@@ -58,11 +69,14 @@ class JobRouter:
         # On the job DB, only allow job models (no other app/model)
         if db == 'job':
             return False
+        # Defer to HSCRouter / HonoursRouter for hsc and honours
+        if db in ('hsc', 'honours'):
+            return None
         return True
 
 
 class HSCRouter:
-    """Route Subject, Chapter, Topic, Mcq_ict to the 'hsc' database (cheradip_hsc)."""
+    """Route only Subject and PendingSubjectRequestHsc to the 'hsc' database (cheradip_hsc). All other models use default."""
 
     def db_for_read(self, model, **hints):
         if _is_hsc_model(model):
@@ -86,4 +100,35 @@ class HSCRouter:
             return db == 'hsc'
         if db == 'hsc':
             return False
+        return True
+
+
+class HonoursRouter:
+    """Route PendingSubjectRequestHonours to the 'honours' database (cheradip_honours)."""
+
+    def db_for_read(self, model, **hints):
+        if _is_honours_model(model):
+            return 'honours'
+        return None
+
+    def db_for_write(self, model, **hints):
+        if _is_honours_model(model):
+            return 'honours'
+        return None
+
+    def allow_relation(self, obj1, obj2, **hints):
+        if _is_honours_model(obj1) and _is_honours_model(obj2):
+            return True
+        if not _is_honours_model(obj1) and not _is_honours_model(obj2):
+            return True
+        return False
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        if app_label == APP_LABEL and model_name and model_name.lower() in HONOURS_MODEL_NAMES:
+            return db == 'honours'
+        if db == 'honours':
+            return False
+        # Defer to HSCRouter for hsc (so only cheradip subject/pendingsubjectrequesthsc migrate there)
+        if db == 'hsc':
+            return None
         return True

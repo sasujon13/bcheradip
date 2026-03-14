@@ -2,9 +2,10 @@
 Shared logic for subject question tables: create tables from cheradip_subject.
 Used by migration 0010, post_migrate signal, and management commands.
 One table per (class_level, subject_translated); first row (by id) gives level_tr for the name.
+Supports multiple databases via using= (e.g. using='hsc' for cheradip_hsc).
 """
 import re
-from django.db import connection
+from django.db import connection, connections
 
 MYSQL_MAX_TABLE_NAME_LEN = 64
 
@@ -53,28 +54,49 @@ def subject_question_table_name(level_tr, class_level, subject_translated):
     return name
 
 
-def ensure_subject_question_tables(verbose=False):
+def ensure_subject_question_tables(verbose=False, using=None):
     """
-    Create any missing subject question tables from current cheradip_subject.
-    One table per (class_level, subject_translated), first row by id.
+    Create any missing subject question tables from the cheradip_subject table in the given DB.
+    One table per (class_level, subject_tr), first row by id.
     Uses CREATE TABLE IF NOT EXISTS so existing tables and data are left unchanged.
     Returns (created_count, total_expected).
+
+    Reads from the cheradip_subject table via raw SQL (no Django Subject model).
+    Columns used: level_tr, class_level, subject_tr (subject_tr used as subject_translated for table naming).
+    If using is None, uses the default connection; if set (e.g. 'hsc'), uses that connection.
     """
-    from cheradip.models import Subject
+    if using is None:
+        conn = connection
+        schema_sql = "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s"
+        subject_sql = "SELECT level_tr, class_level, subject_tr FROM cheradip_subject ORDER BY id"
+        schema_params_for = lambda name: [name]
+    else:
+        if using not in connections:
+            return 0, 0
+        conn = connections[using]
+        db_name = conn.settings_dict.get('NAME', '')
+        schema_sql = "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s"
+        subject_sql = "SELECT level_tr, class_level, subject_tr FROM cheradip_subject ORDER BY id"
+        schema_params_for = lambda name: [db_name, name]
 
     seen_key = set()
     created = 0
-    with connection.cursor() as cur:
-        for row in Subject.objects.order_by('id').values_list('level_tr', 'class_level', 'subject_translated'):
-            level_tr = row[0] or ''
-            class_level = row[1] or ''
-            subject_translated = row[2] or ''
+    with conn.cursor() as cur:
+        try:
+            cur.execute(subject_sql)
+            rows = cur.fetchall()
+        except Exception:
+            rows = []
+        for row in rows:
+            level_tr = (row[0] or '').strip() if row[0] else ''
+            class_level = (row[1] or '').strip() if row[1] else ''
+            subject_translated = (row[2] or '').strip() if row[2] else ''
             key = (class_level, subject_translated)
             if key in seen_key:
                 continue
             seen_key.add(key)
             name = subject_question_table_name(level_tr, class_level, subject_translated)
-            cur.execute("SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s", [name])
+            cur.execute(schema_sql, schema_params_for(name))
             if cur.fetchone():
                 continue
             cur.execute(CREATE_TABLE_SQL.format(table_name=name))
@@ -84,17 +106,29 @@ def ensure_subject_question_tables(verbose=False):
     return created, len(seen_key)
 
 
-def drop_subject_question_table_if_unused(level_tr, class_level, subject_translated):
+def drop_subject_question_table_if_unused(level_tr, class_level, subject_translated, using=None):
     """
     Drop the subject question table for (level_tr, class_level, subject_translated)
-    if it exists. Call this when a Subject is deleted and no other Subject row
-    has the same (class_level, subject_translated).
+    if it exists and no row in cheradip_subject has the same (class_level, subject_tr).
+    Reads from cheradip_subject via raw SQL (no Django Subject model).
+    using: database alias (e.g. 'hsc'); if None, uses default connection.
     """
-    from cheradip.models import Subject
-    if Subject.objects.filter(class_level=class_level, subject_translated=subject_translated).exists():
-        return
-    name = subject_question_table_name(level_tr or '', class_level or '', subject_translated or '')
-    with connection.cursor() as cur:
-        cur.execute("SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s", [name])
+    conn = connections[using] if using and using in connections else connection
+    db_name = conn.settings_dict.get('NAME', '')
+    with conn.cursor() as cur:
+        try:
+            cur.execute(
+                "SELECT 1 FROM cheradip_subject WHERE class_level = %s AND subject_tr = %s LIMIT 1",
+                [class_level or '', subject_translated or '']
+            )
+            if cur.fetchone():
+                return
+        except Exception:
+            pass
+        name = subject_question_table_name(level_tr or '', class_level or '', subject_translated or '')
+        if using:
+            cur.execute("SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s", [db_name, name])
+        else:
+            cur.execute("SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s", [name])
         if cur.fetchone():
             cur.execute(f"DROP TABLE IF EXISTS `{name}`")

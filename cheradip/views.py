@@ -1,18 +1,27 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from rest_framework import generics, status, viewsets, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .models import (Institutes, Token, Item, Merit, Merit5, Merit6, Banbeis, Recommend, Recommend5, Recommend6, 
-                     Vacancy, Vacancy5, Vacancy6, Customer, Order, OrderDetail, Transaction, Ordered, Canceled,
-                     Notification, Group, Subject, Chapter, Topic, Mcq_ict, Institute, Year, Country, Location,
-                     ClassLevel, ClassGroupMapping, Department, PendingSubjectRequest)
-from .serializers import (InstitutesSerializer, TokenSerializer, RecommendSerializer, Recommend5Serializer, 
-                         Recommend6Serializer, BanbeisSerializer, MeritSerializer, Merit5Serializer, Merit6Serializer, 
-                         VacancySerializer, Vacancy5Serializer, Vacancy6Serializer, ItemSerializer, 
-                         CustomerSignupSerializer, CustomerUpdateSerializer, OrderSerializer, NotificationSerializer, GroupSerializer, 
-                         SubjectSerializer, ChapterSerializer, TopicSerializer, McqIctSerializer, InstituteSerializer, 
-                         YearSerializer, CountrySerializer, CountryListSerializer)
+from .models import (
+    Item,
+    Customer,
+    OrderDetail,
+    Transaction,
+    Notification,
+    Country,
+    Location,
+    JsonData,
+)
+from .serializers import (
+    ItemSerializer,
+    CustomerSignupSerializer,
+    CustomerUpdateSerializer,
+    CustomerSerializer,
+    NotificationSerializer,
+    CountrySerializer,
+    CountryListSerializer,
+)
 from rest_framework.permissions import AllowAny
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
@@ -22,6 +31,7 @@ from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
 import logging, random, string, json, requests, os, re, csv, time
 from urllib import parse as urllib_parse
+from urllib.parse import quote
 from rest_framework.decorators import action
 from django.conf import settings
 from django.db.models import Q
@@ -209,128 +219,6 @@ class AllCountriesView(APIView):
         return Response(serializer.data)
 
 
-class LevelsByCountryView(APIView):
-    """
-    GET /api/levels_by_country/?country_code=BD
-    Returns unique Level/Class values from cheradip_hsc.cheradip_subject for the given country,
-    then appends Degree / Honours / Masters at the bottom.
-    Level column may contain comma-separated values; we split and return unique list ordered by
-    class_level ascending. Each item has level, level_tr, and label. Used by signup for Class/Level dropdowns.
-    """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-
-    DEFAULT_CLASS_FOR_UNKNOWN = 999
-
-    def get(self, request):
-        from django.db import connections
-        country_code = (request.query_params.get('country_code') or '').strip().upper()
-        if not country_code:
-            return Response({'levels': [], 'error': 'country_code is required'}, status=status.HTTP_400_BAD_REQUEST)
-
-        conn = connections['hsc']
-        table = 'cheradip_subject'
-        level_info = {}
-        with conn.cursor() as cur:
-            cur.execute(
-                "SELECT level, level_tr, class_level FROM %s WHERE country_id = %%s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''" % table,
-                [country_code]
-            )
-            for (level_str, level_tr_str, class_level) in cur.fetchall():
-                if not level_str:
-                    continue
-                s = (class_level or '').strip()
-                if not s:
-                    cl = self.DEFAULT_CLASS_FOR_UNKNOWN
-                elif s.isdigit():
-                    cl = int(s)
-                elif s == '9-10':
-                    cl = 9
-                elif s == '11-12':
-                    cl = 11
-                elif s == '13-16':
-                    continue
-                else:
-                    cl = self.DEFAULT_CLASS_FOR_UNKNOWN
-                level_parts = [p.strip() for p in level_str.split(',') if p.strip()]
-                level_tr_parts = [p.strip() for p in (level_tr_str or '').split(',') if p.strip()] if level_tr_str else []
-                for i, part in enumerate(level_parts):
-                    tr = level_tr_parts[i] if i < len(level_tr_parts) else (level_tr_parts[0] if level_tr_parts else None)
-                    if part not in level_info or cl < level_info[part][0]:
-                        level_info[part] = (cl, tr)
-
-        def sort_key(item):
-            level_name = item[0]
-            min_cl = item[1][0]
-            return (min_cl, level_name)
-
-        levels = []
-        for lev, (min_cl, level_tr) in sorted(level_info.items(), key=sort_key):
-            label = f"{lev} ({level_tr})" if level_tr else lev
-            levels.append({'level': lev, 'level_tr': level_tr or '', 'label': label})
-        levels.append({'level': 'University', 'level_tr': 'Degree / Honours / Masters', 'label': 'Degree / Honours / Masters'})
-
-        return Response({'levels': levels, 'country_code': country_code})
-
-
-# Class number to display name for Student signup (Class Zero, Class One, ...)
-CLASS_LEVEL_LABELS = {
-    0: 'Zero', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six',
-    7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten', 11: 'Eleven', 12: 'Twelve',
-    13: 'Thirteen', 14: 'Fourteen', 15: 'Fifteen', 16: 'Sixteen',
-}
-CLASSES_WITH_GROUPS = {9, 10, 11, 12}  # Show Group dropdown for these
-
-
-class ClassesByCountryView(APIView):
-    """
-    GET /api/classes_by_country/?country_code=BD
-    Returns distinct class_level from cheradip_subject for the given country, ordered ascending.
-    Each item: value (class number), label (e.g. "Class Zero", "Class One"), has_groups (true for 9,10,11,12).
-    Used for Student signup Class dropdown.
-    """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-
-    def get(self, request):
-        country_code = (request.query_params.get('country_code') or '').strip().upper()
-        if not country_code:
-            return Response({'classes': [], 'error': 'country_code is required'}, status=status.HTTP_400_BAD_REQUEST)
-        from django.db import connection
-        with connection.cursor() as cur:
-            cur.execute(
-                """
-                SELECT DISTINCT TRIM(class_level) FROM cheradip_subject
-                WHERE country_id = %s AND class_level IS NOT NULL AND TRIM(class_level) != ''
-                """,
-                [country_code]
-            )
-            rows = cur.fetchall()
-        distinct_class = set((r[0].strip() for r in rows if r[0] and r[0].strip()))
-        # Always include Class Zero through Class Eight so dropdown is complete
-        single_classes = [str(i) for i in range(0, 9)]
-        classes = []
-        for c in single_classes:
-            n = int(c)
-            label_name = CLASS_LEVEL_LABELS.get(n)
-            label = f"Class {label_name}" if label_name is not None else f"Class {n}"
-            classes.append({
-                'value': c,
-                'label': label,
-                'has_groups': False,
-            })
-        if '9-10' in distinct_class:
-            classes.append({'value': '9-10', 'label': 'Class 9-10', 'has_groups': True})
-        if '11-12' in distinct_class:
-            classes.append({'value': '11-12', 'label': 'Class 11-12', 'has_groups': True})
-        classes.append({
-            'value': '13-16',
-            'label': 'Degree / Honours / Masters',
-            'has_groups': False,
-        })
-        return Response({'classes': classes, 'country_code': country_code})
-
-
 class LocationDivisionsView(APIView):
     """
     GET /api/locations/divisions/?country_code=BD
@@ -392,651 +280,357 @@ class LocationThanasView(APIView):
         return Response(list(qs))
 
 
-class SubjectsByCountryLevelView(APIView):
-    """
-    GET /api/subjects_by_country_level/?country_code=BD&level=HSC
-    Returns subjects from cheradip_hsc.cheradip_subject (HSC database) for the given country and level(s).
-    Used when Teacher selects a level other than Degree / Honours / Masters (e.g. PSC, JSC, SSC, HSC).
-    Level may be comma-separated; subjects matching ANY of those levels are returned.
-    """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
+# ==============================================================================
+# JOB DB VIEWSETS (cheradip_job – NTRCA merit/vacancy/recommend, institutes, banbeis, token)
+# ==============================================================================
 
-    def get(self, request):
-        from django.db import connections
-        country_code = (request.query_params.get('country_code') or '').strip().upper()
-        level_param = (request.query_params.get('level') or '').strip()
-        if not country_code or not level_param:
-            return Response(
-                {'subjects': [], 'error': 'country_code and level are required'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        level_parts = [p.strip() for p in level_param.split(',') if p.strip()]
-        if not level_parts:
-            return Response({'subjects': [], 'country_code': country_code, 'level': level_param})
-
-        conn = connections['hsc']
-        per_part = '(level = %s OR level LIKE %s)'
-        level_conditions = ' OR '.join([per_part] * len(level_parts))
-        params = [country_code]
-        for part in level_parts:
-            params.extend([part, f'%{part}%'])
-
-        # HSC DB uses subject_tr (renamed from subject_translated)
-        query = (
-            "SELECT id, subject_code, subject_name, subject_tr, level "
-            "FROM cheradip_subject "
-            "WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != '' "
-            "AND (" + level_conditions + ")"
-        )
-        with conn.cursor() as cur:
-            cur.execute(query, params)
-            rows = cur.fetchall()
-
-        def level_matches(level_str, parts):
-            if not level_str or not parts:
-                return False
-            tokens = [t.strip() for t in level_str.split(',') if t.strip()]
-            return any(p in tokens for p in parts)
-
-        selected_parts = set(level_parts)
-        subjects = []
-        for r in rows:
-            level_val = (r[4] or '').strip()
-            if level_matches(level_val, selected_parts):
-                subjects.append({'id': r[0], 'subject_code': r[1], 'subject_name': r[2] or '', 'subject_name_tr': r[3] or ''})
-        return Response({'subjects': subjects, 'country_code': country_code, 'level': level_param})
+from .models import (
+    Merit5, Merit6, Merit7,
+    Vacancy5, Vacancy6, Vacancy7,
+    Recommend5, Recommend6, Recommend7,
+    Banbeis, Institutes, Token,
+)
+from .serializers import (
+    Merit5Serializer, Merit6Serializer, Merit7Serializer,
+    Vacancy5Serializer, Vacancy6Serializer, Vacancy7Serializer,
+    Recommend5Serializer, Recommend6Serializer, Recommend7Serializer,
+    BanbeisSerializer, InstitutesSerializer, TokenSerializer,
+)
+from rest_framework.pagination import PageNumberPagination
 
 
-class SubjectsForDegreeView(APIView):
-    """
-    GET /api/subjects_for_degree/?country_code=BD
-    Returns subjects from cheradip_honours.cheradip_subject (honours database).
-    Used only when Teacher selects Level = Degree / Honours / Masters (value "University").
-    """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-
-    def get(self, request):
-        from django.db import connections
-        country_code = (request.query_params.get('country_code') or '').strip().upper()
-        if not country_code:
-            return Response(
-                {'subjects': [], 'error': 'country_code is required'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        conn = connections['honours']
-        with conn.cursor() as cur:
-            cur.execute(
-                """
-                SELECT id, subject_code, subject_name, subject_tr
-                FROM cheradip_subject
-                WHERE (country_id = %s OR country_id IS NULL OR country_id = '')
-                ORDER BY subject_tr, subject_name
-                """,
-                [country_code]
-            )
-            rows = cur.fetchall()
-        seen = set()
-        subjects = []
-        for r in rows:
-            id_, subject_code, subject_name, subject_tr = r
-            key = (subject_tr or '').strip() or (subject_name or '').strip()
-            if not key or key in seen:
-                continue
-            seen.add(key)
-            subjects.append({
-                'id': id_,
-                'subject_code': subject_code or '',
-                'subject_name': subject_name or '',
-                'subject_name_tr': subject_tr or '',
-            })
-        subjects.sort(key=lambda x: (x['subject_name_tr'] or '').strip().lower())
-        return Response({'subjects': subjects, 'country_code': country_code})
+class JobListPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 500
 
 
-DEGREE_TYPE_CHOICES = [
-    'Degree', 'Honours (Pass)', 'Honours', 'B.Sc', 'BSS', 'BBA', 'MBA', 'MSS', 'MSC', 'Others'
-]
-
-
-class PendingSubjectRequestCreateView(APIView):
-    """
-    POST /api/pending_subject_request/
-    Body: { "subject_name": "...", "subject_translated": "...", "degree_type": "Honours" (optional), "country_code": "BD" (optional) }
-    Creates a pending subject request (Degree / Honours / Masters). degree_type is stored in Subject.groups on approve.
-    """
+class _MeritViewSetMixin:
+    """Filter merit list by query param code= (designation code)."""
+    pagination_class = JobListPagination
     permission_classes = [AllowAny]
-    authentication_classes = []
-
-    def post(self, request):
-        subject_name = (request.data.get('subject_name') or '').strip()
-        subject_translated = (request.data.get('subject_translated') or '').strip()
-        degree_type = (request.data.get('degree_type') or '').strip() or None
-        country_code = (request.data.get('country_code') or '').strip().upper() or None
-        if not subject_name:
-            return Response(
-                {'error': 'subject_name is required and cannot be empty'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if not subject_translated:
-            return Response(
-                {'error': 'subject_translated is required and cannot be empty'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if degree_type is not None and degree_type not in DEGREE_TYPE_CHOICES:
-            return Response(
-                {'error': 'degree_type must be one of: ' + ', '.join(DEGREE_TYPE_CHOICES)},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if len(subject_name) > 255:
-            return Response({'error': 'subject_name is too long'}, status=status.HTTP_400_BAD_REQUEST)
-        if len(subject_translated) > 255:
-            return Response({'error': 'subject_translated is too long'}, status=status.HTTP_400_BAD_REQUEST)
-        if degree_type and len(degree_type) > 50:
-            return Response({'error': 'degree_type is too long'}, status=status.HTTP_400_BAD_REQUEST)
-        obj = PendingSubjectRequest.objects.create(
-            subject_name=subject_name,
-            subject_translated=subject_translated,
-            degree_type=degree_type,
-            country_id=country_code,
-            status=PendingSubjectRequest.STATUS_PENDING,
-        )
-        return Response(
-            {'id': obj.id, 'message': 'Your subject request has been submitted for review.'},
-            status=status.HTTP_201_CREATED
-        )
-
-
-class GroupsByCountryLevelView(APIView):
-    """
-    GET /api/groups_by_country_level/?country_code=BD&level=HSC
-    Returns unique groups from cheradip_subject.groups for the given country and level (for Student signup).
-    Parses JSON/longtext groups column and resolves to Group model (group_code, group_name) where possible.
-    """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-
-    def get(self, request):
-        country_code = (request.query_params.get('country_code') or '').strip().upper()
-        level = (request.query_params.get('level') or '').strip()
-        if not country_code or not level:
-            return Response(
-                {'groups': [], 'error': 'country_code and level are required'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        from django.db import connection
-        import json
-        table = 'cheradip_subject'
-        with connection.cursor() as cur:
-            cur.execute(
-                f"""
-                SELECT groups FROM {table}
-                WHERE country_id = %s AND level IS NOT NULL AND TRIM(COALESCE(level, '')) != ''
-                  AND (level = %s OR level LIKE %s OR level LIKE %s OR level LIKE %s)
-                """,
-                [country_code, level, f'%{level},%', f'{level},%', f'%,{level}']
-            )
-            rows = cur.fetchall()
-
-        group_names = set()
-        for (groups_raw,) in rows:
-            if not groups_raw:
-                continue
-            try:
-                if isinstance(groups_raw, str):
-                    parsed = json.loads(groups_raw)
-                else:
-                    parsed = groups_raw if isinstance(groups_raw, (list, tuple)) else []
-                for g in parsed:
-                    if g and isinstance(g, str):
-                        group_names.add(g.strip())
-            except (TypeError, ValueError, json.JSONDecodeError):
-                pass
-
-        # Fallback: SSC rows in cheradip_subject often have groups=[]. For BD+SSC or BD+HSC use default groups when none found.
-        if not group_names and level in ('SSC', 'HSC'):
-            default_bd_groups = [
-                'Science', 'Humanities', 'Business Studies', 'Islamic Studies',
-                'Home Science', 'Music',
-            ]
-            group_names = set(default_bd_groups)
-
-        # Return groups from cheradip_subject.groups only (no Group table lookup; no group_name_bn column)
-        groups_data = [
-            {'group_code': name[:30], 'group_name': name}
-            for name in sorted(group_names) if name
-        ]
-        return Response({'groups': groups_data, 'country_code': country_code, 'level': level})
-
-
-# ==============================================================================
-# INSTITUTE VIEWSETS
-# ==============================================================================
-
-class InstitutesViewSet(viewsets.ModelViewSet):
-    serializer_class = InstitutesSerializer
 
     def get_queryset(self):
-        search_query = self.request.query_params.get('q', '')
-        eiinNo = self.request.query_params.get('eiinNo')
-        divisionName = self.request.query_params.getlist('divisionName')
-        districtName = self.request.query_params.getlist('districtName')
-        thanaName = self.request.query_params.getlist('thanaName')
-        instituteTypeName = self.request.query_params.getlist('instituteTypeName')
-        instituteName = self.request.query_params.getlist('instituteName')
-        instituteNameBn = self.request.query_params.getlist('instituteNameBn')
-        mouzaName = self.request.query_params.getlist('mouzaName')
-        mouzaNameBn = self.request.query_params.getlist('mouzaNameBn')
-        thanaNameBn = self.request.query_params.getlist('thanaNameBn')
-        districtNameBn = self.request.query_params.getlist('districtNameBn')
-        isGovt = self.request.query_params.getlist('isGovt')
-
-        queryset = Institutes.objects.all()
-
-        if isGovt:
-            queryset = queryset.filter(isGovt__in=isGovt)
-        if instituteTypeName:
-            queryset = queryset.filter(instituteTypeName__in=instituteTypeName)
-        if divisionName:
-            queryset = queryset.filter(divisionName__in=divisionName)
-        if districtName:
-            queryset = queryset.filter(districtName__in=districtName)
-        if thanaName:
-            queryset = queryset.filter(thanaName__in=thanaName)
-        if eiinNo:
-            queryset = queryset.filter(eiinNo=eiinNo)
-        if instituteName:
-            queryset = queryset.filter(instituteName__in=instituteName)
-        if instituteNameBn:
-            queryset = queryset.filter(instituteNameBn__in=instituteNameBn)
-
-        if search_query:
-            exact_match_qs = queryset.annotate(
-                relevance=RawSQL(
-                    """
-                    (MATCH(instituteName) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(instituteNameBn) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(eiinNo) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(mouzaName) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(thanaName) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(districtName) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(mouzaNameBn) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(thanaNameBn) AGAINST (%s IN NATURAL LANGUAGE MODE) +
-                     MATCH(districtNameBn) AGAINST (%s IN NATURAL LANGUAGE MODE))
-                    """,
-                    (search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query)
-                )
-            ).filter(relevance__gt=0).order_by('-relevance')
-    
-            if exact_match_qs.exists():
-                return exact_match_qs
-    
-            queryset = queryset.filter(
-                Q(instituteName__icontains=search_query) |
-                Q(instituteNameBn__icontains=search_query) |
-                Q(mouzaName__icontains=search_query) |
-                Q(thanaName__icontains=search_query) |
-                Q(districtName__icontains=search_query) |
-                Q(mouzaNameBn__icontains=search_query) |
-                Q(thanaNameBn__icontains=search_query) |
-                Q(districtNameBn__icontains=search_query) |
-                Q(eiinNo__icontains=search_query)
-            ).order_by('instituteName')
-    
-            return queryset
-
-        return queryset
-
-
-    # ✅ Custom endpoints
-    @action(detail=False, methods=['get'])
-    def unique_types(self, request):
-        types = Institutes.objects.values_list('instituteTypeName', flat=True).distinct().order_by('instituteTypeName')
-        return Response(types)
-        
-    @action(detail=False, methods=['get'])
-    def unique_divisions(self, request):
-        divisions = Institutes.objects.values_list('divisionName', flat=True).distinct().order_by('divisionName')
-        return Response(divisions)
-
-    @action(detail=False, methods=['get'])
-    def unique_districts(self, request):
-        divisions = request.query_params.getlist('divisionName')
-        if not divisions:
-            return Response({"error": "divisionName parameter is required"}, status=400)
-    
-        districts = Institutes.objects.filter(
-            divisionName__in=divisions
-        ).values_list('districtName', flat=True).distinct().order_by('districtName')
-    
-        return Response(districts)
-
-    @action(detail=False, methods=['get'])
-    def unique_thanas(self, request):
-        districts = request.query_params.getlist('districtName')
-        if not districts:
-            return Response({"error": "district parameter is required"}, status=400)
-    
-        thanas = Institutes.objects.filter(districtName__in=districts).values_list(
-            'thanaName', flat=True
-        ).distinct().order_by('thanaName')
-    
-        return Response(thanas)
-
-
-class TokenViewSet(viewsets.ModelViewSet):
-    serializer_class = TokenSerializer
-    queryset = Token.objects.all()
-    lookup_field = 'pk'
-
-    def get_queryset(self):
-        # Only filter by query param for list or retrieve
-        if self.action == 'list':
-            token = self.request.query_params.get('token')
-            if token:
-                return Token.objects.filter(Token=token)
-            return Token.objects.none()
-        return Token.objects.all()
-
-    @action(detail=True, methods=['post'])
-    def update_status(self, request, pk=None):
-        try:
-            token_obj = self.get_object()
-            token_obj.Status = 1
-            token_obj.save()
-            return Response({"success": True, "Status": token_obj.Status})
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        
-class BanbeisViewSet(viewsets.ModelViewSet):
-    serializer_class = BanbeisSerializer
-
-    def get_queryset(self):
-        eiin = self.request.query_params.get('eiin')
-
-        # if not eiin:
-        #     return Banbeis.objects.none()
-
-        queryset = Banbeis.objects.all()
-
-        if eiin:
-            queryset = queryset.filter(EIIN=eiin)
-
-        return queryset
-
-
-class RecommendViewSet(viewsets.ModelViewSet):
-    serializer_class = RecommendSerializer
-
-    def get_queryset(self):
+        qs = super().get_queryset()
         code = self.request.query_params.get('code')
-        districts = self.request.query_params.getlist('district')
-        thanas = self.request.query_params.getlist('thana')
-
-        if not code:
-            return Recommend.objects.none()
-
-        queryset = Recommend.objects.all()
-
-        if code:
-            queryset = queryset.filter(Code=code)
-        if districts:
-            queryset = queryset.filter(District__in=districts)
-        if thanas:
-            queryset = queryset.filter(Thana__in=thanas)
-
-        return queryset
-
-    # ✅ Custom endpoints
-    @action(detail=False, methods=['get'])
-    def unique_districts(self, request):
-        districts = Recommend.objects.values_list('District', flat=True).distinct().order_by('District')
-        return Response(districts)
-
-    @action(detail=False, methods=['get'])
-    def unique_thanas(self, request):
-        districts = request.query_params.getlist('district')
-        if not districts:
-            return Response({"error": "district parameter is required"}, status=400)
-    
-        thanas = Recommend.objects.filter(District__in=districts).values_list(
-            'Thana', flat=True
-        ).distinct().order_by('Thana')
-    
-        return Response(thanas)
+        if code is not None and code != '':
+            qs = qs.filter(Code=code)
+        return qs.order_by('SL')
 
 
-
-class Recommend5ViewSet(viewsets.ModelViewSet):
-    serializer_class = Recommend5Serializer
-
-    def get_queryset(self):
-        code = self.request.query_params.get('code')
-        districts = self.request.query_params.getlist('district')
-        thanas = self.request.query_params.getlist('thana')
-
-        if not code:
-            return Recommend5.objects.none()
-
-        queryset = Recommend5.objects.all()
-
-        if code:
-            queryset = queryset.filter(Code=code)
-        if districts:
-            queryset = queryset.filter(District__in=districts)
-        if thanas:
-            queryset = queryset.filter(Thana__in=thanas)
-
-        return queryset
-
-    # ✅ Custom endpoints
-    @action(detail=False, methods=['get'])
-    def unique_districts(self, request):
-        districts = Recommend5.objects.values_list('District', flat=True).distinct().order_by('District')
-        return Response(districts)
-
-    @action(detail=False, methods=['get'])
-    def unique_thanas(self, request):
-        districts = request.query_params.getlist('district')
-        if not districts:
-            return Response({"error": "district parameter is required"}, status=400)
-    
-        thanas = Recommend5.objects.filter(District__in=districts).values_list(
-            'Thana', flat=True
-        ).distinct().order_by('Thana')
-    
-        return Response(thanas)
-
-
-class Recommend6ViewSet(viewsets.ModelViewSet):
-    serializer_class = Recommend6Serializer
-
-    def get_queryset(self):
-        code = self.request.query_params.get('code')
-        districts = self.request.query_params.getlist('district')
-        thanas = self.request.query_params.getlist('thana')
-
-        if not code:
-            return Recommend6.objects.none()
-
-        queryset = Recommend6.objects.all()
-
-        if code:
-            queryset = queryset.filter(Code=code)
-        if districts:
-            queryset = queryset.filter(District__in=districts)
-        if thanas:
-            queryset = queryset.filter(Thana__in=thanas)
-
-        return queryset
-
-    # ✅ Custom endpoints
-    @action(detail=False, methods=['get'])
-    def unique_districts(self, request):
-        districts = Recommend6.objects.values_list('District', flat=True).distinct().order_by('District')
-        return Response(districts)
-
-    @action(detail=False, methods=['get'])
-    def unique_thanas(self, request):
-        districts = request.query_params.getlist('district')
-        if not districts:
-            return Response({"error": "district parameter is required"}, status=400)
-    
-        thanas = Recommend6.objects.filter(District__in=districts).values_list(
-            'Thana', flat=True
-        ).distinct().order_by('Thana')
-    
-        return Response(thanas)
-
-
-class VacancyViewSet(viewsets.ModelViewSet):
-    serializer_class = VacancySerializer
-
-    def get_queryset(self):
-        subject = self.request.query_params.get('subject')
-        designation = self.request.query_params.get('designation')
-        districts = self.request.query_params.getlist('district')
-
-        if not subject and not designation and not districts:
-            return Vacancy.objects.none()
-
-        queryset = Vacancy.objects.all()
-
-        if subject:
-            queryset = queryset.filter(Subject=subject)
-        if designation:
-            queryset = queryset.filter(Designation=designation)
-        if districts:
-            queryset = queryset.filter(District__in=districts)
-
-        return queryset
-
-
-class Vacancy5ViewSet(viewsets.ModelViewSet):
-    serializer_class = Vacancy5Serializer
-
-    def get_queryset(self):
-        subject = self.request.query_params.get('subject')
-        designation = self.request.query_params.get('designation')
-        districts = self.request.query_params.getlist('district')
-
-        if not subject and not designation and not districts:
-            return Vacancy5.objects.none()
-
-        queryset = Vacancy5.objects.all()
-
-        if subject:
-            queryset = queryset.filter(Subject=subject)
-        if designation:
-            queryset = queryset.filter(Designation=designation)
-        if districts:
-            queryset = queryset.filter(District__in=districts)
-
-        return queryset
-
-
-class Vacancy6ViewSet(viewsets.ModelViewSet):
-    serializer_class = Vacancy6Serializer
-
-    def get_queryset(self):
-        subject = self.request.query_params.get('subject')
-        designation = self.request.query_params.get('designation')
-        districts = self.request.query_params.getlist('district')
-
-        if not subject and not designation and not districts:
-            return Vacancy6.objects.none()
-
-        queryset = Vacancy6.objects.all()
-
-        if subject:
-            queryset = queryset.filter(Subject=subject)
-        if designation:
-            queryset = queryset.filter(Designation=designation)
-        if districts:
-            queryset = queryset.filter(District__in=districts)
-
-        return queryset
-
-
-class MeritViewSet(viewsets.ModelViewSet):
-    serializer_class = MeritSerializer
-
-    def get_queryset(self):
-        code = self.request.query_params.get('code')
-        batch = self.request.query_params.get('batch')
-        roll = self.request.query_params.getlist('roll')
-        subject = self.request.query_params.getlist('subject')
-
-        if not code:
-            return Merit.objects.none()
-
-        queryset = Merit.objects.all()
-        if subject:
-            queryset = queryset.filter(Subject=subject)
-        if roll:
-            queryset = queryset.filter(Roll=roll)
-        if batch:
-            queryset = queryset.filter(Batch=batch)
-        if code:
-            queryset = queryset.filter(Code=code)
-
-        return queryset
-
-
-class Merit5ViewSet(viewsets.ModelViewSet):
+class Merit5ViewSet(_MeritViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Merit5.objects.all()
     serializer_class = Merit5Serializer
 
-    def get_queryset(self):
-        code = self.request.query_params.get('code')
-        batch = self.request.query_params.get('batch')
-        roll = self.request.query_params.getlist('roll')
-        subject = self.request.query_params.getlist('subject')
 
-        if not code:
-            return Merit5.objects.none()
-
-        queryset = Merit5.objects.all()
-
-        if subject:
-            queryset = queryset.filter(Subject=subject)
-        if roll:
-            queryset = queryset.filter(Roll=roll)
-        if batch:
-            queryset = queryset.filter(Batch=batch)
-        if code:
-            queryset = queryset.filter(Code=code)
-
-        return queryset
-
-
-class Merit6ViewSet(viewsets.ModelViewSet):
+class Merit6ViewSet(_MeritViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Merit6.objects.all()
     serializer_class = Merit6Serializer
 
+
+class Merit7ViewSet(_MeritViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Merit7.objects.all()
+    serializer_class = Merit7Serializer
+
+
+class _VacancyViewSetMixin:
+    pagination_class = JobListPagination
+    permission_classes = [AllowAny]
+
     def get_queryset(self):
-        code = self.request.query_params.get('code')
-        batch = self.request.query_params.get('batch')
-        roll = self.request.query_params.getlist('roll')
-        subject = self.request.query_params.getlist('subject')
-
-        if not code:
-            return Merit6.objects.none()
-
-        queryset = Merit6.objects.all()
-
+        qs = super().get_queryset()
+        designation = self.request.query_params.get('designation')
+        if designation:
+            qs = qs.filter(Designation__iexact=designation)
+        subject = self.request.query_params.get('subject')
         if subject:
-            queryset = queryset.filter(Subject=subject)
-        if roll:
-            queryset = queryset.filter(Roll=roll)
-        if batch:
-            queryset = queryset.filter(Batch=batch)
-        if code:
-            queryset = queryset.filter(Code=code)
+            qs = qs.filter(Subject__iexact=subject)
+        districts = self.request.query_params.getlist('district')
+        if districts:
+            qs = qs.filter(District__in=districts)
+        return qs
 
-        return queryset
+
+class Vacancy5ViewSet(_VacancyViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Vacancy5.objects.all()
+    serializer_class = Vacancy5Serializer
+
+
+class Vacancy6ViewSet(_VacancyViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Vacancy6.objects.all()
+    serializer_class = Vacancy6Serializer
+
+
+class Vacancy7ViewSet(_VacancyViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Vacancy7.objects.all()
+    serializer_class = Vacancy7Serializer
+
+
+class _RecommendViewSetMixin:
+    pagination_class = JobListPagination
+    permission_classes = [AllowAny]
+
+
+class Recommend5ViewSet(_RecommendViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Recommend5.objects.all()
+    serializer_class = Recommend5Serializer
+
+
+class Recommend6ViewSet(_RecommendViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Recommend6.objects.all()
+    serializer_class = Recommend6Serializer
+
+
+class Recommend7ViewSet(_RecommendViewSetMixin, viewsets.ReadOnlyModelViewSet):
+    queryset = Recommend7.objects.all()
+    serializer_class = Recommend7Serializer
+
+
+class BanbeisViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Banbeis.objects.all()
+    serializer_class = BanbeisSerializer
+    pagination_class = JobListPagination
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        eiin = self.request.query_params.get('eiin')
+        if eiin is not None and str(eiin).strip() != '':
+            try:
+                eiin_int = int(str(eiin).strip())
+                qs = qs.filter(EIIN=eiin_int)
+            except (ValueError, TypeError):
+                pass
+        return qs
+
+
+class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Institutes.objects.all()
+    serializer_class = InstitutesSerializer
+    pagination_class = JobListPagination
+    permission_classes = [AllowAny]
+    filter_backends = [filters.SearchFilter]
+    search_fields = [
+        'instituteName', 'instituteNameBn', 'eiinNo', 'districtName', 'thanaName',
+        'mobile', 'mobileAlternate', 'divisionName', 'divisionNameBn', 'districtNameBn',
+        'thanaNameBn', 'instituteTypeName', 'instituteTypeNameBn', 'mouzaName', 'mouzaNameBn', 'email'
+    ]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        # Optional search query param ?q= – match if any of these fields contains the term
+        q = self.request.query_params.get('q')
+        if q and str(q).strip():
+            q = str(q).strip()
+            q_any = (
+                Q(eiinNo__icontains=q) |
+                Q(mobile__icontains=q) |
+                Q(mobileAlternate__icontains=q) |
+                Q(instituteName__icontains=q) |
+                Q(instituteNameBn__icontains=q) |
+                Q(divisionName__icontains=q) |
+                Q(divisionNameBn__icontains=q) |
+                Q(districtName__icontains=q) |
+                Q(districtNameBn__icontains=q) |
+                Q(thanaName__icontains=q) |
+                Q(thanaNameBn__icontains=q) |
+                Q(instituteTypeName__icontains=q) |
+                Q(instituteTypeNameBn__icontains=q) |
+                Q(mouzaName__icontains=q) |
+                Q(mouzaNameBn__icontains=q) |
+                Q(email__icontains=q)
+            )
+            if q.isdigit():
+                q_any = q_any | Q(id=int(q)) | Q(year=int(q))
+            q_lower = q.lower()
+            if q_lower in ('true', 'govt', 'government', 'yes', '1'):
+                q_any = q_any | Q(isGovt=True)
+            elif q_lower in ('false', 'non govt', 'no', '0'):
+                q_any = q_any | Q(isGovt=False)
+            qs = qs.filter(q_any)
+        # Filter by type/division/district/thana (e.g. from institute filter UI)
+        for param, field in [
+            ('instituteTypeName', 'instituteTypeName'),
+            ('divisionName', 'divisionName'),
+            ('districtName', 'districtName'),
+            ('thanaName', 'thanaName'),
+        ]:
+            values = self.request.query_params.getlist(param)
+            values = [v.strip() for v in values if v and str(v).strip()]
+            if values:
+                qs = qs.filter(**{f'{field}__in': values})
+        return qs
+
+    @action(detail=False, url_path='unique_types', methods=['get'])
+    def unique_types(self, request):
+        """GET /api/institutes/unique_types/ – return all unique instituteTypeName from cheradip_institutes."""
+        values = (
+            Institutes.objects
+            .values_list('instituteTypeName', flat=True)
+            .distinct()
+            .order_by('instituteTypeName')
+        )
+        # Exclude null/blank, return as list
+        types = [v for v in values if v and str(v).strip()]
+        return Response(types)
+
+    @action(detail=False, url_path='unique_divisions', methods=['get'])
+    def unique_divisions(self, request):
+        """GET /api/institutes/unique_divisions/ – return all unique divisionName from cheradip_institutes."""
+        values = (
+            Institutes.objects
+            .values_list('divisionName', flat=True)
+            .distinct()
+            .order_by('divisionName')
+        )
+        divisions = [v for v in values if v and str(v).strip()]
+        return Response(divisions)
+
+    @action(detail=False, url_path='unique_districts', methods=['get'])
+    def unique_districts(self, request):
+        """GET /api/institutes/unique_districts/?divisionName=Rangpur – unique districtName for that divisionName."""
+        division_names = request.query_params.getlist('divisionName')
+        division_names = [d.strip() for d in division_names if d and str(d).strip()]
+        qs = Institutes.objects.all()
+        if division_names:
+            qs = qs.filter(divisionName__in=division_names)
+        values = qs.values_list('districtName', flat=True).distinct().order_by('districtName')
+        districts = [v for v in values if v and str(v).strip()]
+        return Response(districts)
+
+    @action(detail=False, url_path='unique_thanas', methods=['get'])
+    def unique_thanas(self, request):
+        """GET /api/institutes/unique_thanas/?districtName=Dinajpur – unique thanaName for that districtName."""
+        district_names = request.query_params.getlist('districtName')
+        district_names = [d.strip() for d in district_names if d and str(d).strip()]
+        qs = Institutes.objects.all()
+        if district_names:
+            qs = qs.filter(districtName__in=district_names)
+        values = qs.values_list('thanaName', flat=True).distinct().order_by('thanaName')
+        thanas = [v for v in values if v and str(v).strip()]
+        return Response(thanas)
+
+
+class InstituteDetailView(APIView):
+    """GET /api/institute/?eiin=XXX – return one institute (Institutes or Banbeis by EIIN) for unlock details."""
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        eiin = request.query_params.get('eiin')
+        if not eiin:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+        eiin_str = str(eiin).strip()
+        # Try Institutes first (PK eiinNo) – routed to job DB
+        try:
+            inst = Institutes.objects.get(eiinNo=eiin_str)
+            serializer = InstitutesSerializer(inst)
+            return Response({'results': [serializer.data]})
+        except Institutes.DoesNotExist:
+            pass
+        # Fallback: Banbeis by EIIN (bigint) – routed to job DB
+        try:
+            eiin_int = int(eiin_str)
+            banbeis = Banbeis.objects.filter(EIIN=eiin_int).first()
+            if banbeis:
+                serializer = BanbeisSerializer(banbeis)
+                return Response({'results': [serializer.data]})
+        except (ValueError, TypeError):
+            pass
+        return Response({}, status=status.HTTP_404_NOT_FOUND)
+
+
+def sitemap_institutes(request):
+    """Serve sitemap.xml with all institute detail URLs (EIIN-only: /institutes/100002)."""
+    base = getattr(settings, 'SITEMAP_BASE_URL', None) or request.build_absolute_uri('/').rstrip('/')
+    seen = set()
+    url_lines = []
+    try:
+        for inst in Institutes.objects.all().values_list('eiinNo', flat=True):
+            eiin_no = (inst or '').strip() if inst else ''
+            if eiin_no and eiin_no not in seen:
+                seen.add(eiin_no)
+                url_lines.append(f'  <url><loc>{base}/institutes/{quote(eiin_no, safe="")}</loc><changefreq>weekly</changefreq></url>')
+        for b in Banbeis.objects.all().values_list('EIIN', flat=True):
+            if b is None:
+                continue
+            eiin_val = str(b).strip()
+            if eiin_val and eiin_val not in seen:
+                seen.add(eiin_val)
+                url_lines.append(f'  <url><loc>{base}/institutes/{quote(eiin_val, safe="")}</loc><changefreq>weekly</changefreq></url>')
+    except Exception as e:
+        logger.warning("Sitemap generation failed: %s", e)
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + '\n'.join(url_lines) + '\n</urlset>'
+    return HttpResponse(xml, content_type='application/xml')
+
+
+class TokenViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Token.objects.all()
+    serializer_class = TokenSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        token_val = self.request.query_params.get('token')
+        if token_val is not None and token_val != '':
+            try:
+                qs = qs.filter(Token=int(token_val))
+            except (ValueError, TypeError):
+                qs = qs.none()
+        return qs
+
+    def list(self, request, *args, **kwargs):
+        token_val = request.query_params.get('token')
+        if token_val is not None and token_val != '':
+            # Validate single token: return one result + success/counter for back.ts and vacant6
+            qs = self.get_queryset()
+            obj = qs.first()
+            try:
+                counter_int = int(obj.Counter) if obj and obj.Counter not in (None, '') else 0
+            except (ValueError, TypeError):
+                counter_int = 0
+            status_ok = getattr(obj, 'Status', 0) == 0 if obj else False
+            success = bool(obj and status_ok and counter_int > 0)
+            serializer = self.get_serializer(qs, many=True)
+            data = {
+                'count': 1 if obj else 0,
+                'results': serializer.data,
+                'success': success,
+                'counter': counter_int if success else 0,
+            }
+            return Response(data)
+        return super().list(request, *args, **kwargs)
+
+    @action(detail=True, methods=['post'], url_path='update_status')
+    def update_status(self, request, pk=None):
+        """Set Status=1 (used) for this token. Body: { \"Status\": 1 }."""
+        token_obj = self.get_object()
+        token_obj.Status = 1
+        token_obj.save(update_fields=['Status'])
+        return Response({'success': True})
+
+    def create(self, request, *args, **kwargs):
+        """Use one token unlock: POST { token, eiin }. Decrements Counter, returns { success, remaining }."""
+        token_val = request.data.get('token')
+        eiin = request.data.get('eiin')
+        if not token_val:
+            return Response({'success': False, 'remaining': 0}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            token_int = int(token_val)
+        except (ValueError, TypeError):
+            return Response({'success': False, 'remaining': 0}, status=status.HTTP_400_BAD_REQUEST)
+        obj = Token.objects.filter(Token=token_int).first()
+        if not obj:
+            return Response({'success': False, 'remaining': 0})
+        try:
+            counter_int = int(obj.Counter) if obj.Counter not in (None, '') else 0
+        except (ValueError, TypeError):
+            counter_int = 0
+        if getattr(obj, 'Status', 0) != 0 or counter_int <= 0:
+            return Response({'success': False, 'remaining': 0})
+        counter_int -= 1
+        obj.Counter = str(counter_int)
+        obj.save(update_fields=['Counter'])
+        return Response({'success': True, 'remaining': counter_int})
 
 
 class ItemListCreateView(generics.ListCreateAPIView):
@@ -1274,26 +868,6 @@ class CustomerRetrieveView(APIView):
 
 
 
-class OrderRetrieveView(generics.RetrieveAPIView):
-    serializer_class = OrderSerializer
-    lookup_field = 'username'
-
-    def get_object(self):
-        username = self.kwargs['username']
-        try:
-            return Order.objects.filter(username=username)
-        except Order.DoesNotExist:
-            raise Http404
-
-    def get(self, request, *args, **kwargs):
-        instances = self.get_object()
-        if instances.exists():
-            serializer = self.get_serializer(instances, many=True)
-            return Response(serializer.data)
-        else:
-            return Response("0 orders")
-        
-
 class CustomerUpdateView(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
@@ -1323,8 +897,10 @@ class CustomerResetView(APIView):
             serializer = CustomerSerializer(user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
+                return Response({'message': 'Password reset successfully'}, status=status.HTTP_200_OK)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
@@ -1381,44 +957,31 @@ class PasswordExistsView(APIView):
 
 @csrf_exempt
 def save_json_data(request):
-    if request.method == 'POST':
-        try:
-            json_data = json.loads(request.body.decode('utf-8'))
-            order_details_data = json_data.pop('orderDetails', [])
-            trxid = json_data.pop('trxid', None)
-            paidFrom = json_data.pop('paidFrom', None)
-            username = json_data.get('username', None)
-            
+    """Store JSON payload in JsonData; optionally link/update Transaction by trxid+paidFrom."""
+    if request.method != 'POST':
+        return JsonResponse({'message': 'Invalid request method'}, status=405)
+    try:
+        body = json.loads(request.body.decode('utf-8'))
+        trxid = body.pop('trxid', None)
+        paidFrom = body.pop('paidFrom', None)
+        username = body.get('username', None)
+        transaction = None
+        if trxid and paidFrom:
             try:
                 transaction = Transaction.objects.get(trxid=trxid, paidFrom=paidFrom)
             except Transaction.DoesNotExist:
-                transaction = None
-            
-            if transaction:
-                if username != transaction.username:
-                    
-                    new_order = Order(**json_data)
-                    new_order.save()
-                    new_order.transaction.add(transaction)
-                    
-                    for detail_data in order_details_data:
-                        logger.debug(detail_data)
-                        order_detail = OrderDetail.objects.create(**detail_data)
-                        new_order.orderDetails.add(order_detail)
-                        
-                    transaction.username = username 
-                    transaction.save()
-
-                    return JsonResponse({'message': 'Order Created Successfully'})
-                else:
-                    return JsonResponse({'message': 'You already have an Order with this TrxId!'})
-            else:
-                return JsonResponse({'error': 'Your TrxId / Account has not been found! Please Check your TrxId and Account Number, Or Contact Us'})
-
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-    else:
-        return JsonResponse({'message': 'Invalid request method'}, status=405)
+                pass
+        if transaction and username and transaction.username != username:
+            transaction.username = username
+            transaction.save(update_fields=['username'])
+        JsonData.objects.create(
+            data=body,
+            data_type='order_submission',
+            description=username or trxid or 'save_json_data',
+        )
+        return JsonResponse({'message': 'Data saved successfully'}, status=200)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
 
 
 @csrf_exempt
@@ -1910,7 +1473,7 @@ def _scraper_extract_chapter_no_from_option_text(level2_text):
 
 
 def _scraper_sanitize_filename(name):
-    """Sanitize for file paths (matches script: replace / and \ with -)."""
+    r"""Sanitize for file paths (matches script: replace / and \ with -)."""
     if not name:
         return ''
     return name.replace('/', '-').replace('\\', '-').strip()
@@ -2936,771 +2499,189 @@ class MobileUpdateView(APIView):
         return key 
 
 
-
-def view_order(request, pk):
-    order = get_object_or_404(Order, pk=pk)
-    # Render the 'view_order.html' template with the order details
-    return render(request, 'cheradip/view_order.html', {'order': order})
-
-
-def view_ordered(request, pk):
-    order = get_object_or_404(Ordered, pk=pk)
-    # Render the 'view_order.html' template with the order details
-    return render(request, 'cheradip/view_order.html', {'order': order})
-
-
-def view_canceled(request, pk):
-    order = get_object_or_404(Canceled, pk=pk)
-    # Render the 'view_order.html' template with the order details
-    return render(request, 'cheradip/view_order.html', {'order': order})
-
-
-def update_shipped_status(request, order_id, is_shipped):
-    try:
-        # Get the Order instance by order_id
-        order = get_object_or_404(Order, id=order_id)
-
-        # Convert the 'is_shipped' string to a boolean
-        is_shipped = is_shipped.lower() == 'true'
-
-        # Update the 'shipped' field in the database
-        order.shipped = is_shipped
-        order.save()
-
-        # Assuming the update was successful
-        response_data = {"updated": True}
-        return JsonResponse(response_data)
-    except Exception as e:
-        # Handle any exceptions or errors
-        response_data = {"error": str(e)}
-        return JsonResponse(response_data, status=500)
-    
-
-def move_completed_orders(request, pk):
-    completed_orders = Order.objects.filter(shipped=True, pk=pk)
-
-    for new_order in completed_orders:
-        order = Ordered.objects.create(
-            id=new_order.id,
-            division=new_order.division,
-            district=new_order.district,
-            thana=new_order.thana,
-            paymentMethod=new_order.paymentMethod,
-            username=new_order.username,
-            fullName=new_order.fullName,
-            gender=new_order.gender,
-            union=new_order.union,
-            village=new_order.village,
-            altMobileNo=new_order.altMobileNo,
-            shipped=new_order.shipped,
-        )
-
-        order.orderDetails.set(new_order.orderDetails.all())
-        order.transaction.set(new_order.transaction.all())
-
-        for order_detail in order.orderDetails.all():
-            try:
-                item = Item.objects.get(id=order_detail.id)  # Retrieve the correct Item
-                item.in_stock -= order_detail.Quantity 
-                item.save()
-            except Item.DoesNotExist:
-                # Print or log the problematic OrderDetail
-                print(f"Item not found for OrderDetail: {order_detail.Name}")
-
-
-        new_order.delete()
-
-        message = "Completed Orders moved successfully"
-        return HttpResponse(message)
-    message = "Sorry! First check the Shipping Status and then Move again!"
-    return HttpResponse(message)
-
-def move_canceled_orders(request, pk):
-    canceled_orders = Order.objects.filter(pk=pk)
-
-    for new_order in canceled_orders:
-        order = Canceled.objects.create(
-            id=new_order.id,
-            division=new_order.division,
-            district=new_order.district,
-            thana=new_order.thana,
-            paymentMethod=new_order.paymentMethod,
-            username=new_order.username,
-            fullName=new_order.fullName,
-            gender=new_order.gender,
-            union=new_order.union,
-            village=new_order.village,
-            altMobileNo=new_order.altMobileNo,
-            shipped=new_order.shipped,
-        )
-
-        order.orderDetails.set(new_order.orderDetails.all())
-        order.transaction.set(new_order.transaction.all())
-
-        new_order.delete()
-
-        message = "Canceled Orders moved successfully"
-        return HttpResponse(message)
-    message = "Sorry! First check the Shipping Status and then Move again!"
-    return HttpResponse(message)
-
-
-def retrieve_canceled_orders(request, pk):
-    canceled_orders = Canceled.objects.filter(pk=pk)
-
-    for new_order in canceled_orders:
-        order = Order.objects.create(
-            id=new_order.id,
-            division=new_order.division,
-            district=new_order.district,
-            thana=new_order.thana,
-            paymentMethod=new_order.paymentMethod,
-            username=new_order.username,
-            fullName=new_order.fullName,
-            gender=new_order.gender,
-            union=new_order.union,
-            village=new_order.village,
-            altMobileNo=new_order.altMobileNo,
-            shipped=new_order.shipped,
-        )
-
-        order.orderDetails.set(new_order.orderDetails.all())
-        order.transaction.set(new_order.transaction.all())
-
-        new_order.delete()
-
-        message = "Canceled Ordered retrieved successfully"
-        return HttpResponseRedirect('/admin/cheradip/canceled/')
-    message = "Sorry! Canceled Ordered failed to retrieve!"
-    return HttpResponse(message)
-
-
-def retrieve_ordered_orders(request, pk):
-    ordered_orders = Ordered.objects.filter(pk=pk)
-
-    for new_order in ordered_orders:
-        order = Order.objects.create(
-            id=new_order.id,
-            division=new_order.division,
-            district=new_order.district,
-            thana=new_order.thana,
-            paymentMethod=new_order.paymentMethod,
-            username=new_order.username,
-            fullName=new_order.fullName,
-            gender=new_order.gender,
-            union=new_order.union,
-            village=new_order.village,
-            altMobileNo=new_order.altMobileNo,
-            shipped=new_order.shipped,
-        )
-
-        # Transfer many-to-many relations
-        order.orderDetails.set(new_order.orderDetails.all())
-        order.transaction.set(new_order.transaction.all())
-        
-        for order_detail in order.orderDetails.all():
-            try:
-                item = Item.objects.get(id=order_detail.id)  # Retrieve the correct Item
-                item.in_stock += order_detail.Quantity 
-                item.save()
-            except Item.DoesNotExist:
-                # Print or log the problematic OrderDetail
-                print(f"Item not found for OrderDetail: {order_detail.Name}")
-
-        new_order.delete()
-
-        message = "Ordered Orders retrieved successfully"
-        return HttpResponseRedirect('/admin/cheradip/ordered/')
-    message = "Sorry! Ordered Orders failed retrieve!"
-    return HttpResponse(message)
-
-
-
-def get_shipped_status(request, order_id):
-    try:
-        # Fetch the Order record by its ID
-        new_order = Order.objects.get(pk=order_id)
-        shipped = new_order.shipped
-        return JsonResponse({'shipped': shipped})
-    except Order.DoesNotExist:
-        return JsonResponse({'error': 'Order not found'}, status=404)
-
-
-# MCQ and Related Model ViewSets
-class GroupViewSet(viewsets.ModelViewSet):
-    serializer_class = GroupSerializer
-    queryset = Group.objects.all().order_by('group_code')
-    
-    def get_queryset(self):
-        queryset = Group.objects.all()
-        group_code = self.request.query_params.get('group_code')
-        if group_code:
-            queryset = queryset.filter(group_code=group_code)
-        return queryset.order_by('group_code')
-
-
-class SubjectViewSet(viewsets.ModelViewSet):
-    serializer_class = SubjectSerializer
-    
-    def get_queryset(self):
-        queryset = Subject.objects.all()
-        group_codes = self.request.query_params.getlist('groups')
-        subject_code = self.request.query_params.get('subject_code')
-        
-        if group_codes:
-            queryset = queryset.filter(groups__group_code__in=group_codes).distinct()
-        
-        if subject_code:
-            queryset = queryset.filter(subject_code=subject_code)
-        
-        return queryset.order_by('subject_code')
-
-
-class ChapterViewSet(viewsets.ModelViewSet):
-    serializer_class = ChapterSerializer
-    
-    def get_queryset(self):
-        queryset = Chapter.objects.all()
-        subject_codes = self.request.query_params.getlist('subjects')
-        chapter_no = self.request.query_params.get('chapter_no')
-        if subject_codes:
-            queryset = queryset.filter(subject_code__in=subject_codes)
-        if chapter_no:
-            queryset = queryset.filter(chapter_no=chapter_no)
-        return queryset.order_by('subject_code', 'chapter_no')
-
-
-class TopicViewSet(viewsets.ModelViewSet):
-    serializer_class = TopicSerializer
-    
-    def get_queryset(self):
-        queryset = Topic.objects.all().select_related('chapter')
-        chapter_ids = self.request.query_params.getlist('chapters')
-        topic_no = self.request.query_params.get('topic_no')
-        
-        if chapter_ids:
-            queryset = queryset.filter(chapter_id__in=chapter_ids)
-        
-        if topic_no:
-            queryset = queryset.filter(topic_no=topic_no)
-        
-        return queryset.order_by('chapter__subject_code', 'chapter__chapter_no', 'topic_no')
-
-
-class InstituteViewSet(viewsets.ModelViewSet):
-    serializer_class = InstituteSerializer
-    queryset = Institute.objects.all().order_by('institute_code')
-    
-    def get_queryset(self):
-        queryset = Institute.objects.all()
-        institute_code = self.request.query_params.get('institute_code')
-        institute_type = self.request.query_params.getlist('institute_type')
-        
-        if institute_code:
-            queryset = queryset.filter(institute_code=institute_code)
-        
-        if institute_type:
-            queryset = queryset.filter(institute_type__in=institute_type)
-        
-        return queryset.order_by('institute_code')
-
-
-class YearViewSet(viewsets.ModelViewSet):
-    serializer_class = YearSerializer
-    queryset = Year.objects.all().order_by('year_code')
-    
-    def get_queryset(self):
-        queryset = Year.objects.all()
-        year_code = self.request.query_params.get('year_code')
-        institute_ids = self.request.query_params.getlist('institutes')
-        
-        if year_code:
-            queryset = queryset.filter(year_code=year_code)
-        
-        # Filter years by institutes if provided
-        if institute_ids:
-            queryset = queryset.filter(questions__institutes__institute_code__in=institute_ids).distinct()
-        
-        return queryset.order_by('year_code')
-
-
-class McqIctViewSet(viewsets.ModelViewSet):
-    serializer_class = McqIctSerializer
-    queryset = Mcq_ict.objects.all().select_related('chapter', 'topic').prefetch_related(
-        'institutes', 'years'
-    )
-
-    def get_queryset(self):
-        queryset = Mcq_ict.objects.all().select_related(
-            'chapter', 'topic'
-        ).prefetch_related('institutes', 'years')
-        subject_codes = self.request.query_params.getlist('subject')
-        if subject_codes:
-            queryset = queryset.filter(subject_code__in=subject_codes)
-        
-        # Filter by chapter
-        chapter_nos = self.request.query_params.getlist('chapter')
-        if chapter_nos:
-            queryset = queryset.filter(chapter__chapter_no__in=chapter_nos)
-        
-        # Filter by topic
-        topic_nos = self.request.query_params.getlist('topic')
-        if topic_nos:
-            queryset = queryset.filter(topic__topic_no__in=topic_nos)
-        
-        # Filter by institute code(s)
-        institute_codes = self.request.query_params.getlist('institute')
-        if institute_codes:
-            queryset = queryset.filter(institutes__institute_code__in=institute_codes).distinct()
-        
-        # Filter by year code(s)
-        year_codes = self.request.query_params.getlist('year')
-        if year_codes:
-            queryset = queryset.filter(years__year_code__in=year_codes).distinct()
-        
-        # Filter by question ID
-        qid = self.request.query_params.get('qid')
-        if qid:
-            queryset = queryset.filter(qid=qid)
-        
-        # Search by question text
-        search = self.request.query_params.get('search')
-        if search:
-            queryset = queryset.filter(
-                Q(question__icontains=search) |
-                Q(uddipok__icontains=search) |
-                Q(explanation__icontains=search) |
-                Q(option1__icontains=search) |
-                Q(option2__icontains=search) |
-                Q(option3__icontains=search) |
-                Q(option4__icontains=search)
-            )
-        
-        # Filter by group code(s): subject_code in Subject rows whose groups JSON contains any requested code
-        group_codes = self.request.query_params.getlist('group')
-        if group_codes:
-            codes_in_groups = set()
-            for c in group_codes:
-                codes_in_groups.update(
-                    Subject.objects.filter(groups__contains=[c]).values_list('subject_code', flat=True)
-                )
-            if codes_in_groups:
-                queryset = queryset.filter(subject_code__in=codes_in_groups)
-        return queryset.order_by('qid')
-    
-    def get_serializer_context(self):
-        """Add request to serializer context for building absolute URLs"""
-        context = super().get_serializer_context()
-        context['request'] = self.request
-        return context
-    
-    @action(detail=False, methods=['get'])
-    def statistics(self, request):
-        """Get statistics about questions"""
-        queryset = self.get_queryset()
-        
-        stats = {
-            'total_questions': queryset.count(),
-            'by_subject': {},
-            'by_chapter': {},
-            'by_year': {},
-            'by_institute_type': {}
-        }
-        
-        # Count by subject
-        from django.db.models import Count
-        subject_counts = queryset.values('subject_code').annotate(
-            count=Count('qid')
-        ).order_by('subject_code')
-        for item in subject_counts:
-            code = item['subject_code']
-            subj = Subject.objects.filter(subject_code=code).first()
-            name = (subj.subject_translated or subj.subject_name or code) if subj else code
-            stats['by_subject'][code] = {'name': name, 'count': item['count']}
-        
-        # Count by year
-        year_counts = queryset.values('years__year_code', 'years__year_name').annotate(
-            count=Count('qid', distinct=True)
-        ).order_by('years__year_code')
-        
-        for item in year_counts:
-            if item['years__year_code']:
-                stats['by_year'][item['years__year_code']] = {
-                    'name': item['years__year_name'],
-                    'count': item['count']
-                }
-        
-        return Response(stats)
-
-
 # ==============================================================================
-# WHATSAPP VERIFICATION VIEWS
+# VERIFICATION VIEWS (Email + WhatsApp)
 # ==============================================================================
 
 class SendVerificationCodeView(APIView):
     """Send verification code via Telegram/Email/WhatsApp"""
     permission_classes = [PublicAccess]
-    
+
     def post(self, request):
         username = request.data.get('username')
-        
         if not username:
             return Response({'error': 'Phone number is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
         try:
             customer = Customer.objects.get(username=username)
         except Customer.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
         from .verification_service import send_verification_code
         result = send_verification_code(customer, purpose='verification')
-        
         if result['success']:
             response_data = {
                 'message': result.get('message', 'Verification code sent'),
                 'method': result.get('method', 'unknown'),
-                'expires_in': 600  # 10 minutes
+                'expires_in': 600,
             }
-            # For Telegram, include bot info if linking required
             if result.get('requires_linking'):
                 response_data['requires_linking'] = True
                 response_data['bot_username'] = result.get('bot_username')
             return Response(response_data, status=status.HTTP_200_OK)
-        else:
-            return Response({
-                'error': result['message'],
-                'method': result.get('method'),
-                'requires_linking': result.get('requires_linking', False),
-                'bot_username': result.get('bot_username')
-            }, status=status.HTTP_400_BAD_REQUEST)
+        return Response({
+            'error': result['message'],
+            'method': result.get('method'),
+            'requires_linking': result.get('requires_linking', False),
+            'bot_username': result.get('bot_username'),
+        }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class VerifyCodeView(APIView):
     """Verify the verification code"""
     permission_classes = [PublicAccess]
-    
+
     def post(self, request):
         username = request.data.get('username')
         code = request.data.get('code')
-        
         if not username or not code:
             return Response({'error': 'Phone number and code are required'}, status=status.HTTP_400_BAD_REQUEST)
-        
         try:
             customer = Customer.objects.get(username=username)
         except Customer.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
         from .verification_service import verify_code
         result = verify_code(customer, code)
-        
         if result['success']:
-            return Response({
-                'message': result['message'],
-                'verified': True
-            }, status=status.HTTP_200_OK)
-        else:
-            return Response({
-                'error': result['message'],
-                'verified': False
-            }, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': result['message'], 'verified': True}, status=status.HTTP_200_OK)
+        return Response({'error': result['message'], 'verified': False}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SendPasswordResetCodeView(APIView):
     """Send password reset code via Email (primary) or WhatsApp (fallback)"""
     permission_classes = [PublicAccess]
-    authentication_classes = []  # Allow unauthenticated requests
-    
+    authentication_classes = []
+
     def post(self, request):
-        print("=" * 60)
-        print("PASSWORD RESET CODE REQUEST RECEIVED")
-        print("=" * 60)
-        print(f"Request data: {request.data}")
-        print(f"Request META: {dict(request.META)}")
-        
         username = request.data.get('username')
-        email = request.data.get('email')  # Optional: user can provide email during reset
-        
-        print(f"Extracted - username: {username}, email: {email}")
-        logger.info(f"Password reset request - username: {username}, email provided: {bool(email)}")
-        
+        email = request.data.get('email')
         if not username:
             return Response({'success': False, 'error': 'Phone number is required', 'message': 'Phone number is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
         try:
             customer = Customer.objects.get(username=username)
-            logger.info(f"Customer found: {customer.username}, has email: {bool(customer.email)}")
         except Customer.DoesNotExist:
-            logger.error(f"Customer not found: {username}")
             return Response({'success': False, 'error': 'User not found', 'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        # If user provided email, use that email (even if customer has a saved email)
         if email:
-            logger.info(f"Using provided email: {email}")
             from .verification_service import send_verification_to_email
             result = send_verification_to_email(customer, email, purpose='password_reset')
-            
-            if result['success']:
-                # Store pending email for later verification
-                request.session['pending_email'] = email
-                request.session['pending_username'] = username
         else:
-            # Use customer's saved email or WhatsApp
-            logger.info(f"Using customer's saved email or WhatsApp")
             from .verification_service import send_verification_code
             result = send_verification_code(customer, purpose='password_reset')
-        
-        logger.info(f"Verification result: success={result.get('success')}, method={result.get('method')}, message={result.get('message')}")
-        
         if result['success']:
-            response_data = {
+            return Response({
                 'success': True,
                 'message': result.get('message', 'Password reset code sent'),
                 'method': result.get('method'),
-                'expires_in': 600
-            }
-            return Response(response_data, status=status.HTTP_200_OK)
-        else:
-            response_data = {
-                'success': False,
-                'message': result.get('message', 'Failed to send code'),
-                'error': result.get('message'),
-                'method': result.get('method'),
-                'needs_email': result.get('needs_email', False),
-                'needs_activation': result.get('needs_activation', False),
-            }
-            if result.get('activation_instructions'):
-                response_data['activation_instructions'] = result['activation_instructions']
-            logger.error(f"Failed to send code: {response_data}")
-            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+                'expires_in': 600,
+            }, status=status.HTTP_200_OK)
+        return Response({
+            'success': False,
+            'message': result.get('message', 'Failed to send code'),
+            'error': result.get('message'),
+            'method': result.get('method'),
+            'needs_email': result.get('needs_email', False),
+            'needs_activation': result.get('needs_activation', False),
+        }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ResetPasswordWithCodeView(APIView):
     """Reset password using verification code"""
     permission_classes = [PublicAccess]
-    
+
     def post(self, request):
         username = request.data.get('username')
         code = request.data.get('code')
         new_password = request.data.get('new_password')
-        save_email = request.data.get('save_email')  # Optional: save the email used for verification
-        
+        save_email = request.data.get('save_email')
         if not username or not code or not new_password:
-            return Response({
-                'error': 'Phone number, code, and new password are required'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
+            return Response({'error': 'Phone number, code, and new password are required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             customer = Customer.objects.get(username=username)
         except Customer.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
         from .verification_service import verify_code
         result = verify_code(customer, code)
-        
         if not result['success']:
-            return Response({
-                'error': result['message']
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Code verified, update password
+            return Response({'error': result['message']}, status=status.HTTP_400_BAD_REQUEST)
         customer.set_password(new_password)
-        
-        # If user wants to save the email they used for verification
         if save_email:
             customer.email = save_email
-        
         customer.save()
-        
-        return Response({
-            'message': 'Password reset successfully'
-        }, status=status.HTTP_200_OK)
+        return Response({'message': 'Password reset successfully'}, status=status.HTTP_200_OK)
 
 
 class UpdateEmailView(APIView):
     """Allow user to add/update their email"""
     permission_classes = [PublicAccess]
-    
+
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
         email = request.data.get('email')
-        
         if not username or not password or not email:
-            return Response({
-                'error': 'Phone number, password, and email are required'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
+            return Response({'error': 'Phone number, password, and email are required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             customer = Customer.objects.get(username=username)
         except Customer.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        # Verify password
         if not customer.check_password(password):
             return Response({'error': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
-        
-        # Check if email already in use
         if Customer.objects.filter(email=email).exclude(pk=customer.pk).exists():
             return Response({'error': 'This email is already registered'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Update email
         customer.email = email
         customer.save(update_fields=['email'])
-        
-        return Response({
-            'message': 'Email updated successfully'
-        }, status=status.HTTP_200_OK)
+        return Response({'message': 'Email updated successfully'}, status=status.HTTP_200_OK)
 
 
 class UpdateWhatsAppApiKeyView(APIView):
     """Allow user to save their CallMeBot API key for free WhatsApp notifications"""
     permission_classes = [PublicAccess]
-    
+
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
         whatsapp_apikey = request.data.get('whatsapp_apikey')
-        
         if not username or not password or not whatsapp_apikey:
-            return Response({
-                'error': 'Phone number, password, and WhatsApp API key are required'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
+            return Response({'error': 'Phone number, password, and WhatsApp API key are required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             customer = Customer.objects.get(username=username)
         except Customer.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        # Verify password
         if not customer.check_password(password):
             return Response({'error': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
-        
-        # Save WhatsApp API key
-        customer.whatsapp_apikey = whatsapp_apikey
-        customer.save(update_fields=['whatsapp_apikey'])
-        
-        return Response({
-            'message': 'WhatsApp API key saved successfully'
-        }, status=status.HTTP_200_OK)
+        if hasattr(customer, 'whatsapp_apikey'):
+            customer.whatsapp_apikey = whatsapp_apikey
+            customer.save(update_fields=['whatsapp_apikey'])
+        return Response({'message': 'WhatsApp API key saved successfully'}, status=status.HTTP_200_OK)
 
 
 class GenerateDefaultPasswordView(APIView):
     """Generate default password preview (for frontend display)"""
     permission_classes = [PublicAccess]
-    
+
     def post(self, request):
         full_name = request.data.get('fullName', '')
         year_of_birth = request.data.get('year_of_birth')
-        
         if not full_name or not year_of_birth:
-            return Response({
-                'error': 'Full name and year of birth are required'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Generate default password: First 3 letters of name + @ + year
+            return Response({'error': 'Full name and year of birth are required'}, status=status.HTTP_400_BAD_REQUEST)
         name_part = full_name[:3].strip()
         if len(name_part) > 0:
             name_part = name_part[0].upper() + name_part[1:].lower()
-        
         default_password = f"{name_part}@{year_of_birth}"
-        
-        return Response({
-            'default_password': default_password
-        }, status=status.HTTP_200_OK)
+        return Response({'default_password': default_password}, status=status.HTTP_200_OK)
 
 
-def _subject_question_table_name(level_tr, class_level, subject_translated):
-    from .models import subject_question_table_name
-    return subject_question_table_name(level_tr, class_level, subject_translated)
-
-
-def _allowed_question_table(name):
-    """Allow only table names that match cheradip_ + alphanumeric/underscore (no SQL injection)."""
-    import re
-    return isinstance(name, str) and bool(re.match(r'^cheradip_[a-z0-9_]+$', name.strip().lower()))
-
-
-class SubjectQuestionTablesView(APIView):
-    """GET: List question table names from cheradip_subject (level_tr, class_level, subject_translated)."""
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-
-    def get(self, request):
-        # One table per (class_level, subject_translated); use first row (by id) for level_tr.
-        seen_key = set()
-        tables = []
-        for row in Subject.objects.order_by('id').values_list('level_tr', 'class_level', 'subject_translated'):
-            level_tr = row[0] or ''
-            class_level = row[1] or ''
-            subject_translated = row[2] or ''
-            key = (class_level, subject_translated)
-            if key in seen_key:
-                continue
-            seen_key.add(key)
-            name = _subject_question_table_name(level_tr, class_level, subject_translated)
-            tables.append({
-                'table_name': name,
-                'level_tr': level_tr,
-                'class_level': class_level,
-                'subject_translated': subject_translated,
-            })
-        return Response({'tables': tables})
-
-
-class SubjectQuestionDataView(APIView):
-    """GET: Return rows from a subject question table. Query param: table_name (e.g. cheradip_pre_primary_0_story_book)."""
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-
-    def get(self, request):
-        table_name_param = (request.query_params.get('table_name') or '').strip()
-        if not table_name_param:
-            return Response({'error': 'table_name is required'}, status=status.HTTP_400_BAD_REQUEST)
-        if not _allowed_question_table(table_name_param):
-            return Response({'error': 'Invalid table_name'}, status=status.HTTP_400_BAD_REQUEST)
-        from django.db import connection
-        with connection.cursor() as cur:
-            cur.execute(f"SELECT id, subject, chapter_no, chapter, topic, question, option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3, type, level, subsource, created_at, updated_at, updated_by FROM `{table_name_param}` ORDER BY id")
-            columns = [col[0] for col in cur.description]
-            rows = [dict(zip(columns, row)) for row in cur.fetchall()]
-        return Response({'table_name': table_name_param, 'questions': rows})
-
-
-class GetGroupsByClassView(APIView):
-    """Get available groups for a specific class (9-10, 11-12). Returns exactly groups from Group/ClassGroupMapping, else none."""
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-    
-    def get(self, request):
-        class_code = request.query_params.get('class_code')
-        
-        if not class_code:
-            return Response({'error': 'class_code parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            class_level = ClassLevel.objects.get(class_code=class_code, is_active=True)
-        except ClassLevel.DoesNotExist:
-            return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        if not class_level.has_groups:
-            return Response({'groups': [], 'message': 'This class does not have groups'}, status=status.HTTP_200_OK)
-        
-        mappings = ClassGroupMapping.objects.filter(class_level=class_level)
-        all_group_codes = set()
-        for mapping in mappings:
-            codes = [c.strip() for c in mapping.group_codes.split(',') if c.strip()]
-            all_group_codes.update(codes)
-        
-        groups = Group.objects.filter(group_code__in=all_group_codes).order_by('group_code')
-        from .serializers import GroupSerializer
-        serializer = GroupSerializer(groups, many=True)
-        
-        return Response({
-            'class_code': class_code,
-            'class_name': class_level.class_name,
-            'groups': serializer.data
-        }, status=status.HTTP_200_OK)
+# ----- Removed: view_order, view_ordered, view_canceled, update_shipped_status, move_*_orders, get_shipped_status -----
+# ----- Removed: GroupViewSet, SubjectViewSet, ChapterViewSet, TopicViewSet, InstituteViewSet, YearViewSet, McqIctViewSet,
+#      SubjectQuestionTablesView, SubjectQuestionDataView, GetGroupsByClassView, GetDepartmentsView, GetClassInfoView -----
 
 
 def _university_departments_json_path():
@@ -3792,48 +2773,3 @@ class UniversityDepartmentsView(APIView):
             logger.warning('Could not write departments.json: %s', e)
             return Response({'error': 'Could not save department'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({'departments': departments, 'count': len(departments)}, status=status.HTTP_201_CREATED)
-
-
-class GetDepartmentsView(APIView):
-    """Get all university departments for Class 13-16 (from database)."""
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-    
-    def get(self, request):
-        faculty = request.query_params.get('faculty')  # Optional filter by faculty
-        
-        departments = Department.objects.filter(is_active=True)
-        if faculty:
-            departments = departments.filter(faculty__icontains=faculty)
-        
-        departments = departments.order_by('display_order', 'dept_name')
-        
-        from .serializers import DepartmentSerializer
-        serializer = DepartmentSerializer(departments, many=True)
-        
-        return Response({
-            'departments': serializer.data,
-            'count': len(serializer.data)
-        }, status=status.HTTP_200_OK)
-
-
-class GetClassInfoView(APIView):
-    """Get class information including whether it has groups/departments"""
-    permission_classes = [PublicAccess]
-    authentication_classes = []
-    
-    def get(self, request):
-        class_code = request.query_params.get('class_code')
-        
-        if not class_code:
-            return Response({'error': 'class_code parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            class_level = ClassLevel.objects.get(class_code=class_code, is_active=True)
-        except ClassLevel.DoesNotExist:
-            return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        from .serializers import ClassLevelSerializer
-        serializer = ClassLevelSerializer(class_level)
-        
-        return Response(serializer.data, status=status.HTTP_200_OK)

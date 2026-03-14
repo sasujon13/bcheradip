@@ -105,6 +105,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database Configuration from Environment Variables
+# Regular `python manage.py migrate` (no --database) applies to 'default' only (cheradip_cheradip).
+# Use `migrate --database=hsc` or `--database=honours` to migrate those DBs.
 DATABASES = {
     'default': {
         'ENGINE': 'backend.db_backend',
@@ -156,10 +158,11 @@ DATABASES = {
     },
 }
 
-# Route models to cheradip_job and cheradip_hsc (order: first non-None wins)
+# Route models to cheradip_job, cheradip_hsc, cheradip_honours (order: first non-None wins)
 DATABASE_ROUTERS = [
     'cheradip.db_routers.JobRouter',
     'cheradip.db_routers.HSCRouter',
+    'cheradip.db_routers.HonoursRouter',
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
