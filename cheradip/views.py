@@ -317,6 +317,12 @@ class _MeritViewSetMixin:
             qs = qs.filter(Code=code)
         return qs.order_by('SL')
 
+    @action(detail=False, url_path='total_table_count')
+    def total_table_count(self, request):
+        """GET /api/merit5|6|7/total_table_count/ – total rows in table (no filters)."""
+        count = self.queryset.count()
+        return Response({'count': count})
+
 
 class Merit5ViewSet(_MeritViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Merit5.objects.all()
@@ -349,6 +355,12 @@ class _VacancyViewSetMixin:
         if districts:
             qs = qs.filter(District__in=districts)
         return qs
+
+    @action(detail=False, url_path='total_table_count')
+    def total_table_count(self, request):
+        """GET /api/vacancy5|6|7/total_table_count/ – total rows in table (no filters)."""
+        count = self.queryset.count()
+        return Response({'count': count})
 
 
 class Vacancy5ViewSet(_VacancyViewSetMixin, viewsets.ReadOnlyModelViewSet):
@@ -416,6 +428,12 @@ class _RecommendViewSetMixin:
         thanas = qs.values_list('Thana', flat=True).distinct().order_by('Thana')
         thanas = [t for t in thanas if t]
         return Response(list(thanas))
+
+    @action(detail=False, url_path='total_table_count')
+    def total_table_count(self, request):
+        """GET /api/recommend5|6|7/total_table_count/ – total rows in table (no filters)."""
+        count = self.queryset.count()
+        return Response({'count': count})
 
 
 class Recommend5ViewSet(_RecommendViewSetMixin, viewsets.ReadOnlyModelViewSet):
