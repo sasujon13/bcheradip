@@ -370,6 +370,53 @@ class _RecommendViewSetMixin:
     pagination_class = JobListPagination
     permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        code = self.request.query_params.get('code')
+        if code is not None and str(code).strip() != '':
+            try:
+                qs = qs.filter(Code=int(str(code).strip()))
+            except (ValueError, TypeError):
+                pass
+        districts = self.request.query_params.getlist('district')
+        if districts:
+            qs = qs.filter(District__in=districts)
+        thanas = self.request.query_params.getlist('thana')
+        if thanas:
+            qs = qs.filter(Thana__in=thanas)
+        return qs
+
+    @action(detail=False, url_path='unique_districts')
+    def unique_districts(self, request):
+        qs = self.get_queryset()
+        code = request.query_params.get('code')
+        if code is not None and str(code).strip() != '':
+            try:
+                qs = qs.filter(Code=int(str(code).strip()))
+            except (ValueError, TypeError):
+                pass
+        districts = qs.values_list('District', flat=True).distinct().order_by('District')
+        districts = [d for d in districts if d]
+        return Response(list(districts))
+
+    @action(detail=False, url_path='unique_thanas')
+    def unique_thanas(self, request):
+        """GET /api/recommend5|6|7/unique_thanas/?district=DHAKA&district=KISHOREGANJ&code=201 – thanas under selected districts (optional code)."""
+        qs = self.get_queryset()
+        code = request.query_params.get('code')
+        if code is not None and str(code).strip() != '':
+            try:
+                qs = qs.filter(Code=int(str(code).strip()))
+            except (ValueError, TypeError):
+                pass
+        district_list = request.query_params.getlist('district')
+        district_list = [d.strip() for d in district_list if d and str(d).strip()]
+        if district_list:
+            qs = qs.filter(District__in=district_list)
+        thanas = qs.values_list('Thana', flat=True).distinct().order_by('Thana')
+        thanas = [t for t in thanas if t]
+        return Response(list(thanas))
+
 
 class Recommend5ViewSet(_RecommendViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Recommend5.objects.all()
