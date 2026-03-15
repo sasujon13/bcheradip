@@ -33,7 +33,7 @@ from io import BytesIO
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-import logging, random, string, json, requests, os, re, csv, time
+import logging, random, string, json, requests, os, re, csv, time, zipfile
 from urllib import parse as urllib_parse
 from urllib.parse import quote
 from rest_framework.decorators import action
@@ -1316,6 +1316,44 @@ class ExportQuestionsView(APIView):
         doc.save(buf)
         buf.seek(0)
         return buf
+
+
+class ExportQuestionsBulkView(APIView):
+    """POST: body { items: [ { questions, questionHeader, filename, pageSize?, marginTop?, ... }, ... ] }. Returns a single ZIP of all PDFs. One download, no repeated prompts."""
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+        items = data.get('items')
+        if not isinstance(items, list) or len(items) == 0:
+            return Response({'error': 'items must be a non-empty list'}, status=status.HTTP_400_BAD_REQUEST)
+        if not REPORTLAB_AVAILABLE:
+            return Response({'error': 'PDF generation not available'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        exporter = ExportQuestionsView()
+        zip_buf = BytesIO()
+        with zipfile.ZipFile(zip_buf, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for i, item in enumerate(items):
+                questions = item.get('questions') or []
+                if not isinstance(questions, list):
+                    continue
+                question_header = (item.get('questionHeader') or '')[:255]
+                filename_base = (item.get('filename') or 'questions_%s' % (i + 1)).strip()[:120]
+                filename_base = re.sub(r'[^\w\-_.\s]', '_', filename_base)
+                page_size = (item.get('pageSize') or 'A4').strip() or 'A4'
+                margin_top = float(item.get('marginTop') or 25.4)
+                margin_right = float(item.get('marginRight') or 25.4)
+                margin_bottom = float(item.get('marginBottom') or 25.4)
+                margin_left = float(item.get('marginLeft') or 25.4)
+                pdf_buf = exporter._build_pdf(
+                    questions, question_header, page_size,
+                    margin_top, margin_right, margin_bottom, margin_left
+                )
+                zf.writestr(filename_base + '.pdf', pdf_buf.getvalue())
+        zip_buf.seek(0)
+        resp = HttpResponse(zip_buf.getvalue(), content_type='application/zip')
+        resp['Content-Disposition'] = 'attachment; filename="created_questions_all.zip"'
+        return resp
 
 
 class CreatedQuestionSetListCreateView(APIView):
