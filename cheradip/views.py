@@ -28,6 +28,7 @@ from rest_framework.authentication import BaseAuthentication
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
+from io import BytesIO
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
@@ -42,6 +43,22 @@ from django.db.models.expressions import RawSQL
 from django.db.utils import ProgrammingError, OperationalError
 
 from .subject_question_tables import subject_question_table_name
+
+try:
+    from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
+    from reportlab.lib.units import mm as rl_mm
+    from reportlab.pdfgen import canvas as pdf_canvas
+    REPORTLAB_AVAILABLE = True
+except ImportError:
+    REPORTLAB_AVAILABLE = False
+
+try:
+    from docx import Document as DocxDocument
+    from docx.shared import Mm as DocxMm, Pt as DocxPt
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    DOCX_AVAILABLE = True
+except ImportError:
+    DOCX_AVAILABLE = False
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -944,20 +961,21 @@ class CustomerCreateView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         try:
-            serializer.save()
+            user = serializer.save()
             if acctype == 'Teacher':
                 tcode = self._get(raw, 'teacher_department_code', '')
                 tname = self._get(raw, 'teacher_department_name', '')
                 if (tcode or '').strip().upper() == 'OTHER' and (tname or '').strip():
                     _append_department_to_json((tname or '').strip(), None)
+            token = self.generate_unique_key()
+            CustomerToken.objects.create(key=token, customer=user)
+            return Response({'authToken': token}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.exception('Signup save failed: %s', e)
             err_msg = 'Signup failed. Please try again.'
             if getattr(settings, 'DEBUG', False):
                 err_msg = str(e)
             return Response({'detail': err_msg}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        token = self.generate_unique_key()
-        return Response({'authToken': token}, status=status.HTTP_200_OK)
 
     def generate_unique_key(self):
         length = 40
@@ -1121,6 +1139,139 @@ class CustomerSettingsView(APIView):
             user.settings = current
             user.save(update_fields=['settings'])
         return Response({'settings': current}, status=status.HTTP_200_OK)
+
+
+# Page size (width_pt, height_pt) for reportlab. 1 inch = 72 pt, 1 mm = 72/25.4 pt.
+def _export_page_size_pt(name):
+    from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
+    pt_per_mm = 72 / 25.4
+    sizes = {
+        'A4': A4,
+        'A3': A3,
+        'A5': A5,
+        'Letter': letter,
+        'Legal': legal,
+        'B4': (250 * pt_per_mm, 353 * pt_per_mm),
+        'B5': (176 * pt_per_mm, 250 * pt_per_mm),
+        'Tabloid': (279.4 * pt_per_mm, 431.8 * pt_per_mm),
+    }
+    return sizes.get(name, A4)
+
+
+def _export_page_size_mm(name):
+    """Return (width_mm, height_mm) for python-docx."""
+    sizes_mm = {
+        'A4': (210, 297),
+        'A3': (297, 420),
+        'A5': (148, 210),
+        'B4': (250, 353),
+        'B5': (176, 250),
+        'Letter': (215.9, 279.4),
+        'Legal': (215.9, 355.6),
+        'Tabloid': (279.4, 431.8),
+    }
+    return sizes_mm.get(name, (210, 297))
+
+
+class ExportQuestionsView(APIView):
+    """POST: generate PDF or DOCX from questions list. Requires Bearer auth. Body: questions, questionHeader, pageSize, marginTop, marginRight, marginBottom, marginLeft, format ('pdf'|'docx'), filename (optional)."""
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+        questions = data.get('questions') or []
+        if not isinstance(questions, list) or len(questions) == 0:
+            return Response({'error': 'questions list is required and must be non-empty'}, status=status.HTTP_400_BAD_REQUEST)
+        fmt = (data.get('format') or '').strip().lower()
+        if fmt not in ('pdf', 'docx'):
+            return Response({'error': 'format must be pdf or docx'}, status=status.HTTP_400_BAD_REQUEST)
+        question_header = (data.get('questionHeader') or '').strip()
+        page_size = (data.get('pageSize') or 'A4').strip() or 'A4'
+        margin_top = float(data.get('marginTop') or 25.4)
+        margin_right = float(data.get('marginRight') or 25.4)
+        margin_bottom = float(data.get('marginBottom') or 25.4)
+        margin_left = float(data.get('marginLeft') or 25.4)
+        filename_base = (data.get('filename') or 'questions').strip() or 'questions'
+        filename_base = re.sub(r'[^\w\-_.\s]', '_', filename_base)[:120]
+
+        if fmt == 'pdf':
+            if not REPORTLAB_AVAILABLE:
+                return Response({'error': 'PDF generation not available (reportlab not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            buf = self._build_pdf(questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left)
+            resp = HttpResponse(buf.getvalue(), content_type='application/pdf')
+            resp['Content-Disposition'] = 'attachment; filename="%s.pdf"' % filename_base.replace('"', '_')
+            return resp
+        else:
+            if not DOCX_AVAILABLE:
+                return Response({'error': 'DOCX generation not available (python-docx not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            buf = self._build_docx(questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left)
+            resp = HttpResponse(buf.getvalue(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            resp['Content-Disposition'] = 'attachment; filename="%s.docx"' % filename_base.replace('"', '_')
+            return resp
+
+    def _build_pdf(self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left):
+        width_pt, height_pt = _export_page_size_pt(page_size)
+        buf = BytesIO()
+        c = pdf_canvas.Canvas(buf, pagesize=(width_pt, height_pt))
+        w_pt = width_pt
+        h_pt = height_pt
+        left = margin_left * rl_mm
+        bottom_effective = margin_bottom * rl_mm
+        right = w_pt - (margin_right * rl_mm)
+        top_effective = h_pt - (margin_top * rl_mm)
+        c.setFont('Helvetica', 12)
+        y = top_effective
+        if question_header:
+            c.drawString(left, y, question_header[:200])
+            y -= 18
+        for i, q in enumerate(questions):
+            qtext = (q.get('question') or '').strip() or ' '
+            line = '%s. %s' % (i + 1, qtext[:500])
+            if y < bottom_effective + 20:
+                c.showPage()
+                c.setFont('Helvetica', 12)
+                y = top_effective
+            c.drawString(left, y, line[:100])
+            y -= 14
+            opts = [q.get('option_1'), q.get('option_2'), q.get('option_3'), q.get('option_4')]
+            opts = [str(o).strip() for o in opts if o]
+            for opt in opts[:4]:
+                if y < bottom_effective + 14:
+                    c.showPage()
+                    c.setFont('Helvetica', 12)
+                    y = top_effective
+                c.drawString(left + 20, y, (opt[:80]))
+                y -= 14
+            y -= 8
+        c.save()
+        buf.seek(0)
+        return buf
+
+    def _build_docx(self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left):
+        doc = DocxDocument()
+        section = doc.sections[0]
+        w_mm, h_mm = _export_page_size_mm(page_size)
+        section.page_width = DocxMm(w_mm)
+        section.page_height = DocxMm(h_mm)
+        section.top_margin = DocxMm(margin_top)
+        section.right_margin = DocxMm(margin_right)
+        section.bottom_margin = DocxMm(margin_bottom)
+        section.left_margin = DocxMm(margin_left)
+        if question_header:
+            p = doc.add_paragraph(question_header)
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        for i, q in enumerate(questions):
+            qtext = (q.get('question') or '').strip() or ' '
+            doc.add_paragraph('%s. %s' % (i + 1, qtext))
+            for key, label in [('option_1', 'A.'), ('option_2', 'B.'), ('option_3', 'C.'), ('option_4', 'D.')]:
+                opt = q.get(key)
+                if opt:
+                    doc.add_paragraph('   %s %s' % (label, str(opt).strip()), style='List Bullet')
+        buf = BytesIO()
+        doc.save(buf)
+        buf.seek(0)
+        return buf
 
 
 class CustomerUpdateView(APIView):
@@ -2703,6 +2854,8 @@ class PasswordUpdateView(APIView):
                 user.set_password(newpassword)
                 user.save()
                 token = self.generate_unique_key()
+                CustomerToken.objects.filter(customer=user).delete()
+                CustomerToken.objects.create(key=token, customer=user)
                 return Response({'authToken': token, 'message': 'Password updated successfully'}, status=status.HTTP_200_OK)
             else:
                 return Response({'error': 'Invalid current password'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -2742,6 +2895,8 @@ class MobileUpdateView(APIView):
                 user.username = newusername
                 user.save()
                 token = self.generate_unique_key()
+                CustomerToken.objects.filter(customer=user).delete()
+                CustomerToken.objects.create(key=token, customer=user)
                 return Response({'authToken': token, 'message': 'Mobile number updated successfully'}, status=status.HTTP_200_OK)
             else:
                 return Response({'error': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)

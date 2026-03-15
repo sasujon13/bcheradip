@@ -10,3 +10,5 @@ selenium>=4.0.0
 webdriver-manager>=4.0.0
 sqlparse==0.5.3
 tzdata==2025.2
+reportlab>=4.0.0
+python-docx>=1.0.0
