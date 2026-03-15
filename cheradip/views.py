@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import (
     Item,
     Customer,
+    CustomerToken,
     OrderDetail,
     Transaction,
     Notification,
@@ -22,7 +23,8 @@ from .serializers import (
     CountrySerializer,
     CountryListSerializer,
 )
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import BaseAuthentication
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .location import Bangladesh
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
@@ -1047,6 +1049,8 @@ class CustomerRetrieveView(APIView):
             union = getattr(user, 'union', None)
             village = getattr(user, 'village', None)
             token = self.generate_unique_key()
+            CustomerToken.objects.filter(customer=user).delete()
+            CustomerToken.objects.create(key=token, customer=user)
             return Response({
                 'authToken': token,
                 'acctype': acctype,
@@ -1079,6 +1083,46 @@ class CustomerRetrieveView(APIView):
 
 
 
+class BearerTokenAuthentication(BaseAuthentication):
+    """Authenticate by Authorization: Bearer <token>; look up CustomerToken and set request.user."""
+    def authenticate(self, request):
+        auth = request.META.get('HTTP_AUTHORIZATION')
+        if not auth or not auth.startswith('Bearer '):
+            return None
+        token = auth[7:].strip()
+        if not token:
+            return None
+        try:
+            ct = CustomerToken.objects.select_related('customer').get(key=token)
+            return (ct.customer, token)
+        except CustomerToken.DoesNotExist:
+            return None
+
+
+class CustomerSettingsView(APIView):
+    """GET/POST customer settings (JSON). Requires Bearer token. Used for export_format etc."""
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        settings_dict = getattr(request.user, 'settings', None)
+        if settings_dict is None:
+            settings_dict = {}
+        return Response({'settings': settings_dict}, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        new_settings = request.data.get('settings')
+        if new_settings is not None and not isinstance(new_settings, dict):
+            return Response({'error': 'settings must be a JSON object'}, status=status.HTTP_400_BAD_REQUEST)
+        user = request.user
+        current = getattr(user, 'settings', None) or {}
+        if new_settings is not None:
+            current = {**current, **new_settings}
+            user.settings = current
+            user.save(update_fields=['settings'])
+        return Response({'settings': current}, status=status.HTTP_200_OK)
+
+
 class CustomerUpdateView(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
@@ -1091,6 +1135,8 @@ class CustomerUpdateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         serializer.save()
         token = self.generate_unique_key()
+        CustomerToken.objects.filter(customer=user).delete()
+        CustomerToken.objects.create(key=token, customer=user)
         return Response({'authToken': token, 'token': token}, status=status.HTTP_200_OK)
 
     def generate_unique_key(self):
@@ -2984,6 +3030,251 @@ class UniversityDepartmentsView(APIView):
             logger.warning('Could not write departments.json: %s', e)
             return Response({'error': 'Could not save department'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({'departments': departments, 'count': len(departments)}, status=status.HTTP_201_CREATED)
+
+
+# ----- Signup: levels, subjects, groups by country/level from cheradip_hsc.cheradip_subject -----
+
+def _level_code_to_sql(level):
+    """Map frontend level code (PSC, JSC, SSC, HSC) or level_tr to SQL WHERE fragment and params for cheradip_subject."""
+    level = (level or '').strip()
+    if not level:
+        return None, []
+    level_upper = level.upper()
+    # Map standard codes to class_level conditions (country_id filtered separately)
+    if level_upper == 'PSC':
+        return " ( class_level IN (%s,%s,%s,%s,%s) OR ( level_tr LIKE %s AND level_tr NOT LIKE %s ) ) ", ['1', '2', '3', '4', '5', '%Primary%', '%Pre-primary%']
+    if level_upper == 'JSC':
+        return " ( class_level IN (%s,%s,%s) OR level_tr LIKE %s ) ", ['6', '7', '8', '%Junior%']
+    if level_upper == 'SSC':
+        return " ( class_level = %s OR level_tr LIKE %s OR level_tr LIKE %s ) ", ['9-10', '%SSC%', '%Secondary%']
+    if level_upper == 'HSC':
+        return " ( class_level = %s OR level_tr LIKE %s OR level_tr LIKE %s ) ", ['11-12', '%HSC%', '%Higher%']
+    # Otherwise treat as level_tr (e.g. Pre-primary)
+    return " level_tr = %s ", [level]
+
+
+class LevelsByCountryView(APIView):
+    """GET ?country_code=BD – distinct levels from cheradip_subject for signup Level dropdown. Returns level, level_tr, label."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        if not country_code:
+            return Response({'levels': [], 'country_code': country_code}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'levels': [], 'country_code': country_code, 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        levels = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT level_tr, MIN(CASE "
+                    "  WHEN class_level IS NOT NULL AND TRIM(COALESCE(class_level, '')) != '' "
+                    "  THEN CAST(SUBSTRING_INDEX(CONCAT(TRIM(class_level), '-'), '-', 1) AS UNSIGNED) "
+                    "  ELSE NULL END) AS sort_key FROM cheradip_subject "
+                    "WHERE (country_id = %s OR country_id IS NULL) AND level_tr IS NOT NULL AND TRIM(COALESCE(level_tr, '')) != '' "
+                    "GROUP BY level_tr ORDER BY sort_key, level_tr",
+                    [country_code]
+                )
+                for row in cur.fetchall():
+                    level_tr = (row[0] or '').strip()
+                    if level_tr:
+                        # Map level_tr to code for dropdown value when possible
+                        code = level_tr
+                        if level_tr.lower().startswith('pre-primary') or level_tr == 'Pre-primary':
+                            code = 'Pre-primary'
+                        elif 'Primary' in level_tr and 'Pre-primary' not in level_tr:
+                            code = 'PSC'
+                        elif 'Junior' in level_tr:
+                            code = 'JSC'
+                        elif 'Higher' in level_tr or 'HSC' in level_tr or 'Alim' in level_tr:
+                            code = 'HSC'
+                        elif 'Secondary' in level_tr or 'SSC' in level_tr or 'Dakhil' in level_tr:
+                            code = 'SSC'
+                        levels.append({'level': code, 'level_tr': level_tr, 'label': level_tr})
+        except Exception as e:
+            logger.exception('LevelsByCountryView: %s', e)
+            return Response({'levels': [], 'country_code': country_code, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'levels': levels, 'country_code': country_code}, status=status.HTTP_200_OK)
+
+
+class SubjectsByCountryLevelView(APIView):
+    """GET ?country_code=BD&level=PSC – subjects from cheradip_subject for Teacher signup."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        level = (request.query_params.get('level') or '').strip()
+        if not country_code or not level:
+            return Response({'subjects': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'subjects': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        level_sql, level_params = _level_code_to_sql(level)
+        if level_sql is None:
+            return Response({'subjects': []}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        subjects = []
+        try:
+            with conn.cursor() as cur:
+                sql = (
+                    "SELECT DISTINCT subject_tr, subject_code, subject_name FROM cheradip_subject "
+                    "WHERE (country_id = %s OR country_id IS NULL) AND " + level_sql +
+                    " AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' ORDER BY subject_tr"
+                )
+                cur.execute(sql, [country_code] + level_params)
+                for row in cur.fetchall():
+                    subject_tr = (row[0] or '').strip()
+                    if subject_tr:
+                        subjects.append({
+                            'subject_tr': subject_tr,
+                            'subject_code': row[1] if len(row) > 1 else None,
+                            'subject_name': (row[2] or '').strip() if len(row) > 2 else subject_tr,
+                            'id': subject_tr,
+                            'name': subject_tr,
+                        })
+        except Exception as e:
+            logger.exception('SubjectsByCountryLevelView: %s', e)
+            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'subjects': subjects}, status=status.HTTP_200_OK)
+
+
+class GroupsByCountryLevelView(APIView):
+    """GET ?country_code=BD&level=PSC – distinct groups from cheradip_subject.groups for Student signup."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        level = (request.query_params.get('level') or '').strip()
+        if not country_code or not level:
+            return Response({'groups': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'groups': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        level_sql, level_params = _level_code_to_sql(level)
+        if level_sql is None:
+            return Response({'groups': []}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        seen = set()
+        try:
+            with conn.cursor() as cur:
+                sql = (
+                    "SELECT groups FROM cheradip_subject "
+                    "WHERE (country_id = %s OR country_id IS NULL) AND " + level_sql +
+                    " AND groups IS NOT NULL AND TRIM(COALESCE(groups, '')) != ''"
+                )
+                cur.execute(sql, [country_code] + level_params)
+                for row in cur.fetchall():
+                    for p in _parse_groups_column(row[0]):
+                        if p:
+                            seen.add(p)
+        except Exception as e:
+            logger.exception('GroupsByCountryLevelView: %s', e)
+            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'groups': sorted(seen)}, status=status.HTTP_200_OK)
+
+
+class GroupsByClassView(APIView):
+    """GET ?class_code=9-10 – distinct groups from cheradip_subject for that class_level (Student signup Group dropdown)."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        class_code = (request.query_params.get('class_code') or '').strip()
+        if not class_code:
+            return Response({'groups': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'groups': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        seen = set()
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT groups FROM cheradip_subject WHERE class_level = %s "
+                    "AND groups IS NOT NULL AND TRIM(COALESCE(groups, '')) != ''",
+                    [class_code]
+                )
+                for row in cur.fetchall():
+                    for p in _parse_groups_column(row[0]):
+                        if p:
+                            seen.add(p)
+        except Exception as e:
+            logger.exception('GroupsByClassView: %s', e)
+            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'groups': sorted(seen)}, status=status.HTTP_200_OK)
+
+
+class SubjectsForDegreeView(APIView):
+    """GET ?country_code=BD – subjects for University (Degree/Honours/Masters). Uses class_level 13-16 or honours DB if present."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        if not country_code:
+            return Response({'subjects': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'subjects': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        subjects = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT DISTINCT subject_tr, subject_code, subject_name FROM cheradip_subject "
+                    "WHERE (country_id = %s OR country_id IS NULL) AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' "
+                    "AND (class_level IN ('13','14','15','16','13-16') OR level_tr LIKE %s OR level_tr LIKE %s) ORDER BY subject_tr",
+                    [country_code, '%Degree%', '%Honours%']
+                )
+                for row in cur.fetchall():
+                    subject_tr = (row[0] or '').strip()
+                    if subject_tr:
+                        subjects.append({
+                            'subject_tr': subject_tr,
+                            'subject_code': row[1] if len(row) > 1 else None,
+                            'subject_name': (row[2] or '').strip() if len(row) > 2 else subject_tr,
+                            'id': row[1] if len(row) > 1 else subject_tr,
+                            'name': subject_tr,
+                        })
+        except Exception as e:
+            logger.exception('SubjectsForDegreeView: %s', e)
+            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'subjects': subjects}, status=status.HTTP_200_OK)
+
+
+class ClassesByCountryView(APIView):
+    """GET ?country_code=BD – distinct class_level from cheradip_subject for signup Class dropdown. Optional ?useHsc=1 same behaviour."""
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        country_code = (request.query_params.get('country_code') or '').strip().upper()
+        if not country_code:
+            return Response({'classes': [], 'country_code': country_code}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'classes': [], 'country_code': country_code, 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        classes = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT class_level FROM cheradip_subject "
+                    "WHERE (country_id = %s OR country_id IS NULL) AND class_level IS NOT NULL AND TRIM(COALESCE(class_level, '')) != '' "
+                    "GROUP BY class_level ORDER BY CAST(SUBSTRING_INDEX(CONCAT(TRIM(class_level), '-'), '-', 1) AS UNSIGNED), class_level",
+                    [country_code]
+                )
+                for row in cur.fetchall():
+                    cl = (row[0] or '').strip()
+                    if cl:
+                        classes.append({
+                            'value': cl,
+                            'label': cl,
+                            'has_groups': cl in ('9-10', '11-12'),
+                        })
+        except Exception as e:
+            logger.exception('ClassesByCountryView: %s', e)
+            return Response({'classes': [], 'country_code': country_code, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'classes': classes, 'country_code': country_code}, status=status.HTTP_200_OK)
 
 
 # ----- Question section: levels, subjects, chapters from cheradip_hsc.cheradip_subject and subject question tables -----

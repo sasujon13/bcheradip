@@ -312,6 +312,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(blank=True, null=True)
     phone_alternate = models.CharField(max_length=11, blank=True, null=True)
     whatsapp_apikey = models.CharField(max_length=255, blank=True, null=True)
+    settings = models.JSONField(blank=True, null=True, default=dict, help_text='User preferences as JSON, e.g. export_format: both|pdf|docx')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
