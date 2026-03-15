@@ -34,9 +34,12 @@ from urllib import parse as urllib_parse
 from urllib.parse import quote
 from rest_framework.decorators import action
 from django.conf import settings
+from django.db import connections
 from django.db.models import Q
 from django.db.models.expressions import RawSQL
 from django.db.utils import ProgrammingError, OperationalError
+
+from .subject_question_tables import subject_question_table_name
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -2981,3 +2984,370 @@ class UniversityDepartmentsView(APIView):
             logger.warning('Could not write departments.json: %s', e)
             return Response({'error': 'Could not save department'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({'departments': departments, 'count': len(departments)}, status=status.HTTP_201_CREATED)
+
+
+# ----- Question section: levels, subjects, chapters from cheradip_hsc.cheradip_subject and subject question tables -----
+
+class QuestionLevelsView(APIView):
+    """
+    GET: Distinct levels (level_tr) from cheradip_subject in cheradip_hsc database.
+    Used for the question page first dropdown (like signUp level selection).
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        if 'hsc' not in connections:
+            return Response({'levels': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        levels = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT level_tr, MIN(CASE "
+                    "  WHEN class_level IS NOT NULL AND TRIM(COALESCE(class_level, '')) != '' "
+                    "  THEN CAST(SUBSTRING_INDEX(CONCAT(TRIM(class_level), '-'), '-', 1) AS UNSIGNED) "
+                    "  ELSE NULL END) AS sort_key FROM cheradip_subject "
+                    "WHERE level_tr IS NOT NULL AND TRIM(COALESCE(level_tr, '')) != '' "
+                    "GROUP BY level_tr"
+                )
+                rows = cur.fetchall()
+                for row in rows:
+                    level_tr = (row[0] or '').strip()
+                    sort_key = row[1] if len(row) > 1 and row[1] is not None else 0
+                    if level_tr:
+                        levels.append({
+                            'level': level_tr,
+                            'level_tr': level_tr,
+                            'label': level_tr,
+                            'sort_order': sort_key,
+                        })
+                # Descending by class_level (highest first); then A-Z for same key
+                levels.sort(key=lambda x: (-(x['sort_order'] or 0), x['level_tr']))
+        except Exception as e:
+            logger.exception('QuestionLevelsView: %s', e)
+            return Response({'levels': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'levels': levels}, status=status.HTTP_200_OK)
+
+
+class QuestionClassesView(APIView):
+    """
+    GET: Distinct class_level for a level from cheradip_subject in cheradip_hsc.
+    Query param: level_tr. Ordered by class_level ascending (0, 1, 5, 8, 9-10, 11-12).
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        if not level_tr:
+            return Response({'classes': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'classes': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        classes = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT class_level FROM cheradip_subject "
+                    "WHERE level_tr = %s AND class_level IS NOT NULL AND TRIM(COALESCE(class_level, '')) != '' "
+                    "GROUP BY class_level "
+                    "ORDER BY MIN(CAST(SUBSTRING_INDEX(CONCAT(TRIM(class_level), '-'), '-', 1) AS UNSIGNED)), class_level",
+                    [level_tr]
+                )
+                for row in cur.fetchall():
+                    cl = (row[0] or '').strip()
+                    if cl:
+                        classes.append({'value': cl, 'label': cl})
+        except Exception as e:
+            logger.exception('QuestionClassesView: %s', e)
+            return Response({'classes': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'classes': classes}, status=status.HTTP_200_OK)
+
+
+def _parse_groups_column(raw):
+    """Parse groups column value: JSON array e.g. [\"Science\", \"Humanities\", \"Business Studies\"] or fallback to comma/split."""
+    if not raw or not (raw := str(raw).strip()):
+        return []
+    try:
+        parsed = json.loads(raw)
+        if isinstance(parsed, list):
+            return [str(x).strip() for x in parsed if str(x).strip()]
+        if isinstance(parsed, str):
+            return [p.strip() for p in parsed.replace('，', ',').split(',') if p.strip()]
+        return []
+    except (TypeError, ValueError, json.JSONDecodeError):
+        return [p.strip() for p in raw.replace('，', ',').split(',') if p.strip()]
+
+
+class QuestionGroupsView(APIView):
+    """
+    GET: Distinct groups from cheradip_subject.groups for level_tr and class_level.
+    groups column is JSON array e.g. [\"Science\", \"Humanities\", \"Business Studies\"]; returns distinct values.
+    Returns [] if no non-empty groups for that level/class.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        if not level_tr:
+            return Response({'groups': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'groups': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        seen = set()
+        try:
+            with conn.cursor() as cur:
+                if class_level:
+                    cur.execute(
+                        "SELECT groups FROM cheradip_subject WHERE level_tr = %s AND class_level = %s AND groups IS NOT NULL AND TRIM(COALESCE(groups, '')) != ''",
+                        [level_tr, class_level]
+                    )
+                else:
+                    cur.execute(
+                        "SELECT groups FROM cheradip_subject WHERE level_tr = %s AND groups IS NOT NULL AND TRIM(COALESCE(groups, '')) != ''",
+                        [level_tr]
+                    )
+                for row in cur.fetchall():
+                    for p in _parse_groups_column(row[0]):
+                        if p:
+                            seen.add(p)
+        except Exception as e:
+            logger.exception('QuestionGroupsView: %s', e)
+            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'groups': sorted(seen)}, status=status.HTTP_200_OK)
+
+
+class QuestionSubjectsView(APIView):
+    """
+    GET: Subjects from cheradip_subject in cheradip_hsc.
+    Query params: level_tr (required), class_level (optional), group (optional).
+    If group given, filter by FIND_IN_SET(group, groups) so only subjects for that group.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        group = (request.query_params.get('group') or '').strip()
+        if not level_tr:
+            return Response({'subjects': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'subjects': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        subjects = []
+        try:
+            with conn.cursor() as cur:
+                sql = (
+                    "SELECT DISTINCT level_tr, class_level, subject_tr FROM cheradip_subject "
+                    "WHERE level_tr = %s AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' "
+                )
+                params = [level_tr]
+                if class_level:
+                    sql += " AND class_level = %s "
+                    params.append(class_level)
+                sql += " ORDER BY subject_tr "
+                cur.execute(sql, params)
+                for row in cur.fetchall():
+                    lt = (row[0] or '').strip()
+                    cl = (row[1] or '').strip()
+                    st = (row[2] or '').strip()
+                    if not st:
+                        continue
+                    if group:
+                        # Need to check groups column; re-query with groups or do in Python
+                        pass
+                    subjects.append({
+                        'level_tr': lt,
+                        'class_level': cl,
+                        'subject_tr': st,
+                        'id': st,
+                        'name': st,
+                    })
+                if group:
+                    # Filter by group: groups column is JSON array; include subject only if selected group is in that array
+                    cur.execute(
+                        "SELECT class_level, subject_tr, groups FROM cheradip_subject "
+                        "WHERE level_tr = %s AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' " + (
+                            " AND class_level = %s " if class_level else ""
+                        ),
+                        [level_tr] + ([class_level] if class_level else [])
+                    )
+                    group_lower = group.strip().lower()
+                    allowed = set()
+                    for row in cur.fetchall():
+                        cl_r = (row[0] or '').strip()
+                        st_r = (row[1] or '').strip()
+                        gr = row[2]
+                        if not st_r:
+                            continue
+                        parts = _parse_groups_column(gr)
+                        if any(p.strip().lower() == group_lower for p in parts):
+                            allowed.add((cl_r, st_r))
+                    subjects = [s for s in subjects if (s['class_level'], s['subject_tr']) in allowed]
+        except Exception as e:
+            logger.exception('QuestionSubjectsView: %s', e)
+            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'subjects': subjects}, status=status.HTTP_200_OK)
+
+
+class QuestionChaptersView(APIView):
+    """
+    GET: Unique chapters from the subject question table in cheradip_hsc.
+    Table name: cheradip_(level_tr)_(class_level)_(subject_tr) from subject_question_table_name().
+    Query params: level_tr, class_level, subject_tr.
+    Returns chapters with id (chapter_no or chapter) and name (chapter).
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        if not level_tr or not class_level or not subject_tr:
+            return Response({'chapters': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'chapters': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+        conn = connections['hsc']
+        chapters = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s",
+                    [table_name]
+                )
+                if not cur.fetchone():
+                    return Response({'chapters': [], 'error': 'Table not found'}, status=status.HTTP_200_OK)
+                cur.execute(
+                    "SELECT DISTINCT chapter_no, chapter FROM `{}` "
+                    "WHERE (chapter_no IS NOT NULL AND TRIM(COALESCE(chapter_no, '')) != '') "
+                    "   OR (chapter IS NOT NULL AND TRIM(COALESCE(chapter, '')) != '') "
+                    "ORDER BY CAST(COALESCE(NULLIF(TRIM(chapter_no), ''), '0') AS UNSIGNED), chapter_no, chapter".format(table_name)
+                )
+                seen = set()
+                for row in cur.fetchall():
+                    ch_no = (row[0] or '').strip()
+                    ch = (row[1] or '').strip()
+                    name = ch or ch_no or ''
+                    if not name:
+                        continue
+                    key = (ch_no, ch)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    chapters.append({'id': ch_no or name, 'name': name})
+        except Exception as e:
+            logger.exception('QuestionChaptersView: %s', e)
+            return Response({'chapters': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'chapters': chapters}, status=status.HTTP_200_OK)
+
+
+class QuestionTopicsView(APIView):
+    """
+    GET: Unique topics from the subject question table in cheradip_hsc.
+    Query params: level_tr, class_level, subject_tr; optional chapter (chapter_no or chapter name) to filter.
+    Ordered by topic ascending (character order).
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        chapter = (request.query_params.get('chapter') or '').strip()
+        if not level_tr or not class_level or not subject_tr:
+            return Response({'topics': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'topics': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+        conn = connections['hsc']
+        topics = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s",
+                    [table_name]
+                )
+                if not cur.fetchone():
+                    return Response({'topics': []}, status=status.HTTP_200_OK)
+                if chapter:
+                    cur.execute(
+                        "SELECT DISTINCT topic FROM `{}` "
+                        "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
+                        "AND (chapter_no = %s OR chapter = %s) ORDER BY topic".format(table_name),
+                        [chapter, chapter]
+                    )
+                else:
+                    cur.execute(
+                        "SELECT DISTINCT topic FROM `{}` "
+                        "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
+                        "ORDER BY topic".format(table_name)
+                    )
+                for row in cur.fetchall():
+                    t = (row[0] or '').strip()
+                    if t:
+                        topics.append({'id': t, 'name': t})
+        except Exception as e:
+            logger.exception('QuestionTopicsView: %s', e)
+            return Response({'topics': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'topics': topics}, status=status.HTTP_200_OK)
+
+
+class QuestionListView(APIView):
+    """
+    GET: List questions from the subject question table in cheradip_hsc, filtered by topic (and optional chapter).
+    Query params: level_tr, class_level, subject_tr, topic; optional chapter.
+    Returns questions with id, question, option_1..4, answer, chapter_no, chapter, topic, etc. for user to select.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        topic = (request.query_params.get('topic') or '').strip()
+        chapter = (request.query_params.get('chapter') or '').strip()
+        if not level_tr or not class_level or not subject_tr or not topic:
+            return Response({'questions': []}, status=status.HTTP_200_OK)
+        if 'hsc' not in connections:
+            return Response({'questions': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+        conn = connections['hsc']
+        questions = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s",
+                    [table_name]
+                )
+                if not cur.fetchone():
+                    return Response({'questions': []}, status=status.HTTP_200_OK)
+                if chapter:
+                    cur.execute(
+                        "SELECT id, subject, chapter_no, chapter, topic, question, option_1, option_2, option_3, option_4, answer, explanation, type FROM `{}` "
+                        "WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY id".format(table_name),
+                        [topic, chapter, chapter]
+                    )
+                else:
+                    cur.execute(
+                        "SELECT id, subject, chapter_no, chapter, topic, question, option_1, option_2, option_3, option_4, answer, explanation, type FROM `{}` "
+                        "WHERE topic = %s ORDER BY id".format(table_name),
+                        [topic]
+                    )
+                cols = [c[0] for c in cur.description]
+                for row in cur.fetchall():
+                    q = {}
+                    for k, v in zip(cols, row):
+                        q[k] = v.strip() if v is not None and isinstance(v, str) else v
+                    questions.append(q)
+        except Exception as e:
+            logger.exception('QuestionListView: %s', e)
+            return Response({'questions': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'questions': questions}, status=status.HTTP_200_OK)

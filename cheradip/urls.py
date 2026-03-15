@@ -43,6 +43,13 @@ from .views import (
     InstitutesViewSet,
     TokenViewSet,
     InstituteDetailView,
+    QuestionLevelsView,
+    QuestionSubjectsView,
+    QuestionChaptersView,
+    QuestionClassesView,
+    QuestionGroupsView,
+    QuestionTopicsView,
+    QuestionListView,
 )
 
 router = DefaultRouter()
@@ -90,6 +97,13 @@ urlpatterns = [
     path('locations/districts/', LocationDistrictsView.as_view(), name='locations_districts'),
     path('locations/thanas/', LocationThanasView.as_view(), name='locations_thanas'),
     path('institute/', InstituteDetailView.as_view(), name='institute_detail'),
+    path('question_levels/', QuestionLevelsView.as_view(), name='question_levels'),
+    path('question_classes/', QuestionClassesView.as_view(), name='question_classes'),
+    path('question_groups/', QuestionGroupsView.as_view(), name='question_groups'),
+    path('question_subjects/', QuestionSubjectsView.as_view(), name='question_subjects'),
+    path('question_chapters/', QuestionChaptersView.as_view(), name='question_chapters'),
+    path('question_topics/', QuestionTopicsView.as_view(), name='question_topics'),
+    path('question_list/', QuestionListView.as_view(), name='question_list'),
     path('sitemap.xml', views.sitemap_institutes),
     path('sitemap.xsl', views.sitemap_xsl),
     path('sitemap_pages.xml', views.sitemap_pages),
