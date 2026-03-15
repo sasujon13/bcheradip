@@ -7,6 +7,7 @@ from .models import (
     Item,
     Customer,
     CustomerToken,
+    CreatedQuestionSet,
     OrderDetail,
     Transaction,
     Notification,
@@ -48,9 +49,13 @@ try:
     from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
     from reportlab.lib.units import mm as rl_mm
     from reportlab.pdfgen import canvas as pdf_canvas
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
     REPORTLAB_AVAILABLE = True
 except ImportError:
     REPORTLAB_AVAILABLE = False
+    pdfmetrics = None
+    TTFont = None
 
 try:
     from docx import Document as DocxDocument
@@ -1141,6 +1146,44 @@ class CustomerSettingsView(APIView):
         return Response({'settings': current}, status=status.HTTP_200_OK)
 
 
+# Bengali-capable font for PDF (reportlab). Try Windows Vrinda, Nirmala UI, or project fonts.
+_PDF_BENGALI_FONT_REGISTERED = None
+
+def _get_pdf_bengali_font():
+    """Register and return a Bengali-capable font name, or None to use Helvetica."""
+    global _PDF_BENGALI_FONT_REGISTERED
+    if _PDF_BENGALI_FONT_REGISTERED is not None:
+        return _PDF_BENGALI_FONT_REGISTERED
+    if not REPORTLAB_AVAILABLE or pdfmetrics is None or TTFont is None:
+        return None
+    font_name = 'BengaliPDF'
+    paths_to_try = []
+    if hasattr(settings, 'BASE_DIR'):
+        base = getattr(settings, 'BASE_DIR', None)
+        if base:
+            paths_to_try.extend([
+                os.path.join(base, 'cheradip', 'static', 'fonts', 'NotoSansBengali-Regular.ttf'),
+                os.path.join(base, 'static', 'fonts', 'NotoSansBengali-Regular.ttf'),
+            ])
+    windir = os.environ.get('WINDIR', 'C:\\Windows')
+    paths_to_try.extend([
+        os.path.join(windir, 'Fonts', 'vrinda.ttf'),
+        os.path.join(windir, 'Fonts', 'NirmalaUI.ttf'),
+        os.path.join(windir, 'Fonts', 'Nirmala.ttf'),
+    ])
+    for path in paths_to_try:
+        if path and os.path.isfile(path):
+            try:
+                font = TTFont(font_name, path)
+                pdfmetrics.registerFont(font)
+                _PDF_BENGALI_FONT_REGISTERED = font_name
+                return font_name
+            except Exception as e:
+                logger.debug('Could not register PDF font %s: %s', path, e)
+    _PDF_BENGALI_FONT_REGISTERED = False
+    return None
+
+
 # Page size (width_pt, height_pt) for reportlab. 1 inch = 72 pt, 1 mm = 72/25.4 pt.
 def _export_page_size_pt(name):
     from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
@@ -1220,7 +1263,8 @@ class ExportQuestionsView(APIView):
         bottom_effective = margin_bottom * rl_mm
         right = w_pt - (margin_right * rl_mm)
         top_effective = h_pt - (margin_top * rl_mm)
-        c.setFont('Helvetica', 12)
+        pdf_font = _get_pdf_bengali_font() or 'Helvetica'
+        c.setFont(pdf_font, 12)
         y = top_effective
         if question_header:
             c.drawString(left, y, question_header[:200])
@@ -1230,7 +1274,7 @@ class ExportQuestionsView(APIView):
             line = '%s. %s' % (i + 1, qtext[:500])
             if y < bottom_effective + 20:
                 c.showPage()
-                c.setFont('Helvetica', 12)
+                c.setFont(pdf_font, 12)
                 y = top_effective
             c.drawString(left, y, line[:100])
             y -= 14
@@ -1239,7 +1283,7 @@ class ExportQuestionsView(APIView):
             for opt in opts[:4]:
                 if y < bottom_effective + 14:
                     c.showPage()
-                    c.setFont('Helvetica', 12)
+                    c.setFont(pdf_font, 12)
                     y = top_effective
                 c.drawString(left + 20, y, (opt[:80]))
                 y -= 14
@@ -1272,6 +1316,121 @@ class ExportQuestionsView(APIView):
         doc.save(buf)
         buf.seek(0)
         return buf
+
+
+class CreatedQuestionSetListCreateView(APIView):
+    """GET: list current user's created question sets. POST: create one (name, question_header, questions). Counter is per-name: same name gets _1, _2, _3."""
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            qs = CreatedQuestionSet.objects.filter(customer=request.user).order_by('-created_at')
+        except Exception as e:
+            logger.exception('CreatedQuestionSet list failed: %s', e)
+            return Response(
+                {'error': 'Could not load created questions. Run migrations: python manage.py migrate'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        data = []
+        for o in qs:
+            try:
+                created_at = o.created_at.isoformat() if getattr(o, 'created_at', None) else None
+            except Exception:
+                created_at = None
+            data.append({
+                'id': o.id,
+                'name': o.name,
+                'question_header': o.question_header or '',
+                'questions': o.questions if isinstance(o.questions, list) else [],
+                'counter': o.counter,
+                'file_name_base': '%s_%s' % (str(o.name).replace(' ', '_'), o.counter),
+                'created_at': created_at,
+            })
+        return Response(data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        name = (request.data.get('name') or '').strip() or 'questions'
+        name = name[:200]
+        question_header = (request.data.get('question_header') or '')[:255]
+        questions = request.data.get('questions')
+        if not isinstance(questions, list):
+            return Response({'error': 'questions must be a list'}, status=status.HTTP_400_BAD_REQUEST)
+        from django.db.models import Max
+        # Per-name counter: same name gets _1, _2, _3, ...
+        next_counter = (
+            CreatedQuestionSet.objects.filter(customer=request.user, name=name).aggregate(Max('counter'))['counter__max'] or 0
+        ) + 1
+        try:
+            obj = CreatedQuestionSet.objects.create(
+                customer=request.user,
+                name=name,
+                question_header=question_header,
+                questions=questions,
+                counter=next_counter,
+            )
+        except Exception as e:
+            logger.exception('CreatedQuestionSet create failed: %s', e)
+            return Response(
+                {'error': 'Could not save. Run migrations: python manage.py migrate'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        created_at = obj.created_at.isoformat() if getattr(obj, 'created_at', None) else None
+        return Response({
+            'id': obj.id,
+            'name': obj.name,
+            'question_header': obj.question_header,
+            'counter': obj.counter,
+            'file_name_base': '%s_%s' % (obj.name.replace(' ', '_'), obj.counter),
+            'created_at': created_at,
+        }, status=status.HTTP_201_CREATED)
+
+
+class CreatedQuestionSetDetailView(APIView):
+    """GET: one set. PATCH: rename (name). DELETE: remove."""
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def _get_obj(self, request, pk):
+        try:
+            return CreatedQuestionSet.objects.get(pk=pk, customer=request.user)
+        except CreatedQuestionSet.DoesNotExist:
+            return None
+
+    def get(self, request, pk):
+        obj = self._get_obj(request, pk)
+        if not obj:
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({
+            'id': obj.id,
+            'name': obj.name,
+            'question_header': obj.question_header,
+            'questions': obj.questions,
+            'counter': obj.counter,
+            'file_name_base': '%s_%s' % (obj.name.replace(' ', '_'), obj.counter),
+            'created_at': obj.created_at.isoformat() if obj.created_at else None,
+        }, status=status.HTTP_200_OK)
+
+    def patch(self, request, pk):
+        obj = self._get_obj(request, pk)
+        if not obj:
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        new_name = request.data.get('name')
+        if new_name is not None:
+            obj.name = (str(new_name).strip() or obj.name)[:200]
+            obj.save(update_fields=['name'])
+        return Response({
+            'id': obj.id,
+            'name': obj.name,
+            'file_name_base': '%s_%s' % (obj.name.replace(' ', '_'), obj.counter),
+        }, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        obj = self._get_obj(request, pk)
+        if not obj:
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        obj.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class CustomerUpdateView(APIView):

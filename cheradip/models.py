@@ -366,6 +366,26 @@ class CustomerToken(models.Model):
         return f"Token for {self.customer.username}"
 
 
+class CreatedQuestionSet(models.Model):
+    """Saved question set: name + counter (e.g. Subject_Chapter_1_2), question header, and questions JSON. User can rename."""
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='created_question_sets', db_index=True)
+    name = models.CharField(max_length=200, help_text='Display/save name; user can rename')
+    question_header = models.CharField(max_length=255, blank=True)
+    questions = models.JSONField(default=list, help_text='List of question objects {question, option_1, ...}')
+    counter = models.PositiveIntegerField(default=1, help_text='Per-customer sequence for unique filename (name_counter)')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'cheradip_created_question_sets'
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['customer', 'counter']),
+        ]
+
+    def __str__(self):
+        return f"{self.name}_{self.counter} ({self.customer.username})"
+
+
 # ==============================================================================
 # NOTIFICATION & JSON DATA
 # ==============================================================================
