@@ -1,6 +1,7 @@
 r"""
 Load question rows from CSV files into HSC subject question tables (cheradip_hsc).
 
+
 CSV files are named as the table name (e.g. cheradip_higher_secon_11_12_information_and_communication_techno.csv)
 and live under a directory (default: C:\Users\sasha\Desktop\database\insert_daricomma).
 All .csv files in the directory are processed; each file is inserted into the HSC table with the same name as the file (without .csv).
