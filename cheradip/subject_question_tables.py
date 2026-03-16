@@ -11,10 +11,11 @@ MYSQL_MAX_TABLE_NAME_LEN = 64
 
 CREATE_TABLE_SQL = """
 CREATE TABLE IF NOT EXISTS `{table_name}` (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    qid VARCHAR(64) NOT NULL PRIMARY KEY,
     subject VARCHAR(255) NULL,
     chapter_no VARCHAR(50) NULL,
     chapter VARCHAR(255) NULL,
+    topic_no VARCHAR(50) NULL,
     topic VARCHAR(255) NULL,
     question TEXT NULL,
     option_1 VARCHAR(500) NULL,
@@ -104,6 +105,33 @@ def ensure_subject_question_tables(verbose=False, using=None):
             if verbose:
                 print(f'Created {name}')
     return created, len(seen_key)
+
+
+def next_qid_for_chapter_topic(table_name, chapter_no, topic_no, using=None):
+    """
+    Generate next qid for (chapter_no, topic_no) in the given table.
+    Format: chapter_no_topic_no_0001, 0002, 0003, ...
+    chapter_no and topic_no are normalized (e.g. string, no spaces).
+    Returns e.g. '1_1_0001' or '2_3_0042'.
+    """
+    conn = connections[using] if using and using in connections else connection
+    prefix = f"{chapter_no or '0'}_{topic_no or '0'}_"
+    with conn.cursor() as cur:
+        cur.execute(
+            "SELECT qid FROM `{}` WHERE qid LIKE %s ORDER BY qid DESC LIMIT 1".format(table_name.replace('`', '``')),
+            [prefix + '%']
+        )
+        row = cur.fetchone()
+    if not row:
+        return prefix + '0001'
+    last = (row[0] or '').strip()
+    if not last.startswith(prefix):
+        return prefix + '0001'
+    try:
+        seq = int(last[len(prefix):])
+        return prefix + f'{seq + 1:04d}'
+    except (ValueError, TypeError):
+        return prefix + '0001'
 
 
 def drop_subject_question_table_if_unused(level_tr, class_level, subject_translated, using=None):

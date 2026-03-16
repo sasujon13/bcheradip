@@ -8,6 +8,7 @@ from .models import (
     Customer,
     CustomerToken,
     CreatedQuestionSet,
+    PendingQuestion,
     OrderDetail,
     Transaction,
     Notification,
@@ -43,7 +44,7 @@ from django.db.models import Q
 from django.db.models.expressions import RawSQL
 from django.db.utils import ProgrammingError, OperationalError
 
-from .subject_question_tables import subject_question_table_name
+from .subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
 
 try:
     from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
@@ -3919,23 +3920,53 @@ class QuestionTopicsView(APIView):
                 )
                 if not cur.fetchone():
                     return Response({'topics': []}, status=status.HTTP_200_OK)
-                if chapter:
+                cur.execute(
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME = 'topic_no'",
+                    [table_name]
+                )
+                has_topic_no = cur.fetchone() is not None
+                if has_topic_no and chapter:
+                    cur.execute(
+                        "SELECT DISTINCT topic_no, topic FROM `{}` "
+                        "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
+                        "AND (chapter_no = %s OR chapter = %s) ORDER BY topic_no, topic".format(table_name),
+                        [chapter, chapter]
+                    )
+                    for row in cur.fetchall():
+                        tno, t = (row[0] or '').strip(), (row[1] or '').strip()
+                        if t:
+                            topics.append({'id': t, 'name': t, 'topic_no': tno or None})
+                elif has_topic_no:
+                    cur.execute(
+                        "SELECT DISTINCT topic_no, topic FROM `{}` "
+                        "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
+                        "ORDER BY topic_no, topic".format(table_name)
+                    )
+                    for row in cur.fetchall():
+                        tno, t = (row[0] or '').strip(), (row[1] or '').strip()
+                        if t:
+                            topics.append({'id': t, 'name': t, 'topic_no': tno or None})
+                elif chapter:
                     cur.execute(
                         "SELECT DISTINCT topic FROM `{}` "
                         "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
                         "AND (chapter_no = %s OR chapter = %s) ORDER BY topic".format(table_name),
                         [chapter, chapter]
                     )
+                    for row in cur.fetchall():
+                        t = (row[0] or '').strip()
+                        if t:
+                            topics.append({'id': t, 'name': t})
                 else:
                     cur.execute(
                         "SELECT DISTINCT topic FROM `{}` "
                         "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
                         "ORDER BY topic".format(table_name)
                     )
-                for row in cur.fetchall():
-                    t = (row[0] or '').strip()
-                    if t:
-                        topics.append({'id': t, 'name': t})
+                    for row in cur.fetchall():
+                        t = (row[0] or '').strip()
+                        if t:
+                            topics.append({'id': t, 'name': t})
         except Exception as e:
             logger.exception('QuestionTopicsView: %s', e)
             return Response({'topics': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -3972,16 +4003,22 @@ class QuestionListView(APIView):
                 )
                 if not cur.fetchone():
                     return Response({'questions': []}, status=status.HTTP_200_OK)
+                cur.execute(
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no')",
+                    [table_name]
+                )
+                col_set = {r[0] for r in cur.fetchall()}
+                pk_col = 'qid' if 'qid' in col_set else 'id'
+                mid = "chapter_no, chapter, topic_no, topic" if 'topic_no' in col_set else "chapter_no, chapter, topic"
+                select_cols = f"{pk_col}, subject, {mid}, question, option_1, option_2, option_3, option_4, answer, explanation, type"
                 if chapter:
                     cur.execute(
-                        "SELECT id, subject, chapter_no, chapter, topic, question, option_1, option_2, option_3, option_4, answer, explanation, type FROM `{}` "
-                        "WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY id".format(table_name),
+                        "SELECT {} FROM `{}` WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY {}".format(select_cols, table_name, pk_col),
                         [topic, chapter, chapter]
                     )
                 else:
                     cur.execute(
-                        "SELECT id, subject, chapter_no, chapter, topic, question, option_1, option_2, option_3, option_4, answer, explanation, type FROM `{}` "
-                        "WHERE topic = %s ORDER BY id".format(table_name),
+                        "SELECT {} FROM `{}` WHERE topic = %s ORDER BY {}".format(select_cols, table_name, pk_col),
                         [topic]
                     )
                 cols = [c[0] for c in cur.description]
@@ -3994,3 +4031,106 @@ class QuestionListView(APIView):
             logger.exception('QuestionListView: %s', e)
             return Response({'questions': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({'questions': questions}, status=status.HTTP_200_OK)
+
+
+class PendingQuestionSubmitView(APIView):
+    """
+    POST: Submit a new question for approval. Body: level_tr, class_level, subject_tr, chapter_no, chapter,
+    topic_no, topic, question, option_1..4, answer, explanation, type, etc.
+    Creates a PendingQuestion with status=pending. When approved, it will be inserted into the HSC subject
+    question table with qid = chapter_no_topic_no_0001, 0002, ...
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def post(self, request):
+        data = request.data or {}
+        required = ['subject_tr', 'chapter', 'topic', 'question']
+        for k in required:
+            if not (data.get(k) or '').strip():
+                return Response({'error': f'Missing or empty: {k}'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            obj = PendingQuestion.objects.create(
+                level_tr=(data.get('level_tr') or '').strip(),
+                class_level=(data.get('class_level') or '').strip(),
+                subject_tr=(data.get('subject_tr') or '').strip(),
+                chapter_no=(data.get('chapter_no') or '').strip(),
+                chapter=(data.get('chapter') or '').strip(),
+                topic_no=(data.get('topic_no') or '').strip(),
+                topic=(data.get('topic') or '').strip(),
+                question=(data.get('question') or '').strip(),
+                option_1=(data.get('option_1') or '').strip()[:500],
+                option_2=(data.get('option_2') or '').strip()[:500],
+                option_3=(data.get('option_3') or '').strip()[:500],
+                option_4=(data.get('option_4') or '').strip()[:500],
+                answer=(data.get('answer') or '').strip()[:500],
+                explanation=(data.get('explanation') or '')[:50000],
+                explanation2=(data.get('explanation2') or '')[:50000],
+                explanation3=(data.get('explanation3') or '')[:50000],
+                type=(data.get('type') or '').strip()[:100],
+                status=PendingQuestion.STATUS_PENDING,
+            )
+            return Response({'id': obj.id, 'status': obj.status, 'message': 'Question submitted for approval.'}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            logger.exception('PendingQuestionSubmitView: %s', e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class PendingQuestionApproveView(APIView):
+    """
+    POST: Approve a pending question by id. Inserts it into the HSC subject question table with generated qid
+    (chapter_no_topic_no_0001, ...) at the last position under that topic, then marks the PendingQuestion as approved.
+    Body: id (required). Optional: approved_by for logging.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def post(self, request):
+        pk = request.data.get('id') or request.query_params.get('id')
+        if pk is None:
+            return Response({'error': 'id is required'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            pending = PendingQuestion.objects.get(pk=pk, status=PendingQuestion.STATUS_PENDING)
+        except PendingQuestion.DoesNotExist:
+            return Response({'error': 'Pending question not found or already processed'}, status=status.HTTP_404_NOT_FOUND)
+        if 'hsc' not in connections:
+            return Response({'error': 'HSC database not configured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        table_name = subject_question_table_name(
+            pending.level_tr or '',
+            pending.class_level or '',
+            pending.subject_tr or ''
+        )
+        qid = next_qid_for_chapter_topic(
+            table_name,
+            pending.chapter_no or '0',
+            pending.topic_no or '0',
+            using='hsc'
+        )
+        conn = connections['hsc']
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s",
+                    [table_name]
+                )
+                if not cur.fetchone():
+                    return Response({'error': f'Subject question table not found: {table_name}'}, status=status.HTTP_404_NOT_FOUND)
+                cur.execute(
+                    """INSERT INTO `{}` (qid, subject, chapter_no, chapter, topic_no, topic, question, option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3, type, created_at, updated_at, updated_by)
+                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(6), NOW(6), %s)""".format(table_name),
+                    [
+                        qid, pending.subject_tr, pending.chapter_no or None, pending.chapter, pending.topic_no or None, pending.topic,
+                        pending.question, pending.option_1 or None, pending.option_2 or None, pending.option_3 or None, pending.option_4 or None,
+                        pending.answer or None, pending.explanation or None, pending.explanation2 or None, pending.explanation3 or None,
+                        pending.type or None, request.data.get('approved_by') or ''
+                    ]
+                )
+        except Exception as e:
+            logger.exception('PendingQuestionApproveView insert: %s', e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        from django.utils import timezone
+        pending.status = PendingQuestion.STATUS_APPROVED
+        pending.approved_at = timezone.now()
+        pending.approved_qid = qid
+        pending.save(update_fields=['status', 'approved_at', 'approved_qid'])
+        return Response({'qid': qid, 'message': 'Question approved and added.'}, status=status.HTTP_200_OK)

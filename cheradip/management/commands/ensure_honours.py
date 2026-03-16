@@ -2,10 +2,11 @@
 Retrieve all unique book_tr from cheradip_subject in cheradip_honours
 and create one question table per book_tr (same structure as subject question tables in cheradip_hsc).
 
-Ensures cheradip_subject and cheradip_pending_subject_request_honours exist in cheradip_honours first (creates if missing).
+On every run: check if tables exist; first alter cheradip_pending_subject_request_honours to
+cheradip_pending_subject_request when the old table exists and the new one does not; then
+create only missing tables (cheradip_subject, cheradip_pending_subject_request, cheradip_pending_question_request, and book question tables).
 
-Table names: cheradip_honours_{slug(book_tr)} (e.g. cheradip_honours_ict).
-Structure: id, subject, chapter_no, chapter, topic, question, option_1..4, answer, explanation, etc.
+Table names: cheradip_honours_{slug(book_tr)} (e.g. cheradip_honours_ict). Structure: qid PK, topic_no, etc.
 
 Run:
   python manage.py ensure_honours
@@ -41,12 +42,14 @@ CREATE TABLE IF NOT EXISTS cheradip_subject (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 """
 
-# Honours: cheradip_pending_subject_request_honours (degree_type; no level_tr/class_level)
-CREATE_PENDING_SUBJECT_REQUEST_HONOURS = """
-CREATE TABLE IF NOT EXISTS cheradip_pending_subject_request_honours (
+# Honours: cheradip_pending_subject_request (unified name; was cheradip_pending_subject_request_honours)
+CREATE_PENDING_SUBJECT_REQUEST = """
+CREATE TABLE IF NOT EXISTS cheradip_pending_subject_request (
     id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     subject_name VARCHAR(255) NOT NULL,
     subject_tr VARCHAR(255) NOT NULL,
+    level_tr VARCHAR(100) NULL,
+    class_level VARCHAR(50) NULL,
     degree_type VARCHAR(50) NULL,
     country_id VARCHAR(2) NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'pending',
@@ -59,13 +62,43 @@ CREATE TABLE IF NOT EXISTS cheradip_pending_subject_request_honours (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 """
 
-# Same structure as subject question tables (cheradip_hsc / default)
+# Honours: cheradip_pending_question_request (pending questions for honours; approved get qid in book question tables)
+CREATE_PENDING_QUESTION_REQUEST = """
+CREATE TABLE IF NOT EXISTS cheradip_pending_question_request (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    level_tr VARCHAR(100) NULL,
+    class_level VARCHAR(50) NULL,
+    subject_tr VARCHAR(255) NOT NULL,
+    chapter_no VARCHAR(50) NULL,
+    chapter VARCHAR(255) NOT NULL,
+    topic_no VARCHAR(50) NULL,
+    topic VARCHAR(255) NOT NULL,
+    question TEXT NOT NULL,
+    option_1 VARCHAR(500) NULL,
+    option_2 VARCHAR(500) NULL,
+    option_3 VARCHAR(500) NULL,
+    option_4 VARCHAR(500) NULL,
+    answer VARCHAR(500) NULL,
+    explanation TEXT NULL,
+    explanation2 TEXT NULL,
+    explanation3 TEXT NULL,
+    type VARCHAR(100) NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    created_at DATETIME(6) NULL,
+    approved_at DATETIME(6) NULL,
+    approved_qid VARCHAR(64) NULL,
+    INDEX (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+"""
+
+# Same structure as subject question tables (cheradip_hsc): qid PK, topic_no
 CREATE_TABLE_SQL = """
 CREATE TABLE IF NOT EXISTS `{table_name}` (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    qid VARCHAR(64) NOT NULL PRIMARY KEY,
     subject VARCHAR(255) NULL,
     chapter_no VARCHAR(50) NULL,
     chapter VARCHAR(255) NULL,
+    topic_no VARCHAR(50) NULL,
     topic VARCHAR(255) NULL,
     question TEXT NULL,
     option_1 VARCHAR(500) NULL,
@@ -82,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `{table_name}` (
     created_at DATETIME(6) NULL,
     updated_at DATETIME(6) NULL,
     updated_by VARCHAR(255) NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 """
 
 
@@ -115,8 +148,23 @@ def ensure_honours_sync():
     conn = connections['honours']
     db_name = conn.settings_dict['NAME']
     with conn.cursor() as cur:
+        # First: alter/rename old table to cheradip_pending_subject_request when applicable
+        cur.execute(
+            "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+            [db_name, 'cheradip_pending_subject_request_honours']
+        )
+        has_old = cur.fetchone()
+        cur.execute(
+            "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+            [db_name, 'cheradip_pending_subject_request']
+        )
+        has_new = cur.fetchone()
+        if has_old and not has_new:
+            cur.execute("RENAME TABLE cheradip_pending_subject_request_honours TO cheradip_pending_subject_request")
+        # Then: create only missing tables
         cur.execute(CREATE_CHERADIP_SUBJECT_HONOURS)
-        cur.execute(CREATE_PENDING_SUBJECT_REQUEST_HONOURS)
+        cur.execute(CREATE_PENDING_SUBJECT_REQUEST)
+        cur.execute(CREATE_PENDING_QUESTION_REQUEST)
     # Ensure book_tr / book_name columns exist (e.g. table created by older migration)
     with conn.cursor() as cur:
         cur.execute(
@@ -172,12 +220,25 @@ class Command(BaseCommand):
         conn = connections['honours']
         db_name = conn.settings_dict['NAME']
 
-        # Ensure base tables exist in cheradip_honours (create if missing)
+        # On every run: first alter/rename old table to cheradip_pending_subject_request when applicable; then create only missing tables
         with conn.cursor() as cur:
+            cur.execute(
+                "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+                [db_name, 'cheradip_pending_subject_request_honours']
+            )
+            has_old = cur.fetchone()
+            cur.execute(
+                "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+                [db_name, 'cheradip_pending_subject_request']
+            )
+            has_new = cur.fetchone()
+            if has_old and not has_new:
+                cur.execute("RENAME TABLE cheradip_pending_subject_request_honours TO cheradip_pending_subject_request")
             cur.execute(CREATE_CHERADIP_SUBJECT_HONOURS)
-            cur.execute(CREATE_PENDING_SUBJECT_REQUEST_HONOURS)
+            cur.execute(CREATE_PENDING_SUBJECT_REQUEST)
+            cur.execute(CREATE_PENDING_QUESTION_REQUEST)
         if not dry_run:
-            self.stdout.write('Ensured cheradip_subject and cheradip_pending_subject_request_honours exist in honours.')
+            self.stdout.write('Ensured cheradip_subject, cheradip_pending_subject_request, and cheradip_pending_question_request exist in honours.')
 
         with conn.cursor() as cur:
             cur.execute(

@@ -19,12 +19,15 @@ So **migrate creates more tables than the ones your commands "ensure"** — it c
 |--------|----------|----------------------------|
 | **ensure_cheradip** | default | cheradip_country, cheradip_location, cheradip_customers, cheradip_items, cheradip_transactions, cheradip_order*, cheradip_ordered*, cheradip_canceled*, cheradip_customer_tokens, django_*, auth_* |
 | **ensure_job** | job | cheradip_banbeis, cheradip_institutes, cheradip_merit5/6/7, cheradip_recommend5/6/7, cheradip_tokens, cheradip_vacancy5/6/7 |
-| **ensure_hsc** | hsc | cheradip_subject, cheradip_pending_subject_request_hsc (+ dynamic subject question tables via SQL) |
-| **ensure_honours** | honours | cheradip_subject, cheradip_pending_subject_request_honours (+ dynamic book question tables via SQL) |
+| **ensure_hsc** | hsc | cheradip_pending_question_request, cheradip_pending_subject_request (renamed from _hsc), cheradip_subject (+ dynamic subject question tables via SQL; schema: **qid** PK, **topic_no**) |
+| **ensure_honours** | honours | cheradip_pending_question_request, cheradip_pending_subject_request (renamed from _honours), cheradip_subject (+ dynamic book question tables via SQL; same schema: **qid** PK, **topic_no**) |
 | **drop_cheradip_tables_except_…** | default | Keeps only: cheradip_location, cheradip_customers, cheradip_country |
 
 So:
-- **ensure_cheradip** targets country, location, customer **and** order/payment tables.
+- **ensure_cheradip** targets country, location, customer **and** order/payment tables (default DB only).
+- **ensure_job** creates NTRCA/job tables on cheradip_job.
+- **ensure_hsc** creates cheradip_pending_question_request, cheradip_pending_subject_request (renaming from cheradip_pending_subject_request_hsc if present), cheradip_subject, then one subject question table per (class_level, subject_tr) with **qid** PK and **topic_no** (subject_question_tables.py).
+- **ensure_honours** creates cheradip_pending_question_request, cheradip_pending_subject_request (renaming from cheradip_pending_subject_request_honours if present), cheradip_subject, then one book question table per book_tr with the same **qid** + **topic_no** schema (ensure_honours.py).
 - **drop_*** keeps only country, location, customer on default.
 
 ### Required tables on cheradip_cheradip (default)
@@ -43,8 +46,8 @@ So the targeted set for default DB is: country, location, customer, items, trans
 
 - **Default DB:** Country→cheradip_country, Location→cheradip_location, Customer→cheradip_customers, Item→cheradip_items, Transaction→cheradip_transactions, OrderDetail→cheradip_orderdetail, Order→cheradip_order, Ordered→cheradip_ordered, Canceled→cheradip_canceled, CustomerToken→cheradip_customer_tokens, Group→cheradip_groups, ClassLevel→cheradip_class_levels, Department→cheradip_departments, ClassGroupMapping→cheradip_class_group_mappings, Chapter→cheradip_chapters, Topic→cheradip_topics, Institute→cheradip_institute, Year→cheradip_years, Mcq_ict→cheradip_mcq_ict, Notification→cheradip_notification, JsonData→cheradip_json_data, PendingSubjectRequest→cheradip_pending_subject_request (default DB).
 - **Job DB:** Banbeis→cheradip_banbeis, Institutes→cheradip_institutes, Token→cheradip_tokens, Merit→cheradip_merit7, Merit5→cheradip_merit5, Merit6→cheradip_merit6, Vacancy→cheradip_vacancy7, Vacancy5→cheradip_vacancy5, Vacancy6→cheradip_vacancy6, Recommend→cheradip_recommend7, Recommend5→cheradip_recommend5, Recommend6→cheradip_recommend6.
-- **HSC:** Subject→cheradip_subject, PendingSubjectRequestHsc→cheradip_pending_subject_request_hsc.
-- **Honours:** PendingSubjectRequestHonours→cheradip_pending_subject_request_honours.
+- **HSC:** Subject→cheradip_subject, PendingSubjectRequestHsc→cheradip_pending_subject_request (ensure_hsc creates/renames to this). Pending questions: cheradip_pending_question_request (ensure_hsc creates it).
+- **Honours:** PendingSubjectRequestHonours→cheradip_pending_subject_request (ensure_honours creates/renames to this). Pending questions: cheradip_pending_question_request (ensure_honours creates it).
 - **SubjectQuestionBase** is abstract (no table).
 
 ---
@@ -64,4 +67,4 @@ To avoid "table already exists" and regenerate from scratch on **cheradip_cherad
 3. **Makemigrations:** `python manage.py makemigrations cheradip`
 4. **Migrate:** `python manage.py migrate`
 
-The three PendingSubjectRequest models use **distinct table names** (cheradip_pending_subject_request, cheradip_pending_subject_request_hsc, cheradip_pending_subject_request_honours), so migrate will not hit "table already exists" for that table. You must drop all tables on the default DB before migrating if it already has any of these tables.
+On **default** DB, PendingSubjectRequest→cheradip_pending_subject_request. On **hsc** and **honours**, ensure_hsc / ensure_honours create the table **cheradip_pending_subject_request** (and rename from _hsc / _honours if those old tables exist). You must drop all tables on the default DB before migrating if it already has that table.

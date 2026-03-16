@@ -386,6 +386,43 @@ class CreatedQuestionSet(models.Model):
         return f"{self.name}_{self.counter} ({self.customer.username})"
 
 
+class PendingQuestion(models.Model):
+    """User-submitted question; pending until approved, then inserted into HSC subject question table with qid."""
+    STATUS_PENDING = 'pending'
+    STATUS_APPROVED = 'approved'
+    STATUS_REJECTED = 'rejected'
+    STATUS_CHOICES = [(STATUS_PENDING, 'Pending'), (STATUS_APPROVED, 'Approved'), (STATUS_REJECTED, 'Rejected')]
+
+    level_tr = models.CharField(max_length=100, blank=True)
+    class_level = models.CharField(max_length=50, blank=True)
+    subject_tr = models.CharField(max_length=255)
+    chapter_no = models.CharField(max_length=50, blank=True)
+    chapter = models.CharField(max_length=255)
+    topic_no = models.CharField(max_length=50, blank=True)
+    topic = models.CharField(max_length=255)
+    question = models.TextField()
+    option_1 = models.CharField(max_length=500, blank=True)
+    option_2 = models.CharField(max_length=500, blank=True)
+    option_3 = models.CharField(max_length=500, blank=True)
+    option_4 = models.CharField(max_length=500, blank=True)
+    answer = models.CharField(max_length=500, blank=True)
+    explanation = models.TextField(blank=True)
+    explanation2 = models.TextField(blank=True)
+    explanation3 = models.TextField(blank=True)
+    type = models.CharField(max_length=100, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    approved_at = models.DateTimeField(null=True, blank=True)
+    approved_qid = models.CharField(max_length=64, blank=True, help_text='qid assigned when approved')
+
+    class Meta:
+        db_table = 'cheradip_pending_questions'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"PendingQuestion {self.id} ({self.subject_tr} / {self.chapter} / {self.topic})"
+
+
 # ==============================================================================
 # NOTIFICATION & JSON DATA
 # ==============================================================================
