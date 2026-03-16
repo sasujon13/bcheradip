@@ -21,13 +21,17 @@ So **migrate creates more tables than the ones your commands "ensure"** — it c
 | **ensure_job** | job | cheradip_banbeis, cheradip_institutes, cheradip_merit5/6/7, cheradip_recommend5/6/7, cheradip_tokens, cheradip_vacancy5/6/7 |
 | **ensure_hsc** | hsc | cheradip_pending_question_request, cheradip_pending_subject_request (renamed from _hsc), cheradip_subject (+ dynamic subject question tables via SQL; schema: **qid** PK, **topic_no**) |
 | **ensure_honours** | honours | cheradip_pending_question_request, cheradip_pending_subject_request (renamed from _honours), cheradip_subject (+ dynamic book question tables via SQL; same schema: **qid** PK, **topic_no**) |
+| **ensure_insertion** | hsc | Reads SQL file (default: cheradip/sql/cheradip_higher_secon_11_12_information_and_communication_techno.sql), adds topic_no and qid (empty in file), replaces Bengali chapter_no with English, then inserts into the table with auto-generated qid and topic_no. |
 | **drop_cheradip_tables_except_…** | default | Keeps only: cheradip_location, cheradip_customers, cheradip_country |
+
+**topic_no and qid** are never inserted by the user from the frontend; they are set automatically on insert (e.g. by ensure_insertion or approve flow), or via database/CSV/MySQL.
 
 So:
 - **ensure_cheradip** targets country, location, customer **and** order/payment tables (default DB only).
 - **ensure_job** creates NTRCA/job tables on cheradip_job.
 - **ensure_hsc** creates cheradip_pending_question_request, cheradip_pending_subject_request (renaming from cheradip_pending_subject_request_hsc if present), cheradip_subject, then one subject question table per (class_level, subject_tr) with **qid** PK and **topic_no** (subject_question_tables.py).
 - **ensure_honours** creates cheradip_pending_question_request, cheradip_pending_subject_request (renaming from cheradip_pending_subject_request_honours if present), cheradip_subject, then one book question table per book_tr with the same **qid** + **topic_no** schema (ensure_honours.py).
+- **ensure_insertion** updates the SQL file (add topic_no, qid with empty values; replace Bengali digits in chapter_no with English), then inserts into the given HSC subject question table with auto-generated **qid** and **topic_no** (same logic as migrate_question_tables_qid).
 - **drop_*** keeps only country, location, customer on default.
 
 ### Required tables on cheradip_cheradip (default)
