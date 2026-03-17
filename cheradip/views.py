@@ -3973,6 +3973,43 @@ class QuestionTopicsView(APIView):
         return Response({'topics': topics}, status=status.HTTP_200_OK)
 
 
+class CheradipSourceListView(APIView):
+    """
+    GET: List institutes from cheradip_source (institute_code, institute_name, institute_type).
+    Reads from HSC database. Used by More Filters to show institute_type dropdown and filter sources.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        if 'hsc' not in connections:
+            return Response({'sources': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        db_name = conn.settings_dict.get('NAME', '')
+        sources = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+                    [db_name, 'cheradip_source']
+                )
+                if not cur.fetchone():
+                    return Response({'sources': []}, status=status.HTTP_200_OK)
+                cur.execute(
+                    "SELECT institute_code, institute_name, institute_type FROM cheradip_source ORDER BY institute_type, institute_code"
+                )
+                for row in cur.fetchall():
+                    sources.append({
+                        'institute_code': row[0].strip() if row[0] else '',
+                        'institute_name': row[1].strip() if row[1] else '',
+                        'institute_type': row[2].strip() if row[2] else '',
+                    })
+        except Exception as e:
+            logger.exception('CheradipSourceListView: %s', e)
+            return Response({'sources': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'sources': sources}, status=status.HTTP_200_OK)
+
+
 class QuestionListView(APIView):
     """
     GET: List questions from the subject question table in cheradip_hsc, filtered by topic (and optional chapter).
