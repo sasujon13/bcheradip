@@ -4004,13 +4004,14 @@ class QuestionListView(APIView):
                 if not cur.fetchone():
                     return Response({'questions': []}, status=status.HTTP_200_OK)
                 cur.execute(
-                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no')",
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no', 'subsource')",
                     [table_name]
                 )
                 col_set = {r[0] for r in cur.fetchall()}
                 pk_col = 'qid' if 'qid' in col_set else 'id'
                 mid = "chapter_no, chapter, topic_no, topic" if 'topic_no' in col_set else "chapter_no, chapter, topic"
-                select_cols = f"{pk_col}, subject, {mid}, question, option_1, option_2, option_3, option_4, answer, explanation, type"
+                subsource_col = ", subsource" if 'subsource' in col_set else ""
+                select_cols = f"{pk_col}, subject, {mid}, question, option_1, option_2, option_3, option_4, answer, explanation, type{subsource_col}"
                 if chapter:
                     cur.execute(
                         "SELECT {} FROM `{}` WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY {}".format(select_cols, table_name, pk_col),
