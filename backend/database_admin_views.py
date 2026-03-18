@@ -389,6 +389,79 @@ def database_tables(request, db_alias):
 PAGE_SIZE = 50
 
 
+def _settings_filter_options(conn, db_alias):
+    """Get level, class, subject (and optionally chapter, topic) options for Settings form. Uses cheradip_subject; for chapters/topics requires subject table."""
+    levels, class_levels, subjects, chapters, topics = [], [], [], [], []
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'cheradip_subject'"
+            )
+            if not cur.fetchone():
+                return levels, class_levels, subjects, chapters, topics
+            cur.execute(
+                "SELECT DISTINCT level_tr FROM cheradip_subject WHERE level_tr IS NOT NULL AND TRIM(COALESCE(level_tr, '')) != '' ORDER BY level_tr"
+            )
+            levels = [str(r[0]).strip() for r in cur.fetchall() if r[0]]
+            cur.execute(
+                "SELECT DISTINCT class_level FROM cheradip_subject WHERE class_level IS NOT NULL AND TRIM(COALESCE(class_level, '')) != '' ORDER BY class_level"
+            )
+            class_levels = [str(r[0]).strip() for r in cur.fetchall() if r[0]]
+            cur.execute(
+                "SELECT DISTINCT subject_tr FROM cheradip_subject WHERE subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' ORDER BY subject_tr"
+            )
+            subjects = [str(r[0]).strip() for r in cur.fetchall() if r[0]]
+    except Exception:
+        pass
+    return levels, class_levels, subjects, chapters, topics
+
+
+@staff_member_required
+def database_settings(request, db_alias):
+    """Settings page: Create Exam / Add Exam with optional filters. Same tab row as database_tables."""
+    if db_alias not in connections:
+        return HttpResponseNotFound('Unknown database alias: %s' % db_alias)
+    conn = connections[db_alias]
+    db_tabs = build_db_tabs_for_index(active_alias=db_alias, use_databases_path=True, settings_active=True)
+    levels, class_levels, subjects, chapters, topics = _settings_filter_options(conn, db_alias)
+    filters = {
+        'level_tr': request.GET.get('level_tr') or request.POST.get('level_tr') or '',
+        'class_level': request.GET.get('class_level') or request.POST.get('class_level') or '',
+        'group': request.GET.get('group') or request.POST.get('group') or '',
+        'subject_tr': request.GET.get('subject_tr') or request.POST.get('subject_tr') or '',
+        'chapter': request.GET.get('chapter') or request.POST.get('chapter') or '',
+        'topic': request.GET.get('topic') or request.POST.get('topic') or '',
+    }
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action in ('create_exam', 'add_exam'):
+            try:
+                from cheradip.exam_actions import run_create_exam, run_add_exam
+                if action == 'create_exam':
+                    result = run_create_exam(db_alias, filters)
+                else:
+                    result = run_add_exam(db_alias, filters)
+                messages.success(request, result.get('message', 'Done.'))
+            except Exception as e:
+                messages.error(request, 'Action failed: %s' % str(e))
+            return redirect('admin:database_settings', db_alias=db_alias)
+    context = {
+        **admin.site.each_context(request),
+        'title': admin.site.index_title,
+        'subtitle': None,
+        'db_tabs': db_tabs,
+        'current_db': db_alias,
+        'levels': levels,
+        'class_levels': class_levels,
+        'subjects': subjects,
+        'chapters': chapters,
+        'topics': topics,
+        'filters': filters,
+    }
+    request.current_app = admin.site.name
+    return TemplateResponse(request, 'admin/database_settings.html', context)
+
+
 @staff_member_required
 def database_table_data(request, db_alias, table_name):
     """Browse rows, add row, delete selected, bulk import CSV/JSON."""

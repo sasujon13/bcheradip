@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS cheradip_subject (
     book_name VARCHAR(255) NULL,
     book_tr VARCHAR(255) NULL,
     sq INT NOT NULL DEFAULT 30,
+    ChapterQ VARCHAR(1000) NULL COMMENT 'JSON: chapter-based exam set qids',
+    SubjectQ VARCHAR(1000) NULL COMMENT 'JSON: subject-based exam set qids',
     created_at DATETIME(6) NULL,
     updated_at DATETIME(6) NULL,
     UNIQUE KEY (subject_code),
@@ -120,6 +122,23 @@ CREATE TABLE IF NOT EXISTS `{table_name}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 """
 
+CREATE_CHERADIP_EXAM_SET = """
+CREATE TABLE IF NOT EXISTS cheradip_exam_set (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    db_alias VARCHAR(32) NOT NULL DEFAULT 'honours',
+    level_tr VARCHAR(100) NULL,
+    class_level VARCHAR(50) NULL,
+    subject_tr VARCHAR(255) NULL,
+    exam_type VARCHAR(32) NOT NULL,
+    set_key VARCHAR(128) NOT NULL,
+    name_label VARCHAR(255) NULL,
+    qids_json LONGTEXT NULL,
+    created_at DATETIME(6) NULL,
+    INDEX (db_alias, level_tr, class_level, subject_tr, exam_type),
+    INDEX (set_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+"""
+
 
 def _slug(s):
     if not s or not isinstance(s, str):
@@ -167,6 +186,7 @@ def ensure_honours_sync():
         cur.execute(CREATE_CHERADIP_SUBJECT_HONOURS)
         cur.execute(CREATE_PENDING_SUBJECT_REQUEST)
         cur.execute(CREATE_PENDING_QUESTION_REQUEST)
+        cur.execute(CREATE_CHERADIP_EXAM_SET)
         cur.execute(
             "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'",
             [db_name]
@@ -179,11 +199,11 @@ def ensure_honours_sync():
     # Ensure book_tr / book_name / sq columns exist (e.g. table created by older migration)
     with conn.cursor() as cur:
         cur.execute(
-            "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND COLUMN_NAME IN ('book_tr', 'book_name', 'sq')",
+            "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND COLUMN_NAME IN ('book_tr', 'book_name', 'sq', 'ChapterQ', 'SubjectQ')",
             [db_name]
         )
         have = {row[0] for row in cur.fetchall()}
-        for col, defn in (('book_name', 'VARCHAR(255) NULL'), ('book_tr', 'VARCHAR(255) NULL'), ('sq', 'INT NOT NULL DEFAULT 30')):
+        for col, defn in (('book_name', 'VARCHAR(255) NULL'), ('book_tr', 'VARCHAR(255) NULL'), ('sq', 'INT NOT NULL DEFAULT 30'), ('ChapterQ', 'VARCHAR(1000) NULL'), ('SubjectQ', 'VARCHAR(1000) NULL')):
             if col not in have:
                 try:
                     with conn.cursor() as c2:
@@ -248,6 +268,7 @@ class Command(BaseCommand):
             cur.execute(CREATE_CHERADIP_SUBJECT_HONOURS)
             cur.execute(CREATE_PENDING_SUBJECT_REQUEST)
             cur.execute(CREATE_PENDING_QUESTION_REQUEST)
+            cur.execute(CREATE_CHERADIP_EXAM_SET)
             cur.execute(
                 "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'",
                 [db_name]
@@ -261,11 +282,11 @@ class Command(BaseCommand):
         if not dry_run:
             with conn.cursor() as cur:
                 cur.execute(
-                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND COLUMN_NAME IN ('book_tr', 'book_name', 'sq')",
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND COLUMN_NAME IN ('book_tr', 'book_name', 'sq', 'ChapterQ', 'SubjectQ')",
                     [db_name]
                 )
                 have = {row[0] for row in cur.fetchall()}
-                for col, defn in (('book_name', 'VARCHAR(255) NULL'), ('book_tr', 'VARCHAR(255) NULL'), ('sq', 'INT NOT NULL DEFAULT 30')):
+                for col, defn in (('book_name', 'VARCHAR(255) NULL'), ('book_tr', 'VARCHAR(255) NULL'), ('sq', 'INT NOT NULL DEFAULT 30'), ('ChapterQ', 'VARCHAR(1000) NULL'), ('SubjectQ', 'VARCHAR(1000) NULL')):
                     if col not in have:
                         try:
                             cur.execute("ALTER TABLE cheradip_subject ADD COLUMN %s %s" % (col, defn))

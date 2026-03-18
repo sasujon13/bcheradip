@@ -3785,20 +3785,31 @@ class QuestionSubjectsView(APIView):
         subjects = []
         try:
             with conn.cursor() as cur:
-                sql = (
-                    "SELECT DISTINCT level_tr, class_level, subject_tr FROM cheradip_subject "
-                    "WHERE level_tr = %s AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' "
+                cur.execute(
+                    "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_subject' AND column_name = 'sq'"
                 )
+                has_sq = cur.fetchone() is not None
+                if has_sq:
+                    sql = (
+                        "SELECT level_tr, class_level, subject_tr, COALESCE(MAX(sq), 30) AS sq FROM cheradip_subject "
+                        "WHERE level_tr = %s AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' "
+                    )
+                else:
+                    sql = (
+                        "SELECT level_tr, class_level, subject_tr FROM cheradip_subject "
+                        "WHERE level_tr = %s AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' "
+                    )
                 params = [level_tr]
                 if class_level:
                     sql += " AND class_level = %s "
                     params.append(class_level)
-                sql += " ORDER BY subject_tr "
+                sql += " GROUP BY level_tr, class_level, subject_tr ORDER BY subject_tr " if has_sq else " ORDER BY subject_tr "
                 cur.execute(sql, params)
                 for row in cur.fetchall():
                     lt = (row[0] or '').strip()
                     cl = (row[1] or '').strip()
                     st = (row[2] or '').strip()
+                    sq_val = row[3] if has_sq and len(row) > 3 and row[3] is not None else 30
                     if not st:
                         continue
                     if group:
@@ -3810,6 +3821,7 @@ class QuestionSubjectsView(APIView):
                         'subject_tr': st,
                         'id': st,
                         'name': st,
+                        'sq': int(sq_val) if sq_val is not None else 30,
                     })
                 if group:
                     # Filter by group: groups column is JSON array; include subject only if selected group is in that array
@@ -3836,6 +3848,57 @@ class QuestionSubjectsView(APIView):
             logger.exception('QuestionSubjectsView: %s', e)
             return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({'subjects': subjects}, status=status.HTTP_200_OK)
+
+
+class ExamSetListView(APIView):
+    """
+    GET: List exam sets from cheradip_exam_set (hsc) for regularexam page.
+    Query params: level_tr, class_level, subject_tr (optional). Returns id, exam_type, set_key, name_label only (no qids).
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        if 'hsc' not in connections:
+            return Response({'exam_sets': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        exam_sets = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'cheradip_exam_set'"
+                )
+                if not cur.fetchone():
+                    return Response({'exam_sets': []}, status=status.HTTP_200_OK)
+                sql = (
+                    "SELECT id, exam_type, set_key, name_label FROM cheradip_exam_set WHERE db_alias = 'hsc' "
+                )
+                params = []
+                if level_tr:
+                    sql += " AND level_tr = %s "
+                    params.append(level_tr)
+                if class_level:
+                    sql += " AND class_level = %s "
+                    params.append(class_level)
+                if subject_tr:
+                    sql += " AND subject_tr = %s "
+                    params.append(subject_tr)
+                sql += " ORDER BY exam_type, set_key "
+                cur.execute(sql, params)
+                for row in cur.fetchall() or []:
+                    exam_sets.append({
+                        'id': row[0],
+                        'exam_type': row[1] or '',
+                        'set_key': row[2] or '',
+                        'name_label': row[3] or '',
+                    })
+        except Exception as e:
+            logger.exception('ExamSetListView: %s', e)
+            return Response({'exam_sets': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'exam_sets': exam_sets}, status=status.HTTP_200_OK)
 
 
 class QuestionChaptersView(APIView):
@@ -3925,11 +3988,39 @@ class QuestionTopicsView(APIView):
                     [table_name]
                 )
                 has_topic_no = cur.fetchone() is not None
-                if has_topic_no and chapter:
+                cur.execute(
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME = 'chapter_no'",
+                    [table_name]
+                )
+                has_chapter_no = cur.fetchone() is not None
+                if has_topic_no and has_chapter_no and chapter:
+                    cur.execute(
+                        "SELECT DISTINCT chapter_no, topic_no, topic FROM `{}` "
+                        "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
+                        "AND (chapter_no = %s OR chapter = %s) "
+                        "ORDER BY CAST(COALESCE(NULLIF(TRIM(chapter_no), ''), '0') AS UNSIGNED), CAST(COALESCE(NULLIF(TRIM(topic_no), ''), '0') AS UNSIGNED), topic".format(table_name),
+                        [chapter, chapter]
+                    )
+                    for row in cur.fetchall():
+                        ch_no, tno, t = (row[0] or '').strip(), (row[1] or '').strip(), (row[2] or '').strip()
+                        if t:
+                            topics.append({'id': t, 'name': t, 'topic_no': tno or None, 'chapter_no': ch_no or None})
+                elif has_topic_no and has_chapter_no:
+                    cur.execute(
+                        "SELECT DISTINCT chapter_no, topic_no, topic FROM `{}` "
+                        "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
+                        "ORDER BY CAST(COALESCE(NULLIF(TRIM(chapter_no), ''), '0') AS UNSIGNED), CAST(COALESCE(NULLIF(TRIM(topic_no), ''), '0') AS UNSIGNED), topic".format(table_name)
+                    )
+                    for row in cur.fetchall():
+                        ch_no, tno, t = (row[0] or '').strip(), (row[1] or '').strip(), (row[2] or '').strip()
+                        if t:
+                            topics.append({'id': t, 'name': t, 'topic_no': tno or None, 'chapter_no': ch_no or None})
+                elif has_topic_no and chapter:
                     cur.execute(
                         "SELECT DISTINCT topic_no, topic FROM `{}` "
                         "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
-                        "AND (chapter_no = %s OR chapter = %s) ORDER BY topic_no, topic".format(table_name),
+                        "AND (chapter_no = %s OR chapter = %s) "
+                        "ORDER BY CAST(COALESCE(NULLIF(TRIM(topic_no), ''), '0') AS UNSIGNED), topic_no, topic".format(table_name),
                         [chapter, chapter]
                     )
                     for row in cur.fetchall():
@@ -3940,7 +4031,7 @@ class QuestionTopicsView(APIView):
                     cur.execute(
                         "SELECT DISTINCT topic_no, topic FROM `{}` "
                         "WHERE topic IS NOT NULL AND TRIM(COALESCE(topic, '')) != '' "
-                        "ORDER BY topic_no, topic".format(table_name)
+                        "ORDER BY CAST(COALESCE(NULLIF(TRIM(topic_no), ''), '0') AS UNSIGNED), topic_no, topic".format(table_name)
                     )
                     for row in cur.fetchall():
                         tno, t = (row[0] or '').strip(), (row[1] or '').strip()

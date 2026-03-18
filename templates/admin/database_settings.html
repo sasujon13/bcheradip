@@ -1,0 +1,746 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  nav[aria-label="Breadcrumbs"], .breadcrumbs { display: none !important; }
+  #content h1, #content-main h1, .main h1:first-child { display: none; }
+  body.dashboard #content h1, body.dashboard #content-main ~ h1, body.dashboard .main h1:first-child { display: none; }
+  #content-main .module ul, #content-main ul, body.dashboard #content-main ul, body.dashboard .module ul { list-style: none; padding-left: 0; }
+  #content-main .module ul li, #content-main ul li { list-style: none; }
+
+  .admin-db-tabs { display: flex; flex-wrap: nowrap; gap: 0; margin: 0 auto 20px; border-bottom: 1px solid #ddd; list-style: none; width: max-content; max-width: 100%; box-sizing: border-box; }
+  .admin-db-tabs li { margin: 0; flex: 0 1 auto; min-width: 0; box-sizing: border-box; }
+  .admin-db-tabs a { display: block; box-sizing: border-box; padding: 10px 12px; text-align: center; text-decoration: none; color: var(--primary, #008080); font-weight: 500; border: 1px solid #ddd; border-bottom: none; margin-bottom: -1px; background: #f8f8f8; white-space: nowrap; }
+  .admin-db-tabs a:hover { background: #e8e8e8; color: var(--primary-hover, #006666); }
+  .admin-db-tabs li.active a { background: #fff; color: #333; border-bottom: 1px solid #fff; position: relative; top: 1px; }
+
+  /* Filter row and items - match question page */
+  .settings-filter-row { display: flex; flex-wrap: wrap; justify-content: left; align-items: center; gap: 12px 16px; padding: 12px; margin: 16px 0; }
+  .settings-filter-item { display: inline-flex; align-items: center; gap: 8px; position: relative; z-index: 1001; }
+  .settings-filter-label { font-size: 14px; color: teal; white-space: nowrap; font-weight: 700; }
+  .settings-filter-label.arrow { font-weight: 400; }
+  /* Trigger button - match .filter-dropdown-btn */
+  .settings-filter-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    min-width: 120px; max-width: 200px; width: 100%; padding: 3px 7px;
+    border: 2px solid teal; border-radius: 6px; background: #fff; color: #333;
+    font-size: 14px; text-align: left; cursor: pointer; box-sizing: border-box;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .settings-filter-btn:focus { outline: none; border-color: teal; box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.2); }
+  .settings-filter-btn:hover { border-color: #006666; background: rgba(0, 128, 128, 0.12); }
+  .settings-filter-btn.placeholder-selected { color: teal; }
+  .settings-filter-btn-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .settings-filter-arrow { margin-left: 8px; font-size: 10px; color: #666; flex-shrink: 0; }
+  /* Panel - match .filter-dropdown-panel */
+  .settings-filter-panel {
+    position: absolute; top: 100%; left: 0; margin-top: 4px; min-width: 100%; width: max-content;
+    max-height: 600px; overflow-x: hidden; overflow-y: auto;
+    border: 2px solid teal; border-radius: 6px; background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 100;
+    opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-8px);
+    transition: opacity 200ms ease, transform 200ms ease, visibility 0s linear 200ms;
+  }
+  .settings-filter-panel.open {
+    opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0);
+    transition: opacity 200ms ease, transform 200ms ease, visibility 0s 0s;
+  }
+  /* Scrollbar: same as question page / header – teal thumb, light track */
+  .settings-filter-panel {
+    scrollbar-width: thin;
+    scrollbar-color: #008080 #f1f1f1;
+  }
+  .settings-filter-panel::-webkit-scrollbar {
+    width: 6px;
+  }
+  .settings-filter-panel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .settings-filter-panel::-webkit-scrollbar-thumb {
+    background: #008080;
+    border-radius: 3px;
+  }
+  .settings-filter-panel::-webkit-scrollbar-thumb:hover {
+    background: #006666;
+  }
+  /* Select-all row - match .filter-dropdown-item-selectall-row */
+  .settings-filter-selectall-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 8px 10px; padding-right: 8px; border-bottom: 1px solid #ddd; background: rgba(0, 128, 128, 0.08);
+  }
+  .settings-filter-selectall-row label { margin: 0; cursor: pointer; font-size: 14px; font-weight: 600; color: teal; display: flex; align-items: center; gap: 8px; }
+  .settings-filter-selectall-row label:hover { background: rgba(0, 128, 128, 0.12); }
+  .settings-filter-selectall-row input { cursor: pointer; flex-shrink: 0; }
+  .settings-filter-clear { font-size: 13px; border: none; background: transparent; color: darkred; cursor: pointer; padding: 4px 6px; flex-shrink: 0; }
+  .settings-filter-clear:hover { color: red; }
+  /* Checkbox option row - match .filter-dropdown-item */
+  .settings-filter-option { display: flex; align-items: center; gap: 8px; padding: 8px 10px; margin: 0; border: none; border-bottom: 1px solid #eee; background: #fff; color: #333; font-size: 14px; text-align: left; cursor: pointer; width: 100%; box-sizing: border-box; user-select: none; white-space: nowrap; }
+  .settings-filter-option:last-child { border-bottom: none; }
+  .settings-filter-option:hover { background: rgba(0, 128, 128, 0.12); }
+  .settings-filter-option input { flex-shrink: 0; cursor: pointer; }
+  .settings-filter-option span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  /* Single-select option (Level, Class, Group, Subject) - match .filter-dropdown-item-single */
+  .settings-filter-option-btn { display: block; width: 100%; padding: 8px 10px; margin: 0; border: none; border-bottom: 1px solid #eee; background: #fff; color: #333; font-size: 14px; text-align: left; cursor: pointer; box-sizing: border-box; user-select: none; white-space: nowrap; }
+  .settings-filter-option-btn:last-child { border-bottom: none; }
+  .settings-filter-option-btn:hover { background: rgba(0, 128, 128, 0.2); color: #333; }
+  .settings-filter-option-btn.selected { background: rgba(0, 128, 128, 0.08); color: #333; }
+  .settings-filter-option-btn.placeholder-selected { color: teal; }
+  .settings-filter-option-btn.placeholder-selected:hover { background: rgba(0, 128, 128, 0.2); color: #333; }
+
+  .settings-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .settings-actions button {
+    padding: 6px 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 2px solid #008080;
+    border-radius: 16px;
+    background: teal;
+    color: white;
+    font-size: 14px;
+  }
+  .settings-filter-select {
+    min-width: 120px;
+    max-width: 200px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 3px 26px 3px 10px;
+    border: 2px solid #008080;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    appearance: none;
+    background-image: url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L2 4h8z'/%3E%3C/svg%3E);
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+  .settings-help { margin-top: 12px; color: #666; font-size: 13px; line-height: 1.5; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <ul class="admin-db-tabs">
+    {% for tab in db_tabs %}
+    <li class="{% if tab.active %}active{% endif %}"><a href="{{ tab.url }}">{{ tab.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <h2 style="margin-bottom: 8px;">Exam settings</h2>
+  <p style="margin-bottom: 0; color: #666; font-size: 14px;">Select level, class/group, and subject (single choice). Chapter and topic support multiple selection with checkboxes and &quot;Select all&quot; / Clear.</p>
+
+  <form method="post" action="" id="settings-form">
+    {% csrf_token %}
+    <input type="hidden" name="level_tr" id="level_tr_hidden" value="">
+    <input type="hidden" name="class_level" id="class_level_hidden" value="">
+    <input type="hidden" name="group" id="group_hidden" value="">
+    <input type="hidden" name="subject_tr" id="subject_tr_hidden" value="">
+    <input type="hidden" name="chapter" id="chapter_hidden" value="">
+    <input type="hidden" name="topic" id="topic_hidden" value="">
+    <div class="settings-filter-row">
+      <div class="settings-filter-item">
+        <label class="settings-filter-label">Filter</label>
+        <div class="settings-filter-dropdown">
+          <button type="button" class="settings-filter-btn" id="level_btn" data-panel="level_panel" aria-haspopup="true" aria-expanded="false"><span class="settings-filter-btn-label">Select Level</span></button>
+          <div class="settings-filter-panel" id="level_panel">
+            <div id="level_options"></div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-filter-item" id="class_filter_wrap" style="display: none;">
+        <span class="settings-filter-label arrow">--&gt;</span>
+        <div class="settings-filter-dropdown">
+          <button type="button" class="settings-filter-btn" id="class_btn" data-panel="class_panel"><span class="settings-filter-btn-label">Select Class</span></button>
+          <div class="settings-filter-panel" id="class_panel">
+            <div id="class_options"></div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-filter-item" id="group_filter_wrap" style="display: none;">
+        <span class="settings-filter-label arrow">--&gt;</span>
+        <div class="settings-filter-dropdown">
+          <button type="button" class="settings-filter-btn" id="group_btn" data-panel="group_panel"><span class="settings-filter-btn-label">Select Group</span></button>
+          <div class="settings-filter-panel" id="group_panel">
+            <div id="group_options"></div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-filter-item" id="subject_filter_wrap" style="display: none;">
+        <span class="settings-filter-label arrow">--&gt;</span>
+        <div class="settings-filter-dropdown">
+          <button type="button" class="settings-filter-btn" id="subject_btn" data-panel="subject_panel"><span class="settings-filter-btn-label">Select Subject</span></button>
+          <div class="settings-filter-panel" id="subject_panel">
+            <div id="subject_options"></div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-filter-item" id="chapter_filter_wrap" style="display: none;">
+        <span class="settings-filter-label arrow">--&gt;</span>
+        <div class="settings-filter-dropdown">
+          <button type="button" class="settings-filter-btn" id="chapter_btn" data-panel="chapter_panel"><span class="settings-filter-btn-label">Select Chapter</span></button>
+          <div class="settings-filter-panel" id="chapter_panel">
+            <div class="settings-filter-selectall-row">
+              <label><input type="checkbox" id="chapter_selectall"> Select all</label>
+              <button type="button" class="settings-filter-clear" data-clear="chapter">Clear</button>
+            </div>
+            <div id="chapter_options"></div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-filter-item" id="topic_filter_wrap" style="display: none;">
+        <span class="settings-filter-label arrow">--&gt;</span>
+        <div class="settings-filter-dropdown">
+          <button type="button" class="settings-filter-btn" id="topic_btn" data-panel="topic_panel"><span class="settings-filter-btn-label">Select Topic</span></button>
+          <div class="settings-filter-panel" id="topic_panel">
+            <div class="settings-filter-selectall-row">
+              <label><input type="checkbox" id="topic_selectall"> Select all</label>
+              <button type="button" class="settings-filter-clear" data-clear="topic">Clear</button>
+            </div>
+            <div id="topic_options"></div>
+          </div>
+        </div>
+      </div>
+      <span class="settings-actions">
+        <button type="submit" name="action" value="create_exam">Create Exam</button>
+        <button type="submit" name="action" value="add_exam">Add Exam</button>
+      </span>
+    </div>
+  </form>
+  <p class="settings-help">
+    <strong>Create Exam:</strong> Creates or recreates exam question sets for the selected filters. Re-click to recreate.<br>
+    <strong>Add Exam:</strong> Creates only missing exam sets for the selected category (does not overwrite existing).
+  </p>
+</div>
+
+<script>
+(function() {
+  var API_BASE = '{{ request.scheme }}://{{ request.get_host }}/api';
+  var FILTER_STORAGE_KEY = 'cheradip_settings_filter_state';
+  var TOPIC_CHAPTER_DELIM = '\u241F';
+  var initialFilters = {
+    level_tr: '{{ filters.level_tr|escapejs }}',
+    class_level: '{{ filters.class_level|escapejs }}',
+    group: '{{ filters.group|escapejs }}',
+    subject_tr: '{{ filters.subject_tr|escapejs }}',
+    chapter: '{{ filters.chapter|escapejs }}',
+    topic: '{{ filters.topic|escapejs }}'
+  };
+  var stored = (function() {
+    try {
+      var raw = localStorage.getItem(FILTER_STORAGE_KEY);
+      if (!raw) return null;
+      var o = JSON.parse(raw);
+      return o && typeof o === 'object' ? o : null;
+    } catch (e) { return null; }
+  })();
+  if (stored) {
+    if (stored.level) initialFilters.level_tr = stored.level;
+    if (stored.class != null) initialFilters.class_level = stored.class;
+    if (stored.group != null) initialFilters.group = stored.group;
+    if (stored.subject) initialFilters.subject_tr = stored.subject;
+    if (Array.isArray(stored.chapterIds) && stored.chapterIds.length) initialFilters.chapter = stored.chapterIds.join(TOPIC_CHAPTER_DELIM);
+    if (Array.isArray(stored.topicIds) && stored.topicIds.length) initialFilters.topic = stored.topicIds.join(TOPIC_CHAPTER_DELIM);
+  }
+  function saveFilterState() {
+    try {
+      var payload = {
+        level: state.selectedLevel || undefined,
+        class: state.selectedClass || undefined,
+        group: state.selectedGroup || undefined,
+        subject: state.selectedSubjectTr || undefined,
+        chapterIds: (state.selectedChapters || []).slice(),
+        topicIds: (state.selectedTopics || []).slice()
+      };
+      localStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(payload));
+    } catch (e) {}
+  }
+
+  var state = {
+    levels: [],
+    classes: [],
+    groups: [],
+    subjects: [],
+    chapters: [],
+    topics: [],
+    selectedLevel: '',
+    selectedClass: '',
+    selectedGroup: '',
+    selectedSubjectTr: '',
+    selectedChapters: [],
+    selectedTopics: [],
+    showGroupFilter: false,
+    initialLoadDone: false
+  };
+
+  function fetchJson(url) {
+    return fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' }).then(function(r) { return r.json(); });
+  }
+
+  function getChapterLabelForValue(val) {
+    if (!val || !state.chapters.length) return val;
+    var c = state.chapters.filter(function(x) { return x.value === val; })[0];
+    return c ? (c.label || c.value) : val;
+  }
+  function getTopicLabelForValue(val) {
+    if (!val || !state.topics.length) return val;
+    var t = state.topics.filter(function(x) { return x.value === val; })[0];
+    return t ? (t.label || t.value) : val;
+  }
+  function updateBtnLabel(btnId, selected, placeholder, keyLabel, singleLabel) {
+    var btn = document.getElementById(btnId);
+    var label = btn.querySelector('.settings-filter-btn-label');
+    if (!label) return;
+    if (selected.length === 0) {
+      label.textContent = placeholder;
+      btn.classList.add('placeholder-selected');
+    } else {
+      var text = selected.length === 1 ? (singleLabel != null ? singleLabel : selected[0]) : selected.length + ' selected';
+      label.textContent = text;
+      btn.classList.remove('placeholder-selected');
+    }
+  }
+  function updateSingleBtnLabel(btnId, value, placeholder) {
+    var btn = document.getElementById(btnId);
+    var label = btn && btn.querySelector('.settings-filter-btn-label');
+    if (!label) return;
+    label.textContent = value ? value : placeholder;
+    if (value) btn.classList.remove('placeholder-selected'); else btn.classList.add('placeholder-selected');
+  }
+
+  function syncHiddenInput(id, values, delim) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (Array.isArray(values)) {
+      el.value = (delim !== undefined) ? values.join(delim) : values.join(',');
+    } else {
+      el.value = values || '';
+    }
+  }
+
+  function renderSingleSelect(containerId, items, valueKey, labelKey, selectedValue, placeholder, onSelect) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    var placeBtn = document.createElement('button');
+    placeBtn.type = 'button';
+    placeBtn.className = 'settings-filter-option-btn placeholder-selected' + (!selectedValue ? ' selected' : '');
+    placeBtn.textContent = placeholder;
+    placeBtn.addEventListener('click', function() { onSelect(''); });
+    container.appendChild(placeBtn);
+    (items || []).forEach(function(item) {
+      var val = item[valueKey] != null ? item[valueKey] : (item.value != null ? item.value : item.id);
+      var lbl = item[labelKey] != null ? item[labelKey] : (item.label != null ? item.label : (item.name != null ? item.name : val));
+      if (val === undefined || val === null) val = lbl;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'settings-filter-option-btn' + (selectedValue === val ? ' selected' : '');
+      btn.textContent = lbl;
+      btn.addEventListener('click', function() { onSelect(val); });
+      container.appendChild(btn);
+    });
+  }
+  function renderOptions(containerId, items, valueKey, labelKey, selectedSet, namePrefix) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    (items || []).forEach(function(item, idx) {
+      var val = item[valueKey] != null ? item[valueKey] : (item.value != null ? item.value : item.id);
+      var lbl = item[labelKey] != null ? item[labelKey] : (item.label != null ? item.label : (item.name != null ? item.name : val));
+      if (val === undefined || val === null) val = lbl;
+      var id = namePrefix + '_' + idx;
+      var label = document.createElement('label');
+      label.className = 'settings-filter-option';
+      label.innerHTML = '<input type="checkbox" name="' + namePrefix + '_cb" value="' + escapeAttr(val) + '" id="' + escapeAttr(id) + '"><span>' + escapeHtml(lbl) + '</span>';
+      label.setAttribute('for', id);
+      if (selectedSet.indexOf(val) !== -1) label.querySelector('input').checked = true;
+      container.appendChild(label);
+    });
+  }
+
+  function escapeAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  function getSelected(namePrefix) {
+    var checkboxes = document.querySelectorAll('input[name="' + namePrefix + '_cb"]:checked');
+    return Array.prototype.map.call(checkboxes, function(cb) { return cb.value; });
+  }
+  function updateStateFromCheckboxes() {
+    state.selectedChapters = getSelected('chapter');
+    state.selectedTopics = getSelected('topic');
+  }
+
+  function togglePanel(btn, panelId) {
+    var panel = document.getElementById(panelId);
+    var open = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    document.querySelectorAll('.settings-filter-panel').forEach(function(p) {
+      if (p.id !== panelId) p.classList.remove('open');
+    });
+  }
+
+  function closeAllPanels() {
+    document.querySelectorAll('.settings-filter-panel').forEach(function(p) { p.classList.remove('open'); });
+  }
+
+  document.querySelectorAll('.settings-filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var panelId = btn.getAttribute('data-panel');
+      if (panelId) togglePanel(btn, panelId);
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.settings-filter-dropdown')) {
+      document.querySelectorAll('.settings-filter-panel').forEach(function(p) { p.classList.remove('open'); });
+    }
+  });
+
+  document.querySelectorAll('.settings-filter-clear').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var key = btn.getAttribute('data-clear');
+      if (key === 'chapter') {
+        state.selectedChapters = [];
+        var chOpts = document.getElementById('chapter_options');
+        if (chOpts) chOpts.querySelectorAll('input').forEach(function(cb) { cb.checked = false; });
+        var sa5 = document.getElementById('chapter_selectall');
+        if (sa5) sa5.checked = false;
+        updateBtnLabel('chapter_btn', [], 'Select Chapter', null, undefined);
+        saveFilterState();
+        loadTopics();
+      }
+      if (key === 'topic') {
+        state.selectedTopics = [];
+        var topicOpts = document.getElementById('topic_options');
+        if (topicOpts) topicOpts.querySelectorAll('input').forEach(function(cb) { cb.checked = false; });
+        var sa6 = document.getElementById('topic_selectall');
+        if (sa6) sa6.checked = false;
+        updateBtnLabel('topic_btn', [], 'Select Topic', null, undefined);
+        saveFilterState();
+      }
+    });
+  });
+
+  function closePanelAndUpdateTriggerBtn(panelId, triggerBtnId) {
+    var panel = document.getElementById(panelId);
+    var btn = document.getElementById(triggerBtnId);
+    if (panel) panel.classList.remove('open');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function loadLevels() {
+    fetchJson(API_BASE + '/question_levels/').then(function(data) {
+      var raw = data.levels || [];
+      var levels = raw.map(function(l) {
+        return {
+          value: l.level_tr || l.level,
+          label: l.label || l.level_tr || l.level,
+          sort_order: l.sort_order != null ? l.sort_order : 0
+        };
+      });
+      levels.sort(function(a, b) {
+        var oa = a.sort_order || 0, ob = b.sort_order || 0;
+        if (ob !== oa) return ob - oa;
+        return (a.value || '').localeCompare(b.value || '');
+      });
+      state.levels = levels;
+      state.selectedLevel = (initialFilters.level_tr && initialFilters.level_tr.trim()) ? initialFilters.level_tr.split(',')[0].trim() : '';
+      renderSingleSelect('level_options', state.levels, 'value', 'label', state.selectedLevel, 'Select Level', function(val) {
+        state.selectedLevel = val || '';
+        state.selectedClass = '';
+        state.selectedGroup = '';
+        state.selectedSubjectTr = '';
+        updateSingleBtnLabel('level_btn', state.selectedLevel, 'Select Level');
+        closePanelAndUpdateTriggerBtn('level_panel', 'level_btn');
+        saveFilterState();
+        loadClasses();
+      });
+      updateSingleBtnLabel('level_btn', state.selectedLevel, 'Select Level');
+      loadClasses();
+    });
+  }
+
+  function loadClasses() {
+    state.classes = [];
+    state.selectedClass = '';
+    state.groups = [];
+    state.selectedGroup = '';
+    state.subjects = [];
+    state.selectedSubjectTr = '';
+    state.showGroupFilter = false;
+    updateSingleBtnLabel('class_btn', '', 'Select Class');
+    document.getElementById('class_filter_wrap').style.display = 'none';
+    document.getElementById('group_filter_wrap').style.display = 'none';
+    document.getElementById('subject_filter_wrap').style.display = 'none';
+    updateSingleBtnLabel('group_btn', '', 'Select Group');
+    updateSingleBtnLabel('subject_btn', '', 'Select Subject');
+    if (!state.selectedLevel) { loadChapters(); loadTopics(); updateFilterVisibility(); return; }
+    fetchJson(API_BASE + '/question_classes/?level_tr=' + encodeURIComponent(state.selectedLevel)).then(function(data) {
+      var seenClass = {};
+      var classes = [];
+      (data.classes || []).forEach(function(c) {
+        var v = c.value != null ? c.value : c.class_level;
+        if (!seenClass[v]) { seenClass[v] = true; classes.push({ value: v, label: c.label != null ? c.label : v }); }
+      });
+      state.classes = classes;
+      if (state.classes.length === 1) {
+        state.selectedClass = state.classes[0].value;
+        updateSingleBtnLabel('class_btn', state.selectedClass, 'Select Class');
+        document.getElementById('class_filter_wrap').style.display = 'none';
+      } else {
+        if (!state.initialLoadDone) {
+          var initialClass = (initialFilters.class_level && initialFilters.class_level.trim()) ? initialFilters.class_level.split(',')[0].trim() : '';
+          if (initialClass && state.classes.some(function(c) { return c.value === initialClass; })) state.selectedClass = initialClass;
+        }
+        renderSingleSelect('class_options', state.classes, 'value', 'label', state.selectedClass, 'Select Class', function(val) {
+          state.selectedClass = val || '';
+          state.selectedGroup = '';
+          state.selectedSubjectTr = '';
+          updateSingleBtnLabel('class_btn', state.selectedClass, 'Select Class');
+          updateSingleBtnLabel('group_btn', '', 'Select Group');
+          updateSingleBtnLabel('subject_btn', '', 'Select Subject');
+          closePanelAndUpdateTriggerBtn('class_panel', 'class_btn');
+          saveFilterState();
+          loadGroupsAndSubjects();
+        });
+        updateSingleBtnLabel('class_btn', state.selectedClass, 'Select Class');
+        document.getElementById('class_filter_wrap').style.display = 'inline-flex';
+      }
+      loadGroupsAndSubjects();
+    });
+  }
+  function updateFilterVisibility() {
+    var showSubject = state.selectedLevel && (state.classes.length <= 1 || state.selectedClass) && state.subjects.length > 0;
+    document.getElementById('subject_filter_wrap').style.display = showSubject ? 'inline-flex' : 'none';
+    document.getElementById('chapter_filter_wrap').style.display = (state.selectedSubjectTr && state.chapters.length > 0) ? 'inline-flex' : 'none';
+    document.getElementById('topic_filter_wrap').style.display = (state.selectedSubjectTr && state.topics.length > 0) ? 'inline-flex' : 'none';
+  }
+
+  function loadGroupsAndSubjects() {
+    if (!state.selectedLevel) { loadSubjects(); return; }
+    var url = API_BASE + '/question_groups/?level_tr=' + encodeURIComponent(state.selectedLevel);
+    if (state.selectedClass) url += '&class_level=' + encodeURIComponent(state.selectedClass);
+    fetchJson(url).then(function(data) {
+      var groups = (data.groups || []).map(function(g) { return { value: g, label: g }; });
+      state.groups = groups;
+      state.showGroupFilter = groups.length > 0;
+      if (groups.length > 0) {
+        document.getElementById('group_filter_wrap').style.display = 'inline-flex';
+        if (!state.initialLoadDone) {
+          var initialGroup = (initialFilters.group && initialFilters.group.trim()) ? initialFilters.group.split(',')[0].trim() : '';
+          if (initialGroup && state.groups.some(function(g) { return g.value === initialGroup; })) state.selectedGroup = initialGroup;
+        }
+        renderSingleSelect('group_options', state.groups, 'value', 'label', state.selectedGroup, 'Select Group', function(val) {
+          state.selectedGroup = val || '';
+          state.selectedSubjectTr = '';
+          updateSingleBtnLabel('group_btn', state.selectedGroup, 'Select Group');
+          updateSingleBtnLabel('subject_btn', '', 'Select Subject');
+          closePanelAndUpdateTriggerBtn('group_panel', 'group_btn');
+          saveFilterState();
+          loadSubjects();
+        });
+        updateSingleBtnLabel('group_btn', state.selectedGroup, 'Select Group');
+      } else {
+        state.selectedGroup = '';
+      }
+      loadSubjects();
+    });
+  }
+
+  function loadSubjects() {
+    state.subjects = [];
+    state.selectedSubjectTr = '';
+    updateSingleBtnLabel('subject_btn', '', 'Select Subject');
+    if (!state.selectedLevel) { loadChapters(); loadTopics(); return; }
+    var url = API_BASE + '/question_subjects/?level_tr=' + encodeURIComponent(state.selectedLevel);
+    if (state.selectedClass) url += '&class_level=' + encodeURIComponent(state.selectedClass);
+    if (state.selectedGroup) url += '&group=' + encodeURIComponent(state.selectedGroup);
+    fetchJson(url).then(function(data) {
+      var subjectMap = {};
+      (data.subjects || []).forEach(function(s) {
+        var v = s.subject_tr || s.id || s.name;
+        subjectMap[v] = { value: v, label: s.name || s.subject_tr || v, class_level: s.class_level || '' };
+      });
+      state.subjects = Object.keys(subjectMap).map(function(k) { return subjectMap[k]; });
+      if (!state.initialLoadDone) {
+        var initialSubj = (initialFilters.subject_tr && initialFilters.subject_tr.trim()) ? initialFilters.subject_tr.split(',')[0].trim() : '';
+        if (initialSubj && state.subjects.some(function(s) { return s.value === initialSubj; })) state.selectedSubjectTr = initialSubj;
+        state.initialLoadDone = true;
+      }
+      renderSingleSelect('subject_options', state.subjects, 'value', 'label', state.selectedSubjectTr, 'Select Subject', function(val) {
+        state.selectedSubjectTr = val || '';
+        updateSingleBtnLabel('subject_btn', state.selectedSubjectTr, 'Select Subject');
+        closePanelAndUpdateTriggerBtn('subject_panel', 'subject_btn');
+        saveFilterState();
+        loadChapters();
+        loadTopics();
+      });
+      updateSingleBtnLabel('subject_btn', state.selectedSubjectTr, 'Select Subject');
+      loadChapters();
+      loadTopics();
+      updateFilterVisibility();
+    });
+  }
+
+  function loadChapters() {
+    state.chapters = [];
+    state.selectedChapters = [];
+    renderOptions('chapter_options', [], 'value', 'label', [], 'chapter');
+    document.getElementById('chapter_btn').querySelector('.settings-filter-btn-label').textContent = 'Select Chapter';
+    document.getElementById('chapter_btn').classList.add('placeholder-selected');
+    document.getElementById('chapter_filter_wrap').style.display = 'none';
+    document.getElementById('topic_filter_wrap').style.display = 'none';
+    var sub = state.subjects.filter(function(s) { return s.value === state.selectedSubjectTr; })[0];
+    var classForApi = state.selectedClass || (sub && sub.class_level) || '';
+    if (!state.selectedLevel || !state.selectedSubjectTr || !classForApi) { updateFilterVisibility(); return; }
+    var chaptersUrl = API_BASE + '/question_chapters/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApi) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr);
+    var questionsUrl = API_BASE + '/question_list/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApi) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr);
+    Promise.all([fetchJson(chaptersUrl), fetchJson(questionsUrl)]).then(function(results) {
+      var data = results[0];
+      var chapterMap = {};
+      (data.chapters || []).forEach(function(ch) {
+        var v = ch.id != null ? ch.id : (ch.chapter || ch.name);
+        chapterMap[v] = { value: v, label: ch.name || ch.chapter || v };
+      });
+      state.chapters = Object.keys(chapterMap).map(function(k) { return chapterMap[k]; });
+      state.selectedChapters = initialFilters.chapter ? initialFilters.chapter.split(TOPIC_CHAPTER_DELIM).map(function(s) { return s.trim(); }).filter(Boolean) : [];
+      if (state.selectedChapters.length === 0 && initialFilters.chapter && initialFilters.chapter.indexOf(TOPIC_CHAPTER_DELIM) === -1) state.selectedChapters = initialFilters.chapter.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+      renderOptions('chapter_options', state.chapters, 'value', 'label', state.selectedChapters, 'chapter');
+      updateBtnLabel('chapter_btn', state.selectedChapters, 'Select Chapter', null, state.selectedChapters.length === 1 ? getChapterLabelForValue(state.selectedChapters[0]) : undefined);
+      loadTopics();
+      document.querySelectorAll('#chapter_options input').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          state.selectedChapters = getSelected('chapter');
+          updateBtnLabel('chapter_btn', state.selectedChapters, 'Select Chapter', null, state.selectedChapters.length === 1 ? getChapterLabelForValue(state.selectedChapters[0]) : undefined);
+          saveFilterState();
+          loadTopics();
+        });
+      });
+      document.getElementById('chapter_selectall').addEventListener('change', function() {
+        var chk = this.checked;
+        document.querySelectorAll('#chapter_options input').forEach(function(cb) { cb.checked = chk; });
+        state.selectedChapters = chk ? state.chapters.map(function(c) { return c.value; }) : [];
+        updateBtnLabel('chapter_btn', state.selectedChapters, 'Select Chapter', null, state.selectedChapters.length === 1 ? getChapterLabelForValue(state.selectedChapters[0]) : undefined);
+        saveFilterState();
+        loadTopics();
+      });
+      updateFilterVisibility();
+    });
+  }
+
+  function loadTopics() {
+    state.topics = [];
+    state.selectedTopics = [];
+    renderOptions('topic_options', [], 'value', 'label', [], 'topic');
+    document.getElementById('topic_btn').querySelector('.settings-filter-btn-label').textContent = 'Select Topic';
+    document.getElementById('topic_btn').classList.add('placeholder-selected');
+    var subT = state.subjects.filter(function(s) { return s.value === state.selectedSubjectTr; })[0];
+    var classForApiT = state.selectedClass || (subT && subT.class_level) || '';
+    if (!state.selectedLevel || !state.selectedSubjectTr || !classForApiT) { updateFilterVisibility(); return; }
+    var baseUrl = API_BASE + '/question_topics/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApiT) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr);
+    var chaptersToUse = state.selectedChapters.length > 0 ? state.selectedChapters : [];
+    function mergeTopicRows(acc, t) {
+      var v = t.id != null ? t.id : (t.topic || t.name);
+      var ch = t.chapter_no != null ? t.chapter_no : '';
+      var tno = t.topic_no != null ? t.topic_no : '';
+      if (!v) return acc;
+      if (acc.some(function(x) { return (x.chapter_no || '') === (ch || '') && (x.topic_no || '') === (tno || '') && x.value === v; })) return acc;
+      var lbl = t.name || t.topic || v;
+      acc.push({ value: v, label: (ch && tno) ? (ch + '.' + tno + ': ' + lbl) : lbl, topic_no: tno, chapter_no: ch });
+      return acc;
+    }
+    function sortTopicsByChapterAndTopicNo(list) {
+      return list.slice().sort(function(a, b) {
+        var ca = a.chapter_no != null && a.chapter_no !== '' ? parseFloat(a.chapter_no) : NaN;
+        var cb = b.chapter_no != null && b.chapter_no !== '' ? parseFloat(b.chapter_no) : NaN;
+        if (!isNaN(ca) && !isNaN(cb) && ca !== cb) return ca - cb;
+        if (isNaN(ca) && !isNaN(cb)) return 1;
+        if (!isNaN(ca) && isNaN(cb)) return -1;
+        var na = a.topic_no != null && a.topic_no !== '' ? parseFloat(a.topic_no) : NaN;
+        var nb = b.topic_no != null && b.topic_no !== '' ? parseFloat(b.topic_no) : NaN;
+        if (!isNaN(na) && !isNaN(nb)) return na - nb;
+        if (isNaN(na) && !isNaN(nb)) return 1;
+        if (!isNaN(na) && isNaN(nb)) return -1;
+        return (a.label || a.value || '').localeCompare(b.label || b.value || '');
+      });
+    }
+    function done(topicsList) {
+      state.topics = sortTopicsByChapterAndTopicNo(topicsList);
+      var topicRaw = (initialFilters.topic && initialFilters.topic.trim()) ? initialFilters.topic.trim() : '';
+      var fromInitial = topicRaw ? (topicRaw.indexOf(TOPIC_CHAPTER_DELIM) !== -1 ? topicRaw.split(TOPIC_CHAPTER_DELIM) : topicRaw.split(',')).map(function(s) { return s.trim(); }).filter(Boolean) : [];
+      state.selectedTopics = fromInitial.filter(function(id) { return topicsList.some(function(t) { return t.value === id; }); });
+      renderOptions('topic_options', state.topics, 'value', 'label', state.selectedTopics, 'topic');
+      updateBtnLabel('topic_btn', state.selectedTopics, 'Select Topic', null, state.selectedTopics.length === 1 ? getTopicLabelForValue(state.selectedTopics[0]) : undefined);
+      document.querySelectorAll('#topic_options input').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          state.selectedTopics = getSelected('topic');
+          updateBtnLabel('topic_btn', state.selectedTopics, 'Select Topic', null, state.selectedTopics.length === 1 ? getTopicLabelForValue(state.selectedTopics[0]) : undefined);
+          saveFilterState();
+        });
+      });
+      document.getElementById('topic_selectall').addEventListener('change', function() {
+        var chk = this.checked;
+        document.querySelectorAll('#topic_options input').forEach(function(cb) { cb.checked = chk; });
+        state.selectedTopics = chk ? state.topics.map(function(t) { return t.value; }) : [];
+        updateBtnLabel('topic_btn', state.selectedTopics, 'Select Topic', null, state.selectedTopics.length === 1 ? getTopicLabelForValue(state.selectedTopics[0]) : undefined);
+        saveFilterState();
+      });
+      updateFilterVisibility();
+    }
+    if (chaptersToUse.length === 0) {
+      fetchJson(baseUrl).then(function(data) {
+        var list = (data.topics || []).reduce(mergeTopicRows, []);
+        done(list);
+      });
+    } else {
+      var chapterNames = chaptersToUse.map(function(chId) {
+        var c = state.chapters.filter(function(x) { return x.value === chId; })[0];
+        return c ? (c.label || c.value) : chId;
+      });
+      var promises = chapterNames.map(function(chName) {
+        return fetchJson(baseUrl + '&chapter=' + encodeURIComponent(chName));
+      });
+      Promise.all(promises).then(function(results) {
+        var list = [];
+        results.forEach(function(data) {
+          (data.topics || []).forEach(function(t) {
+            var v = t.id != null ? t.id : (t.topic || t.name);
+            var ch = t.chapter_no != null ? t.chapter_no : '';
+            var tno = t.topic_no != null ? t.topic_no : '';
+            if (v) { var lbl = t.name || t.topic || v; list.push({ value: v, label: (ch && tno) ? (ch + '.' + tno + ': ' + lbl) : lbl, topic_no: tno, chapter_no: ch }); }
+          });
+        });
+        list = list.filter(function(item, i) {
+          var key = (item.chapter_no || '') + '|' + (item.topic_no || '') + '|' + item.value;
+          return list.findIndex(function(x) { return (x.chapter_no || '') + '|' + (x.topic_no || '') + '|' + x.value === key; }) === i;
+        });
+        done(list);
+      });
+    }
+  }
+
+  document.getElementById('settings-form').addEventListener('submit', function() {
+    updateStateFromCheckboxes();
+    saveFilterState();
+    syncHiddenInput('level_tr_hidden', state.selectedLevel);
+    syncHiddenInput('class_level_hidden', state.selectedClass);
+    syncHiddenInput('group_hidden', state.selectedGroup);
+    syncHiddenInput('subject_tr_hidden', state.selectedSubjectTr);
+    syncHiddenInput('chapter_hidden', state.selectedChapters, TOPIC_CHAPTER_DELIM);
+    syncHiddenInput('topic_hidden', state.selectedTopics, TOPIC_CHAPTER_DELIM);
+  });
+
+  loadLevels();
+})();
+</script>
+{% endblock %}

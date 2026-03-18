@@ -32,6 +32,8 @@ CREATE TABLE IF NOT EXISTS cheradip_subject (
     book_name VARCHAR(255) NULL,
     book_tr VARCHAR(255) NULL,
     sq INT NOT NULL DEFAULT 30,
+    ChapterQ VARCHAR(1000) NULL COMMENT 'JSON: chapter-based exam set qids',
+    SubjectQ VARCHAR(1000) NULL COMMENT 'JSON: subject-based exam set qids',
     created_at DATETIME(6) NULL,
     updated_at DATETIME(6) NULL,
     UNIQUE KEY (subject_code),
@@ -96,6 +98,23 @@ CREATE TABLE IF NOT EXISTS cheradip_pending_question_request (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 """
 
+CREATE_CHERADIP_EXAM_SET = """
+CREATE TABLE IF NOT EXISTS cheradip_exam_set (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    db_alias VARCHAR(32) NOT NULL DEFAULT 'hsc',
+    level_tr VARCHAR(100) NULL,
+    class_level VARCHAR(50) NULL,
+    subject_tr VARCHAR(255) NULL,
+    exam_type VARCHAR(32) NOT NULL,
+    set_key VARCHAR(128) NOT NULL,
+    name_label VARCHAR(255) NULL,
+    qids_json LONGTEXT NULL,
+    created_at DATETIME(6) NULL,
+    INDEX (db_alias, level_tr, class_level, subject_tr, exam_type),
+    INDEX (set_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+"""
+
 
 def _ensure_hsc_base_tables(cursor, db_name, dry_run):
     """On every run: first rename cheradip_pending_subject_request_hsc to cheradip_pending_subject_request if old exists and new does not; then create any missing tables (existing ones are left unchanged)."""
@@ -118,6 +137,7 @@ def _ensure_hsc_base_tables(cursor, db_name, dry_run):
     cursor.execute(CREATE_CHERADIP_SUBJECT)
     cursor.execute(CREATE_PENDING_SUBJECT_REQUEST)
     cursor.execute(CREATE_PENDING_QUESTION_REQUEST)
+    cursor.execute(CREATE_CHERADIP_EXAM_SET)
     # Add sq to cheradip_subject if missing (default 30)
     cursor.execute(
         "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND column_name = 'sq'",
@@ -128,6 +148,16 @@ def _ensure_hsc_base_tables(cursor, db_name, dry_run):
             cursor.execute("ALTER TABLE cheradip_subject ADD COLUMN sq INT NOT NULL DEFAULT 30")
         except Exception:
             pass
+    for col, defn in [('ChapterQ', 'ChapterQ VARCHAR(1000) NULL COMMENT \'JSON: chapter-based exam set qids\''), ('SubjectQ', 'SubjectQ VARCHAR(1000) NULL COMMENT \'JSON: subject-based exam set qids\'')]:
+        cursor.execute(
+            "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND column_name = %s",
+            [db_name, col]
+        )
+        if not cursor.fetchone():
+            try:
+                cursor.execute("ALTER TABLE cheradip_subject ADD COLUMN %s" % defn)
+            except Exception:
+                pass
     # Add requested_qid to existing cheradip_pending_question_request if missing
     cursor.execute(
         "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'",

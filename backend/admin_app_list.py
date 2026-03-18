@@ -22,15 +22,22 @@ DATABASE_SECTIONS = [
 VALID_DB_ALIASES = {alias for alias, _ in DATABASE_SECTIONS}
 
 
-def build_db_tabs_for_index(active_alias, use_databases_path=False):
-    """Build tab list for the index UI. use_databases_path: True for /admin/databases/<alias>/ URLs."""
+def build_db_tabs_for_index(active_alias, use_databases_path=False, settings_active=False):
+    """Build tab list for the index UI. use_databases_path: True for /admin/databases/<alias>/ URLs. settings_active: True when on Settings page."""
     tabs = []
     for alias, name in DATABASE_SECTIONS:
         if use_databases_path:
             url = f'/admin/databases/{alias}/'
         else:
             url = f'/admin?db={alias}'
-        tabs.append({'alias': alias, 'name': name, 'url': url, 'active': (alias == active_alias)})
+        tabs.append({'alias': alias, 'name': name, 'url': url, 'active': (alias == active_alias and not settings_active)})
+    # Settings tab: show on both /admin?db=... and /admin/databases/<alias>/; link to Settings page for current DB
+    tabs.append({
+        'alias': 'settings',
+        'name': 'Settings',
+        'url': f'/admin/databases/{active_alias}/settings/',
+        'active': settings_active,
+    })
     return tabs
 
 
