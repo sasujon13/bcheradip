@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS cheradip_pending_question_request (
     created_at DATETIME(6) NULL,
     approved_at DATETIME(6) NULL,
     approved_qid VARCHAR(64) NULL,
+    requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited',
     INDEX (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 """
@@ -111,6 +112,16 @@ def _ensure_hsc_base_tables(cursor, db_name, dry_run):
     cursor.execute(CREATE_CHERADIP_SUBJECT)
     cursor.execute(CREATE_PENDING_SUBJECT_REQUEST)
     cursor.execute(CREATE_PENDING_QUESTION_REQUEST)
+    # Add requested_qid to existing cheradip_pending_question_request if missing
+    cursor.execute(
+        "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'",
+        [db_name]
+    )
+    if not cursor.fetchone():
+        try:
+            cursor.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited'")
+        except Exception:
+            pass
 
 
 class Command(BaseCommand):

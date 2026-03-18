@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS cheradip_pending_question_request (
     created_at DATETIME(6) NULL,
     approved_at DATETIME(6) NULL,
     approved_qid VARCHAR(64) NULL,
+    requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited',
     INDEX (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 """
@@ -165,6 +166,15 @@ def ensure_honours_sync():
         cur.execute(CREATE_CHERADIP_SUBJECT_HONOURS)
         cur.execute(CREATE_PENDING_SUBJECT_REQUEST)
         cur.execute(CREATE_PENDING_QUESTION_REQUEST)
+        cur.execute(
+            "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'",
+            [db_name]
+        )
+        if not cur.fetchone():
+            try:
+                cur.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited'")
+            except Exception:
+                pass
     # Ensure book_tr / book_name columns exist (e.g. table created by older migration)
     with conn.cursor() as cur:
         cur.execute(
@@ -237,6 +247,15 @@ class Command(BaseCommand):
             cur.execute(CREATE_CHERADIP_SUBJECT_HONOURS)
             cur.execute(CREATE_PENDING_SUBJECT_REQUEST)
             cur.execute(CREATE_PENDING_QUESTION_REQUEST)
+            cur.execute(
+                "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'",
+                [db_name]
+            )
+            if not cur.fetchone():
+                try:
+                    cur.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited'")
+                except Exception:
+                    pass
         if not dry_run:
             self.stdout.write('Ensured cheradip_subject, cheradip_pending_subject_request, and cheradip_pending_question_request exist in honours.')
 

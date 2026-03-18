@@ -4071,6 +4071,85 @@ class QuestionListView(APIView):
         return Response({'questions': questions}, status=status.HTTP_200_OK)
 
 
+class PendingQuestionRequestView(APIView):
+    """
+    POST: Submit an edit request for an existing question. Body: qid, question, option_1..4, type,
+    level_tr, class_level, subject_tr, chapter, topic, etc.
+    Writes into cheradip_pending_question_request in the same DB as question_list (HSC).
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def post(self, request):
+        data = request.data or {}
+        if not (data.get('question') or '').strip():
+            return Response({'error': 'Missing or empty: question'}, status=status.HTTP_400_BAD_REQUEST)
+        if 'hsc' not in connections:
+            return Response({'error': 'HSC database not configured'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        conn = connections['hsc']
+        try:
+            from django.utils import timezone
+            now = timezone.now()
+            requested_qid = (data.get('qid') or '')
+            if requested_qid is not None and hasattr(requested_qid, 'strip'):
+                requested_qid = str(requested_qid).strip() or None
+            level_tr = (data.get('level_tr') or '')[:100]
+            class_level = (data.get('class_level') or '')[:50]
+            subject_tr = (data.get('subject_tr') or '').strip()[:255]
+            if not subject_tr:
+                subject_tr = ''
+            chapter_no = (data.get('chapter_no') or '')[:50]
+            chapter = (data.get('chapter') or '').strip()[:255]
+            topic_no = (data.get('topic_no') or '')[:50]
+            topic = (data.get('topic') or '').strip()[:255]
+            question = (data.get('question') or '').strip()
+            option_1 = (data.get('option_1') or '')[:500]
+            option_2 = (data.get('option_2') or '')[:500]
+            option_3 = (data.get('option_3') or '')[:500]
+            option_4 = (data.get('option_4') or '')[:500]
+            answer = (data.get('answer') or '')[:500]
+            explanation = (data.get('explanation') or '')[:50000]
+            explanation2 = (data.get('explanation2') or '')[:50000]
+            explanation3 = (data.get('explanation3') or '')[:50000]
+            type_val = (data.get('type') or '')[:100]
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'"
+                )
+                has_requested_qid = cur.fetchone() is not None
+                if has_requested_qid and requested_qid is not None:
+                    cur.execute(
+                        """
+                        INSERT INTO cheradip_pending_question_request
+                        (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                         type, status, created_at, requested_qid)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'pending', %s, %s)
+                        """,
+                        [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                         type_val, now, requested_qid]
+                    )
+                else:
+                    cur.execute(
+                        """
+                        INSERT INTO cheradip_pending_question_request
+                        (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                         type, status, created_at)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'pending', %s)
+                        """,
+                        [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                         type_val, now]
+                    )
+                pk = cur.lastrowid
+            return Response({'id': pk, 'status': 'pending', 'message': 'Edit request submitted.'}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            logger.exception('PendingQuestionRequestView: %s', e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 class PendingQuestionSubmitView(APIView):
     """
     POST: Submit a new question for approval. Body: level_tr, class_level, subject_tr, chapter_no, chapter,
