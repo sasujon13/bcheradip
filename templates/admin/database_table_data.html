@@ -219,8 +219,8 @@
                     {% for values, row_id in row_list %}
                     <tr>
                         <td><input type="checkbox" name="ids" value="{{ row_id }}"></td>
-                        {% for val in values %}
-                        <td>{{ val|default:""|truncatewords:12 }}</td>
+                        {% for col, val in values %}
+                        <td>{% if col in html_columns %}{{ val|default:""|safe }}{% else %}{{ val|default:""|truncatewords:12 }}{% endif %}</td>
                         {% endfor %}
                         {% if show_approve %}
                         <td class="table-data-actions-cell">

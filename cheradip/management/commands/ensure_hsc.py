@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS cheradip_subject (
     language_code VARCHAR(10) NULL,
     book_name VARCHAR(255) NULL,
     book_tr VARCHAR(255) NULL,
+    sq INT NOT NULL DEFAULT 30,
     created_at DATETIME(6) NULL,
     updated_at DATETIME(6) NULL,
     UNIQUE KEY (subject_code),
@@ -117,6 +118,16 @@ def _ensure_hsc_base_tables(cursor, db_name, dry_run):
     cursor.execute(CREATE_CHERADIP_SUBJECT)
     cursor.execute(CREATE_PENDING_SUBJECT_REQUEST)
     cursor.execute(CREATE_PENDING_QUESTION_REQUEST)
+    # Add sq to cheradip_subject if missing (default 30)
+    cursor.execute(
+        "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND column_name = 'sq'",
+        [db_name]
+    )
+    if not cursor.fetchone():
+        try:
+            cursor.execute("ALTER TABLE cheradip_subject ADD COLUMN sq INT NOT NULL DEFAULT 30")
+        except Exception:
+            pass
     # Add requested_qid to existing cheradip_pending_question_request if missing
     cursor.execute(
         "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'",

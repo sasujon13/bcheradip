@@ -3884,7 +3884,7 @@ class QuestionChaptersView(APIView):
                     if key in seen:
                         continue
                     seen.add(key)
-                    chapters.append({'id': ch_no or name, 'name': name})
+                    chapters.append({'id': ch_no or name, 'name': name, 'chapter_no': ch_no or None})
         except Exception as e:
             logger.exception('QuestionChaptersView: %s', e)
             return Response({'chapters': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

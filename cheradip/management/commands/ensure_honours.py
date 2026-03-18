@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS cheradip_subject (
     language_code VARCHAR(10) NULL,
     book_name VARCHAR(255) NULL,
     book_tr VARCHAR(255) NULL,
+    sq INT NOT NULL DEFAULT 30,
     created_at DATETIME(6) NULL,
     updated_at DATETIME(6) NULL,
     UNIQUE KEY (subject_code),
@@ -175,14 +176,14 @@ def ensure_honours_sync():
                 cur.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited'")
             except Exception:
                 pass
-    # Ensure book_tr / book_name columns exist (e.g. table created by older migration)
+    # Ensure book_tr / book_name / sq columns exist (e.g. table created by older migration)
     with conn.cursor() as cur:
         cur.execute(
-            "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND COLUMN_NAME IN ('book_tr', 'book_name')",
+            "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND COLUMN_NAME IN ('book_tr', 'book_name', 'sq')",
             [db_name]
         )
         have = {row[0] for row in cur.fetchall()}
-        for col, defn in (('book_name', 'VARCHAR(255) NULL'), ('book_tr', 'VARCHAR(255) NULL')):
+        for col, defn in (('book_name', 'VARCHAR(255) NULL'), ('book_tr', 'VARCHAR(255) NULL'), ('sq', 'INT NOT NULL DEFAULT 30')):
             if col not in have:
                 try:
                     with conn.cursor() as c2:
@@ -256,6 +257,20 @@ class Command(BaseCommand):
                     cur.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited'")
                 except Exception:
                     pass
+        # Ensure cheradip_subject has book_tr, book_name, sq (add if missing)
+        if not dry_run:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND COLUMN_NAME IN ('book_tr', 'book_name', 'sq')",
+                    [db_name]
+                )
+                have = {row[0] for row in cur.fetchall()}
+                for col, defn in (('book_name', 'VARCHAR(255) NULL'), ('book_tr', 'VARCHAR(255) NULL'), ('sq', 'INT NOT NULL DEFAULT 30')):
+                    if col not in have:
+                        try:
+                            cur.execute("ALTER TABLE cheradip_subject ADD COLUMN %s %s" % (col, defn))
+                        except Exception:
+                            pass
         if not dry_run:
             self.stdout.write('Ensured cheradip_subject, cheradip_pending_subject_request, and cheradip_pending_question_request exist in honours.')
 

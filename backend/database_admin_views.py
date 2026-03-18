@@ -3,6 +3,7 @@ Custom Django Admin views: list databases, list tables per database,
 and browse/add/delete/edit rows + bulk import CSV/JSON for any table.
 """
 import csv
+import html
 import io
 import json
 import re
@@ -220,10 +221,21 @@ def _update_row(conn, table_name, columns, pk_column, pk_value, data):
     return True
 
 
+def _strip_red_markup(value):
+    """Strip HTML (e.g. <span style="color:red">) and unescape so subject table gets plain text."""
+    if value is None:
+        return None
+    s = str(value).strip()
+    if not s:
+        return s or None
+    s = re.sub(r'<[^>]+>', '', s)
+    return html.unescape(s)
+
+
 def _approve_pending_question_rows(conn, db_name, pk_column, ids):
     """
     Approve selected rows in cheradip_pending_question_request (HSC): insert/update into
-    the subject question table, then set status='approved', approved_at, approved_qid.
+    the subject question table (with red markup stripped), then delete the pending row.
     Returns (success_count, list of error strings).
     """
     from cheradip.subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
@@ -263,6 +275,14 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                 level_val = (row_data.get('level_tr') or row_data.get('level') or '').strip() or None
                 subsource_val = (row_data.get('subsource') or '').strip() or None
                 updated_by_val = (row_data.get('updated_by') or '').strip() or 'Cheradip'
+                question_val = _strip_red_markup(row_data.get('question'))
+                option_1_val = _strip_red_markup(row_data.get('option_1'))
+                option_2_val = _strip_red_markup(row_data.get('option_2'))
+                option_3_val = _strip_red_markup(row_data.get('option_3'))
+                option_4_val = _strip_red_markup(row_data.get('option_4'))
+                explanation_val = _strip_red_markup(row_data.get('explanation'))
+                explanation2_val = _strip_red_markup(row_data.get('explanation2'))
+                explanation3_val = _strip_red_markup(row_data.get('explanation3'))
                 if requested_qid:
                     cursor.execute(
                         """UPDATE `%s` SET subject=%%s, chapter_no=%%s, chapter=%%s, topic_no=%%s, topic=%%s, question=%%s,
@@ -271,9 +291,9 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                            WHERE qid=%%s""" % target_table.replace('`', '``'),
                         [
                             row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
-                            row_data.get('topic_no'), row_data.get('topic'), row_data.get('question'),
-                            row_data.get('option_1'), row_data.get('option_2'), row_data.get('option_3'), row_data.get('option_4'),
-                            row_data.get('answer'), row_data.get('explanation'), row_data.get('explanation2'), row_data.get('explanation3'),
+                            row_data.get('topic_no'), row_data.get('topic'), question_val,
+                            option_1_val, option_2_val, option_3_val, option_4_val,
+                            row_data.get('answer'), explanation_val, explanation2_val, explanation3_val,
                             row_data.get('type'), level_val, subsource_val, now_sql, updated_by_val, requested_qid
                         ]
                     )
@@ -290,9 +310,9 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                            VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)""" % target_table.replace('`', '``'),
                         [
                             qid, row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
-                            row_data.get('topic_no'), row_data.get('topic'), row_data.get('question'),
-                            row_data.get('option_1'), row_data.get('option_2'), row_data.get('option_3'), row_data.get('option_4'),
-                            row_data.get('answer'), row_data.get('explanation'), row_data.get('explanation2'), row_data.get('explanation3'),
+                            row_data.get('topic_no'), row_data.get('topic'), question_val,
+                            option_1_val, option_2_val, option_3_val, option_4_val,
+                            row_data.get('answer'), explanation_val, explanation2_val, explanation3_val,
                             row_data.get('type'), level_val, subsource_val, now_sql, now_sql, updated_by_val
                         ]
                     )
@@ -495,12 +515,15 @@ def database_table_data(request, db_alias, table_name):
                 ordered.append(c)
         columns = ordered
         display_columns = ['qid' if c == 'approved_qid' else c for c in columns]
-        row_list = [([(r.get('qid') if c == 'approved_qid' else r.get(c)) for c in columns], r.get(pk_column)) for r in rows]
+        values_per_row = [([(r.get('qid') if c == 'approved_qid' else r.get(c)) for c in columns], r.get(pk_column)) for r in rows]
+        row_list = [(list(zip(display_columns, vals)), rid) for vals, rid in values_per_row]
     else:
         display_columns = columns
-        row_list = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
+        values_per_row = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
+        row_list = [(list(zip(display_columns, vals)), rid) for vals, rid in values_per_row]
 
     show_approve = (db_alias == 'hsc' and table_name == 'cheradip_pending_question_request')
+    html_columns = ['question', 'option_1', 'option_2', 'option_3', 'option_4', 'explanation', 'explanation2', 'explanation3'] if show_approve else []
     filter_options = _get_pending_question_request_filter_options(conn, table_name) if show_approve else None
     from django.http import QueryDict
     q = request.GET.copy()
@@ -533,6 +556,7 @@ def database_table_data(request, db_alias, table_name):
         'filter_subject_tr': filter_subject_tr,
         'filter_type': filter_type,
         'filter_status': filter_status,
+        'html_columns': html_columns,
     }
     return render(request, 'admin/database_table_data.html', context)
 
