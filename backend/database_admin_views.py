@@ -478,7 +478,13 @@ def database_table_data(request, db_alias, table_name):
     table_data_url = '/admin/databases/%s/%s/' % (db_alias, table_name)
     tables_url = '/admin/databases/%s/' % db_alias
     num_pages = (total + PAGE_SIZE - 1) // PAGE_SIZE if total else 1
-    row_list = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
+    # For pending_question_request show "qid" instead of "approved_qid" and use qid value when present
+    if db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
+        display_columns = ['qid' if c == 'approved_qid' else c for c in columns]
+        row_list = [([(r.get('qid') if c == 'approved_qid' else r.get(c)) for c in columns], r.get(pk_column)) for r in rows]
+    else:
+        display_columns = columns
+        row_list = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
 
     show_approve = (db_alias == 'hsc' and table_name == 'cheradip_pending_question_request')
     filter_options = _get_pending_question_request_filter_options(conn, table_name) if show_approve else None
@@ -496,6 +502,7 @@ def database_table_data(request, db_alias, table_name):
         'db_label': label,
         'table_name': table_name,
         'columns': columns,
+        'display_columns': display_columns,
         'pk_column': pk_column,
         'row_list': row_list,
         'total': total,

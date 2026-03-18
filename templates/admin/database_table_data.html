@@ -5,7 +5,6 @@
 
 {% block extrastyle %}{{ block.super }}
 <style>
-  /* Remove duplicate title h1 to save vertical space */
   #content h1, #content-main h1 { display: none; }
   .table-data-header {
     display: flex;
@@ -15,49 +14,82 @@
     gap: 10px;
     margin: 0;
   }
-  .table-data-header .header-actions {
+  .table-data-header .header-actions { display: flex; gap: 8px; }
+  .table-data-header .header-actions button { padding: 6px 12px; cursor: pointer; }
+  /* Filters + actions on same row (question-page style) */
+  .table-data-toolbar {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .table-data-toolbar .filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 8px;
   }
-  .table-data-header .header-actions button {
-    padding: 6px 12px;
-    cursor: pointer;
-  }
-  .table-data-layout {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-  }
-  .table-data-layout .table-data-main {
-    flex: 1;
-    min-width: 0;
-  }
-  .table-data-layout .table-data-filters {
-    flex-shrink: 0;
-    width: 220px;
-    padding: 12px;
-    background: #f8f8f8;
-    border: 1px solid #e0e0e0;
+  .table-data-toolbar .filter-form select {
+    min-width: 120px;
+    padding: 6px 10px;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    border: 1px solid teal;
     border-radius: 6px;
   }
-  .table-data-filters h3 {
-    margin: 0 0 12px 0;
-    font-size: 14px;
+  .table-data-toolbar .filter-form select:hover {
+    border-color: #006666;
+    background: rgba(0, 128, 128, 0.08);
   }
-  .table-data-filters label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 12px;
+  .table-data-toolbar .filter-form select:focus {
+    outline: none;
+    border-color: teal;
   }
-  .table-data-filters select {
-    width: 100%;
-    margin-bottom: 12px;
-    padding: 4px 6px;
-  }
-  .table-data-filters button {
+  .table-data-toolbar .filter-form label { margin: 0; font-size: 13px; color: teal; }
+  .table-data-toolbar .btn-approve {
+    background: teal;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
     padding: 6px 14px;
     cursor: pointer;
+    font-size: 13px;
   }
+  .table-data-toolbar .btn-approve:hover { background: darkgreen; color: #fff; }
+  .table-data-toolbar .btn-delete {
+    background: darkred;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .table-data-toolbar .btn-delete:hover { background: red; color: #fff; }
+  .table-data-actions-cell { white-space: nowrap; }
+  .table-data-actions-cell form { display: inline; margin: 0 2px; }
+  .table-data-actions-cell .btn-row-approve,
+  .table-data-actions-cell .btn-row-delete {
+    border: none;
+    border-radius: 20px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .table-data-actions-cell .btn-row-approve {
+    background: teal;
+    color: #fff;
+  }
+  .table-data-actions-cell .btn-row-approve:hover { background: darkgreen; color: #fff; }
+  .table-data-actions-cell .btn-row-delete {
+    background: darkred;
+    color: #fff;
+  }
+  .table-data-actions-cell .btn-row-delete:hover { background: red; color: #fff; }
 </style>
 {% endblock %}
 
@@ -76,8 +108,6 @@
     <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
     {% endif %}
 
-    <div class="table-data-layout">
-    <div class="table-data-main">
     <div class="module">
         <div id="add-row-module" class="toggle-panel" style="display: none;">
             <h2>{% translate 'Add row' %}</h2>
@@ -138,23 +168,51 @@
             </span>
         </h2>
 
+        <div class="table-data-toolbar">
+            {% if show_pending_filters and filter_options %}
+            <form method="get" action="{{ table_data_url }}" class="filter-form" id="filter-form">
+                <label>{% translate 'Subject' %}</label>
+                <select name="filter_subject_tr" onchange="this.form.submit()">
+                    <option value="">{% translate 'All' %}</option>
+                    {% for v in filter_options.subject_tr_list %}
+                    <option value="{{ v }}" {% if filter_subject_tr == v %}selected{% endif %}>{{ v|truncatewords:6 }}</option>
+                    {% endfor %}
+                </select>
+                <label>{% translate 'Type' %}</label>
+                <select name="filter_type" onchange="this.form.submit()">
+                    <option value="">{% translate 'All' %}</option>
+                    {% for v in filter_options.type_list %}
+                    <option value="{{ v }}" {% if filter_type == v %}selected{% endif %}>{{ v }}</option>
+                    {% endfor %}
+                </select>
+                <label>{% translate 'Status' %}</label>
+                <select name="filter_status" onchange="this.form.submit()">
+                    <option value="">{% translate 'All' %}</option>
+                    {% for v in filter_options.status_list %}
+                    <option value="{{ v }}" {% if filter_status == v %}selected{% endif %}>{{ v }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+            {% endif %}
+            <button type="submit" form="delete-form" name="action" value="delete" class="btn-delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete selected' %}</button>
+            {% if show_approve %}
+            <button type="submit" form="delete-form" name="action" value="approve" class="btn-approve">{% translate 'Approve selected' %}</button>
+            {% endif %}
+        </div>
         <form method="post" action="" id="delete-form">
             {% csrf_token %}
-            <p>
-                <button type="submit" name="action" value="delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete selected' %}</button>
-                {% if show_approve %}
-                <button type="submit" name="action" value="approve">{% translate 'Approve selected' %}</button>
-                {% endif %}
-            </p>
             <div style="overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="select-all"></th>
-                        {% for col in columns %}
+                        {% for col in display_columns %}
                         <th>{{ col }}</th>
                         {% endfor %}
                         <th>{% translate 'Edit' %}</th>
+                        {% if show_approve %}
+                        <th>{% translate 'Approve' %} / {% translate 'Delete' %}</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -165,9 +223,25 @@
                         <td>{{ val|default:""|truncatewords:12 }}</td>
                         {% endfor %}
                         <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
+                        {% if show_approve %}
+                        <td class="table-data-actions-cell">
+                            <form method="post" action="" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="approve">
+                                <input type="hidden" name="ids" value="{{ row_id }}">
+                                <button type="submit" class="btn-row-approve" title="{% translate 'Approve' %}">&#10003;</button>
+                            </form>
+                            <form method="post" action="" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="ids" value="{{ row_id }}">
+                                <button type="submit" class="btn-row-delete" onclick="return confirm('{% translate "Delete this row?" %}');" title="{% translate 'Delete' %}">&#10007;</button>
+                            </form>
+                        </td>
+                        {% endif %}
                     </tr>
                     {% empty %}
-                    <tr><td colspan="{{ columns|length|add:2 }}">No rows.</td></tr>
+                    <tr><td colspan="{% if show_approve %}{{ columns|length|add:3 }}{% else %}{{ columns|length|add:2 }}{% endif %}">No rows.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -181,38 +255,6 @@
             {% if next_url %}<a href="{{ next_url }}">Next</a>{% endif %}
         </p>
         {% endif %}
-    </div>
-    </div>
-
-    {% if show_pending_filters and filter_options %}
-    <div class="table-data-filters">
-        <h3>{% translate 'Filter' %}</h3>
-        <form method="get" action="{{ table_data_url }}">
-            <label>{% translate 'Subject' %} (subject_tr)</label>
-            <select name="filter_subject_tr">
-                <option value="">{% translate 'All' %}</option>
-                {% for v in filter_options.subject_tr_list %}
-                <option value="{{ v }}" {% if filter_subject_tr == v %}selected{% endif %}>{{ v|truncatewords:8 }}</option>
-                {% endfor %}
-            </select>
-            <label>{% translate 'Type' %}</label>
-            <select name="filter_type">
-                <option value="">{% translate 'All' %}</option>
-                {% for v in filter_options.type_list %}
-                <option value="{{ v }}" {% if filter_type == v %}selected{% endif %}>{{ v }}</option>
-                {% endfor %}
-            </select>
-            <label>{% translate 'Status' %}</label>
-            <select name="filter_status">
-                <option value="">{% translate 'All' %}</option>
-                {% for v in filter_options.status_list %}
-                <option value="{{ v }}" {% if filter_status == v %}selected{% endif %}>{{ v }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">{% translate 'Apply' %}</button>
-        </form>
-    </div>
-    {% endif %}
     </div>
 </div>
 <script>
