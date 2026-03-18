@@ -235,7 +235,7 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="ids" value="{{ row_id }}">
-                                <button type="submit" class="btn-row-delete" onclick="return confirm('{% translate "Delete this row?" %}');" title="{% translate 'Delete' %}">&#10007;</button>
+                                <button type="submit" class="btn-row-delete" onclick="return confirm('{% translate "Delete this row?" %}');" title="{% translate 'Delete' %}">X</button>
                             </form>
                         </td>
                         {% endif %}
