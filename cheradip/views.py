@@ -3859,9 +3859,7 @@ class ExamSetListView(APIView):
     authentication_classes = []
 
     def get(self, request):
-        level_tr = (request.query_params.get('level_tr') or '').strip()
-        class_level = (request.query_params.get('class_level') or '').strip()
-        subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        """Returns all exam sets (level_tr, class_level, subject_tr included for client-side filtering)."""
         if 'hsc' not in connections:
             return Response({'exam_sets': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
         conn = connections['hsc']
@@ -3874,31 +3872,125 @@ class ExamSetListView(APIView):
                 if not cur.fetchone():
                     return Response({'exam_sets': []}, status=status.HTTP_200_OK)
                 sql = (
-                    "SELECT id, exam_type, set_key, name_label FROM cheradip_exam_set WHERE db_alias = 'hsc' "
+                    "SELECT id, exam_type, set_key, name_label, level_tr, class_level, subject_tr FROM cheradip_exam_set WHERE db_alias = 'hsc' "
+                    "ORDER BY exam_type, set_key "
                 )
-                params = []
-                if level_tr:
-                    sql += " AND level_tr = %s "
-                    params.append(level_tr)
-                if class_level:
-                    sql += " AND class_level = %s "
-                    params.append(class_level)
-                if subject_tr:
-                    sql += " AND subject_tr = %s "
-                    params.append(subject_tr)
-                sql += " ORDER BY exam_type, set_key "
-                cur.execute(sql, params)
+                cur.execute(sql)
                 for row in cur.fetchall() or []:
                     exam_sets.append({
                         'id': row[0],
                         'exam_type': row[1] or '',
                         'set_key': row[2] or '',
                         'name_label': row[3] or '',
+                        'level_tr': row[4] or '',
+                        'class_level': row[5] or '',
+                        'subject_tr': row[6] or '',
                     })
         except Exception as e:
             logger.exception('ExamSetListView: %s', e)
             return Response({'exam_sets': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({'exam_sets': exam_sets}, status=status.HTTP_200_OK)
+
+
+class ExamSetDetailView(APIView):
+    """
+    GET: Single exam set by id from cheradip_exam_set (hsc). Returns id, name_label, set_key, exam_type for session header.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request, pk):
+        if 'hsc' not in connections:
+            return Response({'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT id, exam_type, set_key, name_label, level_tr, class_level, subject_tr, qids_json FROM cheradip_exam_set WHERE id = %s AND db_alias = 'hsc'",
+                    [pk]
+                )
+                row = cur.fetchone()
+                if not row:
+                    return Response({'error': 'Exam set not found'}, status=status.HTTP_404_NOT_FOUND)
+                qids_json = row[7] if len(row) > 7 else None
+                return Response({
+                    'id': row[0],
+                    'exam_type': row[1] or '',
+                    'set_key': row[2] or '',
+                    'name_label': row[3] or '',
+                    'level_tr': row[4] or '',
+                    'class_level': row[5] or '',
+                    'subject_tr': row[6] or '',
+                    'qids_json': qids_json or '',
+                }, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.exception('ExamSetDetailView: %s', e)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ExamSetQuestionsView(APIView):
+    """
+    GET: Questions for an exam set (by id). Reads qids_json from cheradip_exam_set, fetches from subject table.
+    Returns up to 30 questions with qid, question, option_1..4, answer for client-side exam session.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request, pk):
+        import json
+        if 'hsc' not in connections:
+            return Response({'questions': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        conn = connections['hsc']
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT qids_json, level_tr, class_level, subject_tr FROM cheradip_exam_set WHERE id = %s AND db_alias = 'hsc'",
+                    [pk]
+                )
+                row = cur.fetchone()
+                if not row:
+                    return Response({'questions': [], 'error': 'Exam set not found'}, status=status.HTTP_404_NOT_FOUND)
+                qids_json, level_tr, class_level, subject_tr = row[0], row[1] or '', row[2] or '', row[3] or ''
+                try:
+                    qids = json.loads(qids_json) if qids_json else []
+                except Exception:
+                    qids = []
+                if not qids:
+                    return Response({'questions': []}, status=status.HTTP_200_OK)
+                table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s",
+                    [table_name]
+                )
+                if not cur.fetchone():
+                    return Response({'questions': [], 'error': 'Subject table not found'}, status=status.HTTP_200_OK)
+                limit = min(30, len(qids))
+                qids_slice = qids[:limit]
+                placeholders = ', '.join(['%s'] * len(qids_slice))
+                tbl = table_name.replace('`', '``')
+                cur.execute(
+                    "SELECT qid, question, option_1, option_2, option_3, option_4, answer FROM `" + tbl + "` WHERE qid IN (" + placeholders + ")",
+                    qids_slice
+                )
+                order_map = {qid: i for i, qid in enumerate(qids_slice)}
+                rows = list(cur.fetchall() or [])
+                rows.sort(key=lambda r: order_map.get(r[0], 999))
+                questions = []
+                for r in rows:
+                    questions.append({
+                        'qid': r[0],
+                        'id': r[0],
+                        'question': r[1] or '',
+                        'option_1': r[2] or '',
+                        'option_2': r[3] or '',
+                        'option_3': r[4] or '',
+                        'option_4': r[5] or '',
+                        'answer': (r[6] or '').strip() if len(r) > 6 else '',
+                    })
+                return Response({'questions': questions}, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.exception('ExamSetQuestionsView: %s', e)
+            return Response({'questions': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class QuestionChaptersView(APIView):
