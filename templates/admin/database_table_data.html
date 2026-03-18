@@ -29,10 +29,11 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
+    margin-top: 5px;
   }
   .table-data-toolbar .filter-form select {
     min-width: 120px;
-    padding: 6px 10px;
+    padding: 0 10px;
     font-size: 14px;
     color: #333;
     background: #fff;
@@ -82,9 +83,9 @@
   }
   .table-data-actions-cell .btn-row-approve {
     background: teal;
-    color: #fff;
+    color: #fff !important;
   }
-  .table-data-actions-cell .btn-row-approve:hover { background: darkgreen; color: #fff; }
+  .table-data-actions-cell .btn-row-approve:hover { background: darkgreen; color: #fff !important; }
   .table-data-actions-cell .btn-row-delete {
     background: darkred;
     color: #fff;
@@ -194,10 +195,10 @@
                 </select>
             </form>
             {% endif %}
-            <button type="submit" form="delete-form" name="action" value="delete" class="btn-delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete selected' %}</button>
             {% if show_approve %}
-            <button type="submit" form="delete-form" name="action" value="approve" class="btn-approve">{% translate 'Approve selected' %}</button>
+            <button type="submit" form="delete-form" name="action" value="approve" class="btn-approve">{% translate 'Approve Selected' %}</button>
             {% endif %}
+            <button type="submit" form="delete-form" name="action" value="delete" class="btn-delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete Selected' %}</button>
         </div>
         <form method="post" action="" id="delete-form">
             {% csrf_token %}
@@ -209,9 +210,8 @@
                         {% for col in display_columns %}
                         <th>{{ col }}</th>
                         {% endfor %}
-                        <th>{% translate 'Edit' %}</th>
                         {% if show_approve %}
-                        <th>{% translate 'Approve' %} / {% translate 'Delete' %}</th>
+                        <th>{% translate 'Apply' %}</th>
                         {% endif %}
                     </tr>
                 </thead>
@@ -222,9 +222,9 @@
                         {% for val in values %}
                         <td>{{ val|default:""|truncatewords:12 }}</td>
                         {% endfor %}
-                        <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
                         {% if show_approve %}
                         <td class="table-data-actions-cell">
+                            <a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}" class="btn-row-approve" title="{% translate 'Edit' %}">&#9998;</a>
                             <form method="post" action="" style="display:inline;">
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="approve">
@@ -238,10 +238,12 @@
                                 <button type="submit" class="btn-row-delete" onclick="return confirm('{% translate "Delete this row?" %}');" title="{% translate 'Delete' %}">X</button>
                             </form>
                         </td>
+                        {% else %}
+                        <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
                         {% endif %}
                     </tr>
                     {% empty %}
-                    <tr><td colspan="{% if show_approve %}{{ columns|length|add:3 }}{% else %}{{ columns|length|add:2 }}{% endif %}">No rows.</td></tr>
+                    <tr><td colspan="{{ columns|length|add:2 }}">No rows.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>

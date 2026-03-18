@@ -243,16 +243,14 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                     continue
                 columns = [col[0] for col in cursor.description]
                 row_data = dict(zip(columns, row))
-                if str(row_data.get('status') or '').strip().lower() != 'pending':
-                    errors.append('Row %s is not pending.' % pk)
-                    continue
                 level_tr = (row_data.get('level_tr') or '').strip() or ''
                 class_level = (row_data.get('class_level') or '').strip() or ''
                 subject_tr = (row_data.get('subject_tr') or '').strip() or ''
                 if not subject_tr:
                     errors.append('Row %s has no subject_tr.' % pk)
                     continue
-                target_table = subject_question_table_name(level_tr, class_level, subject_tr)
+                stored_table = (row_data.get('table') or '').strip()
+                target_table = stored_table if stored_table else subject_question_table_name(level_tr, class_level, subject_tr)
                 cursor.execute(
                     "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
                     [db_name, target_table]
@@ -299,8 +297,8 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                         ]
                     )
                 cursor.execute(
-                    "UPDATE `%s` SET status=%%s, approved_at=%%s, approved_qid=%%s WHERE `%s`=%%s" % (table_name.replace('`', '``'), pk_column.replace('`', '``')),
-                    ['approved', now_sql, qid, pk]
+                    "DELETE FROM `%s` WHERE `%s`=%%s" % (table_name.replace('`', '``'), pk_column.replace('`', '``')),
+                    [pk]
                 )
                 success += 1
             except Exception as e:
@@ -478,8 +476,24 @@ def database_table_data(request, db_alias, table_name):
     table_data_url = '/admin/databases/%s/%s/' % (db_alias, table_name)
     tables_url = '/admin/databases/%s/' % db_alias
     num_pages = (total + PAGE_SIZE - 1) // PAGE_SIZE if total else 1
-    # For pending_question_request show "qid" instead of "approved_qid" and use qid value when present
+    # For pending_question_request: reorder so qid, table, status appear after approved_at; show "qid" instead of "approved_qid"
     if db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
+        PENDING_ORDER = (
+            'id', 'level_tr', 'class_level', 'subject_tr', 'chapter_no', 'chapter', 'topic_no', 'topic',
+            'question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer', 'explanation', 'explanation2', 'explanation3',
+            'type', 'level', 'subsource', 'created_at', 'approved_at', 'qid', 'table', 'status', 'requested_qid',
+            'approved_qid', 'updated_by'
+        )
+        seen = set()
+        ordered = []
+        for c in PENDING_ORDER:
+            if c in columns and c not in seen:
+                seen.add(c)
+                ordered.append(c)
+        for c in columns:
+            if c not in seen:
+                ordered.append(c)
+        columns = ordered
         display_columns = ['qid' if c == 'approved_qid' else c for c in columns]
         row_list = [([(r.get('qid') if c == 'approved_qid' else r.get(c)) for c in columns], r.get(pk_column)) for r in rows]
     else:

@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS cheradip_pending_subject_request (
 CREATE_PENDING_QUESTION_REQUEST = """
 CREATE TABLE IF NOT EXISTS cheradip_pending_question_request (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `table` VARCHAR(64) NULL COMMENT 'Subject question table name for approve (e.g. cheradip_higher_secondary_11_12_physics)',
     level_tr VARCHAR(100) NULL,
     class_level VARCHAR(50) NULL,
     subject_tr VARCHAR(255) NOT NULL,
@@ -126,8 +127,9 @@ def _ensure_hsc_base_tables(cursor, db_name, dry_run):
             cursor.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited'")
         except Exception:
             pass
-    # Add approved_at, approved_qid, qid, level, subsource, updated_by if missing (for subject-question approve flow)
+    # Add table, approved_at, approved_qid, qid, level, subsource, updated_by if missing
     for col, defn in [
+        ('table', '`table` VARCHAR(64) NULL COMMENT \'Subject question table for approve\''),
         ('approved_at', 'approved_at DATETIME(6) NULL'),
         ('approved_qid', 'approved_qid VARCHAR(64) NULL'),
         ('qid', 'qid VARCHAR(64) NULL COMMENT \'question id (same as requested_qid for Update)\''),

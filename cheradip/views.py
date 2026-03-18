@@ -4103,6 +4103,10 @@ class PendingQuestionRequestView(APIView):
             subject_tr = (data.get('subject_tr') or '').strip()[:255]
             if not subject_tr:
                 subject_tr = ''
+            table_val = (data.get('table') or '').strip()[:64] or None
+            if not table_val and level_tr and class_level and subject_tr:
+                from cheradip.subject_question_tables import subject_question_table_name
+                table_val = subject_question_table_name(level_tr, class_level, subject_tr)
             chapter_no = (data.get('chapter_no') or '')[:50]
             chapter = (data.get('chapter') or '').strip()[:255]
             topic_no = (data.get('topic_no') or '')[:50]
@@ -4136,86 +4140,174 @@ class PendingQuestionRequestView(APIView):
                     "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_pending_question_request' AND column_name = 'qid'"
                 )
                 has_qid_col = cur.fetchone() is not None
+                cur.execute(
+                    "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_pending_question_request' AND column_name = 'table'"
+                )
+                has_table_col = cur.fetchone() is not None
                 if has_requested_qid and requested_qid is not None:
                     if has_level and has_subsource and has_qid_col:
-                        cur.execute(
-                            """
-                            INSERT INTO cheradip_pending_question_request
-                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type, level, subsource, status, created_at, requested_qid, qid)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            """,
-                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type_val, level_val, subsource_val, status_val, now, requested_qid, requested_qid]
-                        )
+                        if has_table_col:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (`table`, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, level, subsource, status, created_at, requested_qid, qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [table_val, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, level_val, subsource_val, status_val, now, requested_qid, requested_qid]
+                            )
+                        else:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, level, subsource, status, created_at, requested_qid, qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, level_val, subsource_val, status_val, now, requested_qid, requested_qid]
+                            )
                     elif has_level and has_subsource:
-                        cur.execute(
-                            """
-                            INSERT INTO cheradip_pending_question_request
-                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type, level, subsource, status, created_at, requested_qid)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            """,
-                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type_val, level_val, subsource_val, status_val, now, requested_qid]
-                        )
+                        if has_table_col:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (`table`, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, level, subsource, status, created_at, requested_qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [table_val, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, level_val, subsource_val, status_val, now, requested_qid]
+                            )
+                        else:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, level, subsource, status, created_at, requested_qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, level_val, subsource_val, status_val, now, requested_qid]
+                            )
                     elif has_qid_col:
-                        cur.execute(
-                            """
-                            INSERT INTO cheradip_pending_question_request
-                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type, status, created_at, requested_qid, qid)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            """,
-                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type_val, status_val, now, requested_qid, requested_qid]
-                        )
+                        if has_table_col:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (`table`, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, status, created_at, requested_qid, qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [table_val, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, status_val, now, requested_qid, requested_qid]
+                            )
+                        else:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, status, created_at, requested_qid, qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, status_val, now, requested_qid, requested_qid]
+                            )
                     else:
-                        cur.execute(
-                            """
-                            INSERT INTO cheradip_pending_question_request
-                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type, status, created_at, requested_qid)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            """,
-                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type_val, status_val, now, requested_qid]
-                        )
+                        if has_table_col:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (`table`, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, status, created_at, requested_qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [table_val, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, status_val, now, requested_qid]
+                            )
+                        else:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, status, created_at, requested_qid)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, status_val, now, requested_qid]
+                            )
                 else:
                     if has_level and has_subsource:
-                        cur.execute(
-                            """
-                            INSERT INTO cheradip_pending_question_request
-                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type, level, subsource, status, created_at)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            """,
-                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type_val, level_val, subsource_val, status_val, now]
-                        )
+                        if has_table_col:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (`table`, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, level, subsource, status, created_at)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [table_val, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, level_val, subsource_val, status_val, now]
+                            )
+                        else:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, level, subsource, status, created_at)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, level_val, subsource_val, status_val, now]
+                            )
                     else:
-                        cur.execute(
-                            """
-                            INSERT INTO cheradip_pending_question_request
-                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type, status, created_at)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                            """,
-                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                             type_val, status_val, now]
-                        )
+                        if has_table_col:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (`table`, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, status, created_at)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [table_val, level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, status_val, now]
+                            )
+                        else:
+                            cur.execute(
+                                """
+                                INSERT INTO cheradip_pending_question_request
+                                (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type, status, created_at)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                """,
+                                [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                                 option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                                 type_val, status_val, now]
+                            )
                 pk = cur.lastrowid
             return Response({'id': pk, 'status': status_val, 'message': 'Edit request submitted.'}, status=status.HTTP_201_CREATED)
         except Exception as e:
