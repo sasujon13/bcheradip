@@ -81,11 +81,15 @@ CREATE TABLE IF NOT EXISTS cheradip_pending_question_request (
     explanation2 TEXT NULL,
     explanation3 TEXT NULL,
     type VARCHAR(100) NULL,
+    level VARCHAR(100) NULL,
+    subsource VARCHAR(255) NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'pending',
     created_at DATETIME(6) NULL,
     approved_at DATETIME(6) NULL,
     approved_qid VARCHAR(64) NULL,
     requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited',
+    qid VARCHAR(64) NULL COMMENT 'question id (same as requested_qid for Update requests)',
+    updated_by VARCHAR(255) NULL,
     INDEX (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 """
@@ -122,6 +126,24 @@ def _ensure_hsc_base_tables(cursor, db_name, dry_run):
             cursor.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN requested_qid VARCHAR(64) NULL COMMENT 'qid of question being edited'")
         except Exception:
             pass
+    # Add approved_at, approved_qid, qid, level, subsource, updated_by if missing (for subject-question approve flow)
+    for col, defn in [
+        ('approved_at', 'approved_at DATETIME(6) NULL'),
+        ('approved_qid', 'approved_qid VARCHAR(64) NULL'),
+        ('qid', 'qid VARCHAR(64) NULL COMMENT \'question id (same as requested_qid for Update)\''),
+        ('level', 'level VARCHAR(100) NULL'),
+        ('subsource', 'subsource VARCHAR(255) NULL'),
+        ('updated_by', 'updated_by VARCHAR(255) NULL'),
+    ]:
+        cursor.execute(
+            "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_pending_question_request' AND column_name = %s",
+            [db_name, col]
+        )
+        if not cursor.fetchone():
+            try:
+                cursor.execute("ALTER TABLE cheradip_pending_question_request ADD COLUMN %s" % defn)
+            except Exception:
+                pass
 
 
 class Command(BaseCommand):

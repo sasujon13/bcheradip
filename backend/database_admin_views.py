@@ -6,7 +6,9 @@ import csv
 import io
 import json
 import re
+
 from django.contrib import admin
+from django.utils.dateparse import parse_datetime
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
 from django.template.response import TemplateResponse
@@ -17,7 +19,7 @@ from backend.admin_app_list import get_app_list_by_database, build_db_tabs_for_i
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound, HttpResponseBadRequest
 from django.contrib import messages
-
+from django.utils import timezone
 
 # Aliases and display names for the 4 databases
 DATABASE_MENU = [
@@ -48,23 +50,128 @@ def _get_pk_column(columns):
     return 'id' if 'id' in columns else columns[0]
 
 
-def _get_row_count(conn, table_name):
+def _get_column_types(conn, table_name, db_name):
+    """Return dict mapping column name -> 'datetime' | 'date' | None for MySQL."""
+    result = {}
     with conn.cursor() as cursor:
-        cursor.execute("SELECT COUNT(*) FROM `%s`" % table_name.replace('`', '``'))
+        cursor.execute(
+            "SELECT COLUMN_NAME, DATA_TYPE FROM information_schema.columns WHERE table_schema = %s AND table_name = %s",
+            [db_name, table_name]
+        )
+        for row in cursor.fetchall() or []:
+            col, dtype = (row[0], (row[1] or '').lower())
+            if dtype in ('datetime', 'timestamp'):
+                result[col] = 'datetime'
+            elif dtype == 'date':
+                result[col] = 'date'
+            else:
+                result[col] = None
+    return result
+
+
+def _parse_datetime_for_mysql(value):
+    """
+    Parse a form value (locale or ISO string, or already MySQL format) to MySQL datetime string.
+    Returns None if value is empty or unparseable.
+    """
+    if value is None:
+        return None
+    s = str(value).strip()
+    if not s:
+        return None
+    # Already MySQL-style
+    if re.match(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2})?(\.\d+)?$', s):
+        return s[:19] if len(s) > 19 else s
+    # ISO with T
+    parsed = parse_datetime(s)
+    if parsed:
+        return parsed.strftime('%Y-%m-%d %H:%M:%S')
+    try:
+        from dateutil.parser import parse as dateutil_parse
+        parsed = dateutil_parse(s)
+        return parsed.strftime('%Y-%m-%d %H:%M:%S')
+    except Exception:
+        pass
+    return None
+
+
+def _format_cell_for_edit(value, data_type):
+    """Format a cell value for display in the edit form (MySQL-compatible for datetime/date)."""
+    if value is None:
+        return ''
+    if data_type == 'datetime':
+        if hasattr(value, 'strftime'):
+            return value.strftime('%Y-%m-%d %H:%M:%S')
+        s = str(value).strip()
+        if s:
+            parsed = parse_datetime(s)
+            if parsed:
+                return parsed.strftime('%Y-%m-%d %H:%M:%S')
+            try:
+                from dateutil.parser import parse as dateutil_parse
+                parsed = dateutil_parse(s)
+                return parsed.strftime('%Y-%m-%d %H:%M:%S')
+            except Exception:
+                pass
+        return s
+    if data_type == 'date':
+        if hasattr(value, 'strftime'):
+            return value.strftime('%Y-%m-%d')
+        s = str(value).strip()
+        if s and len(s) >= 10:
+            return s[:10]
+        return s
+    return str(value)
+
+
+def _get_row_count(conn, table_name, where_clause=None, where_params=None):
+    safe_table = table_name.replace('`', '``')
+    sql = "SELECT COUNT(*) FROM `%s`" % safe_table
+    params = []
+    if where_clause:
+        sql += " WHERE " + where_clause
+        params = list(where_params or [])
+    with conn.cursor() as cursor:
+        cursor.execute(sql, params)
         return cursor.fetchone()[0]
 
 
-def _get_table_rows(conn, table_name, limit, offset, order_by_column):
+def _get_table_rows(conn, table_name, limit, offset, order_by_column, where_clause=None, where_params=None):
     """order_by_column: column name for ORDER BY (e.g. id or first column)."""
     order_col = order_by_column.replace('`', '``')
+    safe_table = table_name.replace('`', '``')
+    sql = "SELECT * FROM `%s`" % safe_table
+    params = []
+    if where_clause:
+        sql += " WHERE " + where_clause
+        params = list(where_params or [])
+    sql += " ORDER BY `%s` LIMIT %%s OFFSET %%s" % order_col
+    params.extend([limit, offset])
     with conn.cursor() as cursor:
-        cursor.execute(
-            "SELECT * FROM `%s` ORDER BY `%s` LIMIT %%s OFFSET %%s" % (table_name.replace('`', '``'), order_col),
-            [limit, offset]
-        )
+        cursor.execute(sql, params)
         columns = [row[0] for row in cursor.description]
         rows = [dict(zip(columns, row)) for row in cursor.fetchall()]
         return columns, rows
+
+
+def _get_pending_question_request_filter_options(conn, table_name):
+    """Return distinct subject_tr, type, status for cheradip_pending_question_request (for filter dropdowns)."""
+    if table_name != 'cheradip_pending_question_request':
+        return None
+    safe_table = table_name.replace('`', '``')
+    result = {'subject_tr_list': [], 'type_list': [], 'status_list': []}
+    with conn.cursor() as cursor:
+        for col, key in [('subject_tr', 'subject_tr_list'), ('type', 'type_list'), ('status', 'status_list')]:
+            try:
+                cursor.execute(
+                    "SELECT DISTINCT `%s` FROM `%s` WHERE `%s` IS NOT NULL AND TRIM(COALESCE(`%s`,'')) != '' ORDER BY 1" % (
+                        col.replace('`', '``'), safe_table, col.replace('`', '``'), col.replace('`', '``')
+                    )
+                )
+                result[key] = [str(r[0]).strip() for r in cursor.fetchall() if r[0] is not None and str(r[0]).strip()]
+            except Exception:
+                pass
+    return result
 
 
 def _insert_row(conn, table_name, columns, data):
@@ -111,6 +218,94 @@ def _update_row(conn, table_name, columns, pk_column, pk_value, data):
             [data[c] for c in cols] + [pk_value]
         )
     return True
+
+
+def _approve_pending_question_rows(conn, db_name, pk_column, ids):
+    """
+    Approve selected rows in cheradip_pending_question_request (HSC): insert/update into
+    the subject question table, then set status='approved', approved_at, approved_qid.
+    Returns (success_count, list of error strings).
+    """
+    from cheradip.subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
+    table_name = 'cheradip_pending_question_request'
+    success = 0
+    errors = []
+    with conn.cursor() as cursor:
+        for pk in ids:
+            try:
+                cursor.execute(
+                    "SELECT * FROM `%s` WHERE `%s` = %%s" % (table_name.replace('`', '``'), pk_column.replace('`', '``')),
+                    [pk]
+                )
+                row = cursor.fetchone()
+                if not row:
+                    errors.append('Row %s not found.' % pk)
+                    continue
+                columns = [col[0] for col in cursor.description]
+                row_data = dict(zip(columns, row))
+                if str(row_data.get('status') or '').strip().lower() != 'pending':
+                    errors.append('Row %s is not pending.' % pk)
+                    continue
+                level_tr = (row_data.get('level_tr') or '').strip() or ''
+                class_level = (row_data.get('class_level') or '').strip() or ''
+                subject_tr = (row_data.get('subject_tr') or '').strip() or ''
+                if not subject_tr:
+                    errors.append('Row %s has no subject_tr.' % pk)
+                    continue
+                target_table = subject_question_table_name(level_tr, class_level, subject_tr)
+                cursor.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+                    [db_name, target_table]
+                )
+                if not cursor.fetchone():
+                    errors.append('Subject table not found for row %s: %s' % (pk, target_table))
+                    continue
+                requested_qid = (row_data.get('requested_qid') or '').strip()
+                now_sql = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+                level_val = (row_data.get('level_tr') or row_data.get('level') or '').strip() or None
+                subsource_val = (row_data.get('subsource') or '').strip() or None
+                updated_by_val = (row_data.get('updated_by') or '').strip() or 'Cheradip'
+                if requested_qid:
+                    cursor.execute(
+                        """UPDATE `%s` SET subject=%%s, chapter_no=%%s, chapter=%%s, topic_no=%%s, topic=%%s, question=%%s,
+                           option_1=%%s, option_2=%%s, option_3=%%s, option_4=%%s, answer=%%s, explanation=%%s,
+                           explanation2=%%s, explanation3=%%s, type=%%s, level=%%s, subsource=%%s, updated_at=%%s, updated_by=%%s
+                           WHERE qid=%%s""" % target_table.replace('`', '``'),
+                        [
+                            row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
+                            row_data.get('topic_no'), row_data.get('topic'), row_data.get('question'),
+                            row_data.get('option_1'), row_data.get('option_2'), row_data.get('option_3'), row_data.get('option_4'),
+                            row_data.get('answer'), row_data.get('explanation'), row_data.get('explanation2'), row_data.get('explanation3'),
+                            row_data.get('type'), level_val, subsource_val, now_sql, updated_by_val, requested_qid
+                        ]
+                    )
+                    qid = requested_qid
+                else:
+                    qid = next_qid_for_chapter_topic(
+                        target_table,
+                        row_data.get('chapter_no') or '0',
+                        row_data.get('topic_no') or '0',
+                        using='hsc'
+                    )
+                    cursor.execute(
+                        """INSERT INTO `%s` (qid, subject, chapter_no, chapter, topic_no, topic, question, option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3, type, level, subsource, created_at, updated_at, updated_by)
+                           VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)""" % target_table.replace('`', '``'),
+                        [
+                            qid, row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
+                            row_data.get('topic_no'), row_data.get('topic'), row_data.get('question'),
+                            row_data.get('option_1'), row_data.get('option_2'), row_data.get('option_3'), row_data.get('option_4'),
+                            row_data.get('answer'), row_data.get('explanation'), row_data.get('explanation2'), row_data.get('explanation3'),
+                            row_data.get('type'), level_val, subsource_val, now_sql, now_sql, updated_by_val
+                        ]
+                    )
+                cursor.execute(
+                    "UPDATE `%s` SET status=%%s, approved_at=%%s, approved_qid=%%s WHERE `%s`=%%s" % (table_name.replace('`', '``'), pk_column.replace('`', '``')),
+                    ['approved', now_sql, qid, pk]
+                )
+                success += 1
+            except Exception as e:
+                errors.append('Row %s: %s' % (pk, str(e)))
+    return success, errors
 
 
 @staff_member_required
@@ -187,7 +382,6 @@ def database_table_data(request, db_alias, table_name):
     conn = connections[db_alias]
     db_name = conn.settings_dict.get('NAME', db_alias)
     label = dict(DATABASE_MENU).get(db_alias, db_alias)
-
     columns = _get_table_columns(conn, table_name)
     if not columns:
         messages.error(request, 'Table not found or has no columns.')
@@ -231,24 +425,69 @@ def database_table_data(request, db_alias, table_name):
                     messages.error(request, 'Import failed: %s' % str(e))
             return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
 
+        if action == 'approve' and db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
+            ids = request.POST.getlist('ids')
+            ids = [i.strip() for i in ids if i and str(i).strip()]
+            if not ids:
+                messages.error(request, 'Select at least one row to approve.')
+            else:
+                try:
+                    success, errs = _approve_pending_question_rows(conn, db_name, _get_pk_column(columns), ids)
+                    if success:
+                        messages.success(request, 'Approved %s row(s).' % success)
+                    if errs:
+                        for msg in errs[:10]:
+                            messages.warning(request, msg)
+                        if len(errs) > 10:
+                            messages.warning(request, '… and %s more errors.' % (len(errs) - 10))
+                except Exception as e:
+                    messages.error(request, 'Approve failed: %s' % str(e))
+            return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
+
+    # Filters for cheradip_pending_question_request (subject_tr, type, status)
+    filter_subject_tr = (request.GET.get('filter_subject_tr') or '').strip()
+    filter_type = (request.GET.get('filter_type') or '').strip()
+    filter_status = (request.GET.get('filter_status') or '').strip()
+    where_parts = []
+    where_params = []
+    if db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
+        if filter_subject_tr:
+            where_parts.append('subject_tr = %s')
+            where_params.append(filter_subject_tr)
+        if filter_type:
+            where_parts.append('type = %s')
+            where_params.append(filter_type)
+        if filter_status:
+            where_parts.append('status = %s')
+            where_params.append(filter_status)
+    where_clause = ' AND '.join(where_parts) if where_parts else None
+
     # Pagination
     page_num = request.GET.get('p', 1)
     try:
         page_num = max(1, int(page_num))
     except ValueError:
         page_num = 1
-    total = _get_row_count(conn, table_name)
+    total = _get_row_count(conn, table_name, where_clause=where_clause, where_params=where_params)
     paginator = Paginator(range(1), PAGE_SIZE)
     paginator._count = total
     offset = (page_num - 1) * PAGE_SIZE
     pk_column = _get_pk_column(columns)
-    _, rows = _get_table_rows(conn, table_name, PAGE_SIZE, offset, pk_column)
+    _, rows = _get_table_rows(conn, table_name, PAGE_SIZE, offset, pk_column, where_clause=where_clause, where_params=where_params)
 
     table_data_url = '/admin/databases/%s/%s/' % (db_alias, table_name)
     tables_url = '/admin/databases/%s/' % db_alias
     num_pages = (total + PAGE_SIZE - 1) // PAGE_SIZE if total else 1
     row_list = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
 
+    show_approve = (db_alias == 'hsc' and table_name == 'cheradip_pending_question_request')
+    filter_options = _get_pending_question_request_filter_options(conn, table_name) if show_approve else None
+    from django.http import QueryDict
+    q = request.GET.copy()
+    q['p'] = page_num - 1
+    prev_url = (table_data_url + '?' + q.urlencode()) if page_num > 1 else None
+    q['p'] = page_num + 1
+    next_url = (table_data_url + '?' + q.urlencode()) if page_num < num_pages else None
     context = {
         **admin.site.each_context(request),
         'title': 'Table: %s' % table_name,
@@ -263,8 +502,16 @@ def database_table_data(request, db_alias, table_name):
         'page_num': page_num,
         'num_pages': num_pages,
         'table_data_url': table_data_url,
+        'prev_url': prev_url,
+        'next_url': next_url,
         'tables_url': tables_url,
         'page_size': PAGE_SIZE,
+        'show_approve': show_approve,
+        'show_pending_filters': show_approve and filter_options is not None,
+        'filter_options': filter_options,
+        'filter_subject_tr': filter_subject_tr,
+        'filter_type': filter_type,
+        'filter_status': filter_status,
     }
     return render(request, 'admin/database_table_data.html', context)
 
@@ -342,11 +589,13 @@ def database_table_data_edit(request, db_alias, table_name, pk):
     if not _allowed_table_name(table_name):
         return HttpResponseBadRequest('Invalid table name.')
     conn = connections[db_alias]
+    db_name = conn.settings_dict.get('NAME', db_alias)
     label = dict(DATABASE_MENU).get(db_alias, db_alias)
     columns = _get_table_columns(conn, table_name)
     if not columns:
         return HttpResponseNotFound('Table not found.')
     pk_column = _get_pk_column(columns)
+    column_types = _get_column_types(conn, table_name, db_name)
 
     with conn.cursor() as cursor:
         pk_esc = pk_column.replace('`', '``')
@@ -361,6 +610,14 @@ def database_table_data_edit(request, db_alias, table_name, pk):
 
     if request.method == 'POST':
         data = {c: request.POST.get('field_%s' % c) for c in columns}
+        for c in columns:
+            dt = column_types.get(c)
+            if dt in ('datetime', 'date'):
+                parsed = _parse_datetime_for_mysql(data.get(c))
+                if parsed is not None:
+                    data[c] = parsed
+                elif data.get(c) is not None and str(data.get(c)).strip() == '':
+                    data[c] = None
         try:
             _update_row(conn, table_name, columns, pk_column, pk, data)
             messages.success(request, 'Row updated.')
@@ -369,7 +626,7 @@ def database_table_data_edit(request, db_alias, table_name, pk):
             messages.error(request, 'Update failed: %s' % str(e))
 
     table_data_url = '/admin/databases/%s/%s/' % (db_alias, table_name)
-    row_items = [(c, row_data.get(c)) for c in columns]
+    row_items = [(c, _format_cell_for_edit(row_data.get(c), column_types.get(c))) for c in columns]
     context = {
         **admin.site.each_context(request),
         'title': 'Edit row: %s' % table_name,

@@ -23,6 +23,41 @@
     padding: 6px 12px;
     cursor: pointer;
   }
+  .table-data-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .table-data-layout .table-data-main {
+    flex: 1;
+    min-width: 0;
+  }
+  .table-data-layout .table-data-filters {
+    flex-shrink: 0;
+    width: 220px;
+    padding: 12px;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+  }
+  .table-data-filters h3 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+  }
+  .table-data-filters label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .table-data-filters select {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 4px 6px;
+  }
+  .table-data-filters button {
+    padding: 6px 14px;
+    cursor: pointer;
+  }
 </style>
 {% endblock %}
 
@@ -41,6 +76,8 @@
     <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
     {% endif %}
 
+    <div class="table-data-layout">
+    <div class="table-data-main">
     <div class="module">
         <div id="add-row-module" class="toggle-panel" style="display: none;">
             <h2>{% translate 'Add row' %}</h2>
@@ -103,8 +140,12 @@
 
         <form method="post" action="" id="delete-form">
             {% csrf_token %}
-            <input type="hidden" name="action" value="delete">
-            <p><input type="submit" value="{% translate 'Delete selected' %}" onclick="return confirm('Delete selected rows?');"></p>
+            <p>
+                <button type="submit" name="action" value="delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete selected' %}</button>
+                {% if show_approve %}
+                <button type="submit" name="action" value="approve">{% translate 'Approve selected' %}</button>
+                {% endif %}
+            </p>
             <div style="overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
@@ -136,10 +177,42 @@
         {% if num_pages > 1 %}
         <p class="paginator">
             Page {{ page_num }} of {{ num_pages }}.
-            {% if page_num > 1 %}<a href="{{ table_data_url }}?p={{ page_num|add:'-1' }}">Previous</a>{% endif %}
-            {% if page_num < num_pages %}<a href="{{ table_data_url }}?p={{ page_num|add:1 }}">Next</a>{% endif %}
+            {% if prev_url %}<a href="{{ prev_url }}">Previous</a>{% endif %}
+            {% if next_url %}<a href="{{ next_url }}">Next</a>{% endif %}
         </p>
         {% endif %}
+    </div>
+    </div>
+
+    {% if show_pending_filters and filter_options %}
+    <div class="table-data-filters">
+        <h3>{% translate 'Filter' %}</h3>
+        <form method="get" action="{{ table_data_url }}">
+            <label>{% translate 'Subject' %} (subject_tr)</label>
+            <select name="filter_subject_tr">
+                <option value="">{% translate 'All' %}</option>
+                {% for v in filter_options.subject_tr_list %}
+                <option value="{{ v }}" {% if filter_subject_tr == v %}selected{% endif %}>{{ v|truncatewords:8 }}</option>
+                {% endfor %}
+            </select>
+            <label>{% translate 'Type' %}</label>
+            <select name="filter_type">
+                <option value="">{% translate 'All' %}</option>
+                {% for v in filter_options.type_list %}
+                <option value="{{ v }}" {% if filter_type == v %}selected{% endif %}>{{ v }}</option>
+                {% endfor %}
+            </select>
+            <label>{% translate 'Status' %}</label>
+            <select name="filter_status">
+                <option value="">{% translate 'All' %}</option>
+                {% for v in filter_options.status_list %}
+                <option value="{{ v }}" {% if filter_status == v %}selected{% endif %}>{{ v }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">{% translate 'Apply' %}</button>
+        </form>
+    </div>
+    {% endif %}
     </div>
 </div>
 <script>

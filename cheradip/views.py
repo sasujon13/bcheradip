@@ -4041,14 +4041,17 @@ class QuestionListView(APIView):
                 if not cur.fetchone():
                     return Response({'questions': []}, status=status.HTTP_200_OK)
                 cur.execute(
-                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no', 'subsource')",
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no', 'subsource', 'explanation2', 'explanation3', 'level')",
                     [table_name]
                 )
                 col_set = {r[0] for r in cur.fetchall()}
                 pk_col = 'qid' if 'qid' in col_set else 'id'
                 mid = "chapter_no, chapter, topic_no, topic" if 'topic_no' in col_set else "chapter_no, chapter, topic"
                 subsource_col = ", subsource" if 'subsource' in col_set else ""
-                select_cols = f"{pk_col}, subject, {mid}, question, option_1, option_2, option_3, option_4, answer, explanation, type{subsource_col}"
+                expl2_col = ", explanation2" if 'explanation2' in col_set else ""
+                expl3_col = ", explanation3" if 'explanation3' in col_set else ""
+                level_col = ", level" if 'level' in col_set else ""
+                select_cols = f"{pk_col}, subject, {mid}, question, option_1, option_2, option_3, option_4, answer, explanation{expl2_col}{expl3_col}, type{level_col}{subsource_col}"
                 if chapter:
                     cur.execute(
                         "SELECT {} FROM `{}` WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY {}".format(select_cols, table_name, pk_col),
@@ -4076,9 +4079,10 @@ class PendingQuestionRequestView(APIView):
     POST: Submit an edit request for an existing question. Body: qid, question, option_1..4, type,
     level_tr, class_level, subject_tr, chapter, topic, etc.
     Writes into cheradip_pending_question_request in the same DB as question_list (HSC).
+    Requires Bearer token (CustomerToken) from login.
     """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         data = request.data or {}
@@ -4090,9 +4094,10 @@ class PendingQuestionRequestView(APIView):
         try:
             from django.utils import timezone
             now = timezone.now()
-            requested_qid = (data.get('qid') or '')
-            if requested_qid is not None and hasattr(requested_qid, 'strip'):
-                requested_qid = str(requested_qid).strip() or None
+            raw_qid = data.get('qid')
+            requested_qid = str(raw_qid).strip() if raw_qid is not None else ''
+            requested_qid = requested_qid or None
+            status_val = (data.get('status') or 'Update').strip()[:20] or 'Update'
             level_tr = (data.get('level_tr') or '')[:100]
             class_level = (data.get('class_level') or '')[:50]
             subject_tr = (data.get('subject_tr') or '').strip()[:255]
@@ -4112,39 +4117,107 @@ class PendingQuestionRequestView(APIView):
             explanation2 = (data.get('explanation2') or '')[:50000]
             explanation3 = (data.get('explanation3') or '')[:50000]
             type_val = (data.get('type') or '')[:100]
+            level_val = (data.get('level') or '').strip()[:100] or None
+            subsource_val = (data.get('subsource') or '').strip()[:255] or None
             with conn.cursor() as cur:
                 cur.execute(
                     "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_pending_question_request' AND column_name = 'requested_qid'"
                 )
                 has_requested_qid = cur.fetchone() is not None
+                cur.execute(
+                    "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_pending_question_request' AND column_name = 'subsource'"
+                )
+                has_subsource = cur.fetchone() is not None
+                cur.execute(
+                    "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_pending_question_request' AND column_name = 'level'"
+                )
+                has_level = cur.fetchone() is not None
+                cur.execute(
+                    "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = 'cheradip_pending_question_request' AND column_name = 'qid'"
+                )
+                has_qid_col = cur.fetchone() is not None
                 if has_requested_qid and requested_qid is not None:
-                    cur.execute(
-                        """
-                        INSERT INTO cheradip_pending_question_request
-                        (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                         type, status, created_at, requested_qid)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'pending', %s, %s)
-                        """,
-                        [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                         type_val, now, requested_qid]
-                    )
+                    if has_level and has_subsource and has_qid_col:
+                        cur.execute(
+                            """
+                            INSERT INTO cheradip_pending_question_request
+                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type, level, subsource, status, created_at, requested_qid, qid)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            """,
+                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type_val, level_val, subsource_val, status_val, now, requested_qid, requested_qid]
+                        )
+                    elif has_level and has_subsource:
+                        cur.execute(
+                            """
+                            INSERT INTO cheradip_pending_question_request
+                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type, level, subsource, status, created_at, requested_qid)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            """,
+                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type_val, level_val, subsource_val, status_val, now, requested_qid]
+                        )
+                    elif has_qid_col:
+                        cur.execute(
+                            """
+                            INSERT INTO cheradip_pending_question_request
+                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type, status, created_at, requested_qid, qid)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            """,
+                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type_val, status_val, now, requested_qid, requested_qid]
+                        )
+                    else:
+                        cur.execute(
+                            """
+                            INSERT INTO cheradip_pending_question_request
+                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type, status, created_at, requested_qid)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            """,
+                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type_val, status_val, now, requested_qid]
+                        )
                 else:
-                    cur.execute(
-                        """
-                        INSERT INTO cheradip_pending_question_request
-                        (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                         type, status, created_at)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'pending', %s)
-                        """,
-                        [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
-                         option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
-                         type_val, now]
-                    )
+                    if has_level and has_subsource:
+                        cur.execute(
+                            """
+                            INSERT INTO cheradip_pending_question_request
+                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type, level, subsource, status, created_at)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            """,
+                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type_val, level_val, subsource_val, status_val, now]
+                        )
+                    else:
+                        cur.execute(
+                            """
+                            INSERT INTO cheradip_pending_question_request
+                            (level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type, status, created_at)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            """,
+                            [level_tr, class_level, subject_tr, chapter_no, chapter, topic_no, topic, question,
+                             option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3,
+                             type_val, status_val, now]
+                        )
                 pk = cur.lastrowid
-            return Response({'id': pk, 'status': 'pending', 'message': 'Edit request submitted.'}, status=status.HTTP_201_CREATED)
+            return Response({'id': pk, 'status': status_val, 'message': 'Edit request submitted.'}, status=status.HTTP_201_CREATED)
         except Exception as e:
             logger.exception('PendingQuestionRequestView: %s', e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -4156,9 +4229,10 @@ class PendingQuestionSubmitView(APIView):
     topic_no, topic, question, option_1..4, answer, explanation, type, etc.
     Creates a PendingQuestion with status=pending. When approved, it will be inserted into the HSC subject
     question table with qid = chapter_no_topic_no_0001, 0002, ...
+    Requires Bearer token (CustomerToken) from login.
     """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         data = request.data or {}
