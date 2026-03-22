@@ -1217,7 +1217,50 @@ def _export_page_size_mm(name):
     return sizes_mm.get(name, (210, 297))
 
 
-def _docx_apply_section_columns(section, num_cols):
+def _export_page_size_pt_from_mm(w_mm, h_mm):
+    pt_per_mm = 72 / 25.4
+    return (float(w_mm) * pt_per_mm, float(h_mm) * pt_per_mm)
+
+
+def _export_resolve_page_mm(data):
+    """Paper size in mm from request: named size, optional Custom (inches), optional landscape swap."""
+    name = (data.get('pageSize') or data.get('page_size') or 'A4').strip() or 'A4'
+    orient = (data.get('pageOrientation') or data.get('page_orientation') or 'portrait').strip().lower()
+    landscape = orient in ('landscape', 'l', 'land')
+    if name.lower() == 'custom':
+        try:
+            wi = float(data.get('customPageWidthIn') or data.get('custom_page_width_in') or 8.5)
+            hi = float(data.get('customPageHeightIn') or data.get('custom_page_height_in') or 11)
+        except (TypeError, ValueError):
+            wi, hi = 8.5, 11
+        wi = max(2.0, min(48.0, wi))
+        hi = max(2.0, min(48.0, hi))
+        w_mm = wi * 25.4
+        h_mm = hi * 25.4
+    else:
+        w_mm, h_mm = _export_page_size_mm(name)
+    if landscape:
+        w_mm, h_mm = h_mm, w_mm
+    return w_mm, h_mm
+
+
+def _export_page_sections(data):
+    try:
+        n = int(data.get('pageSections') or data.get('page_sections') or 1)
+    except (TypeError, ValueError):
+        n = 1
+    return max(1, min(10, n))
+
+
+def _export_layout_section_gap_px(data):
+    try:
+        g = int(data.get('sectionGapPx') or data.get('section_gap_px') or 14)
+    except (TypeError, ValueError):
+        g = 14
+    return max(1, min(100, g))
+
+
+def _docx_apply_section_columns(section, num_cols, space_twips=210, show_sep=False):
     """Apply N newspaper-style columns to a python-docx section (2–10). No-op if unavailable or num_cols < 2."""
     if not DOCX_AVAILABLE or num_cols <= 1:
         return
@@ -1225,15 +1268,75 @@ def _docx_apply_section_columns(section, num_cols):
         from docx.oxml import OxmlElement
         from docx.oxml.ns import qn
         n = max(2, min(10, int(num_cols)))
+        stw = max(20, min(1600, int(space_twips)))
         sect_pr = section._sectPr
         cols_el = sect_pr.find(qn('w:cols'))
         if cols_el is None:
             cols_el = OxmlElement('w:cols')
             sect_pr.append(cols_el)
         cols_el.set(qn('w:num'), str(n))
-        cols_el.set(qn('w:space'), '720')
+        cols_el.set(qn('w:space'), str(stw))
+        if show_sep:
+            cols_el.set(qn('w:sep'), '1')
+        elif qn('w:sep') in cols_el.attrib:
+            del cols_el.attrib[qn('w:sep')]
     except Exception:
         logger.debug('docx section columns not applied', exc_info=True)
+
+
+def _export_layout_column_gap_px(data):
+    try:
+        g = int(data.get('layoutColumnGapPx') or data.get('layout_column_gap_px') or 14)
+    except (TypeError, ValueError):
+        g = 14
+    return max(1, min(100, g))
+
+
+def _export_show_column_divider(data):
+    raw = data.get('showColumnDivider')
+    if raw is None:
+        raw = data.get('show_column_divider')
+    if raw is None:
+        return True
+    if isinstance(raw, str):
+        return raw.strip().lower() in ('1', 'true', 'yes', 'on')
+    return bool(raw)
+
+
+def _pdf_px_to_pt(px):
+    return float(px) * 72.0 / 96.0
+
+
+def _pdf_paint_column_dividers(canvas, left, bottom_y, top_y, col_w, gap_pt, ncols):
+    """Vertical lines in the middle of each column gutter (multi-column PDF)."""
+    if ncols <= 1 or top_y <= bottom_y:
+        return
+    canvas.saveState()
+    canvas.setStrokeColorRGB(0.78, 0.78, 0.78)
+    canvas.setLineWidth(0.5)
+    for k in range(1, ncols):
+        x = left + k * col_w + (k - 0.5) * gap_pt
+        canvas.line(x, bottom_y, x, top_y)
+    canvas.restoreState()
+
+
+def _pdf_paint_horizontal_section_dividers(canvas, left, right, bottom_y, top_y, n_sections, gap_pt=0):
+    """Horizontal lines in the middle of each section gutter (PDF y increases upward)."""
+    if n_sections <= 1 or top_y <= bottom_y:
+        return
+    span = float(top_y - bottom_y)
+    n = float(n_sections)
+    g = max(0.0, float(gap_pt))
+    band = (span - (n - 1) * g) / n
+    if band <= 0:
+        return
+    canvas.saveState()
+    canvas.setStrokeColorRGB(0.78, 0.78, 0.78)
+    canvas.setLineWidth(0.5)
+    for k in range(1, n_sections):
+        y = top_y - k * band - (k - 0.5) * g
+        canvas.line(left, y, right, y)
+    canvas.restoreState()
 
 
 class ExportQuestionsView(APIView):
@@ -1250,7 +1353,6 @@ class ExportQuestionsView(APIView):
         if fmt not in ('pdf', 'docx'):
             return Response({'error': 'format must be pdf or docx'}, status=status.HTTP_400_BAD_REQUEST)
         question_header = (data.get('questionHeader') or '').strip()
-        page_size = (data.get('pageSize') or 'A4').strip() or 'A4'
         margin_top = float(data.get('marginTop') or 25.4)
         margin_right = float(data.get('marginRight') or 25.4)
         margin_bottom = float(data.get('marginBottom') or 25.4)
@@ -1258,13 +1360,24 @@ class ExportQuestionsView(APIView):
         filename_base = (data.get('filename') or 'questions').strip() or 'questions'
         filename_base = re.sub(r'[^\w\-_.\s]', '_', filename_base)[:120]
         layout_columns = max(1, min(10, int(data.get('layoutColumns') or data.get('layout_columns') or 1)))
+        layout_gap_px = _export_layout_column_gap_px(data)
+        show_col_div = _export_show_column_divider(data)
+        w_mm, h_mm = _export_resolve_page_mm(data)
+        page_sections = _export_page_sections(data)
+        section_gap_px = _export_layout_section_gap_px(data)
 
         if fmt == 'pdf':
             if not REPORTLAB_AVAILABLE:
                 return Response({'error': 'PDF generation not available (reportlab not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
             buf = self._build_pdf(
-                questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left,
+                questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
+                page_w_mm=w_mm,
+                page_h_mm=h_mm,
                 layout_columns=layout_columns,
+                layout_column_gap_px=layout_gap_px,
+                show_column_divider=show_col_div,
+                page_sections=page_sections,
+                section_gap_px=section_gap_px,
             )
             resp = HttpResponse(buf.getvalue(), content_type='application/pdf')
             resp['Content-Disposition'] = 'attachment; filename="%s.pdf"' % filename_base.replace('"', '_')
@@ -1273,18 +1386,38 @@ class ExportQuestionsView(APIView):
             if not DOCX_AVAILABLE:
                 return Response({'error': 'DOCX generation not available (python-docx not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
             buf = self._build_docx(
-                questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left,
+                questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
+                page_w_mm=w_mm,
+                page_h_mm=h_mm,
                 layout_columns=layout_columns,
+                layout_column_gap_px=layout_gap_px,
+                show_column_divider=show_col_div,
             )
             resp = HttpResponse(buf.getvalue(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             resp['Content-Disposition'] = 'attachment; filename="%s.docx"' % filename_base.replace('"', '_')
             return resp
 
     def _build_pdf(
-        self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left, layout_columns=1
+        self,
+        questions,
+        question_header,
+        margin_top,
+        margin_right,
+        margin_bottom,
+        margin_left,
+        page_w_mm,
+        page_h_mm,
+        layout_columns=1,
+        layout_column_gap_px=14,
+        show_column_divider=True,
+        page_sections=1,
+        section_gap_px=14,
     ):
         layout_columns = max(1, min(10, int(layout_columns or 1)))
-        width_pt, height_pt = _export_page_size_pt(page_size)
+        page_sections = max(1, min(10, int(page_sections or 1)))
+        gap_pt = _pdf_px_to_pt(max(1, min(100, int(layout_column_gap_px or 14))))
+        section_gap_pt = _pdf_px_to_pt(max(1, min(100, int(section_gap_px or 14))))
+        width_pt, height_pt = _export_page_size_pt_from_mm(page_w_mm, page_h_mm)
         buf = BytesIO()
         c = pdf_canvas.Canvas(buf, pagesize=(width_pt, height_pt))
         w_pt = width_pt
@@ -1295,7 +1428,6 @@ class ExportQuestionsView(APIView):
         top_effective = h_pt - (margin_top * rl_mm)
         pdf_font = _get_pdf_bengali_font() or 'Helvetica'
         c.setFont(pdf_font, 12)
-        gap_pt = 3 * rl_mm
         content_w = right - left
         if layout_columns <= 1:
             col_w = content_w
@@ -1304,7 +1436,16 @@ class ExportQuestionsView(APIView):
             ncols = layout_columns
             col_w = (content_w - gap_pt * (ncols - 1)) / ncols
 
+        def paint_overlays():
+            if show_column_divider and ncols > 1:
+                _pdf_paint_column_dividers(c, left, bottom_effective, top_effective, col_w, gap_pt, ncols)
+            if page_sections > 1:
+                _pdf_paint_horizontal_section_dividers(
+                    c, left, right, bottom_effective, top_effective, page_sections, section_gap_pt
+                )
+
         if ncols == 1:
+            paint_overlays()
             y = top_effective
             if question_header:
                 c.drawString(left, y, question_header[:200])
@@ -1315,6 +1456,7 @@ class ExportQuestionsView(APIView):
                 if y < bottom_effective + 20:
                     c.showPage()
                     c.setFont(pdf_font, 12)
+                    paint_overlays()
                     y = top_effective
                 c.drawString(left, y, line[:100])
                 y -= 14
@@ -1324,6 +1466,7 @@ class ExportQuestionsView(APIView):
                     if y < bottom_effective + 14:
                         c.showPage()
                         c.setFont(pdf_font, 12)
+                        paint_overlays()
                         y = top_effective
                     c.drawString(left + 20, y, (opt[:80]))
                     y -= 14
@@ -1342,6 +1485,8 @@ class ExportQuestionsView(APIView):
         def x_for_col(ci):
             return left + ci * (col_w + gap_pt)
 
+        paint_overlays()
+
         qi = 0
         _guard = 0
         while qi < len(questions):
@@ -1359,6 +1504,7 @@ class ExportQuestionsView(APIView):
                 c.showPage()
                 c.setFont(pdf_font, 12)
                 ys = [top_effective] * ncols
+                paint_overlays()
                 restart = True
             if restart:
                 continue
@@ -1371,6 +1517,7 @@ class ExportQuestionsView(APIView):
                     c.showPage()
                     c.setFont(pdf_font, 12)
                     ys = [top_effective] * ncols
+                    paint_overlays()
                     restart = True
                     break
                 c.drawString(x0 + 20, y, opt[:80])
@@ -1385,18 +1532,33 @@ class ExportQuestionsView(APIView):
         return buf
 
     def _build_docx(
-        self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left, layout_columns=1
+        self,
+        questions,
+        question_header,
+        margin_top,
+        margin_right,
+        margin_bottom,
+        margin_left,
+        page_w_mm,
+        page_h_mm,
+        layout_columns=1,
+        layout_column_gap_px=14,
+        show_column_divider=True,
     ):
         doc = DocxDocument()
         section = doc.sections[0]
-        w_mm, h_mm = _export_page_size_mm(page_size)
+        w_mm, h_mm = float(page_w_mm), float(page_h_mm)
         section.page_width = DocxMm(w_mm)
         section.page_height = DocxMm(h_mm)
         section.top_margin = DocxMm(margin_top)
         section.right_margin = DocxMm(margin_right)
         section.bottom_margin = DocxMm(margin_bottom)
         section.left_margin = DocxMm(margin_left)
-        _docx_apply_section_columns(section, layout_columns)
+        gap_px = max(1, min(100, int(layout_column_gap_px or 14)))
+        space_twips = int(round(gap_px * 15))
+        _docx_apply_section_columns(
+            section, layout_columns, space_twips=space_twips, show_sep=bool(show_column_divider)
+        )
         if question_header:
             p = doc.add_paragraph(question_header)
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
@@ -1435,16 +1597,26 @@ class ExportQuestionsBulkView(APIView):
                 question_header = (item.get('questionHeader') or '')[:255]
                 filename_base = (item.get('filename') or 'questions_%s' % (i + 1)).strip()[:120]
                 filename_base = re.sub(r'[^\w\-_.\s]', '_', filename_base)
-                page_size = (item.get('pageSize') or 'A4').strip() or 'A4'
                 margin_top = float(item.get('marginTop') or 25.4)
                 margin_right = float(item.get('marginRight') or 25.4)
                 margin_bottom = float(item.get('marginBottom') or 25.4)
                 margin_left = float(item.get('marginLeft') or 25.4)
+                w_mm, h_mm = _export_resolve_page_mm(item)
                 lc = max(1, min(10, int(item.get('layoutColumns') or item.get('layout_columns') or 1)))
+                gap_px = _export_layout_column_gap_px(item)
+                show_div = _export_show_column_divider(item)
+                page_sec = _export_page_sections(item)
+                sec_gap_px = _export_layout_section_gap_px(item)
                 pdf_buf = exporter._build_pdf(
-                    questions, question_header, page_size,
+                    questions, question_header,
                     margin_top, margin_right, margin_bottom, margin_left,
+                    page_w_mm=w_mm,
+                    page_h_mm=h_mm,
                     layout_columns=lc,
+                    layout_column_gap_px=gap_px,
+                    show_column_divider=show_div,
+                    page_sections=page_sec,
+                    section_gap_px=sec_gap_px,
                 )
                 zf.writestr(filename_base + '.pdf', pdf_buf.getvalue())
         zip_buf.seek(0)
@@ -1473,6 +1645,9 @@ class CreatedQuestionSetListCreateView(APIView):
                 created_at = o.created_at.isoformat() if getattr(o, 'created_at', None) else None
             except Exception:
                 created_at = None
+            ls = getattr(o, 'layout_settings', None)
+            if not isinstance(ls, dict):
+                ls = {}
             data.append({
                 'id': o.id,
                 'name': o.name,
@@ -1481,6 +1656,7 @@ class CreatedQuestionSetListCreateView(APIView):
                 'counter': o.counter,
                 'file_name_base': '%s_%s' % (str(o.name).replace(' ', '_'), o.counter),
                 'created_at': created_at,
+                'layout_settings': ls,
             })
         return Response(data, status=status.HTTP_200_OK)
 
@@ -1491,6 +1667,9 @@ class CreatedQuestionSetListCreateView(APIView):
         questions = request.data.get('questions')
         if not isinstance(questions, list):
             return Response({'error': 'questions must be a list'}, status=status.HTTP_400_BAD_REQUEST)
+        layout_settings = request.data.get('layout_settings')
+        if not isinstance(layout_settings, dict):
+            layout_settings = {}
         from django.db.models import Max
         # Per-name counter: same name gets _1, _2, _3, ...
         next_counter = (
@@ -1503,6 +1682,7 @@ class CreatedQuestionSetListCreateView(APIView):
                 question_header=question_header,
                 questions=questions,
                 counter=next_counter,
+                layout_settings=layout_settings,
             )
         except Exception as e:
             logger.exception('CreatedQuestionSet create failed: %s', e)
@@ -1518,6 +1698,7 @@ class CreatedQuestionSetListCreateView(APIView):
             'counter': obj.counter,
             'file_name_base': '%s_%s' % (obj.name.replace(' ', '_'), obj.counter),
             'created_at': created_at,
+            'layout_settings': obj.layout_settings if isinstance(getattr(obj, 'layout_settings', None), dict) else {},
         }, status=status.HTTP_201_CREATED)
 
 
@@ -1536,6 +1717,9 @@ class CreatedQuestionSetDetailView(APIView):
         obj = self._get_obj(request, pk)
         if not obj:
             return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        ls = getattr(obj, 'layout_settings', None)
+        if not isinstance(ls, dict):
+            ls = {}
         return Response({
             'id': obj.id,
             'name': obj.name,
@@ -1544,6 +1728,7 @@ class CreatedQuestionSetDetailView(APIView):
             'counter': obj.counter,
             'file_name_base': '%s_%s' % (obj.name.replace(' ', '_'), obj.counter),
             'created_at': obj.created_at.isoformat() if obj.created_at else None,
+            'layout_settings': ls,
         }, status=status.HTTP_200_OK)
 
     def patch(self, request, pk):

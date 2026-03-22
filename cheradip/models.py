@@ -372,6 +372,11 @@ class CreatedQuestionSet(models.Model):
     name = models.CharField(max_length=200, help_text='Display/save name; user can rename')
     question_header = models.CharField(max_length=255, blank=True)
     questions = models.JSONField(default=list, help_text='List of question objects {question, option_1, ...}')
+    layout_settings = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text='Optional layout from creator: pageSize, margins, columns, gap, divider, padding, etc.',
+    )
     counter = models.PositiveIntegerField(default=1, help_text='Per-customer sequence for unique filename (name_counter)')
     created_at = models.DateTimeField(auto_now_add=True)
 
