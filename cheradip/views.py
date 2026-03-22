@@ -1217,6 +1217,25 @@ def _export_page_size_mm(name):
     return sizes_mm.get(name, (210, 297))
 
 
+def _docx_apply_section_columns(section, num_cols):
+    """Apply N newspaper-style columns to a python-docx section (2–10). No-op if unavailable or num_cols < 2."""
+    if not DOCX_AVAILABLE or num_cols <= 1:
+        return
+    try:
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
+        n = max(2, min(10, int(num_cols)))
+        sect_pr = section._sectPr
+        cols_el = sect_pr.find(qn('w:cols'))
+        if cols_el is None:
+            cols_el = OxmlElement('w:cols')
+            sect_pr.append(cols_el)
+        cols_el.set(qn('w:num'), str(n))
+        cols_el.set(qn('w:space'), '720')
+    except Exception:
+        logger.debug('docx section columns not applied', exc_info=True)
+
+
 class ExportQuestionsView(APIView):
     """POST: generate PDF or DOCX from questions list. Requires Bearer auth. Body: questions, questionHeader, pageSize, marginTop, marginRight, marginBottom, marginLeft, format ('pdf'|'docx'), filename (optional)."""
     authentication_classes = [BearerTokenAuthentication]
@@ -1238,23 +1257,33 @@ class ExportQuestionsView(APIView):
         margin_left = float(data.get('marginLeft') or 25.4)
         filename_base = (data.get('filename') or 'questions').strip() or 'questions'
         filename_base = re.sub(r'[^\w\-_.\s]', '_', filename_base)[:120]
+        layout_columns = max(1, min(10, int(data.get('layoutColumns') or data.get('layout_columns') or 1)))
 
         if fmt == 'pdf':
             if not REPORTLAB_AVAILABLE:
                 return Response({'error': 'PDF generation not available (reportlab not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-            buf = self._build_pdf(questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left)
+            buf = self._build_pdf(
+                questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left,
+                layout_columns=layout_columns,
+            )
             resp = HttpResponse(buf.getvalue(), content_type='application/pdf')
             resp['Content-Disposition'] = 'attachment; filename="%s.pdf"' % filename_base.replace('"', '_')
             return resp
         else:
             if not DOCX_AVAILABLE:
                 return Response({'error': 'DOCX generation not available (python-docx not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-            buf = self._build_docx(questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left)
+            buf = self._build_docx(
+                questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left,
+                layout_columns=layout_columns,
+            )
             resp = HttpResponse(buf.getvalue(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             resp['Content-Disposition'] = 'attachment; filename="%s.docx"' % filename_base.replace('"', '_')
             return resp
 
-    def _build_pdf(self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left):
+    def _build_pdf(
+        self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left, layout_columns=1
+    ):
+        layout_columns = max(1, min(10, int(layout_columns or 1)))
         width_pt, height_pt = _export_page_size_pt(page_size)
         buf = BytesIO()
         c = pdf_canvas.Canvas(buf, pagesize=(width_pt, height_pt))
@@ -1266,18 +1295,74 @@ class ExportQuestionsView(APIView):
         top_effective = h_pt - (margin_top * rl_mm)
         pdf_font = _get_pdf_bengali_font() or 'Helvetica'
         c.setFont(pdf_font, 12)
-        y = top_effective
+        gap_pt = 3 * rl_mm
+        content_w = right - left
+        if layout_columns <= 1:
+            col_w = content_w
+            ncols = 1
+        else:
+            ncols = layout_columns
+            col_w = (content_w - gap_pt * (ncols - 1)) / ncols
+
+        if ncols == 1:
+            y = top_effective
+            if question_header:
+                c.drawString(left, y, question_header[:200])
+                y -= 18
+            for i, q in enumerate(questions):
+                qtext = (q.get('question') or '').strip() or ' '
+                line = '%s. %s' % (i + 1, qtext[:500])
+                if y < bottom_effective + 20:
+                    c.showPage()
+                    c.setFont(pdf_font, 12)
+                    y = top_effective
+                c.drawString(left, y, line[:100])
+                y -= 14
+                opts = [q.get('option_1'), q.get('option_2'), q.get('option_3'), q.get('option_4')]
+                opts = [str(o).strip() for o in opts if o]
+                for opt in opts[:4]:
+                    if y < bottom_effective + 14:
+                        c.showPage()
+                        c.setFont(pdf_font, 12)
+                        y = top_effective
+                    c.drawString(left + 20, y, (opt[:80]))
+                    y -= 14
+                y -= 8
+            c.save()
+            buf.seek(0)
+            return buf
+
         if question_header:
-            c.drawString(left, y, question_header[:200])
-            y -= 18
-        for i, q in enumerate(questions):
+            c.drawString(left, top_effective, question_header[:200])
+            start_y = top_effective - 18
+        else:
+            start_y = top_effective
+        ys = [start_y] * ncols
+
+        def x_for_col(ci):
+            return left + ci * (col_w + gap_pt)
+
+        qi = 0
+        _guard = 0
+        while qi < len(questions):
+            _guard += 1
+            if _guard > 10000:
+                break
+            ci = max(range(ncols), key=lambda j: ys[j])
+            x0 = x_for_col(ci)
+            y = ys[ci]
+            q = questions[qi]
             qtext = (q.get('question') or '').strip() or ' '
-            line = '%s. %s' % (i + 1, qtext[:500])
+            line = '%s. %s' % (qi + 1, qtext[:500])
+            restart = False
             if y < bottom_effective + 20:
                 c.showPage()
                 c.setFont(pdf_font, 12)
-                y = top_effective
-            c.drawString(left, y, line[:100])
+                ys = [top_effective] * ncols
+                restart = True
+            if restart:
+                continue
+            c.drawString(x0, y, line[:100])
             y -= 14
             opts = [q.get('option_1'), q.get('option_2'), q.get('option_3'), q.get('option_4')]
             opts = [str(o).strip() for o in opts if o]
@@ -1285,15 +1370,23 @@ class ExportQuestionsView(APIView):
                 if y < bottom_effective + 14:
                     c.showPage()
                     c.setFont(pdf_font, 12)
-                    y = top_effective
-                c.drawString(left + 20, y, (opt[:80]))
+                    ys = [top_effective] * ncols
+                    restart = True
+                    break
+                c.drawString(x0 + 20, y, opt[:80])
                 y -= 14
+            if restart:
+                continue
             y -= 8
+            ys[ci] = y
+            qi += 1
         c.save()
         buf.seek(0)
         return buf
 
-    def _build_docx(self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left):
+    def _build_docx(
+        self, questions, question_header, page_size, margin_top, margin_right, margin_bottom, margin_left, layout_columns=1
+    ):
         doc = DocxDocument()
         section = doc.sections[0]
         w_mm, h_mm = _export_page_size_mm(page_size)
@@ -1303,6 +1396,7 @@ class ExportQuestionsView(APIView):
         section.right_margin = DocxMm(margin_right)
         section.bottom_margin = DocxMm(margin_bottom)
         section.left_margin = DocxMm(margin_left)
+        _docx_apply_section_columns(section, layout_columns)
         if question_header:
             p = doc.add_paragraph(question_header)
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
@@ -1346,9 +1440,11 @@ class ExportQuestionsBulkView(APIView):
                 margin_right = float(item.get('marginRight') or 25.4)
                 margin_bottom = float(item.get('marginBottom') or 25.4)
                 margin_left = float(item.get('marginLeft') or 25.4)
+                lc = max(1, min(10, int(item.get('layoutColumns') or item.get('layout_columns') or 1)))
                 pdf_buf = exporter._build_pdf(
                     questions, question_header, page_size,
-                    margin_top, margin_right, margin_bottom, margin_left
+                    margin_top, margin_right, margin_bottom, margin_left,
+                    layout_columns=lc,
                 )
                 zf.writestr(filename_base + '.pdf', pdf_buf.getvalue())
         zip_buf.seek(0)
