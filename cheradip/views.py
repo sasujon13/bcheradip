@@ -4050,6 +4050,7 @@ class QuestionSubjectsView(APIView):
     GET: Subjects from cheradip_subject in cheradip_hsc.
     Query params: level_tr (required), class_level (optional), group (optional).
     If group given, filter by FIND_IN_SET(group, groups) so only subjects for that group.
+    Each item includes subject_tr, subject_name, subject_code (from DB), name (display: subject_name or subject_tr), sq.
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
@@ -4072,12 +4073,13 @@ class QuestionSubjectsView(APIView):
                 has_sq = cur.fetchone() is not None
                 if has_sq:
                     sql = (
-                        "SELECT level_tr, class_level, subject_tr, COALESCE(MAX(sq), 30) AS sq FROM cheradip_subject "
+                        "SELECT level_tr, class_level, subject_tr, COALESCE(MAX(sq), 30) AS sq, "
+                        "MAX(subject_name) AS subject_name, MAX(subject_code) AS subject_code FROM cheradip_subject "
                         "WHERE level_tr = %s AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' "
                     )
                 else:
                     sql = (
-                        "SELECT level_tr, class_level, subject_tr FROM cheradip_subject "
+                        "SELECT level_tr, class_level, subject_tr, subject_name, subject_code FROM cheradip_subject "
                         "WHERE level_tr = %s AND subject_tr IS NOT NULL AND TRIM(COALESCE(subject_tr, '')) != '' "
                     )
                 params = [level_tr]
@@ -4090,18 +4092,28 @@ class QuestionSubjectsView(APIView):
                     lt = (row[0] or '').strip()
                     cl = (row[1] or '').strip()
                     st = (row[2] or '').strip()
-                    sq_val = row[3] if has_sq and len(row) > 3 and row[3] is not None else 30
+                    if has_sq:
+                        sq_val = row[3] if len(row) > 3 and row[3] is not None else 30
+                        subject_name = (row[4] or '').strip() if len(row) > 4 and row[4] is not None else ''
+                        subject_code = (row[5] or '').strip() if len(row) > 5 and row[5] is not None else ''
+                    else:
+                        sq_val = 30
+                        subject_name = (row[3] or '').strip() if len(row) > 3 and row[3] is not None else ''
+                        subject_code = (row[4] or '').strip() if len(row) > 4 and row[4] is not None else ''
                     if not st:
                         continue
                     if group:
                         # Need to check groups column; re-query with groups or do in Python
                         pass
+                    display_name = subject_name or st
                     subjects.append({
                         'level_tr': lt,
                         'class_level': cl,
                         'subject_tr': st,
                         'id': st,
-                        'name': st,
+                        'name': display_name,
+                        'subject_name': subject_name,
+                        'subject_code': subject_code,
                         'sq': int(sq_val) if sq_val is not None else 30,
                     })
                 if group:
