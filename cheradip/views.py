@@ -35,8 +35,10 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
 import logging, random, string, json, requests, os, re, csv, time, zipfile
+from html import escape
 from urllib import parse as urllib_parse
 from urllib.parse import quote
+from pathlib import Path
 from rest_framework.decorators import action
 from django.conf import settings
 from django.db import connections
@@ -65,6 +67,12 @@ try:
     DOCX_AVAILABLE = True
 except ImportError:
     DOCX_AVAILABLE = False
+
+try:
+    from playwright.sync_api import sync_playwright
+    PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    PLAYWRIGHT_AVAILABLE = False
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -1344,6 +1352,59 @@ class ExportQuestionsView(APIView):
     authentication_classes = [BearerTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    def _playwright_local_font_face_css(self):
+        """
+        Build @font-face rules from local font files so Playwright PDF output is
+        stable across Windows machines.
+        """
+        base_dir = Path(getattr(settings, 'BASE_DIR', os.getcwd()))
+        candidates = [
+            base_dir / 'fonts',
+            base_dir / 'static' / 'fonts',
+            base_dir / 'static_src' / 'fonts',
+            base_dir / 'cheradip' / 'fonts',
+        ]
+        fonts_dir = None
+        for c in candidates:
+            if c.exists() and c.is_dir():
+                fonts_dir = c
+                break
+        if fonts_dir is None:
+            return ''
+
+        # filename -> (family, weight, style)
+        wanted = {
+            'NotoSansBengali-Regular.ttf': ('Noto Sans Bengali', '400', 'normal'),
+            'NotoSansBengali-Bold.ttf': ('Noto Sans Bengali', '700', 'normal'),
+            'NotoSerifBengali-Regular.ttf': ('Noto Serif Bengali', '400', 'normal'),
+            'NotoSerifBengali-Bold.ttf': ('Noto Serif Bengali', '700', 'normal'),
+            'SolaimanLipi.ttf': ('SolaimanLipi', '400', 'normal'),
+            'Kalpurush.ttf': ('Kalpurush', '400', 'normal'),
+            'NotoSans-Regular.ttf': ('Noto Sans', '400', 'normal'),
+            'NotoSans-Bold.ttf': ('Noto Sans', '700', 'normal'),
+            'NotoSerif-Regular.ttf': ('Noto Serif', '400', 'normal'),
+            'NotoSerif-Bold.ttf': ('Noto Serif', '700', 'normal'),
+            'STIXTwoMath-Regular.otf': ('STIX Two Math', '400', 'normal'),
+        }
+        rules = []
+        for fn, spec in wanted.items():
+            fp = fonts_dir / fn
+            if not fp.exists():
+                continue
+            family, weight, style = spec
+            ext = fp.suffix.lower()
+            fmt = 'opentype' if ext == '.otf' else 'truetype'
+            rules.append(
+                "@font-face { "
+                f"font-family: '{family}'; "
+                f"src: url('{fp.resolve().as_uri()}') format('{fmt}'); "
+                f"font-weight: {weight}; "
+                f"font-style: {style}; "
+                "font-display: swap; "
+                "}"
+            )
+        return '\n'.join(rules)
+
     def post(self, request):
         data = request.data
         questions = data.get('questions') or []
@@ -1365,20 +1426,87 @@ class ExportQuestionsView(APIView):
         w_mm, h_mm = _export_resolve_page_mm(data)
         page_sections = _export_page_sections(data)
         section_gap_px = _export_layout_section_gap_px(data)
+        layout_settings = data.get('layout_settings')
+        if not isinstance(layout_settings, dict):
+            layout_settings = {}
+        wants_preview_style_pdf = (
+            bool(layout_settings)
+            or any(
+                k in data
+                for k in (
+                    'previewQuestionsFontPx',
+                    'previewQuestionsFontPxCreative',
+                    'previewQuestionsFontPxMcq',
+                    'previewQuestionsLineHeight',
+                    'previewQuestionsLineHeightCreative',
+                    'previewQuestionsLineHeightMcq',
+                    'cqPageOrientation',
+                    'mcqPageOrientation',
+                    'questionsGap',
+                    'questionsGapCreative',
+                    'questionsPadding',
+                    'headerLineFontSizes',
+                    'layoutColumnsCreative',
+                )
+            )
+        )
 
         if fmt == 'pdf':
-            if not REPORTLAB_AVAILABLE:
-                return Response({'error': 'PDF generation not available (reportlab not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-            buf = self._build_pdf(
-                questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
-                page_w_mm=w_mm,
-                page_h_mm=h_mm,
-                layout_columns=layout_columns,
-                layout_column_gap_px=layout_gap_px,
-                show_column_divider=show_col_div,
-                page_sections=page_sections,
-                section_gap_px=section_gap_px,
-            )
+            buf = None
+            if PLAYWRIGHT_AVAILABLE:
+                try:
+                    buf = self._build_pdf_playwright(
+                        questions=questions,
+                        question_header=question_header,
+                        margin_top=margin_top,
+                        margin_right=margin_right,
+                        margin_bottom=margin_bottom,
+                        margin_left=margin_left,
+                        page_w_mm=w_mm,
+                        page_h_mm=h_mm,
+                        layout_columns=layout_columns,
+                        layout_column_gap_px=layout_gap_px,
+                        show_column_divider=show_col_div,
+                        page_sections=page_sections,
+                        section_gap_px=section_gap_px,
+                        raw_data=data,
+                        layout_settings=layout_settings,
+                    )
+                except Exception:
+                    logger.exception('Playwright PDF render failed')
+                    if wants_preview_style_pdf:
+                        return Response(
+                            {
+                                'error': (
+                                    'Preview-style PDF rendering failed on server. '
+                                    'Run "playwright install chromium" in backend venv and ensure fonts are installed.'
+                                )
+                            },
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                        )
+            elif wants_preview_style_pdf:
+                return Response(
+                    {
+                        'error': (
+                            'Preview-style PDF requires Playwright. '
+                            'Install dependency and run "playwright install chromium".'
+                        )
+                    },
+                    status=status.HTTP_503_SERVICE_UNAVAILABLE
+                )
+            if buf is None:
+                if not REPORTLAB_AVAILABLE:
+                    return Response({'error': 'PDF generation not available (reportlab/playwright not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+                buf = self._build_pdf(
+                    questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
+                    page_w_mm=w_mm,
+                    page_h_mm=h_mm,
+                    layout_columns=layout_columns,
+                    layout_column_gap_px=layout_gap_px,
+                    show_column_divider=show_col_div,
+                    page_sections=page_sections,
+                    section_gap_px=section_gap_px,
+                )
             resp = HttpResponse(buf.getvalue(), content_type='application/pdf')
             resp['Content-Disposition'] = 'attachment; filename="%s.pdf"' % filename_base.replace('"', '_')
             return resp
@@ -1396,6 +1524,248 @@ class ExportQuestionsView(APIView):
             resp = HttpResponse(buf.getvalue(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             resp['Content-Disposition'] = 'attachment; filename="%s.docx"' % filename_base.replace('"', '_')
             return resp
+
+    def _build_pdf_playwright(
+        self,
+        questions,
+        question_header,
+        margin_top,
+        margin_right,
+        margin_bottom,
+        margin_left,
+        page_w_mm,
+        page_h_mm,
+        layout_columns=1,
+        layout_column_gap_px=14,
+        show_column_divider=True,
+        page_sections=1,
+        section_gap_px=14,
+        raw_data=None,
+        layout_settings=None,
+    ):
+        if not PLAYWRIGHT_AVAILABLE:
+            return None
+        d = raw_data if isinstance(raw_data, dict) else {}
+        ls = layout_settings if isinstance(layout_settings, dict) else {}
+
+        def num(v, fallback):
+            try:
+                n = float(v)
+                if n != n:
+                    return float(fallback)
+                return n
+            except Exception:
+                return float(fallback)
+
+        def intval(v, fallback):
+            try:
+                return int(round(float(v)))
+            except Exception:
+                return int(fallback)
+
+        def pick(key, fallback):
+            if key in d and d.get(key) is not None:
+                return d.get(key)
+            return ls.get(key, fallback)
+
+        def page_mm_for_orientation(orientation_name):
+            page_name = str(pick('pageSize', 'A4') or 'A4').strip() or 'A4'
+            if page_name.lower() == 'custom':
+                wi = num(pick('customPageWidthIn', 8.5), 8.5)
+                hi = num(pick('customPageHeightIn', 11), 11)
+                wi = max(2.0, min(48.0, wi))
+                hi = max(2.0, min(48.0, hi))
+                base_w = wi * 25.4
+                base_h = hi * 25.4
+            else:
+                base_w, base_h = _export_page_size_mm(page_name)
+            o = str(orientation_name or 'portrait').strip().lower()
+            if o in ('landscape', 'l', 'land'):
+                return (base_h, base_w)
+            return (base_w, base_h)
+
+        cq_orient = str(pick('cqPageOrientation', pick('pageOrientation', 'portrait')) or 'portrait').strip().lower()
+        mcq_orient = str(pick('mcqPageOrientation', pick('pageOrientation', 'portrait')) or 'portrait').strip().lower()
+        cq_w_mm, cq_h_mm = page_mm_for_orientation(cq_orient)
+        mcq_w_mm, mcq_h_mm = page_mm_for_orientation(mcq_orient)
+
+        q_font_global = num(pick('previewQuestionsFontPx', 16), 16)
+        q_font_cq = num(pick('previewQuestionsFontPxCreative', q_font_global), q_font_global)
+        q_font_mcq = num(pick('previewQuestionsFontPxMcq', q_font_global), q_font_global)
+        q_lh_global = num(pick('previewQuestionsLineHeight', 1.4), 1.4)
+        q_lh_cq = num(pick('previewQuestionsLineHeightCreative', q_lh_global), q_lh_global)
+        q_lh_mcq = num(pick('previewQuestionsLineHeightMcq', q_lh_global), q_lh_global)
+        h_lh = num(pick('previewHeaderLineHeight', 1.25), 1.25)
+        q_pad = max(0, num(pick('questionsPadding', 2), 2))
+        q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
+        q_gap_cq = max(0, num(pick('questionsGapCreative', 4), 4))
+        cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
+        cols_cq = max(1, min(10, intval(pick('layoutColumnsCreative', cols_mcq), cols_mcq)))
+        col_gap = max(1, min(100, intval(pick('layoutColumnGapPx', layout_column_gap_px), layout_column_gap_px)))
+        show_div = bool(pick('showColumnDivider', show_column_divider))
+
+        hfs_raw = pick('headerLineFontSizes', [16, 18, 16, 16, 14, 14, 14, 12])
+        if isinstance(hfs_raw, list):
+            hfs = [max(8, min(64, num(x, 14))) for x in hfs_raw]
+        else:
+            hfs = [16, 18, 16, 16, 14, 14, 14, 12]
+
+        header_lines = [ln for ln in str(question_header or '').replace('\r\n', '\n').split('\n')]
+        header_html = ''
+        if any(s.strip() for s in header_lines):
+            chunks = []
+            for i, line in enumerate(header_lines):
+                fz = hfs[i] if i < len(hfs) else hfs[-1]
+                chunks.append(
+                    '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>'
+                    % (fz, h_lh, escape(line) if line else '&nbsp;')
+                )
+            header_html = '<div class="q-header">%s</div>' % ''.join(chunks)
+
+        def is_creative(q):
+            t = str((q or {}).get('type') or '').strip().lower()
+            return ('সৃজন' in t) or ('creative' in t)
+
+        creative_questions = []
+        mcq_questions = []
+        for q in questions:
+            if is_creative(q):
+                creative_questions.append(q)
+            else:
+                mcq_questions.append(q)
+
+        def render_items_html(items, start_num=1):
+            out = []
+            for idx, q in enumerate(items):
+                i = start_num + idx
+                qq = q if isinstance(q, dict) else {}
+                creative = is_creative(qq)
+                qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
+                stem = str(qq.get('question') or '').replace('\r\n', '\n')
+                stem_html = escape(stem).replace('\n', '<br/>')
+                options = []
+                for key, lab in [('option_1', 'A'), ('option_2', 'B'), ('option_3', 'C'), ('option_4', 'D')]:
+                    ov = qq.get(key)
+                    if ov:
+                        options.append('<div class="q-opt"><span class="ol">%s.</span> %s</div>' % (lab, escape(str(ov))))
+                opts_html = ''.join(options)
+                out.append(
+                    '<div class="%s"><div class="q-stem"><span class="qn">%d.</span> %s</div>%s</div>'
+                    % (qcls, i, stem_html if stem_html else '&nbsp;', opts_html)
+                )
+            return ''.join(out)
+
+        cq_items_html = render_items_html(creative_questions, 1)
+        mcq_items_html = render_items_html(mcq_questions, len(creative_questions) + 1 if creative_questions else 1)
+
+        sections = []
+        if creative_questions:
+            sections.append(
+                '<section class="paper paper-cq">%s<div class="q-wrap q-wrap-cq">%s</div></section>'
+                % (header_html, cq_items_html)
+            )
+        if mcq_questions:
+            sections.append(
+                '<section class="paper paper-mcq%s">%s<div class="q-wrap q-wrap-mcq">%s</div></section>'
+                % (' paper-break' if creative_questions else '', header_html, mcq_items_html)
+            )
+        if not sections:
+            sections.append('<section class="paper paper-mcq"><div class="q-wrap q-wrap-mcq"></div></section>')
+
+        divider_css_mcq = 'column-rule: 1px solid #c8c8c8;' if show_div and cols_mcq > 1 else ''
+        divider_css_cq = 'column-rule: 1px solid #c8c8c8;' if show_div and cols_cq > 1 else ''
+        local_font_face_css = self._playwright_local_font_face_css()
+
+        html = f"""<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    {local_font_face_css}
+    @page default {{
+      size: {float(page_w_mm):.3f}mm {float(page_h_mm):.3f}mm;
+      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom):.3f}mm {float(margin_left):.3f}mm;
+    }}
+    @page cq {{
+      size: {float(cq_w_mm):.3f}mm {float(cq_h_mm):.3f}mm;
+      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom):.3f}mm {float(margin_left):.3f}mm;
+    }}
+    @page mcq {{
+      size: {float(mcq_w_mm):.3f}mm {float(mcq_h_mm):.3f}mm;
+      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom):.3f}mm {float(margin_left):.3f}mm;
+    }}
+    html, body {{ margin: 0; padding: 0; }}
+    body {{
+      font-family:
+        "Noto Sans Bengali",
+        "Noto Serif Bengali",
+        "SolaimanLipi",
+        "Kalpurush",
+        "Noto Sans",
+        "Noto Serif",
+        "STIX Two Math",
+        "Cambria Math",
+        sans-serif;
+      font-size: {q_font_global:.2f}px;
+      line-height: {q_lh_global:.3f};
+      color: #111;
+    }}
+    .paper {{ page: default; }}
+    .paper-cq {{ page: cq; }}
+    .paper-mcq {{ page: mcq; }}
+    .paper-break {{ break-before: page; page-break-before: always; }}
+    .q-header {{ margin: 0 0 8px 0; text-align: center; }}
+    .hline {{ margin: 0; }}
+    .q-wrap {{
+      column-count: {cols_mcq};
+      column-gap: {col_gap}px;
+      {divider_css_mcq}
+    }}
+    .q-wrap-cq {{
+      column-count: {cols_cq};
+      column-gap: {col_gap}px;
+      {divider_css_cq}
+    }}
+    .q-wrap-mcq {{
+      column-count: {cols_mcq};
+      column-gap: {col_gap}px;
+      {divider_css_mcq}
+    }}
+    .q-item {{
+      break-inside: avoid;
+      page-break-inside: avoid;
+      padding-top: {q_pad:.2f}px;
+      padding-bottom: {q_pad:.2f}px;
+      margin: 0 0 {q_gap_mcq:.2f}px 0;
+    }}
+    .q-cq {{ font-size: {q_font_cq:.2f}px; line-height: {q_lh_cq:.3f}; margin-bottom: {q_gap_cq:.2f}px; }}
+    .q-mcq {{ font-size: {q_font_mcq:.2f}px; line-height: {q_lh_mcq:.3f}; }}
+    .q-stem {{ margin: 0; }}
+    .qn {{ font-weight: 700; margin-right: 4px; }}
+    .q-opt {{ margin-left: 18px; }}
+    .ol {{ font-weight: 600; }}
+  </style>
+</head>
+<body>
+  {''.join(sections)}
+</body>
+</html>"""
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            try:
+                page = browser.new_page()
+                page.set_content(html, wait_until='networkidle')
+                pdf_bytes = page.pdf(
+                    print_background=True,
+                    prefer_css_page_size=True,
+                    margin={'top': '0mm', 'right': '0mm', 'bottom': '0mm', 'left': '0mm'},
+                )
+            finally:
+                browser.close()
+        buf = BytesIO()
+        buf.write(pdf_bytes)
+        buf.seek(0)
+        return buf
 
     def _build_pdf(
         self,
