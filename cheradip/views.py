@@ -1599,6 +1599,8 @@ class ExportQuestionsView(APIView):
         q_pad = max(0, num(pick('questionsPadding', 2), 2))
         q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
         q_gap_cq = max(0, num(pick('questionsGapCreative', 4), 4))
+        mcq_extra_bottom_mm = max(0.0, num(pick('mcqExtraBottomMarginMm', 0), 0))
+        options_cols = max(1, min(4, intval(pick('optionsColumns', 2), 2)))
         cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
         cols_cq = max(1, min(10, intval(pick('layoutColumnsCreative', cols_mcq), cols_mcq)))
         col_gap = max(1, min(100, intval(pick('layoutColumnGapPx', layout_column_gap_px), layout_column_gap_px)))
@@ -1634,6 +1636,46 @@ class ExportQuestionsView(APIView):
             else:
                 mcq_questions.append(q)
 
+        def wrap_roman_lines_html(text):
+            roman_line = re.compile(r'^\s*(i|ii|iii|I|II|III)\.')
+            bn_paren_line = re.compile(r'^\s*\([কখগঘ]\)')
+            lines = str(text or '').splitlines()
+            parts = []
+            for line in lines:
+                cls = 'topic-question-line'
+                if roman_line.match(line):
+                    cls = 'topic-question-line topic-question-roman-line'
+                elif bn_paren_line.match(line):
+                    cls = 'topic-question-line topic-question-bn-paren-line'
+                parts.append('<span class="%s">%s</span>' % (cls, escape(line)))
+            return ''.join(parts)
+
+        def question_display_text(raw_text, creative):
+            s = str(raw_text or '').strip()
+            if not s or not creative:
+                return s
+            with_newlines = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', s)
+            with_newlines = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', with_newlines)
+            return (
+                with_newlines
+                .replace('ক.', '(ক)')
+                .replace('খ.', '(খ)')
+                .replace('গ.', '(গ)')
+                .replace('ঘ.', '(ঘ)')
+            )
+
+        def question_display_structure(raw_text, creative):
+            full = question_display_text(raw_text, creative)
+            if not creative or not full:
+                return {'intro': full, 'parts': []}
+            lines = [ln.strip() for ln in full.split('\n') if ln.strip()]
+            if len(lines) <= 1:
+                return {'intro': full, 'parts': []}
+            return {'intro': lines[0], 'parts': lines[1:]}
+
+        def to_bengali_digits(n):
+            return str(n).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+
         def render_items_html(items, start_num=1):
             out = []
             for idx, q in enumerate(items):
@@ -1641,22 +1683,55 @@ class ExportQuestionsView(APIView):
                 qq = q if isinstance(q, dict) else {}
                 creative = is_creative(qq)
                 qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
-                stem = str(qq.get('question') or '').replace('\r\n', '\n')
-                stem_html = escape(stem).replace('\n', '<br/>')
+                fz = q_font_cq if creative else q_font_mcq
+                q_lh = q_lh_cq if creative else q_lh_mcq
+                q_gap = q_gap_cq if creative else q_gap_mcq
+                style = (
+                    'font-size: %.2fpx; '
+                    '--preview-question-lh: %.3f; '
+                    '--preview-q-bn-paren-inset: %.2fpx; '
+                    '--preview-q-subpart-pl: %.2fpx; '
+                    'padding-top: %.2fpx; '
+                    'padding-bottom: %.2fpx; '
+                    'margin-bottom: %.2fpx;'
+                ) % (fz, q_lh, 2 * fz - 2, 2 * fz - 4, q_pad, q_pad, q_gap)
+
+                struct = question_display_structure(qq.get('question') or '', creative)
+                intro_html = wrap_roman_lines_html(struct.get('intro') or '')
+                if struct.get('parts'):
+                    parts_html = ''.join(
+                        '<div class="q-subpart">%s</div>' % wrap_roman_lines_html(p)
+                        for p in struct.get('parts') or []
+                    )
+                    stem_html = (
+                        '<span class="q-stem-with-parts">'
+                        '<span class="q-text q-intro">%s</span>'
+                        '</span>%s'
+                    ) % (intro_html, parts_html)
+                else:
+                    stem_html = '<span class="q-text">%s</span>' % intro_html
+
                 options = []
-                for key, lab in [('option_1', 'A'), ('option_2', 'B'), ('option_3', 'C'), ('option_4', 'D')]:
-                    ov = qq.get(key)
-                    if ov:
-                        options.append('<div class="q-opt"><span class="ol">%s.</span> %s</div>' % (lab, escape(str(ov))))
-                opts_html = ''.join(options)
+                if qq.get('option_1') or qq.get('option_2'):
+                    for key, lab in [('option_1', '(ক)'), ('option_2', '(খ)'), ('option_3', '(গ)'), ('option_4', '(ঘ)')]:
+                        ov = qq.get(key)
+                        if ov:
+                            txt = str(ov).strip()
+                            if txt:
+                                options.append('<span class="q-opt">%s %s</span>' % (lab, escape(txt)))
+                opts_html = '<div class="q-options">%s</div>' % ''.join(options) if options else ''
                 out.append(
-                    '<div class="%s"><div class="q-stem"><span class="qn">%d.</span> %s</div>%s</div>'
-                    % (qcls, i, stem_html if stem_html else '&nbsp;', opts_html)
+                    '<div class="%s" style="%s"><div class="q-content"><label class="q-label">'
+                    '<strong class="qn">%s।</strong>%s</label>%s</div></div>'
+                    % (qcls, style, to_bengali_digits(i), stem_html if stem_html else '&nbsp;', opts_html)
                 )
             return ''.join(out)
 
         cq_items_html = render_items_html(creative_questions, 1)
-        mcq_items_html = render_items_html(mcq_questions, len(creative_questions) + 1 if creative_questions else 1)
+        mcq_items_html = render_items_html(mcq_questions, 1)
+        lead_empty_first_page = bool(pick('leadEmptyFirstPageActive', False))
+        lead_empty_mcq = bool(lead_empty_first_page and cols_mcq > 1 and mcq_orient in ('landscape', 'l', 'land'))
+        mcq_render_cols = (cols_mcq - 1) if lead_empty_mcq else cols_mcq
 
         sections = []
         if creative_questions:
@@ -1665,14 +1740,37 @@ class ExportQuestionsView(APIView):
                 % (header_html, cq_items_html)
             )
         if mcq_questions:
+            mcq_body_html = '<div class="q-wrap q-wrap-mcq">%s</div>' % mcq_items_html
+            if lead_empty_mcq:
+                lead_header_html = header_html.replace(
+                    'class="q-header"',
+                    'class="q-header q-header--lead-first-col"',
+                    1
+                )
+                mcq_body_html = (
+                    '<div class="lead-empty-grid%s" style="--lead-cols:%d; --lead-main-cols:%d; --lead-gap:%dpx;">'
+                    '<div class="lead-empty-col" aria-hidden="true"></div>'
+                    '<div class="lead-empty-main">%s%s</div>'
+                    '</div>'
+                ) % (
+                    ' lead-empty-grid--ruled' if show_div and cols_mcq > 1 else '',
+                    cols_mcq,
+                    mcq_render_cols,
+                    col_gap,
+                    lead_header_html,
+                    mcq_body_html,
+                )
+                mcq_header_html = ''
+            else:
+                mcq_header_html = header_html
             sections.append(
-                '<section class="paper paper-mcq%s">%s<div class="q-wrap q-wrap-mcq">%s</div></section>'
-                % (' paper-break' if creative_questions else '', header_html, mcq_items_html)
+                '<section class="paper paper-mcq%s">%s%s</section>'
+                % (' paper-break' if creative_questions else '', mcq_header_html, mcq_body_html)
             )
         if not sections:
             sections.append('<section class="paper paper-mcq"><div class="q-wrap q-wrap-mcq"></div></section>')
 
-        divider_css_mcq = 'column-rule: 1px solid #c8c8c8;' if show_div and cols_mcq > 1 else ''
+        divider_css_mcq = 'column-rule: 1px solid #c8c8c8;' if show_div and mcq_render_cols > 1 else ''
         divider_css_cq = 'column-rule: 1px solid #c8c8c8;' if show_div and cols_cq > 1 else ''
         local_font_face_css = self._playwright_local_font_face_css()
 
@@ -1692,7 +1790,7 @@ class ExportQuestionsView(APIView):
     }}
     @page mcq {{
       size: {float(mcq_w_mm):.3f}mm {float(mcq_h_mm):.3f}mm;
-      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom):.3f}mm {float(margin_left):.3f}mm;
+      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom + mcq_extra_bottom_mm):.3f}mm {float(margin_left):.3f}mm;
     }}
     html, body {{ margin: 0; padding: 0; }}
     body {{
@@ -1715,7 +1813,51 @@ class ExportQuestionsView(APIView):
     .paper-mcq {{ page: mcq; }}
     .paper-break {{ break-before: page; page-break-before: always; }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
+    .q-header--lead-first-col {{
+      width: calc(
+        (100% - ((var(--lead-main-cols, 1) - 1) * var(--lead-gap, {col_gap}px)))
+        / var(--lead-main-cols, 1)
+      );
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }}
     .hline {{ margin: 0; }}
+    .lead-empty-grid {{
+      display: grid;
+      grid-template-columns: repeat({cols_mcq}, minmax(0, 1fr));
+      gap: {col_gap}px;
+      align-items: stretch;
+      position: relative;
+    }}
+    .lead-empty-col {{
+      min-height: 100%;
+    }}
+    .lead-empty-main {{
+      grid-column: 2 / -1;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }}
+    .lead-empty-grid--ruled::before {{
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(
+        ((100% - ((var(--lead-cols, 2) - 1) * var(--lead-gap, {col_gap}px))) / var(--lead-cols, 2))
+        + (var(--lead-gap, {col_gap}px) / 2)
+      );
+      border-left: 2px solid #8f8f8f;
+      pointer-events: none;
+      z-index: 3;
+    }}
+    .lead-empty-grid--ruled .lead-empty-col {{
+      border-right: 2px solid #8f8f8f;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 2;
+    }}
     .q-wrap {{
       column-count: {cols_mcq};
       column-gap: {col_gap}px;
@@ -1727,23 +1869,85 @@ class ExportQuestionsView(APIView):
       {divider_css_cq}
     }}
     .q-wrap-mcq {{
-      column-count: {cols_mcq};
+      column-count: {mcq_render_cols};
       column-gap: {col_gap}px;
       {divider_css_mcq}
     }}
     .q-item {{
-      break-inside: avoid;
-      page-break-inside: avoid;
-      padding-top: {q_pad:.2f}px;
-      padding-bottom: {q_pad:.2f}px;
-      margin: 0 0 {q_gap_mcq:.2f}px 0;
+      break-inside: auto;
+      page-break-inside: auto;
     }}
-    .q-cq {{ font-size: {q_font_cq:.2f}px; line-height: {q_lh_cq:.3f}; margin-bottom: {q_gap_cq:.2f}px; }}
-    .q-mcq {{ font-size: {q_font_mcq:.2f}px; line-height: {q_lh_mcq:.3f}; }}
-    .q-stem {{ margin: 0; }}
-    .qn {{ font-weight: 700; margin-right: 4px; }}
-    .q-opt {{ margin-left: 18px; }}
-    .ol {{ font-weight: 600; }}
+    .q-content {{
+      min-width: 0;
+      width: 100%;
+      text-align: justify;
+      position: relative;
+      padding-right: 2px;
+      box-sizing: border-box;
+      break-inside: auto;
+      page-break-inside: auto;
+    }}
+    .q-label {{ display: flow-root; margin: 0; }}
+    .qn {{
+      float: left;
+      font-weight: 700;
+      margin-right: 0.2em;
+      line-height: var(--preview-question-lh, 1.4);
+    }}
+    .q-text {{
+      display: block;
+      overflow: hidden;
+      min-width: 0;
+      font-size: 1em;
+      line-height: var(--preview-question-lh, 1.4);
+      color: #333;
+    }}
+    .topic-question-line {{ display: block; box-sizing: border-box; }}
+    .topic-question-line.topic-question-roman-line {{
+      padding-left: 10px;
+      text-indent: -10px;
+    }}
+    .topic-question-line.topic-question-bn-paren-line {{
+      padding-left: var(--preview-q-bn-paren-inset, 18px);
+      text-indent: calc(0px - var(--preview-q-bn-paren-inset, 18px));
+    }}
+    .q-stem-with-parts {{ display: flow-root; margin-bottom: 4px; }}
+    .q-intro {{ display: block; overflow: hidden; min-width: 0; }}
+    .q-subpart {{
+      padding-left: var(--preview-q-subpart-pl, 14px);
+      font-size: 1em;
+      line-height: var(--preview-question-lh, 1.4);
+      color: #333;
+      margin-top: 2px;
+      box-sizing: border-box;
+      clear: both;
+    }}
+    .q-options {{
+      margin-top: 3px;
+      margin-bottom: 3px;
+      margin-left: 0;
+      padding-left: var(--preview-q-subpart-pl, 14px);
+      box-sizing: border-box;
+      font-size: calc(13 / 14 * 1em);
+      line-height: var(--preview-question-lh, 1.4);
+      color: #555;
+      display: grid;
+      grid-template-columns: repeat({options_cols}, minmax(0, 1fr));
+      gap: 4px 1.5em;
+      align-items: start;
+      justify-content: start;
+      break-inside: auto;
+      page-break-inside: auto;
+    }}
+    .q-opt {{
+      display: block;
+      white-space: normal;
+      min-width: 0;
+      padding-left: 16px;
+      text-indent: -16px;
+      box-sizing: border-box;
+      text-align: left;
+    }}
   </style>
 </head>
 <body>
