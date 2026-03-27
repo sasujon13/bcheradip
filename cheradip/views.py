@@ -1363,6 +1363,7 @@ class ExportQuestionsView(APIView):
             base_dir / 'static' / 'fonts',
             base_dir / 'static_src' / 'fonts',
             base_dir / 'cheradip' / 'fonts',
+            base_dir.parent / 'fcheradip' / 'src' / 'assets' / 'fonts',
         ]
         fonts_dir = None
         for c in candidates:
@@ -1374,6 +1375,8 @@ class ExportQuestionsView(APIView):
 
         # filename -> (family, weight, style)
         wanted = {
+            'Roboto-Regular.ttf': ('Roboto', '400', 'normal'),
+            'Roboto-Thin.ttf': ('Roboto', '300', 'normal'),
             'NotoSansBengali-Regular.ttf': ('Noto Sans Bengali', '400', 'normal'),
             'NotoSansBengali-Bold.ttf': ('Noto Sans Bengali', '700', 'normal'),
             'NotoSerifBengali-Regular.ttf': ('Noto Serif Bengali', '400', 'normal'),
@@ -2060,16 +2063,7 @@ class ExportQuestionsView(APIView):
     }}
     html, body {{ margin: 0; padding: 0; }}
     body {{
-      font-family:
-        "Noto Sans Bengali",
-        "Noto Serif Bengali",
-        "SolaimanLipi",
-        "Kalpurush",
-        "Noto Sans",
-        "Noto Serif",
-        "STIX Two Math",
-        "Cambria Math",
-        sans-serif;
+      font-family: "Roboto", sans-serif;
       font-size: {q_font_global:.2f}px;
       line-height: {q_lh_global:.3f};
       color: #111;
