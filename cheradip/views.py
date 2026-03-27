@@ -1612,15 +1612,70 @@ class ExportQuestionsView(APIView):
         else:
             hfs = [16, 18, 16, 16, 14, 14, 14, 12]
 
+        def sanitize_header_html(text):
+            raw = str(text or '')
+            # Keep only a small safe subset used by preview header editing.
+            allowed = [
+                '<br>', '<br/>', '<br />',
+                '<hr>', '<hr/>', '<hr />',
+                '<b>', '</b>',
+                '<strong>', '</strong>',
+                '<i>', '</i>',
+                '<u>', '</u>',
+            ]
+            tokenized = raw
+            tokens = {}
+            for i, tag in enumerate(allowed):
+                token = '__HDR_TAG_%d__' % i
+                tokenized = re.sub(re.escape(tag), token, tokenized, flags=re.IGNORECASE)
+                tokens[token] = tag
+            out = escape(tokenized)
+            for token, tag in tokens.items():
+                out = out.replace(token, tag)
+            return out
+
+        def normalize_bengali_digits(s):
+            return str(s or '').translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+
+        def render_subject_code_row(line, font_px, line_h):
+            txt = str(line or '')
+            digits = re.findall(r'[0-9০-৯]', txt)
+            digs = [normalize_bengali_digits(d) for d in digits[:3]]
+            while len(digs) < 3:
+                digs.append('&nbsp;')
+            return (
+                '<div class="hline hline-code-row" style="font-size:%.2fpx; line-height:%.3f;">'
+                '<span class="q-code-label">বিষয় কোড</span>'
+                '<span class="q-code-colon">:</span>'
+                '<span class="q-code-cells">'
+                '<span class="q-code-cell">%s</span>'
+                '<span class="q-code-cell">%s</span>'
+                '<span class="q-code-cell">%s</span>'
+                '</span>'
+                '</div>'
+            ) % (font_px, line_h, digs[0], digs[1], digs[2])
+
         header_lines = [ln for ln in str(question_header or '').replace('\r\n', '\n').split('\n')]
         header_html = ''
         if any(s.strip() for s in header_lines):
             chunks = []
+            code_row_seen = False
             for i, line in enumerate(header_lines):
                 fz = hfs[i] if i < len(hfs) else hfs[-1]
+                line_txt = str(line or '').strip()
+                if re.search(r'বিষ[য়য]\s*কোড', line_txt):
+                    if code_row_seen:
+                        continue
+                    code_row_seen = True
+                    chunks.append(render_subject_code_row(line_txt, fz, h_lh))
+                    continue
+                if re.fullmatch(r'<hr\s*/?>', line_txt, flags=re.IGNORECASE):
+                    chunks.append('<hr class="hline-hr" />')
+                    continue
+                rendered = sanitize_header_html(line if line else '&nbsp;')
                 chunks.append(
                     '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>'
-                    % (fz, h_lh, escape(line) if line else '&nbsp;')
+                    % (fz, h_lh, rendered)
                 )
             header_html = '<div class="q-header">%s</div>' % ''.join(chunks)
 
@@ -1987,6 +2042,48 @@ class ExportQuestionsView(APIView):
     .paper-mcq {{ page: mcq; }}
     .paper-break {{ break-before: page; page-break-before: always; }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
+    .hline-hr {{
+      border: 0;
+      border-top: 1px solid #222;
+      margin: 6px 0;
+    }}
+    .hline-code-row {{
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 10px;
+      width: 100%;
+      text-align: center;
+      margin-top: 6px;
+    }}
+    .q-code-label {{ white-space: nowrap; }}
+    .q-code-colon {{ padding: 0 2px; white-space: nowrap; }}
+    .q-code-cells {{
+      display: inline-flex;
+      border: 1px solid #333;
+      border-radius: 2px;
+      overflow: hidden;
+      line-height: 1.3;
+      align-items: center;
+    }}
+    .q-code-cell {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.35em;
+      padding: 3px 8px;
+      text-align: center;
+      box-sizing: border-box;
+      border-right: 1px solid #333;
+    }}
+    .q-code-cell:last-child {{
+      border-right: none;
+    }}
+    .q-code-cells .q-code-cell:nth-child(1),
+    .q-code-cells .q-code-cell:nth-child(2) {{
+      margin-right: -3px;
+    }}
     .q-header--lead-first-col {{
       width: calc(
         (100% - ((var(--lead-main-cols, 1) - 1) * var(--lead-gap, {col_gap}px)))
