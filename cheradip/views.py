@@ -1810,7 +1810,8 @@ class ExportQuestionsView(APIView):
                 cols_idx = pg.get('questionColumnIndexes')
                 lead_idx = pg.get('leadBindingIndexes')
                 lead_empty = bool(pg.get('leadEmpty'))
-                header_in_col = bool(pg.get('headerInFirstColumn') or lead_empty)
+                header_visible = bool(pg.get('headerVisible', True))
+                header_in_col = bool((pg.get('headerInFirstColumn') or lead_empty) and header_visible)
                 if not isinstance(cols_idx, list):
                     cols_idx = []
                 columns_items = []
@@ -1857,7 +1858,7 @@ class ExportQuestionsView(APIView):
                     header_html_page = ''
                 else:
                     body_html = main_html
-                    header_html_page = '' if header_in_col else header_html
+                    header_html_page = '' if (header_in_col or not header_visible) else header_html
                 paper_cls = 'paper-cq' if kind == 'creative' else 'paper-mcq'
                 break_cls = ' paper-break' if pi > 0 else ''
                 sections.append('<section class="paper %s%s">%s%s</section>' % (paper_cls, break_cls, header_html_page, body_html))
