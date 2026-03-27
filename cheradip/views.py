@@ -1637,47 +1637,84 @@ class ExportQuestionsView(APIView):
         def normalize_bengali_digits(s):
             return str(s or '').translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
 
-        def render_subject_code_row(line, font_px, line_h):
+        def render_subject_code_row(line, font_px, line_h, extra_class=''):
             txt = str(line or '')
             digits = re.findall(r'[0-9০-৯]', txt)
             digs = [normalize_bengali_digits(d) for d in digits[:3]]
             while len(digs) < 3:
                 digs.append('&nbsp;')
             return (
-                '<div class="hline hline-code-row" style="font-size:%.2fpx; line-height:%.3f;">'
+                '<div class="hline hline-code-row-wrap%s" style="font-size:%.2fpx; line-height:%.3f;">'
+                '<span class="q-code-grid">'
                 '<span class="q-code-label">বিষয় কোড</span>'
                 '<span class="q-code-colon">:</span>'
-                '<span class="q-code-cells">'
                 '<span class="q-code-cell">%s</span>'
                 '<span class="q-code-cell">%s</span>'
                 '<span class="q-code-cell">%s</span>'
                 '</span>'
                 '</div>'
-            ) % (font_px, line_h, digs[0], digs[1], digs[2])
+            ) % (extra_class, font_px, line_h, digs[0], digs[1], digs[2])
 
         header_lines = [ln for ln in str(question_header or '').replace('\r\n', '\n').split('\n')]
         header_html = ''
         if any(s.strip() for s in header_lines):
-            chunks = []
-            code_row_seen = False
+            before_hr_chunks = []
+            after_hr_chunks = []
+            code_row_html = ''
+            code_row_source_line = ''
+            code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
+            hr_seen = False
             for i, line in enumerate(header_lines):
                 fz = hfs[i] if i < len(hfs) else hfs[-1]
                 line_txt = str(line or '').strip()
                 if re.search(r'বিষ[য়য]\s*কোড', line_txt):
-                    if code_row_seen:
+                    if code_row_html:
                         continue
-                    code_row_seen = True
-                    chunks.append(render_subject_code_row(line_txt, fz, h_lh))
+                    code_row_source_line = line_txt
+                    code_row_html = render_subject_code_row(line_txt, fz, h_lh)
+                    code_row_font_px = fz
                     continue
                 if re.fullmatch(r'<hr\s*/?>', line_txt, flags=re.IGNORECASE):
-                    chunks.append('<hr class="hline-hr" />')
+                    hr_seen = True
+                    after_hr_chunks.append('<hr class="hline-hr" />')
                     continue
                 rendered = sanitize_header_html(line if line else '&nbsp;')
-                chunks.append(
-                    '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>'
-                    % (fz, h_lh, rendered)
+                line_html = '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>' % (
+                    fz,
+                    h_lh,
+                    rendered,
                 )
-            header_html = '<div class="q-header">%s</div>' % ''.join(chunks)
+                if hr_seen:
+                    after_hr_chunks.append(line_html)
+                else:
+                    before_hr_chunks.append(line_html)
+            if code_row_html:
+                # If there are only 1-5 lines before <hr>, place code row above <hr> as absolute overlay
+                # so it does not consume extra vertical space (preview-like behavior).
+                if hr_seen and 1 <= len(before_hr_chunks) <= 5:
+                    floating_code = render_subject_code_row(
+                        code_row_source_line or 'বিষয় কোড',
+                        code_row_font_px,
+                        h_lh,
+                        extra_class=' hline-code-row-wrap--floating',
+                    )
+                    band_html = '<div class="q-header-band">%s%s</div>' % (
+                        ''.join(before_hr_chunks),
+                        floating_code,
+                    )
+                    header_html = '<div class="q-header">%s%s</div>' % (
+                        band_html,
+                        ''.join(after_hr_chunks),
+                    )
+                else:
+                    all_chunks = before_hr_chunks + after_hr_chunks
+                    all_chunks.insert(min(5, len(all_chunks)), code_row_html)
+                    header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
+            else:
+                header_html = '<div class="q-header">%s%s</div>' % (
+                    ''.join(before_hr_chunks),
+                    ''.join(after_hr_chunks),
+                )
 
         def is_creative(q):
             t = str((q or {}).get('type') or '').strip().lower()
@@ -2047,26 +2084,41 @@ class ExportQuestionsView(APIView):
       border-top: 1px solid #222;
       margin: 6px 0;
     }}
-    .hline-code-row {{
+    .hline-code-row-wrap {{
       display: inline-flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
-      gap: 8px 10px;
+      justify-content: flex-end;
       width: 100%;
-      text-align: center;
-      margin-top: 6px;
+      margin-bottom: 7px;
+      box-sizing: border-box;
+    }}
+    .q-header-band {{
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }}
+    .hline-code-row-wrap--floating {{
+      position: absolute;
+      right: 0;
+      bottom: 7px;
+      width: auto;
+      max-width: 100%;
+      margin-bottom: 0;
+      z-index: 2;
+      pointer-events: none;
+    }}
+    .q-code-grid {{
+      display: grid;
+      grid-template-columns: repeat(5, auto);
+      align-items: center;
+      justify-items: center;
+      border: 1px solid #333;
+      padding: 6px 6px;
+      box-sizing: border-box;
     }}
     .q-code-label {{ white-space: nowrap; }}
     .q-code-colon {{ padding: 0 2px; white-space: nowrap; }}
-    .q-code-cells {{
-      display: inline-flex;
-      border: 1px solid #333;
-      border-radius: 2px;
-      overflow: hidden;
-      line-height: 1.3;
-      align-items: center;
-    }}
     .q-code-cell {{
       display: inline-flex;
       align-items: center;
@@ -2075,13 +2127,10 @@ class ExportQuestionsView(APIView):
       padding: 3px 8px;
       text-align: center;
       box-sizing: border-box;
-      border-right: 1px solid #333;
+      border: 1px solid #333;
     }}
-    .q-code-cell:last-child {{
-      border-right: none;
-    }}
-    .q-code-cells .q-code-cell:nth-child(1),
-    .q-code-cells .q-code-cell:nth-child(2) {{
+    .q-code-grid .q-code-cell:nth-child(3),
+    .q-code-grid .q-code-cell:nth-child(4) {{
       margin-right: -3px;
     }}
     .q-header--lead-first-col {{
