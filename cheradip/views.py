@@ -1630,11 +1630,11 @@ class ExportQuestionsView(APIView):
 
         creative_questions = []
         mcq_questions = []
-        for q in questions:
+        for idx, q in enumerate(questions):
             if is_creative(q):
-                creative_questions.append(q)
+                creative_questions.append({'idx': idx, 'q': q})
             else:
-                mcq_questions.append(q)
+                mcq_questions.append({'idx': idx, 'q': q})
 
         def wrap_roman_lines_html(text):
             roman_line = re.compile(r'^\s*(i|ii|iii|I|II|III)\.')
@@ -1676,11 +1676,36 @@ class ExportQuestionsView(APIView):
         def to_bengali_digits(n):
             return str(n).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
 
+        serial_raw = pick('previewSerialByIndex', {})
+        serial_by_index = serial_raw if isinstance(serial_raw, dict) else {}
+
+        def item_serial(item_idx, fallback_num):
+            if item_idx is None:
+                return to_bengali_digits(fallback_num)
+            s = serial_by_index.get(str(item_idx))
+            if s is None:
+                s = serial_by_index.get(item_idx)
+            try:
+                sn = int(s)
+                if sn > 0:
+                    return to_bengali_digits(sn)
+            except Exception:
+                pass
+            return to_bengali_digits(fallback_num)
+
         def render_items_html(items, start_num=1):
             out = []
             for idx, q in enumerate(items):
                 i = start_num + idx
-                qq = q if isinstance(q, dict) else {}
+                item_idx = None
+                if isinstance(q, dict) and 'q' in q:
+                    try:
+                        item_idx = int(q.get('idx'))
+                    except Exception:
+                        item_idx = None
+                    qq = q.get('q') if isinstance(q.get('q'), dict) else {}
+                else:
+                    qq = q if isinstance(q, dict) else {}
                 creative = is_creative(qq)
                 qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
                 fz = q_font_cq if creative else q_font_mcq
@@ -1723,55 +1748,203 @@ class ExportQuestionsView(APIView):
                 out.append(
                     '<div class="%s" style="%s"><div class="q-content"><label class="q-label">'
                     '<strong class="qn">%s।</strong>%s</label>%s</div></div>'
-                    % (qcls, style, to_bengali_digits(i), stem_html if stem_html else '&nbsp;', opts_html)
+                    % (qcls, style, item_serial(item_idx, i), stem_html if stem_html else '&nbsp;', opts_html)
                 )
             return ''.join(out)
+
+        def render_fixed_columns_html(columns_items, include_header_in_first_col=False):
+            cols = columns_items if isinstance(columns_items, list) and columns_items else [[]]
+            total = len(cols)
+            chunks = []
+            for ci, col_items in enumerate(cols):
+                col = col_items if isinstance(col_items, list) else []
+                col_html = render_items_html(col, 1)
+                if include_header_in_first_col and ci == 0 and header_html:
+                    col_html = (
+                        header_html.replace('class="q-header"', 'class="q-header q-header--landscape-first-col"', 1)
+                        + col_html
+                    )
+                rule_cls = ' q-col--rule' if show_div and total > 1 and ci < total - 1 else ''
+                chunks.append('<div class="q-col%s">%s</div>' % (rule_cls, col_html))
+            return '<div class="q-wrap-fixed">%s</div>' % ''.join(chunks)
 
         cq_items_html = render_items_html(creative_questions, 1)
         mcq_items_html = render_items_html(mcq_questions, 1)
         lead_empty_first_page = bool(pick('leadEmptyFirstPageActive', False))
+        raw_lead_binding = pick('leadBindingItemIndexes', [])
+        lead_binding_idx = set()
+        if isinstance(raw_lead_binding, list):
+            for x in raw_lead_binding:
+                try:
+                    v = int(x)
+                    if v >= 0:
+                        lead_binding_idx.add(v)
+                except Exception:
+                    continue
+        first_section_kind = 'cq' if creative_questions else 'mcq'
+        lead_empty_cq = bool(
+            lead_empty_first_page
+            and first_section_kind == 'cq'
+            and cols_cq > 1
+            and cq_orient in ('landscape', 'l', 'land')
+        )
         lead_empty_mcq = bool(lead_empty_first_page and cols_mcq > 1 and mcq_orient in ('landscape', 'l', 'land'))
+        if first_section_kind != 'mcq':
+            lead_empty_mcq = False
+        cq_render_cols = (cols_cq - 1) if lead_empty_cq else cols_cq
         mcq_render_cols = (cols_mcq - 1) if lead_empty_mcq else cols_mcq
 
+        creative_by_idx = {int(it.get('idx')): it for it in creative_questions if isinstance(it, dict) and it.get('idx') is not None}
+        mcq_by_idx = {int(it.get('idx')): it for it in mcq_questions if isinstance(it, dict) and it.get('idx') is not None}
+        plan_raw = pick('exportPreviewPagePlan', [])
+        use_plan = isinstance(plan_raw, list) and len(plan_raw) > 0 and page_sections <= 1
         sections = []
-        if creative_questions:
-            sections.append(
-                '<section class="paper paper-cq">%s<div class="q-wrap q-wrap-cq">%s</div></section>'
-                % (header_html, cq_items_html)
-            )
-        if mcq_questions:
-            mcq_body_html = '<div class="q-wrap q-wrap-mcq">%s</div>' % mcq_items_html
-            if lead_empty_mcq:
-                lead_header_html = header_html.replace(
-                    'class="q-header"',
-                    'class="q-header q-header--lead-first-col"',
-                    1
+        if use_plan:
+            for pi, pg in enumerate(plan_raw):
+                if not isinstance(pg, dict):
+                    continue
+                kind = str(pg.get('kind') or '').strip().lower()
+                if kind not in ('creative', 'mcq'):
+                    continue
+                pool = creative_by_idx if kind == 'creative' else mcq_by_idx
+                cols_idx = pg.get('questionColumnIndexes')
+                lead_idx = pg.get('leadBindingIndexes')
+                lead_empty = bool(pg.get('leadEmpty'))
+                header_in_col = bool(pg.get('headerInFirstColumn') or lead_empty)
+                if not isinstance(cols_idx, list):
+                    cols_idx = []
+                columns_items = []
+                for col in cols_idx:
+                    if not isinstance(col, list):
+                        continue
+                    col_items = []
+                    for x in col:
+                        try:
+                            iv = int(x)
+                        except Exception:
+                            continue
+                        it = pool.get(iv)
+                        if it is not None:
+                            col_items.append(it)
+                    columns_items.append(col_items)
+                if not columns_items:
+                    columns_items = [[]]
+                main_html = render_fixed_columns_html(columns_items, include_header_in_first_col=header_in_col)
+                if lead_empty and isinstance(lead_idx, list):
+                    lead_items = []
+                    for x in lead_idx:
+                        try:
+                            iv = int(x)
+                        except Exception:
+                            continue
+                        it = pool.get(iv)
+                        if it is not None:
+                            lead_items.append(it)
+                    lead_html = '<div class="lead-empty-col-content">%s</div>' % render_items_html(lead_items, 1)
+                    body_html = (
+                        '<div class="lead-empty-grid%s" style="--lead-cols:%d; --lead-main-cols:%d; --lead-gap:%dpx;">'
+                        '<div class="lead-empty-col">%s</div>'
+                        '<div class="lead-empty-main">%s</div>'
+                        '</div>'
+                    ) % (
+                        ' lead-empty-grid--ruled' if show_div and len(columns_items) > 0 else '',
+                        len(columns_items) + 1,
+                        len(columns_items),
+                        col_gap,
+                        lead_html,
+                        main_html,
+                    )
+                    header_html_page = ''
+                else:
+                    body_html = main_html
+                    header_html_page = '' if header_in_col else header_html
+                paper_cls = 'paper-cq' if kind == 'creative' else 'paper-mcq'
+                break_cls = ' paper-break' if pi > 0 else ''
+                sections.append('<section class="paper %s%s">%s%s</section>' % (paper_cls, break_cls, header_html_page, body_html))
+        else:
+            if creative_questions:
+                creative_main_items = creative_questions
+                creative_lead_items = []
+                if lead_empty_cq and lead_binding_idx:
+                    creative_lead_items = [it for it in creative_questions if int(it.get('idx', -1)) in lead_binding_idx]
+                    if creative_lead_items:
+                        creative_main_items = [it for it in creative_questions if int(it.get('idx', -1)) not in lead_binding_idx]
+                cq_items_html = render_items_html(creative_main_items, 1)
+                cq_body_html = '<div class="q-wrap q-wrap-cq">%s</div>' % cq_items_html
+                if lead_empty_cq:
+                    lead_header_html = header_html.replace(
+                        'class="q-header"',
+                        'class="q-header q-header--lead-first-col"',
+                        1
+                    )
+                    lead_binding_html = ''
+                    if creative_lead_items:
+                        lead_binding_html = '<div class="lead-empty-col-content">%s</div>' % render_items_html(creative_lead_items, 1)
+                    cq_body_html = (
+                        '<div class="lead-empty-grid%s" style="--lead-cols:%d; --lead-main-cols:%d; --lead-gap:%dpx;">'
+                        '<div class="lead-empty-col" aria-hidden="true">%s</div>'
+                        '<div class="lead-empty-main">%s%s</div>'
+                        '</div>'
+                    ) % (
+                        ' lead-empty-grid--ruled' if show_div and cols_cq > 1 else '',
+                        cols_cq,
+                        cq_render_cols,
+                        col_gap,
+                        lead_binding_html,
+                        lead_header_html,
+                        cq_body_html,
+                    )
+                    cq_header_html = ''
+                else:
+                    cq_header_html = header_html
+                sections.append(
+                    '<section class="paper paper-cq">%s%s</section>'
+                    % (cq_header_html, cq_body_html)
                 )
-                mcq_body_html = (
-                    '<div class="lead-empty-grid%s" style="--lead-cols:%d; --lead-main-cols:%d; --lead-gap:%dpx;">'
-                    '<div class="lead-empty-col" aria-hidden="true"></div>'
-                    '<div class="lead-empty-main">%s%s</div>'
-                    '</div>'
-                ) % (
-                    ' lead-empty-grid--ruled' if show_div and cols_mcq > 1 else '',
-                    cols_mcq,
-                    mcq_render_cols,
-                    col_gap,
-                    lead_header_html,
-                    mcq_body_html,
+            if mcq_questions:
+                mcq_main_items = mcq_questions
+                mcq_lead_items = []
+                if lead_empty_mcq and lead_binding_idx:
+                    mcq_lead_items = [it for it in mcq_questions if int(it.get('idx', -1)) in lead_binding_idx]
+                    if mcq_lead_items:
+                        mcq_main_items = [it for it in mcq_questions if int(it.get('idx', -1)) not in lead_binding_idx]
+                mcq_items_html = render_items_html(mcq_main_items, 1)
+                mcq_body_html = '<div class="q-wrap q-wrap-mcq">%s</div>' % mcq_items_html
+                if lead_empty_mcq:
+                    lead_header_html = header_html.replace(
+                        'class="q-header"',
+                        'class="q-header q-header--lead-first-col"',
+                        1
+                    )
+                    lead_binding_html = ''
+                    if mcq_lead_items:
+                        lead_binding_html = '<div class="lead-empty-col-content">%s</div>' % render_items_html(mcq_lead_items, 1)
+                    mcq_body_html = (
+                        '<div class="lead-empty-grid%s" style="--lead-cols:%d; --lead-main-cols:%d; --lead-gap:%dpx;">'
+                        '<div class="lead-empty-col" aria-hidden="true">%s</div>'
+                        '<div class="lead-empty-main">%s%s</div>'
+                        '</div>'
+                    ) % (
+                        ' lead-empty-grid--ruled' if show_div and cols_mcq > 1 else '',
+                        cols_mcq,
+                        mcq_render_cols,
+                        col_gap,
+                        lead_binding_html,
+                        lead_header_html,
+                        mcq_body_html,
+                    )
+                    mcq_header_html = ''
+                else:
+                    mcq_header_html = header_html
+                sections.append(
+                    '<section class="paper paper-mcq%s">%s%s</section>'
+                    % (' paper-break' if creative_questions else '', mcq_header_html, mcq_body_html)
                 )
-                mcq_header_html = ''
-            else:
-                mcq_header_html = header_html
-            sections.append(
-                '<section class="paper paper-mcq%s">%s%s</section>'
-                % (' paper-break' if creative_questions else '', mcq_header_html, mcq_body_html)
-            )
-        if not sections:
-            sections.append('<section class="paper paper-mcq"><div class="q-wrap q-wrap-mcq"></div></section>')
+            if not sections:
+                sections.append('<section class="paper paper-mcq"><div class="q-wrap q-wrap-mcq"></div></section>')
 
         divider_css_mcq = 'column-rule: 1px solid #c8c8c8;' if show_div and mcq_render_cols > 1 else ''
-        divider_css_cq = 'column-rule: 1px solid #c8c8c8;' if show_div and cols_cq > 1 else ''
+        divider_css_cq = 'column-rule: 1px solid #c8c8c8;' if show_div and cq_render_cols > 1 else ''
         local_font_face_css = self._playwright_local_font_face_css()
 
         html = f"""<!doctype html>
@@ -1833,6 +2006,34 @@ class ExportQuestionsView(APIView):
     .lead-empty-col {{
       min-height: 100%;
     }}
+    .lead-empty-col-content {{
+      min-width: 0;
+      width: 100%;
+    }}
+    .q-wrap-fixed {{
+      display: flex;
+      gap: {col_gap}px;
+      align-items: stretch;
+      width: 100%;
+      box-sizing: border-box;
+    }}
+    .q-col {{
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      box-sizing: border-box;
+    }}
+    .q-col--rule {{
+      border-right: 1px solid #c8c8c8;
+    }}
+    .q-header--landscape-first-col {{
+      flex-shrink: 0;
+      width: 100%;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+    }}
     .lead-empty-main {{
       grid-column: 2 / -1;
       min-width: 0;
@@ -1864,7 +2065,7 @@ class ExportQuestionsView(APIView):
       {divider_css_mcq}
     }}
     .q-wrap-cq {{
-      column-count: {cols_cq};
+      column-count: {cq_render_cols};
       column-gap: {col_gap}px;
       {divider_css_cq}
     }}
