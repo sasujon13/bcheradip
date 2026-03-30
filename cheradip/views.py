@@ -2181,21 +2181,9 @@ class ExportQuestionsView(APIView):
       position: relative;
       z-index: 1;
     }}
-    .lead-empty-grid--ruled::before {{
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: calc(
-        ((100% - ((var(--lead-cols, 2) - 1) * var(--lead-gap, {col_gap}px))) / var(--lead-cols, 2))
-        + (var(--lead-gap, {col_gap}px) / 2)
-      );
-      border-left: 2px solid #8f8f8f;
-      pointer-events: none;
-      z-index: 3;
-    }}
+    /* Single divider between lead column and question block (same weight/color as .q-col--rule / column-rule). */
     .lead-empty-grid--ruled .lead-empty-col {{
-      border-right: 2px solid #8f8f8f;
+      border-right: 1px solid #c8c8c8;
       box-sizing: border-box;
       position: relative;
       z-index: 2;
