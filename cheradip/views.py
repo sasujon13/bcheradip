@@ -1658,66 +1658,78 @@ class ExportQuestionsView(APIView):
                 '</div>'
             ) % (extra_class, font_px, line_h, digs[0], digs[1], digs[2])
 
-        header_lines = [ln for ln in str(question_header or '').replace('\r\n', '\n').split('\n')]
-        header_html = ''
-        if any(s.strip() for s in header_lines):
-            before_hr_chunks = []
-            after_hr_chunks = []
-            code_row_html = ''
-            code_row_source_line = ''
-            code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
-            hr_seen = False
-            for i, line in enumerate(header_lines):
-                fz = hfs[i] if i < len(hfs) else hfs[-1]
-                line_txt = str(line or '').strip()
-                if re.search(r'বিষ[য়য]\s*কোড', line_txt):
-                    if code_row_html:
+        def compile_playwright_header_html(qh_source):
+            """
+            Compile header text into q-header HTML.
+            The first "বিষয় কোড" line is converted to the subject-code grid and removed from flow.
+            """
+            header_lines = [ln for ln in str(qh_source or '').replace('\r\n', '\n').split('\n')]
+            header_html = ''
+            if any(s.strip() for s in header_lines):
+                before_hr_chunks = []
+                after_hr_chunks = []
+                code_row_html = ''
+                code_row_source_line = ''
+                code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
+                hr_seen = False
+                for i, line in enumerate(header_lines):
+                    fz = hfs[i] if i < len(hfs) else hfs[-1]
+                    line_txt = str(line or '').strip()
+                    if re.search(r'বিষ[য়য]\s*কোড', line_txt):
+                        if code_row_html:
+                            continue
+                        code_row_source_line = line_txt
+                        code_row_html = render_subject_code_row(line_txt, fz, h_lh)
+                        code_row_font_px = fz
                         continue
-                    code_row_source_line = line_txt
-                    code_row_html = render_subject_code_row(line_txt, fz, h_lh)
-                    code_row_font_px = fz
-                    continue
-                if re.fullmatch(r'<hr\s*/?>', line_txt, flags=re.IGNORECASE):
-                    hr_seen = True
-                    after_hr_chunks.append('<hr class="hline-hr" />')
-                    continue
-                rendered = sanitize_header_html(line if line else '&nbsp;')
-                line_html = '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>' % (
-                    fz,
-                    h_lh,
-                    rendered,
-                )
-                if hr_seen:
-                    after_hr_chunks.append(line_html)
-                else:
-                    before_hr_chunks.append(line_html)
-            if code_row_html:
-                # If there are only 1-5 lines before <hr>, place code row above <hr> as absolute overlay
-                # so it does not consume extra vertical space (preview-like behavior).
-                if hr_seen and 1 <= len(before_hr_chunks) <= 5:
-                    floating_code = render_subject_code_row(
-                        code_row_source_line or 'বিষয় কোড',
-                        code_row_font_px,
+                    if re.fullmatch(r'<hr\s*/?>', line_txt, flags=re.IGNORECASE):
+                        hr_seen = True
+                        after_hr_chunks.append('<hr class="hline-hr" />')
+                        continue
+                    rendered = sanitize_header_html(line if line else '&nbsp;')
+                    line_html = '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>' % (
+                        fz,
                         h_lh,
-                        extra_class=' hline-code-row-wrap--floating',
+                        rendered,
                     )
-                    band_html = '<div class="q-header-band">%s%s</div>' % (
-                        ''.join(before_hr_chunks),
-                        floating_code,
-                    )
+                    if hr_seen:
+                        after_hr_chunks.append(line_html)
+                    else:
+                        before_hr_chunks.append(line_html)
+                if code_row_html:
+                    # If there are only 1-5 lines before <hr>, place code row above <hr> as absolute overlay
+                    # so it does not consume extra vertical space (preview-like behavior).
+                    if hr_seen and 1 <= len(before_hr_chunks) <= 5:
+                        floating_code = render_subject_code_row(
+                            code_row_source_line or 'বিষয় কোড',
+                            code_row_font_px,
+                            h_lh,
+                            extra_class=' hline-code-row-wrap--floating',
+                        )
+                        band_html = '<div class="q-header-band">%s%s</div>' % (
+                            ''.join(before_hr_chunks),
+                            floating_code,
+                        )
+                        header_html = '<div class="q-header">%s%s</div>' % (
+                            band_html,
+                            ''.join(after_hr_chunks),
+                        )
+                    else:
+                        all_chunks = before_hr_chunks + after_hr_chunks
+                        all_chunks.insert(min(5, len(all_chunks)), code_row_html)
+                        header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
+                else:
                     header_html = '<div class="q-header">%s%s</div>' % (
-                        band_html,
+                        ''.join(before_hr_chunks),
                         ''.join(after_hr_chunks),
                     )
-                else:
-                    all_chunks = before_hr_chunks + after_hr_chunks
-                    all_chunks.insert(min(5, len(all_chunks)), code_row_html)
-                    header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
-            else:
-                header_html = '<div class="q-header">%s%s</div>' % (
-                    ''.join(before_hr_chunks),
-                    ''.join(after_hr_chunks),
-                )
+            return header_html
+
+        qh_root = str(question_header or '').strip()
+        qh_creative = str(pick('questionHeaderCreative', qh_root) or '').strip() or qh_root
+        qh_mcq = str(pick('questionHeaderMcq', qh_root) or '').strip() or qh_root
+        header_html_creative = compile_playwright_header_html(qh_creative)
+        header_html_mcq = compile_playwright_header_html(qh_mcq)
 
         def is_creative(q):
             t = str((q or {}).get('type') or '').strip().lower()
@@ -1847,16 +1859,16 @@ class ExportQuestionsView(APIView):
                 )
             return ''.join(out)
 
-        def render_fixed_columns_html(columns_items, include_header_in_first_col=False):
+        def render_fixed_columns_html(columns_items, include_header_in_first_col=False, hdr_html=None):
             cols = columns_items if isinstance(columns_items, list) and columns_items else [[]]
             total = len(cols)
             chunks = []
             for ci, col_items in enumerate(cols):
                 col = col_items if isinstance(col_items, list) else []
                 col_html = render_items_html(col, 1)
-                if include_header_in_first_col and ci == 0 and header_html:
+                if include_header_in_first_col and ci == 0 and hdr_html:
                     col_html = (
-                        header_html.replace('class="q-header"', 'class="q-header q-header--landscape-first-col"', 1)
+                        hdr_html.replace('class="q-header"', 'class="q-header q-header--landscape-first-col"', 1)
                         + col_html
                     )
                 rule_cls = ' q-col--rule' if show_div and total > 1 and ci < total - 1 else ''
@@ -1901,6 +1913,7 @@ class ExportQuestionsView(APIView):
                 kind = str(pg.get('kind') or '').strip().lower()
                 if kind not in ('creative', 'mcq'):
                     continue
+                hdr_for_page = header_html_creative if kind == 'creative' else header_html_mcq
                 pool = creative_by_idx if kind == 'creative' else mcq_by_idx
                 cols_idx = pg.get('questionColumnIndexes')
                 lead_idx = pg.get('leadBindingIndexes')
@@ -1925,7 +1938,7 @@ class ExportQuestionsView(APIView):
                     columns_items.append(col_items)
                 if not columns_items:
                     columns_items = [[]]
-                main_html = render_fixed_columns_html(columns_items, include_header_in_first_col=header_in_col)
+                main_html = render_fixed_columns_html(columns_items, include_header_in_first_col=header_in_col, hdr_html=hdr_for_page)
                 if lead_empty and isinstance(lead_idx, list):
                     lead_items = []
                     for x in lead_idx:
@@ -1953,7 +1966,7 @@ class ExportQuestionsView(APIView):
                     header_html_page = ''
                 else:
                     body_html = main_html
-                    header_html_page = '' if (header_in_col or not header_visible) else header_html
+                    header_html_page = '' if (header_in_col or not header_visible) else hdr_for_page
                 paper_cls = 'paper-cq' if kind == 'creative' else 'paper-mcq'
                 break_cls = ' paper-break' if pi > 0 else ''
                 sections.append('<section class="paper %s%s">%s%s</section>' % (paper_cls, break_cls, header_html_page, body_html))
@@ -1968,7 +1981,7 @@ class ExportQuestionsView(APIView):
                 cq_items_html = render_items_html(creative_main_items, 1)
                 cq_body_html = '<div class="q-wrap q-wrap-cq">%s</div>' % cq_items_html
                 if lead_empty_cq:
-                    lead_header_html = header_html.replace(
+                    lead_header_html = header_html_creative.replace(
                         'class="q-header"',
                         'class="q-header q-header--lead-first-col"',
                         1
@@ -1992,7 +2005,7 @@ class ExportQuestionsView(APIView):
                     )
                     cq_header_html = ''
                 else:
-                    cq_header_html = header_html
+                    cq_header_html = header_html_creative
                 sections.append(
                     '<section class="paper paper-cq">%s%s</section>'
                     % (cq_header_html, cq_body_html)
@@ -2007,7 +2020,7 @@ class ExportQuestionsView(APIView):
                 mcq_items_html = render_items_html(mcq_main_items, 1)
                 mcq_body_html = '<div class="q-wrap q-wrap-mcq">%s</div>' % mcq_items_html
                 if lead_empty_mcq:
-                    lead_header_html = header_html.replace(
+                    lead_header_html = header_html_mcq.replace(
                         'class="q-header"',
                         'class="q-header q-header--lead-first-col"',
                         1
@@ -2031,7 +2044,7 @@ class ExportQuestionsView(APIView):
                     )
                     mcq_header_html = ''
                 else:
-                    mcq_header_html = header_html
+                    mcq_header_html = header_html_mcq
                 sections.append(
                     '<section class="paper paper-mcq%s">%s%s</section>'
                     % (' paper-break' if creative_questions else '', mcq_header_html, mcq_body_html)
