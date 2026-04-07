@@ -2244,6 +2244,11 @@ class ExportQuestionsView(APIView):
     .q-code-grid .q-code-cell:nth-child(4) {{
       margin-right: -3px;
     }}
+    /* Creative: no outer frame around the subject-code row (digits keep cell borders). */
+    .paper-cq .q-code-grid {{
+      border: none;
+      padding: 0;
+    }}
     .q-header--lead-first-col {{
       width: calc(
         (100% - ((var(--lead-main-cols, 1) - 1) * var(--lead-gap, {col_gap}px)))
