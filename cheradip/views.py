@@ -1686,7 +1686,7 @@ class ExportQuestionsView(APIView):
                         hr_seen = True
                         after_hr_chunks.append('<hr class="hline-hr" />')
                         continue
-                    rendered = sanitize_header_html(line if line else '&nbsp;')
+                    rendered = sanitize_header_html(line if line else '')
                     line_html = '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>' % (
                         fz,
                         h_lh,
