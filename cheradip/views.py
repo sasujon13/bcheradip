@@ -1666,12 +1666,16 @@ class ExportQuestionsView(APIView):
             header_lines = [ln for ln in str(qh_source or '').replace('\r\n', '\n').split('\n')]
             header_html = ''
             if any(s.strip() for s in header_lines):
+                code_line_index = None
+                for _ci, _ln in enumerate(header_lines):
+                    if re.search(r'বিষ[য়য]\s*কোড', str(_ln or '').strip()):
+                        code_line_index = _ci
+                        break
                 before_hr_chunks = []
                 after_hr_chunks = []
                 code_row_html = ''
                 code_row_source_line = ''
                 code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
-                hr_seen = False
                 for i, line in enumerate(header_lines):
                     fz = hfs[i] if i < len(hfs) else hfs[-1]
                     line_txt = str(line or '').strip()
@@ -1683,7 +1687,6 @@ class ExportQuestionsView(APIView):
                         code_row_font_px = fz
                         continue
                     if re.fullmatch(r'<hr\s*/?>', line_txt, flags=re.IGNORECASE):
-                        hr_seen = True
                         after_hr_chunks.append('<hr class="hline-hr" />')
                         continue
                     rendered = sanitize_header_html(line if line else '')
@@ -1692,14 +1695,14 @@ class ExportQuestionsView(APIView):
                         h_lh,
                         rendered,
                     )
-                    if hr_seen:
-                        after_hr_chunks.append(line_html)
-                    else:
+                    if code_line_index is not None and i < code_line_index:
                         before_hr_chunks.append(line_html)
+                    else:
+                        after_hr_chunks.append(line_html)
                 if code_row_html:
-                    # If there are only 1-5 lines before <hr>, place code row above <hr> as absolute overlay
-                    # so it does not consume extra vertical space (preview-like behavior).
-                    if hr_seen and 1 <= len(before_hr_chunks) <= 5:
+                    # Overlay code grid on the band of lines above the বিষয় কোড row (preview-like), not a
+                    # separate full-width row. Works with or without <hr>; band = lines before code index only.
+                    if len(before_hr_chunks) >= 1:
                         floating_code = render_subject_code_row(
                             code_row_source_line or 'বিষয় কোড',
                             code_row_font_px,
