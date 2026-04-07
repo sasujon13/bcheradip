@@ -1658,10 +1658,23 @@ class ExportQuestionsView(APIView):
                 '</div>'
             ) % (extra_class, font_px, line_h, digs[0], digs[1], digs[2])
 
-        def compile_playwright_header_html(qh_source):
+        def _cq_header_line_is_notice(line):
+            """True for [দ্রষ্টব্য : …] rows — must not sit under the floating subject-code grid."""
+            t = str(line or '').strip()
+            if not t:
+                return False
+            if re.search(r'^\s*\[?\s*দ্রষ্টব্য', t):
+                return True
+            if t.startswith('[') and 'দ্রষ্টব্য' in t[:200]:
+                return True
+            return False
+
+        def compile_playwright_header_html(qh_source, cq_header=False):
             """
             Compile header text into q-header HTML.
             The first "বিষয় কোড" line is converted to the subject-code grid and removed from flow.
+            cq_header: Creative PDF — keep দ্রষ্টব্য lines out of q-header-band so the grid aligns with
+            subject/title lines (e.g. বিষয় name), not over the notice paragraph.
             """
             header_lines = [ln for ln in str(qh_source or '').replace('\r\n', '\n').split('\n')]
             header_html = ''
@@ -1672,7 +1685,10 @@ class ExportQuestionsView(APIView):
                         code_line_index = _ci
                         break
                 before_hr_chunks = []
+                band_before_chunks = []
+                notice_before_chunks = []
                 after_hr_chunks = []
+                after_raw_lines = []
                 code_row_html = ''
                 code_row_source_line = ''
                 code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
@@ -1688,6 +1704,8 @@ class ExportQuestionsView(APIView):
                         continue
                     if re.fullmatch(r'<hr\s*/?>', line_txt, flags=re.IGNORECASE):
                         after_hr_chunks.append('<hr class="hline-hr" />')
+                        if cq_header:
+                            after_raw_lines.append(None)
                         continue
                     rendered = sanitize_header_html(line if line else '')
                     line_html = '<div class="hline" style="font-size:%.2fpx; line-height:%.3f;">%s</div>' % (
@@ -1696,13 +1714,89 @@ class ExportQuestionsView(APIView):
                         rendered,
                     )
                     if code_line_index is not None and i < code_line_index:
-                        before_hr_chunks.append(line_html)
+                        if cq_header:
+                            if _cq_header_line_is_notice(line):
+                                notice_before_chunks.append(line_html)
+                            else:
+                                band_before_chunks.append(line_html)
+                        else:
+                            before_hr_chunks.append(line_html)
                     else:
                         after_hr_chunks.append(line_html)
+                        if cq_header:
+                            after_raw_lines.append(line)
                 if code_row_html:
                     # Overlay code grid on the band of lines above the বিষয় কোড row (preview-like), not a
                     # separate full-width row. Works with or without <hr>; band = lines before code index only.
-                    if len(before_hr_chunks) >= 1:
+                    if cq_header:
+                        if len(band_before_chunks) >= 1:
+                            floating_code = render_subject_code_row(
+                                code_row_source_line or 'বিষয় কোড',
+                                code_row_font_px,
+                                h_lh,
+                                extra_class=' hline-code-row-wrap--floating',
+                            )
+                            band_html = '<div class="q-header-band">%s%s</div>' % (
+                                ''.join(band_before_chunks),
+                                floating_code,
+                            )
+                            header_html = '<div class="q-header">%s%s%s</div>' % (
+                                band_html,
+                                ''.join(notice_before_chunks),
+                                ''.join(after_hr_chunks),
+                            )
+                        elif after_hr_chunks:
+                            rest = list(after_hr_chunks)
+                            raws = list(after_raw_lines)
+                            leading_hr = []
+                            while rest and (rest[0] or '').strip().startswith('<hr') and 'hline-hr' in (
+                                rest[0] or ''
+                            ):
+                                leading_hr.append(rest.pop(0))
+                                if raws:
+                                    raws.pop(0)
+                            after_notices = []
+                            while (
+                                rest
+                                and raws
+                                and raws[0] is not None
+                                and _cq_header_line_is_notice(raws[0])
+                            ):
+                                after_notices.append(rest.pop(0))
+                                raws.pop(0)
+                            if rest and (not raws or raws[0] is not None):
+                                floating_code = render_subject_code_row(
+                                    code_row_source_line or 'বিষয় কোড',
+                                    code_row_font_px,
+                                    h_lh,
+                                    extra_class=' hline-code-row-wrap--floating',
+                                )
+                                band_line = rest.pop(0)
+                                if raws:
+                                    raws.pop(0)
+                                band_html = '<div class="q-header-band">%s%s</div>' % (
+                                    band_line,
+                                    floating_code,
+                                )
+                                header_html = '<div class="q-header">%s%s%s%s%s</div>' % (
+                                    ''.join(leading_hr),
+                                    band_html,
+                                    ''.join(notice_before_chunks),
+                                    ''.join(after_notices),
+                                    ''.join(rest),
+                                )
+                            else:
+                                all_chunks = (
+                                    notice_before_chunks
+                                    + after_hr_chunks
+                                )
+                                all_chunks.insert(min(5, len(all_chunks)), code_row_html)
+                                header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
+                        else:
+                            all_chunks = notice_before_chunks + after_hr_chunks
+                            all_chunks.insert(min(5, len(all_chunks)), code_row_html)
+                            header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
+                    elif len(before_hr_chunks) >= 1:
                         floating_code = render_subject_code_row(
                             code_row_source_line or 'বিষয় কোড',
                             code_row_font_px,
@@ -1722,16 +1816,23 @@ class ExportQuestionsView(APIView):
                         all_chunks.insert(min(5, len(all_chunks)), code_row_html)
                         header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
                 else:
-                    header_html = '<div class="q-header">%s%s</div>' % (
-                        ''.join(before_hr_chunks),
-                        ''.join(after_hr_chunks),
-                    )
+                    if cq_header:
+                        header_html = '<div class="q-header">%s%s%s</div>' % (
+                            ''.join(band_before_chunks),
+                            ''.join(notice_before_chunks),
+                            ''.join(after_hr_chunks),
+                        )
+                    else:
+                        header_html = '<div class="q-header">%s%s</div>' % (
+                            ''.join(before_hr_chunks),
+                            ''.join(after_hr_chunks),
+                        )
             return header_html
 
         qh_root = str(question_header or '').strip()
         qh_creative = str(pick('questionHeaderCreative', qh_root) or '').strip() or qh_root
         qh_mcq = str(pick('questionHeaderMcq', qh_root) or '').strip() or qh_root
-        header_html_creative = compile_playwright_header_html(qh_creative)
+        header_html_creative = compile_playwright_header_html(qh_creative, cq_header=True)
         header_html_mcq = compile_playwright_header_html(qh_mcq)
 
         def is_creative(q):
