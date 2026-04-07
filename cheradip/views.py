@@ -1640,12 +1640,53 @@ class ExportQuestionsView(APIView):
         def normalize_bengali_digits(s):
             return str(s or '').translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
 
-        def render_subject_code_row(line, font_px, line_h, extra_class=''):
+        def mcq_set_letter_from_line_or_settings(line_txt):
+            """Match preview/export line `… সেট : ক` or layout_settings.mcqSetLetter."""
+            t = str(line_txt or '')
+            m = re.search(r'সেট\s*[:ঃ]\s*([কখগঘ])', t)
+            if m:
+                return m.group(1)
+            v = pick('mcqSetLetter', None)
+            if v is None:
+                return None
+            s = str(v).strip()
+            if s in ('ক', 'খ', 'গ', 'ঘ'):
+                return s
+            return None
+
+        def render_subject_code_row(line, font_px, line_h, extra_class='', for_mcq_header=False):
             txt = str(line or '')
             digits = re.findall(r'[0-9০-৯]', txt)
             digs = [normalize_bengali_digits(d) for d in digits[:3]]
             while len(digs) < 3:
                 digs.append('&nbsp;')
+            set_letter = mcq_set_letter_from_line_or_settings(txt) if for_mcq_header else None
+            if set_letter:
+                sl = escape(set_letter)
+                return (
+                    '<div class="hline hline-code-row-wrap%s" style="font-size:%.2fpx; line-height:%.3f;">'
+                    '<span class="q-code-grid q-code-grid--mcq-set">'
+                    '<span class="q-code-label">বিষয় কোড</span>'
+                    '<span class="q-code-colon">:</span>'
+                    '<span class="q-code-cell">%s</span>'
+                    '<span class="q-code-cell">%s</span>'
+                    '<span class="q-code-cell">%s</span>'
+                    '<span class="q-code-label q-code-label--set">সেট</span>'
+                    '<span class="q-code-colon">:</span>'
+                    '<span class="q-code-cell q-code-cell--filler"></span>'
+                    '<span class="q-code-cell q-code-cell--set-letter">%s</span>'
+                    '<span class="q-code-cell q-code-cell--filler"></span>'
+                    '</span>'
+                    '</div>'
+                ) % (
+                    extra_class,
+                    font_px,
+                    line_h,
+                    digs[0],
+                    digs[1],
+                    digs[2],
+                    sl,
+                )
             return (
                 '<div class="hline hline-code-row-wrap%s" style="font-size:%.2fpx; line-height:%.3f;">'
                 '<span class="q-code-grid">'
@@ -1699,7 +1740,9 @@ class ExportQuestionsView(APIView):
                         if code_row_html:
                             continue
                         code_row_source_line = line_txt
-                        code_row_html = render_subject_code_row(line_txt, fz, h_lh)
+                        code_row_html = render_subject_code_row(
+                            line_txt, fz, h_lh, '', not cq_header
+                        )
                         code_row_font_px = fz
                         continue
                     if re.fullmatch(r'<hr\s*/?>', line_txt, flags=re.IGNORECASE):
@@ -1735,6 +1778,7 @@ class ExportQuestionsView(APIView):
                                 code_row_font_px,
                                 h_lh,
                                 extra_class=' hline-code-row-wrap--floating',
+                                for_mcq_header=False,
                             )
                             band_html = '<div class="q-header-band">%s%s</div>' % (
                                 ''.join(band_before_chunks),
@@ -1770,6 +1814,7 @@ class ExportQuestionsView(APIView):
                                     code_row_font_px,
                                     h_lh,
                                     extra_class=' hline-code-row-wrap--floating',
+                                    for_mcq_header=False,
                                 )
                                 band_line = rest.pop(0)
                                 if raws:
@@ -1802,6 +1847,7 @@ class ExportQuestionsView(APIView):
                             code_row_font_px,
                             h_lh,
                             extra_class=' hline-code-row-wrap--floating',
+                            for_mcq_header=True,
                         )
                         band_html = '<div class="q-header-band">%s%s</div>' % (
                             ''.join(before_hr_chunks),
@@ -2243,6 +2289,23 @@ class ExportQuestionsView(APIView):
     .q-code-grid .q-code-cell:nth-child(3),
     .q-code-grid .q-code-cell:nth-child(4) {{
       margin-right: -3px;
+    }}
+    /* MCQ: second row — সেট : (letter), matches preview two-row code table. */
+    .q-code-grid--mcq-set {{
+      grid-template-rows: auto auto;
+      row-gap: 15px;
+    }}
+    .q-code-label--set {{ white-space: nowrap; }}
+    .q-code-cell--filler {{
+      border: none !important;
+      min-width: 0.35em;
+      padding: 0;
+      background: transparent;
+    }}
+    .q-code-cell--set-letter {{
+      border-width: 2px;
+      min-width: 1.35em;
+      padding: 3px 5px;
     }}
     /* Creative: no outer frame around the subject-code row (digits keep cell borders). */
     .paper-cq .q-code-grid {{
