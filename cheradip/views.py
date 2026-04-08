@@ -2023,7 +2023,14 @@ class ExportQuestionsView(APIView):
                     )
                 rule_cls = ' q-col--rule' if show_div and total > 1 and ci < total - 1 else ''
                 chunks.append('<div class="q-col%s">%s</div>' % (rule_cls, col_html))
-            return '<div class="q-wrap-fixed">%s</div>' % ''.join(chunks)
+            # Grid + explicit column count matches preview column-major packing. Flex + align-items:stretch
+            # made both columns the height of the taller one and caused bad print fragmentation (col1
+            # spilling to page 2 while col2 still had room on page 1).
+            ncols = max(1, total)
+            return (
+                '<div class="q-wrap-fixed" style="grid-template-columns: repeat(%d, minmax(0, 1fr));">%s</div>'
+                % (ncols, ''.join(chunks))
+            )
 
         cq_items_html = render_items_html(creative_questions, 1)
         mcq_items_html = render_items_html(mcq_questions, 1)
@@ -2337,18 +2344,19 @@ class ExportQuestionsView(APIView):
       width: 100%;
     }}
     .q-wrap-fixed {{
-      display: flex;
+      display: grid;
       gap: {col_gap}px;
-      align-items: stretch;
+      align-items: start;
       width: 100%;
       box-sizing: border-box;
     }}
     .q-col {{
-      flex: 1 1 0;
       min-width: 0;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      align-self: start;
       box-sizing: border-box;
     }}
     .q-col--rule {{
