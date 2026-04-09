@@ -1455,6 +1455,8 @@ class ExportQuestionsView(APIView):
         )
 
         if fmt == 'pdf':
+            # Bottom margin bypass for PDF only (see _build_pdf_playwright @page margins).
+            pdf_margin_bottom = 0.0
             buf = None
             if PLAYWRIGHT_AVAILABLE:
                 try:
@@ -1463,7 +1465,7 @@ class ExportQuestionsView(APIView):
                         question_header=question_header,
                         margin_top=margin_top,
                         margin_right=margin_right,
-                        margin_bottom=margin_bottom,
+                        margin_bottom=pdf_margin_bottom,
                         margin_left=margin_left,
                         page_w_mm=w_mm,
                         page_h_mm=h_mm,
@@ -1501,7 +1503,7 @@ class ExportQuestionsView(APIView):
                 if not REPORTLAB_AVAILABLE:
                     return Response({'error': 'PDF generation not available (reportlab/playwright not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
                 buf = self._build_pdf(
-                    questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
+                    questions, question_header, margin_top, margin_right, pdf_margin_bottom, margin_left,
                     page_w_mm=w_mm,
                     page_h_mm=h_mm,
                     layout_columns=layout_columns,
@@ -1603,6 +1605,9 @@ class ExportQuestionsView(APIView):
         q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
         q_gap_cq = max(0, num(pick('questionsGapCreative', 4), 4))
         mcq_extra_bottom_mm = max(0.0, num(pick('mcqExtraBottomMarginMm', 0), 0))
+        # PDF @page bottom: bypass (preview vs Chromium/Playwright print; CQ and MCQ sheets).
+        margin_bottom = 0.0
+        mcq_extra_bottom_mm = 0.0
         options_cols = max(1, min(4, intval(pick('optionsColumns', 2), 2)))
         cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
         cols_cq = max(1, min(10, intval(pick('layoutColumnsCreative', cols_mcq), cols_mcq)))
@@ -2696,7 +2701,6 @@ class ExportQuestionsBulkView(APIView):
                 filename_base = re.sub(r'[^\w\-_.\s]', '_', filename_base)
                 margin_top = float(item.get('marginTop') or 25.4)
                 margin_right = float(item.get('marginRight') or 25.4)
-                margin_bottom = float(item.get('marginBottom') or 25.4)
                 margin_left = float(item.get('marginLeft') or 25.4)
                 w_mm, h_mm = _export_resolve_page_mm(item)
                 lc = max(1, min(10, int(item.get('layoutColumns') or item.get('layout_columns') or 1)))
@@ -2706,7 +2710,7 @@ class ExportQuestionsBulkView(APIView):
                 sec_gap_px = _export_layout_section_gap_px(item)
                 pdf_buf = exporter._build_pdf(
                     questions, question_header,
-                    margin_top, margin_right, margin_bottom, margin_left,
+                    margin_top, margin_right, 0.0, margin_left,
                     page_w_mm=w_mm,
                     page_h_mm=h_mm,
                     layout_columns=lc,
