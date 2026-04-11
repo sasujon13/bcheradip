@@ -1604,14 +1604,10 @@ class ExportQuestionsView(APIView):
         q_pad = max(0, num(pick('questionsPadding', 2), 2))
         q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
         q_gap_cq = max(0, num(pick('questionsGapCreative', 4), 4))
-        mcq_extra_bottom_mm = max(0.0, num(pick('mcqExtraBottomMarginMm', 0), 0))
-        # @page bottom margins: match Angular preview (question-creator) — CQ uses reduced bottom inset.
-        margin_bottom_user = num(pick('marginBottom', 25.4), 25.4)
-        cq_bottom_inset_mm = 25.4 / 4.0  # 0.25" — same as CQ_PREVIEW_BOTTOM_INSET_MM on client
-        margin_bottom_cq = (
-            max(0.0, margin_bottom_user - cq_bottom_inset_mm) if margin_bottom_user >= cq_bottom_inset_mm else 0.0
-        )
-        margin_bottom_mcq = margin_bottom_user
+        # @page bottom margin: 0 for CQ and MCQ (max printable height; avoids tiny splits).
+        # Top/left/right still use user margins. Preview: CQ subtract / MCQ +0.25" — client only.
+        margin_bottom_cq = 0.0
+        margin_bottom_mcq = 0.0
         options_cols = max(1, min(4, intval(pick('optionsColumns', 2), 2)))
         cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
         cols_cq = max(1, min(10, intval(pick('layoutColumnsCreative', cols_mcq), cols_mcq)))
@@ -2248,7 +2244,7 @@ class ExportQuestionsView(APIView):
         mt = float(margin_top)
         mr = float(margin_right)
         ml = float(margin_left)
-        mb_mcq = float(margin_bottom_mcq + mcq_extra_bottom_mm)
+        mb_mcq = float(margin_bottom_mcq)
         # @page rules: omit @page default (conflicts with named pages). CQ-only uses @page mcq with CQ
         # dimensions/margins — same engine path as MCQ-only PDF (matches preview pagination).
         if unify_cq_as_mcq_page_model:
