@@ -1348,6 +1348,41 @@ def _pdf_paint_horizontal_section_dividers(canvas, left, right, bottom_y, top_y,
     canvas.restoreState()
 
 
+def _cq_question_structure_from_bn_markers(full_text):
+    """
+    CQ marks ২,৪,৪ vs ১,২,৩,৪: split by (ক)(খ)(গ) or (ক)(খ)(গ)(ঘ) order in text — no reliance on newlines.
+    Returns dict with intro + parts, or None if (ক)(খ)(গ) do not appear in that order.
+    """
+    if not full_text or not str(full_text).strip():
+        return None
+    s = str(full_text)
+    p_k = s.find('(ক)')
+    p_kh = s.find('(খ)')
+    p_g = s.find('(গ)')
+    p_gh = s.find('(ঘ)')
+    if p_k < 0 or p_kh < 0 or p_g < 0 or not (p_k < p_kh < p_g):
+        return None
+    intro = s[:p_k].strip()
+    if p_gh >= 0 and p_gh > p_g:
+        return {
+            'intro': intro,
+            'parts': [
+                s[p_k:p_kh].strip(),
+                s[p_kh:p_g].strip(),
+                s[p_g:p_gh].strip(),
+                s[p_gh:].strip(),
+            ],
+        }
+    return {
+        'intro': intro,
+        'parts': [
+            s[p_k:p_kh].strip(),
+            s[p_kh:p_g].strip(),
+            s[p_g:].strip(),
+        ],
+    }
+
+
 class ExportQuestionsView(APIView):
     """POST: generate PDF or DOCX from questions list. Requires Bearer auth. Body: questions, questionHeader, pageSize, marginTop, marginRight, marginBottom, marginLeft, format ('pdf'|'docx'), filename (optional)."""
     authentication_classes = [BearerTokenAuthentication]
@@ -1934,6 +1969,9 @@ class ExportQuestionsView(APIView):
             full = question_display_text(raw_text, creative)
             if not creative or not full:
                 return {'intro': full, 'parts': []}
+            by_markers = _cq_question_structure_from_bn_markers(full)
+            if by_markers is not None:
+                return by_markers
             lines = [ln.strip() for ln in full.split('\n') if ln.strip()]
             if len(lines) <= 1:
                 return {'intro': full, 'parts': []}
@@ -2793,6 +2831,9 @@ class ExportQuestionsView(APIView):
             full = docx_question_display_text(raw_text)
             if not full:
                 return {'intro': '', 'parts': []}
+            by_markers = _cq_question_structure_from_bn_markers(full)
+            if by_markers is not None:
+                return by_markers
             lines = [ln.strip() for ln in full.split('\n') if ln.strip()]
             if len(lines) <= 1:
                 return {'intro': full, 'parts': []}
