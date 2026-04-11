@@ -63,10 +63,11 @@ except ImportError:
 try:
     from docx import Document as DocxDocument
     from docx.shared import Mm as DocxMm, Pt as DocxPt
-    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
     DOCX_AVAILABLE = True
 except ImportError:
     DOCX_AVAILABLE = False
+    WD_TAB_ALIGNMENT = None
 
 try:
     from playwright.sync_api import sync_playwright
@@ -1918,13 +1919,16 @@ class ExportQuestionsView(APIView):
                 return s
             with_newlines = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', s)
             with_newlines = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', with_newlines)
-            return (
+            dotted_to_paren = (
                 with_newlines
                 .replace('ক.', '(ক)')
                 .replace('খ.', '(খ)')
                 .replace('গ.', '(গ)')
                 .replace('ঘ.', '(ঘ)')
             )
+            out = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', dotted_to_paren)
+            out = re.sub(r'\n{2,}', r'\n', out)
+            return out.strip()
 
         def question_display_structure(raw_text, creative):
             full = question_display_text(raw_text, creative)
@@ -1937,6 +1941,13 @@ class ExportQuestionsView(APIView):
 
         def to_bengali_digits(n):
             return str(n).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+
+        def creative_subpart_mark_bn(part_count, idx):
+            if part_count == 3 and 0 <= idx < 3:
+                return to_bengali_digits(str([2, 4, 4][idx]))
+            if part_count == 4 and 0 <= idx < 4:
+                return to_bengali_digits(str([1, 2, 3, 4][idx]))
+            return None
 
         serial_raw = pick('previewSerialByIndex', {})
         serial_by_index = serial_raw if isinstance(serial_raw, dict) else {}
@@ -1986,10 +1997,18 @@ class ExportQuestionsView(APIView):
                 struct = question_display_structure(qq.get('question') or '', creative)
                 intro_html = wrap_roman_lines_html(struct.get('intro') or '')
                 if struct.get('parts'):
-                    parts_html = ''.join(
-                        '<div class="q-subpart">%s</div>' % wrap_roman_lines_html(p)
-                        for p in struct.get('parts') or []
-                    )
+                    _parts = struct.get('parts') or []
+                    _pc = len(_parts)
+                    _chunks = []
+                    for _j, _p in enumerate(_parts):
+                        _mk = creative_subpart_mark_bn(_pc, _j)
+                        _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
+                        _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
+                        _chunks.append(
+                            '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
+                            % (_wrap_cls, wrap_roman_lines_html(_p), _mk_html)
+                        )
+                    parts_html = ''.join(_chunks)
                     stem_html = (
                         '<span class="q-stem-with-parts">'
                         '<span class="q-text q-intro">%s</span>'
@@ -2508,14 +2527,30 @@ class ExportQuestionsView(APIView):
     }}
     .q-stem-with-parts {{ display: flow-root; margin-bottom: 4px; }}
     .q-intro {{ display: block; overflow: hidden; min-width: 0; }}
+    .q-subpart-wrap {{
+      position: relative;
+      margin-top: 2px;
+      box-sizing: border-box;
+      clear: both;
+    }}
+    .q-subpart-wrap--has-marks {{
+      padding-right: 2em;
+    }}
+    .q-subpart-marks {{
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      line-height: var(--preview-question-lh, 1.4);
+      font-size: 1em;
+      color: #333;
+    }}
     .q-subpart {{
       padding-left: var(--preview-q-subpart-pl, 14px);
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       color: #333;
-      margin-top: 2px;
+      margin-top: 0;
       box-sizing: border-box;
-      clear: both;
     }}
     .q-options {{
       margin-top: 3px;
@@ -2728,12 +2763,75 @@ class ExportQuestionsView(APIView):
         _docx_apply_section_columns(
             section, layout_columns, space_twips=space_twips, show_sep=bool(show_column_divider)
         )
+        # Match Playwright PDF / preview: CQ with 3 or 4 (ক)–(ঘ) blocks get Bengali marks at the right (২,৪,৪ vs ১,২,৩,৪).
+        docx_usable_width = section.page_width - section.left_margin - section.right_margin
+
+        def docx_is_creative(qq):
+            t = str((qq or {}).get('type') or '').strip().lower()
+            return ('সৃজন' in t) or ('creative' in t)
+
+        def docx_question_display_text(raw_text):
+            s = str(raw_text or '').strip()
+            if not s:
+                return s
+            with_newlines = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', s)
+            with_newlines = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', with_newlines)
+            dotted_to_paren = (
+                with_newlines
+                .replace('ক.', '(ক)')
+                .replace('খ.', '(খ)')
+                .replace('গ.', '(গ)')
+                .replace('ঘ.', '(ঘ)')
+            )
+            out = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', dotted_to_paren)
+            out = re.sub(r'\n{2,}', r'\n', out)
+            return out.strip()
+
+        def docx_question_display_structure(raw_text, creative):
+            if not creative:
+                return {'intro': str(raw_text or '').strip(), 'parts': []}
+            full = docx_question_display_text(raw_text)
+            if not full:
+                return {'intro': '', 'parts': []}
+            lines = [ln.strip() for ln in full.split('\n') if ln.strip()]
+            if len(lines) <= 1:
+                return {'intro': full, 'parts': []}
+            return {'intro': lines[0], 'parts': lines[1:]}
+
+        def docx_subpart_mark_bn(part_count, idx):
+            if part_count == 3 and 0 <= idx < 3:
+                return str([2, 4, 4][idx]).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+            if part_count == 4 and 0 <= idx < 4:
+                return str([1, 2, 3, 4][idx]).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+            return None
+
         if question_header:
             p = doc.add_paragraph(question_header)
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
         for i, q in enumerate(questions):
-            qtext = (q.get('question') or '').strip() or ' '
-            doc.add_paragraph('%s. %s' % (i + 1, qtext))
+            q = q if isinstance(q, dict) else {}
+            raw_q = (q.get('question') or '').strip() or ' '
+            creative = docx_is_creative(q)
+            struct = docx_question_display_structure(raw_q, creative=creative)
+            if creative and struct.get('parts'):
+                intro = struct.get('intro') or ''
+                parts = struct.get('parts') or []
+                pc = len(parts)
+                doc.add_paragraph('%s. %s' % (i + 1, intro))
+                for j, part in enumerate(parts):
+                    mk = docx_subpart_mark_bn(pc, j)
+                    if mk:
+                        para = doc.add_paragraph()
+                        para.paragraph_format.tab_stops.add_tab_stop(
+                            docx_usable_width, WD_TAB_ALIGNMENT.RIGHT
+                        )
+                        para.add_run(part)
+                        para.add_run('\t')
+                        para.add_run(mk)
+                    else:
+                        doc.add_paragraph(part)
+            else:
+                doc.add_paragraph('%s. %s' % (i + 1, raw_q))
             for key, label in [('option_1', 'A.'), ('option_2', 'B.'), ('option_3', 'C.'), ('option_4', 'D.')]:
                 opt = q.get(key)
                 if opt:
