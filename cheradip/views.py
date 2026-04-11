@@ -1605,9 +1605,13 @@ class ExportQuestionsView(APIView):
         q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
         q_gap_cq = max(0, num(pick('questionsGapCreative', 4), 4))
         mcq_extra_bottom_mm = max(0.0, num(pick('mcqExtraBottomMarginMm', 0), 0))
-        # PDF @page bottom: bypass (preview vs Chromium/Playwright print; CQ and MCQ sheets).
-        margin_bottom = 0.0
-        mcq_extra_bottom_mm = 0.0
+        # @page bottom margins: match Angular preview (question-creator) — CQ uses reduced bottom inset.
+        margin_bottom_user = num(pick('marginBottom', 25.4), 25.4)
+        cq_bottom_inset_mm = 25.4 / 4.0  # 0.25" — same as CQ_PREVIEW_BOTTOM_INSET_MM on client
+        margin_bottom_cq = (
+            max(0.0, margin_bottom_user - cq_bottom_inset_mm) if margin_bottom_user >= cq_bottom_inset_mm else 0.0
+        )
+        margin_bottom_mcq = margin_bottom_user
         options_cols = max(1, min(4, intval(pick('optionsColumns', 2), 2)))
         cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
         cols_cq = max(1, min(10, intval(pick('layoutColumnsCreative', cols_mcq), cols_mcq)))
@@ -2226,15 +2230,15 @@ class ExportQuestionsView(APIView):
     {local_font_face_css}
     @page default {{
       size: {float(page_w_mm):.3f}mm {float(page_h_mm):.3f}mm;
-      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom):.3f}mm {float(margin_left):.3f}mm;
+      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom_user):.3f}mm {float(margin_left):.3f}mm;
     }}
     @page cq {{
       size: {float(cq_w_mm):.3f}mm {float(cq_h_mm):.3f}mm;
-      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom):.3f}mm {float(margin_left):.3f}mm;
+      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom_cq):.3f}mm {float(margin_left):.3f}mm;
     }}
     @page mcq {{
       size: {float(mcq_w_mm):.3f}mm {float(mcq_h_mm):.3f}mm;
-      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom + mcq_extra_bottom_mm):.3f}mm {float(margin_left):.3f}mm;
+      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom_mcq + mcq_extra_bottom_mm):.3f}mm {float(margin_left):.3f}mm;
     }}
     html, body {{ margin: 0; padding: 0; }}
     body {{
