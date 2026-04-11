@@ -2071,6 +2071,22 @@ class ExportQuestionsView(APIView):
         mcq_by_idx = {int(it.get('idx')): it for it in mcq_questions if isinstance(it, dict) and it.get('idx') is not None}
         plan_raw = pick('exportPreviewPagePlan', [])
         use_plan = isinstance(plan_raw, list) and len(plan_raw) > 0 and page_sections <= 1
+        plan_kinds = set()
+        if use_plan:
+            for _pg in plan_raw:
+                if isinstance(_pg, dict):
+                    _k = str(_pg.get('kind') or '').strip().lower()
+                    if _k in ('creative', 'mcq'):
+                        plan_kinds.add(_k)
+        else:
+            if creative_questions:
+                plan_kinds.add('creative')
+            if mcq_questions:
+                plan_kinds.add('mcq')
+        has_creative = 'creative' in plan_kinds
+        has_mcq = 'mcq' in plan_kinds
+        # CQ-only: single @page mcq rule with CQ dimensions (see paper_page_rule_css below).
+        unify_cq_as_mcq_page_model = bool(has_creative and not has_mcq)
         sections = []
         if use_plan:
             for pi, pg in enumerate(plan_raw):
@@ -2079,8 +2095,15 @@ class ExportQuestionsView(APIView):
                 kind = str(pg.get('kind') or '').strip().lower()
                 if kind not in ('creative', 'mcq'):
                     continue
-                hdr_for_page = header_html_creative if kind == 'creative' else header_html_mcq
-                pool = creative_by_idx if kind == 'creative' else mcq_by_idx
+                content_kind = kind
+                hk_raw = pg.get('headerKind')
+                if hk_raw is not None:
+                    hk = str(hk_raw).strip().lower()
+                    header_kind = hk if hk in ('creative', 'mcq') else content_kind
+                else:
+                    header_kind = content_kind
+                hdr_for_page = header_html_creative if header_kind == 'creative' else header_html_mcq
+                pool = creative_by_idx if content_kind == 'creative' else mcq_by_idx
                 cols_idx = pg.get('questionColumnIndexes')
                 lead_idx = pg.get('leadBindingIndexes')
                 lead_empty = bool(pg.get('leadEmpty'))
@@ -2133,7 +2156,8 @@ class ExportQuestionsView(APIView):
                 else:
                     body_html = main_html
                     header_html_page = '' if (header_in_col or not header_visible) else hdr_for_page
-                paper_cls = 'paper-cq' if kind == 'creative' else 'paper-mcq'
+                # Always paper-mcq + sheet-cq for CQ: same base as MCQ; .sheet-cq switches page: cq when mixed.
+                paper_cls = 'paper-mcq sheet-cq' if content_kind == 'creative' else 'paper-mcq'
                 break_cls = ' paper-break' if pi > 0 else ''
                 sections.append('<section class="paper %s%s">%s%s</section>' % (paper_cls, break_cls, header_html_page, body_html))
         else:
@@ -2173,8 +2197,7 @@ class ExportQuestionsView(APIView):
                 else:
                     cq_header_html = header_html_creative
                 sections.append(
-                    '<section class="paper paper-cq">%s%s</section>'
-                    % (cq_header_html, cq_body_html)
+                    '<section class="paper paper-mcq sheet-cq">%s%s</section>' % (cq_header_html, cq_body_html)
                 )
             if mcq_questions:
                 mcq_main_items = mcq_questions
@@ -2222,24 +2245,70 @@ class ExportQuestionsView(APIView):
         divider_css_cq = 'column-rule: 1px solid #c8c8c8;' if show_div and cq_render_cols > 1 else ''
         local_font_face_css = self._playwright_local_font_face_css()
 
+        mt = float(margin_top)
+        mr = float(margin_right)
+        ml = float(margin_left)
+        mb_mcq = float(margin_bottom_mcq + mcq_extra_bottom_mm)
+        # @page rules: omit @page default (conflicts with named pages). CQ-only uses @page mcq with CQ
+        # dimensions/margins — same engine path as MCQ-only PDF (matches preview pagination).
+        if unify_cq_as_mcq_page_model:
+            cq_page_css = ''
+            mcq_page_css = (
+                '    @page mcq {\n'
+                '      size: %.3fmm %.3fmm;\n'
+                '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
+                '    }\n'
+                % (float(cq_w_mm), float(cq_h_mm), mt, mr, float(margin_bottom_cq), ml)
+            )
+            paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
+        elif has_creative and has_mcq:
+            cq_page_css = (
+                '    @page cq {\n'
+                '      size: %.3fmm %.3fmm;\n'
+                '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
+                '    }\n'
+                % (float(cq_w_mm), float(cq_h_mm), mt, mr, float(margin_bottom_cq), ml)
+            )
+            mcq_page_css = (
+                '    @page mcq {\n'
+                '      size: %.3fmm %.3fmm;\n'
+                '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
+                '    }\n'
+                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb_mcq, ml)
+            )
+            # CQ sections use .paper-mcq like MCQ; .sheet-cq selects @page cq (avoids .paper-cq / dual page models).
+            paper_page_rule_css = (
+                '    .paper-mcq { page: mcq; }\n'
+                '    .paper-mcq.sheet-cq { page: cq; }\n'
+            )
+        elif has_mcq:
+            cq_page_css = ''
+            mcq_page_css = (
+                '    @page mcq {\n'
+                '      size: %.3fmm %.3fmm;\n'
+                '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
+                '    }\n'
+                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb_mcq, ml)
+            )
+            paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
+        else:
+            cq_page_css = ''
+            mcq_page_css = (
+                '    @page mcq {\n'
+                '      size: %.3fmm %.3fmm;\n'
+                '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
+                '    }\n'
+                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb_mcq, ml)
+            )
+            paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
+
         html = f"""<!doctype html>
 <html>
 <head>
   <meta charset="utf-8" />
   <style>
     {local_font_face_css}
-    @page default {{
-      size: {float(page_w_mm):.3f}mm {float(page_h_mm):.3f}mm;
-      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom_user):.3f}mm {float(margin_left):.3f}mm;
-    }}
-    @page cq {{
-      size: {float(cq_w_mm):.3f}mm {float(cq_h_mm):.3f}mm;
-      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom_cq):.3f}mm {float(margin_left):.3f}mm;
-    }}
-    @page mcq {{
-      size: {float(mcq_w_mm):.3f}mm {float(mcq_h_mm):.3f}mm;
-      margin: {float(margin_top):.3f}mm {float(margin_right):.3f}mm {float(margin_bottom_mcq + mcq_extra_bottom_mm):.3f}mm {float(margin_left):.3f}mm;
-    }}
+    {cq_page_css}{mcq_page_css}
     html, body {{ margin: 0; padding: 0; }}
     body {{
       font-family: "Roboto", sans-serif;
@@ -2247,10 +2316,8 @@ class ExportQuestionsView(APIView):
       line-height: {q_lh_global:.3f};
       color: #111;
     }}
-    .paper {{ page: default; }}
-    .paper-cq {{ page: cq; }}
-    .paper-mcq {{ page: mcq; }}
-    .paper-break {{ break-before: page; page-break-before: always; }}
+    {paper_page_rule_css}
+    .paper-break {{ break-before: page; }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
     .hline-hr {{
       border: 0;
@@ -2324,7 +2391,7 @@ class ExportQuestionsView(APIView):
       padding: 3px 5px;
     }}
     /* Creative: no outer frame around the subject-code row (digits keep cell borders). */
-    .paper-cq .q-code-grid {{
+    .paper-mcq.sheet-cq .q-code-grid {{
       border: none;
       padding: 0;
     }}
@@ -2340,13 +2407,13 @@ class ExportQuestionsView(APIView):
     .hline {{ margin: 0; }}
     .lead-empty-grid {{
       display: grid;
-      grid-template-columns: repeat({cols_mcq}, minmax(0, 1fr));
+      grid-template-columns: repeat(var(--lead-cols, {cols_mcq}), minmax(0, 1fr));
       gap: {col_gap}px;
-      align-items: stretch;
+      align-items: start;
       position: relative;
     }}
     .lead-empty-col {{
-      min-height: 100%;
+      min-height: 0;
     }}
     .lead-empty-col-content {{
       min-width: 0;
