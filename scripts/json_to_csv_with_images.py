@@ -34,6 +34,7 @@ from typing import Any, Dict, List, Optional, Union
 # Defaults when running: python json_to_csv_with_images.py  (no arguments)
 DEFAULT_DATA_ROOT = Path(r"D:\VSCode\database\Data")
 DEFAULT_CSV_EXPORT_DIR = Path(r"D:\VSCode\database\CsvExport")
+DEFAULT_AUTHOR = "Cheradip"
 
 EditorJson = Dict[str, Any]
 
@@ -215,9 +216,14 @@ def json_questions_to_csv_rows(
                 opt_cells[3],
                 correct_answer,
                 expl,
+                "",
+                "",
                 qtype,
                 qlevel,
                 _format_subsources(q),
+                "",
+                "",
+                DEFAULT_AUTHOR,
             ]
         )
     return rows
@@ -236,9 +242,14 @@ CSV_HEADER = [
     "Option 4",
     "Answer",
     "Explanation",
+    "Explanation2",
+    "Explanation3",
     "Question Type",
     "Level",
     "Subsources",
+    "",
+    "",
+    "Author",
 ]
 
 
