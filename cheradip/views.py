@@ -1454,6 +1454,31 @@ def _export_extract_media_caption_from_path(path_from_media):
     return inner if inner else None
 
 
+def _export_stem_only_media_path(path_from_media):
+    """If basename is stem_(caption).ext, return /media/.../stem.ext (file on disk may use short name)."""
+    p = (path_from_media or '').strip()
+    if '/media/' not in p:
+        return None
+    i = p.rfind('/')
+    if i < 0:
+        return None
+    dir_part = p[: i + 1]
+    base = p[i + 1 :]
+    try:
+        base = unquote(base)
+    except Exception:
+        pass
+    m = re.match(r'^(.+?)(_\([^)]*\))?(\.[a-z0-9]+)$', base, re.I)
+    if not m or not m.group(2):
+        return None
+    stem = m.group(1)
+    ext = m.group(3).lower()
+    stem_only = stem + ext
+    if base == stem_only:
+        return None
+    return dir_part + stem_only
+
+
 def _export_format_question_media_html(text, host_base):
     """[IMG] strip + /media/... -> <img>; optional filename _(caption).ext -> stack+caption; matches Angular pipe."""
     text = str(text or '')
@@ -1488,8 +1513,13 @@ def _export_format_question_media_html(text, host_base):
                 return full
             leading = full[: bare.start()]
             path_from_media = '/' + full[bare.start() :]
-        src = f'{host_base}/manage{path_from_media}'
         cap = _export_extract_media_caption_from_path(path_from_media)
+        stem_p = _export_stem_only_media_path(path_from_media)
+        # PDF/static HTML: use short on-disk name for src when caption exists; label still from full filename.
+        if cap is not None and stem_p:
+            src = f'{host_base}/manage{stem_p}'
+        else:
+            src = f'{host_base}/manage{path_from_media}'
         if cap is not None:
             img = (
                 f'<span class="q-rich-img-stack">'

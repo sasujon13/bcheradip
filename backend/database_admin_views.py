@@ -2,6 +2,7 @@
 Custom Django Admin views: list databases, list tables per database,
 and browse/add/delete/edit rows + bulk import CSV/JSON for any table.
 """
+import base64
 import csv
 import html
 import io
@@ -206,6 +207,14 @@ def _delete_rows(conn, table_name, pk_column, ids):
         return cursor.rowcount
 
 
+def _deny_pending_question_rows(conn, pk_column, ids):
+    """
+    Reject edit requests: DELETE rows from cheradip_pending_question_request only.
+    Does not modify subject question tables (live questions unchanged).
+    """
+    return _delete_rows(conn, 'cheradip_pending_question_request', pk_column, ids)
+
+
 def _update_row(conn, table_name, columns, pk_column, pk_value, data):
     """Update one row by primary key column."""
     cols = [c for c in columns if c != pk_column and c in data]
@@ -222,14 +231,27 @@ def _update_row(conn, table_name, columns, pk_column, pk_value, data):
 
 
 def _strip_red_markup(value):
-    """Strip HTML (e.g. <span style="color:red">) and unescape so subject table gets plain text."""
+    """
+    Pending question fields may store:
+    - <!--CERADIP_PLAIN:base64--> + diff HTML (added=blue <b>, deleted=<b><del> darkred) — use decoded plain.
+    - Legacy: whole field in <span style="color:red">…</span> — strip tags to plain text.
+    """
     if value is None:
         return None
-    s = str(value).strip()
-    if not s:
+    s = str(value)
+    if not s.strip():
         return s or None
-    s = re.sub(r'<[^>]+>', '', s)
-    return html.unescape(s)
+    m = re.match(r'^<!--CERADIP_PLAIN:([A-Za-z0-9+/=]+)-->', s)
+    if m:
+        try:
+            b64 = m.group(1)
+            pad = '=' * (-len(b64) % 4)
+            raw = base64.b64decode(b64 + pad)
+            return raw.decode('utf-8')
+        except Exception:
+            pass
+    s2 = re.sub(r'<[^>]+>', '', s)
+    return html.unescape(s2)
 
 
 def _approve_pending_question_rows(conn, db_name, pk_column, ids):
@@ -488,6 +510,23 @@ def database_table_data(request, db_alias, table_name):
                 messages.success(request, 'Row added.')
             except Exception as e:
                 messages.error(request, 'Add failed: %s' % str(e))
+            return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
+
+        if action in ('deny', 'delete') and db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
+            ids = request.POST.getlist('ids')
+            pk_col = _get_pk_column(columns)
+            try:
+                ids = [i.strip() for i in ids if i and str(i).strip()]
+                if not ids:
+                    messages.error(request, 'Select at least one row to reject.')
+                else:
+                    n = _deny_pending_question_rows(conn, pk_col, ids)
+                    messages.success(
+                        request,
+                        'Removed %s pending edit request(s). Live questions in subject tables were not changed.' % n,
+                    )
+            except Exception as e:
+                messages.error(request, 'Reject failed: %s' % str(e))
             return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
 
         if action == 'delete':

@@ -195,13 +195,17 @@
                 </select>
             </form>
             {% endif %}
-            {% if show_approve %}
-            <button type="submit" form="delete-form" name="action" value="approve" class="btn-approve">{% translate 'Approve Selected' %}</button>
-            {% endif %}
-            <button type="submit" form="delete-form" name="action" value="delete" class="btn-delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete Selected' %}</button>
         </div>
         <form method="post" action="" id="delete-form">
             {% csrf_token %}
+            <div class="table-data-toolbar">
+            {% if show_approve %}
+            <button type="submit" name="action" value="approve" class="btn-approve">{% translate 'Approve Selected' %}</button>
+            <button type="submit" name="action" value="deny" class="btn-delete" onclick="return confirm('{% translate "Reject selected edit requests? Live questions in subject tables will not be changed." %}');">{% translate 'Deny Selected' %}</button>
+            {% else %}
+            <button type="submit" name="action" value="delete" class="btn-delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete Selected' %}</button>
+            {% endif %}
+            </div>
             <div style="overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
@@ -225,18 +229,8 @@
                         {% if show_approve %}
                         <td class="table-data-actions-cell">
                             <a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}" class="btn-row-approve" title="{% translate 'Edit' %}">&#9998;</a>
-                            <form method="post" action="" style="display:inline;">
-                                {% csrf_token %}
-                                <input type="hidden" name="action" value="approve">
-                                <input type="hidden" name="ids" value="{{ row_id }}">
-                                <button type="submit" class="btn-row-approve" title="{% translate 'Approve' %}">&#10003;</button>
-                            </form>
-                            <form method="post" action="" style="display:inline;">
-                                {% csrf_token %}
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="ids" value="{{ row_id }}">
-                                <button type="submit" class="btn-row-delete" onclick="return confirm('{% translate "Delete this row?" %}');" title="{% translate 'Delete' %}">X</button>
-                            </form>
+                            <button type="submit" form="pending-row-approve-{{ row_id }}" class="btn-row-approve" title="{% translate 'Approve' %}">&#10003;</button>
+                            <button type="submit" form="pending-row-deny-{{ row_id }}" class="btn-row-delete" onclick="return confirm('{% translate "Reject this edit request? The live question will not be changed." %}');" title="{% translate 'Deny' %}">X</button>
                         </td>
                         {% else %}
                         <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
@@ -249,6 +243,20 @@
             </table>
             </div>
         </form>
+        {% if show_approve %}
+        {% for values, row_id in row_list %}
+        <form method="post" action="" id="pending-row-approve-{{ row_id }}" style="display:none" aria-hidden="true">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="approve">
+            <input type="hidden" name="ids" value="{{ row_id }}">
+        </form>
+        <form method="post" action="" id="pending-row-deny-{{ row_id }}" style="display:none" aria-hidden="true">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="deny">
+            <input type="hidden" name="ids" value="{{ row_id }}">
+        </form>
+        {% endfor %}
+        {% endif %}
 
         {% if num_pages > 1 %}
         <p class="paginator">
