@@ -1432,7 +1432,7 @@ def _export_escape_html_preserve_img_br(line):
 
 
 def _export_format_question_media_html(text, host_base):
-    """[IMG] strip + /media/... -> <br /><img /><br /> with HOST_URL/manage (matches formatQuestionMedia pipe)."""
+    """[IMG] strip + /media/... -> <img>; single: <br/> around; multiple: <br/> before first & after last (matches Angular pipe)."""
     text = str(text or '')
     text = re.sub(r'[\[［]\s*[Ii][Mm][Gg]\s*[\]］]\s*', '', text)
     host_base = (host_base or '').rstrip('/')
@@ -1445,6 +1445,11 @@ def _export_format_question_media_html(text, host_base):
         rf'(?:^|[\s])media/{path_seg}\.(?:{ext})',
         re.IGNORECASE,
     )
+    n_media = len(pattern.findall(text))
+    if n_media == 0:
+        return text
+
+    idx_state = [0]
 
     def repl(m):
         full = m.group(0)
@@ -1466,9 +1471,63 @@ def _export_format_question_media_html(text, host_base):
             f'<img src="{escape(src)}" alt="{escape(img_alt)}" '
             f'class="q-rich-img question-inline-img" />'
         )
-        return f'{leading}<br />{img}<br />'
+        core = f'{leading}{img}'
+        idx = idx_state[0]
+        idx_state[0] = idx + 1
+        n = n_media
+        if n == 1:
+            return f'<br />{core}<br />'
+        if idx == 0:
+            return f'<br />{core}'
+        if idx == n - 1:
+            return f'{core}<br />'
+        return core
 
     return pattern.sub(repl, text)
+
+
+# Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (240px rules).
+_EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
+<script>
+(function(){
+  var MAX=240;
+  function apply(img){
+    var w=img.naturalWidth,h=img.naturalHeight;
+    if(!w||!h)return;
+    img.style.removeProperty('width');
+    img.style.removeProperty('height');
+    img.style.removeProperty('max-width');
+    img.style.removeProperty('max-height');
+    if(w<=MAX&&h<=MAX){
+      img.style.width='auto';
+      img.style.height='auto';
+      img.style.maxWidth=MAX+'px';
+      img.style.maxHeight=MAX+'px';
+      img.style.objectFit='contain';
+      img.style.objectPosition='left center';
+      return;
+    }
+    var sc=Math.min(MAX/w,MAX/h);
+    img.style.width=Math.round(w*sc)+'px';
+    img.style.height=Math.round(h*sc)+'px';
+    img.style.maxWidth='100%';
+    img.style.maxHeight=MAX+'px';
+    img.style.objectFit='contain';
+    img.style.objectPosition='left center';
+  }
+  function bind(img){
+    if(img.getAttribute('data-rich-sized')==='1')return;
+    function done(){apply(img);img.setAttribute('data-rich-sized','1');}
+    if(img.complete&&img.naturalWidth>0){done();}
+    else{
+      img.addEventListener('load',done,{once:true});
+      img.addEventListener('error',function(){img.setAttribute('data-rich-sized','1');},{once:true});
+    }
+  }
+  document.querySelectorAll('img.q-rich-img').forEach(function(el){bind(el);});
+})();
+</script>
+"""
 
 
 class ExportQuestionsView(APIView):
@@ -2456,7 +2515,8 @@ class ExportQuestionsView(APIView):
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
 
-        html = f"""<!doctype html>
+        html = (
+            f"""<!doctype html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -2721,15 +2781,10 @@ class ExportQuestionsView(APIView):
     .q-subpart img,
     .q-opt-html img,
     .q-rich-img {{
-      max-height: 300px;
-      max-width: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      object-position: left center;
       vertical-align: middle;
       display: inline-block;
       box-sizing: border-box;
+      margin: 2px 8px 6px 0;
     }}
   </style>
 </head>
@@ -2737,6 +2792,7 @@ class ExportQuestionsView(APIView):
   {''.join(sections)}
 </body>
 </html>"""
+        ).replace('</body>', _EXPORT_Q_RICH_IMG_PDF_SCRIPT + '\n</body>', 1)
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             try:
