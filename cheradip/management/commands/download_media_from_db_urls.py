@@ -2,6 +2,13 @@
 Download http(s) assets referenced in string columns into MEDIA_ROOT/<db>/<table>/,
 rename by qid, UPDATE rows on success; log failures with qid.
 
+URLs are normalized to a strict ASCII + percent-encoding form: prose (e.g. Bengali) glued
+immediately after a Firebase ``token=...`` value without a space is not part of the URL;
+only the real https prefix is downloaded and replaced in the cell (following text is kept).
+
+Skips downloading when the target ``<qid>_<n>.*`` file or per-URL cache ``u_<hash>.*`` already
+exists under ``MEDIA_ROOT/<db>/<table>/`` (folder is created with ``exist_ok``).
+
 Usage:
   python manage.py download_media_from_db_urls
   python manage.py download_media_from_db_urls --dry-run
@@ -10,7 +17,10 @@ Usage:
 """
 from __future__ import annotations
 
+import hashlib
+import os
 import re
+import shutil
 import sys
 import time
 from datetime import datetime
@@ -23,8 +33,15 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import connections
 
-# Match http(s) URLs; trim common trailing punctuation from captures.
+# Broad scan for http(s); may include text accidentally glued after the URL (see _strict_http_url).
 URL_RE = re.compile(r"https?://[^\s<\"\'\)\]\}]+", re.IGNORECASE)
+
+# After a broad match, keep only RFC-style URL: ASCII + percent-encoding (drops e.g. Bengali glued to token=…).
+_STRICT_URL_PREFIX = re.compile(
+    r"^https?://"
+    r"(?:[A-Za-z0-9\-._~:/?#\[\]@!$&\'()*+,;=]|%[0-9A-Fa-f]{2})+",
+    re.IGNORECASE,
+)
 
 TEXT_TYPES = frozenset(
     {"varchar", "char", "text", "tinytext", "mediumtext", "longtext"}
@@ -46,13 +63,25 @@ def _trim_url(url: str) -> str:
     return u
 
 
+def _strict_http_url(raw: str) -> str:
+    """
+    Cut at the end of a real URL when prose (e.g. Bengali) is glued without a space after
+    e.g. ...token=uuidHere বর্তমানে — downloads must use the full valid https URL only.
+    """
+    m = _STRICT_URL_PREFIX.match(raw)
+    if m:
+        return m.group(0)
+    return raw
+
+
 def _find_urls(text: str) -> List[str]:
     if not text or "http" not in text.lower():
         return []
     seen: Set[str] = set()
     out: List[str] = []
     for m in URL_RE.finditer(text):
-        u = _trim_url(m.group(0))
+        u = _strict_http_url(m.group(0))
+        u = _trim_url(u)
         if u.startswith("http://") or u.startswith("https://"):
             if u not in seen:
                 seen.add(u)
@@ -64,6 +93,40 @@ def _safe_fs_segment(name: str) -> str:
     bad = '<>:"/\\|?*'
     s = "".join(c if c not in bad else "_" for c in (name or ""))
     return s.strip() or "unnamed"
+
+
+def _url_fingerprint(url: str) -> str:
+    """Stable short id for `u_<fp>.*` cache files (same URL → skip re-download)."""
+    return hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
+
+
+def _find_cached_url_file(table_dir: Path, url: str) -> Optional[Path]:
+    """Return existing `u_<fingerprint>.*` if present (from a prior run or earlier row)."""
+    if not table_dir.is_dir():
+        return None
+    fp = _url_fingerprint(url)
+    matches = list(table_dir.glob(f"u_{fp}.*"))
+    if not matches:
+        return None
+    p = matches[0]
+    return p if p.is_file() else None
+
+
+def _store_url_cache_copy(table_dir: Path, url: str, saved_file: Path) -> None:
+    """After a successful download to qid_n.ext, mirror to u_<hash>.<ext> for dedupe skips."""
+    try:
+        suffix = saved_file.suffix or ".bin"
+        cache_path = table_dir / f"u_{_url_fingerprint(url)}{suffix}"
+        if cache_path.resolve() == saved_file.resolve():
+            return
+        if cache_path.is_file():
+            return
+        try:
+            os.link(saved_file, cache_path)
+        except OSError:
+            shutil.copy2(saved_file, cache_path)
+    except OSError:
+        pass
 
 
 def _guess_ext(url: str, content_type: Optional[str]) -> str:
@@ -314,6 +377,8 @@ class Command(BaseCommand):
             cur.execute(f"SELECT {cols_sql} FROM `{safe_tn}`")
             rows = cur.fetchall()
 
+        table_dir.mkdir(parents=True, exist_ok=True)
+
         for row in rows:
             qid = row[0]
             if qid is None:
@@ -344,12 +409,22 @@ class Command(BaseCommand):
                             changed = True
                         continue
 
+                    cached = _find_cached_url_file(table_dir, url)
+                    if cached is not None:
+                        rel_url = _relative_media_url(cached, media_root)
+                        row_url_map[url] = rel_url
+                        if url in new_text:
+                            new_text = new_text.replace(url, rel_url)
+                            changed = True
+                        stats["cells_skipped_existing_file"] += 1
+                        url_counter += 1
+                        continue
+
                     dest_base = table_dir / f"{safe_qid}_{url_counter}"
                     existing: Optional[Path] = None
-                    if table_dir.is_dir():
-                        matches = list(table_dir.glob(f"{safe_qid}_{url_counter}.*"))
-                        if matches:
-                            existing = matches[0]
+                    matches = list(table_dir.glob(f"{safe_qid}_{url_counter}.*"))
+                    if matches:
+                        existing = matches[0]
                     if existing and existing.is_file():
                         rel_url = _relative_media_url(existing, media_root)
                         row_url_map[url] = rel_url
@@ -372,6 +447,7 @@ class Command(BaseCommand):
                     )
                     if ok:
                         dest_path = Path(info)
+                        _store_url_cache_copy(table_dir, url, dest_path)
                         rel_url = _relative_media_url(dest_path, media_root)
                         row_url_map[url] = rel_url
                         if url in new_text:
