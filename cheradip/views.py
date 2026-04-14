@@ -1383,6 +1383,94 @@ def _cq_question_structure_from_bn_markers(full_text):
     }
 
 
+def _export_is_safe_img_src(src):
+    """Allow same URL patterns as Angular wrapRomanLines (PDF/HTML export)."""
+    s = (src or '').strip()
+    if not s:
+        return False
+    low = s[:32].lower()
+    if low.startswith('javascript:') or low.startswith('vbscript:'):
+        return False
+    if re.match(r'^data:image/(png|jpeg|jpg|gif|webp|svg\+xml);base64,', s, re.I):
+        return True
+    if s.startswith(('http://', 'https://')):
+        return True
+    if s.startswith('//'):
+        return True
+    if s.startswith('/'):
+        return True
+    if re.match(r'^[a-z][a-z0-9+.-]*:', s, re.I):
+        return False
+    return True
+
+
+def _export_escape_html_preserve_img_br(line):
+    """Escape HTML except whitelisted <img> and <br> (aligned with fcheradip wrapRomanLines pipe)."""
+    out = []
+    last = 0
+    for m in re.finditer(r'<img\b[^>]*>|<br\s*/?>', line, re.IGNORECASE):
+        out.append(escape(line[last:m.start()]))
+        tag = m.group(0)
+        if re.match(r'<br\s*/?\s*>', tag, re.I):
+            out.append('<br />')
+        else:
+            src_m = re.search(r'\bsrc\s*=\s*["\']([^"\']*)["\']', tag, re.I)
+            alt_m = re.search(r'\balt\s*=\s*["\']([^"\']*)["\']', tag, re.I)
+            cls_m = re.search(r'\bclass\s*=\s*["\']([^"\']*)["\']', tag, re.I)
+            if src_m and _export_is_safe_img_src(src_m.group(1)):
+                src = escape(src_m.group(1))
+                alt = escape(alt_m.group(1)) if alt_m else ''
+                cls = 'q-rich-img question-inline-img'
+                if cls_m and re.match(r'^[a-zA-Z0-9_\s-]+$', cls_m.group(1).strip()):
+                    cls = cls_m.group(1).strip()
+                out.append(f'<img src="{src}" alt="{alt}" class="{escape(cls)}" />')
+            else:
+                out.append(escape(tag))
+        last = m.end()
+    out.append(escape(line[last:]))
+    return ''.join(out)
+
+
+def _export_format_question_media_html(text, host_base):
+    """[IMG] strip + /media/... -> <br /><img /><br /> with HOST_URL/manage (matches formatQuestionMedia pipe)."""
+    text = str(text or '')
+    text = re.sub(r'[\[［]\s*[Ii][Mm][Gg]\s*[\]］]\s*', '', text)
+    host_base = (host_base or '').rstrip('/')
+    img_alt = 'Images are loading...'
+    path_seg = r'(?:[A-Za-z0-9\-._~:/?#[\]@!$&\'()*+,;=]|%[0-9A-Fa-f]{2})+'
+    ext = 'png|jpe?g|gif|webp|svg|ico|bmp|mp4|webm|mov|bin'
+    pattern = re.compile(
+        rf'https?://[^\s]+?/media/{path_seg}\.(?:{ext})|'
+        rf'/media/{path_seg}\.(?:{ext})|'
+        rf'(?:^|[\s])media/{path_seg}\.(?:{ext})',
+        re.IGNORECASE,
+    )
+
+    def repl(m):
+        full = m.group(0)
+        leading = ''
+        if full.lower().startswith('http'):
+            i = full.find('/media/')
+            if i < 0:
+                return full
+            path_from_media = full[i:]
+        elif re.match(r'^\s', full) and full.strip().startswith('media/'):
+            leading = full[0]
+            path_from_media = '/' + full.strip()
+        elif full.startswith('media/'):
+            path_from_media = '/' + full
+        else:
+            path_from_media = full
+        src = f'{host_base}/manage{path_from_media}'
+        img = (
+            f'<img src="{escape(src)}" alt="{escape(img_alt)}" '
+            f'class="q-rich-img question-inline-img" />'
+        )
+        return f'{leading}<br />{img}<br />'
+
+    return pattern.sub(repl, text)
+
+
 class ExportQuestionsView(APIView):
     """POST: generate PDF or DOCX from questions list. Requires Bearer auth. Body: questions, questionHeader, pageSize, marginTop, marginRight, marginBottom, marginLeft, format ('pdf'|'docx'), filename (optional)."""
     authentication_classes = [BearerTokenAuthentication]
@@ -1934,6 +2022,8 @@ class ExportQuestionsView(APIView):
             else:
                 mcq_questions.append({'idx': idx, 'q': q})
 
+        host_base = getattr(settings, 'HOST_URL', 'http://127.0.0.1:8000').rstrip('/')
+
         def wrap_roman_lines_html(text):
             roman_line = re.compile(r'^\s*(i|ii|iii|I|II|III)\.')
             bn_paren_line = re.compile(r'^\s*\([কখগঘ]\)')
@@ -1945,7 +2035,8 @@ class ExportQuestionsView(APIView):
                     cls = 'topic-question-line topic-question-roman-line'
                 elif bn_paren_line.match(line):
                     cls = 'topic-question-line topic-question-bn-paren-line'
-                parts.append('<span class="%s">%s</span>' % (cls, escape(line)))
+                inner = _export_escape_html_preserve_img_br(line)
+                parts.append('<span class="%s">%s</span>' % (cls, inner))
             return ''.join(parts)
 
         def question_display_text(raw_text, creative):
@@ -2033,7 +2124,9 @@ class ExportQuestionsView(APIView):
                 ) % (fz, q_lh, 2 * fz - 2, 2 * fz - 4, q_pad, q_pad, q_gap)
 
                 struct = question_display_structure(qq.get('question') or '', creative)
-                intro_html = wrap_roman_lines_html(struct.get('intro') or '')
+                intro_html = wrap_roman_lines_html(
+                    _export_format_question_media_html(struct.get('intro') or '', host_base)
+                )
                 if struct.get('parts'):
                     _parts = struct.get('parts') or []
                     _pc = len(_parts)
@@ -2044,7 +2137,11 @@ class ExportQuestionsView(APIView):
                         _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
                         _chunks.append(
                             '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
-                            % (_wrap_cls, wrap_roman_lines_html(_p), _mk_html)
+                            % (
+                                _wrap_cls,
+                                wrap_roman_lines_html(_export_format_question_media_html(_p, host_base)),
+                                _mk_html,
+                            )
                         )
                     parts_html = ''.join(_chunks)
                     stem_html = (
@@ -2062,7 +2159,11 @@ class ExportQuestionsView(APIView):
                         if ov:
                             txt = str(ov).strip()
                             if txt:
-                                options.append('<span class="q-opt">%s %s</span>' % (lab, escape(txt)))
+                                opt_inner = wrap_roman_lines_html(_export_format_question_media_html(txt, host_base))
+                                options.append(
+                                    '<span class="q-opt">%s <span class="q-opt-html">%s</span></span>'
+                                    % (lab, opt_inner)
+                                )
                 opts_html = '<div class="q-options">%s</div>' % ''.join(options) if options else ''
                 out.append(
                     '<div class="%s" style="%s"><div class="q-content"><label class="q-label">'
@@ -2615,6 +2716,20 @@ class ExportQuestionsView(APIView):
       text-indent: -16px;
       box-sizing: border-box;
       text-align: left;
+    }}
+    .q-text img,
+    .q-subpart img,
+    .q-opt-html img,
+    .q-rich-img {{
+      max-height: 300px;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      object-position: left center;
+      vertical-align: middle;
+      display: inline-block;
+      box-sizing: border-box;
     }}
   </style>
 </head>
