@@ -1486,12 +1486,19 @@ def _export_format_question_media_html(text, host_base):
     return pattern.sub(repl, text)
 
 
-# Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (240px rules).
+# Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (font→cap + column shrink).
 _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
 <script>
 (function(){
-  var MAX=240;
+  function maxFromFont(px){
+    var n=parseFloat(px);
+    if(!isFinite(n)||n<=0)return 240;
+    var f=Math.max(7,Math.round(n));
+    var raw=240+(f-7)*20;
+    return Math.min(480,raw);
+  }
   function apply(img){
+    var MAX=maxFromFont(getComputedStyle(img).fontSize);
     var w=img.naturalWidth,h=img.naturalHeight;
     if(!w||!h)return;
     img.style.removeProperty('width');
@@ -1501,6 +1508,8 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     if(w<=MAX&&h<=MAX){
       img.style.width='auto';
       img.style.height='auto';
+      img.style.maxWidth='min('+MAX+'px, 100%)';
+      img.style.maxHeight=MAX+'px';
       img.style.objectFit='contain';
       img.style.objectPosition='left center';
       return;
@@ -1508,6 +1517,7 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     var sc=Math.min(MAX/w,MAX/h);
     img.style.width=Math.round(w*sc)+'px';
     img.style.height=Math.round(h*sc)+'px';
+    img.style.maxWidth='min('+MAX+'px, 100%)';
     img.style.objectFit='contain';
     img.style.objectPosition='left center';
   }
@@ -2777,8 +2787,8 @@ class ExportQuestionsView(APIView):
     .q-subpart img,
     .q-opt-html img,
     .q-rich-img {{
-      max-width: min(240px, 100%);
-      max-height: 240px;
+      max-width: min(480px, 100%);
+      max-height: 480px;
       vertical-align: middle;
       display: inline-block;
       box-sizing: border-box;
