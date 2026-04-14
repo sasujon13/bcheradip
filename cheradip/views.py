@@ -37,7 +37,7 @@ from django.views.decorators.csrf import csrf_exempt
 import logging, random, string, json, requests, os, re, csv, time, zipfile
 from html import escape
 from urllib import parse as urllib_parse
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 from pathlib import Path
 from rest_framework.decorators import action
 from django.conf import settings
@@ -1405,14 +1405,20 @@ def _export_is_safe_img_src(src):
 
 
 def _export_escape_html_preserve_img_br(line):
-    """Escape HTML except whitelisted <img> and <br> (aligned with fcheradip wrapRomanLines pipe)."""
+    """Escape HTML except q-rich-img-stack, whitelisted <img>, and <br> (aligned with fcheradip wrapRomanLines)."""
+    token_re = re.compile(
+        r'<span class="q-rich-img-stack">\s*<img\b[^>]*>\s*<span class="q-rich-img-caption">[^<]*</span>\s*</span>|<img\b[^>]*>|<br\s*/?>',
+        re.IGNORECASE,
+    )
     out = []
     last = 0
-    for m in re.finditer(r'<img\b[^>]*>|<br\s*/?>', line, re.IGNORECASE):
+    for m in token_re.finditer(line):
         out.append(escape(line[last:m.start()]))
         tag = m.group(0)
         if re.match(r'<br\s*/?\s*>', tag, re.I):
             out.append('<br />')
+        elif tag.lower().startswith('<span class="q-rich-img-stack">'):
+            out.append(tag)
         else:
             src_m = re.search(r'\bsrc\s*=\s*["\']([^"\']*)["\']', tag, re.I)
             alt_m = re.search(r'\balt\s*=\s*["\']([^"\']*)["\']', tag, re.I)
@@ -1431,18 +1437,36 @@ def _export_escape_html_preserve_img_br(line):
     return ''.join(out)
 
 
+def _export_decode_caption_filename_fragment(raw):
+    """Windows forbids ':' in filenames; use %3A in the file name, decode here for the shown label."""
+    s = (raw or '').strip()
+    if '%' not in s:
+        return s
+    return unquote(s, errors='replace')
+
+
+def _export_extract_media_caption_from_path(path_from_media):
+    """Optional label: .../name_(caption).ext — greedy (.*) to last ) before .ext (not [^)]*)."""
+    m = re.search(r'_\((.*)\)(\.[a-z0-9]+)$', path_from_media, re.I)
+    if not m:
+        return None
+    inner = _export_decode_caption_filename_fragment(m.group(1) or '')
+    return inner if inner else None
+
+
 def _export_format_question_media_html(text, host_base):
-    """[IMG] strip + /media/... -> <img>; single: <br/> around; multiple: <br/> before first & after last (matches Angular pipe)."""
+    """[IMG] strip + /media/... -> <img>; optional filename _(caption).ext -> stack+caption; matches Angular pipe."""
     text = str(text or '')
     text = re.sub(r'[\[［]\s*[Ii][Mm][Gg]\s*[\]］]\s*', '', text)
     host_base = (host_base or '').rstrip('/')
     img_alt = 'Images are loading...'
-    path_seg = r'(?:[A-Za-z0-9\-._~:/?#[\]@!$&\'()*+,;=]|%[0-9A-Fa-f]{2})+'
+    # Spaces allowed in filenames (e.g. _(Fig1 - … here).png); exclude only < " for HTML safety.
+    path_body = r'[^<>"]+'
     ext = 'png|jpe?g|gif|webp|svg|ico|bmp|mp4|webm|mov|bin'
     pattern = re.compile(
-        rf'https?://[^\s]+?/media/{path_seg}\.(?:{ext})|'
-        rf'/media/{path_seg}\.(?:{ext})|'
-        rf'(?:^|[\s])media/{path_seg}\.(?:{ext})',
+        rf'https?://[^<>"]+?/media/{path_body}\.(?:{ext})\b|'
+        rf'\s*/media/{path_body}\.(?:{ext})\b|'
+        rf'(?:^|[\s])media/{path_body}\.(?:{ext})\b',
         re.IGNORECASE,
     )
     n_media = len(pattern.findall(text))
@@ -1454,23 +1478,30 @@ def _export_format_question_media_html(text, host_base):
     def repl(m):
         full = m.group(0)
         leading = ''
-        if full.lower().startswith('http'):
-            i = full.find('/media/')
-            if i < 0:
-                return full
-            path_from_media = full[i:]
-        elif re.match(r'^\s', full) and full.strip().startswith('media/'):
-            leading = full[0]
-            path_from_media = '/' + full.strip()
-        elif full.startswith('media/'):
-            path_from_media = '/' + full
+        slash = full.find('/media/')
+        if slash >= 0:
+            leading = full[:slash]
+            path_from_media = full[slash:]
         else:
-            path_from_media = full
+            bare = re.search(r'\bmedia/', full, re.I)
+            if not bare:
+                return full
+            leading = full[: bare.start()]
+            path_from_media = '/' + full[bare.start() :]
         src = f'{host_base}/manage{path_from_media}'
-        img = (
-            f'<img src="{escape(src)}" alt="{escape(img_alt)}" '
-            f'class="q-rich-img question-inline-img" />'
-        )
+        cap = _export_extract_media_caption_from_path(path_from_media)
+        if cap is not None:
+            img = (
+                f'<span class="q-rich-img-stack">'
+                f'<img src="{escape(src)}" alt="{escape(img_alt)}" class="q-rich-img question-inline-img" />'
+                f'<span class="q-rich-img-caption">{escape(cap)}</span>'
+                f'</span>'
+            )
+        else:
+            img = (
+                f'<img src="{escape(src)}" alt="{escape(img_alt)}" '
+                f'class="q-rich-img question-inline-img" />'
+            )
         core = f'{leading}{img}'
         idx = idx_state[0]
         idx_state[0] = idx + 1
@@ -2793,6 +2824,25 @@ class ExportQuestionsView(APIView):
       display: inline-block;
       box-sizing: border-box;
       margin: 2px 8px 6px 0;
+    }}
+    .q-rich-img-stack {{
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 100%;
+      box-sizing: border-box;
+      margin: 2px 8px 6px 0;
+    }}
+    .q-rich-img-stack .q-rich-img {{
+      margin: 0;
+    }}
+    .q-rich-img-caption {{
+      display: block;
+      font-size: 1em;
+      line-height: inherit;
+      margin-top: 0.35em;
+      color: inherit;
+      font-weight: normal;
+      text-align: left;
     }}
   </style>
 </head>
