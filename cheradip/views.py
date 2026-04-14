@@ -1501,8 +1501,6 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     if(w<=MAX&&h<=MAX){
       img.style.width='auto';
       img.style.height='auto';
-      img.style.maxWidth=MAX+'px';
-      img.style.maxHeight=MAX+'px';
       img.style.objectFit='contain';
       img.style.objectPosition='left center';
       return;
@@ -1510,8 +1508,6 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     var sc=Math.min(MAX/w,MAX/h);
     img.style.width=Math.round(w*sc)+'px';
     img.style.height=Math.round(h*sc)+'px';
-    img.style.maxWidth='100%';
-    img.style.maxHeight=MAX+'px';
     img.style.objectFit='contain';
     img.style.objectPosition='left center';
   }
@@ -2781,6 +2777,8 @@ class ExportQuestionsView(APIView):
     .q-subpart img,
     .q-opt-html img,
     .q-rich-img {{
+      max-width: min(240px, 100%);
+      max-height: 240px;
       vertical-align: middle;
       display: inline-block;
       box-sizing: border-box;
