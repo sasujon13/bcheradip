@@ -1548,11 +1548,19 @@ def _export_format_question_media_html(text, host_base):
 
 
 def _export_flatten_mcq_block_text(text):
-    """MCQ: DB text often has newlines; wrap_roman_lines_html uses display:block per line — flatten to one flow."""
+    """MCQ: collapse line breaks (incl. Unicode NEL/LS/PS) so PDF does not emit one display:block line per fragment."""
     s = str(text or '').replace('\r\n', '\n').replace('\r', '\n')
-    s = re.sub(r'[\n\t]+', ' ', s)
+    s = re.sub(r'[\n\t\v\f\x1c\x1d\x1e\x85\u2028\u2029]+', ' ', s)
     s = re.sub(r' +', ' ', s).strip()
     return s
+
+
+def _export_wrap_mcq_line_html(text, host_base):
+    """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (ক) in .q-opt."""
+    t = _export_flatten_mcq_block_text(str(text or ''))
+    t = _export_format_question_media_html(t, host_base)
+    inner = _export_escape_html_preserve_img_br(t)
+    return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
 
 
 # Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (font→cap + column shrink).
@@ -2258,12 +2266,12 @@ class ExportQuestionsView(APIView):
                 ) % (fz, q_lh, 2 * fz - 2, 2 * fz - 4, q_pad, q_pad, q_gap)
 
                 struct = question_display_structure(qq.get('question') or '', creative)
-                _intro_raw = struct.get('intro') or ''
                 if not creative:
-                    _intro_raw = _export_flatten_mcq_block_text(_intro_raw)
-                intro_html = wrap_roman_lines_html(
-                    _export_format_question_media_html(_intro_raw, host_base)
-                )
+                    intro_html = _export_wrap_mcq_line_html(struct.get('intro') or '', host_base)
+                else:
+                    intro_html = wrap_roman_lines_html(
+                        _export_format_question_media_html(struct.get('intro') or '', host_base)
+                    )
                 if struct.get('parts'):
                     _parts = struct.get('parts') or []
                     _pc = len(_parts)
@@ -2272,16 +2280,13 @@ class ExportQuestionsView(APIView):
                         _mk = creative_subpart_mark_bn(_pc, _j)
                         _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
                         _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
-                        _p_raw = _p
                         if not creative:
-                            _p_raw = _export_flatten_mcq_block_text(_p_raw)
+                            _inner = _export_wrap_mcq_line_html(_p, host_base)
+                        else:
+                            _inner = wrap_roman_lines_html(_export_format_question_media_html(_p, host_base))
                         _chunks.append(
                             '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
-                            % (
-                                _wrap_cls,
-                                wrap_roman_lines_html(_export_format_question_media_html(_p_raw, host_base)),
-                                _mk_html,
-                            )
+                            % (_wrap_cls, _inner, _mk_html)
                         )
                     parts_html = ''.join(_chunks)
                     stem_html = (
@@ -2300,8 +2305,11 @@ class ExportQuestionsView(APIView):
                             txt = str(ov).strip()
                             if txt:
                                 if not creative:
-                                    txt = _export_flatten_mcq_block_text(txt)
-                                opt_inner = wrap_roman_lines_html(_export_format_question_media_html(txt, host_base))
+                                    opt_inner = _export_wrap_mcq_line_html(txt, host_base)
+                                else:
+                                    opt_inner = wrap_roman_lines_html(
+                                        _export_format_question_media_html(txt, host_base)
+                                    )
                                 options.append(
                                     '<span class="q-opt">%s <span class="q-opt-html">%s</span></span>'
                                     % (lab, opt_inner)
@@ -2804,6 +2812,15 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
+    }}
+    /* MCQ stem/options: block .topic-question-line inside inline .q-opt-html split the line box and dropped text below (ক). */
+    .topic-question-line.topic-question-mcq-inline {{
+      display: inline;
+      margin: 0;
+      line-height: inherit;
+    }}
+    .q-opt .q-opt-html {{
+      display: inline;
     }}
     .topic-question-line.topic-question-roman-line {{
       padding-left: 10px;
