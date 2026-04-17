@@ -1547,6 +1547,14 @@ def _export_format_question_media_html(text, host_base):
     return pattern.sub(repl, text)
 
 
+def _export_flatten_mcq_block_text(text):
+    """MCQ: DB text often has newlines; wrap_roman_lines_html uses display:block per line — flatten to one flow."""
+    s = str(text or '').replace('\r\n', '\n').replace('\r', '\n')
+    s = re.sub(r'[\n\t]+', ' ', s)
+    s = re.sub(r' +', ' ', s).strip()
+    return s
+
+
 # Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (font→cap + column shrink).
 _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
 <script>
@@ -2250,8 +2258,11 @@ class ExportQuestionsView(APIView):
                 ) % (fz, q_lh, 2 * fz - 2, 2 * fz - 4, q_pad, q_pad, q_gap)
 
                 struct = question_display_structure(qq.get('question') or '', creative)
+                _intro_raw = struct.get('intro') or ''
+                if not creative:
+                    _intro_raw = _export_flatten_mcq_block_text(_intro_raw)
                 intro_html = wrap_roman_lines_html(
-                    _export_format_question_media_html(struct.get('intro') or '', host_base)
+                    _export_format_question_media_html(_intro_raw, host_base)
                 )
                 if struct.get('parts'):
                     _parts = struct.get('parts') or []
@@ -2261,11 +2272,14 @@ class ExportQuestionsView(APIView):
                         _mk = creative_subpart_mark_bn(_pc, _j)
                         _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
                         _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
+                        _p_raw = _p
+                        if not creative:
+                            _p_raw = _export_flatten_mcq_block_text(_p_raw)
                         _chunks.append(
                             '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
                             % (
                                 _wrap_cls,
-                                wrap_roman_lines_html(_export_format_question_media_html(_p, host_base)),
+                                wrap_roman_lines_html(_export_format_question_media_html(_p_raw, host_base)),
                                 _mk_html,
                             )
                         )
@@ -2285,6 +2299,8 @@ class ExportQuestionsView(APIView):
                         if ov:
                             txt = str(ov).strip()
                             if txt:
+                                if not creative:
+                                    txt = _export_flatten_mcq_block_text(txt)
                                 opt_inner = wrap_roman_lines_html(_export_format_question_media_html(txt, host_base))
                                 options.append(
                                     '<span class="q-opt">%s <span class="q-opt-html">%s</span></span>'
@@ -2760,7 +2776,7 @@ class ExportQuestionsView(APIView):
     .q-content {{
       min-width: 0;
       width: 100%;
-      text-align: justify;
+      text-align: start;
       position: relative;
       padding-right: 2px;
       box-sizing: border-box;
@@ -2781,8 +2797,14 @@ class ExportQuestionsView(APIView):
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       color: #333;
+      text-align: start;
     }}
-    .topic-question-line {{ display: block; box-sizing: border-box; }}
+    .topic-question-line {{
+      display: block;
+      box-sizing: border-box;
+      margin: 0;
+      line-height: var(--preview-question-lh, 1.4);
+    }}
     .topic-question-line.topic-question-roman-line {{
       padding-left: 10px;
       text-indent: -10px;
@@ -2791,11 +2813,11 @@ class ExportQuestionsView(APIView):
       padding-left: var(--preview-q-bn-paren-inset, 18px);
       text-indent: calc(0px - var(--preview-q-bn-paren-inset, 18px));
     }}
-    .q-stem-with-parts {{ display: flow-root; margin-bottom: 4px; }}
+    .q-stem-with-parts {{ display: flow-root; margin-bottom: 2px; }}
     .q-intro {{ display: block; overflow: hidden; min-width: 0; }}
     .q-subpart-wrap {{
       position: relative;
-      margin-top: 2px;
+      margin-top: 0;
       box-sizing: border-box;
       clear: both;
     }}
@@ -2817,6 +2839,7 @@ class ExportQuestionsView(APIView):
       color: #333;
       margin-top: 0;
       box-sizing: border-box;
+      text-align: start;
     }}
     .q-options {{
       margin-top: 3px;
@@ -2842,7 +2865,11 @@ class ExportQuestionsView(APIView):
       padding-left: 16px;
       text-indent: -16px;
       box-sizing: border-box;
-      text-align: left;
+      text-align: start;
+      line-height: var(--preview-question-lh, 1.4);
+    }}
+    .q-opt-html {{
+      line-height: var(--preview-question-lh, 1.4);
     }}
     .q-text img,
     .q-subpart img,
