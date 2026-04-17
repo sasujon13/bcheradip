@@ -2,6 +2,7 @@
 {% load i18n static %}
 
 {% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">
 <style>
   nav[aria-label="Breadcrumbs"], .breadcrumbs { display: none !important; }
   #content h1, #content-main h1, .main h1:first-child { display: none; }

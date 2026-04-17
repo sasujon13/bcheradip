@@ -2,6 +2,7 @@
 {% load i18n static %}
 
 {% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">
 <style>
   /* Remove "Site administration" h1 to save space */
   body.dashboard #content h1,

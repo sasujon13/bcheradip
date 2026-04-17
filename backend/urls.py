@@ -67,4 +67,10 @@ urlpatterns = [
     path('', include('cheradip.urls')),  # keep root for backward compatibility
 ]
 
+# Ensure /static/ admin CSS/JS resolve in DEBUG (e.g. custom runserver or URL layout quirks).
+if settings.DEBUG:
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    urlpatterns += staticfiles_urlpatterns()
+
 
