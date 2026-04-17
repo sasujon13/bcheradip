@@ -35,7 +35,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
 import logging, random, string, json, requests, os, re, csv, time, zipfile
-from html import escape
+from html import escape, unescape
 from urllib import parse as urllib_parse
 from urllib.parse import quote, unquote
 from pathlib import Path
@@ -47,6 +47,7 @@ from django.db.models.expressions import RawSQL
 from django.db.utils import ProgrammingError, OperationalError
 
 from .subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
+from .c_program_export_format import format_maybe_c_program_question_text
 
 try:
     from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
@@ -1404,10 +1405,34 @@ def _export_is_safe_img_src(src):
     return True
 
 
+# `class="q-code-block"` or `class="foo q-code-block bar"` (Angular / templates).
+_Q_CODE_BLOCK_OPEN_RE = r'<span[^>]*\bclass="[^"]*\bq-code-block\b[^"]*"[^>]*>\s*<code>'
+_Q_CODE_BLOCK_CLOSE_RE = r'</code>\s*</span>'
+
+
+def _export_collapse_newlines_inside_q_code_html(text):
+    """Turn raw newlines inside <code>…</code> into <br /> so PDF wrap_roman splitlines does not shred programs."""
+    s = str(text or '')
+
+    def repl(m):
+        inner = (m.group(2) or '').replace('\r\n', '\n').replace('\r', '\n')
+        inner = inner.replace('\n', '<br />')
+        return '%s%s%s' % (m.group(1), inner, m.group(3))
+
+    return re.sub(
+        r'(%s)([\s\S]*?)(%s)' % (_Q_CODE_BLOCK_OPEN_RE, _Q_CODE_BLOCK_CLOSE_RE),
+        repl,
+        s,
+        flags=re.IGNORECASE,
+    )
+
+
 def _export_escape_html_preserve_img_br(line):
-    """Escape HTML except q-rich-img-stack, whitelisted <img>, and <br> (aligned with fcheradip wrapRomanLines)."""
+    """Escape HTML except q-code-block, q-rich-img-stack, whitelisted <img>, and <br> (aligned with fcheradip wrapRomanLines)."""
     token_re = re.compile(
-        r'<span class="q-rich-img-stack">\s*<img\b[^>]*>\s*<span class="q-rich-img-caption">[^<]*</span>\s*</span>|<img\b[^>]*>|<br\s*/?>',
+        r'%s[\s\S]*?%s|'
+        r'<span class="q-rich-img-stack">\s*<img\b[^>]*>\s*<span class="q-rich-img-caption">[^<]*</span>\s*</span>|'
+        r'<img\b[^>]*>|<br\s*/?>' % (_Q_CODE_BLOCK_OPEN_RE, _Q_CODE_BLOCK_CLOSE_RE),
         re.IGNORECASE,
     )
     out = []
@@ -1417,6 +1442,8 @@ def _export_escape_html_preserve_img_br(line):
         tag = m.group(0)
         if re.match(r'<br\s*/?\s*>', tag, re.I):
             out.append('<br />')
+        elif tag.lower().lstrip().startswith('<span') and 'q-code-block' in tag.lower():
+            out.append(tag)
         elif tag.lower().startswith('<span class="q-rich-img-stack">'):
             out.append(tag)
         else:
@@ -1557,7 +1584,13 @@ def _export_flatten_mcq_block_text(text):
 
 def _export_wrap_mcq_line_html(text, host_base):
     """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (ক) in .q-opt."""
-    t = _export_flatten_mcq_block_text(str(text or ''))
+    t = str(text or '')
+    if 'q-code-block' in t.lower():
+        t = _export_collapse_newlines_inside_q_code_html(t)
+        t = _export_format_question_media_html(t, host_base)
+        inner = _export_escape_html_preserve_img_br(t)
+        return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
+    t = _export_flatten_mcq_block_text(t)
     t = _export_format_question_media_html(t, host_base)
     inner = _export_escape_html_preserve_img_br(t)
     return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
@@ -2166,18 +2199,28 @@ class ExportQuestionsView(APIView):
 
         host_base = getattr(settings, 'HOST_URL', 'http://127.0.0.1:8000').rstrip('/')
 
+        _CODE_BLOCK_LINE_ONLY = re.compile(
+            r'^%s[\s\S]*%s\s*$' % (_Q_CODE_BLOCK_OPEN_RE, _Q_CODE_BLOCK_CLOSE_RE),
+            re.IGNORECASE,
+        )
+
         def wrap_roman_lines_html(text):
             roman_line = re.compile(r'^\s*(i|ii|iii|I|II|III)\.')
             bn_paren_line = re.compile(r'^\s*\([কখগঘ]\)')
             lines = str(text or '').splitlines()
             parts = []
             for line in lines:
+                stripped = line.strip()
+                if _CODE_BLOCK_LINE_ONLY.match(stripped):
+                    parts.append(stripped)
+                    continue
                 cls = 'topic-question-line'
                 if roman_line.match(line):
                     cls = 'topic-question-line topic-question-roman-line'
                 elif bn_paren_line.match(line):
                     cls = 'topic-question-line topic-question-bn-paren-line'
-                inner = _export_escape_html_preserve_img_br(line)
+                line_for_esc = unescape(line).replace('\t', '    ')
+                inner = _export_escape_html_preserve_img_br(line_for_esc)
                 parts.append('<span class="%s">%s</span>' % (cls, inner))
             return ''.join(parts)
 
@@ -2265,12 +2308,15 @@ class ExportQuestionsView(APIView):
                     'margin-bottom: %.2fpx;'
                 ) % (fz, q_lh, 2 * fz - 2, 2 * fz - 4, q_pad, q_pad, q_gap)
 
-                struct = question_display_structure(qq.get('question') or '', creative)
+                q_prepared = format_maybe_c_program_question_text(qq.get('question') or '', emit_html=True)
+                struct = question_display_structure(q_prepared, creative)
                 if not creative:
                     intro_html = _export_wrap_mcq_line_html(struct.get('intro') or '', host_base)
                 else:
                     intro_html = wrap_roman_lines_html(
-                        _export_format_question_media_html(struct.get('intro') or '', host_base)
+                        _export_collapse_newlines_inside_q_code_html(
+                            _export_format_question_media_html(struct.get('intro') or '', host_base)
+                        )
                     )
                 if struct.get('parts'):
                     _parts = struct.get('parts') or []
@@ -2283,7 +2329,11 @@ class ExportQuestionsView(APIView):
                         if not creative:
                             _inner = _export_wrap_mcq_line_html(_p, host_base)
                         else:
-                            _inner = wrap_roman_lines_html(_export_format_question_media_html(_p, host_base))
+                            _inner = wrap_roman_lines_html(
+                                _export_collapse_newlines_inside_q_code_html(
+                                    _export_format_question_media_html(_p, host_base)
+                                )
+                            )
                         _chunks.append(
                             '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
                             % (_wrap_cls, _inner, _mk_html)
@@ -2302,13 +2352,15 @@ class ExportQuestionsView(APIView):
                     for key, lab in [('option_1', '(ক)'), ('option_2', '(খ)'), ('option_3', '(গ)'), ('option_4', '(ঘ)')]:
                         ov = qq.get(key)
                         if ov:
-                            txt = str(ov).strip()
+                            txt = format_maybe_c_program_question_text(str(ov).strip(), emit_html=True)
                             if txt:
                                 if not creative:
                                     opt_inner = _export_wrap_mcq_line_html(txt, host_base)
                                 else:
                                     opt_inner = wrap_roman_lines_html(
-                                        _export_format_question_media_html(txt, host_base)
+                                        _export_collapse_newlines_inside_q_code_html(
+                                            _export_format_question_media_html(txt, host_base)
+                                        )
                                     )
                                 options.append(
                                     '<span class="q-opt">%s <span class="q-opt-html">%s</span></span>'
@@ -2812,12 +2864,16 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
+      white-space: pre-wrap;
+      tab-size: 4;
     }}
     /* MCQ stem/options: block .topic-question-line inside inline .q-opt-html split the line box and dropped text below (ক). */
     .topic-question-line.topic-question-mcq-inline {{
       display: inline;
       margin: 0;
       line-height: inherit;
+      white-space: pre-wrap;
+      tab-size: 4;
     }}
     .q-opt .q-opt-html {{
       display: inline;
@@ -2887,6 +2943,30 @@ class ExportQuestionsView(APIView):
     }}
     .q-opt-html {{
       line-height: var(--preview-question-lh, 1.4);
+    }}
+    .q-code-block {{
+      display: block;
+      margin: 0.4em 0;
+      padding: 0.45em 0.55em;
+      background: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9em;
+      color: #222;
+    }}
+    .q-code-block code {{
+      display: block;
+      white-space: pre-wrap;
+      word-break: normal;
+      overflow-wrap: anywhere;
+      line-height: 1.38;
+      font-family: inherit;
+      background: transparent;
+      margin: 0;
+      padding: 0;
+      tab-size: 4;
     }}
     .q-text img,
     .q-subpart img,
@@ -2996,7 +3076,9 @@ class ExportQuestionsView(APIView):
                 c.drawString(left, y, question_header[:200])
                 y -= 18
             for i, q in enumerate(questions):
-                qtext = (q.get('question') or '').strip() or ' '
+                qtext = format_maybe_c_program_question_text(
+                    (q.get('question') or '').strip() or ' ', emit_html=False
+                ).replace('\n', ' ')
                 line = '%s. %s' % (i + 1, qtext[:500])
                 if y < bottom_effective + 20:
                     c.showPage()
@@ -3042,7 +3124,9 @@ class ExportQuestionsView(APIView):
             x0 = x_for_col(ci)
             y = ys[ci]
             q = questions[qi]
-            qtext = (q.get('question') or '').strip() or ' '
+            qtext = format_maybe_c_program_question_text(
+                (q.get('question') or '').strip() or ' ', emit_html=False
+            ).replace('\n', ' ')
             line = '%s. %s' % (qi + 1, qtext[:500])
             restart = False
             if y < bottom_effective + 20:
@@ -3155,8 +3239,9 @@ class ExportQuestionsView(APIView):
         for i, q in enumerate(questions):
             q = q if isinstance(q, dict) else {}
             raw_q = (q.get('question') or '').strip() or ' '
+            prepared_plain = format_maybe_c_program_question_text(raw_q, emit_html=False)
             creative = docx_is_creative(q)
-            struct = docx_question_display_structure(raw_q, creative=creative)
+            struct = docx_question_display_structure(prepared_plain, creative=creative)
             if creative and struct.get('parts'):
                 intro = struct.get('intro') or ''
                 parts = struct.get('parts') or []
@@ -3175,11 +3260,12 @@ class ExportQuestionsView(APIView):
                     else:
                         doc.add_paragraph(part)
             else:
-                doc.add_paragraph('%s. %s' % (i + 1, raw_q))
+                doc.add_paragraph('%s. %s' % (i + 1, prepared_plain))
             for key, label in [('option_1', 'A.'), ('option_2', 'B.'), ('option_3', 'C.'), ('option_4', 'D.')]:
                 opt = q.get(key)
                 if opt:
-                    doc.add_paragraph('   %s %s' % (label, str(opt).strip()), style='List Bullet')
+                    opt_plain = format_maybe_c_program_question_text(str(opt).strip(), emit_html=False)
+                    doc.add_paragraph('   %s %s' % (label, opt_plain), style='List Bullet')
         buf = BytesIO()
         doc.save(buf)
         buf.seek(0)
