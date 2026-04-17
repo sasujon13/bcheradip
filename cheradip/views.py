@@ -2944,17 +2944,20 @@ class ExportQuestionsView(APIView):
     .q-opt-html {{
       line-height: var(--preview-question-lh, 1.4);
     }}
+    /* Match fcheradip question-rich-img.shared.css — no frame, transparent (PDF was gray boxed). */
     .q-code-block {{
       display: block;
-      margin: 0.4em 0;
-      padding: 0.45em 0.55em;
-      background: #f6f8fa;
-      border: 1px solid #e1e4e8;
-      border-radius: 4px;
+      margin: 0;
+      padding: 0;
+      max-width: min(720px, 100%);
+      overflow-x: auto;
       box-sizing: border-box;
+      background: transparent;
+      border: none;
+      border-radius: 0;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.9em;
-      color: #222;
+      font-size: inherit;
+      color: inherit;
     }}
     .q-code-block code {{
       display: block;
