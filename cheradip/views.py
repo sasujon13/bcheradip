@@ -1445,7 +1445,7 @@ def _export_escape_html_preserve_img_br(line):
         elif tag.lower().lstrip().startswith('<span') and 'q-code-block' in tag.lower():
             out.append(tag)
         elif tag.lower().startswith('<span class="q-rich-img-stack">'):
-            out.append(tag)
+            out.append(_export_strip_img_lazy_loading_attrs(tag))
         else:
             src_m = re.search(r'\bsrc\s*=\s*["\']([^"\']*)["\']', tag, re.I)
             alt_m = re.search(r'\balt\s*=\s*["\']([^"\']*)["\']', tag, re.I)
@@ -1456,7 +1456,7 @@ def _export_escape_html_preserve_img_br(line):
                 cls = 'q-rich-img question-inline-img'
                 if cls_m and re.match(r'^[a-zA-Z0-9_\s-]+$', cls_m.group(1).strip()):
                     cls = cls_m.group(1).strip()
-                out.append(f'<img src="{src}" alt="{alt}" class="{escape(cls)}" />')
+                out.append(f'<img src="{src}" alt="{alt}" class="{escape(cls)}" loading="eager" />')
             else:
                 out.append(escape(tag))
         last = m.end()
@@ -1589,12 +1589,15 @@ def _export_format_question_media_html(text, host_base):
     host_base = (host_base or getattr(settings, 'HOST_URL', None) or 'http://127.0.0.1:8000').rstrip('/')
     img_alt = 'Images are loading...'
     # Spaces allowed in filenames (e.g. _(Fig1 - … here).png); exclude only < " for HTML safety.
+    # After the extension, do not use \b: Python treats letters like ক as word chars, so paths such as
+    # ".../file.pngক)" (Bengali MCQ label immediately after .png) would not match and would stay raw text in PDF.
+    _ext_end = r'(?![A-Za-z0-9_])'
     path_body = r'[^<>"]+'
     ext = 'png|jpe?g|gif|webp|svg|ico|bmp|mp4|webm|mov|bin'
     pattern = re.compile(
-        rf'https?://[^<>"]+?/media/{path_body}\.(?:{ext})\b|'
-        rf'\s*/media/{path_body}\.(?:{ext})\b|'
-        rf'(?:^|[\s])media/{path_body}\.(?:{ext})\b',
+        rf'https?://[^<>"]+?/media/{path_body}\.(?:{ext}){_ext_end}|'
+        rf'\s*/media/{path_body}\.(?:{ext}){_ext_end}|'
+        rf'(?:^|[\s])media/{path_body}\.(?:{ext}){_ext_end}',
         re.IGNORECASE,
     )
     n_media = len(pattern.findall(text))
@@ -1628,14 +1631,14 @@ def _export_format_question_media_html(text, host_base):
         if cap is not None:
             img = (
                 f'<span class="q-rich-img-stack">'
-                f'<img src="{escape(src)}" alt="{escape(img_alt)}" class="q-rich-img question-inline-img" />'
+                f'<img src="{escape(src)}" alt="{escape(img_alt)}" class="q-rich-img question-inline-img" loading="eager" />'
                 f'<span class="q-rich-img-caption">{escape(cap)}</span>'
                 f'</span>'
             )
         else:
             img = (
                 f'<img src="{escape(src)}" alt="{escape(img_alt)}" '
-                f'class="q-rich-img question-inline-img" />'
+                f'class="q-rich-img question-inline-img" loading="eager" />'
             )
         core = f'{leading}{img}'
         idx = idx_state[0]
@@ -1730,6 +1733,22 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
 })();
 </script>
 """
+
+
+def _export_strip_img_lazy_loading_attrs(fragment):
+    """
+    Strip loading="lazy" / decoding="async" from preserved HTML. Chromium defers off-viewport lazy images;
+    Playwright PDF capture often misses images at the end of a long page.
+    """
+    if not fragment:
+        return fragment
+    low = str(fragment).lower()
+    if 'loading' not in low and 'decoding' not in low:
+        return fragment
+    s = str(fragment)
+    s = re.sub(r'\sloading\s*=\s*["\']lazy["\']', '', s, flags=re.I)
+    s = re.sub(r'\sdecoding\s*=\s*["\']async["\']', '', s, flags=re.I)
+    return s
 
 
 class ExportQuestionsView(APIView):
@@ -3094,6 +3113,7 @@ class ExportQuestionsView(APIView):
 </body>
 </html>"""
         ).replace('</body>', _EXPORT_Q_RICH_IMG_PDF_SCRIPT + '\n</body>', 1)
+        html = _export_strip_img_lazy_loading_attrs(html)
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             try:
