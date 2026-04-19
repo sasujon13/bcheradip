@@ -1389,12 +1389,12 @@ def _export_is_safe_img_src(src):
     s = (src or '').strip()
     if not s:
         return False
-    low = s[:32].lower()
+    low = s[:64].lower()
     if low.startswith('javascript:') or low.startswith('vbscript:'):
         return False
     if re.match(r'^data:image/(png|jpeg|jpg|gif|webp|svg\+xml);base64,', s, re.I):
         return True
-    if s.startswith(('http://', 'https://')):
+    if low.startswith(('http://', 'https://')):
         return True
     if s.startswith('//'):
         return True
@@ -1506,11 +1506,87 @@ def _export_stem_only_media_path(path_from_media):
     return dir_part + stem_only
 
 
+_EXPORT_IMAGE_EXT_FOR_LATEX_RE = re.compile(r'\.(png|jpe?g|gif|webp|svg|ico|bmp)$', re.I)
+
+
+def _export_build_latex_svg_path_from_media_path(path_from_media):
+    """`/media/foo/bar.png` → `/media/latex/foo/bar.svg` (same as fcheradip buildLatexSvgPathFromMediaPath)."""
+    p = (path_from_media or '').strip()
+    if not p.startswith('/'):
+        p = '/' + p
+    m = re.match(r'^/media/(.+)$', p, re.I)
+    if not m:
+        return ''
+    rest = re.sub(r'\.[^.]+$', '.svg', m.group(1))
+    return '/media/latex/' + rest
+
+
+def _export_build_stem_only_latex_svg_path_from_media_path(path_from_media):
+    stem_p = _export_stem_only_media_path(path_from_media)
+    if not stem_p:
+        return None
+    t = _export_build_latex_svg_path_from_media_path(stem_p)
+    return t or None
+
+
+def _export_media_file_exists_at_media_path(path_from_media):
+    """True if MEDIA_ROOT has the file for a URL path `/media/...` (used for latex + raster picks)."""
+    p = (path_from_media or '').strip()
+    if not p.startswith('/'):
+        p = '/' + p
+    m = re.match(r'^/media/(.+)$', p, re.I)
+    if not m:
+        return False
+    rel = m.group(1).strip()
+    if not rel or any(x == '..' for x in rel.split('/')):
+        return False
+    mr = getattr(settings, 'MEDIA_ROOT', None)
+    if not mr:
+        return False
+    try:
+        root = Path(mr).resolve()
+        fp = (root / rel).resolve()
+        fp.relative_to(root)
+    except (ValueError, OSError):
+        return False
+    return fp.is_file()
+
+
+def _export_pick_pdf_media_img_src(host_base, path_from_media, stem_only_media_path):
+    """
+    Prefer compiled LaTeX SVG on disk (preview uses media/latex/…), else stem LaTeX, else raster paths.
+    Without this, PDF always used the raster URL; PNG is often empty while SVG exists → missing images in PDF.
+    """
+    hb = (host_base or getattr(settings, 'HOST_URL', None) or 'http://127.0.0.1:8000').rstrip('/')
+    seen = set()
+    candidates = []
+    for p in (
+        _export_build_latex_svg_path_from_media_path(path_from_media),
+        _export_build_stem_only_latex_svg_path_from_media_path(path_from_media),
+        path_from_media,
+        stem_only_media_path,
+    ):
+        if not p:
+            continue
+        if not p.startswith('/'):
+            p = '/' + p
+        key = p.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append(p)
+    for pm in candidates:
+        if _export_media_file_exists_at_media_path(pm):
+            return hb + '/manage' + pm
+    pm0 = path_from_media if path_from_media.startswith('/') else '/' + path_from_media
+    return hb + '/manage' + pm0
+
+
 def _export_format_question_media_html(text, host_base):
     """[IMG] strip + /media/... -> <img>; optional filename _(caption).ext -> stack+caption; matches Angular pipe."""
     text = str(text or '')
     text = re.sub(r'[\[［]\s*[Ii][Mm][Gg]\s*[\]］]\s*', '', text)
-    host_base = (host_base or '').rstrip('/')
+    host_base = (host_base or getattr(settings, 'HOST_URL', None) or 'http://127.0.0.1:8000').rstrip('/')
     img_alt = 'Images are loading...'
     # Spaces allowed in filenames (e.g. _(Fig1 - … here).png); exclude only < " for HTML safety.
     path_body = r'[^<>"]+'
@@ -1542,8 +1618,10 @@ def _export_format_question_media_html(text, host_base):
             path_from_media = '/' + full[bare.start() :]
         cap = _export_extract_media_caption_from_path(path_from_media)
         stem_p = _export_stem_only_media_path(path_from_media)
-        # PDF/static HTML: use short on-disk name for src when caption exists; label still from full filename.
-        if cap is not None and stem_p:
+        try_latex = bool(_EXPORT_IMAGE_EXT_FOR_LATEX_RE.search(path_from_media))
+        if try_latex:
+            src = _export_pick_pdf_media_img_src(host_base, path_from_media, stem_p)
+        elif cap is not None and stem_p:
             src = f'{host_base}/manage{stem_p}'
         else:
             src = f'{host_base}/manage{path_from_media}'
@@ -1610,7 +1688,13 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
   function apply(img){
     var MAX=maxFromFont(getComputedStyle(img).fontSize);
     var w=img.naturalWidth,h=img.naturalHeight;
-    if(!w||!h)return;
+    if(!w||!h){
+      img.style.maxWidth='min('+MAX+'px, 100%)';
+      img.style.maxHeight=MAX+'px';
+      img.style.objectFit='contain';
+      img.style.objectPosition='left center';
+      return;
+    }
     img.style.removeProperty('width');
     img.style.removeProperty('height');
     img.style.removeProperty('max-width');
@@ -1634,10 +1718,12 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
   function bind(img){
     if(img.getAttribute('data-rich-sized')==='1')return;
     function done(){apply(img);img.setAttribute('data-rich-sized','1');}
+    function sched(){setTimeout(done,0);}
     if(img.complete&&img.naturalWidth>0){done();}
     else{
-      img.addEventListener('load',done,{once:true});
+      img.addEventListener('load',sched,{once:true});
       img.addEventListener('error',function(){img.setAttribute('data-rich-sized','1');},{once:true});
+      if(img.complete){sched();}
     }
   }
   document.querySelectorAll('img.q-rich-img').forEach(function(el){bind(el);});
