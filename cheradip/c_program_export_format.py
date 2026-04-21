@@ -125,6 +125,21 @@ def _densify_minified_ascii_c_line(line: str) -> str:
             paren = max(0, paren - 1)
             out.append(c)
             i += 1
+            if paren == 0:
+                j = i
+                while j < n and glued[j] in ' \t':
+                    j += 1
+                if j < n:
+                    nxt = glued[j]
+                    if nxt not in (';', ',', ')', ']', '{', '.'):
+                        rest = glued[j : j + 32]
+                        if re.match(
+                            r'^(continue|break|return)\b', rest
+                        ) or re.match(r'^(if|for|while|switch|do)\b', rest, re.I):
+                            while i < j:
+                                out.append(glued[i])
+                                i += 1
+                            out.append('\n')
             continue
         if c == ';' and paren == 0:
             out.append(';')
@@ -132,6 +147,9 @@ def _densify_minified_ascii_c_line(line: str) -> str:
             while i < n and glued[i] in ' \t':
                 out.append(glued[i])
                 i += 1
+            if i < n and glued[i] == '}':
+                out.append('\n')
+                continue
             if i < n and not re.match(r'^[)\]}]', glued[i]):
                 out.append('\n')
             continue
@@ -332,6 +350,21 @@ def _extract_program_block(
     return (before, code, after)
 
 
+def _is_braceless_control_header(line: str) -> bool:
+    t = line.strip()
+    if not t or '{' in t:
+        return False
+    if re.match(r'^\s*else\s*$', t, re.I):
+        return True
+    if not re.search(r'\)\s*$', t):
+        return False
+    return bool(re.match(r'^\s*(if|else\s+if|for|while|switch)\b', t, re.I))
+
+
+def _braceless_single_stmt_indent_level(base: int, _header_line: str) -> int:
+    return base + 1
+
+
 def _should_increase_indent_for_next_line(line: str) -> bool:
     t = line.strip()
     if not t or t.startswith('#') or t.startswith('//') or t.startswith('/*') or t.startswith('*'):
@@ -339,6 +372,8 @@ def _should_increase_indent_for_next_line(line: str) -> bool:
     if t.endswith('{'):
         return True
     if t.endswith(';') or t.endswith('}') or t.endswith(':'):
+        return False
+    if _is_braceless_control_header(t):
         return False
     return True
 
@@ -372,11 +407,25 @@ def _format_c_program(code: str) -> str:
     lines = _normalize_brace_after_paren_lines(lines)
     out: list[str] = []
     indent = 0
+    pending_braceless: tuple[int, str] | None = None
     for raw_line in lines:
         trimmed = raw_line.strip()
         if not trimmed:
             if out and out[-1] != '':
                 out.append('')
+            continue
+        if pending_braceless is not None:
+            base, header = pending_braceless
+            pending_braceless = None
+            body_indent = _braceless_single_stmt_indent_level(base, header)
+            out.append('%s%s' % ('    ' * body_indent, trimmed))
+            if trimmed.startswith('#'):
+                indent = base
+                continue
+            if trimmed.endswith('{'):
+                indent = body_indent + 1
+                continue
+            indent = base
             continue
         line_indent = indent
         if trimmed.startswith('}'):
@@ -389,6 +438,9 @@ def _format_c_program(code: str) -> str:
             continue
         if trimmed.endswith('{'):
             indent = line_indent + 1
+            continue
+        if _is_braceless_control_header(trimmed):
+            pending_braceless = (line_indent, trimmed)
             continue
         if _should_increase_indent_for_next_line(trimmed):
             indent = line_indent + 1
