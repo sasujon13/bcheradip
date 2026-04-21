@@ -48,6 +48,134 @@ def _has_io_anchor(text: str) -> bool:
     )
 
 
+def _break_glued_include_and_following_word(line: str) -> str:
+    line = re.sub(
+        r'(#include\s+<[^>]+>)(?=[^\s\n\r])',
+        r'\1\n',
+        line,
+        flags=re.I,
+    )
+    return re.sub(
+        r'(#include\s+"[^"]+")(?=[^\s\n\r])',
+        r'\1\n',
+        line,
+        flags=re.I,
+    )
+
+
+def _densify_minified_ascii_c_line(line: str) -> str:
+    glued = _break_glued_include_and_following_word(line)
+    out: list[str] = []
+    i = 0
+    n = len(glued)
+    paren = 0
+    in_str: str | None = None
+    line_comment = False
+    block_comment = False
+    while i < n:
+        c = glued[i]
+        nxt = glued[i + 1] if i + 1 < n else ''
+        if line_comment:
+            if c in '\r\n':
+                line_comment = False
+            out.append(c)
+            i += 1
+            continue
+        if block_comment:
+            if c == '*' and nxt == '/':
+                out.append('*/')
+                i += 2
+                block_comment = False
+                continue
+            out.append(c)
+            i += 1
+            continue
+        if in_str:
+            if c == '\\' and i + 1 < n:
+                out.append(c)
+                out.append(glued[i + 1])
+                i += 2
+                continue
+            if c == in_str:
+                in_str = None
+            out.append(c)
+            i += 1
+            continue
+        if c == '/' and nxt == '/':
+            out.append('//')
+            i += 2
+            line_comment = True
+            continue
+        if c == '/' and nxt == '*':
+            out.append('/*')
+            i += 2
+            block_comment = True
+            continue
+        if c in '"\'':
+            in_str = c
+            out.append(c)
+            i += 1
+            continue
+        if c == '(':
+            paren += 1
+            out.append(c)
+            i += 1
+            continue
+        if c == ')':
+            paren = max(0, paren - 1)
+            out.append(c)
+            i += 1
+            continue
+        if c == ';' and paren == 0:
+            out.append(';')
+            i += 1
+            while i < n and glued[i] in ' \t':
+                out.append(glued[i])
+                i += 1
+            if i < n and not re.match(r'^[)\]}]', glued[i]):
+                out.append('\n')
+            continue
+        if c == '{':
+            out.append('{')
+            i += 1
+            if i < n and glued[i] not in '}\r\n':
+                out.append('\n')
+            continue
+        if c == '}':
+            out.append('}')
+            i += 1
+            while i < n and glued[i] in ' \t':
+                out.append(glued[i])
+                i += 1
+            if i < n and glued[i] not in '};\r\n':
+                out.append('\n')
+            continue
+        out.append(c)
+        i += 1
+    return ''.join(out).rstrip()
+
+
+def _expand_dense_c_code_for_display(code: str) -> str:
+    lines = (code or '').replace('\r\n', '\n').replace('\r', '\n').split('\n')
+    out: list[str] = []
+    for raw in lines:
+        t = raw.strip()
+        if not t or _is_bengali_text(raw):
+            out.append(raw)
+            continue
+        dense = (
+            len(t) >= 40
+            and re.search(r'[#;{}]', t)
+            and (_has_io_anchor(t) or bool(re.search(r'#\s*include\b', t, re.I)))
+            and '\n' not in t
+        )
+        if dense:
+            out.append(_densify_minified_ascii_c_line(t))
+        else:
+            out.append(raw)
+    return '\n'.join(out)
+
+
 def _is_bengali_text(line: str) -> bool:
     return bool(_BENGALI_RE.search(line))
 
@@ -78,6 +206,79 @@ def _detach_creative_tail_from_code(code: str, after: str) -> tuple[str, str]:
     kept = '\n'.join(lines[:idx]).rstrip()
     merged_after = '\n'.join(x for x in (tail, after) if (x or '').strip())
     return (kept, merged_after)
+
+
+_C_LINE_START_RE = re.compile(
+    r'(#\s*include\b|\b(?:void|int|char|float|double|long|short|signed|unsigned)\s+main\s*\(|\bmain\s*\(|\b(?:printf|scanf|print\s*f|scan\s*f|print|scan)\s*\()',
+    re.I,
+)
+
+
+def _peel_bengali_around_c_on_line(line: str) -> tuple[str, str, str]:
+    """Return (before_bn, c_only, after_bn) for one physical line."""
+    raw = line
+    if not raw.strip():
+        return ('', raw, '')
+    if not _is_bengali_text(raw):
+        return ('', raw, '')
+
+    before = ''
+    s = raw
+    m = _C_LINE_START_RE.search(s)
+    if m and m.start() > 0:
+        head = s[: m.start()]
+        if _is_bengali_text(head):
+            before = head.rstrip()
+            s = s[m.start() :]
+    elif not m:
+        lb = s.rfind('}')
+        if lb >= 0:
+            tail0 = s[lb + 1 :]
+            if tail0.strip() and _is_bengali_text(tail0):
+                return ('', s[: lb + 1].strip(), tail0.strip())
+        return (s.strip(), '', '')
+
+    after = ''
+    lb = s.rfind('}')
+    if lb >= 0:
+        tail = s[lb + 1 :]
+        if tail.strip() and _is_bengali_text(tail):
+            after = tail.strip()
+            s = s[: lb + 1]
+    return (before, s, after)
+
+
+def _split_extracted_code_into_c_and_bn_segments(
+    code: str,
+) -> tuple[list[str], list[tuple[str, str]]]:
+    """leading_bn; segments are ('code', str) or ('bn', str) — matches fcheradip c-program-question-format."""
+    lines = (code or '').replace('\r\n', '\n').replace('\r', '\n').split('\n')
+    leading_bn: list[str] = []
+    segments: list[tuple[str, str]] = []
+    cur_code: list[str] = []
+
+    def flush_code() -> None:
+        if cur_code:
+            joined = '\n'.join(cur_code).strip()
+            if joined:
+                segments.append(('code', joined))
+            cur_code.clear()
+
+    for ln in lines:
+        pb, pc, pa = _peel_bengali_around_c_on_line(ln)
+        if pb.strip():
+            if not cur_code and not segments:
+                leading_bn.append(pb.strip())
+            else:
+                flush_code()
+                segments.append(('bn', pb.strip()))
+        if pc.strip():
+            cur_code.append(pc)
+        if pa.strip():
+            flush_code()
+            segments.append(('bn', pa.strip()))
+    flush_code()
+    return (leading_bn, segments)
 
 
 def _is_code_anchor_line(line: str) -> bool:
@@ -199,9 +400,7 @@ def _format_c_program(code: str) -> str:
 
 
 def _encode_code_html(code: str) -> str:
-    parts = []
-    for line in (code or '').split('\n'):
-        parts.append(html_escape(line).replace(' ', '&nbsp;'))
+    parts = [html_escape(ln) for ln in (code or '').split('\n')]
     return '<br />'.join(parts)
 
 
@@ -228,17 +427,40 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
     if not code.strip():
         return raw if raw is not None else ''
 
-    code_line_count = len([ln for ln in code.split('\n') if ln.strip()])
-    if not _has_include_anchor(code) and _has_io_anchor(code) and code_line_count <= 4:
+    leading_bn, segments = _split_extracted_code_into_c_and_bn_segments(code)
+    expanded_segments: list[tuple[str, str]] = []
+    for kind, seg in segments:
+        if kind == 'bn':
+            expanded_segments.append((kind, seg))
+        else:
+            expanded_segments.append(('code', _expand_dense_c_code_for_display(seg)))
+
+    code_only_joined = '\n'.join(s for k, s in expanded_segments if k == 'code').strip()
+    if not code_only_joined:
         return raw if raw is not None else ''
 
-    formatted = _format_c_program(code)
+    code_line_count = len([ln for ln in code_only_joined.split('\n') if ln.strip()])
+    if not _has_include_anchor(code_only_joined) and _has_io_anchor(code_only_joined) and code_line_count <= 4:
+        return raw if raw is not None else ''
+
+    merged_before = '\n'.join(x for x in ([before] + leading_bn) if (x or '').strip()).strip()
+    middle_parts: list[str] = []
+    for kind, seg in expanded_segments:
+        if kind == 'code':
+            formatted = _format_c_program(seg)
+            if (formatted or '').strip():
+                if emit_html:
+                    middle_parts.append(
+                        '<span class="q-code-block"><code>%s</code></span>'
+                        % _encode_code_html(formatted)
+                    )
+                else:
+                    middle_parts.append(formatted)
+        elif (seg or '').strip():
+            middle_parts.append(seg.strip())
+
     if emit_html:
-        block_html = (
-            '<span class="q-code-block"><code>%s</code></span>'
-            % _encode_code_html(formatted)
-        )
-        parts = [p for p in (before, block_html, after) if (p or '').strip()]
+        parts = [p for p in (merged_before, *middle_parts, after) if (p or '').strip()]
         return '\n'.join(parts)
-    parts = [p for p in (before, formatted, after) if (p or '').strip()]
+    parts = [p for p in (merged_before, *middle_parts, after) if (p or '').strip()]
     return '\n'.join(parts)
