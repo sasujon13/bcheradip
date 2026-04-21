@@ -50,18 +50,62 @@ def _has_io_anchor(text: str) -> bool:
 
 def _break_glued_include_and_following_word(line: str) -> str:
     s = re.sub(r'(#\s*include)\s*(?=[<"])', '#include ', line, flags=re.I)
+    s = re.sub(r'\)\s*\{\s*,\s*(?=#\s*include)', ') {\n', s, flags=re.I)
     s = re.sub(
         r'(#include\s+<[^>]+>)(?=[^\s\n\r])',
         r'\1\n',
         s,
         flags=re.I,
     )
-    return re.sub(
+    s = re.sub(
         r'(#include\s+"[^"]+")(?=[^\s\n\r])',
         r'\1\n',
         s,
         flags=re.I,
     )
+    s = re.sub(
+        r'(#include\s+<[^>]+>)\s+(?=\S)',
+        r'\1\n',
+        s,
+        flags=re.I,
+    )
+    return re.sub(
+        r'(#include\s+"[^"]+")\s+(?=\S)',
+        r'\1\n',
+        s,
+        flags=re.I,
+    )
+
+
+_DENSE_MIN_LEN = 22
+
+
+def _line_looks_packed_one_line_c(ct: str, chunk: str) -> bool:
+    if '\n' in chunk:
+        return False
+    if len(ct) < _DENSE_MIN_LEN or not re.search(r'[#;{}]', ct):
+        return False
+    if not (
+        _has_io_anchor(ct) or re.search(r'#\s*include\b', ct, re.I)
+    ):
+        return False
+    return True
+
+
+def _should_reflow_c_layout(ct: str, chunk: str) -> bool:
+    if '\n' in chunk:
+        return False
+    if re.search(r'#\s*include\s*<[^>]+>\s+\S', ct):
+        return True
+    if re.search(r'#\s*include\s*<[^>]+>[^\s#<"\']', ct):
+        return True
+    if re.search(
+        r'\bmain\s*\([^)]*\)\s*(?:int|char|void|float|double|unsigned|#)',
+        ct,
+        re.I,
+    ):
+        return True
+    return _line_looks_packed_one_line_c(ct, chunk)
 
 
 def _densify_minified_ascii_c_line(line: str) -> str:
@@ -132,11 +176,25 @@ def _densify_minified_ascii_c_line(line: str) -> str:
                     j += 1
                 if j < n:
                     nxt = glued[j]
-                    if nxt not in (';', ',', ')', ']', '{', '.'):
-                        rest = glued[j : j + 32]
-                        if re.match(
-                            r'^(continue|break|return)\b', rest
-                        ) or re.match(r'^(if|for|while|switch|do)\b', rest, re.I):
+                    if nxt == '{':
+                        while i < j:
+                            out.append(glued[i])
+                            i += 1
+                        out.append('\n')
+                    elif nxt not in (';', ',', ')', ']', '.'):
+                        rest = glued[j : j + 48]
+                        stmt_head = bool(
+                            re.match(
+                                r'^(continue|break|return|if|for|while|switch|do|printf|scanf|sizeof)\b',
+                                rest,
+                                re.I,
+                            )
+                            or re.match(
+                                r'^(int|char|void|float|double|unsigned|short|long|static|const|struct)\b',
+                                rest,
+                            )
+                        )
+                        if stmt_head:
                             while i < j:
                                 out.append(glued[i])
                                 i += 1
@@ -179,7 +237,13 @@ def _expand_dense_c_code_for_display(code: str) -> str:
     out: list[str] = []
     for raw in lines:
         t = raw.strip()
-        if not t or _is_bengali_text(raw):
+        if not t:
+            out.append(raw)
+            continue
+        has_include_or_main = bool(
+            re.search(r'#\s*include\b|\b(main|printf|scanf)\s*\(', raw, re.I)
+        )
+        if _is_bengali_text(raw) and not has_include_or_main:
             out.append(raw)
             continue
         prepped = _break_glued_include_and_following_word(raw)
@@ -189,13 +253,7 @@ def _expand_dense_c_code_for_display(code: str) -> str:
                 if chunk:
                     out.append(chunk)
                 continue
-            dense = (
-                len(ct) >= 40
-                and re.search(r'[#;{}]', ct)
-                and (_has_io_anchor(ct) or bool(re.search(r'#\s*include\b', ct, re.I)))
-                and '\n' not in chunk
-            )
-            if dense:
+            if _should_reflow_c_layout(ct, chunk):
                 out.append(_densify_minified_ascii_c_line(ct))
             else:
                 out.append(chunk)
