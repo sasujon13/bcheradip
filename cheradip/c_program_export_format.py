@@ -108,8 +108,93 @@ def _should_reflow_c_layout(ct: str, chunk: str) -> bool:
     return _line_looks_packed_one_line_c(ct, chunk)
 
 
+_IO_CALL_HEAD_RE = re.compile(
+    r'^(printf\s*\(|scanf\s*\(|print\s+f\s*\(|scan\s+f\s*\(|print\s*\(|scan\s*\()',
+    re.I,
+)
+
+
+def _prev_non_space_char(s: str, before_index: int) -> str | None:
+    j = before_index - 1
+    while j >= 0 and s[j] in ' \t':
+        j -= 1
+    return s[j] if j >= 0 else None
+
+
+def _needs_newline_before_glued_io_call(s: str, start: int) -> bool:
+    prev = _prev_non_space_char(s, start)
+    if prev is None:
+        return False
+    return bool(re.match(r'[0-9a-zA-Z_)}\]%]', prev))
+
+
+def _insert_newlines_before_glued_io_calls(line: str) -> str:
+    out: list[str] = []
+    i = 0
+    n = len(line)
+    in_str: str | None = None
+    line_comment = False
+    block_comment = False
+    while i < n:
+        c = line[i]
+        nxt = line[i + 1] if i + 1 < n else ''
+        if line_comment:
+            if c in '\r\n':
+                line_comment = False
+            out.append(c)
+            i += 1
+            continue
+        if block_comment:
+            if c == '*' and nxt == '/':
+                out.append('*/')
+                i += 2
+                block_comment = False
+                continue
+            out.append(c)
+            i += 1
+            continue
+        if in_str:
+            if c == '\\' and i + 1 < n:
+                out.append(c)
+                out.append(line[i + 1])
+                i += 2
+                continue
+            if c == in_str:
+                in_str = None
+            out.append(c)
+            i += 1
+            continue
+        if c == '/' and nxt == '/':
+            out.append('//')
+            i += 2
+            line_comment = True
+            continue
+        if c == '/' and nxt == '*':
+            out.append('/*')
+            i += 2
+            block_comment = True
+            continue
+        if c in '"\'':
+            in_str = c
+            out.append(c)
+            i += 1
+            continue
+        sub = line[i:]
+        m = _IO_CALL_HEAD_RE.match(sub)
+        if m:
+            ln = len(m.group(0))
+            if _needs_newline_before_glued_io_call(line, i):
+                out.append('\n')
+            out.append(line[i : i + ln])
+            i += ln
+            continue
+        out.append(c)
+        i += 1
+    return ''.join(out)
+
+
 def _densify_minified_ascii_c_line(line: str) -> str:
-    glued = _break_glued_include_and_following_word(line)
+    glued = _insert_newlines_before_glued_io_calls(_break_glued_include_and_following_word(line))
     out: list[str] = []
     i = 0
     n = len(glued)
