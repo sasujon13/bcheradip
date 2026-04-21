@@ -49,16 +49,17 @@ def _has_io_anchor(text: str) -> bool:
 
 
 def _break_glued_include_and_following_word(line: str) -> str:
-    line = re.sub(
+    s = re.sub(r'(#\s*include)\s*(?=[<"])', '#include ', line, flags=re.I)
+    s = re.sub(
         r'(#include\s+<[^>]+>)(?=[^\s\n\r])',
         r'\1\n',
-        line,
+        s,
         flags=re.I,
     )
     return re.sub(
         r'(#include\s+"[^"]+")(?=[^\s\n\r])',
         r'\1\n',
-        line,
+        s,
         flags=re.I,
     )
 
@@ -181,16 +182,23 @@ def _expand_dense_c_code_for_display(code: str) -> str:
         if not t or _is_bengali_text(raw):
             out.append(raw)
             continue
-        dense = (
-            len(t) >= 40
-            and re.search(r'[#;{}]', t)
-            and (_has_io_anchor(t) or bool(re.search(r'#\s*include\b', t, re.I)))
-            and '\n' not in t
-        )
-        if dense:
-            out.append(_densify_minified_ascii_c_line(t))
-        else:
-            out.append(raw)
+        prepped = _break_glued_include_and_following_word(raw)
+        for chunk in prepped.split('\n'):
+            ct = chunk.strip()
+            if not ct:
+                if chunk:
+                    out.append(chunk)
+                continue
+            dense = (
+                len(ct) >= 40
+                and re.search(r'[#;{}]', ct)
+                and (_has_io_anchor(ct) or bool(re.search(r'#\s*include\b', ct, re.I)))
+                and '\n' not in chunk
+            )
+            if dense:
+                out.append(_densify_minified_ascii_c_line(ct))
+            else:
+                out.append(chunk)
     return '\n'.join(out)
 
 
