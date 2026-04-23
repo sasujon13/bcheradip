@@ -15,7 +15,7 @@ def _looks_like_c_program_question(text: str) -> bool:
     s = (text or '').strip()
     if not s:
         return False
-    has_anchor = bool(
+    has_classic_anchor = bool(
         re.search(r'#\s*include\b', s, re.I)
         or re.search(
             r'\b(main|printf|scanf|clrscr|getch|print\s*f|scan\s*f|print|scan)\s*\(',
@@ -31,7 +31,17 @@ def _looks_like_c_program_question(text: str) -> bool:
         )
         or re.search(r'<\s*(stdio|conio)\.h\s*>', s, re.I)
     )
-    return has_anchor and has_c_signal
+    has_glued_loop_or_branch = bool(
+        re.search(r';\s*(?:for|while|if)\s*\(', s, re.I)
+        or re.search(r'\bfor\s*\([^)]*\)\s*\{', s, re.I)
+        or re.search(r'\bfor\s*\([^)]*\)\s*(?!\{)\s*\S', s, re.I)
+        or (
+            re.search(r'\bif\s*\([^)]*\)\s*\{', s, re.I)
+            and ';' in s
+            and '{' in s
+        )
+    )
+    return (has_classic_anchor and has_c_signal) or has_glued_loop_or_branch
 
 
 def _has_include_anchor(text: str) -> bool:
@@ -77,7 +87,37 @@ def _break_glued_include_and_following_word(line: str) -> str:
     )
 
 
-_DENSE_MIN_LEN = 22
+_DENSE_MIN_LEN = 12
+
+
+def _line_has_reflowable_c_anchors(ct: str) -> bool:
+    if _has_io_anchor(ct) or re.search(r'#\s*include\b', ct, re.I):
+        return True
+    if re.search(
+        r'\b(main|printf|scanf|clrscr|getch)\s*\(',
+        ct,
+        re.I,
+    ):
+        return True
+    if re.search(
+        r';\s*(?:for|while|if|switch|int|char|void|float|double|return|continue|break|struct|static|unsigned|long)\b',
+        ct,
+        re.I,
+    ):
+        return True
+    if re.search(r';\s*\{', ct):
+        return True
+    if re.search(r'\)\s*\{', ct):
+        return True
+    if re.search(
+        r'\{\s*(?:if|for|while|continue|break|return|int|char|void|float|double)\b',
+        ct,
+        re.I,
+    ):
+        return True
+    if re.search(r'\)\s*[A-Za-z_]\w*\s*=', ct):
+        return True
+    return False
 
 
 def _line_looks_packed_one_line_c(ct: str, chunk: str) -> bool:
@@ -85,9 +125,7 @@ def _line_looks_packed_one_line_c(ct: str, chunk: str) -> bool:
         return False
     if len(ct) < _DENSE_MIN_LEN or not re.search(r'[#;{}]', ct):
         return False
-    if not (
-        _has_io_anchor(ct) or re.search(r'#\s*include\b', ct, re.I)
-    ):
+    if not _line_has_reflowable_c_anchors(ct):
         return False
     return True
 
@@ -266,7 +304,7 @@ def _densify_minified_ascii_c_line(line: str) -> str:
                             out.append(glued[i])
                             i += 1
                         out.append('\n')
-                    elif nxt not in (';', ',', ')', ']', '.'):
+                    elif nxt != '(' and nxt not in (';', ',', ')', ']', '.'):
                         rest = glued[j : j + 48]
                         stmt_head = bool(
                             re.match(
@@ -279,7 +317,13 @@ def _densify_minified_ascii_c_line(line: str) -> str:
                                 rest,
                             )
                         )
-                        if stmt_head:
+                        glued_stmt = bool(
+                            re.match(r'^[A-Za-z_]\w*\s*=', rest)
+                            or re.match(r'^[A-Za-z_]\w*\s*\+\+', rest)
+                            or re.match(r'^[A-Za-z_]\w*\s*--', rest)
+                            or re.match(r'^[A-Za-z_]\w*\s*;', rest)
+                        )
+                        if stmt_head or glued_stmt:
                             while i < j:
                                 out.append(glued[i])
                                 i += 1
@@ -347,6 +391,18 @@ def _expand_dense_c_code_for_display(code: str) -> str:
 
 def _is_bengali_text(line: str) -> bool:
     return bool(_BENGALI_RE.search(line))
+
+
+def _is_bengali_narrative_only_line(trimmed: str) -> bool:
+    if not _is_bengali_text(trimmed):
+        return False
+    if re.search(
+        r'#\s*include\b|\bmain\s*\(|\b(int|char|void|float|double|short|long|unsigned|signed|static|const|struct|union|enum|return|for|if|else|while|do|switch|case|default|break|continue|goto|sizeof|typedef|extern|auto|register)\b|\b(printf|scanf|clrscr|getch)\b|print\s*f|scan\s*f|\bprint\s*\(|\bscan\s*\(',
+        trimmed,
+        re.I,
+    ):
+        return False
+    return True
 
 
 def _is_creative_bn_subpart_line(line: str) -> bool:
@@ -451,14 +507,19 @@ def _split_extracted_code_into_c_and_bn_segments(
 
 
 def _is_code_anchor_line(line: str) -> bool:
-    return bool(
-        re.search(r'#\s*include\b', line, re.I)
-        or re.search(
-            r'\b(main|printf|scanf|clrscr|getch|print\s*f|scan\s*f|print|scan)\s*\(',
-            line,
-            re.I,
-        )
-    )
+    if re.search(r'#\s*include\b', line, re.I):
+        return True
+    if re.search(
+        r'\b(main|printf|scanf|clrscr|getch|print\s*f|scan\s*f|print|scan)\s*\(',
+        line,
+        re.I,
+    ):
+        return True
+    if re.search(r';\s*(?:for|while|if)\s*\(', line, re.I):
+        return True
+    if re.search(r'^\s*(?:for|while|if)\s*\(', line, re.I):
+        return True
+    return False
 
 
 def _is_program_adjacent_line(line: str) -> bool:
@@ -565,9 +626,18 @@ def _format_c_program(code: str) -> str:
             if out and out[-1] != '':
                 out.append('')
             continue
+        if _is_bengali_narrative_only_line(trimmed):
+            out.append(trimmed)
+            indent = 0
+            pending_braceless = None
+            continue
         if pending_braceless is not None:
             base, header = pending_braceless
             pending_braceless = None
+            if _is_bengali_narrative_only_line(trimmed):
+                out.append(trimmed)
+                indent = 0
+                continue
             body_indent = _braceless_single_stmt_indent_level(base, header)
             out.append('%s%s' % ('    ' * body_indent, trimmed))
             if trimmed.startswith('#'):
