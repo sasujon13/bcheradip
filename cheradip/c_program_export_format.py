@@ -247,6 +247,7 @@ def _pre_break_common_glued_typos(line: str) -> str:
     s = re.sub(r'"\)\s*Print\s+f', '");\nPrint f', s, flags=re.I)
     s = re.sub(r'"\)\s*printf\s*\(', '");\nprintf(', s, flags=re.I)
     s = re.sub(r'="\s*(?=scanf)', '=";\n', s, flags=re.I)
+    s = re.sub(r'\(\\n\s+', '(', s)
     return s
 
 
@@ -939,7 +940,7 @@ def _format_c_program(code: str) -> str:
             continue
         indent = line_indent
     text = '\n'.join(out)
-    text = re.sub(r'\n{3,}', '\n\n', text)
+    text = re.sub(r'\n{2,}', '\n', text)
     return text.strip()
 
 
