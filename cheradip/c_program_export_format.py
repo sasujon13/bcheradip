@@ -713,7 +713,20 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
         return raw if raw is not None else ''
 
     code_line_count = len([ln for ln in code_only_joined.split('\n') if ln.strip()])
-    if not _has_include_anchor(code_only_joined) and _has_io_anchor(code_only_joined) and code_line_count <= 4:
+    # Short printf/scanf-only fragments (no #include) stay plain; full `main` programs always get the code block.
+    looks_like_full_main = bool(
+        re.search(
+            r'\b(?:void|int|char|float|double|long|short|unsigned|static)\s+main\s*\(|\bmain\s*\(',
+            code_only_joined,
+            re.I,
+        )
+    )
+    if (
+        not _has_include_anchor(code_only_joined)
+        and _has_io_anchor(code_only_joined)
+        and code_line_count <= 4
+        and not looks_like_full_main
+    ):
         return raw if raw is not None else ''
 
     merged_before = '\n'.join(x for x in ([before] + leading_bn) if (x or '').strip()).strip()
