@@ -94,7 +94,7 @@ def _line_has_reflowable_c_anchors(ct: str) -> bool:
     if _has_io_anchor(ct) or re.search(r'#\s*include\b', ct, re.I):
         return True
     if re.search(
-        r'\b(main|printf|scanf|clrscr|getch)\s*\(',
+        r'\b(main|printf|scanf|print\s*f|scan\s*f|clrscr|getch)\s*\(',
         ct,
         re.I,
     ):
@@ -231,8 +231,29 @@ def _insert_newlines_before_glued_io_calls(line: str) -> str:
     return ''.join(out)
 
 
+def _pre_break_common_glued_typos(line: str) -> str:
+    t = line.strip()
+    if len(t) < 24:
+        return line
+    s = line
+    s = re.sub(
+        r';(?=\s*(?:Scan\s+f|Print\s+f|Printf|scanf|printf|for\s*\(\)))',
+        ';\n',
+        s,
+        flags=re.I,
+    )
+    s = re.sub(r'"\)\s*Scan\s+f', '");\nScan f', s, flags=re.I)
+    s = re.sub(r'"\)\s*scanf\s*\(', '");\nscanf(', s, flags=re.I)
+    s = re.sub(r'"\)\s*Print\s+f', '");\nPrint f', s, flags=re.I)
+    s = re.sub(r'"\)\s*printf\s*\(', '");\nprintf(', s, flags=re.I)
+    s = re.sub(r'="\s*(?=scanf)', '=";\n', s, flags=re.I)
+    return s
+
+
 def _densify_minified_ascii_c_line(line: str) -> str:
-    glued = _insert_newlines_before_glued_io_calls(_break_glued_include_and_following_word(line))
+    glued = _insert_newlines_before_glued_io_calls(
+        _pre_break_common_glued_typos(_break_glued_include_and_following_word(line))
+    )
     out: list[str] = []
     i = 0
     n = len(glued)
@@ -308,7 +329,7 @@ def _densify_minified_ascii_c_line(line: str) -> str:
                         rest = glued[j : j + 48]
                         stmt_head = bool(
                             re.match(
-                                r'^(continue|break|return|if|for|while|switch|do|printf|scanf|sizeof)\b',
+                                r'^(continue|break|return|if|for|while|switch|do|printf|scanf|print\s*f|scan\s*f|sizeof)\b',
                                 rest,
                                 re.I,
                             )
@@ -333,12 +354,8 @@ def _densify_minified_ascii_c_line(line: str) -> str:
             out.append(';')
             i += 1
             while i < n and glued[i] in ' \t':
-                out.append(glued[i])
                 i += 1
-            if i < n and glued[i] == '}':
-                out.append('\n')
-                continue
-            if i < n and not re.match(r'^[)\]}]', glued[i]):
+            if i < n:
                 out.append('\n')
             continue
         if c == '{':
@@ -361,6 +378,102 @@ def _densify_minified_ascii_c_line(line: str) -> str:
     return ''.join(out).rstrip()
 
 
+def _heuristic_split_line_respecting_strings_and_parens(line: str) -> str:
+    """Split `;stmt` when densify missed; respects strings, comments, and `()` depth."""
+    out: list[str] = []
+    i = 0
+    n = len(line)
+    paren = 0
+    in_str: str | None = None
+    line_comment = False
+    block_comment = False
+    while i < n:
+        c = line[i]
+        nxt = line[i + 1] if i + 1 < n else ''
+        if line_comment:
+            out.append(c)
+            if c in '\r\n':
+                line_comment = False
+            i += 1
+            continue
+        if block_comment:
+            if c == '*' and nxt == '/':
+                out.append('*/')
+                i += 2
+                block_comment = False
+            else:
+                out.append(c)
+                i += 1
+            continue
+        if in_str:
+            if c == '\\' and i + 1 < n:
+                out.append(c)
+                out.append(line[i + 1])
+                i += 2
+                continue
+            if c == in_str:
+                in_str = None
+            out.append(c)
+            i += 1
+            continue
+        if c == '/' and nxt == '/':
+            out.append('//')
+            i += 2
+            line_comment = True
+            continue
+        if c == '/' and nxt == '*':
+            out.append('/*')
+            i += 2
+            block_comment = True
+            continue
+        if c in '"\'':
+            in_str = c
+            out.append(c)
+            i += 1
+            continue
+        if c == '(':
+            paren += 1
+            out.append(c)
+            i += 1
+            continue
+        if c == ')':
+            paren_before = paren
+            paren = max(0, paren - 1)
+            out.append(c)
+            i += 1
+            if paren_before > 0 and paren == 0:
+                j = i
+                while j < n and line[j] in ' \t':
+                    j += 1
+                if j < n:
+                    rest = line[j:]
+                    if re.match(r'^[A-Za-z_]\w*\s*=', rest):
+                        out.append('\n')
+                        i = j
+                        continue
+            continue
+        if c == ';' and paren == 0:
+            out.append(';')
+            i += 1
+            j = i
+            while j < n and line[j] in ' \t':
+                j += 1
+            if j < n:
+                out.append('\n')
+                i = j
+                continue
+            i = j
+            continue
+        out.append(c)
+        i += 1
+    return ''.join(out)
+
+
+def _heuristic_split_glued_c_statements(text: str) -> str:
+    lines = (text or '').replace('\r\n', '\n').replace('\r', '\n').split('\n')
+    return '\n'.join(_heuristic_split_line_respecting_strings_and_parens(ln) for ln in lines)
+
+
 def _expand_dense_c_code_for_display(code: str) -> str:
     lines = (code or '').replace('\r\n', '\n').replace('\r', '\n').split('\n')
     out: list[str] = []
@@ -370,7 +483,11 @@ def _expand_dense_c_code_for_display(code: str) -> str:
             out.append(raw)
             continue
         has_include_or_main = bool(
-            re.search(r'#\s*include\b|\b(main|printf|scanf)\s*\(', raw, re.I)
+            re.search(
+                r'#\s*include\b|\b(main|printf|scanf|print\s*f|scan\s*f)\s*\(',
+                raw,
+                re.I,
+            )
         )
         if _is_bengali_text(raw) and not has_include_or_main:
             out.append(raw)
@@ -383,7 +500,11 @@ def _expand_dense_c_code_for_display(code: str) -> str:
                     out.append(chunk)
                 continue
             if _should_reflow_c_layout(ct, chunk):
-                out.append(_densify_minified_ascii_c_line(ct))
+                out.append(
+                    _heuristic_split_glued_c_statements(_densify_minified_ascii_c_line(ct))
+                )
+            elif len(ct) >= 50 and chunk.count(';') >= 2:
+                out.append(_heuristic_split_glued_c_statements(_pre_break_common_glued_typos(chunk)))
             else:
                 out.append(chunk)
     return '\n'.join(out)
@@ -439,6 +560,53 @@ _C_LINE_START_RE = re.compile(
 )
 
 
+def _index_of_first_bengali_outside_strings(s: str) -> int:
+    i = 0
+    n = len(s)
+    in_str: str | None = None
+    line_comment = False
+    block_comment = False
+    while i < n:
+        c = s[i]
+        nxt = s[i + 1] if i + 1 < n else ''
+        if line_comment:
+            if c in '\r\n':
+                line_comment = False
+            i += 1
+            continue
+        if block_comment:
+            if c == '*' and nxt == '/':
+                i += 2
+                block_comment = False
+            else:
+                i += 1
+            continue
+        if in_str:
+            if c == '\\' and i + 1 < n:
+                i += 2
+                continue
+            if c == in_str:
+                in_str = None
+            i += 1
+            continue
+        if c == '/' and nxt == '/':
+            i += 2
+            line_comment = True
+            continue
+        if c == '/' and nxt == '*':
+            i += 2
+            block_comment = True
+            continue
+        if c in '"\'':
+            in_str = c
+            i += 1
+            continue
+        if '\u0980' <= c <= '\u09ff':
+            return i
+        i += 1
+    return -1
+
+
 def _peel_bengali_around_c_on_line(line: str) -> tuple[str, str, str]:
     """Return (before_bn, c_only, after_bn) for one physical line."""
     raw = line
@@ -470,6 +638,14 @@ def _peel_bengali_around_c_on_line(line: str) -> tuple[str, str, str]:
         if tail.strip() and _is_bengali_text(tail):
             after = tail.strip()
             s = s[: lb + 1]
+    if _is_bengali_text(s) and _C_LINE_START_RE.search(s):
+        bn_idx = _index_of_first_bengali_outside_strings(s)
+        if bn_idx >= 0:
+            tail2 = s[bn_idx:].strip()
+            head2 = s[:bn_idx].rstrip()
+            if tail2 and _is_bengali_text(tail2) and head2 and re.search(r'[;{})]\s*$', head2):
+                merged = '\n'.join(x for x in (after, tail2) if (x or '').strip())
+                return (before, head2, merged)
     return (before, s, after)
 
 
@@ -540,6 +716,83 @@ def _is_program_adjacent_line(line: str) -> bool:
     )
 
 
+def _net_brace_delta_ignoring_strings_and_line_comments(line: str) -> int:
+    delta = 0
+    i = 0
+    n = len(line)
+    in_str: str | None = None
+    line_comment = False
+    block_comment = False
+    while i < n:
+        c = line[i]
+        nxt = line[i + 1] if i + 1 < n else ''
+        if line_comment:
+            if c in '\r\n':
+                line_comment = False
+            i += 1
+            continue
+        if block_comment:
+            if c == '*' and nxt == '/':
+                i += 2
+                block_comment = False
+            else:
+                i += 1
+            continue
+        if in_str:
+            if c == '\\' and i + 1 < n:
+                i += 2
+                continue
+            if c == in_str:
+                in_str = None
+            i += 1
+            continue
+        if c == '/' and nxt == '/':
+            i += 2
+            line_comment = True
+            continue
+        if c == '/' and nxt == '*':
+            i += 2
+            block_comment = True
+            continue
+        if c in '"\'':
+            in_str = c
+            i += 1
+            continue
+        if c == '{':
+            delta += 1
+        elif c == '}':
+            delta -= 1
+        i += 1
+    return delta
+
+
+def _cumulative_brace_depth(lines: list[str], from_idx: int, to_idx_inclusive: int) -> int:
+    d = 0
+    hi = min(to_idx_inclusive, len(lines) - 1)
+    for k in range(from_idx, hi + 1):
+        d += _net_brace_delta_ignoring_strings_and_line_comments(lines[k])
+    return d
+
+
+def _is_bn_line_excluded_from_code(line: str) -> bool:
+    t = line.strip()
+    if not t:
+        return False
+    if _is_bengali_narrative_only_line(t):
+        return True
+    if _is_bengali_text(t) and not _is_code_anchor_line(line):
+        if re.search(r'#\s*include\b', line, re.I):
+            return False
+        if re.search(
+            r'\b(?:int|void|char|float|double|short|long|unsigned|static|struct|return|for|while|if|else|switch|case)\b',
+            t,
+            re.I,
+        ):
+            return False
+        return True
+    return False
+
+
 def _extract_program_block(
     input_text: str,
 ) -> tuple[str, str, str] | None:
@@ -553,6 +806,24 @@ def _extract_program_block(
         start -= 1
     while end < len(lines) - 1 and _is_program_adjacent_line(lines[end + 1]):
         end += 1
+    while end < len(lines) - 1:
+        nxt = lines[end + 1]
+        if _is_creative_bn_subpart_line(nxt):
+            break
+        t = nxt.strip()
+        if _is_program_adjacent_line(nxt):
+            end += 1
+            continue
+        depth = _cumulative_brace_depth(lines, start, end)
+        if not t:
+            if depth > 0:
+                end += 1
+                continue
+            break
+        if depth > 0 and _is_bn_line_excluded_from_code(nxt):
+            end += 1
+            continue
+        break
     code_lines = lines[start : end + 1]
     if not any(_is_code_anchor_line(ln) for ln in code_lines):
         return None
@@ -677,6 +948,22 @@ def _encode_code_html(code: str) -> str:
     return '<br />'.join(parts)
 
 
+def _guess_c_source_file_ref(raw: str, formatted_line_count: int) -> str:
+    m = re.search(r'\b([A-Za-z_][\w.-]*\.c)\b', raw or '', re.I)
+    base = m.group(1) if m else 'program'
+    n = max(1, formatted_line_count)
+    return '@%s (1-%d)' % (base, n)
+
+
+def _ensure_newline_before_creative_paren_markers(code: str) -> str:
+    s = code or ''
+    s = re.sub(r'\}\s*(\(ক\))', r'}\n\1', s)
+    s = re.sub(r'\}\s*(\(খ\))', r'}\n\1', s)
+    s = re.sub(r'\}\s*(\(গ\))', r'}\n\1', s)
+    s = re.sub(r'\}\s*(\(ঘ\))', r'}\n\1', s)
+    return s
+
+
 def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) -> str:
     """
     If text looks like a C program question, wrap the program in formatted output.
@@ -696,7 +983,8 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
     if not code:
         return raw if raw is not None else ''
 
-    code, after = _detach_creative_tail_from_code(code, after)
+    code_for_detach = _ensure_newline_before_creative_paren_markers(code.strip())
+    code, after = _detach_creative_tail_from_code(code_for_detach, after)
     if not code.strip():
         return raw if raw is not None else ''
 
@@ -736,9 +1024,12 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
             formatted = _format_c_program(seg)
             if (formatted or '').strip():
                 if emit_html:
+                    line_count = len([ln for ln in formatted.split('\n') if ln.strip()])
+                    ref = _guess_c_source_file_ref(input_s, line_count)
+                    with_ref = '%s\n%s' % (ref, formatted)
                     middle_parts.append(
                         '<span class="q-code-block"><code>%s</code></span>'
-                        % _encode_code_html(formatted)
+                        % _encode_code_html(with_ref)
                     )
                 else:
                     middle_parts.append(formatted)
