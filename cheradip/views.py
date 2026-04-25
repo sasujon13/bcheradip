@@ -2001,9 +2001,12 @@ class ExportQuestionsView(APIView):
         q_font_global = num(pick('previewQuestionsFontPx', 16), 16)
         q_font_cq = num(pick('previewQuestionsFontPxCreative', q_font_global), q_font_global)
         q_font_mcq = num(pick('previewQuestionsFontPxMcq', q_font_global), q_font_global)
+        # Preview keeps a legacy global min font for fallback; PDF body inheritance must not get pinned to min.
+        q_font_body = max(q_font_cq, q_font_mcq)
         q_lh_global = num(pick('previewQuestionsLineHeight', 1.4), 1.4)
         q_lh_cq = num(pick('previewQuestionsLineHeightCreative', q_lh_global), q_lh_global)
         q_lh_mcq = num(pick('previewQuestionsLineHeightMcq', q_lh_global), q_lh_global)
+        q_lh_body = max(q_lh_cq, q_lh_mcq)
         h_lh = num(pick('previewHeaderLineHeight', 1.25), 1.25)
         q_pad = max(0, num(pick('questionsPadding', 2), 2))
         q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
@@ -2291,8 +2294,12 @@ class ExportQuestionsView(APIView):
         header_html_mcq = compile_playwright_header_html(qh_mcq)
 
         def is_creative(q):
-            t = str((q or {}).get('type') or '').strip().lower()
-            return ('সৃজন' in t) or ('creative' in t)
+            t = str((q or {}).get('type') or '').strip()
+            return bool(t) and ('সৃজনশীল' in t or t == 'সৃজনশীল')
+
+        def is_mcq_type(q):
+            t = str((q or {}).get('type') or '').strip()
+            return bool(t) and ('বহুনির্বাচনি' in t or t == 'বহুনির্বাচনি')
 
         creative_questions = []
         mcq_questions = []
@@ -2399,10 +2406,15 @@ class ExportQuestionsView(APIView):
                 else:
                     qq = q if isinstance(q, dict) else {}
                 creative = is_creative(qq)
+                mcq = is_mcq_type(qq)
                 qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
-                fz = q_font_cq if creative else q_font_mcq
-                q_lh = q_lh_cq if creative else q_lh_mcq
-                q_gap = q_gap_cq if creative else q_gap_mcq
+                if creative:
+                    fz, q_lh, q_gap = q_font_cq, q_lh_cq, q_gap_cq
+                elif mcq:
+                    fz, q_lh, q_gap = q_font_mcq, q_lh_mcq, q_gap_mcq
+                else:
+                    # Unknown types match preview fallback (legacy global fields).
+                    fz, q_lh, q_gap = q_font_global, q_lh_global, q_gap_mcq
                 style = (
                     'font-size: %.2fpx; '
                     '--preview-question-lh: %.3f; '
@@ -2774,8 +2786,8 @@ class ExportQuestionsView(APIView):
     html, body {{ margin: 0; padding: 0; }}
     body {{
       font-family: "Roboto", sans-serif;
-      font-size: {q_font_global:.2f}px;
-      line-height: {q_lh_global:.3f};
+      font-size: {q_font_body:.2f}px;
+      line-height: {q_lh_body:.3f};
       color: #111;
     }}
     {paper_page_rule_css}
@@ -3301,8 +3313,8 @@ class ExportQuestionsView(APIView):
         docx_usable_width = section.page_width - section.left_margin - section.right_margin
 
         def docx_is_creative(qq):
-            t = str((qq or {}).get('type') or '').strip().lower()
-            return ('সৃজন' in t) or ('creative' in t)
+            t = str((qq or {}).get('type') or '').strip()
+            return bool(t) and ('সৃজনশীল' in t or t == 'সৃজনশীল')
 
         def docx_question_display_text(raw_text):
             s = str(raw_text or '').strip()
