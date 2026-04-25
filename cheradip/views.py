@@ -2394,6 +2394,9 @@ class ExportQuestionsView(APIView):
 
         def render_items_html(items, start_num=1):
             out = []
+            def has_rich_media_text(v):
+                t = str(v or '').lower()
+                return ('[img]' in t) or ('<img' in t) or ('/media/' in t)
             for idx, q in enumerate(items):
                 i = start_num + idx
                 item_idx = None
@@ -2408,6 +2411,12 @@ class ExportQuestionsView(APIView):
                 creative = is_creative(qq)
                 mcq = is_mcq_type(qq)
                 qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
+                has_rich_media = any(
+                    has_rich_media_text(qq.get(k))
+                    for k in ('question', 'option_1', 'option_2', 'option_3', 'option_4')
+                )
+                if has_rich_media:
+                    qcls += ' q-has-img'
                 if creative:
                     fz, q_lh, q_gap = q_font_cq, q_lh_cq, q_gap_cq
                 elif mcq:
@@ -3031,6 +3040,10 @@ class ExportQuestionsView(APIView):
       color: #333;
       margin-top: 0;
       box-sizing: border-box;
+    }}
+    .q-item.q-has-img .q-text,
+    .q-item.q-has-img .q-subpart {{
+      letter-spacing: normal;
     }}
     .q-options {{
       margin-top: 3px;
