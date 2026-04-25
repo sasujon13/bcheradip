@@ -2953,7 +2953,7 @@ class ExportQuestionsView(APIView):
     .q-content {{
       min-width: 0;
       width: 100%;
-      text-align: start;
+      text-align: justify;
       position: relative;
       padding-right: 2px;
       box-sizing: border-box;
@@ -2969,12 +2969,13 @@ class ExportQuestionsView(APIView):
     }}
     .q-text {{
       display: block;
-      overflow: hidden;
+      overflow: visible;
       min-width: 0;
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
+      white-space: pre-line;
+      letter-spacing: 0.1px;
       color: #333;
-      text-align: start;
     }}
     .topic-question-line {{
       display: block;
@@ -3003,11 +3004,11 @@ class ExportQuestionsView(APIView):
       padding-left: var(--preview-q-bn-paren-inset, 18px);
       text-indent: calc(0px - var(--preview-q-bn-paren-inset, 18px));
     }}
-    .q-stem-with-parts {{ display: flow-root; margin-bottom: 2px; }}
-    .q-intro {{ display: block; overflow: hidden; min-width: 0; }}
+    .q-stem-with-parts {{ display: flow-root; margin-bottom: 4px; }}
+    .q-intro {{ display: block; overflow: visible; min-width: 0; }}
     .q-subpart-wrap {{
       position: relative;
-      margin-top: 0;
+      margin-top: 2px;
       box-sizing: border-box;
       clear: both;
     }}
@@ -3025,11 +3026,11 @@ class ExportQuestionsView(APIView):
     .q-subpart {{
       padding-left: var(--preview-q-subpart-pl, 14px);
       font-size: 1em;
-      line-height: var(--preview-question-lh, 1.4);
+      line-height: 1.4;
+      letter-spacing: 0.1px;
       color: #333;
       margin-top: 0;
       box-sizing: border-box;
-      text-align: start;
     }}
     .q-options {{
       margin-top: 3px;
@@ -3045,8 +3046,10 @@ class ExportQuestionsView(APIView):
       gap: 4px 1.5em;
       align-items: start;
       justify-content: start;
-      break-inside: auto;
-      page-break-inside: auto;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      -moz-column-break-inside: avoid;
     }}
     .q-opt {{
       display: block;
@@ -3055,7 +3058,7 @@ class ExportQuestionsView(APIView):
       padding-left: 16px;
       text-indent: -16px;
       box-sizing: border-box;
-      text-align: start;
+      text-align: left;
       line-height: var(--preview-question-lh, 1.4);
     }}
     .q-opt-html {{
