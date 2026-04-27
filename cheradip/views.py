@@ -1681,6 +1681,7 @@ def _export_wrap_mcq_line_html(text, host_base):
 _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
 <script>
 (function(){
+  var EXPORT_PDF_RICH_IMG_SCALE=0.9;
   function maxFromFont(px){
     var n=parseFloat(px);
     if(!isFinite(n)||n<=0)return 240;
@@ -1689,7 +1690,8 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     return Math.min(480,raw);
   }
   function apply(img){
-    var MAX=maxFromFont(getComputedStyle(img).fontSize);
+    var maxCap=maxFromFont(getComputedStyle(img).fontSize);
+    var MAX=Math.round(maxCap*EXPORT_PDF_RICH_IMG_SCALE);
     var w=img.naturalWidth,h=img.naturalHeight;
     if(!w||!h){
       img.style.maxWidth='min('+MAX+'px, 100%)';
@@ -1702,7 +1704,7 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     img.style.removeProperty('height');
     img.style.removeProperty('max-width');
     img.style.removeProperty('max-height');
-    if(w<=MAX&&h<=MAX){
+    if(w<=maxCap&&h<=maxCap){
       img.style.width='auto';
       img.style.height='auto';
       img.style.maxWidth='min('+MAX+'px, 100%)';
@@ -2377,6 +2379,8 @@ class ExportQuestionsView(APIView):
 
         serial_raw = pick('previewSerialByIndex', {})
         serial_by_index = serial_raw if isinstance(serial_raw, dict) else {}
+        q_opt_hang = num(pick('previewQOptHangPx', 16), 16)
+        q_roman_indent = num(pick('previewQRomanIndentPx', 10), 10)
 
         def item_serial(item_idx, fallback_num):
             if item_idx is None:
@@ -2394,9 +2398,6 @@ class ExportQuestionsView(APIView):
 
         def render_items_html(items, start_num=1):
             out = []
-            def has_rich_media_text(v):
-                t = str(v or '').lower()
-                return ('[img]' in t) or ('<img' in t) or ('/media/' in t)
             for idx, q in enumerate(items):
                 i = start_num + idx
                 item_idx = None
@@ -2411,12 +2412,6 @@ class ExportQuestionsView(APIView):
                 creative = is_creative(qq)
                 mcq = is_mcq_type(qq)
                 qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
-                has_rich_media = any(
-                    has_rich_media_text(qq.get(k))
-                    for k in ('question', 'option_1', 'option_2', 'option_3', 'option_4')
-                )
-                if has_rich_media:
-                    qcls += ' q-has-img'
                 if creative:
                     fz, q_lh, q_gap = q_font_cq, q_lh_cq, q_gap_cq
                 elif mcq:
@@ -2429,10 +2424,26 @@ class ExportQuestionsView(APIView):
                     '--preview-question-lh: %.3f; '
                     '--preview-q-bn-paren-inset: %.2fpx; '
                     '--preview-q-subpart-pl: %.2fpx; '
+                    '--preview-q-opt-hang: %.2fpx; '
+                    '--preview-q-roman-indent: %.2fpx; '
+                    '--preview-q-opt-row-gap: %.2fpx; '
+                    '--preview-q-opt-col-gap: %.2fpx; '
                     'padding-top: %.2fpx; '
                     'padding-bottom: %.2fpx; '
                     'margin-bottom: %.2fpx;'
-                ) % (fz, q_lh, 2 * fz - 2, 2 * fz - 4, q_pad, q_pad, q_gap)
+                ) % (
+                    fz,
+                    q_lh,
+                    2 * fz - 2,
+                    2 * fz - 4,
+                    q_opt_hang,
+                    q_roman_indent,
+                    max(2, round((4 * fz) / 14.0)),
+                    max(10, round((21 * fz) / 14.0)),
+                    q_pad,
+                    q_pad,
+                    q_gap,
+                )
 
                 q_prepared = format_maybe_c_program_question_text(qq.get('question') or '', emit_html=True)
                 struct = question_display_structure(q_prepared, creative)
@@ -2983,7 +2994,6 @@ class ExportQuestionsView(APIView):
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       white-space: pre-line;
-      letter-spacing: 0.1px;
       color: #333;
     }}
     .topic-question-line {{
@@ -3006,8 +3016,8 @@ class ExportQuestionsView(APIView):
       display: inline;
     }}
     .topic-question-line.topic-question-roman-line {{
-      padding-left: 10px;
-      text-indent: -10px;
+      padding-left: var(--preview-q-roman-indent, 10px);
+      text-indent: calc(0px - var(--preview-q-roman-indent, 10px));
     }}
     .topic-question-line.topic-question-bn-paren-line {{
       padding-left: var(--preview-q-bn-paren-inset, 18px);
@@ -3035,15 +3045,10 @@ class ExportQuestionsView(APIView):
     .q-subpart {{
       padding-left: var(--preview-q-subpart-pl, 14px);
       font-size: 1em;
-      line-height: 1.4;
-      letter-spacing: 0.1px;
+      line-height: var(--preview-question-lh, 1.4);
       color: #333;
       margin-top: 0;
       box-sizing: border-box;
-    }}
-    .q-item.q-has-img .q-text,
-    .q-item.q-has-img .q-subpart {{
-      letter-spacing: normal;
     }}
     .q-options {{
       margin-top: 3px;
@@ -3056,7 +3061,7 @@ class ExportQuestionsView(APIView):
       color: #555;
       display: grid;
       grid-template-columns: repeat({options_cols}, minmax(0, 1fr));
-      gap: 4px 1.5em;
+      gap: var(--preview-q-opt-row-gap, 4px) var(--preview-q-opt-col-gap, 1.5em);
       align-items: start;
       justify-content: start;
       break-inside: avoid;
@@ -3068,8 +3073,8 @@ class ExportQuestionsView(APIView):
       display: block;
       white-space: normal;
       min-width: 0;
-      padding-left: 16px;
-      text-indent: -16px;
+      padding-left: var(--preview-q-opt-hang, 16px);
+      text-indent: calc(0px - var(--preview-q-opt-hang, 16px));
       box-sizing: border-box;
       text-align: left;
       line-height: var(--preview-question-lh, 1.4);
