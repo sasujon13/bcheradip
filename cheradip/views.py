@@ -34,7 +34,7 @@ from io import BytesIO
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-import logging, random, string, json, requests, os, re, csv, time, zipfile
+import logging, random, string, json, requests, os, re, csv, time, zipfile, math
 from html import escape, unescape
 from urllib import parse as urllib_parse
 from urllib.parse import quote, unquote
@@ -2013,6 +2013,14 @@ class ExportQuestionsView(APIView):
         q_pad = max(0, num(pick('questionsPadding', 2), 2))
         q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
         q_gap_cq = max(0, num(pick('questionsGapCreative', 4), 4))
+        # Keep rounding parity with frontend Math.round (Python round uses banker's rounding).
+        def jround(x):
+            try:
+                v = float(x)
+            except Exception:
+                v = 0.0
+            return int(math.floor(v + 0.5))
+
         # @page bottom margin: 0 for CQ and MCQ (max printable height; avoids tiny splits).
         # Top/left/right still use user margins. Preview: CQ subtract / MCQ +0.25" — client only.
         margin_bottom_cq = 0.0
@@ -2299,10 +2307,6 @@ class ExportQuestionsView(APIView):
             t = str((q or {}).get('type') or '').strip()
             return bool(t) and ('সৃজনশীল' in t or t == 'সৃজনশীল')
 
-        def is_mcq_type(q):
-            t = str((q or {}).get('type') or '').strip()
-            return bool(t) and ('বহুনির্বাচনি' in t or t == 'বহুনির্বাচনি')
-
         creative_questions = []
         mcq_questions = []
         for idx, q in enumerate(questions):
@@ -2408,15 +2412,12 @@ class ExportQuestionsView(APIView):
                 else:
                     qq = q if isinstance(q, dict) else {}
                 creative = is_creative(qq)
-                mcq = is_mcq_type(qq)
                 qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
                 if creative:
                     fz, q_lh, q_gap = q_font_cq, q_lh_cq, q_gap_cq
-                elif mcq:
-                    fz, q_lh, q_gap = q_font_mcq, q_lh_mcq, q_gap_mcq
                 else:
-                    # Unknown types match preview fallback (legacy global fields).
-                    fz, q_lh, q_gap = q_font_global, q_lh_global, q_gap_mcq
+                    # Non-creative: MCQ pages; keep dynamic line-height directly from preview payload.
+                    fz, q_lh, q_gap = q_font_mcq, q_lh_mcq, q_gap_mcq
                 style = (
                     'font-size: %.2fpx; '
                     '--preview-question-lh: %.3f; '
@@ -2438,14 +2439,14 @@ class ExportQuestionsView(APIView):
                     q_lh,
                     2 * fz - 2,
                     2 * fz - 4,
-                    max(8, round((16 * fz) / 14.0)),
-                    max(6, round((10 * fz) / 14.0)),
-                    max(2, round((4 * fz) / 14.0)),
-                    max(10, round((21 * fz) / 14.0)),
-                    max(1, round((2 * fz) / 14.0)),
-                    max(1, round((4 * fz) / 14.0)),
-                    max(0, round((2 * fz) / 14.0)),
-                    max(1, round((3 * fz) / 14.0)),
+                    max(8, jround((16 * fz) / 14.0)),
+                    max(6, jround((10 * fz) / 14.0)),
+                    max(2, jround((4 * fz) / 14.0)),
+                    max(10, jround((21 * fz) / 14.0)),
+                    max(1, jround((2 * fz) / 14.0)),
+                    max(1, jround((4 * fz) / 14.0)),
+                    max(0, jround((2 * fz) / 14.0)),
+                    max(1, jround((3 * fz) / 14.0)),
                     q_pad,
                     q_pad,
                     q_gap,
@@ -2814,6 +2815,7 @@ class ExportQuestionsView(APIView):
       font-family: "Roboto", sans-serif;
       font-size: {q_font_body:.2f}px;
       line-height: {q_lh_body:.3f};
+      --q-font-stack: "Roboto", "Noto Serif Bengali", "Bengali Serif", sans-serif;
       color: #111;
     }}
     {paper_page_rule_css}
@@ -2989,6 +2991,7 @@ class ExportQuestionsView(APIView):
     .q-label {{ display: flow-root; margin: 0; }}
     .qn {{
       float: left;
+      font-family: var(--q-font-stack);
       font-weight: 700;
       margin-right: 0.2em;
       line-height: var(--preview-question-lh, 1.4);
@@ -2997,6 +3000,7 @@ class ExportQuestionsView(APIView):
       display: block;
       overflow: visible;
       min-width: 0;
+      font-family: var(--q-font-stack);
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       white-space: pre-line;
@@ -3004,6 +3008,7 @@ class ExportQuestionsView(APIView):
     }}
     .topic-question-line {{
       display: block;
+      font-family: var(--q-font-stack);
       box-sizing: border-box;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
@@ -3044,12 +3049,14 @@ class ExportQuestionsView(APIView):
       position: absolute;
       right: 0;
       bottom: 0;
+      font-family: var(--q-font-stack);
       line-height: var(--preview-question-lh, 1.4);
       font-size: 1em;
       color: #333;
     }}
     .q-subpart {{
       padding-left: var(--preview-q-subpart-pl, 1.7143em);
+      font-family: var(--q-font-stack);
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       color: #333;
@@ -3083,9 +3090,11 @@ class ExportQuestionsView(APIView):
       text-indent: calc(0px - var(--preview-q-opt-hang, 1.1429em));
       box-sizing: border-box;
       text-align: left;
+      font-family: var(--q-font-stack);
       line-height: var(--preview-question-lh, 1.4);
     }}
     .q-opt-html {{
+      font-family: var(--q-font-stack);
       line-height: var(--preview-question-lh, 1.4);
     }}
     /* Match fcheradip question-rich-img.shared.css — no frame, transparent (PDF was gray boxed). */
@@ -3131,7 +3140,7 @@ class ExportQuestionsView(APIView):
       vertical-align: middle;
       max-width: 100%;
       box-sizing: border-box;
-      margin: 2px 8px 6px 0;
+      margin: 1px 3px 1px 3px;
     }}
     .q-rich-img-stack .q-rich-img {{
       margin: 0;
