@@ -2815,7 +2815,7 @@ class ExportQuestionsView(APIView):
       font-size: {q_font_body:.2f}px;
       line-height: {q_lh_body:.3f};
       --q-font-stack: "Roboto", "Noto Serif Bengali", "Bengali Serif", sans-serif;
-      color: #111;
+      color: #000;
     }}
     {paper_page_rule_css}
     .paper-break {{ break-before: page; }}
@@ -3006,7 +3006,7 @@ class ExportQuestionsView(APIView):
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       white-space: pre-line;
-      color: #333;
+      color: #000;
     }}
     .topic-question-line {{
       display: block;
@@ -3064,26 +3064,27 @@ class ExportQuestionsView(APIView):
       font-family: var(--q-font-stack);
       line-height: var(--preview-question-lh, 1.4);
       font-size: 1em;
-      color: #333;
+      color: #000;
     }}
     .q-subpart {{
       padding-left: var(--preview-q-subpart-pl, 2.95em);
       font-family: var(--q-font-stack);
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
-      color: #333;
+      color: #000;
       margin-top: 0;
       box-sizing: border-box;
     }}
     .q-options {{
+      /* font-size 1em here so --preview-q-subpart-pl (2.95em) matches stem / CQ subpart; option text size on .q-opt */
       margin-top: var(--preview-q-opt-my, 0.2143em);
       margin-bottom: var(--preview-q-opt-my, 0.2143em);
       margin-left: 0;
       padding-left: var(--preview-q-subpart-pl, 2.95em);
       box-sizing: border-box;
-      font-size: calc(13 / 14 * 1em);
+      font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
-      color: #555;
+      color: #000;
       display: grid;
       grid-template-columns: repeat({options_cols}, minmax(0, 1fr));
       gap: var(--preview-q-opt-row-gap, 0.2857em) var(--preview-q-opt-col-gap, 1.5em);
@@ -3103,11 +3104,15 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       text-align: left;
       font-family: var(--q-font-stack);
+      font-size: calc(13 / 14 * 1em);
       line-height: var(--preview-question-lh, 1.4);
+      color: #000;
     }}
     .q-opt-html {{
       font-family: var(--q-font-stack);
+      font-size: inherit;
       line-height: var(--preview-question-lh, 1.4);
+      color: #000;
     }}
     /* Match fcheradip question-rich-img.shared.css — no frame, transparent (PDF was gray boxed). */
     .q-code-block {{
