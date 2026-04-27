@@ -2422,7 +2422,7 @@ class ExportQuestionsView(APIView):
                     'font-size: %.2fpx; '
                     '--preview-question-lh: %.3f; '
                     '--preview-q-bn-paren-inset: %.2fpx; '
-                    '--preview-q-subpart-pl: %.2fpx; '
+                    '--preview-q-subpart-pl: 2.95em; '
                     '--preview-q-opt-hang: %.2fpx; '
                     '--preview-q-roman-indent: %.2fpx; '
                     '--preview-q-opt-row-gap: %.2fpx; '
@@ -2438,7 +2438,6 @@ class ExportQuestionsView(APIView):
                     fz,
                     q_lh,
                     2 * fz - 2,
-                    2 * fz - 4,
                     max(8, jround((16 * fz) / 14.0)),
                     max(6, jround((10 * fz) / 14.0)),
                     max(2, jround((4 * fz) / 14.0)),
@@ -2994,6 +2993,9 @@ class ExportQuestionsView(APIView):
       font-family: var(--q-font-stack);
       font-weight: 700;
       margin-right: 0.2em;
+      min-width: 2.75em;
+      text-align: end;
+      box-sizing: border-box;
       line-height: var(--preview-question-lh, 1.4);
     }}
     .q-text {{
@@ -3055,7 +3057,7 @@ class ExportQuestionsView(APIView):
       color: #333;
     }}
     .q-subpart {{
-      padding-left: var(--preview-q-subpart-pl, 1.7143em);
+      padding-left: var(--preview-q-subpart-pl, 2.95em);
       font-family: var(--q-font-stack);
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
@@ -3067,7 +3069,7 @@ class ExportQuestionsView(APIView):
       margin-top: var(--preview-q-opt-my, 0.2143em);
       margin-bottom: var(--preview-q-opt-my, 0.2143em);
       margin-left: 0;
-      padding-left: var(--preview-q-subpart-pl, 1.7143em);
+      padding-left: var(--preview-q-subpart-pl, 2.95em);
       box-sizing: border-box;
       font-size: calc(13 / 14 * 1em);
       line-height: var(--preview-question-lh, 1.4);
