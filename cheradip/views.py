@@ -2999,7 +2999,7 @@ class ExportQuestionsView(APIView):
       line-height: var(--preview-question-lh, 1.4);
     }}
     .q-text {{
-      display: block;
+      display: flow-root;
       overflow: visible;
       min-width: 0;
       font-family: var(--q-font-stack);
@@ -3017,8 +3017,18 @@ class ExportQuestionsView(APIView):
       white-space: pre-wrap;
       tab-size: 4;
     }}
-    /* MCQ stem/options: block .topic-question-line inside inline .q-opt-html split the line box and dropped text below (ক). */
-    .topic-question-line.topic-question-mcq-inline {{
+    /* MCQ stem/subpart: block like CQ so text lines share the same column beside .qn (min-width). */
+    .q-text .topic-question-line.topic-question-mcq-inline,
+    .q-subpart .topic-question-line.topic-question-mcq-inline {{
+      display: block;
+      margin: 0;
+      line-height: var(--preview-question-lh, 1.4);
+      white-space: pre-wrap;
+      tab-size: 4;
+      box-sizing: border-box;
+    }}
+    /* Options only: keep inline so (ক) and text stay on one line. */
+    .q-opt-html .topic-question-line.topic-question-mcq-inline {{
       display: inline;
       margin: 0;
       line-height: inherit;
