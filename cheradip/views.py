@@ -2807,7 +2807,14 @@ class ExportQuestionsView(APIView):
 <head>
   <meta charset="utf-8" />
   <style>
-    :root {{ --color_primary_black: #000; --color_primary_teal: teal; --color_primary_shadow: rgba(0, 0, 0, 0.15); --color_primary_transparent: rgba(0, 128, 128, 0.12); }}
+    :root {{
+      --color_primary_black: #000;
+      --color_primary_teal: teal;
+      --color_primary_shadow: rgba(0, 0, 0, 0.15);
+      --color_primary_transparent: rgba(0, 128, 128, 0.12);
+      /* ~1px at 14px + em so PDF scales; explicit on text nodes (justify swallows fixed word-spacing in Chromium). */
+      --export-word-spacing: calc(1px + 0.04em);
+    }}
     {local_font_face_css}
     {cq_page_css}{mcq_page_css}
     html, body {{ margin: 0; padding: 0; }}
@@ -2815,6 +2822,7 @@ class ExportQuestionsView(APIView):
       font-family: "Roboto", sans-serif;
       font-size: {q_font_body:.2f}px;
       line-height: {q_lh_body:.3f};
+      word-spacing: var(--export-word-spacing);
       --q-font-stack: "Roboto", "Noto Serif Bengali", "Bengali Serif", sans-serif;
       color: var(--color_primary_black);
     }}
@@ -3008,6 +3016,7 @@ class ExportQuestionsView(APIView):
       line-height: var(--preview-question-lh, 1.4);
       white-space: pre-line;
       color: var(--color_primary_black);
+      word-spacing: var(--export-word-spacing);
     }}
     .topic-question-line {{
       display: block;
@@ -3017,6 +3026,7 @@ class ExportQuestionsView(APIView):
       line-height: var(--preview-question-lh, 1.4);
       white-space: pre-wrap;
       tab-size: 4;
+      word-spacing: var(--export-word-spacing);
     }}
     /* MCQ stem/subpart: block like CQ so text lines share the same column beside .qn (min-width). */
     .q-text .topic-question-line.topic-question-mcq-inline,
@@ -3048,7 +3058,7 @@ class ExportQuestionsView(APIView):
       text-indent: calc(0px - var(--preview-q-bn-paren-inset, 1.2857em));
     }}
     .q-stem-with-parts {{ display: flow-root; margin-bottom: var(--preview-q-stem-mb, 0.2857em); }}
-    .q-intro {{ display: block; overflow: visible; min-width: 0; }}
+    .q-intro {{ display: block; overflow: visible; min-width: 0; word-spacing: var(--export-word-spacing); }}
     .q-subpart-wrap {{
       position: relative;
       margin-top: var(--preview-q-subpart-mt, 0.1429em);
@@ -3075,6 +3085,7 @@ class ExportQuestionsView(APIView):
       color: var(--color_primary_black);
       margin-top: 0;
       box-sizing: border-box;
+      word-spacing: var(--export-word-spacing);
     }}
     .q-options {{
       /* font-size 1em here so --preview-q-subpart-pl (2.95em) matches stem / CQ subpart; option text size on .q-opt */
@@ -3108,12 +3119,14 @@ class ExportQuestionsView(APIView):
       font-size: calc(13 / 14 * 1em);
       line-height: var(--preview-question-lh, 1.4);
       color: var(--color_primary_black);
+      word-spacing: var(--export-word-spacing);
     }}
     .q-opt-html {{
       font-family: var(--q-font-stack);
       font-size: inherit;
       line-height: var(--preview-question-lh, 1.4);
       color: var(--color_primary_black);
+      word-spacing: var(--export-word-spacing);
     }}
     /* Match fcheradip question-rich-img.shared.css — no frame, transparent (PDF was gray boxed). */
     .q-code-block {{
