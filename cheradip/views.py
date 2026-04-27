@@ -2023,10 +2023,10 @@ class ExportQuestionsView(APIView):
                 v = 0.0
             return int(math.floor(v + 0.5))
 
-        # @page bottom margin: 0 for CQ and MCQ (max printable height; avoids tiny splits).
-        # Top/left/right still use user margins. Preview: CQ subtract / MCQ +0.25" — client only.
+        # @page bottom: CQ stays 0 (max printable). MCQ fixed at 16 mm — matches fcheradip `MCQ_SHEET_BOTTOM_MARGIN_MM`.
+        _MCQ_SHEET_BOTTOM_MARGIN_MM = 0.0
         margin_bottom_cq = 0.0
-        margin_bottom_mcq = 0.0
+        margin_bottom_mcq = _MCQ_SHEET_BOTTOM_MARGIN_MM
         options_cols = max(1, min(4, intval(pick('optionsColumns', 2), 2)))
         cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
         cols_cq = max(1, min(10, intval(pick('layoutColumnsCreative', cols_mcq), cols_mcq)))
