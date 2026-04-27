@@ -3030,7 +3030,7 @@ class ExportQuestionsView(APIView):
       font-family: var(--q-font-stack);
       font-weight: 700;
       margin-right: 0.2em;
-      min-width: 2em;
+      min-width: 1.8em;
       text-align: end;
       box-sizing: border-box;
       line-height: var(--preview-question-lh, 1.4);
