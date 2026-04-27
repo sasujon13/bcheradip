@@ -2807,6 +2807,7 @@ class ExportQuestionsView(APIView):
 <head>
   <meta charset="utf-8" />
   <style>
+    :root {{ --color_primary_black: #000; --color_primary_teal: teal; --color_primary_shadow: rgba(0, 0, 0, 0.15); --color_primary_transparent: rgba(0, 128, 128, 0.12); }}
     {local_font_face_css}
     {cq_page_css}{mcq_page_css}
     html, body {{ margin: 0; padding: 0; }}
@@ -2815,7 +2816,7 @@ class ExportQuestionsView(APIView):
       font-size: {q_font_body:.2f}px;
       line-height: {q_lh_body:.3f};
       --q-font-stack: "Roboto", "Noto Serif Bengali", "Bengali Serif", sans-serif;
-      color: #000;
+      color: var(--color_primary_black);
     }}
     {paper_page_rule_css}
     .paper-break {{ break-before: page; }}
@@ -3006,7 +3007,7 @@ class ExportQuestionsView(APIView):
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       white-space: pre-line;
-      color: #000;
+      color: var(--color_primary_black);
     }}
     .topic-question-line {{
       display: block;
@@ -3064,14 +3065,14 @@ class ExportQuestionsView(APIView):
       font-family: var(--q-font-stack);
       line-height: var(--preview-question-lh, 1.4);
       font-size: 1em;
-      color: #000;
+      color: var(--color_primary_black);
     }}
     .q-subpart {{
       padding-left: var(--preview-q-subpart-pl, 2.95em);
       font-family: var(--q-font-stack);
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
-      color: #000;
+      color: var(--color_primary_black);
       margin-top: 0;
       box-sizing: border-box;
     }}
@@ -3084,7 +3085,7 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
-      color: #000;
+      color: var(--color_primary_black);
       display: grid;
       grid-template-columns: repeat({options_cols}, minmax(0, 1fr));
       gap: var(--preview-q-opt-row-gap, 0.2857em) var(--preview-q-opt-col-gap, 1.5em);
@@ -3106,13 +3107,13 @@ class ExportQuestionsView(APIView):
       font-family: var(--q-font-stack);
       font-size: calc(13 / 14 * 1em);
       line-height: var(--preview-question-lh, 1.4);
-      color: #000;
+      color: var(--color_primary_black);
     }}
     .q-opt-html {{
       font-family: var(--q-font-stack);
       font-size: inherit;
       line-height: var(--preview-question-lh, 1.4);
-      color: #000;
+      color: var(--color_primary_black);
     }}
     /* Match fcheradip question-rich-img.shared.css — no frame, transparent (PDF was gray boxed). */
     .q-code-block {{
@@ -6763,3 +6764,4 @@ class PendingQuestionApproveView(APIView):
         pending.approved_qid = qid
         pending.save(update_fields=['status', 'approved_at', 'approved_qid'])
         return Response({'qid': qid, 'message': 'Question approved and added.'}, status=status.HTTP_200_OK)
+
