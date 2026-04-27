@@ -1855,6 +1855,8 @@ class ExportQuestionsView(APIView):
                     'questionsGapCreative',
                     'questionsPadding',
                     'headerLineFontSizes',
+                    'headerLineFontSizesPdfCreative',
+                    'headerLineFontSizesPdfMcq',
                     'layoutColumnsCreative',
                 )
             )
@@ -2037,6 +2039,24 @@ class ExportQuestionsView(APIView):
         else:
             hfs = [16, 18, 16, 16, 14, 14, 14, 12]
 
+        def _parse_pdf_header_line_font_px_list(raw):
+            """Optional per-line px from client; aligned to split export header lines (one entry per \\n row)."""
+            if not isinstance(raw, list) or len(raw) == 0:
+                return None
+            out = []
+            for x in raw:
+                try:
+                    v = float(x)
+                    if v != v:
+                        raise ValueError
+                    out.append(max(8.0, min(64.0, v)))
+                except Exception:
+                    out.append(14.0)
+            return out
+
+        h_pdf_cq = _parse_pdf_header_line_font_px_list(pick('headerLineFontSizesPdfCreative', None))
+        h_pdf_mcq = _parse_pdf_header_line_font_px_list(pick('headerLineFontSizesPdfMcq', None))
+
         def sanitize_header_html(text):
             raw = str(text or '')
             # Keep only a small safe subset used by preview header editing.
@@ -2132,12 +2152,14 @@ class ExportQuestionsView(APIView):
                 return True
             return False
 
-        def compile_playwright_header_html(qh_source, cq_header=False):
+        def compile_playwright_header_html(qh_source, cq_header=False, line_font_px=None):
             """
             Compile header text into q-header HTML.
             The first "বিষয় কোড" line is converted to the subject-code grid and removed from flow.
             cq_header: Creative PDF — keep দ্রষ্টব্য lines out of q-header-band so the grid aligns with
             subject/title lines (e.g. বিষয় name), not over the notice paragraph.
+            line_font_px: optional list of font sizes (px), one per header line index — matches split
+            export headers from the client when line count differs from sidebar `headerLineFontSizes`.
             """
             header_lines = [ln for ln in str(qh_source or '').replace('\r\n', '\n').split('\n')]
             header_html = ''
@@ -2155,8 +2177,14 @@ class ExportQuestionsView(APIView):
                 code_row_html = ''
                 code_row_source_line = ''
                 code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
+
+                def _fz_for_line_idx(i):
+                    if line_font_px is not None and i < len(line_font_px):
+                        return line_font_px[i]
+                    return hfs[i] if i < len(hfs) else hfs[-1]
+
                 for i, line in enumerate(header_lines):
-                    fz = hfs[i] if i < len(hfs) else hfs[-1]
+                    fz = _fz_for_line_idx(i)
                     line_txt = str(line or '').strip()
                     if re.search(r'বিষ[য়য]\s*কোড', line_txt):
                         if code_row_html:
@@ -2300,8 +2328,8 @@ class ExportQuestionsView(APIView):
         qh_root = str(question_header or '').strip()
         qh_creative = str(pick('questionHeaderCreative', qh_root) or '').strip() or qh_root
         qh_mcq = str(pick('questionHeaderMcq', qh_root) or '').strip() or qh_root
-        header_html_creative = compile_playwright_header_html(qh_creative, cq_header=True)
-        header_html_mcq = compile_playwright_header_html(qh_mcq)
+        header_html_creative = compile_playwright_header_html(qh_creative, cq_header=True, line_font_px=h_pdf_cq)
+        header_html_mcq = compile_playwright_header_html(qh_mcq, cq_header=False, line_font_px=h_pdf_mcq)
 
         def is_creative(q):
             t = str((q or {}).get('type') or '').strip()
