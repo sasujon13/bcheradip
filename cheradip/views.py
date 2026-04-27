@@ -2379,8 +2379,6 @@ class ExportQuestionsView(APIView):
 
         serial_raw = pick('previewSerialByIndex', {})
         serial_by_index = serial_raw if isinstance(serial_raw, dict) else {}
-        q_opt_hang = num(pick('previewQOptHangPx', 16), 16)
-        q_roman_indent = num(pick('previewQRomanIndentPx', 10), 10)
 
         def item_serial(item_idx, fallback_num):
             if item_idx is None:
@@ -2428,6 +2426,10 @@ class ExportQuestionsView(APIView):
                     '--preview-q-roman-indent: %.2fpx; '
                     '--preview-q-opt-row-gap: %.2fpx; '
                     '--preview-q-opt-col-gap: %.2fpx; '
+                    '--preview-q-content-pr: %.2fpx; '
+                    '--preview-q-stem-mb: %.2fpx; '
+                    '--preview-q-subpart-mt: %.2fpx; '
+                    '--preview-q-opt-my: %.2fpx; '
                     'padding-top: %.2fpx; '
                     'padding-bottom: %.2fpx; '
                     'margin-bottom: %.2fpx;'
@@ -2436,10 +2438,14 @@ class ExportQuestionsView(APIView):
                     q_lh,
                     2 * fz - 2,
                     2 * fz - 4,
-                    q_opt_hang,
-                    q_roman_indent,
+                    max(8, round((16 * fz) / 14.0)),
+                    max(6, round((10 * fz) / 14.0)),
                     max(2, round((4 * fz) / 14.0)),
                     max(10, round((21 * fz) / 14.0)),
+                    max(1, round((2 * fz) / 14.0)),
+                    max(1, round((4 * fz) / 14.0)),
+                    max(0, round((2 * fz) / 14.0)),
+                    max(1, round((3 * fz) / 14.0)),
                     q_pad,
                     q_pad,
                     q_gap,
@@ -2975,7 +2981,7 @@ class ExportQuestionsView(APIView):
       width: 100%;
       text-align: justify;
       position: relative;
-      padding-right: 2px;
+      padding-right: var(--preview-q-content-pr, 0.1429em);
       box-sizing: border-box;
       break-inside: auto;
       page-break-inside: auto;
@@ -3016,18 +3022,18 @@ class ExportQuestionsView(APIView):
       display: inline;
     }}
     .topic-question-line.topic-question-roman-line {{
-      padding-left: var(--preview-q-roman-indent, 10px);
-      text-indent: calc(0px - var(--preview-q-roman-indent, 10px));
+      padding-left: var(--preview-q-roman-indent, 0.7143em);
+      text-indent: calc(0px - var(--preview-q-roman-indent, 0.7143em));
     }}
     .topic-question-line.topic-question-bn-paren-line {{
-      padding-left: var(--preview-q-bn-paren-inset, 18px);
-      text-indent: calc(0px - var(--preview-q-bn-paren-inset, 18px));
+      padding-left: var(--preview-q-bn-paren-inset, 1.2857em);
+      text-indent: calc(0px - var(--preview-q-bn-paren-inset, 1.2857em));
     }}
-    .q-stem-with-parts {{ display: flow-root; margin-bottom: 4px; }}
+    .q-stem-with-parts {{ display: flow-root; margin-bottom: var(--preview-q-stem-mb, 0.2857em); }}
     .q-intro {{ display: block; overflow: visible; min-width: 0; }}
     .q-subpart-wrap {{
       position: relative;
-      margin-top: 2px;
+      margin-top: var(--preview-q-subpart-mt, 0.1429em);
       box-sizing: border-box;
       clear: both;
     }}
@@ -3043,7 +3049,7 @@ class ExportQuestionsView(APIView):
       color: #333;
     }}
     .q-subpart {{
-      padding-left: var(--preview-q-subpart-pl, 14px);
+      padding-left: var(--preview-q-subpart-pl, 1.7143em);
       font-size: 1em;
       line-height: var(--preview-question-lh, 1.4);
       color: #333;
@@ -3051,17 +3057,17 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
     }}
     .q-options {{
-      margin-top: 3px;
-      margin-bottom: 3px;
+      margin-top: var(--preview-q-opt-my, 0.2143em);
+      margin-bottom: var(--preview-q-opt-my, 0.2143em);
       margin-left: 0;
-      padding-left: var(--preview-q-subpart-pl, 14px);
+      padding-left: var(--preview-q-subpart-pl, 1.7143em);
       box-sizing: border-box;
       font-size: calc(13 / 14 * 1em);
       line-height: var(--preview-question-lh, 1.4);
       color: #555;
       display: grid;
       grid-template-columns: repeat({options_cols}, minmax(0, 1fr));
-      gap: var(--preview-q-opt-row-gap, 4px) var(--preview-q-opt-col-gap, 1.5em);
+      gap: var(--preview-q-opt-row-gap, 0.2857em) var(--preview-q-opt-col-gap, 1.5em);
       align-items: start;
       justify-content: start;
       break-inside: avoid;
@@ -3073,8 +3079,8 @@ class ExportQuestionsView(APIView):
       display: block;
       white-space: normal;
       min-width: 0;
-      padding-left: var(--preview-q-opt-hang, 16px);
-      text-indent: calc(0px - var(--preview-q-opt-hang, 16px));
+      padding-left: var(--preview-q-opt-hang, 1.1429em);
+      text-indent: calc(0px - var(--preview-q-opt-hang, 1.1429em));
       box-sizing: border-box;
       text-align: left;
       line-height: var(--preview-question-lh, 1.4);
