@@ -1429,6 +1429,12 @@ def _export_collapse_newlines_inside_q_code_html(text):
     )
 
 
+def _export_normalize_q_code_block_html(text):
+    """Normalize q-code-block HTML so trailing blank code lines don't render extra vertical space."""
+    s = _export_collapse_newlines_inside_q_code_html(text)
+    return str(s or '').strip()
+
+
 def _export_escape_html_preserve_img_br(line):
     """Escape HTML except q-code-block, q-rich-img-stack, whitelisted <img>, and <br> (aligned with fcheradip wrapRomanLines)."""
     token_re = re.compile(
@@ -1669,7 +1675,7 @@ def _export_wrap_mcq_line_html(text, host_base):
     """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (ক) in .q-opt."""
     t = str(text or '')
     if 'q-code-block' in t.lower():
-        t = _export_collapse_newlines_inside_q_code_html(t)
+        t = _export_normalize_q_code_block_html(t)
         t = _export_format_question_media_html(t, host_base)
         inner = _export_escape_html_preserve_img_br(t)
         # Avoid rendering an extra blank line from wrapper-level leading/trailing whitespace.
@@ -2363,7 +2369,13 @@ class ExportQuestionsView(APIView):
             for line in lines:
                 stripped = line.strip()
                 if _CODE_BLOCK_LINE_ONLY.match(stripped):
-                    parts.append(stripped)
+                    code_html = _export_escape_html_preserve_img_br(
+                        _export_format_question_media_html(
+                            _export_normalize_q_code_block_html(stripped),
+                            host_base
+                        )
+                    )
+                    parts.append('<div class="topic-question-line topic-question-code">%s</div>' % code_html)
                     continue
                 cls = 'topic-question-line'
                 if roman_line.match(line):
@@ -3081,6 +3093,16 @@ class ExportQuestionsView(APIView):
     }}
     .q-text .topic-question-line.topic-question-mcq-codeline,
     .q-subpart .topic-question-line.topic-question-mcq-codeline {{
+      display: block;
+      margin: 0;
+      line-height: var(--preview-question-lh, 1.4);
+      white-space: normal;
+      tab-size: 4;
+      box-sizing: border-box;
+      word-spacing: normal;
+    }}
+    .q-text .topic-question-line.topic-question-code,
+    .q-subpart .topic-question-line.topic-question-code {{
       display: block;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
