@@ -170,7 +170,14 @@ def find_client(name: str, override: str | None) -> str | None:
 
 
 def mysql_base_args(host: str, port: str, user: str, password: str | None) -> list[str]:
-    args = ["--protocol=TCP", f"-h{host}", f"-P{port}", f"-u{user}"]
+    # Force UTF-8 session charset to avoid mojibake during dump/import on Windows clients.
+    args = [
+        "--protocol=TCP",
+        "--default-character-set=utf8mb4",
+        f"-h{host}",
+        f"-P{port}",
+        f"-u{user}",
+    ]
     if password:
         args.append(f"-p{password}")
     else:
