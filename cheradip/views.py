@@ -3094,7 +3094,7 @@ class ExportQuestionsView(APIView):
     .q-text .topic-question-line.topic-question-mcq-codeline,
     .q-subpart .topic-question-line.topic-question-mcq-codeline {{
       display: block;
-      margin: 0;
+      margin: 0 0 5px 0;
       line-height: var(--preview-question-lh, 1.4);
       white-space: normal;
       tab-size: 4;
@@ -3104,7 +3104,7 @@ class ExportQuestionsView(APIView):
     .q-text .topic-question-line.topic-question-code,
     .q-subpart .topic-question-line.topic-question-code {{
       display: block;
-      margin: 0;
+      margin: 0 0 5px 0;
       line-height: var(--preview-question-lh, 1.4);
       white-space: normal;
       tab-size: 4;
