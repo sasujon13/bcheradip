@@ -2190,8 +2190,10 @@ class ExportQuestionsView(APIView):
                 code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
 
                 def _fz_for_line_idx(i):
-                    if line_font_px is not None and i < len(line_font_px):
-                        return line_font_px[i]
+                    # Client sends one px per \\n row; padding/realignment may shorten the list — never fall back to
+                    # unrelated default hfs[i] for tail rows (would make দ্রষ্টব্য notices render larger than preview).
+                    if line_font_px is not None and len(line_font_px) > 0:
+                        return line_font_px[min(i, len(line_font_px) - 1)]
                     return hfs[i] if i < len(hfs) else hfs[-1]
 
                 for i, line in enumerate(header_lines):
@@ -2874,6 +2876,11 @@ class ExportQuestionsView(APIView):
     {paper_page_rule_css}
     .paper-break {{ break-before: page; }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
+    /* Preview header lines don’t inherit body export word-spacing; extra spacing wraps text earlier in Chromium PDF. */
+    .q-header, .q-header .hline {{
+      word-spacing: normal;
+      letter-spacing: normal;
+    }}
     .hline-hr {{
       border: 0;
       border-top: 1px solid #222;
