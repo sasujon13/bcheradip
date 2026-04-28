@@ -1417,6 +1417,8 @@ def _export_collapse_newlines_inside_q_code_html(text):
     def repl(m):
         inner = (m.group(2) or '').replace('\r\n', '\n').replace('\r', '\n')
         inner = inner.replace('\n', '<br />')
+        # Trailing newline in source should not become an extra blank rendered line.
+        inner = re.sub(r'(?:<br\s*/?>\s*)+$', '', inner, flags=re.IGNORECASE)
         return '%s%s%s' % (m.group(1), inner, m.group(3))
 
     return re.sub(
@@ -1670,7 +1672,10 @@ def _export_wrap_mcq_line_html(text, host_base):
         t = _export_collapse_newlines_inside_q_code_html(t)
         t = _export_format_question_media_html(t, host_base)
         inner = _export_escape_html_preserve_img_br(t)
-        return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
+        # Avoid rendering an extra blank line from wrapper-level leading/trailing whitespace.
+        inner = inner.strip()
+        # Code blocks are block-level content; keep them out of inline span flow to avoid phantom line boxes.
+        return '<div class="topic-question-line topic-question-mcq-codeline">%s</div>' % inner
     t = _export_flatten_mcq_block_text(t)
     t = _export_format_question_media_html(t, host_base)
     inner = _export_escape_html_preserve_img_br(t)
@@ -3074,6 +3079,16 @@ class ExportQuestionsView(APIView):
       white-space: pre-wrap;
       tab-size: 4;
     }}
+    .q-text .topic-question-line.topic-question-mcq-codeline,
+    .q-subpart .topic-question-line.topic-question-mcq-codeline {{
+      display: block;
+      margin: 0;
+      line-height: var(--preview-question-lh, 1.4);
+      white-space: normal;
+      tab-size: 4;
+      box-sizing: border-box;
+      word-spacing: normal;
+    }}
     .q-opt .q-opt-html {{
       display: inline;
     }}
@@ -3162,7 +3177,8 @@ class ExportQuestionsView(APIView):
       margin: 0;
       padding: 0;
       max-width: min(720px, 100%);
-      overflow-x: auto;
+      overflow-x: visible;
+      overflow-y: visible;
       box-sizing: border-box;
       background: transparent;
       border: none;
