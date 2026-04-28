@@ -3034,9 +3034,14 @@ class ExportQuestionsView(APIView):
       column-gap: {col_gap}px;
       {divider_css_mcq}
     }}
+    /* Keep each question on one page/column when possible — avoids straddling lines in the PDF gutter
+       (Chromium/Playwright) and duplicate-looking selectable fragments between pages. Very tall questions
+       may still split when they exceed a full page (UA may ignore avoid). */
     .q-item {{
-      break-inside: auto;
-      page-break-inside: auto;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      -moz-column-break-inside: avoid;
     }}
     .q-content {{
       min-width: 0;
@@ -3045,8 +3050,10 @@ class ExportQuestionsView(APIView):
       position: relative;
       padding-right: var(--preview-q-content-pr, 0.1429em);
       box-sizing: border-box;
-      break-inside: auto;
-      page-break-inside: auto;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      -moz-column-break-inside: avoid;
     }}
     .q-label {{ display: flow-root; margin: 0; }}
     .qn {{
