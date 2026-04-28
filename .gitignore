@@ -1,5 +1,7 @@
 node_modules
 .env
+.env.db-sync
+scripts/.env.db-sync
 *.log
 __pycache__/
 *.pyc
