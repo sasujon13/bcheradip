@@ -8,6 +8,7 @@ only the real https prefix is downloaded and replaced in the cell (following tex
 
 Skips downloading when the target ``<qid>_<n>.*`` file or per-URL cache ``u_<hash>.*`` already
 exists under ``MEDIA_ROOT/<db>/<table>/`` (folder is created with ``exist_ok``).
+Bare homepage links (http(s) with path ``/`` or empty and no ``?query``), e.g. ``http://www.example.com``, are skipped with no HTTP and no failure log; the DB text is left as-is.
 
 Usage:
   python manage.py download_media_from_db_urls
@@ -17,9 +18,14 @@ Usage:
 
 Resume / connectivity:
   Progress is saved under MEDIA_ROOT (see --state-file). After each row (ORDER BY qid), resume
-  advances even when some URLs on that row fail, so an interrupted run can continue. Dead-link
-  failures are appended to ``download_media_missing_links.txt`` (or ``--log-file``) as they occur.
-  On connection timeouts and similar errors, the command waits 30 seconds and retries indefinitely.
+  advances even when some URLs on that row fail, so an interrupted run can continue. The state file
+  includes a ``progress`` object (``message``, ``table``, ``qid``, ``updated_at``, …) updated as
+  tables and rows are processed. By default each qid prints ``Working on [alias] ``table`` qid=…`` and
+  flushes immediately. Pass ``--quiet-progress`` to suppress only those lines (JSON still updates).
+  Dead-link failures are appended to ``download_media_missing_links.txt`` (or ``--log-file``) as they occur.
+  Transient issues (timeouts, connection reset, …): waits 30s between bursts and retries indefinitely.
+  Permanent host/DNS failures (unknown name, ``getaddrinfo failed``, Windows ``11001``): the URL is
+  marked failed and the table continues (no infinite wait).
 
   python manage.py download_media_from_db_urls --reset-state
   python manage.py download_media_from_db_urls --verbose   # extra progress (Django already uses -v for --verbosity)
@@ -36,7 +42,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 from contextlib import contextmanager
-from typing import Any, Dict, Iterator, List, Optional, Set, Tuple
+from typing import Any, Callable, Dict, Iterator, List, Optional, Set, Tuple
 from urllib.parse import urlparse
 
 import requests
@@ -125,6 +131,25 @@ def _find_urls(text: str) -> List[str]:
                 seen.add(u)
                 out.append(u)
     return out
+
+
+def _is_bare_site_root_url(url: str) -> bool:
+    """
+    http(s) URL whose path is empty or ``/`` only (no query) — e.g. a site homepage, not a direct asset.
+    These are skipped without HTTP or failure logging; the cell text is left unchanged.
+    """
+    try:
+        p = urlparse((url or "").strip())
+    except Exception:
+        return False
+    if p.scheme not in ("http", "https"):
+        return False
+    path = (p.path or "").strip()
+    if path not in ("", "/"):
+        return False
+    if p.query:
+        return False
+    return True
 
 
 def _safe_fs_segment(name: str) -> str:
@@ -240,34 +265,76 @@ def _download_once(url: str, dest_without_ext: Path, timeout: int) -> Tuple[bool
         return False, str(e)
 
 
-def download_with_retries(url: str, dest: Path, timeout: int, retries: int) -> Tuple[bool, str]:
+def download_with_retries(
+    url: str,
+    dest: Path,
+    timeout: int,
+    retries: int,
+    *,
+    on_attempt_failed: Optional[Callable[[int, int, str], None]] = None,
+    on_backoff: Optional[Callable[[float], None]] = None,
+) -> Tuple[bool, str]:
+    """
+    Up to ``retries`` HTTP attempts with exponential backoff between tries.
+    ``on_attempt_failed(attempt_1_based, retries, err_msg)`` and ``on_backoff(seconds)`` are optional.
+    """
     last_err = ""
     for attempt in range(retries):
         ok, msg = _download_once(url, dest, timeout)
         if ok:
             return True, msg
         last_err = msg
+        if on_attempt_failed is not None:
+            on_attempt_failed(attempt + 1, retries, msg)
         if attempt < retries - 1:
-            time.sleep(min(8.0, 2.0**attempt))
+            delay = min(8.0, 2.0**attempt)
+            if on_backoff is not None:
+                on_backoff(delay)
+            time.sleep(delay)
     return False, last_err
 
 
-def _looks_like_network_error(message: str) -> bool:
-    """Heuristic: treat as retry-after-wait when TCP/DNS/timeout style failures are reported."""
+def _looks_like_permanent_host_resolve_failure(message: str) -> bool:
+    """
+    Unknown host / DNS cannot resolve this name.
+
+    urllib3 often wraps these as "Max retries exceeded … Caused by NameResolutionError…";
+    those must not trigger the infinite 30s wait loop (waiting will not create the DNS record).
+    """
     if not message:
         return False
     m = message.lower()
+    markers = (
+        "getaddrinfo failed",
+        "nameresolutionerror",
+        "failed to resolve",
+        "name or service not known",
+        "nodename nor servname",
+        "no address associated with hostname",
+        "errno 11001",  # Windows: typical "host not found"
+        "gaierror",
+    )
+    return any(x in m for x in markers)
+
+
+def _looks_like_network_error(message: str) -> bool:
+    """Heuristic: treat as retry-after-wait when likely-transient TCP/timeout issues are reported."""
+    if not message:
+        return False
+    m = message.lower()
+    # Do not use the bare phrase "max retries exceeded" — urllib3 adds it to almost all failures,
+    # including permanent DNS "host unknown", which would retry forever.
     needles = (
         "connection aborted",
         "connection refused",
         "connection reset",
         "failed to establish a new connection",
-        "max retries exceeded",
         "name or service not known",
         "network is unreachable",
         "no route to host",
         "temporary failure in name resolution",
         "timed out",
+        "read timed out",
         "timeout",
         "unreachable",
         "errno 110",
@@ -278,7 +345,6 @@ def _looks_like_network_error(message: str) -> bool:
         "sslerror",
         "certificate verify failed",
         "newconnectionerror",
-        "gaierror",
     )
     return any(n in m for n in needles)
 
@@ -356,6 +422,8 @@ class DownloadResumeState:
 
     STATE_VERSION = 1
 
+    # `progress` in JSON mirrors current work so tools (or viewers) see table + qid while the command runs.
+
     def __init__(
         self,
         path: Path,
@@ -400,6 +468,7 @@ class DownloadResumeState:
             "only_table": self.only_table,
             "skip_tables": [],
             "resume": {},
+            "progress": None,
         }
 
     def _cli_matches_state(self, data: Dict[str, Any]) -> bool:
@@ -425,6 +494,85 @@ class DownloadResumeState:
             return v
         return None
 
+    def _set_progress_payload(
+        self,
+        *,
+        phase: str,
+        alias: str,
+        db_name: str,
+        table_name: str,
+        qid: Optional[Any],
+        message: str,
+        rows_total: Optional[int] = None,
+    ) -> None:
+        self.data["progress"] = {
+            "phase": phase,
+            "alias": alias,
+            "db_name": db_name,
+            "table": table_name,
+            "qid": None if qid is None else str(qid),
+            "rows_total": rows_total,
+            "message": message,
+            "updated_at": datetime.now().isoformat(timespec="seconds"),
+        }
+
+    def begin_table_progress(
+        self,
+        alias: str,
+        db_name: str,
+        table_name: str,
+        rows_total: int,
+        *,
+        echo_stdout: bool,
+    ) -> None:
+        msg = (
+            f"Working on [{alias}] `{table_name}` "
+            f"({rows_total} row(s); resume skips completed rows.)"
+            if rows_total
+            else f"Working on [{alias}] `{table_name}` — no candidate rows."
+        )
+        self._set_progress_payload(
+            phase="table_start",
+            alias=alias,
+            db_name=db_name,
+            table_name=table_name,
+            qid=None,
+            message=msg,
+            rows_total=rows_total,
+        )
+        if not self.dry_run:
+            _atomic_write_json(self.path, self.data)
+        if echo_stdout:
+            self.stdout.write(self.style.NOTICE(msg))
+            if hasattr(self.stdout, "flush"):
+                self.stdout.flush()
+
+    def begin_row_progress(
+        self,
+        alias: str,
+        db_name: str,
+        table_name: str,
+        qid_value: Any,
+        *,
+        echo_stdout: bool,
+    ) -> None:
+        qid_str = str(qid_value).strip()
+        msg = f"Working on [{alias}] `{table_name}` qid={qid_str}"
+        self._set_progress_payload(
+            phase="row",
+            alias=alias,
+            db_name=db_name,
+            table_name=table_name,
+            qid=qid_str,
+            message=msg,
+        )
+        if not self.dry_run:
+            _atomic_write_json(self.path, self.data)
+        if echo_stdout:
+            self.stdout.write(self.style.NOTICE(msg))
+            if hasattr(self.stdout, "flush"):
+                self.stdout.flush()
+
     def save_after_row(self, alias: str, db_name: str, table_name: str, qid_value: Any) -> None:
         if self.dry_run:
             return
@@ -436,6 +584,16 @@ class DownloadResumeState:
             "table": table_name,
             "last_qid_processed": qid_value,
         }
+        qid_s = str(qid_value).strip()
+        msg = f"Worked through [{alias}] `{table_name}` qid={qid_s} (checkpoint — resume picks up after this qid)."
+        self._set_progress_payload(
+            phase="row_checkpoint",
+            alias=alias,
+            db_name=db_name,
+            table_name=table_name,
+            qid=qid_s,
+            message=msg,
+        )
         _atomic_write_json(self.path, self.data)
 
     def mark_table_complete(self, alias: str, db_name: str, table_name: str) -> None:
@@ -448,6 +606,17 @@ class DownloadResumeState:
         self.data["resume"] = {}
         self.data["only_alias"] = self.only_alias
         self.data["only_table"] = self.only_table
+        fin = (
+            f"Finished table [{alias}] `{table_name}` (marked complete; skipping on future runs until state reset)."
+        )
+        self._set_progress_payload(
+            phase="table_complete",
+            alias=alias,
+            db_name=db_name,
+            table_name=table_name,
+            qid=None,
+            message=fin,
+        )
         _atomic_write_json(self.path, self.data)
 
     def clear_on_full_success(self) -> None:
@@ -529,7 +698,12 @@ class Command(BaseCommand):
         parser.add_argument(
             "--verbose",
             action="store_true",
-            help="Print per-table progress, dry-run lines, resume notices, and each network wait.",
+            help="Print per-table progress, dry-run lines, resume notices (network waits always print).",
+        )
+        parser.add_argument(
+            "--quiet-progress",
+            action="store_true",
+            help="Do not print “Working on … table / qid” lines (state JSON progress is still updated).",
         )
 
     def handle(self, *args, **options):
@@ -555,6 +729,8 @@ class Command(BaseCommand):
         state_path = Path(options["state_file"] or (media_root / "download_media_from_db_urls_state.json"))
         state_path = state_path.resolve()
         verbose: bool = self._download_verbose
+        # Always print each qid unless explicitly silenced (do not tie to Django --verbosity / -v 0).
+        stdout_progress: bool = not bool(options.get("quiet_progress"))
 
         state = DownloadResumeState(
             state_path,
@@ -578,6 +754,7 @@ class Command(BaseCommand):
             "urls_fail": 0,
             "rows_updated": 0,
             "cells_skipped_existing_file": 0,
+            "urls_skipped_bare_root": 0,
         }
         failures: List[str] = []
         self._failure_log_run_ts = datetime.now().isoformat(timespec="seconds")
@@ -626,6 +803,7 @@ class Command(BaseCommand):
                     state,
                     verbose,
                     log_path,
+                    stdout_progress,
                 )
 
         # Failure log: each URL failure is appended during the run (see _append_failure_log_line).
@@ -651,7 +829,8 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS(
                 f"Done. downloads_ok={stats['urls_ok']} downloads_fail={stats['urls_fail']} "
-                f"rows_updated={stats['rows_updated']} skipped_existing_file={stats['cells_skipped_existing_file']}"
+                f"rows_updated={stats['rows_updated']} skipped_existing_file={stats['cells_skipped_existing_file']} "
+                f"skipped_bare_site={stats['urls_skipped_bare_root']}"
             )
         )
         if not dry_run and failures:
@@ -680,18 +859,63 @@ class Command(BaseCommand):
     def _download_with_network_wait(
         self, url: str, dest: Path, timeout: int, retries: int
     ) -> Tuple[bool, str]:
-        """Retry on transient per-URL failures; on network-style errors wait and retry indefinitely."""
+        """Retry bursts on transient failures; long waits only for errors in _looks_like_network_error."""
+
+        def _flush() -> None:
+            if hasattr(self.stdout, "flush"):
+                self.stdout.flush()
+
+        def _on_burst_fail(attempt: int, retr: int, err: str) -> None:
+            self.stdout.write(
+                self.style.WARNING(
+                    f"  HTTP try {attempt}/{retr} failed: {err[:260]}"
+                )
+            )
+            _flush()
+
+        def _on_burst_backoff(seconds: float) -> None:
+            self.stdout.write(
+                self.style.NOTICE(
+                    f"  backoff {seconds:.1f}s before next HTTP retry (same burst)…"
+                )
+            )
+            _flush()
+
+        net_round = 0
         while True:
-            ok, msg = download_with_retries(url, dest, timeout=timeout, retries=retries)
+            ok, msg = download_with_retries(
+                url,
+                dest,
+                timeout=timeout,
+                retries=retries,
+                on_attempt_failed=_on_burst_fail,
+                on_backoff=_on_burst_backoff,
+            )
             if ok:
                 return True, msg
-            if _looks_like_network_error(msg):
-                if self._download_verbose:
-                    self.stdout.write(
-                        self.style.WARNING(
-                            f"Network/connectivity issue — retrying in {NETWORK_WAIT_SECONDS}s: {msg[:280]}"
-                        )
+            if _looks_like_permanent_host_resolve_failure(msg):
+                self.stdout.write(
+                    self.style.WARNING(
+                        "  Host/DNS lookup failed for this URL (unknown name or resolver error). "
+                        "Giving up instead of retrying forever — logs as a normal download failure "
+                        "(fix the URL in the DB or your network/DNS)."
                     )
+                )
+                _flush()
+                return False, msg
+            if _looks_like_network_error(msg):
+                net_round += 1
+                url_hint = (url[:100] + "…") if len(url) > 100 else url
+                self.stdout.write(
+                    self.style.WARNING(
+                        f"Network/connectivity issue after {retries} HTTP attempt(s) — "
+                        f"waiting {NETWORK_WAIT_SECONDS}s then starting a new burst "
+                        f"(network wait round #{net_round})\n"
+                        f"  url={url_hint}\n"
+                        f"  last error: {msg[:320]}"
+                    )
+                )
+                _flush()
                 time.sleep(NETWORK_WAIT_SECONDS)
                 continue
             return False, msg
@@ -710,6 +934,7 @@ class Command(BaseCommand):
         state: DownloadResumeState,
         verbose: bool,
         log_path: Path,
+        stdout_progress: bool,
     ) -> None:
         conn = connections[alias]
         safe_db = _safe_fs_segment(str(db_name))
@@ -756,6 +981,10 @@ class Command(BaseCommand):
 
         table_dir.mkdir(parents=True, exist_ok=True)
 
+        state.begin_table_progress(
+            alias, db_name, table_name, len(rows), echo_stdout=stdout_progress
+        )
+
         for row in rows:
             qid = row[0]
             if qid is None:
@@ -764,6 +993,10 @@ class Command(BaseCommand):
             safe_qid = _safe_fs_segment(qid_str)
             if not safe_qid:
                 continue
+
+            state.begin_row_progress(
+                alias, db_name, table_name, qid_str, echo_stdout=stdout_progress
+            )
 
             col_values = list(row[1:])
             updates: Dict[str, str] = {}
@@ -787,6 +1020,19 @@ class Command(BaseCommand):
                             changed = True
                         continue
 
+                    if _is_bare_site_root_url(url):
+                        stats["urls_skipped_bare_root"] += 1
+                        if stdout_progress or (verbose and dry_run):
+                            snip = url if len(url) <= 120 else f"{url[:117]}..."
+                            self.stdout.write(
+                                self.style.NOTICE(
+                                    f"  skip bare site URL (homepage, not a file): {snip}"
+                                )
+                            )
+                            if hasattr(self.stdout, "flush"):
+                                self.stdout.flush()
+                        continue
+
                     dest_base = table_dir / f"{safe_qid}_{url_counter}"
                     existing_media = _resolve_existing_saved_media(table_dir, dest_base, url)
                     if existing_media is not None:
@@ -807,6 +1053,19 @@ class Command(BaseCommand):
                         url_counter += 1
                         continue
 
+                    # Row progress only prints once per qid; this line fires before HTTP so long/slow
+                    # downloads do not look “stuck” on the wrong qid.
+                    if stdout_progress:
+                        u_disp = url if len(url) <= 160 else f"{url[:157]}..."
+                        self.stdout.write(
+                            self.style.NOTICE(
+                                f"  fetching qid={qid_str} column={col_name} "
+                                f"asset#{url_counter} {u_disp}"
+                            )
+                        )
+                        if hasattr(self.stdout, "flush"):
+                            self.stdout.flush()
+
                     ok, info = self._download_with_network_wait(
                         url, dest_base, timeout=timeout, retries=retries
                     )
@@ -820,6 +1079,12 @@ class Command(BaseCommand):
                             changed = True
                         stats["urls_ok"] += 1
                         url_counter += 1
+                        if stdout_progress:
+                            self.stdout.write(
+                                self.style.SUCCESS(f"  saved asset#{url_counter - 1} -> {dest_path.name}")
+                            )
+                            if hasattr(self.stdout, "flush"):
+                                self.stdout.flush()
                     else:
                         stats["urls_fail"] += 1
                         row_download_fail = True
@@ -830,6 +1095,13 @@ class Command(BaseCommand):
                         failures.append(fail_line)
                         self._append_failure_log_line(log_path, fail_line, dry_run)
                         url_counter += 1
+                        if stdout_progress:
+                            err_short = info if len(info) <= 200 else info[:197] + "..."
+                            self.stdout.write(
+                                self.style.WARNING(f"  failed asset#{url_counter - 1}: {err_short}")
+                            )
+                            if hasattr(self.stdout, "flush"):
+                                self.stdout.flush()
 
                 if changed and new_text != val:
                     updates[col_name] = new_text

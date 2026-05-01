@@ -15,7 +15,8 @@ from .models import (
     Customer,
     CustomerToken,
     Notification,
-    JsonData
+    JsonData,
+    TrxManagement,
 )
 
 
@@ -213,6 +214,25 @@ class TransactionAdmin(BulkImportCsvJsonMixin, admin.ModelAdmin):
 class NotificationAdmin(BulkImportCsvJsonMixin, admin.ModelAdmin):
     list_display = ('id', 'text', 'link')
     search_fields = ('text', 'link')
+
+
+@admin.register(TrxManagement)
+class TrxManagementAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'trxid',
+        'media',
+        'received_amount',
+        'currency',
+        'sender_contact',
+        'transaction_date',
+        'transaction_time',
+        'confidence',
+        'status',
+        'token',
+    )
+    search_fields = ('trxid', 'sender_contact', 'media')
+    list_filter = ('media', 'currency', 'status')
 
 
 # Re-register Item, OrderDetail, JsonData with bulk import mixin

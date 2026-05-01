@@ -667,3 +667,29 @@ class Token(models.Model):
     class Meta:
         db_table = 'cheradip_tokens'
         managed = False
+
+
+class TrxManagement(models.Model):
+    """
+    Payment / SMS-parse ingest (e.g. Nagad). Lives in default DB ``cheradip_cheradip``.
+    Posted as JSON to ``/api/trxid/``.
+    """
+
+    id = models.AutoField(primary_key=True)
+    media = models.CharField(max_length=64)
+    received_amount = models.DecimalField(max_digits=14, decimal_places=4)
+    currency = models.CharField(max_length=16)
+    sender_contact = models.CharField(max_length=32)
+    trxid = models.CharField(max_length=128, db_index=True)
+    transaction_date = models.CharField(max_length=32)
+    transaction_time = models.CharField(max_length=16)
+    confidence = models.DecimalField(max_digits=7, decimal_places=5)
+    status = models.IntegerField(default=0)
+    token = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'cheradip_trxmanagement'
+        ordering = ['-id']
+
+    def __str__(self):
+        return f"{self.trxid} ({self.media})"

@@ -61,6 +61,11 @@ root (optional: ``pip install python-dotenv``).
   user may only access one database (avoids 1044 errors on ``CREATE DATABASE`` for other names).
 - ``EXCLUDE_DATABASES`` — extra names to skip
 - ``DRY_RUN`` — print only, no copy
+
+**Invalid names (skipped automatically)**
+
+Names that look like legacy data-directory junk (e.g. ``#mysql50#...`` or containing ``.corrupt``)
+cannot be created on a normal server with ``CREATE DATABASE`` — they are omitted from the sync list.
 """
 
 from __future__ import annotations
@@ -106,6 +111,21 @@ DEFAULT_EXCLUDE = frozenset(
         "test",  # common local scratch DB; remove via SYNC_DATABASES if you must sync it
     }
 )
+
+
+def _is_syncable_database_name(name: str) -> bool:
+    """
+    False for legacy / corrupt folder names that SHOW DATABASES may still list (e.g. XAMPP)
+    but ``CREATE DATABASE`` rejects (ERROR 1102 Incorrect database name).
+    """
+    if not name or not name.strip():
+        return False
+    # MySQL 5.0 directory-prefix leftovers; '#' is not usable as a normal schema name on many hosts.
+    if name.startswith("#mysql50#"):
+        return False
+    if ".corrupt" in name.lower():
+        return False
+    return True
 
 
 class MySQLSyncError(Exception):
@@ -518,12 +538,21 @@ def resolve_databases(
 ) -> list[str]:
     all_names = list_databases(mysql, list_host, list_port, list_user, list_password)
     to_sync: list[str] = []
+    skipped_invalid: list[str] = []
     for db in all_names:
+        if not _is_syncable_database_name(db):
+            skipped_invalid.append(db)
+            continue
         if only and db not in only:
             continue
         if db in DEFAULT_EXCLUDE | extra_exclude and not (only and db in only):
             continue
         to_sync.append(db)
+    if skipped_invalid:
+        print(
+            "Skipping invalid / non-createable database name(s) (legacy #mysql50#, .corrupt, etc.):\n  "
+            + ", ".join(skipped_invalid)
+        )
     return to_sync
 
 

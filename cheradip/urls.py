@@ -5,6 +5,7 @@ from django.conf import settings
 from rest_framework.routers import DefaultRouter
 from . import views
 from .views2 import DivisionsView, DistrictsView, ThanasView
+from .views_trxid import TrxInboundAPIView
 from .views import (
     ItemListCreateView,
     CustomerCreateView,
@@ -88,6 +89,11 @@ router.register(r'banbeis', BanbeisViewSet, basename='banbeis')
 router.register(r'token', TokenViewSet, basename='token')
 
 urlpatterns = [
+    path(
+        'trxid/',
+        TrxInboundAPIView.as_view(),
+        name='trx_ingest',
+    ),
     path('item/', ItemListCreateView.as_view(), name='item'),
     path('signup/', CustomerCreateView.as_view(), name='signup'),
     path('signup_profile/', SignupProfileView.as_view(), name='signup_profile'),

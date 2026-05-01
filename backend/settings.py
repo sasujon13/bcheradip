@@ -17,7 +17,11 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-d37cp#^cs90*bzhh+pvvv
 
 DEBUG = config('DEBUG', default=True, cast=bool)  # Default True for local development
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='localhost,127.0.0.1,cheradip.com,www.cheradip.com',
+    cast=Csv(),
+)
 
 # Host URL Configuration
 HOST_URL = config('HOST_URL', default='http://127.0.0.1:8000', cast=str)
