@@ -39,9 +39,10 @@ from html import escape, unescape
 from urllib import parse as urllib_parse
 from urllib.parse import quote, unquote
 from pathlib import Path
+from decimal import Decimal, InvalidOperation
 from rest_framework.decorators import action
 from django.conf import settings
-from django.db import connections
+from django.db import connections, transaction
 from django.db.models import Q
 from django.db.models.expressions import RawSQL
 from django.db.utils import ProgrammingError, OperationalError
@@ -326,7 +327,7 @@ from .models import (
     Merit5, Merit6, Merit7,
     Vacancy5, Vacancy6, Vacancy7,
     Recommend5, Recommend6, Recommend7,
-    Banbeis, Institutes, Token,
+    Banbeis, Institutes, Token, TrxManagement,
 )
 from .serializers import (
     Merit5Serializer, Merit6Serializer, Merit7Serializer,
@@ -810,6 +811,9 @@ def sitemap_institutes_part(request, page):
 
 
 class TokenViewSet(viewsets.ReadOnlyModelViewSet):
+    """Trx unlock debit (minor units); keep aligned with Angular ``NTRCA_UNLOCK_DEBIT``."""
+
+    UNLOCK_DEBIT = 20
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
     permission_classes = [AllowAny]
@@ -827,56 +831,110 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
     def list(self, request, *args, **kwargs):
         token_val = request.query_params.get('token')
         if token_val is not None and token_val != '':
-            # Validate single token: return one result + success/counter for back.ts and vacant6
-            qs = self.get_queryset()
-            obj = qs.first()
-            try:
-                counter_int = int(obj.Counter) if obj and obj.Counter not in (None, '') else 0
-            except (ValueError, TypeError):
-                counter_int = 0
-            status_ok = getattr(obj, 'Status', 0) == 0 if obj else False
-            success = bool(obj and status_ok and counter_int > 0)
-            serializer = self.get_serializer(qs, many=True)
-            data = {
-                'count': 1 if obj else 0,
-                'results': serializer.data,
-                'success': success,
-                'counter': counter_int if success else 0,
-            }
-            return Response(data)
+            token_val = token_val.strip()
+            # Primary: cheradip_trxmanagement — match trxid, unlock budget = received_amount
+            trx = TrxManagement.objects.filter(trxid=token_val).first()
+            if trx is not None:
+                try:
+                    counter_int = int(trx.received_amount)
+                except (TypeError, ValueError):
+                    counter_int = 0
+                status_ok = trx.status == 0
+                success = bool(status_ok and counter_int > 0)
+                row = {
+                    'id': trx.id,
+                    'Token': trx.token,
+                    'Counter': str(counter_int),
+                    'Status': trx.status,
+                }
+                return Response({
+                    'count': 1,
+                    'results': [row],
+                    'success': success,
+                    'counter': counter_int if success else 0,
+                })
+            return Response({
+                'count': 0,
+                'results': [],
+                'success': False,
+                'counter': 0,
+            })
         return super().list(request, *args, **kwargs)
 
     @action(detail=True, methods=['post'], url_path='update_status')
     def update_status(self, request, pk=None):
-        """Set Status=1 (used) for this token. Body: { \"Status\": 1 }."""
-        token_obj = self.get_object()
-        token_obj.Status = 1
-        token_obj.save(update_fields=['Status'])
-        return Response({'success': True})
+        """
+        Activate trxid: add received_amount*100 to token, set status=1.
+        Returns current token balance for the client.
+        """
+        trx = TrxManagement.objects.filter(pk=pk).first()
+        if not trx:
+            return Response({'success': False, 'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+        try:
+            inc = int(Decimal(str(trx.received_amount)) * 100)
+        except (TypeError, ValueError, ArithmeticError, InvalidOperation):
+            inc = 0
+        trx.token = (trx.token or 0) + inc
+        trx.status = 1
+        trx.save(update_fields=['token', 'status'])
+        return Response(
+            {
+                'success': True,
+                'token': trx.token,
+                'remaining': trx.token,
+            }
+        )
 
-    def create(self, request, *args, **kwargs):
-        """Use one token unlock: POST { token, eiin }. Decrements Counter, returns { success, remaining }."""
-        token_val = request.data.get('token')
-        eiin = request.data.get('eiin')
-        if not token_val:
-            return Response({'success': False, 'remaining': 0}, status=status.HTTP_400_BAD_REQUEST)
+    @action(detail=False, methods=['post'], url_path='use_trx')
+    def use_trx(self, request):
+        """Decrement cheradip_trxmanagement.token by ``UNLOCK_DEBIT`` per institute unlock."""
+        debit = self.UNLOCK_DEBIT
+        raw_id = request.data.get('id') or request.data.get('trx_id')
+        if raw_id is None:
+            return Response(
+                {'success': False, 'remaining': 0},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
-            token_int = int(token_val)
-        except (ValueError, TypeError):
-            return Response({'success': False, 'remaining': 0}, status=status.HTTP_400_BAD_REQUEST)
-        obj = Token.objects.filter(Token=token_int).first()
-        if not obj:
-            return Response({'success': False, 'remaining': 0})
+            pk = int(raw_id)
+        except (TypeError, ValueError):
+            return Response(
+                {'success': False, 'remaining': 0},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         try:
-            counter_int = int(obj.Counter) if obj.Counter not in (None, '') else 0
-        except (ValueError, TypeError):
-            counter_int = 0
-        if getattr(obj, 'Status', 0) != 0 or counter_int <= 0:
-            return Response({'success': False, 'remaining': 0})
-        counter_int -= 1
-        obj.Counter = str(counter_int)
-        obj.save(update_fields=['Counter'])
-        return Response({'success': True, 'remaining': counter_int})
+            with transaction.atomic():
+                trx = (
+                    TrxManagement.objects.select_for_update()
+                    .filter(pk=pk)
+                    .first()
+                )
+                if not trx:
+                    return Response(
+                        {'success': False, 'remaining': 0},
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
+                if trx.status != 1:
+                    return Response(
+                        {
+                            'success': False,
+                            'remaining': max(0, trx.token),
+                            'detail': 'TrxID not activated',
+                        },
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+                if trx.token < debit:
+                    return Response({'success': False, 'remaining': max(0, trx.token)})
+                trx.token = trx.token - debit
+                trx.save(update_fields=['token'])
+                remaining = trx.token
+        except Exception:
+            logger.exception('use_trx failed')
+            return Response(
+                {'success': False, 'remaining': 0},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+        return Response({'success': True, 'remaining': remaining})
 
 
 class ItemListCreateView(generics.ListCreateAPIView):
