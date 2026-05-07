@@ -1,13 +1,11 @@
 from pathlib import Path
 import os
-import sys
 from decouple import config, Csv
 
-# Windows: use PyMySQL as MySQLdb; Linux/production typically uses mysqlclient.
-if sys.platform == "win32":
-    import pymysql
+# PyMySQL as MySQLdb (matches requirements.txt; avoids needing mysqlclient build deps on Linux).
+import pymysql
 
-    pymysql.install_as_MySQLdb()
+pymysql.install_as_MySQLdb()
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
