@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-from decouple import config, Csv
+from decouple import AutoConfig, Csv
 
 # PyMySQL as MySQLdb (matches requirements.txt; avoids needing mysqlclient build deps on Linux).
 import pymysql
@@ -9,6 +9,9 @@ pymysql.install_as_MySQLdb()
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Always load .env from the project root (manage.py directory), not from cwd — fixes systemd / wrong-shell cwd.
+config = AutoConfig(search_path=BASE_DIR)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
