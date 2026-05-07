@@ -1,4 +1,3 @@
-from pathlib import Path
 import os
 from decouple import AutoConfig, Csv
 
@@ -10,7 +9,13 @@ pymysql.install_as_MySQLdb()
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Always load .env from the project root (manage.py directory), not from cwd — fixes systemd / wrong-shell cwd.
+# Merge project .env into os.environ with override=True so values win over inherited env (systemd,
+# profile, or DATABASE_USER=root). python-decouple alone prefers OS env over .env — that caused root.
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(BASE_DIR, ".env"), override=True)
+
+# Always resolve keys relative to project root (manage.py directory), not cwd.
 config = AutoConfig(search_path=BASE_DIR)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
