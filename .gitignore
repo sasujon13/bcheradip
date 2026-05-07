@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Node (if used in backend folder)
+node_modules/
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+.env.db-sync
+scripts/.env.db-sync
+
+# Django — never commit uploads or local DB
+db.sqlite3
+*.sqlite3
+staticfiles/
+media/
+**/media/
+
+# Logs
+*.log
+debug.log
+
+# Local / deploy junk
+scraper_root.txt
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

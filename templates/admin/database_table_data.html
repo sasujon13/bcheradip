@@ -1,0 +1,294 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  #content h1, #content-main h1 { display: none; }
+  .table-data-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+  }
+  .table-data-header .header-actions { display: flex; gap: 8px; }
+  .table-data-header .header-actions button { padding: 6px 12px; cursor: pointer; }
+  /* Filters + actions on same row (question-page style) */
+  .table-data-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .table-data-toolbar .filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+  }
+  .table-data-toolbar .filter-form select {
+    min-width: 120px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    border: 1px solid teal;
+    border-radius: 6px;
+  }
+  .table-data-toolbar .filter-form select:hover {
+    border-color: #006666;
+    background: rgba(0, 128, 128, 0.08);
+  }
+  .table-data-toolbar .filter-form select:focus {
+    outline: none;
+    border-color: teal;
+  }
+  .table-data-toolbar .filter-form label { margin: 0; font-size: 13px; color: teal; }
+  .table-data-toolbar .btn-approve {
+    background: teal;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .table-data-toolbar .btn-approve:hover { background: darkgreen; color: #fff; }
+  .table-data-toolbar .btn-delete {
+    background: darkred;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .table-data-toolbar .btn-delete:hover { background: red; color: #fff; }
+  .table-data-actions-cell { white-space: nowrap; }
+  .table-data-actions-cell form { display: inline; margin: 0 2px; }
+  .table-data-actions-cell .btn-row-approve,
+  .table-data-actions-cell .btn-row-delete {
+    border: none;
+    border-radius: 20px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .table-data-actions-cell .btn-row-approve {
+    background: teal;
+    color: #fff !important;
+  }
+  .table-data-actions-cell .btn-row-approve:hover { background: darkgreen; color: #fff !important; }
+  .table-data-actions-cell .btn-row-delete {
+    background: darkred;
+    color: #fff;
+  }
+  .table-data-actions-cell .btn-row-delete:hover { background: red; color: #fff; }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:databases_list' %}">{% translate 'Databases' %}</a>
+    &rsaquo; <a href="{{ tables_url }}">{{ db_label }}</a>
+    &rsaquo; {{ table_name }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    {% if messages %}
+    <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    <div class="module">
+        <div id="add-row-module" class="toggle-panel" style="display: none;">
+            <h2>{% translate 'Add row' %}</h2>
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add">
+                <table>
+                    <tr>
+                        {% for col in columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for col in columns %}
+                        <td>
+                            {% if col == 'id' %}
+                            <input type="text" name="field_{{ col }}" placeholder="(auto)" size="6">
+                            {% elif col == 'question' or col == 'explanation' or col == 'explanation2' or col == 'explanation3' %}
+                            <textarea name="field_{{ col }}" rows="2" cols="40"></textarea>
+                            {% else %}
+                            <input type="text" name="field_{{ col }}" size="20">
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+                <input type="submit" value="{% translate 'Add row' %}">
+            </form>
+        </div>
+
+        <div id="import-module" class="toggle-panel" style="display: none;">
+            <h2>{% translate 'Bulk import (CSV or JSON)' %}</h2>
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="import">
+                <p>
+                    <label>File: <input type="file" name="import_file" accept=".csv,.json"></label>
+                </p>
+                <p>
+                    <label>Format: <select name="import_format">
+                        <option value="csv">CSV</option>
+                        <option value="json">JSON</option>
+                    </select></label>
+                </p>
+                <p>
+                    <label><input type="checkbox" name="csv_has_header" checked> CSV first row is header</label>
+                </p>
+                <p>JSON: array of objects, keys = column names (e.g. [{"subject":"...", "question":"..."}]).</p>
+                <input type="submit" value="{% translate 'Import' %}">
+            </form>
+        </div>
+
+        <h2 class="table-data-header">
+            <span>{{ total }} {% translate 'Rows' %} <a href="{{ tables_url }}" style="font-size: 0.85em; font-weight: normal;">&larr; Back to tables</a></span>
+            <span class="header-actions">
+                <button type="button" id="btn-add-row">{% translate 'Add Row' %}</button>
+                <button type="button" id="btn-import">{% translate 'Import (CSV/JSON)' %}</button>
+            </span>
+        </h2>
+
+        <div class="table-data-toolbar">
+            {% if show_pending_filters and filter_options %}
+            <form method="get" action="{{ table_data_url }}" class="filter-form" id="filter-form">
+                <label>{% translate 'Subject' %}</label>
+                <select name="filter_subject_tr" onchange="this.form.submit()">
+                    <option value="">{% translate 'All' %}</option>
+                    {% for v in filter_options.subject_tr_list %}
+                    <option value="{{ v }}" {% if filter_subject_tr == v %}selected{% endif %}>{{ v|truncatewords:6 }}</option>
+                    {% endfor %}
+                </select>
+                <label>{% translate 'Type' %}</label>
+                <select name="filter_type" onchange="this.form.submit()">
+                    <option value="">{% translate 'All' %}</option>
+                    {% for v in filter_options.type_list %}
+                    <option value="{{ v }}" {% if filter_type == v %}selected{% endif %}>{{ v }}</option>
+                    {% endfor %}
+                </select>
+                <label>{% translate 'Status' %}</label>
+                <select name="filter_status" onchange="this.form.submit()">
+                    <option value="">{% translate 'All' %}</option>
+                    {% for v in filter_options.status_list %}
+                    <option value="{{ v }}" {% if filter_status == v %}selected{% endif %}>{{ v }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+            {% endif %}
+        </div>
+        <form method="post" action="" id="delete-form">
+            {% csrf_token %}
+            <div class="table-data-toolbar">
+            {% if show_approve %}
+            <button type="submit" name="action" value="approve" class="btn-approve">{% translate 'Approve Selected' %}</button>
+            <button type="submit" name="action" value="deny" class="btn-delete" onclick="return confirm('{% translate "Reject selected edit requests? Live questions in subject tables will not be changed." %}');">{% translate 'Deny Selected' %}</button>
+            {% else %}
+            <button type="submit" name="action" value="delete" class="btn-delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete Selected' %}</button>
+            {% endif %}
+            </div>
+            <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        {% for col in display_columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                        {% if show_approve %}
+                        <th>{% translate 'Apply' %}</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for values, row_id in row_list %}
+                    <tr>
+                        <td><input type="checkbox" name="ids" value="{{ row_id }}"></td>
+                        {% for col, val in values %}
+                        <td>{% if col in html_columns %}{{ val|default:""|safe }}{% else %}{{ val|default:""|truncatewords:12 }}{% endif %}</td>
+                        {% endfor %}
+                        {% if show_approve %}
+                        <td class="table-data-actions-cell">
+                            <a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}" class="btn-row-approve" title="{% translate 'Edit' %}">&#9998;</a>
+                            <button type="submit" form="pending-row-approve-{{ row_id }}" class="btn-row-approve" title="{% translate 'Approve' %}">&#10003;</button>
+                            <button type="submit" form="pending-row-deny-{{ row_id }}" class="btn-row-delete" onclick="return confirm('{% translate "Reject this edit request? The live question will not be changed." %}');" title="{% translate 'Deny' %}">X</button>
+                        </td>
+                        {% else %}
+                        <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
+                        {% endif %}
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="{{ columns|length|add:2 }}">No rows.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </form>
+        {% if show_approve %}
+        {% for values, row_id in row_list %}
+        <form method="post" action="" id="pending-row-approve-{{ row_id }}" style="display:none" aria-hidden="true">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="approve">
+            <input type="hidden" name="ids" value="{{ row_id }}">
+        </form>
+        <form method="post" action="" id="pending-row-deny-{{ row_id }}" style="display:none" aria-hidden="true">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="deny">
+            <input type="hidden" name="ids" value="{{ row_id }}">
+        </form>
+        {% endfor %}
+        {% endif %}
+
+        {% if num_pages > 1 %}
+        <p class="paginator">
+            Page {{ page_num }} of {{ num_pages }}.
+            {% if prev_url %}<a href="{{ prev_url }}">Previous</a>{% endif %}
+            {% if next_url %}<a href="{{ next_url }}">Next</a>{% endif %}
+        </p>
+        {% endif %}
+    </div>
+</div>
+<script>
+(function() {
+    var addRowPanel = document.getElementById('add-row-module');
+    var importPanel = document.getElementById('import-module');
+    var btnAddRow = document.getElementById('btn-add-row');
+    var btnImport = document.getElementById('btn-import');
+
+    function showAddRow() {
+        addRowPanel.style.display = 'block';
+        importPanel.style.display = 'none';
+    }
+    function showImport() {
+        addRowPanel.style.display = 'none';
+        importPanel.style.display = 'block';
+    }
+
+    if (btnAddRow) btnAddRow.addEventListener('click', showAddRow);
+    if (btnImport) btnImport.addEventListener('click', showImport);
+})();
+var selectAll = document.getElementById('select-all');
+if (selectAll) selectAll.addEventListener('change', function() {
+    document.querySelectorAll('#delete-form input[name="ids"]').forEach(function(cb) { cb.checked = this.checked; }, this);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+  &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name|default:opts.app_label }}</a>
+  &rsaquo; <a href="{{ changelist_url }}">{{ opts.verbose_name_plural|capfirst }}</a>
+  &rsaquo; {{ title }}
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<p>Upload a CSV or JSON file to bulk import into <strong>{{ table_name }}</strong>.</p>
+
+<h2>Table structure: {{ table_name }}</h2>
+<p>Use these column headers in your file:</p>
+<table class="table-structure">
+  <thead>
+    <tr><th>Column</th><th>Type</th><th>Required</th></tr>
+  </thead>
+  <tbody>
+    {% for col in table_structure %}
+    <tr>
+      <td><code>{{ col.name }}</code></td>
+      <td>{{ col.type }}</td>
+      <td>{% if col.required %}Yes{% else %}No{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<style>
+  .table-structure { border-collapse: collapse; margin: 1em 0; }
+  .table-structure th, .table-structure td { border: 1px solid #ddd; padding: 6px 10px; text-align: left; }
+  .table-structure th { background: #f5f5f5; }
+</style>
+
+<p><strong>CSV:</strong> First row = header (column names).</p>
+<p><strong>JSON:</strong> Array of objects with keys matching column names, or <code>{"rows": [...]}</code>.</p>
+
+<form method="post" enctype="multipart/form-data" id="import-csv-json-form">
+  {% csrf_token %}
+  <div class="form-row">
+    <label for="id_bulk_file">File:</label>
+    <input type="file" name="bulk_file" id="id_bulk_file" accept=".csv,.json" required />
+  </div>
+  <div class="form-row">
+    <label for="id_format">Format:</label>
+    <select name="format" id="id_format">
+      <option value="csv">CSV</option>
+      <option value="json">JSON</option>
+    </select>
+  </div>
+  <div class="submit-row">
+    <input type="submit" value="Import" class="default" />
+    <a href="{{ changelist_url }}" class="button cancel-link">Cancel</a>
+  </div>
+</form>
+{% endblock %}

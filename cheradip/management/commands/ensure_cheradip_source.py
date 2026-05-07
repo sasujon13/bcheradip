@@ -1,0 +1,246 @@
+"""
+Create cheradip_source table in cheradip_honours and cheradip_hsc and seed with institute data.
+Table: institute_code (PK), institute_name, institute_type.
+
+Usage:
+  python manage.py ensure_cheradip_source
+"""
+import logging
+from django.core.management.base import BaseCommand
+from django.db import connections
+
+# Avoid UnicodeEncodeError on Windows when Django logs SQL with Bengali params (cp1252 console).
+_db_logger = logging.getLogger('django.db.backends')
+
+CREATE_TABLE_SQL = """
+CREATE TABLE IF NOT EXISTS cheradip_source (
+    institute_code VARCHAR(32) NOT NULL PRIMARY KEY,
+    institute_name VARCHAR(255) NOT NULL,
+    institute_type VARCHAR(255) NOT NULL,
+    INDEX (institute_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+"""
+
+# (institute_code, institute_name, institute_type) - as provided
+SEED_DATA = [
+    ("BB", "Barisal Board", "Education Board"),
+    ("ChB", "Chattogram Board", "Education Board"),
+    ("CB", "Cumilla Board", "Education Board"),
+    ("DB", "Dhaka Board", "Education Board"),
+    ("DiB", "Dinajpur Board", "Education Board"),
+    ("JB", "Jashore Board", "Education Board"),
+    ("MB", "Mymensingh Board", "Education Board"),
+    ("RB", "Rajshahi Board", "Education Board"),
+    ("SB", "Sylhet Board", "Education Board"),
+    ("MaB", "Madrasah Board", "Education Board"),
+    ("TB", "Technical Board", "Education Board"),
+    ("DU", "University of Dhaka", "Autonomous Univarsity"),
+    ("RU", "University of Rajshahi", "Autonomous Univarsity"),
+    ("CU", "University of Chittagong", "Autonomous Univarsity"),
+    ("JU", "Jahangirnagar University", "Autonomous Univarsity"),
+    ("IU", "Islamic University, Bangladesh", "Other Univarsity"),
+    ("KU", "Khulna University", "Other Univarsity"),
+    ("JNU", "Jagannath University", "Other Univarsity"),
+    ("CoU", "Comilla University", "Other Univarsity"),
+    ("KNIU", "Jatiya Kabi Kazi Nazrul Islam University", "Other Univarsity"),
+    ("BUP", "Bangladesh University of Professionals", "Other Univarsity"),
+    ("BRU", "Begum Rokeya University", "Other Univarsity"),
+    ("BU", "University of Barisal", "Other Univarsity"),
+    ("RUB", "Rabindra University, Bangladesh", "Other Univarsity"),
+    ("SHU", "Sheikh Hasina University", "Other Univarsity"),
+    ("UK", "Bangabandhu Sheikh Mujibur Rahman University, Kishoreganj", "Other Univarsity"),
+    ("MU", "Mujibnagar University", "Other Univarsity"),
+    ("TU", "Thakurgaon University", "Other Univarsity"),
+    ("UN", "Bangabandhu Sheikh Mujibur Rahman University, Naogaon", "Other Univarsity"),
+    ("SUST", "Shahjalal University of Science and Technology", "Science & Technology Univarsity"),
+    ("HSTU", "Hajee Mohammad Danesh Science & Technology University", "Science & Technology Univarsity"),
+    ("MBSTU", "Mawlana Bhashani Science and Technology University", "Science & Technology Univarsity"),
+    ("PSTU", "Patuakhali Science and Technology University", "Science & Technology Univarsity"),
+    ("NSTU", "Noakhali Science and Technology University", "Science & Technology Univarsity"),
+    ("JUST", "Jashore University of Science and Technology", "Science & Technology Univarsity"),
+    ("PUST", "Pabna University of Science and Technology", "Science & Technology Univarsity"),
+    ("MRSTU", "Bangabandhu Sheikh Mujibur Rahman Science and Technology University", "Science & Technology Univarsity"),
+    ("RMSTU", "Rangamati Science and Technology University", "Science & Technology Univarsity"),
+    ("FMSTU", "Bangamata Sheikh Fojilatunnesa Mujib Science & Technology University", "Science & Technology Univarsity"),
+    ("CSTU", "Chandpur Science and Technology University", "Science & Technology Univarsity"),
+    ("SSTU", "Sunamganj Science and Technology University", "Science & Technology Univarsity"),
+    ("BSTU", "Bogura Science and Technology University", "Science & Technology Univarsity"),
+    ("LSTU", "Lakshmipur Science and Technology University", "Science & Technology Univarsity"),
+    ("UP", "Bangabandhu Sheikh Mujibur Rahman Science and Technology University, Pirojpur", "Science & Technology Univarsity"),
+    ("BUET", "Bangladesh University of Engineering & Technology", "Engineering Univarsity"),
+    ("MIST", "Military Institute of Science and Technology|", "Engineering Univarsity"),
+    ("KUET", "Khulna University of Engineering & Technology", "Engineering Univarsity"),
+    ("CUET", "Chittagong University of Engineering & Technology", "Engineering Univarsity"),
+    ("RUET", "Rajshahi University of Engineering & Technology", "Engineering Univarsity"),
+    ("DUET", "Dhaka University of Engineering & Technology", "Engineering Univarsity"),
+    ("BAU", "Bangladesh Agricultural University", "Agricultural Univarsity"),
+    ("MRAU", "Bangabandhu Sheikh Mujibur Rahman Agricultural University", "Agricultural Univarsity"),
+    ("SBAU", "Sher-e-Bangla Agricultural University", "Agricultural Univarsity"),
+    ("SAU", "Sylhet Agricultural University", "Agricultural Univarsity"),
+    ("KAU", "Khulna Agricultural University", "Agricultural Univarsity"),
+    ("HAU", "Habiganj Agricultural University", "Agricultural Univarsity"),
+    ("AUK", "Kurigram Agricultural University", "Agricultural Univarsity"),
+    ("SMMU", "Bangabandhu Sheikh Mujib Medical University", "Medical Univarsity"),
+    ("CMU", "Chittagong Medical University", "Medical Univarsity"),
+    ("RMU", "Rajshahi Medical University", "Medical Univarsity"),
+    ("SMU", "Sylhet Medical University", "Medical Univarsity"),
+    ("SHMU", "Sheikh Hasina Medical University", "Medical Univarsity"),
+    ("CVASU", "Chittagong Veterinary and Animal Sciences University", "Other specialized Univarsity"),
+    ("BUTEX", "Bangladesh University of Textiles", "Other specialized Univarsity"),
+    ("BMU", "Bangladesh Maritime University", "Other specialized Univarsity"),
+    ("BDU", "Bangladesh Digital University", "Other specialized Univarsity"),
+    ("BAAU", "Bangladesh Aviation and Aerospace University", "Other specialized Univarsity"),
+    ("NU", "National University Bangladesh", "Off-campus Univarsity"),
+    ("BOU", "Bangladesh Open University", "Off-campus Univarsity"),
+    ("IAU", "Islamic Arabic University", "Off-campus Univarsity"),
+    ("SEC", "Sylhet Engineering College", "Specialized Engineering College"),
+    ("MEC", "Mymensingh Engineering College", "Specialized Engineering College"),
+    ("FEC", "Faridpur Engineering College", "Specialized Engineering College"),
+    ("REC", "Rangpur Engineering College", "Specialized Engineering College"),
+    ("BEC", "Barisal Engineering College", "Specialized Engineering College"),
+    ("CTEC", "Textile Engineering College, Chittagong", "Specialized Textile Engineering College"),
+    ("PTEC", "Pabna Textile Engineering College ", "Specialized Textile Engineering College"),
+    ("TECN", "Textile Engineering College, Noakhali", "Specialized Textile Engineering College"),
+    ("BTEC", "Bangabandhu Textile Engineering College, Kalihati, Tangail", "Specialized Textile Engineering College"),
+    ("STEC", "Shahid Abdur Rab Serniabat Textile Engineering College", "Specialized Textile Engineering College"),
+    ("KTEC", "Sheikh Kamal Textile Engineering College, Jhenaidah", "Specialized Textile Engineering College"),
+    ("WTEC", "Dr M A Wazed Miah Textile Engineering College", "Specialized Textile Engineering College"),
+    ("RTEC", "Sheikh Rehana Textile Engineering College, Gopalganj", "Specialized Textile Engineering College"),
+    ("HTEC", "Sheikh Hasina Textile Engineering College", "Specialized Textile Engineering College"),
+    ("NSU", "North South University", "Private University"),
+    ("IUBAT", "International University of Business Agriculture and Technology", "Private University"),
+    ("IUB", "Independent University, Bangladesh", "Private University"),
+    ("AIUB", "American International University-Bangladesh", "Private University"),
+    ("DhIU", "Dhaka International University", "Private University"),
+    ("IIUC", "International Islamic University, Chittagong", "Private University"),
+    ("AUB", "Asian University of Bangladesh", "Private University"),
+    ("EWU", "East West University", "Private University"),
+    ("GB", "Gono Bishwabidyalay", "Private University"),
+    ("PUB", "People's University of Bangladesh", "Private University"),
+    ("QU", "Queens University", "Private University"),
+    ("UAP", "University of Asia Pacific (Bangladesh)", "Private University"),
+    ("CIU", "Chittagong Independent University (CIU)", "Private University"),
+    ("BU(P)", "Bangladesh University", "Private University"),
+    ("BGCTUB", "BGC Trust University Bangladesh", "Private University"),
+    ("BracU", "Brac University", "Private University"),
+    ("MaIU", "Manarat International University", "Private University"),
+    ("PUC", "Premier University, Chittagong", "Private University"),
+    ("SoUB", "Southern University, Bangladesh", "Private University"),
+    ("SIU", "Sylhet International University", "Private University"),
+    ("UODA", "University of Development Alternative", "Private University"),
+    ("CiUB", "City University, Bangladesh", "Private University"),
+    ("DIU", "Daffodil International University", "Private University"),
+    ("GrUB", "Green University of Bangladesh", "Private University"),
+    ("IBAISU", "IBAIS University", "Private University"),
+    ("LU", "Leading University", "Private University"),
+    ("NoUB", "Northern University, Bangladesh", "Private University"),
+    ("PrU", "Prime University", "Private University"),
+    ("SEU", "Southeast University", "Private University"),
+    ("StUB", "Stamford University Bangladesh", "Private University"),
+    ("SUB", "State University of Bangladesh", "Private University"),
+    ("EU", "Eastern University, Bangladesh", "Private University"),
+    ("MeU", "Metropolitan University", "Private University"),
+    ("MiU", "Millennium University", "Private University"),
+    ("PAU", "Primeasia University", "Private University"),
+    ("RUD", "Royal University of Dhaka", "Private University"),
+    ("UIU", "United International University", "Private University"),
+    ("UITS", "University of Information Technology and Sciences", "Private University"),
+    ("USAB", "University of South Asia, Bangladesh", "Private University"),
+    ("PU", "Presidency University", "Private University"),
+    ("UU", "Uttara University", "Private University"),
+    ("VUB", "Victoria University of Bangladesh", "Private University"),
+    ("WUB", "World University of Bangladesh", "Private University"),
+    ("ASAUB", "Asa University Bangladesh", "Private University"),
+    ("BIU", "Bangladesh Islami University", "Private University"),
+    ("EDU", "East Delta University", "Private University"),
+    ("NUB", "Northern University of Business and Technology Khulna", "Private University"),
+    ("BriU", "Britannia University", "Private University"),
+    ("FU", "Feni University", "Private University"),
+    ("KYAU", "Khwaja Yunus Ali University", "Private University"),
+    ("EUB", "European University of Bangladesh", "Private University"),
+    ("FCUB", "First Capital University Of Bangladesh", "Private University"),
+    ("BUFT", "BGMEA University of Fashion & Technology", "Private University"),
+    ("HUB", "Hamdard University Bangladesh", "Private University"),
+    ("IIUB", "Ishakha International University]", "Private University"),
+    ("NEUB", "North East University Bangladesh", "Private University"),
+    ("NWU", "North Western University, Bangladesh", "Private University"),
+    ("PCIU", "Port City International University", "Private University"),
+    ("VU", "Varendra University", "Private University"),
+    ("SU", "Sonargaon University", "Private University"),
+    ("CBIU", "Cox's Bazar International University", "Private University"),
+    ("FIU", "Fareast International University", "Private University"),
+    ("GeUB", "German University Bangladesh", "Private University"),
+    ("NBIU", "North Bengal International University", "Private University"),
+    ("NDUB", "Notre Dame University Bangladesh", "Private University"),
+    ("RPSU", "Ranada Prasad Shaha University", "Private University"),
+    ("FMU", "Sheikh Fazilatunnesa Mujib University", "Private University"),
+    ("TMUB", "Times University Bangladesh", "Private University"),
+    ("CUB", "Canadian University of Bangladesh", "Private University"),
+    ("GUB", "Global University Bangladesh", "Private University"),
+    ("NPIUB", "NPI University of Bangladesh", "Private University"),
+    ("RaMU", "Rabindra Maitree University", "Private University"),
+    ("IUS", "The International University of Scholars", "Private University"),
+    ("UCTC", "University of Creative Technology Chittagong", "Private University"),
+    ("AKMU", "Anwer Khan Modern University", "Private University"),
+    ("UIGV", "University of Global Village", "Private University"),
+    ("TUB", "Trust University, Barishal", "Private University"),
+    ("UOB", "University of Brahmanbaria", "Private University"),
+    ("USET", "University of Skill Enrichment and Technology", "Private University"),
+    ("ISU", "International Standard University", "Private University"),
+    ("ZUMS", "ZNRF University of Management Sciences", "Private University"),
+    ("UB", "Bandarban University", "Private University"),
+    ("AKTU", "RTM Al-Kabir Technical University", "Private University"),
+    ("USTC", "University of Science & Technology Chittagong", "Private Science and technology Univarsity"),
+    ("AUST", "Ahsanullah University of Science and Technology", "Private Science and technology Univarsity"),
+    ("PDUST", "Pundra University of Science and Technology", "Private Science and technology Univarsity"),
+    ("BUBT", "Bangladesh University of Business and Technology", "Private Science and technology Univarsity"),
+    ("ADUST", "Atish Dipankar University of Science and Technology", "Private Science and technology Univarsity"),
+    ("ZHSUST", "ZH Sikder University of Science & Technology", "Private Science and technology Univarsity"),
+    ("RSTU", "Rajshahi Science & Technology University", "Private Science and technology Univarsity"),
+    ("BAIUST", "Bangladesh Army International University of Science & Technology", "Private Science and technology Univarsity"),
+    ("BAUST", "Bangladesh Army University of Science and Technology", "Private Science and technology Univarsity"),
+    ("CCNUST", "CCN University of Science & Technology", "Private Science and technology Univarsity"),
+    ("CUST", "Central University of Science and Technology", "Private Science and technology Univarsity"),
+    ("CWU", "Central Women's University", "Specialized Private univarsity"),
+    ("SUCT", "Shanto-Mariam University of Creative Technology", "Specialized Private univarsity"),
+    ("ULAB", "University of Liberal Arts Bangladesh", "Specialized Private univarsity"),
+    ("BUHS", "Bangladesh University of Health Sciences", "Specialized Private univarsity"),
+    ("EBAU", "Exim Bank Agricultural University Bangladesh", "Specialized Private univarsity"),
+    ("BDAU", "Bangladesh Army University of Engineering & Technology", "Specialized Private univarsity"),
+    ("TUCA", "Tagore University of Creative Arts", "Specialized Private univarsity"),
+    ("IUT", "Islamic University of Technology", "International university"),
+    ("AUW", "Asian University for Women", "International university"),
+    ("ASZS", "আসাদুজ্জামান স্যার", "Writter"),
+    ("MURS", "মুজিবুর স্যার", "Writter"),
+    ("FOHS", "ফরহাদ স্যার", "Writter"),
+    ("MARS", "মাহবুবুর স্যার", "Writter"),
+    ("AB", "All Board", "Education Board"),
+    ("GST", "General, Science & Technology Admission", "GST Admission"),
+    ("HEC", "Bangladesh Home Economics College", "Affiliated Institutes"),
+]
+
+
+class Command(BaseCommand):
+    help = 'Create cheradip_source table in honours and hsc and seed with institute data.'
+
+    def handle(self, *args, **options):
+        old_level = _db_logger.level
+        try:
+            _db_logger.setLevel(logging.WARNING)
+            for alias in ('honours', 'hsc'):
+                if alias not in connections:
+                    self.stdout.write(self.style.WARNING('Database %s not configured, skip.' % alias))
+                    continue
+                conn = connections[alias]
+                with conn.cursor() as cur:
+                    cur.execute(CREATE_TABLE_SQL)
+                    inserted = 0
+                    for code, name, itype in SEED_DATA:
+                        cur.execute(
+                            "INSERT INTO cheradip_source (institute_code, institute_name, institute_type) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE institute_name = VALUES(institute_name), institute_type = VALUES(institute_type)",
+                            [code, name, itype]
+                        )
+                        inserted += 1
+                    self.stdout.write(self.style.SUCCESS('%s: cheradip_source ready (%d rows).' % (alias, inserted)))
+        finally:
+            _db_logger.setLevel(old_level)

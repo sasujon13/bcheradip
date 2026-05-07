@@ -1,0 +1,39 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+  #content h1, #content-main h1 { display: none; }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:databases_list' %}">{% translate 'Databases' %}</a>
+    &rsaquo; {{ db_label }} ({{ db_name }})
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    {% if error %}
+    <p class="errornote">{{ error }}</p>
+    {% endif %}
+    {% if table_list %}
+    <ul class="table-list" style="list-style: none; padding-left: 0; column-count: 2; column-gap: 2em;">
+        {% for table in table_list %}
+        <li style="margin: 0.35em 0; break-inside: avoid;">
+            <a href="{% url 'admin:database_table_data' db_alias table %}"><code>{{ table }}</code></a>
+        </li>
+        {% endfor %}
+    </ul>
+    <p><strong>{{ table_list|length }}</strong> {% translate 'table(s)' %}</p>
+    {% else %}
+    <p>{% translate 'No tables in this database.' %}</p>
+    {% endif %}
+    <p><a href="{% url 'admin:databases_list' %}">&larr; {% translate 'Back to Databases' %}</a></p>
+</div>
+{% endblock %}
