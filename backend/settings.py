@@ -38,7 +38,7 @@ HOST_URL = config('HOST_URL', default='http://127.0.0.1:8000', cast=str)
 
 CORS_ALLOWED_ORIGINS = config(
     'CORS_ALLOWED_ORIGINS',
-    default='https://cheradip.com,http://localhost:4200,http://127.0.0.1:4200',
+    default='https://cheradip.com,https://www.cheradip.com,http://localhost:4200,http://127.0.0.1:4200',
     cast=Csv()
 )
 
