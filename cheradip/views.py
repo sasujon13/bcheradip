@@ -924,13 +924,52 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['post'], url_path='use_trx')
     def use_trx(self, request):
         """
-        NTRCA unlock: decrement TrxManagement.token by ``UNLOCK_DEBIT``.
+        NTRCA unlock (logged-in): debit **only** ``Customer.settings['balance']`` by ``UNLOCK_DEBIT``.
+        Same source as ``GET /api/customer_settings/`` — no Trx row id, no ``TrxManagement.token`` check.
 
-        When logged in (Bearer customer token), also decrement the same amount from
-        ``Customer.settings['balance']`` so the header wallet matches after reload
-        (same source as GET /api/customer_settings/).
+        Not logged in (no Bearer): legacy path — debit ``TrxManagement.token`` for row ``id`` (payment row).
         """
         debit = self.UNLOCK_DEBIT
+        customer = None
+        auth = request.META.get('HTTP_AUTHORIZATION')
+        if auth and auth.startswith('Bearer '):
+            key = auth[7:].strip()
+            if key:
+                try:
+                    customer = CustomerToken.objects.select_related('customer').get(key=key).customer
+                except CustomerToken.DoesNotExist:
+                    customer = None
+
+        if customer is not None:
+            try:
+                with transaction.atomic():
+                    customer.refresh_from_db(fields=['settings'])
+                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                    try:
+                        b = int(st.get('balance', 0) or 0)
+                    except (TypeError, ValueError):
+                        b = 0
+                    if b < debit:
+                        return Response(
+                            {
+                                'success': False,
+                                'remaining': b,
+                                'detail': 'Insufficient coins for unlock',
+                            },
+                            status=status.HTTP_400_BAD_REQUEST,
+                        )
+                    st = {**st, 'balance': max(0, b - debit)}
+                    customer.settings = st
+                    customer.save(update_fields=['settings'])
+                    remaining_for_client = int(st.get('balance', 0) or 0)
+                return Response({'success': True, 'remaining': remaining_for_client})
+            except Exception:
+                logger.exception('use_trx (balance-only) failed')
+                return Response(
+                    {'success': False, 'remaining': 0},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+
         raw_id = request.data.get('id') or request.data.get('trx_id')
         if raw_id is None:
             return Response(
@@ -944,15 +983,6 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 {'success': False, 'remaining': 0},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        customer = None
-        auth = request.META.get('HTTP_AUTHORIZATION')
-        if auth and auth.startswith('Bearer '):
-            key = auth[7:].strip()
-            if key:
-                try:
-                    customer = CustomerToken.objects.select_related('customer').get(key=key).customer
-                except CustomerToken.DoesNotExist:
-                    customer = None
         try:
             with transaction.atomic():
                 trx = (
@@ -974,40 +1004,11 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                         },
                         status=status.HTTP_400_BAD_REQUEST,
                     )
-                cust_bal = None
-                if customer is not None:
-                    customer.refresh_from_db(fields=['settings'])
-                    st_pre = _normalize_customer_settings(getattr(customer, 'settings', None))
-                    try:
-                        cust_bal = int(st_pre.get('balance', 0) or 0)
-                    except (TypeError, ValueError):
-                        cust_bal = 0
-                    if cust_bal < debit or trx.token < debit:
-                        return Response(
-                            {
-                                'success': False,
-                                'remaining': cust_bal,
-                                'detail': 'Insufficient coins for unlock',
-                            },
-                            status=status.HTTP_400_BAD_REQUEST,
-                        )
-                elif trx.token < debit:
+                if trx.token < debit:
                     return Response({'success': False, 'remaining': max(0, trx.token)})
                 trx.token = trx.token - debit
                 trx.save(update_fields=['token'])
-                if customer is not None:
-                    customer.refresh_from_db(fields=['settings'])
-                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                    try:
-                        b = int(st.get('balance', 0) or 0)
-                    except (TypeError, ValueError):
-                        b = 0
-                    st = {**st, 'balance': max(0, b - debit)}
-                    customer.settings = st
-                    customer.save(update_fields=['settings'])
-                    remaining_for_client = int(st.get('balance', 0) or 0)
-                else:
-                    remaining_for_client = trx.token
+                remaining_for_client = trx.token
         except Exception:
             logger.exception('use_trx failed')
             return Response(
