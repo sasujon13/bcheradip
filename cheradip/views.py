@@ -864,8 +864,11 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=True, methods=['post'], url_path='update_status')
     def update_status(self, request, pk=None):
         """
-        Activate trxid: add received_amount*100 to token, set status=1.
-        Returns current token balance for the client.
+        Activate trxid: add received_amount*100 to TrxManagement.token, set status=1.
+
+        When ``Authorization: Bearer <CustomerToken>`` is sent (logged-in Apply flow),
+        the same ``inc`` is **added** to ``Customer.settings['balance']`` (welcome bonus etc.)
+        and ``remaining`` is that **total wallet** so the header does not replace prior balance.
         """
         trx = TrxManagement.objects.filter(pk=pk).first()
         if not trx:
@@ -874,20 +877,59 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
             inc = int(Decimal(str(trx.received_amount)) * 100)
         except (TypeError, ValueError, ArithmeticError, InvalidOperation):
             inc = 0
-        trx.token = (trx.token or 0) + inc
-        trx.status = 1
-        trx.save(update_fields=['token', 'status'])
+        customer = None
+        auth = request.META.get('HTTP_AUTHORIZATION')
+        if auth and auth.startswith('Bearer '):
+            key = auth[7:].strip()
+            if key:
+                try:
+                    customer = CustomerToken.objects.select_related('customer').get(key=key).customer
+                except CustomerToken.DoesNotExist:
+                    customer = None
+        trx_locked = None
+        try:
+            with transaction.atomic():
+                trx_locked = TrxManagement.objects.select_for_update().filter(pk=trx.pk).first()
+                if not trx_locked:
+                    return Response({'success': False, 'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+                trx_locked.token = (trx_locked.token or 0) + inc
+                trx_locked.status = 1
+                trx_locked.save(update_fields=['token', 'status'])
+                remaining_for_client = trx_locked.token
+                if customer is not None:
+                    customer.refresh_from_db(fields=['settings'])
+                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                    try:
+                        base = int(st.get('balance', 0) or 0)
+                    except (TypeError, ValueError):
+                        base = 0
+                    st = {**st, 'balance': base + inc}
+                    customer.settings = st
+                    customer.save(update_fields=['settings'])
+                    remaining_for_client = int(st.get('balance', 0) or 0)
+        except Exception:
+            logger.exception('token update_status failed')
+            return Response(
+                {'success': False, 'detail': 'Activation failed.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
         return Response(
             {
                 'success': True,
-                'token': trx.token,
-                'remaining': trx.token,
+                'token': trx_locked.token,
+                'remaining': remaining_for_client,
             }
         )
 
     @action(detail=False, methods=['post'], url_path='use_trx')
     def use_trx(self, request):
-        """Decrement cheradip_trxmanagement.token by ``UNLOCK_DEBIT`` per institute unlock."""
+        """
+        NTRCA unlock: decrement TrxManagement.token by ``UNLOCK_DEBIT``.
+
+        When logged in (Bearer customer token), also decrement the same amount from
+        ``Customer.settings['balance']`` so the header wallet matches after reload
+        (same source as GET /api/customer_settings/).
+        """
         debit = self.UNLOCK_DEBIT
         raw_id = request.data.get('id') or request.data.get('trx_id')
         if raw_id is None:
@@ -902,6 +944,15 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 {'success': False, 'remaining': 0},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        customer = None
+        auth = request.META.get('HTTP_AUTHORIZATION')
+        if auth and auth.startswith('Bearer '):
+            key = auth[7:].strip()
+            if key:
+                try:
+                    customer = CustomerToken.objects.select_related('customer').get(key=key).customer
+                except CustomerToken.DoesNotExist:
+                    customer = None
         try:
             with transaction.atomic():
                 trx = (
@@ -923,18 +974,47 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                         },
                         status=status.HTTP_400_BAD_REQUEST,
                     )
-                if trx.token < debit:
+                cust_bal = None
+                if customer is not None:
+                    customer.refresh_from_db(fields=['settings'])
+                    st_pre = _normalize_customer_settings(getattr(customer, 'settings', None))
+                    try:
+                        cust_bal = int(st_pre.get('balance', 0) or 0)
+                    except (TypeError, ValueError):
+                        cust_bal = 0
+                    if cust_bal < debit or trx.token < debit:
+                        return Response(
+                            {
+                                'success': False,
+                                'remaining': cust_bal,
+                                'detail': 'Insufficient coins for unlock',
+                            },
+                            status=status.HTTP_400_BAD_REQUEST,
+                        )
+                elif trx.token < debit:
                     return Response({'success': False, 'remaining': max(0, trx.token)})
                 trx.token = trx.token - debit
                 trx.save(update_fields=['token'])
-                remaining = trx.token
+                if customer is not None:
+                    customer.refresh_from_db(fields=['settings'])
+                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                    try:
+                        b = int(st.get('balance', 0) or 0)
+                    except (TypeError, ValueError):
+                        b = 0
+                    st = {**st, 'balance': max(0, b - debit)}
+                    customer.settings = st
+                    customer.save(update_fields=['settings'])
+                    remaining_for_client = int(st.get('balance', 0) or 0)
+                else:
+                    remaining_for_client = trx.token
         except Exception:
             logger.exception('use_trx failed')
             return Response(
                 {'success': False, 'remaining': 0},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
-        return Response({'success': True, 'remaining': remaining})
+        return Response({'success': True, 'remaining': remaining_for_client})
 
 
 class ItemListCreateView(generics.ListCreateAPIView):
@@ -962,7 +1042,32 @@ class ItemListCreateView(generics.ListCreateAPIView):
 def item_list(request):
     items = Item.objects.all()
     serializer = ItemSerializer(items, many=True)
-    return Response(serializer.data) 
+    return Response(serializer.data)
+
+
+# Welcome bonus on new signup: stored in Customer.settings['balance'] (GET /api/customer_settings/)
+WELCOME_SIGNUP_BONUS_COINS = 5000
+
+
+def _normalize_customer_settings(raw):
+    """
+    Customer.settings is a JSONField — usually a dict. Some DB/drivers may expose JSON as str.
+    Always merge PATCH updates onto a plain dict so we never wipe keys like ``balance``.
+    """
+    if raw is None:
+        return {}
+    if isinstance(raw, dict):
+        return dict(raw)
+    if isinstance(raw, str):
+        s = raw.strip()
+        if not s:
+            return {}
+        try:
+            parsed = json.loads(s)
+            return parsed if isinstance(parsed, dict) else {}
+        except (json.JSONDecodeError, TypeError, ValueError):
+            return {}
+    return {}
 
 
 class CustomerCreateView(APIView):
@@ -1035,15 +1140,37 @@ class CustomerCreateView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         try:
-            user = serializer.save()
-            if acctype == 'Teacher':
-                tcode = self._get(raw, 'teacher_department_code', '')
-                tname = self._get(raw, 'teacher_department_name', '')
-                if (tcode or '').strip().upper() == 'OTHER' and (tname or '').strip():
-                    _append_department_to_json((tname or '').strip(), None)
-            token = self.generate_unique_key()
-            CustomerToken.objects.create(key=token, customer=user)
-            return Response({'authToken': token}, status=status.HTTP_200_OK)
+            with transaction.atomic():
+                user = serializer.save()
+                if acctype == 'Teacher':
+                    tcode = self._get(raw, 'teacher_department_code', '')
+                    tname = self._get(raw, 'teacher_department_name', '')
+                    if (tcode or '').strip().upper() == 'OTHER' and (tname or '').strip():
+                        _append_department_to_json((tname or '').strip(), None)
+                # Reload JSON settings from DB (fresh row) before merging welcome bonus
+                user.refresh_from_db(fields=['settings'])
+                # Welcome bonus — same JSON path as Angular TrxUnlockService (settings.balance)
+                st = _normalize_customer_settings(getattr(user, 'settings', None))
+                try:
+                    base_bal = int(st.get('balance', 0) or 0)
+                except (TypeError, ValueError):
+                    base_bal = 0
+                st = {
+                    **st,
+                    'balance': base_bal + WELCOME_SIGNUP_BONUS_COINS,
+                    'welcome_coins_ceremony_pending': True,
+                }
+                user.settings = st
+                user.save(update_fields=['settings'])
+                token = self.generate_unique_key()
+                CustomerToken.objects.create(key=token, customer=user)
+            return Response(
+                {
+                    'authToken': token,
+                    'show_welcome_coins_ceremony': True,
+                },
+                status=status.HTTP_200_OK,
+            )
         except Exception as e:
             logger.exception('Signup save failed: %s', e)
             err_msg = 'Signup failed. Please try again.'
@@ -1140,6 +1267,8 @@ class CustomerRetrieveView(APIView):
             thana = getattr(user, 'thana', None)
             union = getattr(user, 'union', None)
             village = getattr(user, 'village', None)
+            settings_dict = _normalize_customer_settings(getattr(user, 'settings', None))
+            show_welcome_coins = bool(settings_dict.get('welcome_coins_ceremony_pending'))
             token = self.generate_unique_key()
             CustomerToken.objects.filter(customer=user).delete()
             CustomerToken.objects.create(key=token, customer=user)
@@ -1155,6 +1284,7 @@ class CustomerRetrieveView(APIView):
                 'thana': thana,
                 'union': union,
                 'village': village,
+                'show_welcome_coins_ceremony': show_welcome_coins,
             }, status=status.HTTP_200_OK)
 
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -1197,9 +1327,7 @@ class CustomerSettingsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        settings_dict = getattr(request.user, 'settings', None)
-        if settings_dict is None:
-            settings_dict = {}
+        settings_dict = _normalize_customer_settings(getattr(request.user, 'settings', None))
         return Response({'settings': settings_dict}, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -1207,7 +1335,10 @@ class CustomerSettingsView(APIView):
         if new_settings is not None and not isinstance(new_settings, dict):
             return Response({'error': 'settings must be a JSON object'}, status=status.HTTP_400_BAD_REQUEST)
         user = request.user
-        current = getattr(user, 'settings', None) or {}
+        # Must read latest JSON from DB before merge — otherwise PATCH can replace the whole
+        # settings object and drop ``balance`` (e.g. after welcome ceremony clears pending flag).
+        user.refresh_from_db(fields=['settings'])
+        current = _normalize_customer_settings(getattr(user, 'settings', None))
         if new_settings is not None:
             current = {**current, **new_settings}
             user.settings = current
