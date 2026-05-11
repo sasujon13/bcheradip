@@ -2308,6 +2308,21 @@ class ExportQuestionsView(APIView):
         q_font_mcq = num(pick('previewQuestionsFontPxMcq', q_font_global), q_font_global)
         # Preview keeps a legacy global min font for fallback; PDF body inheritance must not get pinned to min.
         q_font_body = max(q_font_cq, q_font_mcq)
+
+        # Per-environment font-size nudge (Linux snap Chromium can rasterise the same TTF a touch
+        # smaller than Windows + bundled Chromium). Set EXPORT_FONT_SIZE_DELTA in .env to a *small*
+        # additive px offset, e.g. `0.1`, `0.25`, `-0.1`. Defaults to `0` (no change). Applied
+        # uniformly so option/body/global stay in proportion. Keep it small — every 1px ≈ ~7%
+        # at 14px body and can shift line breaks/page breaks across the whole document.
+        try:
+            _font_delta_px = float((os.environ.get('EXPORT_FONT_SIZE_DELTA') or '0').strip() or '0')
+        except (TypeError, ValueError):
+            _font_delta_px = 0.0
+        if _font_delta_px:
+            q_font_global = q_font_global + _font_delta_px
+            q_font_cq = q_font_cq + _font_delta_px
+            q_font_mcq = q_font_mcq + _font_delta_px
+            q_font_body = q_font_body + _font_delta_px
         q_lh_global = num(pick('previewQuestionsLineHeight', 1.4), 1.4)
         q_lh_cq = num(pick('previewQuestionsLineHeightCreative', q_lh_global), q_lh_global)
         q_lh_mcq = num(pick('previewQuestionsLineHeightMcq', q_lh_global), q_lh_global)
