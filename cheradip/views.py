@@ -1694,8 +1694,27 @@ def _export_normalize_q_code_block_html(text):
     return str(s or '').strip()
 
 
+_EXPORT_UNICODE_SPACE_RE = re.compile(
+    # NBSP, EN SPACE, EM SPACE, THREE-PER-EM, FOUR-PER-EM, SIX-PER-EM, FIGURE SPACE,
+    # PUNCTUATION SPACE, THIN SPACE, HAIR SPACE, NARROW NO-BREAK SPACE, MEDIUM MATH SPACE,
+    # IDEOGRAPHIC SPACE, ZERO-WIDTH NBSP (BOM) — all replaced with ASCII space so CSS
+    # `white-space` can collapse runs and Chromium's justifier doesn't stretch wide glyphs.
+    r'[\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000\uFEFF]'
+)
+
+
+def _export_normalize_inline_spaces(text):
+    """Collapse Unicode space characters to a single ASCII space; keep newlines for `pre-line`."""
+    if not text:
+        return text
+    s = _EXPORT_UNICODE_SPACE_RE.sub(' ', str(text))
+    s = re.sub(r'[ \t]+', ' ', s)
+    return s
+
+
 def _export_escape_html_preserve_img_br(line):
     """Escape HTML except q-code-block, q-rich-img-stack, whitelisted <img>, and <br> (aligned with fcheradip wrapRomanLines)."""
+    line = _export_normalize_inline_spaces(line)
     token_re = re.compile(
         r'%s[\s\S]*?%s|'
         r'<span class="q-rich-img-stack">\s*<img\b[^>]*>\s*<span class="q-rich-img-caption">[^<]*</span>\s*</span>|'
@@ -1923,9 +1942,12 @@ def _export_format_question_media_html(text, host_base):
 
 
 def _export_flatten_mcq_block_text(text):
-    """MCQ: collapse line breaks (incl. Unicode NEL/LS/PS) so PDF does not emit one display:block line per fragment."""
+    """MCQ: collapse line breaks (incl. Unicode NEL/LS/PS) so PDF does not emit one display:block line per fragment.
+    Also fold Unicode whitespace (NBSP, en/em/thin/hair spaces, etc.) into regular ASCII spaces so the
+    PDF doesn't show abnormally wide gaps between words compared with the on-screen preview."""
     s = str(text or '').replace('\r\n', '\n').replace('\r', '\n')
     s = re.sub(r'[\n\t\v\f\x1c\x1d\x1e\x85\u2028\u2029]+', ' ', s)
+    s = _EXPORT_UNICODE_SPACE_RE.sub(' ', s)
     s = re.sub(r' +', ' ', s).strip()
     return s
 
@@ -3134,14 +3156,16 @@ class ExportQuestionsView(APIView):
     {cq_page_css}{mcq_page_css}
     html, body {{ margin: 0; padding: 0; }}
     body {{
-      font-family: "Roboto", sans-serif;
+      --q-font-stack: "Roboto", "Noto Sans Bengali", "Nirmala UI", "Noto Serif Bengali", "Bengali Serif", sans-serif;
+      font-family: var(--q-font-stack);
       font-size: {q_font_body:.2f}px;
       line-height: {q_lh_body:.3f};
       word-spacing: var(--export-word-spacing);
-      --q-font-stack: "Roboto", "Noto Sans Bengali", "Nirmala UI", "Noto Serif Bengali", "Bengali Serif", sans-serif;
       color: var(--color_primary_black);
     }}
     {paper_page_rule_css}
+    /* Bypass: shrink inter-word spacing across the entire PDF (body + header). */
+    * {{ word-spacing: -0.95px !important; }}
     .paper-break {{ break-before: page; }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
     /* Preview header lines don’t inherit body export word-spacing; extra spacing wraps text earlier in Chromium PDF. */
@@ -3315,6 +3339,8 @@ class ExportQuestionsView(APIView):
       min-width: 0;
       width: 100%;
       text-align: justify;
+      /* Prevent Chromium from spreading characters within Bengali clusters when justifying. */
+      text-justify: inter-word;
       position: relative;
       padding-right: var(--preview-q-content-pr, 0.1429em);
       box-sizing: border-box;
@@ -3351,7 +3377,10 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
-      white-space: pre-wrap;
+      /* `pre-line` (not `pre-wrap`) collapses runs of spaces to one — same as the live UI preview.
+         `pre-wrap` was preserving accidental double-spaces in Bengali source content, producing wider
+         inter-word gaps in the PDF than in the on-screen preview. Line breaks (\\n) still honored. */
+      white-space: pre-line;
       tab-size: 4;
       word-spacing: var(--export-word-spacing);
     }}
@@ -3361,7 +3390,7 @@ class ExportQuestionsView(APIView):
       display: block;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
-      white-space: pre-wrap;
+      white-space: pre-line;
       tab-size: 4;
       box-sizing: border-box;
     }}
@@ -3370,7 +3399,7 @@ class ExportQuestionsView(APIView):
       display: inline;
       margin: 0;
       line-height: inherit;
-      white-space: pre-wrap;
+      white-space: pre-line;
       tab-size: 4;
     }}
     .q-text .topic-question-line.topic-question-mcq-codeline,
