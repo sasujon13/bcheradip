@@ -119,8 +119,18 @@ def _playwright_chromium_executable_path():
             continue
         seen.add(path)
         try:
-            if os.path.isfile(path) and os.access(path, os.X_OK):
-                return path
+            if not (os.path.isfile(path) and os.access(path, os.X_OK)):
+                continue
+            try:
+                real = os.path.realpath(path)
+                size = os.path.getsize(path)
+            except OSError:
+                real = path
+                size = 0
+            # apt-to-snap shim under /usr/bin (~2KB) — would re-exec snap with broken stdio for Playwright.
+            if path.startswith('/usr/bin/') and size and size < 4096 and '/snap/' in real:
+                continue
+            return path
         except OSError:
             continue
     return None
