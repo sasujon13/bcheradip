@@ -34,7 +34,7 @@ from io import BytesIO
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-import logging, random, string, json, requests, os, re, csv, time, zipfile, math
+import logging, random, string, json, requests, os, re, csv, time, zipfile, math, shutil
 from html import escape, unescape
 from urllib import parse as urllib_parse
 from urllib.parse import quote, unquote
@@ -79,6 +79,65 @@ except ImportError:
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+
+def _playwright_chromium_executable_path():
+    """
+    Resolve a Chromium/Chrome binary for Playwright when its bundled browser isn't usable
+    (e.g. Ubuntu 26.04 where ``playwright install chromium`` is unsupported).
+
+    Order:
+      1. ``PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`` env / .env (explicit override).
+      2. apt-style ``/usr/bin/...`` paths (preferred over snap; snap Chromium often breaks headless PDF).
+      3. ``which`` lookups for non-snap binaries.
+      4. ``/snap/bin/chromium`` as a last resort.
+    """
+    seen = set()
+    candidates = []
+
+    envp = (os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH') or '').strip()
+    if envp:
+        candidates.append(envp)
+
+    candidates.extend([
+        '/usr/bin/google-chrome-stable',
+        '/usr/bin/google-chrome',
+        '/usr/bin/chromium',
+        '/usr/bin/chromium-browser',
+    ])
+
+    for name in ('google-chrome-stable', 'google-chrome', 'chromium', 'chromium-browser'):
+        p = shutil.which(name)
+        if p and '/snap/' not in p:
+            candidates.append(p)
+
+    snap_chromium = shutil.which('chromium') or '/snap/bin/chromium'
+    candidates.append(snap_chromium)
+
+    for path in candidates:
+        if not path or path in seen:
+            continue
+        seen.add(path)
+        try:
+            if os.path.isfile(path) and os.access(path, os.X_OK):
+                return path
+        except OSError:
+            continue
+    return None
+
+
+def _playwright_chromium_launch_kwargs():
+    """Headless launch kwargs with system Chromium + Linux flags that fix common headless PDF failures."""
+    kwargs = {'headless': True}
+    exe = _playwright_chromium_executable_path()
+    if exe:
+        kwargs['executable_path'] = exe
+        kwargs['args'] = [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+        ]
+    return kwargs
 
 
 # ==============================================================================
@@ -3464,7 +3523,8 @@ class ExportQuestionsView(APIView):
         ).replace('</body>', _EXPORT_Q_RICH_IMG_PDF_SCRIPT + '\n</body>', 1)
         html = _export_strip_img_lazy_loading_attrs(html)
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
+            launch_kwargs = _playwright_chromium_launch_kwargs()
+            browser = p.chromium.launch(**launch_kwargs)
             try:
                 page = browser.new_page()
                 page.set_content(html, wait_until='networkidle')
