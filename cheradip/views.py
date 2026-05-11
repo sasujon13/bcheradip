@@ -2052,6 +2052,7 @@ class ExportQuestionsView(APIView):
         # filename -> (family, weight, style)
         wanted = {
             'Roboto-Regular.ttf': ('Roboto', '400', 'normal'),
+            'Roboto-Bold.ttf': ('Roboto', '700', 'normal'),
             'Roboto-Thin.ttf': ('Roboto', '300', 'normal'),
             'NotoSansBengali-Regular.ttf': ('Noto Sans Bengali', '400', 'normal'),
             'NotoSansBengali-Bold.ttf': ('Noto Sans Bengali', '700', 'normal'),
@@ -2064,6 +2065,14 @@ class ExportQuestionsView(APIView):
             'NotoSerif-Regular.ttf': ('Noto Serif', '400', 'normal'),
             'NotoSerif-Bold.ttf': ('Noto Serif', '700', 'normal'),
             'STIXTwoMath-Regular.otf': ('STIX Two Math', '400', 'normal'),
+            # Windows system Bengali — copy from C:\Windows\Fonts so Linux PDFs match the live preview.
+            'Nirmala.ttf': ('Nirmala UI', '400', 'normal'),
+            'NirmalaB.ttf': ('Nirmala UI', '700', 'normal'),
+            'NirmalaS.ttf': ('Nirmala UI Semilight', '350', 'normal'),
+            'Vrinda.ttf': ('Vrinda', '400', 'normal'),
+            'Vrindab.ttf': ('Vrinda', '700', 'normal'),
+            'Shonar.ttf': ('Shonar Bangla', '400', 'normal'),
+            'Shonarb.ttf': ('Shonar Bangla', '700', 'normal'),
         }
         rules = []
         for fn, spec in wanted.items():
@@ -3129,7 +3138,7 @@ class ExportQuestionsView(APIView):
       font-size: {q_font_body:.2f}px;
       line-height: {q_lh_body:.3f};
       word-spacing: var(--export-word-spacing);
-      --q-font-stack: "Roboto", "Noto Serif Bengali", "Bengali Serif", sans-serif;
+      --q-font-stack: "Roboto", "Noto Sans Bengali", "Nirmala UI", "Noto Serif Bengali", "Bengali Serif", sans-serif;
       color: var(--color_primary_black);
     }}
     {paper_page_rule_css}

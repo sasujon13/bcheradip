@@ -156,3 +156,14 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static('/manage' + settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # Cloudflare-Tunnel / local deployment on Windows has no nginx in front of Django,
+    # so Django itself must serve /manage/media/<path> even when DEBUG=False.
+    # On Linux production this is harmless (nginx handles it first via location /manage/media/).
+    urlpatterns += [
+        re_path(
+            r'^manage' + settings.MEDIA_URL + r'(?P<path>.*)$',
+            serve,
+            {'document_root': settings.MEDIA_ROOT},
+        ),
+    ]
