@@ -3081,6 +3081,11 @@ class ExportQuestionsView(APIView):
         divider_css_cq = 'column-rule: 1px solid #c8c8c8;' if show_div and cq_render_cols > 1 else ''
         local_font_face_css = self._playwright_local_font_face_css()
 
+        # PDF word-spacing is tunable per environment (Windows/Playwright vs Linux/snap Chromium
+        # render the same TTFs with slightly different advance widths). Set EXPORT_WORD_SPACING in
+        # .env to any valid CSS length, e.g. `0`, `-0.5px`, `0.95px`, `calc(1px + 0.04em)`.
+        export_word_spacing_css = (os.environ.get('EXPORT_WORD_SPACING') or '0').strip() or '0'
+
         mt = float(margin_top)
         mr = float(margin_right)
         ml = float(margin_left)
@@ -3149,8 +3154,12 @@ class ExportQuestionsView(APIView):
       --color_primary_teal: teal;
       --color_primary_shadow: rgba(0, 0, 0, 0.15);
       --color_primary_transparent: rgba(0, 128, 128, 0.12);
-      /* ~1px at 14px + em so PDF scales; explicit on text nodes (justify swallows fixed word-spacing in Chromium). */
-      --export-word-spacing: calc(1px + 0.04em);
+      /* Word-spacing applied to every text node in the PDF (body + header). Tunable per
+         environment via the EXPORT_WORD_SPACING env var (see .env). Default `0` keeps the
+         font's natural advance widths. Examples that have worked in practice:
+           local (Windows + bundled Chromium):  -0.95px (tighter than natural)
+           server (Linux + snap Chromium):       0.5px to 1px (slightly looser) */
+      --export-word-spacing: {export_word_spacing_css};
     }}
     {local_font_face_css}
     {cq_page_css}{mcq_page_css}
@@ -3164,13 +3173,12 @@ class ExportQuestionsView(APIView):
       color: var(--color_primary_black);
     }}
     {paper_page_rule_css}
-    /* Bypass: shrink inter-word spacing across the entire PDF (body + header). */
-    * {{ word-spacing: -0.95px !important; }}
+    /* Apply the env-tunable word-spacing to the entire PDF, including header rows. */
+    * {{ word-spacing: var(--export-word-spacing) !important; }}
     .paper-break {{ break-before: page; }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
-    /* Preview header lines don’t inherit body export word-spacing; extra spacing wraps text earlier in Chromium PDF. */
+    /* Header letter-spacing always normal — only word-spacing is tunable via env. */
     .q-header, .q-header .hline {{
-      word-spacing: normal;
       letter-spacing: normal;
     }}
     .hline-hr {{
