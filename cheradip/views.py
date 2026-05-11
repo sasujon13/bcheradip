@@ -3189,6 +3189,7 @@ class ExportQuestionsView(APIView):
     }}
     {paper_page_rule_css}
     /* Apply the env-tunable word-spacing to the entire PDF, including header rows. */
+    /* Apply the env-tunable word-spacing to the entire PDF, including header rows. */
     * {{ word-spacing: var(--export-word-spacing) !important; }}
     .paper-break {{ break-before: page; }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
