@@ -151,7 +151,6 @@ urlpatterns = [
     path('sitemap_pages.xml', views.sitemap_pages),
     path('sitemap_institutes_<int:page>.xml', views.sitemap_institutes_part),
     path('', include(router.urls)),
-    re_path(r'^favicon\.ico$', serve, {'path': 'static/favicon.ico'}),
 ]
 
 if settings.DEBUG:

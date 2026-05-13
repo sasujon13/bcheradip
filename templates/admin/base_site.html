@@ -1,17 +1,20 @@
 {% extends "admin/base.html" %}
-{% load i18n static %}
+{% load i18n %}
 
 {% block favicon %}
-{# Django 5.x does not ship admin/favicon.ico; project file is static_src/admin/favicon.ico (copy from repo root favicon.ico). #}
-<link rel="icon" type="image/x-icon" href="{% static 'admin/favicon.ico' %}">
+{# Served from project root bcheradip/favicon.ico via backend.urls (works with DEBUG True/False). #}
+<link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="any">
 {% endblock %}
 
 {% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:"admin" }}{% endblock %}
 
 {% block branding %}
 <a href="{% url 'admin:index' %}" class="branding-logo" aria-hidden="true">
-  <img src="{% static 'admin/cheradip.svg' %}" alt="" class="branding-logo-img">
+  <img src="https://cheradip.com/assets/images/cheradip.svg" alt="" class="branding-logo-img" decoding="async" />
 </a>
+{% endblock %}
+
+{% block site_name %}
 <div id="site-name">
   <a href="{% url 'admin:index' %}">{{ site_header }}</a>
 </div>

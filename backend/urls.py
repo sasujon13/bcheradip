@@ -1,7 +1,8 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 from django.template.response import TemplateResponse
 from django.conf import settings
+from django.views.static import serve
 
 # Add custom admin views: Databases list and Tables per database
 from backend import database_admin_views
@@ -62,6 +63,12 @@ admin.site.get_app_list = _admin_get_app_list
 admin.site.index = _admin_index
 
 urlpatterns = [
+    # Project-root favicon (bcheradip/favicon.ico); fixes tab icon and /favicon.ico requests.
+    re_path(
+        r'^favicon\.ico$',
+        serve,
+        {'document_root': settings.BASE_DIR, 'path': 'favicon.ico'},
+    ),
     path('admin/', admin.site.urls),
     path('api/', include('cheradip.urls')),
     path('', include('cheradip.urls')),  # keep root for backward compatibility

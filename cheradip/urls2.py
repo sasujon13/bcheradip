@@ -57,7 +57,11 @@ urlpatterns = [
     path('myorder/<str:username>/', OrderRetrieveView.as_view(), name='myorder'),
     path('save_json_data/', views.save_json_data, name='save_json_data'),
     path('', include(router.urls)),
-    re_path(r'^favicon\.ico$', serve, {'path': 'static/favicon.ico'}),
+    re_path(
+        r'^favicon\.ico$',
+        serve,
+        {'document_root': settings.BASE_DIR, 'path': 'favicon.ico'},
+    ),
     # re_path(r'^manage/media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
 ]
 
