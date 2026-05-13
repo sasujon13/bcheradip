@@ -183,6 +183,10 @@
     background: var(--primary-hover) !important;
     color: #fff !important;
   }
+  /* Hide Django admin nav sidebar toggle (sticky hamburger). */
+  button#toggle-nav-sidebar.toggle-nav-sidebar {
+    display: none !important;
+  }
   /* Keep Django .colMS margin for changelist sidebar; dashboard full-width is in index.html only. */
 </style>
 {% endblock %}
