@@ -10,11 +10,21 @@
   body.dashboard .main h1:first-child {
     display: none;
   }
-  /* Django base.css forces .dashboard #content { width: 600px }; override so model grid can use full area */
+  /* Django base.css forces .dashboard #content { width: 600px }; override. Use #content as CQ container = full column width. */
   body.dashboard #content {
     width: 100% !important;
     max-width: none !important;
     box-sizing: border-box;
+    container-type: inline-size;
+    container-name: admin-main;
+  }
+  /* Flex: let the main column grow so inline-size isn’t stuck ~900px on wide screens. */
+  body.dashboard .main {
+    min-width: 0;
+  }
+  body.dashboard main.content {
+    min-width: 0;
+    flex: 1 1 0%;
   }
   /* No black dots: remove bullets from menus and model lists on dashboard */
   #content-main .module ul,
@@ -71,13 +81,11 @@
     position: relative;
     top: 1px;
   }
-  /* App section: full-width table; column count follows #content-main width (not viewport) */
+  /* App section: full-width table; column count uses body.dashboard #content container (above). */
   #content-main {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    container-type: inline-size;
-    container-name: admin-main;
   }
   #content-main .app-cheradip.module {
     width: 100%;
@@ -115,6 +123,11 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
+    @container admin-main (min-width: 1040px) {
+      #content-main .app-cheradip.module tbody {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+    }
   }
   @supports not (container-type: inline-size) {
     #content-main .app-cheradip.module tbody {
@@ -123,6 +136,11 @@
     @media (min-width: 900px) {
       #content-main .app-cheradip.module tbody {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 1040px) {
+      #content-main .app-cheradip.module tbody {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
       }
     }
     @media (max-width: 520px) {
@@ -145,38 +163,77 @@
   #content-main .app-cheradip.module tbody tr td {
     text-align: center;
   }
-  /* Table list: full width; columns from max content length, no overlap */
+  /* DB table list (/admin/databases/.../): fixed-min grid + single-line links with ellipsis */
   #content-main .admin-tables-wrapper {
     width: 100%;
     max-width: 100%;
-    text-align: center;
+    text-align: left;
+    box-sizing: border-box;
+    overflow: visible;
   }
   .admin-tables-grid {
     list-style: none;
     padding: 0;
     margin: 0;
     text-align: left;
-    column-width: 320px;
-    column-gap: 2em;
-    column-fill: balance;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
     width: 100%;
+    box-sizing: border-box;
   }
   .admin-tables-grid li {
-    break-inside: avoid;
-    margin: 0.35em 0;
+    position: relative;
+    margin: 0;
     padding: 0;
     min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    min-height: 1.75em;
+    align-self: start;
+  }
+  .admin-tables-grid li:hover,
+  .admin-tables-grid li:focus-within {
+    overflow: visible;
+    z-index: 40;
   }
   .admin-tables-grid a {
     text-decoration: none;
     color: var(--primary, #008080);
-    display: inline-block;
+    display: block;
     max-width: 100%;
-    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: normal;
+    box-sizing: border-box;
+    line-height: 1.5;
+  }
+  .admin-tables-grid a:hover,
+  .admin-tables-grid a:focus-visible {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    max-width: none;
+    width: max-content;
+    min-width: 100%;
+    overflow: visible;
+    white-space: nowrap;
+    text-overflow: clip;
+    background: var(--body-bg, #fff);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    margin: -4px -8px;
+    border-radius: 4px;
+    text-decoration: none;
+    outline: none;
   }
   .admin-tables-grid a:hover {
     color: var(--primary-hover, #006666);
-    text-decoration: underline;
+  }
+  .admin-tables-grid a:focus-visible {
+    color: var(--primary, #008080);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(0, 128, 128, 0.45);
   }
   /* Remove sidebar margin on all viewport sizes */
   .colMS {
