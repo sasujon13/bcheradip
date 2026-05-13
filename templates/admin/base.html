@@ -305,6 +305,41 @@
           display: inline !important;
         }
       }
+      /* Changelist: filter nav as fixed-width right aside (overrides responsive.css column stack ≥768px) */
+      @media (min-width: 768px) {
+        body.change-list #changelist.filtered,
+        body.change-list #changelist.module.filtered {
+          display: flex !important;
+          flex-direction: row !important;
+          flex-wrap: nowrap !important;
+          align-items: flex-start !important;
+          justify-content: flex-start !important;
+          gap: 0 1rem;
+        }
+        body.change-list #changelist .changelist-form-container {
+          flex: 1 1 auto !important;
+          min-width: 0 !important;
+          order: 0;
+        }
+        body.change-list #changelist-filter {
+          flex: 0 0 260px !important;
+          width: 260px;
+          max-width: min(280px, 32vw);
+          order: 1 !important;
+          margin: 0 0 0 0.75rem !important;
+          align-self: flex-start;
+          position: sticky;
+          top: 0.75rem;
+          max-height: calc(100vh - 5rem);
+          overflow-y: auto;
+          overflow-x: hidden;
+          box-sizing: border-box;
+          z-index: 2;
+        }
+        [dir="rtl"] body.change-list #changelist-filter {
+          margin: 0 0.75rem 0 0 !important;
+        }
+      }
     </style>
 {% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
