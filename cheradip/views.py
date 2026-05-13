@@ -6197,7 +6197,24 @@ class ClassesByCountryView(APIView):
         return Response({'classes': classes, 'country_code': country_code}, status=status.HTTP_200_OK)
 
 
-# ----- Question section: levels, subjects, chapters from cheradip_hsc.cheradip_subject and subject question tables -----
+# ----- Question section: levels, subjects, chapters from cheradip_subject and subject question tables -----
+
+
+def _question_chain_db_alias(request):
+    """
+    DB alias for question_levels / question_classes / question_groups / question_subjects /
+    question_chapters / question_topics / question_list.
+    Query: ?db=default|hsc|honours|job (must exist in DATABASES). If missing or invalid, use hsc (legacy).
+    """
+    try:
+        from backend.admin_app_list import VALID_DB_ALIASES
+    except Exception:
+        VALID_DB_ALIASES = {'default', 'hsc', 'honours', 'job'}
+    db = (request.query_params.get('db') or '').strip().lower()
+    if db in VALID_DB_ALIASES and db in connections:
+        return db
+    return 'hsc'
+
 
 class QuestionLevelsView(APIView):
     """
@@ -6208,9 +6225,10 @@ class QuestionLevelsView(APIView):
     authentication_classes = []
 
     def get(self, request):
-        if 'hsc' not in connections:
-            return Response({'levels': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
-        conn = connections['hsc']
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response({'levels': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
+        conn = connections[db_alias]
         levels = []
         try:
             with conn.cursor() as cur:
@@ -6253,9 +6271,10 @@ class QuestionClassesView(APIView):
         level_tr = (request.query_params.get('level_tr') or '').strip()
         if not level_tr:
             return Response({'classes': []}, status=status.HTTP_200_OK)
-        if 'hsc' not in connections:
-            return Response({'classes': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
-        conn = connections['hsc']
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response({'classes': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
+        conn = connections[db_alias]
         classes = []
         try:
             with conn.cursor() as cur:
@@ -6305,9 +6324,10 @@ class QuestionGroupsView(APIView):
         class_level = (request.query_params.get('class_level') or '').strip()
         if not level_tr:
             return Response({'groups': []}, status=status.HTTP_200_OK)
-        if 'hsc' not in connections:
-            return Response({'groups': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
-        conn = connections['hsc']
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response({'groups': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
+        conn = connections[db_alias]
         seen = set()
         try:
             with conn.cursor() as cur:
@@ -6347,9 +6367,10 @@ class QuestionSubjectsView(APIView):
         group = (request.query_params.get('group') or '').strip()
         if not level_tr:
             return Response({'subjects': []}, status=status.HTTP_200_OK)
-        if 'hsc' not in connections:
-            return Response({'subjects': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
-        conn = connections['hsc']
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response({'subjects': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
+        conn = connections[db_alias]
         subjects = []
         try:
             with conn.cursor() as cur:
@@ -6588,10 +6609,11 @@ class QuestionChaptersView(APIView):
         subject_tr = (request.query_params.get('subject_tr') or '').strip()
         if not level_tr or not class_level or not subject_tr:
             return Response({'chapters': []}, status=status.HTTP_200_OK)
-        if 'hsc' not in connections:
-            return Response({'chapters': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response({'chapters': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
         table_name = subject_question_table_name(level_tr, class_level, subject_tr)
-        conn = connections['hsc']
+        conn = connections[db_alias]
         chapters = []
         try:
             with conn.cursor() as cur:
@@ -6641,10 +6663,11 @@ class QuestionTopicsView(APIView):
         chapter = (request.query_params.get('chapter') or '').strip()
         if not level_tr or not class_level or not subject_tr:
             return Response({'topics': []}, status=status.HTTP_200_OK)
-        if 'hsc' not in connections:
-            return Response({'topics': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response({'topics': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
         table_name = subject_question_table_name(level_tr, class_level, subject_tr)
-        conn = connections['hsc']
+        conn = connections[db_alias]
         topics = []
         try:
             with conn.cursor() as cur:
@@ -6789,10 +6812,11 @@ class QuestionListView(APIView):
         chapter = (request.query_params.get('chapter') or '').strip()
         if not level_tr or not class_level or not subject_tr or not topic:
             return Response({'questions': []}, status=status.HTTP_200_OK)
-        if 'hsc' not in connections:
-            return Response({'questions': [], 'error': 'HSC database not configured'}, status=status.HTTP_200_OK)
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response({'questions': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
         table_name = subject_question_table_name(level_tr, class_level, subject_tr)
-        conn = connections['hsc']
+        conn = connections[db_alias]
         questions = []
         try:
             with conn.cursor() as cur:

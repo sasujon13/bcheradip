@@ -225,7 +225,12 @@
 <script>
 (function() {
   var API_BASE = '{{ request.scheme }}://{{ request.get_host }}/api';
-  var FILTER_STORAGE_KEY = 'cheradip_settings_filter_state';
+  var SETTINGS_DB = '{{ current_db|escapejs }}';
+  function withDb(url) {
+    var sep = url.indexOf('?') === -1 ? '?' : '&';
+    return url + sep + 'db=' + encodeURIComponent(SETTINGS_DB);
+  }
+  var FILTER_STORAGE_KEY = 'cheradip_settings_filter_state_' + SETTINGS_DB;
   var TOPIC_CHAPTER_DELIM = '\u241F';
   var initialFilters = {
     level_tr: '{{ filters.level_tr|escapejs }}',
@@ -440,7 +445,7 @@
   }
 
   function loadLevels() {
-    fetchJson(API_BASE + '/question_levels/').then(function(data) {
+    fetchJson(withDb(API_BASE + '/question_levels/')).then(function(data) {
       var raw = data.levels || [];
       var levels = raw.map(function(l) {
         return {
@@ -486,7 +491,7 @@
     updateSingleBtnLabel('group_btn', '', 'Select Group');
     updateSingleBtnLabel('subject_btn', '', 'Select Subject');
     if (!state.selectedLevel) { loadChapters(); loadTopics(); updateFilterVisibility(); return; }
-    fetchJson(API_BASE + '/question_classes/?level_tr=' + encodeURIComponent(state.selectedLevel)).then(function(data) {
+    fetchJson(withDb(API_BASE + '/question_classes/?level_tr=' + encodeURIComponent(state.selectedLevel))).then(function(data) {
       var seenClass = {};
       var classes = [];
       (data.classes || []).forEach(function(c) {
@@ -529,7 +534,7 @@
 
   function loadGroupsAndSubjects() {
     if (!state.selectedLevel) { loadSubjects(); return; }
-    var url = API_BASE + '/question_groups/?level_tr=' + encodeURIComponent(state.selectedLevel);
+    var url = withDb(API_BASE + '/question_groups/?level_tr=' + encodeURIComponent(state.selectedLevel));
     if (state.selectedClass) url += '&class_level=' + encodeURIComponent(state.selectedClass);
     fetchJson(url).then(function(data) {
       var groups = (data.groups || []).map(function(g) { return { value: g, label: g }; });
@@ -563,7 +568,7 @@
     state.selectedSubjectTr = '';
     updateSingleBtnLabel('subject_btn', '', 'Select Subject');
     if (!state.selectedLevel) { loadChapters(); loadTopics(); return; }
-    var url = API_BASE + '/question_subjects/?level_tr=' + encodeURIComponent(state.selectedLevel);
+    var url = withDb(API_BASE + '/question_subjects/?level_tr=' + encodeURIComponent(state.selectedLevel));
     if (state.selectedClass) url += '&class_level=' + encodeURIComponent(state.selectedClass);
     if (state.selectedGroup) url += '&group=' + encodeURIComponent(state.selectedGroup);
     fetchJson(url).then(function(data) {
@@ -604,8 +609,8 @@
     var sub = state.subjects.filter(function(s) { return s.value === state.selectedSubjectTr; })[0];
     var classForApi = state.selectedClass || (sub && sub.class_level) || '';
     if (!state.selectedLevel || !state.selectedSubjectTr || !classForApi) { updateFilterVisibility(); return; }
-    var chaptersUrl = API_BASE + '/question_chapters/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApi) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr);
-    var questionsUrl = API_BASE + '/question_list/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApi) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr);
+    var chaptersUrl = withDb(API_BASE + '/question_chapters/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApi) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr));
+    var questionsUrl = withDb(API_BASE + '/question_list/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApi) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr));
     Promise.all([fetchJson(chaptersUrl), fetchJson(questionsUrl)]).then(function(results) {
       var data = results[0];
       var chapterMap = {};
@@ -648,7 +653,7 @@
     var subT = state.subjects.filter(function(s) { return s.value === state.selectedSubjectTr; })[0];
     var classForApiT = state.selectedClass || (subT && subT.class_level) || '';
     if (!state.selectedLevel || !state.selectedSubjectTr || !classForApiT) { updateFilterVisibility(); return; }
-    var baseUrl = API_BASE + '/question_topics/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApiT) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr);
+    var baseUrl = withDb(API_BASE + '/question_topics/?level_tr=' + encodeURIComponent(state.selectedLevel) + '&class_level=' + encodeURIComponent(classForApiT) + '&subject_tr=' + encodeURIComponent(state.selectedSubjectTr));
     var chaptersToUse = state.selectedChapters.length > 0 ? state.selectedChapters : [];
     function mergeTopicRows(acc, t) {
       var v = t.id != null ? t.id : (t.topic || t.name);

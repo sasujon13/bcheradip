@@ -187,6 +187,60 @@
   button#toggle-nav-sidebar.toggle-nav-sidebar {
     display: none !important;
   }
+  /* Nav sidebar (#nav-sidebar): Cheradip app list — same full-width + grid idea as main content (index.html).
+     Sidebar is ~275px; use two columns max (four is impractical here). */
+  #nav-sidebar .app-cheradip.module {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: nav-sidebar-cheradip;
+  }
+  #nav-sidebar .app-cheradip.module table {
+    width: 100% !important;
+    max-width: 100%;
+    display: block;
+    box-sizing: border-box;
+  }
+  #nav-sidebar .app-cheradip.module caption {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  #nav-sidebar .app-cheradip.module tbody {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px 0.35rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  #nav-sidebar .app-cheradip.module tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    box-sizing: border-box;
+  }
+  #nav-sidebar .app-cheradip.module tbody tr:only-child {
+    grid-column: 1 / -1;
+  }
+  /* nav_sidebar.css sets th { width: 100% } — breaks th+td rows in a grid cell */
+  #nav-sidebar .app-cheradip.module tbody tr th {
+    width: auto;
+    max-width: 70%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  #nav-sidebar .app-cheradip.module tbody tr td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  @supports (container-type: inline-size) {
+    @container nav-sidebar-cheradip (max-width: 200px) {
+      #nav-sidebar .app-cheradip.module tbody {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
   /* Keep Django .colMS margin for changelist sidebar; dashboard full-width is in index.html only. */
 </style>
 {% endblock %}

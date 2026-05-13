@@ -10,9 +10,11 @@
   body.dashboard .main h1:first-child {
     display: none;
   }
-  .dashboard #content {
-    width: auto;
-    max-width: none;
+  /* Django base.css forces .dashboard #content { width: 600px }; override so model grid can use full area */
+  body.dashboard #content {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box;
   }
   /* No black dots: remove bullets from menus and model lists on dashboard */
   #content-main .module ul,
@@ -69,20 +71,78 @@
     position: relative;
     top: 1px;
   }
-  /* App section and table: full width, text centre */
+  /* App section: full-width table; column count follows #content-main width (not viewport) */
+  #content-main {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: admin-main;
+  }
   #content-main .app-cheradip.module {
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
   }
   #content-main .app-cheradip.module table {
-    width: 100%;
+    width: 100% !important;
     max-width: 100%;
+    display: block;
+    box-sizing: border-box;
     text-align: center;
   }
   #content-main .app-cheradip.module caption {
+    display: block;
+    width: 100%;
     text-align: center;
+    box-sizing: border-box;
   }
-  #content-main .app-cheradip.module td {
+  #content-main .app-cheradip.module tbody {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  @supports (container-type: inline-size) {
+    @container admin-main (min-width: 520px) {
+      #content-main .app-cheradip.module tbody {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @container admin-main (min-width: 900px) {
+      #content-main .app-cheradip.module tbody {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+  @supports not (container-type: inline-size) {
+    #content-main .app-cheradip.module tbody {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (min-width: 900px) {
+      #content-main .app-cheradip.module tbody {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 520px) {
+      #content-main .app-cheradip.module tbody {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  /* Each model row stays a table row inside its grid cell */
+  #content-main .app-cheradip.module tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    box-sizing: border-box;
+  }
+  #content-main .app-cheradip.module tbody tr:only-child {
+    grid-column: 1 / -1;
+  }
+  #content-main .app-cheradip.module tbody tr th,
+  #content-main .app-cheradip.module tbody tr td {
     text-align: center;
   }
   /* Table list: full width; columns from max content length, no overlap */
