@@ -1,0 +1,110 @@
+/* Dropdown + checkbox / radio filters for #changelist-filter (admin changelist) */
+#changelist-filter.admin-filter-dd-ready {
+  padding-top: 0.25rem;
+}
+#changelist-filter.admin-filter-dd-ready > h2 {
+  margin-bottom: 0.75rem;
+}
+#changelist-filter.admin-filter-dd-ready #changelist-filter-extra-actions {
+  margin-bottom: 0.75rem;
+}
+/* Hide native Django filter <details> once JS has built dropdowns (higher specificity than changelists.css). */
+#changelist-filter.admin-filter-dd-ready > details[data-filter-title],
+#changelist-filter.admin-filter-dd-ready details[data-filter-title] {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+.admin-filter-dd {
+  position: relative;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+}
+.admin-filter-dd-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 2px solid #008080;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.admin-filter-dd-btn:hover {
+  background: rgba(0, 128, 128, 0.08);
+}
+.admin-filter-dd-btn .admin-filter-dd-caret {
+  margin-left: 8px;
+  font-size: 0.65rem;
+  color: #666;
+  flex-shrink: 0;
+}
+.admin-filter-dd-panel {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  margin-top: 4px;
+  padding: 8px 10px 10px;
+  border: 2px solid #008080;
+  border-radius: 6px;
+  background: var(--body-bg, #fff);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  max-height: min(70vh, 420px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.admin-filter-dd-panel.is-open {
+  display: block;
+}
+.admin-filter-dd-panel label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 4px;
+  margin: 0;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.admin-filter-dd-panel label:hover {
+  background: rgba(0, 128, 128, 0.1);
+}
+.admin-filter-dd-panel input {
+  margin-top: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.admin-filter-dd-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #ddd;
+}
+.admin-filter-dd-actions button {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  border: 2px solid #008080;
+  background: #008080;
+  color: #fff;
+}
+.admin-filter-dd-actions button[type="button"].admin-filter-dd-clear {
+  flex: 0 0 auto;
+  background: #fff;
+  color: #008080;
+}
+.admin-filter-dd-actions button:hover {
+  filter: brightness(0.95);
+}

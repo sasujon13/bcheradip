@@ -1,3 +1,5 @@
+import os
+
 from django.contrib import admin
 from django.urls import path, re_path, include
 from django.template.response import TemplateResponse
@@ -71,13 +73,29 @@ urlpatterns = [
     ),
     path('admin/', admin.site.urls),
     path('api/', include('cheradip.urls')),
-    path('', include('cheradip.urls')),  # keep root for backward compatibility
 ]
 
-# Ensure /static/ admin CSS/JS resolve in DEBUG (e.g. custom runserver or URL layout quirks).
+# /static/ must be registered BEFORE the root catch-all (cheradip.urls); otherwise every
+# /static/... request is resolved inside cheradip, gets 404, and admin JS/CSS never load.
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
     urlpatterns += staticfiles_urlpatterns()
+else:
+    # DEBUG=False: serve collected static from STATIC_ROOT (run collectstatic) so admin
+    # works when Django is exposed without nginx (same idea as /manage/media/ below).
+    _static_root = getattr(settings, 'STATIC_ROOT', None)
+    if _static_root and os.path.isdir(_static_root):
+        urlpatterns += [
+            re_path(
+                r'^static/(?P<path>.*)$',
+                serve,
+                {'document_root': _static_root},
+            ),
+        ]
+
+urlpatterns += [
+    path('', include('cheradip.urls')),  # keep root for backward compatibility
+]
 
 

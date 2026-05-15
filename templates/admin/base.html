@@ -341,6 +341,7 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="{% static 'admin/css/admin_changelist_filters.css' %}">
 {% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
 </head>
@@ -437,6 +438,14 @@
 </div>
 <!-- END Container -->
 
-{% block extrabody %}{% endblock extrabody %}
+{% block extrabody %}
+{# Changelist filter dropdowns: sync load at end of body so #changelist-filter exists; inline hide if admin_changelist_filters.css is missing. #}
+<style>
+  #changelist-filter.admin-filter-dd-ready details[data-filter-title] {
+    display: none !important;
+  }
+</style>
+<script src="{% static 'admin/js/admin_changelist_filters.js' %}"></script>
+{% endblock extrabody %}
 </body>
 </html>
