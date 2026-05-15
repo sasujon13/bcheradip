@@ -16,6 +16,7 @@
   }
   .table-data-header .header-actions { display: flex; gap: 8px; }
   .table-data-header .header-actions button { padding: 6px 12px; cursor: pointer; }
+  .table-data-grid-default { width: 100%; }
   /* Filters + actions on same row (question-page style) */
   .table-data-toolbar {
     display: flex;
@@ -69,6 +70,13 @@
     font-size: 13px;
   }
   .table-data-toolbar .btn-delete:hover { background: red; color: #fff; }
+  .table-data-toolbar .pending-selected-count {
+    font-size: 13px;
+    color: teal;
+    font-weight: 600;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
   .table-data-actions-cell { white-space: nowrap; }
   .table-data-actions-cell form { display: inline; margin: 0 2px; }
   .table-data-actions-cell .btn-row-approve,
@@ -173,6 +181,43 @@
     font-size: 13px;
   }
   .pending-edit-field-row textarea { min-height: 4.5rem; resize: vertical; }
+  .pending-edit-diff-preview {
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    background: rgba(0, 128, 128, 0.12);
+    border: 1px solid rgba(0, 128, 128, 0.35);
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+    max-height: 14rem;
+    overflow: auto;
+    word-break: break-word;
+  }
+  .pending-edit-diff-preview del {
+    color: #8b2942;
+    text-decoration: line-through;
+    font-weight: 600;
+  }
+  .pending-edit-diff-preview b {
+    font-weight: 700;
+    color: #0d47a1;
+  }
+  .pending-edit-diff-preview b del {
+    color: #8b2942;
+    font-weight: 600;
+  }
+  .pending-edit-diff-preview b[style*="color:blue"],
+  .pending-edit-diff-preview b[style*="color: blue"] {
+    color: #0d47a1 !important;
+    font-weight: 700;
+  }
+  .pending-edit-diff-label {
+    display: block;
+    font-size: 11px;
+    color: teal;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
   /* Pending question list: single-line headers (fit content width); body cells match columns, ellipsis overflow */
   .pending-question-table {
     table-layout: fixed;
@@ -236,6 +281,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
     overflow: hidden;
     word-break: normal;
     font-size: 13px;
@@ -402,14 +448,15 @@
             {% csrf_token %}
             <div class="table-data-toolbar">
             {% if show_approve %}
+            <span id="pending-selected-count" class="pending-selected-count">{% translate '0 selected' %}</span>
             <button type="submit" name="action" value="approve" class="btn-approve">{% translate 'Approve Selected' %}</button>
-            <button type="submit" name="action" value="deny" class="btn-delete" onclick="return confirm('{% translate "Reject selected edit requests? Live questions in subject tables will not be changed." %}');">{% translate 'Deny Selected' %}</button>
+            <button type="submit" name="action" value="deny" class="btn-delete" data-confirm="{% translate 'Reject selected edit requests? Live questions in subject tables will not be changed.' %}">{% translate 'Deny Selected' %}</button>
             {% else %}
-            <button type="submit" name="action" value="delete" class="btn-delete" onclick="return confirm('{% translate "Delete selected rows?" %}');">{% translate 'Delete Selected' %}</button>
+            <button type="submit" name="action" value="delete" class="btn-delete" data-confirm="{% translate 'Delete selected rows?' %}">{% translate 'Delete Selected' %}</button>
             {% endif %}
             </div>
             <div style="overflow-x: auto;">
-            <table class="{% if show_approve %}pending-question-table {% endif %}" style="{% if not show_approve %}width: 100%; {% endif %}border-collapse: collapse;">
+            <table class="{% if show_approve %}pending-question-table{% else %}table-data-grid-default{% endif %}" style="border-collapse: collapse;">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="select-all"></th>
@@ -446,7 +493,7 @@
                         <td class="table-data-actions-cell">
                             <a href="#" class="btn-row-approve pending-edit-open" data-row-id="{{ row_id }}" title="{% translate 'Edit' %}">&#9998;</a>
                             <button type="submit" form="pending-row-approve-{{ row_id }}" class="btn-row-approve" title="{% translate 'Approve' %}">&#10003;</button>
-                            <button type="submit" form="pending-row-deny-{{ row_id }}" class="btn-row-delete" onclick="return confirm('{% translate "Reject this edit request? The live question will not be changed." %}');" title="{% translate 'Deny' %}">X</button>
+                            <button type="submit" form="pending-row-deny-{{ row_id }}" class="btn-row-delete pending-row-deny-btn" data-confirm="{% translate 'Reject this edit request? The live question will not be changed.' %}" title="{% translate 'Deny' %}">X</button>
                         </td>
                         {% else %}
                         <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
@@ -460,6 +507,12 @@
             </div>
         </form>
         {% if show_approve %}
+        {% translate 'Loading…' as pending_msg_loading %}
+        {% translate 'Could not load row.' as pending_msg_load_error %}
+        {% translate 'Changes (deleted / added)' as pending_msg_diff_changes %}
+        {% translate 'Edit text' as pending_msg_edit_text %}
+        {% translate 'Reject this edit request? The live question will not be changed.' as pending_msg_deny_confirm %}
+        <script type="application/json" id="pending-admin-config">{"rowJsonUrlTemplate":"{% url 'admin:database_pending_question_row_json' db_alias table_name 0 %}","i18n":{"loading":"{{ pending_msg_loading|escapejs }}","loadError":"{{ pending_msg_load_error|escapejs }}","diffChanges":"{{ pending_msg_diff_changes|escapejs }}","editText":"{{ pending_msg_edit_text|escapejs }}","denyConfirm":"{{ pending_msg_deny_confirm|escapejs }}"}}</script>
         <div id="cell-content-preview" role="tooltip" aria-hidden="true"></div>
         {% for values, row_id in row_list %}
         <form method="post" action="" id="pending-row-approve-{{ row_id }}" style="display:none" aria-hidden="true">
@@ -526,17 +579,51 @@
     if (btnImport) btnImport.addEventListener('click', showImport);
 })();
 var selectAll = document.getElementById('select-all');
+function updatePendingSelectedCount() {
+    var el = document.getElementById('pending-selected-count');
+    if (!el) return;
+    var n = document.querySelectorAll('#delete-form input[name="ids"]:checked').length;
+    el.textContent = n === 1 ? '1 selected' : (n + ' selected');
+}
 if (selectAll) selectAll.addEventListener('change', function() {
     document.querySelectorAll('#delete-form input[name="ids"]').forEach(function(cb) { cb.checked = this.checked; }, this);
+    updatePendingSelectedCount();
 });
-{% if show_approve %}
+document.querySelectorAll('#delete-form input[name="ids"]').forEach(function(cb) {
+    cb.addEventListener('change', updatePendingSelectedCount);
+});
+updatePendingSelectedCount();
 (function() {
+    var deleteForm = document.getElementById('delete-form');
+    if (deleteForm) {
+        deleteForm.addEventListener('submit', function(ev) {
+            var btn = ev.submitter;
+            if (btn && btn.dataset.confirm && !confirm(btn.dataset.confirm)) {
+                ev.preventDefault();
+            }
+        });
+    }
+    document.querySelectorAll('.pending-row-deny-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(ev) {
+            if (btn.dataset.confirm && !confirm(btn.dataset.confirm)) {
+                ev.preventDefault();
+            }
+        });
+    });
+    var cfgEl = document.getElementById('pending-admin-config');
+    if (!cfgEl) return;
+    var cfg, i18n;
+    try {
+        cfg = JSON.parse(cfgEl.textContent);
+        i18n = cfg.i18n || {};
+    } catch (e) {
+        return;
+    }
     var table = document.querySelector('table.pending-question-table');
-    if (!table) return;
-    var ths = table.querySelectorAll('thead tr th');
-    if (!ths.length) return;
+    var ths = table ? table.querySelectorAll('thead tr th') : [];
     var resizeTimer = null;
     function fitColumnsFromHeaders() {
+        if (!table || !ths.length) return;
         table.style.tableLayout = 'auto';
         table.style.width = 'max-content';
         for (var i = 0; i < ths.length; i++) {
@@ -561,18 +648,18 @@ if (selectAll) selectAll.addEventListener('change', function() {
         }
         table.style.width = sum + 'px';
     }
-    fitColumnsFromHeaders();
-    window.addEventListener('load', fitColumnsFromHeaders);
-    window.addEventListener('resize', function() {
-        if (resizeTimer) clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(fitColumnsFromHeaders, 120);
-    });
-})();
-(function() {
+    if (ths.length) {
+        fitColumnsFromHeaders();
+        window.addEventListener('load', fitColumnsFromHeaders);
+        window.addEventListener('resize', function() {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(fitColumnsFromHeaders, 120);
+        });
+    }
     var dlg = document.getElementById('pending-question-dialog');
     var inner = document.getElementById('pending-edit-fields-inner');
     var pkInput = document.getElementById('pending-edit-id');
-    var jsonTmpl = "{% url 'admin:database_pending_question_row_json' db_alias table_name 0 %}";
+    var jsonTmpl = cfg.rowJsonUrlTemplate || '';
     var longFields = {
         question: 1, option_1: 1, option_2: 1, option_3: 1, option_4: 1, answer: 1,
         explanation: 1, explanation2: 1, explanation3: 1
@@ -582,7 +669,8 @@ if (selectAll) selectAll.addEventListener('change', function() {
     }
     function openPendingDialog(pk) {
         if (!dlg || !inner || !pkInput) return;
-        inner.innerHTML = '<p style="margin:0;">{% translate "Loading…" %}</p>';
+        inner.innerHTML = '<p style="margin:0;"></p>';
+        inner.querySelector('p').textContent = i18n.loading || 'Loading…';
         pkInput.value = pk;
         dlg.showModal();
         fetch(rowJsonUrl(pk), { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
@@ -594,6 +682,7 @@ if (selectAll) selectAll.addEventListener('change', function() {
                 }
                 inner.innerHTML = '';
                 var pkCol = data.pk_column || 'id';
+                var diffHtml = data.diff_html || {};
                 data.columns.forEach(function(col) {
                     var val = data.values.hasOwnProperty(col) ? String(data.values[col]) : '';
                     var row = document.createElement('div');
@@ -610,6 +699,20 @@ if (selectAll) selectAll.addEventListener('change', function() {
                         inp.name = 'field_' + col;
                         inp.value = val;
                     } else if (longFields[col]) {
+                        if (diffHtml[col]) {
+                            var diffLab = document.createElement('span');
+                            diffLab.className = 'pending-edit-diff-label';
+                            diffLab.textContent = i18n.diffChanges || 'Changes (deleted / added)';
+                            var diffPreviewEl = document.createElement('div');
+                            diffPreviewEl.className = 'pending-edit-diff-preview';
+                            diffPreviewEl.innerHTML = diffHtml[col];
+                            row.appendChild(lab);
+                            row.appendChild(diffLab);
+                            row.appendChild(diffPreviewEl);
+                            lab = document.createElement('label');
+                            lab.setAttribute('for', 'pending-field-' + col);
+                            lab.textContent = i18n.editText || 'Edit text';
+                        }
                         inp = document.createElement('textarea');
                         inp.id = 'pending-field-' + col;
                         inp.name = 'field_' + col;
@@ -628,7 +731,8 @@ if (selectAll) selectAll.addEventListener('change', function() {
                 });
             })
             .catch(function() {
-                inner.innerHTML = '<p class="errornote">{% translate "Could not load row." %}</p>';
+                inner.innerHTML = '<p class="errornote"></p>';
+                inner.querySelector('p').textContent = i18n.loadError || 'Could not load row.';
             });
     }
     document.querySelectorAll('.pending-edit-open').forEach(function(btn) {
@@ -643,15 +747,13 @@ if (selectAll) selectAll.addEventListener('change', function() {
     function onPendingDlgDeny() {
         var id = pkInput && pkInput.value;
         if (!id) return;
-        if (!confirm('{% translate "Reject this edit request? The live question will not be changed." %}')) return;
+        if (!confirm(i18n.denyConfirm || 'Reject this edit request?')) return;
         var f = document.getElementById('pending-row-deny-' + id);
         if (f) f.submit();
     }
     document.querySelectorAll('.pending-dlg-deny').forEach(function(btnDeny) {
         btnDeny.addEventListener('click', onPendingDlgDeny);
     });
-})();
-(function() {
     var preview = document.getElementById('cell-content-preview');
     if (!preview) return;
     var showTimer = null;
@@ -751,6 +853,5 @@ if (selectAll) selectAll.addEventListener('change', function() {
         if (ev.key === 'Escape') hidePreview();
     });
 })();
-{% endif %}
 </script>
 {% endblock %}

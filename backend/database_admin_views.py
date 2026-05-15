@@ -259,6 +259,38 @@ def _pending_row_values_for_modal(row_data, columns, column_types):
     return out
 
 
+_CERADIP_PLAIN_HEAD_RE = re.compile(r'^<!--CERADIP_PLAIN:[A-Za-z0-9+/=]+-->', re.I)
+
+
+def _pending_cell_has_diff(value):
+    """True when a pending-question cell has diff markup (del, additions, legacy red)."""
+    if value is None:
+        return False
+    s = str(value)
+    if not s.strip():
+        return False
+    if re.search(r'<del\b', s, re.I):
+        return True
+    squish = re.sub(r'\s+', '', s.lower())
+    if 'color:red' in squish or 'color:"red"' in squish:
+        return True
+    rest = _CERADIP_PLAIN_HEAD_RE.sub('', s).strip()
+    if rest and re.search(r'<b\b', rest, re.I):
+        return True
+    return False
+
+
+def _pending_diff_html_for_display(value):
+    """HTML for edit-modal / preview: drop CERADIP_PLAIN comment, keep diff markup."""
+    if value is None:
+        return None
+    s = str(value)
+    if not s.strip() or not _pending_cell_has_diff(s):
+        return None
+    display = _CERADIP_PLAIN_HEAD_RE.sub('', s).strip()
+    return display or None
+
+
 @staff_member_required
 def pending_question_row_json(request, db_alias, table_name, pk):
     """GET JSON for one cheradip_pending_question_request row (HSC) — for Edit & Approve modal."""
@@ -289,28 +321,23 @@ def pending_question_row_json(request, db_alias, table_name, pk):
         return JsonResponse({'ok': False, 'error': 'Row not found.'}, status=404)
     row_data = dict(zip(columns, row))
     values = _pending_row_values_for_modal(row_data, columns, column_types)
+    diff_html = {}
+    for c in columns:
+        if c in PENDING_MODAL_STRIP_FIELDS:
+            dh = _pending_diff_html_for_display(row_data.get(c))
+            if dh:
+                diff_html[c] = dh
     return JsonResponse(
-        {'ok': True, 'pk': str(pk), 'pk_column': pk_column, 'columns': columns, 'values': values},
+        {
+            'ok': True,
+            'pk': str(pk),
+            'pk_column': pk_column,
+            'columns': columns,
+            'values': values,
+            'diff_html': diff_html,
+        },
         json_dumps_params={'ensure_ascii': False},
     )
-
-
-def _pending_cell_has_diff(value):
-    """True when a pending-question cell has diff markup (del, additions, legacy red)."""
-    if value is None:
-        return False
-    s = str(value)
-    if not s.strip():
-        return False
-    if re.search(r'<del\b', s, re.I):
-        return True
-    squish = re.sub(r'\s+', '', s.lower())
-    if 'color:red' in squish or 'color:"red"' in squish:
-        return True
-    rest = re.sub(r'^<!--CERADIP_PLAIN:[A-Za-z0-9+/=]+-->', '', s, flags=re.I).strip()
-    if rest and re.search(r'<b\b', rest, re.I):
-        return True
-    return False
 
 
 def _strip_red_markup(value):
@@ -337,13 +364,58 @@ def _strip_red_markup(value):
     return html.unescape(s2)
 
 
+def _pending_live_qid(row_data):
+    """Qid of the live subject-table row to update (never delete the live row on approve)."""
+    return (row_data.get('requested_qid') or row_data.get('qid') or '').strip()
+
+
+def _pending_is_update_request(row_data):
+    status = (row_data.get('status') or '').strip().lower()
+    live_qid = _pending_live_qid(row_data)
+    return bool(live_qid) or status == 'update'
+
+
+def _table_exists_in_db(cursor, db_name, table_name):
+    if not table_name:
+        return False
+    cursor.execute(
+        "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+        [db_name, table_name],
+    )
+    return cursor.fetchone() is not None
+
+
+def _resolve_subject_question_table(cursor, db_name, level_tr, class_level, subject_tr, stored_table):
+    """
+    Use the same table name as QuestionListView (canonical slug), not only the stored
+    `table` column (can be stale/truncated). Fall back to stored name if canonical missing.
+    """
+    from cheradip.subject_question_tables import subject_question_table_name
+
+    canonical = subject_question_table_name(level_tr, class_level, subject_tr)
+    stored = (stored_table or '').strip()
+    if _table_exists_in_db(cursor, db_name, canonical):
+        return canonical
+    if stored and _table_exists_in_db(cursor, db_name, stored):
+        return stored
+    return None
+
+
+def _qid_exists_in_table(cursor, table_name, qid):
+    tbl = table_name.replace('`', '``')
+    cursor.execute("SELECT 1 FROM `%s` WHERE qid = %%s LIMIT 1" % tbl, [qid])
+    return cursor.fetchone() is not None
+
+
 def _approve_pending_question_rows(conn, db_name, pk_column, ids):
     """
-    Approve selected rows in cheradip_pending_question_request (HSC): insert/update into
-    the subject question table (with red markup stripped), then delete the pending row.
+    Approve selected rows in cheradip_pending_question_request (HSC): UPDATE existing live
+    question by qid when status is Update / requested_qid is set; INSERT only for new
+    questions. Deletes the pending row only after a successful write to the subject table.
     Returns (success_count, list of error strings).
     """
-    from cheradip.subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
+    from cheradip.subject_question_tables import next_qid_for_chapter_topic
+
     table_name = 'cheradip_pending_question_request'
     success = 0
     errors = []
@@ -352,7 +424,7 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
             try:
                 cursor.execute(
                     "SELECT * FROM `%s` WHERE `%s` = %%s" % (table_name.replace('`', '``'), pk_column.replace('`', '``')),
-                    [pk]
+                    [pk],
                 )
                 row = cursor.fetchone()
                 if not row:
@@ -367,15 +439,20 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                     errors.append('Row %s has no subject_tr.' % pk)
                     continue
                 stored_table = (row_data.get('table') or '').strip()
-                target_table = stored_table if stored_table else subject_question_table_name(level_tr, class_level, subject_tr)
-                cursor.execute(
-                    "SELECT 1 FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
-                    [db_name, target_table]
+                target_table = _resolve_subject_question_table(
+                    cursor, db_name, level_tr, class_level, subject_tr, stored_table
                 )
-                if not cursor.fetchone():
-                    errors.append('Subject table not found for row %s: %s' % (pk, target_table))
+                if not target_table:
+                    errors.append(
+                        'Subject table not found for row %s (expected table for %s / %s / %s).'
+                        % (pk, level_tr, class_level, subject_tr)
+                    )
                     continue
-                requested_qid = (row_data.get('requested_qid') or '').strip()
+                is_update = _pending_is_update_request(row_data)
+                live_qid = _pending_live_qid(row_data)
+                if is_update and not live_qid:
+                    errors.append('Row %s: Update request is missing qid / requested_qid.' % pk)
+                    continue
                 now_sql = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
                 level_val = (row_data.get('level_tr') or row_data.get('level') or '').strip() or None
                 subsource_val = (row_data.get('subsource') or '').strip() or None
@@ -388,42 +465,55 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                 explanation_val = _strip_red_markup(row_data.get('explanation'))
                 explanation2_val = _strip_red_markup(row_data.get('explanation2'))
                 explanation3_val = _strip_red_markup(row_data.get('explanation3'))
-                if requested_qid:
+                tbl_esc = target_table.replace('`', '``')
+                if is_update:
+                    if not _qid_exists_in_table(cursor, target_table, live_qid):
+                        errors.append(
+                            'Row %s: live question %s was not found in %s (pending row was not removed).'
+                            % (pk, live_qid, target_table)
+                        )
+                        continue
                     cursor.execute(
                         """UPDATE `%s` SET subject=%%s, chapter_no=%%s, chapter=%%s, topic_no=%%s, topic=%%s, question=%%s,
                            option_1=%%s, option_2=%%s, option_3=%%s, option_4=%%s, answer=%%s, explanation=%%s,
                            explanation2=%%s, explanation3=%%s, type=%%s, level=%%s, subsource=%%s, updated_at=%%s, updated_by=%%s
-                           WHERE qid=%%s""" % target_table.replace('`', '``'),
+                           WHERE qid=%%s""" % tbl_esc,
                         [
                             row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
                             row_data.get('topic_no'), row_data.get('topic'), question_val,
                             option_1_val, option_2_val, option_3_val, option_4_val,
                             row_data.get('answer'), explanation_val, explanation2_val, explanation3_val,
-                            row_data.get('type'), level_val, subsource_val, now_sql, updated_by_val, requested_qid
-                        ]
+                            row_data.get('type'), level_val, subsource_val, now_sql, updated_by_val, live_qid,
+                        ],
                     )
-                    qid = requested_qid
+                    if cursor.rowcount < 1:
+                        errors.append(
+                            'Row %s: UPDATE matched no rows for qid %s in %s.'
+                            % (pk, live_qid, target_table)
+                        )
+                        continue
+                    qid = live_qid
                 else:
                     qid = next_qid_for_chapter_topic(
                         target_table,
                         row_data.get('chapter_no') or '0',
                         row_data.get('topic_no') or '0',
-                        using='hsc'
+                        using='hsc',
                     )
                     cursor.execute(
                         """INSERT INTO `%s` (qid, subject, chapter_no, chapter, topic_no, topic, question, option_1, option_2, option_3, option_4, answer, explanation, explanation2, explanation3, type, level, subsource, created_at, updated_at, updated_by)
-                           VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)""" % target_table.replace('`', '``'),
+                           VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)""" % tbl_esc,
                         [
                             qid, row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
                             row_data.get('topic_no'), row_data.get('topic'), question_val,
                             option_1_val, option_2_val, option_3_val, option_4_val,
                             row_data.get('answer'), explanation_val, explanation2_val, explanation3_val,
-                            row_data.get('type'), level_val, subsource_val, now_sql, now_sql, updated_by_val
-                        ]
+                            row_data.get('type'), level_val, subsource_val, now_sql, now_sql, updated_by_val,
+                        ],
                     )
                 cursor.execute(
                     "DELETE FROM `%s` WHERE `%s`=%%s" % (table_name.replace('`', '``'), pk_column.replace('`', '``')),
-                    [pk]
+                    [pk],
                 )
                 success += 1
             except Exception as e:

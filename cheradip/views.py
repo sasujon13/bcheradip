@@ -6797,8 +6797,10 @@ class CheradipSourceListView(APIView):
 
 class QuestionListView(APIView):
     """
-    GET: List questions from the subject question table in cheradip_hsc, filtered by topic (and optional chapter).
-    Query params: level_tr, class_level, subject_tr, topic; optional chapter.
+    GET: List questions from the subject question table in cheradip_hsc.
+    Query params: level_tr, class_level, subject_tr; optional topic, chapter.
+    When topic is omitted, returns all questions for the subject (ordered by chapter/topic/qid).
+    When topic is set, filters to that topic (and optional chapter).
     Returns questions with id, question, option_1..4, answer, chapter_no, chapter, topic, etc. for user to select.
     """
     permission_classes = [PublicAccess]
@@ -6810,7 +6812,7 @@ class QuestionListView(APIView):
         subject_tr = (request.query_params.get('subject_tr') or '').strip()
         topic = (request.query_params.get('topic') or '').strip()
         chapter = (request.query_params.get('chapter') or '').strip()
-        if not level_tr or not class_level or not subject_tr or not topic:
+        if not level_tr or not class_level or not subject_tr:
             return Response({'questions': []}, status=status.HTTP_200_OK)
         db_alias = _question_chain_db_alias(request)
         if db_alias not in connections:
@@ -6838,14 +6840,23 @@ class QuestionListView(APIView):
                 expl3_col = ", explanation3" if 'explanation3' in col_set else ""
                 level_col = ", level" if 'level' in col_set else ""
                 select_cols = f"{pk_col}, subject, {mid}, question, option_1, option_2, option_3, option_4, answer, explanation{expl2_col}{expl3_col}, type{level_col}{subsource_col}"
-                if chapter:
+                order_by = pk_col
+                if 'topic_no' in col_set:
+                    order_by = 'chapter_no, topic_no, {}'.format(pk_col)
+                elif 'chapter_no' in col_set:
+                    order_by = 'chapter_no, {}'.format(pk_col)
+                if not topic:
                     cur.execute(
-                        "SELECT {} FROM `{}` WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY {}".format(select_cols, table_name, pk_col),
+                        "SELECT {} FROM `{}` ORDER BY {}".format(select_cols, table_name, order_by)
+                    )
+                elif chapter:
+                    cur.execute(
+                        "SELECT {} FROM `{}` WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY {}".format(select_cols, table_name, order_by),
                         [topic, chapter, chapter]
                     )
                 else:
                     cur.execute(
-                        "SELECT {} FROM `{}` WHERE topic = %s ORDER BY {}".format(select_cols, table_name, pk_col),
+                        "SELECT {} FROM `{}` WHERE topic = %s ORDER BY {}".format(select_cols, table_name, order_by),
                         [topic]
                     )
                 cols = [c[0] for c in cur.description]
