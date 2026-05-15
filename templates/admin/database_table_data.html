@@ -173,6 +173,56 @@
     font-size: 13px;
   }
   .pending-edit-field-row textarea { min-height: 4.5rem; resize: vertical; }
+  /* Pending question list: one line per cell, full text in hover panel */
+  .pending-question-table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .pending-question-table th:first-child,
+  .pending-question-table td:first-child {
+    width: 2.25rem;
+    max-width: 2.5rem;
+    box-sizing: border-box;
+  }
+  .pending-question-table td.table-data-cell-truncate {
+    max-width: 0;
+    vertical-align: middle;
+    cursor: default;
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .pending-question-table td.table-data-cell-truncate:hover {
+    background: rgba(0, 128, 128, 0.07);
+  }
+  .pending-question-table .cell-truncate-line {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  #cell-content-preview {
+    display: none;
+    position: fixed;
+    z-index: 10050;
+    max-width: min(520px, 94vw);
+    max-height: min(72vh, 560px);
+    overflow: auto;
+    padding: 12px 14px;
+    margin: 0;
+    background: #fff;
+    border: 1px solid #b0bec5;
+    border-radius: 8px;
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.22);
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #1a1a1a;
+    pointer-events: auto;
+  }
+  #cell-content-preview.is-open { display: block; }
 </style>
 {% endblock %}
 
@@ -289,7 +339,7 @@
             {% endif %}
             </div>
             <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
+            <table class="{% if show_approve %}pending-question-table {% endif %}" style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="select-all"></th>
@@ -306,7 +356,14 @@
                     <tr>
                         <td><input type="checkbox" name="ids" value="{{ row_id }}"></td>
                         {% for col, val in values %}
+                        {% if show_approve %}
+                        <td class="table-data-cell-truncate">
+                            <span class="cell-truncate-line">{{ val|default:""|striptags|escape }}</span>
+                            <span class="cell-truncate-full" hidden>{{ val|default:""|striptags|escape }}</span>
+                        </td>
+                        {% else %}
                         <td>{% if col in html_columns %}{{ val|default:""|safe }}{% else %}{{ val|default:""|truncatewords:12 }}{% endif %}</td>
+                        {% endif %}
                         {% endfor %}
                         {% if show_approve %}
                         <td class="table-data-actions-cell">
@@ -319,13 +376,14 @@
                         {% endif %}
                     </tr>
                     {% empty %}
-                    <tr><td colspan="{{ columns|length|add:2 }}">No rows.</td></tr>
+                    <tr><td colspan="{% if show_approve %}{{ display_columns|length|add:2 }}{% else %}{{ columns|length|add:2 }}{% endif %}">No rows.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
             </div>
         </form>
         {% if show_approve %}
+        <div id="cell-content-preview" role="tooltip" aria-hidden="true"></div>
         {% for values, row_id in row_list %}
         <form method="post" action="" id="pending-row-approve-{{ row_id }}" style="display:none" aria-hidden="true">
             {% csrf_token %}
@@ -476,6 +534,92 @@ if (selectAll) selectAll.addEventListener('change', function() {
     }
     document.querySelectorAll('.pending-dlg-deny').forEach(function(btnDeny) {
         btnDeny.addEventListener('click', onPendingDlgDeny);
+    });
+})();
+(function() {
+    var preview = document.getElementById('cell-content-preview');
+    if (!preview) return;
+    var showTimer = null;
+    var hideTimer = null;
+    var lastClientX = 0;
+    var lastClientY = 0;
+    function clearShow() {
+        if (showTimer) {
+            clearTimeout(showTimer);
+            showTimer = null;
+        }
+    }
+    function clearHide() {
+        if (hideTimer) {
+            clearTimeout(hideTimer);
+            hideTimer = null;
+        }
+    }
+    function hidePreview() {
+        clearShow();
+        clearHide();
+        preview.classList.remove('is-open');
+        preview.textContent = '';
+        preview.setAttribute('aria-hidden', 'true');
+    }
+    function scheduleHide() {
+        clearHide();
+        hideTimer = setTimeout(hidePreview, 220);
+    }
+    function positionPreview() {
+        var w = preview.offsetWidth;
+        var h = preview.offsetHeight;
+        var pad = 10;
+        var x = lastClientX + 14;
+        var y = lastClientY + 14;
+        if (x + w > window.innerWidth - pad) x = Math.max(pad, window.innerWidth - w - pad);
+        if (y + h > window.innerHeight - pad) y = Math.max(pad, lastClientY - h - 12);
+        if (x < pad) x = pad;
+        if (y < pad) y = pad;
+        preview.style.left = x + 'px';
+        preview.style.top = y + 'px';
+    }
+    function tryShowFromTd(td) {
+        var line = td.querySelector('.cell-truncate-line');
+        var fullEl = td.querySelector('.cell-truncate-full');
+        if (!line || !fullEl) return;
+        var fullText = fullEl.textContent;
+        if (!fullText) return;
+        if (line.scrollWidth <= line.clientWidth + 1) return;
+        preview.textContent = fullText;
+        preview.classList.add('is-open');
+        preview.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(function() {
+            positionPreview();
+        });
+    }
+    document.querySelectorAll('.pending-question-table td.table-data-cell-truncate').forEach(function(td) {
+        td.addEventListener('mouseenter', function(ev) {
+            lastClientX = ev.clientX;
+            lastClientY = ev.clientY;
+            clearShow();
+            clearHide();
+            showTimer = setTimeout(function() {
+                showTimer = null;
+                tryShowFromTd(td);
+            }, 380);
+        });
+        td.addEventListener('mousemove', function(ev) {
+            lastClientX = ev.clientX;
+            lastClientY = ev.clientY;
+            if (preview.classList.contains('is-open')) positionPreview();
+        });
+        td.addEventListener('mouseleave', function() {
+            clearShow();
+            scheduleHide();
+        });
+    });
+    preview.addEventListener('mouseenter', clearHide);
+    preview.addEventListener('mouseleave', scheduleHide);
+    window.addEventListener('scroll', function() { clearShow(); hidePreview(); }, true);
+    window.addEventListener('resize', hidePreview);
+    document.addEventListener('keydown', function(ev) {
+        if (ev.key === 'Escape') hidePreview();
     });
 })();
 {% endif %}
