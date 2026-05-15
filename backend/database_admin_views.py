@@ -295,6 +295,24 @@ def pending_question_row_json(request, db_alias, table_name, pk):
     )
 
 
+def _pending_cell_has_diff(value):
+    """True when a pending-question cell has diff markup (del, additions, legacy red)."""
+    if value is None:
+        return False
+    s = str(value)
+    if not s.strip():
+        return False
+    if re.search(r'<del\b', s, re.I):
+        return True
+    squish = re.sub(r'\s+', '', s.lower())
+    if 'color:red' in squish or 'color:"red"' in squish:
+        return True
+    rest = re.sub(r'^<!--CERADIP_PLAIN:[A-Za-z0-9+/=]+-->', '', s, flags=re.I).strip()
+    if rest and re.search(r'<b\b', rest, re.I):
+        return True
+    return False
+
+
 def _strip_red_markup(value):
     """
     Pending question fields may store:
@@ -750,12 +768,26 @@ def database_table_data(request, db_alias, table_name):
                 display_columns.append('qid')
             else:
                 display_columns.append(c)
-        values_per_row = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
-        row_list = [(list(zip(display_columns, vals)), rid) for vals, rid in values_per_row]
+        html_columns_set = frozenset({
+            'question', 'option_1', 'option_2', 'option_3', 'option_4',
+            'explanation', 'explanation2', 'explanation3',
+        })
+        row_list = []
+        for r in rows:
+            rid = r.get(pk_column)
+            cells = []
+            for disp_col, col in zip(display_columns, columns):
+                val = r.get(col)
+                has_diff = _pending_cell_has_diff(val) if col in html_columns_set else False
+                cells.append((disp_col, val, has_diff))
+            row_list.append((cells, rid))
     else:
         display_columns = columns
-        values_per_row = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
-        row_list = [(list(zip(display_columns, vals)), rid) for vals, rid in values_per_row]
+        row_list = []
+        for r in rows:
+            rid = r.get(pk_column)
+            cells = [(c, r.get(c), False) for c in display_columns]
+            row_list.append((cells, rid))
 
     show_approve = (db_alias == 'hsc' and table_name == 'cheradip_pending_question_request')
     html_columns = ['question', 'option_1', 'option_2', 'option_3', 'option_4', 'explanation', 'explanation2', 'explanation3'] if show_approve else []
@@ -768,6 +800,7 @@ def database_table_data(request, db_alias, table_name):
     next_url = (table_data_url + '?' + q.urlencode()) if page_num < num_pages else None
     context = {
         **admin.site.each_context(request),
+        'subtitle': '',
         'title': 'Table: %s' % table_name,
         'db_alias': db_alias,
         'db_name': db_name,

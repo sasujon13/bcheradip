@@ -213,10 +213,16 @@
     cursor: default;
     border-bottom: 1px solid #eee;
   }
-  .pending-question-table td.table-data-cell-truncate:hover {
+  .pending-question-table td.table-data-cell-truncate.pending-cell-has-diff {
+    background-color: rgba(0, 128, 128, 0.25);
+  }
+  .pending-question-table td.table-data-cell-truncate.pending-cell-has-diff:hover {
+    background-color: rgba(0, 128, 128, 0.35);
+  }
+  .pending-question-table td.table-data-cell-truncate:not(.pending-cell-has-diff):hover {
     background: rgba(0, 128, 128, 0.07);
   }
-  .pending-question-table .cell-truncate-line {
+  .pending-question-table .cell-truncate-line-plain {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -225,6 +231,34 @@
     max-width: 100%;
     font-size: 13px;
     line-height: 1.35;
+  }
+  .pending-question-table .cell-truncate-diff {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    word-break: normal;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .pending-question-table .cell-truncate-diff del {
+    color: #8b2942;
+    text-decoration: line-through;
+    font-weight: 600;
+  }
+  .pending-question-table .cell-truncate-diff b {
+    font-weight: 700;
+    color: #0d47a1;
+  }
+  .pending-question-table .cell-truncate-diff b del {
+    color: #8b2942;
+    font-weight: 600;
+  }
+  .pending-question-table .cell-truncate-diff span[style*="color:red"],
+  .pending-question-table .cell-truncate-diff span[style*="color: red"],
+  .pending-question-table .cell-truncate-diff span[style*="color: rgb(255"] {
+    color: #b71c1c !important;
+    font-weight: 600;
   }
   #cell-content-preview {
     display: none;
@@ -247,6 +281,18 @@
     pointer-events: auto;
   }
   #cell-content-preview.is-open { display: block; }
+  #cell-content-preview .pending-preview-body del {
+    color: #8b2942;
+    text-decoration: line-through;
+    font-weight: 600;
+  }
+  #cell-content-preview .pending-preview-body b {
+    font-weight: 700;
+    color: #0d47a1;
+  }
+  #cell-content-preview .pending-preview-body b del {
+    color: #8b2942;
+  }
 </style>
 {% endblock %}
 
@@ -363,7 +409,7 @@
             {% endif %}
             </div>
             <div style="overflow-x: auto;">
-            <table class="{% if show_approve %}pending-question-table {% endif %}" style="width: 100%; border-collapse: collapse;">
+            <table class="{% if show_approve %}pending-question-table {% endif %}" style="{% if not show_approve %}width: 100%; {% endif %}border-collapse: collapse;">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="select-all"></th>
@@ -379,12 +425,19 @@
                     {% for values, row_id in row_list %}
                     <tr>
                         <td><input type="checkbox" name="ids" value="{{ row_id }}"></td>
-                        {% for col, val in values %}
+                        {% for col, val, has_diff in values %}
                         {% if show_approve %}
-                        <td class="table-data-cell-truncate">
-                            <span class="cell-truncate-line">{{ val|default:""|striptags|escape }}</span>
-                            <span class="cell-truncate-full" hidden>{{ val|default:""|striptags|escape }}</span>
+                        {% with raw=val|default:"" %}
+                        <td class="table-data-cell-truncate{% if has_diff %} pending-cell-has-diff{% endif %}">
+                            {% if col in html_columns %}
+                            <span class="cell-truncate-diff">{{ raw|safe }}</span>
+                            <div class="cell-truncate-full" hidden data-html-preview="1"><div class="pending-preview-body">{{ raw|safe }}</div></div>
+                            {% else %}
+                            <span class="cell-truncate-line-plain">{{ raw|striptags|escape }}</span>
+                            <span class="cell-truncate-full" hidden>{{ raw|striptags|escape }}</span>
+                            {% endif %}
                         </td>
+                        {% endwith %}
                         {% else %}
                         <td>{% if col in html_columns %}{{ val|default:""|safe }}{% else %}{{ val|default:""|truncatewords:12 }}{% endif %}</td>
                         {% endif %}
@@ -622,6 +675,7 @@ if (selectAll) selectAll.addEventListener('change', function() {
         clearHide();
         preview.classList.remove('is-open');
         preview.textContent = '';
+        preview.innerHTML = '';
         preview.setAttribute('aria-hidden', 'true');
     }
     function scheduleHide() {
@@ -641,14 +695,27 @@ if (selectAll) selectAll.addEventListener('change', function() {
         preview.style.left = x + 'px';
         preview.style.top = y + 'px';
     }
+    function cellLineIsClamped(line) {
+        if (!line) return false;
+        if (line.classList.contains('cell-truncate-diff'))
+            return line.scrollHeight > line.clientHeight + 1 || line.scrollWidth > line.clientWidth + 1;
+        return line.scrollWidth > line.clientWidth + 1;
+    }
     function tryShowFromTd(td) {
-        var line = td.querySelector('.cell-truncate-line');
+        var line = td.querySelector('.cell-truncate-line-plain, .cell-truncate-diff');
         var fullEl = td.querySelector('.cell-truncate-full');
         if (!line || !fullEl) return;
-        var fullText = fullEl.textContent;
-        if (!fullText) return;
-        if (line.scrollWidth <= line.clientWidth + 1) return;
-        preview.textContent = fullText;
+        if (!cellLineIsClamped(line)) return;
+        var htmlPrev = fullEl.getAttribute('data-html-preview') === '1';
+        if (htmlPrev) {
+            var body = fullEl.querySelector('.pending-preview-body');
+            preview.innerHTML = '<div class="pending-preview-body">' + (body ? body.innerHTML : '') + '</div>';
+            if (!preview.textContent.trim()) return;
+        } else {
+            var fullText = fullEl.textContent;
+            if (!fullText.trim()) return;
+            preview.textContent = fullText;
+        }
         preview.classList.add('is-open');
         preview.setAttribute('aria-hidden', 'false');
         requestAnimationFrame(function() {
