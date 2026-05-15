@@ -187,6 +187,10 @@
   button#toggle-nav-sidebar.toggle-nav-sidebar {
     display: none !important;
   }
+  #nav-sidebar .module th,
+  #nav-sidebar .module caption {
+    padding-left: 8px;
+  }
   /* Nav sidebar (#nav-sidebar): Cheradip app list — same full-width + grid idea as main content (index.html).
      Sidebar is ~275px; use two columns max (four is impractical here). */
   #nav-sidebar .app-cheradip.module {
@@ -209,7 +213,7 @@
   }
   #nav-sidebar .app-cheradip.module tbody {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 2px 0.35rem;
     width: 100%;
     box-sizing: border-box;
@@ -223,16 +227,25 @@
   #nav-sidebar .app-cheradip.module tbody tr:only-child {
     grid-column: 1 / -1;
   }
-  /* nav_sidebar.css sets th { width: 100% } — breaks th+td rows in a grid cell */
+  /* nav_sidebar.css sets th { width: 100% } — override for Cheradip sidebar rows */
   #nav-sidebar .app-cheradip.module tbody tr th {
-    width: auto;
-    max-width: 70%;
+    width: inherit;
+    max-width: 85%;
     overflow-wrap: anywhere;
     word-break: break-word;
   }
   #nav-sidebar .app-cheradip.module tbody tr td {
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+  /* Hide the translated "Add" text only; link target unchanged. */
+  #nav-sidebar .app-cheradip.module tbody tr td a.addlink {
+    font-size: 0 !important;
+    line-height: 0 !important;
+    color: transparent !important;
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    vertical-align: middle;
   }
   @supports (container-type: inline-size) {
     @container nav-sidebar-cheradip (max-width: 200px) {
