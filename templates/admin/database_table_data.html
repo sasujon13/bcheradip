@@ -91,6 +91,57 @@
     color: #fff;
   }
   .table-data-actions-cell .btn-row-delete:hover { background: red; color: #fff; }
+  #pending-question-dialog {
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    max-width: min(96vw, 920px);
+    width: 100%;
+    max-height: 92vh;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+  #pending-question-dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+  .pending-dialog-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 14px;
+    background: teal;
+    color: #fff;
+  }
+  .pending-dialog-header h3 { margin: 0; font-size: 1rem; font-weight: 600; }
+  .pending-dialog-header-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .pending-dialog-header-actions button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .pending-dialog-header-actions .btn-dlg-approve { background: #fff; color: teal; font-weight: 600; }
+  .pending-dialog-header-actions .btn-dlg-deny { background: #c62828; color: #fff; }
+  .pending-dialog-header-actions .btn-dlg-close { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.7); }
+  .pending-dialog-body {
+    padding: 12px 14px;
+    overflow: auto;
+    max-height: calc(92vh - 56px);
+    box-sizing: border-box;
+  }
+  .pending-edit-field-row { margin-bottom: 10px; }
+  .pending-edit-field-row label { display: block; font-size: 12px; color: #333; margin-bottom: 4px; font-weight: 600; }
+  .pending-edit-field-row input[type="text"],
+  .pending-edit-field-row textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  .pending-edit-field-row textarea { min-height: 4.5rem; resize: vertical; }
 </style>
 {% endblock %}
 
@@ -228,7 +279,7 @@
                         {% endfor %}
                         {% if show_approve %}
                         <td class="table-data-actions-cell">
-                            <a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}" class="btn-row-approve" title="{% translate 'Edit' %}">&#9998;</a>
+                            <a href="#" class="btn-row-approve pending-edit-open" data-row-id="{{ row_id }}" title="{% translate 'Edit' %}">&#9998;</a>
                             <button type="submit" form="pending-row-approve-{{ row_id }}" class="btn-row-approve" title="{% translate 'Approve' %}">&#10003;</button>
                             <button type="submit" form="pending-row-deny-{{ row_id }}" class="btn-row-delete" onclick="return confirm('{% translate "Reject this edit request? The live question will not be changed." %}');" title="{% translate 'Deny' %}">X</button>
                         </td>
@@ -256,6 +307,24 @@
             <input type="hidden" name="ids" value="{{ row_id }}">
         </form>
         {% endfor %}
+        <dialog id="pending-question-dialog">
+            <form method="post" action="" id="pending-edit-approve-form">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="approve_edited">
+                <input type="hidden" name="pending_edit_id" id="pending-edit-id" value="">
+                <div class="pending-dialog-header">
+                    <h3>{% translate 'Edit pending question' %}</h3>
+                    <div class="pending-dialog-header-actions">
+                        <button type="submit" class="btn-dlg-approve">{% translate 'Approve' %}</button>
+                        <button type="button" class="btn-dlg-deny" id="pending-dlg-deny">{% translate 'Deny' %}</button>
+                        <button type="button" class="btn-dlg-close" id="pending-dlg-close">{% translate 'Close' %}</button>
+                    </div>
+                </div>
+                <div class="pending-dialog-body">
+                    <div id="pending-edit-fields-inner"></div>
+                </div>
+            </form>
+        </dialog>
         {% endif %}
 
         {% if num_pages > 1 %}
@@ -290,5 +359,88 @@ var selectAll = document.getElementById('select-all');
 if (selectAll) selectAll.addEventListener('change', function() {
     document.querySelectorAll('#delete-form input[name="ids"]').forEach(function(cb) { cb.checked = this.checked; }, this);
 });
+{% if show_approve %}
+(function() {
+    var dlg = document.getElementById('pending-question-dialog');
+    var inner = document.getElementById('pending-edit-fields-inner');
+    var pkInput = document.getElementById('pending-edit-id');
+    var jsonTmpl = "{% url 'admin:database_pending_question_row_json' db_alias table_name 0 %}";
+    var longFields = {
+        question: 1, option_1: 1, option_2: 1, option_3: 1, option_4: 1, answer: 1,
+        explanation: 1, explanation2: 1, explanation3: 1
+    };
+    function rowJsonUrl(pk) {
+        return jsonTmpl.replace(/pending-edit\/0\/json\//, 'pending-edit/' + encodeURIComponent(pk) + '/json/');
+    }
+    function openPendingDialog(pk) {
+        if (!dlg || !inner || !pkInput) return;
+        inner.innerHTML = '<p style="margin:0;">{% translate "Loading…" %}</p>';
+        pkInput.value = pk;
+        dlg.showModal();
+        fetch(rowJsonUrl(pk), { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (!data.ok) {
+                    inner.innerHTML = '<p class="errornote">' + (data.error || 'Error') + '</p>';
+                    return;
+                }
+                inner.innerHTML = '';
+                var pkCol = data.pk_column || 'id';
+                data.columns.forEach(function(col) {
+                    var val = data.values.hasOwnProperty(col) ? String(data.values[col]) : '';
+                    var row = document.createElement('div');
+                    row.className = 'pending-edit-field-row';
+                    var lab = document.createElement('label');
+                    lab.setAttribute('for', 'pending-field-' + col);
+                    lab.textContent = col;
+                    var inp;
+                    if (col === pkCol) {
+                        inp = document.createElement('input');
+                        inp.type = 'text';
+                        inp.readOnly = true;
+                        inp.id = 'pending-field-' + col;
+                        inp.name = 'field_' + col;
+                        inp.value = val;
+                    } else if (longFields[col]) {
+                        inp = document.createElement('textarea');
+                        inp.id = 'pending-field-' + col;
+                        inp.name = 'field_' + col;
+                        inp.rows = (col === 'question' || String(col).indexOf('explanation') === 0) ? 8 : 4;
+                        inp.value = val;
+                    } else {
+                        inp = document.createElement('input');
+                        inp.type = 'text';
+                        inp.id = 'pending-field-' + col;
+                        inp.name = 'field_' + col;
+                        inp.value = val;
+                    }
+                    row.appendChild(lab);
+                    row.appendChild(inp);
+                    inner.appendChild(row);
+                });
+            })
+            .catch(function() {
+                inner.innerHTML = '<p class="errornote">{% translate "Could not load row." %}</p>';
+            });
+    }
+    document.querySelectorAll('.pending-edit-open').forEach(function(btn) {
+        btn.addEventListener('click', function(ev) {
+            ev.preventDefault();
+            var pk = this.getAttribute('data-row-id');
+            if (pk) openPendingDialog(pk);
+        });
+    });
+    var btnClose = document.getElementById('pending-dlg-close');
+    if (btnClose && dlg) btnClose.addEventListener('click', function() { dlg.close(); });
+    var btnDeny = document.getElementById('pending-dlg-deny');
+    if (btnDeny) btnDeny.addEventListener('click', function() {
+        var id = pkInput && pkInput.value;
+        if (!id) return;
+        if (!confirm('{% translate "Reject this edit request? The live question will not be changed." %}')) return;
+        var f = document.getElementById('pending-row-deny-' + id);
+        if (f) f.submit();
+    });
+})();
+{% endif %}
 </script>
 {% endblock %}

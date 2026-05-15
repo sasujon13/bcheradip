@@ -27,6 +27,11 @@ def _admin_get_urls_with_databases():
         path('databases/', admin.site.admin_view(database_admin_views.databases_list), name='databases_list'),
         path('databases/<str:db_alias>/', admin.site.admin_view(database_admin_views.database_tables), name='database_tables'),
         path('databases/<str:db_alias>/settings/', admin.site.admin_view(database_admin_views.database_settings), name='database_settings'),
+        path(
+            'databases/<str:db_alias>/<str:table_name>/pending-edit/<path:pk>/json/',
+            admin.site.admin_view(database_admin_views.pending_question_row_json),
+            name='database_pending_question_row_json',
+        ),
         path('databases/<str:db_alias>/<str:table_name>/', admin.site.admin_view(database_admin_views.database_table_data), name='database_table_data'),
         path('databases/<str:db_alias>/<str:table_name>/edit/<path:pk>/', admin.site.admin_view(database_admin_views.database_table_data_edit), name='database_table_data_edit'),
     ]

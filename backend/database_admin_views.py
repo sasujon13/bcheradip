@@ -19,7 +19,7 @@ from django.urls import reverse
 
 from backend.admin_app_list import get_app_list_by_database, build_db_tabs_for_index
 from django.core.paginator import Paginator
-from django.http import HttpResponseNotFound, HttpResponseBadRequest
+from django.http import HttpResponseNotFound, HttpResponseBadRequest, JsonResponse
 from django.contrib import messages
 from django.utils import timezone
 
@@ -228,6 +228,71 @@ def _update_row(conn, table_name, columns, pk_column, pk_value, data):
             [data[c] for c in cols] + [pk_value]
         )
     return True
+
+
+PENDING_MODAL_STRIP_FIELDS = frozenset({
+    'question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer',
+    'explanation', 'explanation2', 'explanation3',
+})
+PENDING_MODAL_TEXTAREA_FIELDS = frozenset({
+    'question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer',
+    'explanation', 'explanation2', 'explanation3',
+})
+
+
+def _pending_row_values_for_modal(row_data, columns, column_types):
+    """Build string values for the edit modal (plain text for markup-heavy fields)."""
+    out = {}
+    for c in columns:
+        v = row_data.get(c)
+        if c in PENDING_MODAL_STRIP_FIELDS:
+            s = _strip_red_markup(v)
+            out[c] = '' if s is None else str(s)
+            continue
+        dt = column_types.get(c)
+        if v is None:
+            out[c] = ''
+        elif dt in ('datetime', 'date'):
+            out[c] = _format_cell_for_edit(v, dt)
+        else:
+            out[c] = str(v) if v is not None else ''
+    return out
+
+
+@staff_member_required
+def pending_question_row_json(request, db_alias, table_name, pk):
+    """GET JSON for one cheradip_pending_question_request row (HSC) — for Edit & Approve modal."""
+    if request.method != 'GET':
+        return HttpResponseBadRequest('GET only')
+    table_name = table_name.strip().lower()
+    if db_alias != 'hsc' or table_name != 'cheradip_pending_question_request':
+        return HttpResponseNotFound('Not available for this table.')
+    if not _allowed_table_name(table_name):
+        return HttpResponseBadRequest('Invalid table name.')
+    if db_alias not in connections:
+        return HttpResponseNotFound('Unknown database alias.')
+    conn = connections[db_alias]
+    db_name = conn.settings_dict.get('NAME', db_alias)
+    columns = _get_table_columns(conn, table_name)
+    if not columns:
+        return HttpResponseNotFound('Table not found.')
+    pk_column = _get_pk_column(columns)
+    column_types = _get_column_types(conn, table_name, db_name)
+    with conn.cursor() as cursor:
+        pk_esc = pk_column.replace('`', '``')
+        cursor.execute(
+            "SELECT * FROM `%s` WHERE `%s` = %%s" % (table_name.replace('`', '``'), pk_esc),
+            [pk]
+        )
+        row = cursor.fetchone()
+    if not row:
+        return JsonResponse({'ok': False, 'error': 'Row not found.'}, status=404)
+    row_data = dict(zip(columns, row))
+    values = _pending_row_values_for_modal(row_data, columns, column_types)
+    return JsonResponse(
+        {'ok': True, 'pk': str(pk), 'pk_column': pk_column, 'columns': columns, 'values': values},
+        json_dumps_params={'ensure_ascii': False},
+    )
 
 
 def _strip_red_markup(value):
@@ -572,6 +637,56 @@ def database_table_data(request, db_alias, table_name):
                             messages.warning(request, '… and %s more errors.' % (len(errs) - 10))
                 except Exception as e:
                     messages.error(request, 'Approve failed: %s' % str(e))
+            return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
+
+        if action == 'approve_edited' and db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
+            pk_edit = (request.POST.get('pending_edit_id') or '').strip()
+            if not pk_edit:
+                messages.error(request, 'Missing pending row id.')
+            else:
+                try:
+                    pk_col = _get_pk_column(columns)
+                    column_types = _get_column_types(conn, table_name, db_name)
+                    with conn.cursor() as cursor:
+                        pk_esc = pk_col.replace('`', '``')
+                        cursor.execute(
+                            "SELECT * FROM `%s` WHERE `%s` = %%s" % (table_name.replace('`', '``'), pk_esc),
+                            [pk_edit]
+                        )
+                        row_db = cursor.fetchone()
+                    if not row_db:
+                        messages.error(request, 'Row not found.')
+                    else:
+                        data = {}
+                        for c in columns:
+                            if c == pk_col:
+                                continue
+                            fk = 'field_%s' % c
+                            if fk not in request.POST:
+                                continue
+                            val = request.POST.get(fk)
+                            dt = column_types.get(c)
+                            if dt in ('datetime', 'date'):
+                                parsed = _parse_datetime_for_mysql(val)
+                                if parsed is not None:
+                                    val = parsed
+                                elif val is not None and str(val).strip() == '':
+                                    val = None
+                            data[c] = val
+                        if not data:
+                            messages.error(request, 'No fields submitted.')
+                        else:
+                            _update_row(conn, table_name, columns, pk_col, pk_edit, data)
+                            success, errs = _approve_pending_question_rows(conn, db_name, pk_col, [pk_edit])
+                            if success:
+                                messages.success(request, 'Edited and approved.')
+                            if errs:
+                                for msg in errs[:10]:
+                                    messages.warning(request, msg)
+                                if len(errs) > 10:
+                                    messages.warning(request, '… and %s more errors.' % (len(errs) - 10))
+                except Exception as e:
+                    messages.error(request, 'Edit & approve failed: %s' % str(e))
             return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
 
     # Filters for cheradip_pending_question_request (subject_tr, type, status)
