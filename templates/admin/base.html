@@ -26,12 +26,13 @@
     display: inline-flex;
     align-items: stretch;
     justify-content: space-between;
-    padding: 10px 24px !important;
+    padding: 3px 10px !important;
     width: 100%;
     box-sizing: border-box;
     flex-wrap: nowrap;
+    flex-shrink: 0;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible;
   }
   #branding {
     display: inline-flex;
@@ -40,6 +41,7 @@
     text-align: center;
     gap: 10px;
     flex: 0 0 auto;
+    flex-shrink: 0;
     min-width: 0;
     align-self: center;
   }
@@ -55,6 +57,7 @@
     justify-content: center;
     align-items: center;
     flex: 1 1 auto;
+    flex-shrink: 0;
     min-width: 0;
     align-self: center;
   }
@@ -79,6 +82,7 @@
   #header .header-user-rail {
     margin-left: auto;
     flex: 0 0 auto;
+    flex-shrink: 0;
     align-self: stretch;
     display: flex;
     flex-direction: column;
@@ -272,10 +276,11 @@
           align-items: center !important;
           justify-content: flex-start !important;
           flex-wrap: nowrap !important;
+          flex-shrink: 0 !important;
           overflow-x: visible !important;
           overflow-y: visible !important;
           gap: 0.35rem;
-          padding: 10px 16px !important;
+          padding: 3px 10px !important;
         }
         #header .branding-logo {
           display: none !important;
@@ -288,10 +293,11 @@
         }
         #header > #site-name {
           order: 2;
-          flex: 0 1 auto;
+          flex: 0 0 auto !important;
+          flex-shrink: 0 !important;
           width: 100%;
           margin: 0 !important;
-          font-size: x-large;
+          font-size: xx-large;
         }
         #header .user-tools-welcome {
           order: 1;
