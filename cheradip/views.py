@@ -6795,6 +6795,73 @@ class CheradipSourceListView(APIView):
         return Response({'sources': sources}, status=status.HTTP_200_OK)
 
 
+def _subject_question_table_revision(conn, table_name):
+    """
+    Lightweight change fingerprint for a subject question table.
+    Uses MAX(updated_at) and row count when updated_at exists.
+    """
+    revision = {
+        'table': table_name,
+        'max_updated_at': None,
+        'row_count': 0,
+        'has_updated_at': False,
+    }
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s",
+                [table_name],
+            )
+            if not cur.fetchone():
+                return revision
+            cur.execute(
+                "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME = 'updated_at'",
+                [table_name],
+            )
+            revision['has_updated_at'] = bool(cur.fetchone())
+            cur.execute("SELECT COUNT(*) FROM `{}`".format(table_name))
+            row = cur.fetchone()
+            revision['row_count'] = int(row[0] or 0) if row else 0
+            if revision['has_updated_at']:
+                cur.execute("SELECT MAX(updated_at) FROM `{}`".format(table_name))
+                val = cur.fetchone()
+                val = val[0] if val else None
+                if val is not None:
+                    revision['max_updated_at'] = val.isoformat() if hasattr(val, 'isoformat') else str(val)
+    except Exception as e:
+        logger.exception('_subject_question_table_revision: %s', e)
+    return revision
+
+
+class QuestionSubjectRevisionView(APIView):
+    """
+    GET: Return change fingerprint for a subject question table (no question bodies).
+    Query params: level_tr, class_level, subject_tr.
+    Response: table, max_updated_at, row_count, has_updated_at.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        if not level_tr or not class_level or not subject_tr:
+            return Response(
+                {'error': 'level_tr, class_level, and subject_tr are required'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response(
+                {'error': '%s database not configured' % db_alias},
+                status=status.HTTP_200_OK,
+            )
+        table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+        revision = _subject_question_table_revision(connections[db_alias], table_name)
+        return Response(revision, status=status.HTTP_200_OK)
+
+
 class QuestionListView(APIView):
     """
     GET: List questions from the subject question table in cheradip_hsc.
@@ -6827,7 +6894,8 @@ class QuestionListView(APIView):
                     [table_name]
                 )
                 if not cur.fetchone():
-                    return Response({'questions': []}, status=status.HTTP_200_OK)
+                    revision = _subject_question_table_revision(conn, table_name)
+                    return Response({'questions': [], 'revision': revision}, status=status.HTTP_200_OK)
                 cur.execute(
                     "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no', 'subsource', 'explanation2', 'explanation3', 'level')",
                     [table_name]
@@ -6868,7 +6936,8 @@ class QuestionListView(APIView):
         except Exception as e:
             logger.exception('QuestionListView: %s', e)
             return Response({'questions': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response({'questions': questions}, status=status.HTTP_200_OK)
+        revision = _subject_question_table_revision(conn, table_name)
+        return Response({'questions': questions, 'revision': revision}, status=status.HTTP_200_OK)
 
 
 class PendingQuestionRequestView(APIView):
