@@ -723,7 +723,7 @@ def database_table_data(request, db_alias, table_name):
     table_data_url = '/admin/databases/%s/%s/' % (db_alias, table_name)
     tables_url = '/admin/databases/%s/' % db_alias
     num_pages = (total + PAGE_SIZE - 1) // PAGE_SIZE if total else 1
-    # For pending_question_request: reorder so qid, table, status appear after approved_at; show "qid" instead of "approved_qid"
+    # For pending_question_request: reorder columns; show header "qid" only for approved_qid when there is no separate qid column
     if db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
         PENDING_ORDER = (
             'id', 'level_tr', 'class_level', 'subject_tr', 'chapter_no', 'chapter', 'topic_no', 'topic',
@@ -741,8 +741,16 @@ def database_table_data(request, db_alias, table_name):
             if c not in seen:
                 ordered.append(c)
         columns = ordered
-        display_columns = ['qid' if c == 'approved_qid' else c for c in columns]
-        values_per_row = [([(r.get('qid') if c == 'approved_qid' else r.get(c)) for c in columns], r.get(pk_column)) for r in rows]
+        has_plain_qid = 'qid' in columns
+        display_columns = []
+        for c in columns:
+            if c == 'approved_qid' and has_plain_qid:
+                display_columns.append('approved_qid')
+            elif c == 'approved_qid':
+                display_columns.append('qid')
+            else:
+                display_columns.append(c)
+        values_per_row = [([r.get(c) for c in columns], r.get(pk_column)) for r in rows]
         row_list = [(list(zip(display_columns, vals)), rid) for vals, rid in values_per_row]
     else:
         display_columns = columns

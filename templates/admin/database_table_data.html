@@ -173,22 +173,44 @@
     font-size: 13px;
   }
   .pending-edit-field-row textarea { min-height: 4.5rem; resize: vertical; }
-  /* Pending question list: one line per cell, full text in hover panel */
+  /* Pending question list: single-line headers (fit content width); body cells match columns, ellipsis overflow */
   .pending-question-table {
     table-layout: fixed;
-    width: 100%;
+    width: max-content;
+    border-collapse: collapse;
+  }
+  .pending-question-table thead th {
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+    padding: 8px 3px;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
+    vertical-align: middle;
+    text-align: left;
+    background: #eef6f6;
+    border: 1px solid #cfe0e0;
+    border-bottom: 2px solid teal;
+    box-sizing: border-box;
+  }
+  .pending-question-table thead th:first-child {
+    text-align: center;
+  }
+  .pending-question-table tbody td {
+    padding: 3px 3px;
+    box-sizing: border-box;
+    vertical-align: middle;
   }
   .pending-question-table th:first-child,
   .pending-question-table td:first-child {
-    width: 2.25rem;
-    max-width: 2.5rem;
     box-sizing: border-box;
   }
   .pending-question-table td.table-data-cell-truncate {
+    width: 0;
     max-width: 0;
-    vertical-align: middle;
+    overflow: hidden;
     cursor: default;
-    padding: 6px 8px;
     border-bottom: 1px solid #eee;
   }
   .pending-question-table td.table-data-cell-truncate:hover {
@@ -199,6 +221,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
+    max-width: 100%;
     font-size: 13px;
     line-height: 1.35;
   }
@@ -453,6 +477,44 @@ if (selectAll) selectAll.addEventListener('change', function() {
     document.querySelectorAll('#delete-form input[name="ids"]').forEach(function(cb) { cb.checked = this.checked; }, this);
 });
 {% if show_approve %}
+(function() {
+    var table = document.querySelector('table.pending-question-table');
+    if (!table) return;
+    var ths = table.querySelectorAll('thead tr th');
+    if (!ths.length) return;
+    var resizeTimer = null;
+    function fitColumnsFromHeaders() {
+        table.style.tableLayout = 'auto';
+        table.style.width = 'max-content';
+        for (var i = 0; i < ths.length; i++) {
+            ths[i].style.width = '';
+            ths[i].style.minWidth = '';
+            ths[i].style.maxWidth = '';
+        }
+        table.offsetWidth;
+        var widths = [];
+        var sum = 0;
+        for (var j = 0; j < ths.length; j++) {
+            var cw = Math.ceil(ths[j].getBoundingClientRect().width);
+            widths.push(cw);
+            sum += cw;
+        }
+        table.style.tableLayout = 'fixed';
+        for (var k = 0; k < ths.length; k++) {
+            var w = widths[k] + 'px';
+            ths[k].style.width = w;
+            ths[k].style.minWidth = w;
+            ths[k].style.maxWidth = w;
+        }
+        table.style.width = sum + 'px';
+    }
+    fitColumnsFromHeaders();
+    window.addEventListener('load', fitColumnsFromHeaders);
+    window.addEventListener('resize', function() {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(fitColumnsFromHeaders, 120);
+    });
+})();
 (function() {
     var dlg = document.getElementById('pending-question-dialog');
     var inner = document.getElementById('pending-edit-fields-inner');
