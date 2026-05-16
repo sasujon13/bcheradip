@@ -42,6 +42,13 @@ CORS_ALLOWED_ORIGINS = config(
     cast=Csv()
 )
 
+# Required for cross-origin POST from Angular (Origin: http://localhost:4200).
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='http://localhost:4200,http://127.0.0.1:4200,https://cheradip.com,https://www.cheradip.com',
+    cast=Csv(),
+)
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

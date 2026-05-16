@@ -31,6 +31,7 @@ HOST_URL=http://127.0.0.1:8000
 # CORS Settings (Local Development - Allow Angular dev server)
 CORS_ALLOWED_ORIGINS=http://localhost:4200,http://127.0.0.1:4200
 CORS_ORIGIN_ALLOW_ALL=True
+CSRF_TRUSTED_ORIGINS=http://localhost:4200,http://127.0.0.1:4200
 """
     
     env_path = os.path.join(os.path.dirname(__file__), '.env')

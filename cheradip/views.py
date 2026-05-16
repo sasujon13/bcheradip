@@ -883,9 +883,14 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
     """Trx unlock debit (minor units); keep aligned with Angular ``NTRCA_UNLOCK_DEBIT``."""
 
     UNLOCK_DEBIT = 20
+    QUESTION_UNLOCK_DEBIT_MCQ = 10
+    QUESTION_UNLOCK_DEBIT_CQ = 50
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
     permission_classes = [AllowAny]
+    # Bearer is parsed manually in actions; disable SessionAuthentication so SPA POSTs
+    # (unlock_questions, use_trx, update_status) are not blocked by missing CSRF token.
+    authentication_classes = []
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -1086,6 +1091,127 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
             )
         return Response({'success': True, 'remaining': remaining_for_client})
 
+    @action(detail=False, methods=['post'], url_path='unlock_questions')
+    def unlock_questions(self, request):
+        """
+        Question page unlock: debit ``customer.settings.balance`` per item.
+        MCQ (``is_cq`` false) = QUESTION_UNLOCK_DEBIT_MCQ; CQ = QUESTION_UNLOCK_DEBIT_CQ.
+        Body: ``{ "items": [ { "qid": "01_1_0006", "is_cq": false }, ... ] }`` (max 30).
+        """
+        auth = request.META.get('HTTP_AUTHORIZATION')
+        if not (auth and auth.startswith('Bearer ')):
+            return Response(
+                {'success': False, 'remaining': 0, 'detail': 'Login required'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+        key = auth[7:].strip()
+        try:
+            customer = CustomerToken.objects.select_related('customer').get(key=key).customer
+        except CustomerToken.DoesNotExist:
+            return Response(
+                {'success': False, 'remaining': 0, 'detail': 'Login required'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        raw_items = request.data.get('items')
+        if not isinstance(raw_items, list) or len(raw_items) == 0:
+            return Response(
+                {'success': False, 'remaining': 0, 'detail': 'No questions to unlock'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if len(raw_items) > 30:
+            return Response(
+                {'success': False, 'remaining': 0, 'detail': 'At most 30 questions per request'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        requested = []
+        seen_qids = set()
+        for it in raw_items:
+            if not isinstance(it, dict):
+                continue
+            qid = (it.get('qid') or '').strip()
+            if not qid or qid in seen_qids:
+                continue
+            seen_qids.add(qid)
+            requested.append((qid, bool(it.get('is_cq'))))
+
+        if not requested:
+            try:
+                customer.refresh_from_db(fields=['settings'])
+                st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                remaining = int(st.get('balance', 0) or 0)
+                unlocked = _normalize_unlocked_question_qids(
+                    st.get(UNLOCKED_QUESTION_QIDS_SETTINGS_KEY)
+                )
+            except (TypeError, ValueError):
+                remaining = 0
+                unlocked = []
+            return Response(
+                {
+                    'success': True,
+                    'remaining': remaining,
+                    'debited': 0,
+                    'unlocked_qids': unlocked,
+                }
+            )
+
+        try:
+            with transaction.atomic():
+                customer.refresh_from_db(fields=['settings'])
+                st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                already = set(
+                    _normalize_unlocked_question_qids(
+                        st.get(UNLOCKED_QUESTION_QIDS_SETTINGS_KEY)
+                    )
+                )
+                debit = 0
+                for qid, is_cq in requested:
+                    if qid in already:
+                        continue
+                    debit += (
+                        self.QUESTION_UNLOCK_DEBIT_CQ
+                        if is_cq
+                        else self.QUESTION_UNLOCK_DEBIT_MCQ
+                    )
+                try:
+                    b = int(st.get('balance', 0) or 0)
+                except (TypeError, ValueError):
+                    b = 0
+                if debit > 0 and b < debit:
+                    return Response(
+                        {
+                            'success': False,
+                            'remaining': b,
+                            'detail': 'Insufficient coins for unlock',
+                            'debited': 0,
+                        },
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+                merged_unlocked = sorted(already | {qid for qid, _ in requested})
+                st = {
+                    **st,
+                    'balance': max(0, b - debit) if debit > 0 else b,
+                    UNLOCKED_QUESTION_QIDS_SETTINGS_KEY: merged_unlocked,
+                }
+                customer.settings = st
+                customer.save(update_fields=['settings'])
+                remaining_for_client = int(st.get('balance', 0) or 0)
+            return Response(
+                {
+                    'success': True,
+                    'remaining': remaining_for_client,
+                    'debited': debit,
+                    'unlocked_qids': merged_unlocked,
+                }
+            )
+        except Exception:
+            logger.exception('unlock_questions failed')
+            return Response(
+                {'success': False, 'remaining': 0, 'detail': 'Unlock failed'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
 
 class ItemListCreateView(generics.ListCreateAPIView):
     queryset = Item.objects.all()
@@ -1117,6 +1243,23 @@ def item_list(request):
 
 # Welcome bonus on new signup: stored in Customer.settings['balance'] (GET /api/customer_settings/)
 WELCOME_SIGNUP_BONUS_COINS = 5000
+
+# Question page coin unlocks — persisted on Customer.settings (synced across devices).
+UNLOCKED_QUESTION_QIDS_SETTINGS_KEY = 'unlocked_question_qids'
+
+
+def _normalize_unlocked_question_qids(raw):
+    """List of qid strings for /question unlock (cross-device)."""
+    if not isinstance(raw, list):
+        return []
+    out = []
+    seen = set()
+    for x in raw:
+        s = str(x).strip()
+        if s and s not in seen:
+            seen.add(s)
+            out.append(s)
+    return out
 
 
 def _normalize_customer_settings(raw):
