@@ -2486,7 +2486,7 @@ class ExportQuestionsView(APIView):
         # (CQ-only, MCQ-only, and mixed CQ+MCQ).
         margin_bottom_cq = float(margin_bottom)
         margin_bottom_mcq = float(margin_bottom)
-        options_cols = max(1, min(4, intval(pick('optionsColumns', 2), 2)))
+        options_cols = max(1, min(5, intval(pick('optionsColumns', 2), 2)))
         cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
         cols_cq = max(1, min(10, intval(pick('layoutColumnsCreative', cols_mcq), cols_mcq)))
         col_gap = max(1, min(100, intval(pick('layoutColumnGapPx', layout_column_gap_px), layout_column_gap_px)))
