@@ -2555,6 +2555,24 @@ class ExportQuestionsView(APIView):
                 return s
             return None
 
+        def mcq_header_text_with_set_letter(header_text, set_letter):
+            """Per-page MCQ answer sheet: inject সেট : ক/খ/গ/ঘ into the বিষয় কোড header line."""
+            if set_letter not in ('ক', 'খ', 'গ', 'ঘ'):
+                return header_text
+            lines = str(header_text or '').replace('\r\n', '\n').split('\n')
+            out = []
+            replaced = False
+            for ln in lines:
+                if 'বিষয় কোড' in ln or 'বিষয় কোড' in ln:
+                    base = re.sub(r'\s*সেট\s*[:ঃ]\s*[কখগঘ]\s*', '', ln).strip()
+                    out.append('%s সেট : %s' % (base, set_letter))
+                    replaced = True
+                else:
+                    out.append(ln)
+            if not replaced:
+                out.append('বিষয় কোডঃ সেট : %s' % set_letter)
+            return '\n'.join(out)
+
         def render_subject_code_row(line, font_px, line_h, extra_class='', for_mcq_header=False):
             txt = str(line or '')
             digits = re.findall(r'[0-9০-৯]', txt)
@@ -3096,7 +3114,14 @@ class ExportQuestionsView(APIView):
                     header_kind = hk if hk in ('creative', 'mcq') else content_kind
                 else:
                     header_kind = content_kind
-                hdr_for_page = header_html_creative if header_kind == 'creative' else header_html_mcq
+                page_set = str(pg.get('mcqSetLetter') or '').strip()
+                if page_set in ('ক', 'খ', 'গ', 'ঘ') and header_kind == 'mcq':
+                    qh_page = mcq_header_text_with_set_letter(qh_mcq, page_set)
+                    hdr_for_page = compile_playwright_header_html(
+                        qh_page, cq_header=False, line_font_px=h_pdf_mcq
+                    )
+                else:
+                    hdr_for_page = header_html_creative if header_kind == 'creative' else header_html_mcq
                 pool = creative_by_idx if content_kind == 'creative' else mcq_by_idx
                 cols_idx = pg.get('questionColumnIndexes')
                 lead_idx = pg.get('leadBindingIndexes')
