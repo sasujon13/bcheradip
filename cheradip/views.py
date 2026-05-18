@@ -2141,11 +2141,9 @@ def _approx_plain_width_px(plain, font_px=13):
 
 
 def _mcq_roman_pack_max_width_px(opt_grid_cols):
-    c = max(1, min(4, int(opt_grid_cols)))
+    c = max(2, min(4, int(opt_grid_cols)))
     if c >= 4:
         return 280
-    if c <= 1:
-        return 480
     return 380
 
 
@@ -2902,7 +2900,7 @@ class ExportQuestionsView(APIView):
         # (CQ-only, MCQ-only, and mixed CQ+MCQ).
         margin_bottom_cq = float(margin_bottom)
         margin_bottom_mcq = float(margin_bottom)
-        options_cols = max(1, min(5, intval(pick('optionsColumns', 2), 2)))
+        options_cols = max(2, min(5, intval(pick('optionsColumns', 2), 2)))
         options_manual_override = bool(pick('optionsColumnsManualOverride', False))
         preview_options_layout_by_qid = pick('previewOptionsLayoutByQid', {})
         if not isinstance(preview_options_layout_by_qid, dict):
@@ -2926,7 +2924,7 @@ class ExportQuestionsView(APIView):
             explicit = (qq or {}).get('exportMcqOptionsColumns')
             if explicit is not None:
                 try:
-                    return max(1, min(4, int(explicit)))
+                    return max(2, min(4, int(explicit)))
                 except Exception:
                     pass
             if options_manual_override:
@@ -2937,18 +2935,14 @@ class ExportQuestionsView(APIView):
                 layout = preview_options_layout_by_qid.get(str(key))
             if layout == '1row':
                 return 4
-            if layout == '4row':
-                return 1
-            if layout == '2row':
+            if layout in ('2row', '4row'):
                 return 2
             return options_cols
 
         def options_grid_class_for_cols(cols):
-            c = max(1, min(5, int(cols)))
+            c = max(2, min(5, int(cols)))
             if c >= 4:
                 return 'q-options q-options-1row'
-            if c <= 1:
-                return 'q-options q-options-4row'
             return 'q-options q-options-2row'
 
         cols_mcq = max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
@@ -4197,8 +4191,7 @@ class ExportQuestionsView(APIView):
       grid-template-columns: 1fr 1fr;
     }}
     .q-options.q-options-4row {{
-      grid-template-columns: 1fr;
-      gap: var(--preview-q-opt-row-gap, 0.2857em);
+      grid-template-columns: 1fr 1fr;
     }}
     .q-opt {{
       display: block;
@@ -4542,7 +4535,7 @@ class ExportQuestionsView(APIView):
             explicit = (qq or {}).get('exportMcqOptionsColumns')
             if explicit is not None:
                 try:
-                    return max(1, min(4, int(explicit)))
+                    return max(2, min(4, int(explicit)))
                 except Exception:
                     pass
             return 2
