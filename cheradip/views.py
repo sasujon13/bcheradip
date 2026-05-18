@@ -1709,7 +1709,7 @@ def _export_show_column_divider(data):
     if raw is None:
         raw = data.get('show_column_divider')
     if raw is None:
-        return True
+        return False
     if isinstance(raw, str):
         return raw.strip().lower() in ('1', 'true', 'yes', 'on')
     return bool(raw)
@@ -2806,7 +2806,7 @@ class ExportQuestionsView(APIView):
         page_h_mm,
         layout_columns=1,
         layout_column_gap_px=14,
-        show_column_divider=True,
+        show_column_divider=False,
         page_sections=1,
         section_gap_px=14,
         raw_data=None,
@@ -4308,7 +4308,7 @@ class ExportQuestionsView(APIView):
         page_h_mm,
         layout_columns=1,
         layout_column_gap_px=14,
-        show_column_divider=True,
+        show_column_divider=False,
         page_sections=1,
         section_gap_px=14,
     ):
@@ -4446,7 +4446,7 @@ class ExportQuestionsView(APIView):
         page_h_mm,
         layout_columns=1,
         layout_column_gap_px=14,
-        show_column_divider=True,
+        show_column_divider=False,
         layout_settings=None,
     ):
         doc = DocxDocument()
