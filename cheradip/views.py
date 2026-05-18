@@ -7147,7 +7147,9 @@ def _question_list_where_sql(topics, chapters, types, sources, years, col_set):
         params.extend(topics)
     if chapters:
         ph = ', '.join(['%s'] * len(chapters))
-        clauses.append('(chapter_no IN ({0}) OR chapter IN ({0}))'.format(ph))
+        # Two IN lists — bind chapter values twice (chapter_no and chapter columns).
+        clauses.append('(chapter_no IN ({0}) OR chapter IN ({1}))'.format(ph, ph))
+        params.extend(chapters)
         params.extend(chapters)
     if types and 'type' in col_set:
         ph = ', '.join(['%s'] * len(types))
@@ -7164,6 +7166,109 @@ def _question_list_where_sql(topics, chapters, types, sources, years, col_set):
     if not clauses:
         return '', []
     return ' WHERE ' + ' AND '.join(clauses), params
+
+
+_SUBSOURCE_TOKEN_RE = re.compile(r"([A-Za-z0-9\-]+)'(\d{2})")
+
+
+def _parse_subsource_tokens(subsource):
+    """Match frontend parseSubsourceTokens: BB'17, CB'16 from comma-separated subsource."""
+    if subsource is None:
+        return []
+    s = str(subsource).strip().strip('"').strip("'")
+    if not s:
+        return []
+    out = []
+    for part in s.split(','):
+        part = part.strip().strip('"').strip("'")
+        m = _SUBSOURCE_TOKEN_RE.match(part)
+        if m:
+            out.append((m.group(1), m.group(2)))
+    return out
+
+
+def _collect_sources_years_from_subsources(subsource_rows):
+    sources = set()
+    years = set()
+    for row in subsource_rows:
+        sub = row[0] if isinstance(row, (list, tuple)) else row
+        for src, yr in _parse_subsource_tokens(sub):
+            if src:
+                sources.add(src)
+            if yr:
+                years.add(yr)
+    return sorted(sources), sorted(years, key=lambda y: (len(y), y))
+
+
+class QuestionFilterOptionsView(APIView):
+    """
+    GET: Distinct filter dropdown values from the subject question table (not from a loaded page).
+    Query: level_tr, class_level, subject_tr; optional chapter/topic (repeatable, same as question_list).
+    Returns sources (institute codes), years (2-digit), types.
+    """
+    permission_classes = [PublicAccess]
+    authentication_classes = []
+
+    def get(self, request):
+        level_tr = (request.query_params.get('level_tr') or '').strip()
+        class_level = (request.query_params.get('class_level') or '').strip()
+        subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        if not level_tr or not class_level or not subject_tr:
+            return Response({'sources': [], 'years': [], 'types': []}, status=status.HTTP_200_OK)
+        topics, chapters, _, _, _ = _question_list_filter_params(request)
+        db_alias = _question_chain_db_alias(request)
+        if db_alias not in connections:
+            return Response(
+                {'sources': [], 'years': [], 'types': [], 'error': '%s database not configured' % db_alias},
+                status=status.HTTP_200_OK,
+            )
+        table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+        conn = connections[db_alias]
+        sources = []
+        years = []
+        types = []
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = %s",
+                    [table_name],
+                )
+                if not cur.fetchone():
+                    return Response({'sources': [], 'years': [], 'types': []}, status=status.HTTP_200_OK)
+                cur.execute(
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('subsource', 'type')",
+                    [table_name],
+                )
+                col_set = {r[0] for r in cur.fetchall()}
+                where_sql, where_params = _question_list_where_sql(topics, chapters, [], [], [], col_set)
+                if 'subsource' in col_set:
+                    sub_where = (
+                        where_sql + " AND subsource IS NOT NULL AND TRIM(COALESCE(subsource, '')) != ''"
+                        if where_sql
+                        else " WHERE subsource IS NOT NULL AND TRIM(COALESCE(subsource, '')) != ''"
+                    )
+                    cur.execute(
+                        "SELECT DISTINCT subsource FROM `{}`{}".format(table_name, sub_where),
+                        where_params,
+                    )
+                    sources, years = _collect_sources_years_from_subsources(cur.fetchall())
+                if 'type' in col_set:
+                    type_where = (
+                        where_sql + " AND type IS NOT NULL AND TRIM(COALESCE(type, '')) != ''"
+                        if where_sql
+                        else " WHERE type IS NOT NULL AND TRIM(COALESCE(type, '')) != ''"
+                    )
+                    cur.execute(
+                        "SELECT DISTINCT type FROM `{}`{} ORDER BY type".format(table_name, type_where),
+                        where_params,
+                    )
+                    types = sorted(
+                        {(row[0] or '').strip() for row in cur.fetchall() if (row[0] or '').strip()}
+                    )
+        except Exception as e:
+            logger.exception('QuestionFilterOptionsView: %s', e)
+            return Response({'sources': [], 'years': [], 'types': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'sources': sources, 'years': years, 'types': types}, status=status.HTTP_200_OK)
 
 
 class QuestionListView(APIView):
