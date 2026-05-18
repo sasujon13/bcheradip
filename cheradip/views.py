@@ -2137,20 +2137,36 @@ def _strip_html_plain_for_measure(html):
 
 
 def _approx_plain_width_px(plain, font_px=13):
-    return len(plain) * max(8, float(font_px)) * 0.52
+    return len(plain) * max(8, float(font_px)) * 0.45
 
 
 def _mcq_roman_pack_max_width_px(opt_grid_cols):
     c = max(1, min(4, int(opt_grid_cols)))
     if c >= 4:
-        return 180
+        return 280
     if c <= 1:
-        return 320
-    return 260
+        return 480
+    return 380
+
+
+def _normalize_roman_mcq_source(text):
+    s = re.sub(r'\r\n?', '\n', str(text or ''))
+    s = re.sub(r'\n+\s*(?=(?:iii|ii|i)\.(?!\d))', ' ', s, flags=re.I)
+    s = re.sub(r'[ \t]+\n+[ \t]*', ' ', s)
+    return s
+
+
+def _compact_roman_segment_body(body, inline_pack=False):
+    s = str(body or '').strip()
+    if not inline_pack:
+        return s
+    s = re.sub(r'<br\s*/?>', ' ', s, flags=re.I)
+    s = re.sub(r'\s+', ' ', s)
+    return s.strip()
 
 
 def _parse_roman_mcq_segments(text):
-    src = str(text or '')
+    src = _normalize_roman_mcq_source(text)
     if not _ROMAN_MCQ_MARKER_RE.search(src):
         return None
     hits = []
@@ -2169,7 +2185,7 @@ def _parse_roman_mcq_segments(text):
     for i, (mk, start, end_marker) in enumerate(hits):
         body_start = end_marker
         body_end = hits[i + 1][1] if i + 1 < len(hits) else len(src)
-        segments.append((mk, src[body_start:body_end].strip()))
+        segments.append((mk, _compact_roman_segment_body(src[body_start:body_end], False)))
     return prefix, segments
 
 
@@ -2201,7 +2217,11 @@ def _partition_roman_pack_attempts(present):
 
 def _choose_roman_mcq_pack_lines(segments, max_width_px, font_px):
     present = set(mk for mk, _ in segments)
-    by_marker = {mk: _strip_html_plain_for_measure(body) for mk, body in segments}
+    by_marker = {
+        mk: _strip_html_plain_for_measure(_compact_roman_segment_body(body, True))
+        for mk, body in segments
+    }
+    limit = max(80, float(max_width_px) * 1.2)
     for lines in _partition_roman_pack_attempts(present):
         fits = True
         for group in lines:
@@ -2211,7 +2231,7 @@ def _choose_roman_mcq_pack_lines(segments, max_width_px, font_px):
                 ('%s. %s' % (mk, by_marker.get(mk, ''))).strip() if by_marker.get(mk) else '%s.' % mk
                 for mk in group
             ).strip()
-            if _approx_plain_width_px(plain, font_px) > max_width_px:
+            if _approx_plain_width_px(plain, font_px) > limit:
                 fits = False
                 break
         if fits:
@@ -2231,13 +2251,14 @@ def _export_roman_mcq_pack_html(text, max_width_px=260, font_px=13):
         parts.append('<span class="topic-question-line">%s</span>' % prefix.strip())
     for group in pack_lines:
         inner = []
+        inline = len(group) > 1
         for mk in group:
-            body = by_marker.get(mk, '')
+            body = _compact_roman_segment_body(by_marker.get(mk, ''), inline)
             inner.append(
                 '<span class="topic-question-line topic-question-roman-line">%s. %s</span>'
                 % (mk, body)
             )
-        parts.append('<span class="roman-mcq-pack-line">%s</span>' % ''.join(inner))
+        parts.append('<span class="roman-mcq-pack-line">%s</span>' % ' '.join(inner))
     return ''.join(parts)
 
 
@@ -3857,9 +3878,10 @@ class ExportQuestionsView(APIView):
       display: block;
     }}
     .roman-mcq-pack-line .topic-question-roman-line {{
-      display: inline;
+      display: inline !important;
       padding-left: var(--preview-q-roman-indent, 0.7143em);
       text-indent: calc(0px - var(--preview-q-roman-indent, 0.7143em));
+      white-space: normal;
     }}
     .topic-question-line.topic-question-roman-line {{
       padding-left: var(--preview-q-roman-indent, 0.7143em);
