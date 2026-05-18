@@ -4079,6 +4079,50 @@ class ExportQuestionsBulkView(APIView):
         return resp
 
 
+# Question creator save (/question/create): debit customer.settings.balance per saved question.
+# Keep aligned with Angular ``QUESTION_SAVE_DEBIT_*``.
+QUESTION_SAVE_DEBIT_CQ = 100
+QUESTION_SAVE_DEBIT_OTHER = 25
+
+
+def _is_question_creative_type(type_val):
+    t = (type_val or '').strip() if type_val is not None else ''
+    if not t:
+        return False
+    tl = t.lower()
+    return 'সৃজনশীল' in t or tl in ('cq', 'creative', 'সৃজনশীল প্রশ্ন')
+
+
+def _calculate_question_set_save_debit(questions):
+    if not isinstance(questions, list):
+        return 0
+    total = 0
+    for q in questions:
+        if not isinstance(q, dict):
+            total += QUESTION_SAVE_DEBIT_OTHER
+            continue
+        if _is_question_creative_type(q.get('type')):
+            total += QUESTION_SAVE_DEBIT_CQ
+        else:
+            total += QUESTION_SAVE_DEBIT_OTHER
+    return total
+
+
+def _create_question_set_row(customer, name, question_header, questions, layout_settings):
+    from django.db.models import Max
+    next_counter = (
+        CreatedQuestionSet.objects.filter(customer=customer, name=name).aggregate(Max('counter'))['counter__max'] or 0
+    ) + 1
+    return CreatedQuestionSet.objects.create(
+        customer=customer,
+        name=name,
+        question_header=question_header,
+        questions=questions,
+        counter=next_counter,
+        layout_settings=layout_settings,
+    )
+
+
 class CreatedQuestionSetListCreateView(APIView):
     """GET: list current user's created question sets. POST: create one (name, question_header, questions). Counter is per-name: same name gets _1, _2, _3."""
     authentication_classes = [BearerTokenAuthentication]
@@ -4124,26 +4168,58 @@ class CreatedQuestionSetListCreateView(APIView):
         layout_settings = request.data.get('layout_settings')
         if not isinstance(layout_settings, dict):
             layout_settings = {}
-        from django.db.models import Max
-        # Per-name counter: same name gets _1, _2, _3, ...
-        next_counter = (
-            CreatedQuestionSet.objects.filter(customer=request.user, name=name).aggregate(Max('counter'))['counter__max'] or 0
-        ) + 1
-        try:
-            obj = CreatedQuestionSet.objects.create(
-                customer=request.user,
-                name=name,
-                question_header=question_header,
-                questions=questions,
-                counter=next_counter,
-                layout_settings=layout_settings,
-            )
-        except Exception as e:
-            logger.exception('CreatedQuestionSet create failed: %s', e)
-            return Response(
-                {'error': 'Could not save. Run migrations: python manage.py migrate'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+        debit = _calculate_question_set_save_debit(questions)
+        customer = request.user
+        remaining_for_client = None
+        if debit > 0:
+            try:
+                with transaction.atomic():
+                    customer.refresh_from_db(fields=['settings'])
+                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                    try:
+                        b = int(st.get('balance', 0) or 0)
+                    except (TypeError, ValueError):
+                        b = 0
+                    if b < debit:
+                        return Response(
+                            {
+                                'error': 'Insufficient coins for save',
+                                'detail': f'Insufficient coins. Need {debit}, you have {b}.',
+                                'required': debit,
+                                'remaining': b,
+                            },
+                            status=status.HTTP_400_BAD_REQUEST,
+                        )
+                    st = {**st, 'balance': max(0, b - debit)}
+                    customer.settings = st
+                    customer.save(update_fields=['settings'])
+                    remaining_for_client = int(st.get('balance', 0) or 0)
+                    obj = _create_question_set_row(
+                        customer, name, question_header, questions, layout_settings
+                    )
+            except Exception as e:
+                logger.exception('CreatedQuestionSet create failed: %s', e)
+                return Response(
+                    {'error': 'Could not save. Run migrations: python manage.py migrate'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+        else:
+            try:
+                obj = _create_question_set_row(
+                    customer, name, question_header, questions, layout_settings
+                )
+            except Exception as e:
+                logger.exception('CreatedQuestionSet create failed: %s', e)
+                return Response(
+                    {'error': 'Could not save. Run migrations: python manage.py migrate'},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+            try:
+                customer.refresh_from_db(fields=['settings'])
+                st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                remaining_for_client = int(st.get('balance', 0) or 0)
+            except (TypeError, ValueError):
+                remaining_for_client = 0
         created_at = obj.created_at.isoformat() if getattr(obj, 'created_at', None) else None
         return Response({
             'id': obj.id,
@@ -4153,6 +4229,8 @@ class CreatedQuestionSetListCreateView(APIView):
             'file_name_base': '%s_%s' % (obj.name.replace(' ', '_'), obj.counter),
             'created_at': created_at,
             'layout_settings': obj.layout_settings if isinstance(getattr(obj, 'layout_settings', None), dict) else {},
+            'debited': debit,
+            'remaining': remaining_for_client if remaining_for_client is not None else 0,
         }, status=status.HTTP_201_CREATED)
 
 
