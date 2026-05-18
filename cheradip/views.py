@@ -2103,6 +2103,15 @@ def _export_is_mcq_answer_key_row(q):
     return qid.startswith(_MCQ_ANSWER_KEY_QID_PREFIX)
 
 
+def _export_skip_question_number_label(q):
+    """MCQ answer-key rows carry serial in text; answers-sheet continuation segments omit duplicate qn."""
+    if not isinstance(q, dict):
+        return False
+    if q.get('answerSheetContinuation'):
+        return True
+    return _export_is_mcq_answer_key_row(q)
+
+
 def _export_strip_mcq_answer_key_serial_prefix(text):
     """Remove leading ১। / 1. from compact MCQ answer-key stem (serial is in the row text)."""
     s = str(text or '').strip()
@@ -2983,7 +2992,7 @@ class ExportQuestionsView(APIView):
                 )
 
                 q_prepared = format_maybe_c_program_question_text(qq.get('question') or '', emit_html=True)
-                mcq_answer_key_row = _export_is_mcq_answer_key_row(qq)
+                skip_qn_label = _export_skip_question_number_label(qq)
                 struct = question_display_structure(q_prepared, creative)
                 if not creative:
                     intro_html = _export_wrap_mcq_line_html(struct.get('intro') or '', host_base)
@@ -3042,7 +3051,7 @@ class ExportQuestionsView(APIView):
                                     % (lab, opt_inner)
                                 )
                 opts_html = '<div class="q-options">%s</div>' % ''.join(options) if options else ''
-                if mcq_answer_key_row:
+                if skip_qn_label:
                     qn_html = ''
                 else:
                     qn_html = '<strong class="qn">%s\u0964</strong>' % item_serial(item_idx, i)
@@ -4043,6 +4052,13 @@ class ExportQuestionsView(APIView):
             if _export_is_mcq_answer_key_row(q):
                 prepared_plain = _export_strip_mcq_answer_key_serial_prefix(prepared_plain)
                 doc.add_paragraph('%s। %s' % (docx_serial_bn(i), prepared_plain))
+                continue
+            parent_idx = q.get('answerSheetParentIndex')
+            if parent_idx is not None:
+                if q.get('answerSheetContinuation'):
+                    doc.add_paragraph(prepared_plain)
+                else:
+                    doc.add_paragraph('%s। %s' % (docx_serial_bn(int(parent_idx)), prepared_plain))
                 continue
             creative = docx_is_creative(q)
             struct = docx_question_display_structure(prepared_plain, creative=creative)
