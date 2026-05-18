@@ -2151,13 +2151,206 @@ def _mcq_roman_pack_max_width_px(opt_grid_cols):
 
 def _normalize_roman_mcq_source(text):
     s = re.sub(r'\r\n?', '\n', str(text or ''))
+    s = _collapse_then_normalize_nicher(s)
     s = re.sub(r'\n+\s*(?=(?:iii|ii|i)\.(?!\d))', ' ', s, flags=re.I)
-    s = re.sub(r'[ \t]+\n+[ \t]*', ' ', s)
     return s
 
 
+_GLUED_NICHER_TAIL_START = r'(?:কোনটি|সঠিক)'
+_LINE_BREAK_GLUE = r'(?:\s*(?:<br\s*/?>|[\r\n]+)\s*)+'
+
+
+def _normalize_glued_nicher_question_line(text):
+    s = str(text or '')
+    prev = None
+    while prev != s:
+        prev = s
+        s = re.sub(
+            r'([\u0980-\u09FF]+)(ন)(নিচের)%s(%s[\s\S]*)' % (_LINE_BREAK_GLUE, _GLUED_NICHER_TAIL_START),
+            r'\1\nনিচের \4',
+            s,
+            flags=re.I,
+        )
+        s = re.sub(
+            r'([\u0980-\u09FF]+)(নিচের)%s(%s[\s\S]*)' % (_LINE_BREAK_GLUE, _GLUED_NICHER_TAIL_START),
+            r'\1\nনিচের \3',
+            s,
+            flags=re.I,
+        )
+        s = re.sub(
+            r'([\u0980-\u09FF]+)(ন)(নিচের)\s+(%s[\s\S]*)' % _GLUED_NICHER_TAIL_START,
+            r'\1\nনিচের \4',
+            s,
+            flags=re.I,
+        )
+        s = re.sub(
+            r'([\u0980-\u09FF]+)(নিচের)\s+(%s[\s\S]*)' % _GLUED_NICHER_TAIL_START,
+            r'\1\nনিচের \3',
+            s,
+            flags=re.I,
+        )
+    return s
+
+
+def _collapse_then_normalize_nicher(text):
+    return _collapse_embedded_nicher_line_wraps(_normalize_glued_nicher_question_line(text))
+
+
+_POST_III_TAIL_STARTERS = ('নিচের', 'কোনটি', 'সঠিক')
+# Do not match inside a longer Bengali word (e.g. বাণিজ্যেনিচের ends with নিচের).
+_BN_LETTER_LOOKBEHIND = r'(?<![\u0980-\u09FF])'
+_POST_III_TAIL_AFTER = r'(?=[\.।\u09F4\u09F5\u09F6\s\n\r<]|$)'
+
+
+def _post_iii_tail_starter_pattern(word):
+    return _BN_LETTER_LOOKBEHIND + re.escape(word) + _POST_III_TAIL_AFTER
+
+
+def _trim_post_iii_tail_lead(tail):
+    return re.sub(r'^<br\s*/?>', '', tail, flags=re.I).strip()
+
+
+_NICHER_TAIL_PHRASE_RE = re.compile(
+    r'^\s*(?:উদ্দীপক|উদ্দীপকের|কোন|তথ্য|সূচ|দেখ|বর্ণ|তালিক|টেক্সট|চিত্র|ছক|টেবিল|'
+    r'মানচিত্র|সমীকরণ|বাক্য|অংশ|বিষয়|চার্ট|গ্রাফ|ছবি|চিত্রটি|উদাহরণ|বাক্যের|প্রশ্ন)',
+    re.I,
+)
+
+
+def _has_standalone_tail_keyword(text, word):
+    return re.search(_post_iii_tail_starter_pattern(word), text, re.I) is not None
+
+
+def _starts_with_standalone_tail_keyword(text):
+    t = _trim_post_iii_tail_lead(text)
+    for word in _POST_III_TAIL_STARTERS:
+        if _has_standalone_tail_keyword(t, word):
+            return word
+    return None
+
+
+def _is_nicher_line_continuation(before, after):
+    b = before.rstrip()
+    a = _trim_post_iii_tail_lead(after)
+    if not re.search(r'[\u0980-\u09FF]$', b):
+        return False
+    m = re.match(r'^নিচের', a, re.I)
+    if not m:
+        return False
+    rest = a[m.end() :].lstrip()
+    if not rest:
+        return True
+    if re.match(r'^%s' % _GLUED_NICHER_TAIL_START, rest, re.I):
+        return False
+    if _NICHER_TAIL_PHRASE_RE.match(rest):
+        return False
+    return True
+
+
+def _collapse_embedded_nicher_line_wraps(text):
+    src = str(text or '')
+
+    def repl(m):
+        rest = src[m.end() :]
+        if _NICHER_TAIL_PHRASE_RE.match(rest):
+            return m.group(0)
+        if re.match(r'^\s*(?:<br\s*/?>|[\r\n])*%s' % _GLUED_NICHER_TAIL_START, rest, re.I):
+            return m.group(0)
+        if re.match(r'^\s*(?:<br\s*/?>|[\r\n])*\s*নিচের\s+(?:উদ্দীপক|কোন)', rest, re.I):
+            return m.group(0)
+        return m.group(1) + 'নিচের'
+
+    return re.sub(
+        r'([\u0980-\u09FF])(?:<br\s*/?>|[\r\n]+)\s*নিচের',
+        repl,
+        src,
+        flags=re.I,
+    )
+
+
+def _collect_line_breaks(src):
+    breaks = []
+    for m in re.finditer(r'<br\s*/?>', src, re.I):
+        if m.start() > 0:
+            breaks.append((m.start(), m.end() - m.start()))
+    for m in re.finditer(r'[\r\n]+', src):
+        if m.start() > 0:
+            breaks.append((m.start(), m.end() - m.start()))
+    breaks.sort(key=lambda x: x[0])
+    return breaks
+
+
+def _split_at_valid_line_break_after_iii(body):
+    src = str(body or '')
+    for pos, length in _collect_line_breaks(src):
+        before = src[:pos]
+        after = src[pos + length :]
+        if _is_nicher_line_continuation(before, after):
+            continue
+        if not _starts_with_standalone_tail_keyword(after):
+            continue
+        clause = before.strip()
+        tail = _trim_post_iii_tail_lead(after)
+        if not clause or not tail:
+            continue
+        return clause, tail
+    return None
+
+
+def _split_at_post_iii_keyword(body, word):
+    starter = _post_iii_tail_starter_pattern(word)
+    pat = r'(?:^|[\s\n\r]+|<br\s*/?>)\s*(%s[\s\S]*)' % starter
+    m = re.search(pat, body, re.I)
+    if m and m.start() > 0:
+        clause = body[:m.start()].strip()
+        tail = _trim_post_iii_tail_lead(m.group(1) or '')
+        if tail:
+            return clause, tail
+    return None
+
+
+def _split_post_iii_follow_tail(body):
+    src = _collapse_then_normalize_nicher(body)
+    if not src.strip():
+        return '', ''
+    hit = _split_at_valid_line_break_after_iii(src)
+    if hit:
+        return hit
+    for word in _POST_III_TAIL_STARTERS:
+        hit = _split_at_post_iii_keyword(src, word)
+        if hit:
+            return hit
+    return src, ''
+
+
+def _apply_nicher_splits_to_segments(prefix, segments):
+    segs = []
+    after_tail = ''
+    for mk, body in segments:
+        src = _collapse_then_normalize_nicher(body)
+        clause, tail = _split_post_iii_follow_tail(src)
+        if not tail:
+            segs.append((mk, src))
+            continue
+        if mk == 'iii':
+            after_tail = tail
+            segs.append((mk, _compact_roman_segment_body(clause, False)))
+        else:
+            merged = '%s\n%s' % (clause, tail) if clause else tail
+            segs.append((mk, _compact_roman_segment_body(merged, False)))
+    return prefix, tuple(segs), after_tail
+
+
+def _apply_post_iii_tail_split(prefix, segments):
+    return _apply_nicher_splits_to_segments(prefix, segments)
+
+
+def _roman_segment_body_to_display_html(body):
+    return re.sub(r'\r\n?', '\n', str(body or '')).replace('\n', '<br />')
+
+
 def _compact_roman_segment_body(body, inline_pack=False):
-    s = str(body or '').strip()
+    s = _collapse_then_normalize_nicher(body).strip()
     if not inline_pack:
         return s
     s = re.sub(r'<br\s*/?>', ' ', s, flags=re.I)
@@ -2185,8 +2378,8 @@ def _parse_roman_mcq_segments(text):
     for i, (mk, start, end_marker) in enumerate(hits):
         body_start = end_marker
         body_end = hits[i + 1][1] if i + 1 < len(hits) else len(src)
-        segments.append((mk, _compact_roman_segment_body(src[body_start:body_end], False)))
-    return prefix, segments
+        segments.append((mk, src[body_start:body_end].strip()))
+    return _apply_nicher_splits_to_segments(prefix, tuple(segments))
 
 
 def _partition_roman_pack_attempts(present):
@@ -2243,7 +2436,7 @@ def _export_roman_mcq_pack_html(text, max_width_px=260, font_px=13):
     parsed = _parse_roman_mcq_segments(text)
     if not parsed:
         return None
-    prefix, segments = parsed
+    prefix, segments, after_iii_tail = parsed
     pack_lines = _choose_roman_mcq_pack_lines(segments, max_width_px, font_px)
     by_marker = dict(segments)
     parts = []
@@ -2253,12 +2446,18 @@ def _export_roman_mcq_pack_html(text, max_width_px=260, font_px=13):
         inner = []
         inline = len(group) > 1
         for mk in group:
-            body = _compact_roman_segment_body(by_marker.get(mk, ''), inline)
+            body = _roman_segment_body_to_display_html(
+                _compact_roman_segment_body(by_marker.get(mk, ''), inline)
+            )
             inner.append(
                 '<span class="topic-question-line topic-question-roman-line">%s. %s</span>'
                 % (mk, body)
             )
         parts.append('<span class="roman-mcq-pack-line">%s</span>' % ' '.join(inner))
+    if after_iii_tail.strip():
+        parts.append(
+            '<span class="topic-question-line roman-mcq-after-iii">%s</span>' % after_iii_tail.strip()
+        )
     return ''.join(parts)
 
 
@@ -2275,6 +2474,7 @@ def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
         return '<div class="topic-question-line topic-question-mcq-codeline">%s</div>' % inner
     t = _export_flatten_mcq_block_text(t)
     t = _export_format_question_media_html(t, host_base)
+    t = _collapse_then_normalize_nicher(t)
     packed = _export_roman_mcq_pack_html(t, max_width_px=max_width_px, font_px=font_px)
     if packed:
         return packed
@@ -3882,6 +4082,10 @@ class ExportQuestionsView(APIView):
       padding-left: var(--preview-q-roman-indent, 0.7143em);
       text-indent: calc(0px - var(--preview-q-roman-indent, 0.7143em));
       white-space: normal;
+    }}
+    .roman-mcq-after-iii {{
+      display: block;
+      margin-top: 0.25em;
     }}
     .topic-question-line.topic-question-roman-line {{
       padding-left: var(--preview-q-roman-indent, 0.7143em);
