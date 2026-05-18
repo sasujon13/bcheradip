@@ -2121,7 +2121,127 @@ def _export_strip_mcq_answer_key_serial_prefix(text):
     return stripped if stripped else s
 
 
-def _export_wrap_mcq_line_html(text, host_base):
+_ROMAN_MCQ_MARKER_RE = re.compile(r'\b(iii|ii|i)\.(?!\d)', re.I)
+_ROMAN_MCQ_ORDER = ('i', 'ii', 'iii')
+_ROMAN_MCQ_PACK_ATTEMPTS = (
+    (('i', 'ii', 'iii'),),
+    (('i', 'ii'), ('iii',)),
+    (('i',), ('ii', 'iii')),
+    (('i',), ('ii',), ('iii',)),
+)
+
+
+def _strip_html_plain_for_measure(html):
+    s = re.sub(r'<[^>]+>', ' ', unescape(str(html or '')))
+    return re.sub(r'\s+', ' ', s).strip()
+
+
+def _approx_plain_width_px(plain, font_px=13):
+    return len(plain) * max(8, float(font_px)) * 0.52
+
+
+def _mcq_roman_pack_max_width_px(opt_grid_cols):
+    c = max(1, min(4, int(opt_grid_cols)))
+    if c >= 4:
+        return 180
+    if c <= 1:
+        return 320
+    return 260
+
+
+def _parse_roman_mcq_segments(text):
+    src = str(text or '')
+    if not _ROMAN_MCQ_MARKER_RE.search(src):
+        return None
+    hits = []
+    for m in _ROMAN_MCQ_MARKER_RE.finditer(src):
+        hits.append((m.group(1).lower(), m.start(), m.end()))
+    if len(hits) < 2:
+        return None
+    expect = 0
+    for mk, _s, _e in hits:
+        idx = _ROMAN_MCQ_ORDER.index(mk) if mk in _ROMAN_MCQ_ORDER else -1
+        if idx < expect:
+            return None
+        expect = idx + 1
+    prefix = src[: hits[0][1]].rstrip()
+    segments = []
+    for i, (mk, start, end_marker) in enumerate(hits):
+        body_start = end_marker
+        body_end = hits[i + 1][1] if i + 1 < len(hits) else len(src)
+        segments.append((mk, src[body_start:body_end].strip()))
+    return prefix, segments
+
+
+def _partition_roman_pack_attempts(present):
+    out = []
+    for attempt in _ROMAN_MCQ_PACK_ATTEMPTS:
+        lines = []
+        seen = set()
+        ok = True
+        for group in attempt:
+            g = tuple(mk for mk in group if mk in present)
+            if not g:
+                continue
+            if len(g) != len(group):
+                ok = False
+                break
+            for mk in g:
+                if mk in seen:
+                    ok = False
+                    break
+                seen.add(mk)
+            if not ok:
+                break
+            lines.append(g)
+        if ok and seen == present and lines:
+            out.append(lines)
+    return out
+
+
+def _choose_roman_mcq_pack_lines(segments, max_width_px, font_px):
+    present = set(mk for mk, _ in segments)
+    by_marker = {mk: _strip_html_plain_for_measure(body) for mk, body in segments}
+    for lines in _partition_roman_pack_attempts(present):
+        fits = True
+        for group in lines:
+            if len(group) <= 1:
+                continue
+            plain = '  '.join(
+                ('%s. %s' % (mk, by_marker.get(mk, ''))).strip() if by_marker.get(mk) else '%s.' % mk
+                for mk in group
+            ).strip()
+            if _approx_plain_width_px(plain, font_px) > max_width_px:
+                fits = False
+                break
+        if fits:
+            return lines
+    return [(mk,) for mk, _ in segments]
+
+
+def _export_roman_mcq_pack_html(text, max_width_px=260, font_px=13):
+    parsed = _parse_roman_mcq_segments(text)
+    if not parsed:
+        return None
+    prefix, segments = parsed
+    pack_lines = _choose_roman_mcq_pack_lines(segments, max_width_px, font_px)
+    by_marker = dict(segments)
+    parts = []
+    if prefix.strip():
+        parts.append('<span class="topic-question-line">%s</span>' % prefix.strip())
+    for group in pack_lines:
+        inner = []
+        for mk in group:
+            body = by_marker.get(mk, '')
+            inner.append(
+                '<span class="topic-question-line topic-question-roman-line">%s. %s</span>'
+                % (mk, body)
+            )
+        parts.append('<span class="roman-mcq-pack-line">%s</span>' % ''.join(inner))
+    return ''.join(parts)
+
+
+def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
     """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (ক) in .q-opt."""
     t = str(text or '')
     if 'q-code-block' in t.lower():
@@ -2134,6 +2254,9 @@ def _export_wrap_mcq_line_html(text, host_base):
         return '<div class="topic-question-line topic-question-mcq-codeline">%s</div>' % inner
     t = _export_flatten_mcq_block_text(t)
     t = _export_format_question_media_html(t, host_base)
+    packed = _export_roman_mcq_pack_html(t, max_width_px=max_width_px, font_px=font_px)
+    if packed:
+        return packed
     inner = _export_escape_html_preserve_img_br(t)
     return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
 
@@ -2987,14 +3110,18 @@ class ExportQuestionsView(APIView):
             return to_bengali_digits(fallback_num)
 
         def render_items_html(items, start_num=1):
-            def format_stem_html(text, for_creative):
+            def format_stem_html(text, for_creative, qq_row=None):
                 if for_creative:
                     return wrap_roman_lines_html(
                         _export_collapse_newlines_inside_q_code_html(
                             _export_format_question_media_html(text, host_base)
                         )
                     )
-                return _export_wrap_mcq_line_html(text, host_base)
+                qrow = qq_row if isinstance(qq_row, dict) else {}
+                ncol = options_cols_for_qq(qrow)
+                mw = _mcq_roman_pack_max_width_px(ncol)
+                stem_fz = q_font_mcq
+                return _export_wrap_mcq_line_html(text, host_base, max_width_px=mw, font_px=stem_fz)
 
             def build_options_html(qq, for_creative):
                 if for_creative or not (qq.get('option_1') or qq.get('option_2')):
@@ -3005,7 +3132,7 @@ class ExportQuestionsView(APIView):
                     if ov:
                         txt = format_maybe_c_program_question_text(str(ov).strip(), emit_html=True)
                         if txt:
-                            opt_inner = format_stem_html(txt, for_creative)
+                            opt_inner = format_stem_html(txt, for_creative, qq)
                             options.append(
                                 '<span class="q-opt">%s <span class="q-opt-html">%s</span></span>'
                                 % (lab, opt_inner)
@@ -3093,18 +3220,18 @@ class ExportQuestionsView(APIView):
                     _mk = creative_subpart_mark_bn(_pc, _pi)
                     _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
                     _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
-                    _inner = format_stem_html(q_prepared, creative)
+                    _inner = format_stem_html(q_prepared, creative, qq)
                     stem_html = (
                         '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
                         % (_wrap_cls, _inner, _mk_html)
                     )
                     opts_html = ''
                 elif seg_kind in ('tail', 'option'):
-                    stem_html = '<span class="q-text">%s</span>' % format_stem_html(q_prepared, creative)
+                    stem_html = '<span class="q-text">%s</span>' % format_stem_html(q_prepared, creative, qq)
                     opts_html = ''
                 else:
                     struct = question_display_structure(q_prepared, creative)
-                    intro_html = format_stem_html(struct.get('intro') or '', creative)
+                    intro_html = format_stem_html(struct.get('intro') or '', creative, qq)
                     if struct.get('parts'):
                         _parts = struct.get('parts') or []
                         _pc = len(_parts)
@@ -3113,7 +3240,7 @@ class ExportQuestionsView(APIView):
                             _mk = creative_subpart_mark_bn(_pc, _j)
                             _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
                             _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
-                            _inner = format_stem_html(_p, creative)
+                            _inner = format_stem_html(_p, creative, qq)
                             _chunks.append(
                                 '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
                                 % (_wrap_cls, _inner, _mk_html)
@@ -3725,6 +3852,14 @@ class ExportQuestionsView(APIView):
     }}
     .q-opt .q-opt-html {{
       display: inline;
+    }}
+    .roman-mcq-pack-line {{
+      display: block;
+    }}
+    .roman-mcq-pack-line .topic-question-roman-line {{
+      display: inline;
+      padding-left: var(--preview-q-roman-indent, 0.7143em);
+      text-indent: calc(0px - var(--preview-q-roman-indent, 0.7143em));
     }}
     .topic-question-line.topic-question-roman-line {{
       padding-left: var(--preview-q-roman-indent, 0.7143em);
