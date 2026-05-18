@@ -2104,16 +2104,14 @@ def _export_is_mcq_answer_key_row(q):
 
 
 def _export_skip_question_number_label(q):
-    """MCQ answer-key rows carry serial in text; answers-sheet continuation segments omit duplicate qn."""
+    """Answers-sheet continuation segments omit duplicate qn; MCQ answer-key uses qn + stripped stem."""
     if not isinstance(q, dict):
         return False
-    if q.get('answerSheetContinuation'):
-        return True
-    return _export_is_mcq_answer_key_row(q)
+    return bool(q.get('answerSheetContinuation'))
 
 
 def _export_strip_mcq_answer_key_serial_prefix(text):
-    """Remove leading ১। / 1. from compact MCQ answer-key stem (serial is in the row text)."""
+    """Remove leading ১। / 1. from compact MCQ answer-key stem (serial shown via `.qn` label)."""
     s = str(text or '').strip()
     if not s:
         return s
