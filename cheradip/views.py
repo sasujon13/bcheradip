@@ -2095,6 +2095,23 @@ def _export_flatten_mcq_block_text(text):
     return s
 
 
+_MCQ_ANSWER_KEY_QID_PREFIX = 'mcq-ans-'
+
+
+def _export_is_mcq_answer_key_row(q):
+    qid = str((q or {}).get('qid') or '')
+    return qid.startswith(_MCQ_ANSWER_KEY_QID_PREFIX)
+
+
+def _export_strip_mcq_answer_key_serial_prefix(text):
+    """Remove leading ১। / 1. from compact MCQ answer-key stem (serial is in the row text)."""
+    s = str(text or '').strip()
+    if not s:
+        return s
+    stripped = re.sub(r'^[\u09E6-\u09EF0-9]+[।\.]\s*', '', s).strip()
+    return stripped if stripped else s
+
+
 def _export_wrap_mcq_line_html(text, host_base):
     """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (ক) in .q-opt."""
     t = str(text or '')
@@ -2377,6 +2394,7 @@ class ExportQuestionsView(APIView):
                 layout_columns=layout_columns,
                 layout_column_gap_px=layout_gap_px,
                 show_column_divider=show_col_div,
+                layout_settings=layout_settings,
             )
             resp = HttpResponse(buf.getvalue(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             resp['Content-Disposition'] = 'attachment; filename="%s.docx"' % filename_base.replace('"', '_')
@@ -2965,6 +2983,7 @@ class ExportQuestionsView(APIView):
                 )
 
                 q_prepared = format_maybe_c_program_question_text(qq.get('question') or '', emit_html=True)
+                mcq_answer_key_row = _export_is_mcq_answer_key_row(qq)
                 struct = question_display_structure(q_prepared, creative)
                 if not creative:
                     intro_html = _export_wrap_mcq_line_html(struct.get('intro') or '', host_base)
@@ -3023,10 +3042,14 @@ class ExportQuestionsView(APIView):
                                     % (lab, opt_inner)
                                 )
                 opts_html = '<div class="q-options">%s</div>' % ''.join(options) if options else ''
+                if mcq_answer_key_row:
+                    qn_html = ''
+                else:
+                    qn_html = '<strong class="qn">%s\u0964</strong>' % item_serial(item_idx, i)
                 out.append(
                     '<div class="%s" style="%s"><div class="q-content"><label class="q-label">'
-                    '<strong class="qn">%s।</strong>%s</label>%s</div></div>'
-                    % (qcls, style, item_serial(item_idx, i), stem_html if stem_html else '&nbsp;', opts_html)
+                    '%s%s</label>%s</div></div>'
+                    % (qcls, style, qn_html, stem_html if stem_html else '&nbsp;', opts_html)
                 )
             return ''.join(out)
 
@@ -3931,6 +3954,7 @@ class ExportQuestionsView(APIView):
         layout_columns=1,
         layout_column_gap_px=14,
         show_column_divider=True,
+        layout_settings=None,
     ):
         doc = DocxDocument()
         section = doc.sections[0]
@@ -3991,6 +4015,24 @@ class ExportQuestionsView(APIView):
                 return str([1, 2, 3, 4][idx]).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
             return None
 
+        serial_by_index = {}
+        if isinstance(layout_settings, dict):
+            raw_serial = layout_settings.get('previewSerialByIndex')
+            if isinstance(raw_serial, dict):
+                serial_by_index = raw_serial
+
+        def docx_serial_bn(item_index):
+            s = serial_by_index.get(str(item_index))
+            if s is None:
+                s = serial_by_index.get(item_index)
+            try:
+                sn = int(s)
+                if sn > 0:
+                    return str(sn).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+            except Exception:
+                pass
+            return str(item_index + 1).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+
         if question_header:
             p = doc.add_paragraph(question_header)
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
@@ -3998,6 +4040,10 @@ class ExportQuestionsView(APIView):
             q = q if isinstance(q, dict) else {}
             raw_q = (q.get('question') or '').strip() or ' '
             prepared_plain = format_maybe_c_program_question_text(raw_q, emit_html=False)
+            if _export_is_mcq_answer_key_row(q):
+                prepared_plain = _export_strip_mcq_answer_key_serial_prefix(prepared_plain)
+                doc.add_paragraph('%s। %s' % (docx_serial_bn(i), prepared_plain))
+                continue
             creative = docx_is_creative(q)
             struct = docx_question_display_structure(prepared_plain, creative=creative)
             if creative and struct.get('parts'):
