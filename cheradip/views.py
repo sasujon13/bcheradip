@@ -2156,6 +2156,20 @@ def _normalize_roman_mcq_source(text):
     return s
 
 
+def _export_prepare_mcq_text_for_roman(text):
+    """Keep line breaks for নিচের/কোনটি/সঠিক tail detection (preview does not flatten first)."""
+    s = re.sub(r'\r\n?', '\n', str(text or ''))
+    s = re.sub(r'<br\s*/?>', '\n', s, flags=re.I)
+    s = _collapse_then_normalize_nicher(s)
+    s = re.sub(
+        r'([\u0980-\u09FF])(iii|ii|i)\.(?!\d)',
+        r'\1<br />\2.',
+        s,
+        flags=re.I,
+    )
+    return s
+
+
 _LINE_BREAK_START = re.compile(r'^(?:\s*(?:<br\s*/?>|[\r\n]+)\s*)', re.I)
 
 _POST_III_TAIL_STARTERS = ('নিচের', 'কোনটি', 'সঠিক')
@@ -2377,13 +2391,6 @@ def _parse_roman_mcq_segments(text):
         hits.append((m.group(1).lower(), m.start(), m.end()))
     if not hits:
         return None
-    if len(hits) >= 2:
-        expect = 0
-        for mk, _s, _e in hits:
-            idx = _ROMAN_MCQ_ORDER.index(mk) if mk in _ROMAN_MCQ_ORDER else -1
-            if idx < expect:
-                return None
-            expect = idx + 1
     prefix = src[: hits[0][1]].rstrip()
     segments = []
     for i, (mk, start, end_marker) in enumerate(hits):
@@ -2467,9 +2474,28 @@ def _export_roman_mcq_pack_html(text, max_width_px=260, font_px=13):
             )
         parts.append('<span class="roman-mcq-pack-line">%s</span>' % ' '.join(inner))
     if after_iii_tail.strip():
-        parts.append(
-            '<span class="topic-question-line roman-mcq-after-iii">%s</span>' % after_iii_tail.strip()
+        tail_html = _export_escape_html_preserve_img_br(
+            _roman_segment_body_to_display_html(after_iii_tail)
         )
+        parts.append(
+            '<span class="topic-question-line roman-mcq-after-iii">%s</span>' % tail_html
+        )
+    return ''.join(parts)
+
+
+def _export_mcq_multiline_fallback_html(prepared_text):
+    """When roman pack does not apply, stack normalized lines (align with wrapRomanLines fallback)."""
+    lines = [ln.strip() for ln in str(prepared_text or '').split('\n') if ln.strip()]
+    if len(lines) <= 1:
+        return None
+    roman_line = re.compile(r'^\s*(i|ii|iii)\.', re.I)
+    parts = []
+    for line in lines:
+        cls = 'topic-question-line'
+        if roman_line.match(line):
+            cls = 'topic-question-line topic-question-roman-line'
+        inner = _export_escape_html_preserve_img_br(line)
+        parts.append('<span class="%s">%s</span>' % (cls, inner))
     return ''.join(parts)
 
 
@@ -2484,12 +2510,19 @@ def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
         inner = inner.strip()
         # Code blocks are block-level content; keep them out of inline span flow to avoid phantom line boxes.
         return '<div class="topic-question-line topic-question-mcq-codeline">%s</div>' % inner
-    t = _export_flatten_mcq_block_text(t)
-    t = _export_format_question_media_html(t, host_base)
-    t = _collapse_then_normalize_nicher(t)
-    packed = _export_roman_mcq_pack_html(t, max_width_px=max_width_px, font_px=font_px)
+    t = _export_format_question_media_html(
+        re.sub(r'<br\s*/?>', '\n', t.replace('\r\n', '\n'), flags=re.I),
+        host_base,
+    )
+    prepared = _export_prepare_mcq_text_for_roman(t)
+    packed = _export_roman_mcq_pack_html(prepared, max_width_px=max_width_px, font_px=font_px)
     if packed:
         return packed
+    multiline = _export_mcq_multiline_fallback_html(prepared)
+    if multiline:
+        return multiline
+    t = _export_flatten_mcq_block_text(t)
+    t = _collapse_then_normalize_nicher(t)
     inner = _export_escape_html_preserve_img_br(t)
     return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
 
