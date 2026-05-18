@@ -7030,13 +7030,69 @@ class QuestionSubjectRevisionView(APIView):
         return Response(revision, status=status.HTTP_200_OK)
 
 
+def _question_list_pagination(request, default_size=30, max_size=100):
+    try:
+        page = max(1, int(request.query_params.get('page') or 1))
+    except (TypeError, ValueError):
+        page = 1
+    try:
+        page_size = int(request.query_params.get('page_size') or default_size)
+    except (TypeError, ValueError):
+        page_size = default_size
+    page_size = max(1, min(page_size, max_size))
+    return page, page_size, (page - 1) * page_size
+
+
+def _question_list_filter_params(request):
+    topics = [t.strip() for t in request.query_params.getlist('topic') if t and str(t).strip()]
+    if not topics:
+        t = (request.query_params.get('topic') or '').strip()
+        if t:
+            topics = [t]
+    chapters = [c.strip() for c in request.query_params.getlist('chapter') if c and str(c).strip()]
+    if not chapters:
+        c = (request.query_params.get('chapter') or '').strip()
+        if c:
+            chapters = [c]
+    types = [x.strip() for x in request.query_params.getlist('type') if x and str(x).strip()]
+    sources = [x.strip() for x in request.query_params.getlist('source') if x and str(x).strip()]
+    years = [x.strip() for x in request.query_params.getlist('year') if x and str(x).strip()]
+    return topics, chapters, types, sources, years
+
+
+def _question_list_where_sql(topics, chapters, types, sources, years, col_set):
+    clauses = []
+    params = []
+    if topics:
+        ph = ', '.join(['%s'] * len(topics))
+        clauses.append('topic IN ({})'.format(ph))
+        params.extend(topics)
+    if chapters:
+        ph = ', '.join(['%s'] * len(chapters))
+        clauses.append('(chapter_no IN ({0}) OR chapter IN ({0}))'.format(ph))
+        params.extend(chapters)
+    if types and 'type' in col_set:
+        ph = ', '.join(['%s'] * len(types))
+        clauses.append('type IN ({})'.format(ph))
+        params.extend(types)
+    if sources and 'subsource' in col_set:
+        src_conds = ['subsource LIKE %s' for _ in sources]
+        clauses.append('(' + ' OR '.join(src_conds) + ')')
+        params.extend(["%{}'%".format(s) for s in sources])
+    if years and 'subsource' in col_set:
+        yr_conds = ["subsource LIKE %s" for _ in years]
+        clauses.append('(' + ' OR '.join(yr_conds) + ')')
+        params.extend(["%'{}%".format(y) for y in years])
+    if not clauses:
+        return '', []
+    return ' WHERE ' + ' AND '.join(clauses), params
+
+
 class QuestionListView(APIView):
     """
-    GET: List questions from the subject question table in cheradip_hsc.
-    Query params: level_tr, class_level, subject_tr; optional topic, chapter.
-    When topic is omitted, returns all questions for the subject (ordered by chapter/topic/qid).
-    When topic is set, filters to that topic (and optional chapter).
-    Returns questions with id, question, option_1..4, answer, chapter_no, chapter, topic, etc. for user to select.
+    GET: Paginated questions from the subject question table (default 30 per page, like NTRCA vacancy lists).
+    Query params: level_tr, class_level, subject_tr; optional topic/chapter (repeatable);
+    page, page_size; optional source, year, type filters (repeatable).
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
@@ -7045,16 +7101,17 @@ class QuestionListView(APIView):
         level_tr = (request.query_params.get('level_tr') or '').strip()
         class_level = (request.query_params.get('class_level') or '').strip()
         subject_tr = (request.query_params.get('subject_tr') or '').strip()
-        topic = (request.query_params.get('topic') or '').strip()
-        chapter = (request.query_params.get('chapter') or '').strip()
         if not level_tr or not class_level or not subject_tr:
-            return Response({'questions': []}, status=status.HTTP_200_OK)
+            return Response({'questions': [], 'count': 0, 'page': 1, 'page_size': 30}, status=status.HTTP_200_OK)
+        page, page_size, offset = _question_list_pagination(request)
+        topics, chapters, types, sources, years = _question_list_filter_params(request)
         db_alias = _question_chain_db_alias(request)
         if db_alias not in connections:
-            return Response({'questions': [], 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
+            return Response({'questions': [], 'count': 0, 'page': page, 'page_size': page_size, 'error': '%s database not configured' % db_alias}, status=status.HTTP_200_OK)
         table_name = subject_question_table_name(level_tr, class_level, subject_tr)
         conn = connections[db_alias]
         questions = []
+        total_count = 0
         try:
             with conn.cursor() as cur:
                 cur.execute(
@@ -7063,9 +7120,9 @@ class QuestionListView(APIView):
                 )
                 if not cur.fetchone():
                     revision = _subject_question_table_revision(conn, table_name)
-                    return Response({'questions': [], 'revision': revision}, status=status.HTTP_200_OK)
+                    return Response({'questions': [], 'count': 0, 'page': page, 'page_size': page_size, 'revision': revision}, status=status.HTTP_200_OK)
                 cur.execute(
-                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no', 'subsource', 'explanation2', 'explanation3', 'level')",
+                    "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = %s AND COLUMN_NAME IN ('qid', 'id', 'topic_no', 'subsource', 'explanation2', 'explanation3', 'level', 'type')",
                     [table_name]
                 )
                 col_set = {r[0] for r in cur.fetchall()}
@@ -7081,20 +7138,19 @@ class QuestionListView(APIView):
                     order_by = 'chapter_no, topic_no, {}'.format(pk_col)
                 elif 'chapter_no' in col_set:
                     order_by = 'chapter_no, {}'.format(pk_col)
-                if not topic:
-                    cur.execute(
-                        "SELECT {} FROM `{}` ORDER BY {}".format(select_cols, table_name, order_by)
-                    )
-                elif chapter:
-                    cur.execute(
-                        "SELECT {} FROM `{}` WHERE topic = %s AND (chapter_no = %s OR chapter = %s) ORDER BY {}".format(select_cols, table_name, order_by),
-                        [topic, chapter, chapter]
-                    )
-                else:
-                    cur.execute(
-                        "SELECT {} FROM `{}` WHERE topic = %s ORDER BY {}".format(select_cols, table_name, order_by),
-                        [topic]
-                    )
+                where_sql, where_params = _question_list_where_sql(topics, chapters, types, sources, years, col_set)
+                cur.execute(
+                    "SELECT COUNT(*) FROM `{}`{}".format(table_name, where_sql),
+                    where_params
+                )
+                row = cur.fetchone()
+                total_count = int(row[0]) if row and row[0] is not None else 0
+                cur.execute(
+                    "SELECT {} FROM `{}`{} ORDER BY {} LIMIT %s OFFSET %s".format(
+                        select_cols, table_name, where_sql, order_by
+                    ),
+                    where_params + [page_size, offset]
+                )
                 cols = [c[0] for c in cur.description]
                 for row in cur.fetchall():
                     q = {}
@@ -7103,9 +7159,15 @@ class QuestionListView(APIView):
                     questions.append(q)
         except Exception as e:
             logger.exception('QuestionListView: %s', e)
-            return Response({'questions': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'questions': [], 'count': 0, 'page': page, 'page_size': page_size, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         revision = _subject_question_table_revision(conn, table_name)
-        return Response({'questions': questions, 'revision': revision}, status=status.HTTP_200_OK)
+        return Response({
+            'questions': questions,
+            'count': total_count,
+            'page': page,
+            'page_size': page_size,
+            'revision': revision,
+        }, status=status.HTTP_200_OK)
 
 
 class PendingQuestionRequestView(APIView):
