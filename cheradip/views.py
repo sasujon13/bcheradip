@@ -2104,10 +2104,13 @@ def _export_is_mcq_answer_key_row(q):
 
 
 def _export_skip_question_number_label(q):
-    """Answers-sheet continuation segments omit duplicate qn; MCQ answer-key uses qn + stripped stem."""
+    """Match preview `previewQuestionShowsIndex` — serial only on main intro/MCQ stem rows."""
     if not isinstance(q, dict):
         return False
-    return bool(q.get('answerSheetContinuation'))
+    if q.get('answerSheetContinuation'):
+        return True
+    kind = str(q.get('answerSheetSegmentKind') or '').strip()
+    return kind in ('part', 'option', 'tail')
 
 
 def _export_strip_mcq_answer_key_serial_prefix(text):
@@ -2138,11 +2141,39 @@ def _approx_plain_width_px(plain, font_px=13):
     return len(plain) * max(8, float(font_px)) * 0.45
 
 
-def _mcq_roman_pack_max_width_px(opt_grid_cols):
-    c = max(2, min(4, int(opt_grid_cols)))
-    if c >= 4:
-        return 280
-    return 380
+_EXPORT_MM_TO_PX = 96.0 / 25.4
+
+
+def _export_inner_content_width_px(page_w_mm, margin_left_mm, margin_right_mm):
+    return max(
+        0.0,
+        (float(page_w_mm) - float(margin_left_mm) - float(margin_right_mm)) * _EXPORT_MM_TO_PX,
+    )
+
+
+def _export_question_column_width_px(inner_w_px, layout_cols, col_gap_px):
+    n = max(1, int(layout_cols))
+    if n <= 1:
+        return max(80.0, float(inner_w_px))
+    return max(80.0, (float(inner_w_px) - (n - 1) * float(col_gap_px)) / n)
+
+
+def _export_mcq_stem_roman_pack_max_width_px(col_w_px, font_px):
+    """Match preview wrapRomanLines stem cap (defaultMaxWidthForRomanMcqLayout 'stem' → 480px)."""
+    cap = 480.0
+    return max(120.0, min(cap, float(col_w_px) - max(8.0, float(font_px) * 0.25)))
+
+
+def _export_mcq_option_roman_pack_max_width_px(col_w_px, opt_grid_cols, opt_col_gap_px, font_px):
+    """Match preview option cell width; cap 340px like defaultMaxWidthForRomanMcqLayout('option')."""
+    ncol = 4 if int(opt_grid_cols) >= 4 else 2
+    pad_left = 2.0 * float(font_px)
+    avail = max(80.0, float(col_w_px) - pad_left)
+    cell = max(60.0, (avail - (ncol - 1) * float(opt_col_gap_px)) / ncol)
+    return max(80.0, min(340.0, cell - 4.0))
+
+
+
 
 
 def _normalize_roman_mcq_source(text):
@@ -3375,14 +3406,24 @@ class ExportQuestionsView(APIView):
                             _export_format_question_media_html(text, host_base)
                         )
                     )
-                qrow = qq_row if isinstance(qq_row, dict) else {}
-                ncol = options_cols_for_qq(qrow)
-                mw = _mcq_roman_pack_max_width_px(ncol)
-                stem_fz = q_font_mcq
+                col_w = cq_col_w_px if for_creative else mcq_col_w_px
+                stem_fz = q_font_cq if for_creative else q_font_mcq
+                mw = _export_mcq_stem_roman_pack_max_width_px(col_w, stem_fz)
                 return _export_wrap_mcq_line_html(text, host_base, max_width_px=mw, font_px=stem_fz)
 
+            def format_option_html(txt, qq_row, creative):
+                """Match preview `wrapRomanLines:'option'` — flowing inline lines, not CQ stem block split."""
+                qrow = qq_row if isinstance(qq_row, dict) else {}
+                col_w = cq_col_w_px if creative else mcq_col_w_px
+                opt_fz = q_font_cq if creative else q_font_mcq
+                ocols = options_cols_for_qq(qrow)
+                ogrid = 4 if ocols >= 4 else 2
+                opt_col_gap = max(10, jround((21 * (q_font_cq if creative else q_font_mcq)) / 14.0))
+                mw = _export_mcq_option_roman_pack_max_width_px(col_w, ogrid, opt_col_gap, opt_fz)
+                return _export_wrap_mcq_line_html(txt, host_base, max_width_px=mw, font_px=opt_fz)
+
             def build_options_html(qq, for_creative):
-                if for_creative or not (qq.get('option_1') or qq.get('option_2')):
+                if not any(qq.get(k) for k in ('option_1', 'option_2', 'option_3', 'option_4')):
                     return ''
                 options = []
                 for key, lab in [('option_1', '(ক)'), ('option_2', '(খ)'), ('option_3', '(গ)'), ('option_4', '(ঘ)')]:
@@ -3390,7 +3431,7 @@ class ExportQuestionsView(APIView):
                     if ov:
                         txt = format_maybe_c_program_question_text(str(ov).strip(), emit_html=True)
                         if txt:
-                            opt_inner = format_stem_html(txt, for_creative, qq)
+                            opt_inner = format_option_html(txt, qq, for_creative)
                             options.append(
                                 '<span class="q-opt">%s <span class="q-opt-html">%s</span></span>'
                                 % (lab, opt_inner)
@@ -3399,36 +3440,38 @@ class ExportQuestionsView(APIView):
                     return ''
                 ncol = options_cols_for_qq(qq)
                 ocls = options_grid_class_for_cols(ncol)
-                ostyle = (
-                    'display:grid;'
-                    'grid-template-columns:repeat(%d,minmax(0,1fr));'
-                    'gap:var(--preview-q-opt-row-gap,0.2857em) var(--preview-q-opt-col-gap,1.5em);'
-                ) % ncol
-                return '<div class="%s" style="%s">%s</div>' % (ocls, ostyle, ''.join(options))
+                # Grid layout from CSS classes only (same as preview — no inline column-count override).
+                return '<div class="%s">%s</div>' % (ocls, ''.join(options))
 
-            out = []
-            for idx, q in enumerate(items):
-                i = start_num + idx
+            def unwrap_plan_item(entry):
                 item_idx = None
-                if isinstance(q, dict) and 'q' in q:
+                if isinstance(entry, dict) and 'q' in entry:
                     try:
-                        item_idx = int(q.get('idx'))
+                        item_idx = int(entry.get('idx'))
                     except Exception:
                         item_idx = None
-                    qq = q.get('q') if isinstance(q.get('q'), dict) else {}
+                    qq_row = entry.get('q') if isinstance(entry.get('q'), dict) else {}
                 else:
-                    qq = q if isinstance(q, dict) else {}
-                creative = is_creative(qq)
-                qcls = 'q-item q-cq' if creative else 'q-item q-mcq'
-                if creative:
-                    fz, q_lh, q_gap = q_font_cq, q_lh_cq, q_gap_cq
+                    qq_row = entry if isinstance(entry, dict) else {}
+                return item_idx, qq_row
+
+            def block_margin_bottom_px(qq_row, creative_row):
+                if qq_row.get('answerSheetContinuation'):
+                    return max(1, jround(q_pad / 2))
+                return q_gap_cq if creative_row else q_gap_mcq
+
+            def block_style_for_rows(first_qq, last_qq, creative_row):
+                if creative_row:
+                    fz, q_lh = q_font_cq, q_lh_cq
                 else:
-                    # Non-creative: MCQ pages; keep dynamic line-height directly from preview payload.
-                    fz, q_lh, q_gap = q_font_mcq, q_lh_mcq, q_gap_mcq
-                if qq.get('answerSheetContinuation'):
-                    q_gap = max(1, jround(q_gap / 2))
-                style = (
+                    fz, q_lh = q_font_mcq, q_lh_mcq
+                q_pad_top = 0 if first_qq.get('answerSheetContinuation') else q_pad
+                q_pad_bottom = q_pad
+                q_gap_mb = block_margin_bottom_px(last_qq, creative_row)
+                opt_body_fz = max(1.0, fz * 13.0 / 14.0)
+                return (
                     'font-size: %.2fpx; '
+                    '--preview-q-opt-font-size: %.2fpx; '
                     '--preview-question-lh: %.3f; '
                     '--preview-q-bn-paren-inset: %.2fpx; '
                     '--preview-q-subpart-pl: 2em; '
@@ -3445,6 +3488,7 @@ class ExportQuestionsView(APIView):
                     'margin-bottom: %.2fpx;'
                 ) % (
                     fz,
+                    opt_body_fz,
                     q_lh,
                     2 * fz - 2,
                     max(8, jround((16 * fz) / 14.0)),
@@ -3455,73 +3499,166 @@ class ExportQuestionsView(APIView):
                     max(1, jround((4 * fz) / 14.0)),
                     max(0, jround((2 * fz) / 14.0)),
                     max(1, jround((3 * fz) / 14.0)),
-                    q_pad,
-                    q_pad,
-                    q_gap,
+                    q_pad_top,
+                    q_pad_bottom,
+                    q_gap_mb,
                 )
 
-                raw_q = qq.get('question') or ''
-                if _export_is_mcq_answer_key_row(qq):
+            def render_cq_part_chunk(qq_row, plain_text):
+                try:
+                    _pi = int(qq_row.get('answerSheetPartIndex'))
+                    _pc = int(qq_row.get('answerSheetPartCount'))
+                except (TypeError, ValueError):
+                    _pi, _pc = 0, 0
+                _mk = creative_subpart_mark_bn(_pc, _pi)
+                _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
+                _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
+                _inner = format_stem_html(plain_text, True, qq_row)
+                return (
+                    '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
+                    % (_wrap_cls, _inner, _mk_html)
+                )
+
+            def plain_question_text(qq_row):
+                raw_q = qq_row.get('question') or ''
+                if _export_is_mcq_answer_key_row(qq_row):
                     raw_q = _export_strip_mcq_answer_key_serial_prefix(
                         format_maybe_c_program_question_text(raw_q, emit_html=False)
                     )
-                q_prepared = format_maybe_c_program_question_text(raw_q, emit_html=True)
-                skip_qn_label = _export_skip_question_number_label(qq)
-                seg_kind = str(qq.get('answerSheetSegmentKind') or '').strip()
+                return format_maybe_c_program_question_text(raw_q, emit_html=False)
 
+            def render_stem_and_options(qq_row, creative_row):
+                plain_q = plain_question_text(qq_row)
+                seg_kind = str(qq_row.get('answerSheetSegmentKind') or '').strip()
                 if seg_kind == 'part':
-                    try:
-                        _pi = int(qq.get('answerSheetPartIndex'))
-                        _pc = int(qq.get('answerSheetPartCount'))
-                    except (TypeError, ValueError):
-                        _pi, _pc = 0, 0
-                    _mk = creative_subpart_mark_bn(_pc, _pi)
-                    _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
-                    _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
-                    _inner = format_stem_html(q_prepared, creative, qq)
-                    stem_html = (
-                        '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
-                        % (_wrap_cls, _inner, _mk_html)
-                    )
-                    opts_html = ''
-                elif seg_kind in ('tail', 'option'):
-                    stem_html = '<span class="q-text">%s</span>' % format_stem_html(q_prepared, creative, qq)
-                    opts_html = ''
-                else:
-                    struct = question_display_structure(q_prepared, creative)
-                    intro_html = format_stem_html(struct.get('intro') or '', creative, qq)
-                    if struct.get('parts'):
-                        _parts = struct.get('parts') or []
-                        _pc = len(_parts)
-                        _chunks = []
-                        for _j, _p in enumerate(_parts):
-                            _mk = creative_subpart_mark_bn(_pc, _j)
-                            _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
-                            _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
-                            _inner = format_stem_html(_p, creative, qq)
-                            _chunks.append(
-                                '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
-                                % (_wrap_cls, _inner, _mk_html)
-                            )
-                        parts_html = ''.join(_chunks)
-                        stem_html = (
+                    return render_cq_part_chunk(qq_row, plain_q), ''
+                if seg_kind == 'intro':
+                    if creative_row:
+                        intro_html = format_stem_html(plain_q, True, qq_row)
+                        return (
                             '<span class="q-stem-with-parts">'
                             '<span class="q-text q-intro">%s</span>'
-                            '</span>%s'
-                        ) % (intro_html, parts_html)
-                    else:
-                        stem_html = '<span class="q-text">%s</span>' % intro_html
-                    opts_html = build_options_html(qq, creative)
+                            '</span>',
+                            '',
+                        )
+                    # Main-sheet MCQ: one intro row holds stem + (ক)–(ঘ) options (preview .preview-q-text).
+                    stem_html = (
+                        '<span class="q-text">%s</span>'
+                        % format_stem_html(plain_q, False, qq_row)
+                    )
+                    return stem_html, build_options_html(qq_row, False)
+                if seg_kind in ('tail', 'option'):
+                    return '<span class="q-text">%s</span>' % format_stem_html(plain_q, creative_row, qq_row), ''
+                struct = question_display_structure(plain_q, creative_row)
+                intro_html = format_stem_html(struct.get('intro') or '', creative_row, qq_row)
+                if struct.get('parts'):
+                    _parts = struct.get('parts') or []
+                    _pc = len(_parts)
+                    _chunks = []
+                    for _j, _p in enumerate(_parts):
+                        _mk = creative_subpart_mark_bn(_pc, _j)
+                        _wrap_cls = 'q-subpart-wrap' + (' q-subpart-wrap--has-marks' if _mk else '')
+                        _mk_html = ('<span class="q-subpart-marks">%s</span>' % _mk) if _mk else ''
+                        _inner = format_stem_html(_p, creative_row, qq_row)
+                        _chunks.append(
+                            '<div class="%s"><div class="q-subpart">%s</div>%s</div>'
+                            % (_wrap_cls, _inner, _mk_html)
+                        )
+                    parts_html = ''.join(_chunks)
+                    stem_html = (
+                        '<span class="q-stem-with-parts">'
+                        '<span class="q-text q-intro">%s</span>'
+                        '</span>%s'
+                    ) % (intro_html, parts_html)
+                else:
+                    stem_html = '<span class="q-text">%s</span>' % intro_html
+                return stem_html, build_options_html(qq_row, creative_row)
 
+            def append_q_item(out_list, item_idx, qq_row, creative_row, list_pos, stem_html, opts_html):
+                qcls = 'q-item q-cq' if creative_row else 'q-item q-mcq'
+                style = block_style_for_rows(qq_row, qq_row, creative_row)
+                skip_qn_label = _export_skip_question_number_label(qq_row)
                 if skip_qn_label:
                     qn_html = ''
                 else:
-                    qn_html = '<strong class="qn">%s\u0964</strong>' % item_serial(item_idx, i)
-                out.append(
+                    qn_html = '<strong class="qn">%s\u0964</strong>' % item_serial(
+                        item_idx, start_num + list_pos
+                    )
+                out_list.append(
                     '<div class="%s" style="%s"><div class="q-content"><label class="q-label">'
                     '%s%s</label>%s</div></div>'
                     % (qcls, style, qn_html, stem_html if stem_html else '&nbsp;', opts_html)
                 )
+
+            out = []
+            idx = 0
+            while idx < len(items):
+                item_idx, qq = unwrap_plan_item(items[idx])
+                creative = is_creative(qq)
+                seg_kind = str(qq.get('answerSheetSegmentKind') or '').strip()
+                parent_idx = qq.get('answerSheetParentIndex')
+
+                # Merge CQ intro + (ক)–(ঘ) segments into one block (matches on-screen preview DOM).
+                if creative and parent_idx is not None and seg_kind in ('intro', 'part'):
+                    group = []
+                    j = idx
+                    while j < len(items):
+                        ii, qqj = unwrap_plan_item(items[j])
+                        if not is_creative(qqj):
+                            break
+                        if qqj.get('answerSheetParentIndex') != parent_idx:
+                            break
+                        sk = str(qqj.get('answerSheetSegmentKind') or '').strip()
+                        if sk not in ('intro', 'part'):
+                            break
+                        group.append((ii, qqj))
+                        j += 1
+                    first_qq = group[0][1]
+                    last_qq = group[-1][1]
+                    intro_html = ''
+                    part_chunks = []
+                    for _, gqq in group:
+                        gplain = plain_question_text(gqq)
+                        gkind = str(gqq.get('answerSheetSegmentKind') or '').strip()
+                        if gkind == 'intro':
+                            intro_html = format_stem_html(gplain, True, gqq)
+                        elif gkind == 'part':
+                            part_chunks.append(render_cq_part_chunk(gqq, gplain))
+                    if part_chunks:
+                        if intro_html:
+                            stem_html = (
+                                '<span class="q-stem-with-parts">'
+                                '<span class="q-text q-intro">%s</span>'
+                                '</span>%s'
+                            ) % (intro_html, ''.join(part_chunks))
+                        else:
+                            stem_html = ''.join(part_chunks)
+                    else:
+                        stem_html = (
+                            '<span class="q-text q-intro">%s</span>' % intro_html
+                            if intro_html
+                            else ''
+                        )
+                    qcls = 'q-item q-cq'
+                    style = block_style_for_rows(first_qq, last_qq, True)
+                    skip_qn_label = _export_skip_question_number_label(first_qq)
+                    if skip_qn_label:
+                        qn_html = ''
+                    else:
+                        qn_html = '<strong class="qn">%s\u0964</strong>' % item_serial(
+                            group[0][0], start_num + idx
+                        )
+                    out.append(
+                        '<div class="%s" style="%s"><div class="q-content"><label class="q-label">'
+                        '%s%s</label></div></div>'
+                        % (qcls, style, qn_html, stem_html if stem_html else '&nbsp;')
+                    )
+                    idx = j
+                    continue
+
+                stem_html, opts_html = render_stem_and_options(qq, creative)
+                append_q_item(out, item_idx, qq, creative, idx, stem_html, opts_html)
+                idx += 1
             return ''.join(out)
 
         def render_fixed_columns_html(columns_items, include_header_in_first_col=False, hdr_html=None):
@@ -3547,8 +3684,6 @@ class ExportQuestionsView(APIView):
                 % (ncols, ''.join(chunks))
             )
 
-        cq_items_html = render_items_html(creative_questions, 1)
-        mcq_items_html = render_items_html(mcq_questions, 1)
         lead_empty_first_page = bool(pick('leadEmptyFirstPageActive', False))
         raw_lead_binding = pick('leadBindingItemIndexes', [])
         lead_binding_idx = set()
@@ -3572,6 +3707,13 @@ class ExportQuestionsView(APIView):
             lead_empty_mcq = False
         cq_render_cols = (cols_cq - 1) if lead_empty_cq else cols_cq
         mcq_render_cols = (cols_mcq - 1) if lead_empty_mcq else cols_mcq
+
+        _ml_mm = float(margin_left)
+        _mr_mm = float(margin_right)
+        cq_inner_w_px = _export_inner_content_width_px(cq_w_mm, _ml_mm, _mr_mm)
+        mcq_inner_w_px = _export_inner_content_width_px(mcq_w_mm, _ml_mm, _mr_mm)
+        cq_col_w_px = _export_question_column_width_px(cq_inner_w_px, cq_render_cols, col_gap)
+        mcq_col_w_px = _export_question_column_width_px(mcq_inner_w_px, mcq_render_cols, col_gap)
 
         creative_by_idx = {int(it.get('idx')): it for it in creative_questions if isinstance(it, dict) and it.get('idx') is not None}
         mcq_by_idx = {int(it.get('idx')): it for it in mcq_questions if isinstance(it, dict) and it.get('idx') is not None}
@@ -3762,6 +3904,20 @@ class ExportQuestionsView(APIView):
         # render the same TTFs with slightly different advance widths). Set EXPORT_WORD_SPACING in
         # .env to any valid CSS length, e.g. `0`, `-0.5px`, `0.95px`, `calc(1px + 0.04em)`.
         export_word_spacing_css = (os.environ.get('EXPORT_WORD_SPACING') or '0').strip() or '0'
+        if use_plan:
+            word_spacing_css_rules = (
+                '    .q-text, .q-text *, .q-subpart, .q-subpart *, .q-intro, .q-intro *, '
+                '.q-header, .q-header .hline, .q-stem-with-parts '
+                '{{ word-spacing: var(--export-word-spacing) !important; }}\n'
+                '    .q-options, .q-options *, .q-opt, .q-opt *, .q-opt-html, .q-opt-html * '
+                '{{ word-spacing: normal !important; }}\n'
+            )
+        else:
+            word_spacing_css_rules = (
+                '    * {{ word-spacing: var(--export-word-spacing) !important; }}\n'
+                '    .q-options, .q-options *, .q-opt, .q-opt *, .q-opt-html, .q-opt-html * '
+                '{{ word-spacing: normal !important; }}\n'
+            )
 
         mt = float(margin_top)
         mr = float(margin_right)
@@ -3820,9 +3976,10 @@ class ExportQuestionsView(APIView):
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
 
+        html_class_attr = ' class="export-with-page-plan"' if use_plan else ''
         html = (
             f"""<!doctype html>
-<html>
+<html{html_class_attr}>
 <head>
   <meta charset="utf-8" />
   <style>
@@ -3850,10 +4007,24 @@ class ExportQuestionsView(APIView):
       color: var(--color_primary_black);
     }}
     {paper_page_rule_css}
-    /* Apply the env-tunable word-spacing to the entire PDF, including header rows. */
-    /* Apply the env-tunable word-spacing to the entire PDF, including header rows. */
-    * {{ word-spacing: var(--export-word-spacing) !important; }}
+    {word_spacing_css_rules}
     .paper-break {{ break-before: page; }}
+    html.export-with-page-plan section.paper {{
+      break-after: page;
+      page-break-after: always;
+    }}
+    html.export-with-page-plan section.paper:last-of-type {{
+      break-after: auto;
+      page-break-after: auto;
+    }}
+    /* Preview already paginated into <section> pages; avoid forcing whole .q-item to next sheet. */
+    html.export-with-page-plan .q-item,
+    html.export-with-page-plan .q-content {{
+      break-inside: auto;
+      page-break-inside: auto;
+      -webkit-column-break-inside: auto;
+      -moz-column-break-inside: auto;
+    }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
     /* Header letter-spacing always normal — only word-spacing is tunable via env. */
     .q-header, .q-header .hline {{
