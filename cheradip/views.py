@@ -2912,6 +2912,9 @@ class ExportQuestionsView(APIView):
         q_lh_global = num(pick('previewQuestionsLineHeight', 1.4), 1.4)
         q_lh_cq = num(pick('previewQuestionsLineHeightCreative', q_lh_global), q_lh_global)
         q_lh_mcq = num(pick('previewQuestionsLineHeightMcq', q_lh_global), q_lh_global)
+        # PDF-only line-height nudge (preview unchanged): CQ +0.05, MCQ −0.05 (unitless lh).
+        q_lh_cq = q_lh_cq + 0.05
+        q_lh_mcq = max(0.1, q_lh_mcq - 0.05)
         q_lh_body = max(q_lh_cq, q_lh_mcq)
         h_lh = num(pick('previewHeaderLineHeight', 1.25), 1.25)
         q_pad = max(0, num(pick('questionsPadding', 2), 2))
