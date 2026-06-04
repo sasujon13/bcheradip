@@ -3906,16 +3906,13 @@ class ExportQuestionsView(APIView):
         if use_plan:
             word_spacing_css_rules = (
                 '    .q-text, .q-text *, .q-subpart, .q-subpart *, .q-intro, .q-intro *, '
-                '.q-header, .q-header .hline, .q-stem-with-parts '
+                '.q-header, .q-header .hline, .q-stem-with-parts, '
+                '.q-options, .q-options *, .q-opt, .q-opt *, .q-opt-html, .q-opt-html * '
                 '{{ word-spacing: var(--export-word-spacing) !important; }}\n'
-                '    .q-options, .q-options *, .q-opt, .q-opt *, .q-opt-html, .q-opt-html * '
-                '{{ word-spacing: normal !important; }}\n'
             )
         else:
             word_spacing_css_rules = (
                 '    * {{ word-spacing: var(--export-word-spacing) !important; }}\n'
-                '    .q-options, .q-options *, .q-opt, .q-opt *, .q-opt-html, .q-opt-html * '
-                '{{ word-spacing: normal !important; }}\n'
             )
 
         mt = float(margin_top)
