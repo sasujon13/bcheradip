@@ -2925,12 +2925,6 @@ class ExportQuestionsView(APIView):
                 v = 0.0
             return int(math.floor(v + 0.5))
 
-        # Keep PDF @page bottom margin consistent with preview (CQ −5px, MCQ +3px vs setting).
-        _px_to_mm = 25.4 / 96.0
-        _cq_bottom_off_px = num(pick('cqPageBottomMarginOffsetPx', -8), -8)
-        _mcq_bottom_off_px = num(pick('mcqPageBottomMarginOffsetPx', 8), 8)
-        margin_bottom_cq = max(0.0, float(margin_bottom) + float(_cq_bottom_off_px) * _px_to_mm)
-        margin_bottom_mcq = max(0.0, float(margin_bottom) + float(_mcq_bottom_off_px) * _px_to_mm)
         options_cols = max(2, min(5, intval(pick('optionsColumns', 2), 2)))
         options_manual_override = bool(pick('optionsColumnsManualOverride', False))
         preview_options_layout_by_qid = pick('previewOptionsLayoutByQid', {})
@@ -3920,7 +3914,7 @@ class ExportQuestionsView(APIView):
         mt = float(margin_top)
         mr = float(margin_right)
         ml = float(margin_left)
-        mb_mcq = float(margin_bottom_mcq)
+        mb = max(0.0, float(margin_bottom))
         # @page rules: omit @page default (conflicts with named pages). CQ-only uses @page mcq with CQ
         # dimensions/margins — same engine path as MCQ-only PDF (matches preview pagination).
         if unify_cq_as_mcq_page_model:
@@ -3930,7 +3924,7 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(cq_w_mm), float(cq_h_mm), mt, mr, float(margin_bottom_cq), ml)
+                % (float(cq_w_mm), float(cq_h_mm), mt, mr, mb, ml)
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
         elif has_creative and has_mcq:
@@ -3939,14 +3933,14 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(cq_w_mm), float(cq_h_mm), mt, mr, float(margin_bottom_cq), ml)
+                % (float(cq_w_mm), float(cq_h_mm), mt, mr, mb, ml)
             )
             mcq_page_css = (
                 '    @page mcq {\n'
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb_mcq, ml)
+                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb, ml)
             )
             # CQ sections use .paper-mcq like MCQ; .sheet-cq selects @page cq (avoids .paper-cq / dual page models).
             paper_page_rule_css = (
@@ -3960,7 +3954,7 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb_mcq, ml)
+                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb, ml)
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
         else:
@@ -3970,7 +3964,7 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb_mcq, ml)
+                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb, ml)
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
 
