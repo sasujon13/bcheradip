@@ -3455,9 +3455,8 @@ class ExportQuestionsView(APIView):
                     qq_row = entry if isinstance(entry, dict) else {}
                 return item_idx, qq_row
 
-            def block_margin_bottom_px(qq_row, creative_row):
-                if qq_row.get('answerSheetContinuation'):
-                    return max(1, jround(q_pad / 2))
+            def block_margin_bottom_px(_qq_row, creative_row):
+                """Inter-question gap on the outer .q-item (matches preview questionsGap / questionsGapCreative)."""
                 return q_gap_cq if creative_row else q_gap_mcq
 
             def block_style_for_rows(first_qq, last_qq, creative_row):
@@ -4310,6 +4309,18 @@ class ExportQuestionsView(APIView):
       margin-top: var(--preview-q-subpart-mt, 0.1429em);
       box-sizing: border-box;
       clear: both;
+    }}
+    /* CQ merged block: intro→(ক) via stem padding (print-safe); (ক)–(ঘ) tight except siblings. */
+    .q-item.q-cq .q-stem-with-parts {{
+      margin-bottom: 0;
+      padding-bottom: var(--preview-q-stem-mb, 0.2857em);
+    }}
+    .q-item.q-cq .q-subpart-wrap {{
+      margin-top: 0;
+      clear: none;
+    }}
+    .q-item.q-cq .q-label > .q-subpart-wrap + .q-subpart-wrap {{
+      margin-top: var(--preview-q-subpart-mt, 0.1429em);
     }}
     .q-subpart-wrap--has-marks {{
       padding-right: 2em;
