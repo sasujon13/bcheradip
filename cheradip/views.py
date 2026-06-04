@@ -2917,7 +2917,7 @@ class ExportQuestionsView(APIView):
         q_lh_mcq = max(0.1, q_lh_mcq - 0.05)
         q_lh_body = max(q_lh_cq, q_lh_mcq)
         h_lh = num(pick('previewHeaderLineHeight', 1.25), 1.25)
-        q_pad = max(0, num(pick('questionsPadding', 0), 0))
+        q_pad = max(2, num(pick('questionsPadding', 2), 2))
         q_gap_mcq = max(0, num(pick('questionsGap', 0), 0))
         q_gap_cq = max(0, num(pick('questionsGapCreative', 0), 0))
         # Keep rounding parity with frontend Math.round (Python round uses banker's rounding).
