@@ -2889,7 +2889,7 @@ class ExportQuestionsView(APIView):
         cq_w_mm, cq_h_mm = page_mm_for_orientation(cq_orient)
         mcq_w_mm, mcq_h_mm = page_mm_for_orientation(mcq_orient)
 
-        q_font_global = num(pick('previewQuestionsFontPx', 16), 16)
+        q_font_global = num(pick('previewQuestionsFontPx', 8), 8)
         q_font_cq = num(pick('previewQuestionsFontPxCreative', q_font_global), q_font_global)
         q_font_mcq = num(pick('previewQuestionsFontPxMcq', q_font_global), q_font_global)
         # Preview keeps a legacy global min font for fallback; PDF body inheritance must not get pinned to min.
@@ -2917,9 +2917,9 @@ class ExportQuestionsView(APIView):
         q_lh_mcq = max(0.1, q_lh_mcq - 0.05)
         q_lh_body = max(q_lh_cq, q_lh_mcq)
         h_lh = num(pick('previewHeaderLineHeight', 1.25), 1.25)
-        q_pad = max(0, num(pick('questionsPadding', 2), 2))
-        q_gap_mcq = max(0, num(pick('questionsGap', 2), 2))
-        q_gap_cq = max(0, num(pick('questionsGapCreative', 4), 4))
+        q_pad = max(0, num(pick('questionsPadding', 0), 0))
+        q_gap_mcq = max(0, num(pick('questionsGap', 0), 0))
+        q_gap_cq = max(0, num(pick('questionsGapCreative', 0), 0))
         # Keep rounding parity with frontend Math.round (Python round uses banker's rounding).
         def jround(x):
             try:
