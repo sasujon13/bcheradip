@@ -2925,10 +2925,12 @@ class ExportQuestionsView(APIView):
                 v = 0.0
             return int(math.floor(v + 0.5))
 
-        # Keep PDF @page bottom margin consistent with preview payload for all modes
-        # (CQ-only, MCQ-only, and mixed CQ+MCQ).
-        margin_bottom_cq = float(margin_bottom)
-        margin_bottom_mcq = float(margin_bottom)
+        # Keep PDF @page bottom margin consistent with preview (CQ −5px, MCQ +3px vs setting).
+        _px_to_mm = 25.4 / 96.0
+        _cq_bottom_off_px = num(pick('cqPageBottomMarginOffsetPx', -8), -8)
+        _mcq_bottom_off_px = num(pick('mcqPageBottomMarginOffsetPx', 8), 8)
+        margin_bottom_cq = max(0.0, float(margin_bottom) + float(_cq_bottom_off_px) * _px_to_mm)
+        margin_bottom_mcq = max(0.0, float(margin_bottom) + float(_mcq_bottom_off_px) * _px_to_mm)
         options_cols = max(2, min(5, intval(pick('optionsColumns', 2), 2)))
         options_manual_override = bool(pick('optionsColumnsManualOverride', False))
         preview_options_layout_by_qid = pick('previewOptionsLayoutByQid', {})
