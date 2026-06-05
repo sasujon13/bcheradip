@@ -2096,11 +2096,17 @@ def _export_flatten_mcq_block_text(text):
 
 
 _MCQ_ANSWER_KEY_QID_PREFIX = 'mcq-ans-'
+_MCQ_SET_BANNER_QID_PREFIX = 'mcq-set-hdr-'
 
 
 def _export_is_mcq_answer_key_row(q):
     qid = str((q or {}).get('qid') or '')
     return qid.startswith(_MCQ_ANSWER_KEY_QID_PREFIX)
+
+
+def _export_is_mcq_set_banner_row(q):
+    qid = str((q or {}).get('qid') or '')
+    return qid.startswith(_MCQ_SET_BANNER_QID_PREFIX)
 
 
 def _export_skip_question_number_label(q):
@@ -3573,6 +3579,18 @@ class ExportQuestionsView(APIView):
                 return stem_html, build_options_html(qq_row, creative_row)
 
             def append_q_item(out_list, item_idx, qq_row, creative_row, list_pos, stem_html, opts_html):
+                if _export_is_mcq_set_banner_row(qq_row):
+                    plain = plain_question_text(qq_row)
+                    banner_style = (
+                        'font-size: %.2fpx; line-height: 1.2; padding: 0; margin: 0 0 4px 0;'
+                    ) % q_font_mcq
+                    out_list.append(
+                        '<div class="q-item q-mcq q-mcq-set-banner" style="%s">'
+                        '<div class="q-content"><span class="q-mcq-set-banner-text">%s</span></div>'
+                        '</div>'
+                        % (banner_style, escape(plain))
+                    )
+                    return
                 qcls = 'q-item q-cq' if creative_row else 'q-item q-mcq'
                 style = block_style_for_rows(qq_row, qq_row, creative_row)
                 skip_qn_label = _export_skip_question_number_label(qq_row)
@@ -4078,6 +4096,15 @@ class ExportQuestionsView(APIView):
     .q-code-grid .q-code-cell:nth-child(3),
     .q-code-grid .q-code-cell:nth-child(4) {{
       margin-right: -3px;
+    }}
+    .q-item.q-mcq-set-banner {{
+      padding: 0 !important;
+      margin-bottom: 4px !important;
+    }}
+    .q-mcq-set-banner-text {{
+      display: block;
+      font-weight: 700;
+      text-align: center;
     }}
     /* MCQ: second row — সেট : (letter), matches preview two-row code table. */
     .q-code-grid--mcq-set {{
