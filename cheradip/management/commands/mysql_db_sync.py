@@ -56,6 +56,10 @@ root (optional: ``pip install python-dotenv``).
 - ``MYSQL_SYNC_USE_TEMPFILE`` — ``1``/``true`` = dump to a temp file then import (default **on** on
   Windows; avoids broken-pipe ``errno 22``/``32`` when the remote server stops reading). ``0`` = pipe mode.
 - ``MYSQL_SYNC_SKIP_REMOTE_ACCESS_CHECK`` — ``1`` = do not pre-check remote ``USE`` for ``--l2r`` (default off).
+- ``SSH_TUNNEL`` / ``SSH_HOST`` — when MySQL is only on the Linux server (not public), forward via SSH.
+  ``SSH_USER``, ``SSH_PASSWORD`` (or key), ``SSH_PORT`` (22), ``SSH_LOCAL_PORT`` (13306),
+  ``SSH_REMOTE_MYSQL_HOST`` (127.0.0.1), ``SSH_REMOTE_MYSQL_PORT`` (3306).
+  Requires ``pip install sshtunnel``. **Do not use ``cheradip.com``** for SSH/MySQL — that hostname is Cloudflare.
 - ``SYNC_DATABASES`` — comma-separated allow list. Leave unset / empty / ``*`` in code (``DEFAULT_SYNC_DATABASES``)
   to sync **every** non-excluded database found on the source. Set to e.g. ``cheradip_cheradip`` when the remote
   user may only access one database (avoids 1044 errors on ``CREATE DATABASE`` for other names).
@@ -78,6 +82,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from contextlib import contextmanager
 from pathlib import Path
 
 from django.conf import settings
@@ -89,8 +94,8 @@ from django.core.management.base import BaseCommand, CommandError
 # ---------------------------------------------------------------------------
 DEFAULT_SYNC_REMOTE_HOST = "cheradip.com"
 DEFAULT_SYNC_REMOTE_PORT = "3306"
-DEFAULT_SYNC_REMOTE_USER = "cheradip_cheradip"
-DEFAULT_SYNC_REMOTE_PASSWORD = "Sa@2271029867"
+DEFAULT_SYNC_REMOTE_USER = "sasha"
+DEFAULT_SYNC_REMOTE_PASSWORD = "Sa@2271029867890"
 
 DEFAULT_SYNC_LOCAL_HOST = "127.0.0.1"
 DEFAULT_SYNC_LOCAL_PORT = "3306"
@@ -116,7 +121,8 @@ DEFAULT_EXCLUDE = frozenset(
 def _is_syncable_database_name(name: str) -> bool:
     """
     False for legacy / corrupt folder names that SHOW DATABASES may still list (e.g. XAMPP)
-    but ``CREATE DATABASE`` rejects (ERROR 1102 Incorrect database name).
+    but ``CREATE DATABASE`` rejects (ERROR 
+    102 Incorrect database name).
     """
     if not name or not name.strip():
         return False
@@ -224,6 +230,92 @@ def parse_csv(s: str | None) -> set[str]:
     if not s:
         return set()
     return {x.strip() for x in s.split(",") if x.strip()}
+
+
+_CLOUDFLARE_HOSTNAMES = frozenset({"cheradip.com", "www.cheradip.com"})
+
+
+def _ensure_paramiko_sshtunnel_compat() -> None:
+    """sshtunnel 0.4.x imports paramiko.DSSKey, removed in paramiko 3.0+."""
+    try:
+        import paramiko  # type: ignore
+    except ImportError:
+        return
+    if not hasattr(paramiko, "DSSKey"):
+        paramiko.DSSKey = paramiko.RSAKey  # type: ignore[attr-defined]
+
+
+def _warn_if_cloudflare_hostname(host: str) -> None:
+    if host.strip().lower() in _CLOUDFLARE_HOSTNAMES:
+        print(
+            "WARN: cheradip.com / www.cheradip.com point to Cloudflare — not your Linux server.\n"
+            "      MySQL and SSH cannot connect to that hostname (ERROR 2002 / timeout).\n"
+            "      Set SSH_HOST to your server's real IP/hostname and SSH_TUNNEL=1 in .env.db-sync,\n"
+            "      or run: ssh -N -L 13306:127.0.0.1:3306 USER@SERVER_IP\n"
+            "      then REMOTE_HOST=127.0.0.1 REMOTE_PORT=13306"
+        )
+
+
+@contextmanager
+def _ssh_mysql_tunnel(mysql_remote_host: str, mysql_remote_port: str):
+    """
+    Optional SSH port forward to reach MySQL on the Linux host (127.0.0.1:3306 there).
+    Yields (effective_host, effective_port) for the mysql client.
+    """
+    ssh_host = (env("SSH_HOST") or "").strip()
+    if not ssh_host and not env_bool("SSH_TUNNEL", False):
+        yield mysql_remote_host, mysql_remote_port
+        return
+
+    if not ssh_host:
+        raise MySQLSyncError("SSH_TUNNEL=1 but SSH_HOST is empty. Set SSH_HOST to your Linux server IP.")
+
+    ssh_user = env("SSH_USER", "sasha") or "sasha"
+    ssh_port = env_int("SSH_PORT", 22)
+    ssh_password = env("SSH_PASSWORD")
+    local_port = env_int("SSH_LOCAL_PORT", 13306)
+    remote_mysql_host = env("SSH_REMOTE_MYSQL_HOST", "127.0.0.1") or "127.0.0.1"
+    remote_mysql_port = env_int("SSH_REMOTE_MYSQL_PORT", int(mysql_remote_port or "3306"))
+
+    try:
+        _ensure_paramiko_sshtunnel_compat()
+        from sshtunnel import SSHTunnelForwarder  # type: ignore
+    except ImportError as exc:
+        raise MySQLSyncError(
+            "SSH tunnel requested but sshtunnel is not installed.\n"
+            "  pip install sshtunnel paramiko\n"
+            "Or start a tunnel manually in another terminal:\n"
+            f"  ssh -N -L {local_port}:{remote_mysql_host}:{remote_mysql_port} "
+            f"{ssh_user}@{ssh_host}\n"
+            f"Then set REMOTE_HOST=127.0.0.1 REMOTE_PORT={local_port} (no SSH_TUNNEL)."
+        ) from exc
+
+    tunnel_kwargs: dict = {
+        "ssh_address_or_host": (ssh_host, ssh_port),
+        "ssh_username": ssh_user,
+        "remote_bind_address": (remote_mysql_host, remote_mysql_port),
+        "local_bind_address": ("127.0.0.1", local_port),
+        "allow_agent": False,
+        "host_pkey_directories": [],
+    }
+    if ssh_password:
+        tunnel_kwargs["ssh_password"] = ssh_password
+    ssh_pkey = env("SSH_PRIVATE_KEY")
+    if ssh_pkey:
+        tunnel_kwargs["ssh_pkey"] = ssh_pkey
+
+    print(
+        f"SSH tunnel: {ssh_user}@{ssh_host}:{ssh_port} "
+        f"→ 127.0.0.1:{local_port} → {remote_mysql_host}:{remote_mysql_port}"
+    )
+    tunnel = SSHTunnelForwarder(**tunnel_kwargs)
+    try:
+        tunnel.start()
+        if not tunnel.is_active:
+            raise MySQLSyncError(f"SSH tunnel to {ssh_host} did not start.")
+        yield "127.0.0.1", str(local_port)
+    finally:
+        tunnel.stop()
 
 
 _mysqldump_help_text_cache: dict[str, str] = {}
@@ -665,12 +757,23 @@ def run_sync(
     local_password = env("LOCAL_PASSWORD", DEFAULT_SYNC_LOCAL_PASSWORD) or ""
     local_port = env("LOCAL_PORT", DEFAULT_SYNC_LOCAL_PORT) or "3306"
 
+    dry = env_bool("DRY_RUN", False)
+    sync_raw = (env("SYNC_DATABASES", DEFAULT_SYNC_DATABASES) or "").strip()
+    if sync_raw in ("*", ""):
+        only: set[str] = set()
+    else:
+        only = parse_csv(sync_raw)
+    extra_exclude = parse_csv(env("EXCLUDE_DATABASES"))
+    direction = direction.strip().lower()
+
     if not remote_host or not remote_user or remote_password is None:
         print(
             "ERROR: Remote host, user, and password are missing. "
             "Set DEFAULT_SYNC_* in mysql_db_sync.py or REMOTE_* in the environment / .env.db-sync."
         )
         return 2
+
+    _warn_if_cloudflare_hostname(remote_host)
 
     mysqldump = find_client("mysqldump", env("MYSQLDUMP_PATH"))
     mysql = find_client("mysql", env("MYSQL_PATH"))
@@ -681,15 +784,50 @@ def run_sync(
         )
         return 2
 
-    dry = env_bool("DRY_RUN", False)
-    sync_raw = (env("SYNC_DATABASES", DEFAULT_SYNC_DATABASES) or "").strip()
-    if sync_raw in ("*", ""):
-        only = set()
-    else:
-        only = parse_csv(sync_raw)
-    extra_exclude = parse_csv(env("EXCLUDE_DATABASES"))
+    try:
+        with _ssh_mysql_tunnel(remote_host, remote_port) as (remote_host, remote_port):
+            return _run_sync_connected(
+                direction=direction,
+                watch=watch,
+                interval=interval,
+                remote_host=remote_host,
+                remote_port=remote_port,
+                remote_user=remote_user,
+                remote_password=remote_password,
+                local_host=local_host,
+                local_port=local_port,
+                local_user=local_user,
+                local_password=local_password,
+                mysqldump=mysqldump,
+                mysql=mysql,
+                dry=dry,
+                only=only,
+                extra_exclude=extra_exclude,
+            )
+    except MySQLSyncError as e:
+        print("ERROR:", e)
+        return 1
 
-    direction = direction.strip().lower()
+
+def _run_sync_connected(
+    *,
+    direction: str,
+    watch: bool,
+    interval: int,
+    remote_host: str,
+    remote_port: str,
+    remote_user: str,
+    remote_password: str | None,
+    local_host: str,
+    local_port: str,
+    local_user: str,
+    local_password: str,
+    mysqldump: str,
+    mysql: str,
+    dry: bool,
+    only: set[str],
+    extra_exclude: set[str],
+) -> int:
     if direction not in ("local-to-remote", "remote-to-local"):
         print("ERROR: direction must be local-to-remote or remote-to-local")
         return 2

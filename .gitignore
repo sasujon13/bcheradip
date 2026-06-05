@@ -20,6 +20,7 @@ env/
 .env
 .env.*
 !.env.example
+!.env.db-sync.example
 .env.db-sync
 scripts/.env.db-sync
 
@@ -40,3 +41,5 @@ scraper_root.txt
 Thumbs.db
 .vscode/
 .idea/
+
+.tmp.driveupload/
