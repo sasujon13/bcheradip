@@ -60,9 +60,10 @@ root (optional: ``pip install python-dotenv``).
   ``SSH_USER``, ``SSH_PASSWORD`` (or key), ``SSH_PORT`` (22), ``SSH_LOCAL_PORT`` (13306),
   ``SSH_REMOTE_MYSQL_HOST`` (127.0.0.1), ``SSH_REMOTE_MYSQL_PORT`` (3306).
   Requires ``pip install sshtunnel``. **Do not use ``cheradip.com``** for SSH/MySQL — that hostname is Cloudflare.
-- ``SYNC_DATABASES`` — comma-separated allow list. Leave unset / empty / ``*`` in code (``DEFAULT_SYNC_DATABASES``)
-  to sync **every** non-excluded database found on the source. Set to e.g. ``cheradip_cheradip`` when the remote
-  user may only access one database (avoids 1044 errors on ``CREATE DATABASE`` for other names).
+- ``SYNC_DATABASES`` — comma-separated allow list. Leave unset to use ``DEFAULT_SYNC_DATABASES`` in code
+  (``cheradip_cheradip``, ``cheradip_hsc``, ``cheradip_honours``, ``cheradip_job``, ``ailanguagetutor``).
+  Set ``SYNC_DATABASES=*`` or ``SYNC_DATABASES=`` (empty) to sync **every** non-excluded database on the source.
+  Use a narrower list when the remote user may only access specific schemas (avoids 1044 on ``CREATE DATABASE``).
 - ``EXCLUDE_DATABASES`` — extra names to skip
 - ``DRY_RUN`` — print only, no copy
 
@@ -101,9 +102,16 @@ DEFAULT_SYNC_LOCAL_HOST = "127.0.0.1"
 DEFAULT_SYNC_LOCAL_PORT = "3306"
 DEFAULT_SYNC_LOCAL_USER = "root"
 DEFAULT_SYNC_LOCAL_PASSWORD = ""  # empty = no password (typical XAMPP root)
-# Comma-separated database names to sync, or "" / "*" = sync all non-excluded DBs on the source (default).
-# Set to e.g. "cheradip_cheradip" if your remote MySQL user may only touch one database.
-DEFAULT_SYNC_DATABASES = ""
+# Project databases synced by default (--l2r / --r2l). Override with SYNC_DATABASES env var.
+# Set SYNC_DATABASES=* or SYNC_DATABASES= (empty) to sync every non-excluded DB on the source instead.
+DEFAULT_PROJECT_SYNC_DATABASES = (
+    "cheradip_cheradip",
+    "cheradip_hsc",
+    "cheradip_honours",
+    "cheradip_job",
+    "ailanguagetutor",
+)
+DEFAULT_SYNC_DATABASES = ",".join(DEFAULT_PROJECT_SYNC_DATABASES)
 # ---------------------------------------------------------------------------
 
 DEFAULT_EXCLUDE = frozenset(
@@ -607,7 +615,7 @@ def _sync_one_database_via_tempfile(dump_cmd: list[str], dest_mysql: list[str], 
                 "mysql (destination) failed:\n"
                 + err
                 + "\n--- If you see 1044, this MySQL user cannot write that database on the server "
-                "(hosting often allows only one DB name). Use SYNC_DATABASES=cheradip_cheradip or "
+                "(hosting often allows only one DB name). Use SYNC_DATABASES=cheradip_cheradip,ailanguagetutor or "
                 "ask the host to grant access to each schema. ---"
             )
         out = (r_mysql.stdout or b"").decode("utf-8", errors="replace").strip()[:200]
@@ -645,6 +653,13 @@ def resolve_databases(
             "Skipping invalid / non-createable database name(s) (legacy #mysql50#, .corrupt, etc.):\n  "
             + ", ".join(skipped_invalid)
         )
+    if only:
+        missing = sorted(only - set(all_names))
+        if missing:
+            print(
+                "WARN: SYNC_DATABASES name(s) not found on source (skipped until created there):\n  "
+                + ", ".join(missing)
+            )
     return to_sync
 
 
@@ -922,7 +937,7 @@ def _run_sync_connected(
                 print(
                     f"WARN: {failed} database(s) failed; {ok} succeeded. "
                     "Remote ERROR 1044 means that user cannot use that database—grant access on the host "
-                    "or set SYNC_DATABASES to the schema(s) your user may write (e.g. cheradip_cheradip only)."
+                    "or set SYNC_DATABASES to the schema(s) your user may write (e.g. cheradip_cheradip,ailanguagetutor)."
                 )
             if not watch:
                 break
