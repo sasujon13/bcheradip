@@ -1,0 +1,78 @@
+{
+  "notes": "Paywall: max 2 promo codes. Slot1=LAUNCH50 auto if discount>0. Slot2=manual. Hide all if all codes 0% and referral inactive.",
+  "actualPlayPricesUsd": {
+    "pro_monthly": 2.00,
+    "pro_yearly": 20.00,
+    "plus_monthly": 5.00,
+    "plus_yearly": 50.00
+  },
+  "paywallUi": {
+    "maxPromoCodesAtCheckout": 2,
+    "slot1": {
+      "code": "LAUNCH50",
+      "source": "auto_apply_for_all",
+      "visibleWhen": "discountPercent > 0 && active",
+      "hiddenWhen": "discountPercent == 0",
+      "readOnly": true
+    },
+    "slot2": {
+      "source": "manual_entry",
+      "visibleWhen": "showPromoSection == true",
+      "accepts": ["referrer_username", "WELCOME10", "COMEBACK20", "any_active_admin_code"]
+    },
+    "showPromoSectionWhen": "launch50Active || anyManualPromoActive || referralActive",
+    "hidePromoSectionWhen": "allPromoDiscountsZero && !referralActive"
+  },
+  "referralPolicy": {
+    "active": true,
+    "referrerBuyerDiscountPercent": 20,
+    "commissionPercent": 20,
+    "commissionBasis": "amount_paid_after_promos",
+    "enteredInSlot": 2
+  },
+  "stacking": {
+    "maxCodes": 2,
+    "mode": "compound",
+    "formula": "actualPrice * (1-d1) * (1-d2)"
+  },
+  "promoCodes": [
+    {
+      "code": "LAUNCH50",
+      "discountPercent": 50,
+      "autoApplyForAll": true,
+      "paywallSlot": 1,
+      "stackWithOtherPromos": true,
+      "active": true
+    },
+    {
+      "code": "WELCOME10",
+      "discountPercent": 10,
+      "autoApplyForAll": false,
+      "paywallSlot": 2,
+      "requiresAnotherPromo": true,
+      "active": true
+    },
+    {
+      "code": "COMEBACK20",
+      "discountPercent": 20,
+      "autoApplyForAll": false,
+      "paywallSlot": 2,
+      "comebackOnly": true,
+      "active": true
+    },
+    {
+      "code": "REFER20",
+      "discountPercent": 20,
+      "autoApplyForAll": false,
+      "paywallSlot": 0,
+      "referralGateOnly": true,
+      "active": true,
+      "notes": "Not entered by users — gates referrer username discount in slot 2"
+    }
+  ],
+  "expiredResponse": {
+    "valid": false,
+    "expired": true,
+    "message": "Promo code is expired. No discount available."
+  }
+}

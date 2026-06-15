@@ -1,0 +1,17 @@
+[Unit]
+Description=Cheradip AILT App API (FastAPI)
+After=network.target mysql.service mariadb.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sasha
+Group=sasha
+WorkingDirectory=/home/sasha/apps/cheradip/bcheradip/ailt_api
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/sasha/apps/cheradip/bcheradip/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8790 --workers 2
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
