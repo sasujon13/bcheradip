@@ -53,6 +53,13 @@ class Settings(BaseSettings):
     translate_api_timeout_seconds: float = 4.0
     home_ai_translate_url: str = "http://127.0.0.1:8787/translate-strings"
 
+    def uses_local_postfix_direct(self) -> bool:
+        """127.0.0.1:25 accepts mail locally but Gmail rejects with 550 5.7.1."""
+        return self.smtp_host.strip().lower() in {"127.0.0.1", "localhost"} and self.smtp_port == 25
+
+    def smtp_config_summary(self) -> str:
+        return f"{self.smtp_host}:{self.smtp_port} from={self.smtp_from}"
+
     @field_validator(
         "dev_log_otp",
         "smtp_enabled",

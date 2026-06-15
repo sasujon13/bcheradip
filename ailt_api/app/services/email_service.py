@@ -11,6 +11,16 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 
+_LOCAL_POSTFIX_ERROR = (
+    "SMTP is set to 127.0.0.1:25 (local Postfix, no auth). Gmail/Yahoo reject direct VPS delivery (550 5.7.1). "
+    "Use port 587 with user admin and From noreply@cheradip.com — see deploy/MAIL_NOREPLY_CHERADIP.md"
+)
+
+
+def _ensure_smtp_can_reach_inbox() -> None:
+    if settings.smtp_enabled and settings.uses_local_postfix_direct():
+        raise RuntimeError(_LOCAL_POSTFIX_ERROR)
+
 
 def _smtp_send(msg: EmailMessage) -> None:
     timeout = 30
@@ -39,6 +49,7 @@ def send_email(*, to: str, subject: str, body: str) -> None:
     msg.set_content(body)
 
     if settings.smtp_enabled:
+        _ensure_smtp_can_reach_inbox()
         try:
             _smtp_send(msg)
             logger.info("Sent email to %s: %s", target, subject)

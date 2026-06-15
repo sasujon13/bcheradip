@@ -18,6 +18,11 @@ from app.services.pack_store import list_available_codes
 
 logger = logging.getLogger(__name__)
 
+_LOCAL_POSTFIX_MSG = (
+    "SMTP 127.0.0.1:25 will NOT deliver to Gmail/Yahoo. "
+    "Use SMTP_PORT=587 SMTP_USER=admin — see deploy/MAIL_NOREPLY_CHERADIP.md"
+)
+
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
@@ -26,6 +31,10 @@ async def lifespan(_app: FastAPI):
             conn.execute(text("SELECT 1"))
         init_database()
         logger.info("Database ready: ailanguagetutor")
+        if settings.smtp_enabled and settings.uses_local_postfix_direct():
+            logger.error(_LOCAL_POSTFIX_MSG)
+        elif settings.smtp_enabled:
+            logger.info("SMTP: %s", settings.smtp_config_summary())
     except Exception as e:
         logger.error("Database startup failed: %s", e)
         raise

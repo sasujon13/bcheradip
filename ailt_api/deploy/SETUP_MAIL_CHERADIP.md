@@ -1,5 +1,7 @@
 # Set up mail.cheradip.com on your Linux VPS
 
+> **Quick path:** **[MAIL_NOREPLY_CHERADIP.md](./MAIL_NOREPLY_CHERADIP.md)** — `noreply@cheradip.com`, SMTP user `admin`, port 587. This file is the detailed reference.
+
 Goal: send OTP email from **`noreply@cheradip.com`** for AILT (`ailt_api`) and optionally main Cheradip Django site.
 
 **Stack:** Postfix (send) + OpenDKIM (signing) + DNS on **cheradip.com**
@@ -89,8 +91,8 @@ Create mail user for app SMTP auth:
 
 ```bash
 # Password for ailt_api .env — pick a strong random password
-sudo saslpasswd2 -c -u mail.cheradip.com noreply
-# Enter password twice — REMEMBER IT → SMTP_PASSWORD in .env
+sudo saslpasswd2 -c -u mail.cheradip.com admin
+# Enter password twice — REMEMBER IT → SMTP_PASSWORD in .env (SMTP_USER=admin)
 sudo chown postfix:postfix /etc/sasldb2
 sudo chmod 660 /etc/sasldb2
 ```
@@ -99,7 +101,7 @@ Verify SASL user:
 
 ```bash
 sudo sasldblistusers2
-# should show: noreply@mail.cheradip.com
+# should show: admin@mail.cheradip.com
 ```
 
 ---
@@ -168,6 +170,7 @@ sudo nano /etc/postfix/generic
 Add:
 
 ```
+admin@mail.cheradip.com noreply@cheradip.com
 noreply@mail.cheradip.com noreply@cheradip.com
 @mail.cheradip.com @cheradip.com
 ```
@@ -265,7 +268,7 @@ swaks --to sashafik.me@gmail.com \
   --from noreply@cheradip.com \
   --server 127.0.0.1:587 \
   --auth LOGIN \
-  --auth-user noreply \
+  --auth-user admin \
   --auth-password 'YOUR_SASL_PASSWORD' \
   --tls
 ```
@@ -295,7 +298,7 @@ SMTP_ENABLED=true
 SMTP_HOST=127.0.0.1
 SMTP_PORT=587
 SMTP_FROM=noreply@cheradip.com
-SMTP_USER=noreply
+SMTP_USER=admin
 SMTP_PASSWORD=THE_PASSWORD_YOU_SET_WITH_saslpasswd2
 SMTP_USE_TLS=true
 SMTP_USE_SSL=false
@@ -305,7 +308,7 @@ DEV_LOG_OTP=false
 **Where `SMTP_PASSWORD` comes from:** the password you typed when running:
 
 ```bash
-sudo saslpasswd2 -c -u mail.cheradip.com noreply
+sudo saslpasswd2 -c -u mail.cheradip.com admin
 ```
 
 That is **your** password — you create it; nothing is auto-generated except you pick it.
@@ -347,46 +350,26 @@ sudo systemctl restart postfix
 | Problem | What to do |
 |---------|------------|
 | `Name or service not known` for mail.cheradip.com | Add **A** record; wait for DNS; use `127.0.0.1` in `.env` until DNS works |
-| `Authentication failed` | Re-run `saslpasswd2`; check `sasldblistusers2`; user is `noreply` not full email |
+| `Authentication failed` | Re-run `setup-smtp-admin-user.sh`; user is **`admin`** not full email |
 | Mail in spam | Complete SPF + DKIM + DMARC; use [mail-tester.com](https://www.mail-tester.com) |
 | Connection refused on 587 | `sudo systemctl status postfix`; check `ss -tlnp \| grep 587` |
 | Queue stuck | `mailq` then `sudo postqueue -f` |
 
 ---
 
-## Appendix A — Minimal `.env` (same server only)
+## Appendix A — Do not use `127.0.0.1:25` for Gmail OTP
 
-If Postfix runs on the **same** machine and you configure **no auth** on port 25 localhost-only:
+Postfix on port 25 accepts mail locally but **Gmail rejects** direct VPS delivery (`550 5.7.1`). OTP will not arrive.
 
-```env
-SMTP_HOST=127.0.0.1
-SMTP_PORT=25
-SMTP_USER=
-SMTP_PASSWORD=
-SMTP_USE_TLS=false
-```
-
-Only use this after `echo test | mail ...` works locally.
+Use **[SMTP_GMAIL.md](./SMTP_GMAIL.md)** for production OTP.
 
 ---
 
-## Appendix B — Port 25 blocked (relay through Brevo)
+## Appendix B — Gmail SMTP (works when Postfix does not)
 
-If outbound 25 is blocked, keep `From: noreply@cheradip.com` but relay via Brevo:
+If self-hosted Postfix cannot reach Gmail inboxes, send from `ailt_api` via Gmail:
 
-1. Sign up at brevo.com, verify domain cheradip.com (DNS TXT they provide)
-2. Get SMTP key from Brevo dashboard
-
-```env
-SMTP_HOST=smtp-relay.brevo.com
-SMTP_PORT=587
-SMTP_USER=your-brevo-account-email
-SMTP_PASSWORD=your-brevo-smtp-key
-SMTP_FROM=noreply@cheradip.com
-SMTP_USE_TLS=true
-```
-
-You still want SPF/DKIM from Brevo for deliverability — follow their domain setup.
+See **[SMTP_GMAIL.md](./SMTP_GMAIL.md)** — App Password, `.env`, test script.
 
 ---
 
@@ -398,7 +381,7 @@ In main `bcheradip/.env` for existing verification emails:
 EMAIL_HOST=127.0.0.1
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
-EMAIL_HOST_USER=noreply
+EMAIL_HOST_USER=admin
 EMAIL_HOST_PASSWORD=same_as_ailt_api
 DEFAULT_FROM_EMAIL=Cheradip <noreply@cheradip.com>
 ```
