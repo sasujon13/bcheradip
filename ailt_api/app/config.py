@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from pydantic import field_validator
+from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 _AILT_ROOT = Path(__file__).resolve().parent.parent
@@ -58,7 +58,15 @@ class Settings(BaseSettings):
         return self.smtp_host.strip().lower() in {"127.0.0.1", "localhost"} and self.smtp_port == 25
 
     def smtp_config_summary(self) -> str:
-        return f"{self.smtp_host}:{self.smtp_port} from={self.smtp_from}"
+        tls = "tls" if self.smtp_use_tls else ("ssl" if self.smtp_use_ssl else "plain")
+        return f"{self.smtp_host}:{self.smtp_port} ({tls}) from={self.smtp_from}"
+
+    @model_validator(mode="after")
+    def _submission_port_needs_tls(self) -> "Settings":
+        """Postfix submission on 587 only offers AUTH after STARTTLS."""
+        if self.smtp_port == 587 and not self.smtp_use_ssl and not self.smtp_use_tls:
+            self.smtp_use_tls = True
+        return self
 
     @field_validator(
         "dev_log_otp",

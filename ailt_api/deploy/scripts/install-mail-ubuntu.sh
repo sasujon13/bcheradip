@@ -77,24 +77,26 @@ cat > /etc/opendkim.conf <<EOF
 Syslog yes
 LogWhy yes
 UMask 007
-UserID opendkim
+UserID opendkim:opendkim
 Canonicalization relaxed/simple
 Mode sv
 SubDomains no
 AutoRestart yes
 AutoRestartRate 10/1M
-Background yes
+Background no
 DNSTimeout 5
 SignatureAlgorithm rsa-sha256
 Domain ${DOMAIN}
 KeyFile /etc/opendkim/keys/${DOMAIN}/${SELECTOR}.private
 Selector ${SELECTOR}
-Socket inet:8891@localhost
 EOF
 
-grep -q '^SOCKET=' /etc/default/opendkim 2>/dev/null && \
-  sed -i 's|^SOCKET=.*|SOCKET=inet:8891@localhost|' /etc/default/opendkim || \
-  echo 'SOCKET=inet:8891@localhost' >> /etc/default/opendkim
+cat > /etc/default/opendkim <<'EOF'
+SOCKET=inet:8891@localhost
+PIDFILE=/run/opendkim/opendkim.pid
+EOF
+mkdir -p /run/opendkim
+chown opendkim:opendkim /run/opendkim
 
 postconf -e 'milter_default_action = accept'
 postconf -e 'milter_protocol = 6'
