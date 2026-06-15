@@ -39,7 +39,8 @@ postconf -P "submission/inet/smtpd_sasl_auth_enable=yes"
 postconf -P "submission/inet/smtpd_sasl_security_options=noanonymous"
 postconf -P "submission/inet/broken_sasl_auth_clients=yes"
 postconf -P "submission/inet/smtpd_sasl_type=cyrus"
-postconf -P "submission/inet/smtpd_sasl_path=sasldb"
+postconf -P "submission/inet/smtpd_sasl_path=smtpd"
+postconf -P "submission/inet/cyrus_sasl_config_path=/etc/postfix/sasl"
 postconf -P "submission/inet/smtpd_recipient_restrictions=permit_sasl_authenticated,reject"
 postconf -P "submission/inet/smtpd_sasl_local_domain=${HOSTNAME}"
 postconf -P "submission/inet/milter_protocol=6"
@@ -53,6 +54,7 @@ pwcheck_method: auxprop
 auxprop_plugin: sasldb
 mech_list: PLAIN LOGIN
 EOF
+cp -f /etc/postfix/sasl/smtpd.conf /etc/postfix/sasl/sasldb.conf
 
 echo "=== Create SMTP user 'admin' (you will be prompted for password) ==="
 echo "Use this password as SMTP_PASSWORD in ailt_api/.env (SMTP_USER=admin)"

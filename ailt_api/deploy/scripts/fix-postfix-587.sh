@@ -26,18 +26,18 @@ postconf -P "submission/inet/smtpd_sasl_auth_enable=yes"
 postconf -P "submission/inet/smtpd_sasl_security_options=noanonymous"
 postconf -P "submission/inet/broken_sasl_auth_clients=yes"
 postconf -P "submission/inet/smtpd_sasl_type=cyrus"
-postconf -P "submission/inet/smtpd_sasl_path=sasldb"
+postconf -P "submission/inet/smtpd_sasl_path=smtpd"
+postconf -P "submission/inet/cyrus_sasl_config_path=/etc/postfix/sasl"
 postconf -P "submission/inet/smtpd_recipient_restrictions=permit_sasl_authenticated,reject"
 postconf -P "submission/inet/smtpd_sasl_local_domain=${HOSTNAME}"
 
 mkdir -p /etc/postfix/sasl
-if [[ ! -f /etc/postfix/sasl/smtpd.conf ]]; then
-  cat > /etc/postfix/sasl/smtpd.conf <<'EOF'
+cat > /etc/postfix/sasl/smtpd.conf <<'EOF'
 pwcheck_method: auxprop
 auxprop_plugin: sasldb
 mech_list: PLAIN LOGIN
 EOF
-fi
+cp -f /etc/postfix/sasl/smtpd.conf /etc/postfix/sasl/sasldb.conf
 
 bash "${SCRIPT_DIR}/fix-opendkim.sh"
 
