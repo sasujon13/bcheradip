@@ -100,6 +100,9 @@ DEV_LOG_OTP=false
 
 - `SMTP_USER` is **`admin`** (short name), not `admin@cheradip.com`.
 - `SMTP_FROM` is what recipients see — **`noreply@cheradip.com`**.
+- `SMTP_USE_TLS=true` is **required** on port 587.
+- `SMTP_HOST=127.0.0.1` is correct; the app skips TLS cert verify for localhost (Postfix cert is for `mail.cheradip.com`).
+- `DEV_LOG_OTP=false` in production — if `true`, failed SMTP is hidden and OTP only prints to the console.
 
 ---
 
