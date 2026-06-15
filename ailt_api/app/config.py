@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 _AILT_ROOT = Path(__file__).resolve().parent.parent
@@ -51,6 +52,26 @@ class Settings(BaseSettings):
     translate_api_responses: bool = True
     translate_api_timeout_seconds: float = 4.0
     home_ai_translate_url: str = "http://127.0.0.1:8787/translate-strings"
+
+    @field_validator(
+        "dev_log_otp",
+        "smtp_enabled",
+        "smtp_use_tls",
+        "smtp_use_ssl",
+        "translate_api_responses",
+        mode="before",
+    )
+    @classmethod
+    def _parse_bool(cls, value: object) -> object:
+        if isinstance(value, bool) or value is None:
+            return value
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized.startswith("t") or normalized in {"1", "yes", "on"}:
+                return True
+            if normalized.startswith("f") or normalized in {"0", "no", "off", ""}:
+                return False
+        return value
 
 
 settings = Settings()
