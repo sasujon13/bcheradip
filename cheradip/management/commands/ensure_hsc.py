@@ -9,7 +9,7 @@ create only missing tables (existing tables are left unchanged).
 
 Usage:
   python manage.py ensure_hsc
-  python manage.py ensure_hsc --check-only   # only verify, do not create tables
+  python manage.py ensure_hsc --check-only   ## only verify, do not create tables
 """
 from django.core.management.base import BaseCommand
 from django.db import connections
