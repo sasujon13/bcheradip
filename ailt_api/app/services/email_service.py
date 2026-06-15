@@ -22,10 +22,21 @@ def _ensure_smtp_can_reach_inbox() -> None:
         raise RuntimeError(_LOCAL_POSTFIX_ERROR)
 
 
+def _ssl_context_for_smtp() -> ssl.SSLContext:
+    """Local Postfix on 127.0.0.1 uses a cert for mail.cheradip.com — skip verify on loopback."""
+    host = settings.smtp_host.strip().lower()
+    if host in {"127.0.0.1", "localhost", "::1"}:
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        return ctx
+    return ssl.create_default_context()
+
+
 def _smtp_send(msg: EmailMessage) -> None:
     timeout = 30
+    context = _ssl_context_for_smtp()
     if settings.smtp_use_ssl:
-        context = ssl.create_default_context()
         with smtplib.SMTP_SSL(settings.smtp_host, settings.smtp_port, timeout=timeout, context=context) as smtp:
             if settings.smtp_user and settings.smtp_password:
                 smtp.login(settings.smtp_user, settings.smtp_password)
@@ -34,7 +45,7 @@ def _smtp_send(msg: EmailMessage) -> None:
 
     with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=timeout) as smtp:
         if settings.smtp_use_tls:
-            smtp.starttls(context=ssl.create_default_context())
+            smtp.starttls(context=context)
         if settings.smtp_user and settings.smtp_password:
             smtp.login(settings.smtp_user, settings.smtp_password)
         smtp.send_message(msg)

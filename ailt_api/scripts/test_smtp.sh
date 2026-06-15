@@ -38,6 +38,7 @@ fi
 
 MARKER="ailt-smtp-test-$(date +%s)"
 "$VENV/bin/python" - <<PY
+import sys
 from app.config import settings
 from app.services.email_service import send_otp_email
 
@@ -45,7 +46,13 @@ print("SMTP:", settings.smtp_host, "port:", settings.smtp_port)
 print("User:", settings.smtp_user or "(none)")
 print("From:", settings.smtp_from)
 print("TLS:", settings.smtp_use_tls, "SSL:", settings.smtp_use_ssl)
-send_otp_email(to="${TO}", purpose="SMTP test ${MARKER}", code="123456")
+if settings.dev_log_otp:
+    print("WARN: DEV_LOG_OTP=true hides SMTP failures — set DEV_LOG_OTP=false in .env")
+try:
+    send_otp_email(to="${TO}", purpose="SMTP test ${MARKER}", code="123456")
+except RuntimeError as exc:
+    print("FAILED:", exc, file=sys.stderr)
+    sys.exit(1)
 print("Handed off to SMTP — checking delivery...")
 PY
 
