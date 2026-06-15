@@ -4,13 +4,17 @@ set -euo pipefail
 if [[ $EUID -ne 0 ]]; then echo "Run: sudo bash $0"; exit 1; fi
 
 DOMAIN=cheradip.com
-HOSTNAME=mail.cheradip.com
 SELECTOR=mail
 KEY_DIR="/etc/opendkim/keys/${DOMAIN}"
 
 echo "=== Install OpenDKIM if missing ==="
 export DEBIAN_FRONTEND=noninteractive
 apt-get install -y opendkim opendkim-tools 2>/dev/null || true
+
+echo "=== Stop stale OpenDKIM ==="
+systemctl stop opendkim 2>/dev/null || true
+pkill -x opendkim 2>/dev/null || true
+sleep 1
 
 echo "=== DKIM keys ==="
 mkdir -p "${KEY_DIR}"
@@ -21,36 +25,32 @@ chown -R opendkim:opendkim /etc/opendkim
 chmod 700 "${KEY_DIR}"
 chmod 600 "${KEY_DIR}/${SELECTOR}.private" 2>/dev/null || true
 
-echo "=== opendkim.conf ==="
+echo "=== opendkim.conf (systemd: Background no, socket via /etc/default/opendkim) ==="
 cat > /etc/opendkim.conf <<EOF
 Syslog                  yes
 LogWhy                  yes
 UMask                   007
-UserID                  opendkim
+UserID                  opendkim:opendkim
 Mode                    sv
 Canonicalization        relaxed/simple
 SubDomains              no
 AutoRestart             yes
 AutoRestartRate         10/1M
-Background              yes
+Background              no
 DNSTimeout              5
 SignatureAlgorithm      rsa-sha256
 Domain                  ${DOMAIN}
 KeyFile                 ${KEY_DIR}/${SELECTOR}.private
 Selector                ${SELECTOR}
-Socket                  inet:8891@localhost
 EOF
 
 echo "=== /etc/default/opendkim ==="
-if [[ -f /etc/default/opendkim ]]; then
-  if grep -q '^SOCKET=' /etc/default/opendkim; then
-    sed -i 's|^SOCKET=.*|SOCKET=inet:8891@localhost|' /etc/default/opendkim
-  else
-    echo 'SOCKET=inet:8891@localhost' >> /etc/default/opendkim
-  fi
-else
-  echo 'SOCKET=inet:8891@localhost' > /etc/default/opendkim
-fi
+cat > /etc/default/opendkim <<'EOF'
+SOCKET=inet:8891@localhost
+PIDFILE=/run/opendkim/opendkim.pid
+EOF
+mkdir -p /run/opendkim
+chown opendkim:opendkim /run/opendkim
 
 echo "=== Postfix milter (587 + smtp) ==="
 postconf -e 'milter_default_action = accept'
@@ -66,8 +66,13 @@ for svc in submission/inet smtp/inet; do
 done
 
 systemctl enable opendkim
-systemctl restart opendkim
-sleep 1
+systemctl start opendkim
+sleep 2
+if ! systemctl is-active --quiet opendkim; then
+  echo "OpenDKIM failed — last log lines:"
+  journalctl -u opendkim -n 20 --no-pager || true
+  exit 1
+fi
 systemctl restart postfix
 
 echo ""

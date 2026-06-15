@@ -23,8 +23,19 @@ while IFS= read -r line || [[ -n "$line" ]]; do
       ;;
   esac
 done < "$ENV_FILE"
+port="$(grep -E '^SMTP_PORT=' "$ENV_FILE" | head -1 | cut -d= -f2 | tr -d '[:space:]')"
+tls="$(grep -E '^SMTP_USE_TLS=' "$ENV_FILE" | head -1 | cut -d= -f2 | tr -d '[:space:]')"
+if [[ "$port" == "587" && "$tls" == "false" ]]; then
+  echo "WARN: SMTP_PORT=587 requires SMTP_USE_TLS=true (Postfix AUTH needs STARTTLS)"
+  issues=$((issues + 1))
+fi
+if [[ "$port" == "25" ]]; then
+  echo "WARN: SMTP_PORT=25 will not deliver to Gmail/Yahoo — use 587"
+  issues=$((issues + 1))
+fi
+
 if [[ $issues -eq 0 ]]; then
-  echo "OK — boolean flags look fine"
+  echo "OK — SMTP settings look fine"
 else
   echo ""
   echo "Fix with: nano $ENV_FILE"
