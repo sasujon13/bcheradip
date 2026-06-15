@@ -54,13 +54,14 @@ auxprop_plugin: sasldb
 mech_list: PLAIN LOGIN
 EOF
 
-echo "=== Create SMTP user 'noreply' (you will be prompted for password) ==="
-echo "Use this password as SMTP_PASSWORD in ailt_api/.env"
-saslpasswd2 -c -u "${HOSTNAME}" noreply
+echo "=== Create SMTP user 'admin' (you will be prompted for password) ==="
+echo "Use this password as SMTP_PASSWORD in ailt_api/.env (SMTP_USER=admin)"
+saslpasswd2 -c -u "${HOSTNAME}" admin
 chown postfix:postfix /etc/sasldb2
 chmod 660 /etc/sasldb2
 
 cat > /etc/postfix/generic <<EOF
+admin@${HOSTNAME} noreply@${DOMAIN}
 noreply@${HOSTNAME} noreply@${DOMAIN}
 @${HOSTNAME} @${DOMAIN}
 EOF
@@ -74,7 +75,9 @@ chown -R opendkim:opendkim /etc/opendkim
 
 cat > /etc/opendkim.conf <<EOF
 Syslog yes
+LogWhy yes
 UMask 007
+UserID opendkim
 Canonicalization relaxed/simple
 Mode sv
 SubDomains no
@@ -93,20 +96,25 @@ grep -q '^SOCKET=' /etc/default/opendkim 2>/dev/null && \
   sed -i 's|^SOCKET=.*|SOCKET=inet:8891@localhost|' /etc/default/opendkim || \
   echo 'SOCKET=inet:8891@localhost' >> /etc/default/opendkim
 
+postconf -e 'milter_default_action = accept'
+postconf -e 'milter_protocol = 6'
+postconf -e 'smtpd_milters = inet:localhost:8891'
+postconf -e 'non_smtpd_milters = inet:localhost:8891'
+
 systemctl enable postfix opendkim
 systemctl restart opendkim
 systemctl restart postfix
 
 echo ""
 echo "=== DONE ==="
-echo "1. Add DNS records (see deploy/SETUP_MAIL_CHERADIP.md)"
+echo "1. Add DNS records (see deploy/MAIL_NOREPLY_CHERADIP.md)"
 echo "2. DKIM TXT for mail._domainkey:"
 cat "/etc/opendkim/keys/${DOMAIN}/${SELECTOR}.txt"
 echo ""
 echo "3. ailt_api/.env:"
 echo "   SMTP_HOST=127.0.0.1"
 echo "   SMTP_PORT=587"
-echo "   SMTP_USER=noreply"
+echo "   SMTP_USER=admin"
 echo "   SMTP_PASSWORD=<password you just entered>"
 echo "   SMTP_FROM=noreply@${DOMAIN}"
 echo "   SMTP_USE_TLS=true"

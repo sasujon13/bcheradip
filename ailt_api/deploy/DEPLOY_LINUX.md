@@ -123,38 +123,32 @@ echo
 
 ## SMTP (real OTP mail)
 
-**Self-hosted VPS (no cPanel):** full guide → **[SETUP_MAIL_CHERADIP.md](SETUP_MAIL_CHERADIP.md)**
-
-Quick bootstrap on Ubuntu:
-
-```bash
-cd /home/sasha/apps/cheradip/bcheradip/ailt_api/deploy/scripts
-chmod +x install-mail-ubuntu.sh
-sudo bash install-mail-ubuntu.sh
-```
-
-**Where `SMTP_PASSWORD` comes from:** you choose it when the script runs `saslpasswd2` for user `noreply` — it is **not** from cPanel.
-
-After install, `ailt_api/.env`:
+**From `noreply@cheradip.com` to Gmail, Yahoo, etc.** → **[MAIL_NOREPLY_CHERADIP.md](MAIL_NOREPLY_CHERADIP.md)**
 
 ```env
+SMTP_ENABLED=true
 SMTP_HOST=127.0.0.1
 SMTP_PORT=587
-SMTP_USER=noreply
-SMTP_PASSWORD=password_you_set_during_install
+SMTP_USER=admin
+SMTP_PASSWORD=<from setup-smtp-admin-user.sh>
 SMTP_FROM=noreply@cheradip.com
 SMTP_USE_TLS=true
+SMTP_USE_SSL=false
 DEV_LOG_OTP=false
 ```
 
-**cPanel / hosting mail** (if you move to shared hosting later):
+On the server:
 
-| Setting | Typical cPanel value |
-|---------|---------------------|
-| `SMTP_HOST` | `mail.cheradip.com` (must exist in DNS first) |
-| `SMTP_PORT` | `587` + TLS or `465` + SSL |
+```bash
+sudo bash deploy/scripts/fix-postfix-587.sh
+sudo bash deploy/scripts/setup-smtp-admin-user.sh   # if admin user missing
+./scripts/test_smtp.sh your@gmail.com
+sudo systemctl restart cheradip-ailt
+```
 
-**Alternative — Brevo/Gmail** if port 25 blocked: see SETUP_MAIL_CHERADIP.md Appendix B.
+**Do not use** `SMTP_PORT=25` — use **587 + admin** + DNS (SPF, DKIM, PTR).
+
+Temporary fallback (From `@gmail.com`): [SMTP_GMAIL.md](SMTP_GMAIL.md).
 
 ---
 
@@ -176,7 +170,7 @@ Restart API after adding packs: `sudo systemctl restart cheradip-ailt`
 | `502` on `/ailt/api/health` | `sudo systemctl status cheradip-ailt` — check `.env` DATABASE_URL |
 | DB connection refused | MySQL running; user has `ailanguagetutor` grant |
 | SMTP auth failed | Use full email as `SMTP_USER`; try port 465 + `SMTP_USE_SSL=true` |
-| OTP not received | `./scripts/test_smtp.sh`; check spam; set `DEV_LOG_OTP=true` temporarily |
+| OTP not received | [MAIL_NOREPLY_CHERADIP.md](MAIL_NOREPLY_CHERADIP.md); `./scripts/diagnose_smtp.sh`; not port 25 |
 | 404 on `/ailt/api/` | nginx snippet missing or wrong `proxy_pass` |
 
 Logs: `journalctl -u cheradip-ailt -f`
