@@ -4,7 +4,7 @@
 
 **Android client:** `D:\VSCode\android\ailanguagetutor` — see [`ANDROID_CLIENT.md`](ANDROID_CLIENT.md)
 
-**Linux deploy (read this):** [`deploy/DEPLOY_LINUX.md`](deploy/DEPLOY_LINUX.md)
+**Linux mail setup:** [`deploy/SETUP_MAIL_CHERADIP.md`](deploy/SETUP_MAIL_CHERADIP.md)
 
 ## Public URL
 

@@ -123,25 +123,38 @@ echo
 
 ## SMTP (real OTP mail)
 
-Use your **hosting mail server** (recommended — same as main Cheradip site):
+**Self-hosted VPS (no cPanel):** full guide → **[SETUP_MAIL_CHERADIP.md](SETUP_MAIL_CHERADIP.md)**
+
+Quick bootstrap on Ubuntu:
+
+```bash
+cd /home/sasha/apps/cheradip/bcheradip/ailt_api/deploy/scripts
+chmod +x install-mail-ubuntu.sh
+sudo bash install-mail-ubuntu.sh
+```
+
+**Where `SMTP_PASSWORD` comes from:** you choose it when the script runs `saslpasswd2` for user `noreply` — it is **not** from cPanel.
+
+After install, `ailt_api/.env`:
+
+```env
+SMTP_HOST=127.0.0.1
+SMTP_PORT=587
+SMTP_USER=noreply
+SMTP_PASSWORD=password_you_set_during_install
+SMTP_FROM=noreply@cheradip.com
+SMTP_USE_TLS=true
+DEV_LOG_OTP=false
+```
+
+**cPanel / hosting mail** (if you move to shared hosting later):
 
 | Setting | Typical cPanel value |
 |---------|---------------------|
-| `SMTP_HOST` | `mail.cheradip.com` |
-| `SMTP_PORT` | `587` + `SMTP_USE_TLS=true` **or** `465` + `SMTP_USE_SSL=true` |
-| `SMTP_USER` | Full email, e.g. `noreply@cheradip.com` |
-| `SMTP_PASSWORD` | Mailbox password from cPanel → Email Accounts |
-| `SMTP_FROM` | `AI Language Tutor <noreply@cheradip.com>` |
-| `DEV_LOG_OTP` | **`false`** in production |
+| `SMTP_HOST` | `mail.cheradip.com` (must exist in DNS first) |
+| `SMTP_PORT` | `587` + TLS or `465` + SSL |
 
-**cPanel steps:**
-
-1. Email Accounts → Create **noreply@cheradip.com** (or use existing **support@cheradip.com**)
-2. Set password → copy into `ailt_api/.env`
-3. Run `./scripts/test_smtp.sh your@gmail.com`
-4. Check spam folder first; add SPF/DKIM in cPanel if mail is rejected
-
-**Alternative — Gmail** (500 emails/day): see comments in `.env.production.example`.
+**Alternative — Brevo/Gmail** if port 25 blocked: see SETUP_MAIL_CHERADIP.md Appendix B.
 
 ---
 
