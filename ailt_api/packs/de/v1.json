@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "languageCode": "de",
+  "entries": {
+    "hallo": [
+      "hello"
+    ],
+    "danke": [
+      "thank you"
+    ],
+    "buch": [
+      "book"
+    ],
+    "lernen": [
+      "to learn"
+    ],
+    "wort": [
+      "word"
+    ],
+    "lesen": [
+      "to read"
+    ],
+    "sprache": [
+      "language"
+    ],
+    "morgen": [
+      "morning",
+      "tomorrow"
+    ],
+    "gut": [
+      "good"
+    ],
+    "welt": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "guten morgen": "Good morning.",
+    "vielen dank": "Thank you very much.",
+    "wie geht es dir": "How are you?"
+  },
+  "translations": {
+    "hallo|en": "hello",
+    "danke|en": "thank you"
+  }
+}

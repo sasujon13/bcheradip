@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "languageCode": "ja",
+  "entries": {
+    "こんにちは": [
+      "hello",
+      "good afternoon"
+    ],
+    "ありがとう": [
+      "thank you"
+    ],
+    "本": [
+      "book"
+    ],
+    "学ぶ": [
+      "to learn"
+    ],
+    "言葉": [
+      "word",
+      "language"
+    ],
+    "読む": [
+      "to read"
+    ],
+    "言語": [
+      "language"
+    ],
+    "おはよう": [
+      "good morning"
+    ],
+    "良い": [
+      "good"
+    ],
+    "世界": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "おはようございます": "Good morning (polite).",
+    "ありがとうございます": "Thank you (polite)."
+  },
+  "translations": {
+    "こんにちは|en": "hello",
+    "ありがとう|en": "thank you"
+  }
+}

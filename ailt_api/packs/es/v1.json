@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "languageCode": "es",
+  "entries": {
+    "hola": [
+      "hello"
+    ],
+    "gracias": [
+      "thank you"
+    ],
+    "libro": [
+      "book"
+    ],
+    "aprender": [
+      "to learn"
+    ],
+    "palabra": [
+      "word"
+    ],
+    "leer": [
+      "to read"
+    ],
+    "idioma": [
+      "language"
+    ],
+    "mañana": [
+      "morning",
+      "tomorrow"
+    ],
+    "bueno": [
+      "good"
+    ],
+    "mundo": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "buenos días": "Good morning.",
+    "muchas gracias": "Thank you very much.",
+    "¿cómo estás?": "How are you? (informal)"
+  },
+  "translations": {
+    "hola|en": "hello",
+    "gracias|en": "thank you",
+    "hola|fr": "bonjour"
+  }
+}

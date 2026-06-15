@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "languageCode": "fr",
+  "entries": {
+    "bonjour": [
+      "hello",
+      "good day"
+    ],
+    "merci": [
+      "thank you"
+    ],
+    "français": [
+      "French language",
+      "French people"
+    ],
+    "livre": [
+      "book"
+    ],
+    "apprendre": [
+      "to learn"
+    ],
+    "mot": [
+      "word"
+    ],
+    "lire": [
+      "to read"
+    ],
+    "langue": [
+      "language",
+      "tongue"
+    ],
+    "matin": [
+      "morning"
+    ],
+    "bien": [
+      "good",
+      "well"
+    ]
+  },
+  "phrases": {
+    "bonjour": "Standard French greeting.",
+    "comment allez-vous": "Formal: how are you?",
+    "merci beaucoup": "Thank you very much."
+  },
+  "translations": {
+    "bonjour|en": "hello",
+    "merci|en": "thank you",
+    "bonjour|es": "hola"
+  }
+}

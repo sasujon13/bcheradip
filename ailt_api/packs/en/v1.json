@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "languageCode": "en",
+  "entries": {
+    "hello": [
+      "a greeting",
+      "used to attract attention"
+    ],
+    "world": [
+      "the earth",
+      "human society"
+    ],
+    "learn": [
+      "gain knowledge",
+      "memorize"
+    ],
+    "language": [
+      "system of communication",
+      "speech of a nation"
+    ],
+    "book": [
+      "written work",
+      "bound pages"
+    ],
+    "read": [
+      "look at and comprehend text",
+      "interpret symbols"
+    ],
+    "word": [
+      "single unit of language",
+      "promise"
+    ],
+    "good": [
+      "of high quality",
+      "morally right"
+    ],
+    "morning": [
+      "early part of the day"
+    ],
+    "thank": [
+      "express gratitude"
+    ],
+    "you": [
+      "second person pronoun"
+    ]
+  },
+  "phrases": {
+    "good morning": "A polite greeting used in the morning.",
+    "thank you": "Expression of gratitude.",
+    "how are you": "A common greeting asking about someone's state."
+  },
+  "translations": {
+    "hello|fr": "bonjour",
+    "good morning|fr": "bonjour",
+    "thank you|fr": "merci",
+    "hello|es": "hola",
+    "thank you|es": "gracias"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "languageCode": "bn",
+  "entries": {
+    "নমস্কার": [
+      "hello",
+      "greeting"
+    ],
+    "ধন্যবাদ": [
+      "thank you"
+    ],
+    "বই": [
+      "book"
+    ],
+    "শেখা": [
+      "to learn"
+    ],
+    "শব্দ": [
+      "word"
+    ],
+    "পড়া": [
+      "to read"
+    ],
+    "ভাষা": [
+      "language"
+    ],
+    "সকাল": [
+      "morning"
+    ],
+    "ভালো": [
+      "good"
+    ],
+    "বিশ্ব": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "আপনি কেমন আছেন": "How are you? (formal)",
+    "অনেক ধন্যবাদ": "Thank you very much."
+  },
+  "translations": {
+    "নমস্কার|en": "hello",
+    "ধন্যবাদ|en": "thank you"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "languageCode": "ar",
+  "entries": {
+    "مرحبا": [
+      "hello"
+    ],
+    "شكرا": [
+      "thank you"
+    ],
+    "كتاب": [
+      "book"
+    ],
+    "تعلم": [
+      "to learn"
+    ],
+    "كلمة": [
+      "word"
+    ],
+    "قراءة": [
+      "reading"
+    ],
+    "لغة": [
+      "language"
+    ],
+    "صباح": [
+      "morning"
+    ],
+    "جيد": [
+      "good"
+    ],
+    "عالم": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "صباح الخير": "Good morning.",
+    "شكرا جزيلا": "Thank you very much."
+  },
+  "translations": {
+    "مرحبا|en": "hello",
+    "شكرا|en": "thank you"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "languageCode": "zh",
+  "entries": {
+    "你好": [
+      "hello"
+    ],
+    "谢谢": [
+      "thank you"
+    ],
+    "书": [
+      "book"
+    ],
+    "学习": [
+      "to learn",
+      "study"
+    ],
+    "词": [
+      "word"
+    ],
+    "读": [
+      "to read"
+    ],
+    "语言": [
+      "language"
+    ],
+    "早上": [
+      "morning"
+    ],
+    "好": [
+      "good"
+    ],
+    "世界": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "早上好": "Good morning.",
+    "非常感谢": "Thank you very much."
+  },
+  "translations": {
+    "你好|en": "hello",
+    "谢谢|en": "thank you"
+  }
+}

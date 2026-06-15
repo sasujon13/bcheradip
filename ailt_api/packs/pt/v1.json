@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "languageCode": "pt",
+  "entries": {
+    "olá": [
+      "hello"
+    ],
+    "obrigado": [
+      "thank you (m)"
+    ],
+    "obrigada": [
+      "thank you (f)"
+    ],
+    "livro": [
+      "book"
+    ],
+    "aprender": [
+      "to learn"
+    ],
+    "palavra": [
+      "word"
+    ],
+    "ler": [
+      "to read"
+    ],
+    "língua": [
+      "language"
+    ],
+    "manhã": [
+      "morning"
+    ],
+    "bom": [
+      "good"
+    ],
+    "mundo": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "bom dia": "Good morning.",
+    "muito obrigado": "Thank you very much."
+  },
+  "translations": {
+    "olá|en": "hello",
+    "obrigado|en": "thank you"
+  }
+}

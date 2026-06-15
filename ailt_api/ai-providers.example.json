@@ -1,0 +1,77 @@
+{
+  "routing_policy": {
+    "mode": "random_free",
+    "prefer_paid_when_free_exhausted": true
+  },
+  "providers": [
+    {
+      "id": "gemini",
+      "display_name": "Google Gemini 2.5 Flash",
+      "tier": "free",
+      "env_key": "GEMINI_API_KEY",
+      "enabled": true,
+      "daily_quota": 1000
+    },
+    {
+      "id": "openai",
+      "display_name": "OpenAI GPT-4o mini",
+      "tier": "free",
+      "env_key": "OPENAI_API_KEY",
+      "enabled": true,
+      "daily_quota": 1000
+    },
+    {
+      "id": "claude",
+      "display_name": "Anthropic Claude Haiku",
+      "tier": "free",
+      "env_key": "ANTHROPIC_API_KEY",
+      "enabled": true,
+      "daily_quota": 1000
+    },
+    {
+      "id": "groq",
+      "display_name": "Groq Llama 3",
+      "tier": "free",
+      "env_key": "GROQ_API_KEY",
+      "enabled": true,
+      "daily_quota": 14400
+    },
+    {
+      "id": "openrouter",
+      "display_name": "OpenRouter (Gemini Flash free)",
+      "tier": "free",
+      "env_key": "OPENROUTER_API_KEY",
+      "enabled": true,
+      "daily_quota": 2000
+    },
+    {
+      "id": "mistral",
+      "display_name": "Mistral Small",
+      "tier": "free",
+      "env_key": "MISTRAL_API_KEY",
+      "enabled": true,
+      "daily_quota": 500
+    },
+    {
+      "id": "openai_paid",
+      "display_name": "OpenAI GPT-4o (paid)",
+      "tier": "paid",
+      "env_key": "OPENAI_PAID_API_KEY",
+      "enabled": false
+    },
+    {
+      "id": "claude_paid",
+      "display_name": "Claude Sonnet (paid)",
+      "tier": "paid",
+      "env_key": "ANTHROPIC_PAID_API_KEY",
+      "enabled": false
+    },
+    {
+      "id": "openrouter_paid",
+      "display_name": "OpenRouter Claude Sonnet (paid)",
+      "tier": "paid",
+      "env_key": "OPENROUTER_API_KEY",
+      "enabled": false
+    }
+  ]
+}

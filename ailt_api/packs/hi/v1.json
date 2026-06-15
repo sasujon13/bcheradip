@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "languageCode": "hi",
+  "entries": {
+    "नमस्ते": [
+      "hello",
+      "greeting"
+    ],
+    "धन्यवाद": [
+      "thank you"
+    ],
+    "किताब": [
+      "book"
+    ],
+    "सीखना": [
+      "to learn"
+    ],
+    "शब्द": [
+      "word"
+    ],
+    "पढ़ना": [
+      "to read"
+    ],
+    "भाषा": [
+      "language"
+    ],
+    "सुप्रभात": [
+      "good morning"
+    ],
+    "अच्छा": [
+      "good"
+    ],
+    "दुनिया": [
+      "world"
+    ]
+  },
+  "phrases": {
+    "आप कैसे हैं": "How are you? (formal)",
+    "बहुत धन्यवाद": "Thank you very much."
+  },
+  "translations": {
+    "नमस्ते|en": "hello",
+    "धन्यवाद|en": "thank you"
+  }
+}
