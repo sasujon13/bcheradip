@@ -48,7 +48,17 @@ from django.db.models.expressions import RawSQL
 from django.db.utils import ProgrammingError, OperationalError
 
 from .subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
-from .c_program_export_format import format_maybe_c_program_question_text
+from .c_program_export_format import (
+    format_maybe_c_program_question_text,
+    normalize_existing_q_code_blocks,
+    _is_program_ref_header_line,
+)
+from .export_question_katex import (
+    EXPORT_KATEX_HEAD_HTML,
+    EXPORT_KATEX_PDF_CSS,
+    EXPORT_KATEX_PDF_SCRIPT,
+    normalize_question_latex_source,
+)
 
 try:
     from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
@@ -1819,8 +1829,13 @@ def _export_collapse_newlines_inside_q_code_html(text):
     def repl(m):
         inner = (m.group(2) or '').replace('\r\n', '\n').replace('\r', '\n')
         inner = inner.replace('\n', '<br />')
-        # Trailing newline in source should not become an extra blank rendered line.
         inner = re.sub(r'(?:<br\s*/?>\s*)+$', '', inner, flags=re.IGNORECASE)
+        # Drop @program (1-N) header lines from stored blocks.
+        inner = '<br />'.join(
+            p
+            for p in re.split(r'<br\s*/?>', inner, flags=re.I)
+            if p and not _is_program_ref_header_line(p)
+        )
         return '%s%s%s' % (m.group(1), inner, m.group(3))
 
     return re.sub(
@@ -1833,7 +1848,8 @@ def _export_collapse_newlines_inside_q_code_html(text):
 
 def _export_normalize_q_code_block_html(text):
     """Normalize q-code-block HTML so trailing blank code lines don't render extra vertical space."""
-    s = _export_collapse_newlines_inside_q_code_html(text)
+    s = normalize_existing_q_code_blocks(str(text or ''))
+    s = _export_collapse_newlines_inside_q_code_html(s)
     return str(s or '').strip()
 
 
@@ -1857,6 +1873,7 @@ def _export_normalize_inline_spaces(text):
 
 def _export_escape_html_preserve_img_br(line):
     """Escape HTML except q-code-block, q-rich-img-stack, whitelisted <img>, and <br> (aligned with fcheradip wrapRomanLines)."""
+    line = normalize_question_latex_source(str(line or ''))
     line = _export_normalize_inline_spaces(line)
     token_re = re.compile(
         r'%s[\s\S]*?%s|'
@@ -3995,6 +4012,7 @@ class ExportQuestionsView(APIView):
 <html{html_class_attr}>
 <head>
   <meta charset="utf-8" />
+  {EXPORT_KATEX_HEAD_HTML}
   <style>
     :root {{
       --color_primary_black: #000;
@@ -4475,13 +4493,18 @@ class ExportQuestionsView(APIView):
       font-weight: normal;
       text-align: left;
     }}
+    {EXPORT_KATEX_PDF_CSS}
   </style>
 </head>
 <body>
   {''.join(sections)}
 </body>
 </html>"""
-        ).replace('</body>', _EXPORT_Q_RICH_IMG_PDF_SCRIPT + '\n</body>', 1)
+        ).replace(
+            '</body>',
+            EXPORT_KATEX_PDF_SCRIPT + '\n' + _EXPORT_Q_RICH_IMG_PDF_SCRIPT + '\n</body>',
+            1,
+        )
         html = _export_strip_img_lazy_loading_attrs(html)
         with sync_playwright() as p:
             launch_kwargs = _playwright_chromium_launch_kwargs()
@@ -4489,6 +4512,10 @@ class ExportQuestionsView(APIView):
             try:
                 page = browser.new_page()
                 page.set_content(html, wait_until='networkidle')
+                try:
+                    page.wait_for_function('window.__katexPdfDone === true', timeout=30000)
+                except Exception:
+                    pass
                 pdf_bytes = page.pdf(
                     print_background=True,
                     prefer_css_page_size=True,
