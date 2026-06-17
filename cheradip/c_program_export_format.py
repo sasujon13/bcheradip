@@ -94,7 +94,15 @@ def _looks_like_c_program_question(text: str) -> bool:
             and '{' in s
         )
     )
-    return (has_classic_anchor and has_c_signal) or has_glued_loop_or_branch
+    semicolon_count = s.count(';')
+    has_multi_semicolon_c = semicolon_count >= 2 and bool(
+        re.search(
+            r'\b(int|char|void|float|double|for|while|if|else|continue|break|return|switch)\b',
+            s,
+            re.I,
+        )
+    )
+    return (has_classic_anchor and has_c_signal) or has_glued_loop_or_branch or has_multi_semicolon_c
 
 
 def _has_include_anchor(text: str) -> bool:
@@ -749,6 +757,10 @@ def _is_code_anchor_line(line: str) -> bool:
         return True
     if re.search(r'^\s*(?:for|while|if)\s*\(', line, re.I):
         return True
+    if line.count(';') >= 2 and re.search(
+        r'\b(int|char|void|for|while|if|continue|break|return)\b', line, re.I
+    ):
+        return True
     return False
 
 
@@ -1063,11 +1075,20 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
             re.I,
         )
     )
+    semicolon_count = code_only_joined.count(';')
+    has_multi_semicolon_control = semicolon_count >= 2 and bool(
+        re.search(
+            r'\b(for|while|if|continue|break|switch|return)\b',
+            code_only_joined,
+            re.I,
+        )
+    )
     if (
         not _has_include_anchor(code_only_joined)
         and _has_io_anchor(code_only_joined)
         and code_line_count <= 4
         and not looks_like_full_main
+        and not has_multi_semicolon_control
     ):
         return raw if raw is not None else ''
 

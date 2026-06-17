@@ -54,9 +54,8 @@ from .c_program_export_format import (
     _is_program_ref_header_line,
 )
 from .export_question_katex import (
-    EXPORT_KATEX_HEAD_HTML,
     EXPORT_KATEX_PDF_CSS,
-    EXPORT_KATEX_PDF_SCRIPT,
+    inject_katex_into_playwright_page,
     normalize_question_latex_source,
 )
 
@@ -4012,7 +4011,6 @@ class ExportQuestionsView(APIView):
 <html{html_class_attr}>
 <head>
   <meta charset="utf-8" />
-  {EXPORT_KATEX_HEAD_HTML}
   <style>
     :root {{
       --color_primary_black: #000;
@@ -4502,7 +4500,7 @@ class ExportQuestionsView(APIView):
 </html>"""
         ).replace(
             '</body>',
-            EXPORT_KATEX_PDF_SCRIPT + '\n' + _EXPORT_Q_RICH_IMG_PDF_SCRIPT + '\n</body>',
+            _EXPORT_Q_RICH_IMG_PDF_SCRIPT + '\n</body>',
             1,
         )
         html = _export_strip_img_lazy_loading_attrs(html)
@@ -4511,7 +4509,8 @@ class ExportQuestionsView(APIView):
             browser = p.chromium.launch(**launch_kwargs)
             try:
                 page = browser.new_page()
-                page.set_content(html, wait_until='networkidle')
+                page.set_content(html, wait_until='load')
+                inject_katex_into_playwright_page(page)
                 try:
                     page.wait_for_function('window.__katexPdfDone === true', timeout=30000)
                 except Exception:
