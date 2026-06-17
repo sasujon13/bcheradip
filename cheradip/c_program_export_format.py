@@ -7,8 +7,61 @@ from __future__ import annotations
 
 import re
 from html import escape as html_escape
+from html import unescape as html_unescape
 
 _BENGALI_RE = re.compile(r'[\u0980-\u09FF]')
+
+_Q_CODE_BLOCK_CLASS = (
+    r'\bclass=(?:"[^"]*\bq-code-block\b[^"]*"|\'[^\']*\bq-code-block\b[^\']*\')'
+)
+_Q_CODE_BLOCK_FULL_RE = re.compile(
+    r'<span[^>]*' + _Q_CODE_BLOCK_CLASS + r'[^>]*>\s*<code>([\s\S]*?)</code>\s*</span>',
+    re.I,
+)
+_PROGRAM_REF_LINE_RE = re.compile(r'^@[^\s<]+ \(1-\d+\)\s*$')
+
+
+def _is_program_ref_header_line(line: str) -> bool:
+    plain = re.sub(r'<br\s*/?>', '', str(line or ''), flags=re.I).strip()
+    return bool(_PROGRAM_REF_LINE_RE.match(plain))
+
+
+def _normalize_code_inner_line(line: str) -> str:
+    t = (line or '').rstrip()
+    if not t.strip():
+        return ''
+    if re.search(r'<br\s*/?>', t, re.I):
+        return t
+    if re.search(r'&(?:lt|gt|amp|quot|#39);', t, re.I) and not re.search(
+        r'[<>]', re.sub(r'&(?:lt|gt|amp|quot|#39);', '', t, flags=re.I)
+    ):
+        return t
+    return html_escape(t)
+
+
+def _flatten_code_inner_to_br_html(inner: str) -> str:
+    normalized = str(inner or '').replace('\r\n', '\n').replace('\r', '\n')
+    if '\n' not in normalized:
+        return '' if _is_program_ref_header_line(normalized) else normalized
+    lines = []
+    for line in normalized.split('\n'):
+        nl = _normalize_code_inner_line(line)
+        if nl and not _is_program_ref_header_line(nl):
+            lines.append(nl)
+    return '<br />'.join(lines)
+
+
+def normalize_existing_q_code_blocks(text: str) -> str:
+    """Repair stored q-code-block HTML (newlines inside <code>, strip @program header lines)."""
+    if not text or 'q-code-block' not in str(text).lower():
+        return text
+    decoded = html_unescape(str(text))
+
+    def repl(m):
+        flat = _flatten_code_inner_to_br_html(m.group(1))
+        return '<span class="q-code-block"><code>%s</code></span>' % flat
+
+    return _Q_CODE_BLOCK_FULL_RE.sub(repl, decoded)
 
 
 def _looks_like_c_program_question(text: str) -> bool:
@@ -945,15 +998,13 @@ def _format_c_program(code: str) -> str:
 
 
 def _encode_code_html(code: str) -> str:
-    parts = [html_escape(ln) for ln in (code or '').split('\n')]
-    return '<br />'.join(parts)
+    lines = []
+    for ln in (code or '').split('\n'):
+        if not ln.strip() or _is_program_ref_header_line(ln):
+            continue
+        lines.append(html_escape(ln))
+    return '<br />'.join(lines)
 
-
-def _guess_c_source_file_ref(raw: str, formatted_line_count: int) -> str:
-    m = re.search(r'\b([A-Za-z_][\w.-]*\.c)\b', raw or '', re.I)
-    base = m.group(1) if m else 'program'
-    n = max(1, formatted_line_count)
-    return '@%s (1-%d)' % (base, n)
 
 
 def _ensure_newline_before_creative_paren_markers(code: str) -> str:
@@ -971,9 +1022,11 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
     emit_html=True: same as Angular (<span class="q-code-block"><code>…</code></span>).
     emit_html=False: plain text for DOCX (newlines + spaces, no HTML).
     """
-    input_s = (raw or '').strip()
-    if not input_s or 'q-code-block' in input_s.lower():
+    input_s = html_unescape((raw or '').strip())
+    if not input_s:
         return raw if raw is not None else ''
+    if 'q-code-block' in input_s.lower():
+        return normalize_existing_q_code_blocks(input_s)
     if not _looks_like_c_program_question(input_s):
         return raw if raw is not None else ''
 
@@ -1025,12 +1078,9 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
             formatted = _format_c_program(seg)
             if (formatted or '').strip():
                 if emit_html:
-                    line_count = len([ln for ln in formatted.split('\n') if ln.strip()])
-                    ref = _guess_c_source_file_ref(input_s, line_count)
-                    with_ref = '%s\n%s' % (ref, formatted)
                     middle_parts.append(
                         '<span class="q-code-block"><code>%s</code></span>'
-                        % _encode_code_html(with_ref)
+                        % _encode_code_html(formatted)
                     )
                 else:
                     middle_parts.append(formatted)
