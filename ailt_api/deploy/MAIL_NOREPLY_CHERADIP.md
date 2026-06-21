@@ -160,4 +160,6 @@ Aim for **8/10+**. Fix SPF, DKIM, DMARC, PTR if score is low.
 | SMTP port | `587` + TLS |
 | Mail hostname | `mail.cheradip.com` |
 
-Fallback if domain mail cannot reach Gmail yet: [SMTP_GMAIL.md](./SMTP_GMAIL.md) (From will be `@gmail.com` until domain mail works).
+**If Gmail still returns 550 on VPS IP:** use **Amazon SES relay** — [SMTP_AMAZON_SES.md](SMTP_AMAZON_SES.md) (keeps `noreply@cheradip.com`).
+
+Fallback (From `@gmail.com`): [SMTP_GMAIL.md](SMTP_GMAIL.md).
