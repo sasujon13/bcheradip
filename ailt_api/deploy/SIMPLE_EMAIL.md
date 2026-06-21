@@ -78,14 +78,12 @@ Check your Gmail inbox (and spam once).
 
 ---
 
-## Alternative — cPanel (if you already have it)
+## Alternative — cPanel (recommended if you use cPanel hosting)
 
-Use this only if **cheradip.com email is hosted on cPanel** (another server or hosting account).
+**→ [CPANEL_EMAIL.md](CPANEL_EMAIL.md)** — full steps.
 
-You do **not** need to install cPanel on your current Ubuntu app server.
-
-1. In cPanel → **Email Accounts** → create `noreply@cheradip.com` with a password.
-2. In `.env` on your Linux app server:
+1. cPanel → **Email Accounts** → create `noreply@cheradip.com`
+2. Put SMTP settings in `.env` on your Linux app server:
 
 ```env
 SMTP_ENABLED=true
@@ -99,8 +97,7 @@ SMTP_USE_SSL=false
 DEV_LOG_OTP=false
 ```
 
-3. In DNS: **MX** must point to your cPanel mail server (cPanel shows the correct values).
-4. Restart and test (same as Step 3 above).
+3. Restart and test (same as Step 3 above).
 
 **Note:** Your app server is Ubuntu 26. Installing cPanel on it is **not recommended** — cPanel needs a specific OS (usually AlmaLinux) and a paid license, and it can conflict with your existing site setup.
 
