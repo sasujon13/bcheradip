@@ -2,7 +2,15 @@
 
 Your app and Postfix work. Gmail rejects IP **`163.227.144.146`** for direct delivery.
 
-To keep **From: noreply@cheradip.com** without Brevo:
+**Recommended:** **[SMTP_AMAZON_SES.md](./SMTP_AMAZON_SES.md)** — keep `noreply@cheradip.com`, relay via Amazon SES.
+
+Quick start on server after AWS setup:
+
+```bash
+cd ailt_api
+sudo bash deploy/scripts/setup-postfix-ses-relay.sh
+./scripts/test_smtp.sh your@gmail.com
+```
 
 ---
 
