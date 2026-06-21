@@ -121,34 +121,17 @@ echo
 
 ---
 
-## SMTP (real OTP mail)
+## Email (OTP verification codes)
 
-**From `noreply@cheradip.com` to Gmail, Yahoo, etc.** → **[MAIL_NOREPLY_CHERADIP.md](MAIL_NOREPLY_CHERADIP.md)**
+**→ [SIMPLE_EMAIL.md](SIMPLE_EMAIL.md)** — plain steps for `noreply@cheradip.com`.
 
-```env
-SMTP_ENABLED=true
-SMTP_HOST=127.0.0.1
-SMTP_PORT=587
-SMTP_USER=admin
-SMTP_PASSWORD=<from setup-smtp-admin-user.sh>
-SMTP_FROM=noreply@cheradip.com
-SMTP_USE_TLS=true
-SMTP_USE_SSL=false
-DEV_LOG_OTP=false
-```
-
-On the server:
+Recommended: **Amazon SES** in `.env` (no Postfix on this server).  
+Alternative: **cPanel** mail if you already host email there.
 
 ```bash
-sudo bash deploy/scripts/fix-postfix-587.sh
-sudo bash deploy/scripts/setup-smtp-admin-user.sh   # if admin user missing
 ./scripts/test_smtp.sh your@gmail.com
 sudo systemctl restart cheradip-ailt
 ```
-
-**Do not use** `SMTP_PORT=25` — use **587 + admin** + DNS (SPF, DKIM, PTR).
-
-Temporary fallback (From `@gmail.com`): [SMTP_GMAIL.md](SMTP_GMAIL.md).
 
 ---
 
