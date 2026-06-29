@@ -23,7 +23,7 @@ fi
 
 ls -la "$ASSETS"/cheradip-avatar.png "$ASSETS"/cheradip-wordmark.png 2>/dev/null || true
 
-# Optional: mirror to Angular site (https://cheradip.com/assets/email/...)
+# Optional: mirror to fcheradip src (for local dev only — production email URLs use nginx → ailt_api)
 FCHERADIP_EMAIL="${FCHERADIP_EMAIL:-$(dirname "$(pwd)")/../fcheradip/src/assets/email}"
 if [[ -d "$(dirname "$FCHERADIP_EMAIL")" ]]; then
   mkdir -p "$FCHERADIP_EMAIL"

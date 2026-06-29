@@ -28,6 +28,7 @@ FILES=(
   ailt_api/scripts/deploy-email.sh
   ailt_api/deploy/BREVO_EMAIL.md
   ailt_api/deploy/BIMI_INBOX_LOGO.md
+  ailt_api/deploy/nginx-email-assets.conf
 )
 
 echo "==> Checkout email files from origin/main"
@@ -57,8 +58,18 @@ else
 fi
 
 echo "==> Public logo URLs"
-curl -sI "https://cheradip.com/ailt/api/assets/email/cheradip-avatar.png" | head -1 || true
+curl -sI "https://cheradip.com/assets/email/cheradip-wordmark.png" | head -1 || true
 curl -sI "https://cheradip.com/ailt/api/assets/email/cheradip-wordmark.png" | head -1 || true
+
+if ! curl -sfI "https://cheradip.com/assets/email/cheradip-wordmark.png" 2>/dev/null | grep -qi "200"; then
+  echo ""
+  echo "WARN: /assets/email/ not served — add nginx block BEFORE location /:"
+  echo "  see ailt_api/deploy/nginx-email-assets.conf"
+  echo "  sudo nginx -t && sudo systemctl reload nginx"
+  echo ""
+  echo "Or set ailt_api/.env:"
+  echo "  EMAIL_ASSETS_BASE_URL=https://cheradip.com/ailt/api/assets/email"
+fi
 
 echo "==> Template on disk"
 grep -n "OTP_TEMPLATE_VERSION" ailt_api/app/services/email_templates.py | head -1

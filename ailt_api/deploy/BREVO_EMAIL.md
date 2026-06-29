@@ -128,12 +128,19 @@ Confirm files exist:
 grep otp-html-v4 ailt_api/app/services/email_templates.py
 ls ailt_api/app/assets/email/cheradip-avatar.png ailt_api/app/assets/email/cheradip-wordmark.png
 bash ailt_api/scripts/build-email-assets.sh   # if PNGs missing
-curl -sI https://cheradip.com/ailt/api/assets/email/cheradip-avatar.png | head -1
+curl -sI https://cheradip.com/assets/email/cheradip-avatar.png | head -1
+curl -sI https://cheradip.com/ailt/api/assets/email/cheradip-wordmark.png | head -1
 ```
 
 In Gmail: open the email → **⋮ → Show original** → search for `otp-html-v4` and `cheradip-avatar.png`.
 
-**Why not cid: inline images?** Brevo SMTP **strips Content-ID** on transactional mail — logos must use **HTTPS URLs**. The API serves PNGs at `/ailt/api/assets/email/`.
+**Why not cid: inline images?** Brevo SMTP **strips Content-ID** on transactional mail — logos must use **HTTPS URLs**.
+
+**Email logo URLs** — `/assets/email/` needs an **nginx alias** (Angular SPA + hashed build breaks fixed PNG names). See `deploy/nginx-email-assets.conf`. Until nginx is updated:
+
+```env
+EMAIL_ASSETS_BASE_URL=https://cheradip.com/ailt/api/assets/email
+```
 
 **Inbox circle logo (instead of “C”):** see [BIMI_INBOX_LOGO.md](BIMI_INBOX_LOGO.md).
 
