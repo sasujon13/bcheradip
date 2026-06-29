@@ -2619,18 +2619,38 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     img.style.objectFit='contain';
     img.style.objectPosition='left center';
   }
+  var imgs=Array.prototype.slice.call(
+    document.querySelectorAll('img.q-rich-img, img.question-inline-img')
+  );
+  var pending=0;
+  function markExportImagesReady(){
+    window.__exportPdfRichImagesDone=true;
+  }
+  function decPending(){
+    pending--;
+    if(pending<=0){markExportImagesReady();}
+  }
   function bind(img){
-    if(img.getAttribute('data-rich-sized')==='1')return;
-    function done(){apply(img);img.setAttribute('data-rich-sized','1');}
+    if(img.getAttribute('data-rich-sized')==='1'){
+      decPending();
+      return;
+    }
+    function done(){apply(img);img.setAttribute('data-rich-sized','1');decPending();}
     function sched(){setTimeout(done,0);}
     if(img.complete&&img.naturalWidth>0){done();}
     else{
       img.addEventListener('load',sched,{once:true});
-      img.addEventListener('error',function(){img.setAttribute('data-rich-sized','1');},{once:true});
+      img.addEventListener('error',function(){img.setAttribute('data-rich-sized','1');decPending();},{once:true});
       if(img.complete){sched();}
     }
   }
-  document.querySelectorAll('img.q-rich-img').forEach(function(el){bind(el);});
+  if(!imgs.length){
+    markExportImagesReady();
+  }else{
+    pending=imgs.length;
+    imgs.forEach(bind);
+    if(pending<=0){markExportImagesReady();}
+  }
 })();
 </script>
 """
@@ -2650,6 +2670,35 @@ def _export_strip_img_lazy_loading_attrs(fragment):
     s = re.sub(r'\sloading\s*=\s*["\']lazy["\']', '', s, flags=re.I)
     s = re.sub(r'\sdecoding\s*=\s*["\']async["\']', '', s, flags=re.I)
     return s
+
+
+def _playwright_wait_for_export_rich_images(page, timeout_ms=60000):
+    """
+    Block PDF until inline question images finish loading (or error). Without this, Playwright often
+    prints before the last image on a long sheet — especially images below the first viewport.
+    """
+    try:
+        page.wait_for_function(
+            """() => {
+              if (window.__exportPdfRichImagesDone === true) return true;
+              const imgs = Array.from(
+                document.querySelectorAll('img.q-rich-img, img.question-inline-img')
+              );
+              if (!imgs.length) return true;
+              return imgs.every(
+                (img) =>
+                  img.getAttribute('data-rich-sized') === '1' ||
+                  (img.complete && img.naturalWidth > 0)
+              );
+            }""",
+            timeout=timeout_ms,
+        )
+    except Exception:
+        pass
+    try:
+        page.wait_for_timeout(120)
+    except Exception:
+        pass
 
 
 class ExportQuestionsView(APIView):
@@ -4515,6 +4564,7 @@ class ExportQuestionsView(APIView):
                     page.wait_for_function('window.__katexPdfDone === true', timeout=30000)
                 except Exception:
                     pass
+                _playwright_wait_for_export_rich_images(page, timeout_ms=60000)
                 pdf_bytes = page.pdf(
                     print_background=True,
                     prefer_css_page_size=True,
