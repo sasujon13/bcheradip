@@ -80,14 +80,37 @@ curl -s https://cheradip.com/ailt/api/health | python3 -m json.tool
 
 If `email_template` is missing, the server is still running **old code**.
 
-**If `git pull` fails with "divergent branches":**
+**If `git pull` fails with "divergent branches"** — `git fetch` alone does **not** update files. You must checkout from `origin/main`:
 
 ```bash
 cd /home/sasha/apps/cheradip/bcheradip
 git fetch origin
-chmod +x ailt_api/scripts/sync-email-from-origin.sh
-bash ailt_api/scripts/sync-email-from-origin.sh
+git checkout origin/main -- ailt_api/scripts/deploy-email.sh
+bash ailt_api/scripts/deploy-email.sh
+```
+
+Or manually:
+
+```bash
+cd /home/sasha/apps/cheradip/bcheradip
+git fetch origin
+git checkout origin/main -- \
+  ailt_api/app/services/email_templates.py \
+  ailt_api/app/services/email_service.py \
+  ailt_api/app/main.py \
+  ailt_api/app/config.py \
+  ailt_api/app/assets/email/ \
+  ailt_api/scripts/
+bash ailt_api/scripts/build-email-assets.sh
 sudo systemctl restart cheradip-ailt
+```
+
+If health shows `Expecting value: line 1 column 1`, the API is not responding on port 8790:
+
+```bash
+sudo systemctl status cheradip-ailt
+journalctl -u cheradip-ailt -n 40 --no-pager
+curl -v http://127.0.0.1:8790/api/ailt/health
 ```
 
 Or reset the whole repo to GitHub (drops server-only local commits):
