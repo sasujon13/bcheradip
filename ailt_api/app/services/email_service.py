@@ -10,12 +10,7 @@ from email.mime.text import MIMEText
 from email.utils import formataddr, parseaddr
 
 from app.config import settings
-from app.services.email_templates import (
-    OTP_TEMPLATE_VERSION,
-    email_image_urls,
-    render_otp_html,
-    render_otp_plain,
-)
+from app.services.email_templates import OTP_TEMPLATE_VERSION, render_otp_html, render_otp_plain
 
 logger = logging.getLogger(__name__)
 
@@ -54,10 +49,6 @@ def build_multipart_message(
     plain_body: str,
     html_body: str,
 ) -> MIMEMultipart:
-    """multipart/alternative with HTTPS-hosted logo URLs in HTML (Brevo strips cid: inline)."""
-    if not html_body or "<html" not in html_body.lower():
-        raise ValueError("HTML body missing or invalid — branded template required")
-
     msg = MIMEMultipart("alternative")
     msg["From"] = _from_header()
     msg["To"] = to.strip()
@@ -105,12 +96,11 @@ def send_email(*, to: str, subject: str, plain_body: str, html_body: str | None 
     try:
         _smtp_send(msg)
         logger.info(
-            "Sent HTML email to %s: %s (%s, %d byte html, logo urls=%s)",
+            "Sent HTML email to %s: %s (%s, %d byte html)",
             target,
             subject,
             OTP_TEMPLATE_VERSION,
             len(html_body),
-            email_image_urls(),
         )
     except smtplib.SMTPAuthenticationError as exc:
         logger.exception("SMTP auth failed for %s", target)
@@ -145,13 +135,3 @@ def send_otp_email(*, to: str, purpose: str, code: str) -> None:
 
 def message_has_html_part(msg: MIMEMultipart) -> bool:
     return any(part.get_content_type() == "text/html" for part in msg.walk())
-
-
-def message_logo_url_count(msg: MIMEMultipart) -> int:
-    for part in msg.walk():
-        if part.get_content_type() == "text/html":
-            payload = part.get_payload(decode=True)
-            if isinstance(payload, bytes):
-                html = payload.decode(part.get_content_charset() or "utf-8", errors="replace")
-                return html.count("cheradip-wordmark.png")
-    return 0

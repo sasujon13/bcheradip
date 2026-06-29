@@ -1,26 +1,44 @@
 # Email — Brevo SMTP (OTP / verification)
 
-All production mail goes through **Brevo** (`smtp-relay.brevo.com`). No Postfix, AWS SES, cPanel, or Gmail SMTP on the server.
+All production mail goes through **Brevo** (`smtp-relay.brevo.com`).
 
 ---
 
-## Verified senders (cheradip.com)
+## Email template
 
-| Display | Address | Use for |
-|---------|---------|---------|
-| Cheradip | `noreply@cheradip.com` | **OTP / signup** (default) |
-| Cheradip | `admin@cheradip.com` | Admin notifications |
-| Cheradip | `support@cheradip.com` | Support mail |
+Edit the HTML file directly:
 
-Domain **cheradip.com** must stay **Verified** in Brevo (DKIM + DMARC configured).
+```
+ailt_api/deploy/email-preview-otp.html
+```
+
+Placeholders (filled when sending):
+
+| Placeholder | Example |
+|-------------|---------|
+| `{{purpose}}` | Password reset |
+| `{{code}}` | 482916 |
+| `{{code_digits}}` | styled digit spans (auto) |
+| `{{ttl_minutes}}` | 15 |
+
+After editing, restart the API and send a test:
+
+```bash
+sudo systemctl restart cheradip-ailt
+cd ailt_api && bash scripts/test_smtp.sh your@gmail.com
+```
+
+Health check:
+
+```bash
+curl -s http://127.0.0.1:8790/api/ailt/health | python3 -m json.tool
+# "email_template": "otp-email-preview"
+# "email_template_ok": true
+```
 
 ---
 
 ## Production `.env`
-
-```bash
-nano /home/sasha/apps/cheradip/bcheradip/ailt_api/.env
-```
 
 ```env
 SMTP_ENABLED=true
@@ -40,124 +58,27 @@ DEV_LOG_OTP=false
 | `SMTP_PASSWORD` | Brevo → **SMTP key** (not the `xkeysib-` API key) |
 | `SMTP_FROM` | Must match a **verified sender** in Brevo |
 
-Other From addresses (same SMTP login):
-
-```env
-SMTP_FROM=Cheradip <admin@cheradip.com>
-SMTP_FROM=Cheradip <support@cheradip.com>
-```
-
 ---
 
-## Setup script
+## Deploy template to server
 
 ```bash
-cd /home/sasha/apps/cheradip/bcheradip/ailt_api
-git pull
-chmod +x scripts/setup-brevo-env.sh scripts/test_smtp.sh
-bash scripts/setup-brevo-env.sh
-```
-
----
-
-## Test
-
-```bash
+cd /home/sasha/apps/cheradip/bcheradip
+git pull   # or: git checkout origin/main -- ailt_api/deploy/email-preview-otp.html ailt_api/app/services/
 sudo systemctl restart cheradip-ailt
-bash scripts/test_smtp.sh sashafik.me@gmail.com
+bash ailt_api/scripts/test_smtp.sh your@gmail.com
 ```
 
-If you see `Permission denied`, use `bash scripts/test_smtp.sh ...` (Windows git may not preserve the executable bit).
-
-The test script **always fails loudly** if SMTP does not connect (no silent success when `DEV_LOG_OTP=true`).
-
-**Verify branded template is deployed:**
+If `git pull` fails (divergent branches):
 
 ```bash
-curl -s https://cheradip.com/ailt/api/health | python3 -m json.tool
-# Must include: "email_template": "otp-html-v4"
-```
-
-If `email_template` is missing, the server is still running **old code**.
-
-**If `git pull` fails with "divergent branches"** — `git fetch` alone does **not** update files. You must checkout from `origin/main`:
-
-```bash
-cd /home/sasha/apps/cheradip/bcheradip
-git fetch origin
-git checkout origin/main -- ailt_api/scripts/deploy-email.sh
-bash ailt_api/scripts/deploy-email.sh
-```
-
-Or manually:
-
-```bash
-cd /home/sasha/apps/cheradip/bcheradip
 git fetch origin
 git checkout origin/main -- \
+  ailt_api/deploy/email-preview-otp.html \
   ailt_api/app/services/email_templates.py \
   ailt_api/app/services/email_service.py \
-  ailt_api/app/main.py \
-  ailt_api/app/config.py \
-  ailt_api/app/assets/email/ \
-  ailt_api/scripts/
-bash ailt_api/scripts/build-email-assets.sh
+  ailt_api/app/main.py
 sudo systemctl restart cheradip-ailt
-```
-
-If health shows `Expecting value: line 1 column 1`, the API is not responding on port 8790:
-
-```bash
-sudo systemctl status cheradip-ailt
-journalctl -u cheradip-ailt -n 40 --no-pager
-curl -v http://127.0.0.1:8790/api/ailt/health
-```
-
-Or reset the whole repo to GitHub (drops server-only local commits):
-
-```bash
-cd /home/sasha/apps/cheradip/bcheradip
-git fetch origin
-git reset --hard origin/main
-sudo systemctl restart cheradip-ailt
-```
-
-Confirm files exist:
-
-```bash
-grep otp-html-v4 ailt_api/app/services/email_templates.py
-ls ailt_api/app/assets/email/cheradip-avatar.png ailt_api/app/assets/email/cheradip-wordmark.png
-bash ailt_api/scripts/build-email-assets.sh   # if PNGs missing
-curl -sI https://cheradip.com/assets/email/cheradip-avatar.png | head -1
-curl -sI https://cheradip.com/ailt/api/assets/email/cheradip-wordmark.png | head -1
-```
-
-In Gmail: open the email → **⋮ → Show original** → search for `otp-html-v4` and `cheradip-avatar.png`.
-
-**Why not cid: inline images?** Brevo SMTP **strips Content-ID** on transactional mail — logos must use **HTTPS URLs**.
-
-**Email logo URLs** — `/assets/email/` needs an **nginx alias** (Angular SPA + hashed build breaks fixed PNG names). See `deploy/nginx-email-assets.conf`. Until nginx is updated:
-
-```env
-EMAIL_ASSETS_BASE_URL=https://cheradip.com/ailt/api/assets/email
-```
-
-**Inbox circle logo (instead of “C”):** see [BIMI_INBOX_LOGO.md](BIMI_INBOX_LOGO.md).
-
-
----
-
-## Local development (Windows / XAMPP)
-
-Use a local fake SMTP (MailHog, `server/mail/run-dev-smtp.ps1` in Android repo) — **not** Brevo:
-
-```env
-SMTP_HOST=127.0.0.1
-SMTP_PORT=1025
-SMTP_USER=
-SMTP_PASSWORD=
-SMTP_USE_TLS=false
-DEV_LOG_OTP=true
 ```
 
 ---
@@ -166,22 +87,9 @@ DEV_LOG_OTP=true
 
 | Error | Fix |
 |-------|-----|
-| `535 Authentication failed` | Use **SMTP key** as password; `SMTP_USER` = Login from Brevo SMTP page |
-| Sender rejected | Sender must be verified in Brevo; check `SMTP_FROM` spelling |
-| Mail in spam | Normal first time; mark “Not spam” |
-| `SMTP_HOST=127.0.0.1` in production | Wrong — use `smtp-relay.brevo.com` |
+| `535 Authentication failed` | Use **SMTP key** as password |
+| Plain text only, no HTML | Server running old code — checkout files above |
+| `email_template_ok: false` | Missing `deploy/email-preview-otp.html` on server |
+| Logo missing in Gmail | Inline SVG may be stripped by Gmail — edit template to use PNG `<img>` if needed |
 
 Logs: `journalctl -u cheradip-ailt -f`
-
----
-
-## Limits
-
-Brevo free tier: about **300 emails/day** — sufficient for OTP during early growth.
-
----
-
-## Security
-
-- Never commit `.env` or API keys to git
-- Rotate SMTP key in Brevo if exposed

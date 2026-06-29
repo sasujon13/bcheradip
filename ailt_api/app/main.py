@@ -5,11 +5,8 @@ from __future__ import annotations
 import logging
 from contextlib import asynccontextmanager
 
-from pathlib import Path
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from app.config import settings
@@ -18,9 +15,7 @@ from app.middleware.translate_response import TranslateResponseMiddleware
 from app.routers import admin, ai, auth, billing, device, languages, learning, promo, referral
 from app.seed import init_database
 from app.services.pack_store import list_available_codes
-from app.services.email_templates import OTP_TEMPLATE_VERSION
-
-_EMAIL_ASSETS_DIR = Path(__file__).resolve().parent / "assets" / "email"
+from app.services.email_templates import OTP_TEMPLATE_VERSION, _TEMPLATE_PATH
 
 logger = logging.getLogger(__name__)
 
@@ -69,9 +64,6 @@ api.include_router(admin.router)
 api.include_router(ai.router)
 api.include_router(learning.router)
 
-if _EMAIL_ASSETS_DIR.is_dir():
-    api.mount("/assets/email", StaticFiles(directory=_EMAIL_ASSETS_DIR), name="email_assets")
-
 
 @api.get("/health")
 def health() -> dict:
@@ -98,5 +90,6 @@ def health() -> dict:
         "smtp_enabled": settings.smtp_enabled,
         "smtp_configured": bool(settings.smtp_host and settings.smtp_from),
         "email_template": OTP_TEMPLATE_VERSION,
-        "email_assets_base_url": settings.resolved_email_assets_base_url(),
+        "email_template_file": str(_TEMPLATE_PATH.name),
+        "email_template_ok": _TEMPLATE_PATH.is_file(),
     }
