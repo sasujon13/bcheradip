@@ -18,4 +18,4 @@ fi
 
 export PYTHONPATH="$ROOT"
 exec "$VENV/bin/python" "$ROOT/scripts/test_smtp.py" "$TO" \
-  --save-preview "$ROOT/deploy/email-preview-otp.html"
+  --save-preview "$ROOT/deploy/email-preview-otp.out.html"
