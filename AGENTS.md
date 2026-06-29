@@ -6,6 +6,7 @@
 |-----------|------|-----|
 | **Cheradip MCQ site (Django)** | `cheradip/` | `https://cheradip.com/api/` |
 | **AILT App API (FastAPI)** | `ailt_api/` | `https://cheradip.com/ailt/api/` |
+| **AILT user manual (static)** | `ailt/` → `fcheradip/src/assets/ailt/ailt.html` | `https://cheradip.com/ailt` |
 | **Android client** | *external* | see below |
 
 ## AILT App API (`ailt_api/`)

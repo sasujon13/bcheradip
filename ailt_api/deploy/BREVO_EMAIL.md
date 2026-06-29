@@ -60,12 +60,16 @@ bash scripts/setup-brevo-env.sh
 
 ---
 
-## Test
+## Email template
+
+OTP emails use a branded **HTML + plain-text** template (`app/services/email_templates.py`) with the Cheradip logo (`app/assets/email/cheradip.svg`) and app colors (teal `#00897B`, green gradient header).
+
+After deploy, test:
 
 ```bash
-sudo systemctl restart cheradip-ailt
-./scripts/test_smtp.sh sashafik.me@gmail.com
+./scripts/test_smtp.sh your@gmail.com
 ```
+
 
 ---
 
