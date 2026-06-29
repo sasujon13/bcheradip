@@ -153,5 +153,5 @@ def message_logo_url_count(msg: MIMEMultipart) -> int:
             payload = part.get_payload(decode=True)
             if isinstance(payload, bytes):
                 html = payload.decode(part.get_content_charset() or "utf-8", errors="replace")
-                return html.count("cheradip-avatar.png") + html.count("cheradip-wordmark.png")
+                return html.count("cheradip-wordmark.png")
     return 0

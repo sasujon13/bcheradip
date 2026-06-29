@@ -8,7 +8,6 @@ from pathlib import Path
 from app.config import settings
 
 OTP_TEMPLATE_VERSION = "otp-html-v4"
-
 _ASSETS = Path(__file__).resolve().parent.parent / "assets" / "email"
 LOGO_AVATAR_PATH = _ASSETS / "cheradip-avatar.png"
 LOGO_WORDMARK_PATH = _ASSETS / "cheradip-wordmark.png"
@@ -46,31 +45,17 @@ def email_image_urls() -> list[str]:
 
 def _header_html() -> str:
     w = BRAND["white"]
-    if LOGO_AVATAR_PATH.is_file():
-        avatar_src = html.escape(email_asset_url("cheradip-avatar.png"))
-        avatar = (
-            f'<img src="{avatar_src}" width="72" height="72" alt="Cheradip" '
-            f'style="display:block;margin:0 auto 14px;border-radius:50%;'
-            f'border:3px solid rgba(255,255,255,0.95);background:{w};">'
-        )
-    else:
-        avatar = (
-            f'<div style="width:72px;height:72px;margin:0 auto 14px;border-radius:50%;'
-            f'background:{w};color:{BRAND["teal"]};font-size:32px;font-weight:700;'
-            f'line-height:72px;text-align:center;border:3px solid rgba(255,255,255,0.95);">C</div>'
-        )
     if LOGO_WORDMARK_PATH.is_file():
         wordmark_src = html.escape(email_asset_url("cheradip-wordmark.png"))
         wordmark = (
-            f'<img src="{wordmark_src}" width="220" height="auto" alt="Cheradip" '
-            f'style="display:block;margin:0 auto;max-width:220px;height:auto;">'
+            f'<img src="{wordmark_src}" width="220" height="48" alt="Cheradip" border="0" '
+            f'style="display:block;margin:0 auto;max-width:220px;height:48px;border:0;">'
         )
     else:
         wordmark = (
             f'<p style="margin:0;font-size:26px;font-weight:700;letter-spacing:2px;color:{w};">Cheradip</p>'
         )
     return f"""
-              {avatar}
               {wordmark}
               <p style="margin:12px 0 0;font-size:13px;font-weight:600;letter-spacing:0.5px;color:{w};opacity:0.95;">
                 AI Language Tutor

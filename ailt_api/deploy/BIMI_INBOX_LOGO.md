@@ -1,73 +1,121 @@
-# Gmail inbox logo (circle avatar next to sender)
+# Gmail inbox logo next to noreply@cheradip.com
 
-The **HTML email template** shows your app icon + wordmark **inside the email body**.
+## Two different places
 
-The **circle avatar in Gmail’s inbox list** (like Brevo’s “B”) is **not** controlled by the email HTML. Gmail uses:
+| Where | What you see | Controlled by |
+|-------|----------------|---------------|
+| **Gmail inbox list** — circle next to sender name | Brevo shows **B**, you see **C** today | **BIMI** (not email HTML) |
+| **Inside the email body** | Cheradip wordmark in the header | HTML `<img src="https://...">` |
 
-1. **First letter of display name** — `Cheradip` → **C** in a colored circle (default today)
-2. **BIMI** (Brand Indicators for Message Identification) — your logo instead of C
+**You cannot set the inbox sender avatar from the OTP email template.**  
+Brevo’s **B** appears because Brevo has BIMI configured for `brevo.com`. For `noreply@cheradip.com`, Gmail shows the first letter of the display name (**C** from “Cheradip”) until you complete BIMI for `cheradip.com`.
 
 ---
 
-## What we did in the email template (v4)
+## What you need for inbox logo (your app icon)
 
-- **App icon** (`ic_launcher_foreground.png`) → circular avatar in header (Brevo-style)
-- **Cheradip wordmark** (SVG → PNG) → logo text under the avatar
-- Images use **HTTPS URLs** (not `cid:`) because **Brevo SMTP strips inline attachments**
+Gmail requires **BIMI** with a **certificate** (not just a DNS record + PNG).
 
-Default URLs (served by the API):
-
-```
-https://cheradip.com/ailt/api/assets/email/cheradip-avatar.png
-https://cheradip.com/ailt/api/assets/email/cheradip-wordmark.png
-```
-
-Rebuild PNGs after logo changes:
+### Prerequisites (free — check first)
 
 ```bash
-bash ailt_api/scripts/build-email-assets.sh
+# SPF + DKIM — already done via Brevo domain verification
+dig TXT cheradip.com +short | grep spf
+dig TXT mail._domainkey.cheradip.com +short
+
+# DMARC must be enforced (p=quarantine or p=reject, NOT p=none)
+dig TXT _dmarc.cheradip.com +short
 ```
 
----
+If DMARC is `p=none`, upgrade it before BIMI. Example:
 
-## BIMI — custom logo in Gmail inbox (optional)
+```
+Host: _dmarc.cheradip.com
+Type: TXT
+Value: v=DMARC1; p=quarantine; rua=mailto:admin@cheradip.com; adkim=s; aspf=s
+```
 
-Requirements:
+Wait until outgoing mail from `noreply@cheradip.com` passes DMARC consistently.
 
-1. **DMARC** on `cheradip.com` with `p=quarantine` or `p=reject`
-2. **Verified domain** in Brevo (already done)
-3. **SVG logo** hosted at HTTPS (SVG Tiny P/S format)
-4. **DNS TXT** record:
+### Certificate (paid — required for Gmail)
+
+| Type | Trademark needed? | Gmail inbox logo | Blue checkmark | Approx. cost |
+|------|-------------------|------------------|----------------|--------------|
+| **CMC** (Common Mark Certificate) | No — 12+ months public logo use | Yes | No | ~$650–950/year |
+| **VMC** (Verified Mark Certificate) | Yes — registered trademark | Yes | Yes | ~$1,400+/year |
+
+**Recommended for Cheradip:** **CMC** from [DigiCert](https://www.digicert.com/vmc/) (no trademark).
+
+Submit your **app icon** (`ic_launcher_foreground.png`) — square, 96×96 minimum. DigiCert validates and produces the BIMI-compliant SVG.
+
+Source file in this repo:
+
+```
+ailt_api/app/assets/email/cheradip-avatar.png
+```
+
+### After certificate is issued
+
+1. Host the **SVG logo** at HTTPS, e.g.  
+   `https://cheradip.com/.well-known/bimi/logo.svg`
+
+2. Host the **certificate PEM** at HTTPS, e.g.  
+   `https://cheradip.com/.well-known/bimi/cert.pem`
+
+3. Add DNS TXT record:
 
 ```
 Host: default._bimi.cheradip.com
-Value: v=BIMI1; l=https://cheradip.com/.well-known/bimi/logo.svg;
+Type: TXT
+Value: v=BIMI1; l=https://cheradip.com/.well-known/bimi/logo.svg; a=https://cheradip.com/.well-known/bimi/cert.pem;
 ```
 
-5. Host logo file at that URL (copy from `app/assets/email/cheradip.svg` or a simplified square version)
+4. Nginx — add inside `cheradip.com` server block (see `deploy/nginx-bimi-wellknown.conf`):
 
-Gmail may also require a **Verified Mark Certificate (VMC)** for full logo display — see [Google BIMI guide](https://support.google.com/a/answer/10908888).
+```nginx
+location /.well-known/bimi/ {
+    alias /home/sasha/apps/cheradip/bcheradip/ailt_api/deploy/bimi/;
+    default_type application/octet-stream;
+    add_header Access-Control-Allow-Origin *;
+}
+```
 
-Timeline: DNS + DMARC can take days; Gmail BIMI rollout is gradual.
+5. Timeline: certificate validation 5–10 days; Gmail may take **days to weeks** after DNS + DMARC are correct.
 
 ---
 
-## Brevo sender branding
+## Body images not showing in Gmail
 
-In Brevo dashboard check **Senders & IP** → your domain → any **brand logo** option for transactional mail. Some plans show Brevo branding on `@smtp-brevo.com` test sends; production From `noreply@cheradip.com` uses your domain reputation.
+Separate from inbox avatar. If the **wordmark inside the email** is missing:
 
----
+1. **Display images** — Gmail may hide remote images until you tap **“Display images below”** or enable **Always display images from cheradip.com**.
 
-## Verify template v3 on server
+2. **Deploy PNGs on the main site** (not only the API):
 
 ```bash
-curl -s http://127.0.0.1:8790/api/ailt/health | python3 -m json.tool
-# "email_template": "otp-html-v4"
-
-curl -sI https://cheradip.com/ailt/api/assets/email/cheradip-avatar.png | head -1
-
-bash scripts/test_smtp.sh your@gmail.com
-# MIME check: ... 2 inline PNG(s) — OK
+bash ailt_api/scripts/build-email-assets.sh   # copies to fcheradip/src/assets/email/
+# rebuild & deploy fcheradip Angular site
+curl -sI https://cheradip.com/assets/email/cheradip-wordmark.png | head -1
+# must be HTTP/2 200
 ```
 
-In Gmail → **Show original** → search for `otp-html-v4` and `cheradip-avatar.png`.
+3. **Optional `.env`** (usually not needed — default is already main site):
+
+```env
+EMAIL_ASSETS_BASE_URL=https://cheradip.com/assets/email
+```
+
+4. In received mail → **Show original** → search for `cheradip-wordmark.png` and confirm the URL is `https://cheradip.com/assets/email/...`
+
+---
+
+## Checklist summary
+
+- [ ] DMARC `p=quarantine` or `p=reject` on cheradip.com  
+- [ ] Order **CMC** from DigiCert with app icon PNG  
+- [ ] Host logo.svg + cert.pem at `/.well-known/bimi/`  
+- [ ] Publish `default._bimi.cheradip.com` TXT record  
+- [ ] Deploy fcheradip so body wordmark PNG is at `/assets/email/`  
+- [ ] Wait for Gmail to show logo in inbox (not instant)
+
+There is **no Brevo dashboard setting** that replaces BIMI for your own domain’s inbox avatar.

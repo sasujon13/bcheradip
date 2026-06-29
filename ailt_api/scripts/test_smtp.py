@@ -101,9 +101,10 @@ def main() -> int:
     refs = message_logo_url_count(probe)
     print(f"MIME check: multipart/alternative + text/html + {refs} logo URL ref(s) — OK")
     if refs == 0:
-        print("WARN: HTML has no logo URLs — run scripts/build-email-assets.sh", file=sys.stderr)
+        print("WARN: HTML has no wordmark URL — run scripts/build-email-assets.sh and deploy fcheradip", file=sys.stderr)
 
-    print(f"Verify assets are public: {email_asset_url('cheradip-avatar.png')}")
+    print(f"Verify wordmark URL: {email_asset_url('cheradip-wordmark.png')}")
+    print(f"Inbox sender logo (circle next to noreply@): requires BIMI — see deploy/BIMI_INBOX_LOGO.md")
 
     try:
         send_otp_email(to=args.to, purpose="SMTP test", code="123456")
