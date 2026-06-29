@@ -90,13 +90,21 @@ Separate from inbox avatar. If the **wordmark inside the email** is missing:
 
 1. **Display images** — Gmail may hide remote images until you tap **“Display images below”** or enable **Always display images from cheradip.com**.
 
-2. **Deploy PNGs on the main site** (not only the API):
+2. **Deploy PNGs** — nginx serves stable URLs (Angular alone is not enough):
 
 ```bash
-bash ailt_api/scripts/build-email-assets.sh   # copies to fcheradip/src/assets/email/
-# rebuild & deploy fcheradip Angular site
+bash ailt_api/scripts/build-email-assets.sh
+# Add ailt_api/deploy/nginx-email-assets.conf to nginx (before location /)
+sudo nginx -t && sudo systemctl reload nginx
 curl -sI https://cheradip.com/assets/email/cheradip-wordmark.png | head -1
-# must be HTTP/2 200
+```
+
+**Why Angular `/assets/email/` fails:** production build renames PNGs with content hashes and missing paths fall back to `index.html` (page title "Cheradip", no image).
+
+**Immediate fallback** (no nginx change): in `ailt_api/.env`:
+
+```env
+EMAIL_ASSETS_BASE_URL=https://cheradip.com/ailt/api/assets/email
 ```
 
 3. **Optional `.env`** (usually not needed — default is already main site):

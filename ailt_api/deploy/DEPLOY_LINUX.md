@@ -51,10 +51,19 @@ Adjust `User=` / paths in the unit file if your home directory differs.
 
 Add the block from `ailt_api/deploy/nginx-ailt-api.conf` inside your **cheradip.com** `server { }` (before `location /`).
 
+Add **email logo PNGs** (same place, before `location /`):
+
 ```bash
+# Paste contents of ailt_api/deploy/nginx-email-assets.conf into nginx site config
 sudo nginx -t
 sudo systemctl reload nginx
+curl -sI https://cheradip.com/assets/email/cheradip-wordmark.png | head -1
+# HTTP/2 200 — required for HTML email logos
 ```
+
+Why not Angular `/assets/email/` alone? Production `ng build` **hashes filenames** (`cheradip-wordmark.abc123.png`), and the SPA **fallback serves index.html** for unknown paths — so fixed email URLs break. Nginx serves stable PNG names directly from `ailt_api/app/assets/email/`.
+
+Fallback without nginx change: `EMAIL_ASSETS_BASE_URL=https://cheradip.com/ailt/api/assets/email` in `.env`.
 
 ### 6. Verify
 
