@@ -5,8 +5,9 @@ from __future__ import annotations
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from sqlalchemy import text
 
 from app.config import settings
@@ -15,7 +16,12 @@ from app.middleware.translate_response import TranslateResponseMiddleware
 from app.routers import admin, ai, auth, billing, device, languages, learning, promo, referral
 from app.seed import init_database
 from app.services.pack_store import list_available_codes
-from app.services.email_templates import OTP_TEMPLATE_VERSION, _TEMPLATE_PATH
+from app.services.email_templates import (
+    OTP_TEMPLATE_VERSION,
+    _TEMPLATE_PATH,
+    logo_path,
+    logo_public_url,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +71,14 @@ api.include_router(ai.router)
 api.include_router(learning.router)
 
 
+@api.get("/email/cheradip.png", include_in_schema=False)
+def email_logo_png() -> FileResponse:
+    path = logo_path()
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="deploy/cheradip.png not found")
+    return FileResponse(path, media_type="image/png", filename="cheradip.png")
+
+
 @api.get("/health")
 def health() -> dict:
     db_ok = False
@@ -92,4 +106,7 @@ def health() -> dict:
         "email_template": OTP_TEMPLATE_VERSION,
         "email_template_file": str(_TEMPLATE_PATH.name),
         "email_template_ok": _TEMPLATE_PATH.is_file(),
+        "email_logo_ok": logo_path().is_file(),
+        "email_logo_url": logo_public_url(),
+        "email_logo_embed": settings.email_logo_embed,
     }

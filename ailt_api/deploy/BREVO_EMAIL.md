@@ -20,6 +20,14 @@ Placeholders (filled when sending):
 | `{{code}}` | 482916 |
 | `{{code_digits}}` | styled digit spans (auto) |
 | `{{ttl_minutes}}` | 15 |
+| `{{logo_src}}` | auto — do not use `cheradip.png` relative paths |
+
+**Logo:** put `deploy/cheradip.png` next to the HTML file. By default the PNG is **embedded in the email** (`EMAIL_LOGO_EMBED=true`). If Gmail still hides it, set `EMAIL_LOGO_EMBED=false` in `.env` and verify:
+
+```bash
+curl -sI https://cheradip.com/ailt/api/email/cheradip.png | grep -i content-type
+# image/png
+```
 
 After editing, restart the API and send a test:
 

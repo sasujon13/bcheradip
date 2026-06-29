@@ -26,7 +26,16 @@ def main() -> int:
 
     from app.config import settings
     from app.services.email_service import build_multipart_message, message_has_html_part, send_otp_email
-    from app.services.email_templates import OTP_TEMPLATE_VERSION, _TEMPLATE_PATH, render_otp_html, render_otp_plain
+    from app.services.email_templates import (
+        OTP_TEMPLATE_VERSION,
+        _TEMPLATE_PATH,
+        logo_path,
+        render_otp_html,
+        render_otp_plain,
+    )
+
+    print(f"Logo file: {logo_path()} ({'OK' if logo_path().is_file() else 'MISSING'})")
+    print(f"Logo embed: {settings.email_logo_embed} (src length in HTML varies)")
 
     print("=== SMTP config ===")
     print(f"SMTP_ENABLED={settings.smtp_enabled}")
