@@ -11,13 +11,19 @@
 Gmail **blocks** most home/VPS servers when they send mail directly (error `550 5.7.1`).  
 That is normal. It is **not** a bug in your app.
 
-**Fix:** Use a mail service that Gmail already trusts. The easiest cheap option is **Amazon SES** (~$0.10 per 1,000 emails).
+**Fix:** Use a mail service that Gmail already trusts.
 
-You do **not** need Postfix, OpenDKIM, or cPanel on this server for sending mail.
+| Option | Cost | From address |
+|--------|------|----------------|
+| **Gmail SMTP** (recommended free) | **$0** | `your@gmail.com` |
+| Amazon SES | ~$0.10 / 1,000 | `noreply@cheradip.com` |
+| cPanel hosting | ~$3–10/mo | `noreply@cheradip.com` |
+
+**Free setup:** [FREE_EMAIL.md](FREE_EMAIL.md) — Gmail App Password, no Postfix, no AWS.
 
 ---
 
-## Recommended — Amazon SES (30 minutes, one time)
+## Paid / custom From — Amazon SES (optional)
 
 ### Step 1 — AWS (in your browser)
 
