@@ -3,16 +3,19 @@
 from __future__ import annotations
 
 import html
-import re
-from functools import lru_cache
 from pathlib import Path
 
-OTP_TEMPLATE_VERSION = "otp-html-v2"
+OTP_TEMPLATE_VERSION = "otp-html-v3"
 
 _ASSETS = Path(__file__).resolve().parent.parent / "assets" / "email"
-_LOGO_SVG = _ASSETS / "cheradip.svg"
+LOGO_AVATAR_PATH = _ASSETS / "cheradip-avatar.png"
+LOGO_WORDMARK_PATH = _ASSETS / "cheradip-wordmark.png"
 
-# Matches ui/theme Color.kt — CheradipTeal, CheradipForestGreen, logo gradient, surfaces
+# CID references for inline PNG parts (Gmail blocks SVG)
+CID_AVATAR = "cheradip-avatar"
+CID_WORDMARK = "cheradip-wordmark"
+
+# Matches ui/theme Color.kt
 BRAND = {
     "teal": "#00897B",
     "teal_dark": "#004D40",
@@ -28,21 +31,50 @@ BRAND = {
 }
 
 
-@lru_cache(maxsize=1)
-def _logo_svg_markup() -> str:
-    if not _LOGO_SVG.is_file():
-        return ""
-    raw = _LOGO_SVG.read_text(encoding="utf-8")
-    raw = re.sub(r"<script[^>]*>.*?</script>", "", raw, flags=re.I | re.S)
-    return raw.strip()
+def email_image_paths() -> list[tuple[str, Path]]:
+    """Content-ID → PNG path for multipart/related inline images."""
+    out: list[tuple[str, Path]] = []
+    if LOGO_AVATAR_PATH.is_file():
+        out.append((CID_AVATAR, LOGO_AVATAR_PATH))
+    if LOGO_WORDMARK_PATH.is_file():
+        out.append((CID_WORDMARK, LOGO_WORDMARK_PATH))
+    return out
+
+
+def _header_html() -> str:
+    w = BRAND["white"]
+    avatar = (
+        f'<img src="cid:{CID_AVATAR}" width="72" height="72" alt="Cheradip" '
+        f'style="display:block;margin:0 auto 14px;border-radius:50%;'
+        f'border:3px solid rgba(255,255,255,0.95);background:{w};">'
+    )
+    wordmark = (
+        f'<img src="cid:{CID_WORDMARK}" width="220" height="auto" alt="Cheradip" '
+        f'style="display:block;margin:0 auto;max-width:220px;height:auto;">'
+    )
+    if not LOGO_AVATAR_PATH.is_file():
+        avatar = (
+            f'<div style="width:72px;height:72px;margin:0 auto 14px;border-radius:50%;'
+            f'background:{w};color:{BRAND["teal"]};font-size:32px;font-weight:700;'
+            f'line-height:72px;text-align:center;border:3px solid rgba(255,255,255,0.95);">C</div>'
+        )
+    if not LOGO_WORDMARK_PATH.is_file():
+        wordmark = (
+            f'<p style="margin:0;font-size:26px;font-weight:700;letter-spacing:2px;color:{w};">Cheradip</p>'
+        )
+    return f"""
+              {avatar}
+              {wordmark}
+              <p style="margin:12px 0 0;font-size:13px;font-weight:600;letter-spacing:0.5px;color:{w};opacity:0.95;">
+                AI Language Tutor
+              </p>"""
 
 
 def _otp_digits_html(code: str) -> str:
-    spans = "".join(
+    return "".join(
         f'<span style="display:inline-block;min-width:36px;text-align:center;">{html.escape(ch)}</span>'
         for ch in code.strip()
     )
-    return spans
 
 
 def _promo_section_html() -> str:
@@ -112,15 +144,7 @@ def render_otp_html(*, purpose: str, code: str, ttl_minutes: int) -> str:
     safe_purpose = html.escape(purpose)
     safe_code = html.escape(code.strip())
     digits = _otp_digits_html(code)
-    logo = _logo_svg_markup()
-    logo_block = (
-        f'<div style="max-width:220px;margin:0 auto;">{logo}</div>'
-        if logo
-        else (
-            '<p style="margin:0;font-size:26px;font-weight:700;letter-spacing:2px;'
-            f'color:{BRAND["white"]};">Cheradip</p>'
-        )
-    )
+    header = _header_html()
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -138,10 +162,7 @@ def render_otp_html(*, purpose: str, code: str, ttl_minutes: int) -> str:
         <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:520px;background-color:{BRAND["white"]};border-radius:16px;overflow:hidden;border:1px solid #B0BEC5;">
           <tr>
             <td align="center" style="padding:28px 24px 20px;background:linear-gradient(135deg,skyblue,darkgreen,skyblue);">
-              {logo_block}
-              <p style="margin:12px 0 0;font-size:13px;font-weight:600;letter-spacing:0.5px;color:{BRAND["white"]};opacity:0.95;">
-                AI Language Tutor
-              </p>
+              {header}
             </td>
           </tr>
           <tr>

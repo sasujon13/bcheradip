@@ -5,13 +5,16 @@ from __future__ import annotations
 import logging
 import smtplib
 import ssl
+from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formataddr, parseaddr
+from pathlib import Path
 
 from app.config import settings
 from app.services.email_templates import (
     OTP_TEMPLATE_VERSION,
+    email_image_paths,
     render_otp_html,
     render_otp_plain,
 )
@@ -46,6 +49,14 @@ def _ssl_context_for_smtp() -> ssl.SSLContext:
     return ssl.create_default_context()
 
 
+def _attach_inline_png(related: MIMEMultipart, cid: str, path: Path) -> None:
+    data = path.read_bytes()
+    img = MIMEImage(data, _subtype="png")
+    img.add_header("Content-ID", f"<{cid}>")
+    img.add_header("Content-Disposition", "inline", filename=path.name)
+    related.attach(img)
+
+
 def build_multipart_message(
     *,
     to: str,
@@ -53,19 +64,25 @@ def build_multipart_message(
     plain_body: str,
     html_body: str,
 ) -> MIMEMultipart:
-    """multipart/alternative with plain + HTML (HTML last so clients prefer it)."""
+    """multipart/related → alternative (plain+html) + inline PNG logos (CID)."""
     if not html_body or "<html" not in html_body.lower():
         raise ValueError("HTML body missing or invalid — branded template required")
 
-    msg = MIMEMultipart("alternative")
-    msg["From"] = _from_header()
-    msg["To"] = to.strip()
-    msg["Subject"] = subject
-    msg["X-AILT-Template"] = OTP_TEMPLATE_VERSION
+    related = MIMEMultipart("related")
+    related["From"] = _from_header()
+    related["To"] = to.strip()
+    related["Subject"] = subject
+    related["X-AILT-Template"] = OTP_TEMPLATE_VERSION
 
-    msg.attach(MIMEText(plain_body, "plain", "utf-8"))
-    msg.attach(MIMEText(html_body, "html", "utf-8"))
-    return msg
+    alternative = MIMEMultipart("alternative")
+    alternative.attach(MIMEText(plain_body, "plain", "utf-8"))
+    alternative.attach(MIMEText(html_body, "html", "utf-8"))
+    related.attach(alternative)
+
+    for cid, path in email_image_paths():
+        _attach_inline_png(related, cid, path)
+
+    return related
 
 
 def _smtp_send(msg: MIMEMultipart) -> None:
@@ -105,11 +122,12 @@ def send_email(*, to: str, subject: str, plain_body: str, html_body: str | None 
     try:
         _smtp_send(msg)
         logger.info(
-            "Sent HTML email to %s: %s (%s, %d byte html)",
+            "Sent HTML email to %s: %s (%s, %d byte html, %d inline images)",
             target,
             subject,
             OTP_TEMPLATE_VERSION,
             len(html_body),
+            len(email_image_paths()),
         )
     except smtplib.SMTPAuthenticationError as exc:
         logger.exception("SMTP auth failed for %s", target)
@@ -144,3 +162,7 @@ def send_otp_email(*, to: str, purpose: str, code: str) -> None:
 
 def message_has_html_part(msg: MIMEMultipart) -> bool:
     return any(part.get_content_type() == "text/html" for part in msg.walk())
+
+
+def message_inline_image_count(msg: MIMEMultipart) -> int:
+    return sum(1 for part in msg.walk() if part.get_content_type() == "image/png")

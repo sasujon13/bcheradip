@@ -64,8 +64,10 @@ bash scripts/setup-brevo-env.sh
 
 ```bash
 sudo systemctl restart cheradip-ailt
-./scripts/test_smtp.sh sashafik.me@gmail.com
+bash scripts/test_smtp.sh sashafik.me@gmail.com
 ```
+
+If you see `Permission denied`, use `bash scripts/test_smtp.sh ...` (Windows git may not preserve the executable bit).
 
 The test script **always fails loudly** if SMTP does not connect (no silent success when `DEV_LOG_OTP=true`).
 
@@ -73,12 +75,41 @@ The test script **always fails loudly** if SMTP does not connect (no silent succ
 
 ```bash
 curl -s https://cheradip.com/ailt/api/health | python3 -m json.tool
-# Must include: "email_template": "otp-html-v2"
+# Must include: "email_template": "otp-html-v3"
 ```
 
-If `email_template` is missing, the server is still running **old code** — `git pull` and `sudo systemctl restart cheradip-ailt`.
+If `email_template` is missing, the server is still running **old code**.
 
-In Gmail: open the email → **⋮ → Show original** → search for `otp-html-v2` in the HTML part.
+**If `git pull` fails with "divergent branches":**
+
+```bash
+cd /home/sasha/apps/cheradip/bcheradip
+git fetch origin
+chmod +x ailt_api/scripts/sync-email-from-origin.sh
+bash ailt_api/scripts/sync-email-from-origin.sh
+sudo systemctl restart cheradip-ailt
+```
+
+Or reset the whole repo to GitHub (drops server-only local commits):
+
+```bash
+cd /home/sasha/apps/cheradip/bcheradip
+git fetch origin
+git reset --hard origin/main
+sudo systemctl restart cheradip-ailt
+```
+
+Confirm files exist:
+
+```bash
+grep otp-html-v3 ailt_api/app/services/email_templates.py
+ls ailt_api/app/assets/email/cheradip-avatar.png ailt_api/app/assets/email/cheradip-wordmark.png
+bash ailt_api/scripts/build-email-assets.sh   # if PNGs missing
+```
+
+In Gmail: open the email → **⋮ → Show original** → search for `otp-html-v3` and `cheradip-avatar`.
+
+**Inbox circle logo (instead of “C”):** see [BIMI_INBOX_LOGO.md](BIMI_INBOX_LOGO.md) — requires BIMI DNS setup; the email body already shows your app icon in a circle.
 
 
 ---
