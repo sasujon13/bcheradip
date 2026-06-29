@@ -49,6 +49,7 @@ class Settings(BaseSettings):
     openrouter_paid_model: str = "anthropic/claude-3.5-sonnet"
     packs_dir: Path = _AILT_ROOT / "packs"
     public_base_url: str = "https://cheradip.com/ailt/api"
+    email_assets_base_url: str = ""
     translate_api_responses: bool = True
     translate_api_timeout_seconds: float = 4.0
     home_ai_translate_url: str = "http://127.0.0.1:8787/translate-strings"
@@ -60,6 +61,12 @@ class Settings(BaseSettings):
     def smtp_config_summary(self) -> str:
         tls = "tls" if self.smtp_use_tls else ("ssl" if self.smtp_use_ssl else "plain")
         return f"{self.smtp_host}:{self.smtp_port} ({tls}) from={self.smtp_from}"
+
+    def resolved_email_assets_base_url(self) -> str:
+        """Public HTTPS base for logo PNGs in HTML email (Brevo does not support cid: inline)."""
+        if self.email_assets_base_url.strip():
+            return self.email_assets_base_url.rstrip("/")
+        return f"{self.public_base_url.rstrip('/')}/assets/email"
 
     @model_validator(mode="after")
     def _submission_port_needs_tls(self) -> "Settings":

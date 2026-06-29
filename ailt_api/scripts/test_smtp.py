@@ -28,10 +28,18 @@ def main() -> int:
     from app.services.email_service import (
         build_multipart_message,
         message_has_html_part,
-        message_inline_image_count,
+        message_logo_url_count,
         send_otp_email,
     )
-    from app.services.email_templates import LOGO_AVATAR_PATH, LOGO_WORDMARK_PATH, OTP_TEMPLATE_VERSION, render_otp_html, render_otp_plain
+    from app.services.email_templates import (
+        LOGO_AVATAR_PATH,
+        LOGO_WORDMARK_PATH,
+        OTP_TEMPLATE_VERSION,
+        email_asset_url,
+        email_image_urls,
+        render_otp_html,
+        render_otp_plain,
+    )
 
     print("=== SMTP config ===")
     print(f"SMTP_ENABLED={settings.smtp_enabled}")
@@ -42,6 +50,7 @@ def main() -> int:
     print(f"SMTP_USE_TLS={settings.smtp_use_tls}")
     print(f"SMTP_USE_SSL={settings.smtp_use_ssl}")
     print(f"DEV_LOG_OTP={settings.dev_log_otp}")
+    print(f"EMAIL_ASSETS_BASE={settings.resolved_email_assets_base_url()}")
 
     if not settings.smtp_enabled:
         print("FAILED: SMTP_ENABLED is false", file=sys.stderr)
@@ -63,17 +72,19 @@ def main() -> int:
     if host != "smtp-relay.brevo.com":
         print(f"WARN: SMTP_HOST is '{settings.smtp_host}' — expected smtp-relay.brevo.com")
 
-    logo = LOGO_AVATAR_PATH
-    wordmark = LOGO_WORDMARK_PATH
-    if not logo.is_file():
-        print(f"WARN: avatar PNG missing at {logo} — run scripts/build-email-assets.sh")
-    if not wordmark.is_file():
-        print(f"WARN: wordmark PNG missing at {wordmark} — run scripts/build-email-assets.sh")
+    if not LOGO_AVATAR_PATH.is_file():
+        print(f"WARN: avatar PNG missing at {LOGO_AVATAR_PATH} — run scripts/build-email-assets.sh")
+    if not LOGO_WORDMARK_PATH.is_file():
+        print(f"WARN: wordmark PNG missing at {LOGO_WORDMARK_PATH} — run scripts/build-email-assets.sh")
 
     html = render_otp_html(purpose="SMTP test", code="123456", ttl_minutes=settings.otp_ttl_minutes)
     plain = render_otp_plain(purpose="SMTP test", code="123456", ttl_minutes=settings.otp_ttl_minutes)
     print(f"Template version: {OTP_TEMPLATE_VERSION}")
     print(f"HTML template: {len(html)} bytes")
+    print(f"Logo URLs: {email_image_urls()}")
+    if "cid:" in html:
+        print("FAILED: HTML still uses cid: — Brevo will not show inline images", file=sys.stderr)
+        return 1
     if args.save_preview:
         args.save_preview.write_text(html, encoding="utf-8")
         print(f"Preview saved: {args.save_preview}")
@@ -87,10 +98,12 @@ def main() -> int:
     if not message_has_html_part(probe):
         print("FAILED: MIME message has no text/html part", file=sys.stderr)
         return 1
-    imgs = message_inline_image_count(probe)
-    print(f"MIME check: multipart/related + text/html + {imgs} inline PNG(s) — OK")
-    if imgs == 0:
-        print("WARN: no inline PNG logos — run scripts/build-email-assets.sh", file=sys.stderr)
+    refs = message_logo_url_count(probe)
+    print(f"MIME check: multipart/alternative + text/html + {refs} logo URL ref(s) — OK")
+    if refs == 0:
+        print("WARN: HTML has no logo URLs — run scripts/build-email-assets.sh", file=sys.stderr)
+
+    print(f"Verify assets are public: {email_asset_url('cheradip-avatar.png')}")
 
     try:
         send_otp_email(to=args.to, purpose="SMTP test", code="123456")
