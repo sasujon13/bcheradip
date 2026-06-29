@@ -49,7 +49,6 @@ class Settings(BaseSettings):
     openrouter_paid_model: str = "anthropic/claude-3.5-sonnet"
     packs_dir: Path = _AILT_ROOT / "packs"
     public_base_url: str = "https://cheradip.com/ailt/api"
-    email_logo_embed: bool = True
     translate_api_responses: bool = True
     translate_api_timeout_seconds: float = 4.0
     home_ai_translate_url: str = "http://127.0.0.1:8787/translate-strings"
@@ -75,7 +74,6 @@ class Settings(BaseSettings):
         "smtp_use_tls",
         "smtp_use_ssl",
         "translate_api_responses",
-        "email_logo_embed",
         mode="before",
     )
     @classmethod

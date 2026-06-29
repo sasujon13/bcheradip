@@ -22,12 +22,9 @@ Placeholders (filled when sending):
 | `{{ttl_minutes}}` | 15 |
 | `{{logo_src}}` | auto — do not use `cheradip.png` relative paths |
 
-**Logo:** put `deploy/cheradip.png` next to the HTML file. By default the PNG is **embedded in the email** (`EMAIL_LOGO_EMBED=true`). If Gmail still hides it, set `EMAIL_LOGO_EMBED=false` in `.env` and verify:
+**Logo:** put `deploy/cheradip.png` next to the HTML file. It is sent as an **inline attachment** (`cid:cheradip-logo`). Do not use `data:` base64 or relative paths — Brevo removes those `src` attributes.
 
-```bash
-curl -sI https://cheradip.com/ailt/api/email/cheradip.png | grep -i content-type
-# image/png
-```
+In Gmail → **Show original** → search for `src="cid:cheradip-logo"`.
 
 After editing, restart the API and send a test:
 

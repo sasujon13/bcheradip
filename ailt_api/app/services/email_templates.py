@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import base64
 import html
 from functools import lru_cache
 from pathlib import Path
@@ -10,6 +9,8 @@ from pathlib import Path
 from app.config import settings
 
 OTP_TEMPLATE_VERSION = "otp-email-preview"
+LOGO_CID = "cheradip-logo"
+
 _DEPLOY_DIR = Path(__file__).resolve().parent.parent.parent / "deploy"
 _TEMPLATE_PATH = _DEPLOY_DIR / "email-preview-otp.html"
 _LOGO_PATH = _DEPLOY_DIR / "cheradip.png"
@@ -31,12 +32,9 @@ def logo_public_url() -> str:
 
 
 def logo_img_src() -> str:
-    """Image src for <img> — embedded PNG (works in email; no relative paths)."""
-    if not _LOGO_PATH.is_file():
-        return logo_public_url()
-    if settings.email_logo_embed:
-        encoded = base64.standard_b64encode(_LOGO_PATH.read_bytes()).decode("ascii")
-        return f"data:image/png;base64,{encoded}"
+    """Short cid: or https URL — Brevo strips long data: URIs (removes src entirely)."""
+    if _LOGO_PATH.is_file():
+        return f"cid:{LOGO_CID}"
     return logo_public_url()
 
 
@@ -48,7 +46,7 @@ def _code_digits_html(code: str) -> str:
 
 
 def render_otp_html(*, purpose: str, code: str, ttl_minutes: int) -> str:
-    logo_src = html.escape(logo_img_src(), quote=True)
+    logo_src = logo_img_src()
     return (
         _load_template()
         .replace("{{purpose}}", html.escape(purpose))
