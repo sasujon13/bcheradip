@@ -15,6 +15,7 @@ from app.middleware.translate_response import TranslateResponseMiddleware
 from app.routers import admin, ai, auth, billing, device, languages, learning, promo, referral
 from app.seed import init_database
 from app.services.pack_store import list_available_codes
+from app.services.email_templates import OTP_TEMPLATE_VERSION
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ async def lifespan(_app: FastAPI):
         if settings.smtp_enabled and settings.uses_local_postfix_direct():
             logger.error(_LOCAL_POSTFIX_MSG)
         elif settings.smtp_enabled:
-            logger.info("SMTP: %s", settings.smtp_config_summary())
+            logger.info("SMTP: %s (template %s)", settings.smtp_config_summary(), OTP_TEMPLATE_VERSION)
     except Exception as e:
         logger.error("Database startup failed: %s", e)
         raise
@@ -88,4 +89,5 @@ def health() -> dict:
         ),
         "smtp_enabled": settings.smtp_enabled,
         "smtp_configured": bool(settings.smtp_host and settings.smtp_from),
+        "email_template": OTP_TEMPLATE_VERSION,
     }

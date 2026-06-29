@@ -7,6 +7,8 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
+OTP_TEMPLATE_VERSION = "otp-html-v2"
+
 _ASSETS = Path(__file__).resolve().parent.parent / "assets" / "email"
 _LOGO_SVG = _ASSETS / "cheradip.svg"
 
@@ -31,22 +33,19 @@ def _logo_svg_markup() -> str:
     if not _LOGO_SVG.is_file():
         return ""
     raw = _LOGO_SVG.read_text(encoding="utf-8")
-    # Email-safe: drop scripts; keep viewBox for scaling
     raw = re.sub(r"<script[^>]*>.*?</script>", "", raw, flags=re.I | re.S)
     return raw.strip()
 
 
 def _otp_digits_html(code: str) -> str:
-    digits = html.escape(code.strip())
     spans = "".join(
-        f'<span style="display:inline-block;min-width:36px;text-align:center;">{ch}</span>'
-        for ch in digits
+        f'<span style="display:inline-block;min-width:36px;text-align:center;">{html.escape(ch)}</span>'
+        for ch in code.strip()
     )
     return spans
 
 
 def _promo_section_html() -> str:
-    """Eye-catching promo block — two center-aligned service rows (brand colors only)."""
     t, f, s, td, tm, w = (
         BRAND["teal"],
         BRAND["forest"],
@@ -132,6 +131,7 @@ def render_otp_html(*, purpose: str, code: str, ttl_minutes: int) -> str:
   <title>{safe_purpose} — AI Language Tutor</title>
 </head>
 <body style="margin:0;padding:0;background-color:{BRAND["surface"]};">
+  <!-- {OTP_TEMPLATE_VERSION} -->
   <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:{BRAND["surface"]};">
     <tr>
       <td align="center" style="padding:32px 16px;">
