@@ -54,7 +54,7 @@ class Settings(BaseSettings):
     home_ai_translate_url: str = "http://127.0.0.1:8787/translate-strings"
 
     def uses_local_postfix_direct(self) -> bool:
-        """127.0.0.1:25 accepts mail locally but Gmail rejects with 550 5.7.1."""
+        """Misconfigured production: 127.0.0.1:25 does not reach real inboxes — use Brevo."""
         return self.smtp_host.strip().lower() in {"127.0.0.1", "localhost"} and self.smtp_port == 25
 
     def smtp_config_summary(self) -> str:
@@ -63,7 +63,7 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def _submission_port_needs_tls(self) -> "Settings":
-        """Postfix submission on 587 only offers AUTH after STARTTLS."""
+        """Port 587 (Brevo) requires STARTTLS when not using SSL."""
         if self.smtp_port == 587 and not self.smtp_use_ssl and not self.smtp_use_tls:
             self.smtp_use_tls = True
         return self
