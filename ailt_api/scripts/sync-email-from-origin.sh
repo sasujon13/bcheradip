@@ -16,6 +16,7 @@ FILES=(
   ailt_api/app/assets/email/cheradip-avatar.png
   ailt_api/app/assets/email/cheradip-wordmark.png
   ailt_api/app/main.py
+  ailt_api/app/config.py
   ailt_api/scripts/test_smtp.py
   ailt_api/scripts/test_smtp.sh
   ailt_api/scripts/build-email-assets.sh
@@ -39,7 +40,7 @@ git checkout origin/main -- "${FILES[@]}"
 
 echo ""
 echo "=== Verify ==="
-grep -n "otp-html-v3" ailt_api/app/services/email_templates.py | head -1
+grep -n "otp-html-v4" ailt_api/app/services/email_templates.py | head -1
 ls -la ailt_api/app/assets/email/cheradip-avatar.png ailt_api/app/assets/email/cheradip-wordmark.png
 
 echo ""

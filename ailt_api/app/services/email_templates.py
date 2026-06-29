@@ -5,15 +5,13 @@ from __future__ import annotations
 import html
 from pathlib import Path
 
-OTP_TEMPLATE_VERSION = "otp-html-v3"
+from app.config import settings
+
+OTP_TEMPLATE_VERSION = "otp-html-v4"
 
 _ASSETS = Path(__file__).resolve().parent.parent / "assets" / "email"
 LOGO_AVATAR_PATH = _ASSETS / "cheradip-avatar.png"
 LOGO_WORDMARK_PATH = _ASSETS / "cheradip-wordmark.png"
-
-# CID references for inline PNG parts (Gmail blocks SVG)
-CID_AVATAR = "cheradip-avatar"
-CID_WORDMARK = "cheradip-wordmark"
 
 # Matches ui/theme Color.kt
 BRAND = {
@@ -31,34 +29,43 @@ BRAND = {
 }
 
 
-def email_image_paths() -> list[tuple[str, Path]]:
-    """Content-ID → PNG path for multipart/related inline images."""
-    out: list[tuple[str, Path]] = []
+def email_asset_url(filename: str) -> str:
+    """HTTPS URL for a hosted PNG (required — Brevo SMTP strips cid: inline attachments)."""
+    return f"{settings.resolved_email_assets_base_url()}/{filename}"
+
+
+def email_image_urls() -> list[str]:
+    """Public URLs referenced in HTML img tags."""
+    urls: list[str] = []
     if LOGO_AVATAR_PATH.is_file():
-        out.append((CID_AVATAR, LOGO_AVATAR_PATH))
+        urls.append(email_asset_url("cheradip-avatar.png"))
     if LOGO_WORDMARK_PATH.is_file():
-        out.append((CID_WORDMARK, LOGO_WORDMARK_PATH))
-    return out
+        urls.append(email_asset_url("cheradip-wordmark.png"))
+    return urls
 
 
 def _header_html() -> str:
     w = BRAND["white"]
-    avatar = (
-        f'<img src="cid:{CID_AVATAR}" width="72" height="72" alt="Cheradip" '
-        f'style="display:block;margin:0 auto 14px;border-radius:50%;'
-        f'border:3px solid rgba(255,255,255,0.95);background:{w};">'
-    )
-    wordmark = (
-        f'<img src="cid:{CID_WORDMARK}" width="220" height="auto" alt="Cheradip" '
-        f'style="display:block;margin:0 auto;max-width:220px;height:auto;">'
-    )
-    if not LOGO_AVATAR_PATH.is_file():
+    if LOGO_AVATAR_PATH.is_file():
+        avatar_src = html.escape(email_asset_url("cheradip-avatar.png"))
+        avatar = (
+            f'<img src="{avatar_src}" width="72" height="72" alt="Cheradip" '
+            f'style="display:block;margin:0 auto 14px;border-radius:50%;'
+            f'border:3px solid rgba(255,255,255,0.95);background:{w};">'
+        )
+    else:
         avatar = (
             f'<div style="width:72px;height:72px;margin:0 auto 14px;border-radius:50%;'
             f'background:{w};color:{BRAND["teal"]};font-size:32px;font-weight:700;'
             f'line-height:72px;text-align:center;border:3px solid rgba(255,255,255,0.95);">C</div>'
         )
-    if not LOGO_WORDMARK_PATH.is_file():
+    if LOGO_WORDMARK_PATH.is_file():
+        wordmark_src = html.escape(email_asset_url("cheradip-wordmark.png"))
+        wordmark = (
+            f'<img src="{wordmark_src}" width="220" height="auto" alt="Cheradip" '
+            f'style="display:block;margin:0 auto;max-width:220px;height:auto;">'
+        )
+    else:
         wordmark = (
             f'<p style="margin:0;font-size:26px;font-weight:700;letter-spacing:2px;color:{w};">Cheradip</p>'
         )

@@ -9,17 +9,17 @@ The **circle avatar in Gmail’s inbox list** (like Brevo’s “B”) is **not*
 
 ---
 
-## What we did in the email template
+## What we did in the email template (v4)
 
 - **App icon** (`ic_launcher_foreground.png`) → circular avatar in header (Brevo-style)
 - **Cheradip wordmark** (SVG → PNG) → logo text under the avatar
-- Embedded as **inline PNG** (`cid:`) because **Gmail blocks SVG**
+- Images use **HTTPS URLs** (not `cid:`) because **Brevo SMTP strips inline attachments**
 
-Assets:
+Default URLs (served by the API):
 
 ```
-ailt_api/app/assets/email/cheradip-avatar.png    # Android launcher
-ailt_api/app/assets/email/cheradip-wordmark.png  # from cheradip.svg
+https://cheradip.com/ailt/api/assets/email/cheradip-avatar.png
+https://cheradip.com/ailt/api/assets/email/cheradip-wordmark.png
 ```
 
 Rebuild PNGs after logo changes:
@@ -62,10 +62,12 @@ In Brevo dashboard check **Senders & IP** → your domain → any **brand logo**
 
 ```bash
 curl -s http://127.0.0.1:8790/api/ailt/health | python3 -m json.tool
-# "email_template": "otp-html-v3"
+# "email_template": "otp-html-v4"
+
+curl -sI https://cheradip.com/ailt/api/assets/email/cheradip-avatar.png | head -1
 
 bash scripts/test_smtp.sh your@gmail.com
 # MIME check: ... 2 inline PNG(s) — OK
 ```
 
-In Gmail → **Show original** → search for `otp-html-v3` and `Content-ID: <cheradip-avatar>`.
+In Gmail → **Show original** → search for `otp-html-v4` and `cheradip-avatar.png`.

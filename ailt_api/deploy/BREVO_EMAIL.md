@@ -75,7 +75,7 @@ The test script **always fails loudly** if SMTP does not connect (no silent succ
 
 ```bash
 curl -s https://cheradip.com/ailt/api/health | python3 -m json.tool
-# Must include: "email_template": "otp-html-v3"
+# Must include: "email_template": "otp-html-v4"
 ```
 
 If `email_template` is missing, the server is still running **old code**.
@@ -102,14 +102,17 @@ sudo systemctl restart cheradip-ailt
 Confirm files exist:
 
 ```bash
-grep otp-html-v3 ailt_api/app/services/email_templates.py
+grep otp-html-v4 ailt_api/app/services/email_templates.py
 ls ailt_api/app/assets/email/cheradip-avatar.png ailt_api/app/assets/email/cheradip-wordmark.png
 bash ailt_api/scripts/build-email-assets.sh   # if PNGs missing
+curl -sI https://cheradip.com/ailt/api/assets/email/cheradip-avatar.png | head -1
 ```
 
-In Gmail: open the email → **⋮ → Show original** → search for `otp-html-v3` and `cheradip-avatar`.
+In Gmail: open the email → **⋮ → Show original** → search for `otp-html-v4` and `cheradip-avatar.png`.
 
-**Inbox circle logo (instead of “C”):** see [BIMI_INBOX_LOGO.md](BIMI_INBOX_LOGO.md) — requires BIMI DNS setup; the email body already shows your app icon in a circle.
+**Why not cid: inline images?** Brevo SMTP **strips Content-ID** on transactional mail — logos must use **HTTPS URLs**. The API serves PNGs at `/ailt/api/assets/email/`.
+
+**Inbox circle logo (instead of “C”):** see [BIMI_INBOX_LOGO.md](BIMI_INBOX_LOGO.md).
 
 
 ---

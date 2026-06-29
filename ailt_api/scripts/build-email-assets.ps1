@@ -22,3 +22,10 @@ if ((Get-Command npx -ErrorAction SilentlyContinue) -and (Test-Path $svg)) {
 }
 
 Get-ChildItem $Assets -Filter "cheradip-*.png" | Format-Table Name, Length
+
+$fcheradip = Join-Path (Split-Path -Parent (Split-Path -Parent $Root)) "fcheradip/src/assets/email"
+if (Test-Path (Split-Path -Parent $fcheradip)) {
+    New-Item -ItemType Directory -Force -Path $fcheradip | Out-Null
+    Copy-Item (Join-Path $Assets "cheradip-avatar.png"), (Join-Path $Assets "cheradip-wordmark.png") $fcheradip -Force -ErrorAction SilentlyContinue
+    Write-Host "Mirrored to: $fcheradip"
+}
