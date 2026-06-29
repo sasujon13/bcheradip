@@ -3451,6 +3451,25 @@ class ExportQuestionsView(APIView):
                 return to_bengali_digits(str([1, 2, 3, 4][idx]))
             return None
 
+        def mcq_family_question_mark_bn(qq_row):
+            t = str((qq_row or {}).get('type') or '').strip()
+            if 'জ্ঞানমূলক' in t:
+                return to_bengali_digits('1')
+            if 'অনুধাবনমূলক' in t:
+                return to_bengali_digits('2')
+            return None
+
+        def wrap_mcq_stem_with_marks_if_needed(qq_row, stem_inner_html):
+            _mk = mcq_family_question_mark_bn(qq_row)
+            if not _mk:
+                return '<span class="q-text">%s</span>' % stem_inner_html
+            return (
+                '<div class="q-subpart-wrap q-subpart-wrap--has-marks q-mcq-stem-marks-wrap">'
+                '<span class="q-text">%s</span>'
+                '<span class="q-subpart-marks">%s</span>'
+                '</div>'
+            ) % (stem_inner_html, _mk)
+
         serial_raw = pick('previewSerialByIndex', {})
         serial_by_index = serial_raw if isinstance(serial_raw, dict) else {}
 
@@ -3611,10 +3630,8 @@ class ExportQuestionsView(APIView):
                             '',
                         )
                     # Main-sheet MCQ: one intro row holds stem + (ক)–(ঘ) options (preview .preview-q-text).
-                    stem_html = (
-                        '<span class="q-text">%s</span>'
-                        % format_stem_html(plain_q, False, qq_row)
-                    )
+                    stem_inner = format_stem_html(plain_q, False, qq_row)
+                    stem_html = wrap_mcq_stem_with_marks_if_needed(qq_row, stem_inner)
                     return stem_html, build_options_html(qq_row, False)
                 if seg_kind in ('tail', 'option'):
                     return '<span class="q-text">%s</span>' % format_stem_html(plain_q, creative_row, qq_row), ''
@@ -3640,7 +3657,10 @@ class ExportQuestionsView(APIView):
                         '</span>%s'
                     ) % (intro_html, parts_html)
                 else:
-                    stem_html = '<span class="q-text">%s</span>' % intro_html
+                    if not creative_row:
+                        stem_html = wrap_mcq_stem_with_marks_if_needed(qq_row, intro_html)
+                    else:
+                        stem_html = '<span class="q-text">%s</span>' % intro_html
                 return stem_html, build_options_html(qq_row, creative_row)
 
             def append_q_item(out_list, item_idx, qq_row, creative_row, list_pos, stem_html, opts_html):
@@ -4413,6 +4433,11 @@ class ExportQuestionsView(APIView):
     .q-subpart-wrap--has-marks {{
       padding-right: 2em;
     }}
+    .q-mcq-stem-marks-wrap {{
+      display: flow-root;
+      overflow: visible;
+      min-width: 0;
+    }}
     .q-subpart-marks {{
       position: absolute;
       right: 0;
@@ -4789,6 +4814,14 @@ class ExportQuestionsView(APIView):
                 return str([1, 2, 3, 4][idx]).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
             return None
 
+        def docx_mcq_family_mark_bn(qq):
+            t = str((qq or {}).get('type') or '').strip()
+            if 'জ্ঞানমূলক' in t:
+                return '১'
+            if 'অনুধাবনমূলক' in t:
+                return '২'
+            return None
+
         serial_by_index = {}
         if isinstance(layout_settings, dict):
             raw_serial = layout_settings.get('previewSerialByIndex')
@@ -4880,7 +4913,17 @@ class ExportQuestionsView(APIView):
                 if q.get('answerSheetContinuation'):
                     doc.add_paragraph(prepared_plain)
                 else:
-                    doc.add_paragraph('%s। %s' % (docx_serial_bn(int(parent_idx)), prepared_plain))
+                    mk = docx_mcq_family_mark_bn(q) if not docx_is_creative(q) else None
+                    if mk:
+                        para = doc.add_paragraph()
+                        para.paragraph_format.tab_stops.add_tab_stop(
+                            docx_usable_width, WD_TAB_ALIGNMENT.RIGHT
+                        )
+                        para.add_run('%s। %s' % (docx_serial_bn(int(parent_idx)), prepared_plain))
+                        para.add_run('\t')
+                        para.add_run(mk)
+                    else:
+                        doc.add_paragraph('%s। %s' % (docx_serial_bn(int(parent_idx)), prepared_plain))
                     docx_add_mcq_options(q)
                 continue
             creative = docx_is_creative(q)
@@ -4903,7 +4946,17 @@ class ExportQuestionsView(APIView):
                     else:
                         doc.add_paragraph(part)
             else:
-                doc.add_paragraph('%s. %s' % (i + 1, prepared_plain))
+                mk = docx_mcq_family_mark_bn(q) if not creative else None
+                if mk:
+                    para = doc.add_paragraph()
+                    para.paragraph_format.tab_stops.add_tab_stop(
+                        docx_usable_width, WD_TAB_ALIGNMENT.RIGHT
+                    )
+                    para.add_run('%s. %s' % (i + 1, prepared_plain))
+                    para.add_run('\t')
+                    para.add_run(mk)
+                else:
+                    doc.add_paragraph('%s. %s' % (i + 1, prepared_plain))
             docx_add_mcq_options(q)
         buf = BytesIO()
         doc.save(buf)
