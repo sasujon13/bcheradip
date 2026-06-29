@@ -60,15 +60,25 @@ bash scripts/setup-brevo-env.sh
 
 ---
 
-## Email template
-
-OTP emails use a branded **HTML + plain-text** template (`app/services/email_templates.py`) with the Cheradip logo (`app/assets/email/cheradip.svg`) and app colors (teal `#00897B`, green gradient header).
-
-After deploy, test:
+## Test
 
 ```bash
-./scripts/test_smtp.sh your@gmail.com
+sudo systemctl restart cheradip-ailt
+./scripts/test_smtp.sh sashafik.me@gmail.com
 ```
+
+The test script **always fails loudly** if SMTP does not connect (no silent success when `DEV_LOG_OTP=true`).
+
+**Verify branded template is deployed:**
+
+```bash
+curl -s https://cheradip.com/ailt/api/health | python3 -m json.tool
+# Must include: "email_template": "otp-html-v2"
+```
+
+If `email_template` is missing, the server is still running **old code** — `git pull` and `sudo systemctl restart cheradip-ailt`.
+
+In Gmail: open the email → **⋮ → Show original** → search for `otp-html-v2` in the HTML part.
 
 
 ---
