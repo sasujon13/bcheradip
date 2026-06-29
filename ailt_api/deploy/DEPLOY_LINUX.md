@@ -67,7 +67,7 @@ Expect `"database":"ailanguagetutor"`, `"smtp_enabled":true`.
 
 ### 7. Test OTP email
 
-Create mailbox **noreply@cheradip.com** in cPanel (or reuse **support@cheradip.com**), then:
+Configure Brevo in `.env` (see [BREVO_EMAIL.md](BREVO_EMAIL.md)), then:
 
 ```bash
 cd /home/sasha/apps/cheradip/bcheradip/ailt_api
@@ -123,12 +123,10 @@ echo
 
 ## Email (OTP verification codes)
 
-**→ [SIMPLE_EMAIL.md](SIMPLE_EMAIL.md)** — plain steps for `noreply@cheradip.com`.
-
-Recommended: **Amazon SES** in `.env` (no Postfix on this server).  
-Alternative: **cPanel** mail if you already host email there.
+**→ [BREVO_EMAIL.md](BREVO_EMAIL.md)** — Brevo SMTP, `Cheradip <noreply@cheradip.com>`.
 
 ```bash
+bash scripts/setup-brevo-env.sh   # first time
 ./scripts/test_smtp.sh your@gmail.com
 sudo systemctl restart cheradip-ailt
 ```
@@ -152,8 +150,8 @@ Restart API after adding packs: `sudo systemctl restart cheradip-ailt`
 |---------|-----|
 | `502` on `/ailt/api/health` | `sudo systemctl status cheradip-ailt` — check `.env` DATABASE_URL |
 | DB connection refused | MySQL running; user has `ailanguagetutor` grant |
-| SMTP auth failed | Use full email as `SMTP_USER`; try port 465 + `SMTP_USE_SSL=true` |
-| OTP not received | [MAIL_NOREPLY_CHERADIP.md](MAIL_NOREPLY_CHERADIP.md); `./scripts/diagnose_smtp.sh`; not port 25 |
+| SMTP auth failed | Brevo **SMTP key** as password; Login as `SMTP_USER` — [BREVO_EMAIL.md](BREVO_EMAIL.md) |
+| OTP not received | `./scripts/diagnose_smtp.sh`; verify sender in Brevo dashboard |
 | 404 on `/ailt/api/` | nginx snippet missing or wrong `proxy_pass` |
 
 Logs: `journalctl -u cheradip-ailt -f`

@@ -12,8 +12,8 @@ from app.config import settings
 logger = logging.getLogger(__name__)
 
 _LOCAL_POSTFIX_ERROR = (
-    "SMTP is set to 127.0.0.1:25 (local Postfix, no auth). Gmail/Yahoo reject direct VPS delivery (550 5.7.1). "
-    "Use port 587 with user admin and From noreply@cheradip.com — see deploy/MAIL_NOREPLY_CHERADIP.md"
+    "SMTP is set to 127.0.0.1:25 (local mail). Use Brevo: "
+    "SMTP_HOST=smtp-relay.brevo.com — see deploy/BREVO_EMAIL.md"
 )
 
 
