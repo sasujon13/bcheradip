@@ -1,13 +1,17 @@
 # Send from noreply@cheradip.com via Amazon SES
 
-Postfix on your VPS relays outbound mail through **Amazon SES**. Gmail/Yahoo accept SES; they block direct VPS send (`550 5.7.1`).
+**Ubuntu 26.04:** use **direct SES in `.env`** — [SES_UBUNTU26.md](./SES_UBUNTU26.md) (recommended).
 
 ```
-ailt_api  →  127.0.0.1:587  →  Postfix  →  Amazon SES  →  Gmail / Yahoo / …
+ailt_api  →  email-smtp.REGION.amazonaws.com:587  →  Gmail / Yahoo
             From: noreply@cheradip.com
 ```
 
-**ailt_api `.env` stays on localhost Postfix** — you only configure SES on Postfix.
+Optional: Postfix relay (only if you need local mail too):
+
+```
+ailt_api  →  127.0.0.1:587  →  Postfix  →  Amazon SES  →  internet
+```
 
 ---
 
@@ -80,7 +84,31 @@ email-smtp.eu-west-1.amazonaws.com
 
 ---
 
-## Part 2 — Configure Postfix relay on the server
+## Part 2 — Configure ailt_api (recommended on Ubuntu 26)
+
+See **[SES_UBUNTU26.md](./SES_UBUNTU26.md)** or run:
+
+```bash
+cd ailt_api
+bash scripts/setup-ses-env.sh
+sudo systemctl restart cheradip-ailt
+./scripts/test_smtp.sh your@gmail.com
+```
+
+`.env` example:
+
+```env
+SMTP_HOST=email-smtp.eu-west-1.amazonaws.com
+SMTP_PORT=587
+SMTP_USER=AKIAxxxxxxxx
+SMTP_PASSWORD=your-ses-smtp-password
+SMTP_FROM=noreply@cheradip.com
+SMTP_USE_TLS=true
+```
+
+---
+
+## Part 2b — Optional: Postfix relay on the server
 
 ### Option A — interactive script
 
@@ -133,23 +161,18 @@ sudo systemctl restart postfix
 
 ---
 
-## Part 3 — ailt_api `.env` (unchanged from working localhost setup)
+## Part 3 — ailt_api `.env` (Postfix relay path only)
+
+If you use Postfix relay below, keep localhost SMTP:
 
 ```env
-SMTP_ENABLED=true
 SMTP_HOST=127.0.0.1
 SMTP_PORT=587
 SMTP_USER=
 SMTP_PASSWORD=
-SMTP_FROM=noreply@cheradip.com
-SMTP_USE_TLS=true
-SMTP_USE_SSL=false
-DEV_LOG_OTP=false
 ```
 
-```bash
-sudo systemctl restart cheradip-ailt
-```
+If you use **direct SES** (recommended), skip Part 2b and use Part 2 instead.
 
 ---
 
