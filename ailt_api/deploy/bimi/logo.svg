@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Placeholder for BIMI DNS l= URL. Replace with DigiCert-validated SVG after CMC is issued. -->
+<!-- Submit cheradip-avatar.png (app launcher) to DigiCert for the real BIMI logo. -->
+<svg xmlns="http://www.w3.org/2000/svg" baseProfile="tiny-ps" version="1.2" width="96" height="96" viewBox="0 0 96 96">
+  <rect width="96" height="96" rx="48" fill="#00897B"/>
+  <circle cx="48" cy="48" r="32" fill="#50b848"/>
+  <circle cx="48" cy="48" r="24" fill="#E0F2F1"/>
+</svg>

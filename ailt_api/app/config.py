@@ -66,7 +66,8 @@ class Settings(BaseSettings):
         """Public HTTPS base for logo PNGs in HTML email (Brevo does not support cid: inline)."""
         if self.email_assets_base_url.strip():
             return self.email_assets_base_url.rstrip("/")
-        return f"{self.public_base_url.rstrip('/')}/assets/email"
+        # Main site path — Gmail image proxy loads these more reliably than /ailt/api/
+        return "https://cheradip.com/assets/email"
 
     @model_validator(mode="after")
     def _submission_port_needs_tls(self) -> "Settings":
