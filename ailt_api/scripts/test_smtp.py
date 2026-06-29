@@ -25,17 +25,24 @@ def main() -> int:
     args = parser.parse_args()
 
     from app.config import settings
-    from app.services.email_service import build_multipart_message, message_has_html_part, send_otp_email
+    from app.services.email_service import (
+        build_multipart_message,
+        message_has_html_part,
+        message_has_inline_logo,
+        send_otp_email,
+    )
     from app.services.email_templates import (
+        LOGO_CID,
         OTP_TEMPLATE_VERSION,
         _TEMPLATE_PATH,
+        logo_img_src,
         logo_path,
         render_otp_html,
         render_otp_plain,
     )
 
     print(f"Logo file: {logo_path()} ({'OK' if logo_path().is_file() else 'MISSING'})")
-    print(f"Logo embed: {settings.email_logo_embed} (src length in HTML varies)")
+    print(f"Logo src in HTML: {logo_img_src()}")
 
     print("=== SMTP config ===")
     print(f"SMTP_ENABLED={settings.smtp_enabled}")
@@ -64,11 +71,16 @@ def main() -> int:
     preview.write_text(html, encoding="utf-8")
     print(f"Preview: {preview}")
 
+    if LOGO_CID not in html and "cid:" not in html:
+        print("WARN: HTML missing cid: logo reference", file=sys.stderr)
     probe = build_multipart_message(to=args.to, subject="probe", plain_body=plain, html_body=html)
     if not message_has_html_part(probe):
         print("FAILED: MIME message has no text/html part", file=sys.stderr)
         return 1
-    print("MIME check: multipart/alternative + text/html — OK")
+    if logo_path().is_file() and not message_has_inline_logo(probe):
+        print("FAILED: MIME message has no inline PNG logo", file=sys.stderr)
+        return 1
+    print("MIME check: related + html + inline PNG — OK" if logo_path().is_file() else "MIME check: html — OK")
 
     try:
         send_otp_email(to=args.to, purpose="SMTP test", code="123456")

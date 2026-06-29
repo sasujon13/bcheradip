@@ -108,5 +108,4 @@ def health() -> dict:
         "email_template_ok": _TEMPLATE_PATH.is_file(),
         "email_logo_ok": logo_path().is_file(),
         "email_logo_url": logo_public_url(),
-        "email_logo_embed": settings.email_logo_embed,
     }
