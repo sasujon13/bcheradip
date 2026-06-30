@@ -20,6 +20,7 @@ env/
 .env
 .env.*
 !.env.example
+!.env.production.example
 !.env.db-sync.example
 .env.db-sync
 scripts/.env.db-sync
