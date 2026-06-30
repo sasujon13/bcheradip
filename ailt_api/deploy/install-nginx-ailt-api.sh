@@ -62,6 +62,13 @@ discover_site_files() {
   done
 
   if [[ ${#ssl_files[@]} -gt 0 ]]; then
+    # Prefer dedicated cheradip vhost over certbot's default
+    for real in "${ssl_files[@]}"; do
+      if [[ "$real" == *"/sites-available/cheradip" ]] || [[ "$real" == *"/sites-enabled/cheradip" ]]; then
+        echo "$real"
+        return 0
+      fi
+    done
     printf '%s\n' "${ssl_files[@]}" | sort -u
     return 0
   fi
