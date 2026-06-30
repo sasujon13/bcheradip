@@ -23,7 +23,14 @@ echo "--- try_files (Angular SPA) ---"
 grep -rln "try_files.*index.html" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true
 echo ""
 
-echo "--- apache? (if nginx empty) ---"
+echo "--- Recommended site file for AILT API ---"
+if [[ -f /etc/nginx/sites-available/cheradip ]]; then
+  echo "  /etc/nginx/sites-available/cheradip  (use this for install)"
+  echo "  sudo NGINX_SITE_FILE=/etc/nginx/sites-available/cheradip bash ailt_api/deploy/install-nginx-ailt-api.sh"
+else
+  echo "  (no /etc/nginx/sites-available/cheradip — pick a path from grep above)"
+fi
+echo ""
 if command -v apache2ctl >/dev/null 2>&1; then
   apache2ctl -S 2>/dev/null | head -30 || true
   grep -rn "cheradip\|/var/www/cheradip" /etc/apache2/ 2>/dev/null | head -20 || true
