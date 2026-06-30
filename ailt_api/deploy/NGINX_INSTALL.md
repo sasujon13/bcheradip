@@ -24,7 +24,15 @@ SSH into the server, then:
 ```bash
 cd /home/sasha/apps/cheradip/bcheradip
 git pull origin main
+
+# If install fails to find your site file:
+sudo bash ailt_api/deploy/find-nginx-site.sh
+
+# Auto-discover (searches /var/www/cheradip, try_files, sites-enabled):
 sudo bash ailt_api/deploy/install-nginx-ailt-api.sh
+
+# Or point at the file find-nginx-site.sh shows:
+sudo NGINX_SITE_FILE=/etc/nginx/sites-available/YOURFILE bash ailt_api/deploy/install-nginx-ailt-api.sh
 ```
 
 The script:
@@ -33,6 +41,8 @@ The script:
 2. Finds the enabled site that serves `cheradip.com`
 3. Adds `include snippets/ailt-api-location.conf;` **before** `location /` if missing
 4. Runs `nginx -t` and reloads nginx
+
+If install says **"No nginx config mentions cheradip.com"**, your vhost may use `default_server` or only `root /var/www/cheradip` without the domain name. Run `find-nginx-site.sh` (see Option A).
 
 ---
 
