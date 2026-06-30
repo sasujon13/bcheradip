@@ -40,8 +40,11 @@ if echo "$body" | grep -q "cheradip-ailt-api"; then
 elif echo "$body" | grep -qi "doctype html"; then
   echo "   FAIL  Public URL still returns Angular HTML"
   echo "   The HTTPS server { } block was not patched, or nginx was not reloaded."
-  echo "   Edit the file from step 3 — paste deploy/snippets/ailt-api-location.conf"
-  echo "   INSIDE server { listen 443 ssl; ... } BEFORE location /"
+elif echo "$body" | grep -qi "502\|Bad Gateway\|error code"; then
+  echo "   FAIL  502 Bad Gateway — nginx OK but cheradip-ailt is down"
+  echo "   Fix: bash ailt_api/deploy/diagnose-ailt-db.sh"
+  echo "        bash ailt_api/deploy/setup-ailt-env-from-django.sh"
+  echo "        sudo systemctl restart cheradip-ailt"
 else
   echo "   WARN  Unexpected response: $body"
 fi
