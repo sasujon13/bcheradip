@@ -5,9 +5,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SNIPPET_SRC="${SCRIPT_DIR}/nginx-ailt-api.conf"
+SNIPPET_SRC="${SCRIPT_DIR}/snippets/ailt-api-location.conf"
 SNIPPET_DST="/etc/nginx/snippets/ailt-api-location.conf"
-INCLUDE_LINE='include snippets/ailt-api-location.conf;'
+INCLUDE_LINE='    include snippets/ailt-api-location.conf;'
 
 if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
   echo "Run with sudo: sudo bash $0"
@@ -23,24 +23,35 @@ echo "Installing snippet -> $SNIPPET_DST"
 mkdir -p /etc/nginx/snippets
 cp "$SNIPPET_SRC" "$SNIPPET_DST"
 
-echo "Searching for cheradip.com server block..."
-mapfile -t SITE_FILES < <(grep -rl "cheradip.com" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true)
+echo "Searching HTTPS (443) server blocks for cheradip.com..."
+mapfile -t SITE_FILES < <(
+  grep -rl "cheradip.com" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null | while read -r f; do
+    real="$(readlink -f "$f" 2>/dev/null || echo "$f")"
+    if grep -qE "listen[[:space:]]+443|ssl" "$real" 2>/dev/null; then
+      echo "$real"
+    fi
+  done | sort -u
+)
+
+if [[ ${#SITE_FILES[@]} -eq 0 ]]; then
+  echo "No HTTPS cheradip.com block found; falling back to any cheradip.com file..."
+  mapfile -t SITE_FILES < <(grep -rl "cheradip.com" /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true)
+fi
 
 if [[ ${#SITE_FILES[@]} -eq 0 ]]; then
   echo "ERROR: No nginx config mentions cheradip.com."
-  echo "Find your site file manually — see deploy/NGINX_INSTALL.md"
+  echo "Run: sudo grep -r cheradip.com /etc/nginx/"
   exit 1
 fi
 
 patched=0
-for site in "${SITE_FILES[@]}"; do
-  real="$(readlink -f "$site" 2>/dev/null || echo "$site")"
+for real in "${SITE_FILES[@]}"; do
   if grep -q "ailt/api" "$real" 2>/dev/null; then
     echo "OK  $real already has /ailt/api/ proxy"
     patched=1
     continue
   fi
-  if grep -qF "$INCLUDE_LINE" "$real" 2>/dev/null; then
+  if grep -qF "include snippets/ailt-api-location.conf" "$real" 2>/dev/null; then
     echo "OK  $real already includes ailt-api snippet"
     patched=1
     continue
@@ -51,23 +62,32 @@ for site in "${SITE_FILES[@]}"; do
   cp "$real" "$backup"
   echo "  backup: $backup"
 
+  # Insert include inside server { }, before first "location /" (Angular catch-all)
   awk -v inc="$INCLUDE_LINE" '
-    BEGIN { done=0 }
-    /location[[:space:]]+\// && !done {
-      print "    " inc
+    BEGIN { in_server=0; done=0 }
+    /^[[:space:]]*server[[:space:]]*\{/ { in_server=1 }
+    in_server && /location[[:space:]]+\/[[:space:]]*\{/ && !done {
+      print inc
       done=1
     }
     { print }
-    END {
+    in_server && /^[[:space:]]*\}/ {
       if (!done) {
-        print "    " inc
+        print inc
+        done=1
       }
+      in_server=0
     }
   ' "$backup" > "${real}.tmp"
   mv "${real}.tmp" "$real"
-  echo "  added: $INCLUDE_LINE (before first location / or at end of file)"
+  echo "  added include before location / {"
   patched=1
 done
+
+if [[ $patched -eq 0 ]]; then
+  echo "ERROR: Could not patch any site file."
+  exit 1
+fi
 
 echo "Testing nginx config..."
 nginx -t
@@ -76,11 +96,4 @@ echo "Reloading nginx..."
 systemctl reload nginx
 
 echo ""
-echo "Local API:"
-curl -sf http://127.0.0.1:8790/api/ailt/health | head -c 200 || echo "(cheradip-ailt not responding on 8790 — run: systemctl start cheradip-ailt)"
-echo ""
-echo ""
-echo "Public API:"
-curl -sf https://cheradip.com/ailt/api/health | head -c 200 || echo "(still failing — check SSL server block was patched)"
-echo ""
-echo "Done. See deploy/NGINX_INSTALL.md if public URL still returns HTML."
+bash "${SCRIPT_DIR}/diagnose-nginx-ailt.sh"
