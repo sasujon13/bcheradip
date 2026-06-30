@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     admin_seed_email: str = "sashafik.me@gmail.com"
     admin_seed_whatsapp: str = "+8801722710298"
     admin_seed_password: str = ""
-    guest_ai_limit: int = 99
+    guest_ai_limit: int = 99_999_999
     trial_days: int = 30
     otp_ttl_minutes: int = 15
     session_ttl_days: int = 30

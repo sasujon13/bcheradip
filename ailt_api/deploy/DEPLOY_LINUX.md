@@ -49,12 +49,16 @@ Adjust `User=` / paths in the unit file if your home directory differs.
 
 ### 5. nginx
 
-Add the block from `ailt_api/deploy/nginx-ailt-api.conf` inside your **cheradip.com** `server { }` (before `location /`).
+**→ Full guide: [NGINX_INSTALL.md](NGINX_INSTALL.md)** — where to paste the block on Linux.
+
+Quick install on server:
 
 ```bash
-sudo nginx -t
-sudo systemctl reload nginx
+cd /home/sasha/apps/cheradip/bcheradip
+sudo bash ailt_api/deploy/install-nginx-ailt-api.sh
 ```
+
+Or add the block from `ailt_api/deploy/nginx-ailt-api.conf` inside your **cheradip.com** `server { }` (before `location /`).
 
 ### 6. Verify
 
@@ -74,6 +78,17 @@ cd /home/sasha/apps/cheradip/bcheradip/ailt_api
 chmod +x scripts/test_smtp.sh
 ./scripts/test_smtp.sh sashafik.me@gmail.com
 ```
+
+### 8. Cloud LLM keys + guest AI limit
+
+See [LLM_KEYS.md](LLM_KEYS.md). Minimum on production `.env`:
+
+```env
+GUEST_AI_LIMIT=99999999
+GEMINI_API_KEY=...   # at least one provider
+```
+
+Restart: `sudo systemctl restart cheradip-ailt`
 
 ---
 
@@ -152,6 +167,7 @@ Restart API after adding packs: `sudo systemctl restart cheradip-ailt`
 | DB connection refused | MySQL running; user has `ailanguagetutor` grant |
 | SMTP auth failed | Brevo **SMTP key** as password; Login as `SMTP_USER` — [BREVO_EMAIL.md](BREVO_EMAIL.md) |
 | OTP not received | `./scripts/diagnose_smtp.sh`; verify sender in Brevo dashboard |
-| 404 on `/ailt/api/` | nginx snippet missing or wrong `proxy_pass` |
+| 404 on `/ailt/api/` | nginx snippet missing or **after** `location /` — use `deploy/nginx-cheradip-com.conf` |
+| `/ailt/api/health` returns HTML | Angular `try_files` caught the request — move `/ailt/api/` block **above** `location /` |
 
 Logs: `journalctl -u cheradip-ailt -f`

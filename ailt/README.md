@@ -42,9 +42,11 @@ start D:\VSCode\cheradip\fcheradip\src\assets\ailt\ailt.html
 
 1. Run `build-manual.ps1` after editing `USER_MANUAL.md`
 2. Build Angular: `ng build --configuration production`
-3. Deploy `dist/frontend` as usual for cheradip.com
+3. Deploy `dist/frontend` to `/var/www/cheradip/` as usual
 
-**Note:** `/ailt` is served by Angular (SPA). `/ailt/api/` is still proxied to FastAPI — keep the nginx API block from `ailt_api/deploy/nginx-ailt-api.conf`. Do **not** add a separate static `location /ailt/` alias (it would conflict).
+**Email link for users:** `https://cheradip.com/ailt` (HTML manual — not `/ailt/api/`).
+
+**Note:** `/ailt` is served by Angular (SPA). `/ailt/api/` only is proxied to FastAPI — see `ailt_api/deploy/NGINX_INSTALL.md`. Do **not** add `location /ailt/` in nginx (would break the Angular route).
 
 ## Files in this folder
 
