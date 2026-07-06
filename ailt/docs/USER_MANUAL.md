@@ -66,48 +66,54 @@ On Home, choose your activity mode:
 
 ---
 
-## 5. 📷 Scanning & document editor
+## 5. 📷 Scanning & enhancement
 
-### Capture flow
+### Capture options
 
-1. Tap **Scan** (or Camera / Import from Home or Practice).
-2. Capture one or more pages.
-3. After capture, the **editor** opens automatically with crop tools.
+When you tap **Scan**, you can choose:
 
-### Editor toolbar
+- **Scan document** — Google ML Kit scanner (auto edge detection, multi-page, perspective correction). Best for quick everyday scans.
+- **Live scan (boundary guide)** — In-app camera with a **live teal outline** on the preview so you see the exact area selected before you shoot.
+  - **Solid outline** — flat / rectangular document
+  - **Dashed outline** — curved or wrinkled page (e.g. open book)
+- **Import from gallery** — Pick existing photos.
 
-- 🖼 **Original** — View raw capture
-- ✂️ **Crop & Rotate** — Drag corner handles, rotate ±90°, auto-detect edges
-- ✨ **Clean** — Apply document filters (see below)
-- 💾 **Save / Export** — PDF, separate images, or long image
+**💡 Tip:** Use **Live scan** when pages are curved; use **Scan document** when you want automatic crop and multi-page capture.
 
-### ✨ Clean filters (40+ presets)
+### After capture — review screen
 
-Tap **Clean** to open the preset grid:
+The review screen opens for each page:
 
-- **Auto**, **Color**, **Magic color**, **Gray**, **B&W**
-- **OCR**, **Document**, **Receipt**, **Book**, **Handwritten**
-- **Shadow fix**, **Straighten** (levels 1–3), **Brightness** presets
-- **Custom1 / Custom2** — Save your own slider combinations and rename them
+- **Thumbnails** — Tap to switch pages; **+** to add more (up to 20 per document).
+- **Detected document area** — Shows the boundary found on the original (flat vs curved label).
+- **Recommendation** — Suggested enhance level; tap **Apply** to use it.
+- **Clean | AI Clean**
+  - **Clean** — Offline processing on your phone (all users).
+  - **AI Clean** — **Pro or Plus + internet**; uses Cheradip **Home AI** on your Windows PC (https://ai.cheradip.com) when online, with offline fallback if unavailable.
+- **Level 0** — Compare **L1** and **L7** side by side; tap a preview to pick that level.
+- **Levels 1–7** — Stronger cleanup step by step (shadow removal, dewarp at higher levels, detail recovery).
+- **Export profile** — Document, receipt, book, etc. (affects save format).
 
-Manual sliders (in custom mode): brightness, contrast, sharpness, noise, shadow, paper whitening, ink enhancement.
+### Scan Only vs Learning
+
+- **Scan Only** (Home) — Scan, enhance, then **Save** as PDF or images. No OCR or reader.
+- **Learning** (default) — After enhance, tap **Process & Read** for OCR and the reader.
 
 ### Multi-page documents
 
-- Thumbnail strip below the preview — tap to switch pages.
-- Each page keeps its own edit state.
-- **Undo / redo** per page.
+- Each page keeps its own enhance level and mode (Clean / AI Clean).
+- **Rescan** replaces the current page; **Delete** removes it.
 
-### After editing
+### After enhancement
 
-- **Process & Read** — Runs OCR and opens the reader (Learning mode).
+- **Process & Read** — Runs OCR on the enhanced image and opens the reader (Learning mode).
 - **Save** — Export only (Scan Only mode).
 
 **💡 Tips:**
 
-- Good lighting and flat pages improve OCR accuracy.
-- Math, code, and diagrams may route to cloud structuring when online.
-- Crop handles work in the main editor preview — drag corners to adjust the region.
+- Good lighting and holding the phone steady improve detection and OCR.
+- For curved book pages: **Live scan** → **AI Clean** → try level **5+** when online.
+- Math, code, and diagrams may use cloud structuring when online in Learning mode.
 
 ---
 
@@ -263,7 +269,9 @@ Search by title. Tap a practice session to **restore** it in the Practice hub. T
 
 ## 14. 🔧 Troubleshooting
 
-- **OCR text looks messy** — Better lighting; use Process & Read while online for math/code; try Clean → OCR or Document preset.
+- **OCR text looks messy** — Better lighting; try **AI Clean** level 4–6 when Pro/Plus and online; use **Live scan** for curved pages; Process & Read while online for math/code.
+- **AI Clean disabled or offline** — Needs **Pro or Plus** and internet for Home AI; **Clean** still works offline.
+- **Boundary looks wrong** — Use **Live scan** to align the page; rescan with better lighting.
 - **AI says offline** — Check Wi‑Fi; verify subscription or guest limit (99 requests).
 - **No word definitions** — Download the language pack on Languages tab.
 - **Mode 5 locked** — Upgrade to Plus.
@@ -284,4 +292,4 @@ For support, use **Profile → Support** (WhatsApp) or the contact on the Paywal
 
 ---
 
-*Cheradip AI Language Tutor · User Guide · v2.1.0*
+*Cheradip AI Language Tutor · User Guide · v2.2.0*

@@ -9,6 +9,7 @@ Builds **`ailt.html`** into the Angular app so **https://cheradip.com/ailt** wor
 | Built HTML + assets | `fcheradip/src/assets/ailt/ailt.html` |
 | Source manual | `D:\VSCode\android\ailanguagetutor\docs\manuals\USER_MANUAL.md` |
 | App API | `../ailt_api/` → `https://cheradip.com/ailt/api/` |
+| Home AI | Android `server/v2/` on **Windows PC** → `https://ai.cheradip.com` (not `/ailt/api/`) |
 
 ## Build
 
