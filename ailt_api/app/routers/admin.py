@@ -22,6 +22,7 @@ from app.models import (
 )
 from app.schemas import AdminPromoCodeDto, AdminPromoPatchDto, AiProviderToggleRequest, AiRoutingPolicyUpdateRequest, ReferralPolicyPatchDto
 from app.security import quota_used_percent
+from app.services.llm_router import FAILURE_EXHAUST_THRESHOLD
 from app.services.earnings_report import build_earnings_report
 from app.services.referral_earnings import mature_pending_earnings
 
@@ -39,8 +40,10 @@ def _report_settings(db: Session) -> AdminReportSettings:
 
 
 def _effective_health(provider: AiProvider) -> str:
-    if provider.health in ("disabled", "exhausted"):
-        return provider.health
+    if provider.health == "disabled":
+        return "disabled"
+    if provider.health == "exhausted" or (provider.consecutive_failures or 0) >= FAILURE_EXHAUST_THRESHOLD:
+        return "exhausted"
     if provider.last_error:
         return "degraded"
     return provider.health or "healthy"

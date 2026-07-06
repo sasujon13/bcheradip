@@ -9,48 +9,42 @@
       "display_name": "Google Gemini 2.5 Flash",
       "tier": "free",
       "env_key": "GEMINI_API_KEY",
-      "enabled": true,
-      "daily_quota": 1000
+      "enabled": true
     },
     {
       "id": "openai",
       "display_name": "OpenAI GPT-4o mini",
       "tier": "free",
       "env_key": "OPENAI_API_KEY",
-      "enabled": true,
-      "daily_quota": 1000
+      "enabled": true
     },
     {
       "id": "claude",
       "display_name": "Anthropic Claude Haiku",
       "tier": "free",
       "env_key": "ANTHROPIC_API_KEY",
-      "enabled": true,
-      "daily_quota": 1000
+      "enabled": true
     },
     {
       "id": "groq",
       "display_name": "Groq Llama 3",
       "tier": "free",
       "env_key": "GROQ_API_KEY",
-      "enabled": true,
-      "daily_quota": 14400
+      "enabled": true
     },
     {
       "id": "openrouter",
-      "display_name": "OpenRouter (Gemini Flash free)",
+      "display_name": "OpenRouter (free pool)",
       "tier": "free",
       "env_key": "OPENROUTER_API_KEY",
-      "enabled": true,
-      "daily_quota": 2000
+      "enabled": true
     },
     {
       "id": "mistral",
-      "display_name": "Mistral Small",
+      "display_name": "Mistral (intent-based models)",
       "tier": "free",
       "env_key": "MISTRAL_API_KEY",
-      "enabled": true,
-      "daily_quota": 500
+      "enabled": true
     },
     {
       "id": "openai_paid",

@@ -138,8 +138,10 @@ def login(body: AuthLoginRequest, db: Session = Depends(get_db)) -> AuthLoginRes
             (User.email == username) | (User.whatsapp == username) | (User.username == username)
         )
     )
-    if not user or not user.password_hash or not verify_password(body.password, user.password_hash):
-        raise HTTPException(401, "Invalid credentials")
+    if not user:
+        raise HTTPException(401, "NOT_REGISTERED")
+    if not user.password_hash or not verify_password(body.password, user.password_hash):
+        raise HTTPException(401, "PASSWORD_MISMATCH")
     token = _issue_session(db, user, body.deviceId)
     db.commit()
     return _login_response(user, token)

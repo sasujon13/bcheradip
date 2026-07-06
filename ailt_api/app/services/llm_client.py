@@ -7,8 +7,15 @@ import logging
 import httpx
 
 from app.config import settings
+from app.services.provider_models import resolve_provider_model
 
 logger = logging.getLogger(__name__)
+
+
+class LlmHttpError(RuntimeError):
+    def __init__(self, status_code: int, message: str):
+        self.status_code = status_code
+        super().__init__(message)
 
 
 def provider_has_key(provider_id: str) -> bool:
@@ -49,34 +56,40 @@ async def _post_json(
 ) -> dict:
     resp = await client.post(url, headers=headers, json=body)
     if resp.is_error:
-        raise RuntimeError(_format_http_error(resp))
+        raise LlmHttpError(resp.status_code, _format_http_error(resp))
     return resp.json()
 
 
-async def generate_text(provider_id: str, prompt: str, max_tokens: int = 512) -> str | None:
+async def generate_text(
+    provider_id: str,
+    prompt: str,
+    max_tokens: int = 512,
+    *,
+    task_intent: str | None = None,
+) -> str | None:
+    model = resolve_provider_model(provider_id, task_intent)
     if provider_id == "gemini" and settings.gemini_api_key:
-        return await _gemini(prompt, max_tokens)
+        return await _gemini(prompt, max_tokens, model=model)
     if provider_id == "openai" and settings.openai_api_key:
-        return await _openai(prompt, max_tokens, model="gpt-4o-mini")
+        return await _openai(prompt, max_tokens, model=model)
     if provider_id == "openai_paid" and settings.openai_api_key:
-        return await _openai(prompt, max_tokens, model="gpt-4o")
+        return await _openai(prompt, max_tokens, model=model)
     if provider_id == "groq" and settings.groq_api_key:
-        return await _groq(prompt, max_tokens)
+        return await _groq(prompt, max_tokens, model=model)
     if provider_id == "claude" and settings.anthropic_api_key:
-        return await _anthropic(prompt, max_tokens, model=settings.anthropic_model)
+        return await _anthropic(prompt, max_tokens, model=model)
     if provider_id == "claude_paid" and settings.anthropic_api_key:
-        return await _anthropic(prompt, max_tokens, model=settings.anthropic_paid_model)
+        return await _anthropic(prompt, max_tokens, model=model)
     if provider_id == "mistral" and settings.mistral_api_key:
-        return await _mistral(prompt, max_tokens)
+        return await _mistral(prompt, max_tokens, model=model)
     if provider_id == "openrouter" and settings.openrouter_api_key:
-        return await _openrouter(prompt, max_tokens, model=settings.openrouter_model)
+        return await _openrouter(prompt, max_tokens, model=model)
     if provider_id == "openrouter_paid" and settings.openrouter_api_key:
-        return await _openrouter(prompt, max_tokens, model=settings.openrouter_paid_model)
+        return await _openrouter(prompt, max_tokens, model=model)
     return None
 
 
-async def _gemini(prompt: str, max_tokens: int) -> str:
-    model = settings.gemini_model
+async def _gemini(prompt: str, max_tokens: int, *, model: str) -> str:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
     body = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -114,7 +127,7 @@ async def _openai(prompt: str, max_tokens: int, model: str = "gpt-4o-mini") -> s
         return data["choices"][0]["message"]["content"].strip()
 
 
-async def _groq(prompt: str, max_tokens: int) -> str:
+async def _groq(prompt: str, max_tokens: int, *, model: str) -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         data = await _post_json(
             client,
@@ -124,7 +137,7 @@ async def _groq(prompt: str, max_tokens: int) -> str:
                 "Content-Type": "application/json",
             },
             body={
-                "model": "llama-3.1-8b-instant",
+                "model": model,
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": max_tokens,
             },
@@ -151,7 +164,7 @@ async def _anthropic(prompt: str, max_tokens: int, model: str) -> str:
         return data["content"][0]["text"].strip()
 
 
-async def _mistral(prompt: str, max_tokens: int) -> str:
+async def _mistral(prompt: str, max_tokens: int, model: str) -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         data = await _post_json(
             client,
@@ -161,7 +174,7 @@ async def _mistral(prompt: str, max_tokens: int) -> str:
                 "Content-Type": "application/json",
             },
             body={
-                "model": "mistral-small-latest",
+                "model": model,
                 "messages": [{"role": "user", "content": prompt}],
                 "max_tokens": max_tokens,
             },

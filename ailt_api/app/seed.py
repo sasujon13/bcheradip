@@ -39,7 +39,6 @@ def seed_if_empty(db: Session) -> None:
     _seed_referral_policy(db)
     _seed_ai_providers(db)
     db.commit()
-    sync_packs_to_db(db)
 
 
 def _seed_admin(db: Session) -> None:
@@ -138,7 +137,7 @@ def _seed_ai_providers(db: Session) -> None:
                 display_name=p["display_name"],
                 tier=p.get("tier", "free"),
                 enabled=bool(p.get("enabled", True)),
-                quota_daily_limit=p.get("daily_quota"),
+                quota_daily_limit=None,
             )
         )
 
@@ -149,5 +148,7 @@ def init_database() -> None:
     db = SessionLocal()
     try:
         seed_if_empty(db)
+        # Refresh language_packs.download_url from disk on every startup (PUBLIC_BASE_URL changes).
+        sync_packs_to_db(db)
     finally:
         db.close()

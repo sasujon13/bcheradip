@@ -33,6 +33,10 @@ def list_languages(db: Session = Depends(get_db)) -> dict:
 
 @router.get("/{code}/download")
 def download_info(code: str, db: Session = Depends(get_db)) -> dict:
+    # Prefer on-disk metadata so download_url always matches PUBLIC_BASE_URL (not stale DB rows).
+    meta = pack_metadata(code.lower())
+    if meta:
+        return meta
     row = db.scalar(select(LanguagePack).where(LanguagePack.code == code.lower()))
     if row:
         return {
@@ -41,10 +45,7 @@ def download_info(code: str, db: Session = Depends(get_db)) -> dict:
             "download_url": row.download_url,
             "size_bytes": row.size_bytes,
         }
-    meta = pack_metadata(code)
-    if not meta:
-        raise HTTPException(404, "Language pack not found")
-    return meta
+    raise HTTPException(404, "Language pack not found")
 
 
 @router.get("/{code}/file")

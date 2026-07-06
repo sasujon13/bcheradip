@@ -50,3 +50,21 @@ def get_optional_user(
     if not row or row.expires_at < datetime.utcnow():
         return None
     return db.get(User, row.user_id)
+
+
+def get_ai_client_key(
+    authorization: str | None = Header(default=None, alias="Authorization"),
+    x_device_id: str | None = Header(default=None, alias="X-Device-Id"),
+    db: Session = Depends(get_db),
+) -> str | None:
+    """Stable key for sticky cloud-AI provider routing (logged-in user or guest device)."""
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.removeprefix("Bearer ").strip()
+        if token:
+            row = db.scalar(select(SessionToken).where(SessionToken.token == token))
+            if row and row.expires_at >= datetime.utcnow():
+                return f"user:{row.user_id}"
+    device_id = (x_device_id or "").strip()
+    if device_id:
+        return f"device:{device_id}"
+    return None

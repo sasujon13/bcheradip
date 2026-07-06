@@ -182,6 +182,7 @@ class AiProvider(Base):
     enabled: Mapped[bool] = mapped_column(Boolean, default=True)
     quota_daily_limit: Mapped[int | None] = mapped_column(Integer)
     requests_today: Mapped[int] = mapped_column(Integer, default=0)
+    consecutive_failures: Mapped[int] = mapped_column(Integer, default=0)
     last_error: Mapped[str | None] = mapped_column(Text)
     last_used_at_ms: Mapped[int | None] = mapped_column(BigInteger)
 
@@ -192,6 +193,7 @@ class AiRoutingPolicy(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     mode: Mapped[str] = mapped_column(String(32), default="random_free")
     prefer_paid_when_free_exhausted: Mapped[bool] = mapped_column(Boolean, default=True)
+    quota_reset_day_utc: Mapped[str | None] = mapped_column(String(10))
 
 
 class AdminReportSettings(Base):
