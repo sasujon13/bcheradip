@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import re
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
+from fastapi import APIRouter, Depends, Header, HTTPException
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from app.config import settings
@@ -54,6 +54,11 @@ def _issue_session(db: Session, user: User, device_id: str | None) -> str:
         )
     )
     return token
+
+
+def _revoke_all_sessions(db: Session, user_id: int) -> None:
+    """Hard-revoke every session for a user (password change / logout-all)."""
+    db.execute(delete(SessionToken).where(SessionToken.user_id == user_id))
 
 
 def _login_response(user: User, token: str | None) -> AuthLoginResponse:
@@ -228,6 +233,8 @@ def recovery_reset(body: RecoveryResetRequest, db: Session = Depends(get_db)) ->
             raise HTTPException(400, "Verification code required")
         _verify_otp_code(db, user.email, "recovery_email", body.otp)
     user.password_hash = hash_password(body.newPassword)
+    # Security: a password reset invalidates every existing session everywhere.
+    _revoke_all_sessions(db, user.id)
     db.commit()
     return {"ok": True, "message": "Password reset successfully"}
 
@@ -272,8 +279,12 @@ def password_update_confirm(
             raise HTTPException(400, "No email on account")
         _verify_otp_code(db, user.email, "change_email", body.otp)
     user.password_hash = hash_password(body.newPassword)
+    # Break all existing sessions, then rotate a fresh one for this caller so the
+    # device that changed the password stays logged in but others are signed out.
+    _revoke_all_sessions(db, user.id)
+    new_token = _issue_session(db, user, body.deviceId)
     db.commit()
-    return {"ok": True, "message": "Password updated successfully"}
+    return {"ok": True, "message": "Password updated successfully", "sessionToken": new_token}
 
 
 @router.post("/email/change/send", response_model=EmailChangeSendResponse)
@@ -318,6 +329,43 @@ def email_change_confirm(
     user.email_verified = True
     db.commit()
     return {"ok": True, "message": "Email updated successfully", "email": new_email}
+
+
+@router.get("/me")
+def whoami(user: User = Depends(get_current_user)) -> dict:
+    """Validate the current session and return the signed-in identity."""
+    return {
+        "id": user.id,
+        "email": user.email,
+        "username": user.username,
+        "fullName": user.full_name,
+        "role": user.role,
+    }
+
+
+@router.post("/logout")
+def logout(
+    authorization: str | None = Header(default=None, alias="Authorization"),
+    db: Session = Depends(get_db),
+) -> dict:
+    """Sign out only the current device (delete this session token)."""
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.removeprefix("Bearer ").strip()
+        if token:
+            db.execute(delete(SessionToken).where(SessionToken.token == token))
+            db.commit()
+    return {"ok": True, "message": "Signed out"}
+
+
+@router.post("/logout-all")
+def logout_all(
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> dict:
+    """Sign out everywhere — deletes every session for this user."""
+    _revoke_all_sessions(db, user.id)
+    db.commit()
+    return {"ok": True, "message": "Signed out on all devices"}
 
 
 # Legacy endpoints kept for older clients — email only, no WhatsApp auth.

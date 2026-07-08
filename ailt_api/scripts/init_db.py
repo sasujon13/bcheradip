@@ -10,12 +10,12 @@ import pymysql
 from sqlalchemy import create_engine, text
 
 from app.config import settings
-from app.seed import init_database
+from app.seed import init_database, init_ext_database
 
 
-def ensure_database_exists() -> None:
-    parsed = urlparse(settings.database_url.replace("mysql+pymysql://", "mysql://"))
-    db_name = (parsed.path or "/ailanguagetutor").lstrip("/").split("?")[0]
+def ensure_database_exists(database_url: str, fallback_name: str) -> None:
+    parsed = urlparse(database_url.replace("mysql+pymysql://", "mysql://"))
+    db_name = (parsed.path or f"/{fallback_name}").lstrip("/").split("?")[0]
     host = parsed.hostname or "127.0.0.1"
     port = parsed.port or 3306
     user = parsed.username or "root"
@@ -36,12 +36,19 @@ def ensure_database_exists() -> None:
 
 def main() -> int:
     try:
-        ensure_database_exists()
+        ensure_database_exists(settings.database_url, "ailanguagetutor")
         engine = create_engine(settings.database_url, pool_pre_ping=True)
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
         init_database()
-        print("Tables created and seed data loaded.")
+        print("Main DB tables created and seed data loaded.")
+
+        ensure_database_exists(settings.ext_database_url, "extcheradip")
+        ext_engine = create_engine(settings.ext_database_url, pool_pre_ping=True)
+        with ext_engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        init_ext_database()
+        print("Extension DB (extcheradip) tables created and seed data loaded.")
         return 0
     except Exception as e:
         print(f"ERROR: {e}", file=sys.stderr)

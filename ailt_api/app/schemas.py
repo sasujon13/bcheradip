@@ -151,6 +151,91 @@ class BillingVerifyResponse(BaseModel):
     tier: str | None = None
 
 
+class ExtSignupRequest(BaseModel):
+    email: str
+    username: str = Field(min_length=3, max_length=64)
+    password: str = Field(min_length=8)
+    fullName: str | None = Field(default=None, max_length=80)
+    deviceId: str | None = None
+
+
+class ExtLoginRequest(BaseModel):
+    username: str
+    password: str
+    deviceId: str | None = None
+
+
+class ExtAuthResponse(BaseModel):
+    id: int
+    email: str | None = None
+    username: str | None = None
+    fullName: str | None = None
+    role: str = "user"
+    sessionToken: str | None = None
+
+
+class ExtPasswordChangeRequest(BaseModel):
+    currentPassword: str
+    newPassword: str = Field(min_length=8)
+    deviceId: str | None = None
+
+
+class ExtRecoverySendRequest(BaseModel):
+    email: str
+
+
+class ExtRecoveryResetRequest(BaseModel):
+    email: str
+    otp: str
+    newPassword: str = Field(min_length=8)
+
+
+class ExtAdminCreditGrantRequest(BaseModel):
+    teamId: int
+    amountUsd: float = Field(description="Positive to grant, negative to deduct")
+    reason: str = Field(default="admin_grant", max_length=64)
+
+
+class ExtAdminUserUpdateRequest(BaseModel):
+    role: str | None = Field(default=None, description="user | admin")
+    active: bool | None = None
+
+
+class ExtAdminPlanUpdateRequest(BaseModel):
+    plan: str = Field(description="free | pro | plus | business")
+    paygEnabled: bool | None = None
+    status: str | None = Field(default=None, description="active | past_due | canceled")
+
+
+class SubscriptionCheckoutRequest(BaseModel):
+    plan: str = Field(description="pro | plus | business")
+    seats: int = Field(1, ge=1, le=1000)
+    enablePayg: bool = False
+
+
+class SubscriptionCheckoutResponse(BaseModel):
+    ok: bool = True
+    checkoutUrl: str | None = None
+    pricingUrl: str | None = None
+    billingEnabled: bool = False
+    provider: str = "paddle"
+    stripeEnabled: bool = False  # back-compat alias for older extension clients
+    message: str = ""
+
+
+class LicenseVerifyRequest(BaseModel):
+    licenseKey: str = Field(min_length=6)
+
+
+class UsageRecordRequest(BaseModel):
+    requests: int = Field(1, ge=0)
+    tokens: int = Field(0, ge=0)
+
+
+class PaygEnableRequest(BaseModel):
+    enabled: bool = True
+
+
 class PromoValidateRequest(BaseModel):
     code: str
     base_price: float = Field(2.0, alias="base_price")

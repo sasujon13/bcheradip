@@ -21,6 +21,8 @@ _SKIP_TRANSLATE_PATH_PREFIXES = (
     "/api/ailt/promo/",
     "/api/ailt/referral/",
     "/api/ailt/billing/",
+    "/api/ailt/subscription/",
+    "/api/ailt/ext/",
     "/api/ailt/device/",
     "/api/ailt/health",
     "/api/ailt/languages/",

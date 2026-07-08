@@ -19,9 +19,15 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8790
     database_url: str = "mysql+pymysql://root:@127.0.0.1:3306/ailanguagetutor?charset=utf8mb4"
+    # Separate database for the Cheradip VS Code extension (users, billing, credits, payments)
+    ext_database_url: str = "mysql+pymysql://root:@127.0.0.1:3306/extcheradip?charset=utf8mb4"
     admin_seed_email: str = "sashafik.me@gmail.com"
     admin_seed_whatsapp: str = "+8801722710298"
     admin_seed_password: str = ""
+    # Cheradip extension admin (separate ext_users space). Blank email/password
+    # falls back to the app admin credentials above.
+    ext_admin_seed_email: str = ""
+    ext_admin_seed_password: str = ""
     guest_ai_limit: int = 99_999_999
     trial_days: int = 30
     otp_ttl_minutes: int = 15
@@ -80,6 +86,27 @@ class Settings(BaseSettings):
     openrouter_paid_model_complex: str = "anthropic/claude-sonnet-4-5"
     packs_dir: Path = _AILT_ROOT / "packs"
     public_base_url: str = "https://cheradip.com/ailt/api"
+    # Cheradip extension (Cursor-style) billing.
+    # Provider: "paddle" (Merchant of Record — works from Bangladesh, pays out by
+    # wire/Payoneer) or "stripe". Bangladesh cannot use Stripe/PayPal, so Paddle
+    # is the default.
+    billing_provider: str = "paddle"
+    billing_success_url: str = "https://cheradip.com/ailt/billing/success"
+    billing_cancel_url: str = "https://cheradip.com/ailt/billing/cancel"
+    billing_pricing_url: str = "https://cheradip.com/ailt/pricing"
+    # Paddle Billing (Merchant of Record) — Cheradip coding extension
+    paddle_api_key: str = ""
+    paddle_webhook_secret: str = ""
+    paddle_environment: str = "sandbox"  # "sandbox" or "production"
+    paddle_price_pro: str = ""
+    paddle_price_plus: str = ""
+    paddle_price_business: str = ""
+    # Stripe (optional fallback; not usable from Bangladesh)
+    stripe_secret_key: str = ""
+    stripe_webhook_secret: str = ""
+    stripe_price_pro: str = ""
+    stripe_price_plus: str = ""
+    stripe_price_business: str = ""
     translate_api_responses: bool = True
     translate_api_timeout_seconds: float = 4.0
     home_ai_translate_url: str = "http://127.0.0.1:8787/translate-strings"

@@ -6,6 +6,7 @@ from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Integer
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
+from app.ext_database import ExtBase
 
 
 class User(Base):
@@ -86,6 +87,163 @@ class Subscription(Base):
     paid_at_ms: Mapped[int | None] = mapped_column(BigInteger, index=True)
     slot1_code: Mapped[str | None] = mapped_column(String(64))
     slot2_code: Mapped[str | None] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class ExtUser(ExtBase):
+    """Cheradip VS Code extension account — separate user space from the AILT app."""
+
+    __tablename__ = "ext_users"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    email: Mapped[str | None] = mapped_column(String(255), unique=True, index=True)
+    username: Mapped[str | None] = mapped_column(String(64), unique=True, index=True)
+    password_hash: Mapped[str | None] = mapped_column(String(255))
+    role: Mapped[str] = mapped_column(String(16), default="user")  # user|admin
+    full_name: Mapped[str | None] = mapped_column(String(80))
+    email_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)  # admin can suspend
+    last_login_at_ms: Mapped[int | None] = mapped_column(BigInteger)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class ExtSession(ExtBase):
+    """Session token for a Cheradip extension user (session-based auth)."""
+
+    __tablename__ = "ext_sessions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    token: Mapped[str] = mapped_column(String(128), unique=True, index=True)
+    device_id: Mapped[str | None] = mapped_column(String(128))
+    expires_at: Mapped[datetime] = mapped_column(DateTime)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class ExtOtpCode(ExtBase):
+    """OTP codes for extension account recovery (separate from the app OTP table)."""
+
+    __tablename__ = "ext_otp_codes"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    target: Mapped[str] = mapped_column(String(255), index=True)
+    channel: Mapped[str] = mapped_column(String(16))
+    code: Mapped[str] = mapped_column(String(8))
+    expires_at: Mapped[datetime] = mapped_column(DateTime)
+    used: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class BillingTeam(ExtBase):
+    """Cursor-style team billing account for the Cheradip VS Code extension.
+
+    One team = one Stripe subscription. All member usage bills together.
+    """
+
+    __tablename__ = "billing_teams"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(120), default="My Team")
+    owner_user_id: Mapped[int] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    plan: Mapped[str] = mapped_column(String(16), default="free")  # free|pro|plus|business
+    payg_enabled: Mapped[bool] = mapped_column(Boolean, default=False)
+    status: Mapped[str] = mapped_column(String(16), default="active")  # active|past_due|canceled
+    seats: Mapped[int] = mapped_column(Integer, default=1)
+    license_key: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    stripe_customer_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    stripe_subscription_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    current_period_start_ms: Mapped[int | None] = mapped_column(BigInteger)
+    current_period_end_ms: Mapped[int | None] = mapped_column(BigInteger)
+    payg_due_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class TeamMember(ExtBase):
+    __tablename__ = "team_members"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    team_id: Mapped[int] = mapped_column(ForeignKey("billing_teams.id"), index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    role: Mapped[str] = mapped_column(String(16), default="member")  # owner|admin|member
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class UsageRecord(ExtBase):
+    """Per team+user usage within a billing period (month)."""
+
+    __tablename__ = "usage_records"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    team_id: Mapped[int] = mapped_column(ForeignKey("billing_teams.id"), index=True)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    period_start_ms: Mapped[int] = mapped_column(BigInteger, index=True)
+    requests: Mapped[int] = mapped_column(Integer, default=0)
+    tokens: Mapped[int] = mapped_column(BigInteger, default=0)
+    overage_units: Mapped[int] = mapped_column(Integer, default=0)
+    overage_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    updated_at_ms: Mapped[int] = mapped_column(BigInteger, default=0)
+
+
+class PaygCharge(ExtBase):
+    __tablename__ = "payg_charges"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    team_id: Mapped[int] = mapped_column(ForeignKey("billing_teams.id"), index=True)
+    units: Mapped[int] = mapped_column(Integer, default=0)
+    amount_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    status: Mapped[str] = mapped_column(String(16), default="pending")  # pending|paid
+    stripe_payment_intent: Mapped[str | None] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class ExtPayment(ExtBase):
+    """Payment history for the Cheradip extension (subscriptions, PAYG, credits, refunds)."""
+
+    __tablename__ = "ext_payments"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    team_id: Mapped[int] = mapped_column(ForeignKey("billing_teams.id"), index=True)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    kind: Mapped[str] = mapped_column(String(24), default="subscription")
+    # subscription | payg | credit_topup | refund | adjustment
+    plan: Mapped[str | None] = mapped_column(String(16))
+    amount_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    currency: Mapped[str] = mapped_column(String(8), default="usd")
+    status: Mapped[str] = mapped_column(String(16), default="paid")  # paid|pending|failed|refunded
+    description: Mapped[str | None] = mapped_column(String(255))
+    stripe_payment_intent: Mapped[str | None] = mapped_column(String(64), index=True)
+    stripe_invoice_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    stripe_session_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    created_at_ms: Mapped[int] = mapped_column(BigInteger, index=True, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class CreditBalance(ExtBase):
+    """Prepaid credit wallet per team — offsets PAYG / subscription; admin can grant."""
+
+    __tablename__ = "credit_balances"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    team_id: Mapped[int] = mapped_column(ForeignKey("billing_teams.id"), unique=True, index=True)
+    balance_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    lifetime_added_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    lifetime_spent_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    updated_at_ms: Mapped[int] = mapped_column(BigInteger, default=0)
+
+
+class CreditTransaction(ExtBase):
+    """Ledger of every credit change (grant, spend, refund, adjustment)."""
+
+    __tablename__ = "credit_transactions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    team_id: Mapped[int] = mapped_column(ForeignKey("billing_teams.id"), index=True)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    # actor: admin who granted, or the user who spent
+    delta_usd: Mapped[float] = mapped_column(Float, default=0.0)  # +grant / -spend
+    reason: Mapped[str] = mapped_column(String(64), default="adjustment")
+    balance_after_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    created_at_ms: Mapped[int] = mapped_column(BigInteger, index=True, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 

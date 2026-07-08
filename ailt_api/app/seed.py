@@ -11,10 +11,12 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import Base, SessionLocal, engine
+from app.ext_database import ExtBase, ExtSessionLocal, ext_engine
 from app.schema_upgrade import upgrade_schema
 from app.models import (
     AiProvider,
     AiRoutingPolicy,
+    ExtUser,
     LanguagePack,
     PromoCode,
     ReferralPolicy,
@@ -33,12 +35,74 @@ def create_tables() -> None:
     Base.metadata.create_all(bind=engine)
 
 
+_EXT_TABLES = (
+    "credit_transactions",
+    "credit_balances",
+    "ext_payments",
+    "payg_charges",
+    "usage_records",
+    "team_members",
+    "billing_teams",
+    "ext_sessions",
+    "ext_otp_codes",
+    "ext_users",
+)
+
+
+def _drop_legacy_ext_tables_from_main() -> None:
+    """Extension tables now live in the ``extcheradip`` database.
+
+    Older builds created them inside ``ailanguagetutor``. If any remain in the
+    main DB, drop them (dev-only, empty) so there is a single source of truth.
+    """
+    from sqlalchemy import inspect, text
+
+    insp = inspect(engine)
+    present = [t for t in _EXT_TABLES if insp.has_table(t)]
+    if not present:
+        return
+    with engine.begin() as conn:
+        conn.execute(text("SET FOREIGN_KEY_CHECKS=0"))
+        for table in present:
+            conn.execute(text(f"DROP TABLE IF EXISTS `{table}`"))
+        conn.execute(text("SET FOREIGN_KEY_CHECKS=1"))
+    logger.info("Dropped %d legacy extension tables from main DB (moved to extcheradip)", len(present))
+
+
 def seed_if_empty(db: Session) -> None:
     _seed_admin(db)
     _seed_promos(db)
     _seed_referral_policy(db)
     _seed_ai_providers(db)
     db.commit()
+
+
+def _seed_ext_admin(db: Session) -> None:
+    """Seed the Cheradip extension admin account (separate ext_users space)."""
+    email = (settings.ext_admin_seed_email or settings.admin_seed_email).strip().lower()
+    password = settings.ext_admin_seed_password or settings.admin_seed_password
+    if not password:
+        logger.warning("No ext admin password (ext_admin_seed_password/admin_seed_password) — ext admin not created")
+        return
+    existing = db.scalar(select(ExtUser).where(ExtUser.email == email))
+    if existing:
+        existing.password_hash = hash_password(password)
+        existing.role = "admin"
+        existing.email_verified = True
+        existing.active = True
+        return
+    db.add(
+        ExtUser(
+            email=email,
+            username=email.split("@")[0],
+            password_hash=hash_password(password),
+            role="admin",
+            full_name="Cheradip Admin",
+            email_verified=True,
+            active=True,
+        )
+    )
+    logger.info("Seeded ext admin user %s", email)
 
 
 def _seed_admin(db: Session) -> None:
@@ -143,6 +207,7 @@ def _seed_ai_providers(db: Session) -> None:
 
 
 def init_database() -> None:
+    _drop_legacy_ext_tables_from_main()
     create_tables()
     upgrade_schema(engine)
     db = SessionLocal()
@@ -150,5 +215,16 @@ def init_database() -> None:
         seed_if_empty(db)
         # Refresh language_packs.download_url from disk on every startup (PUBLIC_BASE_URL changes).
         sync_packs_to_db(db)
+    finally:
+        db.close()
+
+
+def init_ext_database() -> None:
+    """Create + seed the Cheradip extension database (extcheradip)."""
+    ExtBase.metadata.create_all(bind=ext_engine)
+    db = ExtSessionLocal()
+    try:
+        _seed_ext_admin(db)
+        db.commit()
     finally:
         db.close()

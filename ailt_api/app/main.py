@@ -12,9 +12,23 @@ from sqlalchemy import text
 
 from app.config import settings
 from app.database import engine
+from app.ext_database import ext_engine
 from app.middleware.translate_response import TranslateResponseMiddleware
-from app.routers import admin, ai, auth, billing, device, languages, learning, promo, referral
-from app.seed import init_database
+from app.routers import (
+    admin,
+    ai,
+    auth,
+    billing,
+    device,
+    ext_admin,
+    ext_auth,
+    languages,
+    learning,
+    promo,
+    referral,
+    subscription,
+)
+from app.seed import init_database, init_ext_database
 from app.services.pack_store import list_available_codes
 from app.services.email_templates import (
     OTP_TEMPLATE_VERSION,
@@ -37,6 +51,13 @@ async def lifespan(_app: FastAPI):
             conn.execute(text("SELECT 1"))
         init_database()
         logger.info("Database ready: ailanguagetutor")
+        try:
+            with ext_engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+            init_ext_database()
+            logger.info("Database ready: extcheradip (extension)")
+        except Exception as ext_err:
+            logger.error("Extension database (extcheradip) init failed: %s", ext_err)
         if settings.smtp_enabled and settings.uses_local_postfix_direct():
             logger.error(_LOCAL_POSTFIX_MSG)
         elif settings.smtp_enabled:
@@ -63,6 +84,9 @@ app.mount("/api/ailt", api)
 api.include_router(auth.router)
 api.include_router(device.router)
 api.include_router(billing.router)
+api.include_router(ext_auth.router)
+api.include_router(ext_admin.router)
+api.include_router(subscription.router)
 api.include_router(promo.router)
 api.include_router(referral.router)
 api.include_router(languages.router)
@@ -88,10 +112,18 @@ def health() -> dict:
             db_ok = True
     except Exception:
         pass
+    ext_db_ok = False
+    try:
+        with ext_engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+            ext_db_ok = True
+    except Exception:
+        pass
     return {
         "status": "ok" if db_ok else "degraded",
         "service": "cheradip-ailt-api",
         "database": "ailanguagetutor" if db_ok else "unavailable",
+        "ext_database": "extcheradip" if ext_db_ok else "unavailable",
         "language_packs_available": len(list_available_codes()),
         "llm_keys_configured": bool(
             settings.gemini_api_key
