@@ -134,6 +134,20 @@ class ExtOtpCode(ExtBase):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
+class AppSetting(ExtBase):
+    """Runtime, admin-editable settings (e.g. Paddle keys) — DB overrides .env.
+
+    Stored in the extension database so the Paddle payment credentials can be
+    set from the admin page without a redeploy. Secret values live only here.
+    """
+
+    __tablename__ = "app_settings"
+
+    key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    value: Mapped[str | None] = mapped_column(Text)
+    updated_at_ms: Mapped[int | None] = mapped_column(BigInteger)
+
+
 class BillingTeam(ExtBase):
     """Cursor-style team billing account for the Cheradip VS Code extension.
 
@@ -178,6 +192,7 @@ class UsageRecord(ExtBase):
     user_id: Mapped[int | None] = mapped_column(ForeignKey("ext_users.id"), index=True)
     period_start_ms: Mapped[int] = mapped_column(BigInteger, index=True)
     requests: Mapped[int] = mapped_column(Integer, default=0)
+    line_edits: Mapped[int] = mapped_column(BigInteger, default=0)  # replacements + insertions
     tokens: Mapped[int] = mapped_column(BigInteger, default=0)
     overage_units: Mapped[int] = mapped_column(Integer, default=0)
     overage_usd: Mapped[float] = mapped_column(Float, default=0.0)
@@ -189,8 +204,9 @@ class PaygCharge(ExtBase):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     team_id: Mapped[int] = mapped_column(ForeignKey("billing_teams.id"), index=True)
-    units: Mapped[int] = mapped_column(Integer, default=0)
-    amount_usd: Mapped[float] = mapped_column(Float, default=0.0)
+    units: Mapped[int] = mapped_column(Integer, default=0)  # request overage units
+    line_units: Mapped[int] = mapped_column(Integer, default=0)  # line-edit overage units
+    amount_usd: Mapped[float] = mapped_column(Float, default=0.0)  # max(request bill, line bill)
     status: Mapped[str] = mapped_column(String(16), default="pending")  # pending|paid
     stripe_payment_intent: Mapped[str | None] = mapped_column(String(64))
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())

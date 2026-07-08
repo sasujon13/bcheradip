@@ -207,6 +207,21 @@ class ExtAdminPlanUpdateRequest(BaseModel):
     status: str | None = Field(default=None, description="active | past_due | canceled")
 
 
+class ExtAdminPaddleConfigRequest(BaseModel):
+    """Set Paddle credentials from the admin page. Blank/None = leave unchanged."""
+
+    environment: str | None = Field(default=None, description="sandbox | production")
+    apiKey: str | None = None
+    webhookSecret: str | None = None
+    clientToken: str | None = None
+    pricePro: str | None = None
+    pricePlus: str | None = None
+    priceBusiness: str | None = None
+    validate_: bool = Field(default=True, alias="validate")
+
+    model_config = {"populate_by_name": True}
+
+
 class SubscriptionCheckoutRequest(BaseModel):
     plan: str = Field(description="pro | plus | business")
     seats: int = Field(1, ge=1, le=1000)
@@ -230,6 +245,15 @@ class LicenseVerifyRequest(BaseModel):
 class UsageRecordRequest(BaseModel):
     requests: int = Field(1, ge=0)
     tokens: int = Field(0, ge=0)
+    # Line edits applied to files. Send a pre-summed ``lineEdits`` or the split
+    # ``replacements`` + ``insertions`` (server sums them when lineEdits is 0).
+    lineEdits: int = Field(0, ge=0)
+    replacements: int = Field(0, ge=0)
+    insertions: int = Field(0, ge=0)
+
+    @property
+    def total_lines(self) -> int:
+        return self.lineEdits or (self.replacements + self.insertions)
 
 
 class PaygEnableRequest(BaseModel):

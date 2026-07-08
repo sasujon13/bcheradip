@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from app.services.plans import (
+    PAYG_LINE_UNIT_USD,
+    PAYG_UNIT_USD,
     PLANS,
     get_plan,
     next_plan,
@@ -17,6 +19,22 @@ def test_multipliers_pro_plus_business():
     assert PLANS["business"].request_quota == PLANS["pro"].request_quota * 15
     assert PLANS["plus"].price_usd == PLANS["pro"].price_usd * 3
     assert PLANS["business"].price_usd == PLANS["pro"].price_usd * 10
+
+
+def test_line_quotas():
+    # Line-edit quota is 10x the request quota per plan.
+    assert PLANS["free"].line_quota == 500
+    assert PLANS["pro"].line_quota == 5000
+    assert PLANS["plus"].line_quota == 20000
+    assert PLANS["business"].line_quota == 75000
+    for p in PLANS.values():
+        assert p.line_quota == p.request_quota * 10
+
+
+def test_payg_line_unit_is_tenth_of_request_unit():
+    # 1 request or 10 line edits, each $0.02 → $0.002 per line.
+    assert PAYG_UNIT_USD == 0.02
+    assert PAYG_LINE_UNIT_USD == 0.002
 
 
 def test_free_has_no_payg():
@@ -47,4 +65,4 @@ def test_public_catalog_shape():
     cat = public_catalog()
     ids = [p["id"] for p in cat]
     assert ids == ["free", "pro", "plus", "business"]
-    assert all("priceUsd" in p and "requestQuota" in p for p in cat)
+    assert all("priceUsd" in p and "requestQuota" in p and "lineQuota" in p for p in cat)

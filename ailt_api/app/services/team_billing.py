@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 from app.models import BillingTeam, CreditBalance, ExtUser, PaygCharge, TeamMember, UsageRecord
 from app.services.plans import (
+    PAYG_LINE_UNIT_USD,
     PAYG_UNIT_USD,
     current_period_bounds,
     get_plan,
@@ -87,10 +88,42 @@ def team_period_requests(db: Session, team_id: int, start_ms: int) -> int:
     return int(total or 0)
 
 
+def team_period_lines(db: Session, team_id: int, start_ms: int) -> int:
+    """Team-wide line edits (replacements + insertions) this period."""
+    total = db.scalar(
+        select(func.coalesce(func.sum(UsageRecord.line_edits), 0)).where(
+            UsageRecord.team_id == team_id,
+            UsageRecord.period_start_ms == start_ms,
+            UsageRecord.user_id.isnot(None),
+        )
+    )
+    return int(total or 0)
+
+
+def _overage_billing(plan_id: str, team_requests: int, team_lines: int) -> dict:
+    """Compute request/line overage and the PAYG bill (max of the two dimensions)."""
+    plan = get_plan(plan_id)
+    req_over = max(0, team_requests - plan.request_quota)
+    line_over = max(0, team_lines - plan.line_quota)
+    req_bill = round(req_over * PAYG_UNIT_USD, 2)
+    line_bill = round(line_over * PAYG_LINE_UNIT_USD, 2)
+    return {
+        "reqOver": req_over,
+        "lineOver": line_over,
+        "reqBillUsd": req_bill,
+        "lineBillUsd": line_bill,
+        "billUsd": round(max(req_bill, line_bill), 2),
+        # Line edits are the first-priority limit; requests are the fallback.
+        "lineExhausted": team_lines > plan.line_quota,
+        "reqExhausted": team_requests > plan.request_quota,
+    }
+
+
 def usage_summary(db: Session, team: BillingTeam, user: ExtUser | None) -> dict:
     start_ms, end_ms = current_period_bounds()
     plan = get_plan(team.plan)
     team_used = team_period_requests(db, team.id, start_ms)
+    team_lines = team_period_lines(db, team.id, start_ms)
 
     per_user = []
     rows = db.scalars(
@@ -107,27 +140,30 @@ def usage_summary(db: Session, team: BillingTeam, user: ExtUser | None) -> dict:
                 "userId": r.user_id,
                 "email": member.email if member else None,
                 "requests": r.requests,
+                "lineEdits": r.line_edits,
                 "tokens": r.tokens,
             }
         )
 
-    overage = max(0, team_used - plan.request_quota)
-    overage_usd = round(overage * PAYG_UNIT_USD, 2)
+    bill = _overage_billing(team.plan, team_used, team_lines)
     gap = payg_gap_usd(team.plan)
     nxt = next_plan(team.plan)
     credit = db.scalar(select(CreditBalance.balance_usd).where(CreditBalance.team_id == team.id))
     credit_usd = round(float(credit or 0.0), 2)
 
     my_requests = 0
+    my_lines = 0
     if user is not None:
         mine = db.scalar(
-            select(UsageRecord.requests).where(
+            select(UsageRecord).where(
                 UsageRecord.team_id == team.id,
                 UsageRecord.period_start_ms == start_ms,
                 UsageRecord.user_id == user.id,
             )
         )
-        my_requests = int(mine or 0)
+        if mine:
+            my_requests = int(mine.requests or 0)
+            my_lines = int(mine.line_edits or 0)
 
     return {
         "plan": team.plan,
@@ -139,12 +175,19 @@ def usage_summary(db: Session, team: BillingTeam, user: ExtUser | None) -> dict:
         "periodStartMs": start_ms,
         "periodEndMs": team.current_period_end_ms or end_ms,
         "quota": plan.request_quota,
+        "lineQuota": plan.line_quota,
         "teamRequests": team_used,
+        "teamLines": team_lines,
         "myRequests": my_requests,
-        "overageUnits": overage,
-        "overageUsd": overage_usd,
+        "myLines": my_lines,
+        "overageUnits": bill["reqOver"],
+        "lineOverageUnits": bill["lineOver"],
+        "requestBillUsd": bill["reqBillUsd"],
+        "lineBillUsd": bill["lineBillUsd"],
+        "overageUsd": bill["billUsd"],
         "paygDueUsd": round(team.payg_due_usd, 2),
         "paygUnitUsd": PAYG_UNIT_USD,
+        "paygLineUnitUsd": PAYG_LINE_UNIT_USD,
         "creditBalanceUsd": credit_usd,
         "nextPlan": nxt.id if nxt else None,
         "nextPlanPriceUsd": nxt.price_usd if nxt else None,
@@ -153,48 +196,73 @@ def usage_summary(db: Session, team: BillingTeam, user: ExtUser | None) -> dict:
     }
 
 
-def record_usage(db: Session, team: BillingTeam, user: ExtUser, requests: int, tokens: int) -> dict:
+def record_usage(
+    db: Session,
+    team: BillingTeam,
+    user: ExtUser,
+    requests: int,
+    tokens: int,
+    line_edits: int = 0,
+) -> dict:
     """Increment usage and evaluate quota / PAYG gating.
+
+    Two metered dimensions per plan: line edits (replacements + insertions) and
+    requests. **Line edits are the first-priority limit** — the package is over
+    once line edits reach the quota; if lines are still under quota, requests are
+    the fallback limit. On PAYG the bill is the *larger* of the request bill and
+    the line bill (never both), so users pay the fair maximum.
 
     Returns a decision dict:
       allowed        — request is permitted
       needsPayment   — client must pay PAYG now or upgrade
       reason         — quota_exceeded | payg_threshold | ok
+      limitReason    — line | request | None (which dimension is exhausted)
     """
     start_ms, _ = current_period_bounds()
     plan = get_plan(team.plan)
 
     user_rec = _period_record(db, team.id, user.id, start_ms)
     user_rec.requests += max(0, requests)
+    user_rec.line_edits += max(0, line_edits)
     user_rec.tokens += max(0, tokens)
     user_rec.updated_at_ms = ms_now()
 
     team_used = team_period_requests(db, team.id, start_ms)
-    overage = max(0, team_used - plan.request_quota)
-    overage_usd = round(overage * PAYG_UNIT_USD, 2)
+    team_lines = team_period_lines(db, team.id, start_ms)
+    bill = _overage_billing(team.plan, team_used, team_lines)
 
     decision = {
         "allowed": True,
         "needsPayment": False,
         "reason": "ok",
+        "limitReason": None,
         "teamRequests": team_used,
+        "teamLines": team_lines,
         "quota": plan.request_quota,
-        "overageUnits": overage,
-        "overageUsd": overage_usd,
+        "lineQuota": plan.line_quota,
+        "overageUnits": bill["reqOver"],
+        "lineOverageUnits": bill["lineOver"],
+        "requestBillUsd": bill["reqBillUsd"],
+        "lineBillUsd": bill["lineBillUsd"],
+        "overageUsd": bill["billUsd"],
         "nextPlan": None,
         "upgradeGapUsd": None,
     }
 
-    if team_used <= plan.request_quota:
+    # Within both quotas → nothing due.
+    if not bill["lineExhausted"] and not bill["reqExhausted"]:
         db.commit()
         return decision
+
+    # Line edits take priority when reporting which limit was hit.
+    decision["limitReason"] = "line" if bill["lineExhausted"] else "request"
 
     nxt = next_plan(team.plan)
     gap = payg_gap_usd(team.plan)
     decision["nextPlan"] = nxt.id if nxt else None
     decision["upgradeGapUsd"] = gap
 
-    # Free plan (or PAYG disabled): hard stop once quota is used up.
+    # Free plan (or PAYG disabled): hard stop once either quota is used up.
     if not plan.payg_allowed or not team.payg_enabled:
         decision["allowed"] = False
         decision["needsPayment"] = True
@@ -202,9 +270,9 @@ def record_usage(db: Session, team: BillingTeam, user: ExtUser, requests: int, t
         db.commit()
         return decision
 
-    # PAYG on: accumulate overage as amount due; prompt when we hit the next-tier gap.
-    team.payg_due_usd = overage_usd
-    if gap is not None and overage_usd >= gap:
+    # PAYG on: amount due is the larger of the two dimension bills.
+    team.payg_due_usd = bill["billUsd"]
+    if gap is not None and bill["billUsd"] >= gap:
         decision["needsPayment"] = True
         decision["reason"] = "payg_threshold"
     db.commit()
@@ -213,14 +281,14 @@ def record_usage(db: Session, team: BillingTeam, user: ExtUser, requests: int, t
 
 def open_payg_charge(db: Session, team: BillingTeam) -> PaygCharge:
     start_ms, _ = current_period_bounds()
-    plan = get_plan(team.plan)
     team_used = team_period_requests(db, team.id, start_ms)
-    overage = max(0, team_used - plan.request_quota)
-    amount = round(overage * PAYG_UNIT_USD, 2)
+    team_lines = team_period_lines(db, team.id, start_ms)
+    bill = _overage_billing(team.plan, team_used, team_lines)
     charge = PaygCharge(
         team_id=team.id,
-        units=overage,
-        amount_usd=amount,
+        units=bill["reqOver"],
+        line_units=bill["lineOver"],
+        amount_usd=bill["billUsd"],
         status="pending",
     )
     db.add(charge)

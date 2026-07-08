@@ -109,6 +109,8 @@ class Settings(BaseSettings):
     paddle_api_key: str = ""
     paddle_webhook_secret: str = ""
     paddle_environment: str = "sandbox"  # "sandbox" or "production"
+    # Publishable client-side token (safe to expose to the pricing page).
+    paddle_client_token: str = ""
     paddle_price_pro: str = ""
     paddle_price_plus: str = ""
     paddle_price_business: str = ""

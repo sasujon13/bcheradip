@@ -20,7 +20,7 @@ import logging
 
 import httpx
 
-from app.config import settings
+from app.services import runtime_config
 from app.services.billing_types import BillingEvent
 from app.services.plans import PlanDef
 
@@ -29,19 +29,36 @@ logger = logging.getLogger(__name__)
 _TIMEOUT = 20.0
 
 
+def _api_key() -> str:
+    return runtime_config.get("paddle_api_key")
+
+
+def _environment() -> str:
+    return runtime_config.get("paddle_environment", "sandbox")
+
+
+def _webhook_secret() -> str:
+    return runtime_config.get("paddle_webhook_secret")
+
+
+def client_token() -> str:
+    """Publishable client-side token (safe for the pricing page)."""
+    return runtime_config.get("paddle_client_token")
+
+
 def enabled() -> bool:
-    return bool(settings.paddle_api_key)
+    return bool(_api_key())
 
 
 def _base_url() -> str:
-    if (settings.paddle_environment or "sandbox").lower().startswith("prod"):
+    if (_environment() or "sandbox").lower().startswith("prod"):
         return "https://api.paddle.com"
     return "https://sandbox-api.paddle.com"
 
 
 def _headers() -> dict[str, str]:
     return {
-        "Authorization": f"Bearer {settings.paddle_api_key}",
+        "Authorization": f"Bearer {_api_key()}",
         "Content-Type": "application/json",
     }
 
@@ -63,9 +80,47 @@ def _request(method: str, path: str, payload: dict | None = None) -> dict | None
 
 
 def price_id_for(plan: PlanDef) -> str | None:
-    if not plan.paddle_price_env:
+    if plan.id in ("pro", "plus", "business"):
+        return runtime_config.get(f"paddle_price_{plan.id}") or None
+    return None
+
+
+def verify_credentials(api_key: str, environment: str) -> tuple[bool, str]:
+    """Live-test a Paddle API key against Paddle before saving it.
+
+    Returns (ok, message). Used by the admin config page so the operator gets a
+    clear success/error result instead of silently storing a bad key.
+    """
+    if not api_key:
+        return False, "API key is required"
+    base = (
+        "https://api.paddle.com"
+        if (environment or "sandbox").lower().startswith("prod")
+        else "https://sandbox-api.paddle.com"
+    )
+    try:
+        with httpx.Client(timeout=_TIMEOUT) as client:
+            resp = client.get(
+                base + "/event-types",
+                headers={"Authorization": f"Bearer {api_key}"},
+            )
+    except Exception as exc:  # noqa: BLE001
+        return False, f"Could not reach Paddle: {exc}"
+    if resp.status_code == 200:
+        return True, "Paddle credentials verified"
+    if resp.status_code in (401, 403):
+        return False, "Paddle rejected the API key (check key and environment)"
+    return False, f"Paddle returned HTTP {resp.status_code}"
+
+
+def get_customer_email(customer_id: str | None) -> str | None:
+    """Look up a Paddle customer's email (used to link anonymous web checkouts)."""
+    if not customer_id or not enabled():
         return None
-    return getattr(settings, plan.paddle_price_env, "") or None
+    res = _request("GET", f"/customers/{customer_id}")
+    if res and res.get("data"):
+        return res["data"].get("email")
+    return None
 
 
 def ensure_customer(email: str | None, name: str | None, existing_id: str | None) -> str | None:
@@ -151,7 +206,7 @@ def billing_portal_url(customer_id: str | None) -> str | None:
 
 
 def _verify_signature(payload: bytes, sig_header: str | None) -> bool:
-    secret = settings.paddle_webhook_secret
+    secret = _webhook_secret()
     if not secret or not sig_header:
         return False
     ts = None

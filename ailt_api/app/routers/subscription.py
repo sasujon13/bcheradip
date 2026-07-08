@@ -31,7 +31,7 @@ from app.schemas import (
     SubscriptionCheckoutResponse,
     UsageRecordRequest,
 )
-from app.services import billing_gateway
+from app.services import billing_gateway, paddle_gateway, runtime_config
 from app.services.billing_types import BillingEvent
 from app.services.credits import record_payment
 from app.services.plans import current_period_bounds, get_plan, public_catalog
@@ -48,12 +48,31 @@ router = APIRouter(prefix="/subscription", tags=["subscription"])
 
 @router.get("/plans")
 def plans() -> dict:
+    """Public plan catalog + publishable checkout config (no secrets).
+
+    The pricing page and the extension use ``checkout`` to init Paddle.js in the
+    browser (overlay checkout). Only the publishable client token + price ids are
+    exposed here — the API key / webhook secret never leave the server.
+    """
+    prov = billing_gateway.provider()
+    checkout = {
+        "provider": prov,
+        "enabled": billing_gateway.enabled(),
+        "environment": runtime_config.get("paddle_environment", "sandbox"),
+        "clientToken": paddle_gateway.client_token() if prov == "paddle" else "",
+        "prices": {
+            "pro": runtime_config.get("paddle_price_pro"),
+            "plus": runtime_config.get("paddle_price_plus"),
+            "business": runtime_config.get("paddle_price_business"),
+        },
+    }
     return {
         "plans": public_catalog(),
-        "provider": billing_gateway.provider(),
+        "provider": prov,
         "billingEnabled": billing_gateway.enabled(),
         "stripeEnabled": billing_gateway.enabled(),  # back-compat
         "pricingUrl": billing_gateway.pricing_url(),
+        "checkout": checkout,
     }
 
 
@@ -196,7 +215,7 @@ def usage(
     db: Session = Depends(get_ext_db),
 ) -> dict:
     team = get_or_create_team(db, user)
-    return record_usage(db, team, user, body.requests, body.tokens)
+    return record_usage(db, team, user, body.requests, body.tokens, body.total_lines)
 
 
 @router.get("/payments")
@@ -253,11 +272,44 @@ async def webhook(request: Request, db: Session = Depends(get_ext_db)) -> dict:
     return {"received": True}
 
 
+def _resolve_team_by_email(db: Session, ev: BillingEvent) -> BillingTeam | None:
+    """Web (pricing-page) checkouts have no team_id — link by Paddle customer email.
+
+    Find or create an ext_user for the buyer's email, then return their team. New
+    web accounts have no password; the buyer sets one via "forgot password" (and
+    their license key is shown after sign-in / on the account page).
+    """
+    email = paddle_gateway.get_customer_email(ev.customer_id)
+    if not email:
+        return None
+    email = email.strip().lower()
+    user = db.scalar(select(ExtUser).where(ExtUser.email == email))
+    if not user:
+        base = email.split("@")[0]
+        username = base
+        suffix = 1
+        while db.scalar(select(ExtUser).where(ExtUser.username == username)):
+            suffix += 1
+            username = f"{base}{suffix}"
+        user = ExtUser(
+            email=email,
+            username=username,
+            role="user",
+            email_verified=True,
+            active=True,
+        )
+        db.add(user)
+        db.flush()
+    return get_or_create_team(db, user)
+
+
 def _apply_checkout_completed(db: Session, ev: BillingEvent) -> None:
-    if ev.team_id is None:
-        return
-    team = db.get(BillingTeam, ev.team_id)
+    team = db.get(BillingTeam, ev.team_id) if ev.team_id is not None else None
+    if team is None:
+        # Anonymous web checkout from the pricing page — link the buyer by email.
+        team = _resolve_team_by_email(db, ev)
     if not team:
+        logger.warning("Checkout completed but no team resolved (txn=%s)", ev.transaction_id)
         return
     start_ms, end_ms = current_period_bounds()
 

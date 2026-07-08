@@ -25,6 +25,7 @@ class PlanDef:
     name: str
     price_usd: float
     request_quota: int  # included fast requests per month
+    line_quota: int  # included line edits (replacements + insertions) per month
     payg_allowed: bool
     stripe_price_env: str  # settings attribute holding the Stripe price id
     paddle_price_env: str = ""  # settings attribute holding the Paddle price id
@@ -36,32 +37,41 @@ class PlanDef:
 # Bonus requests on top of the price multiple make the quotas more generous:
 #   Plus  = 3x price but 4x requests  (1500 + 500 bonus  = 2000)
 #   Business = 10x price but 15x requests (5000 + 2500 bonus = 7500)
+#
+# Each plan also includes a monthly *line-edit* quota (replacements + insertions
+# applied to files) at 10 lines per included request. Quota is consumed by
+# whichever dimension is exhausted first — line edits take priority (see
+# team_billing.record_usage).
 _PRO_QUOTA = 500
 _PRO_PRICE = 10.0
+_LINES_PER_REQUEST = 10  # line-edit quota = request quota x 10
 
 PLANS: dict[str, PlanDef] = {
-    "free": PlanDef("free", "Free", 0.0, 50, False, "", ""),
-    "pro": PlanDef("pro", "Pro", _PRO_PRICE, _PRO_QUOTA, True, "stripe_price_pro", "paddle_price_pro"),
+    "free": PlanDef("free", "Free", 0.0, 50, 500, False, "", ""),
+    "pro": PlanDef(
+        "pro", "Pro", _PRO_PRICE, _PRO_QUOTA, _PRO_QUOTA * _LINES_PER_REQUEST, True,
+        "stripe_price_pro", "paddle_price_pro",
+    ),
     "plus": PlanDef(
-        "plus", "Plus", _PRO_PRICE * 3, _PRO_QUOTA * 4, True, "stripe_price_plus", "paddle_price_plus"
+        "plus", "Plus", _PRO_PRICE * 3, _PRO_QUOTA * 4, _PRO_QUOTA * 4 * _LINES_PER_REQUEST, True,
+        "stripe_price_plus", "paddle_price_plus",
     ),
     "business": PlanDef(
-        "business",
-        "Business",
-        _PRO_PRICE * 10,
-        _PRO_QUOTA * 15,
-        True,
-        "stripe_price_business",
-        "paddle_price_business",
+        "business", "Business", _PRO_PRICE * 10, _PRO_QUOTA * 15,
+        _PRO_QUOTA * 15 * _LINES_PER_REQUEST, True,
+        "stripe_price_business", "paddle_price_business",
     ),
 }
 
 # Order used for "next label" upgrade prompts.
 PLAN_ORDER = ["free", "pro", "plus", "business"]
 
-# Price per extra request beyond the monthly quota (PAYG).
-# Same effective rate as a paid plan: $10 / 500 requests = $0.02 per request.
-PAYG_UNIT_USD = 0.02
+# Pay-as-you-go rates. A PAYG "unit" is 1 request OR 10 line edits, each $0.02.
+#   Same effective rate as a paid plan: $10 / 500 requests = $0.02 per request.
+#   Line edits are billed at $0.02 per 10 lines = $0.002 per line.
+PAYG_UNIT_USD = 0.02  # per extra request
+PAYG_LINES_PER_UNIT = 10
+PAYG_LINE_UNIT_USD = round(PAYG_UNIT_USD / PAYG_LINES_PER_UNIT, 4)  # $0.002 per extra line
 
 
 def get_plan(plan_id: str | None) -> PlanDef:
@@ -117,6 +127,7 @@ def public_catalog() -> list[dict]:
                 "name": p.name,
                 "priceUsd": p.price_usd,
                 "requestQuota": p.request_quota,
+                "lineQuota": p.line_quota,
                 "paygAllowed": p.payg_allowed,
                 "multiplierOfPro": round(p.request_quota / _PRO_QUOTA, 2) if _PRO_QUOTA else 1,
             }

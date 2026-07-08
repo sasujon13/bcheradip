@@ -222,6 +222,9 @@ def init_database() -> None:
 def init_ext_database() -> None:
     """Create + seed the Cheradip extension database (extcheradip)."""
     ExtBase.metadata.create_all(bind=ext_engine)
+    # Idempotent ALTER TABLE patches (e.g. usage_records.line_edits). The patch
+    # list is shared with the main DB; non-existent tables are skipped safely.
+    upgrade_schema(ext_engine)
     db = ExtSessionLocal()
     try:
         _seed_ext_admin(db)

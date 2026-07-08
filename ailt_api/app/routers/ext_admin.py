@@ -18,14 +18,84 @@ from app.models import (
 )
 from app.schemas import (
     ExtAdminCreditGrantRequest,
+    ExtAdminPaddleConfigRequest,
     ExtAdminPlanUpdateRequest,
     ExtAdminUserUpdateRequest,
 )
+from app.services import paddle_gateway, runtime_config
 from app.services.credits import get_or_create_balance, grant_credit
 from app.services.plans import current_period_bounds, get_plan
 from app.services.team_billing import team_period_requests, usage_summary
 
 router = APIRouter(prefix="/ext/admin", tags=["ext-admin"])
+
+
+def _mask(value: str | None) -> str:
+    """Never echo secrets back in full — show only that a value is set + a hint."""
+    if not value:
+        return ""
+    if len(value) <= 8:
+        return "••••"
+    return f"••••{value[-4:]}"
+
+
+def _paddle_config_view() -> dict:
+    return {
+        "environment": runtime_config.get("paddle_environment", "sandbox"),
+        "apiKeySet": bool(runtime_config.get("paddle_api_key")),
+        "apiKeyHint": _mask(runtime_config.get("paddle_api_key")),
+        "webhookSecretSet": bool(runtime_config.get("paddle_webhook_secret")),
+        "clientToken": runtime_config.get("paddle_client_token"),  # publishable
+        "pricePro": runtime_config.get("paddle_price_pro"),
+        "pricePlus": runtime_config.get("paddle_price_plus"),
+        "priceBusiness": runtime_config.get("paddle_price_business"),
+        "enabled": paddle_gateway.enabled(),
+    }
+
+
+@router.get("/paddle")
+def get_paddle_config(_admin: ExtUser = Depends(require_ext_admin)) -> dict:
+    """Current Paddle configuration (secrets masked) for the admin page."""
+    return _paddle_config_view()
+
+
+@router.put("/paddle")
+def set_paddle_config(
+    body: ExtAdminPaddleConfigRequest,
+    _admin: ExtUser = Depends(require_ext_admin),
+) -> dict:
+    """Save Paddle credentials (DB overrides .env). Validates the API key first."""
+    environment = (body.environment or runtime_config.get("paddle_environment", "sandbox")).strip()
+    if environment and environment not in ("sandbox", "production"):
+        raise HTTPException(400, "environment must be 'sandbox' or 'production'")
+
+    # Effective API key: newly provided one, else the already-stored one.
+    api_key = (body.apiKey or "").strip() or runtime_config.get("paddle_api_key")
+
+    validated = False
+    message = "Paddle configuration saved"
+    if body.validate_ and api_key:
+        ok, message = paddle_gateway.verify_credentials(api_key, environment)
+        if not ok:
+            raise HTTPException(400, message)
+        validated = True
+
+    updates: dict[str, str | None] = {"paddle_environment": environment}
+    if body.apiKey:
+        updates["paddle_api_key"] = body.apiKey.strip()
+    if body.webhookSecret:
+        updates["paddle_webhook_secret"] = body.webhookSecret.strip()
+    if body.clientToken is not None:
+        updates["paddle_client_token"] = body.clientToken.strip()
+    if body.pricePro is not None:
+        updates["paddle_price_pro"] = body.pricePro.strip()
+    if body.pricePlus is not None:
+        updates["paddle_price_plus"] = body.pricePlus.strip()
+    if body.priceBusiness is not None:
+        updates["paddle_price_business"] = body.priceBusiness.strip()
+
+    runtime_config.set_many(updates)
+    return {"ok": True, "validated": validated, "message": message, "config": _paddle_config_view()}
 
 
 @router.get("/overview")
