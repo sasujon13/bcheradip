@@ -1,12 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException
+import logging
+
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.database import get_db
 from app.deps import get_optional_user
 from app.models import Subscription, User
 from app.schemas import BillingVerifyRequest, BillingVerifyResponse
 from app.security import ms_in_days
+from app.services import play_gateway
 from app.services.promo_logic import (
     commission_for_purchase,
     compound_price,
@@ -22,6 +26,8 @@ from app.services.referral_earnings import (
     record_pending_commission,
 )
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(prefix="/billing", tags=["billing"])
 
 
@@ -32,28 +38,64 @@ def _tier_from_product(product_id: str) -> str:
     return "pro"
 
 
+def _fallback_expiry(product_id: str) -> int:
+    return ms_in_days(30 if "month" in product_id.lower() else 365)
+
+
 @router.post("/verify", response_model=BillingVerifyResponse)
 def verify_purchase(
     body: BillingVerifyRequest,
     db: Session = Depends(get_db),
     buyer: User | None = Depends(get_optional_user),
 ) -> BillingVerifyResponse:
+    # Verify the purchase token with Google Play (source of truth). When Play
+    # credentials are not configured we fall back to DEV mode (trust client) —
+    # never leave that on in production.
+    verification: play_gateway.PlayVerification | None = None
+    if play_gateway.enabled():
+        verification = play_gateway.verify_subscription(body.productId, body.purchaseToken)
+        if verification is None:
+            raise HTTPException(502, "Could not verify purchase with Google Play. Try again.")
+
     existing = db.scalar(
         select(Subscription).where(Subscription.purchase_token == body.purchaseToken).limit(1)
     )
     if existing:
+        # Refresh entitlement from Google on repeat checks (handles renewals,
+        # cancellations and expiry without waiting for an RTDN notification).
+        if verification is not None:
+            existing.active = verification.active
+            if verification.expiry_ms:
+                existing.expires_at_ms = verification.expiry_ms
+            db.commit()
         return BillingVerifyResponse(
             active=existing.active,
             expiresAt=existing.expires_at_ms,
             tier=existing.tier,
         )
 
-    # Play Billing verification stub — store entitlement locally until Play API wired
-    tier = _tier_from_product(body.productId)
-    expires = ms_in_days(30 if "month" in body.productId.lower() else 365)
+    if verification is not None:
+        if not verification.active:
+            return BillingVerifyResponse(
+                active=False,
+                expiresAt=verification.expiry_ms,
+                tier=_tier_from_product(verification.product_id or body.productId),
+            )
+        product_id = verification.product_id or body.productId
+        tier = _tier_from_product(product_id)
+        expires = verification.expiry_ms or _fallback_expiry(product_id)
+    else:
+        # DEV fallback: no Play credentials configured.
+        logger.warning(
+            "Play verification disabled — trusting client purchase token (DEV only)."
+        )
+        product_id = body.productId
+        tier = _tier_from_product(product_id)
+        expires = _fallback_expiry(product_id)
+
     paid_at = now_ms()
 
-    base = price_for_product(body.productId)
+    base = price_for_product(product_id)
     discounts: list[int] = []
     referrer_user_id: int | None = None
 
@@ -102,7 +144,7 @@ def verify_purchase(
         user_id=buyer.id if buyer else None,
         buyer_user_id=buyer.id if buyer else None,
         referrer_user_id=referrer_user_id,
-        product_id=body.productId,
+        product_id=product_id,
         purchase_token=body.purchaseToken,
         tier=tier,
         active=True,
@@ -141,4 +183,54 @@ def verify_purchase(
         )
 
     db.commit()
+
+    # Acknowledge server-side so the purchase is never auto-refunded even if the
+    # client misses its 3-day window (idempotent when already acknowledged).
+    if verification is not None and not verification.acknowledged:
+        play_gateway.acknowledge_subscription(body.purchaseToken)
+
     return BillingVerifyResponse(active=True, expiresAt=expires, tier=tier)
+
+
+# Play RTDN notification types that end access (see rtdn-reference docs):
+# 12 = REVOKED, 13 = EXPIRED. Used only when Google can't be re-reached.
+_RTDN_EXPIRED = {12, 13}
+
+
+@router.post("/rtdn")
+async def play_rtdn(request: Request, db: Session = Depends(get_db)) -> dict:
+    """Google Play Real-Time Developer Notifications (Cloud Pub/Sub push).
+
+    Keeps subscription state in sync on renewal, cancellation, grace period,
+    account hold, expiry and revocation. Always returns 200 so Pub/Sub does not
+    retry indefinitely on messages we intentionally ignore.
+    """
+    if settings.google_play_rtdn_token:
+        if request.query_params.get("token") != settings.google_play_rtdn_token:
+            raise HTTPException(403, "Invalid RTDN token")
+
+    payload = await request.body()
+    notification = play_gateway.parse_rtdn(payload)
+    if notification is None:
+        return {"ok": True, "ignored": True}
+
+    sub = db.scalar(
+        select(Subscription)
+        .where(Subscription.purchase_token == notification.purchase_token)
+        .limit(1)
+    )
+    if not sub:
+        # Unknown token (e.g. purchase not yet verified by the client) — re-verify
+        # lazily so we still capture its current state if Play is reachable.
+        return {"ok": True, "unknown": True}
+
+    verification = play_gateway.verify_subscription(sub.product_id, notification.purchase_token)
+    if verification is not None:
+        sub.active = verification.active
+        if verification.expiry_ms:
+            sub.expires_at_ms = verification.expiry_ms
+    elif notification.notification_type in _RTDN_EXPIRED:
+        sub.active = False
+
+    db.commit()
+    return {"ok": True, "type": notification.notification_type, "active": sub.active}

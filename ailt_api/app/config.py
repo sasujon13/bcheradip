@@ -86,6 +86,17 @@ class Settings(BaseSettings):
     openrouter_paid_model_complex: str = "anthropic/claude-sonnet-4-5"
     packs_dir: Path = _AILT_ROOT / "packs"
     public_base_url: str = "https://cheradip.com/ailt/api"
+    # Google Play Billing (AI Language Tutor Android app). Server-side purchase
+    # verification via the Play Developer API (androidpublisher). Provide a
+    # service-account key with "View financial data" access to the app.
+    # google_play_service_account_json: either inline JSON or a path to the .json.
+    # When blank, /billing/verify falls back to DEV mode (trusts the client) —
+    # never leave blank in production.
+    google_play_package_name: str = "com.cheradip.ailanguagetutor"
+    google_play_service_account_json: str = ""
+    # Optional shared secret to authenticate Play Real-Time Developer
+    # Notifications (RTDN) push calls (?token=... on the webhook URL).
+    google_play_rtdn_token: str = ""
     # Cheradip extension (Cursor-style) billing.
     # Provider: "paddle" (Merchant of Record — works from Bangladesh, pays out by
     # wire/Payoneer) or "stripe". Bangladesh cannot use Stripe/PayPal, so Paddle
