@@ -11,6 +11,7 @@ import re
 
 from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy import delete, select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.deps import get_current_ext_user
@@ -111,17 +112,26 @@ def signup(body: ExtSignupRequest, db: Session = Depends(get_ext_db)) -> ExtAuth
 
 @router.post("/login", response_model=ExtAuthResponse)
 def login(body: ExtLoginRequest, db: Session = Depends(get_ext_db)) -> ExtAuthResponse:
-    user = _find_user(db, body.username)
-    if not user:
-        raise HTTPException(401, "NOT_REGISTERED")
-    if not user.password_hash or not verify_password(body.password, user.password_hash):
-        raise HTTPException(401, "PASSWORD_MISMATCH")
-    if not user.active:
-        raise HTTPException(403, "Account suspended")
-    user.last_login_at_ms = ms_now()
-    token = _issue_session(db, user, body.deviceId)
-    db.commit()
-    return _auth_response(user, token)
+    try:
+        user = _find_user(db, body.username)
+        if not user:
+            raise HTTPException(401, "NOT_REGISTERED")
+        if not user.password_hash or not verify_password(body.password, user.password_hash):
+            raise HTTPException(401, "PASSWORD_MISMATCH")
+        if not user.active:
+            raise HTTPException(403, "Account suspended")
+        user.last_login_at_ms = ms_now()
+        token = _issue_session(db, user, body.deviceId)
+        db.commit()
+        return _auth_response(user, token)
+    except HTTPException:
+        raise
+    except SQLAlchemyError as exc:
+        db.rollback()
+        raise HTTPException(
+            503,
+            "Extension database unavailable — set EXT_DATABASE_URL in ailt_api/.env and restart cheradip-ailt",
+        ) from exc
 
 
 @router.get("/me")
