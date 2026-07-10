@@ -73,6 +73,13 @@ PAYG_UNIT_USD = 0.02  # per extra request
 PAYG_LINES_PER_UNIT = 10
 PAYG_LINE_UNIT_USD = round(PAYG_UNIT_USD / PAYG_LINES_PER_UNIT, 4)  # $0.002 per extra line
 
+# Business PAYG: remind at $100, then every $20; hard block at $200 until paid.
+PAYG_BUSINESS_FIRST_REMINDER_USD = 100.0
+PAYG_BUSINESS_REMINDER_STEP_USD = 20.0
+PAYG_BUSINESS_HARD_CAP_USD = 200.0
+# Back-compat alias (first reminder threshold).
+PAYG_BUSINESS_CAP_USD = PAYG_BUSINESS_FIRST_REMINDER_USD
+
 
 def get_plan(plan_id: str | None) -> PlanDef:
     return PLANS.get((plan_id or "free").lower(), PLANS["free"])

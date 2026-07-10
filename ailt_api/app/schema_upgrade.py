@@ -36,6 +36,9 @@ _COLUMN_PATCHES: list[tuple[str, str, str]] = [
     # Extension billing (extcheradip DB) — line-edit metering added after first deploy.
     ("usage_records", "line_edits", "line_edits BIGINT NOT NULL DEFAULT 0"),
     ("payg_charges", "line_units", "line_units INT NOT NULL DEFAULT 0"),
+    ("ext_users", "free_extension_claimed", "free_extension_claimed TINYINT(1) NOT NULL DEFAULT 0"),
+    ("ext_users", "free_extension_requests", "free_extension_requests INT NOT NULL DEFAULT 0"),
+    ("ext_users", "free_extension_line_edits", "free_extension_line_edits BIGINT NOT NULL DEFAULT 0"),
 ]
 
 

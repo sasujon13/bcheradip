@@ -115,6 +115,43 @@ def create_payg_checkout(
         return None
 
 
+def create_credit_checkout(
+    *,
+    customer_id: str | None,
+    amount_usd: float,
+    team_id: int,
+    user_id: int,
+) -> str | None:
+    if not stripe_enabled():
+        return None
+    try:
+        session = _stripe().checkout.Session.create(
+            mode="payment",
+            customer=customer_id or None,
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "usd",
+                        "unit_amount": max(50, int(round(amount_usd * 100))),
+                        "product_data": {"name": "Cheradip prepaid credit"},
+                    },
+                    "quantity": 1,
+                }
+            ],
+            success_url=settings.billing_success_url + "?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=settings.billing_cancel_url,
+            metadata={
+                "team_id": str(team_id),
+                "user_id": str(user_id),
+                "kind": "credit_topup",
+            },
+        )
+        return session.get("url")
+    except Exception as exc:  # noqa: BLE001
+        logger.error("Stripe credit checkout failed: %s", exc)
+        return None
+
+
 def billing_portal_url(customer_id: str | None) -> str | None:
     if not stripe_enabled() or not customer_id:
         return None

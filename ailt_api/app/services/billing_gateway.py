@@ -55,6 +55,15 @@ def create_payg_checkout(
     )
 
 
+def create_credit_checkout(
+    *, customer_id: str | None, amount_usd: float, team_id: int, user_id: int
+) -> str | None:
+    fn = getattr(_mod(), "create_credit_checkout", None)
+    if fn is None:
+        return None
+    return fn(customer_id=customer_id, amount_usd=amount_usd, team_id=team_id, user_id=user_id)
+
+
 def billing_portal_url(customer_id: str | None) -> str | None:
     return _mod().billing_portal_url(customer_id)
 

@@ -194,6 +194,38 @@ def create_payg_checkout(
     return _checkout_url(_request("POST", "/transactions", payload))
 
 
+def create_credit_checkout(
+    *,
+    customer_id: str | None,
+    amount_usd: float,
+    team_id: int,
+    user_id: int,
+) -> str | None:
+    """One-off prepaid credit top-up for uninterrupted PAYG usage."""
+    minor = max(50, int(round(amount_usd * 100)))
+    payload: dict = {
+        "items": [
+            {
+                "quantity": 1,
+                "price": {
+                    "description": "Cheradip prepaid credit",
+                    "unit_price": {"amount": str(minor), "currency_code": "USD"},
+                    "product": {"name": "Cheradip prepaid credit", "tax_category": "standard"},
+                },
+            }
+        ],
+        "custom_data": {
+            "team_id": str(team_id),
+            "user_id": str(user_id),
+            "kind": "credit_topup",
+            "product": "ext",
+        },
+    }
+    if customer_id:
+        payload["customer_id"] = customer_id
+    return _checkout_url(_request("POST", "/transactions", payload))
+
+
 def billing_portal_url(customer_id: str | None) -> str | None:
     if not enabled() or not customer_id:
         return None

@@ -14,13 +14,12 @@ def test_within_both_quotas_is_not_exhausted():
 
 
 def test_line_edits_are_first_priority_limit():
-    # Lines over quota, requests still within quota → line-limited.
+    # Lines at quota → line-limited (next request blocked; current may finish).
     pro = PLANS["pro"]
-    b = _overage_billing("pro", team_requests=pro.request_quota - 1, team_lines=pro.line_quota + 200)
+    b = _overage_billing("pro", team_requests=pro.request_quota - 1, team_lines=pro.line_quota)
     assert b["lineExhausted"] is True
     assert b["reqExhausted"] is False
-    assert b["lineOver"] == 200
-    assert b["billUsd"] == round(200 * PAYG_LINE_UNIT_USD, 2)
+    assert b["lineOver"] == 0
 
 
 def test_requests_are_fallback_limit():

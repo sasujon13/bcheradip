@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Integer, String, Text, func
+from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -104,7 +104,30 @@ class ExtUser(ExtBase):
     email_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     active: Mapped[bool] = mapped_column(Boolean, default=True)  # admin can suspend
     last_login_at_ms: Mapped[int | None] = mapped_column(BigInteger)
+    # One-time post-login bonus pool (50 requests + 500 line edits) for more testing.
+    free_extension_claimed: Mapped[bool] = mapped_column(Boolean, default=False)
+    free_extension_requests: Mapped[int] = mapped_column(Integer, default=0)
+    free_extension_line_edits: Mapped[int] = mapped_column(BigInteger, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+
+class ExtDeviceTrial(ExtBase):
+    """Anonymous extension usage keyed by machine id (survives reinstall).
+
+    Guest quota matches the free plan (50 requests / 500 line edits). Once
+    exhausted the client must sign in. Usage is merged into the account on login
+    so users cannot get a fresh monthly quota on top of guest usage.
+    """
+
+    __tablename__ = "ext_device_trials"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    device_id: Mapped[str] = mapped_column(String(128), unique=True, index=True)
+    guest_requests: Mapped[int] = mapped_column(Integer, default=0)
+    guest_line_edits: Mapped[int] = mapped_column(BigInteger, default=0)
+    linked_user_id: Mapped[int | None] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    first_seen_at_ms: Mapped[int] = mapped_column(BigInteger, default=0)
+    updated_at_ms: Mapped[int] = mapped_column(BigInteger, default=0)
 
 
 class ExtSession(ExtBase):
@@ -245,6 +268,30 @@ class CreditBalance(ExtBase):
     lifetime_added_usd: Mapped[float] = mapped_column(Float, default=0.0)
     lifetime_spent_usd: Mapped[float] = mapped_column(Float, default=0.0)
     updated_at_ms: Mapped[int] = mapped_column(BigInteger, default=0)
+
+
+class ExtProjectKnowledge(ExtBase):
+    """Compact per-user project metadata for the Cheradip extension.
+
+    Stores path aliases and a small project.md excerpt only — never full file
+    trees or source code. Typical row size is a few KB (cap enforced in API).
+  """
+
+    __tablename__ = "ext_project_knowledge"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("ext_users.id"), index=True)
+    project_hash: Mapped[str] = mapped_column(String(64), index=True)
+    project_name: Mapped[str] = mapped_column(String(120), default="")
+    path_aliases_json: Mapped[str | None] = mapped_column(Text)
+    summary_json: Mapped[str | None] = mapped_column(Text)
+    project_md_excerpt: Mapped[str | None] = mapped_column(Text)
+    updated_at_ms: Mapped[int] = mapped_column(BigInteger, default=0, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "project_hash", name="uq_ext_project_knowledge_user_hash"),
+    )
 
 
 class CreditTransaction(ExtBase):

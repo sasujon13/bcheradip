@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -25,6 +25,7 @@ from app.deps import get_current_ext_user
 from app.ext_database import get_ext_db
 from app.models import BillingTeam, ExtPayment, ExtUser, PaygCharge
 from app.schemas import (
+    CreditTopupRequest,
     LicenseVerifyRequest,
     PaygEnableRequest,
     SubscriptionCheckoutRequest,
@@ -32,18 +33,110 @@ from app.schemas import (
     UsageRecordRequest,
 )
 from app.services import billing_gateway, paddle_gateway, runtime_config
+from app.services.credits import grant_credit, record_payment
+from app.services.free_extension import claim_free_extension
+from app.services.guest_billing import guest_status, record_guest_usage
 from app.services.billing_types import BillingEvent
-from app.services.credits import record_payment
 from app.services.plans import current_period_bounds, get_plan, public_catalog
 from app.services.team_billing import (
     get_or_create_team,
     open_payg_charge,
+    preflight_usage,
     record_usage,
     usage_summary,
 )
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/subscription", tags=["subscription"])
+
+
+def _device_id_header(x_device_id: str | None = Header(default=None, alias="X-Device-Id")) -> str:
+    device_id = (x_device_id or "").strip()
+    if not device_id or len(device_id) > 128:
+        raise HTTPException(400, "X-Device-Id header is required")
+    return device_id
+
+
+@router.get("/guest/status")
+def guest_usage_status(
+    device_id: str = Depends(_device_id_header),
+    db: Session = Depends(get_ext_db),
+) -> dict:
+    """Anonymous machine trial status (50 requests / 500 line edits per device)."""
+    return guest_status(db, device_id)
+
+
+@router.post("/guest/usage")
+def guest_usage_record(
+    body: UsageRecordRequest,
+    device_id: str = Depends(_device_id_header),
+    db: Session = Depends(get_ext_db),
+) -> dict:
+    """Record anonymous usage; returns requiresLogin when guest quota is exhausted."""
+    return record_guest_usage(db, device_id, body.requests, body.total_lines)
+
+
+@router.post("/free-extension")
+def request_free_extension(
+    user: ExtUser = Depends(get_current_ext_user),
+    db: Session = Depends(get_ext_db),
+) -> dict:
+    """One-time bonus pool (50 requests + 500 line edits) to test after sign-in."""
+    team = get_or_create_team(db, user)
+    if team.plan != "free":
+        raise HTTPException(400, "Free extension access is only for Free plan accounts")
+    return claim_free_extension(db, user)
+
+
+@router.get("/can-start")
+def can_start_request(
+    user: ExtUser = Depends(get_current_ext_user),
+    db: Session = Depends(get_ext_db),
+) -> dict:
+    """Preflight: may a new request begin? (Current request always completes.)"""
+    team = get_or_create_team(db, user)
+    return preflight_usage(db, team, user)
+
+
+@router.post("/credits/checkout", response_model=SubscriptionCheckoutResponse)
+def credit_topup_checkout(
+    body: CreditTopupRequest,
+    user: ExtUser = Depends(get_current_ext_user),
+    db: Session = Depends(get_ext_db),
+) -> SubscriptionCheckoutResponse:
+    """Prepaid credit top-up — offsets PAYG for uninterrupted coding."""
+    team = get_or_create_team(db, user)
+    if team.owner_user_id != user.id:
+        raise HTTPException(403, "Only the team owner can add prepaid credit")
+    prov = billing_gateway.provider()
+    if not billing_gateway.enabled():
+        return SubscriptionCheckoutResponse(
+            ok=True,
+            pricingUrl=billing_gateway.pricing_url(),
+            billingEnabled=False,
+            provider=prov,
+            message="Billing not configured — contact support to add prepaid credit.",
+        )
+    team.stripe_customer_id = billing_gateway.ensure_customer(
+        user.email, user.full_name, team.stripe_customer_id
+    )
+    db.commit()
+    url = billing_gateway.create_credit_checkout(
+        customer_id=team.stripe_customer_id,
+        amount_usd=body.amountUsd,
+        team_id=team.id,
+        user_id=user.id,
+    )
+    if not url:
+        raise HTTPException(502, f"Failed to create {prov} prepaid checkout")
+    return SubscriptionCheckoutResponse(
+        ok=True,
+        checkoutUrl=url,
+        billingEnabled=True,
+        stripeEnabled=True,
+        provider=prov,
+        message=f"Checkout for ${body.amountUsd:.2f} prepaid credit",
+    )
 
 
 @router.get("/plans")
@@ -351,6 +444,26 @@ def _apply_checkout_completed(db: Session, ev: BillingEvent) -> None:
             amount_usd=charge_amount,
             status="paid",
             description="Pay-as-you-go usage settlement",
+            stripe_session_id=ev.transaction_id,
+            stripe_payment_intent=ev.payment_intent,
+        )
+    elif ev.kind == "credit_topup":
+        amount = ev.amount_usd or 0.0
+        grant_credit(
+            db,
+            team_id=team.id,
+            amount_usd=amount,
+            reason="prepaid_topup",
+            actor_user_id=ev.user_id or team.owner_user_id,
+        )
+        record_payment(
+            db,
+            team_id=team.id,
+            user_id=ev.user_id or team.owner_user_id,
+            kind="credit_topup",
+            amount_usd=amount,
+            status="paid",
+            description="Prepaid credit top-up",
             stripe_session_id=ev.transaction_id,
             stripe_payment_intent=ev.payment_intent,
         )

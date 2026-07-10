@@ -260,6 +260,10 @@ class PaygEnableRequest(BaseModel):
     enabled: bool = True
 
 
+class CreditTopupRequest(BaseModel):
+    amountUsd: float = Field(..., ge=5.0, le=500.0, description="Prepaid credit amount in USD")
+
+
 class PromoValidateRequest(BaseModel):
     code: str
     base_price: float = Field(2.0, alias="base_price")
@@ -355,3 +359,27 @@ class LearningActivitySyncRequest(BaseModel):
 class LearningActivitySyncResponse(BaseModel):
     activities: list[LearningActivityDto] = Field(default_factory=list)
     server_time_ms: int
+
+
+class ExtProjectKnowledgeUpsert(BaseModel):
+    project_hash: str = Field(min_length=8, max_length=64)
+    project_name: str = Field(default="", max_length=120)
+    path_aliases: dict[str, str] = Field(default_factory=dict)
+    summary: dict = Field(default_factory=dict)
+    project_md_excerpt: str = Field(default="", max_length=12000)
+    updated_at_ms: int = Field(ge=0)
+
+
+class ExtProjectKnowledgeResponse(BaseModel):
+    project_hash: str
+    project_name: str = ""
+    path_aliases: dict[str, str] = Field(default_factory=dict)
+    summary: dict = Field(default_factory=dict)
+    project_md_excerpt: str = ""
+    updated_at_ms: int = 0
+
+
+class ExtProjectKnowledgeListItem(BaseModel):
+    project_hash: str
+    project_name: str = ""
+    updated_at_ms: int = 0

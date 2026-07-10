@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 from app.deps import get_current_ext_user
 from app.ext_database import get_ext_db
 from app.models import ExtOtpCode, ExtSession, ExtUser
+from app.services.guest_billing import merge_device_on_login
 from app.schemas import (
     ExtAuthResponse,
     ExtLoginRequest,
@@ -106,6 +107,7 @@ def signup(body: ExtSignupRequest, db: Session = Depends(get_ext_db)) -> ExtAuth
     db.add(user)
     db.flush()
     token = _issue_session(db, user, body.deviceId)
+    merge_device_on_login(db, body.deviceId, user)
     db.commit()
     return _auth_response(user, token)
 
@@ -122,6 +124,7 @@ def login(body: ExtLoginRequest, db: Session = Depends(get_ext_db)) -> ExtAuthRe
             raise HTTPException(403, "Account suspended")
         user.last_login_at_ms = ms_now()
         token = _issue_session(db, user, body.deviceId)
+        merge_device_on_login(db, body.deviceId, user)
         db.commit()
         return _auth_response(user, token)
     except HTTPException:

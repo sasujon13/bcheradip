@@ -8,6 +8,8 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.models import BillingTeam, CreditBalance, ExtUser, PaygCharge, TeamMember, UsageRecord
+from app.services.credits import spend_credit
+from app.services.free_extension import free_extension_summary
 from app.services.plans import (
     PAYG_LINE_UNIT_USD,
     PAYG_UNIT_USD,
@@ -17,6 +19,7 @@ from app.services.plans import (
     next_plan,
     payg_gap_usd,
 )
+from app.services.quota_engine import can_start_new_request, evaluate_after_usage, payg_payment_threshold_usd
 
 
 def new_license_key() -> str:
@@ -114,8 +117,8 @@ def _overage_billing(plan_id: str, team_requests: int, team_lines: int) -> dict:
         "lineBillUsd": line_bill,
         "billUsd": round(max(req_bill, line_bill), 2),
         # Line edits are the first-priority limit; requests are the fallback.
-        "lineExhausted": team_lines > plan.line_quota,
-        "reqExhausted": team_requests > plan.request_quota,
+        "lineExhausted": team_lines >= plan.line_quota,
+        "reqExhausted": team_requests >= plan.request_quota,
     }
 
 
@@ -192,8 +195,28 @@ def usage_summary(db: Session, team: BillingTeam, user: ExtUser | None) -> dict:
         "nextPlan": nxt.id if nxt else None,
         "nextPlanPriceUsd": nxt.price_usd if nxt else None,
         "upgradeGapUsd": gap,
+        "paygThresholdUsd": payg_payment_threshold_usd(team.plan),
         "members": per_user,
+        **(free_extension_summary(user) if user is not None else {}),
     }
+
+
+def preflight_usage(db: Session, team: BillingTeam, user: ExtUser) -> dict:
+    """Check whether a new request may start (does not increment usage)."""
+    start_ms, _ = current_period_bounds()
+    team_used = team_period_requests(db, team.id, start_ms)
+    team_lines = team_period_lines(db, team.id, start_ms)
+    credit = db.scalar(select(CreditBalance.balance_usd).where(CreditBalance.team_id == team.id))
+    return can_start_new_request(
+        plan_id=team.plan,
+        payg_enabled=team.payg_enabled,
+        team_requests=team_used,
+        team_lines=team_lines,
+        credit_balance_usd=round(float(credit or 0.0), 2),
+        free_extension_claimed=bool(user.free_extension_claimed),
+        bonus_requests=int(user.free_extension_requests or 0),
+        bonus_lines=int(user.free_extension_line_edits or 0),
+    )
 
 
 def record_usage(
@@ -204,22 +227,24 @@ def record_usage(
     tokens: int,
     line_edits: int = 0,
 ) -> dict:
-    """Increment usage and evaluate quota / PAYG gating.
-
-    Two metered dimensions per plan: line edits (replacements + insertions) and
-    requests. **Line edits are the first-priority limit** — the package is over
-    once line edits reach the quota; if lines are still under quota, requests are
-    the fallback limit. On PAYG the bill is the *larger* of the request bill and
-    the line bill (never both), so users pay the fair maximum.
-
-    Returns a decision dict:
-      allowed        — request is permitted
-      needsPayment   — client must pay PAYG now or upgrade
-      reason         — quota_exceeded | payg_threshold | ok
-      limitReason    — line | request | None (which dimension is exhausted)
-    """
+    """Increment usage. Always records; gating applies to the *next* request only."""
     start_ms, _ = current_period_bounds()
     plan = get_plan(team.plan)
+    credit = db.scalar(select(CreditBalance.balance_usd).where(CreditBalance.team_id == team.id))
+    credit_usd = round(float(credit or 0.0), 2)
+
+    team_used_before = team_period_requests(db, team.id, start_ms)
+    team_lines_before = team_period_lines(db, team.id, start_ms)
+    before = can_start_new_request(
+        plan_id=team.plan,
+        payg_enabled=team.payg_enabled,
+        team_requests=team_used_before,
+        team_lines=team_lines_before,
+        credit_balance_usd=credit_usd,
+        free_extension_claimed=bool(user.free_extension_claimed),
+        bonus_requests=int(user.free_extension_requests or 0),
+        bonus_lines=int(user.free_extension_line_edits or 0),
+    )
 
     user_rec = _period_record(db, team.id, user.id, start_ms)
     user_rec.requests += max(0, requests)
@@ -227,9 +252,19 @@ def record_usage(
     user_rec.tokens += max(0, tokens)
     user_rec.updated_at_ms = ms_now()
 
+    # Bonus pool: attribute overage to free-extension counters when monthly included is full.
+    bill_before = _overage_billing(team.plan, team_used_before, team_lines_before)
+    if (bill_before["lineExhausted"] or bill_before["reqExhausted"]) and user.free_extension_claimed:
+        if not plan.payg_allowed or not team.payg_enabled:
+            user.free_extension_requests = int(user.free_extension_requests or 0) + max(0, requests)
+            user.free_extension_line_edits = int(user.free_extension_line_edits or 0) + max(0, line_edits)
+
     team_used = team_period_requests(db, team.id, start_ms)
     team_lines = team_period_lines(db, team.id, start_ms)
     bill = _overage_billing(team.plan, team_used, team_lines)
+
+    nxt = next_plan(team.plan)
+    gap = payg_gap_usd(team.plan)
 
     decision = {
         "allowed": True,
@@ -245,36 +280,42 @@ def record_usage(
         "requestBillUsd": bill["reqBillUsd"],
         "lineBillUsd": bill["lineBillUsd"],
         "overageUsd": bill["billUsd"],
-        "nextPlan": None,
-        "upgradeGapUsd": None,
+        "nextPlan": nxt.id if nxt else None,
+        "upgradeGapUsd": gap,
+        "paygThresholdUsd": payg_payment_threshold_usd(team.plan),
+        "creditBalanceUsd": credit_usd,
     }
 
-    # Within both quotas → nothing due.
-    if not bill["lineExhausted"] and not bill["reqExhausted"]:
-        db.commit()
-        return decision
+    if plan.payg_allowed and team.payg_enabled and bill["billUsd"] > 0:
+        spent = spend_credit(
+            db,
+            team_id=team.id,
+            amount_usd=bill["billUsd"],
+            reason="payg_auto",
+            user_id=user.id,
+        )
+        uncovered = round(max(0.0, bill["billUsd"] - spent), 2)
+        team.payg_due_usd = uncovered
+        decision["paygUncoveredUsd"] = uncovered
+        decision["creditBalanceUsd"] = round(credit_usd - spent, 2)
+        credit_usd = decision["creditBalanceUsd"]
 
-    # Line edits take priority when reporting which limit was hit.
-    decision["limitReason"] = "line" if bill["lineExhausted"] else "request"
-
-    nxt = next_plan(team.plan)
-    gap = payg_gap_usd(team.plan)
-    decision["nextPlan"] = nxt.id if nxt else None
-    decision["upgradeGapUsd"] = gap
-
-    # Free plan (or PAYG disabled): hard stop once either quota is used up.
-    if not plan.payg_allowed or not team.payg_enabled:
-        decision["allowed"] = False
-        decision["needsPayment"] = True
-        decision["reason"] = "quota_exceeded"
-        db.commit()
-        return decision
-
-    # PAYG on: amount due is the larger of the two dimension bills.
-    team.payg_due_usd = bill["billUsd"]
-    if gap is not None and bill["billUsd"] >= gap:
-        decision["needsPayment"] = True
-        decision["reason"] = "payg_threshold"
+    after = can_start_new_request(
+        plan_id=team.plan,
+        payg_enabled=team.payg_enabled,
+        team_requests=team_used,
+        team_lines=team_lines,
+        credit_balance_usd=credit_usd,
+        free_extension_claimed=bool(user.free_extension_claimed),
+        bonus_requests=int(user.free_extension_requests or 0),
+        bonus_lines=int(user.free_extension_line_edits or 0),
+    )
+    decision.update(evaluate_after_usage(before, after))
+    decision["limitReason"] = after.get("limitReason")
+    decision["needsPayment"] = after.get("needsPayment", False)
+    decision["reason"] = after.get("reason", "ok")
+    if user is not None:
+        decision.update(free_extension_summary(user))
     db.commit()
     return decision
 
