@@ -171,6 +171,21 @@ class AppSetting(ExtBase):
     updated_at_ms: Mapped[int | None] = mapped_column(BigInteger)
 
 
+class ExtProviderKey(ExtBase):
+    """Server-side LLM API keys for Cheradip extension cloud routing.
+
+    Same secrets as ``ailt_api/.env`` (see deploy/LLM_KEYS.md) — stored in
+    extcheradip so the VS Code extension can fetch them when the user has not
+    pasted their own provider key. Never returned to the webview UI.
+    """
+
+    __tablename__ = "ext_provider_keys"
+
+    provider_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    api_key: Mapped[str] = mapped_column(Text, nullable=False)
+    updated_at_ms: Mapped[int | None] = mapped_column(BigInteger)
+
+
 class BillingTeam(ExtBase):
     """Cursor-style team billing account for the Cheradip VS Code extension.
 

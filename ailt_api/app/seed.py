@@ -22,7 +22,7 @@ from app.models import (
     ReferralPolicy,
     User,
 )
-from app.security import hash_password
+from app.services.ext_provider_keys import seed_ext_provider_keys
 from app.services.pack_store import sync_packs_to_db
 
 logger = logging.getLogger(__name__)
@@ -228,6 +228,9 @@ def init_ext_database() -> None:
     db = ExtSessionLocal()
     try:
         _seed_ext_admin(db)
+        n = seed_ext_provider_keys(db)
+        if n:
+            logger.info("Seeded %d ext_provider_keys from .env", n)
         db.commit()
     finally:
         db.close()

@@ -23,6 +23,7 @@ from app.routers import (
     ext_admin,
     ext_auth,
     ext_project_knowledge,
+    ext_provider_keys,
     languages,
     learning,
     promo,
@@ -87,6 +88,7 @@ api.include_router(device.router)
 api.include_router(billing.router)
 api.include_router(ext_auth.router)
 api.include_router(ext_project_knowledge.router)
+api.include_router(ext_provider_keys.router)
 api.include_router(ext_admin.router)
 api.include_router(subscription.router)
 api.include_router(promo.router)
