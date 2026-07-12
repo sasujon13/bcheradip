@@ -152,7 +152,15 @@ sudo systemctl restart cheradip-ailt
 
 Packs are **not** in git (too large). After deploy, either:
 
-- Sync from your PC: run Android `tools/pack-builder/scripts/build-all-packs.ps1` (writes to `ailt_api/packs/`), then `rsync` to server, **or**
+- Sync from your PC: run Android `tools/pack-builder/scripts/build-all-packs.ps1` (writes to `ailt_api/packs/`), then **incremental upload**:
+
+```powershell
+cd D:\VSCode\cheradip\bcheradip\ailt_api
+.\scripts\sync-packs-to-server.ps1          # only missing packs
+.\scripts\sync-packs-to-server.ps1 -DryRun  # preview
+.\scripts\sync-packs-to-server.ps1 -RestartApi
+```
+
 - Rely on rows already in MySQL from prior sync.
 
 Restart API after adding packs: `sudo systemctl restart cheradip-ailt`

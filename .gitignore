@@ -44,3 +44,9 @@ Thumbs.db
 .idea/
 
 .tmp.driveupload/
+
+# Language pack ZIPs — too large for GitHub; rsync to Linux server directly
+ailt_api/packs/
+
+# Language pack ZIPs — deploy to server directly, not via GitHub
+ailt_api/packs/
