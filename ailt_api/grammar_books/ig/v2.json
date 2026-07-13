@@ -1,0 +1,214 @@
+{
+  "title": "Grammar Book — Igbo",
+  "languageCode": "ig",
+  "languageName": "Igbo",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Igbo_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Niger–Congo language of the Igbo people, mainly spoken in Nigeria",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Niger–Congo language of the Igbo people, mainly spoken in Nigeria\n\nIgboÁsụ̀sụ́ ÌgbòPronunciation[ásʊ̀sʊ̀ ìɡ͡bò] ⓘNative toNigeriaRegionIgboland: Abia, Anambra, Ebonyi, Enugu, Imo; native speakers are also found in parts of Delta State and Rivers State[1]EthnicityIgboNative speakers34 million (2023)[2]Language familyNiger–Congo?\n\nAtlantic–CongoVolta–CongoVolta–NigerIgboidIgbo\n\nStandard forms\nStandard Igbo[3]\n\nDialectsAfikpo, Enuani, Eche, Egbema, Mbaise, Ngwa, Nsa, Nsuka, Oguta, Ohuhu, Oka, Onitsha, Orlu, Owerri, Umuahia, Unwana, OhafiaWriting systemLatin (Ọnwụ alphabet)\nNwagu Aneke script\nNeo-Nsibidi\nNdebe script\nIgbo Braille\nAkagụ ScriptOfficial statusOfficial language in Nigeria  (national status)\nRecognised minority\nlanguage in Cameroon[4]\n\n Equatorial Guinea[4]Regulated bySociety for Promoting Igbo Language and CultureLanguage codesISO 639-1igISO 639-2iboISO 639-3iboGlottolognucl1417Linguasphere98-GAA-aLinguistic map of Benin, Nigeria, Cameroon and Equatorial Guinea. Igbo is spoken in southern Nigeria, Cameroon, and Equatorial Guinea.This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nPeopleṆ́dị́ ÌgbòLanguageÁsụ̀sụ́ ÌgbòCountryÀlà Ị̀gbò\nIgbo (English: /ˈiːboʊ/ EE-boh,[5] US also /ˈɪɡboʊ/ IG-boh;[6][7] Standard Igbo: Ásụ̀sụ́ Ìgbò [ásʊ̀sʊ̀ ìɡ͡bò] ⓘ) is the principal native language of the Igbo people, an ethnicity in the Southeastern part of Nigeria.\n\nIgbo languages are spoken by a total of 31 million people.[8] The number of Igboid languages depends on how one classifies a language versus a dialect, so there could be around 35 different Igbo languages. The core Igbo cluster, or Igbo proper, is generally thought to be one language but there is limited mutual intelligibility between the different groupings (north, west, south and east). A standard literary language termed 'Igbo izugbe' (meaning \"general igbo\") was generically developed and later adopted around 1972, with its core foundation based on the Orlu (Isu dialects), Anambra (Awka dialects) and Umuahia (Ohuhu dialects), omitting the nasalization and aspiration of those varieties.",
+          "examples": [
+            "Igbo languages are spoken by a total of 31 million people.[8] The number of Igboid languages depends on how one classifies a language versus a dialect, so there could be around 35 different Igbo languages. The core Igbo cluster, or Igbo pro"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "History",
+      "summary": "The first book to publish Igbo terms was History of the Mission of the Evangelical Brothers in the Caribbean (German: Geschichte der Mission der Evangelischen Brüder auf den Carabischen Inseln), published in 1777.[9] Shortly afterwards in 1789, The Interesting Narrative of the Li",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The first book to publish Igbo terms was History of the Mission of the Evangelical Brothers in the Caribbean (German: Geschichte der Mission der Evangelischen Brüder auf den Carabischen Inseln), published in 1777.[9] Shortly afterwards in 1789, The Interesting Narrative of the Life of Olaudah Equiano was published in London, England, written by Olaudah Equiano, who was a former slave, featuring 79 Igbo words.[9] The narrative also illustrated various aspects of Igbo life in detail, based on Equiano's experiences in his hometown of Essaka.[10] Following the British Niger Expeditions of 1854 and 1857, Samuel Ajayi Crowther, published an Igbo primer coded by a young Igbo missionary named Simon Jonas, who travelled with him to Aboh in 1857.[11]\n\nThe language was standardized in church usage by the Union Igbo Bible (1913).[12]\n\nCentral Igbo is based on the dialects of two members of the Ezinifite group of Igbo in Central Owerri Province between the towns of Owerri and Umuahia in Eastern Nigeria.[13] From its proposal as a literary form in 1939 by Ida C. Ward, it was gradually accepted by missionaries, writers, and publishers across the region.[14]\n\nStandard Igbo aims to cross-pollinate Central Igbo with words from other Igbo dialects, with the adoption of loan words.[9]\n\nChinua Achebe passionately denounced language standardization efforts, beginning with Union Igbo through to Central and finally Standard Igbo, in a 1999 lecture sponsored by the Roman Catholic Archdiocese in Owerri.[15][16]\n\nHistorically, the Igbo language was spoken by a large number of enslaved people trafficked to the Americas from the bight of biafra, during the Atlantic Slave Trade.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Distribution",
+      "summary": "Igbo (and its dialects) is the dominant language in the following Nigerian states:[17]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Igbo (and its dialects) is the dominant language in the following Nigerian states:[17]\n\nAbia State\n\nAnambra State\n\nEbonyi State\n\nEnugu State\n\nImo State\n\nNorthern Delta State",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Phonology",
+      "summary": "The oral vowel phonemes of Igbo, based on Ikekeonwu (1999)\nIgbo is a tonal language. Tone varies by dialect but in most dialects there seem to be three register tones and three contour tones. The language's tone system was given by John Goldsmith as an example of autosegmental ph",
+      "sections": [
+        {
+          "heading": "Vowels",
+          "body": "The oral vowel phonemes of Igbo, based on Ikekeonwu (1999)\nIgbo is a tonal language. Tone varies by dialect but in most dialects there seem to be three register tones and three contour tones. The language's tone system was given by John Goldsmith as an example of autosegmental phenomena that go beyond the linear model of phonology laid out in The Sound Pattern of English.[18] Igbo words may differ only in tone. An example is ákwá \"cry\", àkwà \"bed\", àkwá \"egg\", and ákwà \"cloth\". As tone is not normally written, these all appear as ⟨akwa⟩ in print.\n\nIn many cases, the two (or sometimes three) tones commonly used in Igbo dictionaries fail to represent how words actually sound in the spoken language . This indicates that Igbo may have many more tones than previously recognised. For example, the imperative form of the word bia \"come\" has a different tone to that used in statement O bia \"he came\". That imperative tone is also used in the second syllable of abuo \"two\". Another distinct tone appears in the second syllable of asaa \"seven\" and another in the second syllable of aguu \"hunger\".\n\nA man speaking Igbo\nThe language features vowel harmony with two sets of oral vowels distinguished by pharyngeal cavity size described in terms of retracted tongue root (RTR). These vowels also occupy different places in vowel space: [i ɪ̙ e a u ʊ̙ o ɒ̙] (the last commonly transcribed [ɔ̙], in keeping with neighboring languages). For simplicity, phonemic transcriptions typically choose only one of these parameters to be distinctive, either RTR as in the chart on the right and Igbo orthography (that is, as /i i̙ e a u u̙ o o̙/), or vowel space as in the alphabetic chart below (that is, as /i ɪ e a u ʊ o ɔ/). There are also nasal vowels.\n\nAdjacent vowels usually undergo assimilation during speech. The sound of a preceding vowel, usually at the end of one word, merges in a rapid transition to the sound of the following vowel, particularly at the start of another word, giving the second vowel greater prominence in speech. Usually the first vowel (in the first word) is only slightly identifiable to listeners, usually undergoing centralisation. /kà ó mésjá/, for example, becomes /kòó mésjá/ \"goodbye\". An exception to this assimilation may be with words ending in /a/ such as /nà/ in /nà àlà/, \"on the ground\", which could be completely assimilated leaving /n/ in rapid speech, as in \"nàlà\" or \"n'àlà\". In other dialects however, the instance of /a/ such as in \"nà\" in /ọ́ nà èrí ńrí/, \"he/she/it is eating\", results in a long vowel, /ọ́ nèèrí ńrí/.[19]",
+          "examples": [
+            "Igbo is a tonal language. Tone varies by dialect but in most dialects there seem to be three register tones and three contour tones. The language's tone system was given by John Goldsmith as an example of autosegmental phenomena that go bey",
+            "In many cases, the two (or sometimes three) tones commonly used in Igbo dictionaries fail to represent how words actually sound in the spoken language . This indicates that Igbo may have many more tones than previously recognised. For examp",
+            "Adjacent vowels usually undergo assimilation during speech. The sound of a preceding vowel, usually at the end of one word, merges in a rapid transition to the sound of the following vowel, particularly at the start of another word, giving "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "Tone",
+          "body": "The Igbo language is tonal in nature. This means that the meaning of a word can be altered depending on the tone used when pronouncing it. Igbo has two main tones: high and low. The high tone is usually marked with an acute accent (´) and the low tone is marked with a grave accent (`).\n\nFor example, the word ⟨akwa⟩ can mean \"cry, egg, cloth, sew\" depending on the tone used. If pronounced with a high tone on the first and last syllable it means \"cry\". But if pronounced with a low tone on the first syllable and high on the last syllable, it means \"egg\". If it is pronounced with low tone on both syllables, then it will mean \"cloth\" or \"sew\".\n[check quotation syntax]\nAnother example is the word \"eze\" which means \"king\" or \"teeth\". In either case the first syllable is pronounced with a high tone. If the second syllable is pronounced with a low tone, it means \"king\". But if pronounced with a middle tone, it means \"teeth\".\n[check quotation syntax]\nThe use of tonal inflection in Igbo language is very important because it helps to differentiate between words that would otherwise sound the same. It can be challenging for English speakers to learn how to use the tones properly, but with practice, it can be mastered.",
+          "examples": [
+            "For example, the word ⟨akwa⟩ can mean \"cry, egg, cloth, sew\" depending on the tone used. If pronounced with a high tone on the first and last syllable it means \"cry\". But if pronounced with a low tone on the first syllable and high on the l",
+            "Another example is the word \"eze\" which means \"king\" or \"teeth\". In either case the first syllable is pronounced with a high tone. If the second syllable is pronounced with a low tone, it means \"king\". But if pronounced with a middle tone, "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Igbo does not have a contrast among voiced occlusives (between voiced stops and nasals): stops precede oral vowels, and nasals precede nasal vowels. Only a limited number of other consonants occur before nasal vowels, including /f, z, s/.\n\nConsonants of Standard Igbo (with nasal vowels)\n\nLabial\n\nDental/\nAlveolar\n\nPost-\nalveolar\n\nPalatal\n\nVelar\n\nLabial–\nvelar\n\nGlottal\n\nplain\n\nlab.\n\nPlosive/\nAffricate\n\nvoiceless\n\np\n\nt\n\ntʃ\n\nk\n\nkʷ\n\nk͡p\n\nvoiced\n\nb~m\n\nd\n\ndʒ\n\nɡ~ŋ\n\nɡʷ~ŋʷ\n\nɡ͡b\n\nSonorant\n\nl~n\n\nj~ɲ\n\nw\n\nFricative\n\nvoiceless\n\nf\n\ns\n\nʃ\n\nvoiced\n\nz\n\nɣ\n\nɦ~ɦ̃\n\nRhotic\n\nɹ\n\nIn some dialects, such as Enu-Onitsha Igbo, the doubly articulated /ɡ͡b/ and /k͡p/ are realized as a voiced/devoiced labial–velar implosive. The approximant /ɹ/ is realized as an alveolar tap [ɾ] between vowels as in árá. The Enu-Onitsha Igbo dialect is very much similar to Enuani spoken among the Igbo-Anioma people in Delta State.\n\nTo illustrate the effect of phonological analysis, the following inventory of a typical Central dialect is taken from Clark (1990). Nasality has been analyzed as a feature of consonants, rather than vowels, avoiding the problem of why so few consonants occur before nasal vowels; [CjV] has also been analyzed as /CʲV/.[20]\n\nConsonants of Central Igbo (no nasal vowels)\n\nLabial\n\nAlveolar\n\nAlveolo-\npalatal\n\nVelar\n\nLabial–\nvelar\n\nGlottal\n\nplain\n\npal.\n\nplain\n\nlab.\n\nNasal\n\nm\n\nn\n\nɲ\n\nŋ\n\nPlosive/\nAffricate\n\nvoiceless\n\nunaspirated\n\np\n\npʲ\n\nt; ƭ\n\nt͜ɕ\n\nk\n\nkʷ\n\nk͜ƥ\n\naspirated\n\npʰ\n\npʲʰ\n\ntʰ\n\nt͜ɕʰ\n\nkʰ\n\nkʷʰ\n\nvoiced\n\nunaspirated\n\nb\n\nbʲ\n\nd\n\nd͜ʑ\n\nɡ\n\nɡʷ\n\nɡ͜ɓ\n\naspirated\n\nbʱ\n\nbʲʱ\n\ndʱ\n\nd͜ʑʱ\n\nɡʱ\n\nFricative\n\nvoiceless\n\nplain\n\nf\n\ns\n\nnasalized\n\nf̃\n\ns̃\n\nvoiced\n\nplain\n\nv\n\nz\n\nɣ\n\nɣʷ\n\nnasalized\n\nṽ\n\nz̃\n\nRhotic\n\nplain\n\nɾ\n\nnasalized\n\nɾ̃\n\nApproximant\n\nvoiceless\n\nj̊\n\nw̥\n\nh\n\nvoiceless nasalized\n\nj̊̃\n\nw̥̃\n\nh̃\n\nvoiced\n\nl\n\nj\n\nw\n\nSyllables are of the form (C)V (optional consonant, vowel) or N (a syllabic nasal). CV is the most common syllable type. Every syllable bears a tone. Consonant clusters do not occur. The semivowels /j/ and /w/ can occur between consonant and vowel in some syllables. The semi-vowel in /CjV/ is analyzed as an underlying vowel \"ị\", so that -bịa is the phonemic form of bjá 'come'. On the other hand, \"w\" in /CwV/ is analyzed as an instance of labialization; so the phonemic form of the verb -gwá \"tell\" is /-ɡʷá/.",
+          "examples": [
+            "Syllables are of the form (C)V (optional consonant, vowel) or N (a syllabic nasal). CV is the most common syllable type. Every syllable bears a tone. Consonant clusters do not occur. The semivowels /j/ and /w/ can occur between consonant an"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Grammar",
+      "summary": "Igbo is an isolating language that exhibits very little fusion. The language is predominantly suffixing in a hierarchical manner, such that the ordering of suffixes is governed semantically rather than by fixed position classes. The language has very little inflectional morpholog",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Igbo is an isolating language that exhibits very little fusion. The language is predominantly suffixing in a hierarchical manner, such that the ordering of suffixes is governed semantically rather than by fixed position classes. The language has very little inflectional morphology but much derivational and extensional morphology. Most derivation takes place with verbal roots.[21]\n\nExtensional suffixes, a term used in the Igbo literature, refer to morphology that has some but not all characteristics of derivation. The words created by these suffixes always belong to the same lexical category as the root from which they are created, and the suffixes' effects are principally semantic. On these grounds, Emenanjo (2015) asserts that the suffixes called extensional are bound lexical compounding elements; they cannot occur independently, though many are related to other free morphemes from which they may have originally been derived.[21]\n\nIn addition to affixation, Igbo exhibits both partial and full reduplication to form gerunds from verbs. The partial form copies on the initial consonant and inserts a high front vowel, while the full form copies the first consonant and vowel. Both types are then prefixed with o-. For example, -go 'buy' partially reduplicates to form ògigo 'buying,' and -bu 'carry' fully reduplicates to form òbubu 'carrying'. Some other noun and verb forms also exhibit reduplication, but because the reduplicated forms are semantically unpredictable, reduplication in their case is not synchronically productive, and they are better described as separate lexical items.[21]\n\nIgbo pronouns do not index gender, and the same pronouns are used for male, female and inanimate beings. So the sentence, ọ maka can mean \"he, she or it is beautiful\".",
+          "examples": [
+            "Igbo pronouns do not index gender, and the same pronouns are used for male, female and inanimate beings. So the sentence, ọ maka can mean \"he, she or it is beautiful\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "Word classes",
+          "body": "Lexical categories in Igbo include nouns, pronouns, numerals, verbs, adjectives, conjunctions, and a single preposition.[22] The meaning of na, the single preposition, is flexible and must be ascertained from the context. Examples from Emenanjo (2015) illustrate the range of meaning:\n\n(1)O\n\n3sg\n\nbì\n\nlive\n\nn'Enugwū.\n\nPREP-Enugwū\n\nO bì n'Enugwū.\n\n3sg live PREP-Enugwū\n\n'He lives in Enugwū.'\n\n(2)O\n\n3sg\n\nbì\n\nlive\n\nebeà\n\nhere\n\nn'ogè\n\nPREP-time\n\nagha.\n\nwar\n\nO bì ebeà n'ogè agha.\n\n3sg live here PREP-time war\n\n'He lived here during the time of the war.'\n\n(3)Ndị\n\npeople\n\nFàda\n\nCatholic\n\nkwènyèrè\n\nbelieve\n\nn'atọ̀\n\nPREP-three\n\nn'ime\n\nPREP-inside\n\notù.\n\none\n\nNdị Fàda kwènyèrè n'atọ̀ n'ime otù.\n\npeople Catholic believe PREP-three PREP-inside one\n\n'The Catholics believe in the Trinity.'[21]\n\nIgbo has an extremely limited number of adjectives in a closed class. Emenanjo (1978, 2015)[23][21] counts just eight, which occur in pairs of opposites: ukwu 'big', nta 'small'; oji 'dark', ọcha 'light'; ọhụrụ 'new', ochie 'old'; ọma 'good'; njọ 'bad'.[24] Adjectival meaning is otherwise conveyed through the use of stative verbs or abstract nouns.\n\nVerbs, by far the most prominent category in Igbo, host most of the language's morphology and appear to be the most basic category; many processes can derive new words from verbs, but few can derive verbs from words of other classes.[21]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "Grammatical relations",
+          "body": "Igbo does not mark overt case distinctions on nominal constituents and conveys grammatical relations only through word order. The typical Igbo sentence displays subject-verb-object (SVO) ordering, where the subject is understood as the sole argument of an intransitive verb or the agent-like (external) argument of a transitive verb. Igbo thus exhibits accusative alignment.\n\nIt has been proposed, with reservations, that some Igbo verbs display ergativity on some level, as in the following two examples:[21]\n\n(4)Nnukwu\n\nbig\n\nmmīri\n\nwater\n\nnà-ezò\n\nAUX-fall\n\nn'iro.\n\nPREP-outside\n\nNnukwu mmīri nà-ezò n'iro.\n\nbig water AUX-fall PREP-outside\n\n'Heavy rain is falling outside.'\n\n(5)Ọ\n\nit\n\nnà-ezò\n\nAUX-fall\n\nnnukwu\n\nbig\n\nmmīri\n\nwater\n\nn'iro.\n\nPREP-outside\n\nỌ nà-ezò nnukwu mmīri n'iro.\n\nit AUX-fall big water PREP-outside\n\n'Heavy rain is falling outside.'\n\nIn (4), the verb has a single argument, nnukwu mmīri, which appears in subject position, and in the transitive sentence (5), that same argument appears in the object position, even though the two are semantically identical. On this basis, authors such as Emenanjuo (2015) have posited that this argument is an absolutive and that Igbo therefore contains some degree of ergativity.\n\nHowever, others disagree, arguing that the relevant category is not alignment but underlying argument structure; under this hypothesis, (4) and (5) differ only in the application of a transformation and can be accounted for entirely by the unaccusative hypothesis and the Extended Projection Principle;[25] the nominal argument is generated in object position, and either it is raised to the subject position, as in (4), or the subject position is filled with a pleonastic pronoun, as in (5).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "Relative clauses",
+          "body": "Igbo relative clauses are externally headed and follow the head noun. They do not employ overt relative markers or resumptive pronouns, instead leaving a gap in the position of the relativized noun. Subjects and objects can be relativized. Examples include (relative clauses bracketed):[21]\n\n(6)Ọ\n\n3sg\n\nzụ̀-tà-rà\n\nbuy-SUFF-PRF\n\nàkwa\n\negg\n\n[mā-ra\n\n[be.good-PRF\n\nmmā].\n\ngoodness]\n\nỌ zụ̀-tà-rà àkwa [mā-ra mmā].\n\n3sg buy-SUFF-PRF egg [be.good-PRF goodness]\n\n'She bought eggs that are good.'\n\n(7)Àkwa\n\negg\n\n[ọ\n\n[3sg\n\nzụ̀-tà-rà]\n\nbuy-SUFF-PRF]\n\nmà-rà\n\ngood-PRF\n\nmmā.\n\ngoodness\n\nÀkwa [ọ zụ̀-tà-rà] mà-rà mmā.\n\negg [3sg buy-SUFF-PRF] good-PRF goodness\n\n'The eggs that she bought are good.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "Voice and valence",
+          "body": "Igbo lacks the common valence-decreasing operation of passivization, a fact which has led multiple scholars to claim that \"voice is not a relevant category in Igbo.\"[21] The language does, however, possess some valence-increasing operations that could be construed as voice under a broader definition:\n\n(8)Ógù\n\nOgu\n\na-vó-ọ-la\n\nPREF-be.open-SUFF-PRF\n\nÓgù a-vó-ọ-la\n\nOgu PREF-be.open-SUFF-PRF\n\n'Ogu has become disgraced.'\n\n(9)Íbè\n\nIbe\n\ne-mé-vọ-ọ-la\n\nPREF-make-be.open-SUFF-PRF\n\nOgù.\n\nOgu\n\nÍbè e-mé-vọ-ọ-la Ogù.\n\nIbe PREF-make-be.open-SUFF-PRF Ogu\n\n'Ibe has disgraced Ogu.'\n\n(10)Àfe\n\nclothes\n\nisé\n\nfive\n\nkò-ro\n\nhang-PRF\n\nn'ezí.\n\nPREP-compound\n\nÀfe isé kò-ro n'ezí.\n\nclothes five hang-PRF PREP-compound\n\n'Five items of clothing are hanging in the compound.'\n\n(11)Ókwu\n\nOkwu\n\nkò-we-re\n\nhang-INCH-PRF\n\nafe\n\nclothes\n\nisé\n\nfive\n\nn'ezi.\n\nPREP-compound\n\nÓkwu kò-we-re afe isé n'ezi.\n\nOkwu hang-INCH-PRF clothes five PREP-compound\n\n'Okwu hung five items of clothing in the compound.'\n\nIgbo also possess an applicative construction, which takes the suffix -rV, where V copies the previous vowel, and the applicative argument follows the verb directly. The applicative suffix is identical in form with the past tense suffix, with which it should not be confused.[22] For example:[25]\n\n(12)Íbè\n\nIbe\n\nnye-re\n\ngive-PRF-APPL\n\nm\n\n1sg\n\nÓgù\n\nOgu\n\nákwụkwọ.\n\nbook\n\nÍbè nye-re m Ógù ákwụkwọ.\n\nIbe give-PRF-APPL 1sg Ogu book\n\n'Ibe gave the book to Ogu for me.'",
+          "examples": [
+            "Igbo lacks the common valence-decreasing operation of passivization, a fact which has led multiple scholars to claim that \"voice is not a relevant category in Igbo.\"[21] The language does, however, possess some valence-increasing operations"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "Verb serialization",
+          "body": "Igbo permits verb serialization, which is used extensively to compensate for its paucity of prepositions. Among the meaning types commonly expressed in serial verb constructions are instruments, datives, accompaniment, purpose, and manner. (13) and (14) below illustrate instrumental and dative verb series, respectively:[21]\n\n(13)Ọ\n\n3sg\n\nnà-èji\n\nAUX-PREF-use\n\nmmà\n\nknife\n\nà-bacha\n\nPREF-peel\n\njī.\n\nyam\n\nỌ nà-èji mmà à-bacha jī.\n\n3sg AUX-PREF-use knife PREF-peel yam\n\n'He peels yams with a knife.'\n\n(14)Ọ\n\n3sg\n\nzụ̀-tà-rà\n\nbuy-SUFF-PRF\n\nakwụkwọ\n\nbook\n\nnye\n\ngive\n\nm̄.\n\n1sg\n\nỌ zụ̀-tà-rà akwụkwọ nye m̄.\n\n3sg buy-SUFF-PRF book give 1sg\n\n'He bought a book and gave it to me.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Writing system",
+      "summary": "See also: Igbo Braille\nAn ikpe 'court case' recorded in nsibidi by J. K. Macgregor in the early 20th century\nIgbo-language advertisement in Abia State. Note the use of the letter ụ.\nThe Igbo people invented Nsibidi ideograms, which spread to their neighbors such as Ekoi people, a",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "See also: Igbo Braille\nAn ikpe 'court case' recorded in nsibidi by J. K. Macgregor in the early 20th century\nIgbo-language advertisement in Abia State. Note the use of the letter ụ.\nThe Igbo people invented Nsibidi ideograms, which spread to their neighbors such as Ekoi people, and  Ejegham people for basic written communication.[26] Nsibidi is an ancient system of graphic communication indigenous to peoples in southeastern Nigeria and southwestern Cameroon in the Cross River region. It is also used by neighboring Ekoi, Ejegham, Efik, and Ibibio peoples. They have been used since at least the 16th century, under the Aro Confederacy,[citation needed] but died out publicly[dubious – discuss] after they became popular amongst secret societies such as the Ekpe, who used them as a secret form of communication.[27] Nsibidi, however, is not a full writing system, because it cannot transcribe the Igbo language specifically. In 1960, a rural land owner and dibia named Nwagu Aneke developed a syllabary for the Umuleri dialect of Igbo, the script, named after him as the Nwagu Aneke script, was used to write hundreds of diary entries until Aneke's death in 1991. The Nwagu Aneke Project is working on translating Nwagu's commentary and diary.[28]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        },
+        {
+          "heading": "History of Igbo orthography",
+          "body": "Before the existence of any official system of orthography for the Igbo language, travelers and writers documented Igbo sounds by utilizing the orthographies of their own languages in transcribing them, though they encountered difficulty representing particular sounds, such as implosives, labialized velars, syllabic nasals, and non-expanded vowels. In the 1850s, German philologist Karl Richard Lepsius published the Standard Alphabet, which was universal to all languages of the world, and became the first Igbo orthography. It contained 34 letters and included digraphs and diacritical marks to transcribe sounds distinct to African languages.[29] The Lepsius Standard Alphabet contained the following letters:\n\na b d e f g h i k l m n o p r s t u v w y z gb gh gw kp kw ṅ nw ny ọ s ds ts[29]\n\nThe Lepsius orthography was replaced by the Practical Orthography of African Languages (Africa Orthography) in 1929 by the colonial government in Nigeria. The new orthography, created by the International Institute of African Languages and Cultures (IIALC), had 36 letters and disposed of diacritic marks. Numerous controversial issues with the new orthography eventually led to its replacement in the early 1960s.[29] The Africa Orthography contained the following letters:\n\na b c d e f g gb gh h i j k kp l m n ŋ ny o ɔ ɵ p r s t u w y z gw kw nw[29]\n\nỌnwụ\nMain article: Igbo alphabet\nIgbo version of the Book of Mormon, with the letters Ị, Ọ and Ụ visible\nThe current Ọnwụ alphabet, a compromise between the older Lepsius alphabet and a newer alphabet advocated by the International Institute of African Languages and Cultures (IIALC), is presented in the following table, with the International Phonetic Alphabet equivalents for the characters:[30]\n\nLetter\n\nPronunciation\n\nA a\n\n/a/\n\nB b\n\n/b/\n\nCh ch\n\n/tʃ/\n\nD d\n\n/d/\n\nE e\n\n/e/\n\nF f\n\n/f/\n\nG g\n\n/ɡ/\n\nGb gb\n\n/ɡ͡b~ɠ͡ɓ/\n\nGh gh\n\n/ɣ/\n\nGw gw\n\n/ɡʷ/\n\nH h\n\n/ɦ/\n\nI i\n\n/i/\n\nỊ ị\n\n/ɪ̙/\n\nJ j\n\n/dʒ/\n\nK k\n\n/k/\n\nKp kp\n\n/k͡p~ƙ͡ƥ/\n\nKw kw\n\n/kʷ/\n\nL l\n\n/l/\n\nM m\n\n/m/\n\nN n\n\n/n/\n\nṄ ṅ\n\n/ŋ/\n\nNw nw\n\n/ŋʷ/\n\nNy ny\n\n/ɲ/\n\nO o\n\n/o/\n\nỌ ọ\n\n/ɔ̙/\n\nP p\n\n/p/\n\nR r\n\n/ɹ/\n\nS s\n\n/s/\n\nSh sh\n\n/ʃ/\n\nT t\n\n/t/\n\nU u\n\n/u/\n\nỤ ụ\n\n/ʊ̙/\n\nV v\n\n/v/\n\nW w\n\n/w/\n\nY y\n\n/j/\n\nZ z\n\n/z/\n\nThe graphemes ⟨gb⟩ and ⟨kp⟩ are described both as coarticulated /ɡ͡b/ and /k͡p/ and as implosives, so both values are included in the table.\n\n⟨m⟩ and ⟨n⟩ each represent two phonemes: a nasal consonant and a syllabic nasal.\n\nTones are sometimes indicated in writing, and sometimes not. When tone is indicated, low tones are shown with a grave accent over the vowel, for example ⟨a⟩ → ⟨à⟩, and high tones with an acute accent over the vowel, for example ⟨a⟩ → ⟨á⟩.\n\nOther orthographies\nA variety of issues have made agreement on a standardized orthography for the Igbo language difficult. In 1976, the Igbo Standardization Committee criticized the official orthography in light of the difficulty notating diacritic marks using typewriters and computers; difficulty in accurately representing tone with tone-marking conventions, as they are subject to change in different environments; and the inability to capture various sounds particular to certain Igbo dialects. The Committee produced a modified version of the Ọnwụ orthography, called the New Standard Orthography, which substituted ⟨ö⟩ and ⟨ü⟩ for ⟨ọ⟩ and ⟨ụ⟩, ⟨c⟩ for ⟨ch⟩, and ⟨ñ⟩ for ⟨ṅ⟩.[31] The New Standard Orthography has not been widely adopted, although it was used, for example, in the 1998 Igbo English Dictionary by Michael Echeruo.\n\nMore recent calls for reform have been based in part on the rogue use of alphabetic symbols, tonal notations, and spelling conventions that deviate from the standard orthography.[29]\n\nThere are also some modern movements to restore the use of and modernize nsibidi as a writing system,[32][33] which mostly focus on Igbo as it is the most populous language that used to use nsibidi.\n\nNdebe Script\nIn 2009, a Nigerian software engineer and artist named Lotanna Igwe-Odunze developed a native script named Ndebe script. It was further redesigned and relaunched in 2020 as a standalone writing system completely independent of Nsibidi.[34][35] The script gained notable attention after a write-up from Nigerian linguist Kola Tubosun on its \"straightforward\" and \"logical\" approach to indicating tonal and dialectal variety compared to Latin.[34][36]",
+          "examples": [
+            "In 2009, a Nigerian software engineer and artist named Lotanna Igwe-Odunze developed a native script named Ndebe script. It was further redesigned and relaunched in 2020 as a standalone writing system completely independent of Nsibidi.[34]["
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Proverbs",
+      "summary": "Proverbs and idiomatic expressions (ilu and akpalaokwu in Igbo, respectively) are highly valued by the Igbo people and proficiency in the language means knowing how to intersperse speech with a good dose of proverbs. Chinua Achebe (in Things Fall Apart) describes proverbs as \"the",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Proverbs and idiomatic expressions (ilu and akpalaokwu in Igbo, respectively) are highly valued by the Igbo people and proficiency in the language means knowing how to intersperse speech with a good dose of proverbs. Chinua Achebe (in Things Fall Apart) describes proverbs as \"the palm oil with which words are eaten\". Proverbs are widely used in the traditional society to describe, in very few words, what could have otherwise required a thousand words. Proverbs may also become euphemistic means of making certain expressions in the Igbo society, thus the Igbo have come to typically rely on this as avenues of certain expressions.[37]",
+          "examples": [
+            "Proverbs and idiomatic expressions (ilu and akpalaokwu in Igbo, respectively) are highly valued by the Igbo people and proficiency in the language means knowing how to intersperse speech with a good dose of proverbs. Chinua Achebe (in Thing"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Usage in the diaspora",
+      "summary": "As a consequence of the Atlantic slave trade, the Igbo language was spread by enslaved Igbo people throughout slave colonies in the Americas. Examples can be found in Jamaican Patois: the pronoun /unu/, used for 'you (plural)', is taken from Igbo, Red eboe refers to a fair-skinne",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "As a consequence of the Atlantic slave trade, the Igbo language was spread by enslaved Igbo people throughout slave colonies in the Americas. Examples can be found in Jamaican Patois: the pronoun /unu/, used for 'you (plural)', is taken from Igbo, Red eboe refers to a fair-skinned black person because of the reported account of a fair or yellowish skin tone among the Igbo.[38] Soso meaning only comes from Igbo.[39] See List of Jamaican Patois words of African origin for more examples.\n\nThe word Bim, a name for Barbados, was commonly used by enslaved Barbadians (Bajans). This word is said to derive from the Igbo language, derived from bi mu (or either bem, Ndi bem, Nwanyi ibem or Nwoke ibem) (English: My people),[40][41] but it may have other origins (see: Barbados etymology).[citation needed]\n\nIn Cuba, the Igbo language (along with the Efik language) continues to be used, albeit in a creolized form, in ceremonies of the Abakuá society, equivalent or derived from the Ekpe society in modern Nigeria.[citation needed]\n\nIn modern times, Igbo people in the diaspora are putting resources in place to make the study of the language accessible.[citation needed]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Present state",
+      "summary": "The Magnificat in Igbo translation (Church of the Visitation, Jerusalem)\nThere are some discussions as to whether the Igbo language is in danger of extinction, advanced in part by a 2006 UNESCO report that predicted the Igbo language will become extinct within 50 years.[42] Profe",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Magnificat in Igbo translation (Church of the Visitation, Jerusalem)\nThere are some discussions as to whether the Igbo language is in danger of extinction, advanced in part by a 2006 UNESCO report that predicted the Igbo language will become extinct within 50 years.[42] Professor of African and African Diaspora Literatures at University of Massachusetts, Chukwuma Azuonye, emphasizes indicators for the endangerment of the Igbo language based on criteria that includes the declining population of monolingual elderly speakers; reduced competence and performance among Igbo speakers, especially children; the deterioration of idioms, proverbs, and other rhetorical elements of the Igbo language that convey the cultural aesthetic; and code-switching, code-mixing, and language shift.[43]\n\nExternal and internal factors have been proposed as causes for the decline of the Igbo language and its usage. Preference for the English language in post-colonial Nigeria has usurped the Igbo language's role and function in society,[43] as English is perceived by Igbo speakers as the language of status and opportunity.[43] This perception may be a contributor to the negative attitude towards the Igbo language by its speakers across the spectrum of socio-economic classes.[42] Igbo children's reduced competence and performance has been attributed in part to the lack of exposure in the home environment, which impacts intergenerational transmission of the language.[43] English is the official language in Nigeria and is utilized in government administration, educational institutions, and commerce. Aside from its role in numerous facets of daily life in Nigeria, globalization exerts pressure to utilize English as a universal standard language in support of economic and technological advancement.[42] A 2005 study by Igboanusi and Peter demonstrated the preferential attitude towards English over the Igbo language amongst Igbo people in the communication, entertainment, and media domains. English was preferred by Igbo speakers at 56.5% for oral communication, 91.5% for written communication, 55.5–59.5% in entertainment, and 73.5–83.5% for media.[44]\n\nThe effect of English on Igbo languages amongst bilingual Igbo speakers can be seen by the incorporation of English loanwords into Igbo and code-switching between the two languages. English loanwords, which are usually nouns, have been found to retain English semantics, but typically follow phonological and morphological structures of Igbo. Lexical items conform to the vowel harmony intrinsic to Igbo phonological structures. For example, loanwords with syllable-final consonants may be assimilated by the addition of a vowel after the consonant, and vowels are inserted in between consonant clusters, which have not been found to occur in Igbo.[45] This can be seen in the word sukulu, which is a loanword derived from the English word school that has followed the aforementioned pattern of modification when it was assimilated into the Igbo language.[46] Code-switching, which involves the insertion of longer English syntactic units into Igbo utterances, may consist of phrases or entire sentences, principally nouns and verbs, that may or may not follow Igbo syntactic patterns. Igbo affixes to English verbs determine tense and aspectual markers, such as the Igbo suffix -i affixed to the English word 'check', expressed as the word check-i.[45]\n\nThe standardized Igbo language is composed of fragmented features from numerous Igbo dialects and is not technically a spoken language, but it is used in communicational, educational, and academic contexts. This unification is perceived by Chukwuma Azuonye as undermining the survival of Igbo by erasing diversity between dialects.[43] Each individual dialect possesses unique untranslatable idioms and rhetorical devices that represent Igbo cultural nuances that can be lost as dialects disappear or deteriorate.[43] Newly coined terms may fail to conform to a dialect's lexical formation in assimilating loan words.[43]\n\nProverbs are an essential component of the Igbo language that convey cultural wisdom and contextual significance to linguistic expression. Everyday usage of Igbo proverbs has declined in recent generations of speakers, which threatens loss in intergenerational transmission.[47] A recent study of the Ogwashi dialect of Igbo demonstrated a steep decline in youth's knowledge and use of proverbs compared to elder speakers.[43] In this study, youths employed simplified or incomplete proverbial expressions, lacked a diverse proverbial repertoire, and were deficient in their understanding of proper contextual usages as compared to elders who demonstrated competence to enhance linguistic expression with a diverse vocabulary of proverbs.[43]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Igbo_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

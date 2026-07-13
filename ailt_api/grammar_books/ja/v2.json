@@ -1,0 +1,440 @@
+{
+  "title": "Grammar Book — 日本語",
+  "languageCode": "ja",
+  "languageName": "日本語",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Japanese/Basic_Japanese/Answers/Lesson_1",
+    "https://en.wikibooks.org/wiki/Japanese/Basic_Japanese/Answers/Lesson_2",
+    "https://en.wikibooks.org/wiki/Japanese/Elementary_Japanese/Lesson_2",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_1",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_10",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_11",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_2",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_3",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_4",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_5",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_6",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_7",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_8",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_9",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_1",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_10",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_11",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_2",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_3",
+    "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_4",
+    "https://en.wikipedia.org/wiki/Japanese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "== Answers ==\n初めまして should only be used when talking to someone you are meeting for the first time.\nどうぞ　よろしく means \"Please favor me with your friendship\" though it is usually loosely translated to \"Pleased to meet you\" or \"Nice to meet you\"\nNo. The correct sentence should be \"私は田",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "Template:Japanese: Basic Japanese TOC\n\n\n== Answers ==\n初めまして should only be used when talking to someone you are meeting for the first time.\nどうぞ　よろしく means \"Please favor me with your friendship\" though it is usually loosely translated to \"Pleased to meet you\" or \"Nice to meet you\"\nNo. The correct sentence should be \"私は田中です\". さん is an honorific suffix applied to others. It cannot be applied to oneself.\nWhen meeting someone for the first time, it is common to say \"初めまして、___　です。　どうぞ　よろしく。\"\nTo introduce someone to another person, \"こちら　は　___さん　です。\" can be said.",
+          "examples": [
+            "どうぞ　よろしく means \"Please favor me with your friendship\" though it is usually loosely translated to \"Pleased to meet you\" or \"Nice to meet you\"",
+            "No. The correct sentence should be \"私は田中です\". さん is an honorific suffix applied to others. It cannot be applied to oneself.",
+            "When meeting someone for the first time, it is common to say \"初めまして、___　です。　どうぞ　よろしく。\"",
+            "To introduce someone to another person, \"こちら　は　___さん　です。\" can be said."
+          ],
+          "learnerTip": "== Answers ==\n初めまして should only be used when talking to someone you are meeting for the first time.\nどうぞ　よろしく means \"Please favor me with your friendship\" though it is usually loosely translated to \"Pl",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Basic_Japanese/Answers/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson 2",
+      "summary": "a) これ は___です。\nb) あれ は___です。\nc) それ は___です。",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "Template:Japanese: Basic Japanese TOC\n\n\n== Answers ==\n1.\n\na) これは何ですか。\nb) あれは何ですか。\nc) それは何ですか。\n2.\n\na) これ は___です。\nb) あれ は___です。\nc) それ は___です。",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Basic_Japanese/Answers/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Elementary Lesson 2",
+      "summary": "=== Dialog ===\nYou can check out the translation here",
+      "sections": [
+        {
+          "heading": "Elementary Lesson 2",
+          "body": "Template:Elementary Japanese TOC\n\n\n== Intro ==\n\n\n=== Dialog ===\nYou can check out the translation here\n\n\n=== Vocabulary ===\n\n\n== Lesson ==\n\n\n=== What is a copula? ===\nIn English, the verb 'to be' serves two purposes: It acts as the copula, and it acts as the verb for existence. However, in many languages, including Japanese, these two verbs are separate—so it helps to have an understanding of the difference between the two usages.\nA copula can be thought of as an equals sign: it equates two things to each other. In the sentence \"That is a dog,\" 'is' is the copula. In the sentence \"The dog is inside,\" you don't mean that 'the dog' and 'inside' are the same thing; you mean that the dog exists inside.\nThese two usages have different verbs in Japanese, so it'd be good to get used to it now. Here are some examples:\nUsing 'to be' as a copula:\n\nThat man is the president.\nJoe is a salesman.\nThe dog is a golden retriever.\nThis paper is my report.\nUsing 'to be' to mean existence:\n\nSara is outside.\nThe plate is on the table.\nThe watch is on my wrist\nThey are at the mall.\nThere is John.\n\n\n=== The Japanese Copula ===\nIn Japanese, です is the copula.  It is used to equate two things.  Let's look into translating the sentence, \"This is a dictionary,\" into Japanese.\nSince Japanese uses subject-object-verb word order, the copula (and all other verbs) come last in the sentence. If we were to form the English sentence in this way, it'd go like this: \"This a dictionary is.\"  If we directly translate the words to Japanese and throw in a particle to separate and denote the function of the words in the sentence, then we'll be done.\nThe word 'is', as I mentioned above, becomes です.  We can use これ and じしょ for 'this' and 'dictionary', respectively.  In this instance, これ is our subject (actually our topic), so we add the topic particle は after it (the direct-object, dictionary, does not need a particle when used with the copula.)  Now, our sentence is \"これはじしょです。\", which is a complete, understandable Japanese sentence.\n\n\n=== Review ===\nAはBです。- A is B, A is a B.\n\n\n== Exercise ==\n\n\n== Further reading ==\n\n\n== Useful phrases ==\n\n\n== Translation for the text ==\n\nTemplate:Elementary Japanese TOC",
+          "examples": [
+            "A copula can be thought of as an equals sign: it equates two things to each other. In the sentence \"That is a dog,\" 'is' is the copula. In the sentence \"The dog is inside,\" you don't mean that 'the dog' and 'inside' are the same thing; you ",
+            "In Japanese, です is the copula.  It is used to equate two things.  Let's look into translating the sentence, \"This is a dictionary,\" into Japanese.",
+            "Since Japanese uses subject-object-verb word order, the copula (and all other verbs) come last in the sentence. If we were to form the English sentence in this way, it'd go like this: \"This a dictionary is.\"  If we directly translate the wo",
+            "The word 'is', as I mentioned above, becomes です.  We can use これ and じしょ for 'this' and 'dictionary', respectively.  In this instance, これ is our subject (actually our topic), so we add the topic particle は after it (the direct-object, dictio"
+          ],
+          "learnerTip": "=== Dialog ===\nYou can check out the translation here",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Elementary_Japanese/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Lesson 1",
+      "summary": "Welcome to the first installment of the hiragana lessons. In this lesson you are going to learn how to read and write the Japanese vowels, \"あ\", \"い\", \"う\", \"え\" and \"お\".",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "Welcome to the first installment of the hiragana lessons. In this lesson you are going to learn how to read and write the Japanese vowels, \"あ\", \"い\", \"う\", \"え\" and \"お\".\n\n\n== The Long Vowel Sound ==\nOne can extend the vowel sound of a kana by affixing either a あ、い、or う depending on the vowel. The vowel would be extended for one more mora, or beat. In most cases: あ follows あ; い follows い or え; う follows う or お.\nThere are rare exceptions where an え vowel is extended by adding え or an お vowel is extended by お. Some examples of this include おねえさん (oneesan or onēsan), おおい, and おおきい (ōkii).\nOne giveaway to an English-speaking accent in Japanese speech is the use of a diphthong for the elongated \"e\" sound (Such as the sound in \"Eight\"). In actuality, \"えい\" is pronounced correctly by speaking the え sound twice as long as normal.\nIt is important to make sure you hold the vowel sound long enough because you can be saying \"middle-aged lady\" （おばさん）(obasan) instead of \"grandmother\" （おばあさん）(obaasan or obāsan) if you do not stretch it out correctly.",
+          "examples": [
+            "Welcome to the first installment of the hiragana lessons. In this lesson you are going to learn how to read and write the Japanese vowels, \"あ\", \"い\", \"う\", \"え\" and \"お\".",
+            "One giveaway to an English-speaking accent in Japanese speech is the use of a diphthong for the elongated \"e\" sound (Such as the sound in \"Eight\"). In actuality, \"えい\" is pronounced correctly by speaking the え sound twice as long as normal.",
+            "It is important to make sure you hold the vowel sound long enough because you can be saying \"middle-aged lady\" （おばさん）(obasan) instead of \"grandmother\" （おばあさん）(obaasan or obāsan) if you do not stretch it out correctly."
+          ],
+          "learnerTip": "Welcome to the first installment of the hiragana lessons. In this lesson you are going to learn how to read and write the Japanese vowels, \"あ\", \"い\", \"う\", \"え\" and \"お\".",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lesson 10",
+      "summary": "In this lesson you are going to learn how to read and write \"わ\", \"を\" and \"ん\".",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "In this lesson you are going to learn how to read and write \"わ\", \"を\" and \"ん\".\n\nNote: The \"を\" syllable is used only for the object marker particle. No other word is written with \"を\".\n\nNote: No word starts with \"ん\".",
+          "examples": [
+            "In this lesson you are going to learn how to read and write \"わ\", \"を\" and \"ん\".",
+            "Note: The \"を\" syllable is used only for the object marker particle. No other word is written with \"を\".",
+            "Note: No word starts with \"ん\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson 11",
+      "summary": "In this lesson you are going to learn how to read and write \"ゐ\" and \"ゑ\".  These characters are not used in modern Japanese but are found in old Japanese texts. They are included here mostly for completeness. The student can choose whether to memorise these. Most study aids will n",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "In this lesson you are going to learn how to read and write \"ゐ\" and \"ゑ\".  These characters are not used in modern Japanese but are found in old Japanese texts. They are included here mostly for completeness. The student can choose whether to memorise these. Most study aids will not practise these.",
+          "examples": [
+            "In this lesson you are going to learn how to read and write \"ゐ\" and \"ゑ\".  These characters are not used in modern Japanese but are found in old Japanese texts. They are included here mostly for completeness. The student can choose whether t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson 2",
+      "summary": "In this lesson you are going to learn how to read and write か, き, く, け, こ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten ma",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "In this lesson you are going to learn how to read and write か, き, く, け, こ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks will cause か, き, く, け, and こ to produce が, ぎ, ぐ, げ, ご. \n\n\n== Clear Sounds ==",
+          "examples": [
+            "In this lesson you are going to learn how to read and write か, き, く, け, こ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced so"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson 3",
+      "summary": "In this lesson you are going to learn how to read and write さ、し、す、せ、そ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "In this lesson you are going to learn how to read and write さ、し、す、せ、そ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks to さ、し、す、せ、and そ will produce ざ、じ、ず、ぜ、ぞ.\n\n\n== Clear sounds ==",
+          "examples": [
+            "In this lesson you are going to learn how to read and write さ、し、す、せ、そ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Lesson 4",
+      "summary": "In this lesson you are going to learn how to read and write た、ち、つ、て、と. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "In this lesson you are going to learn how to read and write た、ち、つ、て、と. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks to た、ち、つ、て、and と will produce だ、ぢ、づ、で、ど.\n\n\n== Clear sounds ==\n\nNote: In Japan, the t is crossed first, not last.\n\n\n== Double Consonants ==\nBy adding a small \"っ\" (tsu)  in front of a syllable, it causes the subsequent consonant to double.  This is called the sokuon (促音(そくおん)). This kana results in a slight pause between the two consonants (a double consonant pause). There is an exception for the kana ち. Instead of having a 'cch', a ~tch is used.\nA couple examples are かった (katta) and しっけ (shikke).",
+          "examples": [
+            "In this lesson you are going to learn how to read and write た、ち、つ、て、と. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound.",
+            "By adding a small \"っ\" (tsu)  in front of a syllable, it causes the subsequent consonant to double.  This is called the sokuon (促音(そくおん)). This kana results in a slight pause between the two consonants (a double consonant pause). There is an"
+          ],
+          "learnerTip": "In this lesson you are going to learn how to read and write た、ち、つ、て、と. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson 5",
+      "summary": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]\n\nKatakana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ヰ and ヱ (ancient katakana in disuse) ]\n\nIn this lesson you are going to learn how to read and write な、に、ぬ、ね、の.\n\nBrush Stroke:\n\nSound:\n\nna\n\nMnemonic:\n\nThe cross shaped figure just knocked (na) over something.\n\nA child cries after being told 'Nah, you can't play with us'.\n\nA cross, dash and an alpha sign.\n\nThe cross shaped snake charmer at left throws a bit of food to the snake coiled in the middle. The snake thinks \"Nah\" and doesn't catch it.\n\nExample:\n\nなにか (nanika) something\n\nなか (naka) inside, middle, among\n\nなる (naru) to become\n\nBrush Stroke:\n\nSound:\n\nni\n\nMnemonic:\n\nIt looks sort of like a knee (when you bend your leg)\n\nExample:\n\nにる (niru) to resemble, to be similar\n\nにく (niku) meat\n\nにんげん (ningen) human being\n\nBrush Stroke:\n\nSound:\n\nnu\n\nMnemonic:\n\nLooks like a bowl of soup with a chopstick and noodles (nu) spilling out.\n\nA way to remember the difference between ぬ (nu) and ね (ne) is that ぬ is the one with the u shape (it's actually more of a v) near the center of the character.\n\nExample:\n\nぬるい (nurui) lukewarm, tepid\n\nぬぐ (nugu) to take off (clothing)\n\nぬれる (nureru) to get wet\n\nBrush Stroke:\n\nSound:\n\nne\n\nMnemonic:\n\nIt looks like the letters 't' and 'e' with the e upside down.  Add an n and you get \"ten\".  Reverse that and you get \"net\" (ne).\n\nOne way to remember this is to rotate the 'e' of 'ne' until it's upside down then move it under arch on the 'n', merge the right sides of both letters together and hoist a mast (+) to signal your success.\n\nExample:\n\nねん (nen) year\n\nねぎ (negi) spring (green) onion\n\nねだん (nedan) price, cost\n\nBrush Stroke:\n\nSound:\n\nno\n\nMnemonic:\n\nの is similar to the forbidden traffic symbol. Which is the main word for forbidden: NO.\n\nの looks like both an n and an o morphed together into one character. It is n-shaped, but has the roundedness of an o.\n\nExample:\n\nの (no) of; to\n\nのう(nou) Nou play; brain, memory\n\nのる (noru) to ride, to board\n\nのうみん (noumin) farmer",
+          "examples": [
+            "The cross shaped snake charmer at left throws a bit of food to the snake coiled in the middle. The snake thinks \"Nah\" and doesn't catch it.",
+            "Example:",
+            "Example:",
+            "Example:",
+            "It looks like the letters 't' and 'e' with the e upside down.  Add an n and you get \"ten\".  Reverse that and you get \"net\" (ne).",
+            "Example:"
+          ],
+          "learnerTip": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Lesson 6",
+      "summary": "In this lesson you are going to learn how to read and write は、ひ、ふ、へ、ほ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks",
+      "sections": [
+        {
+          "heading": "Lesson 6",
+          "body": "In this lesson you are going to learn how to read and write は、ひ、ふ、へ、ほ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks to は、ひ、ふ、へ、and ほ will produce ば、び、ぶ、べ、ぼ.　Adding a small circle called a 半(はん)濁(だく)点(てん) handakuten, but commonly known simply as a 丸(まる) maru, \"circle\" causes clear sounds to change to their plosive sound. Thus, adding a 丸(まる) maru to は、ひ、ふ、へ、and ほ will produce ぱ、ぴ、ぷ、ぺ、ぽ.\n\nNote: \"は\" is pronounced wa when used as a particle.",
+          "examples": [
+            "In this lesson you are going to learn how to read and write は、ひ、ふ、へ、ほ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound.",
+            "Note: \"は\" is pronounced wa when used as a particle."
+          ],
+          "learnerTip": "In this lesson you are going to learn how to read and write は、ひ、ふ、へ、ほ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_6"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Lesson 7",
+      "summary": "In this lesson you are going to learn how to read and write \"ま\", \"み\", \"む\", \"め\" and \"も\".",
+      "sections": [
+        {
+          "heading": "Lesson 7",
+          "body": "In this lesson you are going to learn how to read and write \"ま\", \"み\", \"む\", \"め\" and \"も\".",
+          "examples": [
+            "In this lesson you are going to learn how to read and write \"ま\", \"み\", \"む\", \"め\" and \"も\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_7"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson 8",
+      "summary": "In this lesson you are going to learn how to read and write \"や\", \"ゆ\" and \"よ\".",
+      "sections": [
+        {
+          "heading": "Lesson 8",
+          "body": "In this lesson you are going to learn how to read and write \"や\", \"ゆ\" and \"よ\".\n\n\n== Yōon Hiragana ==\nCertain sounds ending with -い(i) ( き(ki), し(shi), ち(chi), に(ni), ひ(hi), み(mi), り(ri) and their voiced variants) can be followed by small versions (ゃ, ゅ, and ょ) of the hiragana や(ya), ゆ(yu), and よ(yo). In this case, the two hiragana are not pronounced individually, but rather as one sound.\nIn most cases, the compound sound is the consonant of the base syllable followed by the modifier (fjord may be an example of a similar compound sound in English):\n\nきゃ (kya)\nきゅ (kyu)\nきょ (kyo)\nIn other cases the y sound disappears entirely:\n\nしゃ (sha)\nしゅ (shu)\nしょ (sho)\nLook at the Kana Chart for the others.",
+          "examples": [
+            "In this lesson you are going to learn how to read and write \"や\", \"ゆ\" and \"よ\"."
+          ],
+          "learnerTip": "In this lesson you are going to learn how to read and write \"や\", \"ゆ\" and \"よ\".",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_8"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson 9",
+      "summary": "In this lesson you are going to learn how to read and write \"ら\", \"り\", \"る\", \"れ\", \"ろ\".",
+      "sections": [
+        {
+          "heading": "Lesson 9",
+          "body": "In this lesson you are going to learn how to read and write \"ら\", \"り\", \"る\", \"れ\", \"ろ\".\n\nNote: The handwritten form varies slightly from the printed form り",
+          "examples": [
+            "In this lesson you are going to learn how to read and write \"ら\", \"り\", \"る\", \"れ\", \"ろ\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Hiragana/Lesson_9"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson 1",
+      "summary": "Welcome to the first installment of the katakana lessons. In this lesson you are going to learn how to read and write the Japanese vowels, \"ア\", \"イ\", \"ウ\", \"エ\" and \"オ\".",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "Welcome to the first installment of the katakana lessons. In this lesson you are going to learn how to read and write the Japanese vowels, \"ア\", \"イ\", \"ウ\", \"エ\" and \"オ\".",
+          "examples": [
+            "Welcome to the first installment of the katakana lessons. In this lesson you are going to learn how to read and write the Japanese vowels, \"ア\", \"イ\", \"ウ\", \"エ\" and \"オ\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson 10",
+      "summary": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]\n\nKatakana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ヰ and ヱ (ancient katakana in disuse) ]\n\nBrush Stroke:\n\nSound:\n\nwa\n\nMnemonic:\n\nWater - It's half of a bowl of cold (steamless) water.\n\nExample:\n\nワクチン vaccine\n\nBrush Stroke:\n\nSound:\n\nwo\n\nMnemonic:\n\nWoven - A woven basket with a broad reed strip along the side.\n\nExample:\n\nThis character is very rarely used in modern Japanese.\n\nラヂヲ radio\n\nBrush Stroke:\n\nSound:\n\nn\n\nMnemonic:\n\nSomeone was writing シ (shi), but they committed the sin of forgetting one of the top lines.\n\nExample:\n\nコンピュータ computer\n\nハンバーガ hamburger\n\nキング king (in playing cards)",
+          "examples": [
+            "Example:",
+            "Example:",
+            "Example:"
+          ],
+          "learnerTip": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson 11",
+      "summary": "In this lesson you are going to learn how to read and write ヰ and ヱ. These characters are not in modern Japanese but because they were legitimate characters before, one sees them in old Japanese text.",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "In this lesson you are going to learn how to read and write ヰ and ヱ. These characters are not in modern Japanese but because they were legitimate characters before, one sees them in old Japanese text.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson 2",
+      "summary": "In this lesson you are going to learn how to read and write カ、キ、ク、ケ、コ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "In this lesson you are going to learn how to read and write カ、キ、ク、ケ、コ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks will cause カ、キ、ク、ケ、コ to be produced ガ、ギ、グ、ゲ、ゴ.",
+          "examples": [
+            "In this lesson you are going to learn how to read and write カ、キ、ク、ケ、コ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Lesson 3",
+      "summary": "In this lesson you are going to learn how to read and write サ、シ、ス、セ、ソ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "In this lesson you are going to learn how to read and write サ、シ、ス、セ、ソ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks to サ、シ、ス、セ、ソ will produce ザ、ジ、ズ、ゼ、ゾ.",
+          "examples": [
+            "In this lesson you are going to learn how to read and write サ、シ、ス、セ、ソ. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson 4",
+      "summary": "In this lesson you are going to learn how to read and write タ、チ、ツ、テ、ト. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "In this lesson you are going to learn how to read and write タ、チ、ツ、テ、ト. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound. Thus, adding the 点々(てんてん) tenten marks to タ、チ、ツ、テ、ト will produce ダ、ヂ、ヅ、デ、ド.",
+          "examples": [
+            "In this lesson you are going to learn how to read and write タ、チ、ツ、テ、ト. Adding two small lines called 濁(だく)点(てん) dakuten, but commonly known simply as 点々(てんてん) tenten, meaning \"two marks\", causes clear sounds to change to their voiced sound."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lesson 5",
+      "summary": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]\n\nKatakana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ヰ and ヱ (ancient katakana in disuse) ]\n\nIn this lesson you are going to learn how to read and write ナ、ニ、ヌ、ネ、ノ.\n\nBrush Stroke:\n\nSound:\n\nna\n\nMnemonic:\n\nThat nail didn't go in straight.\n\nNapa cabbage soup with spoon to the side and spices on top.\n\nNah - you started drawing one character, then you changed your mind and crossed it out.\n\nExample:\n\nナイジェリア (naijeria) Nigeria\n\nナース (naasu) nurse\n\nナイフ (naifu) knife\n\nBrush Stroke:\n\nSound:\n\nni\n\nMnemonic:\n\nNeedle - Two needles, laid parallel.\n\nExample:\n\nニブル (niburu) nibble\n\nニッケル (nikkeru) nickel\n\nニット (nitto) knit\n\nBrush Stroke:\n\nSound:\n\nnu\n\nMnemonic:\n\nNew - You need a new (nu) boat after piercing the hull.\n\nNoodles handing over the side of a bowl of soup.\n\nExample:\n\nヌード (nuudo) nude\n\nヌードル (nuudoru) noodle\n\nヌル (nuru) null\n\nBrush Stroke:\n\nSound:\n\nne\n\nMnemonic:\n\nNest - Half of a bird's nest, suspended on a pole.\n\nNeko soup, for cats, not of cats, with the cat tongue on top, paw to the side, and tail curled under.\n\nExample:\n\nネオン (neon) neon\n\nネクタイ (nekutai) necktie\n\nネスト (nesuto) nest\n\nBrush Stroke:\n\nSound:\n\nno\n\nMnemonic:\n\nNo more - You mark an item off of a list with a single stroke.\n\nA wave, with a mark to indicate the strength.  ノ = no wave.  ソ = soft wave.  ツ = tsunami\n\nExample:\n\nノルウェー (noruuee) Norway\n\nノート (nooto) notebook\n\nノッチ (nocchi) notch",
+          "examples": [
+            "Example:",
+            "Example:",
+            "Example:",
+            "Example:",
+            "Example:"
+          ],
+          "learnerTip": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Lesson 6",
+      "summary": "This page introduces \"ハ\", \"ヒ\", \"フ\", \"ヘ\" and \"ホ\". Adding two short lines, the dakuten (濁(だく)点(てん)) or, more informally, tenten (点々(てんてん)) meaning \"two marks\", to create \"バ\", \"ビ\", \"\"ブ\", \"ベ\" and \"ボ\" changes clear sounds to voiced ones. Adding a small circle called a 半(>はん)濁(だく)点(てん)",
+      "sections": [
+        {
+          "heading": "Lesson 6",
+          "body": "This page introduces \"ハ\", \"ヒ\", \"フ\", \"ヘ\" and \"ホ\". Adding two short lines, the dakuten (濁(だく)点(てん)) or, more informally, tenten (点々(てんてん)) meaning \"two marks\", to create \"バ\", \"ビ\", \"\"ブ\", \"ベ\" and \"ボ\" changes clear sounds to voiced ones. Adding a small circle called a 半(>はん)濁(だく)点(てん) handakuten, but commonly referred to as maru (丸(まる)) meaning \"circle\", written \"パ\", \"ピ\", \"プ\", \"ペ\" and \"ポ\" changes clear sounds plosive sound.",
+          "examples": [
+            "This page introduces \"ハ\", \"ヒ\", \"フ\", \"ヘ\" and \"ホ\". Adding two short lines, the dakuten (濁(だく)点(てん)) or, more informally, tenten (点々(てんてん)) meaning \"two marks\", to create \"バ\", \"ビ\", \"\"ブ\", \"ベ\" and \"ボ\" changes clear sounds to voiced ones. Adding "
+          ],
+          "learnerTip": "This page introduces \"ハ\", \"ヒ\", \"フ\", \"ヘ\" and \"ホ\". Adding two short lines, the dakuten (濁(だく)点(てん)) or, more informally, tenten (点々(てんてん)) meaning \"two marks\", to create \"バ\", \"ビ\", \"\"ブ\", \"ベ\" and \"ボ\" chan",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_6"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lesson 7",
+      "summary": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+      "sections": [
+        {
+          "heading": "Lesson 7",
+          "body": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]\n\nKatakana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ヰ and ヱ (ancient katakana in disuse) ]\n\nIn this lesson you are going to learn how to read and write マ、ミ、ム、メ、モ.\n\nBrush Stroke:\n\nSound:\n\nma\n\nMnemonic:\n\nMacho - It's a suave fellow with his hand in his jacket pocket.\n\nExample:\n\nマダガスカル (madagasukaru) Madagascar\n\nママレード (mamare-do) marmalade\n\nマイク (maiku) microphone\n\nBrush Stroke:\n\nSound:\n\nmi\n\nMnemonic:\n\nLook like meteorites\n\nExample:\n\nミャンマー Myanmar\n\nミネラルウォーター mineral water / bottled water\n\nミッキーマウス Mickey Mouse\n\nBrush Stroke:\n\nSound:\n\nmu\n\nMnemonic:\n\nMoo - A pointed cow's hoof.\n\nExample:\n\nムード mood, atmosphere\n\nムスリム Muslim\n\nムササビ flying squirrel\n\nBrush Stroke:\n\nSound:\n\nme\n\nMnemonic:\n\nSomeone's me (eye) falling out (sideway view).\n\nMesh - a very close-up view of wire mesh\n\nMe as in Mother MAry - which reminds us of the cross\n\nMelon smoothie, with watermelon garnish.\n\nExample:\n\nメキシコ Mexico\n\nメリーゴーランド merry-go-round, carousel\n\nメロン melon, cantaloupe\n\nBrush Stroke:\n\nSound:\n\nmo\n\nMnemonic:\n\nSomeone sitting down with their arms outstretched asking for more hugs.\n\nYou need to mow (mo) your neighbors' lawns, and this is a map of the streets in your neighborhood.\n\nExample:\n\nモロッコ Morocco\n\nモモ peach\n\nモノレール monorail",
+          "examples": [
+            "Example:",
+            "Example:",
+            "Example:",
+            "Example:",
+            "Example:"
+          ],
+          "learnerTip": "Hiragana:\n[ a ]\n[ ka ]\n[ sa ]\n[ ta ]\n[ na ]\n[ ha ]\n[ ma ]\n[ ya ]\n[ ra ]\n[ wa, wo, n ]\n[ ゐ and ゑ (ancient hiragana in disuse) ]",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_7"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Lesson 8",
+      "summary": "Below we'll be looking into the characters \"ヤ\", \"ユ\" and \"ヨ\". These are transliterated as \"ya\", \"yu\" and \"yo\", respectively.",
+      "sections": [
+        {
+          "heading": "Lesson 8",
+          "body": "Below we'll be looking into the characters \"ヤ\", \"ユ\" and \"ヨ\". These are transliterated as \"ya\", \"yu\" and \"yo\", respectively.\n\n\n== Choon Katakana ==\nCertain sounds ending with -イ(i) ( キ(ki), シ(shi), チ(chi), ニ(ni), ヒ(hi), ミ(mi), レ(re) and their variations) can be followed by small versions (ャ, ュ, and ョ) of the katakana ヤ(ya), ユ(yu), and ヨ(yo). In this case, the two katakana are not pronounced individually, but rather as one sound, taking up one mora.\nIn most cases, the compound sound is the consonant of the base syllable followed by the modifier (fjord may be an example of a similar compound sound in English):\n\nキャ (kya)\nキュ (kyu)\nキョ (kyo)\nIn other cases the y sound disapears entirely:\n\nシャ (sha)\nシュ (shu)\nショ (sho)\nLook at the Kana Chart for the others.",
+          "examples": [
+            "Below we'll be looking into the characters \"ヤ\", \"ユ\" and \"ヨ\". These are transliterated as \"ya\", \"yu\" and \"yo\", respectively."
+          ],
+          "learnerTip": "Below we'll be looking into the characters \"ヤ\", \"ユ\" and \"ヨ\". These are transliterated as \"ya\", \"yu\" and \"yo\", respectively.",
+          "source": "https://en.wikibooks.org/wiki/Japanese/Kana/Lessons/Katakana/Lesson_8"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

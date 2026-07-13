@@ -1,0 +1,370 @@
+{
+  "title": "Grammar Book — 廣東話",
+  "languageCode": "yue",
+  "languageName": "廣東話",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Cantonese/Lesson_1",
+    "https://en.wikibooks.org/wiki/Cantonese/Lesson_10",
+    "https://en.wikibooks.org/wiki/Cantonese/Lesson_2",
+    "https://en.wikibooks.org/wiki/Cantonese/Lesson_2/Conversation",
+    "https://en.wikibooks.org/wiki/Cantonese/Lesson_5",
+    "https://en.wikibooks.org/wiki/Cantonese/Lesson_8",
+    "https://en.wikibooks.org/wiki/Cantonese/Lesson_9",
+    "https://en.wikipedia.org/wiki/Cantonese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "黃雪芳 Wòhng Suet Fōng is a Hong Kong university student who is meeting David (大偉 Daaih Wáih) and Mary (瑪麗 Máh Leih) for the first time.  In Dialogue 1 she introduces herself to them.  In Dialogue 2, David introduces Mary and they state their home country.",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "黃雪芳 Wòhng Suet Fōng is a Hong Kong university student who is meeting David (大偉 Daaih Wáih) and Mary (瑪麗 Máh Leih) for the first time.  In Dialogue 1 she introduces herself to them.  In Dialogue 2, David introduces Mary and they state their home country.\n\n\n== Dialogue 1 ==\n\n\n=== Vocabulary ===\n\n\n=== Proper Nouns ===\n\n\n== Dialogue 2 ==\n\n\n=== Vocabulary ===\n\n\n=== Proper Nouns ===\n\n\n== English translation ==\n\n\n=== Dialogue 1 ===\n\n\n=== Dialogue 2 ===\n\n\n== Grammar ==\n\n\n=== Basic Sentences ===\nThe sentence structure of Cantonese is very similar to that of English in that they both follow the pattern of Subject-Verb-Object (SVO). Unlike many languages, verbs in Chinese aren't conjugated and noun and adjective endings don't change. They are never affected by things such as time or person. However, in the case of perfect tense, as an aspectual language, the word \"咗\" should be added after the verb to reflect the completion of the corresponding action. \n\n\n==== S + V + O ====\nExample 1\n\n佢叫黃雪芳。\nKéuih giu Wòhng Suet Fōng.\nShe is called Suet Fong Wong.\n\n\n==== S + 係 + O ====\n係 haih, the equational verb \"to be\", can be translated in English as \"is\", \"am\", or \"are\". The meaning is best summed up as \"equals\".\nExample 1\n\n我係黃雪芳。\nNgóh haih Wòhng Suet Fōng.\nI am Suet Fong Wong. (I = Wong Suet Fong)\nExample 2\n\n我嘅名係大偉。\nNgóh ge mèhng haih Daaih Wáih.\nMy name is David. (My name = David)\nExample 3\n\n佢哋都係美國人。\nKéuihdeih dou haih Méihgwokyàhn\nThey are both Americans. (They = Americans)\n\n\n==== S + 唔係 + O ====\n係 (haih) is negated when preceded by 唔 m̀h.\nExample 1\n\n我唔係美國人。\nNgóh m̀h'haih Méihgwokyàhn.\nI am not American.\nExample 2\n\n佢唔係瑪麗。\nKéuih m̀h'haih Máh Leih.\nShe is not Mary.\n\n\n=== Basic Questions ===\n\n\n==== V + 唔 + V / Yes-No ====\nMost statements can quickly become a yes-no question in Cantonese through the V + 唔 + V structure.  The simpliest way to answer such a question is either by repeating the verb (affirmative) or prefixing the verb with 唔 m̀h (negative).\nExample 1\n\n佢係唔係你嘅朋友呀？\nKéuih haih-m̀h-haih néih ge pàhngyáuh a?\nIs she/he your friend?\n係，佢係我嘅朋友。\nHaih, kéuih haih ngóh ge pàhngyáuh.\nYes, She/he is my friend.\nExample 2\n\n你哋係唔係美國人呀？\nNéihdeih haih-m̀h-haih Méihgwokyàhn a?\nAre you Americans?\n唔係，我哋係英國人。\nM̀h'haih, ngóhdeih haih Yīnggwokyàhn.\nNo, we are British.\nExample 3\n\n你識唔識瑪麗呀？\nNéih sīk m̀h'sīk Máh Leih a?\nDo you know Mary?\n識，我識瑪麗。\nSīk, ngóh sīk Máh Leih.\nYes, I know her.\n\n\n==== 乜嘢 māt'yéh / What...? ====\nThe question word  乜嘢 (māt'yéh), or simply 乜, make statements into questions without changing the order of the sentence. To make one, simply substitute 乜嘢 in the place the subject would be in the answer.  Notice how the word order does not change when you answer the question.\nExample 1\n\n佢叫乜嘢名呀？\nKéuih giu māt'yéh mèhng a?\nWhat is her name? (=She is called by what name?)\n佢叫瑪麗。\nKéuih giu Máh Leih.\nShe is called Mary\nExample 2\n\n你識講乜話？\nNéih sīk góng māt' wá?\nWhat languages do you speak? (=You know speak which languages?)\n我識講廣東話。\nNgóh sīk góng Gwóngdōngwá.\nI know Cantonese.\nNote when spoken at a fast or natural pace, 乜嘢 is often pronounced mī'yéh.\n\n\n=== Particles ===\nCantonese has a number of sentence final particles which expresses the speaker's tone and sometimes changes the sentence type.  The 呀 (a) is a particle which only affects the tone of the sentence.  It softens a question and is a required component of normal questions.  The 吖 (àh) indicates the speaker expects agreement with the statement.  Because the speaker expects a confirmation, this particle gives the sentence a questioning tone.  This is similar to English when we state a fact while using a rising intonation (e.g. \"You're going home?\").\n\n\n== Exercises ==\n\n\n=== Pronunciation Drills ===\n\n\n==== Initials ====\nAlthough most of the Cantonese initials are familiar sounds to English speakers, the ng initial in the pronoun 我 ngóh often frustrates beginners.  Actually the sound is also in English, but it simply never falls at the beginning of the word. Here's an exercise to help you produce this sound word-initially:\n\nSay the word \"sing\" slowly. Notice how the back of your tongue touches the back of your mouth at the end of the word.\nSay the word \"sing\" slowly again. But this time draw out the \"ng\" sound at the end of the word.  Try see how long you can hold this sound.\nWhen you say \"sing\" this time, hold the \"ng\" sound and add an \"o\".  The word will sound like \"sing--o\" at first.  Practice this a few more times until the \"ng\" and \"o\" are produced together.\nFinally, say the word again but this time whisper the \"si\" sound.  Keep repeating the word until you can say it without the \"si\".  With enough practice you see'll you are able to say 我 ngóh with little difficulty.\nThis is a good time to point out one of the sound changes that is undergoing in modern Hong Kong Cantonese.  The ng initial sound is being dropped in young people's casual speech.  If you listen closely, you may find your your Cantonese friends seem to say 我 óh when having informal conversations.  It appears that this sound change will likely become complete in the coming decades.  This will mean that the word initial ng will no longer exist in Cantonese.  However, it is still worth practicing this sound!  Dropping the ng is not yet considered standard speech by many people and has even been negatively labelled as \"lazy speech.\"\n\n\n==== Finals ====\nThe syllables that end with one of the final stops p, t, or k are much shorter than the other syllables without stops.  In addition, it is important that the stop is \"unreleased.\"  This means there is no \"puff of air\" at the end of the syllable.  For instance, say the English word \"cup\" without opening your lips at the end.  Note how there is no puff of air.  Practice this with the following words:\n\n十 sahp ten\n國 gwok country\n識 sīk know\n乜 māt what\n\n\n==== Tones ====\nThe list below shows all the tones in the traditional reading order (high to low).  Memorizing this list is an excellent way to improve your tone production and recognition.\n\nHigh Level: 詩 sī poetry\nHigh Rising: 史 sí history\nMid Level: 試 si test\nLow Falling: 時 sìh time\nLow Rising: 市 síh city\nLow Level: 事 sih matter\nThe clipped tones are the are virtually the same as the high, mid, and low levels tones.  The only difference in these syllables is they are rather short in duration.\n\nHigh Clipped: 色 sīk color\nMid Clipped: 錫 sik tin\nLow Clipped: 食 sihk eat\n\n\n=== Grammar Drills ===\n\n\n=== Conversation Practice ===\nIntroduce yourself to your language partner.  Make sure to say your name and your nationality.\nAsk your partner if they know one of your friends.\nAsk your partner their name and nationality. Let them know how happy you are to meet them.",
+          "examples": [
+            "The sentence structure of Cantonese is very similar to that of English in that they both follow the pattern of Subject-Verb-Object (SVO). Unlike many languages, verbs in Chinese aren't conjugated and noun and adjective endings don't change.",
+            "Example 1",
+            "係 haih, the equational verb \"to be\", can be translated in English as \"is\", \"am\", or \"are\". The meaning is best summed up as \"equals\".",
+            "Example 1",
+            "Example 2",
+            "Example 3"
+          ],
+          "learnerTip": "黃雪芳 Wòhng Suet Fōng is a Hong Kong university student who is meeting David (大偉 Daaih Wáih) and Mary (瑪麗 Máh Leih) for the first time.  In Dialogue 1 she introduces herself to them.  In Dialogue 2, Dav",
+          "source": "https://en.wikibooks.org/wiki/Cantonese/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson 10",
+      "summary": "Below are the Cantonese words which have the origins of Ancient Chinese:",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "Below are the Cantonese words which have the origins of Ancient Chinese:\n\nOrigin\nCommon alternative(s)\nJyutping\nIPA\nReferences\nMeaning\nExample(s)\n\n抓\nR\naau1\naːu˥\n\n抓痕\n\n眲\n呃\nngaak1\nŋaːk̚˥\n\nto deceive/trick\n眲錢",
+          "examples": [
+            "Example(s)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Cantonese/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson 2",
+      "summary": "A: Hello, I am [called] _________. Nice to meet you. \nB: Hello, I am _________. Nice to meet you too.  \nA: 你好，我叫______。好高興認識你。 \nB: 你好，我係______。我都好高興認識你。 \nA: nei5 hou2, ngo5 giu3 ______. hou2 gou1 hing3 ying2 sik1 nei5.\nB: nei5 hou2, ngo5 hai2 ______. ngo5 dou1 hou2 gou1 hing3 yin",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "A: Hello, I am [called] _________. Nice to meet you. \nB: Hello, I am _________. Nice to meet you too.  \nA: 你好，我叫______。好高興認識你。 \nB: 你好，我係______。我都好高興認識你。 \nA: nei5 hou2, ngo5 giu3 ______. hou2 gou1 hing3 ying2 sik1 nei5.\nB: nei5 hou2, ngo5 hai2 ______. ngo5 dou1 hou2 gou1 hing3 ying2 sik1 nei5.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Cantonese/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Conversation",
+      "summary": "== Recapitulation ==\n(At a party in Hong Kong)",
+      "sections": [
+        {
+          "heading": "Conversation",
+          "body": "== Buildup ==\n(At a party in Hong Kong)\n\n\n== Recapitulation ==\n(At a party in Hong Kong)\n\n\n== Pronunciation ==\n\n\n=== b, d, g, j ===\nb, d, g, and j (IPA: [p],[t],[k], and [tɕ]), sounds in Cantonese are voicless, in contrast to the voiced English sounds spelled with the same letters.  The tongue position for Cantonese b and g sounds is the same as for English.  For the d sound the tongue tip is more forward in Cantonese than in English--against the base of the upper teeth for Cantonese, on the dental ridge for English.  The tongue position for the j sound has been discussed in Lesson 1.  All of the above sounds are unaspirated, as are the English counterparts.  But the Cantonese and English sounds contrast with respect to tenseness--the Cantonese initial consonants are tense while the English lax in isolated words and in stressed positions of a sentence.\n\n\n=== p, t, k, ch ===\nCantonese p, t, k, and ch sounds (IPA: [pʰ],[tʰ],[kʰ], and [tɕʰ]) are similar to English counterparts p, t, k, ch as they are both voiceless and aspirated.  The tonguie position for p and k is the same as for English.  For the t sound the tongue tip is more forward in Cantonese than in English--against the base of the upper teeth for Cantonese, on the dental ridge for English.  The tongue position for ch has been discussed in Lesson 1.  The Cantonese consonants are tenser than the English counterparts.\n\n\n=== un ===\nun as in Yahtbún and Yahtbúnyàhn is a two part final composed of a high back rounded vowel (IPA: [u]) by the alveolar nasal consonant (IPA: [n]). When the two are together there is a slight offglide to the high central position (IPA: [uːin]).  The vowel is not nasalized before nasal final.  The Cantonese 'un' is roughly comparable to the `oon` in English (e.g. `boon`).\nListen and compare\n\nbún (本), boon\nboon, bún (本)\n\n\n=== eui ===\nThe lips should be rounded throughout the final.  Remember that the i of eui represents the high front rounded vowel (IPA: [y]).\nListen and repeat\n\nkéuih 佢\ndeuim̀hjyuh 對唔住\ndeui 對\n\n\n=== iu ===\niu is a two-part final composed of the high front unrounded vowel (IPA: [i]) plus the high back rounded vowel (IPA: [u]).  In this sequence the i is pronounced as an onglide, with the longest portion being the u.\nListen and repeat\n\nsíujé\nsíu\n\n\n=== Tones ===\nListen and repeat\n\ndōu dōu, sing sing, haih haih\ndōu sing haih, haih sing dōu\ndōu sing, sing haih, dōu haih, haih dōu\ndōu dōu, Jèung Jèung\nJèung, dōu, dōu Jèung\nsíu síu, néih néih\nsíu néih, néih síu\nhaih yàhn, yàhn haih",
+          "examples": [],
+          "learnerTip": "== Recapitulation ==\n(At a party in Hong Kong)",
+          "source": "https://en.wikibooks.org/wiki/Cantonese/Lesson_2/Conversation"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lesson 5",
+      "summary": "== Introduction to measuring words ==\nUnlike English, measuring words are needed when you need to say an object. For example we only need to say a book in English, but in Cantonese, when have to put a measuring word in front of the object, like 一本書.\nHere is a table of some measur",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "== Introduction to measuring words ==\nUnlike English, measuring words are needed when you need to say an object. For example we only need to say a book in English, but in Cantonese, when have to put a measuring word in front of the object, like 一本書.\nHere is a table of some measuring words:\n\n\n=== Practice ===\nImagine you are doing shopping and need to get some grocery from a shopkeeper.  Study the following dialogues and make your own version with the above examples of measuring words:\n店員：你想買乜嘢？\n我：我想買一隻雞。\nTranslation:\nShopkeeper: What would you like?\nMe: I want to buy a chicken.",
+          "examples": [],
+          "learnerTip": "== Introduction to measuring words ==\nUnlike English, measuring words are needed when you need to say an object. For example we only need to say a book in English, but in Cantonese, when have to put a",
+          "source": "https://en.wikibooks.org/wiki/Cantonese/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson 8",
+      "summary": "ngo5 giu3 XXX\nhttp://forvo.com/search/%E6%88%91%E5%8F%AB/yue/",
+      "sections": [
+        {
+          "heading": "Lesson 8",
+          "body": "Introduce yourself to a stranger\n\nSpoken form\n\nWritten form\n\nPronunciation\n\nEnglish\n\n我叫 XYZ\n\n我叫 XYZ\n\nngo5 giu3 XXX\nhttp://forvo.com/search/%E6%88%91%E5%8F%AB/yue/\n\nI am called XYZ.\n\n我係 XYZ\n\n我是 XYZ\n\nngo5 hai6 XYZ\nhttp://forvo.com/search/%E6%88%91%E4%BF%82/yue/\n\nI am XYZ.\n\n我個名叫王明\n\n我的名字是王明\n\nngo5 go3 meng2 giu3 wong4 ming4\n\nMy name is Ming Wong.\n\n我係個工程師\n\n我是一個工程師\n\nngo5 hai6 go3 gung1 cing4 si1\n\nI am an engineer.",
+          "examples": [],
+          "learnerTip": "ngo5 giu3 XXX\nhttp://forvo.com/search/%E6%88%91%E5%8F%AB/yue/",
+          "source": "https://en.wikibooks.org/wiki/Cantonese/Lesson_8"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson 9",
+      "summary": "=== Time on a clock ===\nFor telling time, 兩 is used instead of 二 for the hour, use 二 for the minute.\nThe Cantonese for \"o'clock\" is 點鐘. Study the following examples:",
+      "sections": [
+        {
+          "heading": "Lesson 9",
+          "body": "=== Days of a Week ===\n\n\n=== Months of a Year ===\n\n\n=== Seasons of a Year ===\n\n\n=== Time of a day ===\n\n\n=== Time on a clock ===\nFor telling time, 兩 is used instead of 二 for the hour, use 二 for the minute.\nThe Cantonese for \"o'clock\" is 點鐘. Study the following examples:\n\nThe Cantonese for \"half past\" is 點半 (and 半 means \"half of\"). Study the following examples:\n\nThe time not exactly \"o'clock\" can be said with the format \"x點y分\". Study the following examples:",
+          "examples": [
+            "The Cantonese for \"o'clock\" is 點鐘. Study the following examples:",
+            "The Cantonese for \"half past\" is 點半 (and 半 means \"half of\"). Study the following examples:",
+            "The time not exactly \"o'clock\" can be said with the format \"x點y分\". Study the following examples:"
+          ],
+          "learnerTip": "=== Time on a clock ===\nFor telling time, 兩 is used instead of 二 for the hour, use 二 for the minute.\nThe Cantonese for \"o'clock\" is 點鐘. Study the following examples:",
+          "source": "https://en.wikibooks.org/wiki/Cantonese/Lesson_9"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Introduction",
+      "summary": "This article is part of the series on theCantonese language\nYue Chinese\nGrammar\nMeasure words",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This article is part of the series on theCantonese language\nYue Chinese\nGrammar\nMeasure words\n\nPronouns\n\nOrthography\nTranscription\n\nFanchit\n\nBraille\n\nBopomofo\n\nPinyin\nYale\nJyutping\n\nPhonology\nNasal-stop alternation\n\nChanged tone\n\nProper Cantonese pronunciation\n\nIPA\n\nv\nt\ne\n\nCantonese is an analytic language in which the arrangement of words in a sentence is important to its meaning.  A basic sentence is in the form of SVO, i.e. a subject is followed by a verb then by an object, though this order is often violated because Cantonese is a topic-prominent language.  Unlike synthetic languages, seldom do words indicate time, gender and number by inflection.  Instead, these concepts are expressed through adverbs, aspect markers, and particles, or are deduced from the context.  Different particles are added to a sentence to further specify its status or intonation.[1]\n\nA verb itself indicates no tense. The time can be explicitly shown with time-indicating adverbs. Certain exceptions exist, however, according to the pragmatic interpretation of a verb's meaning. Additionally, an optional aspect particle can be appended to a verb to indicate the state of an event. Appending interrogative or exclamative particles to a sentence turns a sentence into a question or shows the attitudes of the speaker.[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Verbal aspect",
+      "summary": "In contrast to many European languages, Cantonese verbs are marked for aspect rather than tense—that is, whether an event has begun, is ongoing, or has been completed. Tense—where an event occurs within time, i.e. past, present, future—is specified through the use of time adverbs",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In contrast to many European languages, Cantonese verbs are marked for aspect rather than tense—that is, whether an event has begun, is ongoing, or has been completed. Tense—where an event occurs within time, i.e. past, present, future—is specified through the use of time adverbs. In addition, verbal complements may convey aspectual distinctions, indicating whether an event is just beginning, is continuing, or at completion, and also the effect of the verb on its object(s).[3]\n\nAspect particles are usually treated as suffixes bound to the verb. Aspect particles can also be added to an adjective and function as a verb \"be (adjective)\".\n\nAspect\n\nMarker\n\nUsage\n\nExample\n\nPerfective\n\n咗\n\nzo2\n\n咗\n\nzo2\n\nTo emphasise a completed activity the result of which still applies to the present situation\n\n我\n\nngo5\n\nI\n\n喺\n\nhai2\n\nat/in\n\n香港\n\nhoeng1 gong2\n\nHong Kong\n\n住咗\n\nzyu6 zo2\n\nlive-PFV\n\n一\n\njat1\n\none\n\n年\n\nnin4\n\nyear\n\n我 喺 香港 住咗 一 年\n\nngo5 hai2 {hoeng1 gong2} {zyu6 zo2} jat1 nin4\n\nI at/in {Hong Kong} live-PFV one year\n\nI have been living in Hong Kong for a year (and still live here)\n\nExperiential\n\n過\n\ngwo3\n\n過\n\ngwo3\n\nTo emphasise an activity completed in the indeterminate past which no longer applies to the present situation\n\n我\n\nngo5\n\nI\n\n喺\n\nhai2\n\nat/in\n\n香港\n\nhoeng1 gong2\n\nHong Kong\n\n住過\n\nzyu6gwo3\n\nlive-EXP\n\n一\n\njat1\n\none\n\n年\n\nnin4\n\nyear\n\n我 喺 香港 住過 一 年\n\nngo5 hai2 {hoeng1 gong2} {zyu6gwo3} jat1 nin4\n\nI at/in {Hong Kong} live-EXP one year\n\nI lived in Hong Kong for a year (but am now elsewhere)\n\nProgressive\n\n緊\n\ngan2\n\n緊\n\ngan2\n\nTo emphasise a dynamic activity which may undergo a change of state\n\n我\n\nngo5\n\nI\n\n著緊\n\nzoek3 gan2\n\nwear-PROG\n\n衫\n\nsaam1\n\nclothes\n\n我 著緊 衫\n\nngo5 {zoek3 gan2} saam1\n\nI wear-PROG clothes\n\nI am putting on clothes\n\nDurative\n\n住\n\nzyu6\n\n住\n\nzyu6\n\nTo emphasise a continuous activity without a change of state\n\n我\n\nngo5\n\nI\n\n著住\n\nzoek3 zyu6\n\nwear-DUR\n\n衫\n\nsaam1\n\nclothes\n\n我 著住 衫\n\nngo5 {zoek3 zyu6} saam1\n\nI wear-DUR clothes\n\nI am wearing clothes\n\nDelimitative\n\n吓\n\nhaa5\n\n吓\n\nhaa5\n\nTo emphasise an activity of brief duration\n\n等\n\ndang2\n\nLet\n\n我\n\nngo5\n\nme\n\n著吓\n\nzoek3 haa5\n\nwear-DEL\n\n等 我 著吓\n\ndang2 ngo5 {zoek3 haa5}\n\nLet me wear-DEL\n\nLet me wear it for a while\n\nHabitual\n\n開\n\nhoi1\n\n開\n\nhoi1\n\nTo emphasise an activity protracted over a period of time to the point that it has become characteristic or habitual\n\n我\n\nngo5\n\nI\n\n做開\n\nzou6 hoi1\n\ndo-HAB\n\n鐘點\n\nzung1 dim2\n\npart-time\n\n嘅\n\nge3\n\nSFP\n\n我 做開 鐘點 嘅\n\nngo5 {zou6 hoi1} {zung1 dim2} ge3\n\nI do-HAB part-time SFP\n\nI normally work part-time\n\nInchoative\n\n起\n\nhei2\n\n上\n\nsoeng5\n\n嚟\n\nlai4\n\n起 上 嚟\n\nhei2 soeng5 lai4\n\nTo emphasise the beginning of an activity\n\n個\n\ngo3\n\nCL\n\n阿咇\n\naa3 bit6\n\nbaby\n\n突然之間\n\ndat6 jin4 zi1 gaan1\n\nsuddenly\n\n喊起上嚟\n\nhaam3 hei2 soeng5 lai4\n\ncry-INCH\n\n個 阿咇 突然之間 喊起上嚟\n\ngo3 {aa3 bit6} {dat6 jin4 zi1 gaan1} {haam3 hei2 soeng5 lai4}\n\nCL baby suddenly cry-INCH\n\nThe baby suddenly began crying\n\nContinuative\n\n落\n\n去\n\n落 去\n\nlok6 heoi3\n\nTo emphasise the continuation of an activity\n\n你\n\nnei5\n\nyou\n\n唔\n\nm4\n\nNEG\n\n使\n\nsi2/sai2\n\nneed\n\n再\n\nzoi3\n\nagain\n\n講落去\n\ngong2 lok6 heoi3\n\nspeak-CONT\n\n喇\n\nlaa3\n\nSFP\n\n你 唔 使 再 講落去 喇\n\nnei5 m4 si2/sai2 zoi3 {gong2 lok6 heoi3} laa3\n\nyou NEG need again speak-CONT SFP\n\nYou don't have to go on speaking\n\nReturning\n\n返\n\n返\n\nfaan2\n\nTo emphasise the return of the \"supposed state\".\nMeanings can include: \"continue a paused action\" or \"return to\" (Example 1)\n\nNote: When added to an adjective, it can also function as a verb of \"becoming (adjective) again\". (Example 2)\n\n畀\n\nbei2\n\nGive\n\n返\n\nfaan1\n\nback\n\n啲\n\ndi1\n\nthose\n\n錢\n\ncin2\n\nmoney\n\n我\n\nngo5\n\nme\n\n畀 返 啲 錢 我\n\nbei2 faan1 di1 cin2 ngo5\n\nGive back those money me\n\nGive me the money back\n\n個\n\ngo3\n\nthe\n\n天\n\ntin1\n\nsky\n\n未\n\nmei6\n\nnot yet\n\n好\n\nhou2\n\ngood\n\n返\n\nfaan1\n\nback\n\n個 天 未 好 返\n\ngo3 tin1 mei6 hou2 faan1\n\nthe sky {not yet} good back\n\nThe weather is not yet well",
+          "examples": [
+            "Aspect particles are usually treated as suffixes bound to the verb. Aspect particles can also be added to an adjective and function as a verb \"be (adjective)\".",
+            "Example",
+            "To emphasise the return of the \"supposed state\".",
+            "Meanings can include: \"continue a paused action\" or \"return to\" (Example 1)",
+            "Note: When added to an adjective, it can also function as a verb of \"becoming (adjective) again\". (Example 2)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Pronouns",
+      "summary": "See also: Cantonese pronouns\nCantonese uses the following pronouns, which like in many other Sinitic languages, function as both nominative (English: I, he, we) and accusative (me, him, us):[1]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "See also: Cantonese pronouns\nCantonese uses the following pronouns, which like in many other Sinitic languages, function as both nominative (English: I, he, we) and accusative (me, him, us):[1]\n\nsingular\n\nplural\n\n1st person\n\n我\n\nngo5\n\n我\n\nngo5\n\nI / me\n\n我\n\nngo5\n\n哋\n\ndei6\n\n我 哋\n\nngo5 dei6\n\nwe / us\n\n2nd person\n\n你\n\nnei5\n\n你\n\nnei5\n\nyou (singular)\n\n你\n\nnei5\n\n哋\n\ndei6\n\n你 哋\n\nnei5 dei6\n\nyou (plural)\n\n3rd person\n\n佢\n\nkeoi5\n\n佢\n\nkeoi5\n\nhe / she / it\n\n佢\n\nkeoi5\n\n哋\n\ndei6\n\n佢 哋\n\nkeoi5 dei6\n\nthey / them",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Negations",
+      "summary": "Many negation words start with the sound m- in Cantonese; for example, 唔 m4 \"not\", 冇 mou5 \"to not have (done something)\", 未 mei6 \"not yet\". Verbs are negated by adding the character 唔 m4 in front of it.[5] For example:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Many negation words start with the sound m- in Cantonese; for example, 唔 m4 \"not\", 冇 mou5 \"to not have (done something)\", 未 mei6 \"not yet\". Verbs are negated by adding the character 唔 m4 in front of it.[5] For example:\n\n我\n\nngo5\n\n1SG\n\n食\n\nsik6\n\nto eat\n\n得\n\ndak1\n\ncan\n\n花生\n\nfaa1 sang1\n\npeanut\n\n我 食 得 花生\n\nngo5 sik6 dak1 {faa1 sang1}\n\n1SG {to eat} can peanut\n\n\"I can eat peanuts\"\n\n  \n    \n      \n        ⟶\n      \n    \n    {\\displaystyle \\longrightarrow }\n  \n\n我\n\nngo5\n\n1SG\n\n唔\n\nm4\n\nNEG\n\n食\n\nsik6\n\nto eat\n\n得\n\ndak1\n\ncan\n\n花生\n\nfaa1 sang1\n\npeanut\n\n我 唔 食 得 花生\n\nngo5 m4 sik6 dak1 {faa1 sang1}\n\n1SG NEG {to eat} can peanut\n\n\"I can't eat peanuts\"\n\nThe exception is the word 有 jau5 'to have', which turns into 冇 mou5 'to not have' without the use of 唔 m4.\n\nThe negative imperative is formed by prefixing 唔好 m4 hou2 (also pronounced mou2) or 咪 mai5 in front of the verb:\n\n唔\n\nm4\n\n好\n\nhou2\n\n睇\n\ntai2\n\n戲\n\nhei3\n\n唔 好 睇 戲\n\nm4 hou2 tai2 hei3\n\n\"Don't watch movies\"\n\n咪\n\nmai5\n\n睇\n\ntai2\n\n戲\n\nhei3\n\n咪 睇 戲\n\nmai5 tai2 hei3\n\n\"Don't watch movies\"\n\nIn contrast to the examples of sentential negation above where the entire sentence is negated, 唔 m4 can be used lexically to negate a single word.  The negated word often differs slightly in meaning from the original word; that is, this lexical negation is a kind of derivation.  Evidence for this is that they can be used with the perfective aspect particle 咗 zo2, which is not possible with sententially negated verbs.\n\n見\n\ngin3\n\n\"see\"\n\n \n\n \n\n  \n    \n      \n        ⟶\n      \n    \n    {\\displaystyle \\longrightarrow }\n  \n\n唔見\n\nm4 gin3\n\n\"lose\"\n\n見 {} 唔見\n\ngin3 {} {m4 gin3}\n\n\"see\" \n  \n    \n      \n        ⟶\n      \n    \n    {\\displaystyle \\longrightarrow }\n  \n \"lose\"\n\n記得\n\ngei3 dak1\n\n\"remember\"\n\n \n\n \n\n  \n    \n      \n        ⟶\n      \n    \n    {\\displaystyle \\longrightarrow }\n  \n\n唔記得\n\nm4 gei3 dak1\n\n\"forget\"\n\n記得 {} 唔記得\n\n{gei3 dak1} {} {m4 gei3 dak1}\n\n\"remember\" \n  \n    \n      \n        ⟶\n      \n    \n    {\\displaystyle \\longrightarrow }\n  \n \"forget\"\n\n錯\n\nco3\n\n\"wrong\"\n\n \n\n \n\n  \n    \n      \n        ⟶\n      \n    \n    {\\displaystyle \\longrightarrow }\n  \n\n唔錯\n\nm4 co3\n\n\"pretty good; not bad\"\n\n/\n\n/\n\n/\n\n冇錯\n\nmou5 co3\n\n\"right\"\n\n錯 {} 唔錯 / 冇錯\n\nco3 {} {m4 co3} / {mou5 co3}\n\n\"wrong\" \n  \n    \n      \n        ⟶\n      \n    \n    {\\displaystyle \\longrightarrow }\n  \n {\"pretty good; not bad\"} / \"right\"\n\n我\n\nngo5\n\n唔\n\nm4\n\n見\n\ngin3\n\n咗\n\nzo2\n\n我\n\nngo5\n\n本\n\nbun2\n\n書\n\nsyu1\n\n我 唔 見 咗 我 本 書\n\nngo5 m4 gin3 zo2 ngo5 bun2 syu1\n\n\"I lost my book\"\n\nis perfectly acceptable, but\n\n*\n\n \n\n我\n\nngo5\n\n唔\n\nm4\n\n食\n\nsik6\n\n咗\n\nzo2\n\n嘢\n\nje5\n\n* 我 唔 食 咗 嘢\n\n{} ngo5 m4 sik6 zo2 je5\n\n\"I did not eat\"\n\nis ungrammatical. (The correct expression should be 我冇食嘢 ngo5 mou5 sik6 je5: 我(I)冇(did not)食(eat)嘢(something/anything), but actually with an emphasis on not doing an action, as it is the negation of 我有食嘢 ngo5 jau5 sik6 je5: 我(I)有(did)食(eat)嘢(something/anything).)",
+          "examples": [
+            "Many negation words start with the sound m- in Cantonese; for example, 唔 m4 \"not\", 冇 mou5 \"to not have (done something)\", 未 mei6 \"not yet\". Verbs are negated by adding the character 唔 m4 in front of it.[5] For example:",
+            "\"I can eat peanuts\"",
+            "\"I can't eat peanuts\"",
+            "\"Don't watch movies\"",
+            "\"Don't watch movies\"",
+            "\"see\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Questions",
+      "summary": "Questions are not formed by changing the word order as in English. Sentence final particles and certain interrogative constructions are used instead.[6]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Questions are not formed by changing the word order as in English. Sentence final particles and certain interrogative constructions are used instead.[6]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Interrogative words",
+          "body": "The interrogative words are as follows:\n\nInterrogative\nPronunciation\nEnglish equivalent\n\n邊個\nbin1 go3\nwho\n\n乜(嘢) / 咩\nmat1 (je5) / me1e5\nwhat\n\n邊度 / 邊處\nbin1 dou6 / bin1 syu3\nwhere\n\n幾時\ngei2 si4\nwhen\n\n點解\ndim2 gaai2\nwhy\n\n點\ndim2\nhow about\n\n點(樣)\ndim2 (joeng6-2)\nhow (in what manner)\n\n幾\ngei2\nhow (adjective)\n\n幾多\ngei2 do1\nhow many/much\n\nQuestions use exactly the same word order as in statements. For example: 你係邊個? nei5 hai6 bin1 go3 \"who are you?\" (literally \"you are who\"), 你幾時去邊度見邊個呀? nei5 gei2 si4 heoi3 bin1 dou6 gin3 bin1 go aa3 \"When will you go? Where will you go and who will you meet?\" (literally \"you when go where meet who\"). Note that more than one interrogative word can be used in a single sentence.",
+          "examples": [
+            "Questions use exactly the same word order as in statements. For example: 你係邊個? nei5 hai6 bin1 go3 \"who are you?\" (literally \"you are who\"), 你幾時去邊度見邊個呀? nei5 gei2 si4 heoi3 bin1 dou6 gin3 bin1 go aa3 \"When will you go? Where will you go and "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Demonstratives",
+      "summary": "The proximal demonstrative (\"this\"), is 呢 ni1 / nei1, or more frequently in fast speech, 依 ji1 (+ measure word).[7] For example:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The proximal demonstrative (\"this\"), is 呢 ni1 / nei1, or more frequently in fast speech, 依 ji1 (+ measure word).[7] For example:\n\n呢本書 ni1/nei1 bun2 syu1 \"this book\"\n依本書 ji1 bun2 syu1 \"this book\"\nThe distal demonstrative (\"that\") is 嗰 go2. For example:\n\n嗰本書 go2 bun2 syu1 \"that book\"\nBetween the demonstrative and its noun, a certain word to link them must be used, whether a corresponding classifier for the noun for singular count nouns or 啲 di1 for plural count nouns and mass nouns:\n\n呢架車 ni1/nei1 gaa3 ce1 \"this car\"\n呢啲車 ni1/nei1 di1 ce1 \"these cars\"\n嗰啲水 go2 di1 seoi2 \"that water\"",
+          "examples": [
+            "The proximal demonstrative (\"this\"), is 呢 ni1 / nei1, or more frequently in fast speech, 依 ji1 (+ measure word).[7] For example:",
+            "呢本書 ni1/nei1 bun2 syu1 \"this book\"",
+            "依本書 ji1 bun2 syu1 \"this book\"",
+            "The distal demonstrative (\"that\") is 嗰 go2. For example:",
+            "嗰本書 go2 bun2 syu1 \"that book\"",
+            "呢架車 ni1/nei1 gaa3 ce1 \"this car\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Possessives",
+      "summary": "For singular nouns, the word 嘅 ge3 is roughly equivalent to English \" 's\":[8]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "For singular nouns, the word 嘅 ge3 is roughly equivalent to English \" 's\":[8]\n\n爸\n\nbaa1-4\n\n爸\n\nbaa1\n\n嘅\n\nge3\n\n屋\n\nuk1\n\n企\n\nkei2\n\n爸 爸 嘅 屋 企\n\nbaa1-4 baa1 ge3 uk1 kei2\n\n\"father's house\"\n\nPlural nouns take 啲 di1:\n\n你\n\nnei5\n\n啲\n\ndi1\n\n動\n\ndung6\n\n物\n\nmat6\n\n你 啲 動 物\n\nnei5 di1 dung6 mat6\n\n\"your animals\"\n\nN.B.: 啲 di1 is a very versatile word in Cantonese, besides pluralizing certain phrases, it can also mean \"a little/few\", e.g. 一啲 jat1 di1 \"a little\", or 早啲 zou2 di1 \"earlier\" (literally: early + (intensifier)).\n\nPossessive pronouns (i.e. \"mine\", \"his\", \"hers\") are formed by adding 嘅 ge3 after the pronoun.\n\n係\n\nhai6\n\n佢\n\nkeoi2\n\n嘅\n\nge3\n\n呀!\n\naa3\n\n係 佢 嘅 呀!\n\nhai6 keoi2 ge3 aa3\n\n\"It's his!\"\n(呀 aa3 is a particle used to end affirmative statements)\n\nHowever, in the case where there's an implied plural noun, one does not say:\n\n*\n\n \n\n係\n\nhai6\n\n佢\n\nkeoi5\n\n啲\n\ndi1\n\n呀!\n\naa3\n\n* 係 佢 啲 呀!\n\n{} hai6 keoi5 di1 aa3\n\n\"It's his!\"\n\nFor example:\n\n呢\n\nni1/nei1\n\n啲\n\ndi1\n\n書\n\nsyu1\n\n係\n\nhai6\n\n邊\n\nbin1\n\n個\n\ngo3\n\n嘅\n\nge3\n\n呀？\n\naa3\n\n呢 啲 書 係 邊 個 嘅 呀？\n\nni1/nei1 di1 syu1 hai6 bin1 go3 ge3 aa3\n\n\"Whose books are these?\"\n\n係\n\nhai6\n\n佢\n\nkeoi5\n\n嘅\n\nge3\n\n呀!\n\naa3\n\n係 佢 嘅 呀!\n\nhai6 keoi5 ge3 aa3\n\n\"It's his! [referring to his books]\"\n\n嘅呀 ge3 aa3 is usually shortened in speech into one syllable, 㗎/嘎 gaa3.\n\nOne could also say:\n\n係\n\nhai6\n\n佢\n\nkeoi5\n\n啲\n\ndi1\n\n書\n\nsyu1\n\n嚟\n\nlei4\n\n㗎！\n\ngaa3\n\n係 佢 啲 書 嚟 㗎！\n\nhai6 keoi5 di1 syu1 lei4 gaa3\n\n\"It's his books!\"\n\nBoth of these are generic possessives.",
+          "examples": [
+            "For singular nouns, the word 嘅 ge3 is roughly equivalent to English \" 's\":[8]",
+            "\"father's house\"",
+            "\"your animals\"",
+            "N.B.: 啲 di1 is a very versatile word in Cantonese, besides pluralizing certain phrases, it can also mean \"a little/few\", e.g. 一啲 jat1 di1 \"a little\", or 早啲 zou2 di1 \"earlier\" (literally: early + (intensifier)).",
+            "Possessive pronouns (i.e. \"mine\", \"his\", \"hers\") are formed by adding 嘅 ge3 after the pronoun.",
+            "\"It's his!\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Part of speech",
+      "summary": "The \"part of speech\" (POS) in Cantonese is different from English. Usually, a word can be used in different POS, without any changes.[1] Example: 跑步 (Meaning: running), can be either verb or noun.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The \"part of speech\" (POS) in Cantonese is different from English. Usually, a word can be used in different POS, without any changes.[1] Example: 跑步 (Meaning: running), can be either verb or noun.\n\n你可以喺公園跑步 (You can run at the park) [跑步 act as a verb] \n\n跑步係我嘅興趣 (Running is my hobby) [跑步 act as a noun]\n\nMoreover, particles may also change the POS.\n\nE.g. 碗湯係熱嘅 OR 碗湯熱嘅 means: the bowl of soup is hot \n\nBut 碗湯係熱  means: the bowl of soup == (the concept of) hot, which does not make sense. (Since with 係, the word after it is understood as a noun but not adjective. 熱嘅 should be used, as the POS of 熱嘅 would only be adjective.)\n\nThis concept is similar in Mandarin Chinese, replacing 係 with 是, and replacing 嘅 with 的.\n\nTo alter the mood or lead other focuses, other final particles can also be used to substitute the particle 嘅, like 㗎.",
+          "examples": [
+            "The \"part of speech\" (POS) in Cantonese is different from English. Usually, a word can be used in different POS, without any changes.[1] Example: 跑步 (Meaning: running), can be either verb or noun.",
+            "E.g. 碗湯係熱嘅 OR 碗湯熱嘅 means: the bowl of soup is hot"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Differences from Mandarin grammar",
+      "summary": "The direct object precedes the indirect object when using the verb 畀 bei2 \"to give\". In Mandarin verbs of giving, an indirect object precedes a direct object.",
+      "sections": [
+        {
+          "heading": "Word order",
+          "body": "The direct object precedes the indirect object when using the verb 畀 bei2 \"to give\". In Mandarin verbs of giving, an indirect object precedes a direct object.\n\n畀\n\nbei2\n\ngive\n\n嗰\n\ngo2\n\nthat\n\n本\n\nbun2\n\nCL\n\n書\n\nsyu1\n\nbook\n\n我\n\nngo5\n\n1SG\n\n畀 嗰 本 書 我\n\nbei2 go2 bun2 syu1 ngo5\n\ngive that CL book 1SG\n\n\"Give that book to me.\"\n\ncompared to Mandarin\n\n給\n\ngěi\n\ngive\n\n我\n\nwǒ\n\n1SG\n\n這\n\nzhè\n\nthis\n\n本\n\nběn\n\nCL\n\n書\n\nshū\n\nbook\n\n給 我 這 本 書\n\ngěi wǒ zhè běn shū\n\ngive 1SG this CL book\n\n\"Give me the book.\"",
+          "examples": [
+            "The direct object precedes the indirect object when using the verb 畀 bei2 \"to give\". In Mandarin verbs of giving, an indirect object precedes a direct object.",
+            "\"Give that book to me.\"",
+            "\"Give me the book.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Morphology",
+          "body": "The suffix used for the plural of pronouns, 哋 dei6, cannot associate with human nouns, unlike its similar Mandarin counterpart 們 -men. Mandarin 學生們 xuéshengmen \"the students\" would be rendered in Cantonese as:\n\n(啲)\n\n(di1)\n\n(CL)\n\n學生\n\nhok6 saang1\n\nstudents\n\n(啲) 學生\n\n(di1) {hok6 saang1}\n\n(CL) students\n\n\"(the) students\"\n\nWhile the vocative use of 學生們 xuéshengmen \"students\" would be rendered in Cantonese as:\n\n各位\n\ngok3 wai2\n\neveryone\n\n學生\n\nhok6 saang1\n\nstudents\n\n各位 學生\n\n{gok3 wai2} {hok6 saang1}\n\neveryone students\n\n\"Students!\"\n\nThere are words in Mandarin which often require the suffixes 子 -zi or 頭 -tou, but they are normally optional in Cantonese, e.g. Mandarin 鞋子 xiézi \"shoe\" and 石頭 shítou \"rock\" can be 鞋 haai4 and 石 sek6 in Cantonese.",
+          "examples": [
+            "The suffix used for the plural of pronouns, 哋 dei6, cannot associate with human nouns, unlike its similar Mandarin counterpart 們 -men. Mandarin 學生們 xuéshengmen \"the students\" would be rendered in Cantonese as:",
+            "\"(the) students\"",
+            "While the vocative use of 學生們 xuéshengmen \"students\" would be rendered in Cantonese as:",
+            "\"Students!\"",
+            "There are words in Mandarin which often require the suffixes 子 -zi or 頭 -tou, but they are normally optional in Cantonese, e.g. Mandarin 鞋子 xiézi \"shoe\" and 石頭 shítou \"rock\" can be 鞋 haai4 and 石 sek6 in Cantonese."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Classifiers",
+          "body": "Classifiers can be used instead of the possessive 嘅 ge3 to indicate possession of a single object. Classifiers cannot be used this way in Mandarin.\n\n佢\n\nkeoi5\n\n3SG\n\n本\n\nbun2\n\nCL\n\n書\n\nsyu1\n\nbook\n\n佢 本 書\n\nkeoi5 bun2 syu1\n\n3SG CL book\n\n\"his book\"\n\nClassifiers in both Cantonese and Mandarin can serve to individualize a noun, giving it a singular meaning (or plural in the case 啲 di1). However, such a construction in Mandarin will be of indefinite reference, unless a demonstrative (e.g. 這 zhè \"this\") or the universal quantifier (每 měi \"every\") is present. Furthermore, there are great limitations on using this construction in subject position in Mandarin. In Cantonese, these restrictions do not exist.\n\n架\n\ngaa3\n\nCL\n\n車\n\nce1\n\ncar\n\n撻\n\ntaat3\n\nstart\n\n唔\n\nm4\n\nnot\n\n著\n\nzoek6\n\nburn\n\n架 車 撻 唔 著\n\ngaa3 ce1 taat3 m4 zoek6\n\nCL car start not burn\n\n\"The car won't start,\" and it cannot be interpreted as \"the cars\".",
+          "examples": [
+            "\"his book\"",
+            "Classifiers in both Cantonese and Mandarin can serve to individualize a noun, giving it a singular meaning (or plural in the case 啲 di1). However, such a construction in Mandarin will be of indefinite reference, unless a demonstrative (e.g.",
+            "\"The car won't start,\" and it cannot be interpreted as \"the cars\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Comparison",
+          "body": "Adjective comparison in Cantonese is formed by adding the marker 過 gwo3 after an adjective. The adjective-marker construction serves as a transitive verb which takes the standard of comparison as an object.\n\n佢\n\nkeoi5\n\n3SG\n\n高\n\ngou1\n\ntall\n\n過\n\ngwo3\n\nCOMP\n\n我\n\nngo5\n\n1SG\n\n佢 高 過 我\n\nkeoi5 gou1 gwo3 ngo5\n\n3SG tall COMP 1SG\n\n\"He is taller than me.\"\n\nIn Standard Mandarin, comparison is marked by adding 比 bǐ, which serves in an adverbial phrase, leaving the adjective itself unchanged. The sentence above is translated into Mandarin as:\n\n他\n\ntā\n\n3SG\n\n比\n\nbǐ\n\nCOMP\n\n我\n\nwǒ\n\n1SG\n\n高\n\ngāo\n\ntall\n\n他 比 我 高\n\ntā bǐ wǒ gāo\n\n3SG COMP 1SG tall\n\n\"He is taller than me.\"\n\nAlternatively the plural marker 啲 di1 alone (without the numeral 一 jat1) can be used use as the sole complement of the verbal adjective.\n\n佢\n\nkeoi5\n\n3SG\n\n高\n\ngou1\n\ntall\n\n啲\n\ndi1\n\nCOMP\n\n佢 高 啲\n\nkeoi5 gou1 di1\n\n3SG tall COMP\n\n\"He is taller.\"",
+          "examples": [
+            "\"He is taller than me.\"",
+            "\"He is taller than me.\"",
+            "\"He is taller.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Aspect markers",
+          "body": "Cantonese has a dedicated habitual aspect marker, 開 hoi1, with no similar counterpart in Mandarin.\n\n我\n\nngo5\n\n1SG\n\n住\n\nzyu6\n\nlive\n\n開\n\nhoi1\n\nHAB\n\n香港\n\nHoeng1 Gong2\n\nHong Kong\n\n我 住 開 香港\n\nngo5 zyu6 hoi1 {Hoeng1 Gong2}\n\n1SG live HAB {Hong Kong}\n\n\"I've been living in Hong Kong.\"",
+          "examples": [
+            "\"I've been living in Hong Kong.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Passives",
+          "body": "In Cantonese, there must always be an agent in a passive, while in Mandarin this isn't the case. If there's no known or specific agent, Cantonese must at least use 人 jan4 \"someone\" as a dummy agent.\n\n筷 子\n\nfaai3 zi2\n\nchopsticks\n\n畀\n\nbei2\n\nby\n\n人\n\njan4\n\nperson\n\n用\n\njung6\n\nuse\n\n咗\n\nzo2\n\nPRF\n\n{筷 子} 畀 人 用 咗\n\n{faai3 zi2} bei2 jan4 jung6 zo2\n\nchopsticks by person use PRF\n\n\"the chopsticks have been used\" (and not *筷子畀用咗 *faai3 zi2 bei2 jung6 zo2)",
+          "examples": [
+            "In Cantonese, there must always be an agent in a passive, while in Mandarin this isn't the case. If there's no known or specific agent, Cantonese must at least use 人 jan4 \"someone\" as a dummy agent.",
+            "\"the chopsticks have been used\" (and not *筷子畀用咗 *faai3 zi2 bei2 jung6 zo2)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Sentence particles",
+          "body": "It is possible to stack various of such particles one after the other, while Mandarin is restricted to sentence-final 了 and one particle.\n\n你\n\nnei5\n\n2SG\n\n食\n\nsik6\n\neat\n\n咗\n\nzo2\n\nPRF\n\n啦\n\nlaa3\n\nCOS\n\n吓?\n\nhaa5\n\nQ\n\n你 食 咗 啦 吓?\n\nnei5 sik6 zo2 laa3 haa5\n\n2SG eat PRF COS Q\n\n\"You already ate, right?\"",
+          "examples": [
+            "\"You already ate, right?\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "There is no gender distinction between the third person singulars of he, she and it in spoken or written Cantonese (佢); however in written Cantonese of formal register, which is similar to Mandarin, male and female may be distinguished with two different characters, 他 for male and 她 for female, as well as 它 for inanimate objects (including plants), 牠 for (non-human) animals, and 祂 for god(s), which all have the same pronunciation.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cantonese_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

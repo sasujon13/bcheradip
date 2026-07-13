@@ -1,0 +1,99 @@
+{
+  "title": "Grammar Book — Ikirundi",
+  "languageCode": "rn",
+  "languageName": "Ikirundi",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Rundi_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Bantu language of Burundi and adjacent states\nRundiIkirundiThe Kirundi text on the back of the truck warns cyclists not to hold on to it.Native toBurundiEthnicityHutu\nTutsi\nTwa\nGanwaNative speakers13 million (2021)[1]Language familyNiger–Congo?",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Bantu language of Burundi and adjacent states\nRundiIkirundiThe Kirundi text on the back of the truck warns cyclists not to hold on to it.Native toBurundiEthnicityHutu\nTutsi\nTwa\nGanwaNative speakers13 million (2021)[1]Language familyNiger–Congo?\n\nAtlantic–CongoVolta-CongoBenue–CongoBantoidSouthern BantoidBantuNortheast BantuGreat Lakes BantuWestern Lakes BantuRwanda-RundiRundicRundi\n\nDialects\nIkibo\n\nIkirundi\n\nIkiragane\n\nIgisoni\n\nIkinyabweru\n\nIkiyogoma\n\nIkimoso\n\nWriting systemLatinOfficial statusOfficial language in BurundiLanguage codesISO 639-1rn RundiISO 639-2run RundiISO 639-3run  RundiGlottologrund1242  Rundi\nrund1241  Rundi-KitwaGuthrie codeJD.62[2]This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nPersonUmurundiPeopleAbarundiLanguageIkirundiCountryu Burundi\nKirundi (/kɪˈrʊndi, -ˈrʌn-/), officially known as Ikirundi (also known as Rundi), is a Bantu language and the national language of Burundi. It is mutually intelligible with Kinyarwanda, the national language of Rwanda, and the two form parts of the Rwanda-Rundi dialect continuum spoken in Burundi, Rwanda, Tanzania, Democratic Republic of Congo, Uganda, and Kenya.[3]\n\nKirundi is natively spoken by the Hutu (including the Bakiga), Tutsi, Twa, and the Hima people; other related ethnicities have also adopted Kirundi as their mother tongue. Neighbouring dialects of Kirundi are mutually intelligible with Ha, a language spoken in western Tanzania.\n\nKirundi is one of the languages where Meeussen's rule, a rule describing a certain pattern of tonal change in Bantu languages, is active.\n\nIn 2020, the Rundi Academy was established to help standardize and promote Kirundi.[4]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Phonology",
+      "summary": "Although the literature on Rundi agrees on 5 vowels, the number of consonants can vary anywhere from 19 to 26 consonants.[5] The table below is compiled from a survey of academic acceptance of Rundi consonants.[6]",
+      "sections": [
+        {
+          "heading": "Consonants",
+          "body": "Although the literature on Rundi agrees on 5 vowels, the number of consonants can vary anywhere from 19 to 26 consonants.[5] The table below is compiled from a survey of academic acceptance of Rundi consonants.[6]\n\nLabial\n\nAlveolar\n\nPost-\nalveolar\n\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nm\n\nn\n\nɲ\n\nŋ\n\nPlosive\n\nvoiceless\n\np\n\nt\n\nk\n\nvoiced\n\nb\n\nd\n\nɟ\n\nɡ\n\nAffricate\n\np͡f\n\nt͡s\n\nt͡ʃ\n\nFricative\n\nvoiceless\n\nf\n\ns\n\nʃ\n\nh\n\nvoiced\n\nv\n\nz\n\nʒ\n\nApproximant\n\nj\n\nw\n\nFlap\n\nɾ\n\nTrill\n\nr",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "The table below gives the vowel sounds of Rundi.\n\nFront\n\nBack\n\nClose\n\ni\n\nu\n\nMid\n\ne\n\no\n\nOpen\n\na\n\nAll five vowels occur in long and short forms. The distinction is phonemic.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        },
+        {
+          "heading": "Tone",
+          "body": "Rundi is a tonal language.  There are two essential tones in Rundi: high and low (or H and L).  Since Rundi has phonemic distinction on vowel length, when a long vowel changes from a low tone to a high tone it is marked as a rising tone.  When a long vowel changes from a high tone to a low tone, it is marked as a falling tone.[8]\n\nRundi is often used in phonology to illustrate examples of Meeussen's rule[9][10] In addition, it has been proposed that tones can shift by a metrical or rhythmic structure.  Some authors have expanded these more complex features of the tonal system noting that such properties are highly unusual for a tone system.[11]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        },
+        {
+          "heading": "Phonotactics",
+          "body": "Syllable structure in Rundi is considered to be CV, that is having no clusters, no coda consonants, and no complex vowel nuclei.  It has been proposed that sequences that are CVV in the surface realization are actually CV in the underlying deep structure, with the consonant coalescing with the first vowel.[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        },
+        {
+          "heading": "Consonant harmony",
+          "body": "Rundi has been shown to have properties of consonant harmony particularly when it comes to sibilants.  Meeussen described this harmony in his essay and it is investigated further by others.[13] One example of this harmony is triggered by /ʃ/ and /ʒ/ and targets the set of /s/ and /z/ in preceding adjacent stem syllables.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Orthography",
+      "summary": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.\nFind sources: \"Kirundi\" – news · newspapers · books · scholar · JSTOR  (August 2024) (Learn how and when to remove this m",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.\nFind sources: \"Kirundi\" – news · newspapers · books · scholar · JSTOR  (August 2024) (Learn how and when to remove this message)\n\nLetter(s)\n\na\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nm\nn\nny\no\np\npf\nr\ns\nsh\nt\nts\nu\nv\nw\ny\nz\n\nzh\n\nIPA\n\na, aː\nβ, b\nt͡ʃ\nd\ne, eː\nf\nɡ, ɟ\nh, ɦ\ni, iː\nɟ\nk, c\nm\nn, ŋ\nɲ\no, oː\np\np͡f\nɾ\ns\nʃ\nt\nt͡s\nu, uː\nv\nw\nj\nz\nʒ",
+          "examples": [
+            "Find sources: \"Kirundi\" – news · newspapers · books · scholar · JSTOR  (August 2024) (Learn how and when to remove this message)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Official use",
+      "summary": "The Lord's Prayer in Kirundi (Church of the Pater Noster)\nKirundi was recognized an official language in Burundi by the 1962 Constitution of the Kingdom of Burundi. In accordance with the constitution, many Burundian government orders, especially those printed in the Bulletin Off",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Lord's Prayer in Kirundi (Church of the Pater Noster)\nKirundi was recognized an official language in Burundi by the 1962 Constitution of the Kingdom of Burundi. In accordance with the constitution, many Burundian government orders, especially those printed in the Bulletin Officiel du Burundi from 1962 to 1963, were written in both French and Kirundi. After the constitution was suspended in 1966, Kirundi remained a de facto official language in the country, though its use in government documents declined.[14] In 1972, Kirundi was adopted as the official language of instruction in Burundian primary schools.[15]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Rundi_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

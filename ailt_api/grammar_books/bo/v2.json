@@ -1,0 +1,217 @@
+{
+  "title": "Grammar Book — བོད་ཡིག",
+  "languageCode": "bo",
+  "languageName": "བོད་ཡིག",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Tibetan_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of standard Tibetian\nThis article needs more citations. Please help improve this article by adding citations to reliable sources. Unsourced material may be challenged and removed.\nFind sources: \"Modern Lhasa Tibetan grammar\" – news · newspapers · books · scholar · JSTOR",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of standard Tibetian\nThis article needs more citations. Please help improve this article by adding citations to reliable sources. Unsourced material may be challenged and removed.\nFind sources: \"Modern Lhasa Tibetan grammar\" – news · newspapers · books · scholar · JSTOR  (March 2013) (Learn how and when to remove this message)\nTibetan grammar describes the morphology, syntax and other grammatical features of Lhasa Tibetan, a Sino-Tibetan language. Lhasa Tibetan is typologically an ergative–absolutive language. Nouns are generally unmarked for grammatical number, but are marked for case. Adjectives are never marked and appear after the noun. Demonstratives also come after the noun but these are marked for number. Verbs are possibly the most complicated part of Tibetan grammar in terms of morphology. The dialect described here is the colloquial language of Central Tibet, especially Lhasa and the surrounding area, but the spelling used reflects classical Tibetan, not the colloquial pronunciation.",
+          "examples": [
+            "Find sources: \"Modern Lhasa Tibetan grammar\" – news · newspapers · books · scholar · JSTOR  (March 2013) (Learn how and when to remove this message)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns and case",
+      "summary": "Nouns are not usually marked for grammatical gender or number.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nouns are not usually marked for grammatical gender or number.\n\nNatural gender may be conveyed through the lexicon, e.g. གཡག་ gyag \"yak (male)\", འབྲི་ 'bri \"yak-cow\". In human or animate nouns, gender may be indicated through suffixes. These suffixes are generally:\n\nཔ་ pa or པོ་ po \"male\"\nམ་ ma or མོ་ mo \"female\"\nཁམས་པ་\n\nkhams-pa\n\n\"man from Kham\"\n\n→\n\n \n\n \n\nཁམས་མོ་\n\nkhams-mo\n\n\"woman from Kham\"\n\nཁམས་པ་ → ཁམས་མོ་\n\nkhams-pa {} khams-mo\n\n{\"man from Kham\"} {} {\"woman from Kham\"}\n\nམཛོ་\n\nmdzo\n\n\"dzo\" (yak-cow hybrid)\n\n→\n\n \n\n \n\nམཛོ་མོ་\n\nmdzo-mo\n\n\"female dzo\"\n\nམཛོ་ → མཛོ་མོ་\n\nmdzo {} mdzo-mo\n\n{\"dzo\" (yak-cow hybrid)} {} {\"female dzo\"}\n\nNumber is never marked in inanimate nouns or animals. Even human nouns can only take the plural marker ཚོ་ tsho if they are specified or definite, e.g. ཨ་མ་ a-ma \"mother\" → ཨ་མ་ཚོ་ a-ma-tsho \"(the) mothers\". Tibetan does not mark definiteness, and such a meaning would be left to be deduced from the context.\n\nTibetan nouns are marked for six cases: absolutive, agentive, genitive, ablative, associative and oblique. Particles are attached to entire noun phrases, not to individual nouns. Case suffixes are attached to the noun phrase as a whole, while the actual noun remains unchanged. The form taken by the suffix depends on the final sound of the word to which the suffix is attached.",
+          "examples": [
+            "Natural gender may be conveyed through the lexicon, e.g. གཡག་ gyag \"yak (male)\", འབྲི་ 'bri \"yak-cow\". In human or animate nouns, gender may be indicated through suffixes. These suffixes are generally:",
+            "པ་ pa or པོ་ po \"male\"",
+            "མ་ ma or མོ་ mo \"female\"",
+            "\"man from Kham\"",
+            "\"woman from Kham\"",
+            "{\"man from Kham\"} {} {\"woman from Kham\"}"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Absolutive case",
+          "body": "The absolutive case is the unmarked form of the noun, which may be used as the subject of an intransitive verb, the object of a transitive verb or the experiencer of an emotion.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Genitive case",
+          "body": "The genitive case marks possession and is often translated as \"of\". The form of the genitive suffix depends on the last sound of the noun:\n\nif the last sound is a vowel or འ་ 'a then the suffix is འི་ 'i\n\nif the last sound is ག་ -g or ང་ -ng then the suffix is གི་ gi\n\nif the last sound is ད་ -d, བ་ -b, ས་ -s or one of the secondary sound suffixes then the genitive suffix is ཀྱི་ kyi\n\nif the last sound is ན་ -n, མ་ -m, ར་ -r or ལ་ -l then the suffix is གྱི་ gyi.\n\nཆོས་ཀྱི་\n\nchos-kyi\n\nའཁོར་ལོ\n\n'khor-lo\n\nཆོས་ཀྱི་ འཁོར་ལོ\n\nchos-kyi 'khor-lo\n\nWheel of dharma\n\nལུག་གི་\n\nlug-gi\n\nཔགས་པ\n\npags-pa\n\nལུག་གི་ པགས་པ\n\nlug-gi pags-pa\n\nSkin of sheep\n\nThe genitive is also used to form relative clauses. Here, the genitive suffix is attached to the verb and is translated as \"that\" or \"who\".\n\nདེབ་\n\ndeb\n\nbook\n\nནང་ལ་\n\nnang-la\n\ninside-OBL\n\nཡོད་པའི་\n\nyod-pa'i\n\nis-GEN\n\nཔར་\n\npar\n\nphoto\n\nདེབ་ ནང་ལ་ ཡོད་པའི་ པར་\n\ndeb nang-la yod-pa'i par\n\nbook inside-OBL is-GEN photo\n\n\"the photo that is in the book\"",
+          "examples": [
+            "The genitive case marks possession and is often translated as \"of\". The form of the genitive suffix depends on the last sound of the noun:",
+            "The genitive is also used to form relative clauses. Here, the genitive suffix is attached to the verb and is translated as \"that\" or \"who\".",
+            "\"the photo that is in the book\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Agentive case",
+          "body": "Formally the agentive (or ergative) case is built upon the genitive by adding ས་ -s to the latter; consequently:\n\nif the last sound is a vowel or འ་ 'a then the suffix is ས་ -s\n\nif the last sound is ག་ -g or ང་ -ng then the suffix is གིས་ gis\n\nif the last sound is ད་ -d, བ་ -b, ས་ -s or one of the secondary sound suffixes then the genitive suffix is ཀྱིས་ kyis\n\nif the last sound is ན་ -n, མ་ -m, ར་ -r or ལ་ -l then the suffix is གྱིས་ gyis.\n\nThe agentive is used for ergative and instrumental functions. The ergative function occurs with the subject, agent or causer of transitive verbs, the agent of \"mental\" and \"verbal\" actions and the perceiver of a sensation.",
+          "examples": [
+            "The agentive is used for ergative and instrumental functions. The ergative function occurs with the subject, agent or causer of transitive verbs, the agent of \"mental\" and \"verbal\" actions and the perceiver of a sensation."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Ablative case",
+          "body": "The ablative case is always suffixed with ནས་ nas. It marks direction away from the noun. Like the agentive case, the ablative can also take the ergative role marking the agent of an action.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Associative case",
+          "body": "The associative case is marked by the suffix དང་ dang, which may be translated as \"and\" but also as \"with\", \"against\" or have no translation at all.  When speaking, after the associative suffix is used, a pause is inserted, for example:\n\nཔཱ་ལགས་དང་།\n\npaa-lags-dang,\n\nfather-ASS\n\nཨ་ཁུ་དང་།\n\na-khu-dang,\n\nuncle-ASS\n\nཨ་ནེ།\n\na-ne\n\naunt\n\nཔཱ་ལགས་དང་། ཨ་ཁུ་དང་། ཨ་ནེ།\n\npaa-lags-dang, a-khu-dang, a-ne\n\nfather-ASS uncle-ASS aunt\n\n\"father and uncle and aunt...\"\n\nThe associative suffix cannot combine with other case or plural markers on the same noun or noun phrase:\n\nཨ་མ་དང་\n\na-ma-dang\n\nmother-ASS\n\nསྤུ་གུ་ཚོ།\n\nspu-gu-tsho\n\nchildren\n\nཨ་མ་དང་ སྤུ་གུ་ཚོ།\n\na-ma-dang spu-gu-tsho\n\nmother-ASS children\n\n\"mother and children\"\n\nབུ་དང་\n\nbu-dang\n\nboy-ASS\n\nབུ་མོ་ཚོར་\n\nbu-mo-tsho-r\n\nboy-FEM-PL-DAT\n\nལག་རྟགས་\n\nlag-rtags\n\npresent\n\nསྦྲུས་པ་ཡོད།\n\nsbrus-pa-yod\n\ngive-PAST-be:EX-EGO\n\nབུ་དང་ བུ་མོ་ཚོར་ ལག་རྟགས་ སྦྲུས་པ་ཡོད།\n\nbu-dang bu-mo-tsho-r lag-rtags sbrus-pa-yod\n\nboy-ASS boy-FEM-PL-DAT present give-PAST-be:EX-EGO\n\n\"(they) gave presents to the boys and girls\"",
+          "examples": [
+            "The associative case is marked by the suffix དང་ dang, which may be translated as \"and\" but also as \"with\", \"against\" or have no translation at all.  When speaking, after the associative suffix is used, a pause is inserted, for example:",
+            "\"father and uncle and aunt...\"",
+            "\"mother and children\"",
+            "\"(they) gave presents to the boys and girls\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Oblique case",
+          "body": "The oblique suffix fulfills the functions of both the dative and locative cases. The dative case marks the indirect object of an action and can be translated as \"to\". The locative case marks place, with or without movement, or time, and can be translated as \"on\", \"in\", \"at\" or \"to\".\n\nThere are two varieties of the suffix, one of which is dependent on the final sound of the noun and one that is not. The form –ར་ -r is found only after vowels and འ་ 'a whereas –ལ་ -la can be found after all sounds including vowels and <'a>. The <-r> form is rarely used to mark the dative with monosyllabic words except the personal pronouns and demonstrative and interrogative adjectives.",
+          "examples": [
+            "The oblique suffix fulfills the functions of both the dative and locative cases. The dative case marks the indirect object of an action and can be translated as \"to\". The locative case marks place, with or without movement, or time, and can"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "Pronouns have between one and three registers and three numbers: singular, dual and plural.",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "Pronouns have between one and three registers and three numbers: singular, dual and plural.\n\nsingular\n\ndual\n\nplural\n\n1st person\n\nང་\n\nnga\n\nང་\n\nnga\n\nང་གཉིས་\n\nnga-gnyis\n\nང་གཉིས་\n\nnga-gnyis\n\nང་ཚོ་\n\nnga-tsho\n\nང་ཚོ་\n\nnga-tsho\n\n2nd person\n\nordinary\n\nརང་\n\nrang\n\nརང་\n\nrang\n\nརང་གཉིས་\n\nrang-gnyis\n\nརང་གཉིས་\n\nrang-gnyis\n\nརང་ཚོ་\n\nrang-tsho\n\nརང་ཚོ་\n\nrang-tsho\n\nhonorific\n\nཁྱེད་རང་\n\nkhyed-rang\n\nཁྱེད་རང་\n\nkhyed-rang\n\nཁྱེད་རང་གཉིས་\n\nkhyed-rang-gnyis\n\nཁྱེད་རང་གཉིས་\n\nkhyed-rang-gnyis\n\nཁྱེད་རང་ཚོ་\n\nkhyed-rang-tsho\n\nཁྱེད་རང་ཚོ་\n\nkhyed-rang-tsho\n\npejorative\n\nཁྱོད་\n\nkhyod\n\nཁྱོད་\n\nkhyod\n\nཁྱོད་གཉིས་\n\nkhyod-gnyis\n\nཁྱོད་གཉིས་\n\nkhyod-gnyis\n\nཁྱོད་ཚོ་\n\nkhyod-tsho\n\nཁྱོད་ཚོ་\n\nkhyod-tsho\n\n3rd person\n\nordinary\n\nཁོང་\n\nkhong\n\nཁོང་\n\nkhong\n\nཁོང་གཉིས་\n\nkhong-gnyis\n\nཁོང་གཉིས་\n\nkhong-gnyis\n\nཁོང་ཚོ་\n\nkhong-tsho\n\nཁོང་ཚོ་\n\nkhong-tsho\n\nfamiliar\n\nmale\n\nཁོ་(རང་)\n\nkho-(rang)\n\nཁོ་(རང་)\n\nkho-(rang)\n\nཁོ་(རང་)གཉིས་\n\nkho-(rang)-gnyis\n\nཁོ་(རང་)གཉིས་\n\nkho-(rang)-gnyis\n\nཁོ་(རང་)ཚོ་\n\nkho-(rang)-tsho\n\nཁོ་(རང་)ཚོ་\n\nkho-(rang)-tsho\n\nfemale\n\nམོ་(རང་)\n\nmo-(rang)\n\nམོ་(རང་)\n\nmo-(rang)\n\nམོ་(རང་)གཉིས་\n\nmo-(rang)-gnyis\n\nམོ་(རང་)གཉིས་\n\nmo-(rang)-gnyis\n\nམོ་(རང་)ཚོ་\n\nmo-(rang)-tsho\n\nམོ་(རང་)ཚོ་\n\nmo-(rang)-tsho",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "Tibetan has proximal, medial and distal demonstrative pronouns:\n\nproximal འདི་ 'di \"this\"\n\nmedial དེ་ de \"that\"\n\ndistal ཕ་གི་ pha-gi \"that over there (yonder)\"\n\nའདི་ 'di and དེ་ de also have temporal meanings where འདི་ 'di is connected with present and དེ་ de is connected with the past or the future:\n\nལོ་འདི་ lo 'di \"this year (present time reference)\"\nལོ་དེ་ lo de \"that year (past or future reference)\"\n\nཕ་གི་ pha-gi, on the other hand, can only express spatial distance. From these demonstrative pronouns the following adverbs are derived: འདིར་ 'dir \"here\", དེར་ der \"there\", and ཕ་གིར་ pha-gir \"over there\".\n\nThe demonstratives can be used as both pronouns and adjectives. As pronouns they act much in the same way as the third person pronouns do, but may also refer to previous clauses or events. As adjectives they appear after the noun and act as any other adjective would. Both adjectival and pronominal demonstratives are capable of receiving both case and number suffixes.",
+          "examples": [
+            "proximal འདི་ 'di \"this\"",
+            "medial དེ་ de \"that\"",
+            "distal ཕ་གི་ pha-gi \"that over there (yonder)\"",
+            "ལོ་འདི་ lo 'di \"this year (present time reference)\"",
+            "ལོ་དེ་ lo de \"that year (past or future reference)\"",
+            "ཕ་གི་ pha-gi, on the other hand, can only express spatial distance. From these demonstrative pronouns the following adverbs are derived: འདིར་ 'dir \"here\", དེར་ der \"there\", and ཕ་གིར་ pha-gir \"over there\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Verb classes",
+      "summary": "There is an important division of verbs into two main classes: volitional and non-volitional. The former concerns controllable actions, and the latter non-controllable actions. This difference is comparable to that in English between look and see, and between listen and hear: lis",
+      "sections": [
+        {
+          "heading": "Volitional and non-volitional classes",
+          "body": "There is an important division of verbs into two main classes: volitional and non-volitional. The former concerns controllable actions, and the latter non-controllable actions. This difference is comparable to that in English between look and see, and between listen and hear: listen and look are volitional because one can choose to do them or not, while see and hear are non-volitional because they do not denote deliberate actions.\n\nThese two classes are important when conjugating any Tibetan verb because each class can only use a particular set of suffixes. This means that volitional verbs cannot use the same suffixes as non-volitional verbs and vice versa. For example, the verb form མཐོང་པ་ཡིན་ mthong-pa-yin would be incorrect as མཐོང mthong is a non-volitional verb and པ་ཡིན pa-yin is a volitional suffix. The correct form would be མཐོང་པ་རེད་ mthong-pa-red or \"I saw.\"[1]",
+          "examples": [
+            "These two classes are important when conjugating any Tibetan verb because each class can only use a particular set of suffixes. This means that volitional verbs cannot use the same suffixes as non-volitional verbs and vice versa. For exampl"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Transitive and intransitive verbs",
+          "body": "Both the volitional and non-volitional classes contain transitive as well as intransitive verbs. The forms of transitive and intransitive verbs remain the same if the two verbs share the same root.[2] The difference between transitive and intransitive is only evident in the way each verb is used: if the verb takes an object then it is transitive, if it does not then it is intransitive. This distinction determines which case the nouns will take: monovalent verbs are intransitive, and their single argument takes the absolutive case; divalent verbs are transitive, with the agent in the ergative case and the patient in the absolutive case. This is the basis for the classification of the Tibetan language as having ergative–absolutive alignment, although the ergative case can also have rhetorical uses.[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Verb inflection",
+          "body": "Verbs in modern spoken Tibetan have between one and three stems. These are the present-future stem, the past stem and the imperative stem. Many verbs, however, only have one stem when spoken, remaining distinct only in writing, meaning that inflection is based mainly on the use of verbal auxiliaries. The verb is inflected by means of attaching suffixes to the verb stem in a similar way to nouns and pronouns.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Copulae",
+      "summary": "Tibetan has several verbs that can be translated as \"to be\" or \"to have\" which appear in two classes. Copulas in the first class are essential, meaning that they denote an essential quality of the noun. Copulas in the second class are existential, meaning that they express the ex",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Tibetan has several verbs that can be translated as \"to be\" or \"to have\" which appear in two classes. Copulas in the first class are essential, meaning that they denote an essential quality of the noun. Copulas in the second class are existential, meaning that they express the existence of a phenomenon or a characteristic and suggests an evaluation by the speaker. The difference between essential and existential copulas is similar to that of the verbs ser and estar in the Spanish language.\n\nOutlined below is a classification from the Tibetan and Himalayan Library website, principally based on the work of Nicolas Tournadre.[3]",
+          "examples": [
+            "Tibetan has several verbs that can be translated as \"to be\" or \"to have\" which appear in two classes. Copulas in the first class are essential, meaning that they denote an essential quality of the noun. Copulas in the second class are exist"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Essential copulae",
+          "body": "There are three essential copulas:\n\nassertive རེད་ red\n\nrevelatory རེད་བཞག་ red-bzhag\n\negophoric ཡིན་ yin\n\nEssential-assertive copula\nརེད་ red is the \"assertive\" essential copula. It translates as \"to be\" and represents an objective assertion or affirmation regarding the subject of the sentence. The negative of རེད་ red is མ་རེད་ ma-red. The attribute may be an adjective, giving an attributive meaning, or a substantive, giving an equative meaning. The attributive immediately precedes the verb.\n\nའདི་\n\n'di\n\nthis\n\nཐུབ་བསྟན་\n\nthub-bstan\n\nThubtän\n\nརེད།\n\nred\n\nbe:ESS-ASSERT\n\nའདི་ ཐུབ་བསྟན་ རེད།\n\n'di thub-bstan red\n\nthis Thubtän be:ESS-ASSERT\n\n\"This is Thubtän.\"\n\nཁོང་\n\nkhong\n\nhe\n\nའབྲོག་པ་\n\n'brog-pa\n\nnomad\n\nམ་རེད།\n\nma-red\n\nnot-be:ESS-ASSERT\n\nཁོང་ འབྲོག་པ་ མ་རེད།\n\nkhong 'brog-pa ma-red\n\nhe nomad not-be:ESS-ASSERT\n\n\"He isn't a nomad.\"\n\nམོ་རང་\n\nmo-rang\n\nshe\n\nསྙིང་རྗེ་པོ་\n\nsnying-rje-po\n\npretty\n\nརེད།\n\nred\n\nbe:ESS-ASSERT\n\nམོ་རང་ སྙིང་རྗེ་པོ་ རེད།\n\nmo-rang snying-rje-po red\n\nshe pretty be:ESS-ASSERT\n\n\"She's pretty.\"\n\nThis copula, in rare cases, may also express possession of a quality:\n\nམོ་རང་\n\nmo-rang\n\nshe\n\nམིག་\n\nmig\n\neye\n\nཆུང་ཆུང་\n\nchung-chung\n\nsmall\n\nརེད།\n\nred\n\nbe:ESS-ASSERT\n\nམོ་རང་ མིག་ ཆུང་ཆུང་ རེད།\n\nmo-rang mig chung-chung red\n\nshe eye small be:ESS-ASSERT\n\n\"She has small eyes.\"\n\nEssential-revelatory copula\nརེད་བཞག་ red-bzhag is the \"revelatory\" copula, meaning that the speaker has only recently become aware of what they are stating. It may be translated as \"to be\" with the statement preceded by an exclamation such as \"Hey!\" or \"Why!\" Its negative form is རེད་མི་འདུག་ red-mi-'dug.\n\nཐུབ་བསྟན་\n\nthub-bstan\n\nThubtän\n\nརེད་བཞག་\n\nred-bzhag\n\nbe:ESS-REV\n\nཐུབ་བསྟན་ རེད་བཞག་\n\nthub-bstan red-bzhag\n\nThubtän be:ESS-REV\n\n\"Hey! It's Thubtän.\"\n\nའབྲོག་པ་\n\n'brog-pa\n\nnomad\n\nརེད་མི་འདུག་\n\nred-mi-'dug\n\nnot-be:ESS-REV\n\nའབྲོག་པ་ རེད་མི་འདུག་\n\n'brog-pa red-mi-'dug\n\nnomad not-be:ESS-REV\n\n\"No, he isn't a nomad.\"\n\nསྨྱོན་པ་\n\nsmyon-pa\n\ncrazy\n\nརེད་བཞག་\n\nred-bzhag\n\nbe:ESS-REV\n\nསྨྱོན་པ་ རེད་བཞག་\n\nsmyon-pa red-bzhag\n\ncrazy be:ESS-REV\n\n\"Why, he's mad! (I've just realized)\"\n\nEssential-egophoric copula\nཡིན་ yin is the \"egophoric\" essential copula. It is usually translated as \"(I) am\" because of its main use with the first person. Like རེད་ <red>, it can be used with adjectives or substantives. Its negative form is མིན་ min.\n\nང་\n\nnga\n\nI\n\nའབྲོག་པ་\n\n'brog-pa\n\nnomad\n\nཡིན།\n\nyin\n\nbe:ESS-EGO\n\nང་ འབྲོག་པ་ ཡིན།\n\nnga 'brog-pa yin\n\nI nomad be:ESS-EGO\n\n\"I am a nomad.\"\n\nང་\n\nnga\n\nI\n\nབདེ་པོ་\n\nbde-po\n\nfine\n\nཡིན།\n\nyin\n\nbe:ESS-EGO\n\nང་ བདེ་པོ་ ཡིན།\n\nnga bde-po yin\n\nI fine be:ESS-EGO\n\n\"I am fine.\"\n\nཡིན་ yin may, on rare occasions, express an intention or an insistence on the part of the speaker:\n\nཁྱེད་རང་གི་\n\nkhyed-rang-gi\n\nyou:GEN\n\nཇ་\n\nja\n\nHON-tea\n\nཡིན།\n\nyin\n\nbe:ESS-EGO\n\nཁྱེད་རང་གི་ ཇ་ ཡིན།\n\nkhyed-rang-gi ja yin\n\nyou:GEN HON-tea be:ESS-EGO\n\n\"It's your tea (that I'm intending to give you).\"",
+          "examples": [
+            "རེད་ red is the \"assertive\" essential copula. It translates as \"to be\" and represents an objective assertion or affirmation regarding the subject of the sentence. The negative of རེད་ red is མ་རེད་ ma-red. The attribute may be an adjective,",
+            "\"This is Thubtän.\"",
+            "\"He isn't a nomad.\"",
+            "\"She's pretty.\"",
+            "\"She has small eyes.\"",
+            "རེད་བཞག་ red-bzhag is the \"revelatory\" copula, meaning that the speaker has only recently become aware of what they are stating. It may be translated as \"to be\" with the statement preceded by an exclamation such as \"Hey!\" or \"Why!\" Its nega"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Existential copulas",
+          "body": "There are three existential copulas: assertive ཡོད་རེད་ yod-red, testimonial འདུག་ 'dug and egophoric ཡོད་ yod.\n\nExistential-assertive copula\nཡོད་རེད་ yod-red is the \"assertive\" copula. This copula is used with the second and third person pronouns and implies a definite assertion by the speaker. It can usually be translated three ways according to context; \"there is/are\", giving an existential sense, \"to be at\", giving a certain location (situational sense), or by the verb \"to have\", giving a possessive sense. Its negative form is ཡོད་མ་རེད་ yod-ma-red.\n\nབོད་ལ་\n\nbod-la\n\nTibet-OBL\n\nགནམ་གྲུ་\n\ngnam-gru\n\nairplane\n\nཡོད་རེད།\n\nyod-red\n\nbe:EX-ASSERT\n\nབོད་ལ་ གནམ་གྲུ་ ཡོད་རེད།\n\nbod-la gnam-gru yod-red\n\nTibet-OBL airplane be:EX-ASSERT\n\n\"There are airplanes in Tibet.\"\n\nཐུབ་བསྟན་\n\nthub-bstan\n\nThubtän\n\nལགས་\n\nlags\n\nmister\n\nའདིར་\n\n'dir\n\nhere\n\nཡོད་རེད།\n\nyod-red\n\nbe:EX-ASSERT\n\nཐུབ་བསྟན་ ལགས་ འདིར་ ཡོད་རེད།\n\nthub-bstan lags 'dir yod-red\n\nThubtän mister here be:EX-ASSERT\n\n\"Thubtän is here.\"\n\nཚེ་རིང་ལ་\n\ntse-ring-la\n\nTsering-OBL\n\nམོ་ཊ་\n\nmo-ṭa\n\ncar\n\nཡོད་རེད།\n\nyod-red\n\nbe:EX-ASSERT\n\nཚེ་རིང་ལ་ མོ་ཊ་ ཡོད་རེད།\n\ntse-ring-la mo-ṭa yod-red\n\nTsering-OBL car be:EX-ASSERT\n\n\"Tsering has a car.\"\n\nIt can also be preceded by a qualifying adjective to form the attributive sense in which it can be translated as \"to be\".\n\nའདི་\n\n'di\n\nthis\n\nསྙིང་རྗེ་པོ་\n\nsnying-rje-po\n\npretty\n\nཡོད་རེད།\n\nyod-red\n\nbe:EX-ASSERT\n\nའདི་ སྙིང་རྗེ་པོ་ ཡོད་རེད།\n\n'di snying-rje-po yod-red\n\nthis pretty be:EX-ASSERT\n\n\"This is pretty.\"\n\nExistential-testimonial copula\nའདུག་ 'dug is the \"testimonial\" copula. It is translated in the same way as ཡོད་རེད་ yod-red in all cases but it differs in a subtle way. It implies that the speaker was a witness to what is being stated. Its negative form is མི་འདུག་ mi-'dug.\n\nབོད་ལ་\n\nbod-la\n\nTibet-OBL.\n\nགནམ་གྲུ་\n\ngnam-gru\n\nairplane\n\nའདུག་\n\n'dug\n\nbe:EX-TEST\n\nབོད་ལ་ གནམ་གྲུ་ འདུག་\n\nbod-la gnam-gru 'dug\n\nTibet-OBL. airplane be:EX-TEST\n\n\"There are airplanes in Tibet. (I know because I have seen them)\"\n\nIt can also, like ཡོད་རེད yod-red be preceded by a qualifying adjective to form the attributive sense in which it can be translated as \"to be.\"\n\nའདི་\n\n'di\n\nthis\n\nསྙིང་རྗེ་པོ་\n\nsnying-rje-po\n\npretty\n\nའདུག་\n\n'dug\n\nbe:EX-TEST\n\nའདི་ སྙིང་རྗེ་པོ་ འདུག་\n\n'di snying-rje-po 'dug\n\nthis pretty be:EX-TEST\n\n\"This is pretty. (I know because I have seen this for myself)\"\n\nExistential-egophoric copula\nཡོད yod is the \"egophoric\" copula. Like ཡིན་ yin it is associated with the first person but it instead marks possession (I have) and location (I am (at)). It may also be used to express the speaker's opinion of something or an acquaintance with something. Its negative form is མེད་ med.\n\nདེབ་\n\ndeb\n\nbook\n\nམང་པོ་\n\nmang-po\n\nmany\n\nཡོད།\n\nyod\n\nbe:EX-EGO\n\nདེབ་ མང་པོ་ ཡོད།\n\ndeb mang-po yod\n\nbook many be:EX-EGO\n\n\"I have many books.\"\n\nརྒྱ་ནག་ལ་\n\nrgya-nag-la\n\nChina-OBL.\n\nཡོད།\n\nyod\n\nbe:EX-EGO\n\nརྒྱ་ནག་ལ་ ཡོད།\n\nrgya-nag-la yod\n\nChina-OBL. be:EX-EGO\n\n\"I am in China.\"\n\nཇ་\n\nja\n\ntea\n\nའདི་\n\n'di\n\nthis\n\nཞིམ་པོ་\n\nzhim-po\n\ntasty\n\nཡོད།\n\nyod\n\nbe:EX-EGO\n\nཇ་ འདི་ ཞིམ་པོ་ ཡོད།\n\nja 'di zhim-po yod\n\ntea this tasty be:EX-EGO\n\n\"This tea is good (in my opinion).\"",
+          "examples": [
+            "ཡོད་རེད་ yod-red is the \"assertive\" copula. This copula is used with the second and third person pronouns and implies a definite assertion by the speaker. It can usually be translated three ways according to context; \"there is/are\", giving ",
+            "\"There are airplanes in Tibet.\"",
+            "\"Thubtän is here.\"",
+            "\"Tsering has a car.\"",
+            "It can also be preceded by a qualifying adjective to form the attributive sense in which it can be translated as \"to be\".",
+            "\"This is pretty.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        },
+        {
+          "heading": "Evidentiality",
+          "body": "This section needs expansion. You can help by adding missing information.  (May 2023)\nTibetan copulas function as markers of both evidentiality and aspect.[2] The study of these copulas has contributed substantially to the understanding of evidentiality cross-linguistically.[4][5]\n\nThe table below shows the paradigm of Lhasa Tibetan verb endings that express tense/aspect and evidentiality/egophoricity:[6]\n\nEgophoric\nFactual/Assertive(non-egophoric)\nEvidential\n\nDirect/Testimonial\nInferential\n\nPerfective\n\nཔ་ཡིན་ pa yin\n\nཔ་རེད་ pa red\n\nསོང་ song\n\nཞག་ zhag\n\nPerfect\n\nཡོད་ yod\n\nཡོག་རེད་ yog red\n\nའདུག་ 'dug\n\nImperfective\n\nགི་ཡོད་ gi yod\n\nགི་ཡོག་རེད་ gi yog red\n\nགི་འདུག་ ~ གིས་ gi 'dug / gis\n\nFuture\n\nགི་ཡིན་ gi yin\n\nགི་རེད་ gi red\n\nThe egophoric typically appears in first-person declaratives and second-person questions; the assertive may be used in the other contexts.[7]\n\nThe direct evidential is used for describing what the speaker directly perceived while the inferential marks information that she inferred from something else. For example:\n\nགངས་\n\ngang\n\nབཏང་\n\nbtang\n\nསོང།\n\nsong\n\nགངས་ བཏང་ སོང།\n\ngang btang song\n\n\"It snowed.\" (The speaker has actually seen it snowing)[8]\n\nགངས་\n\ngang\n\nབཏང་\n\nbtang\n\nབཞག།\n\nbzhag\n\nགངས་ བཏང་ བཞག།\n\ngang btang bzhag\n\n\"It snowed.\" (The speaker has only  seen traces)[9]",
+          "examples": [
+            "\"It snowed.\" (The speaker has actually seen it snowing)[8]",
+            "\"It snowed.\" (The speaker has only  seen traces)[9]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tibetan_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

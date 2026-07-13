@@ -1,0 +1,631 @@
+{
+  "title": "Grammar Book — 한국어",
+  "languageCode": "ko",
+  "languageName": "한국어",
+  "version": 2,
+  "sources": [
+    "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I1",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I10",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I11",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I12",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I2",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I3",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I4",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I5",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I6",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I7",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I8",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_I9",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II1",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II10",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II2",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II3",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II4",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II6",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II7",
+    "https://en.wikibooks.org/wiki/Korean/Lesson_II8",
+    "https://en.wikipedia.org/wiki/Korean_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Chapter 1",
+      "summary": "한국어 문법(韓國語 文法)은 품사론과 관련하여 한국어의 형태론, 통사론을 서술한다. 음운론과 음성학의 경우 한국어 음운론을 참고할 수 있다. 한국어의 높임말(경어)에 대해서는 한국어의 높임말을 참고하면 된다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "한국어 문법(韓國語 文法)은 품사론과 관련하여 한국어의 형태론, 통사론을 서술한다. 음운론과 음성학의 경우 한국어 음운론을 참고할 수 있다. 한국어의 높임말(경어)에 대해서는 한국어의 높임말을 참고하면 된다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== 체언 ==\n체언(體言, 임자씨)은 조사의 도움을 받아 문장에서 주체적인 구실을 하는 말이다. 서술·수식의 구실도 한다. 체언에는 명사, 대명사, 수사가 속한다. 체언은 격조사와 결합하여 문장 안에서 여러 가지 성분으로 쓰이며, 관형어의 수식을 받을 수 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "우리가 이겼다. ('우리' + 주격 조사 '가' → 주어)\n우리는 이제 중학생이다. ('중학생' + 서술격 조사 '이다' → 서술어)\n그가 나를 이겼다. ('나' + 목적격 조사 '를' → 목적어)\n그는 꼴찌가 아니다. ('꼴찌' + 보격 조사 '가' → 보어)\n어머니의 희망은 너뿐이다. ('어머니' + 관형격 조사 '의' → 관형어)\n그들은 교실에서 공부를 하고 있다. ('교실' + 부사격 조사 '에서' → 부사어)\n학생들이여, 열심히 공부하라! ('학생들' + 호격 조사 '이여' → 독립어)\n대명사와 수사는 명사에 비해 종종 관형어의 수식을 받지 못하는 경우가 있으나, 명사와의 문법적 차이가 거의 없어서 별개의 품사로 보지 않는 경우도 많다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "명사(名詞, 이름씨)는 사물이나 사람의 이름을 가리킨다. 사용 범위에 따라 보통 명사와 고유 명사로 나뉘고, 자립성 유무에 따라 자립 명사와 의존 명사로 나뉜다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Chapter 2",
+      "summary": "보통 명사: 일반적인 사물의 이름을 가리킨다. (예: 하늘, 나무, 사랑, 희망)\n고유 명사: 특정한 사람이나 사물의 이름을 가리킨다. (예: 안창호, 금강산, 신라, 한강)\n자립 명사: 스스로 뜻을 지니고 있어서 다른 말의 도움 없이 쓰이는 명사를 가리킨다. 보통 명사와 고유 명사 모두가 여기에 해당한다.\n의존 명사: 독립성이 없어서 홀로 쓰이지 못하고 다른 말에 기대어 쓰이는 명사를 가리킨다. (예: 뿐, 바, 따름, 이, 데, 것, 줄, 나름, 나위)",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "보통 명사: 일반적인 사물의 이름을 가리킨다. (예: 하늘, 나무, 사랑, 희망)\n고유 명사: 특정한 사람이나 사물의 이름을 가리킨다. (예: 안창호, 금강산, 신라, 한강)\n자립 명사: 스스로 뜻을 지니고 있어서 다른 말의 도움 없이 쓰이는 명사를 가리킨다. 보통 명사와 고유 명사 모두가 여기에 해당한다.\n의존 명사: 독립성이 없어서 홀로 쓰이지 못하고 다른 말에 기대어 쓰이는 명사를 가리킨다. (예: 뿐, 바, 따름, 이, 데, 것, 줄, 나름, 나위)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "대명사(代名詞, 대이름씨)는 사람이나 사물의 이름을 대신하여 쓰이는 말로, 인칭대명사와 지시대명사로 나뉜다. 대명사는 명사처럼 조사와 결합하여 문장 안에서 여러 가지 성분으로 쓰인다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== 인칭 대명사 ====\n인칭대명사(人稱代名詞, 사람대이름씨)는 사람의 이름을 대신하여 가리키는 말로, 말하는 이가 스스로를 가리키는 1인칭 대명사, 듣는 이를 가리키는 2인칭 대명사, 제삼자를 가리키는 3인칭 대명사가 있다. 또한 정해지지 않은 것을 가리키는 부정칭 대명사, 모르는 것을 가리키는 미지칭 대명사 등이 있다. 높임 표현에서 중요한 역할을 담당한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== 지시 대명사 ====\n지시대명사(指示代名詞, 가리킴대이름씨)는 사람 이외의 사물이나 장소를 대신하여 가리키는 말로 사물 대명사와 처소 대명사로 나뉘며, 방향을 가리키는 지시 대명사도 있다. 거리에 따라 근칭, 중칭, 원칭으로 구분한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Chapter 3",
+      "summary": "==== 의문대명사 ====\n의문대명사(疑問代名詞, 물음대이름씨)는 의문의 뜻을 나타내는 대명사이다. ‘누구’, ‘무엇’, ‘어디’ 따위가 있다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== 의문대명사 ====\n의문대명사(疑問代名詞, 물음대이름씨)는 의문의 뜻을 나타내는 대명사이다. ‘누구’, ‘무엇’, ‘어디’ 따위가 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "수사(數詞, 셈씨)는 사람이나 사물의 수량 또는 차례를 나타내는 단어로, 양을 나타내는 양수사(기수사, 셈낱씨)와 순서를 나타내는 서수사(셈매김씨)로 나뉜다. 수사는 단독으로 쓰이거나 조사와 결합하여 문장 안에서 여러 가지 기능으로 쓰인다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "== 용언 ==\n용언(用言, 풀이씨)은 문장에서 주어의 동작이나 작용, 성질이나 상태 등을 서술하는 기능을 가진 품사로, 어미를 취하여 굴절하는 단어이다. ‘무엇이 어찌하다’에서 동작이나 작용을 나타내는 ‘어찌하다’, ‘무엇이 어떠하다’에서 성질이나 상태를 나타내는 ‘어떠하다’에 해당되는 단어가 곧 용언이다. 용언에는 동사, 형용사가 있다.\n용언은 그 쓰임에 따라 본용언과 보조 용언으로 나뉜다. 보조 용언은 홀로 쓰이지 못하며 반드시 다른 용언에 기대어 그 말뜻을 더해 주는 용언이다. 보조 용언의 도움을 받는 용언을 본용언이라 한다. 보조 용언에는 보조 동사와 보조 형용사가 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "용언은 그 어간에 여러 가지 어미가 붙어 형태가 바뀌는 특성이 있는데, 이러한 현상을 ‘활용’(끝바꿈)이라 한다. 이를 통해 서법, 높임법, 시제 등을 정한다. 동사 ‘살다’, ‘오다’는 기본형(원형)이며, 변하지 않는 ‘살’, ‘오’와 같은 부분을 ‘어간’(줄기)이라 하고, 여러 모양으로 변하는 부분을 ‘어미’(씨끝)라고 한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Chapter 4",
+      "summary": "==== 어말 어미 ====\n어말 어미(語末 語尾, 맺음씨끝)는 활용하는 어미 중에서 맨 뒤에 오는 어미이다. 어말 어미는 기능에 따라 하나의 문장 서술을 끝맺는 종결 어미(맺음끝), 다음 말에 연결시켜 주는 연결 어미(이음끝), 단어의 성격을 바꾸어 다른 품사의 구실을 대신하는 전성 어미로 나뉜다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== 어말 어미 ====\n어말 어미(語末 語尾, 맺음씨끝)는 활용하는 어미 중에서 맨 뒤에 오는 어미이다. 어말 어미는 기능에 따라 하나의 문장 서술을 끝맺는 종결 어미(맺음끝), 다음 말에 연결시켜 주는 연결 어미(이음끝), 단어의 성격을 바꾸어 다른 품사의 구실을 대신하는 전성 어미로 나뉜다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== 선어말 어미 ====\n선어말 어미(先語末 語尾, 안맺음씨끝)는 어말 어미 바로 앞에 놓인 어미이다. 선어말 어미는 어간과 어말 어미 사이에 끼여들어 놓이는데, 기준 시간을 나타내는 시제 선어말 어미와 높임의 뜻을 나타내는 높임 선어말 어미가 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "동사(動詞, 움직씨)는 사물의 동작이나 작용을 나타내는 단어이다. 주로 서술어의 구실을 하며, 어미 활용을 통하여 여러 가지 기능을 한다. 명령형과 청유형의 어미변화를 할 수 있다. 동사는 목적어가 필요한지에 따라 자동사와 타동사로, 행동의 자발성 여부에 따라 능동사와 피동사로, 행동의 주체가 누구이냐에 따라 주동사와 사동사로, 그 쓰임에 따라 본동사와 보조 동사로, 활용 형태에 따라 규칙 동사와 불규칙 동사로 나뉜다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== 자동사와 타동사 ====\n자동사(自動詞, 제움직씨)는 움직임이나 작용이 주어에만 그쳐 목적어가 필요없는 동사이고, 타동사(他動詞, 남움직씨)는 움직임이 다른 대상에 미치므로 목적어가 필요한 동사이다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Chapter 5",
+      "summary": "==== 사동사와 피동사 ====\n사동사(使動詞, 하임움직씨)는 주어가 동작을 하지 않고 남으로 하여금 동작을 하게 하는 동사이고, 피동사(被動詞, 입음움직씨)는 남의 동작이나 행동을 입게 되는 동사이다. 동사의 어간에 접사 ‘-이-/-히-/-리-/-기-/-우-/-구-/-추-’를, 형용사의 어간에 접사 ‘-이-/-히-/-추-’를, 명사에 접사 ‘-시키다’ 붙여 사동사를 만든다. 사동사는 움직이게 할 대상이 필요하므로 타동사이기도 하다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== 사동사와 피동사 ====\n사동사(使動詞, 하임움직씨)는 주어가 동작을 하지 않고 남으로 하여금 동작을 하게 하는 동사이고, 피동사(被動詞, 입음움직씨)는 남의 동작이나 행동을 입게 되는 동사이다. 동사의 어간에 접사 ‘-이-/-히-/-리-/-기-/-우-/-구-/-추-’를, 형용사의 어간에 접사 ‘-이-/-히-/-추-’를, 명사에 접사 ‘-시키다’ 붙여 사동사를 만든다. 사동사는 움직이게 할 대상이 필요하므로 타동사이기도 하다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "이번 일은 너에게 맡기겠다. (동사 ‘맡다’의 어간 + 접사 ‘-기-’)\n오빠가 나를 괴롭힌다. (형용사 ‘괴롭다’의 어간 + 접사 ‘-히-’)\n선생님이 학생을 공부시킨다. (명사 ‘공부’ + 접사 ‘-시키다’)\n타동사의 어간에 접사 ‘-이-/-히-/-리-/-기-’를, 명사에 접사 ‘-되다/-당하다/-받다’를 붙이면 피동사가 된다. 피동사는 본인이 당하는 동작이므로 대체로 자동사인 경우가 많다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "토끼가 사자에게 먹히다. (동사 ‘먹다’의 어간 + 접사 ‘-히-’)\n그 제안은 거절당했다. (명사 ‘거절’ + 접사 ‘-당하다’)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== 본동사와 보조 동사 ====\n본동사(本動詞, 으뜸움직씨)는 단독으로 서술어가 되거나 보조 용언(보조 동사, 보조 형용사)의 도움을 받는 동사이고, 보조 동사(補助 動詞, 도움움직씨)는 홀로 쓰이지 못하고 본동사에 기대어 그 말뜻을 도와 주는 동사이다. 본용언과 보조 용언은 띄어 쓰는 것을 원칙으로 하되, 붙여 쓰는 것을 허용한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Chapter 6",
+      "summary": "==== 규칙 동사와 불규칙 동사 ====\n어간이 변하지 않고 어미만 규칙적으로 활용하는 동사를 규칙 동사(規則 動詞), 어간이 불규칙적으로 활용하는 동사를 불규칙 동사(不規則 動詞, 벗어난움직씨)라고 한다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== 규칙 동사와 불규칙 동사 ====\n어간이 변하지 않고 어미만 규칙적으로 활용하는 동사를 규칙 동사(規則 動詞), 어간이 불규칙적으로 활용하는 동사를 불규칙 동사(不規則 動詞, 벗어난움직씨)라고 한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "웃다 → 웃고, 웃지, 웃어, 웃으니 (규칙 동사)\n묻다 → 묻고, 묻지, 물어, 물으면 (불규칙 동사)\n단, 불규칙적인 활용을 하더라도 음운 규칙으로 설명할 수 있는 경우에는 규칙 동사로 본다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "으 탈락: 어간 ‘ㅡ’가 어말 어미 ‘-아’나 ‘-어’ 앞에서 탈락하는 경우\n뜨다 → 떠 (뜨 + 어)\nㄹ 탈락: 어간의 끝소리 ‘ㄹ’이 ‘ㄴ/ㄹ/ㅂ/-오/-시’ 앞에서 탈락하는 경우\n끌다 → 끄는, 끕니다, 끄오, 끄시오",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "형용사(形容詞, 그림씨)는 사물의 상태나 성질을 나타내는 단어이다. 동사와 마찬가지로 어미 변화(활용)를 하지만, 명령형과 청유형의 어미변화를 할 수 없다.문장에서 주로 서술어 구실을 하고 부사어의 꾸밈을 받는다. 뜻에 따라 성상 형용사와 지시 형용사로, 쓰임에 따라 주형용사와 보조 형용사로, 활용 형태에 따라 규칙 형용사와 불규칙 형용사로 나뉜다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Chapter 7",
+      "summary": "성상 형용사(속겉그림씨): 사물의 상태나 성질을 나타내는 형용사를 말한다.\n쓸개는 맛이 쓰다.\n지시 형용사(가리킴 그림씨): 지시 대명사처럼 문장 안에서 지시성을 지닌 형용사이다.\n그렇게 아름다운 장미도 있었구나.\n보조 형용사(도움그림씨): 홀로 쓰이지 못하고 반드시 본용언에 기대어 말뜻을 더해 주는 형용사를 말한다.\n결과가 예상보다 좋지 않다. (주형용사 ‘좋다’ + 보조 형용사 ‘않다’)\n오늘은 그만 쉬고 싶다. (본동사 ‘쉬다’ + 보조 형용사 ‘싶다’)",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "성상 형용사(속겉그림씨): 사물의 상태나 성질을 나타내는 형용사를 말한다.\n쓸개는 맛이 쓰다.\n지시 형용사(가리킴 그림씨): 지시 대명사처럼 문장 안에서 지시성을 지닌 형용사이다.\n그렇게 아름다운 장미도 있었구나.\n보조 형용사(도움그림씨): 홀로 쓰이지 못하고 반드시 본용언에 기대어 말뜻을 더해 주는 형용사를 말한다.\n결과가 예상보다 좋지 않다. (주형용사 ‘좋다’ + 보조 형용사 ‘않다’)\n오늘은 그만 쉬고 싶다. (본동사 ‘쉬다’ + 보조 형용사 ‘싶다’)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== 규칙 형용사와 불규칙 형용사 ====\n활용할 때 어간과 어미의 형태가 일정하거나 규칙적으로 변하는 형용사를 규칙 형용사(바른그림씨), 불규칙적으로 활용하는 형용사를 불규칙 형용사(벗어난그림씨)라 한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "우물이 매우 깊다 → 깊어, 깊으니, 깊게, 깊고 (규칙 형용사)\n날씨가 매우 춥다 → 추워, 추우니, 춥게, 춥고 (불규칙 형용사)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "== 수식언 ==\n수식언(修飾言, 꾸밈씨)은 문장에서 체언이나 용언 앞에 놓여 그 뜻을 꾸미거나 한정하는 말로, 격조사와 어미를 취하지 못한다. 수식언에는 관형사·부사가 있다. 수식언만이 다른 품사를 수식하는 것은 아니다. 체언과 용언은 격조사나 어미를 통해 다른 품사를 수식하는 일이 많으며 이런 경우는 수식언에 포함하지 않는다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Chapter 8",
+      "summary": "==== 관형사의 특징 ====\n반드시 체언 앞에 놓여 그 체언만을 꾸민다.\n어떠한 조사도 붙을 수 없다.\n활용하지 않으므로 어간·어미로 나뉘지도 않고, 시제도 없다.\n문장 성분은 관형어로만 쓰인다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== 관형사의 특징 ====\n반드시 체언 앞에 놓여 그 체언만을 꾸민다.\n어떠한 조사도 붙을 수 없다.\n활용하지 않으므로 어간·어미로 나뉘지도 않고, 시제도 없다.\n문장 성분은 관형어로만 쓰인다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== 관형사와 다른 품사와의 비교 ====\n관형사와 대명사：'이·그·저' 등의 지시 관형사에 조사가 붙어 쓰이면 대명사, 조사가 붙지 않고 체언을 꾸미면 관형사이다.\n관형사와 수사：수 관형사에 조사가 붙으면 수사, 조사가 붙지 않고 체언을 꾸미면 관형사이다.\n관형사와 형용사：'어떤', '다른'이 서술어로 쓰이면 형용사이고, 체언을 꾸미면 관형사이다.\n관형사와 접두사：접두사는 체언에 붙여 쓰고 관형사는 띄어 쓴다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== 성분 부사 ====\n문장의 한 성분을 꾸며 주는 부사로, 성상 부사·지시 부사·부정 부사 등이 여기에 속한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "성상 부사：'어떻게'라는 방식으로 용언을 꾸미는 부사로, '매우·빨리·잘' 등이 있다.\n지시 부사：시간·처소, 또는 특정한 대상을 가리키는 부사로, '이리·저리·그때·내일·일찍·이미' 등이 있다.\n부정 부사：용언의 뜻을 부정하는 부사로, '아니·잘못·못' 등이 있다.\n의성 부사：사물의 소리를 표현하는 부사로, '철썩철썩·딸랑딸랑·펑펑' 등이 있다.\n의태 부사：사물의 모양을 표현하는 부사로, '울긋불긋·꾸불꾸불' 등이 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Chapter 9",
+      "summary": "양태 부사：말하는 이의 태도를 표현하는 부사로, '제발·설마·과연·만약·결코' 등이 있다.\n접속 부사：문장이나 단어를 이어 주며 뒷말을 꾸미는 부사로, '그러나·그리고·또는·즉·요컨대·및' 등이 있다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "양태 부사：말하는 이의 태도를 표현하는 부사로, '제발·설마·과연·만약·결코' 등이 있다.\n접속 부사：문장이나 단어를 이어 주며 뒷말을 꾸미는 부사로, '그러나·그리고·또는·즉·요컨대·및' 등이 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== 독립언 ==\n독립언은 문장에서 다른 단어와의 호응이나 수식 관계에 얽매이지 않고 독립적으로 쓰이는 품사이며, 품사를 수식하거나 품사로부터 수식받지도 않는다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "말하는 이의 감동·부름·놀람·응답 등을 나타내는 단어를 감탄사(感歎詞)라 한다. 감탄사는 형태가 변하지 않고 문장 성분에서 독립적으로 쓰이므로 독립언이라 한다. 문장 안에서 놓이는 위치가 비교적 자유로워 첫머리든 중간이든 끝이든 아무 곳에서나 쓰인다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== 감정 감탄사 ====\n놀람이나 기쁨·슬픔 등을 나타내는 말로, '아', '아차', '아이고', '에그', '원', '참', '어머나', '얼씨구' 등이 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Chapter 10",
+      "summary": "==== 의지 감탄사 ====\n말하는 사람의 뜻을 나타내는 말로, '에라', '예끼, '옳지', 천만에', 글쎄요' 등이 있다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== 의지 감탄사 ====\n말하는 사람의 뜻을 나타내는 말로, '에라', '예끼, '옳지', 천만에', 글쎄요' 등이 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== 호응 감탄사 ====\n부름이나 대답을 나타내는 말로, '여보세요', '오냐', '그래', '예' 등이 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "== 관계언 ==\n문장에서 자립 형태소에 붙어 다른 말과의 '서술적 관계'를 나타내거나 앞말에 '특별한 뜻'을 더해 주거나 또는 두 단어를 '같은 자격'으로 이어주는 의존 형태소를 관계언(關係言, 걸림씨)이라 한다. 관계언에는 조사가 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "조사(助詞)는 체언이나 부사, 어미 뒤에 붙어 다른 말에 대한 문법적 관계를 나타내거나, 그 말의 뜻을 더해 주는 품사이다. 즉 조사는 일반적으로 체언 뒤에 붙지만 '일찍도 왔다'처럼 부사 뒤에 붙거나 '요'나 '고'처럼 어말 어미 뒤에 붙기도 한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Chapter 11",
+      "summary": "==== 격조사 ====\n격조사(格助詞)는 체언과 다른 말과의 관계, 즉 '격'을 나타내는 조사로, 다음과 같이 여러 가지가 있다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== 격조사 ====\n격조사(格助詞)는 체언과 다른 말과의 관계, 즉 '격'을 나타내는 조사로, 다음과 같이 여러 가지가 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "주격 조사: 앞의 체언을 주어가 되게 하는 조사로, '이·가·께서·에서' 등이 있다.\n서술격 조사: 서술어가 되게 하는 조사로, '이다' 하나뿐인데 어미 활용을 한다.\n관형격 조사: 앞의 체언을 관형어가 되게 하는 조사로, '의' 하나뿐이다.\n목적격 조사: 앞의 체언을 타동사의 목적어가 되게 하는 조사로, '을·를' 등이 있다.\n보격 조사: 앞의 체언을 보어가 되게 하는 조사로, '이·가' 등이 있다.\n부사격 조사: 앞의 체언을 부사어가 되게 하는 조사로, '에·에서·에게' 등이 있다.\n호격 조사: 독립어로서의 호칭이 되게 하는 조사로, '야·여·아·이여·시여' 등이 있다.\n형태론적인 분류로, 주격(이/가), 목적격(을/를), 속격(의), 대격(에/에게), 처격(에서/에게서), 구격 (격)(로/으로), 공격(와/과), 호격(아/야/여/이여) 등으로 분류되기도 한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== 보조사 ====\n여러 성분에 두루 붙어 특별한 뜻을 더해 주는 조사로, 격조사가 올 자리에 쓰이거나 보조사 뒤에 다시 보조사가 쓰이기도 한다. '은·는·도·만·까지·조차·부터·마저' 등이 있다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 4",
+          "body": "=== 개방 품사류와 폐쇄 품사류 ===\n개방 품사류는 외래어 수용, 신조어 제작, 합성어 등을 이용해 지금 알려져 있거나 쓰이지 않은 어휘를 추가해 확장할 수 있는 품사를 말하며, 폐쇄 품사류는 현재 쓰이는 것 외에 더 늘어나기 어려운 품사를 말한다. 폐쇄 품사류에는 대명사, 수사, 조사 등이 있고 감탄사도 포함하기도 하며, 나머지는 개방 품사류라 한다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Chapter 12",
+      "summary": "== 품사와 문장성분의 차이 ==\n품사란 단어에 대한 분류로서, 항상 '-사'로 끝난다. 하지만 문장 성분은 단어와 구절 등의 단위를 포함하여, 항상 '-어'로 끝난다. 문장성분의 예로는 주어와 목적어 등이 있다.\n또한 지시어와 접속어는 품사가 아니지만 중요한 단어이며 어미와 접두어와 접미어는 중요한 형태소이다.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "== 품사와 문장성분의 차이 ==\n품사란 단어에 대한 분류로서, 항상 '-사'로 끝난다. 하지만 문장 성분은 단어와 구절 등의 단위를 포함하여, 항상 '-어'로 끝난다. 문장성분의 예로는 주어와 목적어 등이 있다.\n또한 지시어와 접속어는 품사가 아니지만 중요한 단어이며 어미와 접두어와 접미어는 중요한 형태소이다.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== 참고 문헌 ==\n남기심, 고영근, 유현경, 최형용 (2019), 표준 국어문법론, 한국문화사. (ISBN 9788968177231)\n배주채 (2020), 한국어문법, 신구문화사. (ISBN 9788976682512)\n이익섭 (2005), 한국어 문법, 서울대학교 출판문화원. (ISBN 9788952113771)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B5%AD%EC%96%B4_%EB%AC%B8%EB%B2%95"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson I1",
+      "summary": "== Korean Conversation, Level I, Lesson 1: Greetings ==\nWelcome to the first conversation lesson for learning Korean.  By now you should be familiar with hangeul (the Korean writing system) and how to form syllables.  If you are not yet familiar with hangeul, see Korean/Alphabet.",
+      "sections": [
+        {
+          "heading": "Lesson I1",
+          "body": "== Korean Conversation, Level I, Lesson 1: Greetings ==\nWelcome to the first conversation lesson for learning Korean.  By now you should be familiar with hangeul (the Korean writing system) and how to form syllables.  If you are not yet familiar with hangeul, see Korean/Alphabet.  It is highly recommended that you know these basics before you embark on learning how to make sentences and commencing dialogue.\nIn this first section, we will introduce basic Korean sentence structure, basic vocabulary, and greetings in Korean. Note that the following dialogue uses the formal, very polite -습니다/습니까 verb endings, which are appropriate for introduction into the Korean language, however, is seldom used within everyday conversation in Korea, save for several set phrases, such as thank you, excuse me, etc. \n\n시작할까요?\n(Shall we start?)\n\n\n=== Dialogue ===\nThe simple dialogue below is between Korean native 찬호 and Joseph (조세프) from America.  Joseph is interested in Korean culture and language, and was able to meet 찬호 through a program in his school.  Here, they meet for the first time:\n\n찬호: 안녕하십니까, 조세프 씨?\n조세프: 네. 안녕하십니까, 찬호 씨?\n찬호: 만나서 반갑습니다.\n조세프: 저도요. 저는 집에 갑니다.\n찬호: 네. 안녕히 가십시오.\n조세프: 안녕히 계십시오.\n\n\n=== Overview ===\nThe conversation began with 찬호 asking this:\n\n찬호: 안녕하십니까, 조세프 씨?\nHere, we learn our first bit of Korean. \"안녕하십니까?\" is a common formal greeting in Korean.  It literally means \"Are you at peace?\". \"씨\" is a title which means \"Mr\". Joseph replied like this:\n\n조세프: 예. 안녕하십니까, 찬호 씨?\n\"예\" means \"yes\".  Then Joseph asked 찬호 the same question.  Typically, the response to \"안녕하십니까?\" is \"예\", but it is not necessary to respond that way, as we learn from 찬호's response:\n\n찬호: 만나서 반갑습니다.\n\"만나서 반갑습니다\" means \"Nice to meet you.\"  This can also be shortened to \"반갑습니다\", but since 찬호 and Joseph have first met, it is best to be as polite as possible.  \"만나서\" means \"because we've met\".\n\n조세프: 저도요. 저는 집에 갑니다.\nHere, we learn some important things about making a Korean sentence.  \"저\" means \"I,\" and \"저도요\" means \"Me too\".  Then Joseph says:\n\"저는 집에 갑니다.\"  This means \"I go home.\"  We'll dissect this sentence more in just a moment.  First, let us finish analyzing the conversation:\n\n찬호: 예. 안녕히 가십시오.\n조세프: 안녕히 계십시오.\nLook carefully at how each says \"Good bye\" to each other.  찬호 says \"안녕히 가십시오\" while Joseph says \"안녕히 계십시오\"\nWhy do their replies differ from each other?  Well, Joseph is leaving, while it is assumed that 찬호 is staying.  So, 찬호 tells Joseph to \"Go in peace\" (like spock!) and Joseph tells 찬호 to \"Stay in peace.\"  It may sound funny, but that's how it works in Korea.  Remember these two carefully and try not to mix them up!\n\n\n=== Grammar: \"I go home.\" ===\nThe short sentence 저는 집에 갑니다 (\"I go home.\") reveals a great deal of usable grammar:\n\nLet's discuss 는, 에, and 갑니다.  As mentioned above, 저 means \"I\".  In Korean, \"는\" marks the primary topic of a sentence.  Joseph is talking primarily about himself, so he says \"저는\".  Note that if the primary topic ends in a consonant, \"는\" changes to \"은\" so it's easier to pronounce. So, if Joseph wanted to talk primarily about his house (집) instead of himself, he would say \"집은\".\n\"에\" is in a similar class of elements (called \"particles\"), but it marks the location, such as \"to school (학교에), to the bathroom (화장실에),\" and so forth.  However, if Joseph wanted to say \"to me\", he would say \"저에게\", not \"저에.\"  The difference is that \"에\" means \"to that thing or place\" and \"에게\" (the dative particle) means \"to that person.\"  This is an important distinction to remember, but even if you make a mistake, a Korean will probably still understand.\nFinally, we see the verb, \"갑니다.\"  Now, if you were to look up \"go\" in a Korean dictionary, it would probably say \"가다.\"  This is the verb's unconjugated dictionary or \"base\" form.  \"가\" is the actual root of the verb, or \"Verb Stem\" (VS).  When we put the verb into a Korean sentence, it must be conjugated.  The standard, polite statement conjugation in Korean is {VS + ㅂ/습니다}.  What does this mean?  This means we take the verb stem (가) and add \"ㅂ니다\" if the stem ends in a vowel and \"습니다\" if the verb stem ends in a consonant.  In this case, \"가\" ends in a vowel, so we slip the ㅂ under it (갑) and add \"니다\" = \"갑니다\".  If the verb was \"먹다 (to eat)\"  then we would add \"습니다\" because the verbstem ends in a consonant (먹).  Thus, we have \"먹습니다.\"  A special thing to remember about this is, when conjugated, the verb is actually pronounced \"감니다\" like there's a ㅁ on the bottom.  This is because of a special pronunciation rule called \"nasalization\" which we won't discuss here, but keep it in mind.\nIn order to make a question, the form is {VS + ㅂ/습니까}.  An astute student would see something like that in \"안녕하십니까\", which is actually a question.  So, if 찬호 wanted to ask \"Do you go (are you going)?\" he would ask \"갑니까?\" (Remember pronunciation: \"감니까\").  Armed with this information, we can now make a statement or a question with almost any verb.\n\n\n== Review ==\n\n\n=== Vocabulary: 어휘 ===\n안녕하십니까? - Assalomu alaykum\n(만나서) 반갑습니다 - tanishganimdan xursandman\n안녕히 가십시오 - yaxshi boring\n안녕히 계십시오 - yaxshi qoling\n네 - \"yes\"\n아니요 - yo'q\n저 - men\n집 - uy\n학교 - maktab\n가다 - \"bormoq\"\n먹다 - \"yemoq\"\n\n\n=== Grammar: 문법 ===\nVS + ㅂ니까 - fe'lga qo'shiluvchi rasmiy so'roq qo'shimcha masalan;갑니까\nVS + 습니까 - ㅂ 니까 bilan manosi birxil masalan;먹습니까\nVS + ㅂ니다 - ㅂ니까ning darak shakli\nVS + 습니다 - 습니까ning darak shakli\nN + 은/는 - Topic particle hisoblanadi qo'llanilishi so'z oxiridagi harfga qarab\nN + 에 -Joy qo'shimchasi husoblanasu\nN + 에게 - ga qo'shimchasi hisoblanib kishiga nisbatan qo'llaniladi\n\n\n== Practice: 연습 ==\nConjugate the following verbs into statement form (VS + ㅂ/습니다) and question form (VS + ㅂ/습니까?).  Click \"▶\" to check your answers:\n\nDetermine whether the topic marker should be \"은\" or \"는\":\n\nDetermine whether the particle should be \"에\" or \"에게\":",
+          "examples": [
+            "Here, we learn our first bit of Korean. \"안녕하십니까?\" is a common formal greeting in Korean.  It literally means \"Are you at peace?\". \"씨\" is a title which means \"Mr\". Joseph replied like this:",
+            "\"예\" means \"yes\".  Then Joseph asked 찬호 the same question.  Typically, the response to \"안녕하십니까?\" is \"예\", but it is not necessary to respond that way, as we learn from 찬호's response:",
+            "\"만나서 반갑습니다\" means \"Nice to meet you.\"  This can also be shortened to \"반갑습니다\", but since 찬호 and Joseph have first met, it is best to be as polite as possible.  \"만나서\" means \"because we've met\".",
+            "Here, we learn some important things about making a Korean sentence.  \"저\" means \"I,\" and \"저도요\" means \"Me too\".  Then Joseph says:",
+            "\"저는 집에 갑니다.\"  This means \"I go home.\"  We'll dissect this sentence more in just a moment.  First, let us finish analyzing the conversation:",
+            "Look carefully at how each says \"Good bye\" to each other.  찬호 says \"안녕히 가십시오\" while Joseph says \"안녕히 계십시오\""
+          ],
+          "learnerTip": "== Korean Conversation, Level I, Lesson 1: Greetings ==\nWelcome to the first conversation lesson for learning Korean.  By now you should be familiar with hangeul (the Korean writing system) and how to",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I1"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson I10",
+      "summary": "Other languages...\nLearn Korean (Introduction)\n— Reading and writing •",
+      "sections": [
+        {
+          "heading": "Lesson I10",
+          "body": "Other languages...\nLearn Korean (Introduction)\n— Reading and writing •\n\nConversation \n\n1급: Beginner —\n1. Greetings •\n2. Forming sentences •\n3. Connective forms and negation •\n4. Colors •\n5. Recreation / In a taxi •\n6. Family •\n7. Around the house •\n8. Using the telephone •\n9. School •\n10. Shopping •\n11. Onomatopoeia\n\n2단계: High beginner •\n3단계: Low intermediate •\n4단계: High intermediate •\n5단계: Low advanced •\n6단계: Advanced\n\nGrammar\n\n<<Lesson 9 | Lesson 10 | Lesson 11>>",
+          "examples": [],
+          "learnerTip": "Other languages...\nLearn Korean (Introduction)\n— Reading and writing •",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I10"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson I11",
+      "summary": "Onomatopoeia 의성어 (擬聲語) ui seong eo are words used to imitate sounds.",
+      "sections": [
+        {
+          "heading": "Lesson I11",
+          "body": "Onomatopoeia 의성어 (擬聲語) ui seong eo are words used to imitate sounds.\n\n빵 (ppang) - Bang!\n아야 (a-ya) - Ouch!\n앗 (at) - Oops!\n음 (eum) - Um...\n냠냠 (nyam-nyam) -  sound made when chewing food\n쾅 (kwang) -  Crashing sound\n멍멍 (meong-meong) -  Dog barking\n칙칙폭폭 (chik-chik-pok-pok) - train sound\n꿀꿀 (kkul-kkul) - Pig noise\n펄럭펄럭 (peol-leok-peol-leok)- flapping of cloth\n삐약삐약 (ppi-yak-ppi-yak) - chicks chirping\n야옹 (ya-ong) - meow of cat\n\n<<Lesson 10 | Lesson 11",
+          "examples": [],
+          "learnerTip": "Onomatopoeia 의성어 (擬聲語) ui seong eo are words used to imitate sounds.",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I11"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson I12",
+      "summary": "Onomatopoeia 의성어 (擬聲語) ui seong eo are words used to imitate sounds.",
+      "sections": [
+        {
+          "heading": "Lesson I12",
+          "body": "Onomatopoeia 의성어 (擬聲語) ui seong eo are words used to imitate sounds.\n\n빵 (ppang) - Bang!\n아야 (a-ya) - Ouch!\n앗 (at) - Oops!\n음 (eum) - Um...\n냠냠 (nyam-nyam) -  sound made when chewing food\n쾅 (kwang) -  Crashing sound\n멍멍 (meong-meong) -  Dog barking\n칙칙폭폭 (chik-chik-pok-pok) - train sound\n꿀꿀 (kkul-kkul) - Pig noise\n펄럭펄럭 (peol-leok-peol-leok)- flapping of cloth\n삐약삐약 (ppi-yak-ppi-yak) - chicks chirping\n야옹 (ya-ong) - meow of cat\n<<Lesson 9 | Lesson 10",
+          "examples": [],
+          "learnerTip": "Onomatopoeia 의성어 (擬聲語) ui seong eo are words used to imitate sounds.",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I12"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson I2",
+      "summary": "== Introduction ==\nAn important part of being able to understand and speak Korean is that one must have a firm understanding of the grammar used to make coherent sentences.  During these first few lessons we shall focus on building a usable grammar base.  In this lesson, we will",
+      "sections": [
+        {
+          "heading": "Lesson I2",
+          "body": "== Introduction ==\nAn important part of being able to understand and speak Korean is that one must have a firm understanding of the grammar used to make coherent sentences.  During these first few lessons we shall focus on building a usable grammar base.  In this lesson, we will learn some more useful particles, Present progressive, future tense, and the requesting form.  We will also learn some new grammar, but it will not be the main focus of this lesson.\n\n\n== Conversation ==\nHere we find Joseph meeting 찬호 again.\n\n\n=== Dialogue ===\n찬호: 앗! 오래간만 입니다, 조세프!\n조세프: 네, 안녕하십니까, 찬호?\n찬호: 네. 저는 지금 학교로 가고 있습니다.\n조세프: 선생님을 만나겠습니까?\n찬호: 아니요, 공부하겠습니다. 조세프는 오늘 숙제를 하겠습니까?\n조세프: 네, 저는 집에서 하겠습니다.\n찬호: 그래요.  안녕히 가십시오.\n조세프: 안녕히 계십시오.\n\n\n== Conversation review ==\n찬호 begins with another greeting:\n\n찬호: 앗! 오래간만 입니다, 조세프!\n\"오래간만 입니다\" can be translated as: \"Long time, no see\" in English.  At first, it's a hard expression to pronounce, but a little bit of practice should untie your tongue.\n\n조세프: 네, 안녕하십니까, 찬호?\n찬호: 네. 저는 지금 학교로 가고 있습니다.\n\nNew vocabulary, new particle, new verb tense. 지금 means “now”.  In a later lesson, we will learn many words such as \"later, tomorrow, yesterday, just a second ago, etc\".  In the next part, 찬호 uses a new particle with a similar meaning to what we learned before: \"N + (으)로\".  This particle means \"to\", \"toward\", or \"in the direction of\".  It can be interchanged with \"에\" relatively safely, but \"로\" with its additional usages, is a little more versatile. If the noun ends in a consonant then it becomes \"으로\" (집으로).  Simple.\nFinally, we have a new verb tense: the present progressive tense.  It can also be made into a statement or question by adding the \"VS + 고 있습니다\" or \"VS + 고 있습니까\" forms.  The strange thing about this verb tense is that the standard \"VS + ㅂ/습니다\" can mean the same thing! Remember in lesson 1, Joseph said \"집에 갑니다\".  This could have also been said \"집에 가고있습니다\" or even \"집으로 가고 있습니다.\"  It is your choice.  Some combinations sound more natural to others, but a beginning student doesn't have to be concerned with that.  You will eventually get the feel of what sounds right.\n\n조새프: 선생님을 만나겠습니까?\nThis might sound funny, but one of the most important things to learn in Korean is not found in this sentence.  Where is the subject?  Is it 선생님 (“teacher”)? No, there is no subject.  In Korean, if the subject of the next sentence is understood, it can be omitted.  This is often found in colloquial English: \n\nEnglish speaker A: \"I'm a little busy.\"\nEnglish speaker B: \"Oh, studying today?\"\nHowever, in Korean, you can omit the subject more freely than English, and sometimes other elements can also be omitted, resulting in very short sentences.  Well, if 선생님 (\"teacher\") isn't the subject, what is it?  It's the direct object!\n\nThe particle 을 is used to designate the direct object of the sentence, i.e. the thing or person upon which the action is happening.  In most textbooks, this is usually denoted as \"을/를\" because \"을\" comes after words ending in a consonant, and \"를\" comes after words in a vowel.  This particle is omitable, but for the beginner, it's best left in so nothing gets confused.\nNow, based on what we have learned so far, one might guess that the verb stem of the verb in this sentence is \"만나겠다\", which is a perfectly logical guess, but wrong.  The actual verb stem is \"만나다\" which means \"to meet\" (as you might have gleaned from the previous paragraph).  The \"겠습니다\" or, more correctly \"겠다\" is the future tense form.  For this form, it is unimportant whether the verb stem ends in a consonant or vowel.  Simply add \"겠\" and then finish off with \"습니다\" to speak politely.  Easy as 파이, no?\n\n찬호: 아니요, 공부하겠습니다. 조새프는 오늘 숙제를 하겠습니까?\n\nThis sentence may sound a little strange, but it is nonetheless correct.  공부하다 means \"to study\", 오늘 means \"today\" and 숙제 means \"homework.\"  하다 will be explained in more detail later, but for now, it means \"to do\" when by itself.  Notice the 를 on 숙제? What is he doing? his homework!\n\n조새프: 네, 저는 집에서 하겠습니다.\n\nFinally, we have another particle, 에서, which is translated \"from\" or \"at\".  In this case, it functions as \"at\".  Notice \"Yes, I will do it at home.\"\n\n찬호: 그래요.  안녕히 가십시오.\n조새프: 안녕히 계십시오.\n그래오 is a polite way of saying \"okay.\" It also means \"Yes that's right.\"\n\n\n== Korean sentence order ==\nKorean sentences have a different word order from English.  Whereas an English sentence typically has a Subject-Verb-Object word order, a Korean sentence typically has a Subject-Object-Verb word order.  For sentences with only a subject and a verb, Korean and English word order is essentially identical:\n\nIf a sentence includes an object, the English and Korean order differs:\nEnglish:  I am reading a book.\nEnglish:  I(subject) am reading(verb) a book(object)\nKorean:  저는 책을 읽고 있습니다.\nKorean:  저는(subject) 책을(object) 읽고 있습니다(verb).\n\n\n=== Predicates ===\nA more complete understanding of Korean sentence order requires an understanding of Korean predicates (서술부어).  As in English, complete Korean sentences must have a predicate that contains a conjugated Korean word (용언).  Also as in English, Korean verbs (동사) are conjugated and so can be sentence predicates.  However, with regard to forming sentences, Korean differs from English in two important ways: \n\nKorean sentences do not require subjects (주어), just predicates.  (That is, a Korean sentence with only a predicate is grammatically complete.)\nKorean adjectives (형용사) can be conjugated and used as sentence predicates.\nKorean sentences that include subjects, indirect objects, direct objects, and complements often arrange them in this order:\n\nAbove is the usual word order in Korean, which is the order most easily understood by native speakers of Korean.  However, excluding the predicate (the verb), the placement of other words is not entirely relevant to the meaning of the sentence.  The following arrangements have the same meaning as the above example:\n\n\n== Review ==\n\n\n=== Vocabulary: 어휘 ===\n오래간만 입니다 - Long time, no see!\n선생님 - Teacher\n숙제 - Homework\n만나다 - To meet\n공부하다 - To study\n하다 - To do\n지금 - Now\n오늘 - Today\n\n\n=== Grammar: 문법 ===\nVS + 겠습니다 - Future Tense\nVS + 고 있다 - Present Progressive\nN + (으)로 - Toward\nN + 을/를 - Direct Object Marker\nN + 에서 - From, At, Location of Action\n\n\n=== Practice: 연습 ===\nConjugate the following verbs with the future and present progressive tenses in polite form:\n\nAdd 에서, (으)로, and 을/를 particles to each noun:\n\n<<Lesson 1 | Lesson 2 | Lesson 3>>",
+          "examples": [
+            "\"오래간만 입니다\" can be translated as: \"Long time, no see\" in English.  At first, it's a hard expression to pronounce, but a little bit of practice should untie your tongue.",
+            "New vocabulary, new particle, new verb tense. 지금 means “now”.  In a later lesson, we will learn many words such as \"later, tomorrow, yesterday, just a second ago, etc\".  In the next part, 찬호 uses a new particle with a similar meaning to wha",
+            "Finally, we have a new verb tense: the present progressive tense.  It can also be made into a statement or question by adding the \"VS + 고 있습니다\" or \"VS + 고 있습니까\" forms.  The strange thing about this verb tense is that the standard \"VS + ㅂ/습니",
+            "English speaker A: \"I'm a little busy.\"",
+            "English speaker B: \"Oh, studying today?\"",
+            "However, in Korean, you can omit the subject more freely than English, and sometimes other elements can also be omitted, resulting in very short sentences.  Well, if 선생님 (\"teacher\") isn't the subject, what is it?  It's the direct object!"
+          ],
+          "learnerTip": "== Introduction ==\nAn important part of being able to understand and speak Korean is that one must have a firm understanding of the grammar used to make coherent sentences.  During these first few les",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I2"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson I3",
+      "summary": "== \"And\" and \"And?\" \"Or\" or \"Or\"? ==\nOne thing that varies in Korean is that there is a difference between an “and” for a verb and an “and” for a noun.  In this lesson, we will learn these ands, ors, and buts.  It just so happens that today 찬호 is introducing his friends to Joseph",
+      "sections": [
+        {
+          "heading": "Lesson I3",
+          "body": "== \"And\" and \"And?\" \"Or\" or \"Or\"? ==\nOne thing that varies in Korean is that there is a difference between an “and” for a verb and an “and” for a noun.  In this lesson, we will learn these ands, ors, and buts.  It just so happens that today 찬호 is introducing his friends to Joseph, so this is a perfect opportunity to use these forms! (Don't feel overwhelmed, there's only 3 ways to say each!)\n\n찬호: 오늘 저는 조세프에게 친구들을 소개하겠습니다.\n조세프: 오케이! 기대합니다!\n찬호: 제 친구들은 \"연희\"와 \"가영\"입니다.\n조세프: 만나서 반갑습니다!\n연희와 가영: 반갑습니다.\n연희: 조세프는 미국에서 왔고 한국말을 공부하고 있습니까?\n조세프: 네, 그래요.\n가영: 와! 고생 많네요! 한식을 좋아합니까?\n조세프: 양식이나 한식 둘 다 좋아합니다. 하지만, 한국에서 양식을 먹지 않습니다.\n가영: 그렇군요... 학교에 걸어갑니까? 아니면 버스를 탑니까?\n조세프: 집에서 버스를 타지 못합니다. 걸어가거나 뛰어갑니다. 하하하!\nThe above example has several new forms in it because of the differentiation between noun \"and/or\" & verb \"and/or\".  We'll look at the examples and pick out new vocabulary, and then discuss new grammar separately.\n\n찬호: 오늘 저는 조세프에게 친구들을 소개하겠습니다.\n조세프: 오케이! 기대합니다!\n소개하다 means \"to introduce.\"  It's used really often when talking about friends and people you know, but it can also be used to refer to something like \"introducing information.\" Following that, 기대하다 means \"to await expectedly or excitedly.\"  This can also be said 기대되다, which sometimes sounds more natural.\n\n찬호: 저 친구들은 \"연희\"와 \"가영\"입니다.\nHere we meet the noun connective particle 와 (“and”) and its alternative 과, used after consonants.  More information can be learned about this in the following section, but its use is fairly straight forward.\n\n찬호: 만나서 반갑습니다!\n연희와 가영: 반갑습니다.\nNothing new here. \n\n연희: 조세프는 미국에서 왔고 한국말을 공부하고 있습니까?\n조세프: 네, 그래요.\n오다 means “to come” (the form you see, \"왔-\" in this sentence is past tense.) but the connective verb suffix -고 (“and”) is connected to it (왔고).  에서 in this case means “from”. (So keep track! You now know it means “from” or “at”.)  Finally, Joseph responds with 그래요 (“that’s right”).\n\n가영: 와! 고생 많네요! 한식을 좋아합니까?\n조세프: 양식이나 한식 둘 다 좋아합니다. 하지만, 한국에서는 양식을 먹지 않습니다.\n가영 uses a phrase that is often heard in Korea: \"고생 많다.\"  This means \"you have lots of struggles,\" but is used sort of like \"must be difficult,\" a sort of compliment for the listener who might be going through hard times.  The ending on this is \"VS+군요\" Which is a sort of exclamatory form.  This will also be discussed in the next section.  \"한식\" means \"Korean food,\" a sort of contraction of \"한국 음식,\" and \"양식\" is \"Western food.\"  Can you guess the contraction for this one?\nJoseph links the two with \"N+(이)나\" which is \"or\" for nouns. The verb form is \"VS+거나\" (discussed later, of course).  \"둘 다\" means \"both\"  Afterwards, Joseph uses the stand-alone word \"하지만,\" meaning \"however\" or \"but.\"  The verb form of this is \"VS+지만.\"  It's simplicity doesn't merit any further discussion.\n\n가영: 그렇군요... 학교에 걸어갑니까? 아니면 버스를 탑니까?\n조세프: 집에서 버스를 타지 못합니다. 걸어가거나 뛰어갑니다. 하하하!\n<<Lesson 2 | Lesson 3 | Lesson 4>>",
+          "examples": [
+            "== \"And\" and \"And?\" \"Or\" or \"Or\"? ==",
+            "찬호: 제 친구들은 \"연희\"와 \"가영\"입니다.",
+            "The above example has several new forms in it because of the differentiation between noun \"and/or\" & verb \"and/or\".  We'll look at the examples and pick out new vocabulary, and then discuss new grammar separately.",
+            "소개하다 means \"to introduce.\"  It's used really often when talking about friends and people you know, but it can also be used to refer to something like \"introducing information.\" Following that, 기대하다 means \"to await expectedly or excitedly.\" ",
+            "찬호: 저 친구들은 \"연희\"와 \"가영\"입니다.",
+            "오다 means “to come” (the form you see, \"왔-\" in this sentence is past tense.) but the connective verb suffix -고 (“and”) is connected to it (왔고).  에서 in this case means “from”. (So keep track! You now know it means “from” or “at”.)  Finally, J"
+          ],
+          "learnerTip": "== \"And\" and \"And?\" \"Or\" or \"Or\"? ==\nOne thing that varies in Korean is that there is a difference between an “and” for a verb and an “and” for a noun.  In this lesson, we will learn these ands, ors,",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I3"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Lesson I4",
+      "summary": "== Colors ==\nAs well as having two sets of numbers, Korean also uses two sets of colors, one being the native Korean set, the other being derived from Chinese characters hanja 한자 (漢字).",
+      "sections": [
+        {
+          "heading": "Lesson I4",
+          "body": "== Colors ==\nAs well as having two sets of numbers, Korean also uses two sets of colors, one being the native Korean set, the other being derived from Chinese characters hanja 한자 (漢字).\n\n\n=== Native Korean set ===\nVarious like dozens of Korean words represent similar colors but express the different impression of colors. The following Korean words about color are the most neutral and normal words.\nKorean colors may be followed by native word, 빛 or 빛깔, or followed by 색 (色) which is derived from Chinese characters. Each word means color.\n\n\n==== Examples ====\n빨간 입술 red lips\n파란 하늘 blue sky\n푸른 초원 green grassland\n노란 병아리 yellow chick\n흰 눈 white snow\n검은 눈동자 black pupil\n\n\n=== Chinese character set ===\n\n백인 (白人) white person\n흑인 (黑人) black person\n흑백필름 (黑白 film) black & white film\n적색신호 (赤色信號) red light signal\n청바지(靑바지) blue jeans\n<<Lesson 3 | Lesson 4 | Lesson 5>>",
+          "examples": [],
+          "learnerTip": "== Colors ==\nAs well as having two sets of numbers, Korean also uses two sets of colors, one being the native Korean set, the other being derived from Chinese characters hanja 한자 (漢字).",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I4"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson I5",
+      "summary": "=== Vocabulary ===\nTaxi 택시\nHour 시간\nMinute 분\nWon (Korean currency) 원\nAround, About ~ 정도",
+      "sections": [
+        {
+          "heading": "Lesson I5",
+          "body": "=== Vocabulary ===\nTaxi 택시\nHour 시간\nMinute 분\nWon (Korean currency) 원\nAround, About ~ 정도\n\n\n=== Conversation ===\nJoie: 강남역까지 가고 싶습니다.  / I want to go to Kang-nam station\nTaxi driver: 네 강남역까지 가겠습니다.  / Yes I will drive to Kang-nam station\nJoie: (시간이) 얼마나 걸립니까? / How long does it take?\nTaxi driver: 20분 정도 걸립니다. / It takes around 20 minutes\nJoie: 얼마입니까? / How much is it?\nTaxi driver: 5000원 입니다. / It is 5000 wons\nJoie: 감사합니다. / Thank you\n\nHow far is it there? (거리가) 얼마나 멉니까?\nHow long does it take? (거리가) 얼마나 걸립니까?\nTurn left   왼쪽으로 돌으십시오.\nTurn right  오른쪽으로 돌으십시오.\nGo straight 직진 하십시오.\n\n<<Lesson 4 | Lesson 5 | Lesson 6>>",
+          "examples": [],
+          "learnerTip": "=== Vocabulary ===\nTaxi 택시\nHour 시간\nMinute 분\nWon (Korean currency) 원\nAround, About ~ 정도",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I5"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lesson I6",
+      "summary": "=== Vocabulary ===\n할아버지 Grandfather\n할아버님 Grandfather (formal)\n할머니  Grandmother\n할머님  Grandmother  (formal)\n외할아버지  Grandfather (on Mother's side)\n외할아버님  Grandfather (on Mother's side) (formal)\n외할머니  Grandmother (on Mother's side)\n외할머님  Grandmother (on Mother's side) (formal)\n아버지  F",
+      "sections": [
+        {
+          "heading": "Lesson I6",
+          "body": "=== Vocabulary ===\n할아버지 Grandfather\n할아버님 Grandfather (formal)\n할머니  Grandmother\n할머님  Grandmother  (formal)\n외할아버지  Grandfather (on Mother's side)\n외할아버님  Grandfather (on Mother's side) (formal)\n외할머니  Grandmother (on Mother's side)\n외할머님  Grandmother (on Mother's side) (formal)\n아버지  Father  (formal)\n아버님  Father (very formal)\n아빠  Father (informal)\n어머니  Mother (formal)\n어머님  Mother (very formal)\n엄마  Mother (informal)\n형  Elder brother (of a male)\n누나  Elder sister (of a male)\n오빠  Elder brother (of a female)\n언니  Elder sister (of a female)\n남동생  Younger brother\n여동생  Younger sister\n동생   Younger sibling\n성함 Name (formal)\n존함 Name (old fashioned, very formal)\n이름 Name  (Informal)\nNote: -님 words such as 아버님, 어머님 are very formal.\n\nAddressing Parents-in-Law: \nAs in English-speaking relationships, how one addresses one's Father-in-law and Mother-in-law varies greatly on how friendly the relationship is, as well as the customs and dialect of the geographic region, etc. Before marriage, it is common for one to call his/her girlfriend/boyfriend's parents 아버지 or 아버지님 and 어머니 or 어머님. \nAfter marriage, the wife may address her new parents-in-law in the same way, however, a husband would call his mother-in-law 장모님, and his father-in-law 장인어른. Note that after marriage, how one speaks to one's parents-in-law becomes more formal, adding the honorific -님 suffix.\n\n\n== Conversation ==\nKim: 안녕하세요.\nJohn: 안녕하세요.  \nKim: 성함이 어떻게 되세요?\nJohn: John이에요.  저는 선생님이에요.  그쪽은 성함이 어떻게 되시나요?\nKim: 김이에요.\nJohn: 만나서 반갑습니다.\nKim: 미국 사람이세요?\nJohn: 네, 미국에서 왔어요.\nKim: 가족은 몇 분이세요? \nJohn: 다섯 명 있어요.  형과 여동생이 있어요.  형은 의사예요.  여동생은 대학생이에요.  김씨는 형제가 있으신가요?\nKim: 없어요.  저희 다시 봐요.\nJohn:  안녕히 가세요.\n\n\n== Translation ==\nKim:  Hello.\nJohn:  Hello.\nKim: What's your name.\nJohn: I'm John.  I'm a teacher.  What's your name?\nKim: I'm Kim.\nJohn:  Nice to meet you.\nKim: Are you American?\nJohn:  Yes, I came from America.\nKim: How many people are in your family?\nJohn: There are 5 people.  I have an older brother and a younger sister.  My brother is a doctor.  My sister is a University student.  Do you have siblings?\nKim: I don't.  Let's meet again.\nJohn:  Good Bye.\n<<Lesson 5 | Lesson 6 | Lesson 7>>",
+          "examples": [],
+          "learnerTip": "=== Vocabulary ===\n할아버지 Grandfather\n할아버님 Grandfather (formal)\n할머니  Grandmother\n할머님  Grandmother  (formal)\n외할아버지  Grandfather (on Mother's side)\n외할아버님  Grandfather (on Mother's side) (formal)\n외할머니  Gra",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I6"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Lesson I7",
+      "summary": "=== Vocabulary ===\nhouse        집\nhome         가정\napartment    아파트\nbathroom     화장실 or 욕실\nkitchen      부엌 or 주방\nbedroom      침실 or 방\nliving room  거실\ngarden       정원\ngarage       차고\ntable        탁자\ndining table 식탁\nchair        의자\ntoilet       변기\nsink         싱크대\nwindow       창문\ndo",
+      "sections": [
+        {
+          "heading": "Lesson I7",
+          "body": "=== Vocabulary ===\nhouse        집\nhome         가정\napartment    아파트\nbathroom     화장실 or 욕실\nkitchen      부엌 or 주방\nbedroom      침실 or 방\nliving room  거실\ngarden       정원\ngarage       차고\ntable        탁자\ndining table 식탁\nchair        의자\ntoilet       변기\nsink         싱크대\nwindow       창문\ndoor         문",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I7"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lesson I8",
+      "summary": "== Using the Telephone ==\n여보세요? Yeoboseyo? Hello? (used only in the context of a telephone call)\n안녕하십니까? Anyeong hashimnikka? Hello? (literally \"Are you at peace?\"), used in more formal (i.e. working relationships) situations.\n존 계십니까? John gyesimnikka? Is John there?\n누구십니까? Nugus",
+      "sections": [
+        {
+          "heading": "Lesson I8",
+          "body": "== Using the Telephone ==\n여보세요? Yeoboseyo? Hello? (used only in the context of a telephone call)\n안녕하십니까? Anyeong hashimnikka? Hello? (literally \"Are you at peace?\"), used in more formal (i.e. working relationships) situations.\n존 계십니까? John gyesimnikka? Is John there?\n누구십니까? Nugusipnikka? Who's calling?",
+          "examples": [
+            "안녕하십니까? Anyeong hashimnikka? Hello? (literally \"Are you at peace?\"), used in more formal (i.e. working relationships) situations."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I8"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Lesson I9",
+      "summary": "Kindergarten      유치원 (yu chi won)\nElementary school 초등학교 (cho deng hak gyo)\nMiddle school 중 학 교 (jung hak gyo)\nHigh school   고등학교  (go deng hak gyo)\nUniversity    대 학교 (dae hak gyo)\nGraduate School 대 학원 (dae hak won)\nAfter-school institute, providing instruction on a particular",
+      "sections": [
+        {
+          "heading": "Lesson I9",
+          "body": "Kindergarten      유치원 (yu chi won)\nElementary school 초등학교 (cho deng hak gyo)\nMiddle school 중 학 교 (jung hak gyo)\nHigh school   고등학교  (go deng hak gyo)\nUniversity    대 학교 (dae hak gyo)\nGraduate School 대 학원 (dae hak won)\nAfter-school institute, providing instruction on a particular subject    학원 (hak won)\nMajor         전 공    (jeon gong)\nMinor         부 전 공 (bu jeon gong)\nStudy         공 부    (gong bu)\nDorm          기 숙 사 (gi suk sa)\nSchool        학 교    (hak gyo)\nCollege       대 학    (dae hak)\nPhilosophy    철 학    (cheol hak)\n\n<<Lesson 8 | Lesson 9 | Lesson 10>>",
+          "examples": [],
+          "learnerTip": "Kindergarten      유치원 (yu chi won)\nElementary school 초등학교 (cho deng hak gyo)\nMiddle school 중 학 교 (jung hak gyo)\nHigh school   고등학교  (go deng hak gyo)\nUniversity    대 학교 (dae hak gyo)\nGraduate School 대",
+          "source": "https://en.wikibooks.org/wiki/Korean/Lesson_I9"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

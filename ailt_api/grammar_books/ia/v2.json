@@ -1,0 +1,338 @@
+{
+  "title": "Grammar Book — Interlingua",
+  "languageCode": "ia",
+  "languageName": "Interlingua",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Interlingua_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Not to be confused with Interlingue grammar.\nThis article cites its sources but does not provide page references. Please help improve it by providing page numbers for existing citations.  (September 2010) (Learn how and when to remove this message)\nThis article is an informal out",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Not to be confused with Interlingue grammar.\nThis article cites its sources but does not provide page references. Please help improve it by providing page numbers for existing citations.  (September 2010) (Learn how and when to remove this message)\nThis article is an informal outline of the grammar of Interlingua, an international auxiliary language first publicized by IALA. It follows the usage of the original grammar text (Gode & Blair, 1951), which is accepted today but regarded as conservative.\n\nThe grammar of Interlingua is based largely on that of the Romance languages, but simplified, primarily under the influence of English. However, all of the control languages, including German and Russian, were consulted in developing the grammar. Grammatical features absent from any of the primary control languages (English, French, Italian, Spanish and Portuguese) were dropped. For example, there is neither adjectival agreement  (Spanish/Portuguese gatos negros 'black cats'), since this feature is absent in English, nor continuous verb tenses (English I am reading), since they are absent in French.  Conversely, Interlingua has articles, unlike Russian, as Russian is a secondary control language.\n\nThere is no systemic marking for parts of speech. For example, nouns do not have to end in any particular letter. Typically, however, adjectives end in -e or a consonant, adverbs end in -mente or -o, while nouns end in -a, -e, -o or a consonant. Finite verbs virtually always end in -a, -e, or -i, while infinitives add -r: scribe, 'write', 'writes'; scriber, 'to write'.\n\nInterlingua logo Interlingua\nLanguage\nGrammar\n\nIrregularities\n\nUMI\n\nHistory\nIALA\n\nAlexander Gode\n\nAndré Martinet\n\nVanderbilt Morris\n\nComparison\nwith Ido\n\nRelated topics\nAuxiliary language\n\nConstructed language\n\nEsperanto\n\nIdo\n\nInterlingue\n\nNovial\n\nVolapük\n\nv\nt\ne",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Articles",
+      "summary": "The definite article is le, the indefinite article is un, and neither article shows any agreement in form with nouns. The prepositions a (\"to\") and de (\"of\") fuse with a following le into al and del respectively.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The definite article is le, the indefinite article is un, and neither article shows any agreement in form with nouns. The prepositions a (\"to\") and de (\"of\") fuse with a following le into al and del respectively.\n\nThe definite article is, on the whole, used as in English, with the exception that it should not be omitted with titles preceding proper names nor with abstract nouns representing an entire class, species, etc.",
+          "examples": [
+            "The definite article is le, the indefinite article is un, and neither article shows any agreement in form with nouns. The prepositions a (\"to\") and de (\"of\") fuse with a following le into al and del respectively."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nouns",
+      "summary": "Nouns inflect for number only. Plural nouns take -s after a vowel, -es after a consonant other than c and -hes after -c. -hes serves to preserve the hard [k] sound of c. Examples:",
+      "sections": [
+        {
+          "heading": "Plural",
+          "body": "Nouns inflect for number only. Plural nouns take -s after a vowel, -es after a consonant other than c and -hes after -c. -hes serves to preserve the hard [k] sound of c. Examples:\n\ncatto   'cat'  →  cattos  'cats'\ncan  'dog'  →  canes  'dogs'\nroc   'rook' [chess]   →  roches  'rooks'\nBorrowings from other languages create plural in irregular way: \n\nfilm -> films,\nclub -> clubs,\nchef -> chefs.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "Interlingua has no grammatical gender. Animate nouns are sex-neutral, unless they refer specifically to a male or a female. Thus, jornalista 'journalist' and scientista 'scientist' are sex-neutral, while rege 'king' and regina 'queen' are sex-specific. Explicit feminine forms can be created by substituting final -a for a final -o or -e or by adding the suffix -essa.\n\npuero   'boy'   →  puera  'girl',\ntigre   'tiger'   →  tigressa  'female tiger',\nduce 'duke' -> duchessa 'duchess'.\nThese colour the regular forms as masculine when they appear in the same context.\n\nFeminine nouns can be also directly derived from verbs by suffixes -atrice and -itrice:\n\nimperar -> imperatrice,\nconsumer -> consumitrice.\nSometimes this happens in iregular way: \n\nager (= to act) -> actrice (= actress).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Apposition",
+          "body": "Unlike in English, nouns cannot take adjectival forms, such as 'winter weather', 'research laboratory', 'fall coat', etc. Such constructions instead require the use of a preposition or a corresponding adjective, respectively tempore hibernal, laboratoria de recerca, and mantello pro autumno. This is however excepted by proper nouns which can be used adjectivally as in English: contator Geiger 'Geiger counter', motor Diesel 'Diesel engine', radios Röntgen 'Roentgen rays', etc.\n\nDespite the above restrictions, Interlingua permits use of apposition, where the two nouns refer to the same thing.\n\narbore nano 'dwarf tree'\nnave domo 'house boat'\nMale and female forms should match.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "Adjectives may precede or follow the noun they modify. As a matter of style, short adjectives tend to precede, long adjectives tend to follow. Numerals always precede the noun.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectives may precede or follow the noun they modify. As a matter of style, short adjectives tend to precede, long adjectives tend to follow. Numerals always precede the noun.\n\nbelle oculos or oculos belle   'beautiful eyes'\nun bon idea, un idea ingeniose   'a good idea, an ingenious idea'\nAn adjective never has to agree with the noun it modifies, but adjectives may be pluralized when there is no explicit noun to modify.\n\nle parve infantes   'the little children';    but    le parves   'the little ones'\nComparative degree is expressed by plus or minus preceding the adjective and superlative degree by le plus or le minus.\n\nun plus feroce leon   'a fiercer lion'\nun traino minus rapide   'a less speedy train'\nle plus alte arbore   'the tallest tree'\nle solution le minus costose   'the least costly solution'.\nThe suffix -issime may be used to express the absolute superlative degree.\n\nun aventura excellentissime   'a most excellent adventure'\nThe adjectives bon 'good', mal 'bad', magne 'great', and parve 'small' have optional irregular forms for the comparative and superlative.\n\nbon → plus bon → le plus bon\n \nor\n \nbon → melior → optime\n\nmal → plus mal → le plus mal\n \nor\n \nmal → pejor → pessime\n\nmagne → plus magne → le plus magne\n \nor\n \nmagne → major → maxime\n\nparve → plus parve → le plus parve\n \nor\n \nparve → minor → minime\n\nTheoretically, every adjective may serve as a pronoun referring to something expressed in a previous passage.[example needed]\n\nThe Interlingua-English Dictionary (IED) lacks a lot of adjectives associated with nouns such as communista, populista, optimista etc. Then nouns ending with -a and -o are used as adjectives for instance \n\nPartito communista = communist party,\n\nPolitico populista = populist politician,\n\nPersona optimista = optimist person,\n\nFlor bronzo = bronze flower.\n\nAdmittedly the Interlingua Grammar (IG) forbids to use nouns as adjectives, but both IED and IG seem to allow such case, because contain phrases such as papiro moneta[1] (= paper money) and arbore nano[2] (= dwarf tree).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adverbs",
+      "summary": "There are two types of adverbs, primary and secondary. Primary adverbs are a closed class of grammatical operators, such as quasi, 'almost'; jam, 'already'; and totevia, 'anyway'. Secondary adverbs are an open class derived from corresponding adjectives by adding the suffix -ment",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "There are two types of adverbs, primary and secondary. Primary adverbs are a closed class of grammatical operators, such as quasi, 'almost'; jam, 'already'; and totevia, 'anyway'. Secondary adverbs are an open class derived from corresponding adjectives by adding the suffix -mente (-amente after final -c).\n\nfelice   'happy'   →   felicemente   'happily'\nmagic   'magical'   →   magicamente   'magically'\nA few common adverbs have optional short forms in -o.\n\nsol   'alone'   →   solo or solmente   'only'\nLike adjectives, adverbs use plus and minus to express the comparative and le plus and le minus to express the superlative.\n\nIlla canta plus bellemente que illa parla.   'She sings more beautifully than she speaks.'\nLe gepardo curre le plus rapide de omne animales.   'The cheetah runs the fastest of all animals.'\nThe adverbs equivalent to bon, 'good' and mal, 'bad' have optional irregular forms.\n\nbonmente → plus bonmente → le plus bonmente\n \nor\n \nben → plus ben → le plus ben\n \nor\n \nben → melio → optimo\n\nmalmente → plus malmente→ le plus malmente\n \nor\n \nmal → plus mal → le plus mal\n \nor\n \nmal → pejo → pessimo",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Pronouns",
+      "summary": "Personal pronouns are presented in the following table.",
+      "sections": [
+        {
+          "heading": "Introduction",
+          "body": "Personal pronouns are presented in the following table. \n\nPersonal pronouns - singular\n\nPerson\n\nGender\n\nSubject\n(Nominative)\n\nObject\n(Oblique)\n\nAfter an preposition\n(con me, sin te etc.)\n\nPossesive\n\n1st\n\nio\n\nme\n\nme\n\nmi(e)\n\n2d\n\ntu\n\nte\n\nte\n\ntu(e)\n\n3rd\n\nMasc.\n\nille\n\nle\n\nille\n\nsu(e)\n\nFem.\n\nilla\n\nla\n\nilla\n\nNeut.\n\nillo\n\nlo\n\nillo\n\nPersonal pronouns - plural\n\nPerson\n\nGender\n\nSubject\n\nObject\n\nAfter an preposition\n\nPossesive\n\n1st\n\nnos\n\nnos\n\nnos\n\nnostre\n\n2d\n\nvos\n\nvos\n\nvos\n\nvostre\n\n3rd\n\nMasc.\n\nilles\n\nles\n\nilles\n\nlor(e)\n\nFem.\n\nillas\n\nlas\n\nillas\n\nNeut.\n\nillos\n\nlos\n\nillos\n\nPronouns il and on\n\nSubject\n\nObject\n\nAfter an preposition\n\nPossesive\n\nImpersonal pronoun\n\nil\n\n-\n\n-\n\n-\n\nIndefinite pronoun\n\non\n\nuno\n\nuno\n\nsu(e)\n\nOther than that there are other, less popular or unused pronouns, such as: \n\nyo = io[3],\n\nego = io,\n\nil = ille,\n\nilli = illes,\n\nuno = on.\n\nEgo is present in words like egoismo, egoista, yo, il and illi are likely borrowings from occidental. \n\nPersonal pronouns inflect for number, case, and (in the third person) gender. Subject pronouns serve as the subject of a verb. Examples:\n\n\"Qui es ibi?\" \"Io.\"   \"Who's there?\" \"Me.\"\n\nTu arrestava le chef de policia.   'You have arrested the chief of police.'\n\nObject pronouns are used for direct objects, and may also be used for indirect objects. (Alternatively, indirect objects are expressed through a, 'to' plus a pronoun.) Examples: \n\nLe caffe es excellente: proba lo!   'The coffee is excellent: try it!'\n\nDice me le conto; dice me lo (or Dice le conto a me...)    'Tell me the story; tell it to me.'\n\nOne could also assert the existence of a separate prepositional case, since third-person pronouns use the longer forms ille, illes etc. after a preposition in place of the expected le, les etc.\n\nDa le can a illes.   'Give them the dog.'\nMany users follow the European custom of using the plural forms vos etc. rather than tu etc. in formal situations.\n\nEsque vos passava un viage placente, Seniora Chan?   'Did you have a pleasant trip, Mrs. Chan?'\nAperi vostre valise, Senior.   'Open your suitcase, Sir.'\nIlles can be used as a sex-neutral pronoun, like English 'they'. Illas may be used for entirely female groups.",
+          "examples": [
+            "\"Qui es ibi?\" \"Io.\"   \"Who's there?\" \"Me.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Possesive pronouns",
+          "body": "Shorter possesive pronouns (mi, tu etc.) are used before nouns when they are not preceded by the article. Examples: \n\nMi amico.\n\nMi casa.\n\nTu auto.\n\nIn all other cases the longer forms (mie, tue etc.) are used. Examples: \n\nLe mie casa.\n\nLe auto es le mie = the car is mine,\n\nDeo mie!\n\nMi auto es plus rapide que le tue.\n\nalicun amicos mie = some friends of mine\n\nMatre mie! Es un picante bolla de carne!  = Mamma mia, that's a spicy meatball!",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Reflexive pronouns",
+          "body": "Reflexive pronouns are used when the subject of a verb is identical with the direct or indirect object. As in the Romance languages, reflexive constructions are often used where English would employ an intransitive verb or the passive voice.\n\nDeo adjuta les, qui se adjuta.   'God helps those who help themselves'.\nIo me sibila un melodia.   'I whistle a tune to myself.'\nTu te rasava?   'Have you shaved?'\nFrancese se parla in Francia.   'French is spoken in France.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Demonstratives",
+          "body": "Demonstratives\n\nRole\nNumber\nGender\nProximate\nRemote\n\nAdjective\n–\n–\niste\nille\n\nPronoun\nSing.\nmasc.\niste\n(ille)\n\nfem.\nista\n(illa)\n\nneut.\nisto\n(illo)\n\nPlur.\nmasc.\nistes\n(illes)\n\nfem.\nistas\n(illas)\n\nneut.\nistos\n(illos)\n\nThe main demonstratives are the adjective iste, 'this' and the corresponding pronouns iste (masculine), ista (feminine), and isto (neuter), which may be pluralized. They are used more widely than English 'this/these', often encroaching on the territory of English 'that/those'. Where the subject of a sentence has two plausible antecedents, iste (or one of its derivatives) refers to the second one.\n\nIste vino es pessime.   'This wine is terrible.'\nIsto es un bon idea.   'That's a good idea.'\nJanet accompaniava su soror al galleria...   'Janet accompanied her sister to the gallery...'\n(a) Illa es un artista notabile.    'She [Janet] is a well-known artist.'\n(b) Ista es un artista notabile.    'She [Janet's sister] is a well-known artist.'\nThe demonstrative of remoteness is ille 'that'.  The corresponding pronouns ille, illa, illo and their plurals are identical with the third-person personal pronouns, though they are normally accentuated in speech.\n\nIo cognosce ille viro; ille se appella Smith.   'I know that man; his name is Smith.'\nIllo es un obra magnific.   'That is a magnificent work.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Relative and interrogative pronouns",
+          "body": "The relative pronouns for animates are qui (nominative case and after prepositions) and que (oblique case).\n\nNos vole un contabile qui sape contar.   'We want an accountant who knows how to count.'\nNos vole un contabile super qui nos pote contar.    We want an accountant who we can count on.' (an accountant on whom we can count)\nNos vole un contabile que le policia non perseque.   'We want an accountant whom the police are not pursuing.'\nFor inanimates, que covers both the nominative and oblique cases.\n\nIl ha duo sortas de inventiones: illos que on discoperi e illos que discoperi uno.   'There are two types of inventions: those that you discover and those that discover you.'\nCuje 'whose' is the genitive case for both animates and inanimates.\n\nun autor cuje libros se vende in milliones   'an author whose books sell in the millions'\nun insula cuje mysterios resta irresolvite   'an island whose mysteries remain unsolved'\nAll the above may be replaced by the relative adjective forms le qual (singular) and le quales (plural).\n\nMi scriptorio esseva in disordine – le qual, nota ben, es su stato normal.    'My desk was in a mess – which, mind you, is its usual state.'\nDuo cosinos remote, del quales io sape nihil, veni visitar.    'Two distant cousins, of whom I know nothing, are coming to visit.'\nThe relative pronouns also serve as interrogative pronouns (see Questions).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Verbs",
+      "summary": "Tense\nEnding\n-ar verbs\n-er verbs\n-ir verbs",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main verb forms\n\nTense\nEnding\n-ar verbs\n-er verbs\n-ir verbs\n\nInfinitive\n-r\nparlar\nvider\naudir\n\nPresent\n–\nparla\nvide\naudi\n\nPast*\n-va\nparlava\nvideva\naudiva\n\nFuture*\n-ra\nparlara\nvidera\naudira\n\nConditional*\n-rea\nparlarea\nviderea\naudirea\n\nPresent participle\n-(e)nte\nparlante\nvidente\naudiente\n\nPast participle\n-te\nparlate\nvidite\naudite\n\n*For alternative, compound forms, see Compound tenses.\n\nThe verb system is a simplified version of the systems found in English and the Romance languages. There is no imperfective aspect, as in Romance, no perfect as in English, and no continuous aspect, as in English and some Romance languages. Except (optionally) for esser 'to be', there are no personal inflections, and the indicative also covers the subjunctive and imperative moods. Three common verbs (esse, habe and vade) usually take short forms in the present tense (es, ha and va respectively), and a few optional irregular verbs are available.\n\nFor convenience' sake, this section often uses the term tense to also cover mood and aspect, though this is not strict grammatical terminology.\n\nThe table at the right shows the main verb forms, with examples for -ar, -er and -ir verbs (based on parlar 'to speak', vider 'to see', and audir 'to hear').\n\nThe simple past, future, and conditional tenses correspond to semantically identical compound tenses (composed of auxiliary verbs plus infinitives or past participles). These in turn furnish patterns for building more-complex tenses such as the future perfect.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Infinitives",
+          "body": "Infinitive verbs always end in -ar, -er, or -ir. They cover the functions of both the infinitive and the gerund in English and can be pluralized where it makes sense.\n\nCognoscer nos es amar nos.   'To know us is to love us.'\nIl es difficile determinar su strategia.   'It's hard to figure out his strategy.'\nIlles time le venir del locustas.   'They fear the coming of the locusts.'\nLe faceres de illa evocava un admiration general.   'Her doings evoked a widespread admiration.'\nInfinitives are also used in some compound tenses (see below).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Simple tenses",
+          "body": "There are four simple tenses: the present, past, future, and conditional.\n\nThe present tense can be formed from the infinitive by removing the final -r. It covers the simple and continuous present tenses in English. The verbs esser 'to be', haber 'to have', and vader 'to go' normally take the short forms es, ha, and va rather than esse, habe, and vade.\n\nIo ama mangos; io mangia un justo ora.   'I love mangoes; I'm eating one right now.'\nMi auto es vetere e ha multe defectos: naturalmente illo va mal!    'My car is old and has lots of things wrong with it: of course it runs poorly!'\nThe simple past tense can be formed by adding -va to the present tense form. It covers the English simple past and past perfect, along with their continuous equivalents.\n\nIo vos diceva repetitemente: le hospites jam comenciava partir quando le casa se incendiava.     'I've told you again and again: the guests were already starting to leave when the house burst into flames.'\nThe simple future can be formed by adding -ra to the present tense form. Future tense forms are stressed on the suffix (retornara 'will return'). It covers the English simple and continuous future tenses.\n\nNos volara de hic venerdi vespere, e sabbato postmeridie nos prendera le sol al plagia in Santorini.    'We'll fly out Friday evening, and by Saturday afternoon we'll be sunbathing on the beach in Santorini.'\nThe simple conditional consists of the present tense form plus -rea. Like the future tense, it is stressed on the suffix (preferea 'would prefer). In function it resembles the English conditional.\n\nSi ille faceva un melior reclamo, ille venderea le duple.   'If he did better advertising, he would sell twice as much.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Participles",
+          "body": "The present participle is effectively the present tense form plus -nte. Verbs in -ir take -iente rather than *-inte (nutrir 'to feed' → nutriente 'feeding'). It functions as an adjective or as the verb in a participial phrase.\n\nun corvo parlante   'a talking crow'\nApproximante le station, io sentiva un apprehension terribile.   'Approaching the station, I felt a sense of dread.'\nThe past participle can be constructed by adding -te to the present tense form, except that -er verbs go to -ite rather than *-ete (eder 'to edit'  → edite 'edited'). It is used as an adjective and to form various compound tenses.\n\nun conto ben contate   'a well told story'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Compound tenses",
+          "body": "Three compound tenses – the compound past, future, and conditional – are semantically identical with the corresponding simple tenses.\n\nThe compound past tense consists of ha (the present tense of haber 'to have') plus the past participle.\n\nLe imperio ha cadite.   =   Le imperio cadeva.   'The empire fell.'\nThe compound future tense is constructed from va (the present tense of vader 'to go') plus the infinitive.\n\nIo va retornar.   =   Io retornara.   'I shall return.'\nThe rarely used compound conditional tense uses the auxiliary velle plus the infinitive.\n\nIo velle preferer facer lo sol.   =   Io prefererea facer lo sol.    'I'd prefer to do it alone.'\nOther than that the verb va along with present participle creates present quasi-tense, for instance: \n\nLe climate de Alaska va deveniente plus benigne.   'The climate of Alaska keeps getting milder.'[4]\nThe Interlingua Grammar doesn't elaborate on its use. It's illustrated only by one example.\n\nThe fourth basic compound tense is the passive, formed from es (the  present tense of esser 'to be') plus the past participle.\n\nIste salsicias es fabricate per experte salsicieros.   'These sausages are made by expert sausage-makers.'\nA wide variety of complex tenses can be created following the above patterns, by replacing ha, va, and es with other forms of haber, vader, and esser. Examples:\n\nThe future perfect, using habera 'will have' plus the past participle\n\nAnte Natal, tu habera finite tu cursos.   'By Christmas you will have finished your courses.'\nThe past imperfect, using vadeva 'were going' plus the infinitive\n\nPlus tarde illa vadeva scriber un romance premiate.    'Later she would write a prize-winning novel.'\nThe passive-voice past perfect, using habeva essite 'had been' plus the past participle\n\nNostre planeta habeva essite surveliate durante multe annos.    'Our planet had been watched for many years.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Other tenses",
+          "body": "There are no distinct forms for the imperative and subjunctive moods, except in the case of esser 'to be'. Present-tense forms normally serve both functions. For clarity's sake, a nominative pronoun may be added after the verb.\n\nFace lo ora!    'Do it now!'\nLe imperatrice desira que ille attende su mandato.    'The empress desires that he await her command.'\nVa tu retro al campo; resta vos alteros hic.    'You, go back to the camp; you others, stay here.'\nThe infinitive can serve as another, stylistically more impersonal, imperative form.\n\nCliccar hic.    'Click here.'\nA less urgent version of imperative, the cohortative, employs a present-tense verb within a \"that\" (\"que\") clause and may be used with the first and third person as well as the second. The alternative vamos 'let's' (or 'let's go') is available for the second-person plural, but  deprecated by some authorities.\n\nQue tu va via!   'I wish you'd go away!'\nQue illes mangia le brioche.    'Let them eat cake.'\nQue nos resta hic ancora un die.   or   Vamos restar hic ancora un die.    'Let's stay here one more day.'\nSia is the imperative and subjunctive form of esser 'to be'. The regular form esse may also be used.\n\nSia caute!    'Be careful!'\nSia ille vive o sia ille morte...   'Be he alive or be he dead...'\nQue lor vita insimul sia felice!    'May their life together be happy!'",
+          "examples": [
+            "A less urgent version of imperative, the cohortative, employs a present-tense verb within a \"that\" (\"que\") clause and may be used with the first and third person as well as the second. The alternative vamos 'let's' (or 'let's go') is availa"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Irregular verbs",
+      "summary": "Some verbs ending with -er have preferred[5] irregular present participle ending with -iente instead of -ente.[6] Those are caper (= to grasp, seize), facer (= to do, make), saper (= to know), their compounds and all verbs ending in -ciper, -ficer, -jicer and -spicer.[6] The regu",
+      "sections": [
+        {
+          "heading": "Verbs with irregular present participle",
+          "body": "Some verbs ending with -er have preferred[5] irregular present participle ending with -iente instead of -ente.[6] Those are caper (= to grasp, seize), facer (= to do, make), saper (= to know), their compounds and all verbs ending in -ciper, -ficer, -jicer and -spicer.[6] The regular forms are facente, sapente, etc., but the \"preferred forms\",[5] according to the original grammar, are faciente, sapiente, etc. Examples are:\n\nun homine sapiente   =   un homine sapente   'a knowledgeable person'\nRecipiente le littera, ille grimassava.   =   Recipente le littera, ille grimassava.   'Receiving the letter, he grimaced.'\nToday, most users employ the regular forms in spontaneous usage. Forms like sufficiente are often used as adjectives, under the influence of similar forms in the source languages.",
+          "examples": [
+            "Some verbs ending with -er have preferred[5] irregular present participle ending with -iente instead of -ente.[6] Those are caper (= to grasp, seize), facer (= to do, make), saper (= to know), their compounds and all verbs ending in -ciper,"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Double-stem verbs",
+      "summary": "The Neo-Latin vocabulary that underlies Interlingua includes a group of verbs whose stems mutate when attached to certain suffixes. For example, agente, agentia, actrice, activista, reagente, reaction are all derivatives of ager 'to act', but some use the primary stem ag-, while",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Neo-Latin vocabulary that underlies Interlingua includes a group of verbs whose stems mutate when attached to certain suffixes. For example, agente, agentia, actrice, activista, reagente, reaction are all derivatives of ager 'to act', but some use the primary stem ag-, while others use the secondary stem act-. There are hundreds of such verbs, especially in international scientific vocabulary.\n\nsentir 'to feel' (second stem: sens-) → sentimento, sensor\nrepeller 'to push away' (second stem: repuls-) → repellente, repulsive\nThis raises a logical issue. Adding -e to one of these secondary stems produces an adjective that is structurally and semantically equivalent to the past participle of the same verb. Experte, for example, is related to experir 'to experience', which has the past participle experite. Yet, semantically, there is little difference between un experte carpentero 'an expert carpenter' and  un experite carpentero 'an experienced carpenter'. Effectively, experte = experite. Furthermore, one can form a word like le experito 'the experienced one' as a quasi-synonym of le experto 'the expert'.\n\nThis process can be reversed. That is, can one substitute experte for experite in compound tenses (and other second-stem adjectives for other past participles).\n\nIo ha experte tal cosas antea.   =   Io ha experite tal cosas antea.   'I've experienced such things before.'\nIlla ha scripte con un pluma.   =   Illa ha scribite con un pluma.   'She wrote with a quill.'\nThe original Interlingua grammar (Gode & Blair, 1951) permitted this usage, and illustrated it in one experimental text. A minority of Interlinguists employ the irregular roots, at least occasionally, more often with recognizable forms like scripte (for scribite 'written') than opaque ones like fisse (for findite 'split'). The practice is controversial. Deprecators suggest that they complicate the active use of Interlingua and may confuse beginners. Proponents argue that by using the irregular participles, students of Interlingua become more aware of the connections between words like agente and actor, consequentia and consecutive, and so on. A compromise position holds that the irregular forms may be useful in some educational contexts (e.g., when using Interlingua to teach international scientific vocabulary or as an intermediate step in the study of Romance languages), but not in general communication.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Numerals",
+      "summary": "Cardinal numbers are formed by addition and multiplication of predetermined root numerals. Smaller values before larger ones corresponds to multiplication, while larger values before smaller ones corresponds to addition. Numerals below one hundred consist of a root numeral for th",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Cardinal numbers are formed by addition and multiplication of predetermined root numerals. Smaller values before larger ones corresponds to multiplication, while larger values before smaller ones corresponds to addition. Numerals below one hundred consist of a root numeral for the tens and a root numeral for the ones, concatenated with a hyphen, i.e. 42 quaranta-duo 'forty-two'.\n\nFor example, the number 2345 would be duo milles tres centos quaranta-cinque 'two thousand three hundred (and) forty-five', which corresponds to the expression 2 × 1000 + 3 × 100 + 40 + 5. The number 9 876 000 would be nove milliones octo centos septanta-sex milles 'nine million eight hundred (and) seventy-six thousand', which corresponds to the expression 9 × 1 000 000 + (8 × 100 + 70 + 6) × 1000. The conjunction e 'and' can always be inserted arbitrarily between any two roots in a number, even replacing the hyphen between tens and ones.\n\nThe cardinal numbers below 100 are all constructed regularly from nineteen roots. (Note that among the tens, fifty and onwards are constructed regularly from the corresponding ones and the ending -anta.)\n\n0\nzero\n\n1\nun\n10\ndece\n\n2\nduo\n20\nvinti\n\n3\ntres\n30\ntrenta\n\n4\nquatro\n40\nquaranta\n\n5\ncinque\n50\ncinquanta\n\n6\nsex\n60\nsexanta\n\n7\nsepte\n70\nseptanta\n\n8\nocto\n80\noctanta\n\n9\nnovem, nove [7]\n90\nnovanta\n\nThe number 100 is cento 'hundred' and the number 1000 is mille 'thousand'. All further larger numbers follow the long scale.\n\n100\ncento\n\n1 000\nmille\n\n1 000 0001\nmillion\n\n1 000 × 1 000 0001\nmilliardo\n\n1 000 0002\nbillion\n\n1 000 × 1 000 0002\nbilliardo\n\n1 000 0003\ntrillion\n\n1 000 × 1 000 0003\ntrilliardo\n\n1 000 0004\nquatrillion\n\n1 000 × 1 000 0004\nquatrilliardo\n\n1 000 0005\nquintillion\n\n1 000 × 1 000 0005\nquintilliardo\n\n...\n...\n\nThe ordinal numbers have their own root numerals for the ones (and ten).\n\n1st\nprime\n\n2nd\nsecunde\n\n3rd\ntertie\n\n4th\nquarte\n\n5th\nquinte\n\n6th\nsexte\n\n7th\nseptime\n\n8th\noctave\n\n9th\nnone\n\n10th\ndecime\n\nlast\nultime\n\nAll other ordinal numbers are formed by the cardinal number followed by the suffix -esime. In compound ordinals, only the last root numeral is modified.\n\n11th\n\ndece-prime 'eleventh'\n\n102nd\n\ncento secunde 'hundred (and) second'\n\n99th\n\nnovanta-none 'ninety-ninth'\n\n300th\n\ntres centesime 'three hundredth'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Numeric conventions",
+          "body": "Decimals should always be written with commas by default, as per ISO recommendations. I.e. 3,1415 and not '3.1415' as in English. Since this would clash with the familiar usage of the comma as the thousands separator in English, this function is switched with the period in Interlingua, or alternatively empty spaces.\n\nOrdinals and adverbials expressed in Arabic numerals are written as follows:\n\n1me '1st',   2nde '2nd',   3tie '3rd',   4te '4th',   5te '5th',   6te '6th',   7me '7th',   8ve '8th',   9ne '9th',   10me '10th',   20me '20th',   100me '100th',   etc.\nwith the adverbials being identical except for ending in -o instead of -e. Alternatively, it is extremely common to simply use the suffixes -e or -o on their own for simplicity.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Syntax",
+      "summary": "The normal word order in Interlingua is subject–verb–object, though this may be relaxed where the sense is clear.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The normal word order in Interlingua is subject–verb–object, though this may be relaxed where the sense is clear.\n\nIlle reface horologios.   'He fixes clocks.'\nAmandolos ama io tanto, io comprava un amandoliera.   'I love almonds so much, I bought an almond orchard.'\nPronouns, however, tend to follow the Romance pattern subject–object–verb, except for infinitives and imperatives, where the object follows the verb.\n\nIlle los reface.   'He fixes them.'\nNos vole obtener lo.    'We want to get it.'\nJecta lo via!    'Throw it away!'\nWhen two pronouns, one a direct and one an indirect object, occur with the same verb, the indirect object comes first.\n\nIo les lo inviava per avion.   'I sent it to them by air.'\nIo la los inviava per nave.   'I sent them to her by ship.'\nThe position of adverbs and adverbial phrases is similar to English.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Questions",
+          "body": "Questions can be created in several ways, familiar to French speakers.\n\nBy reversing the position of the subject and verb.\n\nHa ille arrivate?   'Has he arrived?'\nCognosce tu ben Barcelona?  'Do you know Barcelona well?'\nTe place le filmes de Quentin Tarantino? 'Do you like the films of Quentin Tarantino?'\nBy replacing the subject with an interrogative word.\n\nQui ha dicite isto?   'Who said this?'\n\"Que cadeva super te?\" \"Un incude.\"   '\"What fell on you?\" \"An anvil.\"'\nFor questions that can be answered with 'yes' or 'no', by adding the particle esque (or rarer an) to the start of the sentence.\n\nEsque illa vermente lassava su fortuna a su catto?   (or An illa...)   'Did she really leave her fortune to her cat?'\nBy changing the intonation or adding a question mark, while keeping the normal word order.\n\nTu jam ha finite tu labores?   'You finished your work yet?'",
+          "examples": [
+            "\"Que cadeva super te?\" \"Un incude.\"   '\"What fell on you?\" \"An anvil.\"'"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Irregularities and exceptions",
+      "summary": "These oddities are a part of the standard grammar. These special cases have crept into the language as a result of the effort to keep it naturalistic. Most of these irregularities also exist in Interlingua's source languages; English, French, Italian, Spanish, Portuguese, and to",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "These oddities are a part of the standard grammar. These special cases have crept into the language as a result of the effort to keep it naturalistic. Most of these irregularities also exist in Interlingua's source languages; English, French, Italian, Spanish, Portuguese, and to a lesser extent German and Russian. This feature of the language makes Interlingua more familiar to the speakers of source languages. And at the same time, it makes the language more difficult for others.\n\nThe speakers of the source languages do not perceive all deviations as irregular. For instance, Interlingua has three different words for English \"am\" (so), \"is\" (es) and \"are\" (son). While most English speakers will not find any thing abnormal about it, speakers of a few other languages may find the use of three words to express the concept of 'simple present' as unnecessary.\n\nInterlingua is notable in the sense that unlike most auxiliary languages, that seek to minimise or eliminate any irregular aspects, Interlingua takes a flexible approach. It is mandatory to use certain exceptions in Interlingua while others have been kept optional.",
+          "examples": [
+            "The speakers of the source languages do not perceive all deviations as irregular. For instance, Interlingua has three different words for English \"am\" (so), \"is\" (es) and \"are\" (son). While most English speakers will not find any thing abno"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Pronunciation",
+          "body": "Interlingua does not have a 'one letter one sound' orthography. As in English, several letters can be pronounced in different ways; depending on where they are in a word. For instance, the letter C can be pronounced as either /k/ (canto) or /ts/ (cento). Here is a list of other mandatory exceptions in pronunciation:\n\nLetter / Digraph\n\nPossible Pronunciations[8]\n\nRules\n\nExamples\n\nc\n\n/k/ \n /ts/ (or /s/)\n\n/k/ when c is followed by a, o, u or any consonant'\n /ts/ (or /s/) when e, i or y come after c\n\ncamera, crear \n acido, Cinderella\n\nch\n\n/k/ \n /tʃ/ \n /ʃ/\n\nlike /k/ in words of Greek origin \n /tʃ/ only in a few words (very rare) \n /ʃ/ in some words, especially of French origin\n\ncholera, machina \nChile, checo\nchef, brochure, China\n\nh\n\n/h/ \n silent\n\nsilent after r and t\n\nhorologio \nrhetorico\n\nrh\n\n/r/\n\npronounced as the \"r\" in Spanish caro\n\nrhetorica, rheumatic\n\nsh\n\n/ʃ/\n\npronounced as \"sh\" in English\n\nShakespeare\n\nth\n\n/t/\n\nalways pronounced like /t/\n\ntheatro\n\nph\n\n/f/\n\nalways pronounced like /f/\n\nphotographia, photosynthese\n\nt\n\n/t/\n/ts/\n\npronounced as /t/ except when followed by an i and a second vowel in an unstressed syllable, in which case it is realized as /ts/\n\ntourista\ncreation\n\nu\n\n/u/\n/w/\n\n/u/ except when unstressed before a vowel, in which case it can be realized as /w/\n\nluna, plural \n persuader, superflue\n\ny\n\n/j/\n/i/\n\n/j/ when unstressed before vowels\n other like /i/\n\nYugoslavia, yoga\ntyranno, typo\n\nBesides, there are also unassimilated loan words that retain their original pronunciation and spelling.\n\nDiacritics are permitted when they do not influence the pronunciation of the word borrowed into Interlingua. Common examples of such words are radios Röntgen (X rays) and kümmel.",
+          "examples": [
+            "Examples",
+            "pronounced as the \"r\" in Spanish caro",
+            "pronounced as \"sh\" in English"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Contractions",
+          "body": "Just as in English, where I am is usually contracted to I'm and he is to he's, such contractions are also found in Interlingua and these two are compulsory to observe:\n\nWords\n\nContraction\n\nExample\n\nde (of) + le (the)\n\ndel\n\ndel matre (of the mother)\n\na (to) + le (the)\n\nal\n\nal luna (to the moon)",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Plurals",
+          "body": "Plurals can be formed in three different ways depending on the ending of a noun.\n\nEnding\n\nAdd\n\nExample\n\nends in a consonant other than c\n\n-es\n\nconversation - conversationes \n pais - paises\n\nends in c\n\n-hes\n\nroc - roches \n choc - choches\n\nends in a vowel\n\n-s\n\nradio - radios \n academia - academias\n\nThere are also irregular plurals that occur in loan words. The common ones are tests (from 'test'), addenda (from 'addendum') and lieder (from 'lied').",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Numbers",
+          "body": "Some numbers in Interlingua have irregular construction and/or variants: \n\nNumbers\n\nHypothetical logical name\n\nName used\n\n10\n\n*unanta\n\ndece\n\n20\n\n*duoanta\n\nvinti\n\n30\n\n*tresanta\n\ntrenta\n\n40\n\n*quatranta\n\nquaranta\n\n13\n\n*tresdece\n\ntredece\n\n14\n\n*quatrodece\n\nquattuordece\n\n15\n\n*cinquedece\n\nquindece\n\n16\n\n*sexdece\n\nsedece",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Parts of speech",
+          "body": "Not all adverbs are derived from adjectives.\n\nIf an adjective ends with -c, an adverb derived from it takes -amente (instead of -mente).\n\nSia is the imperative form of esser ('to be'): Sia contente! 'Be content!'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        },
+        {
+          "heading": "Optional",
+          "body": "Pronunciation\nif s is between vowels, it can be pronounced [z], like in \"these\" (instead of the [s] of \"stay\")\n\nif x is between vowels, it can be spoken like the [ɡz] in \"exact\" (instead of like the [ks] in \"fox\")\n\nOptional short form verbs\nha for habe, 'has', 'have'\n\nva for vade, 'goes', 'go'\n\nes for esse, 'is', 'am', 'are'\n\nAlternative forms of esser\nNote. These forms are rarely used.\nso for (io) es\n\nson for (nos/vos/illes/-as/-os) es\n\nera for esseva\n\nsera for essera\n\nserea for esserea\n\nComparative and superlative adjectives\n(le) minor instead of (le) plus parve\n\n(le) major instead of (le) plus magne\n\n(le) melior instead of (le) plus bon\n\n(le) pejor instead of (le) plus mal\n\nminime instead of le plus parve or le minor\n\nmaxime instead of \"le plus magne\" or \"le major\"\n\noptime instead of le plus bon or le melior\n\npessime instead of le plus mal or le pejor",
+          "examples": [
+            "if s is between vowels, it can be pronounced [z], like in \"these\" (instead of the [s] of \"stay\")",
+            "if x is between vowels, it can be spoken like the [ɡz] in \"exact\" (instead of like the [ks] in \"fox\")",
+            "maxime instead of \"le plus magne\" or \"le major\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingua_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

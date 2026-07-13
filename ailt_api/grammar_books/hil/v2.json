@@ -1,0 +1,320 @@
+{
+  "title": "Grammar Book — Ilonggo",
+  "languageCode": "hil",
+  "languageName": "Ilonggo",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Hiligaynon_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Austronesian regional language spoken in the Philippines\n\"Ilongo language\" redirects here. Not to be confused with the Ilongot language, also of the Philippines.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Austronesian regional language spoken in the Philippines\n\"Ilongo language\" redirects here. Not to be confused with the Ilongot language, also of the Philippines.\n\nHiligaynonIlonggoHiniligaynon, Inilonggo, BinisayâPronunciation/hɪlɪˈɡaɪnən/Native toPhilippinesRegionWestern Visayas, Negros Island Region, Soccsksargen, southwestern portion of Masbate, coastal Palawan, some parts of southern Mindoro, some parts of Romblon and a few parts of Northern MindanaoEthnicityHiligaynonNative speakers8.6 million (2020)[1]\n9.1 million total speakers[2]\n4th most spoken native language in the Philippines[3]Language familyAustronesian\n\nMalayo-PolynesianPhilippineGreater Central PhilippineCentral PhilippineBisayanCentral BisayanHiligaynon\n\nDialects\nStandard Hiligaynon (Iloilo province dialect);\n\nUrban Hiligaynon (Metro Iloilo dialect);\n\nGuimarasnon Hiligaynon;\n\nBacolodnon Hiligaynon (Metro Bacolod dialect);\n\nNegrense Hiligaynon (Negros Occidental dialect);\n\nMindanao Hiligaynon\n\nWriting systemLatin (Hiligaynon alphabet)\nHiligaynon Braille\nHistorically Baybayin (c. 13th–19th centuries)Official statusRecognised minority\nlanguage in PhilippinesRegulated byKomisyon sa Wikang FilipinoLanguage codesISO 639-2hilISO 639-3hilGlottologhili1240Areas where Hiligaynon is spoken in the PhilippinesThis article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nHiligaynon, also often referred to as Ilonggo or Binisayâ/Bisayâ nga Hiniligaynon/Inilonggo, is an Austronesian regional language spoken in the Philippines by about 9.1 million people, predominantly in Panay Island, Negros Occidental, and Soccsksargen, most of whom belong to the Hiligaynon people.[4] It is the second-most widely spoken language in the Visayas and belongs to the Bisayan languages. It is more distantly related to other Philippine languages.\n\nIt also has one of the largest native language-speaking populations of the Philippines, despite it not being taught and studied formally in schools and universities until 2012.[5] Hiligaynon is given the ISO 639-2 three-letter code hil, but has no ISO 639-1 two-letter code.\n\nHiligaynon is mainly concentrated in the regions of Western Visayas (Iloilo, Capiz, and Guimaras), Negros Island Region (Negros Occidental), and  Soccsksargen (South Cotabato including General Santos, Sultan Kudarat, and Cotabato). It is spoken in other neighboring provinces, such as Antique and Aklan in Western Visayas, Negros Oriental in Negros Island Region, Masbate in Bicol Region, and southern parts of Mindoro, Romblon and Palawan in Mimaropa.\n\nIt is spoken as a second language by Kinaray-a speakers in Antique, Aklanon/Malaynon speakers in Aklan, Capiznon speakers in Capiz, Cebuano speakers in Negros Oriental,[6] and spoken and understood by native speakers of Maguindanaon, Cebuano, Ilocano, Blaan, Tboli and other settler and indigenous languages in Soccsksargen in Mindanao.[7] There are approximately 9,300,000 people in and out of the Philippines who are native speakers of Hiligaynon and an additional 5,000,000 capable of speaking it with a substantial degree of proficiency.[8]\n\nDespite being a somewhat large language in the Philippines, it is sometimes considered a \"rare' language online. This is mostly because of a lack of a well-documented way to learn it.",
+          "examples": [
+            "\"Ilongo language\" redirects here. Not to be confused with the Ilongot language, also of the Philippines."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nomenclature",
+      "summary": "See also: Visayans\nA water cycle diagram in Hiligaynon\nAside from Hiligaynon, the language is also referred to as Ilonggo, also spelled Ilongo, as it originated in Iloilo. Many speakers outside Iloilo argue, that this is an incorrect usage of the word Ilonggo. In precise usage, t",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "See also: Visayans\nA water cycle diagram in Hiligaynon\nAside from Hiligaynon, the language is also referred to as Ilonggo, also spelled Ilongo, as it originated in Iloilo. Many speakers outside Iloilo argue, that this is an incorrect usage of the word Ilonggo. In precise usage, these people opine that Ilonggo should be used only in relation to the ethnolinguistic group of native inhabitants of Iloilo and the culture associated with native Hiligaynon speakers in that place, including their language. The disagreement over the usage of Ilonggo to refer to the language extends to Philippine language specialists and native laypeople.[9]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "History",
+      "summary": "This section needs expansion. You can help by adding missing information.  (December 2020)\nHistorical evidence from observations of early Spanish explorers in the Archipelago shows that the nomenclature used to refer to this language had its origin among the people of the coasts",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section needs expansion. You can help by adding missing information.  (December 2020)\nHistorical evidence from observations of early Spanish explorers in the Archipelago shows that the nomenclature used to refer to this language had its origin among the people of the coasts or people of the Ilawod (\"los [naturales] de la playa\") in Iloilo, Panay, whom Spanish explorer Miguel de Loarca called Yligueynes[10] (or the more popular term Hiligaynon, also referred to by the Karay-a people as Siná).\n\nThe term Hiligaynon comes from the root word ilig ('to go downstream'), referring to a flowing river in Iloilo. In contrast, the Kinaray-a has been used by what the Spanish colonizers called Arayas, which may be a Spanish misconception of the Hiligaynon words Iraya or taga-Iraya, or the current and more popular version Karay-a ('highlanders' – people of Iraya/highlands).[11]",
+          "examples": [
+            "Historical evidence from observations of early Spanish explorers in the Archipelago shows that the nomenclature used to refer to this language had its origin among the people of the coasts or people of the Ilawod (\"los [naturales] de la pla"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Dialects",
+      "summary": "Similar to many languages in the Philippines, very little research on dialectology has been done on Hiligaynon. Standard Hiligaynon is the dialect that is used in the province of Iloilo, primarily in the northern and eastern portions of the province. It has a more traditional and",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Similar to many languages in the Philippines, very little research on dialectology has been done on Hiligaynon. Standard Hiligaynon is the dialect that is used in the province of Iloilo, primarily in the northern and eastern portions of the province. It has a more traditional and extensive vocabulary, whereas the Urban Hiligaynon dialect spoken in Metro Iloilo has a more simplified or modern vocabulary.\n\nFor example, the term for 'to wander', 'to walk', or 'to stroll' in Urban Hiligaynon is lágaw, which is also widely used by most of the Hiligaynon speakers. In contrast, Standard Hiligaynon more commonly uses dayán, a term that is rarely or never used by other dialects of the language anymore. Another example, amó iní, ('this is it') in Standard Hiligaynon can be simplified in Urban Hiligaynon and become 'mó'ní.\n\nSome of the other widely recognized dialects of the language, aside from Standard Hiligaynon and Urban Hiligaynon, are Bacolodnon Hiligaynon (Metro Bacolod dialect), Negrense Hiligaynon (provincial Negros Occidental dialect that is composed of three sub-variants: Northern, Central and Southern Negrense Hiligaynon), Guimaras Hiligaynon, and Mindanao Hiligaynon (which incorporated some Cebuano and other languages due to the mass influx of migrants from Cebu, Bohol, Siquijor and Cebuano-speaking parts of Mindanao reside in the Soccsksargen area).[12]\n\nSome native speakers also consider Kinaray-a (also known as Hiniraya or Antiqueño) and Capiznon dialects of Hiligaynon. However, linguists have classified Kinaray-a as a Western Bisayan language, while Capiznon is a Central Bisayan language closely related to Hiligaynon.[13][14]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Phonology",
+      "summary": "Consonants [d] and [ɾ] were once allophones but cannot interchange as in other Philippine languages: patawaron ('to forgive') [from patawad, 'forgiveness'] but not patawadon, and tagadiín ('from where') [from diín, 'where'] but not tagariín.",
+      "sections": [
+        {
+          "heading": "Consonants",
+          "body": "Main consonant phonemes\n\nLabial\n\nDental/\nAlveolar\n\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nm\n\nn\n\nŋ\n\nStop\n\np\n\nb\n\nt\n\nd\n\nk\n\nɡ\n\nʔ\n\nFricative\n\ns\n\nh\n\nFlap\n\nɾ\n\nApproximant\n\nw\n\nl\n\nj\n\nConsonants [d] and [ɾ] were once allophones but cannot interchange as in other Philippine languages: patawaron ('to forgive') [from patawad, 'forgiveness'] but not patawadon, and tagadiín ('from where') [from diín, 'where'] but not tagariín.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "There are four main vowels: /a/, /i ~ ɛ/, /o ~ ʊ/, and /u/. [i] and [ɛ] (both spelled i) are allophones, with [i] in the beginning and middle and sometimes final syllables and [ɛ] in final syllables. The vowels [ʊ] and [o] are also allophones, with [ʊ] always being used when it is the beginning of a syllable, and [o] always used when it ends a syllable.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Writing system",
+      "summary": "Hiligaynon is written using the Latin script. Until the second half of the 20th century, Hiligaynon was widely written largely following Spanish orthographic conventions. Nowadays there is no officially recognized standard orthography for the language and different writers may fo",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Hiligaynon is written using the Latin script. Until the second half of the 20th century, Hiligaynon was widely written largely following Spanish orthographic conventions. Nowadays there is no officially recognized standard orthography for the language and different writers may follow different conventions. It is common for the newer generation, however, to write the language based on the current orthographic rules of Filipino.\n\nA noticeable feature of the Spanish-influenced orthography absent in those writing following Filipino's orthography is the use of \"c\" and \"qu\" in representing /k/ (now replaced with \"k\" in all instances) and the absence of the letter \"w\" (\"u\" was formerly used in certain instances).\n\nThe core alphabet consists of 20 letters used for expressing consonants and vowels in Hiligaynon, each of which comes in an uppercase and lowercase variety.",
+          "examples": [
+            "A noticeable feature of the Spanish-influenced orthography absent in those writing following Filipino's orthography is the use of \"c\" and \"qu\" in representing /k/ (now replaced with \"k\" in all instances) and the absence of the letter \"w\" (\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Alphabet",
+          "body": "The 1st to 10th letters\n\nSymbol\n\nA a\n\nB b\n\nK k\n\nD d\n\nE e\n\nG g\n\nH h\n\nI i\n\nL l\n\nM m\n\nName\n\na\n\nba\n\nka\n\nda\n\ne\n\nga\n\nha\n\ni\n\nla\n\nma\n\nPronunciation\n\n[a/ə]\n\n[aw]\n\n[aj]\n\n[b]\n\n[k]\n\n[d]\n\n[ɛ/e]\n\n[ɡ]\n\n[h]\n\n[ɪ/i]\n\n[ɪo]\n\n[l]\n\n[m]\n\nin context\n\na\n\naw/ao\n\nay\n\nb\n\nk\n\nd\n\ne\n\ng\n\nh\n\ni\n\niw/io\n\nl\n\nm\n\nThe 11th to 20th letters\n\nSymbol\n\nN n\n\nNg ng\n\nO o\n\nP p\n\nR r\n\nS s\n\nT t\n\nU u\n\nW w\n\nY y\n\nName\n\nna\n\nnga\n\no\n\npa\n\nra\n\nsa\n\nta\n\nu\n\nwa\n\nya\n\nPronunciation\n\n[n]\n\n[ŋ]\n\n[ɔ/o]\n\n[oj]\n\n[p]\n\n[r]\n\n[s]\n\n[ʃʲ]\n\n[t]\n\n[ʊ/u]\n\n[w]\n\n[w]\n\n[j]\n\nin context\n\nn\n\nng\n\no\n\noy\n\np\n\nr\n\ns\n\nsy\n\nt\n\nu\n\nua\n\nw\n\ny",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Additional symbols",
+          "body": "The apostrophe ⟨'⟩ and hyphen ⟨-⟩ also appear in Hiligaynon writing, and might be considered separate letters.\n\nThe hyphen, in particular, is used medially to indicate the glottal stop san-o 'when' gab-e 'evening; night'. It is also used in reduplicated words: adlaw-adlaw 'daily, every day', from adlaw 'day, sun'. This marking is not used in reduplicated words whose base is not also used independently, as in pispis 'bird'.\n\nHyphens are also used in words with successive sounds of /g/ and /ŋ/, to separate the letters with the digraph NG. Like in the word gin-gaan 'was given'; without the hyphen, it would be read as gingaan /gi.ŋaʔan/ as opposed to /gin.gaʔan/.\n\nIn addition, some English letters[which?] may be used in borrowed words.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Grammar",
+      "summary": "Hiligaynon has three types of case markers: absolutive, ergative, and oblique. These types in turn are divided into personal, that have to do with names of people, and impersonal, that deal with everything else, and further into singular and plural types, though the plural impers",
+      "sections": [
+        {
+          "heading": "Determiners",
+          "body": "Hiligaynon has three types of case markers: absolutive, ergative, and oblique. These types in turn are divided into personal, that have to do with names of people, and impersonal, that deal with everything else, and further into singular and plural types, though the plural impersonal case markers are just the singular impersonal case markers + mga (a contracted spelling for /maŋa/), a particle used to denote plurality in Hiligaynon.[15]\n\n \n\nAbsolutive\n\nErgative\n\nOblique\n\nsingular impersonal\n\nang\n\nsang, sing*\n\nsa\n\nplural impersonal\n\nang mga\n\nsang mga, sing mga*\n\nsa mga\n\nsingular personal\n\nsi\n\nni\n\nkay\n\nplural personal**\n\nsanday\n\nnanday\n\nkanday\n\n(*)The articles sing and sing mga means the following noun is indefinite, while sang tells of a definite noun, like the use of a in English as opposed to the; however, it is not as common in modern speech, being replaced by sang. It appears in conservative translations of the Bible into Hiligaynon and in traditional or formal speech.\n\n(**)The plural personal case markers are not used very often and not even by all speakers. Again, this is an example of a case marker that has fallen largely into disuse, but is still occasionally used when speaking a more traditional form of Hiligaynon, using fewer Spanish loan words.[clarification needed]\n\nThe case markers do not determine which noun is the subject and which is the object; rather, the affix of the verb determines this, though the ang-marked noun is always the topic.\n\nExample\n\nAng lalaki nagkaon sang tinapay.\n≈\nAng tinapay ginkaon sang lalaki.\n\n'The man ate the bread'\n'The bread was eaten by the man' (literal)",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Personal pronouns",
+          "body": "Absolutive\n\nErgative₁\n(Postposed)\n\nErgative₂\n(Preposed)\n\nOblique\n\n1st person singular\n\nako, ko\n\nnakon, ko\n\nakon\n\nsa akon\n\n2nd person singular\n\nikaw, ka\n\nnimo, mo\n\nimo\n\nsa imo\n\n3rd person singular\n\nsiya\n\nniya\n\niya\n\nsa iya\n\n1st person plural inclusive\n\nkita\n\nnaton, ta\n\naton\n\nsa aton\n\n1st person plural exclusive\n\nkami\n\nnamon\n\namon\n\nsa amon\n\n2nd person plural\n\nkamo\n\nninyo\n\ninyo\n\nsa inyo\n\n3rd person plural\n\nsila\n\nnila\n\nila\n\nsa ila",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "Absolutive\n\nErgative/Oblique\n\nLocative\n\nExistential\n\nNearest to speaker ('this, here')\n\niní\n\nsiní\n\ndirí\n\n(y)ári\n\nNear to addressee or closely removed from speaker and addressee ('that, there')\n\ninâ\n\nsinâ\n\ndirâ\n\n(y)arà\n\nRemote ('yon, yonder')\n\nató\n\nsadtó\n\ndidtó\n\n(y)á(d)to\n\nIn addition to this, there are two verbal deictics, karí, meaning 'to come to the speaker', and kadto, meaning 'to go yonder'.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Copula",
+          "body": "Hiligaynon lacks the marker of sentence inversion ay of Tagalog/Filipino or hay of Akeanon. Instead sentences in SV form (Filipino: Di karaniwang anyo) are written without any marker or copula.\n\nExamples: \n\nSi Leni ay maganda (Tagalog)\n\nSi Leni matahum / Gwapa si Leni (Hiligaynon) = 'Leni is beautiful.'\n\n'Leni is beautiful' (English)\n\nThere is no direct translation for the English copula to be in Hiligaynon. However, the prefixes mangin- and nangin- may be used to mean will be and became, respectively.\n\nExample: Manamì mangín manggaránon.\n'It is nice to become rich.'\n\nThe Spanish copula estar ('to be') has also become a part of the Hiligaynon lexicon. Its meaning and pronunciation have changed compared to its Spanish meaning, however. In Hiligaynon it is pronounced as istar and means 'to live (in)/location' (Compare with the Hiligaynon word puyô).\n\nExample: Nagaistar ako sa tabuk suba.\n'I live in tabuk suba'. Tabuk suba translates to 'other side of the river' and is also a barangay in Jaro, Iloilo.",
+          "examples": [
+            "Examples:",
+            "Example: Manamì mangín manggaránon.",
+            "Example: Nagaistar ako sa tabuk suba."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Existential",
+          "body": "To indicate the existence of an object, the word may is used.\n\nExample:\n\nMay\n\nEXIST\n\nidô\n\ndog\n\n(a)ko\n\n1SG\n\nMay idô (a)ko\n\nEXIST dog 1SG\n\nI have a dog.",
+          "examples": [
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Hiligaynon linkers",
+          "body": "When an adjective modifies a noun, the linker nga links the two.\n\nExample:\n\nIdo nga itom\n'black dog'\n\nSometimes, if the linker is preceded by a word that ends in a vowel, glottal stop or the letter N, it becomes acceptable to contract it into -ng, as in Filipino. This is often used to make the words sound more poetic or to reduce the number of syllables. Sometimes the meaning may change as in maayo nga aga, '(the) good morning', and maayong aga, the greeting for 'good morning'.\n\nThe linker ka is used if a number modifies a noun.\n\nExample:\n\nAnum ka ido\n'six dogs'",
+          "examples": [
+            "Example:",
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Interrogative pronouns",
+          "body": "The interrogative pronouns of Hiligaynon are as follows: diin, san-o, sin-o, nga-a, kamusta, ano, and pila\n\nDiin means 'where'.\nExample: Diin ka na subong?\n'Where are you now?'\n\nA derivation of diin, tagadiin, is used to inquire about the birthplace or hometown of the listener.\nExample: Tagadiin ka?\n'Where are you from?'\n\nSan-o means 'when'\nExample: San-o inâ?\n'When is that?'\n\nSin-o means 'who'\nExample: Sin-o imo abyan?\n'Who is your friend?'\n\nNga-a means 'why'\nExample: Nga-a indi ka magkadto?\n'Why won't you go?'\n\nKamusta means 'how', as in \"How are you?\"\nExample: Kamusta ang tindahan?\n'How is the store?'\n\nAno means 'what'\nExample: Ano ang imo ginabasa?\n'What are you reading?'\n\nA derivative of ano, paano, meaning 'how', as in \"How do I do that?\"\nExample: Paano ko makapulî?\n'How can I get home?'\n\nA derivative of paano is paanoano, an archaic phrase which can be compared with kamusta.\nExample: Paanoano ikaw?\n'How art thou?'\n\nPila means 'how much/how many'\nExample: Pila ang gaupod sa imo?\n'How many are with you?'\n\nA derivative of pila, ikapila, asks the numerical order of the person, as in, \"What place were you born in your family?\"(first-born, second-born, etc.) This word is notoriously difficult to translate into English, as English has no equivalent.\nExample: Ikapila ka sa inyo pamilya?\n'What place were you born into your family?'\n\nA derivative of pila, tagpila, asks the monetary value of something, as in, \"How much is this beef?\"\nExample: Tagpila ini nga karne sang baka?\n'How much is this beef?'",
+          "examples": [
+            "Example: Diin ka na subong?",
+            "Example: Tagadiin ka?",
+            "Example: San-o inâ?",
+            "Example: Sin-o imo abyan?",
+            "Example: Nga-a indi ka magkadto?",
+            "Kamusta means 'how', as in \"How are you?\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Verbs",
+          "body": "This section needs expansion. You can help by adding missing information.  (January 2022)\nFocus\nSee also: Austronesian alignment\nAs it is essential for sentence structure and meaning, focus is a key concept in Hiligaynon and other Philippine languages. In English, in order to emphasize a part of a sentence, variation in intonation is usually employed – the voice is stronger or louder on the part emphasized. For example:\n\nThe man is stealing rice from the market for his sister.\n\nThe man is stealing rice from the market for his sister.\n\nThe man is stealing rice from the market for his sister.\n\nThe man is stealing rice from the market for his sister.\n\nFurthermore, active and passive grammatical constructions can be used in English to place focus on the actor or object as the subject:\n\nThe man stole the rice. vs. The rice was stolen by the man.\nIn contrast, sentence focus in Philippine languages is built into the construction by grammatical elements. Focus is marked by verbal affixes and a special particle prior to the noun in focus. Consider the following Hiligaynon translations of the above sentences:\n\nNagakawat ang lalaki sang bugas sa tinda para sa iya utod.\n\nGinakawat sang lalaki ang bugas sa tinda para sa iya utod.\n\nGinakawatan sang lalaki sang bugas ang tinda para sa iya utod.\n\nGinakawatan sang lalaki sang bugas sa tinda para sa iya utod.\n\n(lalaki 'man'; kawat 'to steal'; bugas 'rice'; tinda 'market'; utod 'sibling'; kamot 'hand')[16]\nSummary table\n\nTrigger, Mode and Aspect Affixes for Hiligaynon[17]\n\nTRIGGER\n\nASPECT\n\nMODE\n\nNeutral\n\nPurposive\n\nDurative\n\nCausative\n\nDistributive\n\nCooperative\n\nDubitative\n\nAgent\n\nGoal\n\nUnreal\n-on\npag—on\npaga—on\npa—on\npang—on\npakig—on\niga—on\n\nReal\ngin-\ngin-\ngina-\nginpa-\nginpang-\nginpakig-\nø\n\nReferent\n\nUnreal\n-an\npag—an\npaga—an\npa—an\npang—an\npakig—an\niga—an\n\nReal\ngin—an\ngin—an\ngina—an\nginpa—an\nginpang—an\nginpakig—an\nø\n\nAccessory\n\nUnreal\ni-\nipag-\nipaga-\nipa-\nipang-\nipakig-\niga-\n\nReal\ngin-\ngin-\ngina-\nginpa-\nginpang-\nginpakig-\nø\n\nActor\n\nUnreal\n-um-\nmag-\nmaga-\nø\nmang-\nmakig-\nø\n\nReal\n-um-\nnag-\nnaga-\nø\nnang-\nnakig-\nø\n\nPatient\n\nActor\n\nUnreal\nmaka-\nmakapag-\nmakapaga-\nmakapa-\nmakapang-\nmapapakig-\nø\n\nReal\nnaka-\nnakapag-\nnakapaga-\nnakapa-\nnakapang-\nnapapakig-\nø\n\nGoal\n\nUnreal\nma-\nmapag-\nmapaga-\nmapa-\nmapang-\nmapakig-\nø\n\nReal\nna-\nnapag-\nnapaga-\nnapa-\nnapang-\nnapakig-\nø",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Reduplication",
+          "body": "Hiligaynon, like other Philippine languages, employs reduplication, the repetition of a root or stem of a word or part of a word for grammatical or semantic purposes. Reduplication in Hiligaynon tends to be limited to roots instead of affixes, as the only inflectional or derivational morpheme that seems to reduplicate is -pa-. Root reduplication suggests 'non-perfectiveness' or 'non-telicity'. Used with nouns, reduplication of roots indicate particulars which are not fully actualized members of their class.[18] Note the following examples.\n\n(1)balay-bálay\n\nhouse-house\n\nbalay-bálay\n\nhouse-house\n\ntoy-house, playhouse\n\n(2)maestra-maestra\n\nteacher-teacher\n\nmaestra-maestra\n\nteacher-teacher\n\nmake-believe teacher\n\nReduplication of verbal roots suggests a process lacking a focus or decisive goal. The following examples describe events which have no apparent end, in the sense of lacking purpose or completion. A lack of seriousness may also be implied. Similarly, reduplication can suggest a background process in the midst of a foreground activity, as shown in (5).[19]\n\n(3)Nag-a-\n\nNAG-IMP-\n\nhìbî-híbî\n\ncry-cry\n\nang\n\nFOC\n\nbátâ.\n\nchild\n\nNag-a- hìbî-híbî ang bátâ.\n\nNAG-IMP- cry-cry FOC child\n\nThe child has been crying and crying.\n\n(4)Nag-a-\n\nNAG-IMP-\n\ntinlò-tinlò\n\nclean-clean\n\nakó\n\n1SG.FOC\n\nsang\n\nUNFOC\n\nlamésa\n\ntable\n\nNag-a- tinlò-tinlò akó sang lamésa\n\nNAG-IMP- clean-clean 1SG.FOC UNFOC table\n\nI'm just cleaning off the table (casually).\n\n(5)Nag-a-\n\nNAG-IMP-\n\nkàon-káon\n\neat-eat\n\nlang\n\njust\n\nsilá\n\n3PL.FOC\n\nsang\n\nUNFOC\n\nnag-abót\n\nNAG-arrive\n\nang\n\nFOC\n\níla\n\n3PL.UNFOC\n\nbisíta.\n\nvisitor\n\nNag-a- kàon-káon lang silá sang nag-abót ang íla bisíta.\n\nNAG-IMP- eat-eat just 3PL.FOC UNFOC NAG-arrive FOC 3PL.UNFOC visitor\n\nThey were just eating when their visitor arrived.\n\nWhen used with adjectival roots, non-telicity may suggest a gradualness of the quality, such as the comparison in (6). In comparative constructions the final syllables of each occurrence of the reduplicated root are accented. If the stress of the second occurrence is shifted to the first syllable, then the reduplicated root suggests a superlative degree, as in (7). Superlatives can also be created through prefixation of pinaka- to the root, as in pinaka-dakô.[20]\n\nWhile non-telicity can suggest augmentation, as shown in (7), it can also indicate diminishment as in shown in (9), in contrast with (8) (note the stress contrast). In (8b), maàyoáyo, accented in the superlative pattern, suggests a trajectory of improvement that has not been fully achieved. In (9b), maàyoayó suggests a trajectory of decline when accented in the comparative pattern. The reduplicated áyo implies sub-optimal situations in both cases; full goodness/wellness is not achieved.[20]\n\n(6)Iní\n\nthis.FOC\n\nnga\n\nLINK\n\nkwárto\n\nroom\n\nma-dulùm-dulúm\n\nMA-dark-dark\n\nsang\n\nUNFOC\n\nsa\n\nOBL\n\nsinâ\n\nthat.UNFOC\n\nIní nga kwárto ma-dulùm-dulúm sang sa sinâ\n\nthis.FOC LINK room MA-dark-dark UNFOC OBL that.UNFOC\n\nThis room is darker than that one.\n\n(7)dakô-dakô\n\nbig-big\n\ndakô-dakô\n\nbig-big\n\nbigger\n\ndakô-dákô\n\nbig-big\n\n(gid)\n\n(really)\n\ndakô-dákô (gid)\n\nbig-big (really)\n\nbiggest\n\n \n\n(8)Ma-áyo\n\nMA-good\n\nang\n\nFOC\n\nreló.\n\nwatch\n\nMa-áyo ang reló.\n\nMA-good FOC watch\n\nThe watch is good/functional.\n\nMa-àyo-áyo\n\nMA-good-good\n\nna\n\nnow\n\nang\n\nFOC\n\nreló.\n\nwatch\n\nMa-àyo-áyo na ang reló.\n\nMA-good-good now FOC watch\n\nThe watch is semi-fixed.\n\n \n\n(9)Ma-áyo\n\nMA-good\n\nakó.\n\n1SG.FOC\n\nMa-áyo akó.\n\nMA-good 1SG.FOC\n\nI'm well.\n\nMa-àyo-ayó\n\nMA-good-good\n\nna\n\nnow\n\nakó.\n\n1SG.FOC\n\nMa-àyo-ayó na akó.\n\nMA-good-good now 1SG.FOC\n\nI'm so so.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Vocabulary",
+      "summary": "Hiligaynon has a large number of words derived from Spanish including nouns (e.g., santo from santo, 'saint'), adjectives (e.g., berde from verde, 'green'), prepositions (e.g., antes from antes, 'before'), and conjunctions (e.g., pero from pero, 'but').",
+      "sections": [
+        {
+          "heading": "Derived from Spanish",
+          "body": "Hiligaynon has a large number of words derived from Spanish including nouns (e.g., santo from santo, 'saint'), adjectives (e.g., berde from verde, 'green'), prepositions (e.g., antes from antes, 'before'), and conjunctions (e.g., pero from pero, 'but').\n\nNouns denoting material items and abstract concepts invented or introduced during the early modern era include barko (barco, 'ship'), sapatos (zapatos, 'shoes'), kutsilyo (cuchillo, 'knife'), kutsara (cuchara, 'spoon'), tenedor ('fork'), plato ('plate'), kamiseta (camiseta, 'shirt'), and kambiyo (cambio, 'change', as in money). Spanish verbs are incorporated into Hiligaynon in their infinitive forms: edukar, kantar, mandar, pasar. The same holds true for other languages such as Cebuano. In contrast, incorporations of Spanish verbs into Tagalog for the most part resemble, though are not necessarily derived from, the vos forms in the imperative: eduká, kantá, mandá, pasá. Notable exceptions include andar, pasyal (from pasear) and sugal (from jugar).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Examples",
+      "summary": "Just like other Philippine languages that are influenced by Spanish, Hiligaynon uses 2 systems of numbers, one from its Austronesian roots and one derived from Spanish.",
+      "sections": [
+        {
+          "heading": "Numbers",
+          "body": "Just like other Philippine languages that are influenced by Spanish, Hiligaynon uses 2 systems of numbers, one from its Austronesian roots and one derived from Spanish.\n\nNumber\n\nHiligaynon-Native\n\nHiligaynon-Spanish\n\n1\n\nisá\n\nuno\n\n2\n\nduhá\n\ndos\n\n3\n\ntátlo\n\ntres\n\n4\n\nápat\n\nkuwatro\n\n5\n\nlimá\n\nsingku\n\n6\n\nánum\n\nsais\n\n7\n\npitó\n\nsyete\n\n8\n\nwaló\n\notso\n\n9\n\nsiyám\n\nnwebe/nuybi\n\n10\n\npulò/napulò\n\ndyis\n\n100\n\ngatós\n\nsiyen/syento\n\n1,000\n\nlíbo\n\nmil\n\n10,000\n\nlaksâ/isáng libo\n\ndyis mil\n\n1,000,000\n\nhámbad/ramák\n\nmilyon\n\nFirst\n\ntig-una/panguná\n\nprimera\n\nSecond\n\nikaduhá\n\nsegunda\n\nThird\n\nikatlo/ikatátlo\n\ntersera\n\nFourth\n\nikap-at/ikaápat\n\nFifth\n\nikalimá\n\nSixth\n\nikán-um/ikaánum\n\nSeventh\n\nikapitó\n\nEighth\n\nikawaló\n\nNinth\n\nikasiyám\n\nTenth\n\nikapulò\n\nfilipino",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Days of the week",
+          "body": "The names of the days of the week are derived from their Spanish equivalents.\n\nDay\n\nNative Names\n\nMeaning\n\nCastilian Derived\n\nSunday\n\nTigburukad\n\nroot word: bukad, 'open'; 'Starting Day'\n\nDomingo\n\nMonday\n\nDumasaon\n\nroot word: dason 'next'; 'Next Day'\n\nLunes\n\nTuesday\n\nDukot-dukot\n\nliteral meaning 'Busy Day'; 'Busiest Day'\n\nMartes\n\nWednesday\n\nBaylo-baylo\n\nroot word: baylo, 'exchange'; 'Barter' or 'Market Day'\n\nMiyerkoles\n\nThursday\n\nDanghos\n\nliteral meaning: 'rush'; 'Rushing of the Work Day'\n\nHuwebes\n\nFriday\n\nHingot-hingot\n\nliteral meaning: 'Completing of the Work Day'\n\nBiyernes\n\nSaturday\n\nLigid-ligid\n\nroot word: ligid, 'lay-down to rest'; 'Rest Day'\n\nSábado",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Months of the year",
+          "body": "Month\n\nNative Name\n\nCastilian Derived\n\nJanuary\n\nUlalong\n\nEnero\n\nFebruary\n\nDagang Kahoy\n\nPebrero\n\nMarch\n\nDagang Bulan\n\nMarso\n\nApril\n\nKiling\n\nAbril\n\nMay\n\nHimabuyan\n\nMayo\n\nJune\n\nKabay\n\nHunyo\n\nJuly\n\nHidapdapan\n\nHulyo\n\nAugust\n\nLubad-lubad\n\nAgosto\n\nSeptember\n\nKangurulsol\n\nSetiyembre\n\nOctober\n\nBagyo-bagyo\n\nOktubre\n\nNovember\n\nPanglot Diyutay\n\nNobiyembre\n\nDecember\n\nPanglot Dako\n\nDisiyembre",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Quick phrases",
+          "body": "English\n\nHiligaynon\n\nYes.\n\nHúo.\n\nNo.\n\nIndî.\n\nThank you.\n\nSalamat.\n\nThank you very much!\n\nSalamat gid. / Madamò gid nga salamat!\n\nI'm sorry.\n\nPatawaron mo ako. / Pasayloha 'ko. / Pasensyahon mo ako. / Pasensya na.\n\nHelp me!\n\nBuligi (a)ko! / Tabangi (a)ko!\n\nDelicious!\n\nNamit!\n\nTake care (Also used to signify goodbye)\n\nHalong.\n\nAre you angry/scared?\n\nAkig/hadlok ka?\n\nDo you feel happy/sad?\n\nNalipay/Nasubo-an ka?\n\nI don't know/I didn't know\n\nAmbot / Wala ko kabalo / Wala ko nabal-an\n\nI don't care\n\nWa-ay ko labot!\n\nThat's wonderful/marvelous!\n\nNámì-námì ba! / Nami ah!\n\nI like this/that!\n\nNanámìan ko sini/sina!\n\nI love you.\n\nPalangga ta ka. / Ginahigugma ko ikaw.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Greetings",
+          "body": "English\n\nHiligaynon\n\nHello!\n\nKumusta/Maayong adlaw (lit. 'good day')\n\nGood morning.\n\nMaayong aga.\n\nGood noon.\n\nMaayong ugto/Maayong udto\n\nGood afternoon.\n\nMaayong hapon.\n\nGood evening.\n\nMaayong gab-i.\n\nHow are you?\n\nKamusta ka?/Kamusta ikaw?/Musta na? (informal)\n\nI'm fine.\n\nMaayo man.\n\nI am fine, how about you?\n\nMaayo man, ikaw ya?\n\nHow old are you?\n\nPila na ang edad (ni)mo? / Ano ang edad mo? / Pila ka tuig ka na?\n\nI am 24 years old.\n\nBeinte kwatro anyos na (a)ko./ Duha ka pulo kag apat ka tuig na (a)ko.\n\nMy name is...\n\nAng ngalan ko...\n\nI am Erman.\n\nAko si Erman. / Si Erman ako.\n\nWhat is your name?\n\nAno imo ngalan? / Ano ngalan (ni)mo?\n\nUntil next time.\n\nAsta sa liwat.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Space and time",
+          "body": "English\n\nHiligaynon\n\nWhere are you now?\n\nDiin ka (na) subong?\n\nWhere shall we go?\n\nDiin (ki)ta makadto?\n\nWhere are we going?\n\nDiin (ki)ta pakadto?\n\nWhere are you going?\n\n(Sa) diin ka makadto?\n\nWe shall go to Iloilo.\n\nMakadto (ki)ta sa Iloilo.\n\nWe're going to Bacolod.\n\nMakadto kami sa Bacolod.\n\nI am going home.\n\nMapa-uli na ko (sa balay). / (Ma)puli na ko.\n\nWhere do you live?\n\nDiin ka naga-istar? / Diin ka naga-puyô?\n\nWhere did you come from? (Where have you just been?)\n\nDiin ka (nag)-halin?\n\nHave you been here long?\n\nDugay ka na di(ri)?\n\n(To the) left.\n\n(Sa) wala.\n\n(To the) right.\n\n(Sa) tuo.\n\nWhat time is it?\n\nAno('ng) takna na? / Ano('ng) oras na?\n\nIt's ten o'clock.\n\nAlas diyes na.\n\nWhat time is it now?\n\nAno ang oras subong? / Ano oras na?",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Ancient times of the day",
+          "body": "Time\n\nName\n\nMeaning\n\n06:00 AM\n\nButlak Adlaw\n\nDaybreak\n\n10:00 AM\n\nTig-ilitlog or Tig-iritlog\n\nTime for chickens to lay eggs\n\n12:00 noon\n\nUdto Adlaw or Ugto Adlaw\n\nNoon time or midday\n\n02:00 PM\n\nHuyog Adlaw\n\nEarly afternoon\n\n04:00 PM\n\nTigbarahog\n\nTime for feeding the swine\n\n06:00 PM\n\nSirom\n\nTwilight\n\n08:00 PM\n\nTingpanyapon or Tig-inyapon\n\nSupper time\n\n10:00 PM\n\nTigbaranig\n\nTime to lay the banig or sleeping mat\n\n11:00 PM\n\nUnang Pamalò\n\nFirst cockerel's crow\n\n12:00 midnight\n\nTungang Gab-i\n\nMidnight\n\n02:00 AM\n\nIkaduhang Pamalò\n\nSecond cockerel's crow\n\n04:00 AM\n\nIkatatlong Pamalò\n\nThird cockerel's crow\n\n05:00 AM\n\nTigbulugtaw or Tigburugtaw\n\nWaking up time",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "When buying",
+          "body": "English\n\nHiligaynon\n\nMay/Can I buy?\n\nPwede ko ma(g)-bakal?\n\nHow much is this/that?\n\nTag-pilá iní/inâ?\n\nI'll buy the...\n\nBaklon ko ang...\n\nIs this expensive?\n\nMahal bala (i)ni?\n\nIs that cheap?\n\nBarato bala (i)na?",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "The Ten Commandments",
+          "body": "The Catholic version of the Ten Commandments in Hiligaynon at Molo Church, Molo, Iloilo City\nLiteral translation as per photo:\n\nBelieve in God and worship only him\n\nDo not use the name of God without purpose\n\nHonor the day of the Lord\n\nHonor your father and mother\n\nDo not kill\n\nDo not pretend to be married against virginity (don't commit adultery)\n\nDo not steal\n\nDo not lie\n\nDo not have desire for the wife of your fellow man\n\nDo not covet the riches of your fellow man",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        },
+        {
+          "heading": "Universal Declaration of Human Rights",
+          "body": "Article 1 of the Universal Declaration of Human Rights (Ang Kalibutánon nga Pahayag sang mga Kinamaatárung sang Katáwhan)\n\nAng tanán nga táwo ginbún-ag nga hílway kag may pag-alalangay sa dungóg kag kinamatárong.\n\nSilá ginhatágan sing pagpamat-ud kag balatyágon kag nagakadápat nga magbinuligáy sa kahulugan sang pag-inuturáy.\n\nTranslation:\nEvery person is born free and equal with honor and rights.\n\nThey are given reason and conscience and they must always trust each other for the spirit of brotherhood.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Notable Hiligaynon writers",
+      "summary": "Further information: Hiligaynon literature\nPeter Solis Nery (born 1969) – prolific writer, poet, playwright, novelist, editor, \"Hari sang Binalaybay\", and champion of the Hiligaynon language. Born in Dumangas.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Further information: Hiligaynon literature\nPeter Solis Nery (born 1969) – prolific writer, poet, playwright, novelist, editor, \"Hari sang Binalaybay\", and champion of the Hiligaynon language. Born in Dumangas.\n\nAntonio Ledesma Jayme (1854–1937) – lawyer, revolutionary, provincial governor and assemblyman. Born in Jaro, lived in Bacolod.\n\nGraciano López Jaena (1856–1896) – journalist, orator, and revolutionary from Iloilo, well known for his written works, La Solidaridad and Fray Botod. Born in Jaro.\n\nFlavio Zaragoza y Cano (1892–1994) – lawyer, journalist and the \"Prince of Visayan poets\". Born in Janipaan, Cabatuan.[21]\n\nConrado Saquian Norada (born 1921) – lawyer, intelligence officer and governor of Iloilo from 1969 to 1986. Co-founder and editor of Yuhum magazine. Born in Miag-ao.[22]\n\nRamon Muzones (1913–1992) – prolific writer and lawyer, recipient of the National Artist of the Philippines for Literature award. Born in Miag-ao.[23]\n\nMagdalena Jalandoni (1891–1978) – prolific writer, novelist and feminist. Born in Jaro.[24]\n\nAngel Magahum Sr. (1876–1931) – writer, editor and composer. Composed the classic Iloilo ang Banwa Ko, the unofficial song of Iloilo. Born in Molo.[25]\n\nValente Cristobal (1875–1945) – noted Hiligaynon playwright. Born in Polo (now Valenzuela City), Bulacan.[26]\n\nElizabeth Batiduan Navarro – Hiligaynon drama writer for radio programs of Bombo Radyo Philippines.\n\nGenevieve L. Asenjo – Filipino poet, novelist, translator and literary scholar in Kinaray-a, Hiligaynon and Filipino. Her first novel, Lumbay ng Dila, (C&E/DLSU, 2010) received a citation for the Juan C. Laya Prize for Excellence in Fiction in a Philippine Language in the National Book Award.",
+          "examples": [
+            "Peter Solis Nery (born 1969) – prolific writer, poet, playwright, novelist, editor, \"Hari sang Binalaybay\", and champion of the Hiligaynon language. Born in Dumangas.",
+            "Flavio Zaragoza y Cano (1892–1994) – lawyer, journalist and the \"Prince of Visayan poets\". Born in Janipaan, Cabatuan.[21]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hiligaynon_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

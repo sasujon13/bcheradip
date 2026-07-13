@@ -1,0 +1,190 @@
+{
+  "title": "Grammar Book — ລາວ",
+  "languageCode": "lo",
+  "languageName": "ລາວ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Lao_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Lao language\nLao is generally a subject–verb–object language, but emphasis can move the object to the beginning of a sentence. The language lacks both agreement and case marking, but word order is very free, with predicate-argument relations determined largely thro",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Lao language\nLao is generally a subject–verb–object language, but emphasis can move the object to the beginning of a sentence. The language lacks both agreement and case marking, but word order is very free, with predicate-argument relations determined largely through context. Lao is a right-branching language, much like other Southeast Asian languages and, to a lesser extent, Romance languages.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Politeness",
+      "summary": "Since Lao culture is stratified based on the age, occupation, wealth or clout of the speaker, one must afford differing amounts of respect based on the discrepancy between one person and another. That affects language as well; to make language more polite, more formal language, i",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Since Lao culture is stratified based on the age, occupation, wealth or clout of the speaker, one must afford differing amounts of respect based on the discrepancy between one person and another. That affects language as well; to make language more polite, more formal language, including of pronouns (which can otherwise be dropped) and more formal versions of them, and sentence-ending particles can be used. Also, ending particles also serve to soften and make one's speech more polite.\n\nແດ່ (dé /dɛ̄ː/)\n\nIn addition to ending most general statements and the softening of imperatives and requests, it is also used to intensify the meaning (especially of adjectives and adverbs) more politely, to make the use of demonstrative pronouns more polite, or to indicate a certain amount or some extent of something.\n\nເດີ (deu /dɤ̀ː/) or ເດີ້ (deu /dɤ̂ː/) or ເດ (dè/de /dèː/)\n\nThey are used as a more intensive version of ແດ່, thus giving requests and demands more urgency and are used for statements that tend to be more emphatic. They are, therefore, not as polite. ເດ also has the sense of and what about or to indicate an equivalent to this as a demonstrative pronoun.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nouns",
+      "summary": "Nouns are not marked for plurality, gender, or declension but may be single or plural. Unlike in English, nouns are not marked with articles. Measure words or classifiers (ລັກສະໜະນາມ, laksana naam /làk.sáʔ.náʔ náːm/) are often used to express plurals, as classifiers must be used",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nouns are not marked for plurality, gender, or declension but may be single or plural. Unlike in English, nouns are not marked with articles. Measure words or classifiers (ລັກສະໜະນາມ, laksana naam /làk.sáʔ.náʔ náːm/) are often used to express plurals, as classifiers must be used to count objects, but the noun itself remains unchanged.\n\nVerbs of physical action are easily converted into nouns by adding ການ (kan /kàːn/) before the verb. Abstract actions and adjectives use ຄວາມ (khwam /kʰúam/) instead.\n\nex:ເດີນທາງ\n\ndeunthang\n\n[dɤ̀ːn tʰáːŋ]\n\nto travel (v.)\n\n \n\n \n\n \n\nnominalised into\n\nການເດີນທາງ\n\nkan deunthang\n\n[kàːn dɤ̀ːn tʰáːŋ]\n\ntravel (n.)\n\nເດີນທາງ {} ການເດີນທາງ\n\ndeunthang {} {kan deunthang}\n\n[dɤ̀ːn tʰáːŋ] {} [kàːn dɤ̀ːn tʰáːŋ]\n\n{to travel (v.)} {nominalised into} {travel (n.)}\n\nex:ຄຶດ\n\nkhuet\n\n[kʰɯ̄t]\n\nto think (v.)\n\n \n\n \n\n \n\nnominalised into\n\nຄວາມຄຶດ\n\nkhoam khuet\n\n[kʰuám kʰɯ̄t]\n\nthought (n.)\n\nຄຶດ {} ຄວາມຄຶດ\n\nkhuet {} {khoam khuet}\n\n[kʰɯ̄t] {} [kʰuám kʰɯ̄t]\n\n{to think (v.)} {nominalised into} {thought (n.)}\n\nex:ດີ\n\ndi\n\n/diː/\n\ngood (adj.)\n\n \n\n \n\n \n\nnominalised into\n\nຄວາມດີ\n\nkhouam di\n\n[kʰuám dìː]\n\ngoodness (n.)\n\nດີ {} ຄວາມດີ\n\ndi {} {khouam di}\n\n/diː/ {} [kʰuám dìː]\n\n{good (adj.)} {nominalised into} {goodness (n.)}",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Pronouns",
+      "summary": "ຂ້ານ້ອຍ\nkhanoy\nkha noi\n/kʰȁː nɔ̂ːj/\nI/me (formal)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Pronoun\nBGN/PCGN\nRTGS\nIPA\nMeaning\n\nຂ້ອຍ\nkhoy\nkhoi\n/kʰɔ̏j/\nI/me (common)\n\nຂ້ານ້ອຍ\nkhanoy\nkha noi\n/kʰȁː nɔ̂ːj/\nI/me (formal)\n\nຂ້າ\nkha\n/kʰȁː/\nI/me (informal)\n\nເຮົາ\nhao\n/háw/\nwe/us\n\nເຈົ້າ\nchao\n/tɕâw/\nyou (common)\n\nທ່ານ\nthan\n/tʰāːn/\nyou (very formal)\n\nສູ\nsou\nsu\n/sǔː/\nyou (informal)\n\nເຂົາ\nkhao\n/kʰǎw/\nhe/him/she/her (formal, general)\n\nລາວ\nlao\n/láːw/\nhe/him/she/her (very informal)\n\nເພິ່ນ\npheun\nphoen\n/pʰɤ̄n/\nhe/him/she/her (very formal)\n\nມັນ\nman\n/mán/\nit, he/she (offensive if used on a person)\n\nPronouns (ສັບພະນາມ, sapphanam [sáp.pʰā.náːm]) are often dropped in informal contexts and replaced with nicknames or kinship terms, depending on the relation of the speaker spoken to (sometimes even spoken about). Pronouns can change based on register of speech, including the obsolete royal and the formal, informal and vulgar. In more formal language, pronouns are more often retained and more formal ones used. Pronouns can be pluralized by adding ພວກ (phuak [pʰûak]) in front: ພວກເຈົ້າ ([pʰûak tɕâw]) for \"you plural\". Age and status determine usage. Younger children's names are often prefixed with ບັກ (bak [bāk]) and ອີ (i [ʔìː]), respectively. Slightly older children are addressed to or have their names prefixed with ອ້າຍ (ai [ʔâːj]) and ເອື້ອຍ (èw-ai [ʔɯâj]), respectively, but ພີ່ (phi [pʰīː]) is also common. Much older people may be politely dressed as aunt, uncle, mother, father, or even grandmother or grandfather, depending on their age. In a company setting, one's title is often used.",
+          "examples": [
+            "Pronouns (ສັບພະນາມ, sapphanam [sáp.pʰā.náːm]) are often dropped in informal contexts and replaced with nicknames or kinship terms, depending on the relation of the speaker spoken to (sometimes even spoken about). Pronouns can change based o"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "Demonstrative Pronoun\nBGN/PCGN\nRTGS\nIPA\nMeaning\n\nນີ້\nni\n/nîː/\nthis\n\nນັ້ນ\nnan\n/nân/\nthat\n\nເຫຼົ່ານີ້\nlao ni\n/lāw nīː/\nthese\n\nເຫຼົ່ານັ້ນ\nlao nan\n/lāw nân/\nthose",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Verbs",
+      "summary": "Lao verbs (ກະລິຍາ, karigna [kā.lī ɲáː]) are not conjugated for tense, mood, or person. Tense is indicated by using time reference words, such as yesterday, next year, just now or by certain particles. Nouns that begin with ການ (kan [kàːn]) or ຄວາມ (khwam [kʰúam]), often nominalis",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Lao verbs (ກະລິຍາ, karigna [kā.lī ɲáː]) are not conjugated for tense, mood, or person. Tense is indicated by using time reference words, such as yesterday, next year, just now or by certain particles. Nouns that begin with ການ (kan [kàːn]) or ຄວາມ (khwam [kʰúam]), often nominalised verbs, become verbs again when those particles are dropped.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        },
+        {
+          "heading": "Copula",
+          "body": "Lao has two forms of the verb to be, ເປັນ (pèn [pèn]) and ແມ່ນ (maen [mɛ̄n]) which are somewhat interchangeable. As a general rule, the latter is not used to describe people.\n\nex:ນົກ\n\nNok\n\nNok\n\nເປັນ\n\npen\n\nbe\n\nໝໍ\n\nmo\n\ndoctor\n\nນົກ ເປັນ ໝໍ\n\nNok pen mo\n\nNok be doctor\n\nNok is a doctor.\n\nex:ນັ້ນ\n\nNan\n\nThat\n\nບໍ່\n\nbo\n\nnot\n\nແມ່ນ\n\nmèn\n\nbe\n\nເຮືອ\n\nheua\n\nboat.\n\nນັ້ນ ບໍ່ ແມ່ນ ເຮືອ\n\nNan bo mèn heua\n\nThat not be boat.\n\nThat is not a boat.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        },
+        {
+          "heading": "Tense",
+          "body": "In a general, short Lao sentence, the verb is often not marked for tense and can be taken from context, with words such as yesterday, tomorrow, later, etc. If the subject of when the events occurred is already known, they can also be left out and inferred from dialogue. However, there are several ways to mark tense in Lao:\n\nPast\nThe most common way to indicate a completed action is to end a statement with ແລ້ວ (lèw [lɛ̂ːw]). That can also be used to indicate events that occurred in the recent past. One can also use the particle ໄດ້ (dai [dâj]) preceding the verb, alone or in conjunction with ແລ້ວ, although this is less common and often used in negative statements and never for a continuous action.\n\nex:ແບ້\n\nbae\n\n[bɛ̂ː\n\nລົງ\n\nlong\n\nlóŋ\n\nມາ\n\nma\n\nmáː\n\nຈາກ\n\nchak\n\nt͡ɕàːk\n\nພູ\n\nphou\n\npʰúː\n\nແລ້ວ\n\nlaew\n\nlɛ̂ːw]\n\nແບ້ ລົງ ມາ ຈາກ ພູ ແລ້ວ\n\nbae long ma chak phou laew\n\n[bɛ̂ː lóŋ máː t͡ɕàːk pʰúː lɛ̂ːw]\n\n'The goat (just) came down from the mountain.'\n\nex:ແບ້\n\nbae\n\n[bɛ̂ː\n\nບໍ່\n\nbo\n\nbɔ̄ː\n\nໄດ້\n\ndai\n\ndâj\n\nລົງ\n\nlong\n\nlóŋ\n\nມາ\n\nma\n\nmáː\n\nຈາກ\n\nchak\n\nt͡ɕàːk\n\nພູ\n\nphou\n\npʰúː\n\nແລ້ວ\n\nlaew\n\nlɛ̂ːw]\n\nແບ້ ບໍ່ ໄດ້ ລົງ ມາ ຈາກ ພູ ແລ້ວ\n\nbae bo dai long ma chak phou laew\n\n[bɛ̂ː bɔ̄ː dâj lóŋ máː t͡ɕàːk pʰúː lɛ̂ːw]\n\n'The goat did not come down from the mountain.'\n\nFuture\nThere are two markers used to indicate actions to be completed in the future, ຊິ  (si [sī]) and ຈະ (cha [t͡ɕáʔ]). Both of these always precede the verb. To indicate that something is just about to happen, one can say ກຳລັງຈະ (kamlang cha [kàm.láŋ t͡ɕáʔ]).\n\nex:ຄົນ\n\nkhon\n\n[kʰón\n\nນາ\n\nna\n\nnáː\n\nຈະ\n\ncha\n\ntɕáʔ\n\nກິນ\n\nkin\n\nkìn\n\nເຂົ້າ\n\nkhao\n\nkʰȁw\n\nໜຽວ\n\nnio\n\nnǐaw]\n\nຄົນ ນາ ຈະ ກິນ ເຂົ້າ ໜຽວ\n\nkhon na cha kin khao nio\n\n[kʰón náː tɕáʔ kìn kʰȁw nǐaw]\n\n'The farmer will eat sticky rice.'\n\nex:ຄົນ\n\nkhon\n\n[kʰón\n\nນາ\n\nna\n\nnáː\n\nຊິ\n\nsi\n\nsī\n\nກິນ\n\nkin\n\nkìn\n\nເຂົ້າ\n\nkhao\n\nkʰȁw\n\nໜຽວ\n\nnio\n\nnǐaw]\n\nຄົນ ນາ ຊິ ກິນ ເຂົ້າ ໜຽວ\n\nkhon na si kin khao nio\n\n[kʰón náː sī kìn kʰȁw nǐaw]\n\n'The farmer will eat sticky rice.'\n\nex:ຄົນ\n\nkhon\n\n[kʰón\n\nນາ\n\nna\n\nnáː\n\nກຳລັງຈະ\n\nkamlang cha\n\nkàm.láŋ tɕáʔ\n\nກິນ\n\nkin\n\nkìn\n\nເຂົ້າ\n\nkhao\n\nkʰàw\n\nໜຽວ\n\nnio\n\nnǐaw]\n\nຄົນ ນາ ກຳລັງຈະ ກິນ ເຂົ້າ ໜຽວ\n\nkhon na {kamlang cha} kin khao nio\n\n[kʰón náː {kàm.láŋ tɕáʔ} kìn kʰàw nǐaw]\n\n'The farmer is just about to eat sticky rice.'\n\nProgressive\nAlthough no particle is generally needed to mark a present progressive statement, Lao uses three, ພວມ (phuam [pʰuám]) and ກຳລັງ (kamlang [kàm.láŋ]) before the verb, ຢູ່ (yu [jūː]) after it.\n\nex:ເດັກ\n\ndèk\n\n[dék\n\nພວມ\n\nphouam\n\npʰúam\n\nນອນ\n\nnon\n\nnɔ́ːn]\n\nເດັກ ພວມ ນອນ\n\ndèk phouam non\n\n[dék pʰúam nɔ́ːn]\n\n'The baby is (still/currently) sleeping.'\n\nex:ເດັກ\n\ndèk\n\n[dék\n\nກຳລັງ\n\nkamlang\n\nkam̀.láŋ\n\nນອນ\n\nnon\n\nnɔ́ːn]\n\nເດັກ ກຳລັງ ນອນ\n\ndèk kamlang non\n\n[dék kam̀.láŋ nɔ́ːn]\n\n'The baby is (still/currently) sleeping.'\n\nex:ເດັກ\n\ndèk\n\n[dék\n\nນອນຢູ່\n\nnon-you\n\nnɔ́ːn jūː]\n\nເດັກ ນອນຢູ່\n\ndèk non-you\n\n[dék {nɔ́ːn jūː}]\n\n'The baby is (still/currently) sleeping.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        },
+        {
+          "heading": "Modal verbs",
+          "body": "Modal or auxiliary verbs (ວິກະຕິກະລິຍາ, vikatikaligna) are verbs that serve auxiliary function, such as want, obligation or need like English ought to, should, must, can, etc.\n\nObligation\nຄວນ (khouan [kʰuán]) Should, ought to\n\nex:ຂະເຈົ້າ\n\nkhachao\n\nthey.FORMAL\n\nຄວນ\n\nkhouan\n\nshould\n\nເວົ້າ\n\nvao\n\nspeak\n\nກັບ\n\ngap\n\nwith\n\nເຈົ້າແຂວງ\n\nchao khwaeng\n\ngovernor.\n\nຂະເຈົ້າ ຄວນ ເວົ້າ ກັບ ເຈົ້າແຂວງ\n\nkhachao khouan vao gap {chao khwaeng}\n\nthey.FORMAL should speak with governor.\n\nThey should speak with the governor.\n\nex:ເຈົ້າ\n\nChao\n\nyou\n\nຄວນ\n\nkhouan\n\nshould\n\nນົບ\n\nnop\n\nbow\n\nເມື່ອ\n\nmeu\n\nwhen\n\nທ່ານ\n\nthan\n\nmister\n\nສະມິຖ\n\nsamit\n\nSmith\n\nເຂົ້າ\n\nkhao\n\nenter\n\nມາ\n\nma\n\ncome.\n\nເຈົ້າ ຄວນ ນົບ ເມື່ອ ທ່ານ ສະມິຖ ເຂົ້າ ມາ\n\nChao khouan nop meu than samit khao ma\n\nyou should bow when mister Smith enter come.\n\nYou ought to nop (bow) when Mr. Smith comes inside.\n\nNeed\nຕ້ອງ (tong [tɔ̂ŋ]) to need, must.\n\nWhen the need is a noun, ຕ້ອງການ (tong kan [tɔ̂ŋ kàːn]) is used instead.\n\nex:ມື້\n\nmeu\n\n[mɯ̂ː\n\nday\n\nນີ້\n\nni\n\nnîː\n\nthis\n\nຕ້ອງ\n\ntong\n\ntɔ̂ŋ\n\nmust\n\nໄປ\n\nbai\n\npàj\n\ngo (v)\n\nເຮັດ\n\nhet\n\nhēt\n\ndo (v)\n\nນາ\n\nna\n\nnáː]\n\nfield\n\nມື້ ນີ້ ຕ້ອງ ໄປ ເຮັດ ນາ\n\nmeu ni tong bai het na\n\n[mɯ̂ː nîː tɔ̂ŋ pàj hēt náː]\n\nday this must {go (v)} {do (v)} field\n\n'Today, I must till the fields.'\n\nex:ຊ່າງຄຳ\n\nSangkham\n\n[sāːŋ kʰám\n\njeweller\n\nຕ້ອງການ\n\ntong kan\n\ntɔ̂ŋ kàːn\n\nmust+ການ (v)\n\nຄຳ\n\nkham\n\nkʰám]\n\ngold\n\nຊ່າງຄຳ ຕ້ອງການ ຄຳ\n\nSangkham {tong kan} kham\n\n[{sāːŋ kʰám} {tɔ̂ŋ kàːn} kʰám]\n\njeweller {must+ການ (v)} gold\n\n'The jeweller needs gold.'\n\nWant\nຢາກ, yak [jȁːk], to want, to desire\n\nUsed to express a want or desire. When this is a noun, then the form ຢາກໄດ້ (yak dai [jȁːk dâj]) or the common verb ເອົາ (ao [àw]) is used instead, but the latter is not as polite.\n\nex:ເອື້ອຍ\n\nEuy\n\n[ʔɯ̂aj\n\nolder sister\n\nຢາກ\n\nyak\n\njȁːk\n\nwant\n\nໄປ\n\npai\n\npàj\n\ngo\n\nວຽງຈັນ\n\nVientiane\n\nwíaŋ.t͡ɕàn]\n\nVientiane\n\nເອື້ອຍ ຢາກ ໄປ ວຽງຈັນ\n\nEuy yak pai Vientiane\n\n[ʔɯ̂aj jȁːk pàj wíaŋ.t͡ɕàn]\n\n{older sister} want go Vientiane\n\n'Older sister wants to go to Vientiane.'[dubious – discuss][check IPA for euy]\n\nex:ເອື້ອຍ\n\nEuy\n\n[ɯ̂aj\n\nolder sister\n\nຢາກ\n\nyak\n\njȁːk\n\nwant\n\nໄດ້\n\ndai\n\ndâj\n\nໄດ້\n\nຜົວ\n\nphoua\n\npʰǔa\n\nhusband\n\nວຽງຈັນ\n\nVientiane\n\nwiáŋ.t͡ɕàn]\n\nVientiane\n\nເອື້ອຍ ຢາກ ໄດ້ ຜົວ ວຽງຈັນ\n\nEuy yak dai phoua Vientiane\n\n[ɯ̂aj jȁːk dâj pʰǔa wiáŋ.t͡ɕàn]\n\n{older sister} want ໄດ້ husband Vientiane\n\n'Older sister wants a husband from Vientiane.'\n\nex:ເອົາ\n\nao\n\n[àw\n\nwant (v)\n\nຕຳຫມາກຫຸ່ງ\n\ntammakhoung\n\ntàm.mȁːk.hūŋ\n\npapaya salad\n\nທີ່\n\nthi\n\ntʰīː\n\nCL\n\nນຶ່ງ\n\nneung\n\nnɯ̄ŋ\n\none\n\nບໍ່\n\nbo\n\nbɔ̄ː\n\nno\n\nໃສ່\n\nsai\n\nsāj\n\nadd (v)\n\nປາແດກ\n\npadèk\n\npàː.dɛ̏ːk]\n\nLao fish sauce\n\nເອົາ ຕຳຫມາກຫຸ່ງ ທີ່ ນຶ່ງ ບໍ່ ໃສ່ ປາແດກ\n\nao tammakhoung thi neung bo sai padèk\n\n[àw tàm.mȁːk.hūŋ tʰīː nɯ̄ŋ bɔ̄ː sāj pàː.dɛ̏ːk]\n\n{want (v)} {papaya salad} CL one no {add (v)} {Lao fish sauce}\n\nI want one dish of papaya salad without padaek.\n\nCan, be able to\nໄດ້ (dai [dâj]) to get, to have, to be able to\n\nThat is used to indicate the ability to do something. It is the closest Lao word for the English verb can and in requests when English speakers would use may. When used in that sense, it follows the verb; before the verb, the meaning changes to to get or to have.\n\nex:ຜູ້ເຖົ້າ\n\nphou thao\n\n[pʰȕː.tʰȁw\n\nold man\n\nຍ່າງ\n\ngnang\n\nɲāːŋ\n\nwalk (v)\n\nສິບຫ້າ\n\nsip ha\n\nsíp hȁː\n\nfifteen\n\nກິໂລເມ້ດ\n\nkilomet\n\nkī.lóː.mēt\n\nkilometer\n\nໄດ້\n\ndai\n\ndâ]\n\ncan (v)\n\nຜູ້ເຖົ້າ ຍ່າງ ສິບຫ້າ ກິໂລເມ້ດ ໄດ້\n\n{phou thao} gnang {sip ha} kilomet dai\n\n[{pʰȕː.tʰȁw} ɲāːŋ {síp hȁː} kī.lóː.mēt dâ]\n\n{old man} {walk (v)} fifteen kilometer {can (v)}\n\n'The old man can walk fifteen kilometres.\n\nex:ຂ້ານ້ອຍ\n\nkhanoy\n\n[kʰȁː.nɔ̂ːj\n\nI\n\nຊ່ວຍ\n\nsoi\n\nsɔ̄ːj\n\nhelp (v)\n\nທ່ານ\n\nthan\n\ntʰāːn\n\nyou (formal)\n\nໄດ້\n\ndai\n\ndâj\n\ncan\n\nບໍ່\n\nbo\n\nbɔ̄ː]\n\nINTERR\n\nຂ້ານ້ອຍ ຊ່ວຍ ທ່ານ ໄດ້ ບໍ່\n\nkhanoy soi than dai bo\n\n[kʰȁː.nɔ̂ːj sɔ̄ːj tʰāːn dâj bɔ̄ː]\n\nI {help (v)} {you (formal)} can INTERR\n\n'May I help you?'\n\nເປັນ (pèn [pèn]) to be, to be able to\n\nIn addition to being a verb for the copula, it can also be used to indicate that one can do something because of knowing how to do it.\n\nex:ຄົນ\n\nKhon\n\n[kʰón\n\nperson\n\nຝະຫຼັ່ງ\n\nfarang\n\nfā.rāŋ\n\nFrench\n\nເສດ\n\n \n\nsȅːt\n\nspeak (v)\n\nປາກ\n\npak\n\npȁːk\n\nlanguage\n\nພາສາ\n\nphasa\n\npʰáː.sǎː\n\nLao\n\nລາວ\n\nlao\n\nláːw\n\nlanguage\n\nເປັນ\n\npen\n\npen]\n\ncan\n\nຄົນ ຝະຫຼັ່ງ ເສດ ປາກ ພາສາ ລາວ ເປັນ\n\nKhon farang {} pak phasa lao pen\n\n[kʰón fā.rāŋ sȅːt pȁːk pʰáː.sǎː láːw pen]\n\nperson French {speak (v)} language Lao language can\n\n'The Frenchman (can/knows how to) speak the Lao language.'[check romanization and IPA for falang]\n\nex:ຄັນທັບ\n\nKhanthap\n\n[kʰán.tʰāp\n\ncourt dancer\n\nປະໂຄມ\n\npakhom\n\npā.kʰóːm\n\nplay (v)\n\nພິນ\n\nphin\n\npʰín\n\nlute\n\nເປັນ\n\npen\n\npèn\n\ncan\n\nດ້ວຍ\n\nduay\n\nduâj]\n\nalso\n\nຄັນທັບ ປະໂຄມ ພິນ ເປັນ ດ້ວຍ\n\nKhanthap pakhom phin pen duay\n\n[kʰán.tʰāp pā.kʰóːm pʰín pèn duâj]\n\n{court dancer} {play (v)} lute can also\n\nThe court dancer (can/knows how to) play the lute.\n\nສາມາດ...ໄດ້ (samat...dai [sǎː mâːt ... dâj]) to be able to, to be possible\n\nIt functions much like can but with the sense of being physically possible to do.\n\nex:ເດັກ\n\ndek\n\n[dék\n\nchild\n\nຜູ້ຊາຍ\n\nphousai\n\npʰȕː.sáːj\n\nboy\n\nບໍ່\n\nbo\n\nbɔ̄ː\n\nnot\n\nສາມາດ\n\nsamat\n\nsǎː.mâːt\n\ncan\n\nຍົກ\n\ngnok\n\nɲōk\n\nlift (v)\n\nໂຕ\n\nto\n\ntòː\n\nCL\n\nຄວາຍ\n\nkhwai\n\nkʰuáj\n\nwater buffalo\n\nຂຶ້ນ\n\nkun\n\nkʰɯ̏n\n\nupward\n\nໄດ້\n\ndai\n\ndâj]\n\nໄດ້.\n\nເດັກ ຜູ້ຊາຍ ບໍ່ ສາມາດ ຍົກ ໂຕ ຄວາຍ ຂຶ້ນ ໄດ້\n\ndek phousai bo samat gnok to khwai kun dai\n\n[dék pʰȕː.sáːj bɔ̄ː sǎː.mâːt ɲōk tòː kʰuáj kʰɯ̏n dâj]\n\nchild boy not can {lift (v)} CL {water buffalo} upward ໄດ້.\n\n'The boy cannot lift a water buffalo.'\n\nEnter, join\nເຂົ້າ, khao [kʰȁw], to enter, to join, to participate\n\nUsed to indicate movement from one place to another inside, such as a house or building.\n\nex:ເຮົາ\n\nhao\n\n[háw\n\nWe\n\nເຂົ້າ\n\nkhao\n\nkʰàw\n\nenter\n\nໄປ\n\nbai\n\npaj\n\ngo\n\nເຮືອນ\n\nheuan\n\nhɯán]\n\nhouse\n\nເຮົາ ເຂົ້າ ໄປ ເຮືອນ\n\nhao khao bai heuan\n\n[háw kʰàw paj hɯán]\n\nWe enter go house\n\n'We go into the house.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        },
+        {
+          "heading": "Recipiency",
+          "body": "ໃຫ້, hai [hȁj] to give, to permit, to let\n\nUsed to indicate that the verb is intended for someone or something else or to express a desire, a wish, or a command.\n\nex:ຂໍ\n\nKho\n\n[kʰɔ̌ː\n\nrequest\n\nໃຫ້\n\nhai\n\nhȁj\n\ngive\n\nມີ\n\nmi\n\nmíː\n\nhave\n\nໂຊກ\n\nsok\n\nsôːk\n\nluck\n\nດີ\n\ndi\n\ndìː]\n\ngood\n\nຂໍ ໃຫ້ ມີ ໂຊກ ດີ\n\nKho hai mi sok di\n\n[kʰɔ̌ː hȁj míː sôːk dìː]\n\nrequest give have luck good\n\n'I wish (to/for) you good luck.'\n\nex:ດອກ\n\nDok\n\n[dɔ̏ːk\n\nflower\n\nກຸຫຼາບ\n\nkulap\n\nkū.lȁːp\n\nrose\n\nນີ້\n\nni\n\nnîː\n\nthis\n\nຢາກ\n\nyak\n\njȁːk\n\nwant\n\nໃຫ້\n\nhai\n\nhàj\n\ngive\n\n \n\n \n\nnîː\n\n \n\nເຈົ້າ\n\njao\n\nt͡ɕâw\n\nyou\n\nມີ\n\nmi\n\nmíː]\n\nhave\n\nດອກ ກຸຫຼາບ ນີ້ ຢາກ ໃຫ້ {} ເຈົ້າ ມີ\n\nDok kulap ni yak hai {} jao mi\n\n[dɔ̏ːk kū.lȁːp nîː jȁːk hàj nîː t͡ɕâw míː]\n\nflower rose this want give {} you have\n\n'This flower I want (to/for) you to have it.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Affirmation and negation",
+      "summary": "To say no is as simple as saying ບໍ່ (bo [bɔ̄ː]), and negation simply involves placing that word in front of the verb, adjective, adverb, or noun to be negated. To say yes, especially to indicate that one is listening, one uses ໂດຍ (doi [dòːj]), especially in formal situations, o",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "To say no is as simple as saying ບໍ່ (bo [bɔ̄ː]), and negation simply involves placing that word in front of the verb, adjective, adverb, or noun to be negated. To say yes, especially to indicate that one is listening, one uses ໂດຍ (doi [dòːj]), especially in formal situations, or ເຈົ້າ (chao [t͡ɕâw]). To answer a question, one often repeats the verb of action that was used in the question to indicate that that action was or will be completed. One can also use ແມ່ນ (mén [mɛ̄n]), especially if the question had ແມ່ນ, as an element of the interrogative particle.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Adverbs and adjectives",
+      "summary": "Little distinction can be made between adjectives and adverbs, as any adjective that could logically be used to modify a verb can also be used as an adverb. They are often duplicated to indicate a superlative and can even be modified like verbs, mainly by the lack of a copula to",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Little distinction can be made between adjectives and adverbs, as any adjective that could logically be used to modify a verb can also be used as an adverb. They are often duplicated to indicate a superlative and can even be modified like verbs, mainly by the lack of a copula to link the object and adjective/adverb. Adjectives come after the noun.\n\nex:ຊ້າງ\n\nSang\n\n[sâːŋ\n\nelephant\n\nຊ້າ\n\nsa\n\nsâː]\n\nslow\n\nຊ້າງ ຊ້າ\n\nSang sa\n\n[sâːŋ sâː]\n\nelephant slow\n\n'A slow elephant.'\n\nex:ໄປ\n\nBai\n\n[baj\n\nບ້ານ\n\nban\n\nbâːn\n\nຊ້າ\n\nsa\n\nsâː\n\nໆ\n\nsaa\n\nsâː]\n\nໄປ ບ້ານ ຊ້າ ໆ\n\nBai ban sa saa\n\n[baj bâːn sâː sâː]\n\n'Go to the village slowly.'\n\nex:ສາວ\n\nSao\n\n[sǎːw\n\nງາມ\n\nngam\n\nŋáːm\n\nທີ່\n\nthi\n\ntʰīː\n\nໄວ\n\nwai\n\nwáj]\n\nສາວ ງາມ ທີ່ ໄວ\n\nSao ngam thi wai\n\n[sǎːw ŋáːm tʰīː wáj]\n\n'A lady who becomes pretty quickly.'\n\nex:ບ່າວ\n\nBao\n\n[bāːw\n\nທີ່\n\nthi\n\ntʰīː\n\nຊິ\n\nsi\n\nsī\n\nໂກ້\n\nko\n\nkôː]\n\nບ່າວ ທີ່ ຊິ ໂກ້\n\nBao thi si ko\n\n[bāːw tʰīː sī kôː]\n\n'A boy who will be handsome.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Questions",
+      "summary": "Lao uses special tag words at the beginning or the end of the sentence to indicate a question, so the modern use of the question mark (?) is redundant.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Lao uses special tag words at the beginning or the end of the sentence to indicate a question, so the modern use of the question mark (?) is redundant.\n\nYes–no questions end in ບໍ່ (bo [bɔ̄ː]), but Lao also has other sentence interrogative finals that indicate whether or not the speaker expects an answer, knows the answer to be expected, will be surprised, or is rhetorically asking a question, but they are generally used only in conversational settings.\n\nex:ສະບາຽ\n\nsabai\n\n[sā.bàːj\n\nດີ\n\ndi\n\ndìː\n\nບໍ່\n\nbo\n\nbɔ̄ː]\n\nສະບາຽ ດີ ບໍ່\n\nsabai di bo\n\n[sā.bàːj dìː bɔ̄ː]\n\n'Are you well?'\n\nOther common interrogatives\n\nWho? ຜູ້ໃດ (phoudai [pʰȕː dàj]) and its common short form ໃຜ (phai [pʰǎj])\n\nex:ຜູ້ໃດ\n\nphoudai\n\n[pʰȕː dàj\n\nwho.INTERR\n\nຂາຽ\n\nkhai\n\nkʰǎːj\n\nsell (v)\n\nໄຂ່\n\nkhai\n\nkʰāj\n\negg\n\nໄກ່\n\nkai\n\nkāj]\n\nchicken\n\nຜູ້ໃດ ຂາຽ ໄຂ່ ໄກ່\n\nphoudai khai khai kai\n\n[{pʰȕː dàj} kʰǎːj kʰāj kāj]\n\nwho.INTERR {sell (v)} egg chicken\n\n'Who sells chicken eggs?'\n\nex:ໃຜ\n\nphai\n\n[pʰǎj\n\nwho.INTERR\n\nກັບໄປ\n\nkap pai\n\nkáp pàj\n\nleave for (v)\n\nຈຳປາສັກ\n\nChampassak\n\nt͡ɕàm.pàː.sák]\n\nChampassak\n\nໃຜ ກັບໄປ ຈຳປາສັກ\n\nphai {kap pai} Champassak\n\n[pʰǎj {káp pàj} t͡ɕàm.pàː.sák]\n\nwho.INTERR {leave for (v)} Champassak\n\n'Who left for Champassak?'\n\nWhat? ຈັ່ງໃດ (changdai [t͡ɕāŋ.dàj]) and its common short form ຫຽັງ (gnang [ɲǎŋ])\n\nex:ອາວ\n\nAo\n\n[ʔàːw\n\nuncle\n\nຢາກ\n\nyak\n\njȁːk\n\nwant (v)\n\nເບິ່ງ\n\nbeung\n\nbɤ̄ŋ\n\nwatch (v)\n\nຫຽັງ\n\ngnang\n\nɲăŋ]\n\nwhat.INTERR\n\nອາວ ຢາກ ເບິ່ງ ຫຽັງ\n\nAo yak beung gnang\n\n[ʔàːw jȁːk bɤ̄ŋ ɲăŋ]\n\nuncle {want (v)} {watch (v)} what.INTERR\n\n'What does Uncle want to watch?'\n\nex:ເຮັດ\n\nhet\n\n[hēt\n\ndo (v)\n\nຈັ່ງໃດ\n\nchangdai\n\nt͡ɕāŋ.dàj]\n\nwhat.INTERR\n\nເຮັດ ຈັ່ງໃດ\n\nhet changdai\n\n[hēt t͡ɕāŋ.dàj]\n\n{do (v)} what.INTERR\n\n'What are you doing?'\n\nWhere? ໃສ (sai [săj])\n\nex:ຫຼວງພຣະບາງ\n\nlouang Phabang\n\n[luǎːŋ pʰā.bàːŋ\n\nLuang Phrabang\n\nຢູ່\n\nyou\n\njūː\n\nto be at (v)\n\nໃສ\n\nsai\n\nsǎj]\n\nwhere.INTERR\n\nຫຼວງພຣະບາງ ຢູ່ ໃສ\n\n{louang Phabang} you sai\n\n[{luǎːŋ pʰā.bàːŋ} jūː sǎj]\n\n{Luang Phrabang} {to be at (v)} where.INTERR\n\n'Where is Luang Phrabang?'\n\nWhen? ເມື່ອໃດ (mua dai [mɯ̄a dàj]), and many others.\n\nThere are numerous ways to ask when something will occur, many of which are formed by adding ໃດ (dai /dàj/) which after a noun marking time, e.g., ເວລາໃດ (vela dai [wéː láː dàj]), ຍາມໃດ (gnam dai [ɲáːm dàj]), and ປານໃດ (pan dai [pàːn dài]).\n\nex:ເມື່ອໃດ\n\nmua dai\n\n[mɯ̄a dàj\n\nWhen.INTERR\n\nຊິ\n\nsi\n\nsi\n\nFUT\n\nໄປ\n\npai\n\npaj\n\ngo (v)\n\nປາກເຊ\n\nPakxe\n\npȁːk séː]\n\nPakxe\n\nເມື່ອໃດ ຊິ ໄປ ປາກເຊ\n\n{mua dai} si pai Pakxe\n\n[{mɯ̄a dàj} si paj {pȁːk séː}]\n\nWhen.INTERR FUT {go (v)} Pakxe\n\n'When will you go to Pakxe?'\n\nWhy? ເປັນຈັ່ງໃດ (pen changdai [pèn t͡ɕāŋ.dàj])\n\nThe phrase by itself can also mean What's wrong?, but can also ask why or for what reason a condition is occurring.\n\nex:ເປັນຈັ່ງໃດ\n\npen changdai\n\n[pèn t͡ɕāŋ.dàj\n\nwhy.INTERR\n\nຄົນຫາປາ\n\nkhon ha pa\n\nkʰón hǎː pàː\n\nfisherman\n\n \n\npen\n\n \n\n \n\nຊົບເຊົາອີ່ຫຼີ່\n\nsop sao ili\n\nsōp sáw ʔīː.lǐː]\n\nsad really\n\nເປັນຈັ່ງໃດ ຄົນຫາປາ {} ຊົບເຊົາອີ່ຫຼີ່\n\n{pen changdai} {khon ha pa} pen {sop sao ili}\n\n{[pèn t͡ɕāŋ.dàj} {kʰón hǎː pàː} {} {sōp sáw ʔīː.lǐː]}\n\nwhy.INTERR fisherman {} {sad really}\n\n'Why is the fisherman really sad?'\n\nHow?\n ແນວໃດ (nèw dai [nɛ́ːw dàj])\n\nThere are numerous ways to ask how?, some interchangeable with Lao equivalents for what? and why? but in the sense of how something is accomplished or done, one can also use ເຊັ່ນໃດ (sen dai [sēn.dàj]), ຢ່າງໃດ (yang dai [jāːŋ dàj]) or ດັ່ງໃດ (dang dai [dāŋ.dàj]).\n\nex:ເຮັດ\n\nhet\n\n[hēt\n\ndo (v)\n\nແນວໃດ\n\nnèw dai\n\nnɛ́ːw dàj]\n\nhow.INTERR\n\nເຮັດ ແນວໃດ\n\nhet {nèw dai}\n\n[hēt {nɛ́ːw dàj}]\n\n{do (v)} how.INTERR\n\nHow does one do it?'\n\nHow Much/Many? (General Things) ຈັກ (chak [t͡ɕák])\n\nex:ບາດ\n\nbat\n\n/bȁːt\n\nNow\n\nນີ້\n\nni\n\nnīː\n\nhere [right now]\n\nຈັກ\n\nchak\n\ntʃák\n\nhow many\n\nຄົນ\n\nkhon\n\nkhón\n\npeople\n\nໄປ\n\npai\n\npaj\n\ngo (v)\n\nສູ່ຂວັນ\n\nsukhwan\n\nsūːkʰwǎːn/\n\nbaisi ceremony\n\nບາດ ນີ້ ຈັກ ຄົນ ໄປ ສູ່ຂວັນ\n\nbat ni chak khon pai sukhwan\n\n/bȁːt nīː tʃák khón paj sūːkʰwǎːn/\n\nNow {here [right now]} {how many} people {go (v)} {baisi ceremony}\n\n'How many people attend the baisi ceremony?'\n\nHow Much? (Price) ເທົ່າໃດ (thao dai [tʰāw dàj]) or its variant ທໍ່ໃດ (tho dai [tʰɔ̄ː dàj])\n\nex:ສິ້ນ\n\nsin\n\n[sȉn\n\nskirt\n\nສີ\n\nsi\n\nsǐː\n\ncolour\n\nແດງ\n\ndèng\n\ndɛ̀ːŋ\n\nred\n\nນີ້\n\nni\n\nnī\n\nthis\n\nເທົ່າໃດ\n\nthao dai\n\ntʰāw.dàj]\n\nhow much.INTERR\n\nສິ້ນ ສີ ແດງ ນີ້ ເທົ່າໃດ\n\nsin si dèng ni {thao dai}\n\n[sȉn sǐː dɛ̀ːŋ nī {tʰāw.dàj]}\n\nskirt colour red this {how much.INTERR}\n\n'How much is this red skirt?'\n\nRight? Correct? ແມ່ນບໍ່ (mèn bo [mɛ̄n bɔ̄ː])\n\nex:ພຣະຍານາກ\n\nPhagna Nak\n\n[pʰā.ɲáː nâːk\n\nDragon\n\nພັກ\n\n \n\n \n\n \n\nອາໄສ\n\nyou\n\njūː\n\ninhabit\n\nນ້ຳຂອງ\n\nnam khong\n\nnâːm kʰɔ̌ːŋ\n\nriver Mekong\n\nແມ່ນບໍ່\n\nmèn bo\n\nmɛ̄n bɔ̄ː]\n\ncorrect.INTERR\n\nພຣະຍານາກ ພັກ ອາໄສ ນ້ຳຂອງ ແມ່ນບໍ່\n\n{Phagna Nak} {} you {nam khong} {mèn bo}\n\n{[pʰā.ɲáː nâːk} {} jūː {nâːm kʰɔ̌ːŋ} {mɛ̄n bɔ̄ː]}\n\nDragon {} inhabit {river Mekong} correct.INTERR\n\n'The Dragon is in the Mekong, right?'[check romanization and IPA]\n\nAlready? Yet? ແລ້ວບໍ່ (lèw bo /lɛ̂ːw bɔ̄ː/)\n\nex:ທານ\n\nthan\n\n[tʰáːn\n\neat\n\nເຂົ້າ\n\nkhao\n\nkʰȁw\n\nrice\n\nແລ້ວບໍ່\n\nlèw bo\n\nlɛ̂ːw bɔ̄ː]\n\nyet INTERR\n\nທານ ເຂົ້າ ແລ້ວບໍ່\n\nthan khao {lèw bo}\n\n[tʰáːn kʰȁw {lɛ̂ːw bɔ̄ː]}\n\neat rice {yet INTERR}\n\n'Have you eaten yet?'\n\nOr not? ຫຼືບໍ່ (lu bo /lɯ̀ bɔ̄ː/)\n\nex:ອ້າຽ\n\nai\n\n[ʔâːj\n\nolder brother\n\nຢາກ\n\nyak\n\njȁːk\n\nwant\n\nໄດ້\n\ndai\n\ndâj\n\nໄດ້\n\nເມັຽ\n\nmia\n\nmía\n\nwife\n\nດີ\n\ndi\n\ndìː\n\ngood\n\nຫຼືບໍ່\n\nlu bo\n\nlɯ̀ː bɔ̄ː]\n\nor not.INTERR\n\nອ້າຽ ຢາກ ໄດ້ ເມັຽ ດີ ຫຼືບໍ່\n\nai yak dai mia di {lu bo}\n\n[ʔâːj jȁːk dâj mía dìː {lɯ̀ː bɔ̄ː]}\n\n{older brother} want ໄດ້ wife good {or not.INTERR}\n\n'Does older brother want a good wife or not?'\n\nEh? ຫຼື (lu /lɯ̀/)\n\nThis is a rather informal interrogative particle equivalent to English eh? or hmm? or huh?.\n\nex:ສະບາຍດີ\n\nsabai di\n\n[sā.bàːj dìː\n\nbe well (v)\n\nຫຼື\n\nlu\n\nlɯ̀]\n\nhuh.INTERR\n\nສະບາຍດີ ຫຼື\n\n{sabai di} lu\n\n{[sā.bàːj dìː} lɯ̀]\n\n{be well (v)} huh.INTERR\n\n'You okay, huh?\n\nAnswers to questions usually just involve repetition of the verb and any nouns for clarification.\n\nQuestion: ສະບາຍດີບໍ່  (sabai di bo [sā.bàːj dìː bɔ̄ː]) Are you well?\n\nResponse: ສະບາຍດີ (sabai di [sā.bàːj dìː]) I am well or ບໍ່ສະບາຍ (bo sabai [bɔ̄ː sā.bàːj]) I am not well.\n\nWords asked with a negative can be confusing and should be avoided.  The response, even without the negation, will still be negated by the nature of the question.\n\nບໍ່ສະບາຍບໍ່  (bo sabai di bo /bɔː sa.baj diː bɔː/) Are you not well?\n\nResponse: ບໍ່ສະບາຍ (bo sabai di /bɔː sa.baj diː/) I am well.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Classifiers",
+      "summary": "Classifiers (ລັກສະນະນາມ, laksananam /lāk sā.nāʔ.náːm/) are used for when referring to a number of things, either a group or a finite amount. Classifiers can be used in place of the counted noun when context makes it sufficient. There are many classifiers, which is daunting, and i",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Classifiers (ລັກສະນະນາມ, laksananam /lāk sā.nāʔ.náːm/) are used for when referring to a number of things, either a group or a finite amount. Classifiers can be used in place of the counted noun when context makes it sufficient. There are many classifiers, which is daunting, and it is better to double the noun or the more common ones such as ທີ່ (thi /tʰīː/) or ໂຕ (to /toː/). For single items, the classifier comes before the number; for more, the classifier comes after it.\n\nex:ເບັຽ\n\nbia\n\n/biaː\n\nbeer\n\nຂວດ\n\nkhuat\n\nkʰùaːt\n\nCL\n\nໜຶ່ງ\n\nnueng\n\nnɯ̄ŋ/\n\none\n\nເບັຽ ຂວດ ໜຶ່ງ\n\nbia khuat nueng\n\n/biaː kʰùaːt nɯ̄ŋ/\n\nbeer CL one\n\n'One bottle of beer.'\n\nex:ເບັຽ\n\nbia\n\n/biaː\n\nbeer\n\nສອງ\n\nsong\n\nsɔ̌ːŋ\n\ntwo\n\nຂວດ\n\nkhuat\n\nkʰuàːt/\n\nCL\n\nເບັຽ ສອງ ຂວດ\n\nbia song khuat\n\n/biaː sɔ̌ːŋ kʰuàːt/\n\nbeer two CL\n\n'Two bottles of beer.'\n\nThe classifiers can sometimes be used in place of the nouns they group in context.\n\nex:ມີຫ\n\nmi\n\n/míː\n\nhave\n\nໝາ\n\nma\n\nmǎː\n\ndog\n\nສອງ\n\nsong\n\nsɔ̌ːŋ\n\ntwo\n\nໂຕ\n\nto\n\nɗoː\n\nCL\n\nໃນ\n\nnai\n\nnái\n\nin\n\nບ້ານ\n\nban\n\nbâːn\n\nvillage.\n\nໂຕ\n\nto\n\nɗoː\n\nCL\n\nກັດ\n\nkat\n\nkát\n\nbite\n\nອ້າຍ\n\nai\n\nʔâːj/\n\nolder brother\n\nມີຫ ໝາ ສອງ ໂຕ ໃນ ບ້ານ ໂຕ ກັດ ອ້າຍ\n\nmi ma song to nai ban to kat ai\n\n/míː mǎː sɔ̌ːŋ ɗoː nái bâːn ɗoː kát ʔâːj/\n\nhave dog two CL in village. CL bite {older brother}\n\n'There were two dogs in the village. The dogs bit older brother.'\n\nLao Classifiers\n\nLao\n\nCategory\n\nຄົນ, khon /kʰón/\n\nPeople in general, except clergy and royalty.\n\nຄັນ, khan /kʰán/\n\nVehicles, bicycles, umbrellas, kitchen utensils.\n\nຄູ່, khu /kʰūː/\n\nPairs of people, animals, socks, earrings, etc.\n\nສະບັບ, sabap /sáʔbáp/\n\nPapers with texts, books, documents, manuscripts, etc.\n\nໂຕ, to /ɗoː/\n\nAnimals, insects, birds, shirts, letters, playing cards, furniture, chairs, things with legs.\n\nກົກ, kok /kók/\n\nTrees.\n\nຫນ່ວຽ, nuay /nuāj/\n\nOval objects, fruits, eggs, eyes, pillows/cushions, drums, furniture, mountains, watches/clocks, and headgear.\n\nໃບ, bai /baj/\n\nround and flat objects such as a leaf, a tray, etc.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Possession",
+      "summary": "To indicate that object X belongs to object Y, Lao uses the construction X ຂອງ Y. ຂອງ (khong /kʰɔ̌ːŋ/) can also be omitted without changing the meaning.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "To indicate that object X belongs to object Y, Lao uses the construction X ຂອງ Y. ຂອງ (khong /kʰɔ̌ːŋ/) can also be omitted without changing the meaning.\n\nex:ແຜງ\n\nMane\n\nຂອງ\n\nPOSS\n\nມ້າ\n\nhorse\n\n \n\n \n\nor\n\nor\n\n \n\n \n\nແຜງ\n\nmane\n\nມ້າ\n\nhorse\n\nແຜງ ຂອງ ມ້າ {} or {} ແຜງ ມ້າ\n\nMane POSS horse {} or {} mane horse\n\nA horse's mane.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lao_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,407 @@
+{
+  "title": "Grammar Book — Hrvatski",
+  "languageCode": "hr",
+  "languageName": "Hrvatski",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_1",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_10",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_11",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_12",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_13",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_14",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_15",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_16",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_17",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_18",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_19",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_2",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_3",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_4",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_5",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_6",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_7",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_8",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_9",
+    "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_2/Lesson_1",
+    "https://en.wikipedia.org/wiki/Croatian_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "== The Croatian alphabet ==\nCroatian is an easy language to spell. Each letter is pronounced separately and clearly in almost every position and each word is spelt as it is pronounced (some exceptions are odsvirati pronounced [otsvirati]; another one is odšteta pronounced [otštet",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "== The Croatian alphabet ==\nCroatian is an easy language to spell. Each letter is pronounced separately and clearly in almost every position and each word is spelt as it is pronounced (some exceptions are odsvirati pronounced [otsvirati]; another one is odšteta pronounced [otšteta]...). However, some words have a few vowels pronounced longer than others, so if you don't pronounce its vowels in correct length it might have a different meaning (for example: when \"kada\" is pronounced as it's written it means when, but when it's pronounced with a longer first a then it means bathtub).\nThe Croatian language uses a Latin alphabet, with 30 letters.\nThe following table lists all of the letters, together with pronunciations and \"as in...\" notes for easier pronunciation.\nNote: Because of their similarity in pronucation, some Croatian children in certain areas don't learn to differ Č and Ć, Đ and DŽ or \"je\" and \"ije\" before fifth grade. Stress almost always falls on the second-last or third-last syllable\n\nTo oversimplify, remember six rules:\n1. For the \"c\" without a hat, remember \"cats.\" In English we pronounce the cat's head (\"c\") but in Croatian the tail is pronounced (\"ts\").\n2. A hat on a \"c,\" \"s,\" or \"z\" becomes an English \"ch,\" \"sh,\" or \"zh.\" Pronounce \"ć\" like \"č\", because it makes learning Croatian easier.\n3. DŽ is an English \"j,\" as in \"John.\"\n4. For \"h\" pretend you're Scottish and saying \"loch\" or German saying \"Bach.\"\n5. The \"i\" and \"u\" vowels are always long, never short.\n6. The \"j\" is pronounced like \"y\" in English.\n\n\n== Stress ==\nCroatian language has 4 types of stress.\n\nAnd there's also \"ˉ\". It means that the vowel is pronounced longer, but the stress isn't on this vowel. Example is pìlōt.\nEvery stress has a name: short-rising (kratkouzlazni), short-falling (kratkosilazni), long-rising (dugouzlazni), long-falling (dugosilazni).\nExamples: žèna (wife; it means e is short, and the intonations is rising)\nkȕća (house; it means u is short, and the intonations is falling)\nrúka (arm; it means u is long, and the intonation is rising)\nzlâto (gold; it means a is long, and the intonation is falling)\n\nNext lesson",
+          "examples": [
+            "Croatian is an easy language to spell. Each letter is pronounced separately and clearly in almost every position and each word is spelt as it is pronounced (some exceptions are odsvirati pronounced [otsvirati]; another one is odšteta pronou",
+            "The following table lists all of the letters, together with pronunciations and \"as in...\" notes for easier pronunciation.",
+            "Note: Because of their similarity in pronucation, some Croatian children in certain areas don't learn to differ Č and Ć, Đ and DŽ or \"je\" and \"ije\" before fifth grade. Stress almost always falls on the second-last or third-last syllable",
+            "1. For the \"c\" without a hat, remember \"cats.\" In English we pronounce the cat's head (\"c\") but in Croatian the tail is pronounced (\"ts\").",
+            "2. A hat on a \"c,\" \"s,\" or \"z\" becomes an English \"ch,\" \"sh,\" or \"zh.\" Pronounce \"ć\" like \"č\", because it makes learning Croatian easier.",
+            "3. DŽ is an English \"j,\" as in \"John.\""
+          ],
+          "learnerTip": "== The Croatian alphabet ==\nCroatian is an easy language to spell. Each letter is pronounced separately and clearly in almost every position and each word is spelt as it is pronounced (some exceptions",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson 10",
+      "summary": "Money : Novac\nBank-note : Novčanica\nCoin : Kovanica (kovati means forging)\nCroatian money",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "Money : Novac\nBank-note : Novčanica\nCoin : Kovanica (kovati means forging)\nCroatian money\n\nKuna (0,14 of Euro, lit. marten)\nLipa (100 Lipa = 1 kuna  lit. linden)\nNext Lesson",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson 11",
+      "summary": "Following is a list of Croatian words for body parts with plural forms. The Croatian word for body is tijelo (pl. tijela).",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "Following is a list of Croatian words for body parts with plural forms. The Croatian word for body is tijelo (pl. tijela).\n\n\n== Humans ==\nNose: Nos, pl. nosevi\nEar: Uho, pl. uši (this is also plural of uš which means \"lice\")\nMouth: Usta (plural only {pluralia tantum})\nHair: Kosa (plural only {pluralia tantum})\nLips: Usna, pl. usne\nHips: kuk pl. kukovi, bok pl. bokovi\nHand, arm: Ruka, pl. ruke\nPalm: Dlan, pl. dlanovi\nShoulder: Rame, pl. ramena\nFace: lice, pl. lica\nNail: Nokat, pl. nokti\nFinger: Prst, pl. prsti\nToe: Nožni prst (means : leg finger)\nScar: Ožiljak, pl. ožiljci\nBruise: Masnica or modrica (Note: derived from the word modro meaning \"blue\") pl. masnice, modrice\nTooth: Zub, pl. zubi\nFoot: Stopalo, pl stopala\n\n\n== Animals ==\nAnimal hair: Dlaka, pl. dlake\nFur, pelt: Krzno, pl. krzna\nFang: Očnjak, pl. očnjaci\nWing: Krilo, pl krila\nLeg: Noga, pl noge\nMuzzle: Gubica, pl. gubice\nSnout: Njuška, pl. njuške\nPaw: Šapa, pl. šape\nPad (on paw): Jastučić (lit. small pillow), pl. jastučići\nTail: Rep, pl. repovi (can also mean ponytail)\nWhisker: Brk (also means: moustache), pl. brkovi or brci\nClaw: Pandža, pl. pandže\nNext Lesson",
+          "examples": [
+            "Ear: Uho, pl. uši (this is also plural of uš which means \"lice\")",
+            "Bruise: Masnica or modrica (Note: derived from the word modro meaning \"blue\") pl. masnice, modrice"
+          ],
+          "learnerTip": "Following is a list of Croatian words for body parts with plural forms. The Croatian word for body is tijelo (pl. tijela).",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Lesson 12",
+      "summary": "Following is a list of Croatian words for food with plural forms. Croatian word for food is hrana.",
+      "sections": [
+        {
+          "heading": "Lesson 12",
+          "body": "Following is a list of Croatian words for food with plural forms. Croatian word for food is hrana.\n\n\n== Fruit ==\nFruits: Voće (plural only)\nApple: Jabuka\nPear: Kruška\nBanana: Banana\nBlueberry: Borovnica\nCurrants: Ribizla, pl. ribizle\nBlack currants: Crni ribizl, pl. crni ribizli\nRaspberry: Malina\nApricot: Marelica\nPeach: Breskva\nFig: Smokva\nGrapes: Grožđe\nAlmond: Badem\nStrawberry: Jagoda, pl. jagode\nCherry: Trešnja\nSour cherry: Višnja\nBlackberry: Kupina\nPomegranate: Šipak\nPineapple: Ananas\nMelon: Dinja\nQuince: Dunja\nRaisin: Grožđica\nWatermelon: Lubenica\nKiwi: Kivi\nGrapefruit: Grejp\nOrange: Naranča\n\n\n== Vegetables ==\nVegetable: Povrće (pl. only)\nPotato: Krumpir\nTomato: Rajčica\nAubergine, eggplant: Patlidžan\nCourgettes, zucchini: Tikvice\nCucumber: Krastavac, pl. Krastavci\nMushrooms: Gljive, šampinjoni\nCauliflower: Karfiol, cvjetača\nBroccoli: Brokula\nChard: Blitva\nPumpkin: Bundeva, buča\nCelery: Celer\nGarlic: Češnjak, bijeli luk\nBrussels sprouts: Prokulica\nKale, savoy: Kelj\nBeet, turnip: Repa\nKohlrabi: Koraba\nBeans: Grah (it has only a singular form)\nGreen beans: Mahune (a singular form is mahuna, but it is almost never used)\nPaprika: Paprika\nCarrot: Mrkva\nOnion: Luk\nLeek: Poriluk\nPeanuts: Kikiriki\nSpinach: Špinat\nPea: Grašak\nCorn, maize: Kukuruz\nHazelnut: Lješnjak\nWalnut: Orah\nOlive: Maslina\nParsley: Peršin\nRadish: Rotkva\nLettuce: Salata\n\n\n== Meals and Drinks ==\nCheese: Sir\nMeat: Meso\nSoup: Juha\nBacon: Šunka\nButter: Maslac\nEggs: Jaja\nBeer: Pivo\nBread: Kruh\nCoffee: Kava\nJuice: Sok\nTea: Čaj\nMilk: Mlijeko\nFish: Riba\n\n\n== Meat ==\nBeef: Govedina\nVenison: Divljač, srnetina\nVeal: Teletina\n\n\n== Fish and shelves ==\nFish: Riba\nShelve: Školjka\nTrout: Pastrva\nMackerel: Skuša\nAnchovy: Inćun\nMussels: Dagnje\nOysters: Kamenice\nSole: List\nCod-fish: Bakalar\nTuna: Tuna, tunj\nSardines: Sardina, srdela\nLobster: Jastog\nSalmon: Losos\nPrawn: Kozica, rak\nShrimp: Morski račić\nNext Lesson",
+          "examples": [],
+          "learnerTip": "Following is a list of Croatian words for food with plural forms. Croatian word for food is hrana.",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_12"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lesson 13",
+      "summary": "Willow : Vrba\nOak tree: Hrast (acorn : žir)\nBeech : Bukva\nPine : Bor\nFir tree : Jela\nAsh : Jasen\nMaple : Javor\nNext Lesson",
+      "sections": [
+        {
+          "heading": "Lesson 13",
+          "body": "Willow : Vrba\nOak tree: Hrast (acorn : žir)\nBeech : Bukva\nPine : Bor\nFir tree : Jela\nAsh : Jasen\nMaple : Javor\nNext Lesson",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_13"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson 14",
+      "summary": "Nouns are never used instead (For example: Fox fur).\nSweet: Sladak\nHot (temperature): vruć\nSpicy: Ljut\nCold: Hladan\nBoring: Dosadan\nAngry: Ljut\nCute, sweet: Sladak\nUgly: Ružan\nBeautiful: Lijep\nScary: Strašan\nSimple: Jednostavan\nHard: Težak\nLight: Lagan\nHeavy: Težak\nDangerous: Opa",
+      "sections": [
+        {
+          "heading": "Lesson 14",
+          "body": "Nouns are never used instead (For example: Fox fur).\nSweet: Sladak\nHot (temperature): vruć\nSpicy: Ljut\nCold: Hladan\nBoring: Dosadan\nAngry: Ljut\nCute, sweet: Sladak\nUgly: Ružan\nBeautiful: Lijep\nScary: Strašan\nSimple: Jednostavan\nHard: Težak\nLight: Lagan\nHeavy: Težak\nDangerous: Opasan\nStrict: Strog\nRound: Okrugao\nFat: Debeo\nSkinny: Mršav\nNew: Nov\nOld: Star\nDead: Mrtav\nAlive: Živ\nNext Lesson",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_14"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson 15",
+      "summary": "To dance\nPlesati\nI\nplešem\nPlesao, plesala",
+      "sections": [
+        {
+          "heading": "Lesson 15",
+          "body": "English\n\nInfinitive\n\nAspect\n\nPresent if irreg\n\nParticiple if irreg\n\nTo burn\nGorjeti\nI\ngorim\nGorio, gorjela\n\nTo cry\nPlakati\nI\nplačem\nPlakao, plakala\n\nTo cut\nSjeći\nI\nsječem\nSjekao, sjekla\n\nTo dance\nPlesati\nI\nplešem\nPlesao, plesala\n\nTo die (Animals)\nUginuti\nP\nuginem\nUginuo, uginula\n\nTo die (Humans) (From a disease or old age)\nUmrijeti\nP\numrem\nUmro, umrla\n\nTo die (Humans) (To be killed in a war, a car crash...)\npoginuti\nP\npoginem\nPoginuo, poginula\n\nTo die (Plants)\nUvenuti\nP\nuvenem\nUvenuo, uvenula\n\nTo draw\nCrtati\nI\n\nCrtao, crtala\n\nTo drink\nPiti\nI\npijem\nPio, pila\n\nTo eat\nJesti\nI\njedem\nJeo, jela\n\nTo end\nZavršiti\nP\nzavršim\nZavršio, završila\n\nTo fall\nPadati\nI\n\nPao, pala\n\nTo fall off\nOtpasti\nP\notpadnem\nOtpao, otpala\n\nTo feed\nHraniti\nI\nhranim\nHranio, hranila\n\nTo fight\nboriti\nI\nborim\nBorio, borila\n\nTo beat (someone)\nTući\nI\ntučem\nTukao, tukla\n\nTo fill\nNapuniti\nP\nnapunim\nNapunio, napunila\n\nTo find\nNaći\nP\nnađem\nNašao, našla\n\nTo find out, to discover\nOtkriti\nP\notkrijem\nOtkrio, otkrila\n\nTo get by\nSnaći se\nP\nsnađem\nSnašao, snašla\n\nTo give birth (animals)\nOkotiti\nP\n\nTo give birth (humans)\nRoditi\nP\n\nTo hang\nVisiti\nI\n\nTo hate\nMrziti\nI\n\nTo hear\nČuti\nI/P\nčujem\nČuo, čula\n\nTo hide\nSakriti\nP\nsakrijem\n\nTo hug\nZagrliti\nP\n\nTo kick, to strike, to hit\nUdariti\nP\n\nTo kill\nUbiti\nP\nubijem\n\nTo lie\nLagati\nI\nlažem\n\nTo lie (on the floor)\nLežati\nI\nležim\n\nTo listen\nSlušati\nI\nSlušam\n\nTo live\nŽivjeti\nI\nživim\nŽivio, živjela\n\nTo look alike, to be similar\nNalikovati\nI\nnalikujem\n\nTo look alike, to be similar\nSličiti\nI\nsličim\n\nTo look like\nIzgledati kao/poput\nI\nizgledam\nizgledao, izgledala\n\nTo look, to watch\nGledati\nI\nGledam\n\nTo love/like\nVoljeti\nI\nvolim\n\nTo observe\nPromatrati\nI\npromatram\n\nTo read\nČitati\nI\n\nTo ride (a horse)\nJahati\nI\njašem\n\nTo ride, to drive\nVoziti\nI\nvozim\n\nTo roll\nKotrljati\nI\n\nTo run\nTrčati\nI\ntrčim\n\nTo search, to look for\nTražiti\nI\ntražim\ntražio, tražila\n\nTo see\nVidjeti\ni/p\nvidim\nVideo, vidjela\n\nTo sing\nPjevati\nI\n\nTo sit\nSjediti\nI\nsjedim\n\nTo sleep\nSpavati\nI\nspavam\n\nTo sniff (animals)\nNjušiti\nI\n\nTo sniff, to smell\nMirisati\nI\nMirišem\n\nTo stand\nStajati\nI\nstojim\n\nTo stare\nBuljiti\nI\n\nTo start\nPočeti\nP\npočnem\n\nTo study, to learn\nUčiti\nI\n\nTo take across\nPrevesti preko\nP\nPrevedem preko\nPreveo preko, prevela preko\n\nTo talk\nPričati\nI\npričam\n\nTo think\nMisliti\nI\n\nTo think about\nRazmišljati\nI\nrazmišljam\n\nTo touch\nDirati\nI\n\nTo translate\nPrevesti\nP\nprevedem\nPreveo, prevela\n\nTo write\nPisati\nI\npišem\nPisao, Pisala\n\nTo win\nPobijediti\nI\npobijedim\npobijedio, pobijedila\n\nTo collect\n\nSkupljati\n\nSkupljam\n\nSkupljao,\n\nTo lose\n\nIzgubiti\n\nIzgubim\n\nIzgubio, Izgubila\n\nTo defeat\n\nSavladati\n\nSavladam\n\nSavladao, Savladala\n\nNext Lesson",
+          "examples": [],
+          "learnerTip": "To dance\nPlesati\nI\nplešem\nPlesao, plesala",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_15"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson 16",
+      "summary": "And as for that...: A što se toga tiče\nAchoo!: Apćiha!\nA pleasant journey: Sretan put (lit. Happy/lucky path/trip/way)\nAwesome!: Zakon! or Fora! (lit. Law! or Joke!), Super!, Mrak!\nAnyhow...: Bilo kako bilo,... (lit. It was as it was) or U svakom slučaju... (lit. In any case...)",
+      "sections": [
+        {
+          "heading": "Lesson 16",
+          "body": "And as for that...: A što se toga tiče\nAchoo!: Apćiha!\nA pleasant journey: Sretan put (lit. Happy/lucky path/trip/way)\nAwesome!: Zakon! or Fora! (lit. Law! or Joke!), Super!, Mrak!\nAnyhow...: Bilo kako bilo,... (lit. It was as it was) or U svakom slučaju... (lit. In any case...)\nBut still...: Ipak...\nIncredible!: Svaka čast (lit. Every honor) or Nevjerojatno!\nI don't know: Ne znam\nI'm cold: Zima mi je (lit. \"Winter is to me\"), hladno mi je\nGood for you: Blago tebi (lit. Treasure to you)\nYou're welcome: Nema na čemu or Molim (polite, reply to \"thank you\")\nNever!: Nikada! or Ni u ludilu (Not even in madness)\nGood night: Laku noć (lit. Easy night)\nGoodbye: Zbogom (lit. With god) or Doviđenja (lit: until [the next] seeing) shorter: bok (bye! Hi!)\nWelcome!: Dobrodošli!\nWhat are we going to do?: Što ćemo?\nOw!: Joj! (can also be used as \"wow\")\nUh-oh: O-o or Ajoj\nYeow!: Jao! (Note: The phrase Jao meni would mean \"poor me\")\nGood luck: Sretno (lit. Lucky)\nNever mind: Nema veze (lit. No link)\nLeave me alone: Pusti me na miru (lit. Leave me on peace)\nTo put an end to...: Stati na kraj... (lit. To step on the end of...)\nDo your best: Daj sve od sebe (lit. Give everything from you)\nShut up!: Začepi! (lit. cork), Kuš!\nI swear: Časna riječ (lit. Honorable word) or Kunem se\nDie!: Umri! or Crkni!\nAfter all...: Na kraju krajeva... (lit. On the end of the ends)\nGet lost!: Briši! (lit. wipe), Gubi se!, Nosi se! (lit. Carry yourself!)\nIn your dreams!: Malo sutra! (lit. A little tomorrow)\nCheers: Živjeli (lit. Pl. live) or U zdravlje (lit. Into the health)\nHurry!: Požuri\n\nQuickly!: Brže (lit. faster)\nC'mon: Hajde or Daj (come on already!)\nBless you: Nazdravlje (lit. On health)\n... by itself: ... samo od sebe (lit. alone of itself)\nOn the spot: Na licu mjesta (lit. on the face of the place)\nNo (sarcastically): Kako da ne (lit. How that no)\nOh god!: Bože!, Bože sačuvaj (lit. God preserve), Bože dragi (lit. dear God)\nWhen pigs fly:Kad na vrbi rodi grožđe (lit. when willow gives birth to grapes)\nYeah, right! (sarcastic): Da, baš! or Možeš si misliti! (lit. You can think (so))\nIt's raining: Kiši or Pada kiša (lit. The rain is falling)\nIt's raining cats and dogs: Lijeva k'o iz kabla (k'o is the abbreviated pronunciation of 'kao')\nWe're here: Tu smo (lit. here we are) or after a trip Stigli smo (lit. we came)\nThis way!: Ovuda!\nI can't wait: Jedva čekam (lit. I'm barely waiting)\nShoo!: Iš!\nShoo! (for cats): Šic!!!\nShoo! (for dogs): Marš!!! (also means: march)\nYuck!: Fuj! or Bljak!\nTit for tat: Milo za drago (lit. Dear for dear)\nHere, kitty, kitty: Mic, mic!\nThat's right!: Tako je! (lit. It's like that)\nTrue: Istina (lit. Truth)\nOh, my!: Ajme (meni)! or Ajoj!\nWell... Err...: Ovaj... Pa...\nWow!: Opa!\nNext Lesson",
+          "examples": [
+            "I'm cold: Zima mi je (lit. \"Winter is to me\"), hladno mi je",
+            "You're welcome: Nema na čemu or Molim (polite, reply to \"thank you\")",
+            "Ow!: Joj! (can also be used as \"wow\")",
+            "Yeow!: Jao! (Note: The phrase Jao meni would mean \"poor me\")"
+          ],
+          "learnerTip": "And as for that...: A što se toga tiče\nAchoo!: Apćiha!\nA pleasant journey: Sretan put (lit. Happy/lucky path/trip/way)\nAwesome!: Zakon! or Fora! (lit. Law! or Joke!), Super!, Mrak!\nAnyhow...: Bilo kak",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_16"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Lesson 17",
+      "summary": "With : S (or sa)\nOn : Na\nUp : Gore\nDown : Dolje\nLeft : Lijevo\nRight : Desno\nUnder : Ispod\nOver: Preko (can also mean \"beyond\"), but better is iznad (above)\nUpon: Nad\nBeneath: Pod\nAbove: Iznad\nNext Lesson",
+      "sections": [
+        {
+          "heading": "Lesson 17",
+          "body": "With : S (or sa)\nOn : Na\nUp : Gore\nDown : Dolje\nLeft : Lijevo\nRight : Desno\nUnder : Ispod\nOver: Preko (can also mean \"beyond\"), but better is iznad (above)\nUpon: Nad\nBeneath: Pod\nAbove: Iznad\nNext Lesson",
+          "examples": [
+            "Over: Preko (can also mean \"beyond\"), but better is iznad (above)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_17"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson 18",
+      "summary": "NOTE: \"aest\" in 11,12,...,19 is pronounced as \"ajst\"\n0 - nula \n1 - jedan\n2 - dva\n3 - tri\n4 - četiri\n5 - pet\n6 - šest\n7 - sedam\n8 - osam\n9 - devet\n10 - deset\n11 - jedanaest\n12 - dvanaest\n13 - trinaest\n14 - četrnaest\n15 - petnaest\n16 - šesnaest\n17 - sedamnaest\n18 - osamnaest\n19 - d",
+      "sections": [
+        {
+          "heading": "Lesson 18",
+          "body": "NOTE: \"aest\" in 11,12,...,19 is pronounced as \"ajst\"\n0 - nula \n1 - jedan\n2 - dva\n3 - tri\n4 - četiri\n5 - pet\n6 - šest\n7 - sedam\n8 - osam\n9 - devet\n10 - deset\n11 - jedanaest\n12 - dvanaest\n13 - trinaest\n14 - četrnaest\n15 - petnaest\n16 - šesnaest\n17 - sedamnaest\n18 - osamnaest\n19 - devetnaest\n20 - dvadeset\n21 - dvadeset (i) jedan\n22 - dvadeset (i) dva\n30 - trideset\n40 - četrdeset\n50 - pedeset\n60 - šezdeset\n70 - sedamdeset\n80 - osamdeset\n90 - devedeset\n100 - sto, stotina\n101 - sto jedan, stotinu jedan\n200 - dvjesto (the most common), dvjesta, dvije stotine\n300 - tristo (the most common), trista, tri stotine\n1000 - tisuću\n1001 - tisuću (i) jedan\n1000000 - milijun\n1000000000 - milijarda\n\n<–– Back to contents page",
+          "examples": [
+            "NOTE: \"aest\" in 11,12,...,19 is pronounced as \"ajst\""
+          ],
+          "learnerTip": "NOTE: \"aest\" in 11,12,...,19 is pronounced as \"ajst\"\n0 - nula \n1 - jedan\n2 - dva\n3 - tri\n4 - četiri\n5 - pet\n6 - šest\n7 - sedam\n8 - osam\n9 - devet\n10 - deset\n11 - jedanaest\n12 - dvanaest\n13 - trinaest",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_18"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Lesson 19",
+      "summary": "Format:\nEnglish form\nCroatian male form\nCroatian female form",
+      "sections": [
+        {
+          "heading": "Lesson 19",
+          "body": "Format:\nEnglish form\nCroatian male form\nCroatian female form\n\n\n== A ==\nAlbanian\nAlbanac\nAlbanka\n\n\n== B ==\nBulgarian\nBugar \nBugarka\n\n\n== D ==\nDanish\nDanac\nDankinja\n\n\n== E ==\nEnglish\nEnglez\nEngleskinja\n\n\n== F ==\nFrench\nFrancuz\nFrancuzkinja\n\n\n== G ==\nGerman\nNijemac\nNjemica\n\n\n== T ==\nItalian\nTalijan \nTalijanka",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_19"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Lesson 2",
+      "summary": "You must know that Croatian is very hard to learn because most of the words can have different forms and then sound like other ones. But you're in for a pleasant surprise.\nCroatian is well suited for the Roman alphabet, and its pronunciation is therefore quite easy to master. It",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "You must know that Croatian is very hard to learn because most of the words can have different forms and then sound like other ones. But you're in for a pleasant surprise.\nCroatian is well suited for the Roman alphabet, and its pronunciation is therefore quite easy to master. It does possess noun cases, and the verbs inflect rather liberally, but the learner will get used to these new concepts rather quickly.\n\n\n== Vocabulary and Useful Phrases ==\n\n*\"Molim\" can also mean \"what?\" or \"please\"\n\n\n== The nominative case of Masculine and Feminine nouns ==\n\n\n=== Singular/Jednìna ===\nMasculine nouns in the nominative case usually do not have a fixed ending. Student, Pilot, Profesor are all Masculine nouns.\nFeminine nouns have a fixed ending. If the Student is female, the noun would change to Studentica. The fixed ending is ica, or occasionally, just an a is there, like Škola/Plaža.\nNeuter nouns end with -o or -e. Neuter nouns can't be changed to Masculine or Feminine usually.\n\n\n=== Plural/Množina ===\nMasculine nouns when plural, add -i onto the end of the word, although if masculine nouns of one syllable ending end with a \"hard consonant\", -ovi is added instead of -i, like Gradovi (towns). The singular is Grad (towns)\nFeminine nouns when plural, replace the -a, and add -e onto the end of the word.\nNeuter nouns when plural replace the -o or -e and add -a onto the end of the word. Some nouns insert -en- between the stem and the plural, like ramena (shoulders). Also, some nouns in Neuter only exist in plural form, such as Vrata (door), Novine (newspaper). Finally, some nouns have an irregular plural, meaning they don't always end with -a in plural form, such as Uho (ear) = Uši (ears) or Oko (eye) = Oči (eyes)\n\nNext lesson",
+          "examples": [
+            "*\"Molim\" can also mean \"what?\" or \"please\"",
+            "Masculine nouns when plural, add -i onto the end of the word, although if masculine nouns of one syllable ending end with a \"hard consonant\", -ovi is added instead of -i, like Gradovi (towns). The singular is Grad (towns)"
+          ],
+          "learnerTip": "You must know that Croatian is very hard to learn because most of the words can have different forms and then sound like other ones. But you're in for a pleasant surprise.\nCroatian is well suited for",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson 3",
+      "summary": "Questions are formed by by using a question word such as \"how,\" \"what\", and other question words, as in English. The question word is always positioned at the start of a sentence.\nThere's a stress on the words so you know how to pronounce them. It's never used in any writing.",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "Questions are formed by by using a question word such as \"how,\" \"what\", and other question words, as in English. The question word is always positioned at the start of a sentence.\nThere's a stress on the words so you know how to pronounce them. It's never used in any writing.\n\n\n== Question Words ==\n\n\n== \"Yes\" or \"No\" Questions ==\nQuestions expecting a \"yes\" or \"no\" answer are created in a slightly different way. Most frequently li is added after the verb. As in the case with the questions words, the sequence \"verb + li\" is at the beginning of the sentence. \nFor example:\n\nNext lesson",
+          "examples": [
+            "Questions are formed by by using a question word such as \"how,\" \"what\", and other question words, as in English. The question word is always positioned at the start of a sentence.",
+            "== \"Yes\" or \"No\" Questions ==",
+            "Questions expecting a \"yes\" or \"no\" answer are created in a slightly different way. Most frequently li is added after the verb. As in the case with the questions words, the sequence \"verb + li\" is at the beginning of the sentence."
+          ],
+          "learnerTip": "Questions are formed by by using a question word such as \"how,\" \"what\", and other question words, as in English. The question word is always positioned at the start of a sentence.\nThere's a stress on",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson 4",
+      "summary": "Following is a list of Croatian words for animals with plural forms. Croatian word for animal is živòtinja (pl. živòtinje).",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "Following is a list of Croatian words for animals with plural forms. Croatian word for animal is živòtinja (pl. živòtinje).\n\n\n== Mammals/Sisavac (pl. sȉsāvci) ==\n\n\n==== Domesticated ====\n\n\n=== Wild ===\n\n\n== Other ==\n\n\n== Genders ==\n\n\n== Animal related phrases ==\n\nNext lesson",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson 5",
+      "summary": "Months in Croatian usually have names of actions or things used in that month. The Roman names AREN'T used in Croatian language.  All the traditional names come from Common Slavic and are attested in other Slavic languages.\nMonth: Mjesec (also means moon)\nJanuary: Siječanj (Sječa",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "Months in Croatian usually have names of actions or things used in that month. The Roman names AREN'T used in Croatian language.  All the traditional names come from Common Slavic and are attested in other Slavic languages.\nMonth: Mjesec (also means moon)\nJanuary: Siječanj (Sječa means cutting)\nFebruary: Veljača\nMarch: Ožujak\nApril: Travanj (Trava means grass)\nMay: Svibanj (Sviba means dog wood)\nJune: Lipanj (Lipa means linden tree)\nJuly: Srpanj (Srp means sickle)\nAugust: Kolovoz (Kolo means cart wheel and voz means ride)\nSeptember: Rujan (Ruj means sumach)\nOctober: Listopad (list means leaf and pad means fall)\nNovember: Studeni (Studen means chilly)\nDecember: Prosinac (pro + siniti: to become thoroughly blue.  (Sin is the old word for dark blue.)\nNext Lesson",
+          "examples": [],
+          "learnerTip": "Months in Croatian usually have names of actions or things used in that month. The Roman names AREN'T used in Croatian language.  All the traditional names come from Common Slavic and are attested in",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson 6",
+      "summary": "Colors: Boje\nBlack: Crna\nWhite: Bijela\nGreen: Zelena (Zelje means: cabbage)\nBlue: Plava, more rarely modra\nRed: Crvena\nYellow: Žuta\nPink: Ružičasta (Ruža means: rose)\nBrown: Smeđa\nOrange: Narančasta\nGray: Siva\nPurple: Ljubičasta\nBeige: bež\nDark blue: Tamnoplava\nNext Lesson",
+      "sections": [
+        {
+          "heading": "Lesson 6",
+          "body": "Colors: Boje\nBlack: Crna\nWhite: Bijela\nGreen: Zelena (Zelje means: cabbage)\nBlue: Plava, more rarely modra\nRed: Crvena\nYellow: Žuta\nPink: Ružičasta (Ruža means: rose)\nBrown: Smeđa\nOrange: Narančasta\nGray: Siva\nPurple: Ljubičasta\nBeige: bež\nDark blue: Tamnoplava\nNext Lesson",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_6"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson 7",
+      "summary": "General\nSchool: Škola\nClass: Razred\nPupil: Učenik (rarely đak)\nTeacher, professor: Učitelj, profesor\nSubject: Predmet\nSchool accessories\nPencil-case: Pernica\nPen: Kemijska olovka (shorter: kemijska, pinkalo)\nPencil: Olovka\nBook: Knjiga\nNotebook: Bilježnica (very rarely teka; used",
+      "sections": [
+        {
+          "heading": "Lesson 7",
+          "body": "General\nSchool: Škola\nClass: Razred\nPupil: Učenik (rarely đak)\nTeacher, professor: Učitelj, profesor\nSubject: Predmet\nSchool accessories\nPencil-case: Pernica\nPen: Kemijska olovka (shorter: kemijska, pinkalo)\nPencil: Olovka\nBook: Knjiga\nNotebook: Bilježnica (very rarely teka; used by old people)\nPaper: Papir\nPencil sharpener: Šiljilo\nRubber: Gumica\nFelt pen: Flomaster\nColoured pencils: Bojice\nCrayons: Pastele\nChalk: Kreda\nBlackboard: Ploča\nSponge: Spužva\nTempera: Tempera\nScissors: Škare (it has only a plural form)\nSubjects\nCroatian: Hrvatski jezik (shorter: hrvatski)\nMaths: Matematika\nPhysics: Fizika\nChemistry: Kemija\nInformatics: Informatika\nGeography: Zemljopis (in primary school), geografija (in secondary school)\nArt: Likovna umjetnost (shorter: likovni)\nMusic: Glazbena umjetnost (shorter: glazbeni)\nPhysical education: Tjelesna i zdravstvena kultura (shorter: tjelesni)\nEnglish: Engleski jezik (shorter: engleski)\nLatin: Latinski jezik (shorter: latinski)\nNext Lesson",
+          "examples": [],
+          "learnerTip": "General\nSchool: Škola\nClass: Razred\nPupil: Učenik (rarely đak)\nTeacher, professor: Učitelj, profesor\nSubject: Predmet\nSchool accessories\nPencil-case: Pernica\nPen: Kemijska olovka (shorter: kemijska, p",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_7"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson 8",
+      "summary": "Sister: Sestra\nBrother: Brat\nMother: Majka\nFather: Otac\nMom: Mama\nDad: Tata\nAunt: Tetka, teta (father's or mother's sister), strina (father's brother's wife), ujna (mother's brother's wife)\nUncle: Ujak (mother's brother), stric (father's brother), tetak (uncle-in-law)\nCousin (fem",
+      "sections": [
+        {
+          "heading": "Lesson 8",
+          "body": "Sister: Sestra\nBrother: Brat\nMother: Majka\nFather: Otac\nMom: Mama\nDad: Tata\nAunt: Tetka, teta (father's or mother's sister), strina (father's brother's wife), ujna (mother's brother's wife)\nUncle: Ujak (mother's brother), stric (father's brother), tetak (uncle-in-law)\nCousin (female): Sestrična\nCousin (male): Bratić\nGrandmother: Baka (usually) or Baba (Note: Calling your grandmother baba can be considered rude since it can also mean something like old hag. However, it is used daily in some parts of the Western Balkans)\nGrandma: Baka\nGrandfather: Djed\nGrandpa: Djedica (It's usually called just djed, or dida and deda)\nNext Lesson",
+          "examples": [],
+          "learnerTip": "Sister: Sestra\nBrother: Brat\nMother: Majka\nFather: Otac\nMom: Mama\nDad: Tata\nAunt: Tetka, teta (father's or mother's sister), strina (father's brother's wife), ujna (mother's brother's wife)\nUncle: Uja",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_8"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Lesson 9",
+      "summary": "Seasons: Godišnja doba (means: year ages)\nSpring: Proljeće\nSummer: Ljeto\nAutumn: Jesen\nWinter: Zima\nNext Lesson",
+      "sections": [
+        {
+          "heading": "Lesson 9",
+          "body": "Seasons: Godišnja doba (means: year ages)\nSpring: Proljeće\nSummer: Ljeto\nAutumn: Jesen\nWinter: Zima\nNext Lesson",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_1/Lesson_9"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson 1",
+      "summary": "== Nominative case of Masculine, Feminine and Neuter nouns ==",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "== Nominative case of Masculine, Feminine and Neuter nouns ==\n\n\n=== Singular/Jednina ===\nMasculine nouns in the nominative case usually do not have a fixed ending. Student, pilot, profesor are all masculine nouns.\nFeminine nouns have a fixed ending. If the student is female, the noun would change to studentica. The fixed ending is -ica, or occasionally, just an -a is there, like škola, school or plaža, beach.\nNeuter nouns end with -o or -e. Neuter nouns usually can't be changed to masculine or feminine.\n\n\n=== Plural/Množina ===\nMasculine nouns, when plural, add -i onto the end of the word. But some masculine nouns, usually those with one syllable and some with two syllables, end with -ov/-ev depending on whether they, in singular, end with palatal consonant, or not. Those masculine nouns, which end with palatal consonant, add -evi to the stem of the word, and those who don't end with a palatal consonant, add -ovi.\n\nPalatal consonants:\nj, lj, nj, đ, dž, č, ć, š, ž\nFeminine nouns, when plural, replace the -a with -e onto the end of the word.\nNeuter nouns, when plural, replace the -o/-e with -a onto the end of the word. Some nouns insert -en- between the stem and the plural, like ramena, shoulders. Also, some neuter nouns only exist in plural form, such as vrata, door. Finally, some nouns have an irregular plural, meaning they don't always end with -a in plural form, such as uho, ear, in singular, and uši, ears, in plural, or oko, eye, in singular, and oči, eyes in plural.\n\nNext lesson",
+          "examples": [],
+          "learnerTip": "== Nominative case of Masculine, Feminine and Neuter nouns ==",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_2/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lesson 10",
+      "summary": "The genitive case is used primarily to denote possession. It is also used after a large number of prepositions.\nExamples:\nOvo je kuća moje tete. - This is my aunt's house.\nKuća je izgrađena od cigala. - The house is built from bricks.\nOtac Quijote naručio je osamljenički ručak od",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "The genitive case is used primarily to denote possession. It is also used after a large number of prepositions.\nExamples:\nOvo je kuća moje tete. - This is my aunt's house.\nKuća je izgrađena od cigala. - The house is built from bricks.\nOtac Quijote naručio je osamljenički ručak od svoje domaćice. - Father Quijote has ordered his solitary lunch from his housekeeper.\nKrenuo je kupiti vino u mjesnoj zadružnoj prodavaonici udaljenoj osam kilometara od El Tobosa. - He set off to buy wine at a local cooperative eight kilometers away from El Tabos.\n\n\n=== Endings ===\n\n\n==== Singular ====\n1) first or a-declination\nending: -a\nExamples:\nstol (m,table) -> stola\nbroj (m,number) -> broja\nnebo (n, sky) -> neba\nvrijeme (n, time) -> vremena\n2) second or e-declination\nending: -e\nExamples:\nžena (f,woman) -> žene\nptica (f, bird) -> ptice\nsluga (m, servant) -> sluge\nvođa (m, leader) -> vođe\n3) third or i-declination\nending: -i\nExamples:\nnoć (f, night) -> noći\nljubav (f, love) -> ljubavi\n\n\n==== Plural ====\nSome nouns change stress!\n1) first or a-declination\nendings: long -a {ā}, -i\nExamples:\nmedvjed {mèdvjed} (m, bear) -> medvjeda {mȅdvjēdā}\nstol {stôl}(m, table) -> stolova {stȍlōvā}\nselo {sèlo}(n, village) -> sela {sélā}\npolje {pȍlje}(n, field) -> polja {pȏljā}\n\nin this form {genitiv plural} you have \"a\" that in other forms doesn't appears, but it's also long\nExamples:\nnokat (m, nail) -> nokata {nokātā}\npas {pȁs}(m, dog) -> pasa {pásā}\nSome masculine nouns get an -i {ī}:\nExamples:\nsati, hvati, pari, ari, mjeseci, prsti, gosti, mravi, zubi, ljudi (\nNouns prst, gost, nokat have -iju: prstiju, gostiju, noktiju.\nSome nouns can have more than one ending:\nnokat - nokātā, noktiju\nprst - prstā, prsti, prstiju\ngost - gosti, gostiju\nzub - zubā, zubi\n2) second or e-declination\nending: long -a {ā} (long -a for masculine, and -a, -i, -u for feminine)\nEnding -a can have every noun. Some of them have \"nepostojano a\".\nExamples:\nžena {žèna}-> žena {žénā}\nptica {ptȉca}-> ptica {ptȋcā}\nvođa {vȍđa}-> vođa {vȏđā}\n\"nepostojano a\" in feminine nouns\nIf group (nouns without -a that has more than one consonant) ends with -l (igla -> iglā/igala), -lj (zemlja -> zemljā/zemalja), -m (pjesma -> pjesmā/pjesama), -r (sestra -> sestrā/sestara), -v (bukva -> bukvā/bukava) or -k (djevojka -> djevojkā/djevojaka)\nAnd in groups with db (naredba -> naredbā/naredaba), džb (svjedodžba -> svjedodžbā/svjedodžaba), žb (optužba -> optužbā/optužaba)\nEnding -i\nstrepnji, sekundi, himni, pravdi\nEnding -u\nonly noga, ruka and sluga {nogu, ruku, slugu}\nMany nouns can have all three endings (a, i and a with \"nepostojano a\"): izložaba/izložba/izložbi, narudžaba/narudžba/narudžbi, priredaba/priredba/priredbi)\nSome nouns can have -a and -i (nouns that don't have \"nepostojano a\"): tajna/tajni, strepnja/strepnji, sekunda/sekundi.\nGroups nc and nč can have \"nepostojano a\", but they even don't: naranča/naranača/naranči\n3) third or i-declination\nending: -i\nljubav -> ljubavi\nlaž -> laži\nNouns kokoš, kost and uš: kokoši/kokošiju, kosti/kostiju, uši/ušiju.",
+          "examples": [
+            "Examples:",
+            "Examples:",
+            "Examples:",
+            "Examples:",
+            "Examples:",
+            "in this form {genitiv plural} you have \"a\" that in other forms doesn't appears, but it's also long"
+          ],
+          "learnerTip": "The genitive case is used primarily to denote possession. It is also used after a large number of prepositions.\nExamples:\nOvo je kuća moje tete. - This is my aunt's house.\nKuća je izgrađena od cigala.",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_2/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Lesson 11",
+      "summary": "It's used as an indirect object and after some prepositions. Examples:\nDao sam ti pismo.\nBio im je gospodar.\nBila je prekrasna, slična zvijezdama na nebu.",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "It's used as an indirect object and after some prepositions. Examples:\nDao sam ti pismo.\nBio im je gospodar.\nBila je prekrasna, slična zvijezdama na nebu.\n\n\n== Singular ==\n1) first or a-declination\nending: -u\nExamples:\nstol -> stolu\nbroj -> broju\nnebo -> nebu\ndjete -> djetetu\n2) second or e-declination\nending: -i\nžena -> ženi\nptica -> ptici\nvođa -> vođi\nSibilarization (k,g,h->c,z,s/_i) \nruka -> ruci\nnoga -> nozi\nsvrha -> svrsi\nExceptions (sibilarization doesn't have):\n\nmost nouns ending on one consonant: kuka, liga, psiha, šljuka, pjega (kiki, ligi, psihi, šljuki, pjegi)\nhypocoristics: baki, diki, koki, seki, striki\nnouns denoting female person with ending -ka: Eskimki, ilirki, gimnazijalki, licejki, tramvajki\nnouns on -cka, -čka, -ćka: kocki, packi, mački, ljuljački, praćki, srećki\nsome nouns on -ska, -zga: arabeski, maski, mazgi\ndisyllabic words on -tka: lutki, patki, tvrtki (exception: bitci/bitki)\nnouns with two consonant if the last one is -g: sfingi, algi, mazgi, tajgi, štangi\nnouns on -h are more common without sibilarization: juhi, muhi, buhi\nnouns with three syllable and polysyllable on -ka can have both forms: pripovjeci/pripovijetki, zagoneci/zagonetki\nnouns on -sk, -šk can have both forms: vojski/vojsci, greški/grešci\nnames and surnames of people: Anki, Dubravki; Vargi, Glihi\ngeographical names:\nnames that look like general nouns (Krki, Meki)\nnames that looks like general nouns (Rijeci {rijeka means river, and Rijeka is city}) {some can have both: Aljaski/Aljasci, Gradiški/Gradišci, Liki/lici\n3) third or i-declination\nending: -i\nljubav -> ljubavi\nnoć -> noći\n\n\n== Plural ==\n1) first or a-declination\nending: -ima\nstol -> stolovima\nbroj -> brojevima\nnebo -> nebima\npolje -> poljima\n2) second or e-declination\nending: -ama\nžena -> ženama\nsluga -> slugama\n3) third or i-declination\nending: -i\nljubav -> ljubavi",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "It's used as an indirect object and after some prepositions. Examples:\nDao sam ti pismo.\nBio im je gospodar.\nBila je prekrasna, slična zvijezdama na nebu.",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_2/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lesson 12",
+      "summary": "It's using as direct object and with some prepositions. Example\nIšao sam u školu.\nPjevamo pjesmu.\nŠetamo kroz šumu.",
+      "sections": [
+        {
+          "heading": "Lesson 12",
+          "body": "It's using as direct object and with some prepositions. Example\nIšao sam u školu.\nPjevamo pjesmu.\nŠetamo kroz šumu.\n\n\n== Singular ==\n1) first or a-declination\nending: -a, or - {neuter nouns have -, masculine -a for something alive, or - for something that isn't alive)\nčovjek (man, human)-> čovjeka\nstol -> stol\nnebo -> nebo\n2) second or e-declination\nending: -u\nžena -> ženu\nsluga -> slugu\n3) third or i-declination\nending: -\nljubav -> ljubav\nlaž -> laž\n\n\n== Plural ==\n1) first or a-declination\nending: -e (masculine) -a (neuter)\nstol -> stolove\nčovjek {irregular, N.pl. is ljudi) -> ljude\nnebo -> neba\nselo -> sela\n2) second or e-declination\nending: -e\nžena -> žene\nptica -> ptice\nsluga -> sluge\n3) third or i-declination\nending: -i\nljubav -> ljubavi\nnoć -> noći",
+          "examples": [],
+          "learnerTip": "It's using as direct object and with some prepositions. Example\nIšao sam u školu.\nPjevamo pjesmu.\nŠetamo kroz šumu.",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_2/Lesson_12"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Lesson 16",
+      "summary": "Sibilarization is sound changing, when k, g and h in front of -i change to c, z, s (k,g,h->c,z,s/_i).\nYou can find sibilarization in:",
+      "sections": [
+        {
+          "heading": "Lesson 16",
+          "body": "Sibilarization is sound changing, when k, g and h in front of -i change to c, z, s (k,g,h->c,z,s/_i).\nYou can find sibilarization in:\n\ndative and locative singular of feminine nouns\nnominative, vocative, dative, locative, instrumental plural of masculine nouns\nimperative\nExamples\nruci -> ruka + i = ruk i (k->c/_i) = ruci\nnozi -> noga + i = nog i (g->z/_i) = nozi\nsnasi -> snaha + i = snah i (h->s/_i) = snasi\nvojnici -> vojnik + i = vojnik i (k->c/_i) = vojnici\ngrijesima -> grijeh + ima = grijeh i ma (h->s/_i) = grijesima\nreci (as verb) -> rek + i -> rek i (k->c/_i) = reci\nreci (as noun) -> redak + i = redak i (\"nepostojano a\") = redk i (k->c/_i) = redci (\"gubljenje suglasnika\") = reci",
+          "examples": [
+            "Examples",
+            "reci (as noun) -> redak + i = redak i (\"nepostojano a\") = redk i (k->c/_i) = redci (\"gubljenje suglasnika\") = reci"
+          ],
+          "learnerTip": "Sibilarization is sound changing, when k, g and h in front of -i change to c, z, s (k,g,h->c,z,s/_i).\nYou can find sibilarization in:",
+          "source": "https://en.wikibooks.org/wiki/Croatian/Main_Contents/Level_2/Lesson_16"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

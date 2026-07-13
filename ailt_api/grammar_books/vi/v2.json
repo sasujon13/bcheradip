@@ -1,0 +1,750 @@
+{
+  "title": "Grammar Book — Tiếng Việt",
+  "languageCode": "vi",
+  "languageName": "Tiếng Việt",
+  "version": 2,
+  "sources": [
+    "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t",
+    "https://en.wikibooks.org/wiki/Vietnamese/Lesson_1",
+    "https://en.wikibooks.org/wiki/Vietnamese/Lesson_2",
+    "https://en.wikibooks.org/wiki/Vietnamese/Lesson_3",
+    "https://en.wikibooks.org/wiki/Vietnamese/Lesson_4",
+    "https://en.wikibooks.org/wiki/Vietnamese/Lesson_5",
+    "https://en.wikibooks.org/wiki/Vietnamese/Lesson_6",
+    "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Chapter 1",
+      "summary": "Ngữ pháp tiếng Việt là những đặc điểm của tiếng Việt theo các cách tiếp cận ngữ pháp khác nhau: tiếp cận ngữ pháp cấu trúc hay tiếp cận ngữ pháp chức năng. Phần dưới đây chủ yếu trình bày các yếu tố thuộc lý thuyết ngữ pháp chức năng",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Ngữ pháp tiếng Việt là những đặc điểm của tiếng Việt theo các cách tiếp cận ngữ pháp khác nhau: tiếp cận ngữ pháp cấu trúc hay tiếp cận ngữ pháp chức năng. Phần dưới đây chủ yếu trình bày các yếu tố thuộc lý thuyết ngữ pháp chức năng",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== Từ loại ==\nCho đến ngày nay, chủ yếu có 2 phương pháp để phân loại từ loại: phân chia từ vựng của một ngôn ngữ thành hai lớp khái quát là thực từ và hư từ; hoặc phân chia từ vựng thành nhiều lớp cụ thể hơn với các đặc trưng xác định hơn. Đây là các cách phân chia của ngữ pháp truyền thống châu Âu. \nLịch sử nghiên cứu ngữ pháp tiếng Việt có hai xu hướng: một xu hướng cho rằng từ vựng tiếng Việt không được định loại vì chúng không có một dấu hiệu hình thức nào cả, nói cách khác là không tồn tại từ loại trong tiếng Việt. Tuy nhiên số đông các nhà nghiên cứu tiếng Việt vẫn cho rằng tiếng Việt vẫn có từ loại và tồn tại những dấu hiệu khách quan để định loại. Và việc phân loại cũng theo hai cách: phân biệt thực từ và hư từ; phân biệt thành những lớp ngữ pháp cụ thể. Hiện nay, trong tiếng Việt có thể phối hợp 2 cách phân loại này.\nViệc phân định từ loại tiếng Việt theo cách thứ 2 thành những lớp từ cụ thể chủ yếu căn cứ vào ba tiêu chuẩn:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "Ý nghĩa khái quát: có tác dụng tập hợp các từ có cùng kiểu ý nghĩa khái quát thành các lớp (và lớp con); ví dụ như ý nghĩa về sự vật, về hành động, về trạng thái, về tính chất, về quan hệ,...; đến lượt ý nghĩa khái quát về sự vật lại được chia nhỏ thành ý nghĩa khái quát về vật thể (ví dụ các từ nhà, cửa, cây...), về chất thể (ví dụ nước, khí, muối...), v.v...\nKhả năng kết hợp, được hiểu ở 3 mức độ như sau:\nKhả năng kết hợp của từ đang xét với một hay một số hư từ, từ đó nói được bản tính từ loại của từ đang xét. Những hư từ trong trường hợp này được gọi là các chứng tố. Và với chứng tố, thường chỉ xác định được ba lớp từ chính trong tiếng Việt là: lớp danh từ, lớp động từ và lớp tính từ. Ví dụ: những từ có thể đứng trước các chỉ định từ này, nọ thì thuộc lớp danh từ; những từ có thể đứng sau đang, vẫn... thì thuộc lớp động từ; những từ đứng sau rất thường thuộc lớp tính từ.\nKhả năng kết hợp của từ đang xét được đặt trên cơ sở cách cấu tạo của cụm từ chính phụ. Với cách này, có thể xác định thêm lớp các phó từ của động từ (có nét gần gũi với các phụ từ và một số trạng từ adverb ngôn ngữ châu Âu).\nKhả năng kết hợp từ với từ, không chỉ tính đến các yếu tố không nằm trong cụm từ, thông qua các tiêu chuẩn sau: khả năng làm đầu tố trong cụm từ chính phụ; khả năng làm yếu tố mở rộng trong cụm từ chính phụ; không tham gia vào cụm từ chính phụ, chỉ xuất hiện ở bậc câu nhưng có thể có quan hệ với cụm từ chính phụ trong các trường hợp cụ thể.\nChức vụ ngữ pháp: Khả năng giữ chức vụ ngữ pháp trong một câu thường được dùng như một tiêu chuẩn hỗ trợ cho việc phân định từ loại.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "Động từ là những từ dùng để chỉ hành động, trạng thái của sự vật. Thường làm vị ngữ trong câu.\nVí dụ: ăn, đi, ngủ, bơi, tắm, uống,...\nTôi đang đi bộ.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "==== Động từ tình thái ====\nLà những động từ đòi hỏi động từ khác đi kèm phía sau.\nVí dụ: đành, bị, được, dám, toan, định, có,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "===== Động từ chỉ hoạt động, trạng thái =====\nLà những động từ không đòi hỏi động từ khác đi kèm.\nVí dụ: ăn, làm, chạy, nhảy, múa. ca, hát",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Chapter 2",
+      "summary": "Là những từ chỉ người, vật, hiện tượng, khái niệm,...\nVí dụ: trâu, mưa, mây, giáo viên, kỹ sư, con, thúng...",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Là những từ chỉ người, vật, hiện tượng, khái niệm,...\nVí dụ: trâu, mưa, mây, giáo viên, kỹ sư, con, thúng...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== Danh từ chỉ sự vật ====\nDanh từ chỉ sự vật nêu tên từng loại hoặc từng cá thể người, vật, hiện tượng, khái niệm,...\nVí dụ: giáo viên, bút, cuộc biểu tình, mưa, nắng, tác phẩm,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "===== Danh từ chung =====\nDanh từ chung là tên gọi của một loại sự vật.\nVí dụ: thành phố, học sinh, cá, tôm, thôn, xóm, làng, xe, thầy cô,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "===== Danh từ riêng =====\nDanh từ riêng là tên riêng của từng người, từng vật, từng địa phương,...\nVí dụ: Hà Nội, Hải Phòng, Đà Nẵng, Lý Quang Diệu, Hồ Chí Minh, Võ Nguyên Giáp, Bộ Giáo dục và Đào tạo,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "==== Danh từ chỉ đơn vị ====\nDanh từ chỉ đơn vị nêu tên đơn vị dùng để tính đếm, đo lường sự vật.\nVí dụ: nắm, mét, mớ, lít, bầy, g, km, cm,..\nDanh từ chỉ đơn vị chính xác: dùng các chỉ số do các nhà khoa học phát minh để thể hiện sự vật\nVí dụ: mét, lít, gam, giây, giờ,phút...\nDanh từ chỉ đơn vị tự nhiên: con, cái, quyển",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "===== Danh từ chỉ đơn vị ước chừng =====\nThể hiện một số lượng không đếm được có tính tương đối\nVí dụ: nắm, mớ, bầy, đàn, thúng...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Chapter 3",
+      "summary": "Tính từ là những từ chỉ đặc điểm, tính chất của sự vật, trạng thái.\nVí dụ: xinh, vàng, thơm, to, nhỏ, giỏi,...",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Tính từ là những từ chỉ đặc điểm, tính chất của sự vật, trạng thái.\nVí dụ: xinh, vàng, thơm, to, nhỏ, giỏi,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== Tính từ chỉ đặc điểm tuyệt đối ====\nLà những tính từ không thể kết hợp với từ chỉ mức độ.\nVí dụ: vàng hoe, vàng lịm, xanh lè, trắng xóa, buồn bã,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== Tính từ chỉ đặc điểm tương đối ====\nLà những tính từ có thể kết hợp với từ chỉ mức độ.\nVí dụ: tốt, xấu, ác, giỏi,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "Đại từ là một từ dùng để trỏ người, sự vật, hoạt động, tính chất... được nói đến trong một ngữ cảnh nhất định của lời nói hoặc dùng để hỏi.\nVí dụ: tôi, anh, chị, em, ông, bác, ấy, chúng em, chúng ta, chúng tôi, họ,..... v.v.\nĐại từ xưng hô: là đại từ dùng để xưng hô.\nVí dụ: tôi, tớ, hắn, nó,...\nĐại từ thay thế: là đại từ dùng để thay thế cho các danh từ trước đó.\nVí dụ: ấy, vậy, thế,...\nĐại từ chỉ lượng: là đại từ chỉ về số lượng.\nVí dụ: bao nhiêu, bấy nhiêu,...\nĐại từ nghi vấn: là đại từ để hỏi.\nVí dụ: ai, gì, nào, sao,...\nĐại từ phiếm chỉ: là đại từ chỉ chung, không chỉ cụ thể sự vật nào.\nVí dụ: Ai làm cũng được. Mình đi đâu cũng được.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "=== Số từ ===\nSố từ là những từ chỉ số lượng và thứ tự\nVí dụ: một, hai, ba, bốn, mười, một trăm",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "=== Lượng từ ===\nLượng từ là những từ chỉ lượng nhiều hay ít của sự vật một cách khái quát.\nVí dụ: những, cả mấy, các,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Chapter 4",
+      "summary": "=== Chỉ từ ===\nChỉ từ là những từ dùng để trỏ vào sự vật, nhằm xác định vị trí của sự vật trong không gian hay thời gian\nChỉ từ thường làm phụ ngữ trong cụm danh từ. Ngoài ra còn có thể làm chủ ngữ hoặc trạng ngữ trong câu.\nVí dụ: ấy, đây, đấy, kia, này, nọ,...",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== Chỉ từ ===\nChỉ từ là những từ dùng để trỏ vào sự vật, nhằm xác định vị trí của sự vật trong không gian hay thời gian\nChỉ từ thường làm phụ ngữ trong cụm danh từ. Ngoài ra còn có thể làm chủ ngữ hoặc trạng ngữ trong câu.\nVí dụ: ấy, đây, đấy, kia, này, nọ,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== Trợ từ ===\nTrợ từ là những từ chuyên đi kèm với một từ ngữ trong câu để nhấn mạnh hoặc biểu thị thái độ đánh giá sự vật,sự việc được nói đến ở từ ngữ đó.\nVí dụ: những, có, chính, đích, ngay, chỉ, cái,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== Thán từ ===\nThán từ là những từ dùng để bộc lộ cảm xúc,tình cảm của người nói hoặc dùng để gọi đáp\nVí dụ: à, á, ơ, ô hay, này, ơi,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "=== Tình thái từ ===\nTình thái từ là những từ được thêm vào câu để cấu tạo câu nghi vấn, câu cầu khiến, câu cảm thán và để biểu thị các sắc thái tình cảm của người nói\nVí dụ: à, hử, đi, thay, sao, nha, nhé,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "=== Quan hệ từ ===\nQuan hệ từ là những từ dùng để biểu thị các ý nghĩa quan hệ như sở hữu, so sánh, nhân quả,... giữa các bộ phận của câu hay giữa câu với câu trong đoạn văn.\nVí dụ: và, với, hay, hoặc, nhưng, mà, thì, của, ở, tại, bằng, như, để, về,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "==== Cặp quan hệ từ ====\nCặp quan hệ từ là những quan hệ từ được dùng thành cặp để nối các vế câu trong một câu với nhau, ví dụ:\nTuy Lan học giỏi nhưng bạn ấy không hề kiêu căng.(cặp quan hệ từ tuy... nhưng...)\nNếu trời mưa thì Kiên sẽ nghỉ học.(cặp quan hệ từ nếu... thì...)\nCó bốn loại cặp quan hệ từ thường gặp là:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Chapter 5",
+      "summary": "Cặp quan hệ từ biểu thị quan hệ nguyên nhân - kết quả: Vì... nên, do... nên, nhờ... mà,...\nCặp quan hệ từ biểu thị quan hệ giả thiết - kết quả, điều kiện - kết quả: Nếu... thì, hễ... thì,...\nCặp quan hệ từ biểu thị quan hệ tương phản là: Tuy... nhưng, mặc dù... nhưng...\nCặp quan",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Cặp quan hệ từ biểu thị quan hệ nguyên nhân - kết quả: Vì... nên, do... nên, nhờ... mà,...\nCặp quan hệ từ biểu thị quan hệ giả thiết - kết quả, điều kiện - kết quả: Nếu... thì, hễ... thì,...\nCặp quan hệ từ biểu thị quan hệ tương phản là: Tuy... nhưng, mặc dù... nhưng...\nCặp quan hệ từ biểu thị quan hệ tăng tiến là: Không những... mà còn, không chỉ... mà còn",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== Cặp từ hô ứng ====\nCặp từ hô ứng là những cặp phó từ, chỉ từ, hay đại từ thường đi đôi với nhau, và hay dùng để nối vế trong các câu ghép.\nVí dụ: Vừa...đã...; đâu... đấy...; sao... vậy.\nNối vế trong câu ghép: Trời vừa hửng sáng, Lan đã chuẩn bị đi học.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "Phó từ là những từ chuyên đi kèm trạng từ, động từ, tính từ để bổ sung ý nghĩa cho trạng từ, động từ và tính từ.\nVí dụ: đã, rất, cũng, không còn, lắm, đừng, qua, được,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== Phó từ đứng trước động từ, tính từ ====\nNhững phó từ này thường bổ sung một số ý nghĩa liên quan đến hành động, trạng thái, đặc điểm, tính chất nêu ở động từ hoặc tính từ như: quan hệ thời gian, mức độ, sự tiếp diễn tương tự, sự phủ định, sự cầu khiến.\nVí dụ: đã, rất, cũng, chưa, đừng,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "==== Phó từ đứng sau động từ, tính từ ====\nNhững phó từ này thường bổ sung một số ý nghĩa liên quan đến hành động, trạng thái, đặc điểm, tính chất nêu ở động từ hoặc tính từ như: mức độ, khả năng, kết quả và hướng.\nVí dụ: lắm, được, qua...\nNhững phó từ thường gặp: đã, đang, cũng, sẽ, vẫn, còn, đều, được, rất, thật, lắm, quá...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "=== Cụm danh từ ===\nCụm danh từ là loại tổ hợp từ do danh từ và một số từ ngữ phụ thuộc nó tạo thành. Nó có ý nghĩa đầy đủ hơn và có cấu tạo phức tạp hơn một danh từ, nhưng hoạt động trong câu nó giống như một danh từ.\nVí dụ: Ba thúng gạo nếp,ba con trâu đực,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Chapter 6",
+      "summary": "=== Cụm động từ ===\nCụm động từ là loại tổ hợp từ do động từ và một số từ ngữ phụ thuộc nó tạo thành. Nhiều động từ phải có phụ ngữ đi kèm, tạo thành cụm động từ\nVí dụ: Đùa nghịch ở sau nhà,...",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== Cụm động từ ===\nCụm động từ là loại tổ hợp từ do động từ và một số từ ngữ phụ thuộc nó tạo thành. Nhiều động từ phải có phụ ngữ đi kèm, tạo thành cụm động từ\nVí dụ: Đùa nghịch ở sau nhà,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== Cụm tính từ ===\nCụm tính từ là tổ hợp từ do tính từ và các từ khác đi kèm tạo thành\nVí dụ: xinh dã man, đẹp tuyệt vời, buồn thối ruột,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== Từ đơn ===\nLà từ chỉ gồm có một tiếng, có nghĩa, có thể đứng độc lập một mình.\nVí dụ: Ăn, ngủ, cấy, truyện, kể, viết, đẹp,....",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "=== Từ phức ===\nLà từ gồm hai hay nhiều tiếng, có nghĩa.\nVí dụ: Ăn uống, ăn nói, nhỏ nhẹ, con cháu, cha mẹ, anh chị, học sinh, giai cấp,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "==== Từ láy ====\nLà từ phức được tạo ra bằng cách ghép các tiếng có quan hệ láy âm giữa các tiếng lại với nhau.\nVí dụ: Lom khom, ồm ồm, tan tác, luộm thuộm",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "===== Từ láy toàn bộ =====\nLà từ láy có các tiếng lặp lại nhau hoàn toàn (cũng có một số trường hợp tiếng đứng trước biến đổi thanh điệu hoặc phụ âm cuối).\nVí dụ: Đăm đăm, lâng lâng, xinh xinh, xa xa...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Chapter 7",
+      "summary": "===== Từ láy bộ phận =====\nLà từ láy mà giữa các tiếng có sự giống nhau về phụ âm đầu hoặc phần vần.\nVí dụ: Nức nở, tức tưởi, lặng lẽ,...",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "===== Từ láy bộ phận =====\nLà từ láy mà giữa các tiếng có sự giống nhau về phụ âm đầu hoặc phần vần.\nVí dụ: Nức nở, tức tưởi, lặng lẽ,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== Từ ghép ====\nLà từ phức được tạo ra bằng cách ghép các tiếng có quan hệ về nghĩa với nhau.\nVí dụ: Ăn học, ăn nói, ăn mặc, ăn xổi...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "===== Từ ghép chính phụ =====\nLà từ ghép có tiếng chính và tiếng phụ bổ sung nghĩa cho tiếng chính. Tiếng chính đứng trước, tiếng phụ đứng sau.\nVí dụ: Xanh ngắt, nụ cười, nhà ăn, bà ngoại, bút chì....",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "===== Từ ghép đẳng lập =====\nLà từ ghép không phân ra tiếng chính, tiếng phụ. Giữa các tiếng có sự bình đẳng về mặt ngữ pháp.\nVí dụ: Suy nghĩ, chài lưới, cây cỏ, ẩm ướt, bàn ghế,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "== Về việc phân loại sai cấu tạo từ ==\nDo đặc thù của tiếng Việt là chỉ dùng kí âm nên có những trường hợp từ ít được người biết rõ về nguồn gốc của nó, thậm chí còn cho rằng đó là những tiếng phụ không có nghĩa khi đứng một mình, chỉ có vai trò cấu tạo nên từ láy.\nVí dụ: Cây cối, đất đai, hỏi han... là những từ ghép đẳng lập được cấu thành bởi 2 thành tố đều có nghĩa, trong đó cối, đai hay han... là từ Việt cổ hoặc từ Hán Việt có nghĩa tương đương với cây, đất và hỏi.\nMột số trường hợp khác như nhảy nhót, mơ mộng, tuổi tác,... cũng như vậy. Thường thì từ láy sẽ được xếp vào từ loại tính từ, đặc biệt được dùng để làm rõ thêm tình thái của người nói, người viết cho văn cảnh. Nếu một từ trông giống từ láy nhưng lại là động từ hoặc danh từ thì rất có thể nó là từ ghép đẳng lập (trong đó một thành tố đã ít được dùng).\nViệc một số từ bị mờ nghĩa, kết hợp cùng sự trùng hợp các phụ âm đầu của hai thành tố ghép từ vô hình trung khiến nhiều người phân loại sai các nhóm từ này.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "== Câu ==\nCâu là một tập hợp từ, ngữ kết hợp với nhau theo những quan hệ cú pháp xác định, được tạo ra trong quá trình tư duy, giao tiếp, có giá trị thông báo, gắn liền với mục đích giao tiếp nhất định.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Chapter 8",
+      "summary": "=== Câu đơn ===\nLà câu chỉ có một vế câu. Cần phân biệt câu đơn với câu ghép và câu mở rộng thành phần. Câu đơn thường có một chủ ngữ, một vị ngữ và có thể có một hoặc nhiều trạng ngữ nhưng có một số trường hợp câu đơn không xác định được chủ ngữ vị ngữ. Đó là trường hợp của câu",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== Câu đơn ===\nLà câu chỉ có một vế câu. Cần phân biệt câu đơn với câu ghép và câu mở rộng thành phần. Câu đơn thường có một chủ ngữ, một vị ngữ và có thể có một hoặc nhiều trạng ngữ nhưng có một số trường hợp câu đơn không xác định được chủ ngữ vị ngữ. Đó là trường hợp của câu đơn đặc biệt. \nVD: Câu đơn: Trời mưa. (C-V)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== Câu ghép ===\nCâu ghép là câu do nhiều vế câu ghép lại (thường là hai vế), mỗi vế câu thường có cấu tạo giống câu đơn (có đủ cụm Chủ - Vị) và thể hiện một ý có quan hệ chặt chẽ với ý của những câu khác. Các câu ghép bắt buộc phải có hai cụm chủ - vị trở lên Hai vế của câu ghép được nối với nhau bằng nhiều cách. Nhưng cách cơ bản nhất là nối trực tiếp, nối bằng quan hệ từ và cặp từ hô ứng. VD:\" Mưa càng to, gió càng thổi mạnh.\",",
+          "examples": [
+            "Câu ghép là câu do nhiều vế câu ghép lại (thường là hai vế), mỗi vế câu thường có cấu tạo giống câu đơn (có đủ cụm Chủ - Vị) và thể hiện một ý có quan hệ chặt chẽ với ý của những câu khác. Các câu ghép bắt buộc phải có hai cụm chủ - vị trở "
+          ],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== Câu ghép đẳng lập ====\nLà câu ghép được nối với nhau bằng cách sử dụng cách nối trực tiếp mà trong đó ta có thể tách các mệnh đề thành các câu riêng mà không ảnh hưởng đến nội dung câu.\nVí dụ: Chó chạy thong thả, khỉ buông thõng hai tay, ngồi ngúc nga ngúc ngắc.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== Câu ghép chính - phụ ====\nLà câu ghép được nối với nhau bằng cách sử dụng quan hệ từ hoặc cặp từ hô ứng.\nVí dụ: Nếu em học giỏi thì ba mẹ em sẽ rất mừng.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "=== Câu đặc biệt ===\nCâu đặc biệt là loại câu không cấu tạo theo mô hình C-V.\nVí dụ: Ôi trời! Căn phòng hôm nay sạch thế!",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "=== Câu rút gọn ===\nCâu rút gọn là khi nói hoặc viết, có thể lược bỏ một số thành phần của câu, tạo thành câu rút gọn. Các thành phần có thể lược bỏ như chủ ngữ, vị ngữ, hoặc cả chủ ngữ và vị ngữ,... Tuỳ theo hoàn cảnh, mục đích nói của câu mà ta có thể lược bỏ những thành phần phù hợp.\nVD: A nói với B: – Sáng mai đi chơi nhé.\nCâu \"Sáng mai đi chơi nhé\" là câu rút gọn. Thành phần bị rút gọn là chủ ngữ. Câu đầy đủ là: Sáng mai tớ với cậu đi chơi nhé.",
+          "examples": [
+            "Câu \"Sáng mai đi chơi nhé\" là câu rút gọn. Thành phần bị rút gọn là chủ ngữ. Câu đầy đủ là: Sáng mai tớ với cậu đi chơi nhé."
+          ],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Chapter 9",
+      "summary": "=== Liên kết câu ===\nNgoài sự liên kết về nội dung, giữa các câu trong đoạn phải được liên kết bằng những dấu hiệu hình thức nhất định. Về hình thức, người ta thường liên kết các câu bằng các phép liên kết như phép lặp (lặp từ ngữ), phép thế (thay thế từ ngữ), phép nối (dùng từ n",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== Liên kết câu ===\nNgoài sự liên kết về nội dung, giữa các câu trong đoạn phải được liên kết bằng những dấu hiệu hình thức nhất định. Về hình thức, người ta thường liên kết các câu bằng các phép liên kết như phép lặp (lặp từ ngữ), phép thế (thay thế từ ngữ), phép nối (dùng từ ngữ để nối), phép liên tưởng,...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "Phép lặp: Ta có thể liên kết một câu với một câu đứng trước nó bằng cách dùng bằng cách lặp lại trong câu ấy những từ ngữ đã xuất hiện ở câu đứng trước nó.- Khi sử dụng phép lặp cần lưu ý phối hợp với các phép liên kết khác để tránh lặp lại từ ngữ quá nhiều, gây ấn tượng nặng nề.\nPhép thế: Ta có thể liên kết một câu với một câu đứng trước nó bằng cách dùng đại từ hoặc những từ ngữ đồng nghĩa thay thế cho các từ ngữ đã dùng ở câu đứng trước.- Việc sử dụng đại từ hoặc từ đồng nghĩa liên kết câu làm cho cách diễn đạt thêm đa dạng, hấp dẫn.\nPhép nối: Ta có thể liên kết một câu với một câu đứng trước nó bằng quan hệ từ hoặc một số từ ngữ có tác dụng kết nối như: nhưng, tuy nhiên,thậm chí, cuối cùng, ngoài ra, mặt khác, trái lại, đồng thời,...- Việc sử dụng quan hệ từ hoặc những từ ngữ có tác dụng kết nối giúp ta nắm được mối quan hệ về nội dung giữa các câu trong đoạn văn, bài văn",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== Câu chủ động ====\nCâu chủ động là câu có chủ ngữ chỉ người, vật thực thực hiện một hoạt động hướng vào người, vật khác (chỉ chủ thể của hoạt động).\nCâu chủ động và câu bị động là hai hình thức câu chủ yếu của mọi ngôn ngữ trong văn nói cũng như văn viết.\nCâu chủ động có một chất giọng chủ động thường được sử dụng nhiều trong văn nói hay giao tiếp. Câu chủ động cũng xuất hiện trong các loại văn bản, tiểu thuyết, truyện ngắn, ký... nhưng sẽ không hay bằng câu bị động. Có thể sử dụng loại câu này tùy ý trong văn nói hay văn viết.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== Câu bị động ====\nCâu bị động là câu có chủ ngữ chỉ người, vật được hoạt động của người, vật khác hướng vào (chỉ đối tượng của hoạt động).\nNgược lại với câu chủ động, câu bị động là câu có một chất giọng thụ động được sử dụng trong văn viết nhiều hơn trong văn nói bình thường và được dùng để viết trong các loại văn bản nhiều hơn các loại câu khác. Câu bị động có mặt hầu hết trong các báo chí (tạp chí) hơn là trong các loại câu truyện như tiểu thuyết (truyện ngắn, một số loại ký...) nhưng hầu hết các nhà báo và nhà văn tiểu thuyết sử dụng những câu này rất hay và rất linh hoạt (dùng các phép ẩn dụ, biền ngẫu...). Tuy nhiên, một số loại câu bị động lại được dùng trong văn để viết các bài viết về khoa học và công nghệ. Những bài bào viết về thông tin khoa học thường có chứa nhiều thể loại câu bị động hơn các loại câu khác.\nKhông nên sử dụng câu bị động trong văn nói trừ khi có một lý do chính đáng và hợp lý.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "===== Cách chuyển đổi câu chủ động thành câu bị động =====\nViệc chuyển đổi câu chủ động thành câu bị động (và ngược lai) ở mỗi đoạn văn đều nhằm liên kết các câu trong đoạn văn thành một mạch văn thống nhất.\nCách chuyển đổi câu chủ động thành câu bị động:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "Chuyển từ (hoặc cụm từ) chỉ đối tượng của hoạt động lên đầu câu và thêm các từ bị, hay được vào sau từ (cụm từ) ấy.\nChuyển từ (cụm từ) chỉ đối tượng của hoạt động lên đầu câu, đồng thời lược bỏ hoặc biến từ (cụm từ) chỉ chủ thể của hoạt động thành một bộ phận không bắt buộc trong câu.\nMột số ví dụ ở các câu chủ động và bị động:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Chapter 10",
+      "summary": "Lưu ý: Không phải câu nào có các từ được, bị cũng là câu bị động.\nKhi chuyển đổi câu chủ động sang câu bị động, chú ý tới sắc thái nghĩa của câu khi dùng từ bị hay được.\nCâu bị động thường được sử dụng khi các chủ thể hoạt động chưa rõ ràng, chưa biết, hay không cần thiết.\nVí dụ:",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Lưu ý: Không phải câu nào có các từ được, bị cũng là câu bị động.\nKhi chuyển đổi câu chủ động sang câu bị động, chú ý tới sắc thái nghĩa của câu khi dùng từ bị hay được.\nCâu bị động thường được sử dụng khi các chủ thể hoạt động chưa rõ ràng, chưa biết, hay không cần thiết.\nVí dụ:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 2",
+          "body": "Tất cả cánh cửa chùa được làm bằng gỗ lim.\nChiếc xe đạp ấy được sản xuất tại Việt Nam.\nCâu bị động thường được sử dụng khi chủ ngữ được biết, nhưng người nói/người viết không muốn nói đến nó.\nVí dụ:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 3",
+          "body": "Cô ấy đã được khuyên một lời khuyên xấu.\nMột sai lầm đã được thực hiện.\nCâu bị động thường được sử dụng khi người nói/người viết muốn nhấn mạnh một kết quả:\nVí dụ: Hàng nghìn người đã bị thiệt mạng bởi trận động đất.\nCâu bị động thường được sử dụng khi người nói/người viết muốn giữ cùng một chủ ngữ cho hai hoặc nhiều động từ nhưng trường hợp này sẽ không thực hiện được nếu cả hai động từ cùng ở một thể (chủ động hay bị động).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 4",
+          "body": "Ví dụ, người nói sẽ sử dụng câu b chứ không phải là câu a để điền vào chỗ ba chấm trong đoạn văn trong trường hợp dưới đây (cả hai câu đều chính xác:Một tiếng ồ nổi lên kinh ngạc. Cả lớp sững sờ. Em tôi là chi đội trưởng, là \"vua toán\" của lớp từ mấy năm nay..., tin này chắc làm cho bạn bè xao xuyến. (Trích sách giáo khoa Ngữ văn 7, tập hai, trang 57).\na. Mọi người yêu mến em.",
+          "examples": [
+            "Ví dụ, người nói sẽ sử dụng câu b chứ không phải là câu a để điền vào chỗ ba chấm trong đoạn văn trong trường hợp dưới đây (cả hai câu đều chính xác:Một tiếng ồ nổi lên kinh ngạc. Cả lớp sững sờ. Em tôi là chi đội trưởng, là \"vua toán\" của "
+          ],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 5",
+          "body": "b. Em được mọi người yêu mến.Hầu hết các câu bị động đều không có chủ thể hoạt động; tất cả các câu chủ động đều có chứa chủ thể hoạt động\nChủ thể hoạt động là một chủ ngữ của động từ chủ động. Trong các ví dụ ở câu trên, các chủ thể hoạt động đều có mặt trong tất cả các câu chủ động, còn các câu thụ động thì không có chứa một chủ thể hoạt động.\nKhi một câu có chứa một chủ thể hoạt động, nó nằm sau động từ. Ví dụ: Tiếng Anh được nói bởi họ.\nTrong những câu sau đây, các danh từ \"Những giáo viên\" là các chủ thể hoạt động trong cả hai câu. \"Những giáo viên\" cũng là chủ ngữ của câu chủ động. Nhưng \"kỳ thi\" là chủ ngữ của câu bị động.",
+          "examples": [
+            "Trong những câu sau đây, các danh từ \"Những giáo viên\" là các chủ thể hoạt động trong cả hai câu. \"Những giáo viên\" cũng là chủ ngữ của câu chủ động. Nhưng \"kỳ thi\" là chủ ngữ của câu bị động."
+          ],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        },
+        {
+          "heading": "Section 6",
+          "body": "Chủ động: Những giáo viên chuẩn bị cho kỳ thi.\nBị động: Kỳ thi được chuẩn bị bởi những giáo viên.\nTừ đồng nghĩa:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Chapter 11",
+      "summary": "== Tham khảo ==\nDiệp Quang Ban, Ngữ pháp tiếng Việt, Nhà xuất bản Giáo dục, 2005.\nTrần Ngọc Ninh. Cơ-cấu Việt-ngữ. Westminster, CA: Viện Việt-học, 2007.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "== Tham khảo ==\nDiệp Quang Ban, Ngữ pháp tiếng Việt, Nhà xuất bản Giáo dục, 2005.\nTrần Ngọc Ninh. Cơ-cấu Việt-ngữ. Westminster, CA: Viện Việt-học, 2007.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://vi.wikipedia.org/wiki/Ng%E1%BB%AF_ph%C3%A1p_ti%E1%BA%BFng_Vi%E1%BB%87t"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Lesson 1",
+      "summary": "=== Chào hỏi (嘲𠳨) - Greetings ===\nWhen Vietnamese greet each other, they will use Chào and the relevant personal pronoun, or the title, or name. Unlike English, they do not distinguish between the times of the day (morning, afternoon, evening).",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "== Đối thoại (對話) - Conversations ==\n\n\n=== Chào hỏi (嘲𠳨) - Greetings ===\nWhen Vietnamese greet each other, they will use Chào and the relevant personal pronoun, or the title, or name. Unlike English, they do not distinguish between the times of the day (morning, afternoon, evening).\n\nA: Chào ông! (嘲翁!)\nB: Chào bà! (嘲婆!)\nChào is a term that can be used to greet someone at any time. Ông is the term to address elderly men (aged around 50). Bà is the term to address elderly ladies (aged around 45).\n\nA: Chào anh! (嘲英！)\nB: Chào chị! (嘲姊！)\nAnh is a term to address older men, while chị is to address older women.\n\nA: Chào cụ ạ! (嘲俱𠶚！)\nB: Chào em! (嘲俺！)\nCụ is a term to call a very old person. em is a term to call a child, or a younger person. ạ at the end of a sentence indicates respect.\n\nA: Chào William! (嘲 William！)\nB: Vâng, chào Nam! (𠳐，嘲南！)\nVâng means yes.\n\nA: Xin chào. (吀嘲)\nB: Chào. (嘲)\nThis is a simple, yet not very elegant, greeting formula.\n\nA: Chào ông Tomita! (嘲翁 Tomita！)\nB: Chào bà Lee! (嘲婆 Lee!)\n\n\n=== Hỏi thăm sức khoẻ (𠳨𠽄飾劸) - Inquiring about health ===\nA: Ông có khoẻ không? (翁𣎏劸空？)\nB: Cám ơn bà, tôi khoẻ. (感恩婆，碎劸。)\nkhoẻ stands for good or fine, không for not. Adding không at the end of an affirmative sentence is one of the many ways to form a question. Please refer to the grammar part for more details. Cám ơn means thank you.\n\nA: Anh có khoẻ không? (英𣎏劸空？)\nB: Cám ơn ông, tôi rất khoẻ. Còn ông? (感恩翁，碎慄劸。 群翁？)\nA: Tôi cũng rất khoẻ. (碎共慄劸。)\nrất means very. còn, in this context, means and. cũng stands for also.\n\nA: Bạn có khoẻ không? (伴𣎏劸空？)\nB: Khoẻ, cám ơn. Còn bạn? (劸，感恩。 群伴？)\nA: Mình khoẻ, cám ơn bạn. (𨉟劸，感恩伴。)\nbạn means friend and takes the place of a personal pronoun here. mình is next to tôi, a personal pronoun meaning I, it also stands for body.\n\nA: Chị có khoẻ không? (姊𣎏劸空？)\nB: Cám ơn anh, tôi bình thường. Còn anh? (感恩英，碎平常。 群英？)\nA: Tôi vẫn khoẻ. (碎刎劸。)\nbình thường means normal. vẫn means still.\n\n\n=== Giới thiệu (介紹) - Introduction ===\nA: Chào ông! Tôi là Hoà. (嘲翁！碎羅和。)\nB: Chào chị! Tôi là Jack. Rất vui được gặp chị. (嘲姊！碎羅 Jack。 慄𢝙得﨤姊。)\nlà means to be. vui means glad, gặp stands for meet and được for can, may.\n\nA: Nam, đây là Jack, bạn tôi. (南，低羅 Jack，伴碎。)\nB: Chào anh Jack. Rất vui được gặp anh. (嘲英 Jack。 慄𢝙得﨤英。)\nđây means this, here. bạn tôi means my friend.\n\nA: Chào, mình tên A. Bạn tên gì? (嘲，𨉟𠸛Ａ。伴𠸛咦？) <Hi, my name is A. What's your name?>\nB: Mình tên là B. (𨉟𠸛羅 B。) <My name is B.>\nA: Rất vui được gặp bạn. (慄𢝙得﨤伴。) <Nice to meet you.>\nB: Mình cũng vậy. (𨉟共丕。) <Nice to meet you, too>.\n\n\n=== Tạm biệt (暫別) - Saying good bye ===\nA: Tạm biệt ông. (暫別翁！)\nB: Tạm biệt bà. (暫別婆！)\nTạm biệt is the most common formula for saying good-bye in Vietnamese.\n\nA: Tạm biệt anh. (暫別英！)\nB: Chào Jack! (嘲Jack！)\nAlso chào can have this meaning.\n\n\n== Expressions ==\nChào\nHello (he lấu) / Hi (hái) -\nChào (嘲)\nGood Morning (gụt mó-nình) -\nChào buổi sáng (嘲𣇜𤏬)\nGood afternoon (gụt ạp-tơ-nún) -\nChào buổi chiều (嘲𣇜𣊿)\nGood evening (gụt i-vờ-ninh) -\nChào buổi tối (嘲𣇜𣋁)\nGood night (gụt náy-thờ) -\nChào tạm biệt buổi tối (嘲暫別𣇜𣋁)\nHỏi thăm\nHow are you? (hao á dù) -\nAnh mạnh giỏi? (英猛𡤟？)\nHow do you do? (háo đu du đú) -\nAnh mạnh giỏi? (英猛𡤟？)\nI'm Fine (ai-im phái-nờ) / I'm OK (ai mấu cấy) -\nTạm biệt\nVẫn mạnh (刎猛)\nGood bye (gụt bái) / bye bye (bai bái) / bye (bái) -\nTạm biệt (暫別)\nSo long (xấu lóong) -\nTạm biệt (暫別)\nSee you later (sí dú lấy-đờ) -\nHẹn gặp lại (𠻷﨤吏)\nSee you again (sí dú ơ-gén) -\nHẹn gặp lại (𠻷﨤吏)\nTake care (thếch ké-ờ)  -\nBảo trọng (保重) / Cẩn thận nhé !\n\n\n== Vocabulary ==\n ạ\t - \ta particle at the end of the sentence to express respect\n  anh\t - \tyou, Mr. (to address a young man)\n  bà\t - \tMadam, you, Mrs. (used to address an elderly woman)\n  bạn\t - \tfriend, you\n  bình thường\t - \tnormal\n  cám ơn\t - \tthank you\n  chào\t - \tHello (most common greeting formula)\n  chị\t - \tyou, Mrs., Miss (used to address a young woman)\n  còn\t - \tand\n  cụ\t - \tyou, Sir, Madam, Mr., Mrs. (used to address very old persons)\n  cũng\t - \talso\n  đây\t - \tthis, here\n  được\t - \tcan, may\n  gặp\t - \tmeet\n  khoẻ\t - \tgood\n  không\t - \tnot\n  là\t - \tto be\n  mình\t - \tbody, I\n  ông\t - \tSir, you, Mr. (to address an elderly man)\n  rất\t - \tvery\n  vẫn\t - \tstill\n  vui\t - \tglad\n  xin chào\t - \tHello (simple greeting formula)\n\n\n== Grammar ==\n\n\n=== Personal pronouns ===\nIn this lesson, we have learned a number of personal pronouns. In Vietnamese, personal pronouns can be used as subjects or objects but, unlike English, they never change their forms. \nUsage, however, is fundamentally different. There is not simply a word meaning you, but  Vietnamese actually use different pronouns depending on the relation between the speaker and his/her audience. This relation takes gender, age, and status into account. Basically, Vietnamese refer to everyone as a family member.\nHere are the personal pronouns we have encountered so far:\n\ntôi and mình: I\nông: literally grandfather, old man, a formal way to address a male who is older than the speaker\nbà: literally grandmother, old lady, a formal way to address a female who is older than the speaker\nanh: literally brother, a formal way to address a male who is older than the speaker\nchị: literally sister, a formal way to address a female who is older than the speaker\nem: literally younger sister or  younger brother to address a female/male who is younger than the speaker (such as a child)\nbạn: literally friend, an informal, but not casual way to address familiar people.\nFor more, go to the grammar section directly: Personal pronouns.\n\n\n=== Sentence structure ===\nThe basic Vietnamese sentence structure consists of a subject and a predicate. \n\n\n=== Yes-no-question ===\nThere are several ways to form a question in Vietnamese. The most simple form is to add không at the end of an affirmative sentence to turn it into a yes-no-question. In some cases, it is better to add phải không instead of không. Both are still the same in some context.\nExamples:\n\nStatement: Ông khoẻ.  You are well.\nQuestion: Ông khoẻ không? Are you well? Or How are you?\nStatement: Anh là Jack. You are Jack.\nQuestion: Anh là Jack phải không? Are you Jack?\n\n\n== Practice ==\n\n\n== Exercises ==",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "=== Chào hỏi (嘲𠳨) - Greetings ===\nWhen Vietnamese greet each other, they will use Chào and the relevant personal pronoun, or the title, or name. Unlike English, they do not distinguish between the tim",
+          "source": "https://en.wikibooks.org/wiki/Vietnamese/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson 2",
+      "summary": "Conversation between two friends. \nA : Chào bạn. Bạn đang đi đâu đấy? (嘲伴。伴當𠫾兜低？)\nB : A, chào bạn. Mình đang định đến thư viện. (啊，嘲伴。𠵴當定𦤾書院。)\nA : Thế à. Mình cũng đến thư viện đấy. Chúng mình cùng đi nhé. (勢啊。𠵴拱𦤾書院帝。眾𠵴共𠫾𠰚。)\nB : ừ, cũng được. (唹，拱得。)\nA ; à , Mình vẫn chưa biết bố",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "Conversation between two friends. \nA : Chào bạn. Bạn đang đi đâu đấy? (嘲伴。伴當𠫾兜低？)\nB : A, chào bạn. Mình đang định đến thư viện. (啊，嘲伴。𠵴當定𦤾書院。)\nA : Thế à. Mình cũng đến thư viện đấy. Chúng mình cùng đi nhé. (勢啊。𠵴拱𦤾書院帝。眾𠵴共𠫾𠰚。)\nB : ừ, cũng được. (唹，拱得。)\nA ; à , Mình vẫn chưa biết bố bạn làm nghề gì. (啊，𠵴吻渚別 布伴爫藝夷。)\nB : Bố mình là kĩ sư. (布𠵴羅技師)\n\nThế, bố mẹ bạn làm nghề gì ? (勢，布媄伴爫藝夷 ？)\nA : bố mình là bác sĩ, còn mẹ mình là giáo viên. (布𠵴羅博士， 群媄𠵴羅教員。)\nB : Thế à. Còn mẹ mình đã nghỉ hưu rồi. (勢啊。群 媄𠵴㐌𠉝休 耒。)\nA :Thế à. (勢啊。)\n(đến thư viện) (𦤾書院)\nA : thôi chúng mình học bài nhé. (崔眾𠵴學講𠰚。)\nB : ừ. (唹。)\n\nnew word ;\nthư viện (書院) = library\nbố bạn (布伴) = your father\nBố mình (布𠵴) = my father\nkĩ sư (技師) = engineer\nbác sĩ (博士) = doctor\ngiáo viên (教員) = teacher\nnghỉ hưu (𠉝休) = retire\n\nNOTE :\nbạn (伴) = you (for friend , usually in 20 year age range)\nmình (𠵴) = I \n\nTranslation :\nA : Hi, where are you going ?\nB : Hi, I'm going yo the library\nA : Ok, I'm going to the library, too. Why don't we go together .\nB : It is ok. \nA : Ah, I don't know what is your father's job.\nB : He is an engineer.\n\nHow about your parents?\nA : My father is doctor and my mother is teacher.\nB : My mother retired.\nA : Really!\n(in the library)\nA : Now, let's study, ok ?\nB : ok.",
+          "examples": [],
+          "learnerTip": "Conversation between two friends. \nA : Chào bạn. Bạn đang đi đâu đấy? (嘲伴。伴當𠫾兜低？)\nB : A, chào bạn. Mình đang định đến thư viện. (啊，嘲伴。𠵴當定𦤾書院。)\nA : Thế à. Mình cũng đến thư viện đấy. Chúng mình cùng đi",
+          "source": "https://en.wikibooks.org/wiki/Vietnamese/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson 3",
+      "summary": "Chi là người nưốc nào?\nWhere are you from?\nTôi là ...\nI'm...\nngười việt.\nVietnamese.\nngười anh.\nEnglish.\nngười mỹ.\nAmerican.\nngười pháp.\nFrench.\nngười bra xin.\nBrazilian.\nngười nga.\nRussian.\nngười ấn độ.\nIndian.\nngười thái.\nThailandian.\nngười úc.\nAustralian.",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "Chi là người nưốc nào?\nWhere are you from?\nTôi là ...\nI'm...\nngười việt.\nVietnamese.\nngười anh.\nEnglish.\nngười mỹ.\nAmerican.\nngười pháp.\nFrench.\nngười bra xin.\nBrazilian.\nngười nga.\nRussian.\nngười ấn độ.\nIndian.\nngười thái.\nThailandian.\nngười úc.\nAustralian.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Vietnamese/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson 4",
+      "summary": "who-ai  là để chỉ 1 người  nào đó mà muốn nhắc tới",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "who-ai  là để chỉ 1 người  nào đó mà muốn nhắc tới \n\nexample: kìa người đó là ai",
+          "examples": [
+            "example: kìa người đó là ai"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Vietnamese/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson 5",
+      "summary": "What ?  [goắt] - Cái gì ? (丐夷？／丐之？)\nWhen ?  [goen] - Khi nào ? (欺芾？)\nWhere ?  [goe] - Ở đâu ? (於兜？)\nWhy ?   [goai] - Tại sao ? (在牢？)\nWho ?  [hu]  - Ai ? / Người nào ? (埃？／𠊛芾？)\nHow much [hau mắc] ? / how many ? [hau men ny] - Bao nhiêu ? (包饒？)\nWhat is this ? [goắt y rít]\nWhat are",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "What ?  [goắt] - Cái gì ? (丐夷？／丐之？)\nWhen ?  [goen] - Khi nào ? (欺芾？)\nWhere ?  [goe] - Ở đâu ? (於兜？)\nWhy ?   [goai] - Tại sao ? (在牢？)\nWho ?  [hu]  - Ai ? / Người nào ? (埃？／𠊛芾？)\nHow much [hau mắc] ? / how many ? [hau men ny] - Bao nhiêu ? (包饒？)\nWhat is this ? [goắt y rít]\nWhat are these ? [goắt a đe]\nCái này là cái gì ?\nNhững cái kia là cái gì ? (丐尼羅丐夷？／忍丐箕羅丐夷？)\nWhat is that ? [goắt y rát]\nWhat are those ? [goắt a đâu]\nCái kia là cái gì ?\nNhững cái kia là cái gì ? (丐箕羅丐夷？／忍丐箕羅丐夷？)",
+          "examples": [],
+          "learnerTip": "What ?  [goắt] - Cái gì ? (丐夷？／丐之？)\nWhen ?  [goen] - Khi nào ? (欺芾？)\nWhere ?  [goe] - Ở đâu ? (於兜？)\nWhy ?   [goai] - Tại sao ? (在牢？)\nWho ?  [hu]  - Ai ? / Người nào ? (埃？／𠊛芾？)\nHow much [hau mắc] ? / h",
+          "source": "https://en.wikibooks.org/wiki/Vietnamese/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson 6",
+      "summary": "== Expressions : giving the age ==\nHow old are you?\n Bạn mấy tuổi? (伴某歲？)",
+      "sections": [
+        {
+          "heading": "Lesson 6",
+          "body": "== Expressions : giving the age ==\nHow old are you?\n Bạn mấy tuổi? (伴某歲？)  \n\nnumber +  tuổi\ntôi 14 tuổi - I am 14 years old\n\n\n== Dialog ==\n A  - chào\n B  - chào\n A  - Bạn đến từ đâu?\n B  - Tôi đến từ Việt Nam\n A  - Bạn có anh chị em không?\n B  - Tôi có một anh trai và một em gái\n A  - Họ mấy tuổi?\n B  - Anh trai lớn của tôi 21 tuổi và em gái của tôi 10 tuổi.\nEm gái tôi thích trò chơi điện tử.\n\n\n== Vocabulary ==\n cha mẹ (吒母)  -  parents\n cha (ba)   - dad , father, (ba is more commonly used in the south)\n mẹ (媄)  - mom, mother ,\n anh lớn   - older brother\n chị lớn  - older sister\n Con trai (𪩭)  - Son\n Con gái   - Daughter\n em trai / em gái  - younger brother / sister\n\n\n== Grammar : possessive pronouns ==\ncủa tôi (𧵑碎)  / của minh (𧵑𠵴)  - my\ncủa bạn (𧵑伴)  - your\ncủa nó (𧵑伮)  - his / her / its\ncủa chúng tôi (𧵑眾碎)  / của chúng ta (𧵑眾些)  - our\ncủa các bạn (𧵑各伴)  - your\ncủa họ (𧵑戶)  - their\n\n\n== External links ==\nthe vietlang video lesson",
+          "examples": [],
+          "learnerTip": "== Expressions : giving the age ==\nHow old are you?\n Bạn mấy tuổi? (伴某歲？)",
+          "source": "https://en.wikibooks.org/wiki/Vietnamese/Lesson_6"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Introduction",
+      "summary": "Grammar of the Vietnamese language\nVietnamese is an analytic language, meaning it conveys grammatical information primarily through combinations of words as opposed to affixes. The basic word order is subject-verb-object (SVO), but utterances may be restructured so as to be topic",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Vietnamese language\nVietnamese is an analytic language, meaning it conveys grammatical information primarily through combinations of words as opposed to affixes. The basic word order is subject-verb-object (SVO), but utterances may be restructured so as to be topic-prominent. Vietnamese also has verb serialization. In sentences, the head of the phrase usually precedes its complements (i.e. head-initial), nouns are classified according to series of lexical parameters (noun classifier system), and pronouns may be absent from utterances (pro-drop, sometimes without copula verbs). Question words in the language do not exhibit wh-movement.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Word classes",
+      "summary": "This section needs expansion. You can help by adding missing information.  (May 2008)\nVietnamese lexical categories (or \"parts of speech\") consist of:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section needs expansion. You can help by adding missing information.  (May 2008)\nVietnamese lexical categories (or \"parts of speech\") consist of:\n\nnouns\n\ndemonstrative noun modifiers\n\narticles\n\nclassifiers\n\nnumerals\n\nquantifiers\n\nthe focus marker particles\n\nverbs\n\nadjectives[citation needed]\n\nadverbial particles\n\nprepositions\n\nThe syntax of each lexical category and its associated phrase (i.e., the syntactic constituents below the sentence level) is detailed below. Attention is paid to both form and function.",
+          "examples": [
+            "Vietnamese lexical categories (or \"parts of speech\") consist of:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Morphosyntax",
+      "summary": "This section needs expansion. You can help by adding missing information.  (May 2008)\nNouns can be distinguished from verbs syntactically in that the copula là \"to be\" may precede nouns in predications, whereas the copula fails to occur before verbs or adjectives.",
+      "sections": [
+        {
+          "heading": "Nouns and noun phrases",
+          "body": "This section needs expansion. You can help by adding missing information.  (May 2008)\nNouns can be distinguished from verbs syntactically in that the copula là \"to be\" may precede nouns in predications, whereas the copula fails to occur before verbs or adjectives.\n\nMai là sinh viên.\n\"Mai is (a) student.\"\nFor the meaning of the sentence to be understandable, in the sentence above the copula là precedes sinh viên \"student\". Omitting the copula, as in *Mai sinh viên results in an ungrammatical sentence.[1] In contrast, verbs/adjectives do not co-occur with the copula.\n\nMai cao.\n\"Mai is tall.\"\nThe adjective cao (as in the sentence above) does not require a preceding copula, and thus the sentence *Mai là cao is ill-formed.\n\nThe noun category can be further subdivided into different noun classes according to semantic and syntactic criteria. Some of the subclasses identified in Nguyễn (1997) include:\n\nproper noun\n\ncommon noun\nitem noun\n\ncollective noun\n\nunit (or measure) noun\n\nmass noun\n\ntime noun\n\nabstract noun\n\nclassifier\n\nlocative\n\nNouns can be modified with other words resulting in complex noun phrases. These modifiers include demonstratives, quantifiers, classifiers, prepositional phrases, and other attributive lexical words, such as other nouns and verbs. These modifiers co-occur with the modified noun (known as the head noun or noun phrase head), but there are restrictions on what kind of modifiers are allowed depending upon the subclass of noun. The noun phrase has the following structure:\n\nTOTALITY\n\n+\n\nARTICLE\n\n+\n\nQUANTIFIER\n\n+\n\nCLASSIFIER\n\n+\n\nHEAD NOUN\n\n+\n\nATTRIBUTIVE MODIFIER(S)\n\n+\n\nDEMONSTRATIVE\n\n+\n\nPREPOSITIONAL PHRASE\n(possessive)\n\nExample:\n\ncả hai cuốn từ điển Việt Anh này của nócả\n\nall\n\ntotality\n\nhai\n\ntwo\n\nquantifier\n\ncuốn\n\nCLFbook\n\nclassifier\n\ntừ điển\n\ndictionary\n\nhead noun\n\nViệt Anh\n\nVietnamese-English\n\nattributive noun phrase\n\nnày\n\nPROX.DEM\n\ndemonstrative\n\ncủa [nó]\n\nof [3.PN]\n\nprep phrase\n\ncả hai cuốn {từ điển} {Việt Anh} này {của [nó]}\n\nall two CLFbook dictionary Vietnamese-English PROX.DEM {of [3.PN]}\n\ntotality quantifier classifier head noun attributive noun phrase demonstrative prep phrase\n\n\"both of these Vietnamese-English dictionaries of his\"\n\nArticle position\nThis section needs expansion. You can help by adding missing information.  (May 2008)\nFollowing Nguyễn Hùng Tưởng (2004) and Nguyễn T. C. (1975), Vietnamese has an article lexical category slot that occurs before a quantifier.\n\nnhững\n\nPL\n\ný nghĩ\n\nidea\n\nnhững {ý nghĩ}\n\nPL idea\n\n\"(the) ideas\"\n\ncác\n\nPL\n\nquả\n\nCLF\n\ncam\n\norange\n\ncác quả cam\n\nPL CLF orange\n\n\"(the) oranges\"\n\nQuantifiers\nThis section needs expansion. You can help by adding missing information.  (May 2008)\nQuantifiers (also known as numerators) modify the adjacent noun by expressing their quantity. In Vietnamese, they occur within a noun phrase before a head noun (with or without a classifier). Quantifiers include cardinal numerals and other words which indicate some quantity. (Cardinal numerals are described in the numeral section.) Examples of quantifiers:\n\nQuantifier\nEnglish gloss\n\nmột, hai, ba, bốn, etc.\ncardinal numerals\n\nvài, vài ba\nfew\n\ndăm, dăm bảy\nseveral, few\n\nmọi\nevery\n\nmỗi\neach\n\ntừng\neach in turn\n\nmấy\nfew, how much/how many\n\nbao nhiêu\nhow much/how many\n\nbây nhiêu/bấy nhiêu\n\"this much/this many\n\nQuantifiers directly precede the head noun that they modify when the head occurs without a classifier:\n\nhai\n\ntwo\n\nquan điểm\n\nviewpoint\n\nhai {quan điểm}\n\ntwo viewpoint\n\n\"(the) two viewpoints\"\n\nba\n\nthree\n\nđêm\n\nnight\n\nba đêm\n\nthree night\n\n\"three nights\"\n\ndăm\n\nfew\n\nbữa\n\nday\n\ndăm bữa\n\nfew day\n\n\"(a) few days\"\n\nmấy\n\nsome\n\nngười\n\npeople\n\nmấy người\n\nsome people\n\n\"how many people?\"\n\nhow many = bao nhiêu\n \n\nWhen a classifier co-occurs with a following head noun, the quantifier precedes the classifier:\n\nhai\n\ntwo\n\ncuốn\n\nCLF\n\ntừ điển\n\ndictionary\n\nhai cuốn {từ điển}\n\ntwo CLF dictionary\n\n\"(the) two dictionaries\"\n\nsáu\n\nsix\n\nbông\n\nCLF\n\nhoa hồng\n\nrose\n\nkia\n\nDIST.DEM\n\nsáu bông {hoa hồng} kia\n\nsix CLF rose DIST.DEM\n\n\"those six roses over there\"\n\nmấy\n\nfew\n\ncon\n\nCLF\n\ncá\n\nfish\n\nmấy con cá\n\nfew CLF fish\n\n\"(a) few fish\"\n\n \n\nAs in English, mass nouns such as thịt \"meat\", đất \"soil\", and collective nouns such as trâu bò \"cattle\", ruộng nương \"(rice) fields\" usually occur without quantifiers in Vietnamese. However, these nouns can be specified by words denoting measurement units such as cân \"kilogram\", lạng \"tael\", nắm \"handful\", chén \"cupful\":\n\nba\n\nthree\n\ncân\n\nkilogram\n\nthịt\n\nmeat\n\nba cân thịt\n\nthree kilogram meat\n\n\"three kilograms of meat\"\n\nmột\n\none\n\nlạng\n\ntael\n\nthịt\n\nmeat\n\nmột lạng thịt\n\none tael meat\n\n\"one tael of meat\"\n\n \n\nFocus marker position\nThe optional particle cái is identified as a focus marker by Nguyễn Hùng Tưởng (2004). It has been called by several other names, including general classifier, general categorical, ''extra\" cái, \"extra\" general classifier, definite article, superarticle, definite word, demonstrative word, and chỉ xuất \"indexical\". Focus cái occurs directly before classifiers or unit nouns and may be preceded by other pre-noun modifiers such as quantifiers, numerals, and articles. It always co-occurs with a classifier.[2]\n\nAs can be seen by descriptions of focus cái as \"general classifier\", etc., this particle has often been analyzed as a classifier. However, it can be distinguished by its different behavior. Focus cái always precedes a following classifier and may not directly precede the head noun. The noun phrase\n\ncái\n\nFOC\n\ncon\n\nCLF\n\nchó\n\ndog\n\nnày\n\nDEM.PROX\n\ncái con chó này\n\nFOC CLF dog DEM.PROX\n\n\"this very dog\"\n\nis grammatical, but the phrase\n\n*\n\n \n\ncon\n\nCLF\n\ncái\n\nFOC\n\nchó\n\ndog\n\nnày\n\nDEM.PROX\n\n* con cái chó này\n\n{} CLF FOC dog DEM.PROX\n\n\"this very dog\"\n\nis not grammatical. More than one classifier is not allowed within the same noun phrase, whereas focus cái does occur along with a following classifier (as can be seen above). Examples of other modifiers preceding the focus marker are below:\n\nhai\n\ntwo.NUM\n\ncái\n\nFOC\n\ncon\n\nCLF\n\nchó\n\ndog\n\nđen\n\nblack\n\nnày\n\nDEM.PROX\n\nhai cái con chó đen này\n\ntwo.NUM FOC CLF dog black DEM.PROX\n\n\"these very two black dogs\"\n\nmấy\n\nPL.ART\n\ncái\n\nFOC\n\ncon\n\nCLF\n\nmèo\n\ncat\n\nnày\n\nDEM.PROX\n\nmấy cái con mèo này\n\nPL.ART FOC CLF cat DEM.PROX\n\n\"these very cats\"\n\n \n\nAgain, cái must follow the other pre-noun modifiers, so phrases where cái precedes a numeral or article (such as *cái hai chó đen này or *cái các con mèo này) are ungrammatical.\n\nThe focus marker cái is distinct from the classifier cái that classifies inanimate nouns (although it is historically related to the classifier cái).[3] Thus, classifier cái cannot modify the noun chó \"dog\" (in cái chó) since chó is animate (the non-human animate classifier con must be used: con chó), whereas focus cái can modify nouns of any animacy (with their appropriate classifier):\n\ncái\n\nFOC\n\ncuốn\n\nCLF\n\nsách\n\nbook\n\nnày\n\nDEM.PROX\n\nsách = inanimate\n\n \n\ncái cuốn sách này\n\nFOC CLF book DEM.PROX\n\n\"this very book\"\n\ncái\n\nFOC\n\ncon\n\nCLF\n\nmèo\n\ncat\n\nnày\n\nDEM.PROX\n\nmèo = non-human\n\n \n\ncái con mèo này\n\nFOC CLF cat DEM.PROX\n\n\"this very cat\"\n\ncái\n\nFOC\n\nngười\n\nCLF\n\nlính\n\nsoldier\n\nnày\n\nDEM.PROX\n\nlính = human\n\n \n\ncái người lính này\n\nFOC CLF soldier DEM.PROX\n\n\"this very soldier\"\n\nFunctionally, cái indicates grammatically that an element within a noun phrase is in contrastive focus. It has been noted by Nguyễn Đ. H. (1997) (and others) that cái adds a pejorative connotation, as in:\n\ncái\n\nFOC\n\nthằng\n\nCLF\n\nchồng\n\nhusband\n\nem\n\nKIN\n\ncái thằng chồng em\n\nFOC CLF husband KIN\n\nnó\n\n3SG.PN\n\nnó\n\n3SG.PN\n\nchẳng\n\nNEG\n\nra\n\nturn.out\n\ngì\n\nINTERR.INAN.PN\n\nchẳng ra gì\n\nNEG turn.out INTERR.INAN.PN\n\ntopicalized noun phrase\n\nsubj noun phrase\n\npredicate\n\n\"that husband of mine, he is good for nothing\"\n\nHowever, Nguyễn Hùng Tưởng (2004) claims that the connotation is not always negative and gives the following positive example:[4]\n\ntôi\n\n1SG.PN\n\ntôi\n\n1SG.PN\n\ngặp\n\nmeet\n\ngặp\n\nmeet\n\ncái\n\nFOC\n\ncon\n\nCLF\n\nnhỏ\n\nlittle\n\ntử tế\n\nkind\n\ncái con nhỏ {tử tế}\n\nFOC CLF little kind\n\nsubj noun phrase\n\nverb\n\nobj noun phrase\n\n\"it is the kind-hearted girl that I met\"\n\nPhonologically, the focus cái receives an intonational stress, and, in addition, the element receiving the focus also receives an intonational stress. In the following examples, the stressed words are indicated with capital letters (also underlined):\n\ntôi\n\n1SG.PN\n\ntôi\n\n1SG.PN\n\nthích\n\nlike\n\nthích\n\nlike\n\nCÁI\n\nFOC\n\ncon\n\nCLF\n\nngựa\n\nhorse\n\nĐEN\n\nblack\n\nCÁI con ngựa ĐEN\n\nFOC CLF horse black\n\nsubj noun phrase\n\nverb\n\nobj noun phrase\n\n\"I like the BLACK horse\"   (but not the horse that's a different color)\n\nIn the above sentence, the item in focus is đen \"black\", which receives the stress (as does cái). Here, it is the feature of the horse's blackness that is being focused on (or singled out) in contrast to other horses that do not have the feature of blackness. In the sentence below, ngựa \"horse\" receives the focus and stress.\n\ntôi\n\n1SG.PN\n\ntôi\n\n1SG.PN\n\nthích\n\nlike\n\nthích\n\nlike\n\nCÁI\n\nFOC\n\ncon\n\nCLF\n\nNGỰA\n\nhorse\n\nđen\n\nblack\n\nCÁI con NGỰA đen\n\nFOC CLF horse black\n\nsubj noun phrase\n\nverb\n\nobj noun phrase\n\n\"I like the black HORSE\"   (but not the other black animal)\n\nThe focus marker is always stressed and must co-occur with another stressed item; thus, cái cannot occur without another stressed element within the noun phrase.[5] Focus cái may focus a variety of noun phrase elements including prepositional phrases, relative clauses, constituents inside of relative clause modifiers, the head noun (by itself), the head noun plus preceding classifier, and adjectival verbs.\n\nClassifier position\nVietnamese uses a rich set of classifiers and measure words (often considered a subset of the classifiers) to introduce or stand in for count and mass nouns, respectively.[6] This feature of Vietnamese is similar to the system of classifiers in Chinese.\n\nThe most common classifiers typically do not translate to English: cái introduces most inanimate objects, while con generally introduces animate objects, especially animals.[7] In the following dialogue, the classifier con initially introduces \"chicken\":[8]\n\nBán\n\nsell\n\ncho\n\nfor\n\ntôi\n\nme\n\nbốn\n\nfour\n\ncon\n\nCLF.ANIM\n\ngà.\n\nchicken\n\nBán cho tôi bốn con gà.\n\nsell for me four CLF.ANIM chicken\n\n\"Sell me four chickens.\"\n\nBao nhiêu?\n\nhow many\n\n{Bao nhiêu?}\n\n{how many}\n\n\"How many?\"\n\nBốn\n\nfour\n\ncon.\n\nCLF.ANIM\n\nBốn con.\n\nfour CLF.ANIM\n\n\"Four [of them].\"\n\nNouns may require the animate classifier even if they do not refer to living organisms. For instance, dao (knife), đường (road), mắt (eye), sông (river), and vít (screw) all take the con classifier to convey motion.[7]\n\nMore specific classifiers typically indicate the shape of objects, such as quả for round objects like balls or pieces of fruit, or tấm for flat, rectangular objects like signage or panes of glass. These classifiers may be superficially likened to English partitive constructions like one head of cattle (\"head\", always singular regardless of number, indicates large livestock), two sticks of dynamite (\"stick\" indicates something relatively rigid, long and comparatively thin), three strands of hair (\"strand\" indicates something flexible, long and quite thin), or four bars of gold (a \"bar\" being similar to a \"stick\", but comparatively less \"thin\").[9] Some nominalizing classifiers introduce verbs or adjectives instead of nouns.[7]\n\nSome linguists count as many as 200 classifiers in Vietnamese, though only a few are used in conversation or informal writing.[7] Thompson (1987) notes that usage of cái for inanimate objects has increased at the expense of some of the rarer classifiers.[9]\n\nAmong the most common classifiers are:\n\ncái : used for most inanimate objects\n\nchiếc: almost similar to cái, usually more connotative (e.g. when referring to a cute object, chiếc might be more suitable than cái)\n\ncon: usually for animals and children, but can be used to describe some non-living objects that are associated with motion\n\nngười: used for people except infants\n\nbài: used for compositions like songs, drawings, poems,…",
+          "examples": [
+            "Nouns can be distinguished from verbs syntactically in that the copula là \"to be\" may precede nouns in predications, whereas the copula fails to occur before verbs or adjectives.",
+            "\"Mai is (a) student.\"",
+            "For the meaning of the sentence to be understandable, in the sentence above the copula là precedes sinh viên \"student\". Omitting the copula, as in *Mai sinh viên results in an ungrammatical sentence.[1] In contrast, verbs/adjectives do not ",
+            "\"Mai is tall.\"",
+            "Example:",
+            "\"both of these Vietnamese-English dictionaries of his\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "This section needs expansion. You can help by adding missing information.  (May 2008)\nMain article: Vietnamese pronouns\nVietnamese pronouns[10] act as substitutions for noun phrases.\n\nHoan\n\nHoan\n\nHoan\n\nHoan\n\nchỉ\n\nonly\n\năn\n\neat\n\ncơm\n\nfood\n\nViệt Nam\n\nVietnam\n\nthôi\n\nonly\n\nchỉ ăn cơm {Việt Nam} thôi\n\nonly eat food Vietnam only\n\nsubj noun phrase\n\npredicate\n\n\"Hoan only eats Vietnamese food\"\n\nnó\n\n3SG.PN\n\nnó\n\n3SG.PN\n\nchỉ\n\nonly\n\năn\n\neat\n\ncơm\n\nfood\n\nViệt Nam\n\nVietnam\n\nthôi\n\nonly\n\nchỉ ăn cơm {Việt Nam} thôi\n\nonly eat food Vietnam only\n\nsubj noun phrase\n\npredicate\n\n\"he only eats Vietnamese food\"\n\ncon\n\nCLF\n\nchó\n\ndog\n\nnày\n\nPROX.DEM\n\ncon chó này\n\nCLF dog PROX.DEM\n\nchẳng\n\nNEG\n\nbao giờ\n\never\n\nsủa\n\nbark\n\ncả\n\nall\n\nchẳng {bao giờ} sủa cả\n\nNEG ever bark all\n\nsubj noun phrase\n\npredicate\n\n\"this dog never barks at all\"\n\nnó\n\n3SG.PN\n\nnó\n\n3SG.PN\n\nchẳng\n\nNEG\n\nbao giờ\n\never\n\nsủa\n\nbark\n\ncả\n\nall\n\nchẳng {bao giờ} sủa cả\n\nNEG ever bark all\n\nsubj noun phrase\n\npredicate\n\n\"it never barks at all\"\n\n \n\nThus, the third person singular (arrogant) pronoun nó can substitute for a simple noun phrase Hoan (a personal name) consisting of a single noun or a complex noun phrase con chó này consisting of a noun plus modifiers (which, here, are a classifier and a demonstrative).\n\nNote that the pronominal system as a whole also includes kinship terms (see kinship term section below) and certain demonstratives (see demonstrative section below), which can also have a pronominal function.\n\nThe pronouns are categorized into two classes depending on whether they can be preceded by the plural marker chúng. Like other Asian pronominal systems, Vietnamese pronouns indicate the social status between speakers and other persons in the discourse in addition to grammatical person and number. The table below shows the first class of pronouns that can be preceded by pluralizer.\n\nSingular\n\nPlural\n\n1st person\n\ntôi (inferior to superior)[11]\n\n–\n\nta (emphatic, superior to inferior)\n\nta (emphatic, superior to inferior)\n\ntao [12] (superior to inferior, familiar)\n\n–\n\nmình (intimate)\n\nmình (intimate)\n\n2nd Person\n\nmày[13] or mi or bay (superior to inferior, familiar)\n\nbay [14] (superior to inferior, familiar)\n\n3rd Person\n\nnó (superior to inferior, familiar)\ny (southern dialect only, see below)\n\n–\n\nThe first person tôi is the only pronoun that can be used in polite speech. The second person ta is often used when talking to oneself as in a soliloquy, but also indicates a higher status of the speaker (such as that of a high official, etc.). The other superior-to-inferior forms in the first and second persons (tao, mày, mi, bay) are commonly used in familiar social contexts, such as among family members (e.g. older sister to younger sister, etc.); these forms are otherwise considered impolite.[15] The third person form nó (used to refer to inanimates, animals, children, and scorned adults, such as criminals) is considerably less arrogant than the second person forms tao, mày, mi, bay. The pronoun mình is used only in intimate relationships, such as between husband and wife.\n\nThe pronominal forms in the table above can be modified with plural chúng as in chúng mày \"you (guys)\", chúng nó \"them\". There is an exclusive/inclusive plural distinction in the first person: chúng tôi and chúng tao are exclusive (i.e., me and them but not you), chúng ta and chúng mình are inclusive (i.e., you and me). Some of the forms (ta, mình, bay) can be used to refer to a plural referent, resulting in pairs with overlapping reference (e.g., both ta and chúng ta can mean \"inclusive we\", both bay and chúng bay can mean \"you guys\").\n\nThe other class of pronouns are known as \"absolute\" pronouns (Thompson 1965). These cannot be modified with the pluralizer chúng. Many of these forms are literary and archaic, particularly in the first and second person.\n\nSingular\n\nPlural\n\n1st person\n\nmin (familiar, literary)\n\nchoa (literary)\n\nqua (male to female, literary)\n\nthiếp (female to male, literary)\n\nTrẫm (king to subject, archaic)\n\nthần (subject to king, archaic) [16]\n\n2nd Person\n\nbậu (female to male, literary)\n\n–\n\nchàng (female to male, literary)\n\nngài (subject to king, archaic)\n\n3rd Person\n\ny (familiar)\n\nngười ta (generic)\n\nhắn (familiar)\n\nva [17] (familiar)\n\nngười ta (generic)\n\nUnlike third person pronouns of the first type, these absolute third person forms (y, hắn, va) refer only to animate referents (typically people). The form y can be preceded by the pluralizer in southern dialects in which case it is more respectful than nó. The absolute pronoun người ta has a wider range of reference as \"they, people in general, (generic) one, we, someone\".[18]\n\nAs a result of language contact, some linguists have noted that some Vietnamese speech communities (especially among young college students and bilingual speakers) have borrowed French and English pronouns moi, toi, I, and you in order to avoid the deference and status implications present in the Vietnamese pronominal system (which lacks any truly neutral terms).[19][20]",
+          "examples": [
+            "\"Hoan only eats Vietnamese food\"",
+            "\"he only eats Vietnamese food\"",
+            "\"this dog never barks at all\"",
+            "\"it never barks at all\"",
+            "The pronominal forms in the table above can be modified with plural chúng as in chúng mày \"you (guys)\", chúng nó \"them\". There is an exclusive/inclusive plural distinction in the first person: chúng tôi and chúng tao are exclusive (i.e., me",
+            "The other class of pronouns are known as \"absolute\" pronouns (Thompson 1965). These cannot be modified with the pluralizer chúng. Many of these forms are literary and archaic, particularly in the first and second person."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        },
+        {
+          "heading": "Verbs and verb phrases",
+          "body": "This section needs expansion. You can help by adding missing information.  (May 2008)\nAs mentioned in the noun section above, verbs can be distinguished from nouns by their ability to function as predicators by themselves without a preceding copula là.  Additionally, verbs may be categorized into two main subtypes, stative and functive, according to their syntactic behavior.\n\nStative verbs\nThis section needs expansion. You can help by adding missing information.  (May 2008)\nStative verbs (also known as verbs of quality, extended state verbs, adjectival verbs or adjectives) can be distinguished from functive verbs in two:\n\nstative verbs occur with a degree modifier such as rất ‘very’\n\nstative verbs preclude the use of exhortatives such as hãy\n\nGiáp rất cao\n“Giap is very tall”\n*Hãy trắng! (ungrammatical)\n“Be white!”\nFunctive verbs\nThis section needs expansion. You can help by adding missing information.  (May 2008)\nFunctive verbs (also known as \"real\" verbs, verbs of action, \"doing\" words, or momentary action verbs) differ from stative verbs by the same syntactic tests:\n\nfunctive verbs cannot be preceded by a degree modifier such as rất \"very\"\n\nfunctive verbs can be preceded by the exhortative hãy \"let's (do)\" (indicates commands, requests, etc.)\n\n*Giáp rất ăn. (ungrammatical)\n\"Giap very eat.\"\nAnh hãy ăn đi!\n\"Go ahead and eat!\"\nA verb can interleave with a direct object for emphasis:\n\nbiết\n\nto know\n\n+\n\n+\n\nthân phận\n\nsocial status\n\n→\n\n→\n\nbiết thân biết phận\n\nto know one's place\n\n{biết} + {thân phận} → {biết thân biết phận}\n\n{to know} + {social status} → {to know one's place}\n\nđi\n\nto go\n\n+\n\n+\n\ntới lui\n\nback and forth\n\n→\n\n→\n\nđi tới đi lui\n\nto go back and forth\n\n{đi} + {tới lui} → {đi tới đi lui}\n\n{to go} + {back and forth} → {to go back and forth}\n\nnói\n\nto speak\n\n+\n\n+\n\nbậy bạ\n\nobjectionable\n\n→\n\n→\n\nnói bậy nói bạ\n\nto speak objectionably\n\n{nói} + {bậy bạ} → {nói bậy nói bạ}\n\n{to speak} + {objectionable} → {to speak objectionably}\n\nIn the last example, the verb nói splits the bound morphemes of the reduplicated word bậy bạ.\n\nTense markers\nThis section needs expansion. You can help by adding missing information.  (May 2008)\nAlthough it is not required, Vietnamese has many particles that are used to mark tenses. However, they are not always used as context may suffice. All these markers, except \"rồi\" which goes after the verb, go before the verb.\n(Below each point, there is an example of the marker being used with the verb \"to have dinner\" or \"ăn tối\".)\n\nTo make the past tense, use \"đã\"\n\nTôi đã ăn tối – I had dinner\n\nTo make the future tense, use \"sẽ\"\n\nTôi sẽ ăn tối – I will have dinner\n\nTo say that you just did something (e.g. I just ate), use \"vừa mới\". However it is possible to remove either \"vừa\" or \"mới\" and keep the same meaning, however removing \"vừa\" is more common.\n\nTôi vừa mới ăn tối – I just had dinner\n\nTo say that you are about to do something (e.g. I am about to eat), use \"sắp\".\n\nTôi sắp ăn tối – I am about to have dinner\n\nTo say that you already did something (e.g. I already ate), use \"rồi\". It is often used with \"đã\"\n\nTôi (đã) ăn tối rồi – I already had dinner\n\nTo make a verb continuous (e.g. I am eating), use \"đang\". It can be combined with most of the tense markers, however this isn't common usage.\n\nTôi đang ăn tối – I am having dinner\nTôi đã đang ăn tối – I was having dinner\n\n\"Có\" is also used as a past tense of the verb very similar to \"đã\". It has other uses outside of this.",
+          "examples": [
+            "Functive verbs (also known as \"real\" verbs, verbs of action, \"doing\" words, or momentary action verbs) differ from stative verbs by the same syntactic tests:",
+            "functive verbs cannot be preceded by a degree modifier such as rất \"very\"",
+            "functive verbs can be preceded by the exhortative hãy \"let's (do)\" (indicates commands, requests, etc.)",
+            "\"Giap very eat.\"",
+            "\"Go ahead and eat!\"",
+            "Although it is not required, Vietnamese has many particles that are used to mark tenses. However, they are not always used as context may suffice. All these markers, except \"rồi\" which goes after the verb, go before the verb."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        },
+        {
+          "heading": "Passivization",
+          "body": "The active voice can be changed to passive voice by adding the following words: \"được\" if the verb describing the action implies beneficial effects for the agent and \"bị\" if the verb describing the action implies negative effects. The words \"được\" and \"bị\" must stand in front of the main verb.\n\nTrà được trồng ở Nhật Bản\nTea is grown in Japan.\nAn agent, if there is one, is often placed in between the passive particle and the main verb:\n\nTrần Lập\n\nTrần Lập\n\nđược\n\nPASS\n\nnhiều người\n\nmany people\n\nbiết tới\n\nknow about\n\n{Trần Lập} được {nhiều người} {biết tới}\n\n{Trần Lập} PASS {many people} {know about}\n\nTrần Lập is known about by many people. (Many people know about Trần Lập.)\n\nWhen used with intransitive verbs (and adjectives), these two particles imply the subject is a passive participant to the action described by the verb, as in following example:\n\nAnh ta bị chóng mặt\nHe is feeling dizzy",
+          "examples": [
+            "The active voice can be changed to passive voice by adding the following words: \"được\" if the verb describing the action implies beneficial effects for the agent and \"bị\" if the verb describing the action implies negative effects. The words"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lexicon",
+      "summary": "Kinship terms in Vietnamese have become grammaticalized to a large extent and thus have developed grammatical functions similar to pronouns[21] and other classifiers. In these cases, they are used as honorifics or pejoratives. Kinship terms may also, of course, be used with a lex",
+      "sections": [
+        {
+          "heading": "Kinship terms",
+          "body": "Kinship terms in Vietnamese have become grammaticalized to a large extent and thus have developed grammatical functions similar to pronouns[21] and other classifiers. In these cases, they are used as honorifics or pejoratives. Kinship terms may also, of course, be used with a lexical meaning like other nouns.\n\nPronominal function\nWhen used with a pronominal function, kinship terms primarily indicate the social status between referents in a discourse, such as between the speaker and the hearer, between speaker and another referent, etc. Included within the notion of social status are classifications of age, sex, relative social position, and the speaker's attitude.\n\nFor example, one can express the meaning of I love you in Vietnamese using many different pronouns.\n\nAnh yêu em (male to female [or younger male] lover)\n\nEm yêu anh (female [or younger male] to male lover)\n\nMẹ yêu con (mother to child)\n\nCon yêu mẹ (child to mother)\n\nThe most common terms of reference are kinship terms, which might differ slightly in different regions.\n\nWhen addressing an audience, the speaker must carefully assess the social relationship between him/her and the audience, difference in age, and sex of the audience to choose an appropriate form of address. The following are some kinship terms of address that can be used in the second-person sense (you). They all can also be used in the first-person sense (I), but if they're not marked by (S) the usage is limited to the literal meaning:\n\nÔng: grandfather, used as a term of respect for a man senior to the speaker and who is late middle age or older\n\nBà: grandmother, used as a term of respect for a (usually married) woman senior to the speaker and who is late middle age or older\n\nBá: parent's older sister, used to address a woman slightly older than one's parents or wife of father's older brother or wife of mother's older brother.\n\nBác: parent's older brother or sister, used to address a man/woman slightly older than one's parents or husband of father's older sister or husband of mother's older sister.\n\nCô: father's sister, used to address a younger woman or a woman as old as one's father; also used to address a female teacher regardless of relative age\n\nCậu: mother's brother, used to address a younger man or a man as old as one's mother\n\nDì: mother's sister, used to address a younger woman or a woman as old as one's mother; also used to address one's stepmother\n\nChú: father's younger brother, used to address a man slightly younger than one's father or husband of father's younger sister.\n\nThím: wife of father's younger brother.\n\nMợ: wife of mother's younger brother.\n\nDượng: husband of father's older sister; also used to address one's stepfather\n\nAnh: older brother, for a slightly older man, or for the man in a romantic relationship. (S)\n\nChị: older sister, for a slightly older woman. (S)\n\nEm: younger sibling, for a slightly younger person, or for the woman [or younger man] in a romantic relationship. (S)\n\nBố/Ba/Cha: father\n\nMẹ/Má/Mợ: mother\n\nCon: child; also used in some regions to address a person as old as one's child\n\nCháu: nephew/niece, grandson/granddaughter; used to address a young person of around such relative age\n\nUsing a person's name to refer to oneself or to address another is considered more personal and informal than using pronouns. It can be found among close friends or children.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        },
+        {
+          "heading": "Demonstratives",
+          "body": "This section needs expansion. You can help by adding missing information.  (May 2008)\nVietnamese demonstratives (markers of deixis) all have the function of identifying a referent with respect to another contextual point or position.[22][23]  For example, the demonstrative này \"this\" as in the noun phrase người này \"this person\" indicates that the person referred to is relatively close to the speaker (in a context where this noun phrase is uttered by a speaker to an addressee) while the demonstrative đó \"that\" as in the noun phrase người đó \"that person\" indicates that the person referred to is further from the speaker.\n\nThe demonstratives have a basic three-term deictic system — proximal (close – \"this, here\"), medial (far – \"that, there\"), distal (very far – \"yonder, over there\") — plus an indefinite (or interrogative) term (\"which, where\"). In addition to their deictic function, different Vietnamese demonstratives can function variously as noun modifiers, as noun phrases (i.e., a (pro-) nominal function), or as adverbials.\n\nFunction\n\nProximal\n\nMedial\n\nDistal\n\nIndefinite\n\nNominal\n\nđây \"here\"\n\nđấy \"there\"\n\n–\n\nđâu \"where, wherever\"\n\nNominal/Noun modifier\n\n–\n\nđó \"there, that\"\n\nkia/kìa \"over there, yonder\" (bidirectional)\n\n–\n\nNoun modifier\n\nnày/nầy/nay/ni \"this\"\n\nnấy/ấy \"that\"\n\nnọ \"yonder\" (unidirectional – past)\n\nnào \"which(ever)\"\n\nProportion\n\nbây \"to this extent\"\n\nbấy \"to that extent, to such an extent\"\n\nbao \"to what(ever) extent\"\n\nManner\n\nvầy \"this way, thus\"\n\nvậy \"that way, so\"\n\nsao \"how(ever)\"\n\nThe form này tends to be used in Northern Vietnamese while nầy is the Southern form and ni is the North-central and Central form. In North-central and Central Vietnamese, the form nớ is used instead of nọ, mô instead of nào and đâu, rứa instead of vậy, and răng instead of sao.\n\nIn Hanoi, the form thế or như thế \"(like) so, (like) this way\" is used instead of vầy. Other forms mentioned in Thompson (1965) are nay \"this\", nây \"this (temporal)\", nãy or nẫy \"that (just past)\", and nao \"which\".\n\nThe basic formal pattern of the demonstratives is that the initial consonant and ending vowel nucleus indicate their function and position in the deictic system. Some linguists have analyzed demonstratives as consisting of two (sub-syllabic) morphemes. Following this, the initial đ- indicates a nominal, n- a noun modifier, b- proportion, v-~s- manner, and the vowels -ây~-ay proximal/medial, -âu~-ao indefinite, and -o medial/distal.[24] However, the form kia is analyzed as consisting of only one morpheme. Overlaid on these elements are tones, which indicate contrastive distances increasingly further from the contextual position: ngang tone (closest), huyền tone (further), sắc or nặng tone (even further). Thus, đấy is more remote than đây, kìa more remote than kia, vậy more remote than vầy. There is an idiomatic expression where demonstratives with an even increasing distance modify the noun ngày \"day(time)\":\n\nngày kia, ngày kìa, ngày kía, ngày kịa, ngày kĩa \"on and on into the future\"\nSyntactically, the demonstratives  đó and kia may function as either nouns or as noun modifiers:\n\nngười\n\nperson\n\nđó\n\nthat\n\nngười đó\n\nperson that\n\nlà\n\nbe\n\nlà\n\nbe\n\nanh\n\nbrother\n\nnó\n\n3SG.PN\n\nanh nó\n\nbrother 3SG.PN\n\nsubj noun phrase\n\nverb\n\nobj noun phrase\n\n\"That person is his brother.\"\n\nđó\n\nthat\n\nđó\n\nthat\n\nlà\n\nbe\n\nlà\n\nbe\n\nanh\n\nbrother\n\nnó\n\n3SG.PN\n\nanh nó\n\nbrother 3SG.PN\n\nsubj noun phrase\n\nverb\n\nobj noun phrase\n\n\"That is his brother.\"\n\nThe nominals đây, đấy, and đâu are only used as nouns typically denoting a space or time and cannot function as noun modifiers. Although they usually refer to position situated in time/space, the nominal deictics can be used to metaphorically refer to people, as in:\n\nđây\n\nthis\n\nđi\n\ngo\n\nchợ,\n\nmarket,\n\nđấy\n\nthat\n\ncó\n\nAFF\n\nđi\n\ngo\n\nkhông?\n\nNEG\n\nđây đi chợ, đấy có đi không?\n\nthis go market, that AFF go NEG\n\n\"I'm going to the market, what about you?\"\n\nIn the sentence above (which would translate more literally as \"This is going to the market, is that going or not?\"), proximal đây is used to refer (metaphorically) to the speaker (as \"I\") while medial đấy is used to refer to the addressee (as \"you\"). The demonstrative noun modifiers này, (n)ấy, nọ, and nào can only modify nouns and cannot stand alone as nouns.\n\nWhen referring to time, the distal demonstratives kia and nọ differ in directionality. Kia specifies a point remote either in the past or the future while nọ specifies only a remote point in the past:\n\nngày kia \"some day to come, the other day\"\n\nngày nọ \"the other day\"\n\nThe proportion demonstratives (bây, bấy, bao) refer to the extent of measurement of time or space. They precede the words they modify, such as giờ \"time\", nhiêu \"(to have) much/many\", lâu \"(to be) long, (take a) long time\":\n\nbây giờ \"now, this time\"\n\nbấy giờ \"then, that time\"\n\nbao giờ \"when, what time\"\n\nbây nhiêu \"this much/many\"\n\nbấy nhiêu \"that much/many\"\n\nbao nhiêu \"how much/many\"\n\nbấy lâu \"all that long period, for that length of time\"\n\nbao lâu \"how long\"\n\nbao ngày \"how many days\"\n\nbao lớn \"how big\"\n\nbấy xa \"that far\"",
+          "examples": [
+            "Vietnamese demonstratives (markers of deixis) all have the function of identifying a referent with respect to another contextual point or position.[22][23]  For example, the demonstrative này \"this\" as in the noun phrase người này \"this per",
+            "The demonstratives have a basic three-term deictic system — proximal (close – \"this, here\"), medial (far – \"that, there\"), distal (very far – \"yonder, over there\") — plus an indefinite (or interrogative) term (\"which, where\"). In addition t",
+            "đây \"here\"",
+            "đấy \"there\"",
+            "đâu \"where, wherever\"",
+            "đó \"there, that\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        },
+        {
+          "heading": "Numerals",
+          "body": "Main article: Vietnamese numerals\nNumerals (or numbers) consist of two types: cardinal numerals and ordinal numerals. When occurring in noun phrases, cardinal and ordinal numerals occur in different syntactic positions with respect to the head noun. The article below only shows the native Vietnamese numerals, remember that Sino-Vietnamese numerals will be used in certain cases.\n\nCardinal\nVietnamese numerals are a decimal system. \"Zero\" lacks a dedicated numeral with số không [25] \"empty number\" (< số \"number\", không \"empty\") being used.\n\nNumbers 1–99\nNumerals are generally analytic, with multiples of ten following a regular pattern.\n\nbase numeral\n+ 10\n× 10\n\n1\n\nmột ~ mốt\nmười một (11)\n\n–\n\n2\n\nhai\nmười hai (12)\nhai mươi (20)\n\n3\n\nba\nmười ba (13)\nba mươi (30)\n\n4\n\nbốn, tư\nmười bốn (14)\nbốn mươi (40)\n\n5\n\nnăm\nmười lăm (15)\nnăm mươi (50)\n\n6\n\nsáu\nmười sáu (16)\nsáu mươi (60)\n\n7\n\nbảy or bẩy [26]\nmười bảy (17)\nbảy mươi (70)\n\n8\n\ntám\nmười tám (18)\ntám mươi (80)\n\n9\n\nchín\nmười chín (19)\nchín mươi (90)\n\n10\n\nmười\n\n–\n(mười mươi) [27] (100)\n\nAdditive compounds are formed by with mười- \"10\" initially and another numeral following: mười tám (\"10\" + \"8\" = \"18\"). Multiplicative compounds are formed with an order that is the reverse of the additive compounds, i.e. -mươi is preceded by another numeral: tám mươi (\"8\" x \"10\" = \"80\").\n\nConsonantal and tonal alternations occur in some compound numerals. The numeral mười \"10\" in multiplicative compounds has a tonal change (huyền tone > ngang tone) to -mươi \"times 10\", as in:\n\nbốn mươi  \"40\"   (instead of *bốn mười)\nThe numeral một \"1\" undergoes a tonal alternation (nặng tone > sắc tone) to mốt when it occurs after mươi (with ngang tone) in multiples of 10, as in:\n\nbốn mươi mốt  \"41\"   (instead of *bốn mươi một)\nThe numeral năm \"5\" undergoes an initial consonant alternation (n > l) to lăm as the final element in additive compounds, as in:\n\nmười lăm  \"15\"   (instead of *mười năm)\nbốn mươi lăm  \"45\"   (instead of *bốn mươi năm)\nNumbers 100–999\nThe Vietnamese word for hundred is trăm. Number formation generally follows the same logic as before, with the same consonantal and tonal shifts. However, with the numbers 101–109, 201–209 and so on, a placeholder lẻ (\"odd\") or linh is inserted to represent \"zero tens.\"\n\n100\n\nmột trăm\n\n200\n\nhai trăm\n\n900\n\nchín trăm\n\n101\n\nmột trăm lẻ/linh một\n\n201\n\nhai trăm lẻ/linh một\n\n901\n\nchín trăm lẻ/linh một\n\n102\n\nmột trăm lẻ/linh hai\n\n202\n\nhai trăm lẻ/linh hai\n\n902\n\nchín trăm lẻ/linh hai\n\n105\n\nmột trăm lẻ/linh năm\n\n205\n\nhai trăm lẻ/linh năm\n\n905\n\nchín trăm lẻ/linh năm\n\n110\n\nmột trăm mười\n\n210\n\nhai trăm mười\n\n910\n\nchín trăm mười\n\n111\n\nmột trăm mười một\n\n211\n\nhai trăm mười một\n\n911\n\nchín trăm mười một\n\n112\n\nmột trăm mười hai\n\n212\n\nhai trăm mười hai\n\n912\n\nchín trăm mười hai\n\n115\n\nmột trăm mười lăm\n\n215\n\nhai trăm mười lăm\n\n915\n\nchín trăm mười lăm\n\n120\n\nmột trăm hai mươi\n\n220\n\nhai trăm hai mươi\n\n920\n\nchín trăm hai mươi\n\n121\n\nmột trăm hai mươi mốt\n\n221\n\nhai trăm hai mươi mốt\n\n921\n\nchín trăm hai mươi mốt\n\n122\n\nmột trăm hai mươi hai\n\n222\n\nhai trăm hai mươi hai\n\n922\n\nchín trăm hai mươi hai\n\n125\n\nmột trăm hai mươi lăm\n\n225\n\nhai trăm hai mươi lăm\n\n925\n\nchín trăm hai mươi lăm\n\n155\n\nmột trăm năm mươi lăm\n\n255\n\nhai trăm năm mươi lăm\n\n955\n\nchín trăm năm mươi lăm\n\n\"Lẻ\" is more in the south of Vietnam, while \"linh\" is more common in the north of Vietnam.\n\nNumbers 1,000–999,999\nThe Vietnamese word for thousand is ngàn (Southern) or nghìn (Northern). With the numbers 1,001–1,099, 2,001–2,099 and so on, the empty hundreds place must be specified with không trăm (\"zero hundreds\").\n\n1,000\n\nmột ngàn/nghìn\n\n10,000\n\nmười ngàn/nghìn\n\n21,000\n\nhai mươi mốt ngàn/nghìn\n\n155,000\n\nmột trăm năm mươi lăm ngàn/nghìn\n\n1,001\n\nmột ngàn/nghìn không trăm lẻ/linh một\n\n10,001\n\nmười ngàn/nghìn không trăm lẻ/linh một\n\n21,001\n\nhai mươi mốt ngàn/nghìn không trăm lẻ/linh một\n\n155,001\n\nmột trăm năm mươi lăm ngàn/nghìn không trăm lẻ/linh một\n\n1,021\n\nmột ngàn/nghìn không trăm hai mươi mốt\n\n10,021\n\nmười ngàn/nghìn không trăm hai mươi mốt\n\n21,021\n\nhai mươi mốt ngàn/nghìn không trăm hai mươi mốt\n\n155,021\n\nmột trăm năm mươi lăm ngàn/nghìn không trăm hai mươi mốt\n\n1,055\n\nmột ngàn/nghìn không trăm năm mươi lăm\n\n10,055\n\nmười ngàn/nghìn không trăm năm mươi lăm\n\n21,055\n\nhai mươi mốt ngàn/nghìn không trăm năm mươi lăm\n\n155,055\n\nmột trăm năm mươi lăm ngàn/nghìn không trăm năm mươi lăm\n\n1,100\n\nmột ngàn/nghìn một trăm\n\n10,100\n\nmười ngàn/nghìn một trăm\n\n21,100\n\nhai mươi mốt ngàn/nghìn một trăm\n\n155,100\n\nmột trăm năm mươi lăm ngàn/nghìn một trăm\n\n1,101\n\nmột ngàn/nghìn một trăm lẻ/linh một\n\n10,101\n\nmười ngàn/nghìn một trăm lẻ/linh một\n\n21,101\n\nhai mươi mốt ngàn/nghìn một trăm lẻ/linh một\n\n155,101\n\nmột trăm năm mươi lăm ngàn/nghìn một trăm lẻ/linh một\n\n1,121\n\nmột ngàn/nghìn một trăm hai mươi mốt\n\n10,121\n\nmười ngàn/nghìn một trăm hai mươi mốt\n\n21,121\n\nhai mươi mốt ngàn/nghìn một trăm hai mươi mốt\n\n155,121\n\nmột trăm năm mươi lăm ngàn/nghìn một trăm hai mươi mốt\n\n\"Ngàn\" is more in the south of Vietnam, while \"nghìn\" is more common in the north of Vietnam.\n\nNumbers 1,000,000 and Above\nThe word for \"million\" is triệu. The word for \"billion\" is tỉ. Above this, combinations of ngàn/nghìn, triệu and tỉ must be used.\n\n1 million\n\nmột triệu\n\n1 × 1018\n\nmột tỉ tỉ\n\n1 billion\n\nmột tỉ\n\n1 × 1021\n\nmột ngàn tỉ tỉ\n\n1 trillion\n\nmột ngàn tỉ\n\n1 × 1024\n\nmột triệu tỉ tỉ\n\n1 × 1015\n\nmột triệu tỉ\n\n1 × 1027\n\nmột tỉ tỉ tỉ\n\nOrdinal\nOrdinal numerals are formed by adding the thứ- ordinal prefix to cardinal numerals: thứ- + mười \"ten\" = thứ mười \"tenth\".[28]\n\nOther examples include:\n\nthứ nhất \"first\"\n\nthứ hai (or thứ nhì) \"second\"\n\nthứ ba \"third\"\n\nthứ bốn (or thứ tư) \"fourth\"",
+          "examples": [
+            "Vietnamese numerals are a decimal system. \"Zero\" lacks a dedicated numeral with số không [25] \"empty number\" (< số \"number\", không \"empty\") being used.",
+            "Additive compounds are formed by with mười- \"10\" initially and another numeral following: mười tám (\"10\" + \"8\" = \"18\"). Multiplicative compounds are formed with an order that is the reverse of the additive compounds, i.e. -mươi is preceded ",
+            "Consonantal and tonal alternations occur in some compound numerals. The numeral mười \"10\" in multiplicative compounds has a tonal change (huyền tone > ngang tone) to -mươi \"times 10\", as in:",
+            "bốn mươi  \"40\"   (instead of *bốn mười)",
+            "The numeral một \"1\" undergoes a tonal alternation (nặng tone > sắc tone) to mốt when it occurs after mươi (with ngang tone) in multiples of 10, as in:",
+            "bốn mươi mốt  \"41\"   (instead of *bốn mươi một)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Vietnamese_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

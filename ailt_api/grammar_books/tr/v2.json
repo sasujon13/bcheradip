@@ -1,0 +1,453 @@
+{
+  "title": "Grammar Book — Türkçe",
+  "languageCode": "tr",
+  "languageName": "Türkçe",
+  "version": 2,
+  "sources": [
+    "https://tr.wikipedia.org/wiki/T%C3%BCrk%C3%A7e_dilbilgisi",
+    "https://en.wikibooks.org/wiki/Turkish/Grammar/Alphabet_and_Pronunciation",
+    "https://en.wikibooks.org/wiki/Turkish/Lesson_Nine_-_Kinship",
+    "https://en.wikipedia.org/wiki/Turkish_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Türkçe dil bilgisi, Türkçeyi meydana getiren ses, sözcük yapılışı, sözcük hazinesi, anlam değişmeleri, tümce kuruluşu ve yapısı gibi ögeleri inceleyip kurallara bağlayan dil bilgisi bütünüdür.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Türkçe dil bilgisi, Türkçeyi meydana getiren ses, sözcük yapılışı, sözcük hazinesi, anlam değişmeleri, tümce kuruluşu ve yapısı gibi ögeleri inceleyip kurallara bağlayan dil bilgisi bütünüdür.\n\nYazılı metinlere göre en eski Türkçe, 6-10. yüzyıl arasında Orhun ve Yenisey anıtlarının, Uygurca metinlerin bulunduğu dönemdedir. Bunların Göktürk dilini, 1893 yılında Türkolog Vilhelm Thomsen okudu. Eski döneme ilişkin en önemli eser, Kâşgarlı Mahmud'un Dîvânu Lugâti't-Türk'üdür (1072). Türkiye Türkçesi; Türkiye'de Anadolu ve Rumeli'de, Türkiye dışında ise Kırım, Kıbrıs, Irak, Suriye ve geriye kalan Türk diasporasında konuşulmaktadır.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://tr.wikipedia.org/wiki/T%C3%BCrk%C3%A7e_dilbilgisi"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Yazarlar",
+      "summary": "Türk dili fonetik (ses), morfolojik (şekil), etimolojik (kök), semantik (anlam), sentaks (cümle bilgisi) yönleriyle incelenmiştir. İlk kitap Bergamalı Kadri'nin Müyessiretül Ulum'udur (1530). Cumhuriyet öncesi gramer yazarları Ahmed Cevdet Paşa, Fuat Paşa, Abdullah Ramiz Paşa, Sü",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Türk dili fonetik (ses), morfolojik (şekil), etimolojik (kök), semantik (anlam), sentaks (cümle bilgisi) yönleriyle incelenmiştir. İlk kitap Bergamalı Kadri'nin Müyessiretül Ulum'udur (1530). Cumhuriyet öncesi gramer yazarları Ahmed Cevdet Paşa, Fuat Paşa, Abdullah Ramiz Paşa, Süleyman Paşa, Ali Nazima, Selim Sabit, Abdurrahman Fevzi, Manastırlı Rıfat, Şemseddin Sami, Necib Asım, Şeyh Vasfi, Hüseyin Cahid, Muallim Naci, Tevfik Ebüzziya, Ahmed Cevad, Anton Tıngır'dır.\n\n1928'deki Dil Encümeninde Yakup Kadri, Falih Rıfkı, Ruşen Eşref, Fazıl Ahmed, Ahmed Cevad, Ragıp Hulusi, Mehmed Emin, İhsan Sungu ve İbrahim Grantay; alfabe ve gramer reformunun hazırlıklarını yaptılar. 1928'de Latin yazısı kabul edildi, 1932'de Türk Dili Tetkik Cemiyeti kuruldu. 1933-34'te Ahmed Cevad'ın iki çalışması çıktı: Türkçede Kelime Teşkili Hakkında Bir Anket, Ekler Lügatçesi. Cumhuriyetin ilk gramer kitabını yazan İbrahim Necmi Dilmen'dir: Türkçe Gramer (1939).\n\n1928'de Atatürk dil bilgisi derslerini kaldırmıştı. 1940'ta Millî Eğitim Bakanı Hasan Âli Yücel, okullarda okutulmak üzere Tahsin Banguoğlu'na bir kitap hazırlattı: Anahatlarıyla Türk Grameri.\n\n1941'deki komisyonda Peyami Safa, Halil Onan, Hüseyin Avni Başman, Tahir Nejat Gencan ve Sadullah Sander vardı. Komisyon, ilk ve ortaokullar için Dil bilgisini çıkardı. Bu yıllarda tek kitap usulü vardı. 50-60-70'lerde kitap sayısı çoğaldı: Dil bilgisi (Tahir Nejat Gencan), Dil bilgisi (Beşir Göğüş-Kemal Demiray), Örnek Dil bilgisi (Haydar Ediskun-Baha Dürder), Temel Dil bilgisi (Kemal Demiray), Türk Grameri, 1. Bölüm, Sesbilgisi (Tahsin Banguoğlu), Türk Dilbilgisi (Ahmed Cevad Emre), Türk Dil Bilgisi (Muharrem Ergin), Yeni Türk Dilbilgisi (Haydar Ediskun), Türkçenin Grameri (Tahsin Banguoğlu), Dilbilgisi Terimleri Sözlüğü (Vecihe Hatiboğlu), Türkçenin Sözdizimi (Vecihe Hatiboğlu). Bu çalışmaların birçoğu TDK desteğiyledir.\n\nYabancı bilim adamlarının bu alandaki araştırmalarının en önemlisi, J. W. Redhouse'undur: A Simplified Grammar of Ottoman-Turkish Language (1884).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://tr.wikipedia.org/wiki/T%C3%BCrk%C3%A7e_dilbilgisi"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson Nine - Kinship",
+      "summary": "Turkish makes a number of distinctions that English does not. As a result, Turkish often has more than one kinship term corresponding to a single English term.\nThere is more than one word in Turkish for saying uncle, aunt, grand mother etc..\nAnne - Mother\nBaba - Father\nKardeş - S",
+      "sections": [
+        {
+          "heading": "Lesson Nine - Kinship",
+          "body": "Turkish makes a number of distinctions that English does not. As a result, Turkish often has more than one kinship term corresponding to a single English term.\nThere is more than one word in Turkish for saying uncle, aunt, grand mother etc..\nAnne - Mother\nBaba - Father\nKardeş - Sibling / Brother or sister younger than you\nAbla - Sister older than you\nAğabey (Abi) - Brother older than you\nOğul - Son\nKız - Daughter (also means Girl)\nÇocuk - Daughter and son (also means child)\nEvlat = Çocuk (Rare) \nIn Turkish there are three kinds of uncles and three kinds of aunts. Your mother's brother is your dayı, your father's brother your\namca. An uncle who is related only by marriage, not by blood, that is, your mother's sister's husband or your father's sister's\nhusband, is your enişte. Similarly, your mother's sister is your teyze, your father's sister your hala. An aunt who is related only by marriage, that is, your mother's brother's wife or your father's brother's wife, is your yenge.\nKuzen - Cousin\nYeğen - Niece/Nephew\nAnneanne - Grandmother (Your mother's mother)\nBabaanne - Grandmother (Your father's mother)\nDede - Grandfather\nBüyük anne - Grandmother\nBüyük baba - Grandfather\nEş - Wife or husband\nKarı - Wife\nHanım = Karı (Polite)\nKoca - Husband\nBey = Koca (Polite)\nKayınpeder (Kaynata)  - Father in law (Your wife or husband's father)\nKayınvalide (Kaynana) - Mother in law (Your wife or husband's mother)\nDünür - The father-in-law or mother-in-law of your child\nKayınbirader - brother in law\nBaldız - Wife's sister\nBacanak - Wife's sister's husband\nGörümce - Your husband's sister or your brother's wife\nElti - Your husband's brother's wife",
+          "examples": [],
+          "learnerTip": "Turkish makes a number of distinctions that English does not. As a result, Turkish often has more than one kinship term corresponding to a single English term.\nThere is more than one word in Turkish f",
+          "source": "https://en.wikibooks.org/wiki/Turkish/Lesson_Nine_-_Kinship"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Alphabet and Pronunciation",
+      "summary": "a is pronounced /o/\nb is pronounced /b/\nc is pronounced /j/\nç is pronounced /ch/\nd is pronounced /d/\ne is pronounced /e/\nf is pronounced /f/\ng is pronounced /g/\nğ is pronounced silent\nh is pronounced /h/\ni is pronounced /u/\nj is pronounced /zh/\nk is pronounced /k/\nl is pronounced",
+      "sections": [
+        {
+          "heading": "Alphabet and Pronunciation",
+          "body": "a is pronounced /o/\nb is pronounced /b/\nc is pronounced /j/\nç is pronounced /ch/\nd is pronounced /d/\ne is pronounced /e/\nf is pronounced /f/\ng is pronounced /g/\nğ is pronounced silent\nh is pronounced /h/\ni is pronounced /u/\nj is pronounced /zh/\nk is pronounced /k/\nl is pronounced /l/\nm is pronounced /m/\nn is pronounced /n/\no is pronounced /aw/\np is pronounced /p/\nq or qu is pronounced /k/\nr is pronounced /tt/ and /r/\ns is pronounced /s/\nş is pronounced /sh/\nt is pronounced /t/\nu is pronounced /oo/\nv is pronounced /v/\nw is pronounced /v/\nx is pronounced /eks/ and /z/\ny is pronounced /y/\nz is pronounced /z/",
+          "examples": [],
+          "learnerTip": "a is pronounced /o/\nb is pronounced /b/\nc is pronounced /j/\nç is pronounced /ch/\nd is pronounced /d/\ne is pronounced /e/\nf is pronounced /f/\ng is pronounced /g/\nğ is pronounced silent\nh is pronounced",
+          "source": "https://en.wikibooks.org/wiki/Turkish/Grammar/Alphabet_and_Pronunciation"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Morphology",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (November 2025) (Learn how and when to remove this message)\nTurkish words are routinely formed through the attachme",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (November 2025) (Learn how and when to remove this message)\nTurkish words are routinely formed through the attachment to a stem (gövde) of one or more suffixes (ekler). A stem may be a root (kök) or further analyzable into parts. Turkish suffixes fall roughly into two classes: constructive suffixes (yapım ekleri) and inflectional suffixes (çekim ekleri). A constructive suffix makes a new word from an old one, that is, it is a derivational suffix. An inflectional suffix indicates how a word is used in a sentence.\n\nThe vowels of suffixes undergo vowel harmony. When a suffix is attached to a stem, the vowel in the suffix generally agrees in frontness or backness and in roundedness with the last vowel in the stem or of the preceding suffix.\n\nSome suffixes show two-way vowel harmony between e and a, for example the plural suffix -ler/-lar. The e form is found after a syllable with i, e, ö or ü (e.g. evler \"houses\", günler \"days\"), and also after certain Arabic or French borrowings such as saatler \"hours, clocks\", kalpler \"hearts\". Other suffixes show four-way vowel harmony between i, ı, u, ü, for example the possessive ending -im/-ım/-um/-üm \"my\". These endings are found after syllables containing their own vowels or after e, a, o, ö respectively (e.g. evim \"my house\", gözüm \"my eye\", etc.)\n\nNo vowel harmony involves o and ö. Vowel harmony only affects two consecutive vowels: the very common continuous verbal suffix -iyor has only its first vowel changing: -iyor, -üyor, -ıyor, -uyor, the vowels following being always back (rounded) vowels, -iyor-um, -iyor-lar, never *-iyör-üm, -iyör-ler.\n\nA Turkish suffix can be called enclitic if its vowel undergoes vowel harmony, agreeing with the last vowel of the stem the suffix is attached to.",
+          "examples": [
+            "Some suffixes show two-way vowel harmony between e and a, for example the plural suffix -ler/-lar. The e form is found after a syllable with i, e, ö or ü (e.g. evler \"houses\", günler \"days\"), and also after certain Arabic or French borrowin"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "Turkish lacks grammatical gender. The English third-person singular pronouns she, he, and it all correspond to a single Turkish pronoun, o. Many given names in Turkish are unisex, so it is entirely possible to describe someone in the Turkish language without their gender being discernible from grammatical context.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Person",
+          "body": "Turkish has a strong T–V distinction, using the second-person plural as the formal form, as in French and many other languages.\n\nTurkish also uses various honorifics.\n\nT–V distinction\nFamily members and friends speak to one another using the second singular person sen, and adults use sen to address minors. In formal situations (meeting people for the first time, business, customer-clerk, colleagues) plural second-person siz is used almost exclusively. In very formal situations, double plural second-person sizler may refer to a much-respected person. Rarely, third-person plural conjugation of the verb (but not the pronoun) may be used to emphasize utmost respect. In the imperative, there are three forms: second person singular for informal, second person plural for formal, and double plural second person for very formal situations. Thus, the imperative forms of the verb gelmek, \"to come\", are gel (second person singular, informal), gelin (second person plural, formal), and geliniz (double second-person plural, very formal). The very formal forms are not frequently used.\n\nHonorifics\nTurkish honorifics generally follow the first name, especially if they refer to gender or particular social statuses (e.g. <name> Bey (Mr.), <name> Hanım (Ms.), <name> Öğretmen (teacher)). Such honorifics are used both in formal and informal situations. A newer honorific is Sayın, which precedes the surname or full name, and is not gender-specific. (e.g. Sayın Name Surname, or Sayın Surname, or Sayın Name Bey/Hanım). They are generally used in very formal situations. While these honorifics are normally used in pre-position to Turkish first names, for foreigners, names are preceded by Bay (Mr.) or Bayan (Ms.): Bay [Fox] Mulder, Bayan [Dana] Scully (cf. Fox [Mulder] Bey, Dana [Scully] Hanım, if these names were Turkish).[1]",
+          "examples": [
+            "Family members and friends speak to one another using the second singular person sen, and adults use sen to address minors. In formal situations (meeting people for the first time, business, customer-clerk, colleagues) plural second-person "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Turkish terminology",
+          "body": "In the Turkish terms for the constructive and inflectional endings, three roots are involved:\n\nek \"supplement, affix\" (notably Turkish has no prefixes)\n\nyap- \"make\"\n\nçek- \"pull, draw\"\n\nFor the last two verbal roots, the constructive suffix -im can be added to form nouns for instances of the actions denoted by the roots:\n\nyapım \"construction\"; \"derivation\".\n\nçekim \"[a] pull or draw\" (or a \"take\" in cinema).\n\nEither of these nouns can be compounded with the noun ek, resulting in an indefinite compound (belirtisiz tamlama), the sign of which is the inflectional suffix -i attached to ek:\n\nyapım eki \"structure-suffix\"; \"derivational suffix\".\n\nçekim eki \"inflection-suffix\".\n\nThe inflectional suffix -ler comes before the -i to form the plural, so yapım ekleri, çekim ekleri.\n\nMany words in Turkish— particularly many grammatical terms— are neologisms invented to replace earlier words borrowed from Arabic or Persian, which have largely been successful at permanently superseding the previously used foreign terms. (See the main article on Turkish language.) In some cases, the foreign term continues to be in use alongside the neologism.",
+          "examples": [
+            "ek \"supplement, affix\" (notably Turkish has no prefixes)",
+            "yap- \"make\"",
+            "çek- \"pull, draw\"",
+            "yapım \"construction\"; \"derivation\".",
+            "çekim \"[a] pull or draw\" (or a \"take\" in cinema).",
+            "yapım eki \"structure-suffix\"; \"derivational suffix\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Parts of speech",
+      "summary": "There are nine parts of speech (söz türleri \"word-kinds\") in Turkish.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "There are nine parts of speech (söz türleri \"word-kinds\") in Turkish.\n\nnoun (isim or ad \"name\");\n\npronoun (zamir \"inner being\", or adıl from ad);\n\nadjective (sıfat \"role, quality\", or önad \"front-noun\");\n\nverb (fiil \"act, deed\", or eylem \"action\" from eyle- \"make, do\");\n\nadverb (zarf \"envelope\", or belirteç from belir- \"determine\");\n\npostposition (ilgeç from ilgi \"interest, relation\");\n\nconjunction (bağlaç from bağ \"bond\");\n\nparticle (edat, or ilgeç);\n\ninterjection (nidâ [dated], or ünlem from ün \"fame, repute, sound\").\n\nPostpositions are analogous to prepositions in English, the main difference being that they follow their objects. Postpositions can be considered particles, but there are particles in Turkish that are not postpositions.\n\nOnly nouns, pronouns and verbs are inflected in Turkish. An adjective can usually be treated as a noun or pronoun, in which case it can also be inflected. Inflection can give a noun features of a verb such as person and tense. With inflection, a verb can become one of the following:\n\nverbal noun (isim-fiil);\n\nverbal adjective (sıfat-fiil) or participle (ortaç);\n\nverbal adverb (zarf-fiil) or gerund.[2]\n\nThese have peculiarities not shared with other nouns, adjectives or adverbs. \nFor example, some participles take a person the way verbs do.\nAlso, a verbal noun or adverb can take a direct object.  \nSome verbal nouns are not inflected forms in Turkish but are borrowed from Arabic or other languages.\n\nIn Turkish, an ascriptive clause can be composed of a common noun standing alone as the Predicative, both the Subject and the Predicator being implicit and assumed from the situation. Example:\n\nköpek – \"dog\"\nKöpek. – \"It is a dog.\"\nThis means that both a noun and a verb can alone constitute an affirmative clause in Turkish, which is not the case in English.\n\nThere are two standards for listing verbs in dictionaries. Most dictionaries follow the tradition of spelling out the infinitive form of the verb as the headword of the entry, but others such as the Redhouse Turkish-English Dictionary are more technical and spell out the stem of the verb instead, that is, they spell out a string of letters that is useful for producing all other verb forms through morphological rules. Similar to the latter, this article follows the stem-as-citeword standard.\n\nInfinitive: koşmak (\"to run\")\n\nStem: koş- (\"run\")\n\nIn Turkish, the verbal stem is also the second-person singular imperative form. Example:\n\nkoş- (stem meaning \"run\")\nKoş! (\"Run!\")\nMany verbs are formed from nouns by addition of -le. For example:\n\nköpek – \"dog\"\nköpekle – \"dog paddle\" (in any of several ways)\nThe aorist tense of a verb is formed by adding -(i/e)r. The plural of a noun is formed by suffixing -ler.\nHence, the suffix -ler can indicate either a plural noun or a finite verb: \n\nKöpek + ler – \"(They are) dogs.\"\nKöpekle + r – \"S/he dog paddles.\"\nMost adjectives can be treated as nouns or pronouns. For example, genç can mean \"young\", \"young person\", or \"the young person being referred to\".\n\nAn adjective or noun can stand, as a modifier, before a noun. If the modifier is a noun (but not a noun of material), then the second noun word takes the inflectional suffix -i:\n\nak diş – \"white tooth\"\naltın diş – \"gold tooth\"\nköpek dişi – \"canine tooth\"\nComparison of adjectives is not done by inflecting adjectives or adverbs, but by other means (described below).\n\nAdjectives can serve as adverbs, sometimes by means of repetition: \n\nyavaş – \"slow\"\nyavaş yavaş – \"slowly\"",
+          "examples": [
+            "There are nine parts of speech (söz türleri \"word-kinds\") in Turkish.",
+            "noun (isim or ad \"name\");",
+            "pronoun (zamir \"inner being\", or adıl from ad);",
+            "adjective (sıfat \"role, quality\", or önad \"front-noun\");",
+            "verb (fiil \"act, deed\", or eylem \"action\" from eyle- \"make, do\");",
+            "adverb (zarf \"envelope\", or belirteç from belir- \"determine\");"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Word order",
+      "summary": "A general rule of Turkish word order is that the modifier precedes the modified:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "A general rule of Turkish word order is that the modifier precedes the modified:\n\nadjective (used attributively) precedes noun;\n\nadverb precedes verb;\n\nobject of postposition precedes postposition.\n\nAlthough the most common order of Turkish transitive sentences is subject–object–verb (SOV), all six permutations are valid (the subject and object are distinguished by case suffixes). The word order serves to express the theme and focus (rheme) of the sentence: the sentence-initial portion is associated with the topic; the position just before the verb is used for the focus; and the post-verbal position is used for background or clarifying information.[3][4]\n\nThe following sentences illustrate how subject–object–verb order changes the meaning.\n\nWord order\n\nGloss\n\nNotes\n\nSOV\n\nAli\n\nAli\n\neve\n\nto-house\n\ngidiyor.\n\nis-going\n\nAli eve gidiyor.\n\nAli to-house is-going\n\nAli is going home.\n\nOSV\n\nEve\n\nto-house\n\nAli\n\nAli\n\ngidiyor.\n\nis-going\n\nEve Ali gidiyor.\n\nto-house Ali is-going\n\nAli is going home.\n\nSVO\n\nAli\n\nAli\n\ngidiyor\n\nis-going\n\neve.\n\nto-house\n\nAli gidiyor eve.\n\nAli is-going to-house\n\nAli is going home.\n\nOVS\n\nEve\n\nto-house\n\ngidiyor\n\nis-going\n\nAli.\n\nAli\n\nEve gidiyor Ali.\n\nto-house is-going Ali\n\nAli is going home.\n\nSame as SOV (anacoluthon).\n\nVSO\n\nGidiyor\n\nis-going\n\nAli\n\nAli\n\neve.\n\nto-house\n\nGidiyor Ali eve.\n\nis-going Ali to-house\n\nThere goes Ali home.\n\nAnacoluthon\n\nVOS\n\nGidiyor\n\nis-going\n\neve\n\nto-house\n\nAli.\n\nAli\n\nGidiyor eve Ali.\n\nis-going to-house Ali\n\nThere goes Ali home.\n\nAnacoluthon\n\nMeanings may be different depending on emphasis.[clarification needed]\n\nIn one study, only about half of the transitive sentences used by a sample of Turkish speakers were found to be in the SOV order.[5]\n\nWhen a sentence has multiple informational components, the stressed component is positioned just before the verb:\n\nAli\n\nAli\n\nbugün\n\ntoday\n\neve\n\nto-house\n\narabayla\n\nby-car\n\ngidiyor.\n\nis-going\n\nAli bugün eve arabayla gidiyor.\n\nAli today to-house by-car is-going\n\nToday, Ali is going to the house by car.\n\nAli\n\nAli\n\neve\n\nto-house\n\narabayla\n\nby-car\n\nbugün\n\ntoday\n\ngidiyor.\n\nis-going\n\nAli eve arabayla bugün gidiyor.\n\nAli to-house by-car today is-going\n\nToday, Ali is going to the house by car.\n\nAli\n\nAli\n\narabayla\n\nby-car\n\nbugün\n\ntoday\n\neve\n\nto-house\n\ngidiyor.\n\nis-going\n\nAli arabayla bugün eve gidiyor.\n\nAli by-car today to-house is-going\n\nToday, Ali is going to the house by car.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Morpheme order",
+      "summary": "The order of morphemes in Turkish is often opposite to English:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The order of morphemes in Turkish is often opposite to English:\n\nTurkish\n\nEnglish\n\nComment\n\nAvrupa\n\nEurope\n\nAvrupalı\n\nof Europe / European\n\nadjective (European)\n\nAvrupalılaş\n\nbecome European\n\n(intransitive) verb root\n\nAvrupalılaştır\n\nEuropeanise\n\n(transitive) verb root\n\nAvrupalılaştırama\n\nbe unable to Europeanise\n\nnegated verb root\n\nAvrupalılaştıramadık\n\nwe couldn't Europeanise\n\nfinite verb\n\nAvrupalılaştıramadık\n\none unable to be Europeanised\n\nnoun\n\nAvrupalılaştıramadıklar\n\nthose unable to be Europeanised\n\nplural\n\nAvrupalılaştıramadıklarımız\n\nthose whom we couldn't manage to Europeanise\n\npossessive, 1st person plural\n\nAvrupalılaştıramadıklarımızdan\n\nof those whom we couldn't manage to Europeanise\n\nablative case\n\nAvrupalılaştıramadıklarımızdanmış\n\nis reportedly of those whom we couldn't manage to Europeanise\n\ncopula in inferential tense\n\nAvrupalılaştıramadıklarımızdanmışsınız\n\nyou are reportedly of those whom we couldn't manage to Europeanise\n\n2nd person plural/formal\n\nAvrupalılaştıramadıklarımızdanmışsınızcasına\n\nas if you were reportedly of those whom we couldn't manage to Europeanise\n\nAdverb of equalization/possibility\n\nThe above example is also illustrative of the productive nature of Turkish suffixes in creating new verbs, nouns, etc. Note that the word Avrupalılaştıramadık can be a verb, a participle or a noun; in this parse, it is a participle, or verbal adjective, that is used as a noun.\n\nThe longest published word in Turkish, muvaffakiyetsizleştiricileştiriveremeyebileceklerimizdenmişsinizcesine, means \"as if you are one of those that we cannot easily convert into an unsuccessful-person-maker\" (i.e., someone who un-educates people to make them unsuccessful).",
+          "examples": [
+            "The longest published word in Turkish, muvaffakiyetsizleştiricileştiriveremeyebileceklerimizdenmişsinizcesine, means \"as if you are one of those that we cannot easily convert into an unsuccessful-person-maker\" (i.e., someone who un-educates"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Inflectional suffixes",
+      "summary": "For case endings, see § Case\nThe plural suffix (çoğul eki) can be used with nouns and with third-person verbs:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "For case endings, see § Case\nThe plural suffix (çoğul eki) can be used with nouns and with third-person verbs:\n\n-ler (front vowel harmony: e, i, ö, ü)\n\n-lar (back vowel harmony: a, ı, o, u)\n\nNouns are derived from verbs in several ways. The number of ways of forming verbal nouns (fiil isimleri) from verb-stems can be debated; here are three:\n\nVerbal-noun suffixes\n\ndescription\nsuffix\n\ninfinitive (mastar \"template\")\n\n-mek2\n\ngerund\n\n-me2\n\n\"way of doing VERB\"\n\n-(y)iş4\n\nSeveral series of endings show distinctions of person (kişi); they are given here, along with the personal pronouns for comparison:\n\nIndicators of person\n\nperson\n1st\n2nd\n3rd\n\nnumber\nsg\npl\nsg\npl\nsg/pl\npl\n\npersonal pronouns\n\nben\nbiz\nsen\nsiz\no\nonlar\n\npossessive suffixes\n(iyelik ekleri)\n\n-(i)m\n-(i)miz\n-(i)n\n-(i)niz\n-(s)i\n-leri\n\npersonal endings\n(kişi ekleri)\n\npredicative (I)\n\n-(y)im\n-(y)iz\n-sin\n-siniz\n—\n-ler\n\nverbal (II)\n\n-m\n-k\n-n\n-niz\n—\n-ler\n\noptative (III)\n\n-(y)eyim\n-(y)elim\n-(y)esin\n-(y)esiniz\n-(y)e\n-(y)eler\n\nimperative (IV)\n\n—\n-(y)in(iz)\n-sin\n-sinler\n\nThe names given to the personal endings here are not standard. These endings are often just referred to as type I, II, III, and IV respectively; but the order in which the types are numbered is also not standard. Lewis (1967) refers to the suffixes of possession as \"personal\" endings.\n\nIn the third person, plural number is not always explicitly marked, and the same form is used for both singular and plural. If the plural suffix -ler is used, it combines with the personal endings as indicated in the final column of the table.\n\nA \"suffix of possession\" gives the person of the possessor of the object named by the noun to which the suffix is attached; it also indicates a subject for a participle. (See § Possession.)\n\nA \"predicative\" ending can assign a person to a noun, thus creating a complete sentence:\n\ninsan \"human\" → İnsanım. \"I am a human.\"\nSee also § Predication and Turkish copula.\n\nAll of the personal suffixes can be used in the formation of verbs.\nVerb-stems have been mentioned. \nA verb-base is obtained from a verb-stem by attachment of certain suffixes or characteristics given below.\nThen the personal endings here called \"predicative\" and \"verbal\" attach only to verb-bases; the optative and imperative endings attach to verb-stems.\n\nVerb characteristics\n\nwith predicative endings\n\nprogressive\n\n-mekte (infinitive -mek + locative suffix -te)\n\nnecessitive\n\n-meli\n\naorist\n(habitual)[6]\npositive\n\n-(i/e)r\n\nnegative\n\n-mez\n\nimpotential\n\n-(y)emez\n\nfuture\n\n-(y)ecek\n\ninferential past\n\n-miş\n\nimperfective[7]\n\n-iyor\n\nwith verbal endings\ndefinite past\n\n-di\n\nsubjunctive\n\n-se\n\nThe first syllable of the present/imperfective tense suffix (-iyor) exhibits vowel harmony while the second is invariable. When suffixed to a stem ending in a vowel, that vowel is elided: ye- + -iyor → yiyor. The aorist negative and impotential forms are given here because they are anomalous. The -z of the aorist negative (-mez) and impotential (-(y)emez) is dropped in the first-person singular and plural, in order to be able to suffix it (but is retained when the interrogative particle mi intervenes; see below). (Aorist negative first-person singular: -mem; but: aorist impotential third-person plural: -(y)emezler.)\n\nSee also Negation and potential in verb-stems under § Verbs below.\n\nSome third-person verbs also function as participles.\nParticiples can be classified as personal, if they take a suffix of possession, and impersonal, if they do not. The following suffixes attach to verb-stems:\n\nParticipial endings\n\n \nimpersonal\npersonal\n\naorist\npositive\n\n-(i/e)r\n \n\nnegative\n\n-mez\n\nimpotential\n\n-(y)emez\n\nimperfective\n\n-(y)en\n\nfuture\n\n-(y)ecek\n\npast\n\n-miş\n-dik\n\nThe interrogative particle (soru eki) is not written as a suffix, but phonetically it is enclitic; in particular, it exhibits vowel harmony:\n\nmi (front-unrounded vowel harmony: i, after e and i)\n\nmı (back-unrounded vowel harmony: ı, after a and ı)\n\nmu (back-rounded vowel harmony: u, after o and u)\n\nmü (front-rounded vowel harmony: ü, after ö and ü)\n\nPerson marks attach to the end of the particle: Geliyorsun. \"you're coming\" vs Geliyor musun? \"Are you coming?\"",
+          "examples": [
+            "infinitive (mastar \"template\")",
+            "\"way of doing VERB\"",
+            "The names given to the personal endings here are not standard. These endings are often just referred to as type I, II, III, and IV respectively; but the order in which the types are numbered is also not standard. Lewis (1967) refers to the ",
+            "A \"suffix of possession\" gives the person of the possessor of the object named by the noun to which the suffix is attached; it also indicates a subject for a participle. (See § Possession.)",
+            "A \"predicative\" ending can assign a person to a noun, thus creating a complete sentence:",
+            "insan \"human\" → İnsanım. \"I am a human.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Nouns",
+      "summary": "Turkish nouns have no gender. The dictionary-form of a noun can take up to four types of inflectional suffixes, generally in the following order:",
+      "sections": [
+        {
+          "heading": "Inflection",
+          "body": "Turkish nouns have no gender. The dictionary-form of a noun can take up to four types of inflectional suffixes, generally in the following order:\n\nplural suffix;\n\nsuffix of possession (iyelik eki from iye \"owner\");\n\ncase-ending;\n\npersonal suffix (kişi eki from kişi \"person\").\n\nThrough its presence or absence, the plural ending shows distinctions of number.\n\nNumber\nA noun is made plural by addition of -ler or -lar (depending on the vowel harmony). When a numeral is used with a noun, however, the plural suffix is usually not used: \n\nbaş\n\"head\"\n\nbaşlar\n\"[some] heads\"\n\nbeş baş\n\"five head(s)\", but\n\nBeşevler\n\"Five Houses\" (district of Bursa)\n\nThe plural ending also allows a family (living in one house) to be designated by a single member:\n\nAliler\n\"Ali and his family\"\n\nteyze\n\"maternal aunt\"\n\nteyzem\n\"my maternal aunt\"\n\nteyzemler\n\"my maternal aunt and her family\"\n\nIn the last example, the first-person singular suffix of possession comes before the plural ending; this is an exception to the order of suffixes given above. In the usual order, we have:\n\nteyzelerim \"my maternal aunts\"\nNouns are pluralized in standard temporal greetings.\n\ngün (\"day\") – İyi günler! (\"Good day!\")\nyıl (\"year\") – Mutlu yıllar! (\"Happy new year!\")\nPossession\nAs noted earlier, the suffixes of possession give the person (and number) of the possessor of what is named by the noun:\n\nSuffixes of Possession (iyelik ekleri)\n\n1st\n2nd\n3rd\n\nsingular\n\n-(i)m\n-(i)n\n-(s)i\n\nplural\n\n-(i)miz\n-(i)niz\n-leri\n\nWhen a word takes one of the endings of possession, the word becomes the name of something possessed, not possessing. The word for the possessor, if present, takes the genitive case ending.\n\nExamples with teyze (\"maternal aunt\")\n\nExample\nComposition\nTranslation\n\nteyzen\nteyze \"maternal aunt\" + -n \"belonging to you (singular)\"\n\"your maternal aunt\"\n\nteyzeniz\nteyze \"maternal aunt\" + -niz \"belonging to you (plural)\"\n\"your maternal aunt\"\n\nteyzelerin\nteyze \"maternal aunt\" + -ler- (plural suffix) + -in \"belonging to you (singular)\"\n\"your maternal aunts\"\n\nteyzeleriniz\nteyze \"maternal aunt\" + -ler- (plural suffix) + -iniz \"belonging to you (plural)\"\n\"your maternal aunts\"\n\nThe plural ending will not be attached twice to the same word; therefore ambiguity is possible:\n\nfikir\n\"idea\"\n\nfikirleri\n\"their idea\" or \"their ideas\" or \"his/her ideas\"\n\nAmbiguity can be resolved with pronouns.\n\nCase\nThe Turkish language is normally described as having six cases, whose names in English are borrowed from Latin grammar. The case endings (durum ekleri 'ending condition') are regular and subject to vowel harmony.\n\nThe postposition ile is often absorbed onto the noun as -(y)le, and some authors analyse this as an instrumental and comitative case.[8] As it differs from the other case markers in several ways,[9] it may be considered as an \"inflectional marker\" but not a case marker.[10] In particular, unlike the other case endings, -(y)le is never accentuated.[11] Also, when combined with the personal pronouns, the demonstratives, or the interrogative kim, they are traditionally used in the genitive, e.g., kiminle 'with whom', not *kimle. However, using -(y)le directly with personal as well as demonstrative pronouns as in the case with other case endings by bypassing the obligatory genitive case has become common usage. So words like benle, senle, onla, bizle, sizle, onlarla, kimle, neyle are used very often.\n\nCases and their endings\n\nCase\nTurkish Name\nEnding\nExample\nTranslation\n\nAbsolute\n\nyalın (\"bare\") durum\n-∅-\nev (\"house\")\nadam (\"man\")\n\"(the) house\"\n\"(the) man\"\n\nDefinite accusative\n\nbelirtme (\"clarifying\") durumu\n-(y)ı-, -(y)i-, -(y)u-, -(y)ü-\nevi\nadamı\n\"the house\"\n\"the man\"\n\nDative\n\nyönelme (\"facing-towards\") durumu\n-(y)a-, -(y)e-\neve\nadama\n\"to the house\"\n\"to the man\"\n\nLocative\n\nbulunma (\"being-present\") durumu\n-da-, -de-, -ta-, -te-\nevde\nadamda\n\"at home\"\n\"in/on the man\"\n\nAblative\n\nçıkma (\"going-out\") durumu\n-dan-, -den-,  -tan-, -ten-\nevden\nadamdan\n\"from the house\"\n\"from the man\"\n\nGenitive\n\ntamlayan (\"compounding\") eki\n-(n)ın-, -(n)in-, -(n)un-, -(n)ün-\nevin\nadamın\n\"the house's\"\n\"the man's\"\n\nInstrumental\n\nvasıta (\"means\") eki\n-(y)le-, -(y)la-\nevle\nadamla\n\"with the house\"\n\"with the man\"\n\nIf a case ending is attached to a demonstrative pronoun (which ends in o or u), or to a noun that has already taken a third-person ending of possession, or to a compound noun where the second word is already suffixed, then the case ending is preceded by n (and the parenthetical y is not used). For instance: \"Türk yemeklerini seviyorum.\", \"I love Turkish food.\"[12]\n\nCases and their endings (nouns already suffixed with third-person ending)\n\nCase\nTurkish Name\nEnding\nExample\nTranslation\n\nAbsolute\n\nyalın (\"bare\") durum\n-∅-\nevi (\"his/her house\")\nadamı (\"his/her man\")\n\"(his/her) house\"\n\"(his/her) man\"\n\nDefinite accusative\n\nbelirtme (\"clarifying\") durumu\n-nı-, -ni-, -nu-, -nü-\nevini\nadamını\n\"his/her house\"\n\"his/her man\"\n\nDative\n\nyönelme (\"going-towards\") durumu\n-na-, -ne-\nevine\nadamına\n\"to his/her house\"\n\"to his/her man\"\n\nLocative\n\nbulunma (\"being-present\") durumu\n-nda-, -nde-\nevinde\nadamında\n\"at his/her home\"\n\"in/on his/her man\"\n\nAblative\n\nçıkma (\"going-out\") durumu\n-ndan-, -nden-\nevinden\nadamından\n\"from his/her house\"\n\"from his/her man\"\n\nGenitive\n\ntamlayan (\"compounding\") eki\n-nın-, -nin-, -nun-, -nün-\nevinin\nadamının\n\"his/her house's\"\n\"his/her man's\"\n\nAbsolute case\nThe absolute case combines the uses of the nominative, vocative, and (in part) accusative cases. It is for subjects, and for names of people being addressed. It is also used for indefinite direct objects.\n\nşiir\n\"poem\"\n(absolute case)\n\nŞiir  okur.\n\"S/he reads  a  poem/poetry.\"\n(absolute case, indefinite direct object)\n\nDefinite accusative case\nFor definite direct objects, the definite accusative case is used.\n\nŞiiri okur.\n\"S/he reads the poem.\"\n(accusative case, definite direct object)\n\nDative case\nThe dative case indicates the recipient of the action, or the place to which the action is directed.  It approximates the meaning of the English prepositions \"to\" and \"into\", and also \"in\" (when it can be replaced with \"into\"):\n\nBirayı\n\nthe-beer\n\nbuzdolabına\n\ninto-icebox\n\nkoy.\n\nput\n\nBirayı buzdolabına koy.\n\nthe-beer into-icebox put\n\n\"Put the beer in(to) the fridge.\"\n\nGüneşin\n\nsun's\n\nbatışına\n\nat-its-sinking\n\nbak.\n\nlook\n\nGüneşin batışına bak.\n\nsun's at-its-sinking look\n\n\"Look at the sunset.\"\n\nHükümete\n\nto-government\n\ngüven.\n\ntrust\n\nHükümete güven.\n\nto-government trust\n\n\"Trust the government.\"\n\nNote: in English, the last example happens to appear as a direct object, but it is dative in many languages – \"(give) trust to the government.\"\n\nLocative case\nThe locative case tells where, hence corresponds to the English prepositions \"at\", \"on\", and \"in\" (when it does not mean \"into\").\n\nev \"house\" → evde \"at home\"\n\nBuzdolabında\ndört\nbira\nvar\n\nin-icebox\nfour\nbeer\nexist\n\n\"There are four beers in the fridge.\"\n\nAblative case\nThe ablative case tells whence, that is, the place from which (or through which), hence:\n\nmaterial out of which something is made;\n\nkumdan\n\nof-sand\n\nyapılmış\n\nmade\n\nkale\n\ncastle\n\nkumdan yapılmış kale\n\nof-sand made castle\n\n\"castle made of sand\"\n\na cause by which something is effected;\n\naçlıktan\n\nof-hunger\n\nöl\n\ndie\n\naçlıktan öl\n\nof-hunger die\n\n\"die of hunger\"\n\nthat to which other things are being compared (see #Adjectives below).\n\nGenitive case\nThe genitive case indicates a \"compounding\" (tamlayan) word.  The corresponding \"compounded\" (tamlanan) word will take the appropriate suffix of possession. The pair of these words is then a definite compound (belirtili tamlama):\n\nanne\n\"mother\"\n\nannesi\n\"her mother\"\n\nAyşe'nin annesi\n\"Ayşe's mother\"\n\n(The apostrophe in Turkish is used before inflectional suffixes attached to proper nouns, but it is nothing more than an orthographic convention – proper nouns use the same declension system as ordinary nouns.)\n\nHowever, if two nouns are connected, but not by ownership, then the second noun generally takes an ending of possession, while the first takes no ending.  The result is an indefinite compound (belirtisiz tamlama):\n\nTürkiye'nin Cumhurbaşkanı\n\"The President of Turkey\" (definite)\n\nTürkiye Cumhuriyeti\n\"The Republic  of Turkey\" (indefinite)\n\nIf one noun names a material, the other noun need not take an ending:\n\nnikâh yüzüğü\n\"wedding ring\"\n\naltın yüzük\n\"gold ring\"\n\nThe genitive case can also be used for the subject of some complement or adjunct clauses:[13]\n\nAnnemizin uzak bir semtte oturmasına rağmen, her gün ona uğruyoruz. // Although our mother lives in a remote neighborhood, we visit her every day.\"\n\nBaşkanın vermesi gerekiyor. // The president needs to give it.\n\nTuğçe bizim Ankara'ya gitmemizi istedi. // Tuğçe wanted us to go to Ankara.\n\nBen Ali'nin camı kırdığı zamanı biliyordum. // I knew when Ali broke the glass.\n\nInstrumental case\nThe instrumental case functions as both an instrumental and a comitative.\n\nDeniz'le konuştuk\n\"Deniz and we spoke.\"[nb 1]\n\nçekiçle vur\n\"hit with a hammer\"\n\nOnunla konuştuk\n\"He and we spoke.\"[nb 2]\n\nPredication\nIf a noun is to be in the first or second person, one of the predicative suffixes (or type-I personal suffixes) will show this.\n\n1st\n2nd\n3rd\n\nsingular\n\n-(y)im\n-sin\n—\n\nplural\n\n-(y)iz\n-siniz\n-ler\n\nExamples\n\ndünya \"world\" → Dünyayız. \"We are the world.\"\nçocuk \"child\" → Çocuklarsınız. \"You are the children\"\nIn the third person, no ending is required.\nHowever, the ending -dir can be used; it is said[14] to be the remnant of a verb turur \"S/he stands\".\nAgain in the third person, the plural suffix may be used:\n\nTürk or Türktür\n\"S/he is Turkish\"\n\nTürkler or Türktürler\n\"They are Turkish\"\n\nTürklerdir\n\"They are the Turks\" [15]\n\nSeveral suffixes can be combined:\n\nEvinizdeyim.ev-\n\nhouse\n\n \n\n-iniz\n\nyour\n\nPL\n\n-de-\n\nat\n\nLOC\n\n-yim\n\nI am\n\n1SG.PRED\n\nev- -iniz -de- -yim\n\nhouse your at {I am}\n\n{} PL LOC 1SG.PRED\n\n\"I am at your house.\"",
+          "examples": [
+            "suffix of possession (iyelik eki from iye \"owner\");",
+            "personal suffix (kişi eki from kişi \"person\").",
+            "\"head\"",
+            "\"[some] heads\"",
+            "\"five head(s)\", but",
+            "\"Five Houses\" (district of Bursa)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Verbal nouns",
+          "body": "The infinitive, formed with -mek as noted earlier, does not take a suffix of possession, or the genitive case-ending. It does take all other case-endings. In particular, the progressive characteristic given earlier is the infinitive ending with the locative ending:\n\nKonuşmaktayız – \"We are in (the act of) speaking.\"\nSavaşmaktayız – \"We are in warmaking\", that is, \"We are at war.\"\nThe verbal noun in -me is called a gerund above, since it corresponds roughly to the English gerund.\n\nbekle \"wait\" → bekleme \"waiting\": bekleme odası \"waiting room\"\nThe verbal noun can take a suffix of possession and any case-ending:\n\nBeklemeniz\n\nyour-waiting\n\nlâzım.\n\nnecessary\n\nBeklemeniz lâzım.\n\nyour-waiting necessary\n\n\"You have to wait.\"\n\nSesini\n\nyour-voice-ACC\n\nduymayı\n\nhearing-ACC\n\nseviyorum.\n\nI-love\n\nSesini duymayı seviyorum.\n\nyour-voice-ACC hearing-ACC I-love\n\n\"I like to hear your voice.\"\n\nThe dative form of a Turkish gerund can correspond precisely to an English infinitive with to:\n\nÜlkemizde\n\nIn-our-country\n\nnano\n\nnano\n\nteknolojik\n\ntechnological\n\nürünler\n\nproducts\n\nüretilmeye\n\nto-be-produced\n\nbaşlandı.\n\nbegan\n\nÜlkemizde nano teknolojik ürünler üretilmeye başlandı.\n\nIn-our-country nano technological products to-be-produced began\n\n\"Nano-technological products began to be produced in our country.\"[16]\n\nThe suffix -iş can also be used to create verbal nouns:\n\nVerb\nNoun\n\nyürü- \"walk\"\nyürüyüş \"walk, walking\"\n\nyağ- \"rain\"\nyağış \"rain\"\n\nal- \"take\" + ver- \"give/spend\"\nalışveriş \"shopping\"\n\nyara- \"be of use\", yaratıl- \"be created\"\nyaratılış \"creation\"\n\nThe verb et- \"make, do\" can be considered as an auxiliary verb, since for example it is often used with verbal nouns borrowed from other languages, such as Arabic:\n\nkabul et- \"accept\" (kabul \"[an] accepting\");\nreddet- \"reject\" (ret \"[a] rejecting\");\nziyaret et- \"visit\"  (ziyaret \"[a] visiting\").\n\nConsidered as units, these are transitive verbs; but the nouns in them can also, by themselves, take direct objects:\n\nAntalya'yı ziyaret \"visit to Antalya\".\n\nWhat looks like an ablative gerund is usually an adverb; the ending -meden usually has the sense of \"without\". \nSee #Adverbs below.\n\nAn infinitive in the absolute case can be the object of a verb such as iste- \"want\":\n\nKimi\n\nsome-of-them\n\neğitime\n\ntowards-education\n\ndevam\n\ncontinuation\n\netmek,\n\nmake\n\nkimi\n\nsome-of-them\n\nde\n\nalso\n\nçalışmak\n\nwork\n\nistiyor.\n\nwant\n\nKimi eğitime devam etmek, kimi de çalışmak istiyor.\n\nsome-of-them towards-education continuation make some-of-them also work want\n\nSome want to continue their education, and some want to work\"\n(source: Cumhuriyet Pazar Dergi, 14 August 2005, p. 1.)\n\nNote here that the compound verb devam et- \"continue, last\" does not take a direct object, but is complemented by a dative noun.\n\nAnother way to express obligation (besides with lâzım as in the earlier example) is by means of zor \"trouble, compulsion\" and an infinitive:\n\nGitmek zoru \"Go compulsion\",\nGitmek zorundayız \"We must go\".\n\n(Source: same as the last example.)\n\nBoth an infinitive and a gerund are objects of the postposition için \"for\" in the third sentence of the quotation within the following quotation:\n\nTesis yetkilileri,\n\n\"Bölge insanları genelde tutucu.\n\nSahil kesimleri\n\nyola yakın olduğu için\n\nrahat bir şekilde göle giremiyorlar.\n\nBiz de\n\nhem yoldan geçenlerin görüş açısını kapatmak\n\nhem de erkeklerin rahatsız etmemesi için\n\nparavan kullanıyoruz\"\n\ndedi.\n\nAncak paravanın aralarından\n\nçocukların karşı tarafı gözetlemeleri\n\nengellenemedi.\n\n— Cumhuriyet, 9 August 2005, p. 1.\nTranslation:\nFacility its-authorities\n\n\"District its-people in-general conservative. \n\nShore its-sections    \n\nto-road near their-being for\n\ncomfortable a in-form to-lake they-cannot-enter.\n\nWe also\n\nboth from-road of-passers sight their-angle to-close\n\nand men's uncomfortable their-not-making for\n\nscreen we-are-using\"\n\nthey-said. \n\nBut curtain's from-its-gaps\n\nchildren's other side their-spying\n\ncannot-be-hindered.\n\nA free translation is:\n\nThe facility authorities said: \"The people of this district [namely Edremit, Van] are generally conservative.  They cannot enter the lake comfortably, because the shore areas are near the road.  So we are using a screen, both to close off the view of passersby on the road, and so that men will not cause discomfort.\"  However, children cannot be prevented from spying on the other side through gaps in the screen.",
+          "examples": [
+            "Konuşmaktayız – \"We are in (the act of) speaking.\"",
+            "Savaşmaktayız – \"We are in warmaking\", that is, \"We are at war.\"",
+            "bekle \"wait\" → bekleme \"waiting\": bekleme odası \"waiting room\"",
+            "\"You have to wait.\"",
+            "\"I like to hear your voice.\"",
+            "\"Nano-technological products began to be produced in our country.\"[16]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Auxiliary verbs",
+          "body": "Certain verbs in Turkish are used to enhance the meaning of other verbs, or to agglutinate verbs from nouns. These verbs are called auxiliary verbs. A concise list follows:\n\nVerbs that are used with nouns to agglutinate new verbs\n\netmek (to do)\n\nolmak (to be)\n\nkılmak (to make)\n\neylemek (to make)\n\nExamples\n\nfarz (assumption) → farz etmek (to assume)\n\nhak (right) → hak etmek (to deserve)\n\naf (amnesty) → affetmek (to excuse)\n\nkayıp (loss) → kaybetmek (to lose)\n\nterk (leaving) → terk etmek (to leave)\n\narz (submission, supply) → arz etmek (to submit, to supply)\n\nIf there is a change in the noun root through the process of agglutination, it is written adjacently. These are mostly Arabic loan-words, which switch to their more original form.\n\nIn Turkish words, two consonants of a syllable need a vowel to be pronounced.  There are exceptions in loan words only, but those that lost their original form are more common. This occurs in two ways:\n\nIf a word ends in two identical consonants, one is dropped, e.g. hall (\"state, status\") becomes hal; aff (\"amnesty, forgiving\") becomes af.\n\nIf a syllable ends in two different consonants, a vowel is added between them; e.g., hükm (\"judgement\") becomes hüküm.\n\nExceptions: Words which end in ht, nk, rt, rk, such as taht (\"throne\"), renk (\"colour\"), kart (\"card\"), do not add a vowel. Most of these are loan-words from Persian or Western languages (but zevk \"pleasure\" from Arabic ذَوْق).\n\nExamples\n\nNoun & Auxiliary Verb\nVerb\nNotes\n\nkayıp + etmek\nkaybetmek (\"to lose\")\nkayıp (\"lost\") was originally kayb, an Arabic loanword\n\nhaciz + etmek\nhaczetmek (\"to sequester\")\nhaciz (\"sequestration\") was originally hacz, an Arabic loanword\n\nhaz + etmek\nhazzetmek (\"to relish, enjoy\")\nhaz (\"delight\") was originally hazz, an Arabic loanword\n\nVerbs that are used with other verbs to enhance the meaning:\n\n-(i)vermek (implies urgency)\n\n-(e)bilmek (implies ability)\n\n-(e)durmak (implies continuity)\n\n-(e)gelmek (implies repetition)\n\n-(a)kalmak (implies continuity)\n\n-(e)yazmak (implies a close escape)\n\n-(e)görmek (implies a warning)\n\nExamples\n\ndüş- (fall) → düşeyazdım (I almost fell)\n\ngit- (go) → gidiverdim (I just went)\n\nyavaşla- (slow down) → yavaşlayabilirim (I can slow down)\n\nyaz- (write) → yazaduruyorlar (they keep on writing)\n\nsöylen- (be told) → söylenegelir (keeps being told)",
+          "examples": [
+            "Examples",
+            "If a word ends in two identical consonants, one is dropped, e.g. hall (\"state, status\") becomes hal; aff (\"amnesty, forgiving\") becomes af.",
+            "If a syllable ends in two different consonants, a vowel is added between them; e.g., hükm (\"judgement\") becomes hüküm.",
+            "Exceptions: Words which end in ht, nk, rt, rk, such as taht (\"throne\"), renk (\"colour\"), kart (\"card\"), do not add a vowel. Most of these are loan-words from Persian or Western languages (but zevk \"pleasure\" from Arabic ذَوْق).",
+            "Examples",
+            "kaybetmek (\"to lose\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Adjectives",
+      "summary": "Adjectives used attributively precede the noun; used predicatively, they follow, unless something other than word order shows that they are being used predicatively:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectives used attributively precede the noun; used predicatively, they follow, unless something other than word order shows that they are being used predicatively:\n\nAttributive\n\nyeşil çim\n\"[the] green grass\"\n\nPredicative\n\nÇim yeşil(dir).\n\"Grass is green.\"\n\nYeşildir çim.\n\nUsed predicatively, adjectives take the same personal suffixes as nouns:\n\nyoung\n\ngenç\n\nI am young\n\ngencim\n\nyou (sing.) are young\n\ngençsin\n\nhe/she/it is young\n\ngenç(tir)\n\nwe are young\n\ngenciz\n\nyou (pl.) are young\n\ngençsiniz\n\nthey are young\n\ngenç(tir)(ler)",
+          "examples": [
+            "\"[the] green grass\"",
+            "\"Grass is green.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Descriptive adjectives",
+          "body": "Most adjectives in the dictionary are descriptive.  The two most fundamental descriptive adjectives are:\n\nvar (\"existing\")\n\nyok (\"not existing\")\n\nThese are used only predicatively:\n\nwith the sense of the English \"There is\" and \"There is not\":\n\nGökte\n\nin-the-sky\n\nbir\n\na\n\nbulut\n\ncloud\n\nyok.\n\nnot-existing\n\nGökte bir bulut yok.\n\nin-the-sky a cloud not-existing\n\n\"There is not a cloud in the sky.\"\n\nin the construction that supplies the lack of a verb \"have\":\n\nBalcının\n\nhoney-seller's\n\nvar\n\nexists\n\nbal\n\nhoney\n\ntası,\n\nhis-pot\n\nOduncunun\n\nwood-cutter's\n\nvar\n\nexists\n\nbaltası.\n\nhis-axe\n\nBalcının var bal tası, Oduncunun var baltası.\n\nhoney-seller's exists honey his-pot wood-cutter's exists his-axe\n\n\"The honey-seller has a honey-pot; the wood-cutter has an axe.\"\n\n(This is a proverbial expression; the more usual order would make the saying, Balcının bal tası var, oduncunun baltası var).",
+          "examples": [
+            "var (\"existing\")",
+            "yok (\"not existing\")",
+            "with the sense of the English \"There is\" and \"There is not\":",
+            "\"There is not a cloud in the sky.\"",
+            "in the construction that supplies the lack of a verb \"have\":",
+            "\"The honey-seller has a honey-pot; the wood-cutter has an axe.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Indefinite adjectives",
+          "body": "The cardinal number bir (\"one\") can be used as an indefinite article.  Word order can make a difference:\n\ngüzel bir gün – \"a nice day\"\nbir güzel gün – \"one fine day\"\nUnless it is being used by itself, elliptically, the adjective hiç (\"no\") requires an additional word with negative force:\n\nHiç\n\nno\n\nparam\n\nmy-money\n\nyok.\n\nthere-is-not\n\nHiç param yok.\n\nno my-money there-is-not\n\n\"I have no money.\"\n\nHiçbir\n\nno-one\n\nadam\n\nman\n\nada\n\nisland\n\ndeğildir.\n\nis-not\n\nHiçbir adam ada değildir.\n\nno-one man island is-not\n\n\"No man is an island.\"\n\nCompare:\n\nBir şey görüyorum. – \"I see something.\"\n\nHiçbir şey görmüyorum. – \"I don't see anything.\"",
+          "examples": [
+            "The cardinal number bir (\"one\") can be used as an indefinite article.  Word order can make a difference:",
+            "güzel bir gün – \"a nice day\"",
+            "bir güzel gün – \"one fine day\"",
+            "Unless it is being used by itself, elliptically, the adjective hiç (\"no\") requires an additional word with negative force:",
+            "\"I have no money.\"",
+            "\"No man is an island.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Comparison",
+          "body": "In a positive comparison, the object takes the ablative case; the adverb daha (\"more\") is optional, unless the object is left out.\n\ntüyden\n\nfeather-ABL\n\n(daha)\n\n(more)\n\nhafif\n\nlight\n\ntüyden (daha) hafif\n\nfeather-ABL (more) light\n\n\"lighter than a feather\"\n\nIn a negative comparison, the adverb az (\"less\") is needed; the object still takes the ablative; daha can still be used as well.\n\nkurşundan\n\nlead-ABL\n\n(daha)\n\n(more)\n\naz\n\nless\n\nağır\n\nheavy\n\nkurşundan (daha) az ağır\n\nlead-ABL (more) less heavy\n\n\"less heavy than lead\"\n\nThe superlative degree is expressed by the adverb en (\"most\").\n\nen\n\nmost\n\nbüyük\n\nbig\n\nyalancı\n\nliar\n\nen büyük yalancı\n\nmost big liar\n\n\"the biggest liar\"\n\nen\n\nmost\n\naz\n\nless\n\ngüvenilir\n\ntrust-\n\nen az güvenilir\n\nmost less trust-\n\n\"the least trustworthy\"",
+          "examples": [
+            "In a positive comparison, the object takes the ablative case; the adverb daha (\"more\") is optional, unless the object is left out.",
+            "\"lighter than a feather\"",
+            "In a negative comparison, the adverb az (\"less\") is needed; the object still takes the ablative; daha can still be used as well.",
+            "\"less heavy than lead\"",
+            "The superlative degree is expressed by the adverb en (\"most\").",
+            "\"the biggest liar\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Participles",
+          "body": "It is noted under #Parts of speech that Turkish participles (sıfat-fiiller) can be classified as\n\npersonal, if they take a suffix of possession;\n\nimpersonal, if they do not.\n\nIn a personal participle, the suffix of possession signifies the subject of the underlying verb; if this possessor is third person, then the possessor may be further specified with a noun in the genitive case.\n\nThe noun modified by a personal participle as an adjective may be the direct object of the underlying verb; the connection may also be more vague.\n\nThe noun modified by an impersonal participle is generally the subject of the underlying verb (but see Lewis (1967: IX,2)).\n\nThe aorist tense (geniş zaman \"broad time\") is for habitual actions; the present tense (şimdiki zaman \"time that is now\") is for actions ongoing or contemplated.\n\nAorist\n\n– akarsu\n\n– çıkmaz\n\n– inilir\n\n– sürdürülebilir turizm\n\nTranslation:\n\"flowing water\", from ak- (to flow)\n\n\"cul-de-sac\", from çık- (to exit)\n\n\"got down from\" (sign at rear door of bus), from in- (to go down)\n\n\"tourism that can be continued\", i.e. \"sustainable tourism\", from sür- (to go on)\n\nPresent\n\nSilahları çekip\n\nhavaya ateş açan\n\nAKP'liler hakkında\n\nyasal işlem başlatılmadı.\n\n— Birgün Halkın Gazetesi, 25 July 2005\nTranslation:\nGuns pulling-out-and\n\nto-air fire opening\n\nAKP-members about-them\n\nlegal process was-not-begun.\n\nthat is, \"No legal process has begun concerning the AKP members who pulled out guns and fired them in the air\"; for -ip see #Adverbs below.\n\nGeçen hafta\n\nTranslation:\nPassing week\n\nthat is, \"last week\";\n\nFuture\n\n– gelecek hafta\n\n– okuyacağım bir kitap\n\n– okunacak bir kitap\n\nTranslation:\n\"the week that will come\", that is, \"next week\"\n\n\"a book that I shall read\", from oku- (to read)\n\n\"a book that will be read\", from okun- (to be read)\n\nPast/present\n\n– okunmuş bir kitap\n\n– okuduğum bir kitap\n\n– Yaşamın bittiği yer'de hayat\n\nTranslation:\n\"a book that was read\"\n\n\"a book that I read/am reading\"\n\n\"Life in 'the place where life ends'\", from bit- (to end)\n\nA personal participle can be construed as a noun and used in parallel with verbal nouns:\n\nÇocukların\n\nyüzde 68'i evinin ihtiyaçlarına katkıda bulunmak,\n\nyüzde 21'i ailesi istediği için,\n\nyüzde altısı iş öğrenmek ve meslek edinmek için,\n\nyüzde 4'ü ihtiyaçlarını karşılamak için\n\nçalışıyor.\n\n— Birgün Halkın Gazetesi, 13 August 2005, p. 1.\nTranslation:\nChildren's\n\nin-100 their-68 house's for-its-needs in-aid be-found,\n\nin-100 their-21 their-family that-they-wanted for,\n\nin-100 their-six work learn and profession be-made for,\n\nin-100 their-4 their-needs meet for\n\nare-working.\n\nthat is, \"Children are working, 68% to provide for their family's needs, 21% because their family wants it, 6% to learn a job or profession, 4% to meet their [own] needs.\"\n\nThe following sentence from a newspaper headline contains twenty-two words, nine derived from verbs, four of these as participles, three as gerunds. Note also the use of kontrol from French as a verbal noun with et-:\n\nTürkiye'nin AB'ye girmemesi ve\n\nİslam dünyasına yaklaşması halinde\n\nşeriatçılığın kucağına itilmiş olacağını\n\nsöyleyen Fransız senatör Duireux,\n\nİslami akımların\n\nkontrol edilmesi\n\ngerektiğini\n\nbelirtti.\n\n— Cumhuriyet, 17 July 2005.\nTranslation:\nTurkey's to-the-EU its-not-entering and\n\nIslam to-its-world its-drawing-near in-its-state\n\nsharia-favorer-ness's to-its-embrace pushed that-it-will-be\n\nsaying French senator Duireux,\n\nIslamic current's\n\ncontrol its-being-made\n\nthat-it-is-necessary\n\nhe-made-clear.\n\nIn other words:\n\nSaying that, by not joining the EU and by drawing close to the Islamic world, Turkey would be pushed into the lap of those who favor sharia, French senator Duireux made clear that it was necessary to control the Islamic tide.",
+          "examples": [
+            "The aorist tense (geniş zaman \"broad time\") is for habitual actions; the present tense (şimdiki zaman \"time that is now\") is for actions ongoing or contemplated.",
+            "\"flowing water\", from ak- (to flow)",
+            "\"cul-de-sac\", from çık- (to exit)",
+            "\"got down from\" (sign at rear door of bus), from in- (to go down)",
+            "\"tourism that can be continued\", i.e. \"sustainable tourism\", from sür- (to go on)",
+            "that is, \"No legal process has begun concerning the AKP members who pulled out guns and fired them in the air\"; for -ip see #Adverbs below."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Intensification",
+          "body": "Turkish adjectives can be intensified with intensifying (pekiştirme) prefixes.[17]\n\nIf the adjective begins with a consonant the prefix is the consonant + the following vowel + m, p, r, or s.[17] p operates as the default, and is the most common form. Forms in r and m are rare. There is no single rule that governs the choice of the final consonant. This choice tends to minimize featural similarity with consonants in the base adjective, in particular, the first and second consonants:[18]\n\nsiyah (\"black\") → simsiyah (\"pitch black\")\n\ngüzel (\"pretty\") → güpgüzel (\"very pretty\")\n\ntemiz (\"clean\") → tertemiz (\"clean as a pin\")\n\nkatı (\"hard\") → kaskatı (\"hard as a rock\")\n\nIf the adjective begins with a vowel, the prefix consists of this vowel + p:[17]\n\nuzun (\"long\") → upuzun (\"very long\")\n\nThe vowel is sometimes also added after the consonant:[17]\n\nsağlam (\"healthy\") → sapasağlam (\"very healthy\") (sapsağlam also exists)\n\nyalnız (\"alone\") → yapayalnız (\"all alone\") (yapyalnız also exists)\n\ngündüz (\"daytime\") → güpegündüz (\"broad daylight\") (güpgündüz also exists)\n\nçevre (\"environmental\") → çepeçevre (\"all around\") (çepçevre also exists)\n\nThere are also some irregular suffixes:[17][19]\n\nçıplak (\"naked\") → çırılçıplak (\"stark naked\") (çırçıplak also exist)\n\nsıklam (\"wetness\") → sırılsıklam (\"soaking wet\") (sırsıklam also exists)\n\nkarışık (\"complex\") → karmakarışık (\"totally complex\")\n\ndağınık (\"untidy\") → darmadağınık (\"very untidy\") (dapdağınık and dasdağınık also exist)\n\nrenk (\"colored\") → rengârenk (\"multicolored\")\n\ndeli (\"mad\") → zırdeli (\"raving mad\")\n\nparça (\"piece\") → paramparça (\"in pieces\")\n\nSome adjectives have more than one intensified form:[20]\n\ndüz (\"flat\"): düpdüz (24.1%), dümdüz (78.1%) (\"very flat\", 2 forms) (the irregular düpedüz also exists)\n\nyaş (\"fresh\"): yapyaş (44.8%), yamyaş (58.6%) (\"very fresh\", 2 forms)\n\nsefil (\"miserable\"): sepsefil (24.1%), semsefil (6.8%), sersefil (66.6%) (\"very miserable\", 3 forms)\n\ngeniş (\"large\"): gepgeniş (77%), gemgeniş (9.15%), gesgeniş (6.8%), gergeniş (5.7%) (\"very large\", 4 forms)\n\ntopaç (\"\"): toptopaç (47.15%), tomtopaç (5.75%), tostopaç (33.3%), tortopaç (3.4%) (\"very \", 4 forms)\n\nThis process is also called emphatic reduplication. It is applied only to particular common adjectives (between 100[21] and 215 depending on sources[22]), and not to new adjectives which enter Turkish. However, native speakers are able to produce novel forms when asked to do so.[18]\n\nFull reduplication (as distinct from emphatic prefixation)\nTurkish also employs full reduplication as a means of intensification.\nUnlike emphatic prefixation, this process involves the repetition of the entire base\n(or a phonologically identical form), rather than the insertion of an intensifying consonant.[23]\n\nExamples include:\n\ntıpatıp (\"exactly alike\"), from tıpkı\n\nbirebir (\"exactly the same\")\n\nteker teker (\"one by one\")\n\nadım adım (\"step by step\")",
+          "examples": [
+            "siyah (\"black\") → simsiyah (\"pitch black\")",
+            "güzel (\"pretty\") → güpgüzel (\"very pretty\")",
+            "temiz (\"clean\") → tertemiz (\"clean as a pin\")",
+            "katı (\"hard\") → kaskatı (\"hard as a rock\")",
+            "uzun (\"long\") → upuzun (\"very long\")",
+            "sağlam (\"healthy\") → sapasağlam (\"very healthy\") (sapsağlam also exists)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Adverbs",
+      "summary": "The adverb of negation is değil.  It is used to negate sentences that are without verb or var; then it takes the appropriate personal ending:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The adverb of negation is değil.  It is used to negate sentences that are without verb or var; then it takes the appropriate personal ending:\n\nEvde değilim \"I am not at home.\"\n\nA number of adverbs are derived from verbs:\n\nThe ending -e is seen in:\n\nGüle güle \"[Go] smilingly\" (said to somebody departing);\nGüle güle kullanın \"Use [it] smilingly\" (said to somebody with a new acquisition);\nBeşe çeyrek kala kalktım \"To-five a-quarter remaining I-got-up\", that is, \n                         \"I got up at a quarter to five\";\nOnu yirmi geçe uyudun \"You slept at twenty past ten\" \n                      (uyu- \"sleep\", although uy- \"heed\").\n\nThe ending -erek denotes action at the same time as, or preceding, that of another verb[24]:\n\nGeceyi\n\nthe-night\n\nkonuşarak\n\ntalking\n\ngeçirdik\n\nwe-caused-to-pass\n\nGeceyi konuşarak geçirdik\n\nthe-night talking we-caused-to-pass\n\n\"We spent the night talking.\"\n\nAkıl\n\nyürüterek\n\nbu\n\nsonuca\n\nulaşıyorum\n\nAkıl yürüterek bu sonuca ulaşıyorum\n\n\"By using reason, I arrived at this conclusion\" [the latter is Bülent Ecevit as quoted in Cumhuriyet, 20 July 2005].\n\nDoğaya\n\nen\n\naz\n\nzarar\n\nvererek\n\nyaşamak\n\nDoğaya en az zarar vererek yaşamak\n\n\"To live while giving the least harm to nature\" [Buğday magazine, 7–8/2005, no 32].\n\nFrom ol- \"be, become\", olarak forms adverbial phrases corresponding to those in English with \"as\":\n\nSize\n\nTo-you\n\nbir\n\na\n\ndost\n\nfriend\n\nolarak\n\nas\n\nsöylüyorum\n\nI'm-telling\n\nSize bir dost olarak söylüyorum\n\nTo-you a friend as I'm-telling\n\n\"I'm telling you this as a friend\"\n\nciddi olarak \"seriously\" (ciddi \"serious\").\n\nThe ending -meden on a verb-stem looks like the ablative gerund, but it is not (Lewis [XI,12]).  \nIt indicates an action not occurring at all, or following that of the main verb:\n\nBakmadan atlama \"Don't leap without looking\";\nBakmadan önce atlama \"Don't leap before looking.\"\n\nBir\n\nA\n\nsoruyu\n\nparticular-question\n\ncevaplamadan\n\nwithout-answering\n\ntartışmak,\n\nto-debate\n\ntartışmadan\n\nwithout-debating\n\ncevaplamaktan\n\nfrom-to-answer\n\niyidir\n\nis-good,\n\nBir soruyu cevaplamadan tartışmak, tartışmadan cevaplamaktan iyidir\n\nA particular-question without-answering to-debate without-debating from-to-answer is-good,\n\n\"It is better to debate without answering than to answer without debating.\"\n(Source of the last sentence: Joseph Joubert as quoted on p. 20 of Gündelik Bilmeceler by Partha Ghose and Dipankar Home, translated by Özlem Özbal, Tübitak Popüler Bilim Kitapları 25, Ankara, 1996.)\n\nComplementing önce \"before\" is sonra \"after\", which can follow a verb-stem given the ending -dikten:\n\nBaktıktan sonra atla \"After looking, leap\";\nAyşe baktıktan sonra Neşe atladı \"After Ayşe looked, Neşe leapt.\"\n\nSimultaneity is expressed by iken or its (not enclitic) suffixed form -(y)ken; but if it follows a verb, then the verb appears, not as a stem, but as a base; see #Bases of verbs:\n\nEve girmekteyken, bir şey hatırladım \"As I was entering the house, I remembered something\";\nBen eve girmekteyken, telefon çaldı \"As I was entering the house, the telephone rang.\"\n\nIf two verbs of the same grammatical form have the same subject, the endings on the first verb can be replaced by -ip; see the example under #Participles.",
+          "examples": [
+            "Evde değilim \"I am not at home.\"",
+            "Güle güle \"[Go] smilingly\" (said to somebody departing);",
+            "Güle güle kullanın \"Use [it] smilingly\" (said to somebody with a new acquisition);",
+            "Beşe çeyrek kala kalktım \"To-five a-quarter remaining I-got-up\", that is,",
+            "\"I got up at a quarter to five\";",
+            "Onu yirmi geçe uyudun \"You slept at twenty past ten\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Pronouns",
+      "summary": "The third-person personal pronoun o \"she/he/it\" is declined as if it were the noun on.\nThe other persons, ben \"I\", sen \"you (singular/informal)\", biz \"we\", siz \"you (plural/formal)\", are declined like nouns, except for a vowel change in the dative and an anomalous genitive. All p",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The third-person personal pronoun o \"she/he/it\" is declined as if it were the noun on.\nThe other persons, ben \"I\", sen \"you (singular/informal)\", biz \"we\", siz \"you (plural/formal)\", are declined like nouns, except for a vowel change in the dative and an anomalous genitive. All personal pronouns aside from onlar form their instrumental with the genitive form.\n\nsingular\n\nplural\n\n1st\n2nd\n3rd\n1st\n2nd\n3rd\n\nabsolute\n\nben\nsen\no\nbiz\nsiz\nonlar\n\naccusative\n\nbeni\nseni\nonu\nbizi\nsizi\nonları\n\ndative\n\nbana\nsana\nona\nbize\nsize\nonlara\n\nlocative\n\nbende\nsende\nonda\nbizde\nsizde\nonlarda\n\nablative\n\nbenden\nsenden\nondan\nbizden\nsizden\nonlardan\n\ngenitive\n\nbenim\nsenin\nonun\nbizim\nsizin\nonların\n\ninstrumental\n\nbenimle\nseninle\nonunla\nbizimle\nsizinle\nonlarla\n\nThe absolute case is generally needed only for emphasis:\n\n—Nasılsınız? \"How are you?\"\n—İyiyim; siz nasılsınız? \"I am fine; how are you?\"\n—Ben de iyiyim. \"I too am fine.\"\nThe third-person pronoun can clear up an ambiguity mentioned above:\n\nonların fikri\n\"their idea\"\n\nonların fikirleri\n\"their ideas\"\n\nonun fikirleri\n\"her [or his] ideas\"\n\nThe pronoun o is also one of the demonstrative pronouns:\n\no \"that\";\n\nbu \"this\";\n\nşu \"this or that\" (thing pointed to).\n\nThe latter two are declined like o (that is, treated as if they were bun and şun, and with the instrumental formed from the genitive in the singular though not in the plural).\n\nThe interrogative pronouns (and adjectives) are:\n\nkim \"who\";\n\nne \"what\";\n\nhangi \"which\";\n\nkaç \"how many\" or \"how much\".\n\nThese appear in embedded questions but do not serve as true relative pronouns:\n\nBuzdolabında kaç tane var, o bilir. – \"S/he knows how many are in the refrigerator.\"\nThere is a suffix -ki that acts as a relative pronoun in that it creates what, in English, would be called relative clauses.  It does not display vowel harmony, except in a few common formations:\n\nbenimki – \"mine (that which is mine)\"\nbuzdolabındaki bira – \"beer that is in the refrigerator\" (no vowel harmony)\nbugünkü – \"today's (which is today)\" (with vowel harmony)\ndünkü – \"yesterday's (which was yesterday)\" (with vowel harmony)\nThe reflexive pronoun (dönüşlü zamir from dön- \"turn\") is kendi \"own, self\":\n\nKendi kendinden korkma – \"Do not be afraid of thyself.\"\nMany of the indefinite adjectives can function as pronouns, taking case-endings.",
+          "examples": [
+            "The third-person personal pronoun o \"she/he/it\" is declined as if it were the noun on.",
+            "The other persons, ben \"I\", sen \"you (singular/informal)\", biz \"we\", siz \"you (plural/formal)\", are declined like nouns, except for a vowel change in the dative and an anomalous genitive. All personal pronouns aside from onlar form their in",
+            "—Nasılsınız? \"How are you?\"",
+            "—İyiyim; siz nasılsınız? \"I am fine; how are you?\"",
+            "—Ben de iyiyim. \"I too am fine.\"",
+            "\"their idea\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Verbs",
+      "summary": "Many stems in the dictionary are indivisible; others consist of endings attached to a root.",
+      "sections": [
+        {
+          "heading": "Stems of verbs",
+          "body": "Many stems in the dictionary are indivisible; others consist of endings attached to a root.\n\nVerb-stems from nouns\nThe verb-stem temizle- \"make clean\" is the adjective temiz \"clean\" with the suffix -le; this suffix was mentioned earlier under Parts of speech in connection with the verb köpekle-.  Many verbs are formed from nouns or adjectives with -le:\n\nNoun\nVerb\n\nbaş \"head\"\nbaşla- \"make a head\", that is, \"begin\"\n\nkilit \"lock\"\nkilitle- \"make locked\", that is, \"lock\"\n\nsuç \"crime\"\nsuçla- \"make crimed\", that is, “blame”\n\nVoice\nA verbal root, or a verb-stem in -le, can be lengthened with certain extensions.  If present, they appear in the following order, and they indicate distinctions of voice:\n\nExtensions for voice\n\nVoice\nEnding\nNotes\n\nReflexive\n\n-(i)n\n \n\nReciprocal\n\n-(i)ş\n\nCausative\n\n-t\nafter polysyllabic stems in -l, -r, or a vowel; and\n\n-dir\nin other cases; except:\n\n-ir, -er, -it\nafter some monosyllabic stems; and\n\n \nthere are some other exceptional forms as well.\n\nPassive\n\n-il\nafter stems ending in a consonant other than -l; otherwise, same as reflexive.\n\nThese endings might seem to be inflectional in the sense of the § Introduction above, but their meanings are not always clear from their particular names, and dictionaries do generally give the resulting forms, so in this sense they are constructive endings.\n\nThe causative extension makes an intransitive verb transitive, and a transitive verb factitive.  Together, the reciprocal and causative extension make the repetitive extension -(i)ştir.\n\nVerb Root/Stem\nNew Verb\nVoice\n\nbul \"find\"\n\nbuluş \"meet\"\n-uş (reciprocal)\n\nbulun \"be found/present\"\n-un (reflexive)\n\nyıka \"wash (something)\"\n\nyıkan \"wash oneself\"\n-n (reflexive)\n\nyıkanıl \"be washed\"\n-n (reflexive) + -ıl (passive)\n\nkayna \"(come to a) boil\"\nkaynat \"(bring to a) boil\"\n-t (causitive)\n\nöl \"die\"\n\nöldür \"kill\"\n-dür (causitive)\n\nöldür \"kill\"\n\nöldürt \"have (someone) killed\"\n-t (causitive, factitive)\n\nara \"look for\"\n\naraştır \"investigate\"\n-ş (reciprocal) + -tır (causitive) = (repetitive)\n\nNegation and potential in verb-stems\nA dictionary-stem is positive; it can be made:\n\nnegative, by addition of -me;\n\nimpotential, by addition of -e and then -me.\n\nAny of these three (kinds of) stems can be made potential by addition of -e and then -bil.  The -bil is not enclitic, but represents the verb bil- \"know, be able\"; the first syllable of the impotential ending represents an obsolete verb u- \"be powerful, able\" Lewis [VIII,55].\nSo far then, there are six kinds of stems:\n\nParadigm for stems negative, impotential and potential\n\nEnglish infinitive\nEnglish finite form\n\ngel-\n\"come\"\n\"come\"\n\ngelme-\n\"not come\"\n\"do not come\"\n\ngeleme-\n\"be unable to come\"\n\"cannot come\"\n\ngelebil-\n\"be able to come\"\n\"can come\"\n\ngelmeyebil-\n\"be able to not come\"\n\"may not come\"\n\ngelemeyebil-\n\"able to be unable to come\"\n\"may be unable to come\"\n\nSuch stems are not used for aorist forms, which have their own peculiar means of forming negatives and impotentials.\n\nNote that -ebil is one of several verbs that can be compounded to enhance meaning. See Auxiliary verbs.",
+          "examples": [
+            "The verb-stem temizle- \"make clean\" is the adjective temiz \"clean\" with the suffix -le; this suffix was mentioned earlier under Parts of speech in connection with the verb köpekle-.  Many verbs are formed from nouns or adjectives with -le:",
+            "baş \"head\"",
+            "başla- \"make a head\", that is, \"begin\"",
+            "kilit \"lock\"",
+            "kilitle- \"make locked\", that is, \"lock\"",
+            "suç \"crime\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Bases of verbs",
+          "body": "The characteristics with which verb-bases are formed from stems are given under § Inflectional suffixes. Note again that aorist verbs have their own peculiar negative and impotential forms.\n\nThe progressive base in -mekte is discussed under § Verbal nouns.\nAnother base, namely the necessitative (gereklilik), is formed from a verbal noun.\nThe characteristic is -meli, where -li forms adjectives from nouns, and -me forms gerunds from verb-stems. \nA native speaker may perceive the ending -meli as indivisible; the analysis here is from #Lewis [VIII,30].\n\nThe present base is derived from the ancient verb yorı- \"go, walk\" #Lewis [VIII,16]; this can be used for ongoing actions, or for contemplated future actions.\n\nThe meaning of the aorist base is described under #Adjectives from verbs: participles.\n\nThere is some irregularity in first-person negative and impotential aorists. The full form of the base -mez (or (y)emez) reappears before the interrogative particle mi:\n\nGelmem \"I do not come\" (cf. Gelmez miyim \"Do I not come?\");\nGelmeyiz \"We do not come\" (cf. Gelmez miyiz \"Do we not come?\")\nThe definite past or di-past is used to assert that something did happen in the past.\nThe inferential past or miş-past can be understood as asserting that a past participle is applicable now; hence it is used when the fact of a past event, as such, is not important; in particular, the inferential past is used when one did not actually witness the past event.\n\nA newspaper will generally use the di-past, because it is authoritative.  The need to indicate uncertainty and inference by means of the miş-past may help to explain the extensive use of ki in the newspaper excerpt at Turkish vocabulary#The conjunction ki.\n\nThe conditional (şart) verb could also be called \"hypothetical\"; it is used for remote possibilities, or things one might wish for.  (See also #Compound bases.)\n\nThe various bases thus give distinctions of tense, aspect and mood.  These can be briefly tabulated:\n\nFirst-person singular verbs\n\nForm\nSuffix\nVerb\nEnglish Translation\n\nProgressive\n-mekte\n\ngelmekteyim\n\"I am in the process of coming\"\n\nNecessitative\n-meli\n\ngelmeliyim\n\"I must come\"\n\nPositive\n-(i/e)r\n\ngelirim\n\"I come\"\n\nNegative\n-me(z)\n\ngelmem\n\"I do not come\"\n\nImpotential\n-(y)eme(z)\n\ngelemem\n\"I cannot come\"\n\nFuture\n-(y)ecek\n\ngeleceğim\n\"I will come\"\n\nInferential Past\n-miş\n\ngelmişim\n\"It seems that I came\"\n\nPresent/Imperfective\n-iyor\n\ngeliyorum\n\"I am coming\"\n\nPerfective/Definite Past\n-di\n\ngeldim\n\"I came\"\n\nConditional\n-se\n\ngelsem\n\"if only I came\"",
+          "examples": [
+            "The present base is derived from the ancient verb yorı- \"go, walk\" #Lewis [VIII,16]; this can be used for ongoing actions, or for contemplated future actions.",
+            "Gelmem \"I do not come\" (cf. Gelmez miyim \"Do I not come?\");",
+            "Gelmeyiz \"We do not come\" (cf. Gelmez miyiz \"Do we not come?\")",
+            "The conditional (şart) verb could also be called \"hypothetical\"; it is used for remote possibilities, or things one might wish for.  (See also #Compound bases.)",
+            "\"I am in the process of coming\"",
+            "\"I must come\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Questions",
+          "body": "The interrogative particle mi precedes predicative (type-I) endings (except for the 3rd person plural -ler), but follows the complete verb formed from a verbal, type-II ending:\n\nGeliyor  musunuz? \"Are you coming?\" (but: Geliyorlar mı? \"Are they coming?\")\nGeldiniz mi?      \"Did you come?\"",
+          "examples": [
+            "Geliyor  musunuz? \"Are you coming?\" (but: Geliyorlar mı? \"Are they coming?\")",
+            "Geldiniz mi?      \"Did you come?\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Optative and imperative moods",
+          "body": "Usually, in the optative (istek), only the first-person forms are used, and these supply the lack of a first-person imperative (emir).  \nIn common practice then, there is one series of endings to express something wished for: \n\nMerged Optative & Imperative Moods\n\nNumber\nPerson\nEnding\nExample\nEnglish Translation\n\nSingular\n\n1st\n\n-(y)eyim\nGeleyim\n\"Let me come\"\n\n2nd\n\n—\nGel\n\"Come (you, singular)\"\n\n3rd\n\n-sin\nGelsin\n\"Let [her/him/it] come\"\n\nPlural\n\n1st\n\n-(y)elim\nGelelim\n\"Let us come\"\n\n2nd\n\n-(y)in(iz)\nGelin\n\"Come (you, plural)\"\n\n3rd\n\n-sinler\nGelsinler\n\"Let them come\"",
+          "examples": [
+            "Example",
+            "\"Let me come\"",
+            "\"Come (you, singular)\"",
+            "\"Let [her/him/it] come\"",
+            "\"Let us come\"",
+            "\"Come (you, plural)\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Copula",
+          "body": "Main article: Turkish copula\nThe copula in Turkish appears in only two variants―*imek, a defective verb often attached to the noun, and olmak, which is a detached regular auxiliary verb.\n\n*Imek, derived from the ancient verb er- #Lewis [VIII,2], survives in Turkish only in the inferential past, perfective, and conditional:\n\nimiş,\n\nidi,\n\nise.\n\nThe form iken given under #Adverbs from verbs is also descended from er-.\nSince no more bases are founded on the stem i-, this verb can be called defective.  In particular, i- forms no negative or impotential stems; negation is achieved with the #Adverb of negation, değil, given earlier.\n\nThe i- bases are often turned into base-forming suffixes without change in meaning; the corresponding suffixes are\n\n-(y)miş,\n\n-(y)di,\n\n-(y)se,\n\nwhere the y is used only after vowels. For example, Hasta imiş and Hastaymış both mean, \"Apparently/Reportedly, he/she/it is ill\".\n\nThe verb i- serves as a copula.  When a copula is needed, but the appropriate base in i- does not exist, then the corresponding base in ol- is used; when used otherwise this stem means \"become\". Idir, a variant of imek, is used for emphasis.\n\nThe verb i- is irregular in the way it is used in questions: the particle mi always precedes it:\n\nKuş idi or Kuştu \"It was a bird\";\nKuş muydu? \"Was it a bird?\"",
+          "examples": [
+            "where the y is used only after vowels. For example, Hasta imiş and Hastaymış both mean, \"Apparently/Reportedly, he/she/it is ill\".",
+            "The verb i- serves as a copula.  When a copula is needed, but the appropriate base in i- does not exist, then the corresponding base in ol- is used; when used otherwise this stem means \"become\". Idir, a variant of imek, is used for emphasis",
+            "Kuş idi or Kuştu \"It was a bird\";",
+            "Kuş muydu? \"Was it a bird?\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        },
+        {
+          "heading": "Compound bases",
+          "body": "The bases so far considered can be called \"simple\".  A base in i- can be attached to another base, forming a compound base.  One can then interpret the result in terms of English verb forms by reading backwards.  The following list is representative, not exhaustive:\n\nPast tenses:\ncontinuous past: Geliyordum \"I was coming\";\n\naorist past: Gelirdim \"I used to come\";\n\nfuture past: Gelecektim \"I was going to come\";\n\npluperfect: Gelmiştim \"I had come\";\n\nnecessitative past: Gelmeliydim \"I had to come\";\n\nconditional past: Gelseydim \"If only I had come.\"\n\nInferential tenses:\ncontinuous inferential: Geliyormuşum \"It seems (they say) I am coming\";\n\nfuture inferential: Gelecekmişim \"It seems I shall come\";\n\naorist inferential: Gelirmişim \"It seems I come\";\n\nnecessitative inferential: Gelmeliymişim \"They say I must come.\"\n\nBy means of ise or -(y)se, a verb can be made conditional in the sense of being the hypothesis or protasis of a complex statement:\n\nönemli bir şey yapıyorsunuz \"You are doing something important\";\nÖnemli bir şey yapıyorsanız, rahatsız etmeyelim \"If you are doing something important, let us not cause disturbance.\"\nThe simple conditional can be used for remote conditions:\n\nBakmakla öğrenilse, köpekler kasap olurdu \"If learning by looking were possible, dogs would be butchers.\"",
+          "examples": [
+            "The bases so far considered can be called \"simple\".  A base in i- can be attached to another base, forming a compound base.  One can then interpret the result in terms of English verb forms by reading backwards.  The following list is repre",
+            "continuous past: Geliyordum \"I was coming\";",
+            "aorist past: Gelirdim \"I used to come\";",
+            "future past: Gelecektim \"I was going to come\";",
+            "pluperfect: Gelmiştim \"I had come\";",
+            "necessitative past: Gelmeliydim \"I had to come\";"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkish_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

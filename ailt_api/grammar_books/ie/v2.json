@@ -1,0 +1,260 @@
+{
+  "title": "Grammar Book — Interlingue",
+  "languageCode": "ie",
+  "languageName": "Interlingue",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Interlingue/Lesson_One",
+    "https://en.wikibooks.org/wiki/Interlingue/Lesson_Three",
+    "https://en.wikibooks.org/wiki/Interlingue/Lesson_Two",
+    "https://en.wikipedia.org/wiki/Interlingue_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson One",
+      "summary": "== Pronunciation ==\nHodie it es quin annus desde que Occidental aparit ante li munde interlinguistic in li nov jurnal 'Cosmoglotta'. Ne existet ni grammatica, ni claves, ni vocabulariums … necos!\nTry to pronounce the above paragraph:",
+      "sections": [
+        {
+          "heading": "Lesson One",
+          "body": "== Pronunciation ==\nHodie it es quin annus desde que Occidental aparit ante li munde interlinguistic in li nov jurnal 'Cosmoglotta'. Ne existet ni grammatica, ni claves, ni vocabulariums … necos!\nTry to pronounce the above paragraph:\n\nBy means of English pronunciation. 'Hoadee it ez kwihn anyuhs deezd quah...'\nBy means of English consonantal pronunciation, but with continental vowels. ah, eh, ee, oh, oo for a, e, i, o, u.\nWith continental pronunciation overall. c is softened to 'ts' before e, i, y. In the same locations, t to 'ts', and g to 'zh' (that being always the sound of j). In some obvious cases, like que, reduce qu from the sound 'kw' to that of 'k' alone.\nWith complete regularity of pronunciation. Note now stress - it should typically be on the second-last syllable of the word (the 'penult').\nE támen omni interessates ha tre bon comprendet omnicos.\n4b. Note now the accent mark - these are either used to show accentuation or to mark a distinction between two short words, one unstressed and one stressed - much like Spanish.",
+          "examples": [],
+          "learnerTip": "== Pronunciation ==\nHodie it es quin annus desde que Occidental aparit ante li munde interlinguistic in li nov jurnal 'Cosmoglotta'. Ne existet ni grammatica, ni claves, ni vocabulariums … necos!\nTry",
+          "source": "https://en.wikibooks.org/wiki/Interlingue/Lesson_One"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson Three",
+      "summary": "=== Exercise and Grammar Notes ===\nLi mann e (and) li fémina logia en li rure.\nLi bebé es li filia de li mann.\nE (both) li bebé e li infante es filios de li fémina.\nLi infantes pleset li fémina.\nNoi (we) logia en li páis, ma (but) ne en li rure.",
+      "sections": [
+        {
+          "heading": "Lesson Three",
+          "body": "=== Paroles - Words ===\n\n\n=== Exercise and Grammar Notes ===\nLi mann e (and) li fémina logia en li rure.\nLi bebé es li filia de li mann.\nE (both) li bebé e li infante es filios de li fémina.\nLi infantes pleset li fémina.\nNoi (we) logia en li páis, ma (but) ne en li rure.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Interlingue/Lesson_Three"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson Two",
+      "summary": "=== Exercise and Grammar Notes ===\nLi (the) instructor instructe. (Remove the -r of the infinitive to get the present tense.)\nLi studiante studia. Li studia in li scole.\nLi studiantes (the plural is typically regular, with -(e)s, as in English) studia. (The verb does not change f",
+      "sections": [
+        {
+          "heading": "Lesson Two",
+          "body": "=== Paroles - Words ===\n\n\n=== Exercise and Grammar Notes ===\nLi (the) instructor instructe. (Remove the -r of the infinitive to get the present tense.)\nLi studiante studia. Li studia in li scole.\nLi studiantes (the plural is typically regular, with -(e)s, as in English) studia. (The verb does not change for person.)\nLi studiante lee li capitul de (of, from) li libre.\n-> del libre.\nLi libre es sur la table.\nLi autor scrit (the past tense is typically formed with -t) li paroles del libre.\nLi autor del capitul es studiante.",
+          "examples": [],
+          "learnerTip": "=== Exercise and Grammar Notes ===\nLi (the) instructor instructe. (Remove the -r of the infinitive to get the present tense.)\nLi studiante studia. Li studia in li scole.\nLi studiantes (the plural is t",
+          "source": "https://en.wikibooks.org/wiki/Interlingue/Lesson_Two"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Introduction",
+      "summary": "Not to be confused with Interlingua grammar.\nThe language Interlingue ([interˈliŋɡwe]; ISO 639 ie, ile), originally Occidental ([oktsidenˈtaːl]), is an international auxiliary language created in 1922 by Edgar de Wahl, who sought to achieve maximal grammatical regularity and natu",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Not to be confused with Interlingua grammar.\nThe language Interlingue ([interˈliŋɡwe]; ISO 639 ie, ile), originally Occidental ([oktsidenˈtaːl]), is an international auxiliary language created in 1922 by Edgar de Wahl, who sought to achieve maximal grammatical regularity and natural character. The vocabulary is based on pre-existing words from various languages and a derivational system which uses recognized prefixes and suffixes.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Alphabet and pronunciation",
+      "summary": "Interlingue is written with 26 Latin letters: a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z. The letters of the alphabet are pronounced as a, be, ce, de, e, ef, ge, ha, i, jot, ka, el, em, en, o, pe, qu, er, es, te, u, ve, duplic ve, ix, ypsilon, an",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Interlingue is written with 26 Latin letters: a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z. The letters of the alphabet are pronounced as a, be, ce, de, e, ef, ge, ha, i, jot, ka, el, em, en, o, pe, qu, er, es, te, u, ve, duplic ve, ix, ypsilon, and zet.[1] Accents are written on the five vowels to indicate irregular stress, with the acute accent (á é í ó ú) preferred, but others (è, ê, etc.) permitted.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        },
+        {
+          "heading": "Grammatical endings",
+          "body": "Grammatical endings are used, though to a far lesser extent than more schematic planned languages such as Esperanto and Ido in which parts of speech are marked with obligatory endings.[2] Only a few parts of speech (such as verbs in the infinitive) in Interlingue have entirely obligatory endings, while many others either have endings the usage of which is optional and sometimes recommended.[3] Some grammatical endings are:\n\nar, er, ir: verb infinitive. far (to do), posser (be able), scrir (to write)\n\ne: the general substantival (noun) ending used obligatorily to differentiate nouns from other parts or speech, for reasons of pronunciation, or optionally for euphony. Examples of obligatory -e endings: capitale (capital, noun) vs. capital (capital, adjective), contenete (content) vs, contenet (contained), sud (south, adjective) vs. sude (south as an independent noun, as in the north and the south). A final -e is recommended in words ending with -s to avoid confusion with the plural (curse, sense), -ir, -er- and -ar endings to avoid confusion with the verb infinitive (dangere, desire, papere), and other such areas where its addition aids in differentiation or pronunciation.[3] Optional -e endings: can or cane (dog), Pentecost or Pentecoste (Pentecost). The -e and other endings are often omitted for poetic or euphonic reasons.[4]\n\ni: the general adjectival ending, similar to -e in usage. Examples of obligatory -i endings: pigri (lazy) and acri (sharp) to enable pronunciation, verdi (green, adjective) to distinguish from verde (green, noun). Examples of optional -i endings: etern vs. eterni (eternal), imens vs. imensi (immense).\n\na: nouns that end in e formed from an -ar verb are often written with the -a ending if one wishes to emphasize the verbal (active) aspect. A me veni un pensa (a thought occurs to me) vs. Penses e paroles (thoughts and words). The a ending also makes nouns feminine: anglese (English person), angleso (Englishman), anglesa (English woman). This does not apply to nouns that on their own indicate the gender (patre, matre).[5]\n\no: indicates the masculine gender in the same way a indicates the feminine.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Articles",
+      "summary": "Like English, Interlingue has definite and indefinite articles. The definite article (the) is li, and the indefinite (a, an) is un.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Like English, Interlingue has definite and indefinite articles. The definite article (the) is li, and the indefinite (a, an) is un. \n\nThe ending of the definite article can be modified to lo (masculine), la (feminine), lu (neuter), lis (plural), los (masculine plural), e las (feminine plural).[6] Of these, the forms lu and lis are most common: lu in the same sense as Spanish lo and English that which, as in Ne li aprension de un lingue es lu essential, ma su usation (that which is essential is not the learning of a language, but using it), and lis to pluralize words that are difficult to pluralize on their own: lis s (the s's).[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Nouns",
+      "summary": "Interlingue does not have grammatical gender. The plural of a noun is formed by adding -s after a vowel, or -es after most consonants.[7] To avoid pronunciation and stress changes, words ending in -c, -g, and -m only add an -s: un libre, du libres, un angul, tri angules, li tric,",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Interlingue does not have grammatical gender. The plural of a noun is formed by adding -s after a vowel, or -es after most consonants.[7] To avoid pronunciation and stress changes, words ending in -c, -g, and -m only add an -s: un libre, du libres, un angul, tri angules, li tric, li trics, li plug, li plugs, li album, pluri albums, li tram, du trams.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Adjectives",
+      "summary": "This section is empty.  You can help by adding to it.  (June 2023)",
+      "sections": [
+        {
+          "heading": "Adjectives",
+          "body": "This section is empty.  You can help by adding to it.  (June 2023)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Pronouns",
+      "summary": "Interlingue has two forms for the personal pronouns: one for the subject form (nominative), and one for the object form (accusative or dative, i.e. the oblique form):[1]",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "Interlingue has two forms for the personal pronouns: one for the subject form (nominative), and one for the object form (accusative or dative, i.e. the oblique form):[1]\n\nSubject\n\nObject\n\nPossessive\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\n1st\n\nyo\n\nnoi\n\nme\n\nnos\n\nmi\n\nnor\n\n2nd\n\ntu\n\nvu\n\nte\n\nvos\n\ntui\n\nvor\n\n3d\n\nmasculine\n\nil\n\nillos\n\nle\n\nlos\n\nsu\n\nlor\n\nfeminine\n\nella\n\nellas\n\nla\n\nlas\n\nneutral\n\nit\n\nili\n\nit\n\nles\n\nThe formal second person is vu,[1] which is also the second person plural. The indefinite personal pronoun \"one\" is on.[7] If necessary, one can specify the gender of third person plural by using illos (masculine) or ellas (feminine).[1]\n\nIn the object form the pronouns are: me, te, le, la, it, nos, vos, and les (with los and las as specific masculine and feminine forms, respectively). In the oblique case, the pronouns are me, te, il (or le), noi (or nos), voi (or vos), and ili (or les), varying by user and situation for pronouns except me and te.[8] The possessive pronouns are mi, tui, su (his/her/its), nor, vor and lor.[1] They may be pluralized: li mi (mine, singular), li mis (mine, plural), li nor (ours, singular), li nores (ours, plural).[9]",
+          "examples": [
+            "The formal second person is vu,[1] which is also the second person plural. The indefinite personal pronoun \"one\" is on.[7] If necessary, one can specify the gender of third person plural by using illos (masculine) or ellas (feminine).[1]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Verbs",
+      "summary": "Verbs in Interlingue have three endings: -ar, -er, and -ir. Conjugation is performed with a combination of endings and auxiliary verbs. The verb esser (to be) is exceptional in being written es in the present  tense, though the esse form is seen in the imperative.[5]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbs in Interlingue have three endings: -ar, -er, and -ir. Conjugation is performed with a combination of endings and auxiliary verbs. The verb esser (to be) is exceptional in being written es in the present  tense, though the esse form is seen in the imperative.[5]\n\nSimple Verb Tenses\n\nForm\n\nInterlingue\n\nEnglish\n\nNotes\n\nInfinitive\n\nar / er / ir\n\namar / decider / scrir\n\nto love / to decide / to write\n\nPresent\n\na / e / i\n\nyo ama / decide / scri\n\nI love / decide / write\n\nPast\n\n-t\n\nyo amat / decided / scrit\n\nI loved / decided / wrote\n\nstress thus falls on the last syllable: yo amat\n\nFuture\n\nva + inf.\n\nyo va amar / decider / scrir\n\nI will (shall) love / decide / write\n\nva on its own is not a verb (to go = ear or vader)\n\nConditional\n\nvell + inf.\n\nyo vell amar / decider / scrir\n\nI would love / decide / write\n\nAlso used for hearsay: Un acusation secun quel il vell har esset... - An accusation alleging him to have been...\n(lit. an accusation according to which he would have been...)\n\nImperative\n\na! / e! / i!\n\nama! / decide! / scri!\n\nlove! / decide! / write!\n\nImperative of esser is esse.\n\nCompound Verb Tenses\n\nForm\n\nInterlingue\n\nEnglish\n\nNotes\n\nPerfect\n\nha + t\n\nyo ha amat / decidet / scrit\n\nI have loved / decided / written\n\nha on its own is not a verb (to have = haver)\n\nPluperfect\n\nhat + t\n\nyo hat amat / decidet / scrit\n\nI had loved / decided / written\n\nFuture Perfect\n\nva har + t\n\nyo va har amat / decidet / scrit\n\nI will (shall) have loved / decided / written\n\nPerfect Conditional\n\nvell har + t\n\nyo vell har amat / decidet / scrit\n\nI would have loved / decided / written\n\nFuture in the past\n\nvat + inf.\n\nyo vat amar / decider / scrir\n\nI was going to love / to decide / to write\n\nPrecative\n\nples + inf.\n\nples amar! / decider! / scrir!\n\nplease love! / please / write!\n\nHortative\n\nlass + inf.\n\nlass nos amar! / decider! / scrir!\n\nlet's love! / decide! / write!\n\nOptative\n\nmey + inf.\n\nyo mey amar / decider / scrir\n\nMay I love / decide / write\n\nOnly the same as English may in the optative mood (as in \"May his days be long\" or \"May the Force be with you\", not \"I may or may not go\").\n\nPresent participle\n\n-nt\n\namant / decident / scrient\n\nloving / deciding / writing\n\n-ir verbs become -ient\n\nGerund (adverbial participle)\n\n-nte\n\namante / decidente / scriente\n\n(while) loving / deciding / writing\n\n-ir verbs become -iente\n\nThe present participle is used to qualify nouns: un cat ama, un amant cat (a cat loves, a loving cat) and is often seen in adjectives such as fatigant (tiring, from fatigar, to tire). The gerund is used to indicate another action or state of being going on at the same time: scriente un missage, yo videt que... (writing a message, I saw that...).[10]\n\nMany further combinations of endings and auxiliary verbs are possible. Some examples:[1][11]\n\nIli vell har esset constructet = They would have been constructed\n\nHante audit to e sin mem regardar li dors del du altres... = Having heard that and without even looking at the backs of the others... (ha + gerund)\n\nOther notes on verbs:\n\nThe subjunctive does not exist in Interlingue: yo vole que tu ama (I want you to love). Mey is often used to express it when necessary, however, frequently after que: Yo vole que tu mey amar (I want you to love, lit. I want that you may love).[5][12]\n\nHay is a standalone verb signifying there is or there are: Hay du homes in li dom (there are two people in the house). As a standalone verb there is no official infinitive but users of the language often conjugate it as if there were (hayat, etc.).[13] Other ways of expressing there is or there are: esser (esset nequó altri a far = there was nothing else to do), exister (it existe du metodes = there are two ways), trovar se (in li cité trova se tri cavalles = there are three horses in the city), etc.\n\nThe passive is formed using the verb esser: yo es amat (I am loved). Se makes the verb refer to itself (reflexive form)[1] which often functions as a shorter way to form the passive: li frontieras esset cludet = li frontieras cludet se (the borders were closed).\n\nThe progressive tense (-nt) is not used with the same frequency as in English (what are you doing? = quo tu fa?, not quo tu es fant?). It emphasizes the continuity of the verb and is often used in storytelling (noi esset marchant vers li rivere quande... = we were walking towards the river when...)\n\nThe verb star (to stand) may be used to emphasize the completion of a verb: li dom sta constructet (the house stands constructed, i.e. it is completely built).[1]\n\nThe verb ear (to go) may be used to emphasize the continuity of a verb: li dom ea constructet (the house is being built).[1]\n\nThe double negative is permitted, and was even recommended by de Wahl[14] for its internationality and precision. De Wahl gave the following phrase as an example: \"Yo ha trovat li libre, quem vu ha dat me, in null loc, quem vu ha indicat me\" (lit. I found the book you gave me nowhere you indicated me, thus \"I didn't find the book anywhere you told me to look\"). In this phrase, not permitting a double negative would result in ambiguity up to the word null (the only indication of a negative in the phrase), recommending Yo ne ha trovat li libre...in null loc. An obligatory double negative was never imposed and later Occidentalists found that they rarely used it,[15] but it remained permitted and is seen occasionally.\n\nThe infinitive may also used as a mild or impersonal imperative:[16] ne fumar – no smoking; bon comprender: un crímine es totvez un crímine – let's be clear (lit. understand well): a crime is still a crime.",
+          "examples": [
+            "Only the same as English may in the optative mood (as in \"May his days be long\" or \"May the Force be with you\", not \"I may or may not go\").",
+            "The double negative is permitted, and was even recommended by de Wahl[14] for its internationality and precision. De Wahl gave the following phrase as an example: \"Yo ha trovat li libre, quem vu ha dat me, in null loc, quem vu ha indicat me"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        },
+        {
+          "heading": "Adverbs",
+          "body": "Interlingue has primary adverbs and derived adverbs. Primary adverbs are not generated from other parts of speech and are thus not formed using any special endings: tre (very), sempre (always), etc.[1]\n\nDerived adverbs are formed by adding the suffix -men to an adjective (rapid = quick, rapidmen = quickly), cognate with French -ment, Italian -mente, and others. The ending -men was inspired by Provençal and spoken French (which does not pronounce the t in -ment) and chosen over -mente to avoid clashing with the noun ending -ment and other nouns in the language derived from the past tense in -t.[17][18] Adjectives may be used as adverbs when the sense is clear:[1][19]\n\nIl ha bon laborat = He has worked well (\"He has worked good\")\n\nNoi serchat long = We looked for a long time (\"We searched long\")\n\nDr. F. Haas in 1956 grouped the most common adverbs by type as below.\n\nGenre\n\nCommon Adverbs\n\nManner (How?)\n\nqualmen, quam, talmen, tam, alquam, nequam, solmen, apen, tot, totalmen, totmen, ne totmen, totmen ne[1]\n\nQuantity (How much?)\n\nquant, tant, sat, suficent, nequant, alquant, tre, tro, circa, mult, poc, un poc, quelcvez, multvez, sovente,\nplu, adplu, sempre, sempre plu, sempre plu mult, sempre plu mult ancor, min, plu o min, maxim, admaxim [1]\n\nLocation (Where? To / from where?)\n\nu, ci, ta, alcú, necú, partú, ucunc, supra, infra, circum, éxter, extra, intra, ínter, detra, levul, dextri, proxim, lontan.[1]\n\nTime (When?)\n\nquande, unquande, alquande, nequande, quandecunc, alor, tande, ínterim, nu, strax, subitmen, just, justmen, bentost, tost,\ntard, temporan, solmen, ne ante, sovente, sempre, ne plu, antey, poy, depoy, desde, in ante, ja, ancor, ne ancor, adplu [1]\n\nAffirmation/ Negation / Doubt (Really?)\n\nyes, no, ne, ne plu, si, ya, fórsan, sin dúbite.[1]",
+          "examples": [
+            "Il ha bon laborat = He has worked well (\"He has worked good\")",
+            "Noi serchat long = We looked for a long time (\"We searched long\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        },
+        {
+          "heading": "Correlatives",
+          "body": "While correlatives were not made to match a pre-determined scheme (such as the correlatives in Esperanto[20]), the majority match the prefixes and suffixes in the chart below.\n\nQU-\n(interrogative/relative)\n\nT-\n(demonstrative)\n\nALQU-\n(undefined)\n\nNEQU-\n(negative)\n\n-CUNC\n(indeterminate)\n\nØ\n(collective)\n\n-I\n(persons, standard demonstrative)\n\nqui\n(who)\n\nti\n(this/that)\n\nalqui\n(someone)\n\nnequi\n(nobody)\n\nquicunc\n(whoever)\n\nomni\n(every, all)\n\n-O\n(things)\n\nquo\n(what)\n\nto\n(that: general demonstrative\n\nas in \"that is true\")\n\nalquo\n(something)\n\nnequo\n(nothing)\n\nquocunc\n(whatever)\n\nomno\n(all)\n\n-EL\n(both persons and things)\n\nquel\n(which)\n\ntel\n(such)\n\nalquel\n(any)\n\nnequel\n\nquelcunc\n(whichever)\n\nchascun\n(each, all)\n\n-AL\n(quality)\n\nqual\n(which, what a)\n\ntal\n(that)\n\nalqual\n(any kind)\n\nnequal\n\nqualcunc\n\n-AM\n(way, mode)\n\nquam\n(as)\n\ntam\n(so)\n\nalquam\n(anyhow)\n\nnequam\n\nquamcunc\n(however)\n\n-ANT\n(quantity)\n\nquant\n(how many)\n\ntant\n(so much)\n\nalquant\n(somewhat)\n\nnequant\n\nquantcunc\n\n-ANDE\n(time)\n\nquande\n(when)\n\ntande\n(then)\n\nalquande\n\nnequande\n(never)\n\nquandecunc\n\nsempre\n(always, ever)\n\n-U\n(place)\n\nu\n(where)\n\nci / ta\n(here / there)\n\nalcu\n(somewhere)\n\nnecu\n(nowhere)\n\nucunc\n(anywhere)\n\npartú\n(everywhere)\n\nNotes on the correlatives:[21]\n\nAlcun (some) and necun (no, none) are respectively the adjectives of alquel and nequel.\n\nThe -qui series has optional accusative forms ending in -em: quem, alquem, nequem.\n\nThe -al series is adverbialized with the -men ending: qualmen (how) talmen (that way).\n\nCorrelatives can take the plural ending: queles, quales, tis, omnis, etc.\n\nCi (here) and ta (there) can be affixed to ti and to to indicate proximity or distance: ti libre (this book), ti-ci libre (this book here), ti-ta libre (that book there), tis (these), tis-ci (these here), tis-ta (those there), to-ci (this here), to-ta (that there).\n\nMany derivatives are formed from the correlatives: qualitá from qual + itá, quantitá from quant + -itá, omnipotent from omni + potent.",
+          "examples": [
+            "as in \"that is true\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        },
+        {
+          "heading": "Vocabulary examples",
+          "body": "Though seemingly favourable to the Romance language family, de Wahl did not see Occidental as a Romance language and did not tolerate any nationalism or chauvinism in the choice of words for the language. His opinion on justice in the choice of vocabulary was that: \"However many special, new, significant words each [culture] has respectively added to the common human culture, that much they receive.\"[22] Below are examples he provided of source languages and what they are particularly known for around the world (why they are included in Occidental).[22]\n\nCategory / Reasoning\n\nOrigin\n\nWords\n\nExamples of the non-Romance substrate in the language\n\nAnglo-Germanic\n\nstorc, mann, self, yelb, svimmar, helm, svin, moss, segle, ost, west, nord, strax, sparro, fox, spat, spruzzar, scum, stal, stall, stamp, strec, stripp, stropp, strump, stupp, watch, winch, vrec, yufte, rasp, scote, pretti, litti, plug, spad, mis-, milz, mast, stir, bote, steve, tacle, strand\n\nScience and philosophy\n\nGreek\n\nteorema, trigonometrie, teosofie, pleuritis, biologie, astronomie\n\nLife, physics, society, politics, law\n\nLatin\n\npedale, manuscrit, cap, cordial, influentie, civil, social, comission, comunisme, republica, construction, conductor, privat, stabil\n\nMusic and economy\n\nItalian\n\npresto, andante, staccato, maestro, virtuos, violoncello; tratte, bilancie, giro-conto, agio, bankrott\n\nHigh society, modern army organization\n\nFrench\n\npolitesse, hotel, menú, manchette, jabot, maitresse, couplet, courtoisie, dinear, frac, robe; general, colonel, corporal, sargeant\n\nNavigation\n\nScandinavian, Dutch, English\n\nlog, fregatte, luv, bote, mast, tacle, steve, stir, stropp, kil, reff; top, clamp, brigg, clippes, winch, watch, foc\n\nSport\n\nEnglish\n\nchampion, start, ténnis, hockey, jockey, turf, set, game\n\nUnchained authoritarianism\n\nRussian\n\ntsar, ukas, knut, bolchevic, pogrom\n\nInquisition, showy chivalric pride\n\nSpanish\n\nautodafé, hidalgo, Don Quijote, toreador, matador, mantille\n\nTechnology and industry\n\nGermanic\n\nscruv, muff, vind, spul, falun, flint-glass, warf, staple\n\nCultural flowerings or names of things, plants and animals of certain lands\n\nHebrews\n\nsabat, cherub, delta, camel, ámen, elefant, jubilar, mammon, seraf, manna, hosanna, golem, kósher\n\nArabs\n\nalcohol, magazin, balsam, arsenale, admirale, tara, café, safran, koran, kadi, minaret, alcove, alcali, alchimie, algebra\n\nTurks\n\nsultan, fez, pasha, yatagan, bashibuzuk, bashlyk\n\nPersian\n\nbakshish, bazar, págode, divan, turban, serai, shah, vezir\n\nHindus\n\nnirvana, karma, calicó, rum, punch, raja, bayadera, batic\n\nMalaysians\n\norang-utan, maki, tabú\n\nJapanese\n\ngeisha, samurai, harakiri, kimono, bushido, micado, riksha\n\nChinese\n\nté, mandarine, kotau, silk, bonze, caolin, dshonke\n\nMongols\n\ndalai-lama\n\nAmerican Indians\n\nwigwam, mocassine, cocain, tabac, cigar, chocolate, cacáo, cannibale, colibrí, orcan, hamac, creol\n\nBlack Americans\n\njazz\n\nBlack Africans\n\ntse-tse, quagga, zebra\n\nAustralians\n\ncangurú, bumerang, moa, barramuda",
+          "examples": [
+            "Though seemingly favourable to the Romance language family, de Wahl did not see Occidental as a Romance language and did not tolerate any nationalism or chauvinism in the choice of words for the language. His opinion on justice in the choic",
+            "Examples of the non-Romance substrate in the language"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Prepositions",
+      "summary": "This section is empty.  You can help by adding to it.  (June 2023)",
+      "sections": [
+        {
+          "heading": "Prepositions",
+          "body": "This section is empty.  You can help by adding to it.  (June 2023)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Conjunctions",
+      "summary": "This section is empty.  You can help by adding to it.  (June 2023)",
+      "sections": [
+        {
+          "heading": "Conjunctions",
+          "body": "This section is empty.  You can help by adding to it.  (June 2023)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Interjections",
+      "summary": "This section is empty.  You can help by adding to it.  (June 2023)",
+      "sections": [
+        {
+          "heading": "Interjections",
+          "body": "This section is empty.  You can help by adding to it.  (June 2023)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Word formation",
+      "summary": "An example of derivation from the magazine Cosmoglotta.\nFlowchart demonstrating derivation of nouns from verbs using de Wahl's rule.\nThe application of de Wahl's rule to verbs, and the usage of numerous suffixes and prefixes, was created to resolve irregularities that had plagued",
+      "sections": [
+        {
+          "heading": "Derivation",
+          "body": "An example of derivation from the magazine Cosmoglotta.\nFlowchart demonstrating derivation of nouns from verbs using de Wahl's rule.\nThe application of de Wahl's rule to verbs, and the usage of numerous suffixes and prefixes, was created to resolve irregularities that had plagued creators of language projects before Occidental, who were forced to make the choice between regularity and unnatural forms, or irregularity and natural forms. The prevailing view before its application was that natural forms needed to be sacrificed for the sake of regularity, while those that opted for naturalism were forced to admit numerous irregularities when doing so (Idiom Neutral for example had a list of 81 verbs with special radicals[23] used when forming derivatives), a paradox summed up by Louis Couturat in 1903 as follows:[24]\n\nIn short, one finds oneself confronted by the antinomy that the words that are international are not regular, and the words that are regular are not international; the prevailing opinion [of naturalists such as Julius Lott and de Wahl] was that regularity should be sacrificed for internationality in the formation of words.\n\nThe rules created by de Wahl to resolve this were first described in 1909[25] in the Discussiones of Peano's Academia pro Interlingua and are as follows:\n\nIf, after the removal of -r or -er of the infinitive, the root ends in a vowel, the final -t is added. Crear (to create), crea/t-, crea/t/or, crea/t/ion, crea/t/iv, crea/t/ura.\n\nIf the root ends in consonants d or r, they are changed into s: decid/er (to decide), deci/s-, deci/s/ion deci/s/iv. Adherer (to adhere), adhe/s-, adhe/s/ion\n\nIn all other cases, with six exceptions, the removal of the ending gives the exact root: duct/er, duct-, duct/ion.\n\nOnce these rules were applied, Occidental was left with six exceptions. They are:[26]\n\nced/er, cess- (concession)\n\nsed/er, sess- (session)\n\nmov/er, mot- (motion)\n\nten/er, tent- (temptation)\n\nvert/er, vers- (version)\n\nveni/r, vent- (advent)\n\nSuffixes are added either to the verbal root or the present theme of the verb (the infinitive minus -r). An example of the latter is the suffix -ment: move/r, move/ment (not movetment), experi/r, experi/ment (not experitment), and -ntie (English -nce): tolera/r (tolerate), tolera/ntie, existe/r (exist), existe/ntie.[27]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        },
+        {
+          "heading": "Affixes",
+          "body": "The major prefixes and suffixes used in word derivation in Interlingue are added to either the present theme (infinitive minus -r), verbal root (infinitive minus two preceding vowels), or perfect theme (present theme + t or +s for verbs finishing with -d or -r) of verbs, as well as other types of speech. The below is a sample of some of the affixes used.[5]\n\naffix\n\nmeaning\n\naffixed to\n\nbefore affix\n\nafter affix\n\nnotes\n\n-abil/-ibil\n\nable\n\nverbal root\n\nposser (to be able)\n\npossibil (possible)\n\n-abil for -ar verbs, -ibil for -er and -ir verbs\n\n-ada/-ida\n\n-ade\n\nverbal root\n\npromenar (to stroll)\n\npromenada (a walk, a promenade)\n\n-ada for -ar verbs, -ida for -er and -ir verbs\n\n-ach-\n\npejorative\n\nverbal root\n\ncriticar (criticize)\n\ncriticachar (complain, whine)\n\n-ar\n\ngeneral verb\n\nnoun, adjective\n\nsicc (dry)\n\nsiccar (to dry)\n\nGeneral verb final in most cases for all modern verbs\n\n-ard\n\npejorative noun suffix\n\nverbal root\n\nfurter (steal)\n\nfurtard (thief)\n\nbel-\n\nkinship by marriage\n\nnoun\n\nfratre (brother)\n\nbelfratre (brother-in-law)\n\ndes-\n\ncessation\n\nvarious\n\ninfectar (infect)\navantage (advantage)\n\ndesinfectar (disinfect)\ndesavantage (disadvantage)\n\ndis-\n\nseparation, dispersion\n\nvarious\n\nmembre (member)\nsemar (sow, seminate)\n\ndismembrar (dismember)\ndissemar (disseminate)\n\n-er-\n\ndoer of verb\n\nverbal root\n\nlavar (wash)\n\nlavere / lavera / lavero (washer)\n\n-a or -o to specify female or male gender\n\n-ette\n\ndiminutive\n\nnoun\n\ndom (house)\n\ndomette (cottage)\n\nex-\n\nex-\n\nnoun\n\npresidente (president)\n\nex-presidente (ex-president)\n\nho-\n\nthis\n\nnoun\n\nsemane (week)\n\nho-semane (this week)\n\n-illio\n\ncaressive\n\nnoun\n\nfratre (brother)\n\nfratrillio (bro)\n\naffixed to male nouns\n\nín-\n\nin-, un-, etc.\n\nadjective\n\ncredibil (believable)\n\níncredibil (unbelievable)\n\n-innia\n\ncaressive\n\nnoun\n\nmatre (mother)\n\nmatrinnia (mom/mommy)\n\naffixed to female nouns\n\n-ion\n\n-ion\n\nperfect theme\n\ncrear (create)\n\ncreation (creation)\n\n-iv\n\n-ive\n\nperfect theme\n\nexploder (explode)\n\nexplosiv (explosive)\n\nperfect theme: explod-er → explod → explos\n\n-ment\n\n-ment\n\npresent theme\n\nexperir (to experience)\n\nexperiment (experiment)\n\nmi-\n\nhalf\n\nnoun\n\nfratre (brother)\n\nmifratre (half-brother)\n\nmis-\n\nfalse (mis-)\n\nvarious\n\ncomprender (understand)\n\nmiscomprender (misunderstand)\n\nnon-\n\nnon-\n\nnoun\n\nfumator (smoker)\n\nnonfumator (non-smoker)\n\n-ntie\n\n-nce\n\npresent theme\n\ntolerar (tolerate)\nexperir (to experience)\n\ntolerantie (tolerance)\nexperientie (experience)\n\n-ir verbs add an e: ir → ientie\n\n-or\n\n-er, -or\n\nperfect theme\n\ndistribuer (distribute)\n\ndistributor (distributor)\n\n-ori\n\n-ory\n\nperfect theme\n\ncurrer (run)\n\ncursori (cursory)\n\nperfect theme: curr-er → curr → curs\n\nper-\n\nthrough, all the way\n\nverb\n\nforar (pierce)\n\nperforar (perforate)\n\npre-\n\nbefore\n\nvarious\n\nhistorie (history)\n\nprehistorie (prehistory)\n\npro-\n\nto the front\n\nverb\n\nducter (lead)\n\nproducter (produce)\n\nre-\n\nre-\n\nverb\n\nvenir (come)\n\nrevenir (return)\n\nstep-\n\nstep-\n\nnoun\n\nmatre (mother)\n\nstepmatre (stepmother)\n\n-ura\n\n-ure\n\nperfect theme\n\nscrir (write)\n\nscritura (scripture)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Interlingue_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

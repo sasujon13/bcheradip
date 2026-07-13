@@ -1,0 +1,278 @@
+{
+  "title": "Grammar Book — Taqbaylit",
+  "languageCode": "kab",
+  "languageName": "Taqbaylit",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Kabyle_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Kabyle language\nKabyle grammar is the set of structural rules and regulations included in the  Kabyle language, ranging from words to phrases, to punctuation, and sentences.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Kabyle language\nKabyle grammar is the set of structural rules and regulations included in the  Kabyle language, ranging from words to phrases, to punctuation, and sentences.\n\nCS:construct state\nFS:free state\nANN:annexed state\nABS:free state",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns and adjectives",
+      "summary": "As an Afro-Asiatic language, Kabyle has only two genders, masculine and feminine. Like most Berber languages, masculine nouns and adjectives generally start with a vowel (a-, i-, u-), while the feminine nouns generally start with t- and end with a -t (there are some exceptions, h",
+      "sections": [
+        {
+          "heading": "Gender",
+          "body": "As an Afro-Asiatic language, Kabyle has only two genders, masculine and feminine. Like most Berber languages, masculine nouns and adjectives generally start with a vowel (a-, i-, u-), while the feminine nouns generally start with t- and end with a -t (there are some exceptions, however). Note that most feminine nouns are in fact feminized versions of masculine nouns.\n\nExamples: \n\naqcic \"a boy\", taqcict \"a girl\".\n\namɣar \"an old man\", tamɣart \"an old woman\".\n\nargaz \"a man\", tameṭṭut \"a woman\".\n\nizi \"a fly\", tizit \"mosquito\".\n\nCertain masculine nouns do not start with a vowel: laẓ \"hunger\", seksu \"couscous\", and beṭṭu \"separation\". These include the names of relatives: gma \"my brother\", mmi \"my son\", and baba \"my father\". \n\nCertain feminine nouns do not end with a -t: tasa \"liver\", tili \"shadow\", and timess \"fire\".\n\nCertain feminine nouns do start wi a t-: lexdma \"work\" and rradyu \"radio\". These include the names of relatives: weltma \"my sister\", yelli \"my daughter\", and yemma \"my mother\". \n\nLoan words that end with a consonant are usually masculine: zzman \"time\" (from Arabic); Loan words that end with a vowel are usually feminine: qahwa \"coffee\".",
+          "examples": [
+            "Examples:",
+            "aqcic \"a boy\", taqcict \"a girl\".",
+            "amɣar \"an old man\", tamɣart \"an old woman\".",
+            "argaz \"a man\", tameṭṭut \"a woman\".",
+            "izi \"a fly\", tizit \"mosquito\".",
+            "Certain masculine nouns do not start with a vowel: laẓ \"hunger\", seksu \"couscous\", and beṭṭu \"separation\". These include the names of relatives: gma \"my brother\", mmi \"my son\", and baba \"my father\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Pluralization",
+          "body": "Singular nouns generally start with an a-, and do not have a suffix. Plural nouns generally start with an i- and often have a suffix such as -en. There are three types of plural : External, Internal, Mixed:\n\nExternal or \"Regular\": consists in changing the initial vowel of the noun, and adding a suffix -n,\n\namɣar \"an old man\" → imɣaren \"old men\".\nargaz → irgazen \"men\"\nul → ulawen \"hearts\"\nInternal: involves only a change in the vowels within the word:\n\nadrar → idurar \"mountain\"\namicic \"a cat\" → imcac \"cats\"\nMixed: combines a change of vowels (within the word) with the suffix -n:\n\nigenni \"sky\" → igenwan \"skies\".\nizi → izan \"fly\"\naẓar → iẓuran \"root\"\nafus → ifassen \"hands\nSpecial cases: that do not fall into any of the previous three categories\nInitial vowel -a does not change: tama \"side\" → tamiwin \"sides\"\n\nInitial vowel -u does not change: tuɣmest \"tooth\" → tuɣmas \"teeth\"\n\nLoan words from Arabic that keep their Arabic plural: lɛada \"tradition\" → leɛwayed \"traditions\"\n\nCertain words exist only in the plural form and do not have a singular, such as: aman \"water\", medden \"people\", and ammiwen \"eyebrows\". \n\nCertain words exist only in the singular form and do not have a plural, such as: tidet \"truth\", tiɣrit \"correction\", and tagella \"food\". \n\nThe plural of certain words can change the meaning of the singular: tuccanin \"mercurial\", plural of tuccent \"female jackal\"; timeddukkal \"placenta\", plural of tamdeddakelt \"female friend\". \n\nCertain words can have different plural forms with different meanings: iri \"collar\" has two plural forms, iran \"edge\" or irawen \"responsibility\".",
+          "examples": [
+            "External or \"Regular\": consists in changing the initial vowel of the noun, and adding a suffix -n,",
+            "amɣar \"an old man\" → imɣaren \"old men\".",
+            "argaz → irgazen \"men\"",
+            "ul → ulawen \"hearts\"",
+            "adrar → idurar \"mountain\"",
+            "amicic \"a cat\" → imcac \"cats\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Free and annexed state",
+          "body": "As in all Berber languages, Kabyle has two types of states or cases of the noun: one is unmarked (and can be glossed as abs or fs), while the other serves as a post-verbal subject of a transitive verb and the object of a preposition, among other contexts, and may be glossed as ann, int or cs. The former is often called free state, the latter construct state. The construct state of the noun derives from the free state through one of the following rules:\n\nThe first involves a vowel alternation, whereby the vowel a become u :\n\namaziɣ → umaziɣ \"Berber\"\nameqqran → umeqqran \"big\"\nadrar → udrar \"mountain\"\nThe second involves the loss of the initial vowel in the case of some feminine nouns (the sound represented by the letter 'e' is not considered a true vowel):\n\ntamɣart → temɣart \"women\"\ntamdint → temdint \"town\"\ntamurt → tmurt \"country\"\nThe third involves the addition of a semi-vowel (w or y) word-initially:\n\nasif → wasif \"river\"\naḍu → waḍu \"wind\"\niles → yiles \"tongue\"\nuccen → wuccen \"jackal\"\nFinally, some nouns do not change for free state. These include masculine nouns that do not start with a vowel, feminine nouns that do not start with -t, and feminine nouns whose initial vowel is -a or -u: \n\ntaddart → taddart \"village\"; feminine noun whose initial vowel is -a\ntuccent → tuccent \"female jackal\"; feminine noun whose initial vowel is -u\nfad → fad \"thirsty\"; masculine noun that does not start with a vowel\nweltma → weltma \"sister\"; feminine noun that does not start with -t\nSummary of the annexed state formation\n\nIn the schematic notation used below, C represents a consonant, and V represents a vowel.\n\nInitial vowel alteration\n\nGeneral rule\nFree state\nAnnexed state\nExample\n\naCC- → weC-\nazrem\nwezrem\n\"serpent\"\n\niCC- → yeC-\nitri\nyetri\n\"star\"\n\nMaintenance of the initial vowel\n\nGeneral rule\nFree state\nAnnexed state\nExample\n\naCV- → waCV-\naman\nwaman\n\"water\"\n\niCV- → yiCV-\nizem\nyizem\n\"lion\"\n\nuC- → wuC-\nuccen\nwuccen\n\"jackal\"\n\nFeminine nouns (initial ta- / ti-)\n\nGeneral rule\nFree state\nAnnexed state\nExample\n\ntaCV- → tØCV-\ntamurt\ntmurt\n\"country\"\n\ntiCV- → tØCV-\n\ntimura\n\ntmura\n\n\"countries\"\n\ntaCC- → taCC-\n\ntaggara\n\ntaggara\n\n\"end\"\n\ntiCt → tiCt\ntiṭ\ntiṭ\n\"eye\"\n\nDepending on the role of the noun in the sentence, it takes either its free or annexed state.\n\nYewwet\n\n3SG-hit.PFV\n\naqcic.\n\nboy.ABS\n\nYewwet aqcic.\n\n3SG-hit.PFV boy.ABS\n\nHe hit a boy.\n\nWhen located after a verb, the direct object of the verb takes the free state, while the subject is in the annexed state.\n\nYewwet\n\n3SG-hit.PFV\n\nweqcic\n\nboy.ANN\n\naydi.\n\ndog.ABS\n\nYewwet weqcic aydi.\n\n3SG-hit.PFV boy.ANN dog.ABS\n\nThe boy hit a dog.\n\nWhen the direct object is indicated on the verb by a direct object affix, the direct object's identity may be restated in the annexed state.\n\nYewwet-it\n\n3SG.M-hit.PFV-3SG.M.ACC\n\nweydi.\n\ndog.ANN\n\nYewwet-it weydi.\n\n3SG.M-hit.PFV-3SG.M.ACC dog.ANN\n\nHe hit a dog.\n\nWhen a noun is moved in front of the verb to establish it as the sentence topic, it remains in its free state.\n\nAqcic\n\nboy.ABS\n\nyewwet\n\n3SG-hit.PFV\n\naydi.\n\ndog.ABS\n\nAqcic yewwet aydi.\n\nboy.ABS 3SG-hit.PFV dog.ABS\n\nThe boy hit a dog.\n\nAfter a preposition (at the exception of \"ar\" and \"s\"), all nouns take their annexed state. Hence the free-state noun aman (water), annexed state waman, can form kas n waman, (a glass of water), with the preposition n \"of\" triggering the construct state's appearance.",
+          "examples": [
+            "amaziɣ → umaziɣ \"Berber\"",
+            "ameqqran → umeqqran \"big\"",
+            "adrar → udrar \"mountain\"",
+            "tamɣart → temɣart \"women\"",
+            "tamdint → temdint \"town\"",
+            "tamurt → tmurt \"country\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Adjectives",
+          "body": "Adjectives can be formed by deriving a verb or using elements placed before the noun. \n\nVerb derivation\nFrom a stative verb: izwiɣ \"to be red\" → azeggaɣ \"red\"\n\nIdentical to an agent noun: ilaẓ \"to be hungry\" → amellẓu \"hungry\"\n\nBy adding the suffix -an to a verb: ihiriw \"to be large\" → ahrawan \"large\"\n\nBy adding the prefix u- to a verb: zmer \"to be able\" → uzmir \"strong\" or \"capable\"\n\nUsing elements before the noun\nAdding bu \"who has\" (masculine singular), mu \"who has\" (feminine singular), at \"who have\" (masculine plural), sut \"who have\" (feminine plural) + noun in the annexed state: bu uqerru, mu uqerru \"tenacious\" (uqerru from aqerru \"head\"); sut wartiran \"demonym for people from At Waritran, in this case feminine plural\"\n\nAdding war \"without\" (masculine) or tar \"without\" (feminine) + noun in the free state: war sseɛd, tar sseɛd \"unlucky\"\n\nAdding yir \"bad\" + noun in the free state:  yir zwaǧ \"a bad marriage\"",
+          "examples": [
+            "From a stative verb: izwiɣ \"to be red\" → azeggaɣ \"red\"",
+            "Identical to an agent noun: ilaẓ \"to be hungry\" → amellẓu \"hungry\"",
+            "By adding the suffix -an to a verb: ihiriw \"to be large\" → ahrawan \"large\"",
+            "By adding the prefix u- to a verb: zmer \"to be able\" → uzmir \"strong\" or \"capable\"",
+            "Adding bu \"who has\" (masculine singular), mu \"who has\" (feminine singular), at \"who have\" (masculine plural), sut \"who have\" (feminine plural) + noun in the annexed state: bu uqerru, mu uqerru \"tenacious\" (uqerru from aqerru \"head\"); sut wa",
+            "Adding war \"without\" (masculine) or tar \"without\" (feminine) + noun in the free state: war sseɛd, tar sseɛd \"unlucky\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Verbs",
+      "summary": "Kabyle verbs inflect for four paradigms of tense–aspect–mood, three of them conventionally labelled the preterite (expressing perfective aspect), intensive aorist (expressing imperfective aspect) and aorist (essentially functioning like an irrealis or subjunctive mood). Unlike ot",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Kabyle verbs inflect for four paradigms of tense–aspect–mood, three of them conventionally labelled the preterite (expressing perfective aspect), intensive aorist (expressing imperfective aspect) and aorist (essentially functioning like an irrealis or subjunctive mood). Unlike other Berber languages, where it is used to express the present, the aorist alone is rarely used in Kabyle, instead often appearing with an accompanying particle. The preterite also has an accompanying negative paradigm which may or may not differ from that of the non-negative preterite depending on the verb.\n\n\"Weak verbs\" have a preterite form that is the same as their aorist. Examples of weak verbs that follow are conjugated at the first person of the singular:\n\nVerb\n\nPreterite\n\nad + aorist\n\nIntensive aorist\n\nIf (to outdo)\n\nifeɣ\n\nad ifeɣ\n\nttifeɣ\n\nMuqel (to observe)\n\nmuqleɣ\n\nad muqleɣ\n\nttmuquleɣ\n\nKrez (to plough)\n\nkerzeɣ\n\nad kerzeɣ\n\nkerrzeɣ\n\n\"Strong verbs\" or \"irregular verbs\":\n\nVerb\n\nPreterite\n\nad + aorist\n\nIntensive aorist\n\nAru (to write)\n\nuriɣ\n\nad aruɣ\n\nttaruɣ\n\nThe intensive aorist can be used alone or with the following particles:\n\nar: to indicate an extended action: ar ileḥḥu \"he walks for a long time\"\n\nla: to indicate a continuous action in the present, equivalent of the present continuous in English: la yettazzal \"he is running\"\n\na la: to indicate a continuous action in the past: a la yeqqar \"he was saying\"\n\nad: to indicate a continuous action in the future: ad ttmerriḥeɣ \"I will be taking a walk\"",
+          "examples": [
+            "\"Weak verbs\" have a preterite form that is the same as their aorist. Examples of weak verbs that follow are conjugated at the first person of the singular:",
+            "\"Strong verbs\" or \"irregular verbs\":",
+            "ar: to indicate an extended action: ar ileḥḥu \"he walks for a long time\"",
+            "la: to indicate a continuous action in the present, equivalent of the present continuous in English: la yettazzal \"he is running\"",
+            "a la: to indicate a continuous action in the past: a la yeqqar \"he was saying\"",
+            "ad: to indicate a continuous action in the future: ad ttmerriḥeɣ \"I will be taking a walk\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Conjugation",
+          "body": "Conjugation in Kabyle is done by adding affixes (prefixes, suffixes or both). These affixes are static and identical for all finite stems, with only the theme changing. Kabyle is a pro-drop language, where the affixes are sufficient to indicate the subject pronouns, without the need to include the pronouns separately. \n\nKabyle person-number affixes\n\nPerson\n\nSingular\n\nPlural\n\n1st\n\n— (e)ɣ\n\nn(e) —\n\n2nd (m)\n\nt(e) — (e)ḍ\n\nt(e) — (e)m\n\n2nd (f)\n\nt(e) — (e)ḍ\n\nt(e) — (e)mt\n\n3rd (m)\n\ni/y(e) —\n\n— (e)n\n\n3rd (f)\n\nt(e) —\n\n— (e)nt\n\nA group of stative/resultative verbs (such as imɣur \"to be/become big or old\") use a different set of person-number endings in their preterites, which contains only suffixes.\n\nKabyle stative preterite person-number affixes\n\nPerson\n\nSingular\n\nPlural\n\n1st\n\n— (e)ɣ\n\n— it\n\n2nd (m)\n\n— (e)ḍ\n\n— it\n\n2nd (f)\n\n— (e)ḍ\n\n— it\n\n3rd (m)\n\n—\n\n— it\n\n3rd (f)\n\n— (e)t\n\n— it\n\nPreterite formation\nIn weak verbs, the aorist and preterite stems are identical. In strong verbs, however, the preterite differs from the aorist, typically through vowel alternation and, in some cases, consonant gemination or tension. The table below summarizes common patterns described in the literature.\n\nType\nAorist\nMeaning\nPreterite\nAlternation\n\nWeak verbs\n\nyekrez\n\"to plough\"\nyekrez\nno change\n\nSimple vowel alternation\n\nafeg\n\"to fly\"\nufeg\na → u\n\nawi\n\"to bring\"\nwwi\na → Ø / w\n\nmlil\n\"to meet\"\nmlal\ni → a\n\nmmet\n\"to die\"\nmmut\ne → u\n\nØ alternation\n\nyezz\n\"to bite\"\nyezza\nØ → a\n\nTwo-vowel alternation\n\ninṭih\n\"to vociferate\"\nunṭah\ni-i → u-a\n\nargu\n\"to dream\"\nurga\na-u → u-a\n\nDouble alternation\n\nrnu\n\"to add\"\nrni / rna\nu → i / a\n\nConsonant tension\n\nidir\n\"to live\"\ndder\nvowel shift + gemination\n\nIntensive aorist formation\nThe intensive aorist is a verbal form derived from the basic aorist stem. Stem structures are often represented using the symbols C (consonant) and V (vowel); R denotes the initial consonant or consonant cluster of the aorist stem, and R′ the corresponding intensive prefix. The intensive aorist is typically formed by prefixing tt- (or tte-), frequently accompanied by vowel alternation or consonant gemination depending on the stem type. The table below summarizes common formation patterns described in the literature.\n\nAorist pattern\nIntensive pattern\nExample (aorist)\nMeaning\nIntensive form\n\nR e–e\nR′ e–i\nwelleh\n\"to direct\"\nttwellih\n\nR v–ec\nR′ v–vc\nmuqel\n\"to look\"\nttmuqul\n\nR v₁–v₂\nR′ v₁–v₂\nnadi\n\"to search\"\nttnadi\n\nC₁C₂V\nC₁eC₂C₂V\nrnu\n\"to add\"\nrennu\n\nCCV\nte- + CCV\nddu\n\"to go\"\nteddu\n\nV-initial\ntt- + V-stem\nawi\n\"to bring\"\nttawi\n\n(stem-class pattern)\nC → CC\nger\n\"to put\"\nggar\n\nAs an example, the full finite conjugation of the verb afeg \"to fly\" exhibiting its four themes (preterite ufeg, negative preterite ufig, aorist afeg, and intensive aorist ttafeg) is given below. For Kabyle verbs, the citation form of a verb is the second-person singular imperative.\n\nFinite conjugation of Kabyle afeg \"to fly\"\n\nPerson\n\nPreterite\n\nNegative Preterite\n\nAorist\n\nIntensive Aorist\n\nImperative\n\nIntensive Imperative\n\nSingular\nPlural\n\nSingular\nPlural\n\nSingular\nPlural\n\nSingular\nPlural\n\nSingular\nPlural\n\nSingular\nPlural\n\n1st\n\nufgeɣ\n\nnufeg\n\nufigeɣ\n\nnufig\n\nafgeɣ\n\nnafeg\n\nttafgeɣ\n\nnettafeg\n\n2nd (m)\n\ntufgeḍ\n\ntufgem\n\ntufigeḍ\n\ntufigem\n\ntafgeḍ\n\ntefgem\n\ntettafgeḍ\n\ntettafgem\n\nafeg\n\nafget\n\nttafeg\n\nttafget\n\n2nd (f)\n\ntufgeḍ\n\ntufgemt\n\ntufigeḍ\n\ntufigemt\n\ntafgeḍ\n\ntefgemt\n\ntettafgeḍ\n\ntettafgemt\n\nafeg\n\nafgemt\n\nttafeg\n\nttafgemt\n\n3rd (m)\n\nyufeg\n\nufgen\n\nyufig\n\nufigen\n\nyafeg\n\nafgen\n\nyettafeg\n\nttafgen\n\n3rd (f)\n\ntufeg\n\nufgent\n\nur tufig\n\nur ufigent\n\nad tafeg\n\nad afgent\n\ntettafeg\n\nttafgent\n\nThe participles in Kabyle are used as a means of expressing relative phrases in which the preceding noun is the participle's subject. In the following proverb, ur nxeddem \"who doesn't work\" modifies argaz \"man\".\n\nArgaz\n\nman.ABS\n\nur\n\nNEG\n\nnxeddem,\n\nNEG.PTCP-work.IPFV,\n\nefk-as\n\ngive.IMP-3SG.M.IO\n\ntaṛuka\n\ndistaff.ABS\n\nad\n\nPTCL\n\nyellem!\n\n3SG.M-spin.AOR\n\nArgaz ur nxeddem, efk-as taṛuka ad yellem!\n\nman.ABS NEG NEG.PTCP-work.IPFV, give.IMP-3SG.M.IO distaff.ABS PTCL 3SG.M-spin.AOR\n\nA man who doesn't work is not a real man. (lit. A man who doesn't work? Give him a distaff to spin!)\n\nEach Kabyle verb has five participles, all formed by attaching various affixes onto a corresponding finite stem.\n\nPreterite Participle\n\nAorist Participle\n\nIntensive Aorist Participle\n\nPositive\nNegative\n\nPositive\nNegative\n\nyufgen\n\nur nufig\n\nara yafgen\n\nyettafeg\n\nur nettafeg",
+          "examples": [
+            "t(e) — (e)ḍ",
+            "t(e) — (e)m",
+            "t(e) — (e)ḍ",
+            "t(e) — (e)mt",
+            "A group of stative/resultative verbs (such as imɣur \"to be/become big or old\") use a different set of person-number endings in their preterites, which contains only suffixes.",
+            "\"to plough\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Verb framing",
+          "body": "Kabyle is a satellite-framed based language, Kabyle verbs use two particles to show the path of motion:\n\nd orients toward the speaker, and could be translated as \"here\".\n\nn orients toward the interlocutor or toward a certain place, and could be translated as \"there\".\n\nExamples:\n\n« iruḥ-d » (he came), « iruḥ-n » (he went).\n\n« awi-d aman» (bring the water), « awi-n aman » (carry away the water).",
+          "examples": [
+            "d orients toward the speaker, and could be translated as \"here\".",
+            "n orients toward the interlocutor or toward a certain place, and could be translated as \"there\".",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Negation",
+          "body": "Kabyle usually expresses negation in two parts, with the particle ur attached to the verb, and one or more negative words that modify the verb or one of its arguments. For example, simple verbal negation is expressed by « ur » before the verb and the particle « ara » after the verb:\n\n« Urareɣ » (\"I played\") → « Ur urareɣ ara » (\"I did not play\")\n\nOther negative words (acemma ... etc.) are used in combination with ur to express more complex types of negation.\n\nNegation of the verbs in the subjunctive mood is achieved by the form a wer + verb \n\n« ad yeqqim! » (\"Let him stay!) → « a wer yeqqim! » (Let him not stay!)\n\nNegation of the verbs in the imperative mood is achieved by the form ur + intensive imperative + ara\n\n« aru » (\"write\") →« ur ttaru ara » (\"Do not write\")",
+          "examples": [
+            "« Urareɣ » (\"I played\") → « Ur urareɣ ara » (\"I did not play\")",
+            "« aru » (\"write\") →« ur ttaru ara » (\"Do not write\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Auxiliaries",
+          "body": "The auxiliary ili (to be)\nili + verb is employed to express the following aspects:\n\nA possibility, a doubt, or a repetition in the future, and the future perfect\n\nA repetition in the past, and the past perfect\n\nA habit or a normal state\n\nExamples\n\nyeswa (sew \"to drink\" in the preterite) + yella (ili \"to be\" in the preterite) → yella yeswa \"He had drunk\"\n\nyeswa (sew \"to drink\" in the preterite) + ad yili (ili \"to be\" in the aorist) → ad yili yeswa \"He will have drunk\"\n\nyebzeg (bzeg \"to be wet\" in the preterite) + yettili (ili \"to be\" in the intensive aorist) → yettilli yebzeg \"It is usually wet\"\n\ntesseɣ (sew \"to drink\" in the intensive aorist) + lliɣ (ili \"to be\" in the preterite) → lliɣ tesseɣ \"I was drinking\"\n\ntesseɣ (sew \"to drink\" in the intensive aorist) + iliɣ (ili \"to be\" in the aorist) → ad iliɣ tesseɣ \"I will be drinking\"\n\nThe auxiliary aɣ  (to have)\naɣ in its general meaning \"to take\" can be used in complex verb construction in its preterite form yuɣ, or intensive aorist form yettaɣ. Its use is equivalent to the use of the verb ili.\n\nExamples\n\nyuɣ lḥal yečča \"He had (already) eaten\"\n\nyuɣ-iten lḥal ad awḍen ass-nni \"They must have arrived on that day\"",
+          "examples": [
+            "Examples",
+            "yeswa (sew \"to drink\" in the preterite) + yella (ili \"to be\" in the preterite) → yella yeswa \"He had drunk\"",
+            "yeswa (sew \"to drink\" in the preterite) + ad yili (ili \"to be\" in the aorist) → ad yili yeswa \"He will have drunk\"",
+            "yebzeg (bzeg \"to be wet\" in the preterite) + yettili (ili \"to be\" in the intensive aorist) → yettilli yebzeg \"It is usually wet\"",
+            "tesseɣ (sew \"to drink\" in the intensive aorist) + lliɣ (ili \"to be\" in the preterite) → lliɣ tesseɣ \"I was drinking\"",
+            "tesseɣ (sew \"to drink\" in the intensive aorist) + iliɣ (ili \"to be\" in the aorist) → ad iliɣ tesseɣ \"I will be drinking\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Verb derivation",
+          "body": "Verb derivation is done by adding affixes. There are three types of derivation forms : Causative, reflexive and Passive.\n\nCausative: The causative or factitive is formed primarily by prefixation of ss- to the verbal stem. The derived form typically expresses causation (\"to cause to do\" or \"to make become\"). Depending on the phonological structure of the stem, vowel alternations may occur. Representative examples are shown below.\n\nCausative prefix\nPrimary verb\nMeaning\nCausative\nMeaning\n\nss-\n\nkcem\n\"to enter\"\nssekcem\n\"to introduce\"\n\nɣer\n\"to study\"\nssɣer\n\"to teach\"\n\nagad\n\"to fear\"\nssiged\n\"to frighten\"\n\nali\n\"to go up\"\nssali\n\"to make go up\"\n\nffeɣ\n\"to go out\"\nssufeɣ\n\"to make go out\"\n\narǧu\n\"to wait\"\nssarǧu\n\"to make wait\"\n\ns-\n\nni\n\"to be threaded\"\nsni\n\"to thread\"\n\nluɣ\n\"to be troubled\"\nsluɣ\n\"to trouble\"\n\nddu\n\"to walk\"\nseddu\n\"to make walk\"\n\nassimilated (zz-, cc-)\n\nzger\n\"to cross\"\nzzger\n\"to make cross\"\n\ncceḍ\n\"to slip\"\ncciceḍ\n\"to make slip\"\n\nReflexive: The reflexive or reciprocal is formed by prefixation, most commonly with m- (often realized as me-, my- or with vowel insertion depending on the stem). The derived form typically expresses mutual or reciprocal action (e.g., “each other”). The table below illustrates representative reciprocal formations.\n\nReflexive prefix\nPrimary verb\nMeaning\nReflexive form\nMeaning\n\nm- / me-\n\nfareq\n\"to separate\"\nmfaraq\n\"to separate from each other\"\n\nbeccer\n\"to announce\"\nmbeccer\n\"to announce to each other\"\n\nzer\n\"to see\"\nmzer\n\"to see each other\"\n\ncir\n\"to announce\"\nmcir\n\"to announce mutually\"\n\nmy- (before vowel-initial stems)\n\nečč\n\"to eat\"\nmyečč\n\"to eat together / each other\"\n\nerẓ\n\"to break\"\nmyerẓ\n\"to break each other\"\n\nger\n\"to put\"\nmyeger\n\"to put mutually\"\n\nme- (with vowel insertion)\n\nsteqsi\n\"to question\"\nmesteqsi\n\"to question each other\"\n\nbudd\n\"to wish\"\nmbudd\n\"to wish mutually\"\n\nPassive: The passive is formed by prefixation to the primary verb stem. The most common passive markers are ttu- and ttwa-, although other prefixes such as tt-, mm(e)-, n- and nn(e)- also occur depending on the verb class. The table below illustrates representative passive formation.\n\nPassive prefix\nPrimary verb\nMeaning\nPassive form\nMeaning\n\nttu- / ttwa-\n\nkrez\n\"to plough\"\nttwakrez\n\"to be ploughed\"\n\nwet\n\"to strike\"\nttwet\n\"to be struck\"\n\nrki\n\"to knead\"\nttwirki\n\"to be kneaded\"\n\nlebbes\n\"to plaster\"\nttulebbes\n\"to be plastered\"\n\nmm(e)-\n\nzer\n\"to see\"\nmmzer\n\"to be seen\"\n\nels\n\"to wear\"\nmmels\n\"to be worn\"\n\nečč\n\"to eat\"\nmmečč\n\"to be eaten\"\n\nn- / nne-\n\nedem\n\"to damage\"\nnneɣdam\n\"to be damaged\"\n\nzmi\n\"to press\"\nnnezmi\n\"to be pressed\"\n\nComplex forms: obtained by combining two or more of the previous prefixes:\n\nenɣ \"to kill\" → mmenɣ \"to kill each other\" → smenɣ \"to make to kill each other\"\nTwo prefixes can cancel each other:\n\nenz \"to be sold\" → zzenz \"to sell\"  → ttuzenz \"to be sold\" (ttuzenz = enz !!).",
+          "examples": [
+            "Causative: The causative or factitive is formed primarily by prefixation of ss- to the verbal stem. The derived form typically expresses causation (\"to cause to do\" or \"to make become\"). Depending on the phonological structure of the stem, ",
+            "\"to enter\"",
+            "\"to introduce\"",
+            "\"to study\"",
+            "\"to teach\"",
+            "\"to fear\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Agent noun",
+          "body": "Every verb has a corresponding agent noun. In English it could be translated into verb+er. It is obtained by prefixing the verb with « am- » or with « an- » if the first letter is b / f / m / w (there are exceptions however).\n\nExamples:\n\nṭṭef \"to hold\" → anaṭṭaf \"holder\"\ninig \"to travel\" → iminig \"traveller\"\neks \"to graze\" → ameksa \"shepherd\"",
+          "examples": [
+            "Examples:",
+            "ṭṭef \"to hold\" → anaṭṭaf \"holder\"",
+            "inig \"to travel\" → iminig \"traveller\"",
+            "eks \"to graze\" → ameksa \"shepherd\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Action noun",
+          "body": "Every verb has a corresponding action noun, which in English it could be translated into verb+ing:\n\nffer \"to hide\" → tuffra \"hiding\" (stem VI), « Tuffra n tidett ur telhi » — \"Hiding the truth is bad\".\nThere are 6 regular stems of forming action nouns, and the 7th is for quality verbs : (C for consonant, V for vowel)\n\nStem\n\nVerb\n\nAction noun\n\nI\n\nCVCV\n\naCVC\n\nII\n\nC(C)VC(C)\n\naC(C)VC(C)V\n\nIII\n\nC(C)eCC\n\naC(C)eCCi\n\nIV\n\n(C)CaC(C)\n\na(C)CaC(C)i\n\nV\n\nC1C2eC3\n\naCCaC\n\nVI\n\nCCeC\n\ntuCCCa\n\nVII\n\niC1C2VC3\n\nteC1C2eC3\n\nExamples:\n\nɣeẓẓ \"to bite\" → aɣẓaẓ\nzdi \"to be united\" → azday\nini \"to say\" → timenna",
+          "examples": [
+            "ffer \"to hide\" → tuffra \"hiding\" (stem VI), « Tuffra n tidett ur telhi » — \"Hiding the truth is bad\".",
+            "Examples:",
+            "ɣeẓẓ \"to bite\" → aɣẓaẓ",
+            "zdi \"to be united\" → azday",
+            "ini \"to say\" → timenna"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Pronouns",
+      "summary": "Person\n\nSingular\n\nPlural\n\n1st (m)\n\nnekk / nekkini\n\nnekni\n\n1st (f)\n\nnekk / nekkini\n\nnekkenti\n\n2nd (m)\n\nkečč / keččini\n\nkunwi / kenwi\n\n2nd (f)\n\nkemm / kemmini\n\nkunnemti / kennemti\n\n3rd (m)\n\nnetta / nettan / nettani\n\nnutni / nitni\n\n3rd (f)\n\nnettat\n\nnutenti / nitenti\n\nExample : « Ula",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "Person\n\nSingular\n\nPlural\n\n1st (m)\n\nnekk / nekkini\n\nnekni\n\n1st (f)\n\nnekk / nekkini\n\nnekkenti\n\n2nd (m)\n\nkečč / keččini\n\nkunwi / kenwi\n\n2nd (f)\n\nkemm / kemmini\n\nkunnemti / kennemti\n\n3rd (m)\n\nnetta / nettan / nettani\n\nnutni / nitni\n\n3rd (f)\n\nnettat\n\nnutenti / nitenti\n\nExample : « Ula d nekk. » — \"Me too.\"",
+          "examples": [
+            "Example : « Ula d nekk. » — \"Me too.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Possessive pronouns",
+          "body": "There are three types of possessive pronouns: isolated, suffixes, and those of names of relatives.\n\n1-Isolated (or independent): \n\nPerson\n\nSingular\n\nPlural\n\n1st (m)\n\ninu\n\nnneɣ\n\n1st (f)\n\ninu\n\nnnteɣ\n\n2nd (m)\n\ninek\n\nnwen\n\n2nd (f)\n\ninem\n\nnkent\n\n3rd (m)\n\nines\n\nnsen\n\n3rd (f)\n\nines\n\nnsent\n\nIsolated possessive pronouns can be placed before or after the possessed noun:\n\nAfter: « Axxam agi inu »— Lit. \"House-this-my\" or \"This is my house\"\n\nBefore: « Inu wexxam agi » —Lit. \"My-house-this\" or \"This is my house\"; If the possessive pronoun comes before the possessed noun, then the possessed noun takes the annexed state.\n\n2-Suffix: it comes after the possessed noun, and it is linked to it by a hyphen. \n\nPerson\n\nSingular\n\nPlural\n\n1st (m)\n\n-iw\n\n-nneɣ\n\n1st (f)\n\n-iw\n\n-nnteɣ\n\n2nd (m)\n\n-ik\n\n-nwen\n\n2nd (f)\n\n-im\n\n-nkent\n\n3rd (m)\n\n-is\n\n-nsen\n\n3rd (f)\n\n-is\n\n-nsent\n\nExample : « Axxam-nneɣ. » — \"Our house.\" (House-our)\n\n3-Possessive pronouns of the names of relatives:\n\nPerson\n\nSingular\n\nPlural\n\n1st (m)\n\n∅\n\n-tneɣ\n\n1st (f)\n\n∅\n\n-nteɣ\n\n2nd (m)\n\n-k\n\n-twen\n\n2nd (f)\n\n-m\n\n-tkent\n\n3rd (m)\n\n-s\n\n-tsen\n\n3rd (f)\n\n-s\n\n-tsent\n\nWhen the name of the relative does not have a possessive pronoun, it means by default \"my\", for example: ∅ baba \"my father\"; whereas baba-s means \"his father\" or \"her father\".",
+          "examples": [
+            "After: « Axxam agi inu »— Lit. \"House-this-my\" or \"This is my house\"",
+            "Before: « Inu wexxam agi » —Lit. \"My-house-this\" or \"This is my house\"; If the possessive pronoun comes before the possessed noun, then the possessed noun takes the annexed state.",
+            "Example : « Axxam-nneɣ. » — \"Our house.\" (House-our)",
+            "When the name of the relative does not have a possessive pronoun, it means by default \"my\", for example: ∅ baba \"my father\"; whereas baba-s means \"his father\" or \"her father\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Pronouns of the verb",
+          "body": "Direct object\n\nPerson\n\nSingular\n\nPlural\n\n1st (m)\n\n(i)yi\n\nɣ / (y)aɣ / naɣ / (y)anaɣ\n\n1st (f)\n\n(i)yi\n\nɣ / (y)aɣ / tnaɣ / (y)anteɣ\n\n2nd (m)\n\n(i)k\n\n(i)ken\n\n2nd (f)\n\n(i)kem\n\n(i)kent\n\n3rd (m)\n\n(i)t\n\n(i)ten\n\n3rd (f)\n\n(i)tt\n\n(i)tent\n\nExample : « Yuɣ-it. » — \"He bought it.\" (He.bought-it)\n\nIndirect object\n\nPerson\n\nSingular\n\nPlural\n\nLong form\n\nShort form\n\nLong form\n\nShort form\n\n1st (m)\n\n(i)yi\n\nyi\n\nɣ / (y)aɣ\n\nɣ\n\n1st (f)\n\n(i)yi\n\nyi\n\nɣ / (y)aɣ\n\nɣ\n\n2nd (m)\n\n(y)ak\n\nk\n\n(y)awen\n\nwen\n\n2nd (f)\n\n(y)am\n\nm\n\n(y)akent\n\nkent\n\n3rd (m)\n\n(y)as\n\ns\n\n(y)asen\n\nsen\n\n3rd (f)\n\n(y)as\n\ns\n\n(y)asent\n\nsent\n\nExample : « Yenna-yas. » — \"He said to him.\" (He.said-to.him)\n\nComplex example (Mixing indirect and direct object) : « Yefka-yas-t. » — \"He gave it to him.\" (He.gave-to.him-it)",
+          "examples": [
+            "Example : « Yuɣ-it. » — \"He bought it.\" (He.bought-it)",
+            "Example : « Yenna-yas. » — \"He said to him.\" (He.said-to.him)",
+            "Complex example (Mixing indirect and direct object) : « Yefka-yas-t. » — \"He gave it to him.\" (He.gave-to.him-it)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Demonstratives",
+          "body": "There are three demonstratives, near-deictic ('this, these'), far-deictic ('that, those') and absence:\n\nSuffix: Used with a noun, example : « Axxam-agi» — \"This house.\" (House-this).\n\nNear-deictic\n\nFar-deictic\n\nAbsence\n\nSingular\nPlural\n\nSingular\nPlural\n\n(y)a / (y)agi\n\n(y)agini\n\n(y)ihin / (y)ihinna\n\n(y)inna\n\nnni\n\nIsolated : Used when we omit the subject we are speaking about : «Wagi yelha» — \"This is nice.\" (This-is.nice)\n\nNear-deictic\n\nFar-deictic\n\nAbsence\n\nSingular\nPlural\n\nSingular\nPlural\n\nSingular\nPlural\n\nmasculine\n\nwa/ wagi/ wagini\n\nwi/ wigi/ wigini\n\nwihin / wihinna\n\nwihid / wihidak \n widak-inna / wigad-inna \n widak-ihin / wigad-ihin\n\nwin / winna\n\nwid / wid-nni \n widak / widak-nni \n wigad-nni\n\nfeminine\n\nta / tagi / tagini\n\nti / tigi / tigini\n\ntihin / tihinna\n\ntihid / tihidak \n tidak-inna / tigad-inna \n tidak-ihin / tigad-ihin\n\ntin / tinna\n\ntid / tid-nni \n tidak / tidak-nni \n tigad-nni",
+          "examples": [
+            "Suffix: Used with a noun, example : « Axxam-agi» — \"This house.\" (House-this).",
+            "Isolated : Used when we omit the subject we are speaking about : «Wagi yelha» — \"This is nice.\" (This-is.nice)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Numerotation",
+          "body": "Only the first two numbers are Berber; for higher numbers, Arabic is used. They are yiwen (f. yiwet) \"one\", sin (f. snat) \"two\".[1] The noun being counted follows it in the genitive: sin n yirgazen \"two men\".\n\n\"First\" and \"last\" are respectively amezwaru and aneggaru (regular adjectives).  Other ordinals are formed with the prefix wis (f. tis): wis sin \"second (m.)\", tis tlata \"third (f.)\", etc.",
+          "examples": [
+            "Only the first two numbers are Berber; for higher numbers, Arabic is used. They are yiwen (f. yiwet) \"one\", sin (f. snat) \"two\".[1] The noun being counted follows it in the genitive: sin n yirgazen \"two men\".",
+            "\"First\" and \"last\" are respectively amezwaru and aneggaru (regular adjectives).  Other ordinals are formed with the prefix wis (f. tis): wis sin \"second (m.)\", tis tlata \"third (f.)\", etc."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Prepositions",
+          "body": "Prepositions precede their objects: « i medden » \"to the people\", « si temdint » \"from the town\".   All words preceded by a preposition (at the exception of « s » and « ar », \"towards\", \"until\" ) take their annexed state.\n\nSome prepositions have two forms : one is used with pronominal suffixes and the other form is used in all other contexts.\n\nAlso some of these prepositions have a corresponding relative pronoun (or interrogative), example:\n\n« i » \"for/to\" → « iwumi » \"to whom\"\n« Tefka aksum i wemcic » \"she gave meat to the cat\" → « Amcic iwumi tefka aksum » \"The cat to whom she gave meat\"\n\nKabyle prepositions\n\nPreposition\n\nWith suffixes\n\nTranslation equivalent\n\nCorresponding Relative pronoun\n\nTranslation equivalent\n\nd\nyid- / did-\n'and, with, in the company of'\n(w)ukud / wi d\n'with whom'\n\ni\n—\n'for, to' (dative)\niwumi / iwimi / imi / umi / mi\n'to whom' (dative) / 'whose'\n\nɣer / ar\n—\n'to' (direction)\niɣer / ɣer way / (s)aniɣer / (s)awier / ɣer\n'to' (direction)\n\ns\n—\n'to' (direction)\nsani\n'to' (direction)\n\nɣur\n—\n'among'\n(w)uɣur / ɣur\n'among'\n\nɣef / af / f\nfell-\n'on; because of; about'\niɣef / ɣef way / ɣef wadeg / ɣef\n'on what'\n\ndeg / g / di\n—\n'in'\nideg / deg way / deg waydeg / anda / deg\n'where'\n\nseg / si / g\n—\n'from'\niseg / seg way / ansi\n'from where'\n\ns\niss- / yiss- / yis-\n'with, by means of, using' (instrumental)\ns ways / s wacu / s / iss / is\n'with what' (instrumental)\n\nger\ngar-\n'between'\n—\n—\n\nn\n—\n'of'\n—\n—\n\nnnig / sennig\n—\n'on top of'\n—\n—\n\nddaw / seddaw\n—\n'beneath, under'\n—\n—\n\nar\n—\n'until'\n—\n—\n\ndeffir\n—\n'behind'\n—\n—\n\nzdat / zzat\n—\n'in front of'\n—\n—\n\nam\n—\n'like, as'\n—\n—",
+          "examples": [
+            "Prepositions precede their objects: « i medden » \"to the people\", « si temdint » \"from the town\".   All words preceded by a preposition (at the exception of « s » and « ar », \"towards\", \"until\" ) take their annexed state.",
+            "« i » \"for/to\" → « iwumi » \"to whom\"",
+            "« Tefka aksum i wemcic » \"she gave meat to the cat\" → « Amcic iwumi tefka aksum » \"The cat to whom she gave meat\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        },
+        {
+          "heading": "Conjunctions",
+          "body": "Conjunctions precede the verb: mi yiwweḍ \"when he arrived\", muqel ma yusa-d \"see if he came\".",
+          "examples": [
+            "Conjunctions precede the verb: mi yiwweḍ \"when he arrived\", muqel ma yusa-d \"see if he came\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kabyle_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

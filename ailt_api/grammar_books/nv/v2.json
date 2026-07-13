@@ -1,0 +1,156 @@
+{
+  "title": "Grammar Book — Diné bizaad",
+  "languageCode": "nv",
+  "languageName": "Diné bizaad",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Navajo_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Navajo language\nThis article needs more citations. Please help improve this article by adding citations to reliable sources. Unsourced material may be challenged and removed.\nFind sources: \"Navajo grammar\" – news · newspapers · books · scholar · JSTOR  (November 20",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Navajo language\nThis article needs more citations. Please help improve this article by adding citations to reliable sources. Unsourced material may be challenged and removed.\nFind sources: \"Navajo grammar\" – news · newspapers · books · scholar · JSTOR  (November 2017) (Learn how and when to remove this message)\nNavajo is a \"verb-heavy\" language – it has a great preponderance of verbs but relatively few nouns. In addition to verbs and nouns, Navajo has other elements such as pronouns, clitics of various functions, demonstratives, numerals, postpositions, adverbs, and conjunctions, among others. Harry Hoijer grouped all of the above into a word-class he called particles (i.e., Navajo would then have verbs, nouns, and particles). Navajo has no words that would correspond to adjectives in English grammar: verbs provide the adjectival functionality.",
+          "examples": [
+            "Find sources: \"Navajo grammar\" – news · newspapers · books · scholar · JSTOR  (November 2017) (Learn how and when to remove this message)",
+            "Navajo is a \"verb-heavy\" language – it has a great preponderance of verbs but relatively few nouns. In addition to verbs and nouns, Navajo has other elements such as pronouns, clitics of various functions, demonstratives, numerals, postposi"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Verbs",
+      "summary": "The key element in Navajo is the verb. Verbs are composed of an abstract stem to which inflectional or derivational prefixes are added. Every verb must have at least one prefix. The prefixes are affixed to the verb in a specified order.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The key element in Navajo is the verb. Verbs are composed of an abstract stem to which inflectional or derivational prefixes are added. Every verb must have at least one prefix. The prefixes are affixed to the verb in a specified order.\n\nThe Navajo verb can be sectioned into different components.[1] The verb stem is composed of an abstract root and an often fused suffix. The stem together with a \"classifier\" prefix (and sometimes other thematic prefixes) make up the verb theme. The thematic prefixes are prefixes that are non-productive, have limited derivational function, and no longer have a clearly defined meaning. Examples of thematic prefixes include the archaic yá- prefix, which only occurs on the verb stem -tééh/-tiʼ meaning \"to talk\" as in yáłtiʼ \"he's talking\". The theme is then combined with derivational prefixes that in turn make up the verb base. Finally, inflectional prefixes (which Young & Morgan call \"paradigmatic prefixes\") are affixed to the base – producing a complete Navajo verb.",
+          "examples": [
+            "The Navajo verb can be sectioned into different components.[1] The verb stem is composed of an abstract root and an often fused suffix. The stem together with a \"classifier\" prefix (and sometimes other thematic prefixes) make up the verb th"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        },
+        {
+          "heading": "Verb template",
+          "body": "The prefixes that occur on a Navajo verb are added in specified more or less rigid order according to prefix type.[2] This type of morphology is called a position class template (or slot-and-filler template). Below is a table of a recent proposal of the Navajo verb template (Young & Morgan 1987). A given verb does not have a prefix for every position. In fact, most Navajo verbs are not as complex as the template might suggest: the maximum number of prefixes is around eight.\n\nThe Navajo verb is composed of a verb stem and a set of prefixes. The prefixes can be divided into a conjunct prefix set and disjunct prefix set. The disjunct prefixes occur on the outer left edge of the verb. The conjunct prefixes occur after the disjunct prefixes, closer to the verb stem. Two types of prefixes can be distinguished by their different phonological behavior.\n\ndisjunct prefixes\n\nconjunct prefixes\n\nstem\n\nThe prefix complex may be subdivided into 11 positions, with some of the positions having even further subdivisions:\n\ndisjunct prefixes\n\nconjunct prefixes\n\nstem\n\n0\n\n1a\n\n1b\n\n2\n\n3\n\n4\n\n5\n\n6\n\n7\n\n8\n\n9\n\n10\n\npostposition\nobject\n\n\"null\npostposition\"\n\nadverbial-\nthematic\n\niterative\n\nplural\n\ndirect object\n\ndeictic\n\nadverbial-\nthematic\n\nmode-\naspect\n\nsubject\n\nclassifier\n\nstem\n\nAlthough prefixes are generally found in a specific position, some prefixes change order by the process of metathesis. For example, prefix ʼa- (3i object pronoun) usually occurs before di-, as in:\n\nʼadisbąąs [ ← ʼa- + di- + sh- + ł + -bąąs]\n\"I'm starting to drive some kind of wheeled vehicle along\"\nHowever, when ʼa- occurs with the prefixes di- and ni-, the ʼa- metathesizes with di-, leading to an order of di- + ʼa- + ni-, as in:\n\ndiʼnisbąąs [ ← di-ʼa-ni-sh-ł-bąąs ← ʼa- + di- + ni- + sh- + ł + -bąąs]\n\"I'm in the act of driving some vehicle (into something) & getting stuck\"\ninstead of the expected *ʼadinisbąąs (ʼa-di-ni-sh-ł-bąąs) (ʼa- is reduced to ʼ-).\n\nAlthough the verb template model of analysis has been traditionally used to describe the Navajo verb, other analyses have been proposed by Athabascanists.",
+          "examples": [
+            "\"I'm starting to drive some kind of wheeled vehicle along\"",
+            "\"I'm in the act of driving some vehicle (into something) & getting stuck\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        },
+        {
+          "heading": "Pronominal inflection",
+          "body": "This section needs expansion. You can help by adding missing information.  (May 2008)\nNavajo verbs have pronominal (i.e. pronoun) prefixes that mark both subjects and objects. The prefixes can vary in certain modes, particularly the perfective mode (See Modes section below for a discussion of modes). The prefixes are inflected according to person and number. The basic subject prefixes (and their abbreviations as used by Young & Morgan) are listed in the table below:\n\nNumber\nSubject prefixes\nObject prefixes\n\nSingular\nDual-plural\nSingular\nDual-plural\n\nFirst (1)\n\n-sh-\n-Vd-\nshi-\nnihi-\n\nSecond (2)\n\nni-\n-oh-\nni-\n\nThird (3)\n\n-∅-\nbi-\n\nThird (3o)\n\nyi-\n\nFourth (3a)\n\nji-\nha- ~ ho-\n\nIndefinite (3i)\n\nʼa-\nʼa-\n\nSpace (3s)\n\nha- ~ ho-\nha- ~ ho-\n\nReflexive\n\n–\n(ʼá)-di-\n\nReciprocal\n\n–\nʼahi-\n\nThe subject prefixes occur in two different positions. The first and second subject prefixes (-sh-, -Vd-, ni-, -oh-) occur in position 8 directly before the classifier prefixes. The fourth, indefinite, and \"space\" subject prefixes (ji-, ʼa-, ha-~ho-) are known as \"deictic subject pronouns\" and occur in position 5. The third person subject is marked by the absence of a prefix, which is usually indicated with a zero prefix -∅- in position 8. The object prefixes can occur in position 4 as direct objects, in position 1a as \"null postpositions\", or in position 0 as the object of postpositions that have been incorporated into the verb complex.\n\nThe fourth person subject prefix ji- is a kind of obviative third person. It refers primarily to persons or personified animals (unlike the regular third person). It has a number of uses including:\n\nreferring to the main character in narratives\n\ndistinguishing between two third person referents\n\nreferring politely or impersonally to certain socially-distant individuals (e.g. when speaking to opposite-sex siblings and relatives through marriage, giving admonitions, speaking of the dead)\n\nWhen used as an impersonal, it may be translated into English as \"one\" as in béésh bee njinéego hálaʼ da jiigish \"one can cut one's hand playing with knives\". The \"space\" prefix can be translated as \"area, place, space, impersonal it\" as in halgai \"the area/place is white\" and nahałtin \"it is raining\". The prefix has two forms: ha- and ho- with ho- having derived forms such as hw- and hwi-.\n\nAn example paradigm for \"to freeze\" (imperfective mode) showing the subject prefixes:\n\nSingular\n\nDual-Plural\n\nFirst\n\nyishtin\n\n\"I freeze\"\n\nyiitin\n\n\"we (2+) freeze\"\n\nSecond\n\nnitin\n\n\"you freeze\"\n\nwohtin\n\n\"you (2+) freeze\"\n\nThird\n\nyitin \"he/she/it/they freeze\"\n\nFourth (3a)\n\njitin \"he/she/they freeze\"\n\nIndefinite (3i)\n\natin \"someone/something freezes\"",
+          "examples": [
+            "The subject prefixes occur in two different positions. The first and second subject prefixes (-sh-, -Vd-, ni-, -oh-) occur in position 8 directly before the classifier prefixes. The fourth, indefinite, and \"space\" subject prefixes (ji-, ʼa-",
+            "When used as an impersonal, it may be translated into English as \"one\" as in béésh bee njinéego hálaʼ da jiigish \"one can cut one's hand playing with knives\". The \"space\" prefix can be translated as \"area, place, space, impersonal it\" as in",
+            "An example paradigm for \"to freeze\" (imperfective mode) showing the subject prefixes:",
+            "\"I freeze\"",
+            "\"we (2+) freeze\"",
+            "\"you freeze\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nouns",
+      "summary": "Many concepts expressed using nouns in other languages appear as verbs in Navajo. The majority of true nouns are not inflected for number, and there is no case marking. Noun phrases are often not needed to form grammatical sentences due to the informational content of the verb.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Many concepts expressed using nouns in other languages appear as verbs in Navajo. The majority of true nouns are not inflected for number, and there is no case marking. Noun phrases are often not needed to form grammatical sentences due to the informational content of the verb.\n\nThere are two main types of nouns in Navajo:\n\nsimple nouns and\n\nnouns derived from verbs (called deverbal nouns)\n\nThe simple nouns can be distinguished by their ability to be inflected with a possessive prefix, as in\n\nNoun stem\n\nGloss\n\nInflected\n\nbéésh\n\n\"knife\"\n\nbibéézhbi-\n\n3.POSS\n\nbéézh\n\nknife\n\nbi- béézh\n\n3.POSS knife\n\n\"her knife\"\n\nhééł\n\n\"pack\"\n\nshiyéélshi-\n\n1SG.POSS\n\nyéél\n\npack\n\nshi- yéél\n\n1SG.POSS pack\n\n\"my pack\"",
+          "examples": [
+            "\"knife\"",
+            "\"her knife\"",
+            "\"pack\"",
+            "\"my pack\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        },
+        {
+          "heading": "Deverbal nouns",
+          "body": "Deverbal nouns are verbs (or verb phrases) that have been nominalized with a nominalizing enclitic or converted into a noun through zero derivation (that is, verbs that are used syntactically as nouns without an added nominalizer).\n\nnáʼoolkiłínáʼoolkił\n\nit.is.moved.slowly.in.a.circle\n\n=í\n\nNMZ\n\nnáʼoolkił =í\n\n{it.is.moved.slowly.in.a.circle} NMZ\n\n\"clock\"\n\nhataałiihataał\n\nhe.sings\n\n=ii\n\nNMZ\n\nhataał =ii\n\n{he.sings} NMZ\n\n\"singer\"\n\nConverted deverbal nouns include chʼéʼétiin \"exit, doorway\" and Hoozdo \"Phoenix, Arizona\". When used as verbs, chʼéʼétiin may be translated into English as \"something has a path horizontally out\" and hoozdo as \"place/space is hot\".\n\nDeverbal nouns can potentially be long and complex, such as:\n\nchidí naaʼnaʼí beeʼeldǫǫhtsoh bikááʼ dah naaznilígííchidí naaʼnaʼí\n\ntractor\n\nbeeʼeldǫǫhtsoh\n\ncannon\n\nbikááʼ\n\non.it\n\ndah naaznil\n\nthey.sit up\n\n=ígíí\n\nNMZ\n\n{chidí naaʼnaʼí} beeʼeldǫǫhtsoh bikááʼ {dah naaznil} =ígíí\n\ntractor cannon {on.it} {they.sit up} NMZ\n\n\"army tank\"",
+          "examples": [
+            "\"clock\"",
+            "\"singer\"",
+            "Converted deverbal nouns include chʼéʼétiin \"exit, doorway\" and Hoozdo \"Phoenix, Arizona\". When used as verbs, chʼéʼétiin may be translated into English as \"something has a path horizontally out\" and hoozdo as \"place/space is hot\".",
+            "\"army tank\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Most nouns are not inflected for number.[16] Plurality is usually encoded directly in the verb through the use of various prefixes or aspects, though this is by no means mandatory. In the following example, (2) is used with the plural prefix da- and switches to the distributive aspect.\n\n(1)Kin\n\nkin\n\nhouse\n\náshłééh.\n\ná-Ø-sh-łééh\n\nmake-3.OBJ-1.SUBJ-make.MOM.IMPF\n\nKin áshłééh.\n\nkin á-Ø-sh-łééh\n\nhouse make-3.OBJ-1.SUBJ-make.MOM.IMPF\n\n'I build a house.'\n\n(2)Kin\n\nkin\n\nhouse\n\nádaashleʼ.\n\ná-da-Ø-sh-łeʼ\n\nmake-PL-3.OBJ-1.SUBJ-make.DIST.IMPF\n\nKin ádaashleʼ.\n\nkin á-da-Ø-sh-łeʼ\n\nhouse make-PL-3.OBJ-1.SUBJ-make.DIST.IMPF\n\n'I build houses.'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        },
+        {
+          "heading": "Possession",
+          "body": "Possession in Navajo is expressed with personal pronoun prefixes:\n\nSingular\n\nDual\n\nPlural\n\nFirst\n\nshi-\n\nnihi-\n\ndanihi-\n\nSecond\n\nni-\n\nnihi-\n\ndanihi-\n\nThird\n\nbi-\n\nFourth (3o)\n\nyi-\n\nFourth (3a)\n\nha-, hw-\n\nIndefinite (3i)\n\na-\n\nMost of the time, these prefixes take a low tone, but in some nouns and postpositions, the final syllable of the prefix takes a high tone, such as shílaʼ \"my hand,\" nihílaʼ \"our/your hand.\"\n\nThe prefixes are also used when the possessor in a possessive phrase is a noun, as in:\n\nJáan\n\nJohn\n\nbimá\n\nhis-mother\n\nJáan bimá\n\nJohn his-mother\n\n\"John's mother\"\n\nNavajo marks inalienable possession for certain nouns – relatives, body parts, homes and dens.  These nouns can only appear with a possessive prefix, as in shimá \"my mother.\"  If one wishes to speak of mothers in general, the 3rd person indefinite prefix ʼa- \"someone's\" is used, amá.",
+          "examples": [
+            "Most of the time, these prefixes take a low tone, but in some nouns and postpositions, the final syllable of the prefix takes a high tone, such as shílaʼ \"my hand,\" nihílaʼ \"our/your hand.\"",
+            "\"John's mother\"",
+            "Navajo marks inalienable possession for certain nouns – relatives, body parts, homes and dens.  These nouns can only appear with a possessive prefix, as in shimá \"my mother.\"  If one wishes to speak of mothers in general, the 3rd person ind"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Postpositions",
+      "summary": "Navajo uses a number of postpositions where European languages tend to favor prepositions; thus, all spatial and most other relations such as under, on, or above are expressed by using the possessive prefix in combination with a postposition. All postpositions are inalienable, me",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Navajo uses a number of postpositions where European languages tend to favor prepositions; thus, all spatial and most other relations such as under, on, or above are expressed by using the possessive prefix in combination with a postposition. All postpositions are inalienable, meaning that a prefix or fusion with a true noun is mandatory.\n\nExamples include:\n\nbiyaa (under it)\n\nbikááʼ (on it)\n\nbitah (among it)\n\nThese can be combined with all prefixes to construct forms such as shiyaa (under me). Occasionally, postpositions are fused with true nouns to form a single word, such as Dinétah.",
+          "examples": [
+            "Examples include:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Numerals",
+      "summary": "Problems playing this file? See media help.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Navajo numbers 1 to 10\n\nProblems playing this file? See media help.\n\nNavajo uses a decimal (base-10) numeral system. There are unique words for the cardinal numbers 1–10. The numerals 11–19 are formed by adding an additive \"plus 10\" suffix -tsʼáadah to the base numerals 1–9. The numerals 20–100 are formed by adding a multiplicative \"times 10\" suffix -diin to the base numerals 2–10.[17]\n\nbase numeral\n\n+10 (-tsʼáadah)\n\n × 10 (-diin)\n\n1\n\ntʼááłáʼí\nłaʼtsʼáadah\n(11)\n\n–\n\n2\n\nnaaki\nnaakitsʼáadah\n(12)\nnaadiin\n(20)\n\n3\n\ntááʼ\ntááʼtsʼáadah\n(13)\ntádiin\n(30)\n\n4\n\ndį́į́ʼ\ndį́į́ʼtsʼáadah\n(14)\ndízdiin\n(40)\n\n5\n\nashdlaʼ\nashdlaʼáadah\n(15)\nashdladiin\n(50)\n\n6\n\nhastą́ą́\nhastą́ʼáadah\n(16)\nhastą́diin\n(60)\n\n7\n\ntsostsʼid\ntsostsʼidtsʼáadah\n(17)\ntsostsʼidiin\n(70)\n\n8\n\ntseebíí\ntseebíítsʼáadah\n(18)\ntseebídiin\n(80)\n\n9\n\nnáhástʼéí\nnáhástʼéítsʼáadah\n(19)\nnáhástʼédiin\n(90)\n\n10\n\nneeznáá\n\n–\n\nneeznádiin\n(100)\n\nIn the compound numerals, the combining forms of the base numerals have irregular vowel and consonants changes. The numeral \"1\" has three forms:\n\nłáaʼii (used in counting \"one\", \"two\", \"three\", etc.)\n\n-łaʼ- (a shortened combining form)\n\ntʼááłáʼí (used in larger numbers and with a distributive plural prefix)\n\nThe combining form łaʼ- is used in the compound łaʼ-tsʼáadah \"11\". The numeral tááʼ loses the final ʼ consonant while the final vowel in hastą́ą́ is shortened when the -tsʼáadah \"+10\" suffix is added. The suffix loses its initial tsʼ becoming  -áadah when added to ashdlaʼ \"5\". Several changes occur when the -diin suffix is added involving a loss of the final consonant or a reduction in vowel length:\n\nnaaki → naa-\n\ntááʼ → tá-\n\ndį́į́ʼ → díz-\n\nashdlaʼ → ashdla-\n\nhastą́ą́ → hastą́-\n\ntsostsʼid → tsostsʼi-\n\ntseebíí → tseebí-\n\nnáhástʼéí → náhástʼé-\n\nneeznáá → neezná-\n\nFor the cardinal numerals higher than 20 between the multiples of 10 (i.e., 21–29, 31–39, 41–49, etc.), there are two types of formations. The numerals 21–29 and 41–49 are formed by suffixing the ones digit to the tens digit, as in:\n\nnaadįįnaaki\n\n22\n\n←\n\n=\n\nnaadiin\n\n20\n\n \n\n+\n\nnaaki\n\n2\n\nnaadįįnaaki ← naadiin {} naaki\n\n22 = 20 + 2\n\ndízdįįłaʼ\n\n41\n\n←\n\n=\n\ndízdiin\n\n40\n\n \n\n+\n\n-łaʼ\n\n1\n\ndízdįįłaʼ ← dízdiin {} -łaʼ\n\n41 = 40 + 1\n\nHere the -diin suffix appears in the combining form -dįį-. The combining form -łá \"1\" is used as well:\n\n20\n\n40\n\nnaadiin\n(20)\ndízdiin\n(40)\n\n21–29\n\n41–49\n\nnaadįįłaʼ\n(21)\ndízdįįłaʼ\n(41)\n\nnaadįįnaaki\n(22)\ndízdįįnaaki\n(42)\n\nnaadįįtááʼ\n(23)\ndízdįįtááʼ\n(43)\n\nnaadįįdį́į́ʼ\n(24)\ndízdįįdį́į́ʼ\n(44)\n\nnaadįįʼashdlaʼ\n(25)\ndízdįįʼashdlaʼ\n(45)\n\nnaadįįhastą́ą́\n(26)\ndízdįįhastą́ą́\n(46)\n\nnaadįįtsostsʼid\n(27)\ndízdįįtsostsʼid\n(47)\n\nnaadįįtseebíí\n(28)\ndízdįįtseebíí\n(48)\n\nnaadįįnáhástʼéí\n(29)\ndízdįįnáhástʼéí\n(49)\n\nThe other numerals are formed by placing dóó baʼąą \"and in addition to it\" between the tens digit and the ones digit, as in:\n\ntádiin\n\n30\n\ndóó baʼąą\n\n+\n\ntʼááłáʼí\n\n1\n\n \n\n=\n\n \n\n31\n\ntádiin {dóó baʼąą} tʼááłáʼí {} {}\n\n30 + 1 = 31\n\nashdladiin\n\n50\n\ndóó baʼąą\n\n+\n\ntʼááʼ\n\n3\n\n \n\n=\n\n \n\n53\n\nashdladiin {dóó baʼąą} tʼááʼ {} {}\n\n50 + 3 = 53\n\nThe numerals 41–49 may also be formed in this manner:\n\ndízdiin\n\n40\n\ndóó baʼąą\n\n+\n\nnaaki\n\n2\n\n \n\n=\n\n \n\n42\n\ndízdiin {dóó baʼąą} naaki {} {}\n\n40 + 2 = 42\n\nor\n\ndízdiin\n\n40\n\n \n\n+\n\nnaaki\n\n2\n\n→\n\n=\n\ndízdįįnaaki\n\n42\n\ndízdiin {} naaki → dízdįįnaaki\n\n40 + 2 = 42\n\nThe cardinal numerals 100–900 are formed by adding the multiplicative enclitic =di to the base numerals 1–9 and adding the word for \"hundred\" neeznádiin, as in:\n\nbase numeral\n × 100 (=di + neeznádiin)\n\n1\n\ntʼááłáʼí\ntʼááłáhádí neeznádiin (100)\n\n2\n\nnaaki\nnaakidi neeznádiin (200)\n\n3\n\ntááʼ\ntáadi neeznádiin (300)\n\n4\n\ndį́į́ʼ\ndį́įʼdi neeznádiin (400)\n\n5\n\nashdlaʼ\nashdladi neeznádiin (500)\n\n6\n\nhastą́ą́h\nhastą́ądi neeznádiin (600)\n\n7\n\ntsostsʼid\ntsostsʼidi neeznádiin (700)\n\n8\n\ntseebíí\ntseebíidi neeznádiin (800)\n\n9\n\nnáhástʼéí\nnáhástʼéidi neeznádiin (900)\n\nThe base numerals with a high tone in the last syllable change to a falling tone before =di.\n\nFor the thousands, the word mííl (from Spanish mil) is used in conjunction with =di:\n\ntʼááłáhádí mííl \"one thousand\"\n\nnaakidi mííl \"two thousand\"\n\nThe word for \"million\" is formed by adding the stem -tsoh \"big\" to mííl: mííltsoh \"million\" as in:\n\ntʼááłáhádí mííltsoh \"one million\"\n\nnaakidi mííltsoh \"two million\"",
+          "examples": [
+            "Navajo uses a decimal (base-10) numeral system. There are unique words for the cardinal numbers 1–10. The numerals 11–19 are formed by adding an additive \"plus 10\" suffix -tsʼáadah to the base numerals 1–9. The numerals 20–100 are formed by",
+            "In the compound numerals, the combining forms of the base numerals have irregular vowel and consonants changes. The numeral \"1\" has three forms:",
+            "łáaʼii (used in counting \"one\", \"two\", \"three\", etc.)",
+            "The combining form łaʼ- is used in the compound łaʼ-tsʼáadah \"11\". The numeral tááʼ loses the final ʼ consonant while the final vowel in hastą́ą́ is shortened when the -tsʼáadah \"+10\" suffix is added. The suffix loses its initial tsʼ becomi",
+            "Here the -diin suffix appears in the combining form -dįį-. The combining form -łá \"1\" is used as well:",
+            "The other numerals are formed by placing dóó baʼąą \"and in addition to it\" between the tens digit and the ones digit, as in:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Navajo_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

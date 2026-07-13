@@ -1,0 +1,455 @@
+{
+  "title": "Grammar Book — Ido",
+  "languageCode": "io",
+  "languageName": "Ido",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I1",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I2",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I3",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I4",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I6",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I7",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I8",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_I9",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_II2",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_II3",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_II4",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_II5",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_III1",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_III2",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_III4",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_III5",
+    "https://en.wikibooks.org/wiki/Ido/Lesson_III7",
+    "https://en.wikipedia.org/wiki/Ido_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson I1",
+      "summary": "=== Greetings, Introduction, and Goodbyes ===",
+      "sections": [
+        {
+          "heading": "Lesson I1",
+          "body": "=== Greetings, Introduction, and Goodbyes ===\n\n\n=== Konversado ===\nHere is a conversation between two people.\nA: Bona jorno! Quale vu standas? Hello! How are you?\nM: Tre bone, danko. Quale vu nomesas? Very well, thank you. What is your name?\nA: Me nomesas Andre. E vu? I am (called) Andre. And you?\nM: Me nomesas Mei Hwa Wang. Ube vu habitas? My name is Mei Hwa Wang. Where do you live?\nA: Me habitas Paris. Ka vu anke? I live in Paris. Do you also?\nM: No, me habitas Atlanta, Usa. Me lojas en Paris nur por un monato. No, I live in Atlanta, Usa. I am staying in Paris only for a month.\nA: Bone! Ho! Yen la autobuso. Me mustas irar. Til rivido! Great! Oh! Here comes the bus. I must go. Good-bye!\nM: Til rivido! Good-bye!",
+          "examples": [],
+          "learnerTip": "=== Greetings, Introduction, and Goodbyes ===",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson I2",
+      "summary": "=== Describing yourself and others ===\nRamon es inteligenta, ma ociema. Ramon is intelligent but lazy.\nLa long-hara viro ne es vicino di Xavier. The long-haired man is not Xavier's neighbour.\nQuante vu evas? How old are you?\nElua matro evas sisadek e sep yari. Her mother is sixty",
+      "sections": [
+        {
+          "heading": "Lesson I2",
+          "body": "=== Describing yourself and others ===\nRamon es inteligenta, ma ociema. Ramon is intelligent but lazy.\nLa long-hara viro ne es vicino di Xavier. The long-haired man is not Xavier's neighbour.\nQuante vu evas? How old are you?\nElua matro evas sisadek e sep yari. Her mother is sixty seven years old.\nSioro Schenck es mez-eva viro. Mr. Schenck is a middle-aged man.\nLua grand-eva genitori habitas en Leipzig. His elderly parents live in Leipzig.\nKa vu vidis la preske sen-hara hundo? Did you see the almost hairless dog?\nElu havas sanguina temperamento. She has a sanguine disposition (or temperament).",
+          "examples": [],
+          "learnerTip": "=== Describing yourself and others ===\nRamon es inteligenta, ma ociema. Ramon is intelligent but lazy.\nLa long-hara viro ne es vicino di Xavier. The long-haired man is not Xavier's neighbour.\nQuante v",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I2"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson I3",
+      "summary": "1 un\n2 du\n3 tri\n4 quar\n5 kin\n6 sis\n7 sep\n8 ok\n9 non\n10 dek",
+      "sections": [
+        {
+          "heading": "Lesson I3",
+          "body": "Numbers\n\n1 un\n2 du\n3 tri\n4 quar\n5 kin\n6 sis\n7 sep\n8 ok\n9 non\n10 dek\n   \n11 dek-e-un\n12 dek-e-du\n13 dek-e-tri\n14 dek-e-quar\n15 dek-e-kin\n16 dek-e-sis\n17 dek-e-sep\n18 dek-e-ok\n19 dek-e-non\n   \n20 duadek\n21 duadek-e-un\n22 duadek-e-du\n23 duadek-e-tri\n   \n30 triadek\n40 quaradek\n50 kinadek\n60 sisadek\n70 sepadek\n80 okadek\n90 nonadek\n99 nonadek-e-non\n   \n100 cent\n101 cent-e-un\n132 cent-e-tridek-e-du\n200 duacent\n400 quaracent\n   \n1000 mil\n2000 duamil\n6500 sisamil-e-kinacent\n   \nmillion miliono\nbillion miliardo\ntrillion biliono",
+          "examples": [],
+          "learnerTip": "1 un\n2 du\n3 tri\n4 quar\n5 kin\n6 sis\n7 sep\n8 ok\n9 non\n10 dek",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I3"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Lesson I4",
+      "summary": "blanka - white\nblua - blue\nbruna - brown\nflava - yellow\ngriza - grey\nnigra - black\npurpura - purple\noranjea - orange\nreda - red\nrozea - pink\nverda - green\nviolea - violet",
+      "sections": [
+        {
+          "heading": "Lesson I4",
+          "body": "Colours are adjectives.\n\nblanka - white\nblua - blue\nbruna - brown\nflava - yellow\ngriza - grey\nnigra - black\npurpura - purple\noranjea - orange\nreda - red\nrozea - pink\nverda - green\nviolea - violet",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I4"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lesson I6",
+      "summary": "familio family, kin\nmatro mother\npatro father\nfrato sibling (brother or sister)\nfratulo brother\nfratino sister\navo grandparent\npre-avo great grandparent, forefather\nnepoto grandchild\npos-nepoto great grandchild\nonklo uncle or aunt\nkuzo cousin (male or female)\nnevo nephew or niece",
+      "sections": [
+        {
+          "heading": "Lesson I6",
+          "body": "familio family, kin\nmatro mother\npatro father\nfrato sibling (brother or sister)\nfratulo brother\nfratino sister\navo grandparent\npre-avo great grandparent, forefather\nnepoto grandchild\npos-nepoto great grandchild\nonklo uncle or aunt\nkuzo cousin (male or female)\nnevo nephew or niece\nstif-patro step-father\nstif-matro step-mother",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I6"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson I7",
+      "summary": "domohouse\nchambro room\npordodoor \navana-chambrofront room\navana-pordofront door\nbalno-chambrobathroom \t\t\t\t\t\t\ndopa-chambroback room \t\t\t\ndopa-pordoback door \t\t\t\ndormo-chambrobedroom \nkoqueyokitchen \t\t\t\nlatrinotoilet/w.c. \nmanjo-chambrodining room \nsalonoparlour/ sitting room \nvesti",
+      "sections": [
+        {
+          "heading": "Lesson I7",
+          "body": "En la domo (In the house)\n\ndomohouse\nchambro room\npordodoor \navana-chambrofront room\navana-pordofront door\nbalno-chambrobathroom \t\t\t\t\t\t\ndopa-chambroback room \t\t\t\ndopa-pordoback door \t\t\t\ndormo-chambrobedroom \nkoqueyokitchen \t\t\t\nlatrinotoilet/w.c. \nmanjo-chambrodining room \nsalonoparlour/ sitting room \nvestibulohall \neskalerostairs/staircase \t\t\t\nfencofence \t\t\t\nfenestrowindow\t\t\t\nflurolanding \t\t\t\ngardeno garden \t\t\t\ngradostep\t\t\nmoblopiece of furniture \t\t\t\nplafonoceiling \t\t\t\nplanko-sulofloor \t\t\t\ntektoroof \nterasoterrace",
+          "examples": [],
+          "learnerTip": "domohouse\nchambro room\npordodoor \navana-chambrofront room\navana-pordofront door\nbalno-chambrobathroom \t\t\t\t\t\t\ndopa-chambroback room \t\t\t\ndopa-pordoback door \t\t\t\ndormo-chambrobedroom \nkoqueyokitchen",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I7"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson I8",
+      "summary": "El iris a la kontoro ye sis kloki kin. She left for the office at 6:05.\nOn facas kemiala experimenti en la laboratorio. Chemical experiments are performed in the laboratory.",
+      "sections": [
+        {
+          "heading": "Lesson I8",
+          "body": "El iris a la kontoro ye sis kloki kin. She left for the office at 6:05.\nOn facas kemiala experimenti en la laboratorio. Chemical experiments are performed in the laboratory.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I8"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson I9",
+      "summary": "School = Skolo\nTeacher = Instruktisto\nHigh school / College professor = Docento\nStudent = lernanto, studento\nDesk = Pupitro\nBlackboard = Nigra tabelo\nWhite board = Blanka tabelo\nChalk = Kreto or Kreta-krayono\nPen = Plumo\nPencil = Krayono\nPaper = Papero\nBook = Libro\nCopy book = Ka",
+      "sections": [
+        {
+          "heading": "Lesson I9",
+          "body": "School = Skolo\nTeacher = Instruktisto\nHigh school / College professor = Docento\nStudent = lernanto, studento\nDesk = Pupitro\nBlackboard = Nigra tabelo\nWhite board = Blanka tabelo\nChalk = Kreto or Kreta-krayono\nPen = Plumo\nPencil = Krayono\nPaper = Papero\nBook = Libro\nCopy book = Kajero",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_I9"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Lesson II2",
+      "summary": "=== Exemplo-frazi ===\nQua esas tua favorata restorerio? Which is your favorite restaurant?",
+      "sections": [
+        {
+          "heading": "Lesson II2",
+          "body": "=== En la restorerio ===\n\n\n=== Exemplo-frazi ===\nQua esas tua favorata restorerio? Which is your favorite restaurant?",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_II2"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson II3",
+      "summary": "=== Exemplo-frazi ===\nLa hospitalo ne es fore de la urbo-centro. The hospital is not far from the center of the city.\nAd-dextre vi povas vidar la anciena cinemo. To the right you can see the old cinema (movie-house).\nSingla urbo havas sua povra quarteri. Every city has its slums.",
+      "sections": [
+        {
+          "heading": "Lesson II3",
+          "body": "=== La Urbo-centro ===\n\n\n=== Exemplo-frazi ===\nLa hospitalo ne es fore de la urbo-centro. The hospital is not far from the center of the city.\nAd-dextre vi povas vidar la anciena cinemo. To the right you can see the old cinema (movie-house).\nSingla urbo havas sua povra quarteri. Every city has its slums.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_II3"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Lesson II4",
+      "summary": "=== Exemplo-frazi ===\nUbe es la strado Couturat? Where is Couturat Street?\nKande departos la sequanta treno a Madrid? When will the next train for Madrid depart?\nMontrez a me la *metropoliteno en la mapo. Show (to) me the metro (subway/underground) in the map.\nHo! La treno jus de",
+      "sections": [
+        {
+          "heading": "Lesson II4",
+          "body": "=== Urbala transport-sistemi ===\n\n\n=== Exemplo-frazi ===\nUbe es la strado Couturat? Where is Couturat Street?\nKande departos la sequanta treno a Madrid? When will the next train for Madrid depart?\nMontrez a me la *metropoliteno en la mapo. Show (to) me the metro (subway/underground) in the map.\nHo! La treno jus departis. Oh! The train just left.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_II4"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Lesson II5",
+      "summary": "A short dialogue in Ido at the reception desk:\nRoger : Bon jorno\nAceptisto: Bon jorno. Quale vu standas Sioro?\nRoger: Me standas bone, danko!\nRoger: Me volus reservar chambro.\nAceptisti: Unulita o dulita ?\nRoger: Unulita\nAceptisto: Por quanta nokti?\nRoger: Por 2 nokti.\nAceptisto:",
+      "sections": [
+        {
+          "heading": "Lesson II5",
+          "body": "Some useful words\nReservar = reserve\n\nChambro = room\n\nA short dialogue in Ido at the reception desk:\nRoger : Bon jorno\nAceptisto: Bon jorno. Quale vu standas Sioro?\nRoger: Me standas bone, danko!\nRoger: Me volus reservar chambro.\nAceptisti: Unulita o dulita ?\nRoger: Unulita\nAceptisto: Por quanta nokti?\nRoger: Por 2 nokti.\nAceptisto: Quale vu nomeskas?\nRoger: Me nomeskas Roger Bru\nAceptisto:: Donez ad me irgu vua identesilo\nRoger: Yen mea veh-permeso\nAceptisto: Bone, danko\nAceptisto: Yen vua klefo. Vua chambro-numero esas 10",
+          "examples": [],
+          "learnerTip": "A short dialogue in Ido at the reception desk:\nRoger : Bon jorno\nAceptisto: Bon jorno. Quale vu standas Sioro?\nRoger: Me standas bone, danko!\nRoger: Me volus reservar chambro.\nAceptisti: Unulita o dul",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_II5"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson III1",
+      "summary": "kapohead\nharohair (single strand)\nhararohair (collective)\nfrontoforehead\nokuloeye\nbrovoeyebrow\noreloear\nnazonose\nvangocheek\nbarbobeard\nbokomouth\nlabiolip\ndentotooth\nlangotongue\nlabio-barbomoustache\nkoloneck\nshultroshoulder\npektorochest\ndorsoback\nmamobreast\nventrobelly\ntayowaist\nh",
+      "sections": [
+        {
+          "heading": "Lesson III1",
+          "body": "Homala Korpo - The Human Body\n\nkapohead\nharohair (single strand)\nhararohair (collective)\nfrontoforehead\nokuloeye\nbrovoeyebrow\noreloear\nnazonose\nvangocheek\nbarbobeard\nbokomouth\nlabiolip\ndentotooth\nlangotongue\nlabio-barbomoustache\nkoloneck\nshultroshoulder\npektorochest\ndorsoback\nmamobreast\nventrobelly\ntayowaist\nhanchohip\nmuskulomuscle\nostobone\npeloskin\nbrakioarm\ndopa-brakioupper arm\nkudoelbow\navana-brakioforearm\nkarpowrist\nmanuohand\npolexothumb\nfingrofinger\ngamboleg\nkrurothigh\ngenuoknee\ntibioshin\nsurocalf\npedo-koloankle\npedofoot\ntalonoheel\nplandosole\nhaluxobig toe\nped-fingrotoe",
+          "examples": [],
+          "learnerTip": "kapohead\nharohair (single strand)\nhararohair (collective)\nfrontoforehead\nokuloeye\nbrovoeyebrow\noreloear\nnazonose\nvangocheek\nbarbobeard\nbokomouth\nlabiolip\ndentotooth\nlangotongue\nlabio-barbomoustache\nko",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_III1"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson III2",
+      "summary": "animismoanimism\nanjeloangel\nateistoatheist\nBudhisto*buddhist\ndeogod\ndeinogoddess\ndeismodeism\ndruidismodruidism\nHinduoHindu\nhinduismohinduism\nislamoislam, islamism\nJudoJew\njudaismojudaism\nKristanoChristian",
+      "sections": [
+        {
+          "heading": "Lesson III2",
+          "body": "Religio (Religion)\n\nanimismoanimism\nanjeloangel\nateistoatheist\nBudhisto*buddhist\ndeogod\ndeinogoddess\ndeismodeism\ndruidismodruidism\nHinduoHindu\nhinduismohinduism\nislamoislam, islamism\nJudoJew\njudaismojudaism\nKristanoChristian\n\nWords marked with * are not official.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_III2"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson III4",
+      "summary": "=== La Universo ===\nLa universo esas la maxim granda misterio. The universe is the greatest mystery.\nOl es infinita, sen-fina, e sen-limita. It is infinite, un-ending, and without limit.",
+      "sections": [
+        {
+          "heading": "Lesson III4",
+          "body": "=== La Universo ===\nLa universo esas la maxim granda misterio. The universe is the greatest mystery.\nOl es infinita, sen-fina, e sen-limita. It is infinite, un-ending, and without limit.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_III4"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson III5",
+      "summary": "Lektado=== Reading  ========= Lektar - to read ====",
+      "sections": [
+        {
+          "heading": "Lesson III5",
+          "body": "Lektado=== Reading  ========= Lektar - to read ====\n\nlibro book\nkayero copy book, notebook\nlerno-libro text-book, manual\nnovelo short story, novelette\nromano novel, book of fiction\nrakonto story\naventuro adventure\nepizodo episode, event\nfakto fact\nnaraco narrative\nhistorio history\ntomo volume, tome",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_III5"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson III7",
+      "summary": "=== Using Computers ===\nSome of these words have not been oficially adopted:",
+      "sections": [
+        {
+          "heading": "Lesson III7",
+          "body": "=== Using Computers ===\nSome of these words have not been oficially adopted:\n\n\n=== Exemplo-frazi ===\nLa dominaco-programo en mea komputoro* es Ubuntu Linux.\nKomputorala reto esas irga grupo di inter-konektita komputori.\nLa ¨Internet¨ esas mond-vasta, publike acesebla serio di inter-konektita reti komputorala.\nLa ¨World Wide Web¨ esas sistemo konsistanta ek inter-ligita ¨hypertext¨-arkivi quan onu povas acesar per la ¨Internet¨.\nOnu povas uzar la komputorala programaro, nome ¨Web Browser¨, por vidar ret-situi ed por pilotadar inter li per ¨hyperlinks¨.\n\nThe operating system in my computer is Ubuntu Linux.\nA computer network is an interconnected group of computers.\nThe Internet is a worldwide, publicly accessible series of interconnected computer networks.\nThe World Wide Web is a system of interlinked hypertext documents accessed via the Internet.\nOne can use a ¨Web Browser¨ to view ¨Web pages¨ and to navigate among them by using hyperlinks.",
+          "examples": [],
+          "learnerTip": "=== Using Computers ===\nSome of these words have not been oficially adopted:",
+          "source": "https://en.wikibooks.org/wiki/Ido/Lesson_III7"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Introduction",
+      "summary": "Constructed international auxiliary language\nThis article is about the language. For other uses, see Ido (disambiguation).\nNot to be confused with Edo language or Ibo language.\nIt has been suggested that Adjuvilo be merged into this article. (Discuss) Proposed since June 2026.\nId",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Constructed international auxiliary language\nThis article is about the language. For other uses, see Ido (disambiguation).\nNot to be confused with Edo language or Ibo language.\nIt has been suggested that Adjuvilo be merged into this article. (Discuss) Proposed since June 2026.\nIdoIdoPronunciation[ˈido]Created byDelegation for the Adoption of an International Auxiliary LanguageDate1907Setting and usageInternational auxiliary languageUsers1000-5000 [1]PurposeConstructed language\n\nInternational auxiliary languageProto-EsperantoEsperantoEsperantidoIdo\n\nWriting systemLatin scriptSourcesbased on the 1894 Esperanto reform projectOfficial statusRegulated byUniono por la Linguo Internaciona IdoLanguage codesISO 639-1ioISO 639-2idoISO 639-3idoGlottologidoo1234Linguasphere51-AAB-dbThis article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nIdo flag Ido\nLanguage\nGrammar\n\nPhonology\n\nUnion\n\nvs. Esperanto\n\nvs. Interlingua\n\nvs. Novial\n\nHistoryBeaufront\nCouturat\n\nJespersen\n\nDelegation for the Adoption of an\nInternational Auxiliary Language\n\nRelated\nAuxiliary language\n\nConstructed language\n\nEsperanto\n\nEsperantido\n\nAdjuvilo\n\nWikimedia\nWikipedio\n\nWikivortaro\n\nv\nt\ne\n\nIdo (/ˈiːdoʊ/[2]) is a constructed language derived from a reformed version of Esperanto, and designed similarly with the goal of being an international auxiliary language (or universal second language) for people of diverse languages. To function as an effective international auxiliary language, Ido was designed specifically to be grammatically, orthographically, and lexicographically regular (and, above all, easy to learn and use). It is the most successful of the many Esperanto derivatives, known as Esperantidoj.\n\nIdo was created in 1907 out of a desire to reform the perceived flaws of Esperanto, a language that had been created 20 years earlier to facilitate international communication. The name comes from the Esperanto word ido, meaning \"offspring\",[3] since the language is a derivative of Esperanto. After its inception, Ido was endorsed by some of the Esperanto community. A setback occurred with the sudden death in 1914 of one of its most influential proponents, Louis Couturat. In 1928, the Ido promoter Otto Jespersen quit the movement for his own language Novial.\n\nThe popularity of Ido decreased for two reasons: the emergence of further schisms developing from competing reform projects, and a general lack of awareness of Ido as a candidate for an international language. It was not until the spread of the Internet that it began to regain popularity.\n\nIdo uses the same 26 letters as the English (Latin) alphabet, with no diacritics. It draws its vocabulary from English, French, German, Italian, Latin, Russian, Spanish and Portuguese, and is largely intelligible to those who have studied Esperanto.\n\nSeveral works of literature have been translated into Ido,[4] including The Little Prince,[5] the Book of Psalms, and the Gospel of Luke.[6] As of the year 2000, there were approximately 100–200 Ido speakers in the world.[7] Newer statistics place the number of speakers around 1000-5000.[8] As of 2024, 26 individuals in Finland recorded Ido as their native language, according to Statistics Finland.[9]",
+          "examples": [
+            "Ido was created in 1907 out of a desire to reform the perceived flaws of Esperanto, a language that had been created 20 years earlier to facilitate international communication. The name comes from the Esperanto word ido, meaning \"offspring\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "History",
+      "summary": "The idea of a universal second language is not new, and constructed languages are not a recent phenomenon. During the 12th century Hildegard of Bingen invented a set of words known as the Lingua Ignota. The concept did not attract significant interest until the language Volapük w",
+      "sections": [
+        {
+          "heading": "Creation",
+          "body": "The idea of a universal second language is not new, and constructed languages are not a recent phenomenon. During the 12th century Hildegard of Bingen invented a set of words known as the Lingua Ignota. The concept did not attract significant interest until the language Volapük was created in 1879. Volapük was popular for some time and apparently had a few thousand users, but was later eclipsed by the popularity of Esperanto, which was created in 1887. Several other languages, such as Latino sine Flexione and Idiom Neutral were also proposed. It was during this time that French mathematician Louis Couturat formed the Delegation for the Adoption of an International Auxiliary Language.\n\nThis delegation made a formal request to the International Association of Academies in Vienna to select and endorse an international language; the request was rejected in May 1907.[10] The Delegation then met as a Committee in Paris in October 1907 to discuss the adoption of a standard international language. Among the languages considered was a new language submitted anonymously after the Committee's deadline by someone using the name Ido.[11] In the end the committee, always without plenary sessions and consisting of only 12 members, concluded the last day with 4 votes for and 1 abstention. They concluded that no language was completely acceptable, but that Esperanto could be accepted \"on condition of several modifications to be realized by the permanent Commission in the direction defined by the conclusions of the Report of the Secretaries [Louis Couturat and Léopold Leau] and by the Ido project\".[12]\n\nThe International Ido Congress in Dessau, Germany, in 1922.\nEsperanto's inventor, L. L. Zamenhof, having heard a number of complaints, had suggested in 1894 a proposal for a reformed Esperanto with several changes that Ido adopted: eliminating the accented letters and the accusative case, changing the plural to an Italianesque -i, and replacing the table of correlatives with more Latinate words. However, the Esperanto community voted and rejected Zamenhof's reformed Esperanto,[11] and likewise most rejected the recommendations of the 1907 Committee composed nominally of 12 members. Zamenhof, undoubtedly reminiscent of his experience of the 1894 reforms, strongly supported the Esperanto Committee majority decision.[13] Furthermore, controversy ensued when the \"Ido project\" was found to have been devised mainly by Louis de Beaufront, whom Zamenhof had chosen to represent Esperanto to the committee (Zamenhof himself could not represent Esperanto as the committee's rules dictated that the creator of a submitted language could not defend it).[14] The Committee's meetings were performed mainly in French, with occasional German.[13] When the president of the Committee asked who was the author of Ido's project, Couturat, de Beaufront and Leau answered that they were not. De Beaufront presented Ido's project and gave a description of it as a better, richer version of Esperanto. Couturat, Leau, de Beaufront and Jespersen were finally the only members who voted, all of them for Ido's project. A month later, Couturat accidentally forwarded Jespersen a copy of a letter in which he acknowledged that de Beaufront was the author of the Ido project.[13] Jespersen was angered by this and asked for a public confession. De Beaufront procrastinated for four months before making a public confession.[13]\n\nIt is estimated that some 20% of Esperanto's major promoters and 3–4% of ordinary Esperantists switched to Ido, which from then on suffered constant modifications seeking to perfect it, but which ultimately had the effect of causing many Ido speakers to abandon trying to learn it.[15] Although it divided the Esperanto movement, the schism gave the remaining Esperantists the freedom to concentrate on using and promoting their language as it was.[16] At the same time, it gave the Idists freedom to continue working on their own language for several more years before actively promoting it. The Uniono di la Amiki di la Linguo Internaciona (Union of Friends of the International Language) was established along with an Ido Academy to develop the details of the new language.[11]\n\nCouturat, who was the main proponent of Ido, was killed in an automobile accident in 1914.[11] This, along with World War I, practically suspended the activities of the Ido Academy from 1914 to 1920.[10] In 1928 Ido's major intellectual promoter, the Danish linguist Otto Jespersen, published his own planned language, Novial and ended his promotion of Ido.[17]",
+          "examples": [
+            "This delegation made a formal request to the International Association of Academies in Vienna to select and endorse an international language; the request was rejected in May 1907.[10] The Delegation then met as a Committee in Paris in Octo",
+            "Esperanto's inventor, L. L. Zamenhof, having heard a number of complaints, had suggested in 1894 a proposal for a reformed Esperanto with several changes that Ido adopted: eliminating the accented letters and the accusative case, changing t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "Changes",
+          "body": "Few changes have been made to Ido since 1922.[18]\n\nCamiel de Cock was named secretary of linguistic issues in 1990, succeeding Roger Moureaux.[19] He resigned after the creation of a linguistic committee in 1991.[20] De Cock was succeeded by Robert C. Carnaghan, who had the title from 1992 to 2008. No new words were adopted between 2001 and 2006.[21] After the 2008–2011 elections of ULI's direction committee, Gonçalo Neves replaced Carnaghan as secretary of linguistic issues during February 2008.[22] Neves resigned during August 2008.[23] A new linguistic committee was formed in 2010.[24][25][26]  In April 2010, Tiberio Madonna was appointed as secretary of linguistic issues, succeeding Neves.[27][28]\nIn January 2011, ULI approved eight new words.[29] This was the first addition of words in many years.[30] After a series of severe conflicts with the Directing Committee of ULI, Tiberio Madonna was revoked as secretary of linguistic issues on the 26th of May 2013 by official announcement from Loïs Landais, the secretary of ULI.[31]\nDuring January 2022, ULI approved a set of new words (34)[32]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "International Ido conventions",
+          "body": "ULI organises Ido conventions yearly, and the conventions include a mix of tourism and work.[33]\n\n2024: Madrid, Spain ([1])\n\n2023: Kassel, Germany ([2])\n\n2022: Dessau, Germany, 15 participants([3])\n\n2019: Berlin, Germany, 15 participants from 2 countries (Information)\n\n2018: Provins, France, 11 participants from 5 countries (Information)\n\n2017: České Budějovice, Czech Republic, 8 participants from 5 countries (Information)\n\n2016: Valencia, Spain, 10 participants from 7 countries (Information)\n\n2015: Berlin, Germany, 14 participants (Information)\n\n2014: Paris, France (Information)\n\n2013: Ouroux-en-Morvan, France, 13 participants from 4 countries (Information)\n\n2012: Dessau, Germany, 12 participants (Information)\n\n2011: Echternach, Luxembourg (Information), 24 participants from 11 countries\n\n2010: Tübingen, Germany (Information)\n\n2009: Riga, Latvia, and Tallinn, Estonia, 14 participants from 7 countries (Information)\n\n2008: Wuppertal-Neviges, Germany, 18 participants from 5 countries (Information)\n\n2007: Paris, France, 14 participants from 9 countries (Information,  Photos)\n\n2006: Berlin, Germany, approx. 25 participants from 10 countries (Information)\n\n2005: Toulouse, France, 13 participants from 4 countries (Information)\n\n2004: Kyiv, Ukraine, 17 participants from 9 countries (Information)\n\n2003: Großbothen, Germany, participants from 6 countries (Information)\n\n2002: Kraków, Poland, 14 participants from 6 countries (Information)\n\n2001: Nuremberg, Germany, 14 participants from 5 countries (Information)\n\n2000: Nuremberg, Germany\n\n1999: Waldkappel, Germany\n\n1998: Białobrzegi, Poland, 15 participants from 6 countries\n\n1997: Bakkum, Netherlands, 19 participants from 7 countries\n\n1995: Elsnigk, Germany\n\n1991: Ostend, Belgium, 21 participants\n\n1990: Waldkappel, Germany\n\n1989: Zürich-Thalwil, Switzerland\n\n1987: Eschwege, Germany\n\n1985: Antwerp, Belgium\n\n1983: York, England\n\n1981: Jongny, Switzerland\n\n1980: Namur, Belgium, 35 participants\n\n1979: Uppsala, Sweden\n\n1978: Cambridge, England\n\n1977: Berlin-Tegel, Germany\n\n1976: Saint-Nazaire, France\n\n1975: Thun, Switzerland\n\n1974: Kyiv, Ukraine\n\n1973: Cardiff, Wales\n\n1972: Chaux-de-Fonds, Switzerland\n\n1971: Trollhättan, Sweden\n\n1970: Luxembourg City, Luxembourg\n\n1969: Zürich, Switzerland\n\n1968: Berlin, Germany\n\n1967: Bourges, France\n\n1966: Biella, Italy\n\n1965: Lons-le-Saunier, France\n\n1964: Kiel, Germany\n\n1963: Barcelona, Spain\n\n1962: Thun, Switzerland\n\n1961: Zürich, Switzerland, c. 50 participants\n\n1960: Colmar, France\n\n1959: Freiburg im Breisgau, Germany\n\n1957: Luxembourg City, Luxembourg\n\n1952: Berlin, Germany\n\n1951: Turin, Italy\n\n1950: Colmar, France\n\n1939: St. Gallen, Switzerland\n\n1937: Paris, France\n\n1936: Szombathely, Hungary\n\n1935: Fredericia, Denmark\n\n1934: Oostduinkerke, Belgium\n\n1933: Mondorf, Luxembourg\n\n1931: Lauenburg/Elbe, Germany\n\n1930: Sopron, Hungary\n\n1929: Freiburg im Breisgau, Germany\n\n1928: Zürich, Switzerland\n\n1927: Paris, France\n\n1926: Prague, Czechoslovakia\n\n1925: Turin, Italy\n\n1924: Luxembourg City, Luxembourg\n\n1923: Kassel, Germany\n\n1922: Dessau, Germany\n\n1921: Vienna, Austria",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "Symbols of Ido",
+          "body": "An Ido-Stelo\nThe Ido star or Jankó star is the main symbol of Ido. Its six points represent either Ido's six source languages (English, French, Italian, German, Spanish and Russian) or the six continents (excluding Antarctica). The emblem was originally a six-pointed white star on a circular blue background, consisting of two concentric, equilateral triangles, with one vertically flipped. However, this was soon changed due to the similarity it presented with the Star of David, since a true international auxiliary language should not have religious affiliations.\n\nAfter a search to find an appropriate new symbol, the Ido-Akademio decided on the current Ido symbol, created by their secretary, Paul von Jankó (hence the alternative name the Jankó star). The current Ido Star is a concave isotoxal hexagon, with a vertically flipped equilateral triangle overlaid on top.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "Digital era and publications",
+          "body": "The language still has active speakers, numbering about 500.[34] The Internet has caused a renewal of interest in the language during recent years. A sample of 24 Idists on the Yahoo! group Idolisto during November 2005 showed that 57% had begun their studies of the language during the preceding three years, 32% from the mid-1990s to 2002, and 8% had known the language from before.[35]\n\nIdo has a number of publications that can be subscribed to or downloaded for free in most cases.\nKuriero Internaciona is a magazine produced in France every few months with a range of topics.\nAdavane! is a magazine produced by the Spanish Ido Society every two months that has a range of topics, as well as a few dozen pages of work translated from other languages.\nProgreso is the official organ for the language and has existed since the beginning of Idoism in 1908.\nOther sites can be found with various stories, fables or proverbs along with a few books of the Bible translated into Ido on a smaller scale.\nThe site publikaji has a few podcasts in Ido along with various songs and other recorded material.\n\nWikipedia includes an Ido-language edition (known in Ido as Wikipedio); in 2018 it was the 93rd most visited Wikipedia,[36] and is second most viewed Wikipedia edition in artificial language (after Esperanto).[37]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Phonology",
+      "summary": "Ido has five vowel phonemes. The values [e] and [ɛ] are interchangeable depending on speaker preference, as are [o] and [ɔ]. The orthographic sequences ⟨au⟩ and ⟨eu⟩ indicate diphthongs in word roots but not when created by affixing.[38]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Ido has five vowel phonemes. The values [e] and [ɛ] are interchangeable depending on speaker preference, as are [o] and [ɔ]. The orthographic sequences ⟨au⟩ and ⟨eu⟩ indicate diphthongs in word roots but not when created by affixing.[38]\n\nIdo vowels\n\nFront\n\nBack\n\nClose\n\ni\n\nu\n\nMid\n\ne ~ ɛ\n\no ~ ɔ\n\nOpen\n\na\n\nIdo consonants\n\nLabial\n\nAlveolar\n\nPost-\nalveolar\n\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nm\n\nn\n\nStop\n\np\nb\n\nt\nd\n\nk\nɡ\n\nAffricate\n\nc /t͡s/\n\nch /t͡ʃ/\n\nFricative\n\nf\nv\n\ns\nz\n\nsh /ʃ/\nj /ʒ/\n\nh\n\nApproximant\n\nw\n\nl\n\ny /j/\n\n(w)\n\nFlap\n\nr /ɾ/\n\nAll polysyllabic words are stressed on the second-to-last syllable except for verb infinitives, which are stressed on the last syllable – skolo, kafeo and lernas for \"school\", \"coffee\" and the present tense of \"to learn\", but irar, savar and drinkar for \"to go\", \"to know\" and \"to drink\". If an i or u precedes another vowel, the pair is considered part of the same syllable when applying the accent rule – thus radio, familio and manuo for \"radio\", \"family\" and \"hand\", unless the two vowels are the only ones in the word, in which case the \"i\" or \"u\" is stressed: dio, frua for \"day\" and \"early\".[39]",
+          "examples": [
+            "All polysyllabic words are stressed on the second-to-last syllable except for verb infinitives, which are stressed on the last syllable – skolo, kafeo and lernas for \"school\", \"coffee\" and the present tense of \"to learn\", but irar, savar an"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Orthography",
+      "summary": "Ido uses the same 26 letters as the English alphabet and ISO Basic Latin alphabet with three digraphs and no ligatures or diacritics. Where the table below lists two pronunciations, either is perfectly acceptable.[40]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Ido uses the same 26 letters as the English alphabet and ISO Basic Latin alphabet with three digraphs and no ligatures or diacritics. Where the table below lists two pronunciations, either is perfectly acceptable.[40]\n\nLetter\n\nIPA\n\nEnglish\n\nEsperanto\n\na\n/a/\na as in \"part\"\n\nb\n/b/\nb as in \"stable\"\n\nc\n/t͡s/\nmost similar to ts as in \"cats\"\n*(also used in the digraph ch)\n\nd\n/d/\nd as in \"adopt\"\n\ne\n/e/, /ɛ/\nmost similar to e as in \"egg\" or e as in \"bet\"\n\nf\n/f/\nf as in \"afraid\"\n\ng\n/ɡ/\nhard g as in \"go\"\n\nh\n/h/\nh as in \"hat\", \"ahoy\"\n\ni\n/i/\ni as in \"machine\", ee in \"bee\"\n\nj\n/ʒ/, /d͡ʒ/\ns as in \"pleasure, measure\" or g in \"mirage, beige\"\n\nĵ or ĝ\n\nk\n/k/\nk as in \"skin, skip\"\n\nl\n/l/\nmost similar to l as in \"lamb\"\n\nm\n/m/\nm as in \"admit\"\n\nn\n/n/\nn as in \"analogy\"\n\no\n/o/, /ɔ/\nmost similar to o as in \"or\"\n\np\n/p/\np as in \"spin, spark\"\n\nq\n/k/\nsame as k\n*(used only in the digraph qu)\n\n-\n\nr\n/ɾ/, /r/\nflapped or rolled r as in Italian or Spanish;\nor the r in very in Scottish English pronunciation (cf Pronunciation of English /r/)\n\ns\n/s/\ns as in \"east\"\n*(also used in the digraph sh)\n\nt\n/t/\nt as in \"stake, stop\"\n\nu\n/u/\nu as in \"rude\"\n\nv\n/v/\nv as in \"avoid\"\n\nw\n/w/\nw as in \"award\"\n\n-\n\nx\n/ks/, /ɡz/\nx as in \"except\" or \"exist\"\n\n-\n\ny\n/j/\ny as in \"yes\"\n\nj\n\nz\n/z/\nz as in \"zebra\"\n\nThe digraphs are:[40]\n\nDigraph\n\nIPA\n\nEnglish\n\nEsperanto\n\nch\n/t͡ʃ/\nch as in \"chick\"\n\nĉ\n\nqu\n/kw/, /kv/\nqu as in \"quick\"\n\nkv\n\nsh\n/ʃ/\nsh as in \"shy\"\n\nŝ",
+          "examples": [
+            "a as in \"part\"",
+            "b as in \"stable\"",
+            "most similar to ts as in \"cats\"",
+            "d as in \"adopt\"",
+            "most similar to e as in \"egg\" or e as in \"bet\"",
+            "f as in \"afraid\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Grammar",
+      "summary": "The definite article is la and is invariable.  The indefinite article (a/an) does not exist in Ido. Each word in the Ido vocabulary is built from a root word. A word consists of a root and a grammatical ending. Other words can be formed from that word by removing the grammatical",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The definite article is la and is invariable.  The indefinite article (a/an) does not exist in Ido. Each word in the Ido vocabulary is built from a root word. A word consists of a root and a grammatical ending. Other words can be formed from that word by removing the grammatical ending and adding a new one, or by inserting certain affixes between the root and the grammatical ending.\n\nSome of the grammatical endings are defined as follows:\n\nGrammatical form\n\nIdo\n\nEsperanto\n\nEnglish\n\nSingular noun\n\n -o (libro)\n\n-o (libro)\n\n- (book)\n\nPlural noun\n\n-i (libri)\n\n-oj (libroj)\n\n-s (books)\n\nAdjective\n\n-a (varma)\n\n-a, -aj (varma, varmaj)\n\n- (warm)\n\nAdverb\n\n-e (varme)\n\n-e (varme)\n\n-ly (warmly)\n\nPresent tense infinitive\n\n-ar (irar)\n\n-anti (iranti)\n\n-i (iri)\n\nto be - (to be going)\n\nto - (to go)\n\nPast tense infinitive\n\n-ir (irir)\n\n-inti (irinti)\n\nto have - (to have gone)\n\nFuture tense infinitive\n\n-or (iror)\n\n-onti (ironti)\n\nto be going to - (to be going to go)\n\nPresent\n\n-as (iras)\n\n-as (iras)\n\n-, -s, -es (go, goes)\n\nPast\n\n-is (iris)\n\n-is (iris)\n\nirr., -ed (went)\n\nFuture\n\n-os (iros)\n\n-os (iros)\n\nwill - (will go)\n\nImperative\n\n-ez (irez)\n\n-u (iru)\n\n! (go!)\n\nConditional\n\n-us (irus)\n\n-us (irus)\n\nwould - (would go)\n\nThese are the same as in Esperanto except for -i, -ir, -ar, -or and -ez. Esperanto marks noun plurals by an agglutinative ending -j (so plural nouns end in -oj), uses -i for verb infinitives (Esperanto infinitives are tenseless), and uses -u for the imperative. Verbs in Ido, as in Esperanto, do not conjugate depending on person, number or gender; the -as, -is, and -os endings suffice whether the subject is I, you, he, she, they, or anything else. For the word \"to be,\" Ido allows either esas or es in the present tense; however, the full forms must be used for the past tense esis and future tense esos.\"  Adjectives and adverbs are compared in Ido by means of the words plu = more, maxim = most, min = less, minim = least, kam = than/as. There exist in Ido three categories of adverbs: the simple, the derived, and the composed. The simple adverbs do not need special endings, for example: tre = very, tro = too, olim = formerly, nun = now, nur = only. The derived and composed adverbs, not being originally adverbs but derived from nouns, adjectives and verbs, have the ending -e.",
+          "examples": [
+            "(book)",
+            "(warm)",
+            "These are the same as in Esperanto except for -i, -ir, -ar, -or and -ez. Esperanto marks noun plurals by an agglutinative ending -j (so plural nouns end in -oj), uses -i for verb infinitives (Esperanto infinitives are tenseless), and uses -"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "Syntax",
+          "body": "Ido word order is generally the same as English (subject–verb–object), so the sentence Me havas la blua libro is the same as the English \"I have the blue book\", both in meaning and word order. There are a few differences, however:\n\nAdjectives can precede the noun as in English, or follow the noun as in Spanish. Thus, Me havas la libro blua means the same thing.\n\nIdo has the accusative suffix -n. Unlike Esperanto, this suffix is only required when the object of the sentence is not clear, for example, when the subject-verb-object word order is not followed. Thus, La blua libron me havas also means the same thing.\n\nIdo generally does not impose rules of grammatical agreement between grammatical categories within a sentence. For example, the verb in a sentence is invariable regardless of the number and person of the subject. Nor must the adjectives be pluralized as well the nouns – in Ido the large books would be la granda libri as opposed to the Esperanto la grandaj libroj.\n\nNegation occurs in Ido by simply adding ne before a verb: Me ne havas libro means \"I do not have a book\". This as well does not vary, and thus the \"I do not\", \"He does not\", \"They do not\" before a verb are simply Me ne, Il ne, and Li ne. In the same way, past tense and future tense negatives are formed by ne before the conjugated verb. \"I will not go\" and \"I did not go\" become Me ne iros and Me ne iris respectively.\n\nYes/no questions are formed by the particle ka in front of the question. \"I have a book\" (me havas libro) becomes Ka me havas libro? (do I have a book?). Ka can also be placed in front of a noun without a verb to make a simple question, corresponding to the English \"is it?\" Ka Mark? can mean, \"Are you Mark?\", \"Is it Mark?\", \"Do you mean Mark?\" depending on the context.",
+          "examples": [
+            "Ido word order is generally the same as English (subject–verb–object), so the sentence Me havas la blua libro is the same as the English \"I have the blue book\", both in meaning and word order. There are a few differences, however:",
+            "Negation occurs in Ido by simply adding ne before a verb: Me ne havas libro means \"I do not have a book\". This as well does not vary, and thus the \"I do not\", \"He does not\", \"They do not\" before a verb are simply Me ne, Il ne, and Li ne. In",
+            "Yes/no questions are formed by the particle ka in front of the question. \"I have a book\" (me havas libro) becomes Ka me havas libro? (do I have a book?). Ka can also be placed in front of a noun without a verb to make a simple question, cor"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "The pronouns of Ido were revised to make them more distinct acoustically than those of Esperanto, which all end in i. Especially the singular and plural first-person pronouns mi and ni may be difficult to distinguish in a noisy environment, so Ido has me and ni instead. Ido also distinguishes between intimate (tu) and formal (vu) second-person singular pronouns as well as plural second-person pronouns (vi) not marked for intimacy. Furthermore, Ido has a pan-gender third-person pronoun lu (it can mean \"he\", \"she\", or \"it\", depending on the context) in addition to its masculine (il), feminine (el), and neuter (ol) third-person pronouns.\n\nPronouns\n\nsingular\n\nplural\n\nreflexive\n\nindefinite\n\nfirst\n\nsecond\n\nthird\n\nfirst\n\nsecond\n\nthird\n\nfamiliar\n\nformal\n\nmasc.\n\nfem.\n\nneuter\n\npan-gender\n\nmasc.\n\nfem.\n\nneuter\n\npan-gender\n\nIdo\n\nme\n\ntu\n\nvu\n\nil(u)\n\nel(u)\n\nol(u)\n\nlu\n\nni\n\nvi\n\nili\n\neli\n\noli\n\nli\n\nsu\n\non(u)\n\nEnglish\n\nI\n\nthou\n\nyou\n\nhe\n\nshe\n\nit\n\nthey/it\n\nwe\n\nyou\n\nthey\n\noneself\n\none/you/they\n\nEsperanto\n\nmi\n\nci¹\n\nvi¹\n\nli\n\nŝi\n\nĝi\n\nĝi/ri²\n\nni\n\nvi\n\nili\n\niŝi²\n\niĝi²\n\nili/iri²\n\nsi\n\noni\n\nci, although technically the familiar form of the word \"you\" in Esperanto, is seldom used. Esperanto's inventor himself did not include the pronoun in the first book on Esperanto and only later reluctantly; later he recommended against using ci because different cultures have conflicting traditions regarding the use of the familiar and formal forms of \"you\".[41]\n\nri, iŝi, iĝi and by extension iri are proposed neologisms and are rare, but they are still used albeit seldom.\n\nol, like English it and Esperanto ĝi, is not limited to inanimate objects, but can be used \"for entities whose sex is indeterminate: babies, children, humans, youths, elders, people, individuals, horses, [cattle], cats, etc.\"\n\nLu is often mistakenly labeled an epicene pronoun, that is, one that refers to both masculine and feminine beings, but in fact, lu is more properly a \"pan-gender\" pronoun, as it is also used for referring to inanimate objects. From Kompleta Gramatiko Detaloza di la Linguo Internaciona Ido by Beaufront:\n\nLu (like li) is used for all three genders. That lu does duty for the three genders at will in the singular is not in itself any more astonishing than seeing li serve the three genders at will in the plural ... By a decision (1558) the Idist Academy rejected every restriction concerning the use of lu. One may thus use that pronoun in exactly the same way for a thing and a person of obvious sex as for animals of unknown sex and a person that has a genderless name, like baby, child, human, etc., these being as truly masculine as feminine.\n\nThe motives for this decision were given in \"Mondo\", XI, 68: Lu for the singular is exactly the same as li for the plural. Logic, symmetry and ease demand this. Consequently, just as li may be used for people, animals, and objects whenever nothing obliges one to express the gender, so lu may be used for people, animals, and objects by the same condition. The proposed distinction would be a bothersome subtlety ...",
+          "examples": [
+            "The pronouns of Ido were revised to make them more distinct acoustically than those of Esperanto, which all end in i. Especially the singular and plural first-person pronouns mi and ni may be difficult to distinguish in a noisy environment,",
+            "ci, although technically the familiar form of the word \"you\" in Esperanto, is seldom used. Esperanto's inventor himself did not include the pronoun in the first book on Esperanto and only later reluctantly; later he recommended against usin",
+            "ol, like English it and Esperanto ĝi, is not limited to inanimate objects, but can be used \"for entities whose sex is indeterminate: babies, children, humans, youths, elders, people, individuals, horses, [cattle], cats, etc.\"",
+            "Lu is often mistakenly labeled an epicene pronoun, that is, one that refers to both masculine and feminine beings, but in fact, lu is more properly a \"pan-gender\" pronoun, as it is also used for referring to inanimate objects. From Kompleta",
+            "The motives for this decision were given in \"Mondo\", XI, 68: Lu for the singular is exactly the same as li for the plural. Logic, symmetry and ease demand this. Consequently, just as li may be used for people, animals, and objects whenever "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "Table of correlatives",
+          "body": "Ido makes correlatives by combining entire words together and changing the word ending, with some irregularities to show distinction.\n\nRelative and\ninterrogative\n\nDemonstrative\n\nIndeterminate\n\nMost\nIndeterminate\n\nNegative\n\nCollective\n\nqua, ∅\n\nita, ∅\n\nula, ∅\n\nirga\n\nnula\n\nomna\n\nIndividual\n\n-u\n\nqua\n\nita 1\n\nulu\n\nirgu\n\nnulu\n\nomnu\n\nPlural\n\n-i\n\nqui\n\niti 1\n\nuli\n\nirgi\n\nnuli\n\nomni\n\nThing\n\n-o\n\nquo\n\nito 1\n\nulo\n\nirgo\n\nnulo\n\nomno\n\nAdjective\n\n-a\n\nqua\n\nita 1\n\nula\n\nirga\n\nnula\n\nomna\n\nMotive\n\npro\n\npro quo\n\npro to\n\npro ulo\n\npro irgo\n\npro nulo\n\npro omno\n\nPlace\n\nloke\n\nube\n\nibe\n\nulaloke\n\nirgaloke\n\nnulaloke\n\nomnaloke\n\nTime\n\ntempe\n\nkande\n\nlore\n\nulatempe 2\n\nirgatempe\n\nnulatempe 2\n\nsempre 3\n\nQuality\n\n-a, speca\n\nquala\n\ntala\n\nulaspeca 2\n\nirgaspeca\n\nnulaspeca 2\n\nomnaspeca\n\nManner\n\n-e, maniere\n\nquale\n\ntale\n\nule, ulamaniere 2\n\nirge, irgamaniere\n\nnule, nulamaniere 2\n\nomne, omnamaniere\n\nQuantity -\nadjective\n\nquanta\n\nquanta\n\ntanta\n\nkelka\n\nirgaquanta\n\nnulaquanta\n\nomnaquanta\n\nQuantity -\nnoun\n\nquanto\n\nquanto\n\ntanto\n\nkelko\n\nirga quanto 4\n\nnula quanto 4\n\nla tota quanto 4\n\nThe initial i can be omitted: ta, to, ti, ta.\n\nOne can omit the initial a: ultempe, nultempe, ulspeca, nulspeca, ulmaniere, nulmaniere.\n\nomnatempe is correct and usable, but sempre is the actual word.\n\nInstead of irga quanto, nula quanto and la tota quanto one usually says irgo, nulo and omno.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        },
+        {
+          "heading": "Compound formation",
+          "body": "Composition in Ido obeys stricter rules than in Esperanto, especially formation of nouns, adjectives and verbs from a radical of a different class.  The reversibility principle assumes that for each composition rule (affix addition), the corresponding decomposition rule (affix removal) is valid.\n\nHence, while in Esperanto an adjective (for instance papera), formed on the noun radical paper(o), can mean an attribute (papera enciklopedio \"paper-made encyclopedia\") and a relation (papera fabriko \"paper-making factory\"), Ido will distinguish the attribute papera (\"paper\" or \"of paper\" (not \"paper-made\" exactly)) from the relation paperala (\"paper-making\").\n\nSimilarly, krono means in both Esperanto and Ido the noun \"crown\"; where Esperanto allows formation of \"to crown\" by simply changing the ending from noun to verb kroni (\"crowning\" is kronado), Ido requires an affix so the composition is reversible: kronizar (\"the act of crowning\" is kronizo).\n\nAccording to Claude Piron, some modifications brought by Ido are in practice impossible to use and ruin spontaneous expression:\n\nIdo displays, on linguistic level, other drawbacks Esperanto succeeded to avoid, but I don't have at hand documents which would allow me to go further in detail.  For instance, if I remember correctly, where Esperanto only has the suffix -igi*, Ido has several: *-ifar*, *-izar*, *-igar*, which match subtleties which were meant to make language clearer, but that, in practice, inhibit natural expression.[42]",
+          "examples": [
+            "Hence, while in Esperanto an adjective (for instance papera), formed on the noun radical paper(o), can mean an attribute (papera enciklopedio \"paper-made encyclopedia\") and a relation (papera fabriko \"paper-making factory\"), Ido will distin",
+            "Similarly, krono means in both Esperanto and Ido the noun \"crown\"; where Esperanto allows formation of \"to crown\" by simply changing the ending from noun to verb kroni (\"crowning\" is kronado), Ido requires an affix so the composition is rev"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Vocabulary",
+      "summary": "Vocabulary in Ido is derived from French, Italian, Spanish, English, German, and Russian. Basing the vocabulary on various widespread languages was intended to make Ido as easy as possible for the greatest number of people possible. Early on, the first 5,371 Ido word roots were a",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Vocabulary in Ido is derived from French, Italian, Spanish, English, German, and Russian. Basing the vocabulary on various widespread languages was intended to make Ido as easy as possible for the greatest number of people possible. Early on, the first 5,371 Ido word roots were analyzed compared to the vocabulary of the six source languages, and the following result was found:[43]\n\n2024 roots (38%) belong to 6 languages\n\n942 roots (17%) belong to 5 languages\n\n1111 roots (21%) belong to 4 languages\n\n585 roots (11%) belong to 3 languages\n\n454 roots (8%) belong to 2 languages\n\n255 roots (5%) belong to 1 language\n\nAnother analysis showed that:\n\n4880 roots (91%) are found in French\n\n4454 roots (83%) are found in Italian\n\n4237 roots (79%) are found in Spanish\n\n4219 roots (79%) are found in English\n\n3302 roots (61%) are found in German\n\n2821 roots (52%) are found in Russian\n\nComparison of Ido vocabulary with its six source languages (by # of roots)\n\nIdo\n\nFrench\nItalian\nSpanish\n\nEnglish\nGerman\nRussian\n\nbona\n\nbon\nbuono\nbueno\n\ngood\n\nbonus\ngut\n\nBonus\nkhoroshiy\n\n(хороший)\n\ndonar\n\ndonner\ndare\n\ndonare\ndar\n\ndonar\n\ngive\n\ndonate\ngeben\ndat, darit\n\n(дать) (дарить)\n\nfiltrar\n\nfiltrer\nfiltrare\nfiltrar\n\nfilter\nfiltern\nfiltrovat\n\n(фильтровать)\n\ngardeno\n\njardin\ngiardino\njardín\n\ngarden\nGarten\nsad\n\n(сад)\n\nkavalo\n\ncheval\ncavallo\ncaballo\n\nhorse\n\ncavalry\nPferd\n\nKavallerie\nloshad, kobyla\n\n(лошадь, кобыла)\n\nmaro\n\nmer\nmare\nmar\n\nsea\n\nmarine\nMeer\nmore\n\n(море)\n\nnaciono\n\nnation\nnazione\nnación\n\nnation\nNation\nnatsija\n\n(нация)\n\nstudiar\n\nétudier\nstudiare\nestudiar\n\nstudy\nstudieren\nizuchat\n\n(изучать)\n\nyuna\n\njeune\ngiovane\njoven\n\nyoung\n\njuvenile\njung\nyunyi, molodoy\n\n(юный, молодой)\n\nComparison of Ido vocabulary with Esperanto and Latin (or Germanic root)\n\nIdo\n\nEsperanto\n\nLatin\n\nGermanic\n\nbona\n\nbona\n\nbonum\n\ndonar\n\ndoni\n\ndare\n\nfiltrar\n\nfiltri\n\nspargere\n\nfelt\n\ngardeno\n\nĝardeno\n\nhortum\n\ngardo\n\nkavalo\n\nĉevalo\n\nequum, caballus\n\nmaro\n\nmaro\n\nmare\n\nnaciono\n\nnacio\n\ngentem, natio\n\nstudiar\n\nstudi\n\nstudere\n\nyuna\n\njuna\n\niuvenis\n\njung\n\nVocabulary in Ido is often created through a number of official prefixes and suffixes that alter the meaning of the word. This allows a user to take existing words and modify them to create neologisms when necessary, and allows for a wide range of expression without the need to learn new vocabulary each time. Though their number is too large to be included in one article, some examples include:\n\nThe diminutive suffix -et-. Domo (house) becomes dometo (cottage), and libro (book) becomes libreto (novelette or short story).\n\nThe pejorative suffix -ach-. Domo becomes domacho (hovel), and libro becomes libracho (a shoddy piece of work, pulp fiction, etc.)\n\nThe prefix retro-, which implies a reversal. Irar (to go) becomes retroirar (to go back, backward) and venar (to come) becomes retrovenar (to return).\n\nNew vocabulary is generally created through an analysis of the word, its etymology, and reference to the six source languages. If a word can be created through vocabulary already existing in the language then it will usually be adopted without need for a new radical (such as wikipedio for Wikipedia, which consists of wiki + enciklopedio for encyclopedia), and if not then an entirely new word will be created. The word alternatoro for example was adopted in 1926, likely because five of the six source languages used largely the same orthography for the word, and because it was long enough to avoid being mistaken for other words in the existing vocabulary.[44] Adoption of a word is done through consensus, after which the word will be made official by the union. Care must also be taken to avoid homonyms if possible, and usually a new word undergoes some discussion before being adopted. Foreign words that have a restricted sense and are not likely to be used in everyday life (such as the word intifada to refer to the conflict between Israel and Palestine) are left untouched, and often written in italics.\n\nIdo, unlike Esperanto, does not assume the male sex by default. For example, Ido does not derive the word for \"waitress\" by adding a feminine suffix to \"waiter\", as Esperanto does. Instead, Ido words are defined as sex-neutral, and two different suffixes derive masculine and feminine words from the root: servisto for a waiter of either sex, servistulo for a male waiter, and servistino for a waitress. There are only two exceptions to this rule:[18] First, patro for \"father\", matro for \"mother\", and genitoro for \"parent\", and second, viro for \"man\", muliero for \"woman\", and adulto for \"adult\".[45]",
+          "examples": [
+            "Ido, unlike Esperanto, does not assume the male sex by default. For example, Ido does not derive the word for \"waitress\" by adding a feminine suffix to \"waiter\", as Esperanto does. Instead, Ido words are defined as sex-neutral, and two diff"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Sample",
+      "summary": "Problems playing this file? See media help.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Lord's Prayer in Ido\n\nProblems playing this file? See media help.\n\nThe Lord's Prayer:\n\nIdo[46]\nPatro nia, qua esas en la cielo,\n\nvua nomo santigesez;\n\nvua regno advenez;\n\nvua volo facesez\n\nquale en la cielo, tale sur la tero.\n\nDonez a ni cadie l'omnadia pano,\n\ned a ni pardonez nia ofensi,\n\nquale anke ni pardonas a nia ofensanti,\n\ne ne duktez ni aden la tento,\n\nma liberigez ni de la malajo.\n\nEnglish\nOur Father, who art in heaven,\n\nhallowed be Thy name.\n\nThy kingdom come,\n\nThy will be done,\n\non earth as it is in heaven.\n\nGive us this day our daily bread,\n\nand forgive us our debts,\n\nas we also have forgiven our debtors.\n\nAnd lead us not into temptation,\n\nbut deliver us from evil.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ido_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

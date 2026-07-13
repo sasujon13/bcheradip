@@ -1,0 +1,567 @@
+{
+  "title": "Grammar Book — Svenska",
+  "languageCode": "sv",
+  "languageName": "Svenska",
+  "version": 2,
+  "sources": [
+    "https://sv.wikipedia.org/wiki/Svensk_grammatik",
+    "https://en.wikibooks.org/wiki/Swedish/Lesson_1",
+    "https://en.wikibooks.org/wiki/Swedish/Lesson_2",
+    "https://en.wikibooks.org/wiki/Swedish/Lesson_3",
+    "https://en.wikibooks.org/wiki/Swedish/Lesson_4",
+    "https://en.wikibooks.org/wiki/Swedish/Lesson_5",
+    "https://en.wikibooks.org/wiki/Swedish/Lesson_6",
+    "https://en.wikibooks.org/wiki/Swedish/Lesson_7",
+    "https://en.wikipedia.org/wiki/Swedish_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Denna artikel beskriver grammatiken i den varietet av svenska språket som kallas standardsvenska eller rikssvenska och är en relativt sen kulturprodukt.[1] Genuina svenska folkmål som är mera direkta fortsättningar på moderspråket fornsvenska[1] har ofta en kraftigt avvikande mor",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Denna artikel beskriver grammatiken i den varietet av svenska språket som kallas standardsvenska eller rikssvenska och är en relativt sen kulturprodukt.[1] Genuina svenska folkmål som är mera direkta fortsättningar på moderspråket fornsvenska[1] har ofta en kraftigt avvikande morfologi från standardsvenskan, i vissa fall även en avvikande syntax; folkmålens grammatik beskrivs ej i denna artikel.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Ordklasser",
+      "summary": "Substantiv är en ordklass. Ord i denna ordklass betecknar abstrakta och konkreta ting och abstrakta begrepp. En vanlig minnesramsa är \"Substantiv är namn på ting, såsom klocka, hatt och ring\". Eftersom substantiv i svenska kan ha två genus (kön) kan de identifieras som substantiv",
+      "sections": [
+        {
+          "heading": "Substantiv",
+          "body": "Substantiv är en ordklass. Ord i denna ordklass betecknar abstrakta och konkreta ting och abstrakta begrepp. En vanlig minnesramsa är \"Substantiv är namn på ting, såsom klocka, hatt och ring\". Eftersom substantiv i svenska kan ha två genus (kön) kan de identifieras som substantiv samt vilket grammatiskt genus de har genom att sätta ordet \"en\" (utrum) eller \"ett\" (neutrum) framför. \"En hatt\" är därför den obestämda formen av ett substantiv med genus \"utrum\", och \"ett hus\" är den obestämda formen av ett substantiv med genus \"neutrum\".\n\nNumerus\nI svenskan finns två numerus, singular (ental) och plural (flertal).\n\nNormalt anses att svenskan har sex pluralböjningar (deklinationer).[2]:\n\n-or (flicka - flickor, panna - pannor)\n\n-ar (pojke - pojkar, vår - vårar)\n\n-er (rad - rader, hand - händer)\n\n-r (ko - kor)\n\n-n (äpple - äpplen, bi - bin)\n\n-∅ (ingen ändelse) (hus - hus, löv - löv)\n\nIbland ses -er och -r som varianter av samma deklination.[2] Deklinationerna sammanfaller inte fullt ut med svenskans genus.\n\nVissa lånord böjs ibland eller alltid med så kallad etymologisk plural, det vill säga den pluralböjning som används i originalspråket. Det gäller främst vissa latinska (faktum - fakta) och grekiska (schema - schemata) lån samt lån från språk där -s är vanlig pluraländelse, inte minst engelskan (fan - fans) men också bland annat spanskan (tortilla - tortillas). För de allra flesta av sådana \"s-ord\" rekommenderar emellertid Svenska Akademiens ordlista, som ofta framhålls som norm, annan plural som förstahandsalternativ eller som enda alternativ. Också Språkrådet avråder i allmänhet från s-plural. Svenska Akademiens ordlista till trots framhåller Svenska Akademiens grammatik anno 1999 s-plural som ett av alternativen i svenskan: \"sjunde deklinationen\". Språkvårdarnas främsta invändningar mot s-pluralen brukar vara att den inte så lätt kombineras med ändelserna för bestämd form plural: -na och -en. \n\nDessutom finns en rad ord som har oregelbunden böjning, som t. ex. mus - möss, gås - gäss, man - män. Dessa ord tillhörde ursprungligen fjärde deklinationen ovan. I pluralis har a genom i-omljud blivit ä, och u har blivit y. Det fornnordiska mús,   (av urnordiska [*mu:siR]), har genom påverkan av det senare försvunna i-et blivit mýs i fornnordiska. Detta ord kvarstår i isländska, men har i svenska genom förkortning och sänkning av vokalen blivit möss. I-omljudet har också gjort att den urnordiska pluralen [*ga:siR] (av singularis [ga:s]) blivit gæs,  (senare i svenska gås - gäss). Ordet *mannR (man) hette i pluralis (* manniR). Det har blivit menn i isländska och män i svenska. [3]\n\nGenus\nI svenskan finns det flera sätt att definiera genus. Idag används vanligen följande system, som bygger på vilka artiklar och bestämdhetssuffix orden knyter till sig.\n\nUtrum (N-genus)\n\nN-genus får ändelsen -(e)n i bestämd form.\nNeutrum (T-genus)\n\nT-genus får ändelsen -(e)t i bestämd form.\nI en äldre klassificering med fyra genus är utrum istället fördelat i tre genus: maskulinum, femininum och reale. I denna klassificering spelar ordens sexus och relation till personliga pronomen större roll. \n\nMaskulinum (-(e)n, han-ord)\n\nOrd som är maskulina. Till exempel man (mannen), pojke (pojken).\nFemininum (-(e)n, hon-ord)\n\nOrd som är feminina. Till exempel kvinna (kvinnan), flicka (flickan).\nReale (-(e)n, den-ord)\n\nOrd som använder artikeln den. Till exempel bok (boken).\nNeutrum (-(e)t, det-ord)\n\nOrd som använder artikeln det. Till exempel barn (barnet).\nDe fyra genusen skiljs åt på följande sätt: när ett adjektiv beskriver ett maskulint ord slutar det på -e, exempel: storebror, Peter den store, den late mannen, den starke tjuren.  När ett adjektiv beskriver ett feminint ord slutar det på -a: storasyster, Katarina den stora, den yra hönan, den ömsinta mamman, den goda fen.  Adjektiv som beskriver neutrum- och realeord slutar alla på -a.  Dessutom skall pronomet \"han\" användas när man ersätter ett maskulint ord i en sats: Mannen där borta, han är tandläkare.  Tjuren där borta, han är farlig.  Lika så skall \"hon\" användas till feminina ord: Drottningen, hon är alltid vackert klädd. Vår märr, hon är dräktig. Tyskan tog guld, hon blev världsmästarinna.\n\nLägg märke till att alla djur är maskulina, utom de som uttryckligen är av kvinnligt kön, som katta, ko, tacka, sugga, åsninna och så vidare. Reale- och neutrumord ersätts alltid av \"den\" respektive \"det\" vid syftning med personligt pronomen.\n\nBestämdhet\nI svenskan anges bestämdhet hos substantiv med hjälp av suffix. Dessas form beror av ordens genus och numerus. För ord av genus utrum är bestämdhetssuffixet -en eller -n i singular och vanligen -na i plural. Vid genus neutrum är motsvarande suffix i singular -et och -t och i plural vanligen -a eller -en men någon gång också -na. De plurala bestämdhetssuffixen är beroende av ordets deklinationstillhörighet. Även attributiva adjektiv har bestämdhetsböjning (så kallad svag form) på -a eller ibland -e. När ett substantiv i bestämd form föregås av adjektivattribut används dessutom en fristående, framförställd bestämd artikel: den (utrum singular), det (neutrum singular) och de (plural). \n\nI obestämd form används i singular vanligen en framförställd obestämd artikel i form av räkneorden en (utrum) och ett (neutrum). I vissa fall kan dock även singulara obestämda former stå artikellösa. Detta regleras av semantiska och syntaktiska faktorer. \n\nFör den grammatiska variabeln bestämdhet används inom svensk grammatik begreppet species, i första hand när man avser de morfologiskt markerade formerna.\n\nKasus\nI modern svenska har substantiv två kasus: Nominativ (Grundform) och Genitiv.\n\nN-genus\n\nSingular\nPlural\n\nObestämd form\nBestämd form\nObestämd form\nBestämd form\n\nGrundform\nbåt\nbåten\nbåtar\nbåtarna\n\nGenitiv\nbåts\nbåtens\nbåtars\nbåtarnas\n\nT-genus\n\nSingular\nPlural\n\nObestämd form\nBestämd form\nObestämd form\nBestämd form\n\nGrundform\nbarn\nbarnet\nbarn\nbarnen\n\nGenitiv\nbarns\nbarnets\nbarns\nbarnens\n\nBland de personliga pronomina finns dessutom en gemensam objektsform (för ackusativ och dativ). Se under pronomen för tabell.\n\nSvenska rumsadverb har ett egenartat och formrikt system, som avviker från substantivens och pronominas; men det är oklart i vilken mån de olika formerna bör karakteriseras som kasus, eller som sammansättningar eller separata ord. (Exempel: in, inne, inåt, inifrån, inom; bort, borta, bortåt, bortifrån, bortom.)\n\nStelnade uttryck med kasus\nSvenskan har behållit många uttryck, så kallade stelnade uttryck, med kasusen ackusativ och dativ men även genitiv.\n\nAckusativ\nAckusativ är ett kasus som först och främst betecknar riktning och i fornsvenskan styrde ett par prepositioner just detta kasus. Man kan idag finna ackusativ bevarat i uttrycken \"i ljusan låga\", \"i högan sky\", \"i godan ro\", \"ana argan list\", \"i rättan tid\" och \"för allan del\" men även pronomina \"mig\" och \"dig\" är gamla ackusativer.\n\nDe talspråkiga formerna \"våran\" och \"eran\" av de possessiva pronomina \"vår\" och \"er\" är också gamla ackusativformer. Detsamma gäller \"han\" i objektställning, t.ex. det dialektala och talspråkliga \"jag såg han\" där den normerade standardsvenskan har \"jag såg honom\".\n\nDativ\nDativ är i stort sett ackusativets motsats eftersom dativ först och främst anger befintlighet och deklinationsformerna för detta kasus är fler än ackusativet. Dativ kan ta -a, -e, -o och -om samt -um som man kan finna i \"ta av daga\", \"gå man ur huse\", \"på sistone\", \"kung av Guds nåde\", \"se i syne\", \"allt i allo\", \"famla i blindo\", \"skämt åsido\", \"vara av godo/ondo\", \"i andanom\", \"uti ändanom\", \"i sinom tid, \"vara allom, \"androm till skräck (och varnagel), \"tusen sinom tusen\" och \"varg i veum\".\n\nMånga pronomina, adverb och prepositioner har sina etymologier i dativ, exempelvis \"honom\", \"henne\", \"vem\", \"vilken/vilket\"vilka\", \"lagom\", \"stundom\", \"bakom\", \"bortom\", \"inom\" och \"utom\".\n\nGenitiv\nDetta kasus, genitiv, finns bevarat i uttryck som \"till sjöss\", \"till havs\", \"till hands\", \"till kungs\", \"inombords\", \"inrikes\", \"utrikes\", \"dagsens\", \"riksens ständer\", \"livsens rot\", \"mörksens gärningar\", \"allehanda\", \"gå till väga\", \"till hands\", \"till fots\", \"tillryggalägga\", \"i mannaminne\", \"gå till spillo\", \"kvinnokläder\", \"sidospår\", \"vara till salu\", \"gatukorsning\" och \"furuskog\".",
+          "examples": [
+            "Substantiv är en ordklass. Ord i denna ordklass betecknar abstrakta och konkreta ting och abstrakta begrepp. En vanlig minnesramsa är \"Substantiv är namn på ting, såsom klocka, hatt och ring\". Eftersom substantiv i svenska kan ha två genus ",
+            "Vissa lånord böjs ibland eller alltid med så kallad etymologisk plural, det vill säga den pluralböjning som används i originalspråket. Det gäller främst vissa latinska (faktum - fakta) och grekiska (schema - schemata) lån samt lån från språ",
+            "De fyra genusen skiljs åt på följande sätt: när ett adjektiv beskriver ett maskulint ord slutar det på -e, exempel: storebror, Peter den store, den late mannen, den starke tjuren.  När ett adjektiv beskriver ett feminint ord slutar det på -",
+            "Lägg märke till att alla djur är maskulina, utom de som uttryckligen är av kvinnligt kön, som katta, ko, tacka, sugga, åsninna och så vidare. Reale- och neutrumord ersätts alltid av \"den\" respektive \"det\" vid syftning med personligt pronome",
+            "Ackusativ är ett kasus som först och främst betecknar riktning och i fornsvenskan styrde ett par prepositioner just detta kasus. Man kan idag finna ackusativ bevarat i uttrycken \"i ljusan låga\", \"i högan sky\", \"i godan ro\", \"ana argan list\"",
+            "De talspråkiga formerna \"våran\" och \"eran\" av de possessiva pronomina \"vår\" och \"er\" är också gamla ackusativformer. Detsamma gäller \"han\" i objektställning, t.ex. det dialektala och talspråkliga \"jag såg han\" där den normerade standardsven"
+          ],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        },
+        {
+          "heading": "Pronomen",
+          "body": "Personliga pronomen\nDe personliga pronomina har tre kasus, nominativ, ackusativ (eller objektsform) och genitiv. För första och andra person saknas dock genitivformer. I stället använder sig svenskan här av possessiva pronomen. Observera att ackusativformen inte bara används om det direkta objektet, (\"ackusativobjektet\"), utan även i sådana fall där andra språk skulle använda sig av till exempel dativ eller andra oblika kasus. Det är anledningen till att vissa föredrar att tala om objektsform snarare än ackusativ.\n\nPersonliga pronomen\n\nSingular\nPlural\n\nNominativ\nAckusativ\nGenitiv\nNominativ\nAckusativ\nGenitiv\n\nFörsta person\njag\nmig\nmin\nvi\noss\nvår\n\nAndra person\ndu\ndig\ndin\nni\ner\ner\n\nTredje person\nhan, hon, hen, den, det\nhonom, henne, hen, den, det\nhans, hennes, hens, dess\nde\ndem\nderas\n\nPossessiva pronomen\nDe possessiva pronomina uttrycker tillhörighet och böjs efter genus och numerus.\n\nPossessiva pronomen\n\nSingular\nPlural\n\nFörsta person\nmin, mitt, mina\nvår, vårt, våra\n\nAndra person\ndin, ditt, dina\ner, ert, era\n\nTredje person\ndess\nderas\n\nReflexiva pronomen\nDet reflexiva pronomenet finns i en objektsform, sig, samt i possessivform, sin, sitt, sina. \n\nReflexiva pronomen används för att syfta tillbaka på det tänkta subjektet i en sats.\n\nJämför:\n\n\"Olle tycker om att kamma sig.\" (= att kamma Olle)\n\n\"Olle tycker om att kamma honom.\" (= att kamma någon annan)\n\nProblemen dyker ofta upp när det possessiva reflexiva pronomenet ska användas, särskilt i en mening med många satser.\n\n\"Olle håller sin bok.\" (= det är Olles bok)\n\n\"Olle håller hans bok.\" (= det är inte Olles bok)\n\n\"Jan vet inte om Olle håller sin bok.\" (= det är Olles bok)\n\n\"Jan vet inte om Olle håller hans bok.\" (= det är Jans bok. Eventuellt tillhör den någon tredje person. Detta framgår av kontexten.)\n\n\"När Jan såg Olle komma, rödblommig och med ett lyckligt leende på sina läppar, hade han sin hund i sällskap.\"\n\n(Läpparna är Olles, hunden är Olles om det är på honom som han i sista satsen syftar, annars Jans. Detta framgår av kontexten.)\n\n\"När Jan såg Olle komma, rödblommig och med ett lyckligt leende på sina läppar, hade han hans hund i sällskap.\"\n\n(Läpparna är Olles, hunden är Olles om det är på Jan som han i sista satsen syftar, annars Jans. Detta framgår av kontexten.)\n\n\"När Jan såg Olle komma, rödblommig och med ett lyckligt leende på sina läppar, lyckades hans hund skrämma upp fyra duvor i sin närhet.\"\n\n(Läpparna är Olles, hunden kan vara antingen Jans eller Olles. Duvorna befann sig i hundens närhet.)\n\n\"När Jan såg Olle komma, rödblommig och med ett lyckligt leende på sina läppar, lyckades hans hund skrämma upp fyra duvor i hans närhet.\"\n\n(Läpparna är Olles, hunden kan vara antingen Jans eller Olles. Duvorna befann sig i Jans eller Olles närhet, beroende på vem som äger hunden.)\n\nObservera att i de två sista meningarna är det omöjligt att använda \"sin hund\", oavsett om det är Jan eller Olle som äger hunden.",
+          "examples": [
+            "De personliga pronomina har tre kasus, nominativ, ackusativ (eller objektsform) och genitiv. För första och andra person saknas dock genitivformer. I stället använder sig svenskan här av possessiva pronomen. Observera att ackusativformen in",
+            "\"Olle tycker om att kamma sig.\" (= att kamma Olle)",
+            "\"Olle tycker om att kamma honom.\" (= att kamma någon annan)",
+            "\"Olle håller sin bok.\" (= det är Olles bok)",
+            "\"Olle håller hans bok.\" (= det är inte Olles bok)",
+            "\"Jan vet inte om Olle håller sin bok.\" (= det är Olles bok)"
+          ],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        },
+        {
+          "heading": "Adjektiv",
+          "body": "Adjektiv kompareras i tre olika jämförelsegrader.\n\nPositiv\nKomparativ\nSuperlativ\n\nRegelbundna\n\nsöt\nsötare\nsötast\n\nglad\ngladare\ngladast\n\nOregelbundna\n\ngammal\näldre\näldst\n\nliten\nmindre\nminst\n\nAdjektiv som kompareras med mer och mest\n\nlik\nmer lik\nmest lik\n\nakut\nmer akut\nmest akut",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        },
+        {
+          "heading": "Verb",
+          "body": "Verb böjs i svenskan efter modus och tempus.\n\nModus\nDet finns tre modus: indikativ, imperativ och konjunktiv. Indikativ och, i viss mån, konjunktiv böjs efter tempus.  \n\nIndikativ (presens)\nsova - sover\n\nleka - leker\n\nInfinitivmärket är att.\n\nImperativ\nImperativ uttrycker en uppmaning att göra något:\n\nsova - sov!\n\nleka - lek!\n\nprata - prata!\n\nKonjunktiv\nKonjunktiv används oftast i preteritum eller konditionalis. Många stelnade konjunktivformer används inom svenskan;\n\n\"Må han leva ut i hundrade år!\"\n\n\"Det vore otroligt bra\"\n\n\"Det vete katten/fan\"\n\n\"Koste vad det kosta vill\"\n\n\"Ske din vilja\"\n\n\"Gud välsigne dig\" eller \"Må Gud välsigna dig\"\n\n\"Jag klarade det tack vare din hjälp\"\n\n\"Varde ljus!\"\n\n\"Bevare mig väl!\"\n\n\"Länge leve konjunktiv!\"\n\nPresens konjunktiv\nPresens konjunktiv konjugeras genom att de trycksvaga A:en i verb som \"leva\", \"hoppa\", \"hata\", \"skjuta\" och \"rida\" blir till E > \"leve\", \"hoppe\", \"hate\", \"skjute\" och \"ride\".\n\nNuförtiden används oftast presens konjunktiv optativt, som i exempelvis \"Gud välsigne er\", vilket även kan skrivas som \"Må Gud välsigna er\".\n\nInom gammalt lagspråk, stundom ännu gällande, förekommer ofta indirekta uppmaningar, vilka kan kallas jussiv funktion: ”Tage var och en sin part”, ”Behålle den godset, som först köpte”. I satsen \"vare därmed hur som helst\" är dock verbet i en potential funktion, som anger möjligheten: \"det kan vara hur som helst med det\". \"Måtte\", \"bör\" och så även \"skall\" är andra hjälpverb som kan användas vid omskrivningar av presens konjunktiv-satser.\n\nPreteritum konjunktiv\nDenna form av konjunktiv bygger främst på pluralformen i preteritum, delvis den form som förr användes för \"vi\", \"ni\" och \"de\". På starka verb blev exempelvis \"vi vann\" förr \"vi vunno\" och i preteritum konjunktiv blev det \"vunne\". Pluralformernas finala o blev därmed e. (Jfr ovanför under presens konjunktiv). Konjunktiven \"bleve\", \"sprunge\" och \"både\" som kommer av \"blevo\" (av bli(va)), \"sprungo\" (av springa) och \"bådo\" (av be(dja)).\n\nDe starka verb som har ett långt (betonat) a i preteritumformen ändrar detta till ett å, som det även gjorde i pluralformen förr, exempelvis \"gåve\" < \"gavo\", av ge/giva samt \"både\" < \"bådo\", av be(dja).\n\nIdag används mestadels de oregelbundna verbens preteritum konjunktivform;\n\nvara - vore\n\nfå - finge\n\ngå - ginge\n\nEnkla tempus\nPresens\n(jag) genomför\n\n(han) leker\n\n(de) pratar\n\nPreteritum\nTidigare i svenska språkbeskrivningar kallat imperfekt.\n\n(ni) sov\n\n(du) lekte\n\nSammansatta tempus\nPerfekt\n(de) har sovit\n\n(jag) har lekt\n\nPluskvamperfekt\n(ni) hade sovit\n\n(vi) hade lekt\n\nNotera att både har och hade kan utelämnas i bisatser, vilket renderar perfekt- respektive pluskvamperfektformer som till exempel: \"jag går ut när jag ätit\" istället för \"jag går ut när jag har ätit\", samt \"om vi ätit vore vi klara nu\" istället för \"om vi hade ätit vore vi klara nu\". Detta fenomen betraktas som korrekt och grammatiskt enligt det svenska Institutet för språk och folkminnen samt det finska Institutet för de inhemska språken[4][5].\n\nFuturum simplex\n(de) ska sova / kommer (att) sova\n\n(vi) ska leka / kommer (att) leka\n\n\"Ska\" (med varianten \"skall\") och \"kommer (att)\" används båda för framtid, med en liten nyansskillnad i betydelse.  \"Ska(ll)\" uttrycker värdering, önskning eller tvång (vanligtvis utifrån), medan \"Kommer (att)\" är mer definitiv och objektiv.\n\nOfta används även presens för framtid, när tiden framgår av sammanhanget. Exempel: \"Jag möter dig i morgon på stationen.\"\n\nFuturum preteriti\n(de) skulle sova / kom att sova\n\n(vi) skulle leka / kom att leka\n\nFuturum exaktum\n(du) ska ha sovit / kommer (att) ha sovit\n\n(de) ska ha lekt / kommer (att) ha lekt\n\nFuturum exaktum preteriti\n(du) skulle ha sovit / kom att ha sovit\n\n(de) skulle ha lekt / kom att ha lekt\n\nSammansatta eller enkla tempus\nKonditionalis\n(du) skulle sova / sove\n\n(ni) skulle leka / leke",
+          "examples": [
+            "\"Må han leva ut i hundrade år!\"",
+            "\"Det vore otroligt bra\"",
+            "\"Det vete katten/fan\"",
+            "\"Koste vad det kosta vill\"",
+            "\"Ske din vilja\"",
+            "\"Gud välsigne dig\" eller \"Må Gud välsigna dig\""
+          ],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        },
+        {
+          "heading": "Adverb",
+          "body": "Ett adverb är ett ord som kännetecknas av att det beskriver ett verb, adjektiv eller ett annat adverb (märk väl ej ett substantiv). Adverb är även ord som ensamma kan svara på frågor som varåt, vartåt, varför? o.s.v. (dvs. däråt, ditåt o.s.v.).\nI svenska kan adjektiv göras om till adverb genom att ändelsen -t läggs till på slutet. Exempel: konstig -konstigt, galen - galet, ful - fult m.m.\n\nDetta ska inte förväxlas med neutrumformen av adjektiv. Ordet stort har inte samma betydelse i meningarna \"Hon log stort\" och \"Ett stort leende\".\n\nAdverb bildas i vissa fall också genom att ändelsen -en läggs till. Exempel: verklig - verkligen\n\nVissa andra adjektiv ser likadana ut som adverb. Exempel: bra -bra, gratis - gratis",
+          "examples": [
+            "Detta ska inte förväxlas med neutrumformen av adjektiv. Ordet stort har inte samma betydelse i meningarna \"Hon log stort\" och \"Ett stort leende\"."
+          ],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        },
+        {
+          "heading": "Prepositioner",
+          "body": "Prepositioner ingår i prepositionsfraser. Många prepositioner har rumsbetydelse, till exempel: under bordet, på mattan, nära huset. Andra har tidsbetydelse.\n\nI fornsvenskan styrde prepositionen till (i betydelsen att för närvarande befinna sig mitt i/på/vid...) genitiven. Detta lever kvar i en rad stelnade uttryck, som till exempel \"till bords\" (inte *\"till bord\"), \"till havs\" (inte *\"till hav\"), \"till fots\" och så vidare.",
+          "examples": [
+            "I fornsvenskan styrde prepositionen till (i betydelsen att för närvarande befinna sig mitt i/på/vid...) genitiven. Detta lever kvar i en rad stelnade uttryck, som till exempel \"till bords\" (inte *\"till bord\"), \"till havs\" (inte *\"till hav\")"
+          ],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Syntax",
+      "summary": "Svenskan är ett SVO-språk, där SVO står för subjekt, verb, objekt och syftar på grundordföljden i satser. Exempel:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Svenskan är ett SVO-språk, där SVO står för subjekt, verb, objekt och syftar på grundordföljden i satser. Exempel:\n\nsubjekt\n\npredikat\n\nobjekt\n\nJag\n\nsparkade\n\nbollen.\n\nDenna ordföljd kallas för svenskans del traditionellt för \"rak ordföljd\".\n\nSkulle däremot objektet eller ett adverbial placeras först kommer subjektet på tredje plats.  Predikatet skall nämligen alltid vara på andra plats, och därför betecknas svenska ofta som V2-språk snarare än SVO-språk.\n\n\"Bollen sparkade jag.\"  Denna konstruktion ger mer betoning på bollen.\n\nI frågor gäller dock omvänd ordföljd, dvs. predikatet kommer före subjektet. Ex.: \"Sparkade jag bollen?\"\n\nBisatser har oftast rak ordföljd: Ex.: \"Det är väl känt, att han springer fem kilometer varje dag.\" Första satsen är en huvudsats (Det är väl känt, ) och den andra en bisats (att han springer fem kilometer varje dag.).\n\nOm konjunktionen utelämnas i villkorssatser används omvänd ordföljd i bisatsen. Ex.: \"Sprunge jag fem kilometer varje dag, behövde jag inte dricka lightläsk\". Jämför: \"Om jag sprang fem kilometer varje dag, skulle jag inte behöva dricka lightläsk\". Notera även att huvudsatsen i båda dessa fall får omvänd ordföljd, vilket beror på att bisatser av detta slag fungerar som adverbial för denna.",
+          "examples": [
+            "Denna ordföljd kallas för svenskans del traditionellt för \"rak ordföljd\".",
+            "\"Bollen sparkade jag.\"  Denna konstruktion ger mer betoning på bollen.",
+            "I frågor gäller dock omvänd ordföljd, dvs. predikatet kommer före subjektet. Ex.: \"Sparkade jag bollen?\"",
+            "Bisatser har oftast rak ordföljd: Ex.: \"Det är väl känt, att han springer fem kilometer varje dag.\" Första satsen är en huvudsats (Det är väl känt, ) och den andra en bisats (att han springer fem kilometer varje dag.).",
+            "Om konjunktionen utelämnas i villkorssatser används omvänd ordföljd i bisatsen. Ex.: \"Sprunge jag fem kilometer varje dag, behövde jag inte dricka lightläsk\". Jämför: \"Om jag sprang fem kilometer varje dag, skulle jag inte behöva dricka lig"
+          ],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Referenser",
+      "summary": "^ [a b] Elias Wessén, Våra folkmål. Lund 1935.",
+      "sections": [
+        {
+          "heading": "Noter",
+          "body": "^ [a b] Elias Wessén, Våra folkmål. Lund 1935.\n\n^ [a b] Hultman, Tor (2003). Svenska Akademiens språklära. Svenska Akademien. sid. 57. ISBN 91-7227-351-8 \n\n^  Ragnvald Iversen, \"Norrön grammatikk\", s. 27 och Elias Wessén, \"Svensk språkhistoria\", del 1, s. 17 och s. 101f. \n\n^ ”Frågelådan”. frageladan.isof.se. https://frageladan.isof.se/faqs/23127. Läst 24 februari 2025. \n\n^ ”Ord som kan utelämnas: har, som och det”. Kotus. 12 december 2014. https://sprakinstitutet.fi/ord-som-kan-utelamnas-har-som-och-det/. Läst 24 februari 2025.",
+          "examples": [
+            "^  Ragnvald Iversen, \"Norrön grammatikk\", s. 27 och Elias Wessén, \"Svensk språkhistoria\", del 1, s. 17 och s. 101f."
+          ],
+          "learnerTip": "",
+          "source": "https://sv.wikipedia.org/wiki/Svensk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lesson 1",
+      "summary": "Swedes like to know to whom they are speaking, and this means that when speaking to a Swede, introductions are in order. While Swedish used to be more formal and included a strict use of titles indicating social, and marital status, this is completely abolished. Even very old peo",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "Swedes like to know to whom they are speaking, and this means that when speaking to a Swede, introductions are in order. While Swedish used to be more formal and included a strict use of titles indicating social, and marital status, this is completely abolished. Even very old people expect to be addressed as du \"you\"  and only occasionally is Ni \"you (plural)\" used by sales clerks to address customers.\nThe simplest way to greet a Swede is to establish eye-contact, followed by a simple hej \"hi\". It should not be confused with the English \"hey\", the use of which is more to attract attention, a meaning the Swedish greeting does not contain. A variation and more informal variant of this word is hejsan. To show enthusiasm, you can repeat words; hej hej. Shaking hands is the most common way of greeting a stranger in Sweden. More informal and friendly forms of greeting are the words tja, tjena or tjenare. Though more common among younger people, they are often used by considerably older speakers to establish familiarity or intimacy with the listener.\nGod dag \"good day\" has a formal tone to it, but is very seldom used in everyday life, and is mostly seen in formal speeches and likewise. In the morning, god morgon \"good morning\", is commonly used and is not perceived as particularly formal, if polite. In the evening god kväll \"good evening\" can be used, but like god dag it's quite uncommon either with strangers or friends, but is entirely appropriate for a TV host to say in the introduction of a show.\n\n\n== Dialogue ==\nTwo students are meeting in a university cafeteria in Sweden. One of them is Sven - a Swedish student - and the other one is Peter - an American exchange student.\nSven: Hej. Hur mår du? \nEnglish: Hi. How are you? \n\nPeter: Bara bra, tack. Förlåt, jag har glömt, var är du från? \nEnglish: Just fine, thanks. Sorry, I have forgotten, where are you from? \n\nSven: Jag är från Sverige, du då? \nEnglish: I'm from Sweden, how about you?\n\nPeter: Jag är amerikan, jag är från USA.  \nEnglish: I am American, I'm from the USA. \n\nSven: Ja, just det! Förlåt, vad heter du igen? \nEnglish: Oh, that's right! Sorry, what's your name again? \n\nPeter: Jag heter Peter och du heter Sven. \nEnglish: My name is Peter and your name is Sven. \n\nSven: Tack. Vi ses! \nEnglish: Thank you. See you later! \n\n\n== Long and short vowels ==\nNot unlike many other Scandinavian languages, Swedish distinguishes quite clearly between long and short vowels. English doesn't have the same clear distinction, but the phonetic sound differences are in the language. Compare for example the A in \"haha\" with the A in \"heart,\" the former being short and the latter being long. The short A in \"haha\" matches the short Swedish A pretty well, as does the A in \"heart\" but with the long A.\nTo distinguish long or short vowels in written language, the consonants immediately after the vowel are repeated to indicate a short vowel, and only written once to indicate a long. \"Kommer\" (coming) has a short O, because there are two M's, but it also has a short E, because more often than not, a word ends in a short vowel to aid in language flow when spoken. K is an exception to this rule, as you write \"CK\" when you want to indicate a short vowel.\nThere are traces of a similar system in English, for example \"rock\" has a short O, compared to \"rookie\" which has a long O, but instead of letting the single consonant indicate a long O, \"rookie\" has two O's, unlike Swedish, where something along the lines of \"rokie\" would have been enough to say that the O is probably a long O.\n\n\n== Phrases ==\nHur är det? -- How is it?\nHur mår du? -- How are you?\nVar bor du? -- Where do you live?\nJag bor i ___ -- I live in ___\nVad heter du? -- What's your name?\nJag heter ___ -- My name is ___\nVarifrån kommer du? -- Where are you from?\nJag kommer ifrån ___ -- I'm from ___\nOch du [själv]? -- And you?\nHa det bra! -- Have a nice day!\nVi ses! -- See you (later)!*\nVi hörs! -- We'll keep in touch!*\nTack! -- Thanks!\nJag har glömt -- I've forgotten\nNote that \"hörs\" and \"ses\" use a verb form that English does not have, a reciprocal form. It expresses a reciprocal action, signifying that people will hear from or see each other.\n\n\n== Vocabulary ==\nBra -- Good.\nFörlåt -- Sorry. Literally \"pardon (me)\".\nIgen -- Again.\nOch -- And.\nHeter -- a verb for 'be named', there is no exact translation.\nAmerika -- America*\nChile -- Chile\nIndia -- Indien\nEngland -- England\nKina -- China\nItalien -- Italy\nNederländerna -- Netherlands\nPeru -- Peru\nPolen -- Poland\nSomalien -- Somalia\nSverige -- Sweden\nTyskland -- Germany\nTjeckien -- Czech Republic\nTurkiet -- Turkey\nUngern -- Hungary\nVietnam -- Vietnam\nJapan -- Japan\nSydkorea -- South Korea\nNordkorea -- North Korea\nSpanien -- Spain\nU.S. is USA (never US) in Swedish. It can also be called Amerikas Förenta Stater; and (very frequently) just Amerika.\nFamily in Swedish\nparents\t-- föräldrar\t\nmother -- mamma / mor / moder\t\nFather -- pappa / far / fader\t\nson -- son\t\ndaughter -- dotter\t\nBrother -- bror\t\nSister -- syster\t\nGrandpa -- farfar / morfar\t\ngrandma -- farmor / mormor\t\ngrandson -- sonson / dotterson\t\ngranddaughter -- sondotter / dotterdotter\t\nniece -- brorsdotter / systerdotter\t\nnephew -- brorson / systerson\t\ncousin -- kusin\t\nuncle -- farbror / morbror\t\naunt -- faster / moster\t\nboy -- pojke\t\ngirl -- flicka\t\nchild /baby / infant -- barn / baby / bebis / spädbarn\t\nadult -- vuxen (n)\t\nman -- man\t\nwoman -- kvinna\t\nFriend -- vän\t\ngirlfriend -- väninna\n\n\n== Exercise ==\nWrite a short dialogue, or practice with a friend. In the dialogue, use the phrases for greeting someone, telling them your name and where you're from. Finish it by using one of the phrases for telling the other person goodbye.",
+          "examples": [
+            "Swedes like to know to whom they are speaking, and this means that when speaking to a Swede, introductions are in order. While Swedish used to be more formal and included a strict use of titles indicating social, and marital status, this is",
+            "The simplest way to greet a Swede is to establish eye-contact, followed by a simple hej \"hi\". It should not be confused with the English \"hey\", the use of which is more to attract attention, a meaning the Swedish greeting does not contain. ",
+            "God dag \"good day\" has a formal tone to it, but is very seldom used in everyday life, and is mostly seen in formal speeches and likewise. In the morning, god morgon \"good morning\", is commonly used and is not perceived as particularly forma",
+            "Not unlike many other Scandinavian languages, Swedish distinguishes quite clearly between long and short vowels. English doesn't have the same clear distinction, but the phonetic sound differences are in the language. Compare for example th",
+            "To distinguish long or short vowels in written language, the consonants immediately after the vowel are repeated to indicate a short vowel, and only written once to indicate a long. \"Kommer\" (coming) has a short O, because there are two M's",
+            "There are traces of a similar system in English, for example \"rock\" has a short O, compared to \"rookie\" which has a long O, but instead of letting the single consonant indicate a long O, \"rookie\" has two O's, unlike Swedish, where something"
+          ],
+          "learnerTip": "Swedes like to know to whom they are speaking, and this means that when speaking to a Swede, introductions are in order. While Swedish used to be more formal and included a strict use of titles indica",
+          "source": "https://en.wikibooks.org/wiki/Swedish/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson 2",
+      "summary": "== Dialogue ==\nHans - a German tourist - is driving through Skåne in southern Sweden with his caravan looking for a place to stay the night. He meets Johan - a local Swedish farmer.\nHans: Ursäkta mig. Vet du var husvagnscampingen ligger? \nEnglish: Excuse me. Do you know where the",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "== Dialogue ==\nHans - a German tourist - is driving through Skåne in southern Sweden with his caravan looking for a place to stay the night. He meets Johan - a local Swedish farmer.\nHans: Ursäkta mig. Vet du var husvagnscampingen ligger? \nEnglish: Excuse me. Do you know where the caravan camp is located? \n\nJohan: Ja, det är bara att följa den här vägen 5 kilometer och sedan svänga åt vänster. \nEnglish: Yes, just follow this road for 5 kilometers and then turn left. \n\nHans: Tack så mycket! Jag har letat i flera timmar. \nEnglish: Thank you very much! I have been looking for several hours. \n\nJohan: Det är ingen fara. Fin husvagn förresten. Varifrån kommer du? \nEnglish: Don't worry about it. Nice caravan by the way. Where are you from? \n\nHans: Jag kommer från Tyskland och är här i Sverige på semester över sommaren, som du kanske förstod. \nEnglish: I'm from Germany and I'm here in Sweden on vacation during the summer, as you might have imagined. \n\nJohan: Jo, det är ju många tyskar som kommer hit under sommaren. \nEnglish: Yes, there are many Germans coming here during the summer. \n\nHans: Kanske för att Sverige är så underbart. Hur som helst måste jag åka nu. Tack så mycket för hjälpen igen! \nEnglish: Maybe because Sweden is so wonderful. Anyhow I have to go now. Thanks so much for the help again! \n\nJohan: Ha en trevlig semester. Hej då! \nEnglish: Have a pleasant vacation. Good bye! \n\n\n== Travelling ==\nTravelling in Sweden is easy. Most people understand and speak good English. Some people are also skilled in German, French, Spanish, and Finnish. Most Swedes can easily understand Norwegian and well-enunciated Danish.\nThe biggest railway company is Statens Järnvägar (State Railroads).\nThe dominating airline company is Scandinavian Airlines (SAS). SAS is a member of Star Alliance.\nThere are also buses travelling all over the country. The biggest provider of long distance bus travel is Swebus Express.\n\n\n=== Driving ===\nIn Sweden, driving is done on the right side of the road. For some rules and regulations, see Vägverket (Swedish Road Administration). You can drive freely for one year on a valid non-Swedish driving licence, and forever if you have a driving licence from an EEA country. Swiss or Japanese drivers’ licences can be exchanged for a Swedish licence for permanent residents.\nUse of public transportation (like bus or train) is encouraged.  In Stockholm, there is a new charge for motorists to reduce congestion on the streets (see The Local).\n\n\n=== Allemansrätten - All People's Right ===\nIn Sweden, one is allowed to walk in forests and fields and pick berries, mushrooms and flowers, even if it is on private property. This is in Swedish called 'allemansrätten'. There are some restrictions, which mostly anyhow fall under rules of politeness. The right only extends to \"the wild\" (as forests and meadows), not to obviously planted gardens. The area closest to a house also is exempted. Thus, for instance, one should not camp directly in another's front yard, nor can one light a fire if fire restrictions are in effect. You should not pick flowers that are rare or planted. This also extends to branches and twigs on living trees; the owners of a forest may have planted them, and probably plans to sell or let their children sell the trees as wood to the Swedish forest industry, Thus, you only may take fallen wood for a fire. when they are full-grown. You can camp one night on another's land. This right also does not extend to littering or bothering the animals, and you must pack out everything you take in,\n\n\n=== Currency ===\nThe currency in Sweden is the Swedish krona (SEK) and öre, where 100 öre is 1 SEK.  Öre are no longer used if paying cash.  The exchange rate is about 8-9 SEK for 1 €. Many Swedes will use the word \"crowns\" for their currency, since that is the literal translation for kronor.\nTo get cash in Sweden is easy, visit the closest ATM (called Bankomat or Minuten) with your VISA, MasterCard or similar.\nThe coins of less value than the 1 SEK are no longer used, however, you will still see prices such as 11 kronor 90 öre, but these prices are rounded to the closest amount in kronor, if you pay cash.\n\n\n== Vocabulary ==\n En bil  - A car\n Ett tåg  - A train\n En järnvägstation  - A train station\n En buss  - A bus\n En biljett  - A ticket\n En maskin  - A machine\n En biljettmaskin  - A ticket machine\n En karta  - A map\n En bilkarta  - A roadmap\nAs you can see, words can quite easily be put together to form new words. One difference from English is that in Swedish you don't separate the words, you write \"en bilkarta\", not \"en bil karta\". Writing it with a space is called \"särskrivning\", literally \"separate writing\", and should be avoided as it's incorrect.\n\n\n== Grammar ==\nThis is some short introductory grammar to the definite form in Swedish.\nFor a more complete guide, look at the page about nouns.\n\n\n=== Singular ===\nTo make a word into definite form, you add letters to the end of the word and remove the \"en\" or \"ett\" from before it. To do this, first you have to know if it's \"en\" or \"ett\". In most cases, not always though (I'll come back to this), you simply add a \"n\" to \"en\"-words, and a \"t\" to \"ett\"-words if they end with a vowel. If they end with a consonant, you do the same thing, but add an \"e\" between the word and the ending.\n\nEn bil -> Bilen\nEtt hus -> Huset\nEn karta -> Kartan\n\n\n=== Plural ===\nPlural isn't as easy, as there's five \"declensions\". These you simply have to learn, but when you've read and spoken Swedish for a while, you won't have any trouble with it, you'll simply know when to use a certain ending. For now, ask a Swede, or look the word up in a dictionary. More on the declensions here (link to wikipedia).",
+          "examples": [
+            "In Sweden, one is allowed to walk in forests and fields and pick berries, mushrooms and flowers, even if it is on private property. This is in Swedish called 'allemansrätten'. There are some restrictions, which mostly anyhow fall under rule",
+            "The currency in Sweden is the Swedish krona (SEK) and öre, where 100 öre is 1 SEK.  Öre are no longer used if paying cash.  The exchange rate is about 8-9 SEK for 1 €. Many Swedes will use the word \"crowns\" for their currency, since that is",
+            "As you can see, words can quite easily be put together to form new words. One difference from English is that in Swedish you don't separate the words, you write \"en bilkarta\", not \"en bil karta\". Writing it with a space is called \"särskrivn",
+            "To make a word into definite form, you add letters to the end of the word and remove the \"en\" or \"ett\" from before it. To do this, first you have to know if it's \"en\" or \"ett\". In most cases, not always though (I'll come back to this), you ",
+            "Plural isn't as easy, as there's five \"declensions\". These you simply have to learn, but when you've read and spoken Swedish for a while, you won't have any trouble with it, you'll simply know when to use a certain ending. For now, ask a Sw"
+          ],
+          "learnerTip": "== Dialogue ==\nHans - a German tourist - is driving through Skåne in southern Sweden with his caravan looking for a place to stay the night. He meets Johan - a local Swedish farmer.\nHans: Ursäkta mig.",
+          "source": "https://en.wikibooks.org/wiki/Swedish/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson 3",
+      "summary": "Welcome to the third lesson teaching you the Swedish language!",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "Welcome to the third lesson teaching you the Swedish language!\n\n\n== Dialogue ==\nFredrik - Swedish teenager \nJohn - American visitor \nFredrik: Fråga mig om någonting. \nEnglish: Ask me about something. \n\nJohn: Vilka är dina intressen? \nEnglish: What are your interests? \n\nFredrik: Jag gillar att spela fotboll och ishockey på min fritid. \nEnglish: I like to play football and ice hockey in my spare time. \n\n\n== Fraser - Phrases ==\nVad är din hobby? -- What is your hobby?\nVad gillar du att göra? -- What do you like to do?\nJag gillar schack -- I like chess\nJag föredrar datorspel -- I prefer computer games\nMin hobby är fotboll -- Football is my hobby\nMatematik är roligt -- Maths is fun\n\n\n== Ordlista - Vocabulary ==\nRoligt -- Fun\nIntresse -- Interest\nAtt dansa -- to Dance\nAtt sjunga -- to Sing\nAtt gilla --  to Like\nAtt tycka om -- to Like\n(\"Gilla\" is colloquial, that is, somewhat more informal than \"tycka om\". In the constructions with \"tycka om\", the particle \"om\" is stressed.)",
+          "examples": [
+            "(\"Gilla\" is colloquial, that is, somewhat more informal than \"tycka om\". In the constructions with \"tycka om\", the particle \"om\" is stressed.)"
+          ],
+          "learnerTip": "Welcome to the third lesson teaching you the Swedish language!",
+          "source": "https://en.wikibooks.org/wiki/Swedish/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson 4",
+      "summary": "==== Parents: ====\nCollectively, parents are known as \"föräldrar\".\nJust like in English, the Swedish language has several words for mother and father, ranging from formal to casual. Starting with the words for mother, we have:",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "== Family Values ==\n\n\n=== Immediate Family ===\n\n\n==== Parents: ====\nCollectively, parents are known as \"föräldrar\".\nJust like in English, the Swedish language has several words for mother and father, ranging from formal to casual. Starting with the words for mother, we have:\n\nModer (arch. mother)\nMor (mother)\nMamma (mom)\nMorsa (mom, casual)\nThe most common words for father are:\n\nFader (arch. father)\nFar (father)\nPappa (dad)\nFarsa (dad, casual)\nFarsgubben (old man)\nNote that when addressing your folks with the casual terms, you use the definite forms farsan and morsan.\n\n\n==== Siblings ====\nThe words for syskon (siblings) are for brother:\n\nBroder (arch. brother)\nBror (brother)\nBrorsa (bro)\nand for sister:\n\nSyster (sister)\nSyrra (sis)\nThe same goes here. You address them brorsan and syrran.\nThe word syskon itself is more commonly used (for people) in Swedish than the English word siblings. You would always translate \"My brothers and sisters\" with \"Mina syskon\", never with \"Mina bröder och systrar\", unless possibly if you want to make a special point about the differenses between them.\n\n\n==== Children ====\nChildren in general are referred to as \"barn\", in both singular and plural.\nA male child is called\n\nSon (son)\nPojke (boy)\nGosse (young boy)\nKille (casual form of boy; also guy for adults)\nA female child is\n\nDotter (daughter)\nFlicka (girl)\nTjej (casual form of girl; also girl/chick for adults)\n\n\n=== \"Grandfamily\" ===\n\n\n==== Maternal Grandparents ====\nCollectively, your maternal grandparents are \"morföräldrar\"\n\nMormor (maternal grandmother)\nMorfar (maternal grandfather)\n\n\n==== Paternal Grandparents ====\nCollectively, your paternal grandparents are \"farföräldrar\".\n\nFarmor (paternal grandmother)\nFarfar (paternal grandfather)\n\n\n==== Great Grandparents ====\nMormors mor (maternal grandmother's mother - mother's mother's mother)\nFarfars far (paternal grandfather's father - father's father's father)\nFarmors farfars mor (paternal grandmothers paternal grandfathers mother - father's mother's father's father's mother)\nTo build further, just add an s after every other generation\n\n\n==== Grandchildren ====\nThe formation of words for grandchildren follows the same pattern as for grandparents:\n\nDotterson (daughter's son)\nDotterdotter (daughter's daughter)\nSondotter (son's daughter)\nSonson (son's son)\nTo generically describe grandchildren, use:\n\nBarnbarn (children's children)\n(someone please add phonetics)\n\n\n=== A Little More Extended Family ===\nFaster † (father's sister, or aunt)\nMoster † (mother's sister, or aunt)\nMorbror (mother's brother, or uncle)\nFarbror ‡ (father's brother, or uncle)\nKusin (cousin, child of a parent's brother or sister)\n† Sometimes also called \"tant\", which is also used as a common name for elder ladies. It's also possible to refer to an uncle with the less common word \"onkel\".\n‡ \"Farbror\" is also used as a common name for old men.",
+          "examples": [
+            "Collectively, parents are known as \"föräldrar\".",
+            "The word syskon itself is more commonly used (for people) in Swedish than the English word siblings. You would always translate \"My brothers and sisters\" with \"Mina syskon\", never with \"Mina bröder och systrar\", unless possibly if you want ",
+            "Children in general are referred to as \"barn\", in both singular and plural.",
+            "=== \"Grandfamily\" ===",
+            "Collectively, your maternal grandparents are \"morföräldrar\"",
+            "Collectively, your paternal grandparents are \"farföräldrar\"."
+          ],
+          "learnerTip": "==== Parents: ====\nCollectively, parents are known as \"föräldrar\".\nJust like in English, the Swedish language has several words for mother and father, ranging from formal to casual. Starting with the",
+          "source": "https://en.wikibooks.org/wiki/Swedish/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Lesson 5",
+      "summary": "Swedish School starts when children are seven years old to fifteen years old. If they want to they can choose to go to high school, if they do it they go there from age sixteen years until nineteen years old.\nIn this time they learn:",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "Swedish School starts when children are seven years old to fifteen years old. If they want to they can choose to go to high school, if they do it they go there from age sixteen years until nineteen years old.\nIn this time they learn:\n\nsvenska = Swedish\nhistoria = history\nidrott = PE\nmatematik (formal), matte (casual) = mathematics (maths)\nNO, Natur Orientering = Physics and other nature sciences (lit. nature orientation)\nSO, Social Orientering = social knowledge (lit.Social Orientation)\nengelska = English\nB-språk = free choice of a third language to learn, optional\nC-språk = free choice of a fourth language to learn, optional",
+          "examples": [],
+          "learnerTip": "Swedish School starts when children are seven years old to fifteen years old. If they want to they can choose to go to high school, if they do it they go there from age sixteen years until nineteen ye",
+          "source": "https://en.wikibooks.org/wiki/Swedish/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson 6",
+      "summary": "== Vocabulary ==\nVad kostar den/det? = How much is it?\nDen kostar...= It costs...\nChoklad = Chocolate\nTack så mycket = Thank you so much\nFår man prova den/det? = Can I try it?\nUrsäkta, kan du hjälpa mig? = Excuse me, can you help me?",
+      "sections": [
+        {
+          "heading": "Lesson 6",
+          "body": "== Shopping ==\n\n\n== Vocabulary ==\nVad kostar den/det? = How much is it?\nDen kostar...= It costs...\nChoklad = Chocolate\nTack så mycket = Thank you so much\nFår man prova den/det? = Can I try it?\nUrsäkta, kan du hjälpa mig? = Excuse me, can you help me?",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Swedish/Lesson_6"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Lesson 7",
+      "summary": "== rooms : rum ==\n(the) livingroom: vardagsrum(met)\n(the) kitchen : kök(et)\n(the) bedroom : sovrum(met)\n(the) bathroom : badrum(met)\n(the) toilet : toalett(en)\n(the) kids room : barnkammare(n)\n(the) dining room : matsal(en)\n(the) hall : hall(en)\n(the) attic : vind(en)\n(the) cella",
+      "sections": [
+        {
+          "heading": "Lesson 7",
+          "body": "== home - hem ==\n\n\n== rooms : rum ==\n(the) livingroom: vardagsrum(met)\n(the) kitchen : kök(et)\n(the) bedroom : sovrum(met)\n(the) bathroom : badrum(met)\n(the) toilet : toalett(en)\n(the) kids room : barnkammare(n)\n(the) dining room : matsal(en)\n(the) hall : hall(en)\n(the) attic : vind(en)\n(the) cellar : källare(en)\n(the) sauna : bastu(n)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Swedish/Lesson_7"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Nouns",
+      "summary": "Nouns have one of two grammatical genders: common (utrum) and neuter (neutrum), which determine their definite forms as well as the form of any adjectives and articles used to describe them. Noun gender is largely arbitrary and must be memorized; however, around three quarters of",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nouns have one of two grammatical genders: common (utrum) and neuter (neutrum), which determine their definite forms as well as the form of any adjectives and articles used to describe them. Noun gender is largely arbitrary and must be memorized; however, around three quarters of all Swedish nouns are common gender. Living beings are often common nouns, like in en katt \"a cat\", en häst \"a horse\", en fluga \"a fly\", etc (see also Gender in Danish and Swedish).\n\nSwedish once had three genders—masculine, feminine and neuter. Though the three-gender system is preserved in a number of dialects and traces of it still exist in certain expressions, masculine and feminine nouns have today merged into the common gender in the standard language. A remnant of the masculine gender can still be expressed in the singular definite form of adjectives according to natural gender (male humans), in the same way as personal pronouns, han and hon, are chosen for representing nouns in contemporary Swedish (male/female human beings and optionally animals).\n\nThere is a small number of Swedish nouns that can be either common or neuter gender. The database for Svenska Akademiens ordlista 12 contained 324 such nouns.[1][dead link]\n\nThere are traces of the former four-case system for nouns evidenced in that pronouns still have subject, object (based on the old accusative and dative form) and genitive forms.[2] Nouns make no distinction between subject and object forms, and the genitive is formed by adding -s to the end of a word. This -s genitive functions more like a clitic than a proper case and is nearly identical to the possessive suffix used in English. Note, however, that in Swedish orthography this genitive -s is appended directly to the word and is not preceded by an apostrophe. This does not cause confusion as it would in English because Swedish does not use an \"-s\" suffix for plurals.\n\nSwedish nouns are inflected for number and definiteness and can take a genitive suffix. They exhibit the following morpheme order:\n\nNoun stem\n\n(Plural ending)\n\n(Definite article)\n\n(Genitive -s)",
+          "examples": [
+            "Nouns have one of two grammatical genders: common (utrum) and neuter (neutrum), which determine their definite forms as well as the form of any adjectives and articles used to describe them. Noun gender is largely arbitrary and must be memo",
+            "There are traces of the former four-case system for nouns evidenced in that pronouns still have subject, object (based on the old accusative and dative form) and genitive forms.[2] Nouns make no distinction between subject and object forms,"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Plural forms",
+          "body": "Nouns form the plural in a variety of ways. It is customary to classify Swedish nouns into five declensions based on their plural indefinite endings: -or, -ar, -(e)r, -n, and no ending.\n\nNouns of the first declension are all of the common gender (historically feminine). The majority of these nouns end in -a in the singular and replace it with -or in the plural. For example: en flicka (\"a girl\"), flickor (\"girls\"). A few nouns of the first declension end in a consonant, such as: en våg (\"a wave\"), vågor (\"waves\"); en ros (\"a rose\"), rosor (\"roses\").\n\nNouns of the second declension are also of the common gender (historically masculine), with the exception of ett finger (\"a finger\"), fingrar (\"fingers\"). They all have the plural ending -ar. Examples include: en arm (\"an arm\"), armar (\"arms\"); en hund (\"a dog\"), hundar (\"dogs\"); en sjö (\"a lake\"), sjöar (\"lakes\"); en pojke (\"a boy\"), pojkar (\"boys\"); en sjukdom (\"an illness\"), sjukdomar (\"illnesses\"); en främling (\"a stranger\"), främlingar (\"strangers\"). A few second declension nouns have irregular plural forms, for instance: en afton (\"an evening\"), aftnar (\"evenings\"); en sommar (\"a summer\"), somrar (\"summers\"); en moder or en mor (\"a mother\"), mödrar (\"mothers\").\n\nThe third declension includes both common and neuter nouns. The plural ending for nouns of this declension is -er or, for some nouns ending in a vowel, -r. For example: en park (\"a park\"), parker (\"parks\"); ett museum (\"a museum\"), museer (\"museums\", also loses the Latinate suffix -um); en sko (\"a shoe\"), skor (\"shoes\"); en fiende (\"an enemy\"), fiender (\"enemies\"). Some third declension nouns modify or shorten their stem vowels due to umlaut in the plural: en hand (\"a hand\"), händer (\"hands\"); ett land (\"a country\"), länder (\"countries\"); en bok (\"a book\"), böcker (\"books\"); en nöt (\"a nut\"), nötter (\"nuts\").\n\nAll nouns in the fourth declension are of the neuter gender and end in a vowel in the singular. Their plural ending is -n. For example: ett bi (\"a bee\"), bin (\"bees\"); ett äpple (\"an apple\"), äpplen (\"apples\"). Two nouns in this declension have irregular plural forms: ett öga (\"an eye\"), ögon (\"eyes\"); ett öra (\"an ear\"), öron (\"ears\").\n\nFifth declension nouns have no plural ending and they can be of common or neuter gender. Examples of these include: ett barn (\"a child\"), barn (\"children\"); ett djur (\"an animal\"), djur (\"animals\"); en lärare (\"a teacher\"), lärare (\"teachers\"). Some fifth declension nouns show umlaut in the plural: en mus (\"a mouse\"), möss (\"mice\"); en gås (\"a goose\"), gäss (\"geese\"); en man (\"a man\"), män (\"men\").",
+          "examples": [
+            "Nouns of the first declension are all of the common gender (historically feminine). The majority of these nouns end in -a in the singular and replace it with -or in the plural. For example: en flicka (\"a girl\"), flickor (\"girls\"). A few nou",
+            "Nouns of the second declension are also of the common gender (historically masculine), with the exception of ett finger (\"a finger\"), fingrar (\"fingers\"). They all have the plural ending -ar. Examples include: en arm (\"an arm\"), armar (\"arm",
+            "The third declension includes both common and neuter nouns. The plural ending for nouns of this declension is -er or, for some nouns ending in a vowel, -r. For example: en park (\"a park\"), parker (\"parks\"); ett museum (\"a museum\"), museer (",
+            "All nouns in the fourth declension are of the neuter gender and end in a vowel in the singular. Their plural ending is -n. For example: ett bi (\"a bee\"), bin (\"bees\"); ett äpple (\"an apple\"), äpplen (\"apples\"). Two nouns in this declension ",
+            "Fifth declension nouns have no plural ending and they can be of common or neuter gender. Examples of these include: ett barn (\"a child\"), barn (\"children\"); ett djur (\"an animal\"), djur (\"animals\"); en lärare (\"a teacher\"), lärare (\"teacher"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Articles and definite forms",
+          "body": "The definite article in Swedish is mostly expressed by a suffix on the head noun, while the indefinite article is a separate word preceding the noun. This structure of the articles is shared by the Scandinavian languages. Articles differ in form depending on the gender and number of the noun.\n\nThe indefinite article, which is only used in the singular, is en for common nouns, and ett for neuter nouns, e.g. en flaska (\"a bottle\"), ett brev (\"a letter\"). The definite article in the singular is generally the suffixes -en or -n for common nouns (e.g. flaskan \"the bottle\"), and -et or -t for neuter nouns (e.g. brevet \"the letter\"). In most dialects, the final -t of the definite neuter suffix is silent. The definite article in the plural is -na for the first three declensions, -a for the fourth, and -en for the fifth: for example flaskorna (\"the bottles\"), bina (\"the bees\"), breven (\"the letters\").\n\nWhen an adjective or numeral is used in front of a noun with the definite article, an additional definite article is placed before the adjective(s). This additional definite article is det for neuter nouns, den for common nouns, and de for plural nouns, e.g. den nya flaskan (\"the new bottle\"), det nya brevet (\"the new letter\"), de fem flaskorna (\"the five bottles\"). A similar structure involving the same kind of circumfixing of the definite article around the words här (\"here\") or där ('there') is used to mean \"this\" and \"that\", e.g. den här flaskan (\"this bottle\"), det där brevet (\"that letter\") as a demonstrative article.\n\nThe five declension classes may be named -or, -ar, -er, -n, and null after their respective plural indefinite endings. Each noun has eight forms: singular/plural, definite/indefinite and caseless/genitive. The caseless form is sometimes referred to as nominative, even though it is used for grammatical objects as well as subjects.",
+          "examples": [
+            "The indefinite article, which is only used in the singular, is en for common nouns, and ett for neuter nouns, e.g. en flaska (\"a bottle\"), ett brev (\"a letter\"). The definite article in the singular is generally the suffixes -en or -n for c",
+            "When an adjective or numeral is used in front of a noun with the definite article, an additional definite article is placed before the adjective(s). This additional definite article is det for neuter nouns, den for common nouns, and de for "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Genitive",
+          "body": "The genitive is always formed by appending -s to the caseless form. In the second, third and fifth declensions words may end with /s/ (spelled -⟨s⟩, -⟨x⟩, or -⟨z⟩) in the caseless form. These words take no extra -s in genitive use: the genitive (indefinite) of hus (\"house\") is hus. The invisible genitive suffix may however optionally be represented with an apostrophe in writing: hus’.[3] Morpheme boundaries in some forms may be analyzed differently by some scholars.\n\nThe Swedish genitive is not considered a case by all scholars today,[who?] as the -s is usually put on the last word of the noun phrase even when that word is not the head noun, much like in English usage (e.g. mannen som står där bortas hatt, \"the man standing over there's hat\"). This use of -s as a clitic rather than a suffix has traditionally been regarded as ungrammatical, but is today dominant to the point where putting an -s on the head noun is considered old fashioned. The Swedish Language Council sanctions putting the ending after fixed, non-arbitrary phrases (e.g. Konungen av Danmarks bröstkarameller, \"the King of Denmark's cough drops\"); but otherwise they recommend to reformulate in order to avoid the construction altogether.[4]",
+          "examples": [
+            "The genitive is always formed by appending -s to the caseless form. In the second, third and fifth declensions words may end with /s/ (spelled -⟨s⟩, -⟨x⟩, or -⟨z⟩) in the caseless form. These words take no extra -s in genitive use: the geni",
+            "The Swedish genitive is not considered a case by all scholars today,[who?] as the -s is usually put on the last word of the noun phrase even when that word is not the head noun, much like in English usage (e.g. mannen som står där bortas ha"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Examples",
+          "body": "These examples cover all regular Swedish caseless noun forms.\n\nFirst declension: -or (common gender)\n\nSingular\n\nPlural\n\nIndefinite\n\n(en) flaska\n(a) bottle\n\nflaskor\nbottles\n\nDefinite\n\nflaskan\nthe bottle\n\nflaskorna\nthe bottles\n\nSecond declension: -ar (common gender)\n\nSingular\n\nPlural\n\nIndefinite\n\n(en) stol\na chair\n\nstolar\nchairs\n\nDefinite\n\nstolen\nthe chair\n\nstolarna\nthe chairs\n\nSingular\n\nPlural\n\nIndefinite\n\n(en) gubbe\n(an) old man\n\ngubbar\nold men\n\nDefinite\n\ngubben\nthe old man\n\ngubbarna\nthe old men\n\nThird declension: -er, -r (mostly common gender nouns, some neuter nouns)\n\nSingular\n\nPlural\n\nIndefinite\n\n(en) sak\n(a) thing\n\nsaker\nthings\n\nDefinite\n\nsaken\nthe thing\n\nsakerna\nthe things\n\nSingular\n\nPlural\n\nIndefinite\n\n(en) bakelse\n(a) pastry\n\nbakelser\npastries\n\nDefinite\n\nbakelsen\nthe pastry\n\nbakelserna\nthe pastries\n\nSingular\n\nPlural\n\nIndefinite\n\n(ett) parti\n(a) political party\n\npartier\npolitical parties\n\nDefinite\n\npartiet\nthe political party\n\npartierna\nthe political parties\n\nThe set of words taking only -r as a marker for plural is regarded as a declension of its own by some scholars. However, traditionally these have been regarded as a special version of the third declension.\n\nFourth declension: -n (neuter) This is when a neuter noun ends in a vowel.\n\nSingular\n\nPlural\n\nIndefinite\n\n(ett) hjärta\n(a) heart\n\nhjärtan\nhearts\n\nDefinite\n\nhjärtat\nthe heart\n\nhjärtana\nthe hearts\n\nFifth declension: unmarked plural (mostly neuter nouns ending in consonants and common gender nouns ending in certain derivational suffixes)\n\nSingular\n\nPlural\n\nIndefinite\n\n(ett) horn\n(a) horn\n\nhorn\nhorns\n\nDefinite\n\nhornet\nthe horn\n\nhornen\nthe horns\n\nSingular\n\nPlural\n\nIndefinite\n\n(en) bagare\n(a) baker\n\nbagare\nbakers\n\nDefinite\n\nbagaren\nthe baker\n\nbagarna\nthe bakers\n\nSingular\n\nPlural\n\nIndefinite\n\n(en) indier\n(an) Indian\n\nindier\nIndians\n\nDefinite\n\nindiern\nthe Indian\n\nindierna\nthe Indians",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Pronouns",
+      "summary": "The Swedish personal-pronoun system is almost identical to that of English. Pronouns inflect for person, for number, and, in the third person singular, for gender. Swedish differs, inter alia, in having a separate third-person reflexive pronoun sig (\"oneself\"/\"himself\"/\"herself\"/",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "The Swedish personal-pronoun system is almost identical to that of English. Pronouns inflect for person, for number, and, in the third person singular, for gender. Swedish differs, inter alia, in having a separate third-person reflexive pronoun sig (\"oneself\"/\"himself\"/\"herself\"/\"itself\"/\"themselves\" – analogous to Latin se and Slavic sę), and distinct 2nd-person singular forms du (\"thou\") and ni (\"you\", formal/respectful), and their objective forms, which have all merged to you in English, while the third-person plurals are becoming merged in Swedish instead (see below the table). Some aspects of personal pronouns are simpler in Swedish: reflexive forms are not used for the first and second persons, although själv (\"self\") and egen/eget/egna (\"own\") may be used for emphasis, and there are no absolute forms for the possessive.\n\nThe Swedish personal pronouns are:\n\nSingular\n\nPlural\n\nPerson\n\nNominative\n\nObjective\n\nPossessive: com./neut./pl.\n\nPerson\n\nNominative\n\nObjective\n\nPossessive: com./neut./pl.\n\n1st\n\njag\n\nmig[i]\n\nmin, mitt, mina[ii]\n\n1st\n\nvi\n\noss\n\nvår, vårt, våra[ii]\n\n2nd (familiar)\n\ndu\n\ndig[i]\n\ndin, ditt, dina[ii]\n\n2nd\n(plural or formal sing.)\n\nni\n\ner\n\ner, ert, era[ii]\nErs (honorific)\n\n3rd masculine\n\nhan\n\nhonom\n\nhans\n\n3rd\n\nde[i]\n\ndem[i]\n\nderas\n\n3rd feminine\n\nhon\n\nhenne\n\nhennes\n\n3rd gender-neutral[iii]\n\nhen\n\nhen, henom\n\nhens\n\n3rd common\n\nden\n\ndess\n\n3rd neuter\n\ndet\n\n3rd indefinite (\"one\")\n\nman\n\nen\n\nens\n\n3rd reflexive\n\n—\n\nsig[i]\n\nsin, sitt, sina[ii]\n\n3rd reflexive\n\n—\n\nsig[i]\n\nsin, sitt, sina[ii]\n\n^ a b c d e f Pronouns de (\"they\") and dem (\"them\") are both usually pronounced dom [ˈdɔmː]) in colloquial speech, while in formal speech, dom may optionally replace just dem. In some dialects (especially in southwestern Sweden and Finland) there is still a separation between the two; de is then commonly pronounced di [ˈdiː]. Also, mig, dig, sig are pronounced as if written mej, dej, sej [ˈmɛj, ˈdɛj, ˈsɛj], and are also sometimes spelled that way in less formal writing or to signal spoken language, but this is not appreciated by everyone.\n\n^ a b c d e f These possessive pronouns are inflected similarly to adjectives, agreeing in gender and number with the item possessed. The other possessive pronouns (i.e. those listed singly) are genitive forms that are unaffected by the item possessed.\n\n^ While common and neuter refer to grammatical gender, hen and its inflections are gender-neutral pronoun neologisms used by some to avoid a preference for female or male, when a person's gender is not known, or to refer to people who do not identify their gender as female or male, similarly to the singular they in English. They came into widespread use relatively recently, but since 2010 have appeared frequently in traditional and online media,[5] legal documents,[6] and literature.[7] The use of these words has prompted political and linguistic debate in Sweden, and their use is not accepted by all Swedish speakers.[8] In April 2015, it was added to Svenska Akademiens ordlista, the official spelling dictionary of the Swedish Academy. Style manuals and Swedish Language Council recommend hen over henom as the objective form.",
+          "examples": [
+            "The Swedish personal-pronoun system is almost identical to that of English. Pronouns inflect for person, for number, and, in the third person singular, for gender. Swedish differs, inter alia, in having a separate third-person reflexive pro",
+            "3rd indefinite (\"one\")",
+            "^ a b c d e f Pronouns de (\"they\") and dem (\"them\") are both usually pronounced dom [ˈdɔmː]) in colloquial speech, while in formal speech, dom may optionally replace just dem. In some dialects (especially in southwestern Sweden and Finland)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Adjectives",
+      "summary": "Swedish adjectives are declined according to gender, number, and definiteness of the noun.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Swedish adjectives are declined according to gender, number, and definiteness of the noun.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Weak inflection",
+          "body": "In the definite form, (meaning the + adjective), there is an -a suffix no matter the case or number of the noun:\n\nSingular\n\nPlural\n\nCommon\n\nden stora björnen, \"the large bear\"\n\nde stora björnarna, \"the large bears\"\n\nNeuter\n\ndet stora lodjuret, \"the large lynx\"\n\nde stora lodjuren, \"the large lynxes\"\n\nThis form is also used with possessive adjectives (my, your, his, her, our, their, or in Swedish min/mitt/mina, etc. ), resulting in min gula bil (my yellow car) and ditt stora hus (your large house).\n\nThe sole exception to this -a suffix occurs when nouns can be replaced with \"he\" or \"him\" (in Swedish han or honom). In this case, the adjectives take the -e ending. Colloquially, however, the usual -a ending is possible in these cases in some Swedish dialects:\n\nSingular\n\nPlural\n\nNat. masc.,\nalt. I\n\nden store mannen, \"the large man\"\n\nde stora männen, \"the large men\"\n\nNat. masc.,\nalt. II\n\nden stora mannen, \"the large man\"\n\nThis is called a weak adjective inflection and originates from a Proto-Germanic nominal derivation of the adjectives. This was not always the case, cf. Proto-Germanic adjectives",
+          "examples": [
+            "den stora björnen, \"the large bear\"",
+            "de stora björnarna, \"the large bears\"",
+            "det stora lodjuret, \"the large lynx\"",
+            "de stora lodjuren, \"the large lynxes\"",
+            "The sole exception to this -a suffix occurs when nouns can be replaced with \"he\" or \"him\" (in Swedish han or honom). In this case, the adjectives take the -e ending. Colloquially, however, the usual -a ending is possible in these cases in s",
+            "den store mannen, \"the large man\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Comparatives and superlatives",
+          "body": "Adjectives with comparative and superlative forms ending in -are and -ast, which is a majority, also, and so by rule, use the -e suffix for all persons on definite superlatives: den billigaste bilen (\"the cheapest car\"). Another instance of -e for all persons is the plural forms and definite forms of adjectival verb participles ending in -ad: en målad bil (\"a painted car\") vs. målade bilar (\"painted cars\") and den målade bilen (\"the painted car\").",
+          "examples": [
+            "Adjectives with comparative and superlative forms ending in -are and -ast, which is a majority, also, and so by rule, use the -e suffix for all persons on definite superlatives: den billigaste bilen (\"the cheapest car\"). Another instance of"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Adverbs",
+      "summary": "Adjectival adverbs are formed by putting the adjective in the neuter singular form. Adjectives ending in -lig may take either the neuter singular ending or the suffix -en, and occasionally -ligen is added to an adjective not already ending in -lig.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectival adverbs are formed by putting the adjective in the neuter singular form. Adjectives ending in -lig may take either the neuter singular ending or the suffix -en, and occasionally -ligen is added to an adjective not already ending in -lig.\n\nCommon\n\nNeuter\n\nAdverb\n\ntjock, \"thick\"\n\ntjockt, \"thick\"\n\ntjockt, \"thickly\"\n\nsnabb, \"fast\"\n\nsnabbt, \"fast\"\n\nsnabbt, \"fast\"\n\navsiktlig, \"intentional\"\n\navsiktligt, \"intentional\"\n\navsiktligen, \"intentionally\"\n\nstor, \"great, large\"\n\nstort, \"great, large\"\n\nstorligen, \"greatly\"\ni stort sett, \"largely\"",
+          "examples": [
+            "tjock, \"thick\"",
+            "tjockt, \"thick\"",
+            "tjockt, \"thickly\"",
+            "snabb, \"fast\"",
+            "snabbt, \"fast\"",
+            "snabbt, \"fast\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Directional adverbs",
+          "body": "Adverbs of direction in Swedish show a distinction that is often lacking in English: some have different forms depending on whether one is heading that way, or already there. For example:\n\nJag steg upp på taket. Jag arbetade där uppe på taket.\nI climbed up on the roof. I was working up on the roof.\n\nHeading that way\n\nAlready there\n\nEnglish\n\nupp\nuppe\nup\n\nner\nnere\ndown\n\nin\ninne\nin, into\n\nut\nute\nout, out of\n\nhem\nhemma\nhome\n\nbort\nborta\naway\n\nfram\nframme\nforward",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Numerals",
+      "summary": "The cardinal numbers from zero to twelve in Swedish are:",
+      "sections": [
+        {
+          "heading": "Cardinal numbers",
+          "body": "The cardinal numbers from zero to twelve in Swedish are:\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n\nnoll\nen, ett\ntvå\ntre\nfyra\nfem\nsex\nsju\nåtta\nnio\ntio\nelva\ntolv\n\nThe number 1 is the same as the indefinite article, and its form (en or ett) depends on the gender of the noun that it modifies.\n\nThe Swedish numbers from 13 to 19 are:\n\n13\n14\n15\n16\n17\n18\n19\n\ntretton\nfjorton\nfemton\nsexton\nsjutton\narton\n(aderton)\nnitton\n\nThe form aderton is archaic, and is nowadays only used in poetry and some official documents. It is still common in Finland Swedish.\n\nThe numbers for multiples of ten from 20 to 1000 are:\n\n20\n30\n40\n50\n60\n70\n80\n90\n100\n1000\n\ntjugo\ntrettio\nfyrtio\nfemtio\nsextio\nsjuttio\nåttio\nnittio\n(ett) hundra\n(ett) tusen\n\nIn some dialects, numbers are not always pronounced the way they are spelled. With the numbers nio (9), tio (10) and tjugo (20), the -o is often pronounced as -e, e.g. [ˈɕʉ̂ːɡɛ]. In some northern dialects it is pronounced as a -u ([ˈɕʉ̂ːɡʉ]), and in some middle dialects as an -i ([ˈɕʉ̂ːɡɪ]). In spoken language, tjugo usually drops the final syllable when compounded with another digit and is pronounced as tju- + the digit, e.g. tjugosju (27) may be pronounced [ɕʉˈɧʉː]. Words ending in -io (trettio, fyrtio, etc.) are most often pronounced without the final -o; the y in fyrtio (40) is always pronounced as ö: [ˈfœ̌ʈːɪ].\n\nNumbers between 21 and 99 are written in the following format:\n\n(big number)(small number)\nFor example:\n\n22 – tjugotvå\n79 – sjuttionio\n63 – sextiotre\n48 – fyrtioåtta\n31 – trettioett\n(345 – trehundrafyrtiofem)\nThe ett preceding hundra (100) and tusen (1000) is optional, but in compounds it is usually required.\n\nHigher numbers include:\n\n10 000\ntiotusen\n\n100 000\nhundratusen\n\n1 000 000\nen miljon\n\n10 000 000\ntio miljoner\n\n100 000 000\n(ett) hundra miljoner\n\n1 000 000 000\nen miljard[i]\n\n^ Swedish uses the long scale for large numbers.\n\nThe cardinal numbers from miljon and larger are true nouns and take the -er suffix in the plural. They are separated in written Swedish from the preceding number.\n\nAny number can be compounded by simply joining the relevant simple cardinal number in the same order as the digits are written. Written with digits, a number is separated with a space between each third digit from the right. The same principle is used when a number is written with letters, although using letters becomes less common the longer the number is. However, round numbers, like tusen, miljon and miljard are often written with letters as are small numbers (below 20).\n\nWritten form\n\nIn components (do not use in written Swedish)\n\n21\n\ntjugoett / tjugoen\n\n(tjugo-ett) / (tjugo-en)\n\n147\n\netthundrafyrtisju\netthundrafyrtiosju\n\n(ett-hundra-fyrtio-sju)\n\n1 975\n\nettusen niohundrasjuttifem\nettusen niohundrasjuttiofem\n\n(ett-tusen nio-hundra-sjuttio-fem)\n\n10 874\n\ntiotusen åttahundrasjuttifyra\ntiotusen åttahundrasjuttiofyra\n\n(tio-tusen åtta-hundra-sjuttio-fyra)\n\n100 557\n\netthundratusen femhundrafemtisju\netthundratusen femhundrafemtiosju\n\n(ett-hundra-tusen fem-hundra-femtio-sju)\n\n1 378 971\n\nen miljon trehundrasjuttiåtta tusen niohundrasjuttiett\nen miljon trehundrasjuttioåtta tusen niohundrasjuttioett\n\n(en miljon tre-hundra-sjuttio-åtta tusen nio-hundra-sjuttio-ett)\n\nThe decimal point is written as , (comma) and spelled and pronounced komma. The digits following the decimal point may be read individually or as a pair if there are only two. When dealing with monetary amounts (usually with two decimals), the decimal point is read as och, i.e. \"and\": 3,50 (tre och femtio), 7,88 (sju och åttioåtta).",
+          "examples": [
+            "The decimal point is written as , (comma) and spelled and pronounced komma. The digits following the decimal point may be read individually or as a pair if there are only two. When dealing with monetary amounts (usually with two decimals), "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Ordinal and rational numbers",
+          "body": "Ordinals from \"first\" to \"twelfth\":\n\n1st\n2nd\n3rd\n4th\n5th\n6th\n7th\n8th\n9th\n10th\n11th\n12th\n\n1:a\n2:a\n3:e\n4:e\n5:e\n6:e\n7:e\n8:e\n9:e\n10:e\n11:e\n12:e\n\nförsta\nandra\ntredje\nfjärde\nfemte\nsjätte\nsjunde\nåttonde\nnionde\ntionde\nelfte\ntolfte\n\nThose from \"thirteenth\" to \"nineteenth\", as well as \"hundredth\" and \"thousandth\", are formed from cardinal numerals with the suffix -de, e.g. trettonde (13:e), fjortonde (14:e), hundrade (100:e), tusende (1000:e).\n\nOrdinals for the multiples of ten (\"twentieth\" to \"ninetieth\") are formed from cardinal numerals with the suffix -nde, e.g. tjugonde (20:e), trettionde (30:e).\n\nOrdinals for higher numbers are formed from cardinal numerals with the suffix -te, e.g. miljonte (\"millionth\"). There is no ordinal for miljard (\"billion\").\n\nRational numbers are read as the cardinal number of the numerator followed by the ordinal number of the denominator compounded with del or, if the numerator is higher than one, delar (\"part(s)\"). For those ordinal numbers that are three syllables or longer and end in -de, that suffix is usually dropped in favour of -del(ar). There are a few exceptions.\n\n1⁄2\nen halv (\"one half\")\n\n1⁄3\nen tredjedel\n\n3⁄4\ntre fjärdedelar\n\n2⁄5\ntvå femtedelar\n\n5⁄6\nfem sjättedelar\n\n4⁄7\nfyra sjundedelar\n\n1⁄8\nen åttondel or en åttondedel\n\n8⁄9\nåtta niondelar or åtta niondedelar\n\n1⁄10\nen tiondel or en tiondedel\n\n1⁄11\nen elftedel\n\n1⁄12\nen tolftedel\n\n1⁄13\nen trettondel or en trettondedel\n\n1⁄14\nen fjortondel or en fjortondedel\n\n1⁄15\nen femtondel or en femtondedel\n\n1⁄16\nen sextondel or en sextondedel\n\n1⁄17\nen sjuttondel or en sjuttondedel\n\n1⁄18\nen artondel or en artondedel\n\n1⁄19\nen nittondel or en nittondedel\n\n1⁄20\nen tjugondel or en tjugondedel",
+          "examples": [
+            "Ordinals from \"first\" to \"twelfth\":",
+            "Those from \"thirteenth\" to \"nineteenth\", as well as \"hundredth\" and \"thousandth\", are formed from cardinal numerals with the suffix -de, e.g. trettonde (13:e), fjortonde (14:e), hundrade (100:e), tusende (1000:e).",
+            "Ordinals for the multiples of ten (\"twentieth\" to \"ninetieth\") are formed from cardinal numerals with the suffix -nde, e.g. tjugonde (20:e), trettionde (30:e).",
+            "Ordinals for higher numbers are formed from cardinal numerals with the suffix -te, e.g. miljonte (\"millionth\"). There is no ordinal for miljard (\"billion\").",
+            "Rational numbers are read as the cardinal number of the numerator followed by the ordinal number of the denominator compounded with del or, if the numerator is higher than one, delar (\"part(s)\"). For those ordinal numbers that are three syl",
+            "en halv (\"one half\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Verbs",
+      "summary": "Verbs do not inflect for person or number in modern standard Swedish. They inflect for the present and past tense and the imperative, subjunctive, and indicative mood. Other tenses are formed by combinations of auxiliary verbs with infinitives or a special form of the participle",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbs do not inflect for person or number in modern standard Swedish. They inflect for the present and past tense and the imperative, subjunctive, and indicative mood. Other tenses are formed by combinations of auxiliary verbs with infinitives or a special form of the participle called the supine. In total there are six spoken active-voice forms for each verb: infinitive, imperative, present, preterite/past, supine, and past participle. The only subjunctive form widely used in everyday speech is vore, the past subjunctive of vara (\"to be\"). It is used as one way of expressing the conditional (\"would be\", \"were\"), but is optional. Except for this form, subjunctive forms are considered archaic or dialectal.\n\nVerbs may also take the passive voice. It is formed for any verb tense by appending -s to the tense. For verbs ending in -r, the -r is actually replaced by the -s altogether. Verbs ending in -er often lose the -e- as well, other than in very formal style: stärker (\"strengthens\") becomes stärks or stärkes (\"is strengthened\"); exceptions are monosyllabic verbs and verbs where the root ends in -s. Swedish uses the passive voice more frequently than English.",
+          "examples": [
+            "Verbs do not inflect for person or number in modern standard Swedish. They inflect for the present and past tense and the imperative, subjunctive, and indicative mood. Other tenses are formed by combinations of auxiliary verbs with infiniti",
+            "Verbs may also take the passive voice. It is formed for any verb tense by appending -s to the tense. For verbs ending in -r, the -r is actually replaced by the -s altogether. Verbs ending in -er often lose the -e- as well, other than in ver"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Conjugating verbs",
+          "body": "Swedish verbs are divided into four groups:\n\nGroup\n\nDescription\n\n1\nregular -ar verbs\n\n2\nregular -er verbs\n\n3\nshort verbs, ending in -r\n\n4\nstrong and irregular verbs, ending in -er or -r\n\nAbout 80% of all verbs in Swedish are group 1 verbs, which is the only productive verb group. Swenglish variants of English verbs can be made by adding -a to the end of an English verb, sometimes with minor spelling changes; the verb is then treated as a group 1 verb. Examples of modern loan words within the field are chatta and surfa. Swenglish variants that may be used but are not considered standard Swedish include maila/mejla ([ˈmɛ̂jla], \"to email\" or \"mail\") and savea/sejva ([ˈsɛ̂jva], \"to save\").\n\nThe stem of a verb is based on the present tense of the verb. If the present tense ends in -ar, the -r is removed to form the stem, e.g., kallar → kalla-. If the present tense ends in -er, the -er is removed, e.g., stänger → stäng-. For short verbs, the -r is removed from the present tense of the verb, e.g., syr → sy-. The imperative is the same as the stem.\n\nFor group 1 verbs, the infinitive is the same as the stem (-a), the present tense ends in -r, the past tense in -de, the supine in -t, and the past participle in -d, -t, and de.\n\nFor group 2 verbs, the stem ends in a consonant, the infinitive ends in -a, and the present tense in -er. Group 2 verbs are further subdivided into group 2a and 2b, depending on whether the stem ends in a voiced or a voiceless consonant (phonetically the same as English). For group 2a verbs, the past tense ends in -de and the past participle in -d, -t, and -da; e.g. the stem of störa (\"to disturb\") is stör-, and as r is a voiced consonant the past tense ends in -de, that is störde. For group 2b verbs, the past tense ends in -te and the past participle in -t, -t, and -ta; e.g. the past tense of heta (\"to be called\") is hette.\n\nFor group 3 verbs, the stem ends in a vowel that is not -a, the infinitive is the same as the stem, the present tense ends in -r, the past tense in -dde, the supine in -tt, and the past participle in -dd, -tt, and -dda.\n\nGroup 4 regroups strong and irregular verbs, comprising multiple commonly used verbs. For strong verbs, the stem vowel changes for the past and often the supine, following a definite pattern, e.g. stryka follows the u/y, ö, u pattern (see table below for conjugations). As of lately, an increasing number of verbs formerly conjugated with a strong inflection has been subject to be conjugated with its weak equivalent form in colloquial speech.[citation needed] Irregular verbs, such as vara (\"to be\"), follow no pattern.\n\nGroup\n\nStem\n\nImperative\n\nInfinitive\n\nPresent\n\nPreterite/Past\n\nSupine\n\nPast participle\n\nEnglish\n\n1\n\nkalla-\n\nkalla!\n\nkalla\n—\n\nkallar\n-r\n\nkallade\n-de\n\nkallat\n-t\n\nkallad\nkallat\nkallade\n-d\n-t\n-de\n\nto call\n\n2a\n\nstäng-\n\nstäng!\n\nstänga\n-a\n\nstänger\n-er\n\nstängde\n-de\n\nstängt\n-t\n\nstängd\nstängt\nstängda\n-d\n-t\n-da\n\nto close\n\n2b\n\nläs-\n\nläs!\n\nläsa\n-a\n\nläser\n-er\n\nläste\n-te\n\nläst\n-t\n\nläst\nläst\nlästa\n\n-t\n-t\n-ta\n\nto read\n\n3\n\nsy-\n\nsy!\n\nsy\n—\n\nsyr\n-r\n\nsydde\n-dde\n\nsytt\n-tt\n\nsydd\nsytt\nsydda\n-dd\n-tt\n-dda\n\nto sew\n\n4\n\nstryk-\n\nstryk!\n\nstryka\n-a\n\nstryker\n-er\n\nströk\n[i]\n\nstrukit\n-it\n\nstruken\nstruket\nstrukna\n-en\n-et\n-na\n\nto strike out\nto iron\nto stroke\n\nirregular\n\nvar-\n\nvar!\n\nvara\n\när\n\nvar\n\nvarit\n\n—\n\nto be\n\n^ often a new vowel",
+          "examples": [
+            "About 80% of all verbs in Swedish are group 1 verbs, which is the only productive verb group. Swenglish variants of English verbs can be made by adding -a to the end of an English verb, sometimes with minor spelling changes; the verb is the",
+            "For group 2 verbs, the stem ends in a consonant, the infinitive ends in -a, and the present tense in -er. Group 2 verbs are further subdivided into group 2a and 2b, depending on whether the stem ends in a voiced or a voiceless consonant (ph",
+            "Group 4 regroups strong and irregular verbs, comprising multiple commonly used verbs. For strong verbs, the stem vowel changes for the past and often the supine, following a definite pattern, e.g. stryka follows the u/y, ö, u pattern (see t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Examples of tenses with English translations",
+          "body": "Tense\n\nEnglish\n\nSwedish\n\nInfinitive\n\nto work\n\n(att) arbeta\n\nPresent tense\n\nI work\n\njag arbetar\n\nPast tense, imperfect\n\nI worked\n\njag arbetade\n\nPast tense, perfect\n\nI have worked\n\njag har arbetat\n\nFuture tense\n\nI will/shall work\n\njag ska arbeta\n\nThe irregular verb gå\n\nTense\n\nEnglish\n\nSwedish\n\nInfinitive\n\nto walk\n\n(att) gå\n\nPresent tense\n\nI walk\n\njag går\n\nPast tense, imperfect\n\nI walked\n\njag gick\n\nPast tense, perfect\n\nI have walked\n\njag har gått\n\nFuture tense\n\nI will walk\n\njag ska gå\n\nAs in all Germanic languages, strong verbs change their vowel sounds in the various tenses. For most Swedish strong verbs that have a verb cognate in English or German, that cognate is also strong. For example, \"to bite\" is a strong verb in all three languages as well as Dutch:\n\nLanguage\n\nInfinitive\n\nPresent\n\nPreterite/past\n\nSupine/perfect\n\nPast participle\n\nSwedish\nbita\njag biter\njag bet\njag har bitit\nbiten, bitet, bitna\n\nDutch\nbijten\nik bijt\nik beet\nik heb gebeten\ngebeten\n\nGerman\nbeißen\nich beiße\nich biss\nich habe gebissen\ngebissen\n\nEnglish\nto bite\nI bite\nI bit\nI have bitten\nbitten",
+          "examples": [
+            "As in all Germanic languages, strong verbs change their vowel sounds in the various tenses. For most Swedish strong verbs that have a verb cognate in English or German, that cognate is also strong. For example, \"to bite\" is a strong verb in"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Supine form",
+          "body": "The supine (supinum) form is used in Swedish to form the composite past form of a verb. For verb groups 1–3 the supine is identical to the neuter form of the past participle. For verb group 4, the supine ends in -it while the past participle's neuter form ends in -et. Clear pan-Swedish rules for the distinction in use of the -et and -it verbal suffixes were codified with the first official Swedish Bible translation, completed 1541.\n\nThis is best shown by example:\n\nSimple past: \"I ate (the) dinner\" – jag åt maten (using preterite)\nComposite past: \"I have eaten (the) dinner\" – jag har ätit maten (using supine)\nPast participle common: \"(the) dinner is eaten\" – maten är äten (using past participle)\nPast participle neuter: \"(the) apple is eaten\" – äpplet är ätet\nPast participle plural: \"(the) apples are eaten\" – äpplena är ätna\nThe supine form is used after ha (\"to have\"). In English this form is normally merged with the past participle, or the preterite, and this was formerly the case in Swedish, too (the choice of -it or -et being dialectal rather than grammatical); however, in modern Swedish, they are separate, since the distinction of -it being supine and -et being participial was standardised.",
+          "examples": [
+            "Simple past: \"I ate (the) dinner\" – jag åt maten (using preterite)",
+            "Composite past: \"I have eaten (the) dinner\" – jag har ätit maten (using supine)",
+            "Past participle common: \"(the) dinner is eaten\" – maten är äten (using past participle)",
+            "Past participle neuter: \"(the) apple is eaten\" – äpplet är ätet",
+            "Past participle plural: \"(the) apples are eaten\" – äpplena är ätna",
+            "The supine form is used after ha (\"to have\"). In English this form is normally merged with the past participle, or the preterite, and this was formerly the case in Swedish, too (the choice of -it or -et being dialectal rather than grammatic"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Passive voice",
+          "body": "The passive voice in Swedish is formed in one of four ways:\n\nadding an -s to the infinitive form of the verb (s-passive); this form tends to focus on the action itself rather than the result of it;\n\nusing a form of bli (\"to become\") + the perfect participle (bli-passive); this form stresses the change caused by the action;\n\nusing a form of vara (\"to be\") + the perfect participle (vara-passive); this form puts the result of the action in the center of interest;\n\nuse a form of få (\"to get\") + the perfect participle (analogous to English get-passive); this form is used when you want to use a subject other than the \"normal\" one in a passive clause.\n\nExamples:\nDörren målas. – \"The door is being painted\", i.e. someone is performing the action of painting the door at this moment.\n\nDörren blir målad. – \"The door is being (becoming) painted\", i.e. in a new colour, or it wasn't painted before (the action is not necessarily occurring at this moment).\n\nDörren är målad. – \"The door is painted\", i.e. it is not unpainted (state).\n\nHan fick dörren målad. – \"He got the door painted.\" In English you could say: \"the door was painted for him\", but if you want he to be the subject you need to use this structure, which is shared by Swedish. English can use to have for to get here (he had the door...), which is not possible in Swedish.",
+          "examples": [
+            "using a form of bli (\"to become\") + the perfect participle (bli-passive); this form stresses the change caused by the action;",
+            "using a form of vara (\"to be\") + the perfect participle (vara-passive); this form puts the result of the action in the center of interest;",
+            "use a form of få (\"to get\") + the perfect participle (analogous to English get-passive); this form is used when you want to use a subject other than the \"normal\" one in a passive clause.",
+            "Examples:",
+            "Dörren målas. – \"The door is being painted\", i.e. someone is performing the action of painting the door at this moment.",
+            "Dörren blir målad. – \"The door is being (becoming) painted\", i.e. in a new colour, or it wasn't painted before (the action is not necessarily occurring at this moment)."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Subjunctive mood",
+          "body": "The subjunctive mood is rarely used in modern Swedish and is limited to a few fixed expressions like leve kungen, \"long live the king\". Present subjunctive is formed by adding the -e ending to the stem of a verb:\n\nInfinitive\n\nPresent tense indicative\n\nPresent tense subjunctive\n\natt tala, \"to speak\"\n\ntalar, \"speak(s)\"\n\ntale, \"may speak\"\n\natt bli, \"to become\"\n\nblir, \"become(s)\"\n\nblive, \"may become\" (the -v- comes from the older form bliva)\n\natt skriva, \"to write\"\n\nskriver, \"write(s)\"\n\nskrive, \"may write\"\n\natt springa, \"to run\"\n\nspringer, \"run(s)\"\n\nspringe, \"may run\"\n\nInfinitive\n\nPast tense indicative\n\nSupine indicative\n\nPast tense subjunctive\n\natt finnas, \"to exist (be)\"\n\nfanns, \"existed (there was)\"\n\nfunnits, \"has existed (there has been)\"\n\nom det funnes tid, \"if only there were time\" (changes past tense -a- to supine -u-)\n\natt bli, \"to become\"\n\nblev, \"became\"\n\nblivit, \"have/has become\"\n\nom det bleve så, \"if only it became so\" (regular: just appends -e to the past tense)\n\natt skriva, \"to write\"\n\nskrev, \"wrote\"\n\nskrivit, \"written\"\n\nom jag skreve ett brev, \"if I should write a letter\" (regular: appends -e)",
+          "examples": [
+            "The subjunctive mood is rarely used in modern Swedish and is limited to a few fixed expressions like leve kungen, \"long live the king\". Present subjunctive is formed by adding the -e ending to the stem of a verb:",
+            "att tala, \"to speak\"",
+            "talar, \"speak(s)\"",
+            "tale, \"may speak\"",
+            "att bli, \"to become\"",
+            "blir, \"become(s)\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Historical plural forms",
+          "body": "In Swedish, the verbs used to conjugate similarly to modern Icelandic. In less formal Swedish the verbs started to lose their inflection regarding person already during the 16th century. The singular–plural distinction survived a bit longer, but came gradually out of use. In very formal language, the special plural forms appeared occasionally as late as the 1940s.\n\nThe plural forms are still found in historic texts and might thus have some importance. However, modern Swedish does not inflect verbs (except for tense), and the plural forms are archaic.\n\nIn the present tense, the plural was almost always the same as the infinitive. The only major exception was äro (vi äro, \"we are\"). In the past tense, all weak verbs had the same form in singular and plural. The strong verbs appended an -o to the end form the plural. For some groups of strong verbs the plural also used another vowel than the singular. The group i-a-u is a good example.\n\nInfinitive\n\nPresent tense singular\n\nPresent tense plural\n\nPast tense singular\n\nPast tense plural\n\natt arbeta, \"to work\"\n\narbetar, \"work(s)\" (sing.)\n\narbeta, \"work\" (plur.)\n\narbetade, \"worked\" (sing.)\n\narbetade, \"worked\" (plur.)[i]\n\natt leka, \"to play (games)\"\n\nleker, \"play(s)\" (sing.)\n\nleka, \"play\" (plur.)\n\nlekte, \"played\" (sing.)\n\nlekte, \"played\" (plur.)[i]\n\natt bo, \"to live (dwell)\"\n\nbor, \"live(s)\" (sing.)\n\nbo, \"live\" (plur.)\n\nbodde, \"lived\" (sing.)\n\nbodde, \"lived\" (plur.)[i]\n\natt falla, \"to fall\"\n\nfaller, \"fall(s)\" (sing.)\n\nfalla, \"fall\" (plur.)\n\nföll, \"fell\" (sing.)\n\nföllo, \"fell\" (plur.)[ii]\n\natt finnas, \"to exist (be)\"\n\nfinns, \"exists (there is)\" (sing.)\n\nfinnas, \"exist (there are)\" (plur.)\n\nfanns, \"existed (there were/was)\" (sing.)\n\nfunnos, \"existed (there were)\" (plur.)[iii]\n\n^ a b c weak verb: same form in past tense singular and plural\n\n^ strong verb, no vowel change: appends -o\n\n^ strong verb, vowel change: supine vowel, appends -o",
+          "examples": [
+            "In the present tense, the plural was almost always the same as the infinitive. The only major exception was äro (vi äro, \"we are\"). In the past tense, all weak verbs had the same form in singular and plural. The strong verbs appended an -o ",
+            "att arbeta, \"to work\"",
+            "arbetar, \"work(s)\" (sing.)",
+            "arbeta, \"work\" (plur.)",
+            "arbetade, \"worked\" (sing.)",
+            "arbetade, \"worked\" (plur.)[i]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Prepositions",
+      "summary": "Unlike in more conservative Germanic languages (e.g. German), putting a noun into a prepositional phrase doesn't alter its inflection, case, number or definiteness in any way, except in a very small number of set phrases.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Unlike in more conservative Germanic languages (e.g. German), putting a noun into a prepositional phrase doesn't alter its inflection, case, number or definiteness in any way, except in a very small number of set phrases.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Prepositions of location",
+          "body": "Preposition\n\nMeaning\n\nExample\n\nTranslation\n\npå\n\non, upon\n\nRåttan dansar på bordet.\n\nThe rat dances on the table.\n\nunder\n\nunder\n\nMusen dansar under bordet.\n\nThe mouse dances under the table.\n\ni\n\nin\n\nKålle arbetar i Göteborg.\n\nKålle works in Gothenburg.\n\nvid\n\nby\n\nJag är vid sjön.\n\nI am by the lake.\n\ntill\n\nto\n\nAda har åkt till Göteborg.\n\nAda has gone to Gothenburg.",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Prepositions of time",
+          "body": "Preposition\n\nMeaning\n\nExample\n\nTranslation\n\npå\n\nat\n\nVi ses på rasten.\n\nSee you at the break.\n\nföre\n\nbefore\n\nDe var alltid trötta före rasten.\n\nThey were always tired before the break.\n\nom\n\nin\n\nKan vi ha rast om en timme?\n\nMay we have a break in an hour?\n\ni\n\nfor\n\nKan vi ha rast i en timme?\n\nMay we have a break for an hour?\n\npå\n\nfor (in a negative statement)\n\nVi har inte haft rast på två timmar.\n\nWe have not had a break for two hours.\n\nunder\n\nduring\n\nVi arbetade under helgdagarna.\n\nWe worked during the holidays.",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        },
+        {
+          "heading": "Ambipositions",
+          "body": "The general rule is that prepositions are placed before the word they are referring to. However, there are a few so-called ambipositions that may appear on either side of the head:\n\nAdposition\n\nMeaning\n\nSucceeding adposition (postposition)\n\nPreceding adposition (preposition)\n\nTranslation\n\nrunt\n\naround\n\nriket runt\n\nrunt riket\n\naround the kingdom\n\nemellan\n\nbetween\n\nbröder emellan\n\nemellan bröder\n\nbetween brothers\n\nigenom\n\nthrough\n\nnatten igenom\n\nigenom natten\n\nthrough the night",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Swedish_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

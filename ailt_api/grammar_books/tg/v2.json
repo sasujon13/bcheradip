@@ -1,0 +1,216 @@
+{
+  "title": "Grammar Book — Тоҷикӣ",
+  "languageCode": "tg",
+  "languageName": "Тоҷикӣ",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Tajik/Lesson_1",
+    "https://en.wikibooks.org/wiki/Tajik/Lesson_2",
+    "https://en.wikibooks.org/wiki/Tajik/Lesson_3",
+    "https://en.wikipedia.org/wiki/Tajik_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "== Some words that are very similar in Tajik and English ==\nTry to sound out each of the following words using the phonetic mapping above.",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "== Some words that are very similar in Tajik and English ==\nTry to sound out each of the following words using the phonetic mapping above.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Tajik/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson 2",
+      "summary": "== Pronunciation ==\nХ - kh - like Spanish \"J\" in Jose",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "== Pronunciation ==\nХ - kh - like Spanish \"J\" in Jose\n\n\n== Dialogs ==\nComment: If you talk to one person and would like to make it respectful, use \"Шумо\" and not \"шумо\".\nYou need to use \"шумо\" with small first letter character only if you need to talk to more people, than one.\n\nСалом, ман аз дидори Шумо хурсандам!\nSalom, man az didori Shumo khursandam\nHello, I am glad to see you!\nРӯз ба хайр, ман ҳам.\nRuz ba khayr, man ham\nGood afternoon, me too.\nНоми ман Анвар, номи Шумо чист?\nNomi man Anvar, nomi Shumo chist?\nMy name is (lit. [they] call me) Anvar, and yours (lit. [how they call] you)?\nХеле хушҳолам!\nKhele khush-holam\nPleased to meet you.\nНоми ман бошад Шоира Раҳимова, кӯтоҳ Шоира\nNomi man boshad Shoira Rahimova, kutoh Shoira\nAnd mine is (lit. [they call] me) Shoira Rahimova, call me just Shoira.\nТашаккур, то боздид!\nTashakkur, to bozdid\nThank you, see you again (lit. till the meeting)!\nХайр.\nKhayr\nGood bye (lit. till the seeing).\nСалом, номи ман Абдулатиф аст.\nSalom, nomi man Abdulatif ast.\nHello, my name is Abdulatif.",
+          "examples": [
+            "Х - kh - like Spanish \"J\" in Jose",
+            "Comment: If you talk to one person and would like to make it respectful, use \"Шумо\" and not \"шумо\".",
+            "You need to use \"шумо\" with small first letter character only if you need to talk to more people, than one."
+          ],
+          "learnerTip": "== Pronunciation ==\nХ - kh - like Spanish \"J\" in Jose",
+          "source": "https://en.wikibooks.org/wiki/Tajik/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson 3",
+      "summary": "This is the grammar of the Tajik language.",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "This is the grammar of the Tajik language.\n\n\n== Ҷонишинҳои шахсӣ (Personal pronouns) ==\n\nNow we will create simple phrases with the pronouns and the words хона - house and доштан (асоси замони ҳозира: дор) - have.\nМан хона дорам - I have a house\nМо хона дорем - We have a house\nТу хона дорӣ - You have a house\nШумо хона доред - You (pl.) have a house\nВай хона дорад (Ӯ хона дорад) - He has a house\nОнҳо хона доранд - They have a house\n\n\n== Асосҳои феълӣ (Verb stems) ==\n\n\n=== Масдар (Infinitive) ===\nThe infinitive in Tajik consists of the past tense stem and the infinitive ending -ан.\nпухтан - to bake\nрафтан - to go\nкардан - to do\nхаридан - to buy\nомадан - to come\nбурдан - to carry\nгирифтан - to take\nдоштан - to have\nдодан - to give\nрақсидан - to dance\nгуфтан - to say\nхӯрдан - to eat\nафтидан - to fall\nнӯшидан - to drink\nдавидан - to run\nмондан - to lay (transitive verb)\n\n\n=== Асоси замони гузашта (Past tense stem) ===\nThe past tense stem indicates the singular 3rd person past simple verb (he did, etc.). To form the past tense stem, the -ан ending is detached from the infinitive. However, some verbs are irregular.\nафтод - he fell\n\n\n=== Асоси замони ҳозира (Present/future tense stem) ===\nThe present/future tense stem is mostly irregular. It indicates the imperative.\nпаз - bake!\nрав - go!\nкун - do!\nхар - buy!\nой - come!\nбар - carry!\nгир - take!\nдор - have!\nдеҳ - give!\nрақс - dance!\nгӯй - say!\nхӯр - eat!\nафт - fall!\nнӯш - drink\nдав - run!",
+          "examples": [],
+          "learnerTip": "This is the grammar of the Tajik language.",
+          "source": "https://en.wikibooks.org/wiki/Tajik/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Introduction",
+      "summary": "This article describes the grammar of standard Tajik, one of the varieties of the Persian language, as spoken and written in Tajikistan, and Uzbekistan. In general, the grammar of Tajik Persian fits the analytical type. The case system has evolved, with grammatical relationships",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This article describes the grammar of standard Tajik, one of the varieties of the Persian language, as spoken and written in Tajikistan, and Uzbekistan. In general, the grammar of Tajik Persian fits the analytical type. The case system has evolved, with grammatical relationships being primarily expressed via clitics, word order, and other analytical constructions. Like all other modern varieties of Persian, Tajik grammar is identical to classic Persian grammar, with only a few differences in some verb tenses.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Nouns",
+      "summary": "Nouns are not marked for grammatical gender, but marked for number. Natural gender is usually  distinguished by a change of word, like English, e.g. мурғ (murgh) 'fowl' and хурӯс (khurūs) 'rooster'.  Alternatively the modifiers 'нар' (nar) for male or 'мода' (moda) for female can",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nouns are not marked for grammatical gender, but marked for number. Natural gender is usually  distinguished by a change of word, like English, e.g. мурғ (murgh) 'fowl' and хурӯс (khurūs) 'rooster'.  Alternatively the modifiers 'нар' (nar) for male or 'мода' (moda) for female can be pre or post-posed to the noun, e.g. хар-и нар (khar-i nar) 'male donkey' and хар-и мода (khar-i moda) 'female donkey'.\n\nA definite article does not exist, although the definite direct object is marked by a suffix, -ро (-ro). The use of this suffix is mandatory when a previously referenced object is being talked about.\n\nин\n\nin\n\nthis\n\nкитобро\n\nkitob-ro\n\nbook\n\nхондам\n\nkhondam\n\nread-I\n\nин китобро хондам\n\nin kitob-ro khondam\n\nthis book read-I\n\n\"I read this book\"\n\nкитоб\n\nkitob\n\nbook\n\nхондам\n\nkhondam\n\nread-I\n\nкитоб хондам\n\nkitob khondam\n\nbook read-I\n\n\"I read a book\"\n\nNouns may exhibit several suffixes. Of these suffixes, the plural marker is found first, followed by any possessive markers followed by the direct object marker. For example, in the following noun:\n\nкитобҳоятонро\nkitobhoyatonro\nThis may be understood as [kitob [-ho pl [-yaton 2nd person pl. [-ro direct object marker] ] ] ], translation: \"your (pl.) books\"",
+          "examples": [
+            "\"I read this book\"",
+            "\"I read a book\"",
+            "This may be understood as [kitob [-ho pl [-yaton 2nd person pl. [-ro direct object marker] ] ] ], translation: \"your (pl.) books\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Two forms of number exist in Tajik, singular and plural. The plural is marked by either the suffix -ҳо (-ho) or -он (-on). While -ҳо can be used with any noun, the suffix -он is primarily used with animate nouns and has the variants -ён (-yon) which is used with words ending in -ӣ, ӯ or -о, -вон (-von) for words ending in у, and -гон (-gon) which is used with words ending in -а. For example, the singular for 'horse' is асп (asp), and the plural, 'horses' can be either аспҳо (aspho) or аспон (aspon). Typically, the -он (-on) ending is reserved for animate objects, although this is not always the case. For example, body parts that come in pairs, such as даст (dast), meaning \"hand\" and чашм (chashm), meaning \"eye\" are pluralized as дастон (daston) and чашмон (chashmon), respectively.\n\nҷазира (jazira, island) – ҷазираҳо (jaziraho, islands)\n\nбунёдгаро (bunyodgaro, fundamentalist) – бунёдгароён (bunyodgaroyon, fundamentalists)\n\nпарранда (parranda, bird) – паррандагон/паррандаҳо (parrandagon/parrandaho, birds)\n\nFor words ending in ӣ, the ӣ is shortened to и before suffixes\n\nмоҳӣ (mohī, fish) – моҳиён/моҳиҳо (mohiyon/mohiho, fish[es])",
+          "examples": [
+            "Two forms of number exist in Tajik, singular and plural. The plural is marked by either the suffix -ҳо (-ho) or -он (-on). While -ҳо can be used with any noun, the suffix -он is primarily used with animate nouns and has the variants -ён (-y"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        },
+        {
+          "heading": "Grammatical cases",
+          "body": "Unlike in literary Tajik, the colloquial language has innovated a few more grammatical cases unheard of in any other variety of Persian, including:[1]\n\nCase\n\nEnding\n\nNominative\n\n-∅\n\nAccusative\nGenitive\n\n-а/-я\n(-a/-ya)\n\nDative\n\n-ба\n(-ba)\n\nLocative\n\n-да\n(-da)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Adjectives",
+      "summary": "There is no agreement of the adjective, or modifier with the head word. Adjectives do not take the plural markers -он or -ҳо. Typically, adjectives follow the nouns they modify, and are linked with the izofa construction, for example: китоби хуб (kitobi khub, good book) and китоб",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "There is no agreement of the adjective, or modifier with the head word. Adjectives do not take the plural markers -он or -ҳо. Typically, adjectives follow the nouns they modify, and are linked with the izofa construction, for example: китоби хуб (kitobi khub, good book) and китобҳои хуб (kitobhoi khub, good books). However, the superlative typically precedes the noun. For example,\n\nкӯҳи баланд (kūhi baland, tall mountain)\nкӯҳи баландтар (kūhi balandtar, taller mountain)\nбаландтарин кӯҳ (balandtarin kūh, tallest mountain)\nComparative forms use the suffix '-тар' (-tar), while superlative forms use the suffix '-тарин' (-tarin).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Izofa-construction",
+      "summary": "The izofa construction (from classic Persian, meaning 'addition') is the name given to the combination of a head word and a modifier (for example an adjective) using the unstressed enclitic, -и, (-i). In the plural, the enclitic is placed after the plural marker.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The izofa construction (from classic Persian, meaning 'addition') is the name given to the combination of a head word and a modifier (for example an adjective) using the unstressed enclitic, -и, (-i). In the plural, the enclitic is placed after the plural marker.\n\nдухтари\n\ndukhtar-i\n\ngirl\n\nхушрӯй\n\nkhushrūy\n\nbeautiful\n\nдухтари хушрӯй\n\ndukhtar-i khushrūy\n\ngirl beautiful\n\n\"beautiful girl\"\n\nдухтарони\n\ndukhtaron-i\n\ngirls\n\nхушрӯй\n\nkhushrūy\n\nbeautiful\n\nдухтарони хушрӯй\n\ndukhtaron-i khushrūy\n\ngirls beautiful\n\n\"beautiful girls\"\n\nPronominal enclitics and the definite marker are placed at the end of the izofa construction, for example, китоби хубам (kitobi khubam), \"my good book\".",
+          "examples": [
+            "\"beautiful girl\"",
+            "\"beautiful girls\"",
+            "Pronominal enclitics and the definite marker are placed at the end of the izofa construction, for example, китоби хубам (kitobi khubam), \"my good book\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Pronouns",
+      "summary": "Forms of the personal pronouns with English language equivalent(s).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Forms of the personal pronouns with English language equivalent(s).\n\nPerson\nSingular\nPlural\n\n1st\nман (man) 'I'\nмо (mo) 'we'\n\n2nd\nту (tu) 'you' and Шумо (Shumo) [polite form of you]\nшумо (shumo) or шумоён (shumoyon) 'you all'\n\n3rd\nӯ, вай (ū, vay) 'he, she, it'\nонҳо (onho) 'they'\n\nThe 2nd person plural, шумо also finds use as the polite form of the 2nd person. In written Tajik, this polite usage is distinguished by the capitalisation of the term шумо, for example, Шумо кай меоед? (shumo kay meoed?), trans. \"when are you coming?\" vs. шумо кай меоед?, trans. \"when are you (all) coming?\" ***Note in Northern Dialects of Tajik, the plural form of шумо is шумоён (shumoyon) and is conjugated as кай шумоён меоедетон? (kay shumoyon meoyedeton?) or when are you all coming?",
+          "examples": [
+            "The 2nd person plural, шумо also finds use as the polite form of the 2nd person. In written Tajik, this polite usage is distinguished by the capitalisation of the term шумо, for example, Шумо кай меоед? (shumo kay meoed?), trans. \"when are "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        },
+        {
+          "heading": "Enclitic forms",
+          "body": "There are enclitics used after words to denote possession.\n\nPerson\nSingular\nPlural\n\n1st\n-ам (-am) 'my'\n-амон (-amon) 'our'\n\n2nd\n-ат (-at) 'your'\n-атон (-aton) 'your'\n\n3rd\n-аш (-ash) 'his/her/its'\n-ашон (-ashon) 'their'\n\nFor example: китоб (kitob, \"book\"), китобам (kitobam, \"my book\"), китобат (kitobat, \"your book\"). When following a vowel, for example китобҳо (kitobho, books), the leading '-а' is changed to '-я'. The phrase \"their books\", would be китобҳояшон (kitobhoyashon).",
+          "examples": [
+            "For example: китоб (kitob, \"book\"), китобам (kitobam, \"my book\"), китобат (kitobat, \"your book\"). When following a vowel, for example китобҳо (kitobho, books), the leading '-а' is changed to '-я'. The phrase \"their books\", would be китобҳоя"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Prepositions",
+      "summary": "Tajik\nEnglish\n\nаз (az)\nfrom, through, across\n\nбо (bo)\nwith\n\nбар (bar)\non, upon, onto\n\nба (ba)\nto\n\nбе (be)\nwithout\n\nдар (dar)\nat, in\n\nчун (chun)\nlike, as\n\nто (to)\nup to, as far as, until",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Tajik\nEnglish\n\nаз (az)\nfrom, through, across\n\nбо (bo)\nwith\n\nбар (bar)\non, upon, onto\n\nба (ba)\nto\n\nбе (be)\nwithout\n\nдар (dar)\nat, in\n\nчун (chun)\nlike, as\n\nто (to)\nup to, as far as, until",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Verbs",
+      "summary": "Verbal conjugation is identical to that of other varities of Persian, with only a few differences such as in compound tenses like the progressive tenses.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbal conjugation is identical to that of other varities of Persian, with only a few differences such as in compound tenses like the progressive tenses.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        },
+        {
+          "heading": "Infinitives and stems",
+          "body": "Infinitives end in -тан (-tan) or -дан (-dan). The principal parts to remember are the past stem and present stem. The past stem is the easier to recognize, as it is determined simply by removing the -ан from the infinitive.\n\nкардан (kardan, to make/to do) – кард (kard)\n\nдоштан (doštan, to have) – дошт (došt)\n\nпазируфтан (paziruftan, to accept) – пазируфт (paziruft)\n\nThe present stem tends to vary more, and in many common verbs bears little resemblance to the infinitive or past stem. In some verbs, the present stem is identical to the past stem, but for the -t/-d.\n\nкардан (kardan) – кун (kun)\n\nдоштан (doštan) – дор (dor)\n\nпазируфтан (paziruftan) – пазир (pazir)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        },
+        {
+          "heading": "Participles",
+          "body": "Tajik has two participles – past and present.\n\nThe past participle is formed by adding -а to the past stem\n\nкардан (kardan) – карда (karda)\n\nдоштан (doštan) – дошта (došta)\n\nпазируфтан (paziruftan) – пазируфта (pazirufta)\n\nThe present participle is formed by adding -анда to the present stem\n\nкардан (kardan) – кунанда (kunanda)\n\nдоштан (doštan) – доранда (doranda)\n\nпазируфтан (paziruftan) – пазиранда (paziranda)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        },
+        {
+          "heading": "Personal forms",
+          "body": "Personal forms of verbs are formed mostly with simple prefixes and suffixes. Prefixes tend to be modal, while the suffixes are personal.\n\nThe personal suffixes are:\n\n-ам (1st person singular)\n\n-ӣ (2nd person singular informal)\n-ед (2nd person singular polite in northern dialects)\n\n-ад (for non-past tenses), nul (for past tenses) (3rd person singular informal)\n\n-ем (1st person plural)\n\n-ед (southern dialects)/-едетон (northern dialects) (2nd person plural)\n\n-анд (3rd person plural)\n\nThe most important and common prefix is the progressive ме- (me-) which forms imperfective tenses.\n\nInstructions for forming various tenses will be given below with example conjugations of the verb кардан. An example translation will be given for the 1st person singular to give a basic idea of the tense's use.\n\nSimple past\nThe simple past is formed with the past stem and personal endings.\n\nман кардам (I did)\n\nту кардӣ\n\nӯ кард\n\nмо кардем\n\nшумо кардед\n\nонҳо карданд\n\nPresent imperfect\nThe present imperfect is formed by prefixing ме- to the present stem with personal endings\n\nман мекунам (I do)\n\nту мекунӣ\n\nӯ мекунад\n\nмо мекунем\n\nшумо мекунед\n\nонҳо мекунанд\n\nPast imperfect\nThe past imperfect is formed by prefixing ме- to the simple past\n\nман мекардам (I was doing)\n\nту мекардӣ\n\nӯ мекард\n\nмо мекардем\n\nшумо мекардед\n\nонҳо мекарданд\n\nPresent perfect\nThe present perfect is formed by adding the personal suffixes to the past participle.\n\nман кардаам (I have done)\n\nту кардаӣ\n\nӯ карда\n\nмо кардаем\n\nшумо кардаед\n\nонҳо кардаанд\n\nPluperfect\nThe pluperfect is a compound tense formed from the past participle and the simple perfect of the verb будан (to be)\n\nман карда будам (I had done)\n\nту карда будӣ\n\nӯ карда буд\n\nмо карда будем\n\nшумо карда будед\n\nонҳо карда буданд\n\nPresent and past progressive\nThe progressives are compound tenses. The present progressive is formed with the past participle and the present perfect of the verb истодан.\n\nман карда истодаам (I am doing)\n\nту карда истодаӣ\n\nӯ карда истода\n\nмо карда истодаем\n\nшумо карда истодаед\n\nонҳо карда истодаанд\n\nSimilarly, the past progressive is formed with the past participle and the pluperfect of истодан.\n\nман карда истода будам (I was doing)\n\nту карда истода будӣ\n\nӯ карда истода буд\n\nмо карда истода будем\n\nшумо карда истода будед\n\nонҳо карда истода буданд\n\nPresent subjunctive\nThe present subjunctive is formed from the present stem with personal endings.\n\nман кунам (that I do)\n\nту кунӣ\n\nӯ кунад\n\nмо кунем\n\nшумо кунед\n\nонҳо кунанд\n\nThe subjunctive is different from other forms in that it is frequently dependent on another verb.\n\nМехоҳам дуъо кунам (mexoham du'o kunam) – I want to pray\n\nIn this example, the subjunctive form кунам is dependent on мехоҳам (I want). As such, the subjunctive alone does not translate easily into English and the translation is heavily dependent on the context of the sentence.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tajik_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

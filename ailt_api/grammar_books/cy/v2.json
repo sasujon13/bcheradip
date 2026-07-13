@@ -1,0 +1,447 @@
+{
+  "title": "Grammar Book — Cymraeg",
+  "languageCode": "cy",
+  "languageName": "Cymraeg",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Articles",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Clauses",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Prepositions",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Pronouns",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Conditional",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Future",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Imperative",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Imperfect",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Irregular",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Past",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Perfect",
+    "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Present",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_1",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_10",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_11",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_12",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_13",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_14",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_15",
+    "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_16",
+    "https://en.wikipedia.org/wiki/Welsh_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "By the end of this lesson, you will be able to:",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "By the end of this lesson, you will be able to:\n\nBe able to introduce yourself.\nAsk for someone's name.\nAsk how someone is.\nRespond to the question 'How are you?' in various ways.\nAsk what someone's occupation is\nLearn how to say what occupation you have\n\n\n== Dialogue ==\n\n\n== Vocabulary ==\n\n\n== Introducing oneself ==\nIn the dialogue, Glyn asks Catrin, \n\nPwy dach chi? or 'Who are you?'.\nThis is one way of asking who someone is. Another way is to ask for their name. Catrin asks,\n\nBeth ydy'ch enw chi? or 'What is your name?'\nTo respond, we can use the ydw i pattern. Just respond, \n\n[name] ydw i.\ne.g. Bob ydw i. (I'm Bob)\nThis will literally translate to '[name] am I', as the word order is slightly different than what you would say in English. In this sentence, (y)dw is the form of 'to be' and i means 'I' or 'me'. For right now, just learn these phrases parrot fashion until we deconstruct them in later lessons.\nAnother way to say who you are is,\n\nFy enw i ydy [name]'\ne.g. Fy enw i ydy Bob. (My name is Bob)\nFy enw i ydy... translates to 'My name is...' As with all the other phrases on this page, just learn how to say it for now, before we deconstruct it in later lessons.\n\n\n== How are you? ==\nIn the dialogue, we hear Sut dach chi? which means 'How are you?'. There are several possible ways to answer this question:\n\nIf you notice, the word iawn follows da (good) to make 'very good'. Iawn by itself can mean 'fine', but after an adjective it can mean 'very'.\n\nmawr (big) ; mawr iawn (very big)\nprysur (busy) ; prysur iawn (very busy)\n\n\n== What do you do? ==\nTo ask what someone's job is, you can use the phrase,\n\nBeth ydy'ch gwaith / swydd chi?\nwhich means, 'What is your job?' You can respond using the dw i (am I) pattern from earlier. Insert the job title before dw i.\n\nAthro ydw i. (I'm a teacher.)\nMeddyg ydw i. (I'm a doctor.)\nGwraig tŷ ydw i. (I'm a housewife.)\nMecanic ydw i. (I'm a mechanic.)\nHere are some more occupations you can use:\n\nNote that in Welsh, there is no indefinite article (a, an). For example, in English, one would say:\n\nI am a doctor.\nBut in Welsh, there is no indefinite article. So meddyg means both 'doctor' and 'a doctor'. Instead, just use the word as it is:\n\nMeddyg ydw i. (I am a doctor.)\n\n\n== Review ==\nPwy dach chi? Who are you? (formal)\nPwy wyt ti? Who are you? (informal)\nBeth ydy'ch enw chi? What is your name?\n[name] ydw i. I am [name].\nBeth ydy'ch gwaith / swydd chi? What do you do?\n[job] ydw i. I am a [job].\nSut dach chi? How are you?\nThere is no indefinite article in Welsh.\nUse iawn to mean 'very'. It goes after the adjective.",
+          "examples": [
+            "e.g. Bob ydw i. (I'm Bob)",
+            "e.g. Fy enw i ydy Bob. (My name is Bob)"
+          ],
+          "learnerTip": "By the end of this lesson, you will be able to:",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson 10",
+      "summary": "== Dialogue ==\nA: Ble est ti ddoe? (informal)B: Es i i Lundain.",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "== Dialogue ==\nA: Ble est ti ddoe? (informal)B: Es i i Lundain.\n\nA: Where did you go yesterday?\nB: I went to London\n\n\n== Vocabulary ==\nDdoe - Yesterday\n\n\n== Grammar ==\n\nEs i i'r parti ddoe.\n\nI went to the party yesterday.\n\nA: Aethoch chi i Gaerdydd yr wythnos diwethaf?\nB: Do. Es i i'r Stadiwm Mileniwm i weld gêm. \n\nA: Did you go to Cardiff last week?\nB: Yes (I did). I went to the Millenium Stadium to see a game.\n\nA: Ble est ti ar dy wyliau di 'te?\nB: Es i i Ffrainc.\n\nA: Where did you go on holiday (lit. on your holidays), then?\nB: I went to France.\n\nAeth Peter i'r dref.\n\nPeter went to (the) town.\n\nAethon nhw ddim i'r parti.\n\nThey didn't go to the party.\n\n\n== Review ==\nDo for a past-tense Yes response (did), Naddo for No for a past-tense No response (didn't)\nYou may hear a positive marker with these short forms of verbs. Fe is commonly used in the south, while Mi is commonly heard in the North. These words do not have an English equivalent.",
+          "examples": [],
+          "learnerTip": "== Dialogue ==\nA: Ble est ti ddoe? (informal)B: Es i i Lundain.",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson 11",
+      "summary": "Revise and practice everything learned thus far",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "Goals:\n\nRevise and practice everything learned thus far\n\n\n== Dialogue ==\n\n\n== Exercises ==\nIntroducing yourself\nTalking about you and your family\nTalking about your holidays\n\n\n== Self-Exam ==\n\nPRESENT TENSE QUESTIONS\n\nWhich of the following answers makes sense to Sut dych chi?\nIawn\nYour age\nYour name\nYour profession\nWhich of the following answers makes sense to Beth yw'ch enw chi?\nIawn\nYour age\nYour name\nYour profession\nWhich of the following answers makes sense to Beth yw'ch gwaith / swydd chi?\nIawn\nYour age\nYour name\nYour profession\nHow would you say, (I'm) fine, thank you\nIawn, diolch.\nIawn, croeso.\nMeddw, diolch.\nEnw, diolch.\nHow would you say, My name is Peter.\nFy enw i yw Peter.\nDwi'n byw yn Peter.\nDwi'n hoffi Peter.\nMae e'n Peter.\nHow would you say, I live in Swansea (Abertawe).\nFy enw i yw Abertawe.\nDwi'n byw yn Abertawe.\nDwi'n hoffi Abertawe.\nMae e'n Abertawe.\nHow would you say, I like to read.\nFy enw i yw darllen.\nDwi'n byw yn darllen.\nDwi'n hoffi darllen.\nMae e'n darllen.\nHow would you say, He's eating now.\nFy enw i yw bwyta nawr.\nDwi'n byw yn bwyta nawr.\nDwi'n hoffi bwyta nawr.\nMae e'n bwyta nawr.\nAsk the question, Do you like cooking?\nYdych chi'n hoffi coginio?\nYdych chi'n rhedeg nawr?\nYdych chi'n hoffi ysgrifennu?\nYdych chi'n hapus?\nAnswer the question, Ydych chi'n mynd i'r parti? with a Yes, I am response.\nYdw. Dwi'n mynd i'r parti.\nYdy. Dwi'n mynd i'r parti.\nYdyn. Dwi'n mynd i'r parti\nIe. Dwi'n mynd i'r parti.\nAnswer the question, Ydy e'n siopa?' with a \"Yes, he is response.\nYdw. Mae e'n siopa.\nYdy. Mae e'n siopa.\nYdyn. Mae e'n siopa.\nIe. Mae e'n siopa.\nSOFT MUTATION QUESTIONS\n\nWhat are the 9 letters that can mutate? List them and their soft mutations.\nTrue or False: The word i (to, for) causes a soft mutation.\nTrue or False: The word o (from, of) causes a soft mutation.\nTrue or False: The word yn (in) causes a soft mutation.\nTranslate the following:\n\nI'm going to Cardiff (Caerdydd)\nDwi'n mynd i Caerdydd.\nDwi'n mynd i Gaerdydd.\nDwi'n mynd i Baerdydd.\nDwi'n mynd i Aerdydd.\nI'm from Pontypridd.\nDwi'n dod o Bontypridd.\nDwi'n dod o Gontypridd.\nDwi'n dod o Ontypridd.\nDwi'n dod o Fontypridd.\nI'm going to Tonypandy.\nDwi'n mynd i Donypandy.\nDwi'n mynd i Gonypandy.\nDwi'n mynd i Onypandy.\nDwi'n mynd i Fonypandy.\nI'm from Gwent.\nDwi'n dod o Dwent.\nDwi'n dod o Gwent.\nDwi'n dod o Fwent.\nDwi'n dod o Went.\nHis car\nEi gar e\nEi far e\nEi dar e\nEi ar e\nNASAL MUTATION QUESTIONS\n\nI live in Cardiff (Caerdydd)\nDwi'n byw yng Nghaerdydd.\nDwi'n byw ym Mhaerdydd.\nDwi'n byw yn Naerdydd.\nDwi'n byw yn Nhaerdydd.\nASPIRATE MUTATION QUESTIONS",
+          "examples": [],
+          "learnerTip": "Revise and practice everything learned thus far",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Lesson 12",
+      "summary": "What did you do?\nGwnes i fy ngwaith papur",
+      "sections": [
+        {
+          "heading": "Lesson 12",
+          "body": "== Dialogue ==\n\n\n== Vocabulary ==\n\n\n== Grammar ==\n\nBeth wnest ti?\n\nWhat did you do?\nGwnes i fy ngwaith papur\n\nI did my paperwork.\nGwnes i orffen y prosiect\n\nI finished the project.\nBeth wnaeth e?\n\nWhat did he do?\n\n\n== Review ==\nThe past tense of gwneud can be combined with any verb to make it past tense. This is a formal, long way of saying the past tense.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_12"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lesson 13",
+      "summary": "Welsh Verbs • Lesson 13 • audio (info •x kb • help) \n Cael (Gorffenol)  Past Tense of Cael",
+      "sections": [
+        {
+          "heading": "Lesson 13",
+          "body": "Dialogue\nVocabulary\nGrammar\n\nWelsh Verbs • Lesson 13 • audio (info •x kb • help) \n Cael (Gorffenol)  Past Tense of Cael\n\nEnglish\n\nCymraeg\n\nEnglish\n\nCymraeg\n\nI got, I received\n\nCes i\n\nWe got, We did get\n\nCawson ni\n\nYou got, you did get\n\nCest ti\n\nYou got, you did get\n\nCawsoch chi\n\nHe got, He did get\n\nCafodd e/o\n\nThey got, They did get\n\nCawson nhw\n\nShe got, She did get\n\nCafodd hi",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_13"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson 14",
+      "summary": "== Review ==\nEach verb in Welsh has a stem. Adding an ending to this stem changes the tense of the verb.\nUsually, the stem of a verb is everything minus the last vowel. However, there are exceptions to this rule. Learn the exceptions one-by-one as you come across them.\nRemember,",
+      "sections": [
+        {
+          "heading": "Lesson 14",
+          "body": "== Dialogue ==\n\n\n== Vocabulary ==\n\n\n== Grammar ==\n\n\n== Review ==\nEach verb in Welsh has a stem. Adding an ending to this stem changes the tense of the verb.\nUsually, the stem of a verb is everything minus the last vowel. However, there are exceptions to this rule. Learn the exceptions one-by-one as you come across them.\nRemember, any object after a short form verb takes a soft mutation.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_14"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson 15",
+      "summary": "I need to study now.\nLit. There is a need for me to study now.\nOes rhaid i ti astudio nawr?",
+      "sections": [
+        {
+          "heading": "Lesson 15",
+          "body": "== Grammar ==\n\nMae rhaid i fi astudio nawr.\n\nI need to study now.\nLit. There is a need for me to study now.\nOes rhaid i ti astudio nawr?\n\nDo you need to study now?\nLit. Is there need for you to study now?\nDoes dim rhaid i fi astudio nawr.\n\nI don't need to study now.\nLit. There is no need for me to study now.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_15"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson 16",
+      "summary": "He will, He will be\nShe will, She will be",
+      "sections": [
+        {
+          "heading": "Lesson 16",
+          "body": "Grammar\n\nFuture Tense [affirmative]\n\nEnglish\n\nCymraeg\n\nEnglish\n\nCymraeg\n\nI will, I will be\n\nBydda i\n\nWe will, We will be\n\nByddwn ni\n\nYou will, You will be\n\nByddi di\n\nYou will, You will be\n\nByddwch chi\n\nHe will, He will be\nShe will, She will be\n\nBydd e (SW)\nBydd o (NW)\n\nBydd hi\n\nThey will, They will be\n\nByddan nhw",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_16"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Lesson 17",
+      "summary": "Beth sy'n bod?\nTeimlo\nAnnwyd\nY frech Goch\nPen Tost\nBigyn Clust\nBola Tost",
+      "sections": [
+        {
+          "heading": "Lesson 17",
+          "body": "== Dialogue ==\n\n\n== Vocabulary ==\n\nBeth sy'n bod?\nTeimlo\nAnnwyd\nY frech Goch\nPen Tost\nBigyn Clust\nBola Tost\n\n\n== Grammar ==\n\n\n=== Beth sy'n bod? ===\nThis phrase means What's wrong?\nMore examples:\n- Beth sy'n bod ar John?\n- Beth sy'n bod ar Mary?\nSo you must use the preposition ar (on) with this phrase to ask about other people. Beth sy'n bod ar [someone]?\nLike the preposition i (to, for), ar has several personal forms:\n\narna i (on me)\narnat ti (on you)\narno fe (on him)\narni hi (on her)\narnon ni (on us)\narnoch chi (on you)\narnyn nhw (on them)\nIn use:\n\nBeth sy'n bod arna i?\nBeth sy'n bod arnat ti?\nBeth sy'n bod arno fe?\nBeth sy'n bod arni hi?\nBeth sy'n bod arnon ni?\nBeth sy'n bod arnoch chi?\nBeth sy'n bod arnyn nhw?\n\n\n=== Talking about illness ===\nLike when talking about possession, we must use the Oes/Mae patterns for talking about illness. Oes is for questions, and Mae is for statements.\nCertain illnesses use the gyda (with) pattern:\n\nMae pen tost gyda fi.\nI have a headache\nCertain illnesses use the ar (on) pattern:\n\nMae annwyd arno fe.\nHe has a cold.\nThe general rule of thumb is: if the illness mentions a body part, use gyda. If the illness does not, use ar.\n\n\n== Review ==",
+          "examples": [
+            "Beth sy'n bod ar John?",
+            "Beth sy'n bod ar Mary?"
+          ],
+          "learnerTip": "Beth sy'n bod?\nTeimlo\nAnnwyd\nY frech Goch\nPen Tost\nBigyn Clust\nBola Tost",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_17"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson 18",
+      "summary": "== Vocabulary ==\nVocabulary to incorporate:",
+      "sections": [
+        {
+          "heading": "Lesson 18",
+          "body": "== Dialogue ==\n\n\n== Vocabulary ==\nVocabulary to incorporate:\n\nar y chwith - on the left\nar y dde - one the right\ni'r chwith - to the left\ni'r dde - to the right\n\n\n== Grammar ==\n\n\n== Review ==\nRemove the stem, and add -wch for a formal command; add -a for an informal command.\nSome stems and commands are irregular. Learn them as you go along.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_18"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Lesson 2",
+      "summary": "Ask where someone works.\nLearn when to use chi and ti\nRespond personally to the question 'Where do you work?' using mewn and yn y/yr\nLearn about the definite article y/yr\nAsk what someone likes.\nTalk about your interests.\nLearn how to respond 'Yes, I do' and 'No, I don't'.",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "Goals:\n\nAsk where someone works.\nLearn when to use chi and ti\nRespond personally to the question 'Where do you work?' using mewn and yn y/yr\nLearn about the definite article y/yr\nAsk what someone likes.\nTalk about your interests.\nLearn how to respond 'Yes, I do' and 'No, I don't'.\n\n\n== Dialogue ==\n\n--Mam T&J (discuss • contribs) 11:41, 28 January 2013 (UTC)\n\n\n== Vocabulary ==\n\n\n== The Definite Article ==\n\ncar\n\n(a) car\ny car\n\nthe car\nafal\n\n(an) apple\nyr afal\n\nthe apple\nWyt ti'n hoffi sglodion?\n\nDo you like chips?\nWyt ti'n hoffi'r sglodion?\n\nDo you like the chips?\n\n\n== Dw i ==\nIn the dialogue, you'll see dw i which translates as 'I do' or 'I am'. We can use this to make present tense sentences for the first person. Just use dw i plus a linking particle yn to connect a verb. Yn has to shorten to 'n, so the form is dw i'n. There are other variations of this patter, such as rydw i and rwy also.\nDw i'n gweithio.\n\nI work OR I am working OR I do work.\nNote, how Dw i'n gweithio is equivalent to all three English sentences 'I work', 'I am working', or 'I do work'. Again:\nDw i'n siarad.\n\nI speak OR I am speaking OR I do speak.\nSome more verbs to practice with:\nDw i'n hoffi Cymraeg.\n\nI like Welsh. I am liking Welsh. I do like Welsh.\nDw i'n gweithio.\n\nI work. I'm working. I do work.\nDw i'n darllen.\n\nI read. I'm reading. I do read.\n\n\n== Chi v. Ti ==\n\nDach chi'n gweithio?\n\nDo you work? (formal)\nWyt ti'n gweithio?\n\nDo you work? (informal)\nDach chi and wyt ti are the question forms for chi and ti. Like dw i, need the linking yn to connect verbs. Some more examples:\nDach chi'n hoffi sglodion?\n\nDo you like chips?\nWyt ti'n siarad Cymraeg?\n\nDo you speak Welsh?\nDach chi and Rwyt ti are the affirmative forms for chi and ti. That is, they make statements, rather than questions.\nDach chi'n siarad Cymraeg.\n\nYou do speak Welsh. (statement)\nRwyt ti'n actio.\n\nYou do act. You are acting.\n\n\n== Answering Questions ==\n\n\n== Review ==\nUse chi for formal situations, and ti for informal situations\nA chi question is dach chi and a ti question is wyt ti\nUsing the linking yn to connect the 'to be' verb to another verb-noun. This shortens to 'n after a vowel. Verbs are called 'verb-nouns' in Welsh as they can serve as both a noun and a verb.\nDw i is the first person for the present tense. It also must be connected with 'n to use verb-nouns.\nIn Welsh, you do not answer with a general 'yes' or 'no'. Instead, you answer with 'I do', 'He does', etc. For the first person, ydw and nac ydw are the response words (I do and I don't).\nThe definite article (the) takes one of three forms: y/yr/'r. Y is used before consonants. Yr is generally used before vowels. 'r is used after vowels.",
+          "examples": [],
+          "learnerTip": "Ask where someone works.\nLearn when to use chi and ti\nRespond personally to the question 'Where do you work?' using mewn and yn y/yr\nLearn about the definite article y/yr\nAsk what someone likes.\nTalk",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Lesson 3",
+      "summary": "Learn how to negate sentences.\nLearn more verbs and ask more questions.\nExpand vocabulary.",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "Goals:\n\nLearn how to negate sentences.\nLearn more verbs and ask more questions.\nExpand vocabulary.\n\n\n== Dialogue ==\n\nNote: In previous lessons, we've been using \"Dw i\", though it can also be written and seen as \"Dwi\" (as above).\n\n\n== Vocabulary ==\n\n\n== Grammar Points ==\nDdim yn\nEisiau\nMore Verbs\n\n\n== Review ==\nTo negate sentences, use the pattern ddim yn. E.g. Dwi ddim yn\nEisiau is one of the few verb nouns that does not use 'yn', so instead of 'Dwi'n eisiau dod', the correct usage is Dwi eisiau dod.",
+          "examples": [
+            "Note: In previous lessons, we've been using \"Dw i\", though it can also be written and seen as \"Dwi\" (as above)."
+          ],
+          "learnerTip": "Learn how to negate sentences.\nLearn more verbs and ask more questions.\nExpand vocabulary.",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson 4",
+      "summary": "Present Tense [affirmative] - bod (to be)",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "Dialogue\nVocabulary\nGrammar\n\nPresent Tense [affirmative] - bod (to be)\n\nEnglish\n\nCymraeg\n\nEnglish\n\nCymraeg\n\nI do, I am\n\nDwi\n\nWe do, We are\n\nDyn ni\n\nYou do, you are\n\nRwyt ti\n\nYou do, you are\n\nDych chi\n\nHe does, He is\n\nMae e (South Welsh)\nMae o (North Welsh)\n\nThey do, They are\n\nMaen nhw\n\nPresent Tense [negative] - bod (to be)\n\nEnglish\n\nCymraeg\n\nEnglish\n\nCymraeg\n\nI don't, I am not\n\nDw i ddim\n\nWe don't, We aren't\n\nDyn ni ddim\n\nYou don't, you aren't\n\nDwyt ti ddim\n\nYou don't, you aren't\n\nDych chi ddim\n\nHe doesn't, He isn't\n\nDyw e ddim (South Welsh)\nDydy o ddim (North Welsh)\n\nThey don't, They aren't\n\nDyn nhw ddim\n\nPresent Tense [interrogative] - bod (to be)\n\nEnglish\n\nCymraeg\n\nEnglish\n\nCymraeg\n\nDo I? Am I?\n\nYdw i?\n\nDo we? Are we?\n\nDyn ni?\n\nDo you? Are you?\n\nWyt ti?\n\nDo you? Are you?\n\nDych chi?\n\nDoes he? Is he?\n\nYdy e?\n\nDo they? Are they?\n\nYdyn nhw?\n\nPresent Tense Responses bod - to be\n\nEnglish\n\nCymraeg\n\nEnglish\n\nCymraeg\n\nYes: I do, I am\n\nYdw / Nac ydw\n\nYes: We do, We are\n\nYdyn\nNac ydyn\n\nYes: You do, you are\n\nWyt / Nac wyt\n\nYes: You do, you are\n\nDych / Dych chi ddim\n\nYes: He does, He is\n\nYdy / Nac ydy\n\nYes: They do, They are\n\nYdyn / Nac ydyn\n\nReview",
+          "examples": [],
+          "learnerTip": "Present Tense [affirmative] - bod (to be)",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson 5",
+      "summary": "== Grammar ==\nThere are tons of new concepts introduced in the dialogue.",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "== Dialogue ==\n\n\n== Vocabulary ==\n\n\n== Grammar ==\nThere are tons of new concepts introduced in the dialogue.\n\nDyma - Here is/This is\nThe genitive pattern\nSoft Mutation\nDwi'n dod o\nDwi'n mynd i\nYn + Adjective\nGa'i\n\nNote 1 G when soft-mutated, is removed.\nCaerdydd\n\nDwi'n dod o Gaerdydd\nPont y Pridd\n\nDwi'n dod o Bontypridd\nTon y Pandy\n\nDwi'n dod o Donypandy\nBangor\n\nDwi'n dod o Fangor\nDinbych\n\nDwi'n dod o Ddinbych\nGwent\n\nDwi'n dod o Went\nLlandudno\n\nDwi'n dod o Landudno\nMaesteg\n\nDwi'n dod o Faesteg\nRhosili\n\nDwi'n dod o Rosili\n\n\n== Review ==\nThere are nine consonants that can mutate in Welsh:\nC, P, T, B, D, G, Ll, M, and Rh.\nThere are three types of mutation: Soft, Nasal, and Aspirate. Usually there is a preceding word that triggers a mutation.\nThe prepositions i (to) and o (from) both cause a Soft Mutation.\nPlace names in Welsh can undergo soft mutation. Personal names do not.",
+          "examples": [],
+          "learnerTip": "== Grammar ==\nThere are tons of new concepts introduced in the dialogue.",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson 6",
+      "summary": "== Dialogue ==\nRichard: Lisa, mae dy ffôn di'n canu!\nLisa: O, reit...(on the phone) Helo - beth sy'n bod? Beth wyt ti'n neud yn yr orsaf heddlu? Wel, dwi'n gorffen yn hwyr heddiw. Iawn. \nTa-ra. (hangs up phone) Ah...plant. Oes plant gyda chi, Richard?\nRichard: Oes. Mae un mab ac",
+      "sections": [
+        {
+          "heading": "Lesson 6",
+          "body": "== Dialogue ==\nRichard: Lisa, mae dy ffôn di'n canu!\nLisa: O, reit...(on the phone) Helo - beth sy'n bod? Beth wyt ti'n neud yn yr orsaf heddlu? Wel, dwi'n gorffen yn hwyr heddiw. Iawn. \nTa-ra. (hangs up phone) Ah...plant. Oes plant gyda chi, Richard?\nRichard: Oes. Mae un mab ac un ferch gyda fi.\nLisa: Mae pump o blant gyda fi. Pum merch.\nRichard: Jiw jiw!\n\n\n== Vocabulary ==\n\n\n== Grammar ==\n\n\n== Review ==\nOf the 9 letters that mutate, the first six (C, P, T, B, D, G) can also undergo the Nasal Mutation.\nYn (in) and Fy (my, possessive adjective) cause a Nasal Mutation.\nWhile in English we say, I have something, Welsh uses the pattern, There is something with me. Mae in Welsh translates as 'There is' or 'There are'. Mae plant gyda fi for example. To ask the question, use the interrogative version of mae, oes. Oes plant gyda chi?\nTo answer an Oes question, use Oes for 'Yes, there is' or 'Yes, there are'. Nac oes is the negative version, for 'No, there isn't' or 'No, there aren't'.",
+          "examples": [],
+          "learnerTip": "== Dialogue ==\nRichard: Lisa, mae dy ffôn di'n canu!\nLisa: O, reit...(on the phone) Helo - beth sy'n bod? Beth wyt ti'n neud yn yr orsaf heddlu? Wel, dwi'n gorffen yn hwyr heddiw. Iawn. \nTa-ra. (hangs",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_6"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson 7",
+      "summary": "== Grammar ==\nWhen answering to a \"Ga'i..?\" (Can I have..?) question, we answer\nCei / Na cei (Yes, you can / No, you cannot) with people we use \"ti\" with.\nCewch / Na cewch (Yes, you can / No, you cannot) with people we use \"chi\" with.",
+      "sections": [
+        {
+          "heading": "Lesson 7",
+          "body": "== Dialogue ==\n\n\n== Vocabulary ==\n\n\n== Grammar ==\nWhen answering to a \"Ga'i..?\" (Can I have..?) question, we answer\nCei / Na cei (Yes, you can / No, you cannot) with people we use \"ti\" with.\nCewch / Na cewch (Yes, you can / No, you cannot) with people we use \"chi\" with.\n\n\n== Review ==\nNouns are either feminine or masculine in Welsh.\nDau (2), Tri (3), and Pedwar (4) have feminine forms. You must use the correct feminine number with feminine nouns.\nWhile you use the singular version of a noun with numbers (dau blentyn), it is more common to use the plural noun with numbers over 10 (deg o blant).\nOn the grammatical rules of numbers:\n[1] Un causes a soft mutation to feminine numbers.\n[2] Both dau and dwy cause a soft mutation.\n[3] Use tri for masculine nouns. Use tair for feminine. Tri causes an aspirate mutation.\n[4] Use pedwar for masculine nouns. Use pedair for feminine nouns.\n[5] After pump, if the noun begins with a consonant - drop the ending p off pump.\n[6] After chwech, if the noun begins with a consonant - drop the ending ch off chwech.",
+          "examples": [
+            "When answering to a \"Ga'i..?\" (Can I have..?) question, we answer",
+            "Cei / Na cei (Yes, you can / No, you cannot) with people we use \"ti\" with.",
+            "Cewch / Na cewch (Yes, you can / No, you cannot) with people we use \"chi\" with."
+          ],
+          "learnerTip": "== Grammar ==\nWhen answering to a \"Ga'i..?\" (Can I have..?) question, we answer\nCei / Na cei (Yes, you can / No, you cannot) with people we use \"ti\" with.\nCewch / Na cewch (Yes, you can / No, you cann",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_7"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson 8",
+      "summary": "Ask for the time.\nTell the time.\nTalk about the weather.",
+      "sections": [
+        {
+          "heading": "Lesson 8",
+          "body": "Goals:\n\nAsk for the time.\nTell the time.\nTalk about the weather.\n\n\n== Dialogue ==\nA: Faint o'r gloch yw hi?\nB: Mae hi'n dri o'r gloch. Pam?\nA: Mae drama yn y theatr am hanner awr wedi tri. Dw i'n mynd i weld. Wyt ti'n dod?\nB: Nac ydw. Yn anffodus, mae apwyntiad gyda fi \nA: Faint o'r gloch wyt ti'n mynd allan?\nB: Am chwarter i bedwar.\nA: O na! Mae hi'n bwrw glaw!\n\n\n== Geirfa ==\nFaint o'r gloch yw hi? - What time is it? (lit. How many bells?)\nFaint o'r gloch..? - At what time..?\nO'r gloch - O' clock\nDrama - Play\nYn anffodus - Unfortunately\nApwyntiad - Appointment\nMynd allan - To go out.\nHanner - Half\nChwarter - Quarter\n\n\n== Grammar ==\nHow to say it / The weather\n\nThe clock\n\n\n== Review ==\nIn Welsh, to say 'it', you must use either 'fe' (he) or 'hi' (she). If the noun, you're referring to is masculine, use 'fe', or if it's feminine, use 'hi'. When talking about the weather and time, use 'hi'.\nMae hi'n bwrw glaw.\nMae hi'n ddeg o'r gloch.\nAm is the correct preposition to use with various time expressions:\nAm dri o'r gloch - At 3:00\nAm awr - For an hour.\nNote that \"am\" causes a soft mutation.\nTelling time:\nUse o'r gloch on the hour. e.g. Dau o'r gloch (2:00)\nUse hanner wedi [number] o'r gloch for half past. e.g. Hanner wedi tri o'r gloch. (3:30)\nUse wedi up until half past. e.g. Pum munud wedi pump o'r gloch (5:05)\nUse i after half past. E.g. Chwarter i chwech o'r gloch (5:45). I causes a soft mutation as we have already seen.\nTalking about the weather.\nMae hi'n causes a soft mutation in adjectives. Therefore twym (hot) becomes dwym, gwyntog (windy) becomes wyntog and so on.\nException: braf (nice). E. g. Mae hi'n braf heddiw and not Mae hi'n fraf heddiw.\nVerbs on the other hand do not undergo mutation. For instance bwrw glaw (to rain) stays the same.",
+          "examples": [
+            "Note that \"am\" causes a soft mutation."
+          ],
+          "learnerTip": "Ask for the time.\nTell the time.\nTalk about the weather.",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_8"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson 9",
+      "summary": "== Dialogue ==\nA: Peter, wyt ti wedi gorffen eto?\nB: Nac ydw, dwi'n chwilio am fy allweddi.\nA: Faint o'r gloch yw hi?\nB: Pump o'r gloch? Pam?\nA: Wel, dwi'n mynd i dŷ Susan am chwech o'r gloch gyda Tim. Ti'n cofio?\nB: O, reit. Wyt ti wedi coginio eto?\nA: Ydw.\nB: Ydy Tim wedi cogin",
+      "sections": [
+        {
+          "heading": "Lesson 9",
+          "body": "Goals:\n\nThe present perfect tense.\n\n\n== Dialogue ==\nA: Peter, wyt ti wedi gorffen eto?\nB: Nac ydw, dwi'n chwilio am fy allweddi.\nA: Faint o'r gloch yw hi?\nB: Pump o'r gloch? Pam?\nA: Wel, dwi'n mynd i dŷ Susan am chwech o'r gloch gyda Tim. Ti'n cofio?\nB: O, reit. Wyt ti wedi coginio eto?\nA: Ydw.\nB: Ydy Tim wedi coginio?\nA: Nac ydy.\n\n\n== Vocabulary ==\nGorffen - Finish (verb)\nEto - yet / again\nChwilio am - searching for\nAllweddi - Keys (Allwedd is the singular)\nTŷ (seen as dŷ here due to soft mutation) - House\nCofio - Remember (verb)\nCoginio - Cook (verb)\n\n\n== Grammar ==\n\nA: Dych chi wedi gorffen yr adroddiad?\nB: Nac ydw. Dwi ddim wedi gorffen yr adroddiad.\n\nA: Have you finished the report?\nB: No (I haven't). I have not finished the report.\n\n\n== Review ==",
+          "examples": [],
+          "learnerTip": "== Dialogue ==\nA: Peter, wyt ti wedi gorffen eto?\nB: Nac ydw, dwi'n chwilio am fy allweddi.\nA: Faint o'r gloch yw hi?\nB: Pump o'r gloch? Pam?\nA: Wel, dwi'n mynd i dŷ Susan am chwech o'r gloch gyda Tim",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Mynediad/Lesson_9"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Articles",
+      "summary": "== Indefinite Article ==\nThere is no indefinite article in Welsh. afal - an apple; cath - a cat; merch - a girl.",
+      "sections": [
+        {
+          "heading": "Articles",
+          "body": "== Indefinite Article ==\nThere is no indefinite article in Welsh. afal - an apple; cath - a cat; merch - a girl.\n\n\n== The Definite Article ==\ny - before consonants: y gath - the cat; y ci - the dog.\nyr - before vowels and h (remember that w and y are vowels in Welsh): yr ysgol - the school; yr afal - the apple; yr het - the hat.\n'r - suffixed to the preceding word if it ends with a vowel regardless of whether the following word begins with a vowel or consonant: mae'r plant - the children are; mae'r ysgol - the school is; dyma'r llyfr - here's the book.",
+          "examples": [],
+          "learnerTip": "== Indefinite Article ==\nThere is no indefinite article in Welsh. afal - an apple; cath - a cat; merch - a girl.",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Articles"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Clauses",
+      "summary": "== Noun Clauses ==\nFi Fy mod i\nTi Dy fod ti\nFe Ei fod e\nNi Ein bod ni\nChi Eich bod chi\nNhw Eu bod nhw",
+      "sections": [
+        {
+          "heading": "Clauses",
+          "body": "== Noun Clauses ==\nFi Fy mod i\nTi Dy fod ti\nFe Ei fod e\nNi Ein bod ni\nChi Eich bod chi\nNhw Eu bod nhw\n\nDwi'n gywbod fy mod i'n mynd yfory.\n\nI know that I'm going tomorrow.\nMae'n amlwg (ei) bod hi'n gwybod yr ateb.\n\nIt's obvious that she knows the answer.\n\n\n=== Other Tenses ===\nLeave as is -\nRo'n i'n gwybod fy mod i'n mynd i orffen yn gynnar.\n\nI knew that I was going to finish early.\nDwi'n siwr (y) bydd e'n dod yn ôl.\n\nI'm sure that he will come back.\n\n\n=== Emphatic Pattern ===\nUse mai or taw.\nMae hi'n siwr mai ti yw'r gorau. OR\nMae hi'n siwr taw ti yw'r gorau.\n\n\n== Adverbial Clauses ==\nTo do.\n\n\n== Adjectival Clauses ==\nTo do.",
+          "examples": [],
+          "learnerTip": "== Noun Clauses ==\nFi Fy mod i\nTi Dy fod ti\nFe Ei fod e\nNi Ein bod ni\nChi Eich bod chi\nNhw Eu bod nhw",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Clauses"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Prepositions",
+      "summary": "== Prepositions that cause a soft mutation ==\nThese prepositions cause a soft mutation.",
+      "sections": [
+        {
+          "heading": "Prepositions",
+          "body": "== Prepositions that cause a soft mutation ==\nThese prepositions cause a soft mutation.\n\n\n== Personal forms ==\nPrepositions in Welsh, unlike many other European languages, may have personal forms for each pronoun. For example, the preposition 'ar' (on) must become 'arnaf i' for (on me).\n\n\n== Mewn v. Yn ==\nMewn is used for indefinite situations. Yn is used for definite situations. Generally, mewn can be translated as in a.\ne.g Dwi'n mynd mewn awyren.\nI'm going in an aeroplane.\nTi'n gweithio mewn siop.\nYou work in a shop.\n\nÔ'n i'n gwneud prawf cemeg yn yr ysgol heddiw.\nI did a chemistry test in the school today.\n\n\n== Verb-nouns and Prepositions ==\n\n\n=== By preposition ===\nAR\n\ngwrando ar | Mae e'n gwrando ar y radio.\ngweiddi ar | Pam wyt ti'n gweiddi arna i?\nsylwi ar | [eg]\ngwenu ar | [eg]\nedrych ar | Gad i ni edrych ar y teledu.\nAT\n\nanfon at | [eg]\nedrych ymlaen at | [eg]\nmynd at | [eg]\nysgrifennu at | [eg]\nI\n\nmynd i\nWRTH\n\ndweud wrth\nYN\n\ncredu yn\nymddiried yn\nÂ\n\nsiarad â\npeidio â\n\n\n=== By verb-noun ===\nGweithio:\n\nGweithio i (work for)\nGweithio ar (work on [something])\n\nSiarad:\n\nSiarad â (speak to/with)\n\nDod:\n\nDod ymlaen (to get on/to get along)",
+          "examples": [],
+          "learnerTip": "== Prepositions that cause a soft mutation ==\nThese prepositions cause a soft mutation.",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Prepositions"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Pronouns",
+      "summary": "The pronouns listed can vary in their forms amongst speakers. In the North, the second person singular form chdi (earlier thdi from the reduplicated form tydi (thou, thyself)) is not unheard of, and some speakers retain the archaic form chwi for the plural. Northern speakers reta",
+      "sections": [
+        {
+          "heading": "Pronouns",
+          "body": "== Personal pronouns ==\n\nThe pronouns listed can vary in their forms amongst speakers. In the North, the second person singular form chdi (earlier thdi from the reduplicated form tydi (thou, thyself)) is not unheard of, and some speakers retain the archaic form chwi for the plural. Northern speakers retain the objective form of the first person singular pronoun mi in the prepositional phrase i mi (\"to/for me\"). Some speakers retain an older form ef for the masculine third person singular. The third person plural pronoun hwy(nt) is strictly literary.\n\n\n== Possessive adjectives ==\nWhere English has possessive pronouns (my, your, his, her, their), Welsh has possessive adjectives. This is because Welsh possession is shown by apposition of the nouns, e.g. het Sioned 'Sioned's hat' or canol y dref 'centre of the town'. With grammatical persons, however, Welsh has a set of helpful adjectives which equate to the English possessive pronouns. These possessive adjectives come before the noun being possessed which is also often followed by the pronoun of the person - effectively \"sandwiching\" the possessed noun between the adjective and the pronoun, as shown below.\nAfter the singular possessive adjectives there is a mutation, (soft, nasal or aspirate), but not after the plural adjectives. If the following word begins with a vowel ei, ein and eu cause h-prosthesis to the noun, meaning it receives a new initial h, e.g. ein hafal ni 'our apple' [< afal].\n\nFy can have different forms colloquially (y(n); 'm and 'n can occur after vowels; when triggering nasal mutation, fy is sometimes dropped entirely leaving the mutation to do the work, e.g. nhad (i) 'my father' rather than fy nhad i). The rest of the possessive adjectives can also take different forms after vowels: dy > th, ei > 'i (after vowels except i) or w (after i), ein > 'n, eich > ''ch, eu > 'u (after vowels except i) or 'w (after i).",
+          "examples": [
+            "The pronouns listed can vary in their forms amongst speakers. In the North, the second person singular form chdi (earlier thdi from the reduplicated form tydi (thou, thyself)) is not unheard of, and some speakers retain the archaic form chw",
+            "Where English has possessive pronouns (my, your, his, her, their), Welsh has possessive adjectives. This is because Welsh possession is shown by apposition of the nouns, e.g. het Sioned 'Sioned's hat' or canol y dref 'centre of the town'. W"
+          ],
+          "learnerTip": "The pronouns listed can vary in their forms amongst speakers. In the North, the second person singular form chdi (earlier thdi from the reduplicated form tydi (thou, thyself)) is not unheard of, and s",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Pronouns"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Verbs",
+      "summary": "=== affirmative ===\n(ba)swn i\n(ba)set ti\n(ba)sai fo\n(ba)sai hi\n(ba)sen ni\n(ba)sech chi\n(ba)sen nhw",
+      "sections": [
+        {
+          "heading": "Conditional",
+          "body": "== Northern Welsh ==\n\n\n=== affirmative ===\n(ba)swn i\n(ba)set ti\n(ba)sai fo\n(ba)sai hi\n(ba)sen ni\n(ba)sech chi\n(ba)sen nhw\n\n\n=== interogative ===\nfaswn i?\nfaset ti?\nfasai fo?\nfasai hi?\nfasen ni?\nfasech chi?\nfasen nhw?\n\n\n=== negative ===\n(fa)swn i ddim\n(fa)set ti ddim\n(fa)sai fo ddim\n(fa)sai hi ddim\n(fa)sen ni ddim\n(fa)sech chi ddim\n(fa)sen nhw ddim\n\n\n== Southern Welsh ==\n\n\n=== affirmative ===\nbyddwn i\nbyddet ti\nbyddai fe\nbyddai hi\nbydden ni\nbyddech chi\nbydden nhw\n\n\n=== interrogative ===\nfyddwn i?\nfyddet ti?\nfyddai fe?\nfyddai hi?\nfydden ni?\nfyddech chi?\nfydden nhw?\n\n\n=== negative ===\nfyddwn i ddim\nfyddet ti ddim\nfyddai fe ddim\nfyddai hi ddim\nfydden ni ddim\nfyddech chi ddim\nfydden nhw ddim",
+          "examples": [],
+          "learnerTip": "=== affirmative ===\n(ba)swn i\n(ba)set ti\n(ba)sai fo\n(ba)sai hi\n(ba)sen ni\n(ba)sech chi\n(ba)sen nhw",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Conditional"
+        },
+        {
+          "heading": "Future",
+          "body": "Bod\n\nPronoun\n\nAffirmative\n\nNegative\n\nInterrogative\n\nYes\n\nNo\n\nFi\n\nBydda i\n\nFydda i ddim\n\nFydda i?\n\nBydda (I will)\n\nNa fydda (I won't)\n\nTi\n\nByddi di\n\nFyddi di ddim\n\nFyddi di?\n\nByddi (You will)\n\nNa fyddi (You won't)\n\nFe\n\nBydd e\n\nFydd e ddim\n\nFydd e?\n\nBydd (He will)\n\nNa fydd (He won't)\n\nNi\n\nByddwn ni\n\nFyddwn ni ddim\n\nFyddwn ni?\n\nByddwn (We will)\n\nNa fyddwn (We won't)\n\nChi\n\nByddwch chi\n\nFyddwch chi ddim\n\nFyddwch chi?\n\nByddwch (You will)\n\nNa fyddwch (You won't)\n\nNhw\n\nByddan nhw\n\nFyddan nhw ddim\n\nFyddan nhw?\n\nByddan (They will)\n\nNa fyddan (They won't)\n\nVerb Conjugation",
+          "examples": [],
+          "learnerTip": "Bod\n\nPronoun\n\nAffirmative\n\nNegative\n\nInterrogative\n\nYes\n\nNo\n\nFi\n\nBydda i\n\nFydda i ddim\n\nFydda i?\n\nBydda (I will)\n\nNa fydda (I won't)\n\nTi\n\nByddi di\n\nFyddi di ddim\n\nFyddi di?\n\nByddi (You will)\n\nNa fyddi",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Future"
+        },
+        {
+          "heading": "Imperative",
+          "body": "Add -wch to the stem of the verb-noun (chi). Add -a to the stem of the verb-noun (ti).\n\n\n== Irregular forms ==\nmynd - to go\nsingular  \t\ndos! (N)  \t\ncer! (S) \t\n\nplural\newch!\n\ndod - to come\nsingular\ntyrd! (N)\ndere! (S)\n\nplural\ndewch!",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Imperative"
+        },
+        {
+          "heading": "Imperfect",
+          "body": "The imperfect tense in Welsh can translate as the following. For example, Roeddwn i'n gweithio can translate as 'I was working' or 'I used to work'. Note there is a material difference between 'I worked' and 'I was working': in the first phrase, the action has been completed in the past (preterite or past perfective tense), whereas in the second, the action is continuous, yet still in the past (hence, imperfect or past imperfective tense).\n\nRoeddet ti'n nofio ddoe.\n\nYou were swimming yesterday\n\nRoedd hi'n caru Sarah.\n\nShe was loving Sarah.\n\nRoedden nhw'n sefyll tu allan y dafarn.\n\nThey were standing outside the pub.\n\nRoedd y bocs yn las.\n\nThe box was blue.\n\nRoeddwn i'n feddyg.\n\nI was a doctor.\n\nDoeddet ti ddim yn nofio ddoe.\n\nYou weren't swimming yesterday\n\nDoedd hi ddim yn caru Sarah.\n\nShe wasn't loving Sarah.\n\nDoedden nhw ddim yn sefyll tu allan y dafarn.\n\nThey weren't standing outside the pub.\n\nDoedd y bocs ddim yn las.\n\nThe box wasn't blue.\n\nDoeddwn i ddim yn feddyg.\n\nI wasn't a doctor.",
+          "examples": [],
+          "learnerTip": "The imperfect tense in Welsh can translate as the following. For example, Roeddwn i'n gweithio can translate as 'I was working' or 'I used to work'. Note there is a material difference between 'I work",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Imperfect"
+        },
+        {
+          "heading": "Irregular",
+          "body": "Mynd, Gwneud, Dod, and Cael all have irregular forms in their concise constructions. List below\n\nNote that letters in brackets are added to make the verb formal. To not include them would mean the verb is said informally. Another way to make a negative verb is to put \"Nid\" before it, of which will require you to remove the \"dim\" that comes after the negative verb.\nNote that when the verbs are negative, they undergo a soft mutation, excluding \"cael\" (to get), of which undergoes an aspirate mutation.\nNote that when the verbs are asked as a question, they undergo a soft mutation.",
+          "examples": [
+            "Note that letters in brackets are added to make the verb formal. To not include them would mean the verb is said informally. Another way to make a negative verb is to put \"Nid\" before it, of which will require you to remove the \"dim\" that c",
+            "Note that when the verbs are negative, they undergo a soft mutation, excluding \"cael\" (to get), of which undergoes an aspirate mutation."
+          ],
+          "learnerTip": "Mynd, Gwneud, Dod, and Cael all have irregular forms in their concise constructions. List below",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Irregular"
+        },
+        {
+          "heading": "Past",
+          "body": "The past tense in Welsh does not use bod (to be). We have to conjugate the verb itself. We add an ending to the stem of the verb.  \nDwy'r amser gorffennol ddim yn defnyddio bod. Rhaid i ni redeg y ferf. Rhaid i ni ychwanegu terfyniad at fôn y ferf. \nNote the different mutations in the negative and interrogative forms \n\nWe need to know the stem of verbs to create the past tense and commands.\n\n\n=== Dyma rai rheolau. Here are some rules: ===\nBerf yn gorffen gyda un llafariad - gollwng y llafariad. Verb ending with a single vowel - drop the vowel:                               bwyta       bwyt-        bwytais i\ncanu        can-         canais iBerf yn gorffen gyda io - gollwng y llafariad ola.     Verb ending with io - drop the final vowel.                             ffonio          ffoni-          ffoniais i\ngweithio      gweithi-      gweithiais iBerf yn gorffen gyda chytsain - ychwanegu'r terfyniad. Verb ending with a consonant - add the ending.                                                                                   darllen      darllen-      darllenais i\nateb         ateb-         atebais i Berf yn gorffen gyda -ed - gollwng yr ed. Verb ending with -ed - drop the ed.                                                             clywed      clyw-        clywais i\nyfed        yf-          yfais iBerf yn gorffen gyda -eg - gollwng yr eg. Verb ending with -eg - drop the eg. rhedeg      rhed-       rhedais iRhai bonau anodd/Some more difficult stems:\n\nThere are two possible forms of cael in the past tense. Ces i, cawson ni etc. will be found in more formal situations or in writing. Ges i, gaethon ni etc. tends to be seen as less formal, and is used more commonly in spoken Welsh. (It is also much easier to remember, as it follows the forms for gwneud and mynd!)\n\nA: Est ti i'r parc?\nB: Do. Es i i'r parc.\n\nA: Did you go to the park?\nB: I did (yes). I went to the park.\n\nA: Dalaist ti?\nB: Naddo. Thalais i ddim.\n\nA: Did you pay?\nB: I didn't (no). I didn't pay.",
+          "examples": [],
+          "learnerTip": "The past tense in Welsh does not use bod (to be). We have to conjugate the verb itself. We add an ending to the stem of the verb.  \nDwy'r amser gorffennol ddim yn defnyddio bod. Rhaid i ni redeg y fer",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Past"
+        },
+        {
+          "heading": "Perfect",
+          "body": "Pronoun\n\nAffirmative\n\nNegative\n\nInterrogative\n\nYes\n\nNo\n\nFi\n\nRydw i wedi\n\nDydw i ddim wedi\n\nYdw i wedi?\n\nYdw\n\nNac ydw\n\nTi\n\nRwyt ti wedi\n\nDwyt ti ddim wedi\n\nWyt ti wedi?\n\nWyt\n\nNac wyt\n\nFe\n\nMae e wedi\n\nDyw e ddim wedi\n\nYdy e wedi?\n\nYdy\n\nNac ydy\n\nNi\n\nRydyn ni wedi\n\nDydyn ni ddim wedi\n\nYdyn ni wedi?\n\nYdyn\n\nNac ydyn\n\nChi\n\nRydych chi wedi\n\nDydych chi ddim wedi\n\nYdych chi wedi?\n\nYdych\n\nNac ydych\n\nNhw\n\nMaen nhw wedi\n\nDydyn nhw ddim wedi\n\nYdyn nhw wedi?\n\nYdyn\n\nNac ydyn",
+          "examples": [],
+          "learnerTip": "Pronoun\n\nAffirmative\n\nNegative\n\nInterrogative\n\nYes\n\nNo\n\nFi\n\nRydw i wedi\n\nDydw i ddim wedi\n\nYdw i wedi?\n\nYdw\n\nNac ydw\n\nTi\n\nRwyt ti wedi\n\nDwyt ti ddim wedi\n\nWyt ti wedi?\n\nWyt\n\nNac wyt\n\nFe\n\nMae e wedi\n\nD",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Perfect"
+        },
+        {
+          "heading": "Present",
+          "body": "The present tense in Welsh can translate as either the 'present indicative' or the 'present progressive'. For example, Dwi'n siarad can translate as I speak', I do speak', I am speaking.\nThe present tense in Welsh can also be used to describe what is happening in the future:\nDwi'n gweithio yfory.\n\nI'm working tomorrow.\n\n\n== Affirmative ==\n\nDwi'n siarad Cymraeg.\n\nI speak Welsh. I do speak Welsh. I am speaking Welsh.\n\nMae hi'n mynd i'r theatr.\n\nShe goes to the theatre. She does go to the theatre. She is going to the theatre.\n\nMaen nhw'n canu.\n\nThey sing. They do sing. They are singing.\n\nDwi'n athro.\n\nI'm a teacher\n\nMae hi'n bump oed.\n\nShe is 5 years old.\n\n\n== Negative ==\n\nDwi ddim yn siarad Cymraeg.\n\nI don't speak Welsh. I am not speaking Welsh.\nDyw/Dydy hi ddim yn mynd i'r theatr.\n\nShe doesn't go to the theatre. She isn't going to the theatre.\nDydyn nhw ddim yn canu.\n\nThey don't sing.\nDyw hi ddim yn athrawes.\n\nShe isn't a teacher.\nThere are also colloquial ways of expressing the negative in the \"I\", \"you\" (ti), we and they forms:\n\nSai'n (Sai'n hoffi): I don't like\nSo ti'n (So ti'n mynd): You're not going\nSmo ni'n (Smo ni'n ysmygu): We don't smoke\nSo nhw'n (So nhw'n siarad): They don't speak\n\n\n== Interrogative ==\n\nA: Wyt ti'n mynd i'r parc?\nB: Ydw. Dwi'n mynd i'r parc.\n\nA: Are you going to the park?\nB: I am (yes). I'm going to the park.\n\nA: Ydy hi'n hoffi ffilmiau?\nB: Ydy. Mae hi'n hoffi ffilmiau.\n\nA: Does she like films?\nB: She does (yes). She likes films.\n\nA: Ydy Brad yn chwarae heddiw?\nB: Nac ydy. Dydy Brad ddim yn chwarae heddiw.\n\nA: Is Brad playing today?\nB: He isn't. Brad isn't playing today.\n\n\n== Mae and Oes ==\n\nOes bwyd yn y tŷ?\n\nIs there food yn the house?\nOes. Mae llawer o fwyd yma.\n\nYes (There is). There is a lot of food here.\nOes rhaglen dda ar y teledu heno?\n\nIs there a good programme on the television tonight?\nNag oes. Does dim unrhywbeth da.\n\nNo (There isn't). There isn't anything good.\n\nPossession\nOes car gyda chi?\n\nDo you have a car?\n(lit. 'Is there a car with you?')\nOes. Mae car gyda fi.\n\nYes. I have a car.\n(lit. 'There is a car with me.')\nConditions\nMae ofn arna i.\n\nI'm afraid.\n(lit. There is fear on me.)\nMae hiraeth arna i.\n\nI'm homesick.\n(lit. There is homesickness on me.)",
+          "examples": [
+            "There are also colloquial ways of expressing the negative in the \"I\", \"you\" (ti), we and they forms:"
+          ],
+          "learnerTip": "The present tense in Welsh can translate as either the 'present indicative' or the 'present progressive'. For example, Dwi'n siarad can translate as I speak', I do speak', I am speaking.\nThe present t",
+          "source": "https://en.wikibooks.org/wiki/Welsh/Grammar/Verbs/Present"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Chapter 1",
+      "summary": "Welsh grammar reflects the patterns of linguistic structure that permeate the use of the Welsh language. In linguistics grammar refers to the domains of the syntax, and morphology. The following articles contain more information on Welsh:",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Welsh grammar reflects the patterns of linguistic structure that permeate the use of the Welsh language. In linguistics grammar refers to the domains of the syntax, and morphology. The following articles contain more information on Welsh:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Welsh_grammar"
+        },
+        {
+          "heading": "Section 2",
+          "body": "Welsh syntax\nColloquial Welsh morphology (the patterns that shape the spoken language as it is used by present-day Welsh speakers.)\nLiterary Welsh morphology (the rules governing the use of the formal written language, normally corresponding to older, historical patterns.)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Welsh_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,148 @@
+{
+  "title": "Grammar Book — ትግርኛ",
+  "languageCode": "ti",
+  "languageName": "ትግርኛ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "This article should specify the language of its non-English content using {{lang}} or {{langx}}, {{transliteration}} for transliterated languages, and {{IPA}} for phonetic transcriptions, with an appropriate ISO 639 code. Wikipedia's multilingual support templates may also be use",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This article should specify the language of its non-English content using {{lang}} or {{langx}}, {{transliteration}} for transliterated languages, and {{IPA}} for phonetic transcriptions, with an appropriate ISO 639 code. Wikipedia's multilingual support templates may also be used - notably tir for Tigrinya. See why.  (May 2019)\n\nThis article contains Ethiopic text. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Ethiopic characters.\n\nThis article describes the grammar of Tigrinya, a South Semitic language which is spoken primarily in Eritrea and Ethiopia, and is written in Ge'ez script.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "Like other Afro-Asiatic languages, Tigrinya has two grammatical genders, masculine and feminine, and all nouns belong to either one or the other. Grammatical gender in Tigrinya enters into the grammar in the following ways:",
+      "sections": [
+        {
+          "heading": "Gender",
+          "body": "Like other Afro-Asiatic languages, Tigrinya has two grammatical genders, masculine and feminine, and all nouns belong to either one or the other. Grammatical gender in Tigrinya enters into the grammar in the following ways:\n\nVerbs agree with their subjects in gender (unless the subject is first person).\n\nSecond and third person personal pronouns (you, he, she, they, etc. in English) are distinguished by gender.\n\nAdjectives and determiners agree with the nouns they modify in gender.\n\nSome noun pairs for people distinguish masculine and feminine by their endings, with the feminine signaled by t. These include agent nouns derived from verbs — ከፈተ käfätä 'open', ከፋቲ käfati 'opener (m.)', ከፋቲት käfatit 'opener (f.)' — and nouns for nationalities or natives of particular regions — ትግራዋይ tǝgraway 'Tigrean (m.)', ትግራወይቲ tǝgrawäyti 'Tigrean (f.)'.\n\nGrammatical gender normally agrees with natural gender for people and animals; thus nouns such as ኣቦ ’abbo 'father', ወዲ wäddi 'son, boy', and ብዕራይ bǝ‘ǝray 'ox' are masculine, while nouns such as ኣደ addä 'mother', ጓል gʷal 'daughter, girl', and ላም lam or ላሕሚ lah.mi 'cow' are feminine.  However, most names for animals do not specify biological gender, and the words ተባዕታይ täba‘tay 'male' and ኣንስተይቲ anǝstäyti must be placed before the nouns if the gender is to be indicated.\n\nThe gender of most inanimate nouns is not predictable from the form or the meaning. Grammars sometimes disagree on the genders of particular nouns; for example, ጸሓይ ṣäḥay 'sun' is masculine according to Leslau,[1] feminine according to Amanuel.[2] This disagreement seems to be due to dialectal differences.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Tigrinya has singular and plural number, but nouns that refer to multiple entities are not obligatorily plural.  That is, if the context is clear, a formally singular noun may refer to multiple entities: ሓሙሽተ ḥammuštä 'five', ሰብኣይ säb’ay 'man', ሓሙሽተ ሰብኡት ḥammuštä säbut, 'five men'.  It is also possible for a formally singular noun to appear together with plural agreement on adjectives or verbs: ብዙሓት bǝzuḥat 'many (pl.)', ዓዲ ‘addi 'village'; ብዙሓት ዓዲ bǝzuḥat ‘addi 'many villages'.  The conventions for when this combination of singular and plural is or is not possible appear to be complex.[1]\n\nAs in Arabic, Tigre, and Ge'ez, noun plurals are formed both through the addition of suffixes to the singular form (\"external\" plural) and through the modification of the pattern of vowels within (and sometimes outside) the consonants that make up the noun root (\"internal\" or \"broken\" plural).\nIn some cases suffixes may also be added to an internal plural.\nThe most common patterns are as follows.  In the designation of internal plural patterns, \"C\" represents one of the consonants of the noun root.  Note that some nouns (for example, ዓራት ‘arat 'bed') have more than one possible plural.\n\nExternal plural\n-at, -tat\nዓራት ‘arat 'bed', ዓራታት(ዓራውቲ) ‘aratat 'beds'\n\nእምባ ǝmba 'mountain', እምባታት ǝmbatat 'mountains'\n\n-ot (following deletion of -a or -ay)\nጐይታ gʷäyta 'master', ጐይቶት gʷäytot 'masters'\n\nሐረስታይ ḥarästay 'farmer', ሐረስቶት ḥarästot 'farmers'\n\n-ǝtti, -wǝtti (sometimes with deletion of final -t)\nገዛ gäza 'house', ገዛውቲ gäzawǝtti 'houses'\n\nዓራት ‘arat 'bed', ዓራውቲ ‘arawǝtti 'beds'\n\nInternal plural\n’aCCaC\nፈረስ färäs 'horse', አፍራሰ ’afras 'horses'\n\nእዝኒ ’ǝzni 'ear', እእዛን ’a’zan 'ears'\n\n’aCaCǝC\nንህቢ nǝhbi 'bee', አናህብ ’anahǝb 'bees'\n\nበግዕ bäggǝ‘ 'sheep' (s.), አባጊዕ ’abagǝ‘ 'sheep' (p.)\n\nCäCaCu\nደርሆ därho 'chicken', ደራሁ därahu 'chickens'\n\nጕሒላ gʷǝḥila 'thief', ጕሓሉ(?) gʷǝḥalu 'thieves'\n\nC{ä,a}CaCǝC\nመንበር mänbär 'chair', መናብር mänabǝr 'chairs'\n\nሐርማዝ ḥarmaz 'elephant', ሐራምዝ ḥaramǝz 'elephants'\n\n...äCti for the plural of agent and instrument nouns derived from verbs\nቀላቢ k'ällabi 'feeder', ቀለብቲ k'älläbti 'feeders'\n\nአገልጋሊ ’agälgali 'server', አገልገልቲ ’agälgälti 'servers'\n\nመኽደኒ mäxdäni 'cover', መኽደንቲ (?) mäxdänti 'covers'\n\nCǝCawǝCti\nክዳን kǝdan 'clothing', ክዳውንቲ kǝdawǝnti 'articles of clothing'\n\nሕጻን ḥǝs'an 'infant', ሕጻውንቲ ḥǝs'awǝnti 'infants'\n\nCäCaCǝCti\nመጽሐፍ mäs'ḥaf 'book', መጻሕፍቲ mäs'aḥǝfti 'books'\n\nኮኸብ koxäb 'star', ከዋኽብቲ käwaxǝbti 'stars'\n\n...C*aC*ǝC..., where \"C*\" represents a single root consonant\nወረቐት wäräx'ät 'paper', ወረቓቕቲ wäräx'ax'ti 'papers'\n\nተመን tämän 'snake', ተማምን tämamǝn 'snakes'\n\nAmong the completely irregular plurals are ሰበይቲ säbäyti 'woman', አንስቲ ’anǝsti 'women' and ጓል gʷal 'girl, daughter', እዋልድ ’awalǝd 'girls, daughters' (alongside ኣጓላት ’agʷalat).",
+          "examples": [
+            "As in Arabic, Tigre, and Ge'ez, noun plurals are formed both through the addition of suffixes to the singular form (\"external\" plural) and through the modification of the pattern of vowels within (and sometimes outside) the consonants that ",
+            "The most common patterns are as follows.  In the designation of internal plural patterns, \"C\" represents one of the consonants of the noun root.  Note that some nouns (for example, ዓራት ‘arat 'bed') have more than one possible plural.",
+            "...C*aC*ǝC..., where \"C*\" represents a single root consonant"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "In most languages, there is a small number of basic distinctions of person, number, and often gender that play a role within the grammar of the language.\nTigrinya and English are such languages.\nWe see these distinctions within the basic set of\nindependent personal pronouns, for",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "In most languages, there is a small number of basic distinctions of person, number, and often gender that play a role within the grammar of the language.\nTigrinya and English are such languages.\nWe see these distinctions within the basic set of\nindependent personal pronouns, for example,\nEnglish I, Tigrinya አነ anä; English she, Tigrinya ንስሳ nǝssa.\nIn Tigrinya, as in other Semitic languages, the same distinctions appear in three other places within the grammar of the languages as well.\n\nSubject–verb agreement\nAll Tigrinya verbs agree with their subjects; that is, the person, number, and (second and third person) gender of the subject of the verb are marked by suffixes or prefixes on the verb.  Because the affixes that signal subject agreement vary greatly with the particular verb tense/aspect/mood, they are normally not considered to be pronouns and are discussed elsewhere in this article under verb conjugation.\nObject pronoun suffixes\nTigrinya verbs often have additional morphology that indicates the person, number, and (second and third person) gender of the object of the verb.\nንኣልማዝ\n\nnǝ’almaz\n\nAlmaz-ACC\n\nርእየያ\n\nrǝ’yä-yya\n\nI-saw-her\n\nንኣልማዝ ርእየያ\n\nnǝ’almaz rǝ’yä-yya\n\nAlmaz-ACC I-saw-her\n\n'I saw Almaz'\n\nWhile suffixes such as -yya in this example are sometimes described as signaling object agreement, analogous to subject agreement, they are more often thought of as object pronoun suffixes because, unlike the markers of subject agreement, they do not vary significantly with the tense/aspect/mood of the verb.  For arguments of the verb other than the subject or the object, a separate set of related suffixes have a dative, benefactive, adversative, instrumental, or locative meaning ('to', 'for', 'against', 'with', 'by', 'at').\nንኣልማዝ\n\nnǝ’almaz\n\nfor-Almaz\n\nማዕጾ\n\nma‘s'o\n\ndoor\n\nኸፊተላ\n\nxäfitä-lla\n\nI-opened-for-her\n\nንኣልማዝ ማዕጾ ኸፊተላ\n\nnǝ’almaz ma‘s'o xäfitä-lla\n\nfor-Almaz door I-opened-for-her\n\n'I opened the door for Almaz'\n\nSuffixes such as -lla in this example will be referred to in this article as prepositional object pronoun suffixes because they correspond to prepositional phrases such as 'for her', to distinguish them from the direct object pronoun suffixes such as -yya 'her'.\nPossessive suffixes\nTigrinya has a further set of morphemes that are suffixed to either nouns or prepositions. These signal possession on a noun and prepositional object on a preposition.  They will be referred to as possessive suffixes.\nገዛ gäza 'house', ገዛይ gäza-y 'my house', ገዛኣ gäza-’a 'her house'\n\nብዛዕባ bǝza‘ba 'about', ብዛዕባይ bǝza‘ba-y 'about me', ብዛዕብኣ bǝza‘bǝ-’a 'about her'\n\nIn each of these four aspects of the grammar, independent pronouns, subject–verb agreement, object-pronoun suffixes, and possessive suffixes, Tigrinya distinguishes ten combinations of person, number, and gender. For first person, there is a two-way distinction between singular ('I') and plural ('we'), whereas for second and third persons, there is a four-way distinction for the four combinations of singular and plural number and masculine and feminine gender ('you m. sg.', 'you f. sg.', 'you m. pl.', 'you f. pl.', 'he', 'she', 'they m.', 'they f.').\n\nLike other Semitic languages, Tigrinya is a pro-drop language. That is, neutral sentences, in which no element is emphasized, normally use the verb conjugation rather than independent pronouns to indicate the subject, and incorporates the object pronoun into the verb: ኤርትራዊ እዩ ’erǝtrawi ’ǝyyu 'he's Eritrean,' ዓዲመያ ‘addimäyya 'I invited her'.  The Tigrinya words that translate directly as 'he' and 'I' do not appear in these sentences, while the word 'her' is indicated by the 'a' at the end of the verb (thus, the person, number, and (second or third person) gender of the subject and object are all marked by affixes on the verb).  When the subject in such sentences is emphasized, an independent pronoun is used: ንሱ ኤርትራዋይ እዩ nǝssu ’erǝtraway ̈’ǝyyu 'he's Eritrean,' ኣነ ዓዲመያ anǝ ‘addimäyya 'I invited her'.  When the object is emphasized, instead of an independent pronoun, the accusative marker nǝ- is used with the appropriate possessive suffix: ንኣኣ ዓዲመያ nǝ’a’a ‘addimäyya 'I invited her'.\n\nThe table below shows alternatives for many of the forms. In each case, the choice depends on what precedes the form in question. For the possessive suffixes, the form depends on whether the noun or preposition ends in a vowel or a consonant, for example, ከልበይ kälb-äy 'my dog', ኣዶይ ’addo-y 'my mother'.  For the object pronoun suffixes, for most of the forms there is a \"light\" (non-geminated) and a \"heavy\" (geminated) variant, a pattern also found in a number of other Ethiopian Semitic languages, including Tigre and the Western Gurage languages.  The choice of which variant to use is somewhat complicated; some examples are given in the verb section.\n\nTigrinya Personal Pronouns\n\nEnglish\n\nIndependent\n\nObject pronoun suffixes\n\nPossessive suffixes\n\nDirect\n\nPrepositional\n\nI\n\nኣነ\nanä\n\n-(n)ni\n\n-(l)läy\n\n-(ä)y\n\nyou (m. sg.)\n\nንስኻ\nnǝssǝxa\n\n-(k)ka\n\n-lka\n\n-ka\n\nyou (f. sg.)\n\nንስኺ\nnǝssǝxi\n\n-(k)ki\n\n-lki\n\n-ki\n\nhe\n\nንሱ\nnǝssu\n\n-(’)o, (w)wo, yyo\n\n-(’)u\n\nshe\n\nንሳ\nnǝssa\n\n-(’)a, (w)wa, yya\n\n-(l)la\n\n-(’)a\n\nwe\n\nንሕና\nnǝḥǝna\n\n-(n)na\n\n-lna\n\n-na\n\nyou (m. pl.)\n\nንስኻትኩም\nnǝssǝxatkum\n\n-(k)kum\n\n-lkum\n\n-kum\n\nyou (f. pl.)\n\nንስኻትክን\nnǝssǝxatkǝn\n\n-(k)kǝn\n\n-lkǝn\n\n-kǝn\n\nthey (m.)\n\nንሳቶም\nnǝssatom\n\n-(’)om, -(w)wom, -yyom\n\n-(l)lom\n\n-(’)om\n\nthey (f.)\n\nንሳተን\nnǝssatän\n\n-än, -’en, -(w)wän, -yyän\n\n-(l)län\n\n-än, -’en\n\nWithin second and third person, there is a set of additional \"polite\" independent pronouns, for reference to people that the speaker wishes to show respect towards.\nThis usage is an example of the so-called T-V distinction that is made in many languages.  The polite pronouns in Tigrinya are just the plural independent pronouns without -xat- or -at: ንስኹም nǝssǝxum 'you m. pol.', ንስኽን nǝssǝxǝn 'you f. pol.', ንሶም nǝssom 'he  pol.', ንሰን nǝssän 'she pol.'.  Although these forms are most often singular semantically — they refer to one person — they correspond to second or third person plural elsewhere in the grammar, as is common in other T-V systems.\n\nFor second person, there is also a set of independent vocative pronouns, used to call the addressee.  These are ኣታ atta (m. sg.), ኣቲ atti (f. sg.), ኣቱም attum (m. pl.), ኣተን attän.\n\nFor possessive pronouns ('mine', 'yours', etc.), Tigrinya adds the possessive suffixes to nat- (from the preposition nay 'of'): ናተይ natäy 'mine', ናትካ natka 'yours m. sg.', ናትኪ natki 'yours f. sg.', ናታ nata 'hers', etc.",
+          "examples": [
+            "The table below shows alternatives for many of the forms. In each case, the choice depends on what precedes the form in question. For the possessive suffixes, the form depends on whether the noun or preposition ends in a vowel or a consonan",
+            "Within second and third person, there is a set of additional \"polite\" independent pronouns, for reference to people that the speaker wishes to show respect towards."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        },
+        {
+          "heading": "Reflexive pronouns",
+          "body": "For reflexive pronouns ('myself', 'yourself', etc.), Tigrinya adds the possessive suffixes to one of the nouns ርእሲ rǝ’si 'head', ነፍሲ näfsi 'soul', or ባዕሊ ba‘li 'owner': ርእሰይ rǝ’säy / ነፍሰይ näfsäy / ባዕለይ ba‘läy 'myself', ርእሳ rǝ’sa / ነፍሳ näfsa / ባዕላ ba‘la 'herself', etc.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "Like English, Tigrinya makes a two-way distinction between near ('this, these') and far ('that, those') demonstrative pronouns and adjectives.  Besides singular and plural, as in English, Tigrinya also distinguishes masculine and feminine gender.\n\nTigrinya Demonstrative Pronouns\n\nNumber\n\nGender\n\nNear\n\nFar\n\nSingular\n\nMasculine\n\nእዚ \nǝzi\n\nእቲ \nǝti\n\nFeminine\n\nእዚኣ \nǝzi’a\n\nእቲኣ \nǝti’a\n\nPlural\n\nMasculine\n\nእዚኦም / እዚኣቶም \nǝzi’(at)om\n\nእቲኦም / እቲኣቶም \nǝti’(at)om\n\nFeminine\n\nእዚኤን / እዚኣተን \nǝzi’en, ǝzi’atän\n\nእቲኤን / እቲኣተን \nǝti’en, ǝti’atän",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "Tigrinya adjectives may have separate masculine singular, feminine singular, and plural forms, and adjectives usually agree in gender and number with the nouns they modify.  The plural forms follow the same patterns as noun plurals; that is, they may be formed by suffixes or inte",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Tigrinya adjectives may have separate masculine singular, feminine singular, and plural forms, and adjectives usually agree in gender and number with the nouns they modify.  The plural forms follow the same patterns as noun plurals; that is, they may be formed by suffixes or internal changes or a combination of the two.  Some common patterns relating masculine, feminine and plural forms of adjectives are the following.  Note that ä in the patterns becomes a after pharyngeal or glottal consonants (as elsewhere in Tigrinya).\n\nmasculine CǝC(C)uC, feminine CǝC(C)ǝCti, plural CǝC(C)uCat\nሕሙም\n\nḥǝmum\n\nsick-MASC\n\nሕምምቲ\n\nḥǝmǝmti\n\nsick-FEM\n\nሕሙማት\n\nḥǝmumat\n\nsick-PL\n\nሕሙም ሕምምቲ ሕሙማት\n\nḥǝmum ḥǝmǝmti ḥǝmumat\n\nsick-MASC sick-FEM sick-PL\n\nmasculine CäCCiC, feminine CäCCaC, plural CäCCäCti or CäCCaCti\nጸሊም\n\ns'ällim\n\nblack-MASC\n\nጸላም\n\ns'ällam\n\nblack-FEM\n\nጸለምቲ\n\ns'ällämti\n\nblack-PL\n\nጸሊም ጸላም ጸለምቲ\n\ns'ällim s'ällam s'ällämti\n\nblack-MASC black-FEM black-PL\n\nነዊሕ\n\nnäwwiḥ\n\nlong-MASC\n\nነዋሕ\n\nnäwwaḥ\n\nlong-FEM\n\nነዋሕቲ\n\nnäwwaḥti\n\nlong-PL\n\nነዊሕ ነዋሕ ነዋሕቲ\n\nnäwwiḥ näwwaḥ näwwaḥti\n\nlong-MASC long-FEM long-PL\n\nmasculine and feminine the same, plural -(t)at. In the following case, the adjective is formed from adding -\"am\" to a noun, a feature shared with Amharic\nሃብቲ\n\nhabti\n\nwealth\n\nሃብታም\n\nhabtam\n\n \n\nሃብታማት\n\nhabtamat\n\nrich\n\nሃብቲ ሃብታም ሃብታማት\n\nhabti habtam habtamat\n\nwealth {} rich\n\nAdjectives modifying plural animate nouns must be plural, but adjectives modifying plural inanimate nouns may be singular:\n\nጻዕዳ\n\ns'a‘da\n\nwhite-SG\n\nክዳውንቲ\n\nkǝdawǝnti\n\nclothes-PL\n\nጻዕዳ ክዳውንቲ\n\ns'a‘da kǝdawǝnti\n\nwhite-SG clothes-PL\n\n'white clothes'\n\nHowever, nouns referring to multiple entities may be singular when the context makes the plurality clear, and these singular nouns may be modified by plural adjectives:\n\nክልተ\n\nkǝlǝttä\n\ntwo\n\nሃብታማት\n\nhabtamat\n\nrich-PL\n\nሰበይቲ\n\nsäbäyti\n\nwoman\n\nክልተ ሃብታማት ሰበይቲ\n\nkǝlǝttä habtamat säbäyti\n\ntwo rich-PL woman\n\n'two rich women'\n\nAdjectives are used less often in Tigrinya than in English.  Most adjectives have a corresponding verb that is derived from the same consonantal root, and this verb often appears where English would have an adjective.  For example:\n\nከቢድ\n\nkäbbid\n\n'heavy'\n\n→\n\n \n\n \n\nከበደ\n\nkäbädä\n\n'be, become heavy'\n\nከቢድ → ከበደ\n\nkäbbid {} käbädä\n\n{'heavy'} {} {'be, become heavy'}\n\nሕማቕ\n\nḥǝmmax\n\n'bad'\n\n→\n\n \n\n \n\nሓመቐ\n\nḥammäx'ä\n\n'be, become bad'\n\nሕማቕ → ሓመቐ\n\nḥǝmmax {} ḥammäx'ä\n\n{'bad'} {} {'be, become bad'}\n\nIn particular, an adjective may be replaced by the relative perfect form of the corresponding verb:\n\nሕማቕ\n\nḥǝmmax'\n\nሰብኣይ\n\nsäb’ay\n\nሕማቕ ሰብኣይ\n\nḥǝmmax' säb’ay\n\n'a bad man'\n\nዝሓመቐ\n\nzǝḥammäx'ä\n\nሰብኣይ\n\nsäb’ay\n\nዝሓመቐ ሰብኣይ\n\nzǝḥammäx'ä säb’ay\n\n'a bad man' (lit. 'man who became bad')",
+          "examples": [
+            "masculine and feminine the same, plural -(t)at. In the following case, the adjective is formed from adding -\"am\" to a noun, a feature shared with Amharic"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Determiners",
+      "summary": "As with the demonstrative pronouns, the Tigrinya demonstrative adjectives divide into expression for near ('this, these') and far ('that, those') referents, with separate forms for the four combinations of singular and plural number and masculine and feminine gender.\nLike other a",
+      "sections": [
+        {
+          "heading": "Demonstrative adjectives",
+          "body": "As with the demonstrative pronouns, the Tigrinya demonstrative adjectives divide into expression for near ('this, these') and far ('that, those') referents, with separate forms for the four combinations of singular and plural number and masculine and feminine gender.\nLike other adjectives, demonstrative adjectives precede the noun, but they are often accompanied by a second copy or slightly modified form that follows the noun.\nThe vowel beginning the form following the noun is often dropped and in writing may then be represented by an apostrophe: እዚ ሰብ'ዚ ǝzi säbzi 'this man'.\n\nTigrinya Demonstrative Adjectives\n\nNumber\n\nGender\n\nNear\n\nFar\n\nSingular\n\nMasculine\n\nእዚ ǝzi ... (እዚ ǝzi)\n\nእቲ ǝti ... (እቲ ǝti)\n\nFeminine\n\nእዛ ǝza ... (እዚኣ ǝzi’a)\n\nእታ ǝta ... (እቲኣ ǝti’a)\n\nPlural\n\nMasculine\n\nእዞመ ǝzom ... (እዚኦም ǝzi’om)\n\nእቶም ǝtom ... (እቲኦም ǝti’om)\n\nFeminine\n\nእዘን ǝzän ... (እዚኤን ǝzi’en)\n\nእተነ ǝtän ... (እቲኤን ǝti’en)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        },
+        {
+          "heading": "Articles",
+          "body": "Like other Semitic languages, Tigrinya has no indefinite article (English a), but has a definite article (English the).  In Tigrinya, as in Tigre, but unlike in the Southern Ethiopian Semitic languages such as Amharic, this takes the form of a word that appears at the beginning of the noun phrase.  The definite article is derived from, and almost identical to, the distal demonstrative adjective (English 'that'), as can be seen in the table below.\n\nTigrinya Definite Articles\n\nSingular\n\nPlural\n\nMasculine\n\nእቲ ǝti\n\nእቶም ǝtom\n\nFeminine\n\nእታ ǝta\n\nእተን ǝtän\n\nWhen the definite article is preceded by the accusative marker/preposition ን nǝ or the preposition ብ bǝ, the vowel sequence ǝ+ǝ merges into the vowel ä: በቲ መጋዝ bäti mägaz 'with the saw'.  After other prepositions, the initial vowel of the article is often dropped: ካብቲ እተሓደረሉ ቦታ kabti ǝttäḥadärällu bota 'from the place where he spent the night'.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Verbs",
+      "summary": "Main article: Tigrinya verbs\nIn Tigrinya, as in other Semitic languages, a verb is a complex object, the result of selections by the speaker/writer along at least four separate dimensions.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Tigrinya verbs\nIn Tigrinya, as in other Semitic languages, a verb is a complex object, the result of selections by the speaker/writer along at least four separate dimensions.\n\nRoot\nAt the heart of a Semitic verb is its root, most often consisting of three consonants.   This determines the basic lexical meaning of the verb.  For example, the Tigrinya root meaning 'break' consists of the three consonants {sbr}.\nDerivational pattern\nThe root may be altered in one of several ways that modify the basic meaning of the verb.  In Tigrinya there are five such possibilities (though not all are possible for each verb).  For example, the verb can be made passive: the sense 'be broken' is derived from the root {sbr} 'break' with the addition of the PASSIVE morpheme, though the form's actual realization depends on choices on other dimensions.\nTense/Aspect/Mood\nThe root must be assigned a particular basic tense/aspect/mood (TAM).  In Tigrinya there are four possibilities, conventionally referred to as perfect, imperfect, jussive/imperative, and gerundive.  Once a lexical root, possibly altered through the addition of a derivational element, has been assigned a basic TAM, it becomes a pronounceable stem, though still not a complete word.  For example, {sbr}+PASSIVE 'be broken' in the imperfect becomes sǝbbär 'is broken'.\nConjugation\nSemitic verbs are conjugated; that is, they agree with the verb's subject in person, number, and gender.  For example, if the subject of the imperfect of the passive of {sbr} is third person plural masculine ('they'), the form becomes the word ይስበሩ yǝsǝbbäru 'they are broken'.\nIn addition to these basic dimensions of variation characterizing all Tigrinya verbs, there are four additional possible modifications.\n\nA direct object or prepositional object suffix (see #Personal pronouns) may be added to the verb.  For example, the prepositional object -läy 'for me' could be suffixed to the word ይስበሩ yǝsǝbbäru 'they are broken' to give ይስበሩለይ yǝsǝbbäruläy 'they are broken for me'.\n\nThe verb may be negated.  This requires a prefix and sometimes a suffix.  For example, the word ይስበሩለይ yǝsǝbbäruläy 'they are broken for me' is negated by the prefixing of ay- and the suffixing of -n: ኣይስበሩለይን ayyǝsǝbbäruläyǝn 'they are not broken for me'.\n\nOne or more morphemes including the relativizing morpheme zǝ- and various prepositions and conjunctions may be prefixed to the verb.  For example, with the relativizing prefix, the form ኣይስበሩለይን ayyǝsǝbbäruläyǝn 'they are not broken for me' becomes ዘይስበሩለይ zäyyǝsǝbbäruläy '(those) that are not broken for me'.  (The negative suffix -n does not occur in subordinate clauses.)\n\nThe aspect of the verb may be modified through the addition of an auxiliary verb.  Auxiliaries are usually treated as separate words in Tigrinya but in some cases are written as suffixes on the main verb.  For example, with the auxiliary allo in its third person plural masculine form, the word ዘይስበሩለይ zäyyǝsǝbbäruläy '(those) that are not broken for me' takes on continuous aspect: ዘይስበሩለይ ዘለዉ zäyyǝsǝbbäruläy zälläwu '(those) which are not being broken for me'.  (The relativizing prefix zǝ- must also appear on the auxiliary.)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Prepositions",
+      "summary": "Tigrinya has both simple and compound prepositions.  The main simple prepositions are the following.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Tigrinya has both simple and compound prepositions.  The main simple prepositions are the following.\n\nኣብ ab\n\n'on, in, at'\n\nብ bǝ\n\n'with' (instrument), 'by' (means, agent), 'in' (duration)\n\nን nǝ\n\n'for (the benefit of), to the detriment of'\n\nል lə\n\n‘for’ (Mekelle dialects)\n\nናይ nay\n\n'of'\n\nምስ mǝs\n\n'with' (accompaniment)\n\nካብ kab\n\n'from'\n\nናብ nab\n\n'to, toward'\n\nከም käm\n\n'like, as'\n\nብዘይ bǝzäy\n\n'without'\n\nምእንቲ mǝ’ǝnti,  ስለ sǝlä\n\n'for, because of, on the part of'\n\nድሕሪ dǝḥri\n\n'after'\n\nቅድሚ qǝdmi\n\n'before'\n\nክሳዕ kǝsa‘,  ክሳብ kǝsab, ስጋዕ sǝga‘\n\n'until'\n\nብዛዕባ bǝza‘ba\n\n'about' (concerning)\n\nWith personal pronouns as objects, the pronouns take the form of possessive suffixes. In some cases, these are suffixed to a modified version of the preposition, and for the third person forms, there may be various possibilities: ንዕኡ nǝ‘ǝ’u ንእኡ  nǝ’ǝ’u ንኡ nǝ’u 'for him'.\n\nThe compound prepositions consist of one of the simple prepositions, usually ኣብ ab, followed by a relational noun or a form related to a noun.  Some compound prepositions alternate with simple prepositions consisting only of the second word: ድሕሪ dǝḥri ኣብ ድሕሪ ab dǝḥri 'after, behind', ቅድሚ qǝdmi ኣብ ቅድሚ ab qǝdmi 'before, in front of'.  Other examples: ኣብ ውሽጢ ab wǝšt'i 'inside', ኣብ ጥቓ ab t'ǝx'a 'near', ኣብ ልዕሊ ab lǝ‘ǝli 'above, on',  ኣብ ትሕቲ ab tǝḥti 'below',  ኣብ ማእከል ab ma’käl 'in the middle of, among', ኣብ መንጎ ab mängo 'between'.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tigrinya_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -86,6 +86,7 @@ class Settings(BaseSettings):
     openrouter_paid_model_complex: str = "anthropic/claude-sonnet-4-5"
     deepseek_api_key: str = ""
     packs_dir: Path = _AILT_ROOT / "packs"
+    grammar_books_dir: Path = _AILT_ROOT / "grammar_books"
     public_base_url: str = "https://cheradip.com/ailt/api"
     # Google Play Billing (AI Language Tutor Android app). Server-side purchase
     # verification via the Play Developer API (androidpublisher). Provide a

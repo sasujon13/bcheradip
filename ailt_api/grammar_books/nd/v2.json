@@ -1,0 +1,101 @@
+{
+  "title": "Grammar Book — isiNdebele",
+  "languageCode": "nd",
+  "languageName": "isiNdebele",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/North_Ndebele_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Bantu language of Zimbabwe and Botswana\nNorthern NdebeleMthwakazi Ndebele[citation needed],isiNdebeleRegionLimpopo in South Africa; Matabeleland South in Zimbabwe; North-East District in BotswanaEthnicityNorthern NdebeleNative speakers2.6 million[1] (2023)[2]Language familyNiger–",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Bantu language of Zimbabwe and Botswana\nNorthern NdebeleMthwakazi Ndebele[citation needed],isiNdebeleRegionLimpopo in South Africa; Matabeleland South in Zimbabwe; North-East District in BotswanaEthnicityNorthern NdebeleNative speakers2.6 million[1] (2023)[2]Language familyNiger–Congo?\n\nAtlantic–CongoVolta-CongoBenue–CongoBantoidSouthern BantoidBantuSouthern BantuNguniZundaNorthern Ndebele\n\nWriting systemLatin scriptOfficial statusOfficial language in ZimbabweLanguage codesISO 639-1nd – North NdebeleISO 639-2nde – North NdebeleISO 639-3nde  – North NdebeleGlottolognort2795Guthrie codeS.44[3]Linguasphere99-AUT-fk incl.\nvarieties 99-AUT-fka\nto 99-AUT-fkdThis article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nThe Ndebele LanguagePersoniNdebelePeopleamaNdebele (prev. Matabele)LanguageisiNdebele\nisiNdebele dictionary, 1910\nNorthern Ndebele (English:  /əndəˈbeɪleɪ/), also called Ndebele, isiNdebele saseNyakatho,[4] Zimbabwean Ndebele,[2][5] isiNdebele or North Ndebele,[6][7] associated with the term Matabele, is a Nguni language spoken by the Northern Ndebele people which belongs to the Nguni group of languages.\n\nNdebele is a term used to refer to a collection of many different African cultures in Zimbabwe.[8] As a language, it is by no means similar to the Ndebele language spoken in kwaNdebele in South Africa although, like many Nguni dialects, some words will be shared. Many of the natives that were colonized by the Matabele were assimilated into Mzilikazi's kingdom and are an of-shoot of the Zulu tribe. The Matebele people of Zimbabwe descend from the Zulu due to a Zulu leader Mzilikazi (one of Zulu King Shaka's generals), who left the Zulu Kingdom in the early 19th century, during the Mfecane, arriving in present-day Zimbabwe in 1839.\n\nAlthough there are some differences in grammar, lexicon and intonation between Zulu and Northern Ndebele, the two languages share more than 85% of their lexicon.[9] To prominent Nguni linguists like Anthony Trevor Cope and Cyril Nyembezi, Northern Ndebele is a dialect of Zulu. To others like Langa Khumalo, it is a language. Distinguishing between a language and a dialect for language varieties that are very similar is difficult, with the decision often being based not on objective linguistic criteria but on more subjective, often politicised considerations.[10][11][12]\n\nNorthern Ndebele and Southern Ndebele (or Transvaal Ndebele), which is spoken in South Africa, are separate but related languages with some degree of mutual intelligibility, although the former is more closely related to Zulu. Southern Ndebele, while maintaining its Nguni roots, has been influenced by the Sotho languages.[13]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Phonology",
+      "summary": "Many consonant sounds may result in depressed (or breathy) allophones. Alveolar consonants, t, d, and n, may have dentalized allophones of [t̪ʼ, d̪, n̪]. Consonants k and h can result in allophones of [ɣ, ɣʱ] and [ɦ].",
+      "sections": [
+        {
+          "heading": "Consonants",
+          "body": "Northern Ndebele consonants\n\nBilabial\n\nLabio-\ndental\n\nDental/\nalveolar\n\nPost-\nalveolar/\nPalatal\n\nVelar\n\nGlottal\n\ncentral\n\nlateral\n\nNasal\n\nplain\n\nm ⟨m⟩\n\nn ⟨n⟩\n\nɲ ⟨ny⟩\n\nŋ ⟨ngh⟩\n\ndepressed\n\nmʱ ⟨m⟩\n\nnʱ ⟨n⟩\n\nɲʱ ⟨ny⟩\n\nŋʱ ⟨ngh⟩\n\nPlosive\n\nejective\n\npʼ ⟨p⟩\n\ntʼ ⟨t⟩\n\nkʼ ⟨k⟩\n\nvoiced\n\nb ⟨bh⟩\n\nd ⟨d⟩\n\nɡ ⟨ɡ⟩\n\naspirated\n\npʰ ⟨ph⟩\n\ntʰ ⟨th⟩\n\nkʰ ⟨kh⟩\n\nprenasalized\n\nᵐp ⟨mp⟩\n\nⁿt ⟨nt⟩\n\nᵑk ⟨nk⟩\n\nprenasalized (vd.)\n\nᵐb ⟨mb⟩\n\nⁿd ⟨nd⟩\n\nᵑɡ ⟨ng⟩\n\nAffricate\n\nejective\n\ntsʼ ⟨ts⟩\n\ntʃʼ ⟨tj⟩\n\nkxʼ ⟨kl⟩\n\naspirated\n\ntsʰ ⟨tsh⟩\n\ntʃʰ ⟨tjh⟩\n\nvoiced\n\ndʒ ⟨j⟩\n\nprenasalized ejective\n\nⁿtsʼ ⟨nts⟩\n\nᶮtʃʼ ⟨ntjh⟩\n\nᵑkxʼ ⟨nkl⟩\n\nprenasalized voiced\n\nᶮdʒ ⟨nj⟩\n\nFricative\n\nplain\n\nf ⟨f⟩\n\ns ⟨s⟩\n\nɬ ⟨hl⟩\n\nʃ ⟨sh⟩\n\nh ⟨h⟩\n\nvoiced (depr.)\n\nβʱ ⟨b⟩\n\nvʱ ⟨v⟩\n\nzʱ ⟨z⟩\n\nʒʱ ⟨zh⟩\n\n(ɣʱ ⟨k⟩)\n\n(ɦ ⟨h⟩)\n\nvoiced (non-depr.)\n\nβ ⟨b⟩\n\nɮ ⟨dl⟩\n\n(ɣ ⟨k⟩)\n\nprenasalized\n\nᶬf ⟨mf⟩\n\nⁿs ⟨ns⟩\n\nⁿɬ ⟨nhl⟩\n\nprenasalized (vd.)\n\nᶬv ⟨mv⟩\n\nⁿz ⟨nz⟩\n\nⁿɮ ⟨ndl⟩\n\nSonorant\n\nplain\n\nw ⟨w⟩\n\nr ⟨r⟩\n\nl ⟨l⟩\n\nj ⟨y⟩\n\ndepressed\n\nwʱ ⟨w⟩\n\nlʱ ⟨l⟩\n\njʱ ⟨y⟩\n\nMany consonant sounds may result in depressed (or breathy) allophones. Alveolar consonants, t, d, and n, may have dentalized allophones of [t̪ʼ, d̪, n̪]. Consonants k and h can result in allophones of [ɣ, ɣʱ] and [ɦ].\n\nNdebele /t͡ʃ/ generally correspond to Zulu /ʃ/.[12]\n\nClick consonants\n\nNorthern Ndebele clicks\n\nDenti-alveolar\n\nPost-alveolar\n\ncentral\n\nlateral\n\nClick\n\ntenuis\n\nkǀ ⟨c⟩\n\nk! ⟨q⟩\n\nkǁ ⟨x⟩\n\naspirated\n\nkǀʰ ⟨ch⟩\n\nk!ʰ ⟨qh⟩\n\nkǁʰ ⟨xh⟩\n\ndepressed\n\nɡǀʱ ⟨gc⟩\n\nɡ!ʱ ⟨gq⟩\n\nɡǁʱ ⟨gx⟩\n\nnasalized\n\nŋǀ ⟨nc⟩\n\nŋ! ⟨nq⟩\n\nŋǁ ⟨nx⟩\n\nnasalized (depr.)\n\nŋǀʱ ⟨ngc⟩\n\nŋ!ʱ ⟨ngq⟩\n\nŋǁʱ ⟨ngx⟩\n\nIn Northern Ndebele, there are fifteen click consonants.\n\nThe five clicks spelled with a c [ǀ] are made by placing the tip of the tongue against the front upper teeth and gums, the centre of the tongue is depressed and the tip of the tongue is drawn backwards. The resulting sound is similar to the sound used in English to express annoyance.[14]\nSome examples are cina (end), cela (ask).[15]\n\nThe five clicks spelled with a q [!] are made by raising the back of the tongue to touch the soft palate and touching the gums with the sides and tip of the tongue. The centre of the tongue is depressed and the tip drawn quickly away from the gum. The resulting sound is like the \"pop\" heard when quickly removing the cork from a bottle.[14]\nSome examples are qalisa (start), qeda (finish).[15]\n\nThe five clicks spelled with a x [ǁ] are made by placing the tongue so that the back of the tongue touches the soft palate and the sides and tip of the tongue touch the gums. One side of the tongue is quickly withdrawn from the gums.[14]\nSome examples are xoxa (discuss), ixoxo (frog).[15]",
+          "examples": [
+            "The five clicks spelled with a q [!] are made by raising the back of the tongue to touch the soft palate and touching the gums with the sides and tip of the tongue. The centre of the tongue is depressed and the tip drawn quickly away from t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "There are five vowel phonemes, written with the letters a, e, i, o, u.\n\na is pronounced [a], approximately like a in father; e.g. abantwana (children)\n\ne is pronounced [ɛ] or [e], sometimes like e in bed; e.g. emoyeni (in the air)\n\ni is pronounced [i], like ee in see; e.g. siza (help)\n\no is pronounced [ɔ] or [o], sometimes approximately like o in bone; e.g. okhokho (ancestors)\n\nu is pronounced [u], like oo in soon; e.g. umuntu (person)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Examples",
+      "summary": "English\nNorthern Ndebele (Zimbabwe)\nSouthern Ndebele (South Africa)\nZulu (South Africa)",
+      "sections": [
+        {
+          "heading": "Months in Northern and Southern Ndebele",
+          "body": "English\nNorthern Ndebele (Zimbabwe)\nSouthern Ndebele (South Africa)\nZulu (South Africa)\n\nJanuary\nuZibandlela\nuTjhirhweni\nuMasingane\n\nFebruary\nuNhlolanja\nuMhlolanja\nuNhlolanja\n\nMarch\nuMbimbitho\nuNtaka\nuNdasa\n\nApril\nuMabasa\nuSihlabantangana\nUMbasa\n\nMay\nuNkwenkwezi\nuMrhayili\nUNhlaba\n\nJune\nuNhlangula\nuMgwengweni\nUNhlangulana\n\nJuly\nuNtulikazi\nuVelabahlinze\nuNtulikazi\n\nAugust\nuNcwabakazi\nuRhoboyi\nUNcwaba\n\nSeptember\nuMpandula\nuKhukhulamungu\nuMandulo\n\nOctober\nuMfumfu\nuSewula\nuMfumfu\n\nNovember\nuLwezi\nuSinyikhaba\nuLwezi\n\nDecember\nuMpalakazi\nuNobayeni\nuZibandlela",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        },
+        {
+          "heading": "Numbers in Northern Ndebele",
+          "body": "English\n\nNorthern Ndebele\n\nOne\n\nKunye\n\nTwo\n\nKubili\n\nThree\n\nKuthathu\n\nFour\n\nKune\n\nFive\n\nKuhlanu\n\nSix\n\nIsithupha\n\nSeven\n\nIsikhombisa\n\nEight\n\nSitshiyagalombili\n\nNine\n\nSitshiyagalolunye\n\nTen\n\nKulitshumi\n\nFifty\n\nAmatshumi amahlanu\n\nOne hundred\n\nIkhulu\n\nOne thousand\n\nInkulungwane",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        },
+        {
+          "heading": "Days of the week",
+          "body": "English\n\nNorthern Ndebele\n\nMonday\n\nuMvulo\n\nTuesday\n\nOlwesibili\n\nWednesday\n\nOlwesithathu\n\nThursday\n\nOlwesine\n\nFriday\n\nOlwesihlanu\n\nSaturday\n\nuMgqibelo\n\nSunday\n\niNsonto",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Grammar",
+      "summary": "The Northern Ndebele noun consists of two essential parts, the prefix and the stem. Using the prefixes, nouns can be grouped into noun classes, which are numbered consecutively, to ease comparison with other Bantu languages.",
+      "sections": [
+        {
+          "heading": "Nouns",
+          "body": "The Northern Ndebele noun consists of two essential parts, the prefix and the stem. Using the prefixes, nouns can be grouped into noun classes, which are numbered consecutively, to ease comparison with other Bantu languages.\n\nThe following table gives an overview of Northern Ndebele noun classes, arranged according to singular-plural pairs.\n\nClass\n\nSingular\n\nPlural\n\n1/2\n\num(u)-1\n\naba-, abe-\n\n1a/2a\n\nu-\n\no-\n\n3/4\n\num(u)-1\n\nimi-\n\n5/6\n\ni-, ili-\n\nama-\n\n7/8\n\nis(i)-\n\niz(i)-\n\n9/10\n\niN-\n\niziN-\n\n11/10\n\nu-, ulu-\n\n14\n\nubu-, ub-, utsh-\n\n15\n\nuku-\n\n17\n\nuku-\n\n1 umu- replaces um- before monosyllabic stems, e. g. umuntu (person).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Verbs are marked with the following prefixes in agreement with the noun class of the subject and the object:\n\nPerson/\nClass\n\nSubject marker\n\nObject marker\n\n1st sing.\n\nngi-\n\n-ngi-\n\n2nd sing.\n\nu-\n\n-wu-\n\n1st plur.\n\nsi-\n\n-si-\n\n2nd plur.\n\nli-\n\n-li-\n\n1\n\nu-\n\n-m(u)-\n\n2\n\nba-\n\n-ba-\n\n3\n\nu-\n\n-m(u)-\n\n4\n\ni-\n\n-yi-\n\n5\n\nli-\n\n-li-\n\n6\n\na-\n\n-wa-\n\n7\n\nsi-\n\n-si-\n\n8\n\nzi-\n\n-zi-\n\n9\n\ni-\n\n-yi-\n\n10\n\nzi-\n\n-zi-\n\n11\n\nlu-\n\n-lu-\n\n14\n\nbu-\n\n-bu-\n\n15\n\nku-\n\n-ku-\n\n17\n\nku-\n\n-ku-\n\nreflexive\n\n-zi-\n\nWhile subject-verb agreement is obligatory, object marking is not, and only appears when the object is given in the discourse.[16] The object marker attaches closer to the verb root when it occurs (with the following notations: A - augment vowel; 1 - class 1 nominal prefix, etc.; 1s - class 1 subject agreement, etc.; FUT - future; 1o - class 1 object marker, etc.):\n\nex:U-Thabani\n\nA-1Thabani\n\nu-za-yi-pheka\n\n1s-FUT-9o-cook\n\ni-nyama\n\nA-9meat\n\nU-Thabani u-za-yi-pheka i-nyama\n\nA-1Thabani 1s-FUT-9o-cook A-9meat\n\n\"Thabani will cook the meat.\"[16]\n\nThere is evidence from Zulu that object markers are an evolution of pronominal clitics to be agreement markers,[17] which might also be the case for Northern Ndebele, given the linguistic similarity between the languages.",
+          "examples": [
+            "\"Thabani will cook the meat.\"[16]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/North_Ndebele_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

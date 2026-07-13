@@ -1,0 +1,162 @@
+{
+  "title": "Grammar Book — မြန်မာ",
+  "languageCode": "my",
+  "languageName": "မြန်မာ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Burmese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Burmese language\nBooks in Burmese, including a grammar book\nBurmese is an agglutinative language. It has a subject-object-verb word order and is head-final. Particles are heavily utilized to convey syntactic functions, with wide divergence between literary and coll",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Burmese language\nBooks in Burmese, including a grammar book\nBurmese is an agglutinative language. It has a subject-object-verb word order and is head-final. Particles are heavily utilized to convey syntactic functions, with wide divergence between literary and colloquial forms. Burmese has distinct colloquial and literary varieties differing in the forms of grammatical function words and some lexical differences.[1]\n\nIn Burmese, words do not always clearly fall into a part of speech. Generally, words are split into nominals, verbs, adverbs and affixes.[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Verbs",
+      "summary": "Verbs in Burmese are heavily affixed to convey meaning, such as modality.[3] Burmese has simple verbs as well as compound verbs. For example, the verbs ဆုံး [sʰóʊɰ̃] meaning 'to end' and ဖြတ် [pʰjeʔ] to mean 'to cut off' combine to be ဆုံးဖြတ် [sʰóʊɰ̃.pʰjeʔ] meaning 'to decide'.[",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbs in Burmese are heavily affixed to convey meaning, such as modality.[3] Burmese has simple verbs as well as compound verbs. For example, the verbs ဆုံး [sʰóʊɰ̃] meaning 'to end' and ဖြတ် [pʰjeʔ] to mean 'to cut off' combine to be ဆုံးဖြတ် [sʰóʊɰ̃.pʰjeʔ] meaning 'to decide'.[4] \n\nBurmese verbs often have inherent temporality that can be specified with markers for tense, aspect and mood. However, the inherent temporality can also be implied by modifying the noun phrase. For example, the word စား [sɑ́] meaning 'to eat' implies continuous tense in the expression ထမင်းစား [tʰə.mɪ́ɰ̃.sɑ́] ('eat rice') while it implies an endpoint in the expression ထမင်းတစ်ပွဲစား [tʰə.mɪ́ɰ̃ də.bwɛ́ sɑ́] ('eat one serving of rice').[5] Verbs are further modified to specify tense, aspect and mood with particles. Adding the verbal marker တယ် (dɛ́) in the example phrase (ထမင်းတစ်ပွဲစားတယ်) would specify that the serving of rice is being eaten right now.[6]\n\nBurmese also has several subclasses of verbs. Auxiliary verbs occur as secondary elements in predicates and include words like modal verbs. These verbs follow the main verb, except for the verbs ပြန် [pjàɰ̃] ('to do again') and ဆက် [sʰɛʔ] ('to continue to'). In literary Burmese, some auxiliary verbs function like particles such as the archaic verb 'စဉ်'[sɛ̀] ('to command') being used for the imperative mood.[7] Burmese verbs are also differentiated by transitivity. For example, intransitive verbs' resultive states are expressed with the auxiliary verb နေ [nè] ('to stay') while transitive verbs' resultive states are expressed with the auxiliary verb ထား [tʰɑ̀] ('to keep').[8]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        },
+        {
+          "heading": "Property verbs",
+          "body": "Property verbs are a subcategory of Burmese verbs that describe attributes of an event, situation or noun. When translating to English, these verbs often carry out the function of adjectives. For example, a noun performing the verb ကောင်း [kàuɰ̃] ('to be good') is semantically equivalent to an adjective modifying that noun.[4] Burmese has no clear class of adjectives.[9]\n\nUnlike adjectives, property verbs function grammatically like verbs, being negated and marked for aspect and status in the same way as verbs. Property verbs are different from other verbs primarily in that they can be reduplicated to when following a noun in an adjective form or before another verb in an adverb form.[10] For example, အိမ်ကောင်းကောင်း [ʔèɪɰ̃.kàuɰ̃.kàuɰ̃] meaning \"a good house\" and ကောင်ကောင်းသွား [kàuɰ̃.kàuɰ̃.θwá] meaning \"to go well\".\n\nProperty verbs are reduplicated to intensify the meaning.[citation needed]",
+          "examples": [
+            "Unlike adjectives, property verbs function grammatically like verbs, being negated and marked for aspect and status in the same way as verbs. Property verbs are different from other verbs primarily in that they can be reduplicated to when f"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        },
+        {
+          "heading": "Negation",
+          "body": "Grammatically, verbs are mainly distinguished from other parts of speech by being able to be negated.[4] Verbs are negated by the prefix မ ma. [mə] and suffixed with နဲ့ nai. [nɛ̰] (literary form: နှင့် hnang. [n̥ɪ̰̃]) or ဘူး bhu: [bú] to indicate a negative command or a negative statement, respectively.\n\nမသွား\n\nma.swa:\n\n[məθwá\n\nနဲ့\n\nnai.\n\nnɛ̰]\n\nမသွား နဲ့\n\nma.swa: nai.\n\n[məθwá nɛ̰]\n\n'Don't go'\n\nမသွား\n\nma.swa:\n\n[məθwá\n\nဘူး\n\nbhu:\n\nbú]\n\nမသွား ဘူး\n\nma.swa: bhu:\n\n[məθwá bú]\n\n'[I] don't go'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nominals",
+      "summary": "Nominals include nouns, pronouns, measure words and classifiers. The open class of nouns can be simple nouns, compound nouns or derived from other parts of speech. For example, ကောင်းမှု [kàuɰ̃.m̥u̼] meaning 'good deed' is derived from ကောင်း [kàuɰ̃], the verb 'to be good'. Nouns",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nominals include nouns, pronouns, measure words and classifiers. The open class of nouns can be simple nouns, compound nouns or derived from other parts of speech. For example, ကောင်းမှု [kàuɰ̃.m̥u̼] meaning 'good deed' is derived from ကောင်း [kàuɰ̃], the verb 'to be good'. Nouns are modified with attributive elements and are not marked for plurality by default. When specifying plurality or quantity, countable nouns are additionally modified by measure words. Unlike in English, mass nouns can be modified with plural markers. For example, ရေ [jè] ('water') adjoined with the plural marker တွေ [twè] to become ရေတွေ ('all the water').[11]\n\nProper nouns in Burmese are often modified with a denominator. In Burmese names, people are often modified by an honorific for this reason; for instance, specifying that \"John\" is older than the speaker with the honorific ကို [kò], meaning older brother. Other proper names will also often be followed by a similar denominator like Mandalay often being မန္တလေးမြို့ [mɑ́ɰ̃.də.lé.mjo̼], literally Mandalay town.[12]\n\nBurmese nouns are marked for case.",
+          "examples": [
+            "Proper nouns in Burmese are often modified with a denominator. In Burmese names, people are often modified by an honorific for this reason; for instance, specifying that \"John\" is older than the speaker with the honorific ကို [kò], meaning "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        },
+        {
+          "heading": "Case markers",
+          "body": "The case markers are:\n\nHigh register\n\nLow register\n\nSubject\n\nthi (သည်), ká (က), hma (မှာ)\n\nha (ဟာ), ká (က)\n\nObject\n\nko (ကို)\n\nko (ကို)\n\nRecipient\n\nà (အား) , htan (ထံ)\n\nAllative\n\nthó (သို့) , si (ဆီ) , htan (ထံ)\n\nAblative\n\nhmá (မှ), ká (က)\n\nká (က)\n\nLocative\n\nhnai (၌), hma (မှာ), twin (တွင်), we (ဝယ်)\n\nhma (မှာ)\n\nComitative\n\nhnín (နှင့်)\n\nné (နဲ့)\n\nInstrumental\n\nhpyin (ဖြင့်), hnin (နှင့်)\n\nPossessive\n\ní (၏)\n\nyé (ရဲ့)\n\nPlural nouns are formed by adding the suffixes တွေ twe [dwè~twè] or များ mya: [mjà] (literary) or တို့ to [to̰~do̰] (pronouns/2nd person plural)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        },
+        {
+          "heading": "Numerical classifiers",
+          "body": "Main article: Burmese numerical classifiers\nMeasure words and classifiers are similar groups of Burmese nominals that typically link numbers to other nominals. They differ in measure words being used for specific quantities on countable nouns and classifiers being underspecified counting words with no lexical meaning.[13]\n\nClassifiers are not used for measurements of time or age.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "Main article: Burmese pronouns\nBurmese makes use of an extensive system of pronouns that vary based on audience. Pronouns differ from nouns by not occurring with demonstratives or possessive expressions. However, several nouns can be used as pronouns, especially kinship or professional terms. These words occur with demonstratives and possessives, but only in their use as nouns rather than as pronouns.[14]\n\nBurmese exhibits pronoun avoidance, where pronouns are avoided for politeness.[15] In Burmese, speakers account for social distinctions linguistically, reflecting gender, relative age, kinship, social status, and intimacy.[15][16] Burmese uses \"negative politeness,\" whereby speakers avoid directly addressing people.[15] Instead, Burmese relies on status and kinship terms, titles, personal names, and other terms of address, rather than regular pronouns.[15][16] Burmese kinship terms are commonly substituted as pronouns. For example, an older person may use ဒေါ်လေး dau le: [dɔ̀ lé] ('aunt') or ဦးလေး u: lei: [ʔú lé] ('uncle') to refer to himself, while a younger person may use either သား sa: [t̪á] ('son') or သမီး sa.mi: [t̪əmí] ('daughter').\n\nBurmese has developed an elaborate hierarchical system of pronouns that are grammatically underspecified, but highly marked for the complex relation between speaker and addressee according to their relative position in the society.[16] In Burmese, the polite forms of first-person pronouns ကျွန်တော် (kya. nau [tɕənɔ̀], lit. 'royal slave') for males, and ကျွန်မ (kya. ma. [tɕəma̰], lit. 'female slave') for females humble the speaker, while the polite forms of second-person pronouns မင်း (min [mɪ́ɴ]; lit. 'lordship'), ခင်ဗျား (khang bya: [kʰəmjá]; lit. 'master lord')[17] or ရှင် (hrang [ʃɪ̀ɴ]; lit. 'ruler, master') elevate the addressee.[16][18] The original pronouns ငါ nga [ŋà] ('I/me') and နင် nang [nɪ̃̀] ('you') have been relegated to use with people of higher or equivalent status, although most speakers prefer to use third person pronouns.[19]\n\nBurmese also uses case markers to mark subject pronouns (က [ɡa̰] in colloquial, သည် [t̪ì] in formal) and object pronouns (ကို [ɡò] in colloquial, အား [á] in formal), although these are generally dropped in colloquial Burmese.",
+          "examples": [
+            "Burmese exhibits pronoun avoidance, where pronouns are avoided for politeness.[15] In Burmese, speakers account for social distinctions linguistically, reflecting gender, relative age, kinship, social status, and intimacy.[15][16] Burmese u"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adverbs",
+      "summary": "Burmese has several words that modify predicates, adjectives, clauses or sentences which form the phrasal and clausal adverbs of the language. Unlike affixes and other particles, adverbs do not combine with other nominal or verbal affixes. Adverbs also include more inherent seman",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Burmese has several words that modify predicates, adjectives, clauses or sentences which form the phrasal and clausal adverbs of the language. Unlike affixes and other particles, adverbs do not combine with other nominal or verbal affixes. Adverbs also include more inherent semantic content and some descriptions of the Burmese grammar combine adverbs into the other parts of speech.[20]\n\nIn Burmese, adnominal modifiers function as adverbs. For example, the demonstrative ဒီ [dí] ('this') and the word အရင် [ə.jɪ̀ɰ̃] ('former') occur within the grammar in the same manner and position like other phrasal adverbs in that they cannot occur alone. Clausal adverbs, however can carry their own semantic meaning in some context. For example, modifiers for time and space like အခု [ə.gu̼] ('now') can occur by themselves with an implied affix as a response to a question (compare with အခုလား [ə.gu̼.lá] 'Now?')[21]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Affixes",
+      "summary": "The Burmese language makes prominent usage of affixes (called ပစ္စည်း in Burmese), which are words that are suffixed or prefixed to words to indicate tense, aspect, case, formality etc. Clausal affixes are a subcategory of affixes that attach to the clause rather than to a phrase",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Burmese language makes prominent usage of affixes (called ပစ္စည်း in Burmese), which are words that are suffixed or prefixed to words to indicate tense, aspect, case, formality etc. Clausal affixes are a subcategory of affixes that attach to the clause rather than to a phrase. these often indicate various notions that do not directly translate to English, like insistence and emphasis. For example, the affix ဆို [sʰò] conveys the speaker's attitude to the situation questioning the speaker and can be translated as 'didn't you say that...\".[22] Many clausal affixes also indicate the mood and case of the clause. For example, စမ်း [sã́] is a suffix used to indicate the imperative mood. While လုပ်ပါ ('work' + suffix indicating politeness) does not indicate the imperative, လုပ်စမ်းပါ ('work' + suffix indicating imperative mood + suffix indicating politeness) does. Affixes are often stacked next to each other. \n\nPhrasal affixes attach to nominal and verbal phrases can indicate contrast, exclusivity and aspect. They can also be used grammatically to link phrases. For example, သော [θɔ́] is a verb suffix that connects the non-property verb to a noun in an adjective-like way.[22] In addition, these affixes can also modify the word's part of speech. Among the most prominent of these is the prefix အ [ə]. For instance, the word ဝင် means \"to enter\", but combined with အ, it means \"entrance\" အဝင်. Moreover, in colloquial Burmese, there is a tendency to omit the second အ in words that follow the pattern အ + noun/adverb + အ + noun/adverb, like အဆောက်အအုံ, which is pronounced [əsʰaʊʔ ú] and formally pronounced [əsʰaʊʔ əõ̀ʊ̃].",
+          "examples": [
+            "Phrasal affixes attach to nominal and verbal phrases can indicate contrast, exclusivity and aspect. They can also be used grammatically to link phrases. For example, သော [θɔ́] is a verb suffix that connects the non-property verb to a noun i"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        },
+        {
+          "heading": "Nominal affixes",
+          "body": "Nouns in Burmese are pluralized by suffixing တွေ [dwè] (or [twè] if the word ends in a glottal stop) in colloquial Burmese or များ mya: [mjà] in formal Burmese. The suffix တို့ tou. [to̰], which indicates a group of persons or things, is also suffixed to the modified noun. An example is below:\n\nLiterary:\n\nSpoken:\n\nBoth:\n\nGloss:\n\nမြစ်\n\nမြစ်\n\nမြစ်\n\nriver\n\nများ\n\nတွေ\n\nတို့\n\nPL\n\nLiterary: မြစ် များ\n\nSpoken: မြစ် တွေ\n\nBoth: မြစ် တို့\n\nGloss: river PL\n\n'rivers'\n\nPlural suffixes are not used when the noun is quantified with a number, instead a measure word or classifier is used.\n\nကလေး\n\nhka.le:\n\n/kʰəlé\n\nchild\n\n၅\n\nnga:\n\nŋá\n\nfive\n\nယောက်\n\nyauk\n\njaʊʔ/\n\nCL\n\nကလေး ၅ ယောက်\n\nhka.le: nga: yauk\n\n/kʰəlé ŋá jaʊʔ/\n\nchild five CL\n\n\"five children\"\n\nAlthough Burmese does not have grammatical gender, a distinction can made between the sexes, especially in animals and plants, by means of suffix particles. Nouns are masculinized with the following suffixes: ထီး hti: [tʰí], ဖ hpa [pʰa̰], or ဖို hpui [pʰò], depending on the noun, and feminized with the suffix မ ma. [ma̰]. Examples of usage are below:\n\nကြောင်ထီး kraung hti: [tɕã̀ʊ̃ tʰí] \"male cat\"\n\nကြောင်မ kraung ma. [tɕã̀ʊ̃ ma̰] \"female cat\"\n\nကြက်ဖ krak hpa. [tɕɛʔ pʰa̰] \"rooster/cock\"\n\nထန်းဖို htan: hpui [tʰã́ pʰò] \"male toddy palm plant\"",
+          "examples": [
+            "\"five children\"",
+            "ကြောင်ထီး kraung hti: [tɕã̀ʊ̃ tʰí] \"male cat\"",
+            "ကြောင်မ kraung ma. [tɕã̀ʊ̃ ma̰] \"female cat\"",
+            "ကြက်ဖ krak hpa. [tɕɛʔ pʰa̰] \"rooster/cock\"",
+            "ထန်းဖို htan: hpui [tʰã́ pʰò] \"male toddy palm plant\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        },
+        {
+          "heading": "Verb affixes",
+          "body": "The roots of Burmese verbs almost always have affixes which convey information like tense, aspect, intention, politeness, mood, etc. Many of these affixes also have formal/literary and colloquial equivalents. In fact, the only time in which no suffix is attached to a verb is in imperative commands.\n\nThe most commonly used verb affixes and their usage are shown below with an example verb root စား [sá] ('to eat'). Alone, the statement စား is imperative.\n\nThe affix တယ် tai [dɛ̀] (literary form: သည် sany [d̪ì]) can be viewed as an affix marking the present tense and/or a factual statement:\n\nစား\n\nca:\n\n[sá\n\nတယ်\n\ntai\n\ndɛ̀]\n\nစား တယ်\n\nca: tai\n\n[sá dɛ̀]\n\n'I eat'\n\nThe affix ခဲ့ hkai. [ɡɛ̰] denotes that the action took place in the past. However, this affix is not always necessary to indicate the past tense such that it can convey the same information without it. But to emphasize that the action happened before another event that is also currently being discussed, the affix becomes imperative. The affix တယ် tai [dɛ̀] in this case denotes a factual statement rather than the present tense:\n\nစား\n\nca:\n\n[sá\n\nခဲ့\n\nhkai.\n\nɡɛ̰\n\nတယ်\n\ntai\n\ndɛ̀]\n\nစား ခဲ့ တယ်\n\nca: hkai. tai\n\n[sá ɡɛ̰ dɛ̀]\n\n'I ate'\n\nThe affix နေ ne [nè] is used to denote an action in progression. It is equivalent to the English '-ing'.\n\nစား\n\nca:\n\n[sá\n\nနေ\n\nne\n\nnè\n\nတယ်\n\ntai\n\ndɛ̀]\n\nစား နေ တယ်\n\nca: ne tai\n\n[sá nè dɛ̀]\n\n'I am eating'\n\nThis affix ပြီ pri [bjì], which is used when an action that had been expected to be performed by the subject is now finally being performed, has no equivalent in English. So in the above example, if someone had been expecting the subject to eat, and the subject has finally started eating, the affix ပြီ is used as follows:\n\n(စ)\n\n(ca.)\n\n[(sə)\n\nစား\n\nca:\n\nsá\n\nပြီ\n\npri\n\nbjì]\n\n(စ) စား ပြီ\n\n(ca.) ca: pri\n\n[(sə) sá bjì]\n\n'I am [now] eating'\n\nThe affix မယ် mai [mɛ̀] (literary form: မည် many [mjì]) is used to indicate the future tense or an action which is yet to be performed:\n\nစား\n\nca:\n\n[sá\n\nမယ်\n\nmai\n\nmɛ̀]\n\nစား မယ်\n\nca: mai\n\n[sá mɛ̀]\n\n'I will eat'\n\nThe affix တော့ tau. [dɔ̰] is used when the action is about to be performed immediately when used in conjunction with မယ်. Therefore, it could be termed as the \"immediate future tense suffix\".\n\nစား\n\nca:\n\n[sá\n\nတော့\n\ntau.\n\ndɔ̰\n\nမယ်\n\nmai\n\nmɛ̀]\n\nစား တော့ မယ်\n\nca: tau. mai\n\n[sá dɔ̰ mɛ̀]\n\n'I'm going to eat [right away]'\n\nWhen တော့ is used alone, however, it is imperative:\n\nစား\n\nca:\n\n[sá\n\nတော့\n\ntau.\n\ndɔ̰]\n\nစား တော့\n\nca: tau.\n\n[sá dɔ̰]\n\n'eat [now]'\n\nVerbs are negated by the prefix မ ma. [mə]. Generally speaking, there are other suffixes on verb, along with မ.\n\nThe verb suffix နဲ့ nai. [nɛ̰] (literary form: နှင့် hnang. [n̥ɪ̰̃]) indicates a command:\n\nမစား\n\nma.ca:\n\n[məsá\n\nနဲ့\n\nnai.\n\nnɛ̰]\n\nမစား နဲ့\n\nma.ca: nai.\n\n[məsá nɛ̰]\n\n'don't eat'\n\nThe verb suffix ဘူး bhu: [bú] indicates a statement:\n\nမစား\n\nma.ca:\n\n[məsá\n\nဘူး\n\nbhu:\n\nbú]\n\nမစား ဘူး\n\nma.ca: bhu:\n\n[məsá bú]\n\n'[I] don't eat'",
+          "examples": [
+            "The affix တော့ tau. [dɔ̰] is used when the action is about to be performed immediately when used in conjunction with မယ်. Therefore, it could be termed as the \"immediate future tense suffix\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Numerals",
+      "summary": "Main article: Burmese numerals\nBurmese numerals in various fonts\nBurmese digits are traditionally written using a set of numerals unique to the Mon–Burmese script, although Arabic numerals are also used in informal contexts. The cardinal forms of Burmese numerals are primarily in",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Burmese numerals\nBurmese numerals in various fonts\nBurmese digits are traditionally written using a set of numerals unique to the Mon–Burmese script, although Arabic numerals are also used in informal contexts. The cardinal forms of Burmese numerals are primarily inherited from the Proto-Sino-Tibetan language, with cognates with modern-day Sino-Tibetan languages, including the Chinese and Tibetan. Numerals beyond 'ten million' are borrowed from Indic languages like Sanskrit or Pali. Similarly, the ordinal forms of primary Burmese numerals (i.e., from first to tenth) are directly borrowed from Pali.[23] Ordinal numbers beyond ten are suffixed မြောက် (lit. 'to raise').\n\nBurmese numerals follow the nouns they modify, with the exception of round numbers, which precede the nouns they modify. Moreover, numerals are subject to several tone sandhi and voicing rules that involve tone changes (low tone → creaky tone) and voicing shifts depending on the pronunciation of surrounding words. A more thorough explanation is found on Burmese numerals.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Burmese_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

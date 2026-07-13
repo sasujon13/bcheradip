@@ -1,0 +1,400 @@
+{
+  "title": "Grammar Book — Sinugboanon",
+  "languageCode": "ceb",
+  "languageName": "Sinugboanon",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Cebuano_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Cebuano language\nThis article should be  summarized in Cebuano language#Grammar and a link provided from there to here using the {{Main}} template. See guidance in Wikipedia:Summary style.\nCebuano grammar encompasses the rules that define the Cebuano language, the",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Cebuano language\nThis article should be  summarized in Cebuano language#Grammar and a link provided from there to here using the {{Main}} template. See guidance in Wikipedia:Summary style.\nCebuano grammar encompasses the rules that define the Cebuano language, the most widely spoken of all the languages in the Visayan Group of languages, spoken in Cebu, Bohol, Siquijor, part of Leyte island, part of Samar island, Negros Oriental, especially in Dumaguete, and the majority of cities and provinces of Mindanao. \n\nCebuano has eight basic parts of speech: nouns, pronouns, verbs, adjectives, adverbs, particles, prepositions and conjunctions. Cebuano is an agglutinative yet partially inflected language: pronouns are inflected for number, and verbs are inflected for aspect, focus, and mood.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Morphosyntactic alignment",
+      "summary": "Main article: Austronesian alignmentCebuano, along with many other Philippine languages, are sometimes considered ergative or nominative in alignment, both being incorrect and correct as it has features of both systems.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Austronesian alignmentCebuano, along with many other Philippine languages, are sometimes considered ergative or nominative in alignment, both being incorrect and correct as it has features of both systems.\n\nCebuano verbs are morphologically complex and take on a variety of affixes reflecting voice, quality, aspect, mood, and others. Cebuano arguably follows Austronesian alignment. Basically, verbs conjugate by using these affixes according to which argumentative role the noun in the direct case has. This noun in the direct case can be the doer of the action, the recipient of the action, the purpose for the action, or the means by which the action was made possible; which are all argumentative roles. The direct case hides the noun's otherwise-evident argumentative role, which the verb then makes up for by conjugating with specific affixes that indicate which argumentative role the noun in the direct case has. Some Cebuano grammar teachers call the noun in the direct case the topic of the sentence, but some others call it the focus, voice, or trigger; as the verb and the other nouns in the sentence have all their noun markers and affixes change accordingly. \n\nCebuano has four voices:\n\nthe active voice a.k.a. the agent trigger\n\nthe passive voice for direct objects a.k.a. the patient trigger\n\nthe passive voice for indirect objects and/or locations a.k.a. the circumstantial trigger\n\nthe passive voice for instruments a.k.a. the instrument trigger.\n\nThe direct case morpheme, which marks the topic in Cebuano, is ang or si.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Agent trigger",
+          "body": "(1)Mo-lutò’\n\nAT-cook\n\nsi\n\nDIR\n\nMaria\n\nMaria\n\nog\n\nacc\n\nkalamáy\n\ntype of dessert\n\npara\n\nfor\n\nkang\n\nOBL\n\nPedro.\n\nPedro\n\nMo-lutò’ si Maria og kalamáy para kang Pedro.\n\nAT-cook DIR Maria acc {type of dessert} for OBL Pedro\n\n\"Maria will cook kalamáy for Pedro.\"\n\nHere, the agent/doer Maria is marked with si, the personal direct noun marker. The prefix Mo- indicates that the noun in the direct case (Maria) is also the agent/doer, which would not have been known otherwise.",
+          "examples": [
+            "\"Maria will cook kalamáy for Pedro.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Patient trigger",
+          "body": "(2)Luto’-on\n\ncook-PT\n\nsa\n\nERG\n\nbabaye\n\nwoman\n\nang\n\nDIR\n\nbugás\n\nrice\n\nsa\n\nOBL\n\nláta.\n\ncan\n\nLuto’-on sa babaye ang bugás sa láta.\n\ncook-PT ERG woman DIR rice OBL can\n\n\"The woman will cook the rice in the can.\"\n(or \"The rice will be cooked by the woman in the can.\")\n\nHere, the patient/object Bugás is marked with ang, the general direct noun marker. The suffix -on indicates that the noun in the direct case (bugás) is also the patient/object, which would not have been known otherwise. Babaye is marked with sa, the general indirect noun marker which indicates that babaye is not in the direct case but is still the agent/doer of the sentence. Via context and common word order, it is evident that láta is not the agent despite it being marked with sa as well (in this case, it is used as the general oblique definite noun marker). It is not the first noun in the sentence (as the agent/doer usually is) and nor can a can cook rice on its own (context).",
+          "examples": [
+            "\"The woman will cook the rice in the can.\"",
+            "(or \"The rice will be cooked by the woman in the can.\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Circumstantial trigger",
+          "body": "The circumstantial trigger affixes select for location, benefactee and/or goal topics.\n\nWith location subject\n(3a)Luto’-an\n\ncook-CT\n\nsa\n\nERG\n\nbabaye\n\nwoman\n\nang\n\nDIR\n\nláta\n\ncan\n\nog\n\nACC\n\nbugás.\n\nrice\n\nLuto’-an sa babaye ang láta og bugás.\n\ncook-CT ERG woman DIR can ACC rice\n\n\"The woman will cook rice in the can.\"\n(or \"The can will be cooked rice in by the woman.\")\n\nHere, the location/indirect object láta is marked with ang, the general direct noun marker. The suffix -an indicates that the noun in the direct case (láta) is also the location of the action, which would not have been known otherwise. Babaye is marked with sa, the general indirect noun marker which indicates that babaye is not in the direct case but is still the agent of the sentence. Bugás is marked with the general oblique indefinite marker og, indicating that it is neither the noun in the direct case nor the agent noun, but rather that it is the direct object of the sentence.\n\nWith benefactee subject\n(3b)Luto’-an\n\ncook-CT\n\nni\n\nERG\n\nMaria\n\nMaria\n\nsi\n\nDIR\n\nPedro\n\nPedro\n\nog\n\nACC\n\nkalamáy.\n\ntype of dessert\n\nLuto’-an ni Maria si Pedro og kalamáy.\n\ncook-CT ERG Maria DIR Pedro ACC {type of dessert}\n\n\"Maria will cook Pedro kalamáy.\"\n(or \"Pedro will be cooked kalamáy for by Maria.\")\n\nHere, the indirect object or benefactee Pedro is marked with si, the personal direct noun marker. The suffix -an indicates that the noun in the direct case (Pedro) is also the indirect object of the action, which would not have been known otherwise. Maria is marked with the personal indirect noun marker ni, which indicates that Maria is not the noun in the direct case but is still the agent of the sentence. Kalamáy is marked with the general oblique indefinite marker og, indicating that kalamáy is neither the noun in the direct case nor the agent/doer, but rather, it is the direct object.\n\nWith goal subject\n(3c)Sulatán\n\nwrite-CT\n\nni\n\nERG\n\nInday\n\nInday\n\nsi\n\nDIR\n\nPerla\n\nPerla\n\nog\n\nACC\n\nsúlat.\n\nletter\n\nSulatán ni Inday si Perla og súlat.\n\nwrite-CT ERG Inday DIR Perla ACC letter\n\n\"Inday will write Perla a letter.\"\n(or \"Perla will be written a letter to by Inday.\")\n\nHere, it is similar to the circumstantial trigger (with benefactee subject) in that the goal subject Perla is also the indirect object of the sentence. Perla is marked by si, the personal direct noun marker, and is known to be the indirect object of the sentence due to the verb suffix -an, which indicates that the noun in the direct case would be the indirect object of the sentence.",
+          "examples": [
+            "\"The woman will cook rice in the can.\"",
+            "(or \"The can will be cooked rice in by the woman.\")",
+            "\"Maria will cook Pedro kalamáy.\"",
+            "(or \"Pedro will be cooked kalamáy for by Maria.\")",
+            "\"Inday will write Perla a letter.\"",
+            "(or \"Perla will be written a letter to by Inday.\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Instrument trigger",
+          "body": "(4)I-sulát\n\nIT-write\n\nni\n\nERG\n\nLinda\n\nLinda\n\nang\n\nDIR\n\nlapis\n\npencil\n\nog\n\nACC\n\nsúlat.\n\nletter\n\nI-sulát ni Linda ang lapis og súlat.\n\nIT-write ERG Linda DIR pencil ACC letter\n\n\"Linda will write a letter with the pencil.\"\n(or \"The pencil will be written a letter with by Linda.\")\n\nHere, the instrument lapis is marked with ang, the general direct noun marker. The prefix I- indicates that the noun in the direct case (lapis) is also the instrument used to complete the action, which would not have been known otherwise. Linda is marked with the personal indirect noun marker ni, which indicates that Linda is not the noun in the direct case, yet is still the agent of the sentence. Súlat is marked with the general oblique indefinite marker og, indicating that súlat is neither the noun in the direct case nor the agent/doer, but rather, it is the direct object.\n\nTo avoid ambiguity;\n\nSúlat - is a noun which refers to the word letter.\n\nSulát - is a verb which means to write.",
+          "examples": [
+            "\"Linda will write a letter with the pencil.\"",
+            "(or \"The pencil will be written a letter with by Linda.\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "Pronouns are inflected for person, number and case. Just like most Philippine languages, Cebuano has no gender-specific pronouns. There are no gender distinctions that are made for the third person singular: he, she, and they (singular) are all translated in Cebuano as siyá.",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "Pronouns are inflected for person, number and case. Just like most Philippine languages, Cebuano has no gender-specific pronouns. There are no gender distinctions that are made for the third person singular: he, she, and they (singular) are all translated in Cebuano as siyá.\n\nThe three cases are direct, indirect, and oblique. The noun markers and pronouns follow their own particular set of rules for syntax and grammar.\n\nThe indirect case also functions as a genitive.\n\nPostposed meaning it comes after the noun: irô nakò (my dog).\n\nPreposed meaning it comes before the noun: akóng irô (my dog).\n\nCebuano personal pronouns\n\nDirect\n\nIndirect\n(postposed)\n\nIndirect\n(preposed)\n\nOblique[a]\n\nFull\nShort\n\nFull\nShort\n\nFull\n\nFull\nShort\n\n1st person\n\nsingular\n\nakó\n\nko\n\nnakò\n\nko[b]\n\nako, akoa\n\nkanakò\n\nnakò\n\nplural\n\nexclusive\n\nkamí\n\nmi\n\nnamò\n\namò, amoa\n\nkanamò\n\nnamò\n\ninclusive\n\nkitá\n\nta\n\nnatò\n\nta\n\nato, atoa\n\nkanatò\n\nnatò\n\n2nd person\n\nsingular\n\nikáw\n\nka\n\nnimo\n\nmo\n\nimo, imoha\n\nkanimo\n\nnimo\n\nplural\n\nkamó\n\nmo\n\nninyo\n\ninyo, inyoha\n\nkaninyo\n\nninyo\n\n3rd person\n\nsingular\n\nsiyá\n\nsyá\n\nniya\n\niya, iyaha\n\nkaniya\n\nniya\n\nplural\n\nsilá\n\nnila\n\nila, ilaha\n\nkanila\n\nnila\n\n^ Sa + the indirect form can be used to replace these forms. For example, \"Gihatag nakò kaní sa iya\" vs \"Gihatag nakò kani kaniya\"\n\n^ Ta only when the object is in the second person singular, i.e., ka, mo, etc. For example, Nakità taká, NOT *Nakità ko ka. Ti can be used in place of ta only when the second person singular object is in the direct case, i.e. ka. For example, Gihigugma tiká or Gihigugma taká, NOT *Gihigugma ko ka.\n\nUsage of full and short forms\nThe short forms are used most often in conversation. However, the full forms must be used when they occur on their own as a predicate.\n\nExamples (Those marked with an asterisk, \"*\", are ungrammatical):\n\nex:Akó\n\n*Ko\n\nsi\n\nsi\n\nJuan.\n\nJuan.\n\nAkó si Juan.\n\n*Ko si Juan.\n\nI am John.\n\nex:Kamó'y\n\n*Mo'y\n\nmoadto\n\nmoadto\n\nngadto\n\nngadto\n\nsa\n\nsa\n\nBanawa.\n\nBanawa.\n\nKamó'y moadto ngadto sa Banawa.\n\n*Mo'y moadto ngadto sa Banawa.\n\nYou (plu.) are going to Banawa.\n\nBut...\n\nAkó si Juan.\nAkó mao'y moadto ngadto sa Banawa.\n\nFirst person plural: clusivity\nIn Cebuano, like most other Austronesian languages, the first person plural forms encode clusivity. This distinction, not found in most European languages, signifies whether or not the addressee is included.\n\nex:Moadto\n\nmi\n\nsa\n\neskuwelahan.\n\nMoadto mi sa eskuwelahan.\n\nWe (someone else and I but not you) will go to school.\n\nex:Moadto\n\nta\n\nsa\n\neskuwelahan.\n\nMoadto ta sa eskuwelahan.\n\nWe (you and I and perhaps someone else) will go to school.",
+          "examples": [
+            "^ Sa + the indirect form can be used to replace these forms. For example, \"Gihatag nakò kaní sa iya\" vs \"Gihatag nakò kani kaniya\"",
+            "Examples (Those marked with an asterisk, \"*\", are ungrammatical):"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Demonstratives",
+      "summary": "^ a b When the demonstrative is used as a predicate, the full form must be used.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Cebuano demonstratives are as follows:\n\nCebuano demonstratives\n\nDirect[a]\n\nIndirect[a]\n\nOblique[b]\n\nAllative\n\nLocative\n\nFull\n\nShort\n\nFull\n\nShort\n\nProximal\n(very near speaker)\n\nkirí\nkarí\n\nri\n\nniíri\nniári\n\níri\nári\n\nkan-íri†\nkan-ári†\n\nngarí\n\ndirí\ndiári\n\nMedioproximal\n(near speaker)\n\nkiní\nkaní\n\nni\n\nniíni\nniáni\n\níni\náni\n\nkan-íni†\nkan-áni†\n\nnganhi\n\ndinhi\n\nMedial[c]\n(near addressee)\n\nkanâ\n\nnà\n\nniánà\n\nánà\n\nkan-ánà†\n\nnganhà\n\ndinhà\ndihâ\n\nDistal\n(remote)\n\nkadtó\nkató[d]\n\nto\n\nniádto\nniáto[d]\n\nádto\n\nkan-ádto†\n\nngadto\n\ndidto\n\n^ a b When the demonstrative is used as a predicate, the full form must be used.\n\n^ These forms are already considered archaic and are commonly replaced by the indirect forms.\n\n^ Although not represented in the orthography, forms in this row end with a glottal stop:\nkanâ /kaˈnaˀ/, nà /naˀ/, niˈanà /ˈniˀanaˀ/, anà /ˀanaˀ/, kan-anà /kanˀanaˀ/, nganhà /ˈŋanhaˀ/, dinhâ /dinˈhaˀ/, dihâ /diˈhaˀ/.\n\n^ a b Contraction\n\nex:Unsa\n\nkiní/ni?\n\nUnsa kiní/ni?\n\nWhat's this?\n\nex:Kinsa\n\nkanâ/nà?\n\nKinsa kanâ/nà?\n\nWho is that?\n\nex:Kiníng\n\nsulata\n\ngikan\n\nsa\n\nPresidente\n\nsa\n\nPilipinas.\n\nKiníng sulata gikan sa Presidente sa Pilipinas.\n\nThis letter is from the President of the Philippines\n\nex:Mangaon\n\nsila\n\ndidtó.\n\nMangaon sila didtó.\n\nThey will eat there.\n\nex:Nangaon\n\nkadtóng/tong\n\nmga\n\ntawo\n\nug\n\nmga\n\nbatà\n\ndidtó\n\nsa\n\npiyesta/pista.\n\nNangaon kadtóng/tong mga tawo ug mga batà didtó sa piyesta/pista.\n\nThose people and children ate at the feast.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adverbs",
+      "summary": "Deictics, words such as here and there, reference locations between the speaker and addressee. In addition to the same four-way distinction of proximity for demonstratives (near speaker, near speaker and addressee, near addressee and remote), deictics can express three tenses:",
+      "sections": [
+        {
+          "heading": "Deictics",
+          "body": "Deictics, words such as here and there, reference locations between the speaker and addressee. In addition to the same four-way distinction of proximity for demonstratives (near speaker, near speaker and addressee, near addressee and remote), deictics can express three tenses:\n\nPresent: \"X is here/there now\"\n\nPast: \"X was here/there\"\n\nFuture: \"X will be here/there\"\n\nThe present and future tense forms can precede or follow the words or phrases they modify by linking with nga. The past tense forms, however, only have a past meaning if they precede their words or phrases. If they follow, they convey no tense.\n\nThe allative forms are always tenseless. They follow the words or phrases they modify and can substitute equivalent past forms. In addition, they show movement or motion to the relative location which past forms cannot.\n\nCebuano deictics\n\nPresent\n\nPast\n\nFuture\n\nAllative\n\nProximal\n\ndía\nadía\ndirí\narí\nngarí\n\nMesioproximal\n\nnía\nanía\ndinhi\nanhi\nnganhi\n\nMesiodistal[a]\n\nnáa\nanáa\ndihâ\ndinhà\nanhà\nnganhà\n\nDistal\n\ntúa\natúa\ndidto\nadto\nngadto\n\n^ Forms in this row end in a glottal stop, except for naa and anaa:\ndihâ /diˈhaʔ/, dinhâ /ˈdinhaʔ/, anhà /ˈʔanhaʔ/, nganhà /ˈŋanhaʔ/.\n\nex:Día\n\ndirí\n\nang\n\nbatà.\n\nDía dirí ang batà.\n\nThe child is over here.\n\nex:Túa\n\nsi\n\nlolo\n\nsa\n\nAmerika.\n\nTúa si lolo sa Amerika.\n\nGrandfather is in America.\n\nex:Dinhi\n\nang\n\nDoktor\n\ngahapon.\n\nDinhi ang Doktor gahapon.\n\nThe doctor was here yesterday.\n\nex:Moádto\n\nsiyá\n\nsa\n\nManilà.\n\nMoádto siyá sa Manilà.\n\nShe will be going to Manila.\n\nex:Midagan\n\nang\n\nbatà\n\nngadto\n\nsa\n\nbaláy\n\nniya.\n\nMidagan ang batà ngadto sa baláy niya.\n\nThe child ran to his/her house.",
+          "examples": [
+            "Present: \"X is here/there now\"",
+            "Past: \"X was here/there\"",
+            "Future: \"X will be here/there\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Nouns",
+      "summary": "Cebuano nouns fall into of two classes: personal and general. Personal nouns refer to persons or personified objects and animals and names. All other nouns fall into the general category. Nouns do not inflect for case or number: Case is shown using case markers; the plural number",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Cebuano nouns fall into of two classes: personal and general. Personal nouns refer to persons or personified objects and animals and names. All other nouns fall into the general category. Nouns do not inflect for case or number: Case is shown using case markers; the plural number is show with the particle mga.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Case",
+          "body": "Cebuano nouns assume three cases based on their role in a sentence:\n\nDirect – This is the case of focus or topic. This case is used in both actor-focus and non-actor focus verb forms. This case follows the Austronesian alignment. The verb partly conjugates according to the argumentative role inherit within the noun that is marked by this case.\n\nIndirect – This is the case of the actor/agent/doer in non-actor focus verb forms. This is also the case of possession/ownership and works similar to the genitive case.\n\nOblique – A peripheral case; this is the case of the indirect object, the direct object, and/or the instrument in both actor-focus verb sentences and non-actor focus verb sentences, when the noun it modifies is also not the focus/topic. It is used to mention anything beyond the topic or focus other than the indirect case that might still be important for context and communication. Simply put, it is to mark any noun that is neither the actor/agent/doer nor the topic/focus of the sentence.\n\nCebuano case markers\n\nClass\nDirect\nIndirect\nOblique\n\nGeneral\n\nSingular\n\nDefinite\n\nang\n\nsa\n\nIndefinite\n\n–y†, ing*, i*\n\nog\n\nPlural\n\nDefinite\n\nang mga\n\nsa mga\n\nIndefinite\n\n–y mga†, ing mga*, i mga*\n\nog mga\n\nPersonal\n\nSingular\n\nsi\n\nni\n\nkang\n\nPlural\n\nsa*\n\nna*\n\nka*\n\nsilá ni\n\nníla ni\n\n(kan)íla ni\n\n*Archaic.\n\n†For example, \"Siláy niadto\" or \"Unsay atò?\".\n\nThe use of sa vs. og in the indirect and oblique case is a matter of definiteness when the noun is the object of an actor-focus verb. Compare the following examples.\n\n[Definite] Mipalít si Juan sa sakyanán. John bought the car.\n\n[Indefinite] Mipalít si Juan og sakyanán. John bought a car.\n\nIn example sentence 1, the car that John bought is particular. It may have been a car he was thinking about buying or one that the speaker was selling John. In 2, the speaker may or may not know the specifics about the car in question.\n\nSa and og can both be used for the roles of the genitive case, but only sa can be used for the actor or agent case. Og is used for adverbs as well.",
+          "examples": [
+            "†For example, \"Siláy niadto\" or \"Unsay atò?\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Plurality is shown by preceding the noun with the particle mga /maŋa/.\n\nThere are special cases though:\n\n1. Adding the prefix ka- and the suffix -an can pluralize a noun (the suffix -han is used if the root word ends with a vowel). This word treatment is used to group what are considered identical objects as one entity. Examples are:\n\nlibot, which is regularly used as a verb meaning to go around but in this case is used as a noun meaning \"surrounding\" (as in palibot), can be changed to kalibotan, which means \"world\" (or 'the entire surroundings').\n\ntawo, which means \"man\" or \"person\", can be changed to katawhan, which means \"men\" or \"people\". The vowel \"o\" is omitted in this case because the \"w\" carries the sound of \"o\" by itself.\n\nbaláy (house): kabalayán (houses)\n\nbatà (child/boy/girl): kabataan. The suffix used here is -an instead of -han since batà /bataʔ/ ends in a glottal stop.\n\n\"nasud\" (nation): \"kanasuran\" (nations). The \"d\" changed to \"r\" because that usually (not always) happens to \"d\" when placed between two vowels, though in Cebuano, d and r are not allophones, unlike in other Philippine languages.\n\nAlthough it is tolerable in some cases, the use of mga before a noun applied with ka- -an is not necessary anymore. ang mga kabata-an (the children) is considered redundant, and ang kabata-an is more grammatically accurate.\n\nBecause the use of ka- -an groups objects into one entity, there are cases that a word will mean a place of which the objects are frequently or usually found/exist. An example is:\n\nkasagingán (from the root word saging (banana)) does not mean \"bananas\". Instead, it means 'a place of bananas' or simply \"banana farm\".\n\n2. There is this very rare case in which an adjective can be pluralized, and the noun it describes can be, but is not necessarily, omitted.\nExample: the word gamáy (small) can be changed to gagmay (small ones), in which \"g\" was inserted in between the first and second syllable. The same rule can be applied to dakô, which means 'big', changing it to dagkò (big ones). Other examples are:\n\ntaás (long): tag-as (long ones)\n\nmubô (short): mugbò (short ones)\n\nlayô (far): lagyò (far ones)\n\nduól (near): dug-ol (near ones)\n\nnipís (thin): nigpis (thin ones)\n\nlapád (wide): lagpad (wide ones)\n\nThis rule cannot be applied to all other adjectives.",
+          "examples": [
+            "libot, which is regularly used as a verb meaning to go around but in this case is used as a noun meaning \"surrounding\" (as in palibot), can be changed to kalibotan, which means \"world\" (or 'the entire surroundings').",
+            "tawo, which means \"man\" or \"person\", can be changed to katawhan, which means \"men\" or \"people\". The vowel \"o\" is omitted in this case because the \"w\" carries the sound of \"o\" by itself.",
+            "\"nasud\" (nation): \"kanasuran\" (nations). The \"d\" changed to \"r\" because that usually (not always) happens to \"d\" when placed between two vowels, though in Cebuano, d and r are not allophones, unlike in other Philippine languages.",
+            "kasagingán (from the root word saging (banana)) does not mean \"bananas\". Instead, it means 'a place of bananas' or simply \"banana farm\".",
+            "Example: the word gamáy (small) can be changed to gagmay (small ones), in which \"g\" was inserted in between the first and second syllable. The same rule can be applied to dakô, which means 'big', changing it to dagkò (big ones). Other examp"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "As a rule, Cebuano does not categorize nouns by gender. Natural gender is found in Spanish loanwords and some native words, including words with Spanish-derived gendered affixes.\n\nGloss\n\nNeutral\n\nMasculine\n\nFeminine\n\nfriend\n\nhigala\n\namigo\n\namiga\n\nboastful\n\nhambog\n\nhambogero\n\nhambogera\n\nspouse\n\nkapikas\n\nbana\n\nasawa",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Adjectives",
+      "summary": "Adjectives do not inflect for the plural. Common adjectives of measurement, however, have a plural form characterized by the infixation of /g/.[1]",
+      "sections": [
+        {
+          "heading": "Plural forms",
+          "body": "Adjectives do not inflect for the plural. Common adjectives of measurement, however, have a plural form characterized by the infixation of /g/.[1]  \n\nGloss\nSingular\nPlural\n\nsmall\ngamáy\ngagmay\n\nbig\ndakô\ndagkò\n\nnear\nduól\ndug-ol\n\nfar\nlayô\nlagyò\n\nshort\nmubô\nmugbò\n\ntall\ntaás\ntag-as\n\nthin\n\nnipís\n\nnigpis\n\nthick\n\nbagâ\n\nbaggà\n\nnarrow\n\npiót\n\npig-ot\n\nwide\n\nlapád\n\nlagpad",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Comparative",
+          "body": "In comparing two similar items, the comparative form indicates that one has a higher degree (or lower degree) of the quality expressed by the root, e.g., bigger, smaller, greater, etc.\n\nThe comparative degree is expressed in the following ways:\n\nPrecede the adjective with labí pa (\"more [still]\")\n\nPrecede the adjective with the particle mas (from Spanish más)\n\ndakô big\n\nMethod\nForm\nGloss\n\nlabí pa\nlabí pang dakô\nbigger\n\nmas\nmas dakô\nbigger",
+          "examples": [
+            "Precede the adjective with labí pa (\"more [still]\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Comparative superlative",
+          "body": "The comparative superlative indicates the maximum degree of the quality expressed in comparison to other items. In Cebuano this degree can be expressed by a circumfix, kina- -an or by the use of the particle labí (most). The prefix pinaká- is also used.\n\ndakô big\n\nMethod\nForm\nGloss\n\nkina- -an\nkinadak-an\nbiggest\n\nlabí\nlabíng dakô\nbiggest\n\npinaká-\npinakadakô\nbiggest",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Absolute superlative",
+          "body": "The absolute superlative is the form used in exclamations, for example, \"How pretty you are!\", and denote the extreme quality of the root.\n\nIt is formed by prefixing pagká- or ka- (short form) to the root. The subject follows in the indirect.\n\nExamples:\n\nPagkanindot nianà! (Full)\nKanindot anà! (Short)\nHow great that is! That is amazing!",
+          "examples": [
+            "The absolute superlative is the form used in exclamations, for example, \"How pretty you are!\", and denote the extreme quality of the root.",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Intensive",
+          "body": "To express intensity, adjectives are followed by kaayo (very).\n\nExamples:\n\nAng mga duwende mugbò kaayo.\nDwarves are very short.",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Linkers",
+      "summary": "The linker nga (pronounced /ŋa/) shows the relationship between modifiers to the head of the phrase. Examples of such relationships are adjective–noun, clause–noun, adverb–verb, adverb–adjective and noun–noun. Without the intervening linker, juxtaposition of modifier and head can",
+      "sections": [
+        {
+          "heading": "Nga",
+          "body": "The linker nga (pronounced /ŋa/) shows the relationship between modifiers to the head of the phrase. Examples of such relationships are adjective–noun, clause–noun, adverb–verb, adverb–adjective and noun–noun. Without the intervening linker, juxtaposition of modifier and head can constitute, not a phrase, but a sentence unto itself. \nCompare the phrase ang batang lalaki (\"the/a young man/boy\") and the sentence ang batà lalaki[2] (\"the child is male\" or \"the child is a boy\").\n\nAfter words that end in a monophthong, diphthong or -n, nga is optionally reduced to the suffix -ng /-ŋ/.\n\nUnlike Tagalog, which uses the linker na for all modifiers, including numbers, the Cebuano linker nga is not used with numbers; ka, as shown below, is used instead.\n\nExample\n\nGloss\n\nbaláy nga bató\nbaláyng bató\n\nstone house\n\nbaláy nga nipà\nbaláyng nipà\n\nnipa hut\n\nbaláy nga kahoy\nbaláyng kahoy\n\nwooden house\n\ndakô nga baláy\ndakóng baláy\n\nbig house\n\ngamáy nga baláy\ngamáyng baláy\n\nsmall house",
+          "examples": [
+            "Compare the phrase ang batang lalaki (\"the/a young man/boy\") and the sentence ang batà lalaki[2] (\"the child is male\" or \"the child is a boy\").",
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Ka",
+          "body": "The linker ka is used to link a number and the phrase it modifies. Buók (whole) is sometimes used with ka.\n\nExample 1\nExample 2\nGloss\n\nusá ka batà\nusá ka buók batà\none child\n\nwaló ka semana\nwaló ka buók semana\neight weeks\n\nduhá ka tasà\nduhá ka buók tasà\ntwo cups",
+          "examples": [
+            "Example 1",
+            "Example 2"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Enclitic particles",
+      "summary": "Cebuano uses a lot of particles that could change the intended meaning or expression of a sentence. Here is a list of particles used in day-to-day conversation:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Cebuano uses a lot of particles that could change the intended meaning or expression of a sentence. Here is a list of particles used in day-to-day conversation:\n\nna: references a past situation to the present\n(in positive statements): now, already\naduna na/naa na — it now exists\n(nuance: it didn't exist before)\n\n(in negative statements): anymore\nwalâ na — it doesn't exist anymore\n(nuance: it existed before)\n\npa: references a future situation to the present\n(in positive statements): still\naduna pa/naa pa — it still exists\n(nuance: it will not exist sometime after)\n\n(in negative statements): yet\nwalâ pa — it doesn't exist yet\n(nuance: it will exist sometime after)\n\nba: used for yes-and-no questions and optionally for other types of questions.\n\nra/da and lang/lamanɡ: limiting particle; just, only.\n\ngyud/gayúd,[3] bitáw, lagí, ganì:[4] indeed; used in affirmations or emphasis.\n\nusáb,[5] upód:[5] also, too\n\nman, ugód:[5] expresses (new) information, or contradicts a previous statement\n\nuróy: corrects a (supposed) misconception\nperson 1: walâ pa ka mahumán? — aren't you done yet?\nperson 2: humán na uróy! — I am!\n\nbayâ: expresses admonition; watch out\nmamaak bayâ na'ng iroa — watch out! that dog bites\n\ndiáy: indicates that the speaker has received new information\n\ndà:\n(initial in a clause): there, I told you so!\n dà, nasamad hinuon — I told you! now you've hurt yourself\n\n(ending a clause): expresses sudden, unexpected, or unwanted emotion; as when remembering something forgotten\ngitugnaw ko dà! — I feel cold! (nuance: I didn't expect to become cold)\n\nkunó, daw: indicates second-hand information; he said, it is said, reportedly, allegedly, etc.\n\nguro/siguro, tingalì:[6] expresses uncertainty; probably, maybe\n\nkahâ/kayhâ: expresses wonder; I wonder, perhaps\n\nuntà, maytà (short for \"maayo untà\"): expresses hope; I hope\n\nkay: indicates cause; because.\nalso used as a linking word in sentences with Subject-Predicate structure (compare \"is/was/be\" in English)\nsi Maria kay nabuntis — Maria was pregnant\n\nmaó: (it/he/she) is/was/will be the one...\nsi Maria maó'y nabuntis — it was Maria who got pregnant\n\nganì:[4] even\n\nbisan: even though, even if, although\n\nhinuon (shortened to \"nuon\"): instead, however, rather; as a result\n\nusâ: for now, for the time being\n\nintawon: expresses pity\n\npuhón: God willing, in the future\n\nThe following are particles that are usually only found at the end of a sentence:\n\nha: asks listener if they understand, or if they agree\ndilì ni sabunán, ha? — don’t wash this with soap, do you understand?\n\nno, sa (from \"unsá\" meaning \"what?\"): asks to clarify; isn't that right?\n(with prior knowledge, confirmation): no\ndilì ka moinóm, no? — you don't drink liquor, do you?\n(nuance: the speaker knew beforehand that the person doesn't drink)\n\n(without prior knowledge, assumption): sa\ndilì ka moinóm, sa? — you don't drink liquor, do you?\n(nuance: the speaker didn't know beforehand that the person doesn't drink)\n\nay:[7] follows a word to call someone's attention to it\ntua sa iskina ay! — it’s right there at the corner!\n\nuy/oy:[7]\nexpresses annoyance\n\nexpresses surprise upon discovering something\n\nThese particles can be paired with one or more particles to form a more specific meaning. One exception is with na and pa, which cannot be used in the same sentence.\n\nmaó + ra + og = murág: like, seemingly\n\nmaó + gyud/bitáw/lagí/ganì: that is so; strongly affirming a statement\n\nmaó + ra + pud + nuon: that’s the only thing that’s wrong with it\n\nba + gud: expresses disbelief; how is it possible that (so-and-so) should happen?\n\nna + lang: now it is only (so-and-so much) when it was more before; (so-and-so) will do it, though it should not be so\n\npa + lang: (such-and-such) was the first; lest (so-and-so) happen; if (so-and-so) had been the case\n\netc.",
+          "examples": [
+            "aduna na/naa na — it now exists",
+            "walâ na — it doesn't exist anymore",
+            "aduna pa/naa pa — it still exists",
+            "walâ pa — it doesn't exist yet",
+            "person 1: walâ pa ka mahumán? — aren't you done yet?",
+            "person 2: humán na uróy! — I am!"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Interrogatives",
+      "summary": "Asa?                         Where? (esp. for a place or person)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Unsá?                        What?\n\nAsa?                         Where? (esp. for a place or person)\n\nDiín?, Dis-a?           Where? (esp. for past occurrence)\n\nHain?, Saa/Asa?        Where? (esp. for an object)\n\nKinsa?                       Who?\n\nKang kinsa?                  To whom?\n\nNgano?                       Why?\n\nGiunsa?                     How? (past)\n\nUnsaon?                     How? (future)\n\nKanus-a?                     When?\n\nPila (ka buok)?     How many?\n\nTagpila?                     How much?\n\nIkapila?                     What order?\n\nDi-ay ba?                    Really?\n\nThe words asa, diín, and hain can be used interchangeably in everyday speech. Although their use is distinguished in formal contexts:\n\nAsa is used when asking about a place.\n\nAsa ka padulóng? (Where are you going?)\n\nAsa ta molarga? (Where are we traveling to?)\n\nHain is used when asking about the location of a thing.\n\nHain ang gunting? (Where is the pair of scissors?)\n\nHain na ang pagka-on sa pista? (Where is the food for the festival)\n\nIt is worth noting that in spoken Cebuano, asa has slowly become the main word for where. In fact, hain, except by older generations, is rarely used.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Verbs",
+      "summary": "Verbs in Cebuano conjugate according to several factors: to divulge/agree with the argumentative role that the noun marked by the direct case has; the voice; the form; the mood; and the aspect/tense of the sentence.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbs in Cebuano conjugate according to several factors: to divulge/agree with the argumentative role that the noun marked by the direct case has; the voice; the form; the mood; and the aspect/tense of the sentence.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Verb roots vs. verb stems",
+          "body": "A verb root is the simplest version of a verb that conveys its overall meaning or lemma and cannot be broken down any further (excluding morphological processes and colloquial speech).\n\nThe affixes that are used to altogether describe the argumentative role, the voice, the form, the mood, and the aspect/tense cannot be added to the verb root, only to the verb stem. \n\nThe verb stem may be created through the addition of certain affixes that are not related to the affixes used to altogether describe the argumentative role, the voice, the form, the mood, and the aspect/tense of the sentence. Sometimes, the verb stem is identical to the verb root.\n\nA commonly known verb stem affix is the prefix pa-, added to the beginning of a verb root (and sometimes, other verb stems) in order to convey the meaning of to cause. For example, padalá is a verb stem that has the meaning of to send, while dalá is its own verb root and verb stem, meaning to bring. Concluding that padalá could literally mean to cause to bring. Another commonly known affix is the prefix hi- which is added to verb roots/stems in the stative form so that the verb may take in a direct object, as verbs in the stative form are not able to take a direct object without it.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Mood",
+          "body": "There are three moods that the verbal affixes may pertain to in the Cebuano language. The three moods are:\n\nThe indicative mood\nThis is the default mood of verbs in which the action is most commonly described. This mood does have imperative aspects in only some certain forms.\n\nThe mirative mood\nThis is the mood where the action is unexpected or unintended. There is no imperative aspect for this mood. This mood is used differently in Cebuano than its usual use, see mirative mood. Some may describe this mood as dubitative or subjunctive.\n\nThe potential mood\nThis is the mood where the action is able to happen or allowed to happen. This mood may also be used to convey a statement or general possibility. There is no imperative aspect for this mood.\n\nThe prefixes naka- and maka- (mostly used for this mood) may be shortened to ka- in colloquial speech and in colloquial writing, which gets rid of the aspect/tense found within these prefixes. Similarly, the prefixes naga- and maga- are colloquially shortened to ga-, however, ga- is usually considered as past and/or strictly present tense.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Form",
+          "body": "There are four forms that the verbal affixes may pertain to in the Cebuano language. The four forms are:\n\nThe punctual form\nExpresses an action viewed as a whole, one that was, is, will, or would be instantly completed. The affixes in this form may hint at a sort of intention or will to do the action/verb. This is also the form where the action may just be a statement. See perfective aspect.\n\nExamples:\n\nNikuha siya og saging - He/she took a banana\n\nMokaon ko og saging - I will eat a banana/I eat bananas\n\nThe durative form\nExpresses an action as taking place over a period of time. As with the punctual forms, these affixes also hint at a sort of intention or will to do the action/verb. See imperfective aspect.\n\nExamples:\n\nNagkuha/nanguha siya og saging pag-abot nimo - He was taking a banana when you arrived\n\nNagkaon ko og saging pagkuha niya - I was eating a banana when he/she took (it)\n\nThe stative form\nThis is the form where the action expresses the state of being, condition, and/or emotion of a subject/object. Affixes of this form may give a nuance of involuntary action, those done without intention but by chance.\n\nExamples:\n\nNakuha niya ang saging - The banana was caught by him/her\n\nNakaon nako ang panit sa saging - I unwillingly ate the banana peel\n\nThe reciprocal form\nThis is the form where the action is being reciprocated between two persons/things to each other.\n\nExamples:\n\nNagkuhaay sila og saging - They took bananas together\n\nNagkan-anay (nagkaonay) sila - They ate each other",
+          "examples": [
+            "Examples:",
+            "Examples:",
+            "Examples:",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "Tense vs. aspect",
+          "body": "Cebuano generally does not use tense, rather it uses aspect. Cebuano verbs conjugate according to a voice, a mood, a form, and an aspect. According to the functionalist school of grammar, there are two aspects: the nasugdan (incepted [past/present inchoative]) aspect and the pagasugdan (incepting [future/habitual inchoative]) aspect. They claim that Cebuano verbs feature the aspects of inception; that is whether the action has been initiated or not. \n\nThe nasugdan aspect is the aspect where the action had already started in the past, while the pagasugdan aspect is the aspect where the action has not started yet. Basically, past and present actions are in the nasugdan aspect while future actions and habitual actions are in the pagasugdan aspect. Although habitual actions started in the past, they have yet to start again. Hence, they are in the pagasugdan aspect.\n\nThe imperatibo (imperative/command) mood is commonly grouped together with these aspects (and not with the other moods) because there are multiple imperatives of the same verb that exist according to which form is in use.\n\nIn Cebuano, verbs may also conjugate for or to agree with negatibo (negative) sentences. However, the verb itself is not negative, it just agrees with the negative words wala and dili through the negatibo verbal affixes. Wala is used for the nasugdan aspect and dili is used for the pagasugdan aspect. Ayaw is used as the negative imperative, see prohibitive mood.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        },
+        {
+          "heading": "The verbal affixes",
+          "body": "The verbal affixes that feature altogether the voice, mood, form, and aspect may overlap. Some of these affixes are shortened in speech and in informal writing.\n\nNot all groups of affixes can be used for some verbs; some verbs may not make sense with certain groups of affixes. For example, the verb stem anhi (to come) cannot have any of the passive voices' affixes; it would not make sense with such affixes. \n\nThe only way to know which groups of affixes are able to be used for each verb stem are through memorization/experience. In addition to that, in certain verbs, the affixes take on different meanings and may overlap or replace other affixes in different forms due to historical use. For example, the verb stem buák (to break) uses the same affixes that is used in the potential mood as the affixes used for the transitory form in the indicative mood. Using the normal affixes of the transitory form in the active voice for buák would sound incorrect to native speakers. Despite all that, the way the affixes are labeled are the way they are mostly used regardless. \n\nSome affixes may be missing from the examples. \n\nActive voice affixes\nThe active voice in Cebuano (a.k.a. the agent trigger) is the voice where the topic of the sentence is the agent (a.k.a. the doer, the subject, the actor) of the sentence. The verb partly conjugates according to the fact that the agent is the topic. All active voice affixes are actually prefixes.\n\nThe intentional form (Verb stem used: adto)\n\nAspect/Mood\n\nIndicative\n\nMirative\n\nPotential\n\nnasugdan\n\nni- or mi-\n\nnahi- or naha-\n\nnaka-\n\nnasugdan\nexamples\n\nMiadto ka sa tindahan.\nYou went/go to the store.\n\nNahiadto ka sa tindahan.\nSurprisingly, you went/go to the store.\n\nNakaadto ka sa tindahan.\nYou were/are able to go to the store.\n\npagasugdan\n\nmo-\n\nmahi- or maha-\n\nmaka-\n\npagasugdan\nexamples\n\nMoadto ka sa tindahan.\nYou will go to the store.\n\nMahiadto ka sa tindahan.\nSurprisingly, you will go to the store.\n\nMakaadto ka sa tindahan.\nYou will be able to go to the store.\n\nnegatibo\n\nmo-\n\nmahi- or maha-\n\nmaka-\n\nnegatibo\nexamples\n\nWalâ ka moadto sa tindahan.\nYou did/do not go to the store.\n\nDilì ka moadto sa tindahan.\n\nYou will not go to the store.\n\nWalâ ka mahiadto sa tindahan.\nSurprisingly, you did/do not go to the store.\n\nDilì ka mahiadto sa tindahan.\n\nSurprisingly, you will not go to the store.\n\nWalâ ka makaadto sa tindahan.\nYou were/are not able to go to the store.\n\nDilì ka makaadto sa tindahan.\n\nYou will not be able to go to the store.\n\nimperatibo\n\n(Verb Stem) or optionally: pag-\n\n(none)\n\n(none)\n\nimperatibo\nexamples\n\nAdto (ka) sa tindahan!\n(You,) Go to the store!\n\n---\n\n---\n\nThese affixes not only have the essence that they are instantaneous, but they also have the essence of intention; that the topic willed for it to happen. It also has the essence of motion or movement. The prefix mi- is more formal than ni-; otherwise, they are interchangeable. It is common to use pag- because it is a common imperative affix in the active voice in Cebuano.\n\nWith verb stems like adto, mo- may sometimes be used as the nasugdan aspect because although it started in the past and may still be going on, the destination may not have been reached yet. Adto also means to go, and when used in the present tense, it is understandable that it may use mo- for a nasugdan aspect.\n\nThe durative form (Verb stem used: kaon)\n\nAspect/Mood\n\nIndicative\n\nMirative\n\nPotential\n\nnasugdan\n\nnag- or naga-\n\nnahi- or naha-\n\nnaka-\n\nnasugdan\nexamples\n\nNagkaón siya sa Jollibee,\nHe/She was/is eating at Jollibee.\n\nNahikaón siyá sa Jollibee.\nSurprisingly, he/she was/is eating at Jollibee.\n\nNakakaón siyá sa Jollibee.\nHe/She was/is able to eat at Jollibee.\n\npagasugdan\n\nmag- or maga-\n\nmahi- or maha-\n\nmaka-\n\npagasugdan\nexamples\n\nMagkaón siya sa Jollibee.\nHe/She will be eating at Jollibee.\n\nMahikaón siyá sa Jollibee.\nSurprisingly, he/she will be eating at Jollibee.\n\nMakakaón siyá sa Jollibee.\nHe/She will be able to eat at Jollibee.\n\nnegatibo\n\nmag-\n\nmahi- or maha-\n\nmaka-\n\nnegatibo\nexamples\n\nWalâ siyá magkaón sa Jollibee.\nHe/She was/is not eating at Jollibee.\n\nDilì siyá magkaón sa Jollibee.\n\nHe/She will not be eating at Jollibee.\n\nWalâ siyá mahikaón sa Jollibee.\nSurprisingly, he/she was/is not eating at Jollibee.\n\nDilì siyá mahikaón sa Jollibee.\n\nSurprisingly, he/she will not be eating at Jollibee.\n\nWalâ siyá makakaón sa Jollibee.\nHe/She was/is not able to eat at Jollibee.\n\nDilì siyá makakaon sa Jollibee.\n\nHe/She will not be able to eat at Jollibee.\n\nimperatibo\n\npag-\n\n(none)\n\n(none)\n\nimperatibo\nexamples\n\nPagkaón (ka) sa Jollibee!\n(You,) Eat at Jollibee!\n\n---\n\n---\n\nnasugdan plural\n\nnang-\n\nnahipang- or nahapang-\n\nnakapang-\n\nnasugdan plural\nexamples\n\n*Nangaon silá sa Jollibee.\nThey were/are eating at Jollibee.\n\nNahipangaon silá sa Jollibee.\nSurprisingly, they were/are eating at Jollibee.\n\nNakapangaon silá sa Jollibee.\nThey were/are able to eat at Jollibee.\n\npagasugdan plural\n\nmang-\n\nmahipang- or mahapang-\n\nmakapang-\n\npagasugdan plural\nexamples\n\n*Mangaon silá sa Jollibee.\nThey will be eating at Jollibee.\n\nMahipangaon silá sa Jollibee.\nSurprisingly, they will be eating at Jollibee.\n\nMakapangaon silá sa Jollibee.\nThey will be able to eat at Jollibee.\n\nnegatibo plural\n\nmang-\n\nmahipang- or mahapang-\n\nmakapang-\n\nnegatibo plural\nexamples\n\nWalâ silá mangaon sa Jollibee.\nThey were/are not eating at Jollibee.\n\nDilì silá mangaon sa Jollibee.\n\nThey will not be eating at Jollibee.\n\nWalâ silá mahipangaon sa Jollibee.\nSurprisingly, they were/are not eating at Jollibee.\n\nDilì silá mahipangaon sa Jollibee.\n\nSurprisingly, they will not be eating at Jollibee.\n\nWalâ silá makapangaon sa Jollibee.\nThey were/are not able to eat at Jollibee.\n\nDilì silá makapangaon sa Jollibee.\n\nThey will not be able to eat at Jollibee.\n\nimperatibo plural\n\npang-\n\n(none)\n\n(none)\n\nimperatibo plural\nexamples\n\n*Pangaon (kamo) sa Jollibee!\n(You all,) Eat at Jollibee!\n\n---\n\n---\n\nThe prefixes naga- and maga- may be shortened to ga- in colloquial speech and in colloquial writing, which may indicate a lack of aspect but it still preserves the form. Some argue that the difference between nag- and mag- versus naga- and maga- are either in formality (naga- and maga- being more formal) or in tense (naga- being more in the present and nag- being more in the past, while maga- and mag- are interchangeable).\n\nThe prefixes naka- and maka- may be shortened to ka- in colloquial speech and in colloquial writing, which may get rid of the aspect within the prefixes. This could be similar to naga- and maga- being shortened to ga-.\n\nPlurality depends on whether the topic is a plural noun. The topic may be the subject, the object, etc., however, because this is the active voice, the topic should always be the Subject with these plural affixes. As long as the subjects are plural, the plural version is usually used, but this is not always mandatory. Some verbs only use the plural version while other verbs are rarely used in their plural versions. \n\n* The \"ng\" in nang- and mang- may change to \"m\" or \"n\" or delete the next consonant depending on the succeeding consonant. Refer to the Morphological Process of Assimilation in Cebuano for more information. \n\nSometimes pang- is used as the plural version of the imperatibo mood.\n\nThe stative form (Verb stem used: higugma)\n\nAspect/Mood\n\nIndicative\n\nMirative\n\nnasugdan\n\nna-\n\nnaha-/nahi-\n\nnasugdan\nexamples\n\nNahigugma akó kanimo.\nI was/am in love with you.\n\nNahahigugma akó kanimo.\nSurprisingly, I was/am in love with you.\n\npagasugdan\n\nma-\n\nmaha-/mahi-\n\npagasugdan\nexamples\n\nMahigugma akó kanimo.\nI will be in love with you.\n\nMahahigugma akó kanimo.\nSurprisingly, I will be in love with you.\n\nnegatibo\n\nma-\n\nmaha-/mahi-\n\nnegatibo\nexamples\n\nWalâ akó mahigugma kanimo.\nI was/am not in love with you.\n\nDilì ako mahigugma kanimo.\n\nI will not be in love with you.\n\nWalâ akó mahahigugma kanimo.\nSurprisingly, I was/am not in love with you.\n\nDilì akó mahahigugma kanimo.\n\nSurprisingly, I will not be in love with you.\n\nimperatibo\n\nka-\n\n(none)\n\nimperatibo\nexamples\n\nKahigugma (ka)!\n(You,) Be in love!\n\n---\n\nnasugdan\n\nnagka-\n\n(none)\n\nnasugdan\nexamples\n\nNagkahigugma akó kanimo.\nI was/am falling in love with you.\n\n---\n\npagasugdan\n\nmagka-\n\n(none)\n\npagasugdan\nexamples\n\nMagkahigugma akó kanimo.\nI will be falling in love with you.\n\n---\n\nnegatibo\n\nmagka-\n\n(none)\n\nnegatibo\nexamples\n\nWalâ akó magkahigugma kanimo.\nI was/am not falling in love with you.\n\nDilì akó magkahigugma kanimo.\n\nI will not be falling in love with you.\n\n---\n\nimperatibo\n\npagka-\n\n(none)\n\nimperatibo\nexamples\n\nPagkahigugma (kamo)!\n(You all,) Fall in love!\n\n---\n\nthe stative form does not have a potential mood. The hi- prefix before gugma is necessary for the verb to take in a direct object, so the \"imperatibo examples\" would imply a direct object. The nagka- and magka- prefixes are different from the na- and ma- in that they have the essence of a slowly but surely, or steady, change that is occurring within the topic. They are not used as often anymore, so the same essence may be achieved with the na- and ma- prefixes nowadays. However, pagka- just has more emphasis than ka- may have, and pagka- is still commonly used today. The mirative mood with the nagka- and magka- prefixes is no longer known nor used. The plural prefixes nang- and mang- become nanga- and manga- if the verb also includes these prefixes: na-, ma-, and ka-. For example, \"Nangahigugma kami kanimo,\" which means \"We love you.\"  \n\nThe reciprocal form (Verb stem used: hatag)\n\nAspect/Mood\n\nIndicative\n\nMirative\n\nnasugdan\n\nnag-(first letter of verb stem)-in-(the rest of the verb stem)-ay\n\nnagka-(first letter of verb stem)-in-(the rest of the verb stem)-ay\n\nnasugdan\nexamples\n\nNaghinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\nThe woman and her husband gave/give each other kisses.\n\nNagkahinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\nSurprisingly, the woman and her husband gave/give each other kisses.\n\npagasugdan\n\nmag-(first letter of verb stem)-in-(the rest of the verb stem)-ay\n\nmagka-(first letter of verb stem)-in-(the rest of the verb stem)-ay\n\npagasugdan\nexamples\n\nMaghinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\nThe woman and her husband will give each other kisses.\n\nMagkahinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\nSurprisingly, the woman and her husband will give each other kisses.\n\nnegatibo\n\nmag-(first letter of verb stem)-in-(the rest of the verb stem)-ay\n\nmagka-(first letter of verb stem)-in-(the rest of the verb stem)-ay\n\nnegatibo\nexamples\n\nWalâ maghinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\nThe woman and her husband did/do not give each other kisses.\n\nDilì maghinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\n\nThe woman and her husband will not give each other kisses.\n\nWalâ magkahinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\nSurprisingly, he woman and her husband did/do not give each other kisses. \n\nDilì magkahinatagáy ang babaye ug (ang) iyáng bana sa mga halók.\n\nSurprisingly, the woman and her husband will not give each other kisses.\n\nimperatibo\n\npag-(first letter of verb stem)-in-(the rest of the verb stem)-ay\n\n(none)\n\nimperatibo\nexamples\n\nPaghinatagáy sa mga halók!\nGive each other kisses!\n\n---\n\nThe reciprocal form does not have a potential mood. This form is not in common use anymore.\n\nPassive voice for direct objects affixes\nThe passive voice for direct objects in Cebuano (a.k.a. the patient trigger) is the voice where the topic of the sentence is the direct object (a.k.a. the patient, the goal, etc.) of the sentence. Hence, the verb partly conjugates accordingly.\n\nThe intentional and durative form(s) (Verb stem used: inom)\n\nAspect/Mood\n\nIndicative\n\nMirative & Potential\n\nnasugdan\n\ngi-\n\nna-\n\nnasugdan\nexamples\n\nGiinóm nakò ang tubig.\nThe water was/is being drunk by me.\n\nNainóm nakò ang tubig.\nSurprisingly, the water was/is being drunk by me.\n\nor I was/am able to drink the water.\n\npagasugdan\n\n-on\n\nma-\n\npagasugdan\nexamples\n\n*Imnon nakò ang tubig.\nThe water will be drunk by me.\n\nMainóm…",
+          "examples": [
+            "examples",
+            "examples",
+            "examples",
+            "examples",
+            "examples",
+            "examples"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Negation",
+      "summary": "Words for negation in Cebuano acts as a verb.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Words for negation in Cebuano acts as a verb.\n\nAspect/Mood\n\nForm\n\nGloss\n\nFull\n\nShort\n\nnasugdan\n\nwalâ\n\nwà\n\ndo/did not\n\npagasugdan\n\ndilì\n\ndì\n\nwill not\n\nimperatibo\n\nayáw\n\nay\n\ndo not!",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Syntax",
+      "summary": "1) Equational (topic = predicate) – In this sentence type, one can interchange the topic and the predicate without changing the thought of the sentence.",
+      "sections": [
+        {
+          "heading": "Sentences",
+          "body": "1) Equational (topic = predicate) – In this sentence type, one can interchange the topic and the predicate without changing the thought of the sentence.\n\n a) \"Maó kiní ang Kabisay-an.\"              = This is the Visayas.\n b) \"Magbinisayâ mi diri.\"                  = We speak Cebuano here.\n c) \"Kamaó/Kahibaló ka magbinisayâ?\"        = Do you know how to speak Cebuano?\n\n2) Non-equational (topic < predicate) – In this sentence type, the topic and the predicate are not interchangeable.\n\n a) \"Filipino ang mga Bisayâ.\"              = Visayans are Filipinos.\n b) \"Unsa ang imong kinahanglan?\"           = What do you need?\n c) \"Naunsa na ang politika?\"               = How are the politics?\n\n3) Existential sentence of presence – Sentences of this type tells the existence of a thing or idea.\n\n a) \"Adunay Diyós sa langit.\"               = There is a God in heaven.\n b) \"Didtoy halas sa kahoy.\"                = There was a snake in the tree.\n\n4) Existential sentence of possession – Sentences of this type tell about someone or something possessing something.\n\n a) \"Adunay Diyós ang mga anghél sa langit.\" = The angels in heaven have a God.\n b) \"Naa[10] koy ilimnon sa baláy.\" = I have something to drink at home.\n\n5) Locative sentence – This type of sentence tells the location of a thing.\n\n a) \"Ania ang kwarta.\"                       = Here is the money.\n b) \"Tuá siyá sa bukid.\"                     = He/she is on the mountain.\n\n6) Meteorologic sentence – This type of sentence tells about weather condition, noise level, etc., of a place. \n\n a) \"Tugnaw dinhí sa Baguio.\"                 = It is cold here in Baguio.\n b) \"Init kaayo ang adlaw dirí sa Sugbo.\"     = The weather is very hot here in Cebu.\n\n7) Exclamatory remark – Praises and unexpected discoveries belong here.\n\n a) \"Daghana nimo'g sakyanán!\"             = You have plenty of cars!\n b) \"Gwapaha nimo!\"                        = You are pretty!\n c) \"Kasabà ba ninyo!\"                     = You are so noisy!\n\n8) Imperatives – Commands and requests.\n\n a) \"Isugba kanáng isdà.\"                  = Grill that fish.\n b) \"Ngarí/Alî/Halî dirí.\"                 = Come here.\n c) \"Ayáw mo panabakô dirí.\"               = Do not smoke here.\n\n9) Interrogatives – Questions that are not answerable by yes or no.\n\n a) \"Kinsa ka?\"                             = Who are you?\n b) \"Unsa'y imong ngalan?\"                  = What is your name?\n\n10) Confirmation – Questions that are basically answered by yes or no. Constructed like the first six sentence types with the insertion of the particle \"ba\" as a second term.\n\n a) \"Kiní ba ang Kabisay-an?\"               = Is this the Visayas?\n b) \"Kamao ka ba molangóy?\"                 = Do you know how to swim?\n c) \"Unsa ba ang sinultihán ninyo?\"         = What language do you speak?\n d) \"Isugba ba kining isdà?\"                = Shall this fish be grilled?",
+          "examples": [
+            "a) \"Maó kiní ang Kabisay-an.\"              = This is the Visayas.",
+            "b) \"Magbinisayâ mi diri.\"                  = We speak Cebuano here.",
+            "c) \"Kamaó/Kahibaló ka magbinisayâ?\"        = Do you know how to speak Cebuano?",
+            "a) \"Filipino ang mga Bisayâ.\"              = Visayans are Filipinos.",
+            "b) \"Unsa ang imong kinahanglan?\"           = What do you need?",
+            "c) \"Naunsa na ang politika?\"               = How are the politics?"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Footnotes",
+      "summary": "^  though the particle \"kay\" is usually inserted in between to make things clear; ang bata kay lalaki",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^ Marking (2005)\n\n^  though the particle \"kay\" is usually inserted in between to make things clear; ang bata kay lalaki\n\n^ gyud is pronounced as [d͡ʒud] or [gjud]. In informal communications, it is also occasionally written as jud\n\n^ a b ganì can also be galì, and may be pronounced as gaì [ɡai̯ʔ]\n\n^ a b c The u in usáb, upód, and ugód, as in many other words beginning with u, are frequently dropped, making it 'sab, 'pod, and 'god; in spoken Cebuano, 'sad is often used instead of 'sab.\n\n^ informally pronounced as tingaì [tiˈŋai̯ʔ]\n\n^ a b ay and uy/oy also function as interjections when found at the beginning of sentences; ay roughly translates to oh or oops in English, while uy/oy could mean hey/oi \n\n^ \"Category:Cebuano verbs – Wiktionary\". en.wiktionary.org. Retrieved 2018-01-03.\n\n^ see [1]\n\n^ Naa often replaces aduna/'duna.",
+          "examples": [
+            "^  though the particle \"kay\" is usually inserted in between to make things clear; ang bata kay lalaki",
+            "^ \"Category:Cebuano verbs – Wiktionary\". en.wiktionary.org. Retrieved 2018-01-03."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cebuano_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

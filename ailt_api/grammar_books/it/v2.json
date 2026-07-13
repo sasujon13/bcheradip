@@ -1,0 +1,529 @@
+{
+  "title": "Grammar Book — Italiano",
+  "languageCode": "it",
+  "languageName": "Italiano",
+  "version": 2,
+  "sources": [
+    "https://it.wikipedia.org/wiki/Grammatica_italiana",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Adjectives",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Adverbs",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Articles",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Comparatives_and_superlatives",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Conjunctions",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Direct_and_Indirect_Speech",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/If_sentences_(Periodi_ipotetici)",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Interrogatives",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Irregular_Verbs",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Modifiers_(Suffixes)",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Nouns",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Prepositions",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Pronouns",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Pronunciation_and_alphabet",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Sentence_Structure",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Verb_Conjugation_Reference",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Verbs",
+    "https://en.wikibooks.org/wiki/Italian/Grammar/Verbs_Tenses_and_Moods",
+    "https://en.wikibooks.org/wiki/Italian/Lessons",
+    "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson1",
+    "https://en.wikipedia.org/wiki/Italian_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Schema sinottico con elementi di analisi logica e grammaticale della lingua italiana. Le parole della lingua italiana vengono distinte in parti del discorso (o categorie grammaticali) secondo uno schema articolato dalla grammatica antica greca e poi romana. Le parole vengono dist",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Schema sinottico con elementi di analisi logica e grammaticale della lingua italiana. Le parole della lingua italiana vengono distinte in parti del discorso (o categorie grammaticali) secondo uno schema articolato dalla grammatica antica greca e poi romana. Le parole vengono distinte in variabili (cioè soggette a flessione) e invariabili (tra queste, gli avverbi sono soggetti ad alterazione). Le parole variabili sono spesso divisibili in due parti (la radice e la desinenza, la prima tema invariabile comune ad una famiglia lessicale, la seconda elemento contenente un'informazione grammaticale), ma in alcuni casi tali parti sono concepibili solo come morfemi. La frase (l'unità minima di comunicazione di senso compiuto) è divisibile in sintagmi, unità minime di combinazione sintattica associate alle categorie grammaticali. L'analisi grammaticale ha per oggetto le parole, l'analisi logica individua le categorie sintattiche che costituiscono la frase. Un periodo è una frase complessa, in cui si presentano due o più predicati.\nLa grammatica italiana presenta numerose analogie con quelle spagnola, francese, portoghese, catalana e romena, con le quali condivide la comune appartenenza alla famiglia delle lingue romanze.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Sostantivo e aggettivo",
+      "summary": "In italiano, l'ordine tra l'aggettivo e il sostantivo non è fisso, tuttavia la tendenza è quella di mettere l'aggettivo dopo il sostantivo se questo indica una qualità che caratterizza una cosa rispetto ad altre. Alcune categorie di aggettivi hanno però un ordine fisso: quelli ch",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In italiano, l'ordine tra l'aggettivo e il sostantivo non è fisso, tuttavia la tendenza è quella di mettere l'aggettivo dopo il sostantivo se questo indica una qualità che caratterizza una cosa rispetto ad altre. Alcune categorie di aggettivi hanno però un ordine fisso: quelli che indicano colore, forma o nazionalità seguono sempre il sostantivo, mentre gli aggettivi possessivi sono posti quasi sempre prima del sostantivo (tranne che per motivi di enfasi).\n\nQuando c'è possibilità di scelta, si mette al secondo posto l'aggettivo se gli si vuole dare una funzione distintiva:\n\nuna bella casa (aggettivo caratterizzante),\n\nuna casa bella (l'aggettivo ha la funzione di distinguere la casa rispetto ad altre).\n\nA parità di genere, gli aggettivi e i sostantivi seguono le stesse regole generali per la formazione del numero. Ovviamente, andando più in dettaglio ci sono delle differenze, ma in linea di massima tali regole possono essere riassunte come segue:\n\nTabella riassuntiva delle desinenze di sostantivi ed aggettivi\n\nGenere\n\nSingolare\n\nPlurale\n\nEsempio\n\nMaschile\n\n-o\n\n-i\n\nil capello nero, i capelli neri\n\nFemminile\n\n-a\n\n-e\n\nla bella macchina, le belle macchine\n\nMaschile e femminile\n\n-e\n\n-i\n\nil/la comandante intelligente, i/le comandanti intelligenti\n\nSostantivi maschili e femminili che terminano per vocale accentata,\no sostantivi ed aggettivi stranieri non italianizzati,\no sostantivi accorciati\n\ninvariabile\n\ninvariabile\n\nil/la manager trendy, i/le manager trendy\nl'università, le università\nil momento clou, i momenti clou\nl'auto, le auto; la moto, le moto; il cinema, i cinema; ma: l'aereo (l’aeroplano), gli aerei, forse perché aereo è anche un aggettivo; la radio (la radiofonia ), le radio, ma: il radio, i radii o i radi",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Il sostantivo",
+          "body": "Lo stesso argomento in dettaglio: Plurale dei sostantivi nella lingua italiana e Genere dei sostantivi nella lingua italiana.\n\nCiascun sostantivo o nome in lingua italiana ha un genere (maschile o femminile) e un numero (singolare o plurale). Mancano generi come il neutro e numeri come il duale.\n\nManca, in italiano, anche la declinazione secondo i casi come nel latino. I significati che altre lingue rendono con la declinazione (caso), in italiano sono resi tramite preposizioni.\nSostantivi privi della forma singolare o della forma plurale vengono detti difettivi (ad esempio: \"le nozze\"). Sono detti invariabili quelli le cui forme singolare e plurale sono identiche.\n\nLe principali desinenze dei sostantivi sono le seguenti:\n\nmaschili in -o, plurale in -i: libro, libri (per lo più parole maschili della seconda o della quarta declinazione latina)\n\nmaschili in -e, plurale in -i: fiore, fiori (per lo più parole maschili della terza declinazione latina)\n\nfemminili in -a, plurale in -e: scala, scale (per lo più parole femminili della prima declinazione latina)\n\nfemminili in -e, plurale in -i: luce, luci (per lo più parole femminili della terza o della quinta declinazione latina)\n\nTra le varie forme che si comportano altrimenti, si ricordano quelle maschili in -a, con plurale in -i: poeta, poeti (per lo più parole maschili della prima declinazione latina). Sono invariabili in italiano i sostantivi che terminano in vocale accentata e quelli di una sola sillaba (la virtù / le virtù, il re / i re), i sostantivi (quasi tutti di origine straniera) che terminano in consonante (il bar / i bar), i sostantivi che terminano in -i non accentata (il bikini / i bikini, la crisi / le crisi), e diversi altri.[3]\n\nGeneralmente, il genere del sostantivo non è determinato dal suo significato. Fanno eccezione a questa regola soprattutto i nomi di persona:\n\nFrancesco, Francesca\n\nIl ragazzino, la ragazzina\n\nIl presidente, la presidente (presidentessa)",
+          "examples": [
+            "Sostantivi privi della forma singolare o della forma plurale vengono detti difettivi (ad esempio: \"le nozze\"). Sono detti invariabili quelli le cui forme singolare e plurale sono identiche."
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Il pronome",
+      "summary": "Il pronome sostituisce un sostantivo quando si preferisce evitare una ripetizione nella frase. Inoltre, può indicare un oggetto o una persona facilmente identificabile nel contesto (ad esempio, io). In tal caso, la funzione del pronome è deittica.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Il pronome sostituisce un sostantivo quando si preferisce evitare una ripetizione nella frase. Inoltre, può indicare un oggetto o una persona facilmente identificabile nel contesto (ad esempio, io). In tal caso, la funzione del pronome è deittica.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Pronomi personali",
+          "body": "Lo stesso argomento in dettaglio: Pronome personale in italiano.\n\nEsistono pronomi personali soggetto (io, tu, egli ecc.) e pronomi personali complemento. Questi ultimi si dividono in atoni (primo esempio) e tonici (secondo):\n\nMi piace questa musica\n\nA me piace questa musica\n\nI pronomi atoni sono strettamente legati al verbo e vengono generalmente anteposti ad esso (mi piace) come clitici. Del resto, senza verbo non vengono mai usati. I pronomi tonici (me) hanno invece una posizione più libera all'interno della frase e possono essere combinati ad una preposizione.\n\nPer quanto riguarda la differenza di significato tra pronome atono e tonico, possiamo notare come regalo a te un libro oppure a te regalo un libro concentrano l'enfasi sul complemento rispetto a quanto avviene nella struttura più frequente, ottenuta con l'uso del pronome atono (ti regalo un libro).[6]\n\npersona/caso\nnominativo\n\ngenitivo/ablativo\n\naccusativo tonico/preposizionale\naccusativo atono\ndativo\n\ncombinazione (1)\n\nstrumentale/locativo\n\nlativo\n\n1ª singolare\nio\n\n-\nme\nmi\nmi\nme lo\n\n-\n\n-\n\n2ª singolare\ntu\n\n-\nte\nti\nti\nte lo\n\n-\n\n-\n\n3ª singolare maschile\negli, esso(2)\n\nne\nlui, sé (3)\nlo, si (3)\ngli, si (3)\nglielo, se lo(3)\n\nci\n\nvi/ci\n\n3ª singolare femminile\nella, essa(2)\nlei, sé (3)\nla, si (3)\nle (4), si (3)\n\n1ª plurale\nnoi\n\n-\nnoi\nci\nci\nce lo\n\n-\n\n-\n\n2ª plurale\nvoi\n\n-\nvoi\nvi\nvi\nve lo\n\n-\n\n-\n\n3ª plurale maschile\nessi(2)\n\nne\nloro, sé (3)\nli, si (3)\n(a loro) (4), si (3)\n(glielo) (4), se lo(3)\n\nci\n\nvi/ci\n\n3ª plurale femminile\nesse(2)\nle, si (3)\n\n(1) La forma combinata è costituita, nell'ordine, dal complemento di termine e dal complemento oggetto accordato per numero e genere: me lo, me la, me li, me le; te lo, te la, te li, te le eccetera. Il pronome impersonale si, insieme a quello riflessivo, dà ci si: ci si vede domani, va bene?\n(2) Le forme egli, ella, esso, essi, essa, esse sono usate prevalentemente nella lingua scritta di registro alto; ella è particolarmente raro. Nel parlato prevalgono nettamente le forme lui, lei, loro. Egli ed ella si riferiscono solo a persone; lui, lei e loro a persone o animali e talvolta anche a cose.\n(3) forma riflessiva: cfr. \"lo vede\" = vede un altro / \"si vede\" = vede sé stesso/a\n(4) il pronome loro, quando è utilizzato come complemento di termine ed è collocato subito dopo il verbo, può fare a meno della preposizione a: Ho detto loro – Ho detto a loro. Nella lingua parlata si sta sempre più diffondendo l'uso di gli al posto di loro e, in minor parte, al posto di le.\n\nIn italiano la forma di cortesia è la 3ª persona femminile, scritta talvolta con l'iniziale maiuscola; Lei, Loro: la forma al plurale, usata in contesti molto formali, viene generalmente sostituita dalla vecchia forma Voi.\n\nA differenza di quanto accade in molte altre lingue, come ad esempio il francese e l'inglese, il pronome personale soggetto in italiano è facoltativo e viene sovente omesso. Viene espresso esplicitamente quando si desidera enfatizzare il soggetto o quando occorre risolvere ambiguità davanti a voci verbali identiche (ad esempio, tra le tre persone singolari del congiuntivo presente); quando il soggetto non si può sottintendere, in alcuni casi è più idiomatico ripetere il nome o usare un sinonimo o un pronome dimostrativo anziché quello personale (es. queste anziché esse). Il francese e l'inglese hanno invece bisogno che il pronome venga specificato, dato che le forme verbali coniugate a seconda delle diverse persone presentano forti somiglianze tra di loro.",
+          "examples": [
+            "(3) forma riflessiva: cfr. \"lo vede\" = vede un altro / \"si vede\" = vede sé stesso/a"
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "La preposizione",
+      "summary": "Lo stesso argomento in dettaglio: Preposizione.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Lo stesso argomento in dettaglio: Preposizione.\n\nLe preposizioni sono una parte del discorso che serve a chiarire la natura di un complemento nella frase semplice o, talvolta, di una subordinata all'interno del periodo.\nL'italiano distingue tra preposizioni proprie e improprie. Le preposizioni proprie semplici sono di, a, da, in, con, su, per, tra, fra. Le preposizioni improprie sono così chiamate perché sono in verità avverbi che fungono da preposizioni; tra esse, sopra, sotto, prima, dopo, vicino, ecc... Le preposizioni proprie semplici possono essere unite agli articoli determinativi e formare così le preposizioni articolate. Non tutte le combinazioni tra preposizione e articolo sono ammesse, come si può vedere dalla tabella sottostante (le forme in corsivo sono di uso ormai raro):\n\nil\n\nlo\n\nla\n\ni\n\ngli\n\nle\n\ndi\n\ndel\ndello\ndella\ndei\ndegli\ndelle\n\na\n\nal\nallo\nalla\nai\nagli\nalle\n\nda\n\ndal\ndallo\ndalla\ndai\ndagli\ndalle\n\nin\n\nnel\nnello\nnella\nnei\nnegli\nnelle\n\ncon\n\ncol\ncollo\ncolla\ncoi\ncogli\ncolle\n\nsu\n\nsul\nsullo\nsulla\nsui\nsugli\nsulle\n\nCombinazioni derivanti dalle preposizioni per, tra e fra, come pello, pella, trai, frai e simili, non sono più in uso dalla prima metà del 1900; di esse sopravvivono soprattutto pel e pei, utilizzate nel registro elevato o burocratico oppure per intenti ironici o parodistici. L'uso delle preposizioni articolate formate da con ed articolo è tendenzialmente desueto e limitato solo al parlato, ad eccezione di col e coi che sono a tutt'oggi frequenti anche nello scritto.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Il verbo",
+      "summary": "I verbi in italiano si coniugano per persona (1ª, 2ª o 3ª) e per numero (singolare o plurale) del soggetto, per tempo (presente, passato, futuro), per modo (indicativo, congiuntivo, condizionale, imperativo, infinito, gerundio e participio) e talvolta per genere (maschile o femmi",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "I verbi in italiano si coniugano per persona (1ª, 2ª o 3ª) e per numero (singolare o plurale) del soggetto, per tempo (presente, passato, futuro), per modo (indicativo, congiuntivo, condizionale, imperativo, infinito, gerundio e participio) e talvolta per genere (maschile o femminile) del soggetto o dell'oggetto. A differenza di altre lingue (ad esempio dell'inglese o del francese) non è obbligatorio porre prima del verbo il pronome personale soggetto dato che le desinenze tra le diverse persone utilizzate nella coniugazione solo raramente permettono ambiguità.\n\nI verbi italiani si raggruppano in tre gruppi principali per quanto riguarda la coniugazione.\n\nI tempi possono essere semplici o composti, questi ultimi sono tempi formati da un verbo ausiliare (coniugato per persona, numero e modo) seguito dal participio passato del verbo.\n\nIl verbo ausiliare è essere per la maggior parte dei verbi intransitivi.\n\nIl verbo ausiliare è avere nelle frasi attive quando il verbo è transitivo, e per molti verbi intransitivi.\n\nIl verbo ausiliare è essere nelle frasi passive, il quale:\npuò essere sostituito da venire (coniugato nei soli tempi semplici) per enfatizzare l'azione\n\nviene sostituito da andare quando la frase esprime un obbligo od una prescrizione\n\nInfine, l'ausiliare essere si usa per i tempi composti delle frasi al riflessivo.\n\nNel caso di tempi composti, il participio può essere accordato:\n\nquando il complemento oggetto è costituito da un pronome atono, con il genere e il numero di questi (es. Guido li ha visti uscire assieme ieri; Giulia, lavati le mani! Sì, me le sono già lavate);\n\nnegli altri casi in cui l'ausiliare è essere, con il genere e il numero del soggetto. (es. La cena è stata servita alle otto in punto; Mi sono lavata le mani);\n\nmentre è invariante negli altri casi (es. Hanno servito la cena alle otto in punto).\n\nLa forma di cortesia è quella della 3ª persona singolare; la stessa forma è usata per il pronome impersonale si.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Modo infinito",
+          "body": "L'infinito è la forma del verbo che si trova nei dizionari, e ne distingue l'appartenenza ad una delle tre coniugazioni a seconda della desinenza:\n\n1ª coniugazione: -are\n\n2ª coniugazione: -ere/-rre\n\n3ª coniugazione: -ire\n\nI verbi fare e dire, benché uscenti rispettivamente in -are  e -ire, vengono spesso considerati facenti parte della 2a coniugazione perché derivano dal latino facĕre e dicĕre.\n\nQuesto modo è impersonale, cioè non si coniuga per persona o numero.\n\nHa due tempi:\n\npresente\n\npassato, composto mediante infinito presente dell'ausiliare + participio passato\n\nÈ usato in forma sostantivata per esprimere l'azione descritta dal verbo: \"leggere è bello\"\n\nÈ spesso usato nelle proposizioni subordinate (causali, finali, relative) quando il soggetto è lo stesso della proposizione principale: \"ho corso per arrivare in tempo\" = ho corso affinché io arrivassi in tempo (non usata), ma \"ho corso affinché tu arrivassi in tempo\".\n\nSi può usare per sostituire una proposizione relativa con un'oggettiva: \"vedo gli uccelli volare\" = \"vedo gli uccelli che volano\"; in tal caso il soggetto della subordinata viene declinato all'accusativo \"vedo lui che vola\" = \"lo vedo volare\".\n\nIn tutti questi casi, il tempo utilizzato dipende se si vuole esprimere un'azione contemporanea (infinito presente) o anteriore (infinito passato) rispetto alla proposizione principale.\n\nSi usa inoltre come alternativa all'imperativo nel dare istruzioni.\n\nSi usa infine, preceduto da non, come negazione della seconda persona singolare dell'imperativo presente.",
+          "examples": [
+            "È usato in forma sostantivata per esprimere l'azione descritta dal verbo: \"leggere è bello\"",
+            "È spesso usato nelle proposizioni subordinate (causali, finali, relative) quando il soggetto è lo stesso della proposizione principale: \"ho corso per arrivare in tempo\" = ho corso affinché io arrivassi in tempo (non usata), ma \"ho corso aff",
+            "Si può usare per sostituire una proposizione relativa con un'oggettiva: \"vedo gli uccelli volare\" = \"vedo gli uccelli che volano\"; in tal caso il soggetto della subordinata viene declinato all'accusativo \"vedo lui che vola\" = \"lo vedo volar"
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Modo indicativo",
+          "body": "L'indicativo si usa per esprimere condizioni oggettive, stati di fatto, affermazioni. Consta di quattro tempi semplici:\n\npresente, usato per un'azione contemporanea isolata o abituale, o per un'intenzione per l'immediato futuro;\n\nimperfetto, usato per un'azione in un tempo indeterminato nel passato e considerata durante il corso del suo svolgimento;\n\npassato remoto, usato per un'azione in un tempo passato solitamente lontano nel tempo e genericamente terminata\n\nfuturo semplice, usato per un'azione spesso situata in un futuro generico o comunque come forma che indica delle supposizioni, anche sul presente[8]\n\nciascuno dei quali dà vita ad un tempo composto mediante ausiliare coniugato + participio passato (pp):\n\npassato prossimo (presente+pp), usato per un'azione in un tempo passato e considerata come compiuta (similmente al passato remoto, ma più usato di quest'ultimo);\n\ntrapassato prossimo (imperfetto+pp), usato per indicare l'anteriorità temporale di un avvenimento rispetto ad un momento del passato;\n\ntrapassato remoto  (passato remoto+pp), usato per un'azione avvenuta in un tempo antecedente ad un'azione espressa col passato remoto:\n\nfuturo anteriore  (futuro semplice+pp), usato per un'azione generica in un tempo futuro antecedente ad un'azione futura, oppure per indicare una supposizione su un evento già compiuto al momento dell'enunciazione.\n\nTempo presente\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire*\n\nio\n-o\n-o\n-o / -isco\n\ntu\n-i\n-i\n-i / -isci\n\negli, ella, esso, essa\n-a\n-e\n-e / -isce\n\nnoi\n-iamo\n-iamo\n-iamo\n\nvoi\n-ate\n-ete\n-ite\n\nessi, esse\n-ano\n-ono\n-ono / -iscono\n\n* I verbi delle terza coniugazione che ammettono, tra radice e desinenza, l'interfisso -isc- vengono detti, forse impropriamente, verbi incoativi per analogia coi verbi latini che ammettevano il suffisso -sco con, invece, effettivo valore incoativo, ovvero d'indicare lo stato d'inizio o d'avvio dell'azione suggerita dalla radice verbale. Nei verbi italiani che ammettono l'aggiunta di -isc-, tale infisso non ha alcun valore semantico, e non modifica quindi il significato originario del verbo che rimane sempre lo stesso, anche quando ammette entrambe le forme con e senza; io nutro e io nutrisco sono equivalenti, e la forma io nutrisco non assume il valore incoativo di \"io inizio a nutrire\".\n\nTempo imperfetto\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire\n\nio\n-avo\n-evo\n-ivo\n\ntu\n-avi\n-evi\n-ivi\n\negli, ella, esso, essa\n-ava\n-eva\n-iva\n\nnoi\n-avamo\n-evamo\n-ivamo\n\nvoi\n-avate\n-evate\n-ivate\n\nessi, esse\n-avano\n-evano\n-ivano\n\nTempo passato remoto\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire\n\nio\n-ai\n-ei, -etti(1)\n-ii\n\ntu\n-asti\n-esti\n-isti\n\negli, ella, esso, essa\n-ò\n-é, -ette(2)\n-ì\n\nnoi\n-ammo\n-emmo\n-immo\n\nvoi\n-aste\n-este\n-iste\n\nessi, esse\n-arono\n-erono, -ettero(3)\n-irono\n\n(1) per molti verbi della seconda coniugazione la desinenza è -i, ma cambia la radice del verbo. (cadere > caddi; scrivere > scrissi; tenere > tenni; etc.)\n\n(2) per molti verbi della seconda coniugazione la desinenza è -e, ma cambia la radice del verbo. (cadere > cadde; scrivere > scrisse; tenere > tenne; etc.)\n\n(3) per molti verbi della seconda coniugazione la desinenza è -ero, ma cambia la radice del verbo. (cadere > caddero; scrivere > scrissero; tenere > tennero; etc.)\n\nTempo futuro semplice\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire\n\nio\n-erò\n-(e) rò\n-irò\n\ntu\n-erai\n-(e) rai\n-irai\n\negli, ella, esso, essa\n-erà\n-(e) rà\n-irà\n\nnoi\n-eremo\n-(e) remo\n-iremo\n\nvoi\n-erete\n-(e) rete\n-irete\n\nessi, esse\n-eranno\n-(e) ranno\n-iranno",
+          "examples": [
+            "* I verbi delle terza coniugazione che ammettono, tra radice e desinenza, l'interfisso -isc- vengono detti, forse impropriamente, verbi incoativi per analogia coi verbi latini che ammettevano il suffisso -sco con, invece, effettivo valore i"
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Modo condizionale",
+          "body": "Il condizionale si usa per esprimere eventi e situazioni subordinate a condizioni e a seguito di proposizioni ipotetiche introdotte da se + congiuntivo. Ha due tempi: uno semplice, il condizionale presente, e uno composto, il condizionale passato, formato dal condizionale presente del verbo ausiliare unito al participio passato del verbo; ad esempio, \"io avrei parlato, io sarei caduto\".\n\nTempo presente\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire\n\nio\n-erei\n-erei\n-irei\n\ntu\n-eresti\n-eresti\n-iresti\n\negli, ella, esso, essa\n-erebbe\n-erebbe\n-irebbe\n\nnoi\n-eremmo\n-eremmo\n-iremmo\n\nvoi\n-ereste\n-ereste\n-ireste\n\nessi, esse\n-erebbero\n-erebbero\n-irebbero",
+          "examples": [
+            "Il condizionale si usa per esprimere eventi e situazioni subordinate a condizioni e a seguito di proposizioni ipotetiche introdotte da se + congiuntivo. Ha due tempi: uno semplice, il condizionale presente, e uno composto, il condizionale p"
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Modo congiuntivo",
+          "body": "Il congiuntivo si usa solitamente nelle proposizioni subordinate per esprimere ipotesi o dubbi nei casi in cui la subordinata è retta da congiunzioni quali \"che\", \"se\", \"perché\", \"affinché\".\n\nCi sono due forme semplici di tempo:\n\npresente, usato per un'azione contemporanea ad una espressa dall'indicativo presente o futuro\n\nimperfetto, usato per un'azione contemporanea ad una espressa da un tempo passato dall'indicativo, per un'azione passata ma continuata o non terminata rispetto ad una espressa dall'indicativo presente, o nel periodo ipotetico dell'irrealtà o impossibilità.\n\nche danno forma a due ulteriori tempi composti con l'ausiliare coniugato e il participio passato:\n\npassato (presente+pp), usato per un'azione passata e terminata rispetto ad una espressa dall'indicativo presente o futuro\n\ntrapassato (imperfetto+pp), usato per un'azione passata rispetto ad una espressa da un tempo passato dell'indicativo, o nel periodo ipotetico del terzo tipo\n\nNei casi in cui il congiuntivo manca, si usa:\n\nl'indicativo futuro semplice, quando l'azione è futura rispetto ad un'azione presente o futura\n\nl'indicativo futuro anteriore, quando l'azione è futura rispetto ad un'azione presente o futura ma antecedente ad un'altra azione futura\n\nil condizionale passato, quando l'azione è futura rispetto ad un'azione passata\n\nTempo presente\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire\n\nio\n-i\n-a\n-a / -isca\n\ntu\n-i\n-a\n-a / -isca\n\negli, ella, esso, essa\n-i\n-a\n-a / -isca\n\nnoi\n-iamo\n-iamo\n-iamo\n\nvoi\n-iate\n-iate\n-iate\n\nessi, esse\n-ino\n-ano\n-ano / -iscano\n\nTempo imperfetto\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire\n\nio\n-assi\n-essi\n-issi\n\ntu\n-assi\n-essi\n-issi\n\negli, ella, esso, essa\n-asse\n-esse\n-isse\n\nnoi\n-assimo\n-essimo\n-issimo\n\nvoi\n-aste\n-este\n-iste\n\nessi, esse\n-assero\n-essero\n-issero\n\nUso dei tempi del congiuntivo\n\n Lo stesso argomento in dettaglio: Concordanza dei tempi.\n\nLa grammatica ha ereditato dalla grammatica latina, sia pure con delle differenze, la consecùtio tèmporum, cioè un insieme di norme che regolano il rapporto tra i tempi e i modi di una frase principale (o sovraordinata) e della frase subordinata per esprimere il rapporto di contemporaneità, anteriorità, e posteriorità. Questo sistema di regole viene descritto qui con l'esempio della subordinata al congiuntivo.\n\nPer esprimere contemporaneità nel presente (la frase principale usa un tempo presente o futuro) si usa il congiuntivo presente:[9]\n\n\"Credo (penserò) che la via sia diritta\".\n\nPer esprimere contemporaneità nel passato (la frase principale usa il tempo imperfetto o passato remoto) si usa il congiuntivo imperfetto:\n\n\"Credevo che la via fosse dritta\".\n\nPer esprimere anteriorità al presente la frase subordinata deve avere il verbo al congiuntivo passato:\n\n\"Penso che il servizio sia stato buono\".\n\nPer esprimere anteriorità al passato la frase subordinata deve avere il verbo al congiuntivo trapassato:\n\n\"Pensavo che il servizio fosse stato buono\".\n\nPer esprimere posteriorità, dato che il congiuntivo non ha tempo futuro, si utilizza il futuro dell'indicativo:\n\n\"Immagino che d'ora in poi il bimbo sarà buono\".\n\nLa posteriorità può essere indicata anche con il condizionale passato nel caso che il tempo principale sia all'imperfetto:\n\n\"Immaginavo che il bimbo sarebbe stato buono con un gioco\".\n\nAnaloghe regole valgono per la scelta dei tempi dell'indicativo nella frase subordinata.",
+          "examples": [
+            "Il congiuntivo si usa solitamente nelle proposizioni subordinate per esprimere ipotesi o dubbi nei casi in cui la subordinata è retta da congiunzioni quali \"che\", \"se\", \"perché\", \"affinché\".",
+            "\"Credo (penserò) che la via sia diritta\".",
+            "\"Credevo che la via fosse dritta\".",
+            "\"Penso che il servizio sia stato buono\".",
+            "\"Pensavo che il servizio fosse stato buono\".",
+            "\"Immagino che d'ora in poi il bimbo sarà buono\"."
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Modo imperativo",
+          "body": "L'imperativo si usa per formulare esortazioni. Rifiuta sempre il pronome personale soggetto.\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. partire / capire\n\ntu\n-a\n-i\n-i /-isci\n\negli, ella, esso, essa\n-i\n-a\n-a/ -isca\n\nnoi\n-iamo\n-iamo\n-iamo\n\nvoi\n-ate\n-ete\n-ite\n\nessi, esse\n-ino\n-ano\n-ano / -iscano\n\nPer la prima e seconda persona plurale (noi e voi), le forme coincidono con quelle del presente indicativo e vengono di solito considerate a tutti gli effetti come forme dell'imperativo.[3] Per la terza persona, invece, viene usata la corrispondente voce del congiuntivo (congiuntivo esortativo).\n\nQuando è seguito da pronome atono (-mi, -ti, -lo, -la, -ci, -vi, -li, -le, -ne es. \"guardami!\" = \"guarda me!\") il pronome è in genere posposto.\n\nLa forma atona del pronome è però sempre proclitica (anteposta) con le voci di terza persona, sia singolare che plurale  (es. \"Signora, mi guardi!\"; \"Signori, mi guardino!\"; oppure: \"signora, mi dica la verità!\"; \"Signori, mi dicano la verità!\"). Il procedimento si realizza concordemente alle regole sulle forme del congiuntivo presente,  con le quali l'imperativo della terza persona coincide perfettamente.",
+          "examples": [
+            "Quando è seguito da pronome atono (-mi, -ti, -lo, -la, -ci, -vi, -li, -le, -ne es. \"guardami!\" = \"guarda me!\") il pronome è in genere posposto.",
+            "La forma atona del pronome è però sempre proclitica (anteposta) con le voci di terza persona, sia singolare che plurale  (es. \"Signora, mi guardi!\"; \"Signori, mi guardino!\"; oppure: \"signora, mi dica la verità!\"; \"Signori, mi dicano la veri"
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Modo gerundio",
+          "body": "Il gerundio si usa con il verbo \"stare\" per la costruzione di frasi progressive (\"sto andando a Roma\", quindi sono in viaggio), oppure al posto di una frase subordinata temporale o causale (\"vedendo il sole, uscì). Esiste il gerundio presente, un tempo semplice, e il gerundio passato, tempo composto formato dal gerundio presente dell'ausiliare e dal participio passato del verbo: \"avendo parlato - essendo caduto\".\n\nA volte nel gerundio passato l'ausiliare è omesso, e rimane il solo participio passato con la stessa funzione del gerundio, ed è impersonale come l'infinito.\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. partire / capire\n\n-ando\n-endo\n-endo",
+          "examples": [
+            "Il gerundio si usa con il verbo \"stare\" per la costruzione di frasi progressive (\"sto andando a Roma\", quindi sono in viaggio), oppure al posto di una frase subordinata temporale o causale (\"vedendo il sole, uscì). Esiste il gerundio presen"
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Modo participio",
+          "body": "Il participio presente è la forma che esprime un soggetto nell'atto o nella qualifica di chi compie l'azione: \"il quorum è raggiunto se si recano a votare la maggioranza degli aventi diritto al voto\". È variabile per numero.\n\nÈ indicata come participio passato la forma usata principalmente per la costruzione dei tempi composti.[3] Viene inoltre usato come aggettivo per descrivere la persona o la cosa avente ricevuto un'azione: \"i piatti lavati vengono quindi asciugati\" = \"i piatti che sono stati lavati vengono quindi asciugati\" o \"i piatti, dopo essere stati lavati, vengono quindi asciugati\"; in quest'ultimo caso è declinato come un aggettivo.\n\n-are\nes. parlare\n-ere\nes. vendere\n-ire\nes. dormire / capire\n\npresente\n-ante\n-ente\n-ente / -iente\n\npassato\n-ato\n-uto\n-ito",
+          "examples": [
+            "Il participio presente è la forma che esprime un soggetto nell'atto o nella qualifica di chi compie l'azione: \"il quorum è raggiunto se si recano a votare la maggioranza degli aventi diritto al voto\". È variabile per numero.",
+            "È indicata come participio passato la forma usata principalmente per la costruzione dei tempi composti.[3] Viene inoltre usato come aggettivo per descrivere la persona o la cosa avente ricevuto un'azione: \"i piatti lavati vengono quindi asc"
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "La congiunzione",
+      "summary": "Lo stesso argomento in dettaglio: Congiunzione (grammatica).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Lo stesso argomento in dettaglio: Congiunzione (grammatica).\n\nLe congiunzioni uniscono tra di loro due parti di una stessa proposizione (io e te), oppure due frasi (vado e torno), spesso la frase principale e la subordinata. Si tratta di parti invariabili del discorso, come anche gli avverbi.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Note",
+      "summary": "^ www.mauriziopistone.it e Accademia della Crusca - Parere su pneumatico Archiviato il 24 settembre 2008 in Internet Archive.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^ www.mauriziopistone.it e Accademia della Crusca - Parere su pneumatico Archiviato il 24 settembre 2008 in Internet Archive.\n\n^ Katerin Katerinov, La lingua italiana per stranieri, Perugia, Guerra, 1985, ISBN 978-88-7715-009-7, OL 16591241M.\n\n^ a b c L. Serianni, Grammatica italiana; italiano comune e lingua letteraria, Torino, UTET, 1989.\n\n^ De Mauro Archiviato il 17 dicembre 2008 in Internet Archive..\n\n^ Treccani, \"Aggettivi dimostrativi (grammatica italiana)\", su treccani.it. URL consultato il 26 marzo 2026.\n\n^ P. Marmini-G. Vicentini, Passeggiate italiane, livello intermedio, Roma, Bonacci, 1988 (appendice).\n\n^ Preposizioni, in La grammatica italiana, Roma, Istituto dell'Enciclopedia Italiana, 2012.\n\n^ P.M. Bertinetto, Tempo, Aspetto e Azione nel verbo italiano. Il sistema dell'Indicativo, Firenze, Accademia della Crusca 1986.\n\n^ thebigbook-2ed, , pp. 77-90.",
+          "examples": [
+            "^ Treccani, \"Aggettivi dimostrativi (grammatica italiana)\", su treccani.it. URL consultato il 26 marzo 2026."
+          ],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Bibliografia",
+      "summary": "Gerhard Rohlfs Grammatica storica della lingua italiana e dei suoi dialetti, Torino, Piccola Biblioteca Einaudi.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Gerhard Rohlfs Grammatica storica della lingua italiana e dei suoi dialetti, Torino, Piccola Biblioteca Einaudi.\n\nGiovanni Veneroni, Grammaire italienne (1710).\n\nFabrizio Berloco, The Big Book of Italian Verbs: 900 Fully Conjugated Verbs in All Tenses. With IPA Transcription, 2nd Edition, Lengu, 2018, ISBN 978-88-940348-1-3.\n\nLuca Serianni, in collaborazione con Alberto Castelvecchi, Grammatica italiana. Suoni, forme, costrutti (Utet, Torino 1989),\n\nLorenzo Renzi, Giampaolo Salvi e Anna Cardinaletti, Grande grammatica italiana di consultazione, 3 volumi, Bologna, Il Mulino, 1988-1995,",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Voci correlate",
+      "summary": "Verbo (lingua italiana)\n\nVerbi irregolari italiani\n\nDiatesi passiva (lingua italiana)",
+      "sections": [
+        {
+          "heading": "Verbo",
+          "body": "Verbo (lingua italiana)\n\nVerbi irregolari italiani\n\nDiatesi passiva (lingua italiana)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        },
+        {
+          "heading": "Fonologia e fenomeni correlati",
+          "body": "Accento (ortografia)\n\nApostrofo\n\nDivisione in sillabe\n\nFonologia dell'italiano\n\nOrtografia italiana\n\nElisione\n\nTroncamento (linguistica)\n\nD eufonica\n\nI eufonica\n\nDittongo mobile\n\nRaddoppiamento fonosintattico",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Altri progetti",
+      "summary": "Wikiquote contiene citazioni di o su grammatica italiana",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Altri progetti\n\nWikiquote\n\nWikimedia Commons\n\n Wikiquote contiene citazioni di o su grammatica italiana\n\n Wikimedia Commons contiene immagini o altri file su grammatica italiana",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Collegamenti esterni",
+      "summary": "Coniugazione dei verbi e analisi delle forme verbali, su i-verbi.it.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Coniugazione dei verbi e analisi delle forme verbali, su i-verbi.it.\n\nAnalisi grammaticale e logica automatica, su archivium.biz.\n\nConiugazione dei verbi italiani, su italian-verbs.net. URL consultato il 3 giugno 2019 (archiviato dall'url originale il 1º aprile 2018).\n\nRegole della grammatica italiana, su grammaticaitaliana.eu.\n\nControllo di autoritàLCCN (EN) sh2008104994 · J9U (EN, HE) 987007540254805171\nV · D · MSintassi del periodo - ProposizioniPrincipale · Coordinata · Reggente · Subordinata · IncidentaleAggiuntiva · Avversativa · Causale · Comparativa · Concessiva · Condizionale · Consecutiva · Dichiarativa · Eccettuativa · Esclusiva\nFinale · Interrogativa indiretta · Limitativa · Modale · Oggettiva · Relativa · Soggettiva · Strumentale · TemporaleAltre voci: Analisi logica del periodo · Frase · Periodo ipoteticoVoci di linguistica\nV · D · MGrammatiche delle lingue del mondoLingue europeecatalana · cornica · danese · faroense · francese · georgiana · greca moderna (greca antica) · inglese · irlandese · islandese · italiana · ittita · latina · lettone · lituana · napoletana · norvegese · occitana · olandese · portoghese · protoindoeuropea · Grammatica del dialetto romanesco · sanscrita · sarda · spagnola · tedesca · turca · ucraina · unghereseLingue africane e mediorientaliaraba · copta · persiana · swahiliLingue asiatichecinese · coreana · giapponeseLingue oceaniche e amerindieindonesianaLingue artificialiesperanta · Grammatica della lingua franca nova · Grammatica dell'interlingua · quenya\n Portale Linguistica: accedi alle voci di Wikipedia che trattano di linguistica",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://it.wikipedia.org/wiki/Grammatica_italiana"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Lessons",
+      "summary": "Welcome to the course dedicated to teaching you the official language of Italy and True Cuisine! If you haven't already done so, please, spend a few minutes to first read the book's introduction and reading guide. Once that's done, you're ready to begin your very first Italian le",
+      "sections": [
+        {
+          "heading": "Lessons",
+          "body": "Welcome to the course dedicated to teaching you the official language of Italy and True Cuisine! If you haven't already done so, please, spend a few minutes to first read the book's introduction and reading guide. Once that's done, you're ready to begin your very first Italian lesson! Good luck!\n\n\n= Welcome! Let's learn Italian! — Benvenuto! Impariamo l'italiano! =\n Lesson 1: Buon Giorno – the basics\n Lesson 2: Alcune Frasi – some useful phrases, questions, sentences, and some verbs\n Lesson 3: I Verbi – verbs\n Lesson 4: I Numeri – numbers\n Lesson 5: Al Ristorante – At the Restaurant\n Lesson 6: La Famiglia – The Family\n Lesson 7: Girare per la Città – Navigating Around the City\n Lesson 8: Prenotare un Hotel – Booking a Hotel\n Lesson 9: Fare Acquisti – Shopping",
+          "examples": [
+            "= Welcome! Let's learn Italian! — Benvenuto! Impariamo l'italiano! ="
+          ],
+          "learnerTip": "Welcome to the course dedicated to teaching you the official language of Italy and True Cuisine! If you haven't already done so, please, spend a few minutes to first read the book's introduction and r",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson1",
+      "summary": "== Dialogue / Dialogo ==\nMaria :  Ciao, Giuseppe!  Come stai?     audio name .\nGiuseppe :  Ciao, Maria!  Sto bene, grazie mille.  E tu?   italian pronunciation .\nMaria :  Sto bene.  Ti presento Bianca.       audio name .\nGiuseppe :  Buon giorno, Bianca.     italian pronunciation",
+      "sections": [
+        {
+          "heading": "Lesson1",
+          "body": "= Lesson One / Lezione uno =\n\n\n== Dialogue / Dialogo ==\nMaria :  Ciao, Giuseppe!  Come stai?     audio name .\nGiuseppe :  Ciao, Maria!  Sto bene, grazie mille.  E tu?   italian pronunciation .\nMaria :  Sto bene.  Ti presento Bianca.       audio name .\nGiuseppe :  Buon giorno, Bianca.     italian pronunciation .\nBianca :  Salve, Giuseppe.  Come sta?   italian pronunciation .\nGiuseppe :  Sto bene, e Lei?   italian pronunciation .\nBianca :  Sto bene.  Arrivederci.   italian pronunciation .\nGiuseppe :  Ci vediamo!   italian pronunciation .\nMaria : Ciao!   italian pronunciation .\n\n\n== Vocabulary / Vocabolario ==\n\n*(e.g. ti presento Bianca - This is Bianca)\n\n\n== Grammar / Grammatica ==\n\n\n=== Formal vs. Informal / Formale vs. informale ===\nIn Italian, there are two pronouns that mean you in the singular.  One is informal, to be used with a person with whom you are familiar, and the other is formal, which is to be used with a person of a status superior to yours or with a person you have just met.  The informal form is tu and the formal form is Lei (note that it is only capitalized here to distinguish between the word for 'she').  The plural of tu is 'voi', and the plural of Lei is Loro.  Knowledge of the difference between these the formal and informal forms is important because they take different verb forms.  \nIn addition, especially in the south of Italy, you can also use the second person plural ('voi') when addressing an older person to whom you wish to show respect.\n\n\n===== Exercise One / Esercizio uno =====\nSignor Berti has just walked in.  He says buon giorno to you.  How do you ask him how he is? Come sta?\nYour friend has gotten a new haircut.  When telling them how much you like it, will you use the tu form or the Lei form? Tu\nIt is your first day of school and your teacher asks how you are.  After responding, you wish to say 'and you?'.  Which pronoun do you use? Lei\n\n\n=== Subject Pronouns and Essere / Pronomi personali soggetto e essere ===\nSubject pronouns are used to show the subject of a sentence. In English subject pronouns are: I, you, he, she, it, we and they. Take a look at the following table which contains the corresponding pronouns in Italian.\n\nNote that lei can mean either she or the formal, singular you, which is used both for masculine and feminine subjects. In written Italian Lei, written with a capital L, is used to represent a formal you.  Note also that, unlike in English, io used for the first person in singular is not capitalized.\nThe verb Essere (and also stare) is an equivalent of the verb to be in English. It is very irregular; the conjugation for the present indicative tense follows:\n\nThe pronouns Lei and Loro take the same verb form as egli/ella and essi.\n[Note] Subject pronouns (io, tu etc.) are not mandatory in Italian, especially spoken Italian. This is because the subject pronoun is implied by the form of the verb used, also known as its declension. Thus, while in English we would say \"I am\", in Italian we would normally just say sono rather than io sono.\nWhen an Italian speaker explicitly uses the subject pronoun, it is usually to place special emphasis or clarity on who the pronoun is referring to. \n\n\n==== Exercise Two / Esercizio due ====\nHow do you say you are (informal singular)? Tu sei.\nCome stai tu? - Is the pronoun formal or informal in this question? informal.\nWhen I say lei è, am I talking about you (my close friend) or my teacher? my teacher.\nIf you want to say Bob and I are, which verb form do you use? siamo\nJoan and Kim are good friends. Would they use tu or Lei when talking to each other? tu\n\n\n== How are you? / Come sta? ==\n\n*Remember, in Italian, you rarely express the subject pronoun unless you either want to stress the importance of the subject or you want to eliminate an ambiguity regarding the subject.",
+          "examples": [
+            "[Note] Subject pronouns (io, tu etc.) are not mandatory in Italian, especially spoken Italian. This is because the subject pronoun is implied by the form of the verb used, also known as its declension. Thus, while in English we would say \"I"
+          ],
+          "learnerTip": "== Dialogue / Dialogo ==\nMaria :  Ciao, Giuseppe!  Come stai?     audio name .\nGiuseppe :  Ciao, Maria!  Sto bene, grazie mille.  E tu?   italian pronunciation .\nMaria :  Sto bene.  Ti presento Bianca",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson1"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson2",
+      "summary": "== Dialogues ==\nLanguages need verbs and people need to communicate.  Every language needs action words and \"state of being\" words.  They tell us what is going on.  Sometimes we just need more information, too.  In this lesson you will learn the formation of questions and several",
+      "sections": [
+        {
+          "heading": "Lesson2",
+          "body": "== Dialogues ==\nLanguages need verbs and people need to communicate.  Every language needs action words and \"state of being\" words.  They tell us what is going on.  Sometimes we just need more information, too.  In this lesson you will learn the formation of questions and several verbs (with conjugations) plus a few more useful phrases.\n\n\n=== Dialogue one / Dialogo uno ===\nThe setting: Paola and Marco are having breakfast at a bar.\n\n Paola : Salve, vorrei un cornetto e un cappuccino, per favore.\n Marco : Per me invece un espresso, grazie.\n Barman : Volete altro?\n Marco : No, grazie.\n Paola : Quanto viene?\n Barman : Sono 3 euro e 10.\n\n\n==== Vocabulary ====\n\n\n=== Dialogue two / Dialogo due ===\nThe setting: Daniele asks for directions to the Leaning Tower in Pisa.\n\n Daniele : Scusi, dove devo andare per arrivare alla Torre Pendente?\n Helper : Allora, vada sempre diritto, poi giri a destra.\n Daniele : Grazie.\n Helper : Si figuri.\n\n\n==== Vocabulary ====\n\n\n== How to formulate a sentence in Italian ==\nThere is not a rigid schema to follow for formulating sentences in Italian. There is actually no difference between questions, answers and affirmations, except for the different spoken pronunciation of questions (indicated by the \"?\" symbol), but it does not differ particularly from English.\nWhat is different, and often hard to understand, however, is the possible absence of the subject. In these cases, the subject is said to be implied (\"sottinteso\" in Italian) and is usually understandable by the different form of the verb, that is directly associated to the subject itself. See the auxiliary verbs below for a real example, and keep them in mind, because they are used more often than you would think.\n\n\n=== Auxiliary verbs (present form) ===\nThe auxiliary verbs are two, essere (to be) and avere (to have). They are both irregular ones, and are used for both their actual meaning and for construction of all other non-auxiliary verbs in forms other than the present.  Note that the pronouns egli, ella and essi are rarely used in spoken Italian nowadays.  Also note that the formal singular you is spelt Lei, with a capital L to differentiate it from lei used for 'she'.\n\n\n=== General formulation of phrases ===\n\n\n==== Normal form ====\n\n\n==== Interrogative form ====\nForm 1 (with phrase inversion)\n\nForm 2 (without phrase inversion)\n\n\n=== Some Important Verbs ===\nVerbs are actually the kernel of a language; without them, it would be impossible to build relevant phrases and talk to a native speaker.\nItalian has two auxiliary verbs, essere (to be) and avere (to have). In addition to that, the language permits also the use of a number of verbi servili (modal verbs), some auxiliary verbs that may be used in particular cases, and need to be accomplished with another verb in order to have an actual meaning. These verbs are dovere (to have to), potere (to be able), and volere (to want).\nOther verbs seen before are:\n\nandare (to go)\nvenire (to come)\narrivare (to arrive)\ngirare (to turn)\nstare (to stay, to stand)\nvedere (to see)\nchiamare (to call)\nsapere (to know (an information))\nconoscere (to know (a person or a place))\nAbout how to conjugate these verbs, you should take a look at the dedicated section; of course, there are some verbs which do not fit on these rules: they are called verbi irregolari (irregular verbs). Andare, venire and sapere, for example, are irregular verbs.\n\n\n== See also ==\nItalian/Vocabulary/Basic Words and Phrases\nItalian/Vocabulary/Common phrases",
+          "examples": [
+            "Languages need verbs and people need to communicate.  Every language needs action words and \"state of being\" words.  They tell us what is going on.  Sometimes we just need more information, too.  In this lesson you will learn the formation ",
+            "There is not a rigid schema to follow for formulating sentences in Italian. There is actually no difference between questions, answers and affirmations, except for the different spoken pronunciation of questions (indicated by the \"?\" symbol",
+            "What is different, and often hard to understand, however, is the possible absence of the subject. In these cases, the subject is said to be implied (\"sottinteso\" in Italian) and is usually understandable by the different form of the verb, t"
+          ],
+          "learnerTip": "== Dialogues ==\nLanguages need verbs and people need to communicate.  Every language needs action words and \"state of being\" words.  They tell us what is going on.  Sometimes we just need more informa",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson2"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson3",
+      "summary": "== How to conjugate verbs / Come coniugare i verbi ==",
+      "sections": [
+        {
+          "heading": "Lesson3",
+          "body": "== How to conjugate verbs / Come coniugare i verbi ==\n\n\n=== Auxiliary verbs / Verbi ausiliari ===\nThe two most important verbs in Italian, by far, are avere (to have) and essere (to be). They are called verbi ausiliari (auxiliary verbs), and they are irregular in nearly every tense, including the present indicative, sometimes extremely so. Here are their conjugations.\nAvere (to have):\n\nEssere (to be):\n\n\n=== Regular verbs / Verbi regolari ===\nIn Italian, regular verbs are often the most common ones. They always end with -are, -ere, and -ire, are the same in the first person (singular and plural) and second person singular.  They are different in the third person (singular and plural) and second person plural. According to the different suffix, verbs are assigned to one of the three regular conjugation of verbs in Italian. For instance:\n\namare (to love): is a first conjugation verb (prima coniugazione);\nripetere (to repeat): is a second conjugation verb (seconda coniugazione);\ndormire (to sleep): is a third conjugation verb (terza coniugazione).\nHere is a table of the regular present indicative for -are, -ere, and -ire verbs.\n\nIt is important to note the change of stress position in different person forms. Regular verbs follow the same position change. Stress is shown in table above to help learning, it is not written in real texts (see Pronunciation for details on stress).\nTask conjugate parlare (to talk), prendere (to take) and partire (to leave).\n\n\n== Irregular verbs / Verbi irregolari ==\nIn Italian, there are also several irregular verbs. A very few of them do not even apply to the conjugation previously seen, such as porre (to put down, to place) and tradurre (to translate); actually they derive from second conjugation (ponere,traducere). This is a list of common usage verbs which are known to be irregular, and do not apply to the conjugation rules seen before:\n\nandare (to go)\nbere (to drink)\ncercare (to seek, to look for)\ndare (to give)\ndire (to say)\nfare (to do, to make)\npiacere (to like)\nstare (to stay, to remain)\nuscire (to leave, to go out)\nvenire (to come)\nvivere (to live)\nessere (to be)\navere (to have)\n\n\n== Modal verbs / Verbi servili ==\nThree other important verbs, dovere, potere and volere, are irregular too; these three particular verbs are known as verbi servili (modal verbs), as they have the function to \"serve\" and \"support\" other infinite verbs. In particular:\n\ndovere is equivalent to the English modal verb must, but also the have to form: for instance, devo studiare (I have to study, I must study).\npotere is equivalent to the English modal verbs can and may: for instance, puoi andare (You can go, you may go).\nvolere expresses willingness to do something, and is actually equivalent to the English verbs to want, to wish and to will; for instance, voglio mangiare (I want to eat). The verb volere can be also used in non-modal forms, that is not in support of an infinite verb.",
+          "examples": [
+            "Three other important verbs, dovere, potere and volere, are irregular too; these three particular verbs are known as verbi servili (modal verbs), as they have the function to \"serve\" and \"support\" other infinite verbs. In particular:"
+          ],
+          "learnerTip": "== How to conjugate verbs / Come coniugare i verbi ==",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson3"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson4",
+      "summary": "== What we will learn ==\nYou will learn in this lesson, how to count, tell the time and date, and say how old you are in Italian. You will also learn how to ask for measurements and costs.",
+      "sections": [
+        {
+          "heading": "Lesson4",
+          "body": "== What we will learn ==\nYou will learn in this lesson, how to count, tell the time and date, and say how old you are in Italian. You will also learn how to ask for measurements and costs.\n\n\n== Numbers / Numeri ==\nItalian mostly shares its way to identify numbers with the great majority of Romance languages, especially Spanish.\nItalian cardinal numbers, of any length, may be written as a single, continuous word formed by concatenation; sometimes with the elision of double vowels:\n\n342 trecentoquarantadue\n1984 millenovecentottantaquattro, not *millenovecentoottantaquattro\n\n\n=== Cardinal numbers up to 1000 ===\n\nKeep in mind that for numbers higher than 20 (venti) the last letter of the part describing tens is eliminated if 1 or 8 follows, e.g. ventuno (21), ventotto (28), trentuno (31), trentotto (38), quarantuno (41).\nFor other ending numbers than 1 and 8 you just use the normal word for tens, ventidue (22), ventitré (23), ventiquattro (24), quarantadue (42),  quarantaquattro (44).\nNotice that in the case of ventitré (23), trentatré (43), quarantatré (43)... an accent is written on the final E, in order to mark the stress on that letter. On the contrary, tre (3) is written with no accent, as it is a one-syllable word with no homograph (see Pronunciation for details on stress).\n\n\n=== Cardinal numbers from 1000 higher ===\nThe number mille becomes mila in the plural, e.g. duemila.\nThe numbers milione, miliardo and above are not adjectives; they take a preposition di when followed by a noun, e.g. miliardi di euro.\n\n1,000 mille\n2,000 duemila\n3,000 tremila\n10,000 diecimila\n100,000 centomila\n1,000,000 un milione\n10,000,000 dieci milioni\n1,000,000,000 un miliardo\n1,000,000,000,000 mille miliardi or un bilione\n\n\n=== Ordinal numbers ===\nFirst ten ordinal numbers have their proper words, the others are formed from the cardinal number by adding -esimo (see table).\nThe final \"o\" or \"e\" is dropped from the cardinal number, unless it is an é in which case it just loses the accent, e.g. ventitreesimo.\nThe ordinal numbers are used as adjectives and as fractions. When used as adjectives, they agree in gender and number with the nouns that they modify.\n\nSome ordinal numbers have synonyms e.g. undecimo (ancient italian) and decimoprimo (ancient italian) for undicesimo (11th), centosesto for centoseiesimo (106th), centosettimo for centosettesimo (107th), centottavo for centottesimo (108th), centonono for centonovesimo (109th); 110th is centodecimo\n\n\n=== Fractions ===\nA combination of cardinal (1, 2, 3...) and ordinal (3rd, 4th...) numbers are used to form fractions. \n\nThe word mezzo is used to represent a half.\n\nhalf — mezzo\n\n\n=== Decimals ===\n\n\n=== Arithmetic ===\nThe word più is used for addition.\n\n2 + 2 = 4, two plus two equals four, due più due uguale a quattro\nThe word meno is used for subtraction\n\n9 - 2 = 7, nove meno due uguale a sette\nThe word per is used for multiplication\n\n3 x 7 = 21, tre per sette uguale ventuno\nThe word diviso is used for division\n\n10 / 2 = 5,  dieci diviso due uguale cinque\n\n\n== Time / Tempo ==\n\nNB. When answering always use a singular verb (è) with 1 o' clock (è l'una), always use a plural verb (sono) with other times (sono le nove)\n\n \n\nFor the first day of the month you use the ordinal number (primo) while for all other days using ordinal numbers is a mistake, you have to use cardinal numbers instead.\n\n\n== Shopping ==\n\nDialog\n\nA= Per favore, vorrei una pizza.\nB= Sì!\nA= Quanto costa?\nB= Fanno due euro\n\ntask\nshopping: Write a dialog between two people, a shopkeeper and a customer, where the shopper asks the price of objects. Then act it out with a friend (in Italian!).\nSome food words for task;\n\nverdure=Vegetables\nfrutta - fruit\nsucco - juice\nacqua - water\ncioccolato - chocolate\ntorta - cake\npizza - pizza\nspaghetti - spaghetti\narrance - oranges\n\n\n== Measures ==",
+          "examples": [
+            "The final \"o\" or \"e\" is dropped from the cardinal number, unless it is an é in which case it just loses the accent, e.g. ventitreesimo.",
+            "half — mezzo"
+          ],
+          "learnerTip": "== What we will learn ==\nYou will learn in this lesson, how to count, tell the time and date, and say how old you are in Italian. You will also learn how to ask for measurements and costs.",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson4"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson5",
+      "summary": "Lesson 5: Al Ristorante – At the Restaurant\nSummary: In this lesson, students will learn key phrases and vocabulary that will help them navigate a restaurant setting in Italian. They will practice ordering food, asking for the bill, and interacting with the waitstaff. By the end",
+      "sections": [
+        {
+          "heading": "Lesson5",
+          "body": "Lesson 5: Al Ristorante – At the Restaurant\nSummary: In this lesson, students will learn key phrases and vocabulary that will help them navigate a restaurant setting in Italian. They will practice ordering food, asking for the bill, and interacting with the waitstaff. By the end of this lesson, students will be able to confidently dine out in an Italian-speaking country.\nConversation Piece 1:\nSituation: Ordering food at a restaurant.\nWaiter: Buongiorno! Avete prenotato?\nStudent: No, non abbiamo prenotato. Vorremmo una tavolo per due, per favore.\nWaiter: Certamente. Seguitemi, per cortesia.\nStudent: Grazie.\n\nConversation Piece 2:\nSituation: Asking for the bill.\nWaiter: Desiderate il conto?\nStudent: Si, per favore.\nWaiter: Ecco a voi. Saranno 25 euro.\nStudent: Grazie. Posso pagare con la carta di credito?\n\nVocabulary:\n- Il ristorante: the restaurant\n- Il menù: the menu\n- Il cameriere, La cameriera: the waiter, the waitress\n- Il cibo: the food\n- L'antipasto: the appetizer\n- La pasta: the pasta\n- Il pesce: the fish\n- Il formaggio: the cheese\n- Il dolce: the dessert\n- La bevanda: the drink\n- La birra: the beer\n- L'acqua: the water\n- Il vino: the wine\n- Il conto: the bill\n- La carta di credito: the credit card\n\nExercises and Challenges:\n1. Match the following vocabulary words with their English translations:\n- Il ristorante\n- Il menù\n- L'acqua\n- La birra\n- Il dolce\n- Il conto\n\n2. Fill in the blanks with the appropriate vocabulary:\n- Vorrei ordinare un ____ di spaghetti.\n- La ____ è fredda, per favore.\n- Chiamate il ____ per pagare.\n\n3. Role-play the following scenarios using the vocabulary and phrases learned in this lesson:\n- Ordering food for a group of friends at a restaurant.\n- Asking for recommendations from the waiter for a vegetarian dish.\n- Requesting the bill in Italian.\n\nLesson Review:\n1. What are some key phrases to use when ordering food at a restaurant?\n2. How do you ask for the bill in Italian?\n3. Provide three examples of Italian dishes mentioned in this lesson.\n4. Write a short dialogue between a student and a waiter, where the student is ordering a pizza and the waiter is recommending a wine.\nBy completing this lesson, students should gain the skills necessary to confidently communicate and navigate a restaurant setting in Italian. Practice frequently and continue building vocabulary to enhance your language learning journey.\n\nSee also Italian/Vocabulary/Food",
+          "examples": [
+            "Il ristorante: the restaurant",
+            "Il menù: the menu",
+            "Il cameriere, La cameriera: the waiter, the waitress",
+            "Il cibo: the food",
+            "L'antipasto: the appetizer",
+            "La pasta: the pasta"
+          ],
+          "learnerTip": "Lesson 5: Al Ristorante – At the Restaurant\nSummary: In this lesson, students will learn key phrases and vocabulary that will help them navigate a restaurant setting in Italian. They will practice ord",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson5"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson6",
+      "summary": "Lesson 6: La Famiglia - The Family\nSummary: In this lesson, you will learn how to talk about your family members in Italian. You will learn the vocabulary to describe different family relationships and practice using them in conversations. Additionally, you will learn some common",
+      "sections": [
+        {
+          "heading": "Lesson6",
+          "body": "Lesson 6: La Famiglia - The Family\nSummary: In this lesson, you will learn how to talk about your family members in Italian. You will learn the vocabulary to describe different family relationships and practice using them in conversations. Additionally, you will learn some common phrases related to the family.\n\n\n== Conversation Pieces ==\n1. Conversation 1:\nLaura: Ciao! Come stai?\nMarco: Ciao Laura! Sto bene, grazie! E tu?\nLaura: Bene anche io. Presentami la tua famiglia, per favore.\nMarco: Certamente. Lei è mia madre, Maria.\nMaria: Piacere di conoscerti, Laura.\nLaura: Piacere mio, signora. E lei è tua sorella?\nMarco: No, lei è mia zia. Si chiama Anna.\nLaura: Molto bene. E tuo padre?\nMarco: Mio padre si chiama Paolo ed è in viaggio di lavoro.\n\n2. Conversation 2:\nAlessandro: Ciao Sara, vorrei conoscerai la tua famiglia.\nSara: Ciao Alessandro! Lui è mio fratello, Giuseppe.\nGiuseppe: Ciao!\nAlessandro: Piacere di conoscerti, Giuseppe. E lei chi è?\nSara: Lei è mia sorella Giulia.\nGiulia: Salve!\nAlessandro: Piacere mio, Giulia. E i tuoi genitori?\nSara: I miei genitori sono in vacanza.\n\n\n== Vocabulary ==\n- Madre: mother\n- Padre: father\n- Sorella: sister\n- Fratello: brother\n- Zia: aunt\n- Zio: uncle\n- Bambino: boy/child\n- Bambina: girl/child\n- Nonno: grandfather\n- Nonna: grandmother\n- Genitore: parent\n- Famiglia: family\n- Conoscerti: to meet you\n- Viaggio: trip\n- Lavoro: work\n- Vacanza: vacation\n\n\n== Exercises and Challenges ==\n1. Match the following family members in Italian with their English translations:\n1. Madre       a. Aunt\n2. Sorella     b. Sister\n3. Nonno      c. Father\n4. Zia           d. Mother\n5. Fratello    e. Grandfather\n\n2. Translate the following sentences into Italian:\na. My brother is studying at the university.\nb. Our grandparents live in Rome.\nc. I have two sisters.\nd. Where are your parents?\ne. Is your aunt coming to the party?\n\n3. Write a short paragraph introducing your family members in Italian. Include at least five sentences.\n\n\n== Lesson Review ==\n1. What are the Italian words for mother, father, sister, and brother?\n2. How do you say \"aunt\" and \"uncle\" in Italian?\n3. Translate the following sentence into English: \"Mia sorella lavora in un ristorante.\"\n4. Write five family relationship vocabulary words in Italian.\n5. Describe your family members using at least three different vocabulary words learned in this lesson.",
+          "examples": [
+            "Madre: mother",
+            "Padre: father",
+            "Sorella: sister",
+            "Fratello: brother",
+            "Zia: aunt",
+            "Zio: uncle"
+          ],
+          "learnerTip": "Lesson 6: La Famiglia - The Family\nSummary: In this lesson, you will learn how to talk about your family members in Italian. You will learn the vocabulary to describe different family relationships an",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson6"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Lesson7",
+      "summary": "Lesson 7: Navigating Around the City\nSummary: In this lesson, students will learn how to navigate around the city in Italian. They will learn common phrases and vocabulary related to asking for directions, giving directions, and using public transportation.",
+      "sections": [
+        {
+          "heading": "Lesson7",
+          "body": "Lesson 7: Navigating Around the City\nSummary: In this lesson, students will learn how to navigate around the city in Italian. They will learn common phrases and vocabulary related to asking for directions, giving directions, and using public transportation.\n\nConversation Piece 1:\nMarco: Scusi, mi può dire dov'è la stazione ferroviaria?\n(Excuse me, can you tell me where the train station is?)\nGiulia: Certamente! Vai dritto per due isolati e poi gira a sinistra. La stazione sarà sulla tua destra.\n(Certainly! Go straight for two blocks and then turn left. The train station will be on your right.)\n\nConversation Piece 2:\nLuca: Mi scusi, dov'è la fermata dell'autobus per il centro città?\n(Excuse me, where is the bus stop to the city center?)\nMarta: La fermata dell'autobus è di fronte al supermercato. Prendi l'autobus numero 10 e scendi alla seconda fermata.\n(The bus stop is in front of the supermarket. Take bus number 10 and get off at the second stop.)\n\nConversation Piece 3:\nLuca: Scusa, puoi aiutarmi? Sono un po' perso.\n(Excuse me, can you help me? I'm a bit lost.)\nAnna: Certamente! Di che hai bisogno?\n(Sure! What do you need?)\n\nVocabulary:\n- Scusa/Scusi: Excuse me\n- Dov'è: Where is\n- Stazione ferroviaria: Train station\n- Vai dritto: Go straight\n- Gira a sinistra: Turn left\n- Sulla tua destra: On your right\n- Fermata dell'autobus: Bus stop\n- Prendi: Take\n- Supermercato: Supermarket\n- Centro città: City center\n- Scendi: Get off\n- Fermata: Stop\n- Aiutarmi: Help me\n- Perso: Lost\n- Certamente:  Certainly\n- Di che hai bisogno?: What do you need?\n\nExercises and Challenges:\n1. Fill in the blanks with the appropriate vocabulary words:\n\n  a. Mi scusi, ________ la stazione ferroviaria?\n\n  b. Prendi l'autobus numero 5 e ________ alla terza ________.\n\n  c. Vai ________ per tre ________ e poi ________ a destra.\n\n2. Role play: Practice asking for directions and giving directions with a partner using the vocabulary and conversation pieces from this lesson.\n\nFinal Lesson Review:\n1. What are the common phrases used for asking for directions in Italian?\n2. How do you say \"go straight\" in Italian?\n3. Where is the bus stop to the city center according to Marta?\n4. Fill in the blank: \"La stazione ferroviaria sarà ________ tua ________.\"\n5. Role play: Imagine you are lost in a city and need to ask for directions to the nearest museum. Practice the conversation with a partner using the vocabulary and phrases learned in this lesson.\n6. How do you say \"lost\" in Italian?\n7. List three vocabulary words/phrases related to giving directions.\nNote: This lesson can be supplemented with additional vocabulary and exercises based on the specific needs and interests of the learners.\n\nSee also Italian/Vocabulary/Travel",
+          "examples": [
+            "Scusa/Scusi: Excuse me",
+            "Dov'è: Where is",
+            "Stazione ferroviaria: Train station",
+            "Vai dritto: Go straight",
+            "Gira a sinistra: Turn left",
+            "Sulla tua destra: On your right"
+          ],
+          "learnerTip": "Lesson 7: Navigating Around the City\nSummary: In this lesson, students will learn how to navigate around the city in Italian. They will learn common phrases and vocabulary related to asking for direct",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson7"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson8",
+      "summary": "Lesson 8: Prenotare un Hotel - Booking a Hotel\nSummary: In this lesson, the student will learn how to book a hotel room in Italian. They will learn useful conversation pieces, vocabulary related to hotel reservations, and practice exercises to reinforce their learning.",
+      "sections": [
+        {
+          "heading": "Lesson8",
+          "body": "Lesson 8: Prenotare un Hotel - Booking a Hotel\nSummary: In this lesson, the student will learn how to book a hotel room in Italian. They will learn useful conversation pieces, vocabulary related to hotel reservations, and practice exercises to reinforce their learning.\n\nConversation 1:\n[At the hotel reception]\nReceptionist: Buon giorno, posso aiutarla? (Good morning, may I help you?)\nStudent: Buon giorno, vorrei prenotare una camera per questa sera. (Good morning, I would like to book a room for tonight.)\nReceptionist: Certamente, per quanti giorni? (Sure, for how many days?)\nStudent: Per cinque notti. (For five nights.)\n\nConversation 2:\n[Confirming the reservation]\nStudent: Ho prenotato una camera a nome di Smith. (I have booked a room under the name Smith.)\nReceptionist: Va bene, signor Smith. Abbiamo una camera disponibile per lei. (Alright, Mr. Smith. We have a room available for you.)\nStudent: Grazie! Quanto costa la camera per notte? (Thank you! How much does the room cost per night?)\nReceptionist: La camera costa 100 euro a notte, colazione inclusa. (The room costs 100 euros per night, breakfast included.)\n\nVocabulary:\n- Prenotare una camera: To book a room\n- Notte: Night\n- Giorno: Day\n- Camera: Room\n- Colazione: Breakfast\n- Disponibile: Available\n- Nome: Name\n- Euro: Euro\n\nExercises and Challenges:\n1. Translate the following phrases into Italian:\n- I would like to book a room for two nights.\n- Do you have any rooms available?\n- How much does a double room cost per night?\n- Is breakfast included?\n\n2. Create a dialogue between a receptionist and a student where they discuss a hotel reservation, using the vocabulary provided.\n\n3. Practice speaking by pretending to book a hotel room in Italian. Use the conversation pieces as a guide and try to improvise using the vocabulary you learned.\n\nLesson Review:\n1. What is the phrase for booking a room in Italian?\n2. How do you say \"night\" in Italian?\n3. Provide three vocabulary words related to hotel reservations.\n4. How would you ask if there are any rooms available?\n5. Write a sample conversation between a student and a receptionist, discussing a hotel reservation.",
+          "examples": [
+            "Prenotare una camera: To book a room",
+            "Notte: Night",
+            "Giorno: Day",
+            "Camera: Room",
+            "Colazione: Breakfast",
+            "Disponibile: Available"
+          ],
+          "learnerTip": "Lesson 8: Prenotare un Hotel - Booking a Hotel\nSummary: In this lesson, the student will learn how to book a hotel room in Italian. They will learn useful conversation pieces, vocabulary related to ho",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson8"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lesson9",
+      "summary": "=== Summary ===\nIn this lesson, you will learn how to shop and make purchases in Italian. You will be introduced to common phrases and vocabulary related to shopping, as well as practice exercises to reinforce your knowledge.",
+      "sections": [
+        {
+          "heading": "Lesson9",
+          "body": "== Lesson 9: Fare Acquisti - Shopping ==\n\n\n=== Summary ===\nIn this lesson, you will learn how to shop and make purchases in Italian. You will be introduced to common phrases and vocabulary related to shopping, as well as practice exercises to reinforce your knowledge.\n\n\n=== Conversation Pieces ===\n1. At the clothing store:\n\n  - Customer: Buongiorno, posso provare questa maglietta? (Good morning, can I try on this t-shirt?)\n  - Salesperson: Certamente, i camerini sono là. (Certainly, the fitting rooms are over there.)\n\n2. At the grocery store:\n\n  - Customer: Mi scusi, dove posso trovare il pane? (Excuse me, where can I find the bread?)\n  - Employee: È nel reparto dei prodotti da forno, al fondo del negozio. (It's in the bakery section, at the back of the store.)\n\n\n=== Vocabulary ===\n1. Italian Clothing Vocabulary:\n\n  - pantaloni (m) - pants\n  - gonna (f) - skirt\n  - camicia (f) - shirt\n  - scarpe (f) - shoes\n  - cappotto (m) - coat\n  - maglia (f) - sweater\n  - calze (f) - socks\n\n2. Italian Grocery Vocabulary:\n\n  - frutta (f) - fruit\n  - verdura (f) - vegetables\n  - carne (f) - meat\n  - pesce (m) - fish\n  - formaggio (m) - cheese\n  - pane (m) - bread\n  - latte (m) - milk\n\n\n=== Exercises and Challenges ===\n1. Fill in the blanks with the correct clothing items:\n\n  - Ho bisogno di un nuovo __________. (I need a new sweater.)\n  - Voglio comprare un paio di nuovi __________. (I want to buy a pair of new pants.)\n  - Hai visto una __________ che ti piace? (Did you see a skirt that you like?)\n\n2. Match the Italian grocery vocabulary with their English translations:\n\n  - frutta - bread\n  - carne - fruit\n  - pesce - meat\n  - formaggio - cheese\n  - pane - fish\n\n\n=== Lesson Review ===\n1. How would you ask a salesperson if you can try on a shirt?\n2. How do you say \"skirt\" in Italian?\n3. List three types of clothing items in Italian.\n4. Translate the following phrase into Italian: \"Where can I find the meat?\"\n5. Match the Italian grocery vocabulary with their correct English translations.",
+          "examples": [
+            "Customer: Buongiorno, posso provare questa maglietta? (Good morning, can I try on this t-shirt?)",
+            "Salesperson: Certamente, i camerini sono là. (Certainly, the fitting rooms are over there.)",
+            "Customer: Mi scusi, dove posso trovare il pane? (Excuse me, where can I find the bread?)",
+            "Employee: È nel reparto dei prodotti da forno, al fondo del negozio. (It's in the bakery section, at the back of the store.)",
+            "pantaloni (m) - pants",
+            "gonna (f) - skirt"
+          ],
+          "learnerTip": "=== Summary ===\nIn this lesson, you will learn how to shop and make purchases in Italian. You will be introduced to common phrases and vocabulary related to shopping, as well as practice exercises to",
+          "source": "https://en.wikibooks.org/wiki/Italian/Lessons/Lesson9"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Adjectives",
+      "summary": "== Adjectives / Aggettivi ==\nUnlike in English, adjectives may be placed both before or after the noun.\nExample:",
+      "sections": [
+        {
+          "heading": "Adjectives",
+          "body": "== Adjectives / Aggettivi ==\nUnlike in English, adjectives may be placed both before or after the noun.\nExample:\n\nLa grande città (the large town)\nLa città grande (the large town)\n- are both correct, with slightly different meaning\n\nAs a general trend, adjectives tend to follow nouns rather than precede them.\nAdjectives must agree with the noun they modify both in gender (masculine or feminine) and in number (singular or plural).\nExamples:\n\nLa macchina rossa (the red car)\nLe macchine rosse (the red cars)\nIl divano rosso (the red sofa)\nI divani rossi (the red sofas)\n\nEndings for adjectives:\n\nMasc.sing.  Fem.sing.   Masc.plur.  Fem.plur.\n    o           a           i          e\n    e           e           i          i\n\nAdjectives that end in -e do not need to modify their endings for gender.  Their endings change only depending on whether the noun is singular or plural.\nExample:\n\nIl libro verde (the green book)\nLa porta verde (the green door)\nI libri verdi (the green books)\nLe porte verdi (the green doors)\n\nSee also \n\nItalian/Vocabulary/Adjectives\nItalian/Grammar/Comparatives and superlatives",
+          "examples": [
+            "Example:",
+            "are both correct, with slightly different meaning",
+            "Examples:",
+            "Example:"
+          ],
+          "learnerTip": "== Adjectives / Aggettivi ==\nUnlike in English, adjectives may be placed both before or after the noun.\nExample:",
+          "source": "https://en.wikibooks.org/wiki/Italian/Grammar/Adjectives"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Adverbs",
+      "summary": "An adverb is a word or phrase that modifies or describes a verb, adjective, or other adverb. In Italian, adverbs play an important role in adding detail to a sentence and expressing various aspects such as time, place, manner, degree, and frequency. This chapter will provide an o",
+      "sections": [
+        {
+          "heading": "Adverbs",
+          "body": "An adverb is a word or phrase that modifies or describes a verb, adjective, or other adverb. In Italian, adverbs play an important role in adding detail to a sentence and expressing various aspects such as time, place, manner, degree, and frequency. This chapter will provide an overview of Italian adverbs, including their forms, usage, and common examples.\n\n\n== Forms of Adverbs ==\nItalian adverbs are generally derived from adjectives by adding the suffix -mente to the feminine singular form of the adjective. For example, the adjective veloce (fast) becomes the adverb velocemente (quickly). \nHowever, not all adverbs are formed by this pattern. Some adverbs have irregular forms, while others are identical to their corresponding adjectives. For instance:\n\nAdjective: bello (beautiful)\nAdverb: bello (beautifully)\nAdjective: forte (strong)\nAdverb: forte (strongly)\nIn addition to these regular and irregular forms, there is a group of adverbs that have unique forms and do not derive from adjectives. Examples of this group include bene (well), male (badly), presto (quickly), tardi (late), and mai (never).\n\n\n== Usage ==\nItalian adverbs are versatile and can be used in various ways to modify different parts of speech. Here are some common usage patterns:\n\n\n=== Modifying Verbs ===\nAdverbs in Italian often modify verbs, indicating aspects such as manner, frequency, time, or degree. They usually come after the verb they modify. For example:\n\nCammina velocemente. (He walks quickly.)\nParlo spesso con mia madre. (I often speak with my mother.)\nMangio sempre pasta. (I always eat pasta.)\nStudia molto. (He studies a lot.)\n\n\n=== Modifying Adjectives ===\nAdverbs can also modify adjectives to express the degree or intensity of the adjective. In this case, they usually come before the adjective. For example:\n\nÈ molto bello. (It's very beautiful.)\nSono abbastanza stanco. (I am quite tired.)\nLa casa è estremamente grande. (The house is extremely big.)\n\n\n=== Modifying Other Adverbs ===\nSimilar to their usage with adjectives, adverbs can modify other adverbs to show the degree or intensity. Again, they typically come before the adverb they modify. For example:\n\nParla molto chiaramente. (He speaks very clearly.)\nLavora abbastanza velocemente. (He works quite quickly.)\nHo sempre vissuto qui. (I have always lived here.)\n\n\n== Common Adverbs ==\nItalian has a wide range of adverbs, each serving a specific purpose. Here are some commonly used adverbs in Italian:\n\nbene - well\nmale - badly\nspesso - often\nsempre - always\nmai - never\ntroppo - too much/too many\npoco - little/few\nabbastanza - enough/quite\nmolto - very/much\ncosì - so/this way\npresto - soon/quickly\ntardi - late\nqui - here\nlì - there",
+          "examples": [],
+          "learnerTip": "An adverb is a word or phrase that modifies or describes a verb, adjective, or other adverb. In Italian, adverbs play an important role in adding detail to a sentence and expressing various aspects su",
+          "source": "https://en.wikibooks.org/wiki/Italian/Grammar/Adverbs"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Articles",
+      "summary": "== Determinative article (the) / L'articolo determinativo ==\nThe English article the has several translations into Italian, according to:",
+      "sections": [
+        {
+          "heading": "Articles",
+          "body": "== Determinative article (the) / L'articolo determinativo ==\nThe English article the has several translations into Italian, according to:\n\ngender: masculine or feminine\nnumber: singular or plural\ninitial of the following word\nBasic articles:\n\nMasculine singular: il\nMasculine plural: i\nFeminine singular: la\nFeminine plural: le\n\nArticles must have the same gender and number of the referred noun.\nExamples:\n\nIl ragazzo (the boy)\nLa ragazza (the girl)\nI ragazzi (the boys)\nLe ragazze (the girls)\n\nWhen the following word begins with z, s+consonant, gn, pn, ps or x, the masculine article is changed as follows:\nMasculine articles before impure consonant sounds:\n\nMasculine singular: lo\nMasculine plural: gli\n\nExamples:\n\nLo zio (the uncle)\nGli zii (the uncles)\n\nWhen the following word begins with a vowel, articles are changed as follows:\nArticles before a vowel:\n\nMasculine singular: l' (lo)\nMasculine plural: gli\nFeminine singular: l' (la)\nFeminine plural: le\n\nThe form l' is not colloquial, it is the normal form even in very polite and refined speech.\nExamples:\n\nL'orso (the bear)\n- plural: gli orsi (the bears)\nL'arma (the weapon)\n- plural: le armi (the weapons)\n\nNote that when the vowel is an i pronounced as a semi-vowel, lo and la are used, eg lo iodio, la iarda.\n\n\n== Indeterminate and Partitive Articles (a/an) / Gli articoli partitivi e indeterminativi (un/uno/una) ==\nBasic indeterminate articles:\n\nMasculine singular: un\nMasculine singular: uno (For impure consonants z, s+consonant, gn, pn, ps, x)\nFeminine singular: una (un' is written when the following word starts with vowel, do not confuse with masculine un!)\n\nThese articles do not have any plural but instead the Partitive Article can be used. These articles all have the meaning of \"some\" and they are similar to some prepositions but they are not prepositions, they work like articles.\nPartitive articles or plural indeterminative:\n\nMasculine plural: dei\nMasculine plural: degli (For impure consonants z, s+consonant, gn, pn, ps, x)\nFeminine plural: delle",
+          "examples": [
+            "Examples:",
+            "Examples:",
+            "Examples:",
+            "plural: gli orsi (the bears)",
+            "plural: le armi (the weapons)",
+            "These articles do not have any plural but instead the Partitive Article can be used. These articles all have the meaning of \"some\" and they are similar to some prepositions but they are not prepositions, they work like articles."
+          ],
+          "learnerTip": "== Determinative article (the) / L'articolo determinativo ==\nThe English article the has several translations into Italian, according to:",
+          "source": "https://en.wikibooks.org/wiki/Italian/Grammar/Articles"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

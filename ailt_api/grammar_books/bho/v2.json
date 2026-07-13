@@ -1,0 +1,183 @@
+{
+  "title": "Grammar Book — भोजपुरी",
+  "languageCode": "bho",
+  "languageName": "भोजपुरी",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammatical rules and syntax in the Bhojpuri language",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammatical rules and syntax in the Bhojpuri language\n\nThis article contains Indic text. Without proper rendering support, you may see question marks or boxes, misplaced vowels or missing conjuncts instead of Indic text.\n\nBhojpuri grammar (Bhojpuri: भोजपुरी व्याकरण) is the grammar of the Bhojpuri language. In many aspects, it is quite similar to other Eastern Indo-Aryan languages. Modern Bhojpuri grammar was written in 1915 by Pt. Shivadas Ojha.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "Main article: Bhojpuri Nouns\nNouns in Bhojpuri have three forms, viz. short, long and redundant. Thus, for ghōṛā (\"horse\"), the forms will be ghōṛā, ghoṛwā and ghoṛawā respectively. In some cases, the long form ends with /ē/, ghoṛwē.[1] The redundant form has two more variants, /",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Bhojpuri Nouns\nNouns in Bhojpuri have three forms, viz. short, long and redundant. Thus, for ghōṛā (\"horse\"), the forms will be ghōṛā, ghoṛwā and ghoṛawā respectively. In some cases, the long form ends with /ē/, ghoṛwē.[1] The redundant form has two more variants, /-ā/ and /-yā/. Thus for kukur (\"a dog\"), it can take the form kukurā and for māli (\"a gardener\") maliyā. /-ā/ is used with nouns which have a disyllabic structure like bhatār, bhatarā (\"husband\") or sonār, sonarā (\"goldsmith\"). The suffix /-yā/ is added to nouns ending in /-i/, including feminine forms derived by adding /-i/, like bētī, betiyā (\"daughter\") and aurat, auratiyā (\"women\").[2] The oblique forms of nouns are identical to the nominative with the exception of verbal nouns.[1]",
+          "examples": [
+            "Nouns in Bhojpuri have three forms, viz. short, long and redundant. Thus, for ghōṛā (\"horse\"), the forms will be ghōṛā, ghoṛwā and ghoṛawā respectively. In some cases, the long form ends with /ē/, ghoṛwē.[1] The redundant form has two more "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Definiteness",
+          "body": "The redundant form, as it is called by Greirson, actually does the grammatical task of coding definiteness in the noun morphology. It is same as the definite articles the and la of English and French respectively. Thus, ghorawā is \"the horse\" and maliyā is \"the gardener\".[2]",
+          "examples": [
+            "The redundant form, as it is called by Greirson, actually does the grammatical task of coding definiteness in the noun morphology. It is same as the definite articles the and la of English and French respectively. Thus, ghorawā is \"the hors"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Morphology",
+          "body": "To characterize nouns the suffixes -wala and -iya are extensively used. -wala is also used in Hindustani but its use is more extensive in Bhojpuri where it can replace the adjective-forming suffixes of borrowed words, e.g. /-dār/. For instance, Hindi: इज़्ज़तदार, romanized: izzatdār becomes ijjatwalā in Bhojpuri. The suffix /-iyā/ (also /-aiyā/, /-vaiyā/ variations) is also used extensively as characterizing suffix, as in kalkatiyā, characteristic or belonging to Kolkata, and puraniyā, characterized by old age.[3]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "The Animate nouns in Bhojpuri are gendered. Those referring to females are feminine and rest are masculine. The feminine is formed by adding /-i/, /-in/ and /-ni/ to masculine nouns, e.g.  /ājā/ (\"grandfather\") →  /ājī/ (\"grandmother\") or /māli - mālin/ and /babuā - babunī/ (boy - girl).[3]",
+          "examples": [
+            "The Animate nouns in Bhojpuri are gendered. Those referring to females are feminine and rest are masculine. The feminine is formed by adding /-i/, /-in/ and /-ni/ to masculine nouns, e.g.  /ājā/ (\"grandfather\") →  /ājī/ (\"grandmother\") or /"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "To form the plural in Bhojpuri, the final long vowel is shortened and -n, -nh or -ni is added. In some cases, nouns of multitude like sabh (all) or lōg (people) are added to nouns to make plurals.[1]\n\nDefinition\n\nSingular Form (Short)\n\nSingular Form (long)\n\nPlural Form\n\nHouse\n\nghar\n\ngharwā\n\ngharan/gharwan/ ghar sabh\n\nHorse\n\nghoṛā\n\nghoṛwā\n\nghoṛan/ghoṛwan/ghōṛā sabh\n\nBoy\n\nlaïkā\n\nlaïkwā\n\nlaïkan/laïka sabh\n\nKing\n\nrājā\n\nrajwā\n\nrājā lōg",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Cases",
+          "body": "Cases are generally formed by adding postpositions to the Nominative case or the oblique form (if exists) of the nouns. Sometimes true cases are also found, such as an Instrumental and Locative formed by adding -ē, as in Bengali. Thus, the locative and Instrumental case of ghar (\"house\") is ghare (\"in/by the house\"). These case forms are only found in the singular, however.[1]\n\nNoun Inflection\n\nShort\n\nLong\n\nSingular\nPlural\n\nSingular\nPlural\n\nNominative\n\n𑂐𑂩\n\nghar\n\n𑂐𑂩\n\nghar\n\nthe house\n\n𑂐𑂩𑂢\n\ngharana\n\n𑂐𑂩𑂢\n\ngharana\n\nthe Houses\n\n𑂐𑂩𑂫𑂰\n\ngharvā\n\n𑂐𑂩𑂫𑂰\n\ngharvā\n\nthe House\n\n𑂐𑂩𑂫𑂢\n\ngharvana\n\n𑂐𑂩𑂫𑂢\n\ngharvana\n\nthe Houses\n\nAccusative\n\n𑂐𑂩\n\nghar\n\n𑂍𑂵/𑂍\n\nke/ka'\n\n𑂐𑂩 𑂍𑂵/𑂍\n\nghar ke/ka'\n\n(to) the House\n\n𑂐𑂩𑂢\n\ngharan\n\n𑂍𑂵/𑂍\n\nke/ka\n\n𑂐𑂩𑂢 𑂍𑂵/𑂍\n\ngharan ke/ka\n\n(to) the houses\n\n𑂐𑂩𑂫𑂰\n\ngharvā\n\n𑂍𑂵/𑂍\n\nke/ka'\n\n𑂐𑂩𑂫𑂰 𑂍𑂵/𑂍\n\ngharvā ke/ka'\n\n(to) the House\n\n𑂐𑂩𑂫𑂢\n\ngharvana\n\n𑂍𑂵/𑂍\n\nke/ka'\n\n𑂐𑂩𑂫𑂢 𑂍𑂵/𑂍\n\ngharvana ke/ka'\n\n(to) the House\n\nGenitive\n\n𑂐𑂩\n\nghar\n\n𑂍𑂵/𑂍\n\nke/ka'\n\n𑂐𑂩 𑂍𑂵/𑂍\n\nghar ke/ka'\n\n(of) the House\n\n𑂐𑂩𑂢\n\ngharan\n\n𑂍𑂵/𑂍\n\nke/ka\n\n𑂐𑂩𑂢 𑂍𑂵/𑂍\n\ngharan ke/ka\n\n(of) the houses\n\n𑂐𑂩𑂫𑂰\n\ngharvā\n\n𑂍𑂵/𑂍\n\nke/ka'\n\n𑂐𑂩𑂫𑂰 𑂍𑂵/𑂍\n\ngharvā ke/ka'\n\n(of) the House\n\n𑂐𑂩𑂫𑂢\n\ngharvana\n\n𑂍𑂵/𑂍\n\nke/ka'\n\n𑂐𑂩𑂫𑂢 𑂍𑂵/𑂍\n\ngharvana ke/ka'\n\n(of) the House\n\nLocative\n\n𑂐𑂩\n\nghar\n\n𑂧𑂵,\n\nme,\n\n𑂐𑂩𑂵\n\ngharē\n\n𑂐𑂩 𑂧𑂵, 𑂐𑂩𑂵\n\nghar me, gharē\n\n(in/on) the House\n\n𑂐𑂩𑂢\n\ngharan\n\n𑂧𑂵\n\nme\n\n𑂐𑂩𑂢 𑂧𑂵\n\ngharan me\n\n(in/on) the houses\n\n𑂐𑂩𑂫𑂰\n\ngharvā\n\n𑂧𑂵\n\nme'\n\n𑂐𑂩𑂫𑂰 𑂧𑂵\n\ngharvā me'\n\n(in/on) the House\n\n𑂐𑂩𑂫𑂢\n\ngharvana\n\n𑂧𑂵\n\nme'\n\n𑂐𑂩𑂫𑂢 𑂧𑂵\n\ngharvana me'\n\n(in/on) the House\n\nTo form the instrumental case; sē, tē, santē and kartē are also added to the noun forms, hence ghar se is to the house.\n\nTo form the dative, lā, lag, khātir are added, ex:- ghar la (for the house)\n\nFor the ablative case, sē, lē are added.",
+          "examples": [
+            "Cases are generally formed by adding postpositions to the Nominative case or the oblique form (if exists) of the nouns. Sometimes true cases are also found, such as an Instrumental and Locative formed by adding -ē, as in Bengali. Thus, the "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Noun Phrases",
+          "body": "Nouns can be preceded by quantifiers. The quantifiers -gō, -ṭhō and -ṭhē are used with numeral to emphasize countability as opposed to totality. The limiter expression in Bhojpuri are marked morphologically by using the suffixes -ē and -ō, to show inclusiveness and exclusiveness respectively, as in ham āmē khāïb (I will eat only mangoes) and ham āmō khāïb (I will eat mango, too).[4]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "The first-person pronoun has two forms viz. inferior (mē) and superior (ham). The inferior form was used in Old Bhojpuri but is obsolete in Modern Bhojpuri and is mostly found in poetry. Ham is used as the first-person singular pronoun; the oblique form is Hamrā, however sometime",
+      "sections": [
+        {
+          "heading": "Personal Pronouns",
+          "body": "The first-person pronoun has two forms viz. inferior (mē) and superior (ham). The inferior form was used in Old Bhojpuri but is obsolete in Modern Bhojpuri and is mostly found in poetry. Ham is used as the first-person singular pronoun; the oblique form is Hamrā, however sometimes ham (ham-kē) also serves as oblique form. In the Sadri dialect, mōe is used instead of ham.[5]\n\nNumber\n\nForm\n\nFirst Person\n\nSecond Person\n\nThird Person\n\nInferior\nSuperior\n\nInf.\nFormal\n\nHonorific\n\nInf.\n\nFormal\n\nHonorific\n\nSingular\n\nNom.\n\nमे (mē)\n\nहम (ham)\n\nतें (tēṃ)\n\nतूँ (tūṃ)\n\nरउवा (raüvā) /  रवा (ravā) / रउरा (raürā) / अपने (apnē)\n\nई (ī),  ऊ (ū)\n\nइहाँ के (ihāṁ kē),  उहाँ के (uhāṁ kē)\n\nObl.\n\nमोहि (mohi) / मो (mō)\n\nहमरा (hamrā)\n\nतो (tō) / तोहि (tōhi) / तोरा (tōrā)\n\nतोहरा (tohrā)\n\nरउवा (raüvā) /  रवा (ravā) / रउरा (raürā) / अपना (apnā)\n\nए (ē),  एह (ēh), एकरा (ekrā), ओ (ō), ओह (ōh), ओकरा (okrā)\n\nइन (in), इनका (inkā), इनकरा (inkarā),  उन (un), उनका (unkā), उनकरा (unkarā)\n\nइहाँ (ihāṁ),  उहाँ (uhāṁ)\n\nGen.\n\nमोर (mōr), मोरे (mōrē)\n\nहमार (hamār) / हमरे (hamarē)\n\nतोर (tōr) / तोरे (tōre)\n\nतोहार (tohār) / तोहरे (tohrē)\n\nराउर (rāür) / रउरे (raürē) / अपने के (apnē kē)\n\nएकर (ekar), ओकर (okar)\n\nइनकर (inkar),  उनकर (unkar)\n\nइहाँ के (ihāṁ kē), उहाँ के (uhāṁ kē)\n\nPlural\n\nNom.\n\nहमनी के (hamnī kē)\n\nहमहन (hamhan)\n\nतोहनी के (tohnī ke)\n\nतूँ लोग (tuṃ lōg)\n\nरउरा सभ/लोग, अपने सभ/लोग (raürā sabh/lōg, apnē sabh/log)\n\nएकनी के (ekanī kē), ओकनी के (okanī kē)\n\nइ लोग (I Iōg), उ लोग (u lōg)\n\nइहाँ सभ (ihāṁ sabh), उहाँ सभ (uhāṁ sabh)\n\nObl.\n\nहमनी (hamnī)\n\nहमहन (hamhan)\n\nतोहनी (tohnī)\n\nतूँ लोग (tūṃ lōg)\n\nएकनी (ekanī), ओकनी (okanī)\n\nIn the second person, tē is the most non-honorific form, used toward people younger than the speaker, to servants, and also while speaking disrespectfully. It can also show deep affection, informality and intimacy in a relationship.[6] For instance, a son always uses tē for his mother. tū is ordinarily respectful term and can be used to address anyone, whether younger or older. To show extreme respect or honour, raüwā or apnē is used.[7] The demonstrative pronouns ī and ū are used as third-person pronouns in Modern Bhojpuri; the sē and tē of Old Bhojpuri survive but are not used frequently or mostly only in a proverbial sense. For instance, jē jaïsan karī tē taïsan pāï (lit. \"Who as he does, he so obtains\").[8]",
+          "examples": [
+            "In the second person, tē is the most non-honorific form, used toward people younger than the speaker, to servants, and also while speaking disrespectfully. It can also show deep affection, informality and intimacy in a relationship.[6] For "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Demonstrative Pronouns",
+          "body": "The proximate demonstrative pronouns (\"this\" or \"those\") of Modern Bhojpuri are given in the following table.[9][10]\n\nForms\n\nSingular\n\nPlural\n\nNominative\n\nNon Honorific\n\nī, haï\n\neknī kē, inhan kē, hekni kē, hinhan kē\n\nFormal\n\nī lōg\n\nHonorific\n\nइहाँ\n\nihāṁ\n\nके\n\nkē\n\nइहाँ के\n\nihāṁ kē\n\nइहाँ\n\nihaṁ\n\nसभ\n\nsabh\n\n/\n\n/\n\nसभन\n\nsabhan\n\n/\n\n/\n\nसभनी\n\nsabhani\n\nके\n\nke\n\nइहाँ सभ / सभन / सभनी के\n\nihaṁ sabh / sabhan / sabhani ke\n\nOblique\n\nNon Honorific\n\nए,\n\nē,\n\nएह,\n\neh,\n\nहे\n\nhē\n\nए, एह, हे\n\nē, eh, hē\n\nएकनी,\n\neknī,\n\nइनहन,\n\ninhan,\n\nहेकनी,\n\nhekni,\n\nहिनहन\n\nhinhan\n\nएकनी, इनहन, हेकनी, हिनहन\n\neknī, inhan, hekni, hinhan\n\nFormal\n\nइनका,\n\ninakā,\n\nइनकरा\n\ninakarā\n\nइनका, इनकरा\n\ninakā, inakarā\n\nई\n\nī\n\nलोग\n\nlōg\n\nई लोग\n\nī lōg\n\nHonorific\n\nइहाँ\n\nihāṁ\n\nइहाँ\n\nihāṁ\n\nइहाँ\n\nihaṁ\n\nसभ\n\nsabh\n\n/\n\n/\n\nसभन\n\nsabham\n\n/\n\n/\n\nसभनी\n\nsabhani\n\nके\n\nke\n\nइहाँ सभ / सभन / सभनी के\n\nihaṁ sabh / sabham / sabhani ke\n\nThe genitive form is ēkar, hēkar, inkar, hinkar. Sometimes the suffix -i is added to them and used a feminine.[9] The remote form of demonstrative adjectives can be made by replacing i with u and e with o in the proximate form. Thus, eknī will becomes oknī and so on.",
+          "examples": [
+            "The proximate demonstrative pronouns (\"this\" or \"those\") of Modern Bhojpuri are given in the following table.[9][10]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Relative Pronouns",
+          "body": "Forms\n\nSingular\n\nPlural\n\nDirect\n\njē, jawan, jaün, jinhī or sabh\n\nSame as Singular along with जिन्हनि (jinhani) and  जिन्हनि लोग (jinhani log)\n\nOblique\n\nजे (jē), जवना (javanā), जउना (jaünā), जेह (jeh), जिन्हि (jinhi), जेकरा (jekrā), जिनकरा (jinkarā), जेहकरा (jehkarā)\n\nGenitive\n\nजेकर (jēkar), जेहकर (jehkar), जिनकर (jinkar)\n\nThe relative pronoun jē in Bhojpuri is the same as other Eastern Indo-Aryan languages.[11]\n\nCase\n\nDemonstrative\n\nRelative\n\nInterrogative\n\n3rd person\n\nProximal\n\nNon-proximal\n\nsg.\n\npl.\n\nsg.\n\npl.\n\nsg.\n\npl.\n\nsg.\n\npl.\n\nNominative\n\nInformal\n\nī, haï\n\neknī ke, hēknī ke, inhan ke, hinhan ke, ī log (logan/sabh)\n\nū, haü\n\noknī ke, hoknī ke, unban ke, hunhan ke, ū log (logan/sabh)\n\njē, jawan, jaün\n\njeknī kē, jinhan kē,\n\nkē, kewan, kawan, kaün\n\nkē, kewan, kawan lōg, kaün\n\nFormal\n\nī, inhī, hinhī\n\nū, unhī, hunhī\n\nū log (logan, sabh)\n\njē lōg, jinhan lōg\n\nHonorific\n\nihāṃ kē\n\nihāṃ sabh (sabhan/sabhani ke)\n\nuhāṃ kē\n\nuhāṃ sabh (sabhan/sabhani ke)\n\njihāṃ kē\n\njihāṃ sabh (sabhani)\n\nOblique\n\nInformal\n\nē, eh, hē, ekrā, hekrā\n\neknī, heknī, inhani, hinhanī\n\nō, oh, ho, okrā, hokrā\n\nokanī, hoknī, unhani\n\njē, jekrā, jeh, jawanā, jaünā\n\njeknī, jinhan\n\nkē, keh, kawanā, kaünā, kewanā, kekrā, kehakarā\n\nkē, keknī, kinhan\n\nFormal\n\nin, inkarā, inkā, inhani ka\n\ni log (logan)\n\nun, unkā, unkarā,. hunkā, hunkarā\n\nu log (logan)\n\njē, jeh, jawanā, jaünā, jin, jinkā, jinkarā\n\njē lōg, jawan lōg\n\nkinkarā, kinkā\n\nkinhan, kawan log\n\nHonorific\n\nihāṃ\n\nihāṃ (sabh/sabhan/sabhani)\n\nuhāṃ\n\nuhāṃ (sabh/sabhan/sabhani)\n\njihāṃ\n\njihāṃ sabh (sabhan/sabhani)\n\nkihāṃ\n\nGenitive\n\nInformal\n\nēkar, hēkar\n\neknī ke, heknī ke\n\nōkar, hōkar\n\noknī kē, hokni kē\n\njēkar, jehakar\n\njeknī ke\n\nkēkar\n\nkeknī ke\n\nFormal\n\ninkar, hinkar\n\ni log (logan)\n\nunkar, hunkar\n\nu log (logan)\n\njinkar\n\nje/jawan/jaün log ke\n\nkinkar\n\nkawan log\n\nHonorific\n\nihaṃ ke\n\nihāṃ sabh ke (sabhan/logan/log)\n\nuhāṃ kē\n\nuhāṃ sabh ke (sabhan/logan/log)\n\njihaṃ\n\njihāṃ sabh ke (sabhan/logan/log)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Other Pronouns",
+          "body": "Keu, Kēhu and Kawano are used as animate forms of indefinite pronouns and kichu, kuchu, kichuo, kuchuo as inanimate forms.[12]\n\napanā and apne are used to show relative sense, nija is used in instrumental case.[13]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "Like the nouns, adjectives also have short, long and redundant forms, e.g. baṛ, baṛkā, baṛkawā. Sometimes, the suffixes -han and -har are also used with adjectives, e.g. lām - lamhar and baṛ - baṛhan.[14]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Like the nouns, adjectives also have short, long and redundant forms, e.g. baṛ, baṛkā, baṛkawā. Sometimes, the suffixes -han and -har are also used with adjectives, e.g. lām - lamhar and baṛ - baṛhan.[14]\n\nAdjectives do not agree in gender with the noun. Hence the adjective baṛ (big) is same for laïkā (\"boy\") and laïki (\"girl\"), just as in other Magadhan languages. In Bhojpuri, however, the long form with suffix /-ka/ and /-kī/ is gendered, thus baṛkā and baṛkī are used for masculine and feminine respectively.[15]",
+          "examples": [
+            "Adjectives do not agree in gender with the noun. Hence the adjective baṛ (big) is same for laïkā (\"boy\") and laïki (\"girl\"), just as in other Magadhan languages. In Bhojpuri, however, the long form with suffix /-ka/ and /-kī/ is gendered, t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        },
+        {
+          "heading": "Degree of Comparison",
+          "body": "There are no inflexions for comparative and superlative forms. The words equivalent to \"more\" like besi, jiādā, dhēr and \"less\" like kam are used before the adjectives while comparing:[16]\n\nई\n\nī\n\nलइक\n\nlaïkā\n\nओकरा\n\nokarā\n\nसे\n\nse\n\nढेर\n\nḍhera\n\nसुन्नर\n\nsunnara\n\nबाटे\n\nbāṭe\n\nई लइक ओकरा से ढेर सुन्नर बाटे\n\nī laïkā okarā se ḍhera sunnara bāṭe\n\nThis boy is fairer than that.\n\nSometime comparison is done using the numerals unaïs (nineteen) and bīs (twenty), where former is used for less and later for more.[17]\n\nऊ\n\nū\n\nलइका\n\nlaīkā\n\nएकरा\n\nekarā\n\nसे\n\nse\n\nउमिर\n\numira\n\nमे\n\nme\n\nतनि\n\ntani\n\nउनइस\n\nunaïsa\n\nहवे\n\nhawe\n\nऊ लइका एकरा से उमिर मे तनि उनइस हवे\n\nū laīkā ekarā se umira me tani unaïsa hawe\n\nThe boy is a bit younger in age. (lit. That boy is slightly nineteen than this in age.\n\nThe superlative is expressed by adding sabh mē or sabh sē or sabh mē baṛhi kē or sabh se baṛhi kē (best of all) before the adjective, for example u laïka sabh mē nīk hawe (the boy is best of all).[17]",
+          "examples": [
+            "There are no inflexions for comparative and superlative forms. The words equivalent to \"more\" like besi, jiādā, dhēr and \"less\" like kam are used before the adjectives while comparing:[16]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Verbs",
+      "summary": "Chaterji has classified Bhojpuri verbs into two categories viz. primary root and secondary root. The former one are those which are inherited from Old Indo-Aryan while the latter are causative, denominative or compounded.[18] Like Bengali, Bhojpuri has two moods, indicative and i",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Chaterji has classified Bhojpuri verbs into two categories viz. primary root and secondary root. The former one are those which are inherited from Old Indo-Aryan while the latter are causative, denominative or compounded.[18] Like Bengali, Bhojpuri has two moods, indicative and imperative.[19]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "History of Bhojpuri Grammars",
+      "summary": "The earliest mentions of some grammatical features of Bhojpuri can he found in Buchanan's report on Shahabad in 1812. A detailed grammatical sketch of Bhojpuri was first published by Beames in 1868.[20] In 1877, J.R. Reid tried to give a picture of the Bhojpuri spoken in Azamgarh",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The earliest mentions of some grammatical features of Bhojpuri can he found in Buchanan's report on Shahabad in 1812. A detailed grammatical sketch of Bhojpuri was first published by Beames in 1868.[20] In 1877, J.R. Reid tried to give a picture of the Bhojpuri spoken in Azamgarh district.[20] Greirson's Linguistic Survey of India Vol. V, Part II, published in 1903, contained a skeleton grammar of Bhojpuri with specimens.[20]\n\nCurrent Bhojpuri grammar which is widely used is Bhojpuri Bayakaran, written by Pt. Shivdas Ojha in 1915. He was a Bhojpuri scholar from Shahabad district of Bihar. It was later published by Bhojpuri Akademi, Patna.[21]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Bhojpuri_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

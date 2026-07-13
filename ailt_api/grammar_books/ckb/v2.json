@@ -1,0 +1,141 @@
+{
+  "title": "Grammar Book — کوردی",
+  "languageCode": "ckb",
+  "languageName": "کوردی",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Sorani is a Central Kurdish dialect. Sorani Kurdish is often written with the Arabic alphabet, and has eight vowels: î[i], û[u], i[I], u[ʊ], ê[e], o[o], e[æ], a[ɑ].",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Sorani is a Central Kurdish dialect. Sorani Kurdish is often written with the Arabic alphabet, and has eight vowels: î[i], û[u], i[I], u[ʊ], ê[e], o[o], e[æ], a[ɑ].",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "A Kurdish noun in the absolute state, i.e. without any ending of any kind, gives a generic sense of the noun. It is also the “lexical” form of the noun, i.e. the form in which a noun is given in a vocabulary list or dictionary. The absolute state is normally used for the generic",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "A Kurdish noun in the absolute state, i.e. without any ending of any kind, gives a generic sense of the noun. It is also the “lexical” form of the noun, i.e. the form in which a noun is given in a vocabulary list or dictionary. The absolute state is normally used for the generic sense, as in \"قاوه ڕەشه\" qawe reş e (coffee is black).[1]",
+          "examples": [
+            "A Kurdish noun in the absolute state, i.e. without any ending of any kind, gives a generic sense of the noun. It is also the “lexical” form of the noun, i.e. the form in which a noun is given in a vocabulary list or dictionary. The absolute"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Verb",
+      "summary": "Min nan dexom. (Present)\n\"I am eating the meal.\"\nMin nanim xward. (Past)\n\"I ate the meal.\"\nPast Perfect Tense (Intransitive)\nFor intransitive verbs with past stems ending in a consonant (like hatin > hat-), the past perfect tense, which is functionally equivalent to the English p",
+      "sections": [
+        {
+          "heading": "Tense",
+          "body": "The main tenses:\n\nMin nan dexom. (Present)\n\"I am eating the meal.\"\nMin nanim xward. (Past)\n\"I ate the meal.\"\nPast Perfect Tense (Intransitive)\nFor intransitive verbs with past stems ending in a consonant (like hatin > hat-), the past perfect tense, which is functionally equivalent to the English past perfect (‘I had come, you had gone’), is formed from the past stem + i + the past tense of bûn ‘to be.’ Verbs with past stems ending in a vowel (like bûn > bû) form the past perfect tense from the simple stem + the past tense of bûn.\n\nhatibûm: I had come\nhatibûyt:  You had come\nhatibû: He/She had come\nhatibûyn: We had come\nhatibûn:  You/They came",
+          "examples": [
+            "\"I am eating the meal.\"",
+            "\"I ate the meal.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Structure of possessive phrases",
+      "summary": "There are certain ways to construct possessive phrases in the Sorani dialect, but the ways in which possessive phrases are constructed in Sorani Kurdish do not mirror those of other languages. the main difference in possessive constructions in Sorani Kurdish compared to other lan",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "There are certain ways to construct possessive phrases in the Sorani dialect, but the ways in which possessive phrases are constructed in Sorani Kurdish do not mirror those of other languages. the main difference in possessive constructions in Sorani Kurdish compared to other languages is concerned with determination because Sorani Kurdish allows double determination. Thus, two determiners can appear in Sorani Kurdish possessive DPs. One is the definite determiner, and the other is the possessive determiner. And the determiners can happen as affixes or clitics, which are added to the noun heads within the DPs.[2] More interestingly, the existence of such syntactic phenomena as \"double determiners\" is not permitted in structuring possessive phrases in some languages, specifically English, because the possessive marker in English simultaneously asserts definiteness. However, the coexistence of double determiners in Sorani Kurdish possessive phrases is not as random as it seems. It must conform to a rule that claims that the contrast between the alienable and inalienable possession plays a crucial role in distinguishing nouns concerning determination.[3] On his view, possessives in alienable cases necessarily need a definite determiner, whereas they do not in inalienable cases such as body parts and kinship words, which usually appear without the definite determiner, such as in the following examples.\n\n(1) a.ser-m,\n\nhead-my,\n\nsîng-m,\n\nchest-my,\n\ndiɫ-m\n\nheart-my\n\nser-m, sîng-m, diɫ-m\n\nhead-my, chest-my, heart-my\n\nmy head, my chest, my heart\n\n(1) b.dayk-m,\n\nmother-my,\n\nbawk-m,\n\nfather-my,\n\nXuşk-m\n\nsister-my\n\ndayk-m, bawk-m, Xuşk-m\n\nmother-my, father-my, sister-my\n\nmy mother, my father, \"my sister\"\n\n(2) a.Kitêb-eke-m\n\nbook-DEF-my\n\nKitêb-eke-m\n\nbook-DEF-my\n\n“my book”\n\n(2) b.blûz-eke-t\n\nsweater-DEF-your\n\nblûz-eke-t\n\nsweater-DEF-your\n\n“your sweater”",
+          "examples": [
+            "There are certain ways to construct possessive phrases in the Sorani dialect, but the ways in which possessive phrases are constructed in Sorani Kurdish do not mirror those of other languages. the main difference in possessive constructions",
+            "my mother, my father, \"my sister\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Possessive structures",
+      "summary": "This section may be in need of reorganization to comply with Wikipedia's layout guidelines. Please help by editing the article to make improvements to the overall structure.  (December 2021) (Learn how and when to remove this message)\nThere are different forms of constructing pos",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section may be in need of reorganization to comply with Wikipedia's layout guidelines. Please help by editing the article to make improvements to the overall structure.  (December 2021) (Learn how and when to remove this message)\nThere are different forms of constructing possessives in Sorani Kurdish, but the structures of possessive phrases are varied regarding their possessive maker:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        },
+        {
+          "heading": "Frequent or common possessives",
+          "body": "These types of possessive phrases in Sorani Kurdish are formed by the combination of two nouns with the help of a genitive case marker known as ‘ȋ or y\". To clarify, the addition of \"ȋ /y\" in Sorani Kurdish, known as the \"zafe,\" is equivalent to the English genitive case maker \"POSS andof”. Such ‘ȋzafe’ appears in the same structure as \"of\" because it comes after the possessee and comes before the possessor, whereas it appears in the same structure as POSS because it is linked to the possessee.[4]\n\n(3) a.kras-y\n\nShirt-POSS\n\nAdam\n\nAdam\n\nkras-y Adam\n\nShirt-POSS Adam\n\n\"Adam’s shirt\"\n\n(3) b.koléj-ȋ\n\ncollege-POSS\n\nyasa\n\nlaw\n\nkoléj-ȋ yasa\n\ncollege-POSS law\n\n\"college of law\"\n\nBut such ‘izafa’ does not act as a marker, specifically in the case of combining a noun with an adjective. In such cases, it acts as a way of linking between a noun and an adjective.[5] However, a noun and an adjective can be combined but in the case of definiteness, they are different because the form of \"Izafa\" alters from \" ȋ \" to \" e \" and moves \" eke\", which is the definite marker, to the end of the possessive structure, while it comes between the noun and the adjective after \"ék\" the indefinite marker in the possessive phrase structure.[6] This is to say that the definite marker comes after the adjective, whereas the indefinite marker occurs after the noun, such as in the following examples:\n\n(4) a.xanw-ék-ȋ\n\nhouse-INDEF-ȋzafe\n\nxosh\n\nnice\n\nxanw-ék-ȋ xosh\n\nhouse-INDEF-ȋzafe nice\n\n\"a nice house\"\n\n(4) b.xanw-e\n\nhouse-ȋzafe\n\nxosh-eke\n\nnice-DEF\n\nxanw-e xosh-eke\n\nhouse-ȋzafe nice-DEF\n\n\"the nice house\"",
+          "examples": [
+            "These types of possessive phrases in Sorani Kurdish are formed by the combination of two nouns with the help of a genitive case marker known as ‘ȋ or y\". To clarify, the addition of \"ȋ /y\" in Sorani Kurdish, known as the \"zafe,\" is equivale",
+            "\"Adam’s shirt\"",
+            "\"college of law\"",
+            "But such ‘izafa’ does not act as a marker, specifically in the case of combining a noun with an adjective. In such cases, it acts as a way of linking between a noun and an adjective.[5] However, a noun and an adjective can be combined but i",
+            "\"a nice house\"",
+            "\"the nice house\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        },
+        {
+          "heading": "Reflexive possessives",
+          "body": "Another possessive structure in Sorani Kurdish is that of reflexives, which is formed of two parts: \"xo\" meaning \"self\" and a possessive clitic, but they occur as one syntactic unit as the following:\n\nxom (myself)  -  xoman (ourselves)\nxot (yourself)  -  xotan (yourselves)\nxoy (himself/herself)  -  xoyan [themselves]\nThese reflexives can occur in two different cases. First, they are used for confirmation when they directly come after a subject in a sentence, and secondly, they act as part of a possessive DP when they follow an object in the sentence, as in the following examples:\n\n(5) a.Adam\n\nxoy\n\nhat.\n\n(past)\n\nAdam xoy hat.\n\n“Adam himself came.”\n\n(5) b.Dars-eke-y\n\nclass-DEF-POSS\n\nxom-xwénd.\n\nmyself-I\n\n \n\nstudy-PAST.\n\nDars-eke-y xom-xwénd.\n\nclass-DEF-POSS myself-I study-PAST.\n\n“I studied my own class.” Mismatch in the number of words between lines: 2 word(s) in line 1, 3 word(s) in line 2  (help);\n\nAs it is apparent in (5 b), the possessive clitic \"m\" is added to the reflexive \"xo\" to express the use of reflexives in possessive construction.",
+          "examples": [
+            "Another possessive structure in Sorani Kurdish is that of reflexives, which is formed of two parts: \"xo\" meaning \"self\" and a possessive clitic, but they occur as one syntactic unit as the following:",
+            "As it is apparent in (5 b), the possessive clitic \"m\" is added to the reflexive \"xo\" to express the use of reflexives in possessive construction."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        },
+        {
+          "heading": "Absolute possessive structure",
+          "body": "Possessive phrases can be constructed with absolute pronouns as shown below in Sorani Kurdish. Such possessive construction is accomplished with the help of the possessive marker \"y,\" also known as \"Izafa,\" which is attached to the noun preceding the absolute pronoun. However, the possessive construction with absolute pronouns is syntactically different from clitisized possessives, but it has the same semantic meaning. So, the difference is that in clitisized possessive, the \"Izafa\" ‘y’ does not occur because in clitisized possessives the \"y\" is null and does not occur. However, in absolute cases, the \"y\" becomes the possessive marker.[7]\n\nAbsolute Pronouns in Sorani Kurdish\n\nmin [I]\néme [we]\n\nto [you Singular]\néwe [you Plural]\n\new [he/she]\newan [they]\n\nExamples:\n\n(6)kras-eke-\n\nshirt-DEF-\n\ny\n\nPOSS[y]\n\nmin\n\nI\n\nkras-eke- y min\n\nshirt-DEF- POSS[y] I",
+          "examples": [
+            "Possessive phrases can be constructed with absolute pronouns as shown below in Sorani Kurdish. Such possessive construction is accomplished with the help of the possessive marker \"y,\" also known as \"Izafa,\" which is attached to the noun pre",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        },
+        {
+          "heading": "Cliticized possessive structures",
+          "body": "Clitic pronouns are categorized into two groups: Possessives and Subject/ object pronouns, and they are used to form possessive phrases in Sorani Kurdish.[8]\n\npossessive\nsubject/object\n\nm\n[my]\nm\n\nman\n[our]\nȋn\n\nt\n[your]\nȋt\n\ntan\n[your]\nn\n\ny\n[his/her]\nét,\n\nyan\n[their]\nn\n  \n\nConstructing possessive phrases with clitics is determined by the verb, meaning that when the verb is intransitive or be form, the attached clitic pronoun is considered as possessive, but when the verb is transitive, the attached clitic is considered as the subject or object.[9]\n\n(7) a.kteb-eke-yan\n\nbook-DEF-their\n\nsuta.\n\nburn-PAST.\n\n(-yan = possessive)\n\n \n\nkteb-eke-yan suta.\n\nbook-DEF-their burn-PAST.\n\n“Their book burnt.”\n\n(7) b.Kteb-eke-m\n\nbook-DEF-my\n\nbaswd-a\n\nuseful-COP\n\nKteb-eke-m baswd-a\n\nbook-DEF-my useful-COP\n\n“my book is useful.”\n\n(7) c.wtar-eke-m\n\narticle-DEF-I\n\nnusi\n\nwrite-PAST\n\n(-m = subject )\n\n \n\nwtar-eke-m nusi\n\narticle-DEF-I write-PAST\n\n“I wrote the article”\n\nAlso, the clitics in passive sentences are considered possessives in Sorani Kurdish.\n\n(8)Kteb-eke-man\n\nbook-DEF-our\n\ndizra\n\nsteal-PAST.PASS\n\nKteb-eke-man dizra\n\nbook-DEF-our steal-PAST.PASS\n\n“Our book was stolen”",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        },
+        {
+          "heading": "Peripheral possessives",
+          "body": "Besides the other possessive constructions mentioned before, there are other possessive forms in Sorani Kurdish which are called peripheral possessives.\n\n“hȋ” expression\n\"hȋ\" is not a pronoun but an expression that cannot stand alone, so it must come with another absolute and reflexive pronoun or a noun.[10] Then, the \"\" expression becomes a part of a possessive phrase, such as in the following examples:\n\n(9) a.Em-\n\nthis\n\nkteb-e\n\nbook-\n\nhȋ\n\nȋzafe\n\nmin-e\n\nmine-is\n\n(absolute)\n\n \n\nEm- kteb-e hȋ min-e\n\nthis book- ȋzafe mine-is\n\n“this book is mine”\n\n(9) b.Sayara-\n\ncar-\n\nsur-eke\n\nred-DEF-\n\nhȋ\n\nȋzafe\n\nxom-\n\nmine\n\nbȗ\n\nwas\n\n(reflexive)\n\n \n\nSayara- sur-eke hȋ xom- bȗ\n\ncar- red-DEF- ȋzafe mine was\n\n“the red car was mine”\n\n(9) c.xanȗ-\n\nhouse-\n\ne-xosh-\n\nbeautiful-\n\neke\n\nDEF-\n\nhȋ\n\nȋzafe\n\nAdam-\n\nAdam\n\ne\n\nis\n\n(proper noun)\n\n \n\nxanȗ- e-xosh- eke hȋ Adam- e\n\nhouse- beautiful- DEF- ȋzafe Adam is\n\n“The beautiful house is Adam’s”\n\nThough Hî can also be one of the pronouns of have. Hî is one of the pronouns (hî,Eî,Ya,Ye,yein)(هی،ئی،یا،یێ،یێن)\n\nThey are known as 'جێناوی هەیی'(the pronouns of having?)\nIt is a pronoun used for possession and the owner can be a noun or a pronoun and in a sentence it is assigned the duty of the noun it replaces.\n\n-نامەی تۆ هاتووە،هی ئەو نەهاتووە\n(Namay to hatuwa,Hi aw nahatuwa)\n(Your letter has arrived,he/she has not)\nThe pronoun 'hi' is used instead of the letter, which 'he/she' owns'Hi' pronoun has formed a noun clause with the independent personal pronoun 'ئەو' (he/she)\n\n-بەقەڵەمی من مەنوسە،بە هی خۆت بنوسە\n(Ba qalami mn manusa,ba hî xot bnusa)\n(Don't write with my pencil,write with your own)\nThe pronoun 'Hî' came instead of 'Qalam'(pencil)\n\nAffixes which indicate possession\nSome other peripherals in Sorani Kurdish imply the concept of possession by applying some words that refer to possession entities. There are some prefixes and suffixes that are attached to a noun to indicate possession. such as the following examples:\n\n(10) behre-mend : someone who is talented\n(11) ᵲéz-dar : someone who is respected\n(12) pur-za : the son/daughter of someone’s aunt\n(13) runak-bȋr : someone who is knowledgeable.\n(14) dukan-dar: someone who owns a shop.\nBasically, the above examples shows that some affixes some nouns and then the affixes refer the notion of possessive structure in Sorani Kurdish.",
+          "examples": [
+            "\"hȋ\" is not a pronoun but an expression that cannot stand alone, so it must come with another absolute and reflexive pronoun or a noun.[10] Then, the \"\" expression becomes a part of a possessive phrase, such as in the following examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Central_Kurdish_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

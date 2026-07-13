@@ -1,0 +1,261 @@
+{
+  "title": "Grammar Book — Kernewek",
+  "languageCode": "kw",
+  "languageName": "Kernewek",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Cornish_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Cornish grammar is the grammar of the Cornish language (Kernewek or Kernowek[1]), an insular Celtic language closely related to Breton and Welsh and, to a lesser extent, to Irish, Manx and Scottish Gaelic. It was the main medium of communication of the Cornish people for much of",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Cornish language\n\nCornish grammar is the grammar of the Cornish language (Kernewek or Kernowek[1]), an insular Celtic language closely related to Breton and Welsh and, to a lesser extent, to Irish, Manx and Scottish Gaelic. It was the main medium of communication of the Cornish people for much of their history until the 17th century, when a language shift occurred in favour of English. A revival, however, started in 1904, with the publication of A Handbook of the Cornish Language, by Henry Jenner, and since then there has been a growing interest in the language.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Initial consonant mutation",
+      "summary": "Initial mutation is a feature shared by all the modern Celtic languages, in which the initial consonant of a word may change under some circumstances. In Cornish these changes take place when a word starts with one of the consonants shown in the table below; other initial consona",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Initial mutation is a feature shared by all the modern Celtic languages, in which the initial consonant of a word may change under some circumstances. In Cornish these changes take place when a word starts with one of the consonants shown in the table below; other initial consonants remain unchanged. The most common mutation occurs after the definite article an, when followed by a feminine singular noun or person-related masculine plural noun.\n\nConsonant Mutation in Cornish\n\nUnmutated\nconsonant\n\nSoft\nmutation\n\nAspirate\nmutation\n\nHard\nmutation\n\nMixed\nmutation\n\np\nb\nf\n—N/a\n—N/a\n\nt\nd\nth\n—N/a\n—N/a\n\nk\ng\nh\n—N/a\n—N/a\n\nb\nv\n—N/a\np\nf\n\nd\ndh\n—N/a\nt\nt\n\ng[a]\ndisappears\n—N/a\nk\nh\n\ng[b]\nw\n—N/a\nk\nhw\n\ngw\nw\n—N/a\nkw\nhw\n\nm\nv\n—N/a\n—N/a\nf\n\nch\nj\n—N/a\n—N/a\n—N/a\n\n^ Before unrounded vowels (i, y, e, a), l, and r + unrounded vowel.\n\n^ Before rounded vowels (o, u), and r + rounded vowel.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nouns",
+      "summary": "Cornish nouns, like those of other Celtic languages, possess two grammatical genders, meaning that they belong to one of two groups: masculine or feminine. Sometimes the gender of a noun can be inferred from the class of words it belongs to, for example, nouns referring to males,",
+      "sections": [
+        {
+          "heading": "Gender",
+          "body": "Cornish nouns, like those of other Celtic languages, possess two grammatical genders, meaning that they belong to one of two groups: masculine or feminine. Sometimes the gender of a noun can be inferred from the class of words it belongs to, for example, nouns referring to males, such as gour “man, husband” or tarow “bull”, or verbal nouns, such as kerdhes “walking” and bos “being”, are masculine whereas nouns referring to females, such as hwor “sister” and yar “hen”, are feminine. Nevertheless, it is often impossible to determine the gender of a noun from its form, although certain nominal suffixes have gender:\n\nMasculine suffixes: -adow, -der/-ter, -di/-ji/-ti, -ik, -la, -(n)eth (mostly), -our, -(y)ans, -yas, -ydh, -(y)er, -yn, -(y)or\n\nFeminine suffixes: -a, -ek, -el, -en, -es, -(on)ieth\n\nThere is a very small number of nouns which may be either gender, such as nev “heaven” and tonn “grassland”, and is similar to its sister language Breton in that the noun tra “thing” takes masculine numerals above one and masculine referring pronouns but has the mutations of a feminine noun after an “the”, unn “one” and on accompanying adjectives.[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Singular and plural\nMost nouns have a singular and plural form, the latter deriving from the former in a number of ways. Plural forms may add an ending to a singular, such as treth “beach” to trethow, pompyon “pumpkin” to pompyons and lader “thief” to ladron. Adding an ending may be accompanied by a vowel change, as in the case of gwreg “wife” to gwragedh and hwor “sister” to hwerydh, or may involve a vowel change alone, for example korn “horn” to kern and men “stone” to meyn.[1][2]\n\nDual\nA small number of nouns display relics of a dual system. These are formed by prefixing masculine dew or feminine diw, both “two”, to the respective noun. Dual nouns are often parts of the body and indicate the pair of them taken together, for instance, lagas “eye” to dewlagas “(pair of) eyes” and bregh “arm” to diwvregh “(pair of) arm”. These carry a different meaning to the regular plural forms, such as lagasow or lagajow “eyes” and breghow “arms”, which do not indicate a matching pair.[1][2][3]\n\nCollective and singulative\nA distinctive and unusual feature of Brythonic languages is that of collective and singulative number. The base form of some Cornish nouns denotes a class or group, often natural objects, such as sab “pine trees”, kelyon “flies” and niwl “fog”. A singulative is formed by adding the feminine ending -en to denote a single individual of the group, hence saben “a pine tree”, kelyonen “a fly” and niwlen “a patch of fog”. Singulatives can themselves have plural forms in -ow, denoting a number of individuals of the group, so for instance, kelyonen gives kelyonennow “(a number of) flies (individually)”.[1][2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Determiners",
+      "summary": "Cornish lacks an indefinite article (although unn “one” is sometimes used to mean ”a certain...” e.g. unn ki “a certain dog”), but has a definite article, an, which precedes the noun, for example an Kernow “the Cornishman” and an Kernowesow “the Cornishwomen”. The article causes",
+      "sections": [
+        {
+          "heading": "Articles",
+          "body": "Cornish lacks an indefinite article (although unn “one” is sometimes used to mean ”a certain...” e.g. unn ki “a certain dog”), but has a definite article, an, which precedes the noun, for example an Kernow “the Cornishman” and an Kernowesow “the Cornishwomen”. The article causes a soft mutation on feminine singular nouns, such as Kernowes “Cornishwoman” to an Gernowes “the Cornishwoman”, and on masculine plural nouns denoting persons, as Kernowyon “Cornishmen” to an Gernowyon “the Cornishmen”, although exceptions to the latter include an tasow “the fathers” and clear English borrowings such as an doktours “the doctors”. Also the masculine plural nouns meyn ”stones” and mergh ”horses” are exceptions, which are lenited to an veyn ”the stones” and an vergh ”the horses”, respectively.[4][5] An is shortened to 'n after certain function words that end in a vowel, meaning a “of”, dhe “to” and ha “and” become a'n “of the”, dhe'n “to the” and ha'n “and the”, and in addition, yn “in” becomes identically pronounced y'n “in the”.[1][2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Demonstrative determiners",
+          "body": "The definite article and a noun followed by the clitics ma and na to produce the demonstratives “this/these” and “that/those” respectively, for example an lyver ma “this book” and an lyvrow na “those books”.[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Possessive determiners",
+          "body": "The possessive determiners are as follows. Notice their similarity to the more reduced forms of the personal pronouns.[2]\n\nsingular\n\nplural\n\n1st person\n\now\n\nagan\n\n2nd person\n\ndha\n\nagas\n\n3rd person\n\nmasculine\n\ny\n\naga\n\nfeminine\n\nhy\n\nnon-binary (proposed)[6]\n\nagans",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Pronouns",
+      "summary": "Personal pronouns in Cornish can be arranged as follows.[2]",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "Personal pronouns in Cornish can be arranged as follows.[2]\n\nIndependent\n\nReduced\n\nSuffixed\n\nSingle\n\nDouble\n\nReduced\n\nsingular\n\n1st person\n\nmy\n\n’m\n\n-vy\n\n-evy\n\n-(m)a\n\n2nd person\n\nty\n\n’th\n\n-jy\n\n-tejy\n\n-(t)a\n\n3rd\nperson\n\nmasculine\n\nev\n\n’n\n\n-e(v)\n\n-eev\n\n-(v)a\n\nfeminine\n\nhi\n\n’s\n\n-hi\n\n-hyhi\n\n—N/a\n\nnon-binary (proposed)[6]\n\nins\n\n'ns\n\n?\n\n?\n\n?\n\nplural\n\n1st person\n\nni\n\n’gan, ’n\n\n-ni\n\n-nyni\n\n—N/a\n\n2nd person\n\nhwi\n\n’gas, ’s\n\n-hwi\n\n-hwyhwi\n\n—N/a\n\n3rd person\n\ni\n\n’s\n\n-i\n\n-ynsi\n\n—N/a\n\nIndependent personal pronouns are used as the subject of a nominal sentence, for example My a grys “I believe”, or can stand before the verb in a verbal sentence to draw attention to the subject implied by the verb, for example Ni ny yllyn mos “We cannot go”. Certain other constructions employ independent pronouns, such as those based on verbal nouns, like ev dhe dhos omma “(that) he came here”, and those that follow conjunctions, such as hag i ow kortos “as they are/were waiting”.\n\nSuffixed pronouns are attached to nouns in possessive constructions, to inflected verbs and to pronouns and are used to reinforce a pronoun previously expressed by a verbal or personal ending, for example Ple eth hi? “Where did she go?”.\n\nReduced pronouns are used between a verbal particle and a verb, such as in mar ny’th welav “if I don't see you”.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "Demonstrative pronouns display two degrees of proximity as well as gender and number.\n\nSingular\n\nPlural\n\nmasculine\n\nfeminine\n\nnon-binary (proposed)[6]\n\ncommon\n\nNear the speaker\n\nhemma\n\nhomma\n\nhemmans\n\nan re ma\n\nNear the listener\n\nhenna\n\nhonna\n\nhennans\n\nan re na\n\nThese pronouns lose their final a before yw “is” and o “was”, for example Homm yw ow keniterow “This is my (female) cousin”.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Adjectives",
+      "summary": "Cornish adjectives usually come after the noun they modify although a few may come before or after, such as drog “bad” and leun “full”, and a small number always precede the noun, such as lies “many” and hen “old, long-standing”. There are simple and derived adjectives. The forme",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Cornish adjectives usually come after the noun they modify although a few may come before or after, such as drog “bad” and leun “full”, and a small number always precede the noun, such as lies “many” and hen “old, long-standing”. There are simple and derived adjectives. The former comprise adjectives that are not derived of any other word, whereas the latter are formed by adding suffixes such as -ek to the end of a noun (including verbal nouns).[1][2] Adjectives are lenited when they are preceded by a feminine singular noun, or a masculine plural noun referring to persons, e.g. benen goth 'an old woman', mebyon vyghan 'small sons'.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Comparison",
+          "body": "Adjectives are inflected with -a to give a comparative/superlative form. This suffix causes provection of the adjective stem, for example glyb “wet” to glyppa and krev “stong” to kreffa. A number of adjectives are irregular and have separate comparative and superlative forms.[2]\n\npositive\n\ncomparative\n\nsuperlative\n\nbyghan, “small” nebes “little” (quantity)\n\nle “smaller, fewer, less”\n\nliha “smallest, fewest, least”\n\nda, mas “good”\n\ngwell “better”\n\ngwella “best”\n\ndrog “bad”\n\ngweth, lakka “worse”\n\ngwetha “worst”\n\nisel “low”\n\nisella, is[a] “lower”\n\nisella, isa[a] “lowest”\n\nmeur “much, great”\n\nmoy “more, greater”\n\nmoyha “most, greatest”\n\nogas “near”\n\nnes “nearer”\n\nnessa “nearest”\n\n^ a b Used in place names.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Adverbs",
+      "summary": "Adverbials in Cornish may be a single word or a more complex phrases, for example ena “then” and y’n eur ma “now”, literally “in this hour”. Many are formed from the combination of a preposition and a noun or pronoun, such as war-woles “downwards” from war “on” and goles “bottom”",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adverbials in Cornish may be a single word or a more complex phrases, for example ena “then” and y’n eur ma “now”, literally “in this hour”. Many are formed from the combination of a preposition and a noun or pronoun, such as war-woles “downwards” from war “on” and goles “bottom” and a-ji (or a-jei) “within” from a “from, at” and chi (or chei) “house”. Adverbs can be formed from adjectives by means of the particle yn, such as in the case of krev “strong” to yn krev “strongly” and da “good” to yn ta “well”.[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Verbs",
+      "summary": "Cornish verbs are highly regular and are conjugated to show distinctions of person, number, mood, tense and aspect in various combinations.",
+      "sections": [
+        {
+          "heading": "Regular conjugation",
+          "body": "Cornish verbs are highly regular and are conjugated to show distinctions of person, number, mood, tense and aspect in various combinations.\n\nexample conjugation of prena \"buy\"[8]\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal[a]\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent\n/ Future\n\nprenav\n\nprenyn\n\nprenydh\n\nprenowgh\n\npren[b]\n\nprenons\n\nprenir\n\nPreterite\n\nprenis\n\nprensyn\n\nprensys\n\nprensowgh\n\nprenas[c]\n\nprensons\n\nprenas[c]\n\nImperfect[d]\n\nprenen\n\nprenen\n\nprenes\n\nprenewgh\n\nprena\n\nprenens\n\nprenys\n\nPluperfect\n\nprensen\n\nprensen\n\nprenses\n\nprensewgh\n\nprensa\n\nprensens\n\nprensys\n\nSubjunctive[e]\n\nPresent\n/ Future\n\nprenniv\n\nprennyn\n\nprenni\n\nprennowgh\n\nprenno\n\nprennons\n\nprenner\n\nImperfect\n\nprennen\n\nprennen\n\nprennes\n\nprennewgh\n\nprenna\n\nprennens\n\nprennys\n\nImperative\n\n—N/a\n\nprenyn\n\npren[b]\n\nprenewgh\n\nprenes\n\nprenens\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nprena[f]\n\now prena\n\nprenys\n\nCertain points should be observed about the above:[2][8]\n\n^ The impersonal form is equivalent to the use of the English pronoun one and can be used in a similar way to the English passive, for example, Prenas an boos “One bought the food; The food was bought”.\n\n^ a b The third person singular indicative present/future and the second person imperative utilise the verbal stem with no ending.\n\n^ a b In the third person singular and impersonal preterite, some verbs take the alternative ending -is, for example tevi “grow” to tevis and gelwel “call” to gelwis.\n\n^ Certain verbs take slightly different endings in the indicative imperfect. Instead of -en, -es and -a, they take -yn, -ys and -i respectively, for example, hwerthin “laugh” to hwerthyn “I/we were laughing”, hwerthys “you [singular] were laughing”, hwerthi “he/she/it was laughing”.\n\n^ The final consonant of a verb stem is modified before subjunctive endings. Consonants are usually lengthened, shortening the previous vowel, and voiced stops and fricatives are devoiced and lengthened, for example, igeri “open” to igerriv, kregi “hang” to krekkiv and hwedhla “tell tales” to hwetthliv.\n\n^ The infinitive form is considered to be a verbal noun in Cornish grammars, meaning an example like prena can function as both verbal “to buy” and nominal “(the act of) buying”. A number of different verbal noun endings exist.\n\nIt should also be noted that vowel affection occurs in the stem of some verbs before certain endings, especially those with close front vowels, though not exclusively.\n\naffection with tava \"touch\"[8]\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal5\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent\n/ Future\n\ntavav\n\ntevyn\n\ntevydh\n\ntevowgh\n\ntav2\n\ntavons4\n\ntevir\n\nPreterite\n\ntevis\n\ntevsyn\n\ntevsys\n\ntevsowgh\n\ntavas3\n\ntavsons\n\ntavas3\n\nImperfect\n\ntaven1\n\ntaven1\n\ntaves1\n\ntavewgh4\n\ntava1\n\ntavens4\n\ntevys\n\nPluperfect\n\ntavsen\n\ntavsen\n\ntavses\n\ntavsewgh\n\ntavsa\n\ntavsens\n\ntevsys\n\nSubjunctive\n\nPresent\n/ Future\n\ntyffiv\n\ntyffyn\n\ntyffi\n\ntyffowgh\n\ntaffo\n\ntaffons\n\ntaffer4\n\nImperfect\n\ntaffen\n\ntaffen\n\ntaffes\n\ntaffewgh\n\ntaffa\n\ntaffens\n\ntyffys\n\nImperative\n\n—N/a\n\ntevyn\n\ntav2\n\ntevyn\n\ntaves4\n\ntavens4\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\ntava5\n\now tava\n\ntevys\n\nNote:[2]\n\n^1The alternative indicative imperfect endings -yn, -ys and -i cause vowel affection.\n^2Amongst the endingless forms, the present/future third person singular and the second person singular imperative, the former may include vowel affection while the latter does not, for example, seni “sound” to sen “he/she/it sounds” and son “sound!” and gelwel “call” to gelow “he/she/it calls” and galw “call!”.\n^3The alternative third person singular and impersonal preterite ending -is causes vowel affection.\n^4These endings also cause affection with some verbs.\n^5Certain verbal noun endings cause vowel affection, again especially those with close front vowels.",
+          "examples": [
+            "example conjugation of prena \"buy\"[8]",
+            "affection with tava \"touch\"[8]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Irregular conjugation",
+          "body": "A handful of irregular verbs exist, alongside their English equivalents when translated; the most common of which are detailed here.\n\nThe most irregular verb of all is bos “be”, which is often used as an auxiliary and can be conjugated to show a number of additional distinctions not present in other verbs.\n\nbos \"be\"\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent1\n\nshort form\n\nov\n\non\n\nos\n\nowgh\n\nyw\n\nyns\n\nor\n\nlong form\n\nesov\n\neson\n\nesos\n\nesowgh\n\nyma, usi, eus2\n\nymons, esons2\n\neder\n\nFuture\n\nbydhav\n\nbydhons\n\nbydhydh\n\nbydhowgh\n\nbydh\n\nbydhons\n\nbydher\n\nPreterite\n\nbeuv\n\nbeun\n\nbeus\n\nbewgh\n\nbeu\n\nbons\n\nbeus\n\nImperfect1\n\nshort form\n\nen\n\nen\n\nes\n\newgh\n\no\n\nens\n\nos\n\nlong form\n\nesen\n\nesen\n\neses\n\nesewgh\n\nesa\n\nesens\n\neses\n\nhabitual\n\nbedhen\n\nbedhen\n\nbedhes\n\nbedhewgh\n\nbedha\n\nbedhens\n\nbedhes\n\nPluperfect\n\nbien\n\nbien\n\nbies\n\nbiewgh\n\nbia\n\nbiens\n\nbies\n\nSubjunctive\n\nPresent\n/ Future\n\nbiv\n\nbyn\n\nbi\n\nbowgh\n\nbo\n\nbons\n\nber\n\nImperfect\n\nben\n\nben\n\nbes\n\nbewgh\n\nbe\n\nbens\n\nbes\n\nImperative\n\n—N/a\n\nbedhen\n\nbydh\n\nbedhewgh\n\nbedhes\n\nbedhens\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nbos, bones\n\now pos, ow pones\n\n*bedhys3\n\nSome peculiarities of bos to be noted as follows:[2]\n\n^1The present tense has separate short and long forms. The short forms are used when a subject complement is a noun or adjective whereas the long forms are used with adverbial and participle complements.[3] In addition, the imperfect has a habitual form.\n^2Yma and ymons are used in affirmitive declarative independent clauses whereas usi, eus and esons are used elsewhere, such as negative, interrogative and dependent clauses. Usi is used with definite subjects whereas eus is used with indefinite subjects.\n^3The form *bedhys is not found independently but rather in its mutated form vedhys as part of compound words, such as godhvedhys “known” and piwvedhys “owned”.\nY'm beus is a combination of a reduced pronoun with dative meaning and the third person singular forms of bos, meaning literally “there is to [me]”, or more idiomatically “[I] have”.[2] A similar construction is present in Breton. The presence of the pronoun means there are separate masculine and feminine third person singular forms but no impersonal forms, verbal noun or participles.\n\n1st person\n\n2nd person\n\n3rd person\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nmasculine\n\nfeminine\n\nIndicative\n\nPresent\n\ny'm beus\n\ny'gan beus\n\ny'th eus\n\ny'gas beus\n\ny'n jeves\n\ny’s teves\n\ny’s teves\n\nFuture\n\ny'm byth\n\ny'gan byth\n\ny'fydh\n\ny'gas byth\n\ny'n jevydh\n\ny’s tevydh\n\ny’s tevydh\n\nPreterite\n\ny'm beu\n\ny'gan beu\n\ny'th o\n\ny'gas beu\n\ny'n jevo\n\ny’s tevo\n\ny’s tevo\n\nImperfect\n\nsimple\n\ny'm bo\n\ny'gan bo\n\ny'fedha\n\ny'gas bo\n\ny'n jevedha\n\ny’s tevedha\n\ny’s tevedha\n\nhabitual\n\ny'm bedha\n\ny'gan bedha\n\ny'feu\n\ny'gas bedha\n\ny'n jeva\n\ny’s teva\n\ny’s teva\n\nPluperfect\n\ny'm beu\n\ny'gan beu\n\ny'fia\n\ny'gas beu\n\ny'n jevia\n\ny’s tevia\n\ny’s tevia\n\nSubjunctive\n\nPresent\n/ Future\n\ny'm bo\n\ny'gan bo\n\ny'fo\n\ny'gas bo\n\ny'n jeffo\n\ny’s teffo\n\ny’s teffo\n\nImperfect\n\ny'm be\n\ny'gan be\n\ny'fe\n\ny'gas be\n\ny'n jeffa\n\ny’s teffa\n\ny’s teffa\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nbos, bones\n\now pos, ow pones\n\n*bedhys\n\nThe irregular verb godhvos (or goffos[1]) “know, can (know how to)” is based upon bos although does not utilise a habitual imperfect.[2][3][8]\n\ngodhvos (or goffos[1]) \"know, can (know how to)\"\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent\n\ngonn\n\ngodhon\n\ngodhes\n\ngodhowgh\n\ngor\n\ngodhons\n\ndeer\n\nFuture\n\ngodhvydhav\n\ngodhvydhyn\n\ngodhvydhydh\n\ngodhvydhowgh\n\ngodhvydh\n\ngodhvydhons\n\ngodhvydher\n\nPreterite\n\ngodhvev\n\ngodhven\n\ngodhves\n\ngodhvewgh\n\ngodhva\n\ngodhvons\n\ngodhves\n\nImperfect\n\ngodhyen\n\ngodhyen\n\ngodhyes\n\ngodhyewgh\n\ngodhya\n\ngodhyens\n\ngodhves\n\nPluperfect\n\ngodhvien\n\ngodhvien\n\ngodhvies\n\ngodhviewgh\n\ngodhvia\n\ngodhviens\n\ngodhvies\n\nSubjunctive\n\nPresent\n/ Future\n\ngodhviv\n\ngodhvyn\n\ngodhvi\n\ngodhvyn\n\ngodhvo\n\ngodhvons\n\ngodher\n\nImperfect\n\ngodhven\n\ngodhven\n\ngodhves\n\ngodhvewgh\n\ngodhve\n\ngodhvens\n\ngodhves\n\nImperative\n\n—N/a\n\ngodhvydhyn\n\ngodhvydh\n\ngodhvydhewgh\n\ngodhvydhes\n\ngodhvydhens\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\ngodhvos\n\now kodhvos\n\ngodhvedhys\n\nAnother extremely common irregular verb also used as an auxiliary is gul “do, make”.[8]\n\ngul \"do, make\"\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent\n/ Future\n\ngwrav\n\ngwren\n\ngwredh\n\ngwrewgh\n\ngwra\n\ngwrons\n\ngwrer\n\nPreterite\n\ngwrug\n\ngwrussyn\n\ngwrussys\n\ngwrussowgh\n\ngwrug\n\ngwrussons\n\ngwrug\n\nImperfect\n\ngwren\n\ngwren\n\ngwres\n\ngwrewgh\n\ngwre\n\ngwrens\n\ngwres\n\nPluperfect\n\ngwrussen\n\ngwrussen\n\ngwrusses\n\ngwrussewgh\n\ngwrussa\n\ngwrussens\n\ngwrussys\n\nSubjunctive\n\nPresent\n/ Future\n\ngwrylliv\n\ngwryllyn\n\ngwrylli\n\ngwryllowgh\n\ngwrello\n\ngwrellons\n\ngwreller\n\nImperfect\n\ngwrellen\n\ngwrellen\n\ngwrelles\n\ngwrellewgh\n\ngwrella\n\ngwrellens\n\ngwrellys\n\nImperative\n\n—N/a\n\ngwrem\n\ngwra\n\ngwrewgh\n\ngwres\n\ngwrens\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\ngul\n\now kul\n\ngwrys\n\nThe verb mos “go, become” is irregular and has separate forms for the present perfect.[8]\n\nmos \"go, become\"\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal5\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent\n/ Future\n\nav\n\nen\n\nedh\n\newgh\n\na\n\nons\n\ner\n\nPreterite\n\nyth\n\nethen\n\nythys\n\nethewgh\n\neth\n\nethons\n\nes, os\n\nImperfect\n\nen\n\nen\n\nes\n\newgh\n\ne\n\nens\n\nes\n\nPresent\nperfect\n\ngalsov\n\ngalson\n\ngalsos\n\ngalsowgh\n\ngallas\n\ngalsons\n\n—N/a\n\nPluperfect\n\ngylsen\n\ngylsen\n\ngylses\n\ngylsewgh\n\ngalsa\n\ngylsens\n\n—N/a\n\nSubjunctive\n\nPresent\n/ Future\n\nylliv\n\nyllyn\n\nylli\n\nyllowgh\n\nello\n\nellons\n\neller\n\nImperfect\n\nellen\n\nellen\n\nelles\n\nellewgh\n\nella\n\ngellens\n\nellss\n\nImperative\n\n—N/a\n\ndeun\n\nke, a\n\nkeugh, eugh\n\nes\n\nens\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nmos, mones\n\now mos, ow mones\n\ngyllys\n\nSimilarly, dos “come, arrive” is irregular and has present perfect forms.[8]\n\ndos \"come, arrive\"\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent\n/ Future\n\ndov\n\ndeun\n\ndeudh\n\ndewgh\n\ndeu\n\ndons\n\ndeer\n\nPreterite\n\ndeuth\n\ndeuthen\n\ndeuthys\n\ndeuthewgh\n\ndeuth\n\ndeuthons\n\nes, os\n\nImperfect\n\nden\n\nden\n\ndes\n\ndewgh\n\nde\n\ndens\n\ndes\n\nPresent\nperfect\n\ndeuvev\n\ndeuven\n\ndeuves\n\ndeuvewgh\n\ndeuva\n\ndeuvons\n\ndeuves\n\nPluperfect\n\ndothyen\n\ndothyen\n\ndothyes\n\ndothyewgh\n\ndothya\n\ndothyens\n\ndothyes\n\nSubjunctive\n\nPresent\n/ Future\n\ndyffiv\n\ndyffyn\n\ndyffi\n\ndyffowgh\n\ndeffo\n\ndyffons\n\ndeffer\n\nImperfect\n\ndeffen\n\ndeffen\n\ndeffes\n\ndeffewgh\n\ndeffa\n\ndeffens\n\ndeffes\n\nImperative\n\n—N/a\n\ndeun\n\ndeus, des\n\ndewgh\n\ndes\n\ndens\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\ndos, dones\n\now tos, ow tones\n\ndevedhys\n\nThe irregular verbs ri “give” and dri “bring” (alternatively, rei and drei[1]) have similar conjugations. This table give the forms of ri from which the dri forms can be composed by adding an initial d, for example rov “I give” to drov “I bring”. The only exceptions to this are that the second person singular imperatives of dri are dro, doro and doroy and that, as usual, the ow of the present participle cause provection of the d to t to give ow tri.[2][8]\n\nri \"give\"\n\n1st person\n\n2nd person\n\n3rd person\n\nImpersonal\n\nsingular\nplural\n\nsingular\nplural\n\nsingular\nplural\n\nIndicative\n\nPresent\n/ Future\n\nrov\n\nren\n\nredh\n\nrowgh\n\nre\n\nrons\n\nrer\n\nPreterite\n\nres\n\nresen\n\nresys\n\nresowgh\n\nros\n\nrosons\n\nros\n\nImperfect\n\nren\n\nren\n\nres\n\nrewgh\n\nri\n\nrens\n\nres\n\nPluperfect\n\nrosen\n\nrosen\n\nroses\n\nrosewgh\n\nrosa\n\nrosens\n\nrosys\n\nSubjunctive\n\nPresent\n/ Future\n\nrylliv\n\nryllyn\n\nrylli\n\nryllowgh\n\nrollo\n\nrollons\n\nroller\n\nImperfect\n\nrollen\n\nrollen\n\nrolles\n\nrollewgh\n\nrolla\n\nrollens\n\nrollys\n\nImperative\n\n—N/a\n\nren\n\nro, roy\n\nrewgh\n\nres\n\nrens\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nri\n\now ri\n\nres",
+          "examples": [
+            "bos \"be\"",
+            "godhvos (or goffos[1]) \"know, can (know how to)\"",
+            "gul \"do, make\"",
+            "mos \"go, become\"",
+            "dos \"come, arrive\"",
+            "ri \"give\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Conjunctions",
+      "summary": "Certain conjunctions have an additional form used when followed by a vowel, such as ha “and” becoming hag and na “than” becoming nag.[2]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Certain conjunctions have an additional form used when followed by a vowel, such as ha “and” becoming hag and na “than” becoming nag.[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Prepositions",
+      "summary": "As in other Celtic languages, Cornish prepositions are simple or complex and may inflect to show person, number and gender. Historically, inflected prepositions derive from the contraction between a preposition and a personal pronoun.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "As in other Celtic languages, Cornish prepositions are simple or complex and may inflect to show person, number and gender. Historically, inflected prepositions derive from the contraction between a preposition and a personal pronoun.\n\nSimple prepositions that inflect belong to one of three groups characterised by their use of the vowel a, o or i. Third person prepositional stems are sometimes slightly different from those of the first and second persons and affection sometimes occurs in the third person singular feminine. Dhe “to” and gans “with” are irregular.[2]\n\nwar\n“on”\n\nrag\n“for”\n\north\n“at”\n\ndhe\n“to”\n\ngans\n“with”\n\nsingular\n\n1st person\n\nwarnav\n“on me”\n\nragov\n“for me”\n\northiv\n“at me”\n\ndhymm\n“to me”\n\ngenev\n“with me”\n\n2nd person\n\nwarnas\n“on you”\n\nragos\n“for you”\n\northis\n“at you”\n\ndhys\n“to you”\n\ngenes\n“with you”\n\n3rd\nperson\n\nmasculine\n\nwarno\n“on him”\n\nragdho\n“for him”\n\norto\n“at him”\n\ndhodho\n“to him”\n\nganso\n“with him”\n\nfeminine\n\nwarni\n“on her”\n\nrygdhi\n“for her”\n\norti\n“at her”\n\ndhedhi\n“to her”\n\ngensi\n“with her”\n\nplural\n\n1st person\n\nwarnan\n“on us”\n\nragon\n“for us”\n\northyn\n“at us”\n\ndhyn\n“to us”\n\ngenen\n“with us”\n\n2nd person\n\nwarnowgh\n“on you”\n\nragowgh\n“for you”\n\northowgh\n“at you”\n\ndhywgh\n“to you”\n\ngenowgh\n“with you”\n\n3rd person\n\nwarna\n“on them”\n\nragdha\n“for them”\n\norta\n“at them”\n\ndhedha\n“to them”\n\ngansa\n“with them”\n\nComplex prepositions inflect by means of interfixes, whereby the nominal second element is preceded by a pronominal form. This is similar to how instead can become in my stead in archaic English. Mutations may be triggered following the various pronominal forms as seen in the following table.[2]\n\nerbynn\n“against”\n\nyn kever\n“about”\n\na-govis\n“for the sake of”\n\nsingular\n\n1st person\n\ner ow fynn\n“against me”\n\nyn ow kever, y’m kever\n“about me”\n\na’m govis\n“for my sake”\n\n2nd person\n\ner dha bynn\n“against you”\n\nyn dha gever, y’th kever\n“about you”\n\na’th kovis\n“for your sake”\n\n3rd\nperson\n\nmasculine\n\ner y bynn\n“against him”\n\nyn y gever\n“about him”\n\na’y wovis\n“for his sake”\n\nfeminine\n\ner hy fynn\n“against her”\n\nyn hy kever\n“about her”\n\na’y govis\n“for her sake”\n\nplural\n\n1st person\n\ner agan pynn\n“against us”\n\nyn agan kever, y’gan kever\n“about us”\n\na’gan govis\n“for our sake”\n\n2nd person\n\ner agas pynn\n“against you”\n\nyn agas kever, y’gas kever\n“about you”\n\na’gas govis\n“for your sake”\n\n3rd person\n\ner aga fynn\n“against them”\n\nyn aga hever, y’ga hever\n“about them”\n\na’ga govis\n“for their sake”",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Numbers",
+      "summary": "Similar to other Celtic languages, Cornish has an underlying vigesimal counting system. “Two”, “three” and “four” and derivative numbers have separate masculine (m.) and feminine (f.) forms.[2]",
+      "sections": [
+        {
+          "heading": "Cardinal numbers",
+          "body": "Similar to other Celtic languages, Cornish has an underlying vigesimal counting system. “Two”, “three” and “four” and derivative numbers have separate masculine (m.) and feminine (f.) forms.[2]\n\nbase numeral\n\n+10\n\n × 10\n\nm.\n\nf.\n\n0\n\nmann\n\n10\n\ndeg\n\n—N/a\n\n1\n\nonan\n\n11\n\nunnek\n\n10\n\ndeg\n\n2\n\ndew\ndiw\n\n12\n\ndewdhek\n\n20\n\nugens\n\n3\n\ntri\nteyr\n\n13\n\ntredhek\n\n30\n\ndeg warn ugens\n\n4\n\npeswar\npeder\n\n14\n\npeswardhek\n\n40\n\ndew-ugens\n\n5\n\npymp\n\n15\n\npymthek\n\n50\n\nhanterkans\n\n6\n\nhwegh\n\n16\n\nhwetek\n\n60\n\ntri-ugens\n\n7\n\nseyth\n\n17\n\nseytek\n\n70\n\ndeg ha tri-ugens\n\n8\n\neth\n\n18\n\netek\n\n80\n\npeswar-ugens\n\n9\n\nnaw\n\n19\n\nnownsek\n\n90\n\ndek ha peswar-ugens\n\nThe numbers 21 to 39 employ the connective warn “on the” to join the smaller number to the larger, for example onan warn ugens “21”, naw warn ugens “29” and unnek warn ugens “31”. From 41 onwards, the connecting word is ha “and”, as in onan ha dew-ugens “41”, pymthek ha dew-ugens “55” and nownsek ha peswar-ugens “99”.\n\nCardinal numbers used to form larger numbers include:\n\n100\n\nkans\n\n1,000\n\nmil\n\n1,000,000\n\nmilvil\n\nBeyond 100, it is still possible to use multiples of ugens, such as hwegh-ugens “120”. Kans “100”, mil “1,000” and milvil “1,000,000” are all masculine numbers, for example tri mil “3,000”.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Ordinal numbers",
+          "body": "Ordinal numbers and their abbreviations are shown below. The majority of numbers employ the ordinal suffix -ves.[2]\n\n10ves\n\ndegves\n\n1a\n\nkynsa\n\n11ves\n\nunnegves\n\n2a\n\nnessa\n\n12ves\n\ndewdhegves\n\n20ves\n\nugensves\n\n3a\n\ntressa, tryja\n\n13ves\n\ntredhegves\n\n30ves\n\ndegves warn ugens\n\n4a\n\npeswara\n\n14ves\n\npeswardhegves\n\n40ves\n\ndew-ugensves\n\n5es\n\npympes\n\n15ves\n\npymtegves\n\n50ves\n\nhanterkansves\n\n6ves\n\nhweghves\n\n16ves\n\nhwetegves\n\n60ves\n\ntri-ugensves\n\n7ves\n\nseythves\n\n17ves\n\nseytegves\n\n70ves\n\ndegves ha tri-ugens\n\n8ves\n\nethves\n\n18ves\n\netegves\n\n80ves\n\npeswar-ugensves\n\n9ves\n\nnawves\n\n19ves\n\nnownsegves\n\n90ves\n\ndegves ha peswar-ugens\n\nLarger numbers also employ the suffix -ves.\n\n100ves\n\nkansves\n\n1,000ves\n\nmilves\n\n1,000,000ves\n\nmilvilves\n\nIn multi-word numbers, the initial smaller number joined with the connector takes the ordinal form, for example kynsa warn ugens “21st” and nownsegves ha peswar-ugens “99th” (not *onan warn ugensves or *nownsek ha peswar-ugensves). In multiword numbers that are not joined by connecting words, the final number takes the ordinal form, for example dew-ugensves “40th”, hwegh-ugenves “120th”, tri milves “3,000th”.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Word order and focus",
+      "summary": "This section should specify the language of its non-English content using {{lang}} or {{langx}}, {{transliteration}} for transliterated languages, and {{IPA}} for phonetic transcriptions, with an appropriate ISO 639 code. Wikipedia's multilingual support templates may also be use",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section should specify the language of its non-English content using {{lang}} or {{langx}}, {{transliteration}} for transliterated languages, and {{IPA}} for phonetic transcriptions, with an appropriate ISO 639 code. Wikipedia's multilingual support templates may also be used - notably kw for Cornish. See why.  (November 2020)\nThe default Cornish word order is verb–subject–object, although like most Celtic languages this is somewhat fluid. Cornish has a system of fronting constituents, in which parts of a sentence can be moved to the front for focus, rather than stressing them in situ as English does. This system has influenced the Anglo-Cornish dialect, heard in the distinctive questioning of dialect speakers such as “Goin’ in’ town are’ee?” and “’S bleddy ’tis”.\n\nIn description sentences of the verb bos ‘to be’, the complement is typically fronted:\n\nMerryn\n\nMerryn\n\nov\n\nam\n\nvy.\n\nI\n\nMerryn ov vy.\n\nMerryn am I\n\nI'm Merryn.\n\nLowen\n\nHappy\n\nes\n\nwere\n\njy.\n\nyou\n\nLowen es jy.\n\nHappy were you\n\nYou were happy.\n\nOther existence sentences of bos front the verb:\n\nYma\n\nThere.is\n\nhi\n\nshe\n\now\n\nat\n\nkortos\n\nwait.VN\n\ny’n\n\nin.the\n\ngegin.\n\nkitchen\n\nYma hi ow kortos y’n gegin.\n\nThere.is she at wait.VN in.the kitchen\n\nShe's waiting in the kitchen.\n\nYth\n\nVPART\n\nesa\n\nthere.was\n\nlyver\n\nbook\n\nwar\n\non\n\nan\n\nthe\n\nestyllen.\n\nshelf\n\nYth esa lyver war an estyllen.\n\nVPART there.was book on the shelf\n\nThere was a book on the shelf. / A book was on the shelf.\n\nSince Cornish prefers to use a ‘there is’ existence form of bos with indefinite objects (when not fronted for emphasis, that is), an object being definite or indefinite can result in different parts being fronted:\n\nY\n\nVPART\n\nfydh\n\nwill.be\n\nebost\n\nemail\n\ndanvenys\n\nsent\n\nyn-mes\n\nout\n\nynno\n\nin.it\n\nan\n\nthe\n\nkedhlow\n\ninformation\n\na\n\nof\n\nvri.\n\nrelevance\n\nY fydh ebost danvenys yn-mes ynno an kedhlow a vri.\n\nVPART will.be email sent out in.it the information of relevance\n\nAn email will be sent out containing the relevant information. (lit. There’ll be an email sent out.)\n\nAn\n\nthe\n\nebost\n\nemail\n\na\n\nSPART\n\nvydh\n\nwill.be\n\ndanvenys\n\nsent\n\nyn-mes\n\nout\n\na-vorow.\n\ntomorrow\n\nAn ebost a vydh danvenys yn-mes a-vorow.\n\nthe email SPART will.be sent out tomorrow\n\nThe email will be sent out tomorrow.\n\nY\n\nVPART\n\nfeu\n\nwas\n\nkath\n\ncat\n\ngwelys\n\nseen\n\ny’n\n\nin.the\n\nlowarth.\n\ngarden\n\nY feu kath gwelys y’n lowarth.\n\nVPART was cat seen in.the garden\n\nA cat was seen in the garden. (lit. There was a cat seen.)\n\nAn\n\nthe\n\ngath\n\ncat\n\na\n\nSPART\n\nveu\n\nwas\n\ngwelys\n\nseen\n\ny’n\n\nin.the\n\nlowarth.\n\ngarden\n\nAn gath a veu gwelys y’n lowarth.\n\nthe cat SPART was seen in.the garden\n\nThe cat was seen in the garden.\n\nWith other verbs, subject-fronted is the default unmarked word order. This still follows the default verb–subject–object order, since sentences of this kind were in origin relative clauses emphasising the subject:\n\nMy\n\nme\n\na\n\nRPART\n\nros\n\ngave\n\nlyver\n\nbook\n\nda\n\ngood\n\ndhe\n\nto\n\ndas\n\nfather\n\nJowan\n\nJowan\n\nde.\n\nyesterday\n\nMy a ros lyver da dhe das Jowan de.\n\nme RPART gave book good to father Jowan yesterday\n\nI gave a good book to Jowan's father yesterday. (lit. It is me who gave a good book.)\n\nWhen the sentence's object is a pronoun, it appears before the verb and after the particle a, although it can also appear after the verb for emphasis: My a’s gwel ‘I see her’, or My a’s gwel hi “I see her”.\nWhen auxiliary verbs are used, a possessive pronoun is used with the verbal noun: My a wra hy gweles ‘I see her’ (literally “I do her seeing”), or when stressed, My a wra hy gweles hi “I see her”. In both instances, colloquial spoken Cornish may drop all but the suffixed pronouns, to give My a wel hi and My a wra gweles hi, although this is rarely written.\n\nIn questions and negative sentences, an interrogative particle and negative particle are used, respectively. These are generally fronted in neutral situations:\n\nA\n\nIPART\n\nwruss’ta\n\nyou.did’you\n\nri\n\nVN.give\n\nan\n\nthe\n\nlyver\n\nbook\n\ndhodho\n\nto.him\n\nde?\n\nyesterday\n\nA wruss’ta ri an lyver dhodho de?\n\nIPART you.did’you VN.give the book to.him yesterday\n\nDid you give him the book yesterday?\n\nNy\n\nNPART\n\nwrug\n\nI.did\n\nvy\n\nI\n\nri\n\nVN.give\n\nan\n\nthe\n\nlyver\n\nbook\n\ndhodho.\n\nto.him\n\nNy wrug vy ri an lyver dhodho.\n\nNPART I.did I VN.give the book to.him\n\nI didn't give him the book.\n\nSubject pronouns can be placed before a negative particle for emphasis: My ny vynnav kewsel Sowsnek ’I will not speak English’ or ’As for me, I will not speak English’ (said to be Dolly Pentreath's last words).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        },
+        {
+          "heading": "Fronting for emphasis",
+          "body": "Besides the “neutral” structures given above, elements of Cornish sentences can be fronted to give emphasis, or when responding to a question with requested information. Fronting involves moving the element to the beginning of the sentence. English typically achieves this by modifying tone or intonation.\n\nThere are two particles involved in fronting. The particle a is actually a relative particle used when the subject or direct object of a sentence is fronted. If anything else is fronted, usually adverbials or information headed by prepositions, the particle used is y (yth before a vowel).\n\nQuestion\nResponse\n\nPiw a brenas an bara?\n\nWho bought the bread?\n\nEv a’n prenas.\n\nHe bought it. (lit. It was him who bought it)\n\nA wrug Mary y brena?\n\nDid Mary buy it?\n\nNa wrug, Bob a’n prenas.\n\nNo, Bob bought it. (lit. It was Bob who bought it)\n\nPyth a wruss’ta prena?\n\nWhat did you buy?\n\nKeus a brenis.\n\nI bought cheese. (lit. It was cheese that I bought)\n\nA wruss’ta prena hemma?\n\nDid you buy this one?\n\nNy wrug vy prena hemma; henna a brenis.\n\nI didn't buy this one; I bought that one. (lit. It was that one that I bought)\n\nPyth a wruss’ta gul?\n\nWhat did you do?\n\nPrena an keus a wrugav.\n\nI bought the cheese. (lit. It was buying the cheese that I did)\n\nPeur hwruss’ta y brena?\n\nWhen did you buy it?\n\nDhe bymp eur y’n prenis.\n\nI bought it at five o’clock. (lit. It was at five o’clock that I bought it)\n\nPle hwruss’ta y brena?\n\nWhere did you buy it?\n\nY’n worvarghas y’n prenis.\n\nI bought it in the supermarket. (lit. It was in the supermarket that I bought it)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Nominal syntax",
+      "summary": "Determiners precede the noun they modify, while adjectives generally follow it. A modifier that precedes its head noun often causes a mutation, and adjectives following a feminine noun are lenited. Thus:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Determiners precede the noun they modify, while adjectives generally follow it. A modifier that precedes its head noun often causes a mutation, and adjectives following a feminine noun are lenited. Thus:\n\nbenyn (”a woman”)\n\nan venyn (”the woman”; benyn is lenited because it is feminine)\n\ntebel venyn (”a wicked woman”; benyn is lenited because tebel “wicked” precedes it)\n\nbenyn gonnyk (”a smart woman”; konnyk is lenited because it follows a feminine noun)\n\nGenitive relationships are expressed by apposition. The genitive in Cornish is formed by putting two noun phrases next to each other, the possessor coming second. So English “The cat's mother”, or “mother of the cat”, corresponds to Cornish mamm an gath – literally, “mother the cat”; “the project manager's telephone number” is niver pellgowser menystrer an towl – literally, “number telephone manager the project”. Only the last noun in a genitive sequence can take the definite article.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Cornish_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

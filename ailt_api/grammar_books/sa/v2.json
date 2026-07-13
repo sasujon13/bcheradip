@@ -1,0 +1,317 @@
+{
+  "title": "Grammar Book — संस्कृतम्",
+  "languageCode": "sa",
+  "languageName": "संस्कृतम्",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Classical Sanskrit language\nThis article is about the grammar of Classical Sanskrit. For the earlier language, see Vedic Sanskrit grammar.\nThe grammar of the Sanskrit language has a complex verbal system, rich nominal declension, and extensive use of compound nouns",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Classical Sanskrit language\nThis article is about the grammar of Classical Sanskrit. For the earlier language, see Vedic Sanskrit grammar.\nThe grammar of the Sanskrit language has a complex verbal system, rich nominal declension, and extensive use of compound nouns. It was studied and codified by Sanskrit grammarians from the later Vedic period (roughly 8th century BCE), culminating in the Pāṇinian grammar of the 4th century BCE.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Grammatical tradition",
+      "summary": "Sanskrit grammatical tradition (vyākaraṇa, one of the six Vedanga disciplines) began in late Vedic India and culminated in the Aṣṭādhyāyī of Pāṇini.",
+      "sections": [
+        {
+          "heading": "Origins",
+          "body": "Sanskrit grammatical tradition (vyākaraṇa, one of the six Vedanga disciplines) began in late Vedic India and culminated in the Aṣṭādhyāyī of Pāṇini.\n\nThe oldest attested form of the Proto-Indo-Aryan language as it had evolved in the Indian subcontinent after its introduction with the arrival of the Indo-Aryans is called Vedic. By 1000 BCE, the end of the early Vedic period, a large body of Vedic hymns had been consolidated into the Ṛg·Veda, which formed the canonical basis of the Vedic religion, and was transmitted from generation to generation entirely orally.[citation needed]\n\nIn the course of the following centuries, as the popular speech evolved, there was rising concern among the guardians of the Vedic religion that the hymns be passed on without \"corruption\", which for them was vital to ensure the religious efficacy of the hymns.[a] This led to the rise of a vigorous, sophisticated grammatical tradition involving the study of linguistic analysis, in particular phonetics alongside grammar, the high point of which was Pāṇini's stated work, which eclipsed all others before him.[2][3][4]",
+          "examples": [
+            "In the course of the following centuries, as the popular speech evolved, there was rising concern among the guardians of the Vedic religion that the hymns be passed on without \"corruption\", which for them was vital to ensure the religious e"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Timeline",
+          "body": "The following is a timeline of notable post-Pāṇinian grammatical figures and approximate dates:[8]\n\nKātyāyana – 300 BCE\n\nPatañjali – 150 BCE\n\nBhartṛhari – V CE\n\nKāśikā – VII\n\nŚākaṭāyana – IX\n\nKaiyaṭa – XI\n\nHemacandra – XII\n\nŚaraṇadeva – XII\n\nVopadeva – XIII\n\nBhattoji-dīkṣita – XVII",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Phonology",
+      "summary": "The Sanskrit sound system can be represented in a table of place and manner of articulation:[9][10]",
+      "sections": [
+        {
+          "heading": "The sound system",
+          "body": "The Sanskrit sound system can be represented in a table of place and manner of articulation:[9][10]\n\nSanskrit sounds\n\nvoiceless[α]\nvoiced[β]\n\nopen\n\nḥ\n\nh\n\na\nā\n\nvelar[γ]\n\nk\nkh\ng\ngh\nṅ\n\npalatal[δ]\n\nś\nc\nch\nj\njh\nñ\ny\ni\nī\nē\nai\n\nretroflex[ε]\n\nṣ\nṭ\nṭh\nḍ\nḍh\nṇ\nr\nṛ\nṝ\n\ndental[ζ]\n\ns\nt\nth\nd\ndh\nn\nl\nḷ\n\nlabial[η]\n\np\nph\nb\nbh\nm\nv\nu\nū\nō\nau\n\nfric\n\nunasp[θ]\n\nasp[ι]\n\nunasp\n\nasp\n\nnasal[κ]\n\nsemiv[λ]\n\nshort[μ]\n\nlong[ν][c]\n\nstops[ξ]\n\nsimple\n\ndiphth\n\nvocalics\n\nconsonants[ο]\n\nvowels[π]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Pronunciation examples",
+          "body": "The table below shows the traditional listing of the Sanskrit consonants with the nearest equivalents in English (as pronounced in General American and Received Pronunciation or wherever relevant in Indian English), French, Spanish, Russian or Polish, along with approximate IPA values.[11]\n\n(Further information: IPA chart (vowels and consonants) – 2015. and IPA pulmonic consonant chart with audio )\n\nSanskrit sound examples\n\nvoiceless\nvoiced\n\nopen\n\nḥ\n\nh\n/ɦ/;\n Eng: ahead\nṃ\n\na[d]\nā\n\nvelar\n\nk\n/k/;\n Eng: skip\nkh\n/kʰ/;\n Eng: cow\ng\n/ɡ/;\n Eng: game\ngh\n/ɡʱ/;\n Eng: doghouse\nṅ\n/ŋ/;\n Eng: ring\n\npalatal\n\nś\n/ɕ/;\n similar to Eng: ship\nc\n/tɕ/;\n Eng: reach\nch\n/tɕʰ/;\n Eng: cheer\nj\n/dʑ/;\n Eng: jeer\njh\n/dʑʱ/;\n Eng: sledgehammer\nñ\n/ɲ/;\n Fre: agneau, Spa: ñ, Rus: осень, Pol: jesień\ny\n/j/;\n Eng: you\ni\nī\nē\nai\n\nretroflex\n\nṣ\n/ʂ/;\n Retroflex form of /ʃ/\nṭ\n/ʈ/;\n Ind Eng: stop\nṭh\n/ʈʰ/;\n Ind Eng: cathouse\nḍ\n/ɖ/; \nInd Eng: door\nḍh\n/ɖʱ/;\n Ind Eng: adhere\nṇ\n/ɳ/;\n (NA/Irish/Scot) Eng: morning\nr\n/ɽ/;\n(NA/Irish/Scot) Eng:  morning\nṛ\n/r̩/;\n(NA/Irish/Scot) Eng: int'r'sting\ndiff'r'nce\nṝ\n\ndental\n\ns\n/s/;\nEng: same\nt\n/t/;\n Fre, Spa: tomate\nth\n/tʰ/;\n Eng: tip\nd\n/d/;\n Fre: dans, Spa: donde\ndh\n/dʱ/;\n Aspirated /d/\nn\n/n/;\n Eng: name\nl\n/l/;\n Fre, Spa: la\nḷ\n\nlabial\n\np\n/p/;\n Eng: spin\nph\n/pʰ/;\n Eng: pork\nb\n/b/;\n Eng: cab\nbh\n/bʱ/;\n Eng: abhor\nm\n/m/;\n Eng: mine\nv\n/ʋ/;[e]\n\nu\nū\nō\nau\n\nfric\n\nunasp\n\nasp\n\nunasp\n\nasp\n\nnasal\n\nsemiv\n\nshort\n\nlong\n\nstops\n\nsimple\n\ndiphth\n\nvocalics\n\nconsonants\n\nvowels\n\nIt should be understood that, while the script commonly associated with Sanskrit is Devanagari, this has no particular importance. It just happens currently to be the most popular script for Sanskrit. The form of the symbols used to write Sanskrit has varied widely geographically and over time, and notably includes modern Indian scripts. What is important is that the adherence to the phonological classification of the symbols elucidated here has remained constant in Sanskrit since classical times. It should be further noted that the phonology of modern Indian languages has evolved, and the values given to Devanagari symbols in modern Indo-Aryan languages, e.g., Hindi, differ somewhat from those of Sanskrit.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Sound classes",
+          "body": "Vowels & Semivowels\nThe long syllabic l (ḹ) is not attested, and is only discussed by grammarians for systematic reasons. Its short counterpart ḷ occurs in a single root only, kḷp .[A] Long syllabic r (ṝ) is also quite marginal, occurring (optionally) in the genitive plural of ṛ-stems (e.g. mātṛ, pitṛ ⇒ mātṝṇām, pitṝṇām).\n\ni, u, ṛ, ḷ are vocalic allophones of consonantal y, v, r, l. There are thus only five invariably vocalic phonemes: a, ā, ī, ū, ṝ.[14]\n\nThe Māhēśvara Sūtrāṇi\n\na i u·ṇ\n\nṛ ḷ·k\n\ne o·ṅ\n\nai au·c\n\nha ya va ra·ṭ\n\nla·ṇ\n\nña ma ṅa ṇa na·m\n\njʰa bʰa·ñ\n\ngʰa ḍʰa dʰa·ṣ\n\nja ba ga ḍa da·ś\n\nkʰa pʰa cʰa ṭʰa tʰa ca ṭa ta·v\n\nka pa·y\n\nśa ṣa sa·r\n\nha·l\n\n— Pāṇini, The Aṣṭādhyāyī[15]\n\nVisarga and anusvāra\nVisarga ḥ ः is an allophone of r and s, and anusvara ṃ, Devanagari ं of any nasal, both in pausa (i.e., the nasalised vowel).\n\nSibilants\nThe exact pronunciation of the three sibilants may vary, but they are distinct phonemes. Voiced sibilants, such as z /z/, ẓ /ʐ/, and ź /ʑ/ as well as its aspirated counterpart źh /ʑʱ/, were inherited by Proto-Indo-Aryan from Proto-Indo-Iranian but lost around or after the time of the Rigveda, as evidenced due to ḷh (an aspirated retroflex lateral consonant) being metrically a cluster (that was most likely of the form ẓḍh; aspirated fricatives are exceedingly rare in any language).[16]\n\nRetroflex consonants\nThe retroflex consonants are somewhat marginal phonemes, often being conditioned by their phonetic environment; they do not continue a PIE series and are often ascribed by some linguists to the substratal influence of Dravidian, or spontaneous internal development from IE[17] or other substrate languages.[16] Loss of l from Fortunatov's law has made some free unconditioned retroflexes like PIE *bʰelsos > bhā́ṣā - bhāsa, PIE *poltos > paṭa - pati. Further solidified by Prakritic and non IA loans like Skr. *pṛthati > Pkt. paṭhati > Skt. paṭhati.\n\nNasals\nThe nasals [ɲ, ŋ] are mostly conditioned allophones of /n/. Phonologically independent /ŋ/ occurs only marginally, e.g. in prāṅ 'directed forwards/towards' [nom. sg. masc. of an adjective], a declension of prāñc. There are some onomatopoeic words with them like ña, ṅa, ṅu and declensions like ñuṇūṣate. /n/ and /ɳ/ are distinct phonemes (aṇu 'minute', 'atomic' [nom. sg. neutr. of an adjective] is distinctive from anu 'after', 'along').[16]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Sandhi",
+          "body": "Sanskrit deploys extensive phonological alternations on different linguistic levels through sandhi rules (literally, the rules of \"putting together, union, connection, alliance\"), similar to the English alteration of \"going to\" as gonna.[18] The Sanskrit language accepts such alterations within it, but offers formal rules for the sandhi of any two words next to each other in the same sentence or linking two sentences. The external sandhi rules state that similar short vowels coalesce into a single long vowel, while dissimilar vowels form glides or undergo diphthongization.[18] Among the consonants, most external sandhi rules recommend regressive assimilation for clarity when they are voiced. These rules ordinarily apply at compound seams and morpheme boundaries.[18] In Vedic Sanskrit, the external sandhi rules are more variable than in Classical Sanskrit.[19]\n\nThe internal sandhi rules are more intricate and account for the root and the canonical structure of the Sanskrit word. These rules anticipate what are now known as the Bartholomae's law and Grassmann's law. For example, states Jamison, the \"voiceless, voiced, and voiced aspirated obstruents of a positional series regularly alternate with each other (p ≈ b ≈ bh; t ≈ d ≈ dh, etc.; note, however, c ≈ j ≈ h), such that, for example, a morpheme with an underlying voiced aspirate final may show alternants with all three stops under differing internal sandhi conditions\".[20] The velar series (k, g, gʰ) alternate with the palatal series (c, j, h), while the structural position of the palatal series is modified into a retroflex cluster when followed by dental. This rule creates two morphophonemically distinct series from a single palatal series.[20]",
+          "examples": [
+            "Sanskrit deploys extensive phonological alternations on different linguistic levels through sandhi rules (literally, the rules of \"putting together, union, connection, alliance\"), similar to the English alteration of \"going to\" as gonna.[18",
+            "The internal sandhi rules are more intricate and account for the root and the canonical structure of the Sanskrit word. These rules anticipate what are now known as the Bartholomae's law and Grassmann's law. For example, states Jamison, the"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Phonological processes",
+          "body": "A number of phonological processes have been described in detail. One of them is abhinidhāna (lit. 'adjacent imposition'), (also known as āsthāpita, 'stoppage', bhakṣya or bhukta). It is the incomplete articulation, or \"\"repressing or obscuring\", of a plosive or, according to some texts, a semi-vowel (except r), which occurs before another plosive or a pause.[21] It was described in the various Prātiśākhyas as well as the Cārāyaṇīya Śikṣa.[21] These texts are not unanimous on the environments that trigger abhinidhana, nor on the precise classes of consonants affected.\n\nOne ancient grammarian, Vyāḍi (in Ṛgveda Prātiśākhya 6.12), states that abhinidhāna only occurred when a consonant was doubled, whereas according to the text of the Śākalas it was obligatory in this context but optional for plosives before another plosive of a different place of articulation. The Śākalas and the Atharva Veda Prātiśākhya agree on the observation that abhinidhana occurs only if there is a slight pause between the two consonants and not if they are pronounced jointly.[22] Word-finally, plosives undergo abhinidhāna according to the Atharva Veda Prātiśākhya and the Ṛgveda Prātiśākhya. The latter text adds that final semivowels (excluding r) are also incompletely articulated.[23] The Atharva Veda Prātiśākhya 2.38 lists an exception: a plosive at the end of the word will not undergo abhinidhāna and will be fully released if it is followed by a consonant whose place of articulation is further back in the mouth.[24] The Cārāyaṇīya Śikṣa states that the consonants affected by abhinidhāna are the voiceless unaspirated plosives, the nasal consonants and the semivowels l and v.[25][f]",
+          "examples": [
+            "A number of phonological processes have been described in detail. One of them is abhinidhāna (lit. 'adjacent imposition'), (also known as āsthāpita, 'stoppage', bhakṣya or bhukta). It is the incomplete articulation, or \"\"repressing or obscu"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Morphophonology",
+      "summary": "Sanskrit inherits from Proto-Indo-European the feature of regular in-word, vowel variations known in the context of the parent language as ablaut or more generally apophony.",
+      "sections": [
+        {
+          "heading": "Vowel gradation",
+          "body": "Sanskrit inherits from Proto-Indo-European the feature of regular in-word, vowel variations known in the context of the parent language as ablaut or more generally apophony.\n\nThis feature, which can be seen in the English forms sing, sang, sung, and song, themselves a direct continuation of the PIE ablaut, is fundamental[g] in Sanskrit both for inflexion and derivation.[28][29]\n\nVowels within stems may change to other related vowels on the basis of the morphological operation being performed on it. There are three such grades, named the zero grade, first grade, and second grade. The first and second grades are also termed guṇa[ρ] and vṛddhi[σ] respectively. The full pattern of gradation,  followed by example usage:[30]\n\nVowel gradation\n\nZero grade\n1st grade\n2nd grade\n\nOpen\n\n∅\na\nā\n\nPalatal\n\ni/ī \n y \n i/ī\ne[h] \n ay \n ya\nai[i] \n āy \n yā\n\nLabial\n\nu/ū \n v \n u/ū\no[j] \n av \n va\nau[k] \n āv \n vā\n\nRetroflex\n\nṛ \n r \n ṛ\nar \n ar \n ra\nār \n ār \n rā\n\nDental\n\nḷ\nal\nāl\n\nVowel gradation examples\n\nZero grade\n1st grade\n2nd grade\n\nOpen\n\nrā́jñ·as\nrā́jan\nrā́jān·am\n\nPalatal\n\nji·tá-\n niny·ús \n iṣ·ṭá-\njé·tum \n náy·ana- \n yáj·ana-\ná·jai·ṣ·am \n nā́y·aya·ti \n yā́j·aya·ti\n\nLabial\n\nśru·tá- \n śṛṇv·é \n ud·i·tá-\nśró·tum \n śráv·aṇa- \n vád·ana-\ná·śrau·ṣ·am \n śuśrā́v·a \n vā́d·aya·ti\n\nRetroflex\n\nkṛ·tá- \n cakr·ús \n gṛhī·tá\nkár·tum \n kár·aṇa- \n gráh·aṇa-\nca·kā́r·a \n kā́r·aya·ti \n grā́h·aya·ti\n\nDental\n\nkḷp·tá-\nkálp·ana-\nkā́lpa-\n\nAs per the internal and historical structure of the system, the guṇa grade can be seen as the normal grade, whence proceeds either a strengthening[l] to form the second grade, or a weakening to form the zero-grade. The ancient grammarians however took the zero-grade as the natural form on which to apply guṇa or vṛddhi.\n\nWhilst with the 1-grade-based system it is possible to derive the 0-grades thus:\n\nghóṣ·a·ti ⇒ ghuṣ·ṭá-\n\nsráv·a·ti ⇒ sru·tá-\n\nsváp·a·ti[m] ⇒ sup·tá-\n\nthe approach used by the ancient grammarians does not always work:\n\nsup·tá- ≠ *sóp·a·ti\n\nTo overcome this, the ancient grammarians, while formulating most roots in zero-grade form, make an exception for some, and prescribe a treatment called samprasāraṇa on these:\n\nghóṣ·a·ti, ghuṣ·ṭá- ⇒ ghuṣ-\n\nsráv·a·ti, sru·tá- ⇒ sru-\n\nsváp·a·ti, sup·tá- ⇒ svap-\n\nThus, unlike most others, the root 'svap-' does not hold a 0-grade vowel, and is subject to samprasāraṇa before the past participle 'sup·tá-' can be formed.[31][32]\n\nBesides *r̥, *l̥, Proto-Indo-European also had *m̥, *n̥,[n] all of which, in capacity of zero-grade vowels, participated in the gradation system. Whilst the latter two did not survive in Sanskrit (they ended up as a instead), their effects can be seen in verb-formation steps such as just seen above.[31][33]\n\nTherefore, it is possible to analogically expand the above vowel-gradation table thus:\n\nVowel gradation\n\nZero grade\n1st grade\n2nd grade\n\nLabial nasal\n\na\nga·tá-\nam\ngám·ana\nām\njagā́ma\n\nDental nasal\n\na\nha·tá-\nan\nhán·ti\nān\njaghā́na\n\nThe proto-forms of ga·tá- and ha·tá- would thus have *m̥  and *n̥ respectively:  *gʷm̥·tó-[o] and *gʷʰn̥·tó-[p]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Accent",
+          "body": "Sanskrit inherited a pitch accent (see: Vedic accent) from Proto-Indo-European, as well as vowel gradation, both of which, in Sanskrit, just as in the parent language, go hand in hand.\n\nAs a general rule, a root bearing the accent takes the first (guṇa) or second (vṛddhi) grade, and when unaccented, reduces to zero grade.[34]\n\ni- ⇒ éti (0 ⇒ 1st grade)\n\ni·tá ⇒ áy·anam (0 ⇒ 2nd grade)\n\nThe gradation examples given in the previous sections demonstrate several more instances of this phenomenon with verbs.\n\nWith nouns, the pattern does not always hold, as even from the earliest stage of the language, there has been a tendency to fix a single form, thus while kṣam has kṣā́mas (2-g) and kṣmás (0-g), vāc has 2nd-grade forms throughout.[34]\n\nNouns whose stem vary between strong, middle and weak forms may correspondingly reflect 2nd, 1st and zero-grade vowels respectively. This may not always be matched by the accent:[34]\n\nrā́jan, rā́jānam, rā́jnā (1, 2, 0 grades)\n\nThe above system of accent disappeared completely at some point during the classical stage. It was still alive in Pāṇini's time and even after Patañjali.[q] The author of the Kāśikā commentary (c. 700 CE) declares its use optional, and it might have disappeared from popular speech in the early centuries of the Common Era.[35]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Verbs",
+      "summary": "Sanskrit has inherited from its parent the Proto-Indo-European language an elaborate system of verbal morphology, more of which has been preserved in Sanskrit as a whole than in other kindred languages such as Ancient Greek or Latin.",
+      "sections": [
+        {
+          "heading": "Background",
+          "body": "Sanskrit has inherited from its parent the Proto-Indo-European language an elaborate system of verbal morphology, more of which has been preserved in Sanskrit as a whole than in other kindred languages such as Ancient Greek or Latin.\n\nSome of the features of the verbal system, however, have been lost in the classical language, compared to the older Vedic Sanskrit, and in other cases, distinctions that have existed between different tenses have been blurred in the later language. Classical Sanskrit thus does not have the subjunctive or the injunctive mood, has dropped a variety of infinitive forms, and the distinctions in meaning between the imperfect, perfect and aorist forms are barely maintained and ultimately lost.[36][37]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Conjugation",
+          "body": "Verb conjugation in Sanskrit involves the interplay of five 'dimensions', number[τ], person[υ], voice[φ], mood[χ] and tense[ψ], with the following variables:[38]\n\n1\n3 numbers\nsingular[ω], dual[αα], plural[αβ]\n\n2\n3 persons\nfirst[αγ], second[αδ], third[αε]\n\n3\n3 voices\nactive[αζ], middle[αη], passive[αθ]\n\n4\n4 moods\nindicative, optative, imperative, conditional\n\n5\n6 tenses\npresent, imperfect, perfect, aorist,\nperiphrastic future, simple future\n\nFurther, participles are considered part of the verbal systems although they are not verbs themselves.[39] Classical Sanskrit has only one infinitive, of accusative case-form.[40]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Formation",
+          "body": "The starting point for the morphological analysis of the Sanskrit verb is the root. Before the final endings to denote number, person etc can be applied, additional elements may be added to the root. Whether such elements are affixed or not, the resulting component here is the stem, to which these final endings can then be added.[41][42]\n\nBased on the treatment they undergo to form the stem, the roots of the Sanskrit language are arranged by the ancient grammarians in ten classes [αι], based on how they form the present stem, and named after a verb typical to each class.\n\nNo discoverable grammatical principle has been found for the ordering of these classes. This can be rearranged for greater clarity into non-thematic and thematic groups as summarized below:[43][44][45]\n\nThematic verb classes\n\nRoot\n\nTreatment\nStem\ngaṇa\nConjugation samples[r]\nRemarks\n\n√bhū-\n\n[B]\nRoot accent, gunated [s]\nbháv-\nFirst\nbháv·a·ti\nThe commonest of all classes, with nearly half of the roots in the language.[46]\n\n√tud-\n\n[C]\nNone (ending accent)\ntud-\nSixth\ntud·á·ti\n\n√dív-\n\n[D]\n-ya- suffix\ndī́v·ya-\nFourth\ndī́v·ya·ti\n\n√cur-\n\n[E]\n-aya- with root gradation, or -áya- without\ncór·aya-\nTenth\ncór·aya·ti\nUsually to form causatives, not strictly a class per se[47]\n\nAthematic verb classes\n\nRoot\n\nTreatment\nStem\ngaṇa\nConjugation samples[t]\nRemarks\n\n√ad-\n\n[F]\nNone\nad-\nSecond\nat·ti \n at·tas \n ad·anti\n\n√hu-\n\n[G]\nReduplication, accent varies\njuhó- \n juhu- \n júhv-[u]\nThird\njuhó·ti \n juhu·tás \n júhv·ati\n\n√su-\n\n[H]\n-no- suffix\nsu·nó- \n su·nu- \n su·nv-[u]\nFifth\nsu·nó·ti \n su·nu·tás \n su·nv·ánti\n\n√tan-\n\n[I]\n-o- suffix\ntan·ó- \n tan·u- \n tan·v-[u]\nEighth[v]\ntan·ó·ti \n tan·u·tás \n tan·v·ánti\n\n√krī-\n\n[J]\n-nā- suffix\nkrī·ṇā́- \n krī·ṇī- \n krī·ṇ-\nNinth\nkrī·ṇā́·ti \n krī·ṇī·tás \n krī·ṇ-ánti\n\n√rudh-\n\n[K]\nNasal infix\nru·ṇá·dh- \n ru·n·dh-\nSeventh\nru·ṇá·d·dhi \n ru·n·d·dhás \n ru·n·dh·ánti",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Scope",
+          "body": "As in kindred Indo-European languages, conjugation is effected across the tenses, moods, voices, persons and numbers stated, yielding, in Sanskrit, a huge number of combinations.[48][49]\n\nConjugation – standard finite verbs\n\nSystem\nTense\nMood\nEndings\nConventional term\n\nPresent\nPresent\nIndicative\nPrimary\n'Present'\n\nOptative\nSecondary\n'Optative'\n\nImperative\nImperative\n'Imperative'\n\nPast\nIndicative\nSecondary\n'Imperfect'\n\nPerfect\nPast\nIndicative\nPerfect\n'Perfect'\n\nAorist\nPefect\nIndicative\nSecondary\n'Aorist'\n\nOptative[w]\nSecondary\n'Precative'\n\nFuture\nFuture [x]\nIndicative\nPrimary\n'Future'\n\nPerfect\nConditional\nSecondary\n'Conditional'\n\nFurthermore, Sanskrit has so-called Secondary conjugations:[51]\n\nPassive\n\nIntensive\n\nDesiderative\n\nCausative\n\nDenominative\n\nThe non-finite forms are:\n\nParticiples [y]\n\nInfinitive\n\nGerund",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Nominals",
+      "summary": "Declension of a noun in Sanskrit involves the interplay of two 'dimensions': 3 numbers and 8 cases.[52] Further, nouns themselves in Sanskrit, like its parent Proto-Indo-European, can be in one of three genders.",
+      "sections": [
+        {
+          "heading": "Declension",
+          "body": "Declension of a noun in Sanskrit involves the interplay of two 'dimensions': 3 numbers and 8 cases.[52] Further, nouns themselves in Sanskrit, like its parent Proto-Indo-European, can be in one of three genders.\n\nIn addition, adjectives behave much the same way morphologically as nouns do, and can conveniently be considered together. While the same noun cannot be seen to be of more than one gender, adjectives change gender on the basis of the noun they are being applied to, along with case and number, thus giving the following variables:[53][54]\n\n1\n3 numbers\nsingular, dual, plural\n\n2\n3 genders\nmasculine, feminine, neuter\n\n3\n8 cases\nnominative, accusative, instrumental,\ndative, ablative, genitive, locative, vocative\n\nThe oldest system of declension was in Proto-Indo-European, inherited by Sanskrit, to affix the endings directly to the nominal root. In later stages, a new system developed wherein an intermediary called the thematic vowel is inserted to the root before the final endings are appended: *-o- which in Sanskrit becomes -a-, producing the thematic stem.[55][56]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Stem classification",
+          "body": "Substantives may be divided into different classes on the basis of the stem vowel before they are declined on the above basis. The general classification is:\n\na-stems\n\ni- and u-stems\n\nā-, ī- and ū-stems\n\nṛ-stems\n\nConsonant stems\n\nWhen the nominal endings are being affixed to a noun of each class, they may undergo, in some cases, some changes, including being entirely replaced by other forms.[57][58][59]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Personal pronouns and determiners",
+          "body": "Main article: Sanskrit pronouns and determiners\nSanskrit pronouns and determiners behave in their declension largely like other declinable classes such as nouns, adjectives and numerals, so that they can all be classed together under nominals. However, pronouns and determiners display certain peculiarities of their own compared to the other nominal classes.[60][52]\n\nFurthermore, personal pronouns have an additional dimension not present in the other nominals, but shared by verbs: person.[61]\n\nPronouns[ακ] are declined for case[αλ], number[αμ], and gender[αν]. The pronominal declension applies to a few adjectives as well. Many pronouns have alternative enclitic forms.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Derivation",
+      "summary": "Main article: Sanskrit nouns § Nominal derivation\nDerivation or word-formation in Sanskrit can be divided into the following types:[62][63]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Sanskrit nouns § Nominal derivation\nDerivation or word-formation in Sanskrit can be divided into the following types:[62][63]\n\nPrimary derivation – suffixes directly appended to roots[αξ]\n\nSecondary derivation – suffixes appended to derivative stems[αο]\n\nWord-compounding – combining one more word stems",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Compounds",
+          "body": "Main article: Sanskrit compounds\nSanskrit inherits from its parent Proto-Indo-European the capability of forming compound nouns[απ], also widely seen in kindred languages such as especially German, Greek and also English.\n\nHowever, Sanskrit, especially in the later stages of the language, significantly expands on this both in terms of the number of elements making up a single compound and the volume of compound-usage in the literature, a development which has no parallels elsewhere.[64][65]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Indeclinables",
+      "summary": "Words that change no form across cases, numbers, genders are classified as indeclinables[αρ].  Indeclinables may be divided into either simple and compound. The latter is treated under Sanskrit compounds and the term indeclinable usually implies only the former type.[66]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Words that change no form across cases, numbers, genders are classified as indeclinables[αρ].  Indeclinables may be divided into either simple and compound. The latter is treated under Sanskrit compounds and the term indeclinable usually implies only the former type.[66]\n\nIndeclinables can be classified as follows:[67]\n\nPrepositions\n\nAdverbs\n\nParticles\n\nConjunctions\n\nInterjections\n\nMiscellaneous",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Prepositions",
+          "body": "In Sanskrit, a preposition[ασ] is an indeclinable with an independent meaning that is prefixed to verbs and their derivatives with the result of modifying, intensifying, or in some cases, totally altering the sense of the roots.[68]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Adverbs",
+          "body": "In Sanskrit, adverbs are either inherited as set forms from the parent language or may be derived from nouns, pronouns or numeral.\n\nThe typical way of forming an adverb is to simply use the accusative singular neutral form[z] of nouns and adjectives.[69]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Particles",
+          "body": "Particles are used either as expletives or intensives.[70]\n\nThe most common ones are:[71]\n\na-, an- – generally the same meaning as English 'un-' and 'a-', but with some extended senses\n\nsma – when used with the present form of a verb, it conveys the past tense\n\nkā-, ku- – prefixed to give a negative, inadequate or pejorative connotation.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Conjunctions",
+          "body": "The following is an enumeration of the main types of Sanskrit conjunctions:[72]\n\natha – marks the beginning of a work\n\nCopulative – atha, atho, uta, ca, etc\n\nDisjunctive – vā, vā... vā, etc\n\nAdversative  – athavā, tu, kintu, etc\n\nConditional – cet, yadi, yadāpi, net, etc\n\nCausal – hi, tat, tena, etc\n\nInterrogative – āho, āha, uta, utāho, kim, etc\n\nAffirmative and negative – atha kim, ām, addhā, etc\n\nConjunctions of time – yāvat-tāvat, yadā-tadā, etc\n\niti – marks the end of a work",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Interjections",
+          "body": "The main ones in Sanskrit expressing the various emotions are:[73]\n\nWonder, grief, regret, etc: ā, aho, ha, etc\n\nContempt: kim, dhik,  etc\n\nSorrow, dejection, grief: hā, hāhā, hanta, etc\n\nJoy: hanta  etc\n\nRespectfully calling attention: aho, bhoḥ, he, ho, etc\n\nDisrespectfully calling attention: are, rere,  etc",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        },
+        {
+          "heading": "Miscellaneous",
+          "body": "A few nouns have only one inflection and thus behave like indeclinables. The most common ones are:[74]\n\nanyat [L]\n\nasti [M]\n\nnāsti [N]\n\nsaṃvat [O]\n\nbhūr [P]\n\nbhuvar [Q]\n\nsvāhā [R]\n\nnamas [S]\n\nsvasti [T]\n\nom",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Syntax",
+      "summary": "Because of Sanskrit's complex declension system, the word order is free.[75] In usage, there is a strong tendency toward subject–object–verb (SOV), which was the original system in place in Vedic prose. However, there are exceptions when word pairs cannot be transposed.[76]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Because of Sanskrit's complex declension system, the word order is free.[75] In usage, there is a strong tendency toward subject–object–verb (SOV), which was the original system in place in Vedic prose. However, there are exceptions when word pairs cannot be transposed.[76]\n\nNotably, Pāṇini did not fix syntax in the Aṣtādhyāyī, as to do so explicitly would be difficult in any language, given several ways of expressing the same idea and various other ways of expressing similar ideas. Thus within the bounds of phonological and morphological definition wrought by Pāṇini, the syntax of Sanskrit has continued to evolve in the course of its productive literary history.[64]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Peculiar characteristics",
+      "summary": "In the introduction to his celebrated translation of Vidyakara's Subhāṣitaratnakośa, Daniel H.H. Ingalls describes some peculiar characteristics of the Sanskrit language.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In the introduction to his celebrated translation of Vidyakara's Subhāṣitaratnakośa, Daniel H.H. Ingalls describes some peculiar characteristics of the Sanskrit language.\n\nHe refers to the enormous vocabulary of Sanskrit, and also of the presence of a larger choice of synonyms in Sanskrit than any other language he knew of. Further, just as there exist a vast number of synonyms for almost any word in Sanskrit, there also exist synonymous constructions. In his elementary Sanskrit examinations he would ask his students to write in Sanskrit the sentence 'You must fetch the horse' in ten different ways. Actually, it is possible to write the sentence in Sanskrit in around fifteen different ways 'by using active or passive constructions, imperative or optative, an auxiliary verb, or any of the three gerundive forms, each of which, by the way, gives a different metrical pattern'.\n\nIngalls writes: 'Every Indian, one may suppose, grew up learning naturally the language of his mother and his playmates. Only after this, and if he belonged to the priesthood or the nobility or to such a professional caste as that of the clerks, the physicians, or the astrologers, would he learn Sanskrit. As a general rule, Sanskrit was not the language of the family. It furnished no subconscious symbols for the impressions which we receive in childhood nor for the emotions which form our character in early adolescence.'[77]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Glossary",
+      "summary": "^ to order, array\n\n^ be\n\n^ strike\n\n^ cast, throw, especially of dice\n\n^ steal\n\n^ eat\n\n^ call, invoke, sacrifice\n\n^ press (of juice)\n\n^ extend, spread\n\n^ buy\n\n^ stop, arrest, check\n\n^ another (reason)\n\n^ that exists\n\n^ non-existence\n\n^ year\n\n^ earth\n\n^ sky\n\n^ food offered to the g",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^ to order, array\n\n^ be\n\n^ strike\n\n^ cast, throw, especially of dice\n\n^ steal\n\n^ eat\n\n^ call, invoke, sacrifice\n\n^ press (of juice)\n\n^ extend, spread\n\n^ buy\n\n^ stop, arrest, check\n\n^ another (reason)\n\n^ that exists\n\n^ non-existence\n\n^ year\n\n^ earth\n\n^ sky\n\n^ food offered to the gods\n\n^ a bow\n\n^ well-being, happiness",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Traditional glossary and notes",
+      "summary": "^ śvāsa\n\n^ nāda\n\n^ kaṇṭhya\n\n^ tālavya\n\n^ mūrdhanya\n\n^ dantya\n\n^ oṣṭhya\n\n^ alpa·prāṇa\n\n^ mahā·prāṇa\n\n^ anunāsika\n\n^ antastha\n\n^ hrasva\n\n^ dīrgha\n\n^ sparśa\n\n^ vyañjana\n\n^ svara\n\n^ \"ad·eṄ guṇaḥ\" – Pāṇini I 2\n\n^ \"vṛddhir·ād·aiC\" – Pāṇini I 1\n\n^ vacana\n\n^ puruṣa\n\n^ prayoga\n\n^ artha\n\n^",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^ śvāsa\n\n^ nāda\n\n^ kaṇṭhya\n\n^ tālavya\n\n^ mūrdhanya\n\n^ dantya\n\n^ oṣṭhya\n\n^ alpa·prāṇa\n\n^ mahā·prāṇa\n\n^ anunāsika\n\n^ antastha\n\n^ hrasva\n\n^ dīrgha\n\n^ sparśa\n\n^ vyañjana\n\n^ svara\n\n^ \"ad·eṄ guṇaḥ\" – Pāṇini I 2\n\n^ \"vṛddhir·ād·aiC\" – Pāṇini I 1\n\n^ vacana\n\n^ puruṣa\n\n^ prayoga\n\n^ artha\n\n^ kāla\n\n^ eka·vacana\n\n^ dvi·vacana\n\n^ bahu·vacana\n\n^ uttama·puruṣa\n\n^ madhyama·puruṣa\n\n^ prathama·puruṣa\n\n^ kartari·prayoga\n\n^ karmaṇi·prayoga\n\n^ bhāve·prayoga\n\n^ gaṇas\n\n^ sarva·nāman\n\n^ vibhakti\n\n^ vacana\n\n^ liṅga\n\n^ kṛt\n\n^ taddhita\n\n^ samāsa\n\n^ avyaya\n\n^ upasarga or gāti",
+          "examples": [
+            "^ \"ad·eṄ guṇaḥ\" – Pāṇini I 2",
+            "^ \"vṛddhir·ād·aiC\" – Pāṇini I 1"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sanskrit_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

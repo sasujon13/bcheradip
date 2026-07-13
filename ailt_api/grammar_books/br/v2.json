@@ -1,0 +1,297 @@
+{
+  "title": "Grammar Book — Brezhoneg",
+  "languageCode": "br",
+  "languageName": "Brezhoneg",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Breton_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Breton is a Brittonic Celtic language in the Indo-European family, and its grammar has many traits in common with these languages. Like most Indo-European languages it has grammatical gender, grammatical number, articles and inflections and, like the other Celtic languages, Breto",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Breton language\n\nBreton is a Brittonic Celtic language in the Indo-European family, and its grammar has many traits in common with these languages. Like most Indo-European languages it has grammatical gender, grammatical number, articles and inflections and, like the other Celtic languages, Breton has mutations. In addition to the singular–plural system, it also has a singulative–collective system, similar to Welsh. Unlike the other Brittonic languages, Breton has both a definite and indefinite article, whereas Welsh and Cornish lack an indefinite article and unlike the other extant Celtic languages, Breton has been influenced by French.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "Like in most other Indo-European languages, Breton nouns belong to distinct grammatical genders/noun classes: masculine (gourel) and feminine (gwregel). The neuter (nepreizh), which existed in Breton's ancestor, Brittonic, survives in a few words, such as tra (thing), which takes",
+      "sections": [
+        {
+          "heading": "Gender",
+          "body": "Like in most other Indo-European languages, Breton nouns belong to distinct grammatical genders/noun classes: masculine (gourel) and feminine (gwregel). The neuter (nepreizh), which existed in Breton's ancestor, Brittonic, survives in a few words, such as tra (thing), which takes and causes the mutations of a feminine noun but in all other grammatical respects behaves as if it were masculine.[1]\n\nThe gender of a noun is hard to predict, and for some words can even vary from dialect to dialect. However, certain semantic groups of word tend to belong to a particular gender. For example, names of countries and cities often are feminine, whereas most divisions of time are masculine. Some suffixes denote the same gender:[2]\n\nMasculine suffixes include: -ach, -adur, -aj, -er, -lec'h, -our, -ti, -va.\n\nFeminine suffixes include: -eg, -ell, -enn (see \"singulative\" below), -enti, -er, -ez, -ezh, -ezon, -i.",
+          "examples": [
+            "Feminine suffixes include: -eg, -ell, -enn (see \"singulative\" below), -enti, -er, -ez, -ezh, -ezon, -i."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Nouns may exist in as many as four numbers: collective / singulative (see below) or singular / plural. Most plural forms are formed with the addition of a suffix, often -ed for animate nouns and -(i)où for inanimates, for example, Breton \"Breton\" to Bretoned \"Bretons\", levr \"book\" to levroù, although some nouns referring to people take -où, such as test \"witness\" becoming testoù. Other suffixes also occur, for example, Saoz \"Englishman\" to Saozaon, ti \"house\" to tiez. A few nouns form their plural via vowel alternation, such as kastell \"castle\" to kestell, maen \"stone\" to mein, the combination of a suffix and vowel alternation, such as bran \"crow\" to brini, gad \"hare\" to geden while others are irregular, like den \"person\" to tud, ki \"dog\" to either kon or chas.[1][2][3]\n\nAs well as having a regular plural form, certain parts of the body display relics of a dual system, prefixing daou- to masculine nouns and di(v)- to feminine nouns. An example of this is singular lagad \"eye\", plural lagadoù \"eyes\", dual daoulagad \"(pair of) eyes\". Dual forms themselves can have a plural form, for example, daoulagadoù \"(pairs of) eyes\".[2]",
+          "examples": [
+            "Nouns may exist in as many as four numbers: collective / singulative (see below) or singular / plural. Most plural forms are formed with the addition of a suffix, often -ed for animate nouns and -(i)où for inanimates, for example, Breton \"B",
+            "As well as having a regular plural form, certain parts of the body display relics of a dual system, prefixing daou- to masculine nouns and di(v)- to feminine nouns. An example of this is singular lagad \"eye\", plural lagadoù \"eyes\", dual dao"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Singulative",
+          "body": "A distinctive and unusual feature of Brythonic languages is a singulative marker, which in Breton is marked with the feminine suffix -enn. While the collective noun gwez, for instance, means \"trees (collectively)\", the singulative gwezenn means \"(a single) tree\". The latter can even be made into a regular plural gwezennoù with the meaning \"several trees (individually)\".",
+          "examples": [
+            "A distinctive and unusual feature of Brythonic languages is a singulative marker, which in Breton is marked with the feminine suffix -enn. While the collective noun gwez, for instance, means \"trees (collectively)\", the singulative gwezenn m"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Diminutive",
+          "body": "Breton forms diminutive nouns using the suffix -ig with the plural formed by reduplication of the suffix -où, for example, prad \"meadow\", pradig \"little meadow\", pradouigoù \"little meadows\" (cf. non-diminutive plural pradoù \"meadows\").[2][1]",
+          "examples": [
+            "Breton forms diminutive nouns using the suffix -ig with the plural formed by reduplication of the suffix -où, for example, prad \"meadow\", pradig \"little meadow\", pradouigoù \"little meadows\" (cf. non-diminutive plural pradoù \"meadows\").[2][1"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Articles",
+      "summary": "In Breton, the article has both definite and indefinite forms. This is unlike other Celtic languages, which have only definite articles. The definite article is an before dentals, vowels and unpronounced h, al before l and ar elsewhere. Examples of this include an tan \"the fire\",",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In Breton, the article has both definite and indefinite forms. This is unlike other Celtic languages, which have only definite articles. The definite article is an before dentals, vowels and unpronounced h, al before l and ar elsewhere. Examples of this include an tan \"the fire\", al logodenn \"the mouse\", ar gador \"the chair\". The indefinite article, derived from the number un \"one\", follows the same pattern of final consonants: un tan \"a fire\", ul logodenn \"a mouse\", ur gador \"a chair\".[2]\n\nThe definite article may contract with preceding prepositions, for instance e \"in\" + an gives en \"in the\".",
+          "examples": [
+            "In Breton, the article has both definite and indefinite forms. This is unlike other Celtic languages, which have only definite articles. The definite article is an before dentals, vowels and unpronounced h, al before l and ar elsewhere. Exa",
+            "The definite article may contract with preceding prepositions, for instance e \"in\" + an gives en \"in the\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "Adjectives in Breton usually follow the noun they modify; however, adjectives that precede the modified noun do exist.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectives in Breton usually follow the noun they modify; however, adjectives that precede the modified noun do exist.\n\nBreton adjectives do not inflect for gender or number. However, they may be mutated by a preceding modified noun depending on its gender and number.\n\nAdjectives can be inflected for comparison with the suffixes -oc'h (comparative) and -añ (superlative). These suffixes cause preceding consonants to undergo provection (see gleb \"wet\" and ruz \"red\" in the table).[4] Mat \"good\" and drouk \"bad\" are examples of adjectives that can have irregular forms.[3]\n\npositive\ncomparative\n\nsuperlative\n\nbras \"big\"\nbrasoc'h \"bigger\"\n\nbrasañ \"biggest\"\n\ngleb \"wet\"\n\nglepoc'h \"wetter\"\n\nglepañ \"wettest\"\n\nruz \"red\"\n\nrusoc'h \"redder\"\n\nrusañ \"reddest\"\n\nmat \"good\"\n\ngwell(oc'h) \"better\"\n\ngwellañ \"best\"\n\ndrouk \"bad\"\n\ndroukoc'h, gwashoc'h \"worse\"\n\ndroukañ, gwashañ \"worst\"\n\nIn addition to the above forms, some adjectives can have separate equative forms, for example, kement \"as big\", koulz \"as good\", ken gwazh \"as bad\". More regular equatives are formed with ken \"as\", for example, ken gleb \"as wet\", ken drouk \"as bad\".[2] Breton also possesses an exclamative suffix -at, as in brasat \"(how) big!\", glepat \"(how) wet!\", gwellat \"(how) good!\", but this is obsolete except in certain expressions.\n\nAdjectives can also have a diminutive form in -ik, for example, bihan \"small\" to bihanik, bras \"big\" to brazik.[1]",
+          "examples": [
+            "Adjectives can be inflected for comparison with the suffixes -oc'h (comparative) and -añ (superlative). These suffixes cause preceding consonants to undergo provection (see gleb \"wet\" and ruz \"red\" in the table).[4] Mat \"good\" and drouk \"ba",
+            "bras \"big\"",
+            "brasoc'h \"bigger\"",
+            "brasañ \"biggest\"",
+            "gleb \"wet\"",
+            "glepoc'h \"wetter\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adverbs",
+      "summary": "Adverbs in Breton do not inflect. Adverbs can be formed from adjectives by means of ez', as in ez' leal \"loyally\" from leal \"loyal\"",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adverbs in Breton do not inflect. Adverbs can be formed from adjectives by means of ez', as in ez' leal \"loyally\" from leal \"loyal\"",
+          "examples": [
+            "Adverbs in Breton do not inflect. Adverbs can be formed from adjectives by means of ez', as in ez' leal \"loyally\" from leal \"loyal\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Prepositions",
+      "summary": "As in other Celtic languages, prepositions in Breton are either simple or complex and may or may not inflect for person, number and gender.[2] Historically, inflected prepositions derive from the contraction between a preposition and a personal pronoun.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "As in other Celtic languages, prepositions in Breton are either simple or complex and may or may not inflect for person, number and gender.[2] Historically, inflected prepositions derive from the contraction between a preposition and a personal pronoun.\n\nIn general, simple prepositions that inflect take one of two possible groups of suffixes. The stem employed for the third person forms may be different from that of other persons.[2][4] Inflected prepositions distinguish gender in the third person singular.\n\ni endings\n\no endings\n\nuninflected\n\ngant \"with\"\n\nevit \"for\"\n\n1sg\n\nganin \"with me\"\n\nevidon \"for me\"\n\n2sg\n\nganit \"with you\"\n\nevidout \"for you\"\n\n3sg\n\nm.\n\ngantañ \"with him\"\n\nevitañ \"for him\"\n\nf.\n\nganti \"with her\"\n\neviti \"for her\"\n\n1pl\n\nganimp \"with us\"\n\nevidomp \"for us\"\n\n2pl\n\nganeoc'h \"with you\"\n\nevidoc'h \"for you\"\n\n3pl\n\nganto, gante \"with them\"\n\nevito, evite \"for them\"\n\nimpersonal\n\nganeor \"with one\"\n\nevidor \"for one\"\n\nSimple prepositions that do not inflect include eus and deus \"from\", kent \"before\" and goude \"after\".[2]\n\nComplex prepositions inflect by means of interfixes, whereby the nominal second element is preceded by a pronominal form. This is similar to how instead can become in my stead in archaic English. Mutations may be triggered following the various pronominal forms.[2][4]\n\nuninflected\n\ndiwar-ben \"about\"\n\ne-kichen \"near\"\n\n1sg\n\ndiwar ma fenn \"about me\"\n\nem c'hichen \"near me\"\n\n2sg\n\ndiwar da benn \"about you\"\n\nez kichen \"near you\"\n\n3sg\n\nm.\n\ndiwar e benn \"about him\"\n\nen e gichen \"near him\"\n\nf.\n\ndiwar he fenn \"about her\"\n\nen he c'hichen \"near her\"\n\n1pl\n\ndiwar hor penn \"about us\"\n\nen hor c'hichen \"near us\"\n\n2pl\n\ndiwar ho penn \"about you\"\n\nen ho kichenn \"near you\"\n\n3pl\n\ndiwar o fenn \"about them\"\n\nen o c'hichen \"near them\"\n\nimpersonal\n\ndiwar ar penn \"about one\"\n\ner c'hichen \"near one\"",
+          "examples": [
+            "gant \"with\"",
+            "evit \"for\"",
+            "ganin \"with me\"",
+            "evidon \"for me\"",
+            "ganit \"with you\"",
+            "evidout \"for you\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Conjunctions",
+      "summary": "Certain conjunctions have an additional form used when followed by a vowel, such as ha \"and\" becoming hag and na \"than\" becoming nag. A conjunction is usually followed by the particle e when preceding a verb, for example, hag e kouezhas \"and he fell\", peogwir e varvas \"because he",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Certain conjunctions have an additional form used when followed by a vowel, such as ha \"and\" becoming hag and na \"than\" becoming nag. A conjunction is usually followed by the particle e when preceding a verb, for example, hag e kouezhas \"and he fell\", peogwir e varvas \"because he fell\", although this is not the case for ma \"that, if\", mar \"if\", pa \"if, when, because\".[1]",
+          "examples": [
+            "Certain conjunctions have an additional form used when followed by a vowel, such as ha \"and\" becoming hag and na \"than\" becoming nag. A conjunction is usually followed by the particle e when preceding a verb, for example, hag e kouezhas \"an"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Pronouns",
+      "summary": "Personal pronouns may be strong, post-clitic head or pre-clitic head. Strong pronouns have the same distribution as a full noun phrase and may be subjects, objects or prepositional objects. Post-clitic head pronouns tend to follow finite verbs, nouns or inflected prepositions. Pr",
+      "sections": [
+        {
+          "heading": "Personal",
+          "body": "Personal pronouns may be strong, post-clitic head or pre-clitic head. Strong pronouns have the same distribution as a full noun phrase and may be subjects, objects or prepositional objects. Post-clitic head pronouns tend to follow finite verbs, nouns or inflected prepositions. Pre-clitic head pronouns function as object pronouns preceding verb phrases and possessive determiners preceding noun phrases.\n\nstrong\n\npost-clitic head\n\npre-clitic head\n\npartitive paraphrase\n\n1sg\n\nme\n\nme\n\nma, am (’m)\n\nac'hanon\n\n2sg\n\nte\n\nte\n\naz’ (’z’), da\n\nac'hanout\n\n3sg\n\nm.\n\neñ\n\neñ\n\ne\n\nanezhañ\n\nf.\n\nhi\n\nhi\n\nhe\n\nanezhi\n\n1pl\n\nni\n\nni\n\nhon, hol, hor\n\nac'hanomp\n\n2pl\n\nc'hwi\n\nhu, c'hwi\n\nho, hoc'h\n\nac'hanoc'h\n\n3pl\n\nint\n\ni, int\n\no\n\nanezho\n\nAs in Welsh and French, the second person plural pronoun is used in the singular to show politeness. A large part of central Brittany has lost the second person singular te altogether and uses c'hwi for all second person reference.[1]\nThe partitive paraphrase has replaced the traditional post-clitic object pronoun in every dialect except Gwenedeg (Vannetais), except when object is fronted for emphasis. The inflected forms of the preposition a ‘of’ placed after the verb are substituted for the traditional object pronoun, e.g. E kêr e welas Yannig anezho ‘Yannig saw them in town’, more literally ‘In the town Yannig saw of them’, and occasionally function as subjects (with intransitive, usually negative, verbs).[2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Demonstrative",
+          "body": "Demonstrative pronouns display three degrees of proximity as well as gender and number.\n\nmasculine singular\nfeminine singular\n\ncommon plural\n\nnear the speaker\nhemañ\nhoumañ\n\nar re-mañ\n\nnear the listener\nhennezh\nhounnezh\n\nar re-se\n\nfar from speaker and listener\nhenhont\nhounhont\n\nar re-hont\n\nDemonstrative determiners are post-head clitics used in conjunction with the definite article.[2][3]\n\nclitic\nexample\n\nnear the speaker\n-mañ \"here\"\nar stêr-mañ \"this river\"\n\nnear the listener\n-se \"there\"\nan ti bihan-se \"that little house\"\n\nfar from speaker and listener\n-hont \"over there, yonder\"\nal lent-hont \"that lake over there\"",
+          "examples": [
+            "example",
+            "-mañ \"here\"",
+            "ar stêr-mañ \"this river\"",
+            "-se \"there\"",
+            "an ti bihan-se \"that little house\"",
+            "-hont \"over there, yonder\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Indefinite",
+          "body": "Indefinite pronouns may be positive, such as re \"some, ones\" and holl \"all\" and negative, such as netra \"nothing\" and neblec'h \"nowhere\", and may be preceded by a determiner, for example an re \"some\" (\"the ones\") and da re \"your\" (\"your ones\").",
+          "examples": [
+            "Indefinite pronouns may be positive, such as re \"some, ones\" and holl \"all\" and negative, such as netra \"nothing\" and neblec'h \"nowhere\", and may be preceded by a determiner, for example an re \"some\" (\"the ones\") and da re \"your\" (\"your one"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Verbs",
+      "summary": "Breton verbs can be conjugated to show tense, aspect, mood, person and number by adding suffixes to the verbal stem.",
+      "sections": [
+        {
+          "heading": "Verb conjugation",
+          "body": "Breton verbs can be conjugated to show tense, aspect, mood, person and number by adding suffixes to the verbal stem.\n\nRestrictions on inflection for person and number\nIn non-negative clauses, third-person singular forms must be used if the subject of the verb appears explicitly as a noun phrase or pronoun. It does not matter if the subject is plural or not in the third person.[5] Take for instance (example from Kennard, 2014):[6]\n\n(1a)Me\n\nI\n\na\n\n(particle)\n\nsoñj\n\nthink.PRES.3SG\n\ndin\n\nto.1SG\n\ne\n\n(particle)\n\nkan-ont\n\nsing-PRES.3PL\n\nmat.\n\ngood\n\nMe a soñj din e kan-ont mat.\n\nI (particle) think.PRES.3SG to.1SG (particle) sing-PRES.3PL good\n\n\"I think they sing well.\"\n\nThe finite main-clause verb soñj is conjugated in the third-person singular form and not in the first-person singular because the first-person singular subject pronoun me is present. Meanwhile, the subordinate-clause verb kanont without an explicit subject remains able to conjugate for the third-person plural.\n\nAnother example from Le Clerc, 1908 apud Jouitteau:\n\n(1b)Ma\n\nif\n\nne\n\nNEG\n\nzihun-ont\n\nwake.up-PRES.3PL\n\nket\n\nNEG\n\nar\n\nDEF\n\nwech-man,\n\ntime-this\n\nni\n\nwe\n\nouez-o\n\nknow-FUT.3SG\n\npetra\n\nwhat\n\nd'ober.\n\nto-do\n\nMa ne zihun-ont ket ar wech-man, ni ouez-o petra d'ober.\n\nif NEG wake.up-PRES.3PL NEG DEF time-this we know-FUT.3SG what to-do\n\n\"If they don't wake up this time, we know what to do.\"\n\nIn this example, the main clause verb ouezo \"will know\" is in the 3rd-person singular form instead of 1st-person plural because the subject ni \"we\" appears; meanwhile, no explicit subject appears in the subordinate clause, so its verb zihunont \"they wake up\" takes the third-person plural ending.\n\nFinite verbs are also forced to assume third-person singular forms in negative clauses if the verb's subject is explicitly expressed but fails to precede the verb. Contrast the following examples from Kennard (2014):[6]\n\n(2)Ne\n\nNEG\n\ngan-ont\n\nsing-PRES.3PL\n\nket\n\nNEG\n\nmat.\n\ngood\n\nNe gan-ont ket mat.\n\nNEG sing-PRES.3PL NEG good\n\n\"They do not sing well.\"\n\n(3)Ar\n\nthe\n\nbaotr-ed\n\nboy-PL\n\nne\n\nNEG\n\ngan-ont\n\nsing-PRES.3PL\n\nket\n\nNEG\n\nmat.\n\ngood\n\nAr baotr-ed ne gan-ont ket mat.\n\nthe boy-PL NEG sing-PRES.3PL NEG good\n\n\"The boys do not sing well.\"\n\n(4)Ne\n\nNEG\n\ngan\n\nsing.PRES.3SG\n\nket\n\nNEG\n\nar\n\nthe\n\nbaotr-ed.\n\nboy-PL\n\nNe gan ket ar baotr-ed.\n\nNEG sing.PRES.3SG NEG the boy-PL\n\n\"The boys do not sing.\"\n\nExamples (2) and (3) show how the third-person plural marking is grammatical if the subject is unexpressed or preceding the negated verb, while (4) shows the third-person singular marking being required due to the subject ar baotred \"the boys\" not preceding the verb.\n\nRegular conjugation\nA typical verb conjugates as follows:\n\nsingular\n\nplural\n\nimpers.\n\n1st\n2nd\n3rd\n\n1st\n2nd\n3rd\n\nIndicative\n\nPresent\n\n-an\n\n-ez\n\nno ending\n\n-omp\n\n-it\n\n-ont\n\n-er\n\nImperfect\n\n-en\n\n-es\n\n-e\n\n-emp\n\n-ec'h\n\n-ent\n\n-ed\n\nPreterite\n\n-is\n\n-jout\n\n-as\n\n-jomp\n\n-joc'h\n\n-jont\n\n-jod\n\nFuture\n\n-in\n\n-i\n\n-o\n\n-imp\n\n-ot\n\n-int\n\n-or\n\nConditional\n\nPresent\n\n-fen\n\n-fes\n\n-fe\n\n-femp\n\n-fec'h\n\n-fent\n\n-fed\n\nImperfect\n\n-jen\n\n-jes\n\n-je\n\n-jemp\n\n-jec'h\n\n-jent\n\n-jed\n\nImperative\n\n—N/a\n\nno ending\n\n-et\n\n-omp\n\n-it\n\n-ent\n\n—N/a\n\nAdditional suffixes may form the verbal noun. The most common of these are:[3]\n\n-out as in lavarout \"say\", gallout \"can, be able\", klevout \"hear, smell\"\n\n-añ as in evañ \"drink\", gwiskañ \"dress\", skrivañ \"write\"\n\n-iñ as in debriñ \"eat\", deskiñ \"learn\", reiñ \"give\"\n\nFor other verbs, the stem itself is also the verbnoun, for example, gortoz \"wait\", lenn \"read\", kompren \"understand\".\n\nVerbs also have a past participle formed with a suffix and a present participle form comprising the verbal noun preceded by the particle o, which causes a mixed mutation.\n\nMost verbs are regular and stray little from the usual patterns.[2] The table shows and example of the regular verb debriñ \"eat\" (verbal stem debr-).\n\nsingular\n\nplural\n\nimpers.\n\n1st\n2nd\n3rd\n\n1st\n2nd\n3rd\n\nIndicative\n\nPresent\n\ndebran\n\ndebrez\n\ndebr\n\ndebromp\n\ndebrit\n\ndebront\n\ndebrer\n\nImperfect\n\ndebren\n\ndebres\n\ndebre\n\ndebremp\n\ndebrec'h\n\ndebrent\n\ndebred\n\nPreterite\n\ndebris\n\ndebrjout\n\ndebras\n\ndebrjomp\n\ndebrjoc'h\n\ndebrjont\n\ndebrjod\n\nFuture\n\ndebrin\n\ndebri\n\ndebro\n\ndebrimp\n\ndebrot\n\ndebrint\n\ndebror\n\nConditional\n\nPresent\n\ndebrfen\n\ndebrfes\n\ndebrfe\n\ndebrfemp\n\ndebrfec'h\n\ndebrfent\n\ndebrfed\n\nImperfect\n\ndebrjen\n\ndebrjes\n\ndebrje\n\ndebrjemp\n\ndebrjec'h\n\ndebrjent\n\ndebrjed\n\nImperative\n\n—N/a\n\ndebr\n\ndebret\n\ndebromp\n\ndebrit\n\ndebrent\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\ndebriñ\n\no tebriñ\n\ndebret\n\nIrregular conjugations\nA few common verbs are irregular, and the English and French equivalents of these Breton verbs are irregular as well (e.g. the word bezañ is translated into \"to be\" in English and être in French, but both the English word \"be\" and the French word être themselves are irregular verbs as well).\n\nThe first one is ober 'do'.\n\nsingular\n\nplural\n\n0\n\n1st\n2nd\n3rd\n\n1st\n2nd\n3rd\n\nIndicative\n\nPresent\n\ngran\n\ngrez\n\ngra\n\ngreomp\n\ngrit\n\ngreont\n\ngreer\n\nImperfect\n\ngraen\n\ngraes\n\ngrae\n\ngraemp\n\ngraec'h\n\ngraent\n\ngraed\n\nPreterite\n\ngris\n\ngrejout\n\ngreas\n\ngrejomp\n\ngrejoc'h\n\ngrejont\n\ngrejod\n\nFuture\n\ngrin\n\ngri\n\ngray, graio\n\ngraimp\n\ngreot\n\ngraint\n\ngreor\n\nConditional\n\nPresent\n\ngrafen\n\ngrafes\n\ngrafe\n\ngrafemp\n\ngrafec'h\n\ngrafent\n\ngrafed\n\nImperfect\n\ngrajen\n\ngrajes\n\ngraje\n\ngrajemp\n\ngrajec'h\n\ngrajent\n\ngrajed\n\nImperative\n\n—N/a\n\ngra\n\ngraet\n\ngreomp\n\ngrit\n\ngraent\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nober, gober\n\noc'h ober\n\ngraet\n\nThe second one is mont \"go\", which has irregular conjugation.\n\nsingular\n\nplural\n\n0\n\n1st\n2nd\n3rd\n\n1st\n2nd\n3rd\n\nIndicative\n\nPresent\n\nan\n\nez\n\na, ya\n\neomp\n\nit\n\neont\n\neer\n\nImperfect\n\naen\n\naes\n\nae, yae\n\naemp\n\naec'h\n\naent\n\naed\n\nPreterite\n\nis\n\nejout\n\neas, yeas\n\nejomp\n\nejoc'h\n\nejont\n\nejod\n\nFuture\n\nin\n\ni\n\nay, aio, yelo\n\naimp\n\neot\n\naint\n\neor\n\nConditional\n\nPresent\n\nafen\n\nafes\n\nafe, yafe\n\nafemp\n\nafec'h\n\nafent\n\nafed\n\nImperfect\n\najen\n\najes\n\naje, yaje\n\najemp\n\najec'h\n\najent\n\najed\n\nImperative\n\n—N/a\n\na, kae\n\naet\n\neomp, demp\n\nit, kit\n\naent\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nmont\n\no vont\n\naet\n\nThe third verb, gouzout \"know\", is also irregular. In addition to the forms below, it also has a number of other possible variant roots.[1]\n\nsingular\n\nplural\n\n0\n\n1st\n2nd\n3rd\n\n1st\n2nd\n3rd\n\nIndicative\n\nPresent\n\ngouzon\n\ngouzout\n\ngour\n\ngouzomp\n\ngouzont\n\ngouzont\n\ngouzer\n\nImperfect\n\ngouien\n\ngouies\n\ngouie\n\ngouiemp\n\ngouiec'h\n\ngouient\n\ngouied\n\nPreterite\n\ngouezis\n\ngouejout\n\ngouezas\n\ngouejomp\n\ngouejoc'h\n\ngouejont\n\ngouejod\n\nFuture\n\ngouezin\n\ngouezi\n\ngouezo\n\ngouezimp\n\ngouezot\n\ngouezint\n\ngouezor\n\nConditional\n\nPresent\n\ngoufen\n\ngoufes\n\ngoufe\n\ngoufemp\n\ngoufec'h\n\ngoufent\n\ngoufed\n\nImperfect\n\ngouijen\n\ngouijes\n\ngouije\n\ngouijemp\n\ngouijec'h\n\ngouijent\n\ngouijed\n\nImperative\n\n—N/a\n\ngouez\n\ngouezet\n\ngouezomp\n\ngouezit\n\ngouezent\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\ngouzout\n\no c'houzout\n\ngouezet\n\nBezañ \"be\" is the fourth irregular verb, which is conjugated for additional tense or aspect distinctions.\n\nsingular\n\nplural\n\n0\n\n1st\n2nd\n3rd\n\n1st\n2nd\n3rd\n\nIndicative\n\nPresent\n\non\n\nout\n\nzo, eo, eus[7]\n\nomp\n\noc'h\n\nint\n\noar, eur\n\nPresent (situative)\n\nemaon\n\nemaout\n\nemañ\n\nemaomp\n\nemaoc'h\n\nemaint\n\nemeur\n\nPresent (habitual)\n\nbezan\n\nbezez\n\nbez\n\nbezomp\n\nbezit\n\nbezont\n\nbezer\n\nFuture\n\nbin, bezin\n\nbi, bezi\n\nbo, bezo\n\nbimp, bezimp\n\nbiot,[8] bioc'h\n\nbent, bezint\n\nbior\n\nImperfect\n\noan\n\noas\n\noa\n\noamp\n\noac'h\n\noant\n\noad\n\nImperfect (situative)\n\nedon\n\nedos\n\nedo\n\nedomp\n\nedoc'h\n\nedont\n\nedod\n\nImperfect (habitual)\n\nbezen\n\nbezes\n\nbeze\n\nbezemp\n\nbezec'h\n\nbezent\n\nbezed\n\nPreterite\n\nboen\n\nboes\n\nboe\n\nboemp\n\nboec'h\n\nboent\n\nboed\n\nConditional\n\nPresent\n\nbefen, ben\n\nbefes, bes\n\nbefe, be\n\nbefemp, bemp\n\nbefec'h, bec'h\n\nbefent, bent\n\nbefed\n\nImperfect\n\nbijen\n\nbijes\n\nbije\n\nbijemp\n\nbijec'h\n\nbijent\n\nbijed\n\nImperative\n\n—N/a\n\nbez\n\nbezet\n\nbezomp\n\nbezit\n\nbezent\n\n—N/a\n\nVerbal noun\n\nPresent participle\n\nPast participle\n\nbezañ, older: bout, bezout\n\no vezañ\n\nbet\n\nAnother common irregular verb is eus \"have\", which combines a person marker with the tensed form. Eus is historically derived from bezañ[2] and a similar development is seen in Cornish.[9]\n\nsingular\n\nplural\n\n0\n\n1st\n2nd\n3rd\n\n1st\n2nd\n3rd\n\nIndicative\n\nPresent\n\nam eus, meus\n\naz peus, ac'h eus[8], teus\n\nen deus, neus\n\nhe deus, neus\n\nhon neus, oneus\n\nhoc'h eus, peus\n\no deus, deus\n\nPresent (habitual)\n\nam bez, mez\n\naz pez, pez\n\nen devez, nez\n\nhe devez, dez\n\nhor bez, obez\n\nho pez, pez\n\no devez, dez\n\nFuture\n\nam bo, mo, am vezo\n\naz po, to, az pezo\n\nen devo, no, en devezo\n\nhe devo, do, he devezo\n\nhor bo, obo, hor bezo\n\nho po, po, ho pezo\n\no devo, do, o devezo\n\nImperfect\n\nam boa, moa\n\naz poa, toa\n\nen doa, noa\n\nhe doa, doa\n\nhor boa, oboa\n\nho poa, poa\n\no doa, doa\n\nImperfect (habitual)\n\nam boa, moa\n\naz poa, toa\n\nen devoa, noa\n\nhe devoa, doa\n\nhor boa, oboa\n\nho poa, poa\n\no devoa, doa\n\nPreterite\n\nam boe, moe\n\naz poe, toe\n\nen devoe, noe\n\nhe devoe, doe\n\nhor boe, boe\n\nho poe, poe\n\no devoe, doe\n\nConditional\n\nPresent\n\nam bije, mije\n\naz pije, tije\n\nen devije, nije\n\nhe devije, dije\n\nhor bije, obije\n\nho pije, pije\n\no devije, dije\n\nImperfect\n\nam befe, mefe\n\naz pefe, tefe\n\nen devefe, nefe\n\nhe devefe, defe\n\nhor befe, obefe\n\nho pefe, pefe\n\no devefe, defe\n\nVerbal noun\n\nPresent participle\n\nendevout or kaout\n\no kaout",
+          "examples": [
+            "\"I think they sing well.\"",
+            "\"If they don't wake up this time, we know what to do.\"",
+            "In this example, the main clause verb ouezo \"will know\" is in the 3rd-person singular form instead of 1st-person plural because the subject ni \"we\" appears; meanwhile, no explicit subject appears in the subordinate clause, so its verb zihun",
+            "\"They do not sing well.\"",
+            "\"The boys do not sing well.\"",
+            "\"The boys do not sing.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Compound tenses",
+          "body": "Ober, bezañ and eus can all be used as auxiliary verbs.[2]\n\nIn the present, Breton (like Cornish and Irish but unlike the other Celtic languages) distinguishes between the simple and progressive present. The simple present is formed by either conjugating the verb or using the verbal noun with the present of ober. The progressive present, on the other hand, is formed with the present situative of bezañ combined with present participle. In addition to these two aspectual distinctions, Breton has a habitual present which utilises the present habitual of bezañ and the present participle. Combining the past participle with either endevout or bezañ is the usual way of forming the past tense, the conjugated forms being restricted to more literary language. The choice between eus or bezañ depends on whether the past participle is that of a transitive or intransitive verb respectively (similar to the passé composé of French), for instance, kavout \"find\" takes endevout to give kavet en deus \"he has found\" whereas kouezhañ \"fall\" takes bezañ to give kouezhet eo \"he has fallen\".[1][3]",
+          "examples": [
+            "In the present, Breton (like Cornish and Irish but unlike the other Celtic languages) distinguishes between the simple and progressive present. The simple present is formed by either conjugating the verb or using the verbal noun with the pr"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Negation",
+          "body": "Non-tensed verbs are negated with bipartite ne ... ket either side of the main verb, for example, ne skrivan ket \"I do not write\", or auxiliary, for example, ne voe ket lazhet \"he was not killed\".[2] Ne is replaced with na in imperatives, relative clauses, after ken \"before\" and evit \"for, so\" and in expressions of fear, for instance, na ganit ket \"do not sing\", un dra na c'houalennen ket \"a thing which I did not ask\", evit na welo ket ac'hanoc'h \"so that he does not see you\".\n\nUnable to be negated by the previous structure, infinitives can be expressed negatively by means of a compound phrases, so that, for instance, debriñ \"eat\" may become tremen hep debriñ \"not eat\" (literally, \"pass without eating\") and  redek \"run\" mirout a redek \"not run\" (literally, \"keep from running\"). Na ... (ket) is occasionally used, however, to negate infinitives.[1]",
+          "examples": [
+            "Non-tensed verbs are negated with bipartite ne ... ket either side of the main verb, for example, ne skrivan ket \"I do not write\", or auxiliary, for example, ne voe ket lazhet \"he was not killed\".[2] Ne is replaced with na in imperatives, r",
+            "Unable to be negated by the previous structure, infinitives can be expressed negatively by means of a compound phrases, so that, for instance, debriñ \"eat\" may become tremen hep debriñ \"not eat\" (literally, \"pass without eating\") and  redek"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Numbers",
+      "summary": "Similar to other Celtic languages, Breton has an underlying vigesimal counting system. \"One\" is un, ul, ur before a noun (the same as the indefinite article). \"Two\", \"three\" and \"four\" and derivative numbers have separate masculine and feminine forms. Interesting irregularities i",
+      "sections": [
+        {
+          "heading": "Cardinal numbers",
+          "body": "Similar to other Celtic languages, Breton has an underlying vigesimal counting system. \"One\" is un, ul, ur before a noun (the same as the indefinite article). \"Two\", \"three\" and \"four\" and derivative numbers have separate masculine and feminine forms. Interesting irregularities in the system are triwec'h \"eighteen\", literally \"three sixes\", and hanter kant \"fifty\", literally \"half a hundred\" (compare Welsh deunaw \"two nines\" and hanner cant \"half a hundred\").\n\n0\n\nzero, mann, netra\n\n1\n\nunan\n\n11\n\nunnek\n\n21\n\nunan warn-ugent\n\n2\n\ndaou (m.), div (f.)\n\n12\n\ndaouzek\n\n22\n\ndaou warn-ungent\n\n3\n\ntri (m.), teir (f.)\n\n13\n\ntrizek\n\n30\n\ntregont\n\n4\n\npevar (m.), peder (f.)\n\n14\n\npevarzek\n\n40\n\ndaou-ugent\n\n5\n\npemp\n\n15\n\npempzek\n\n50\n\nhanter kant\n\n6\n\nc'hwec'h\n\n16\n\nc'hwezek\n\n60\n\ntri-ugent\n\n7\n\nseizh\n\n17\n\nseitek\n\n70\n\ndek ha tri-ugent\n\n8\n\neizh\n\n18\n\ntriwec'h\n\n80\n\npevar-ugent\n\n9\n\nnav\n\n19\n\nnaontek\n\n90\n\ndek ha pevar-ugent\n\n10\n\ndek\n\n20\n\nugent\n\n100\n\nkant",
+          "examples": [
+            "Similar to other Celtic languages, Breton has an underlying vigesimal counting system. \"One\" is un, ul, ur before a noun (the same as the indefinite article). \"Two\", \"three\" and \"four\" and derivative numbers have separate masculine and femi"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        },
+        {
+          "heading": "Ordinal numbers",
+          "body": "A gender distinction can again be shown with some ordinal numbers.\n\n1st\n\nkentañ\n\n2nd\n\neil, daouvet (m.), divvet (f.)\n\n3rd\n\ntrede, trivet (m.), teirvet (f.)\n\n4th\n\npevare, pevarvet (m.), pedervet (f.)\n\n5th\n\npempvet\n\n6th\n\nc'hwec'hvet\n\n7th\n\nseizhvet\n\n8th\n\neizhvet\n\n9th\n\nnavvet\n\n10th\n\ndekvet",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Mutations",
+      "summary": "Main article: Breton mutations\nThe main mutations cause the following changes:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Breton mutations\nThe main mutations cause the following changes:\n\nUnmutated\n\nSoft\n\nSpirant\n\nHard\n\nMixed\n\np\nb\nf\n—N/a\n—N/a\n\nt\nd\nz\n—N/a\n—N/a\n\nk\ng\nc'h\n—N/a\n—N/a\n\nb\nv\n—N/a\np\nv\n\nd\nz\n—N/a\nt\nt\n\ng\nc'h\n—N/a\nk\nc'h\n\ngw\nw\n—N/a\nkw\nw\n\nm\nv\n—N/a\n—N/a\nv",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Syntax",
+      "summary": "Underlying word order\nBreton, like other Insular Celtic languages, has underlying verb–subject–object word order. This order is mainly visible in subordinate clauses. Jouitteau provides the following example:",
+      "sections": [
+        {
+          "heading": "Word order",
+          "body": "Underlying word order\nBreton, like other Insular Celtic languages, has underlying verb–subject–object word order. This order is mainly visible in subordinate clauses. Jouitteau provides the following example:\n\n(1a)Lavarout\n\nsay.VN\n\na\n\n(particle)\n\nra\n\ndo.3SG\n\ne\n\n(particle)\n\nwel\n\nsee.PRES.3SG\n\nda\n\nyour\n\nverc'h\n\ndaughter\n\nPaol.\n\nPaul\n\nLavarout a ra e wel da verc'h Paol.\n\nsay.VN (particle) do.3SG (particle) see.PRES.3SG your daughter Paul\n\n\"He says (that) your daughter sees Paol.\"\n\nIn the embedded clause e wel da verc'h Paol, the finite verb wel \"sees\" appears in clause-initial position, ignoring the particle e; da verc'h \"your daughter\" is the subject and the personal name Paol is the object, thus demonstrating VSO order.\n\nAnother example, from Press (1986: 210):\n\n(1b)Int\n\nthey\n\na\n\n(particle)\n\nzeuy\n\ncome.FUT.3SG\n\npa\n\nif\n\nroy\n\ngive.FUT.3SG\n\nmammig\n\nMummy\n\ndezho\n\nto.3PL\n\narc'hant.\n\nmoney\n\nInt a zeuy pa roy mammig dezho arc'hant.\n\nthey (particle) come.FUT.3SG if give.FUT.3SG Mummy to.3PL money\n\n\"They will come if Mummy gives them money.\"\n\nIn the subordinate clause pa roy mammig dezho arc'hant, VSO order is once again exhibited — the verb roy \"will give\" precedes the subject mammig \"Mummy\", which in turn precedes the object arc'hant \"money\". But it stands in stark contrast to the main clause int a zeuy..., where the subject int \"they\" comes before the verb a zeuy \"will come\"; this positioning is due to a verb-second constraint to be described below.\n\nVerb-second constraint\nMain clauses, however, are subject to a verb-second word order (or V2) constraint. This means that Breton sentences generally cannot begin with a finite verb and must have some other constituent precede one.[5] Non-exhaustively, noun phrases (whether subject or object), prepositional phrases, negative particles like ne, and non-finite verbs are among those permissible word-initial constituents.[10]: 94 \n\nThe constituent that appears in sentence-initial position is generally the focus of the sentence, thus the following example sentences differ by focus (examples from Kennard, 2018):[5]\n\n(1a)Gwenn\n\nwhite\n\neo\n\nbe.PRES.3SG\n\nar\n\nDEF\n\npaper.\n\npaper\n\nGwenn eo ar paper.\n\nwhite be.PRES.3SG DEF paper\n\n\"The paper is white.\"\n\n(1b)Ar\n\nDEF\n\npaper\n\npaper\n\nzo\n\nbe.PRES.3SG\n\ngwenn.\n\nwhite\n\nAr paper zo gwenn.\n\nDEF paper be.PRES.3SG white\n\n\"The paper is white.\"\n\nSentence (1a) focuses on the colour of some paper, while sentence (1b) focuses on the type of object that is white.",
+          "examples": [
+            "\"He says (that) your daughter sees Paol.\"",
+            "In the embedded clause e wel da verc'h Paol, the finite verb wel \"sees\" appears in clause-initial position, ignoring the particle e; da verc'h \"your daughter\" is the subject and the personal name Paol is the object, thus demonstrating VSO o",
+            "\"They will come if Mummy gives them money.\"",
+            "In the subordinate clause pa roy mammig dezho arc'hant, VSO order is once again exhibited — the verb roy \"will give\" precedes the subject mammig \"Mummy\", which in turn precedes the object arc'hant \"money\". But it stands in stark contrast to",
+            "\"The paper is white.\"",
+            "\"The paper is white.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Breton_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

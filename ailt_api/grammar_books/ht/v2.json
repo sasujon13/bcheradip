@@ -1,0 +1,406 @@
+{
+  "title": "Grammar Book — Kreyòl ayisyen",
+  "languageCode": "ht",
+  "languageName": "Kreyòl ayisyen",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "French-based creole language\nNot to be confused with Haitian French, a variety of French spoken in Haiti.\n\"Saint-Domingue Creole\" redirects here; not to be confused with Dominican Creole French.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "French-based creole language\nNot to be confused with Haitian French, a variety of French spoken in Haiti.\n\"Saint-Domingue Creole\" redirects here; not to be confused with Dominican Creole French.\n\nHaitian Creolekreyòl ayisyenPronunciation[kɣejɔl ajisjɛ̃]Native toHaitiEthnicityHaitiansNative speakers13 million (2020)[1]Language family\nFrench Creole[2]\n\nCircum-Caribbean French[3]Haitian Creole\n\nWriting systemLatin (Haitian Creole alphabet)Official statusOfficial language inHaitiRecognised minority\nlanguage inBahamas[4]\nCuba[4]\nCosta RicaRegulated byAkademi Kreyòl Ayisyen[5]\n(Haitian Creole Academy)Language codesISO 639-1htISO 639-2hatISO 639-3hatGlottologhait1244  HaitianLinguasphere51-AAC-cbIETFhtDistribution of Haitian Creole. Areas in dark blue are where it is spoken by a majority; areas in light blue are where it is spoken by a minority.This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nAmbassador Hervé Denis discusses the vital relationship between Haiti and its diaspora in Haitian Creole.\nHaitian Creole (Haitian Creole: kreyòl ayisyen, [kɣejɔl ajisjɛ̃]), or simply Creole (kreyòl), is a French-based creole language with a Romance foundation and significant Atlantic-Congo structural influences. It is spoken by over 13 million people worldwide, primarily Haitian citizens and the Haitian diaspora.[6][7] It is one of the two official languages of Haiti (the other being French), where it is the native language of the vast majority of the population. It is also the most widely spoken creole language in the world.[8][9] \n\nThe three main dialects of Haitian Creole are the Northern, Central, and Southern dialects; the Northern dialect is predominantly spoken in Cap-Haïtien, the Central in Port-au-Prince, and the Southern in Les Cayes.[10]\n\nThe language emerged from contact between French settlers and enslaved Africans during the Atlantic slave trade in the French colony of Saint-Domingue (now Haiti) in the 17th and 18th centuries.[11][12] Although its vocabulary largely derives from 18th-century French, its grammar is that of a West African Volta–Congo language branch, particularly the Fongbe and Igbo languages.[12] It also has influences from Spanish, English, Portuguese, Taíno, and other West African languages.[13] It is not mutually intelligible with standard French. Some[who?] estimate that Haitians are the largest community in the world to speak a modern creole language;[14][improper synthesis?] others[who?] estimate that more people speak Nigerian Pidgin.[citation needed]\n\nHaitian Creole's use in communities and schools has been contentious since at least the 19th century. Some Haitians view French as inextricably linked to the legacy of colonialism and a language compelled on the population by conquerors, while Haitian Creole has been maligned by Francophones as an undereducated person's French.[15][16] Until the late 20th century, Haitian presidents spoke only standard French to their fellow citizens, and until the 21st century, all instruction at Haitian elementary schools was in standard French, a second language to most of their students.[8]\n\nHaitian Creole is also spoken in regions with Haitian immigrant communities, including other Caribbean islands, French Guiana, Martinique, France, Canada (particularly Quebec) and the United States (including the U.S. state of Louisiana).[17] It is related to Antillean Creole, spoken in the Lesser Antilles, and to other French-based creole languages.",
+          "examples": [
+            "\"Saint-Domingue Creole\" redirects here; not to be confused with Dominican Creole French."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Etymology",
+      "summary": "The word creole comes from the Portuguese term crioulo, which means \"a person raised in one's house\" and from the Latin creare, which means \"to create, make, bring forth, produce, beget\".[18][19] In the New World, the term originally referred to Europeans born and raised in overs",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The word creole comes from the Portuguese term crioulo, which means \"a person raised in one's house\" and from the Latin creare, which means \"to create, make, bring forth, produce, beget\".[18][19] In the New World, the term originally referred to Europeans born and raised in overseas colonies[20] (as opposed to the European-born peninsulares). To be \"as rich as a Creole\" at one time was a popular saying boasted in Paris during the colonial years of Haiti (then named Saint-Domingue), for being the most lucrative colony in the world.[21] The noun Creole, soon began to refer to the language spoken there as well, as it still is today.[20][19]",
+          "examples": [
+            "The word creole comes from the Portuguese term crioulo, which means \"a person raised in one's house\" and from the Latin creare, which means \"to create, make, bring forth, produce, beget\".[18][19] In the New World, the term originally referr"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Origins",
+      "summary": "Main article: Creole language § Creole genesis\nHaitian Creole contains elements from both the Romance group of Indo-European languages through its superstrate, French, as well as significant influences from African languages.[3][2][22] There are many theories on the formation of",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Creole language § Creole genesis\nHaitian Creole contains elements from both the Romance group of Indo-European languages through its superstrate, French, as well as significant influences from African languages.[3][2][22] There are many theories on the formation of the Haitian Creole language.\n\nOne theory estimates that Haitian Creole developed between 1680 and 1740.[23][24][25] During the 17th century, French and Spanish colonizers produced tobacco, cotton, and sugar cane on the island.[25] Throughout this period, the population was made of roughly equal numbers of engagés (white workers), gens de couleur libres (free people of colour) and slaves.[26] The economy shifted more decisively into sugar production about 1690, just before the French colony of Saint-Domingue was officially recognized in 1697.[11][24] The sugar crops needed a much larger labor force, which led to an increase in slave trafficking. In the 18th century an estimated 800,000 West Africans were enslaved and brought to Saint-Domingue.[25] As the slave population increased, the proportion of French-speaking colonists decreased.\n\nMany African slaves in the colony had come from Niger-Congo-speaking territory, and particularly speakers of Kwa languages, such as Gbe from West Africa and the Central Tano languages, and Bantu languages from Central Africa.[24] Singler suggests that the number of Bantu speakers decreased while the number of Kwa speakers increased, with Gbe being the most dominant group. The first fifty years of Saint‑Domingue's sugar boom coincided with emergent Gbe predominance in the French Caribbean. In the interval during which Singler hypothesizes the language evolved, the Gbe population was around 50% of the kidnapped enslaved population.[24]\n\nClassical French (français classique) and langues d'oïl (Norman, Poitevin and Saintongeais dialects, Gallo and Picard) were spoken during the 17th and 18th centuries in Saint‑Domingue, as well as in New France and French West Africa.[20][27] Slaves lacked a common means of communication and as a result would try to learn French to communicate with one another, though most were denied a formal education. With the constant trafficking and enslavement of Africans, the language became increasingly distinct from French. The language was also picked up by other members of the community and became used by the majority of those born in what is now Haiti.[20]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Saint-Domingue Creole French",
+          "body": "Further information: Creole FrenchA rich Creole planter of Saint-Domingue with his wife\nIn Saint-Domingue, people of all classes spoke Creole French. There were both lower and higher registers of the language, depending on education and class. Creole served as a lingua franca throughout the West Indies.[28]\n\nL'Entrepreneur. Mo sorti apprend, Mouché, qué vou té éprouvé domage dan traversée.\n\nLe Capitaine: Ça vrai.\n\nL'Entr: Vou crére qué navire à vou gagné bisoin réparations?\n\nLe C: Ly té carené anvant nou parti, mai coup z'ouragan là mété moué dan cas fair ly bay encor nion radoub.\n\nL'Entr: Ly fair d'iau en pile?\n\nLe C: Primié jours aprés z'orage, nou té fair trente-six pouces par vingt-quatre heurs; mai dan beau tem mo fair yo dégagé ça mo pu, et tancher miyor possible, nou fair à présent necqué treize pouces.[29]\n\nThe Entrepreneur: I just learned, sir, that you garnered damages in your crossing.\n\nThe Captain: That's true.\n\nThe Entrepreneur: Do you believe that your ship needs repair?\n\nThe Captain: It careened before we left, but the blow from the hurricane put me in the position of getting it refitted again.\n\nThe Entrepreneur:  Is it taking on a lot of water?\n\nThe Captain: The first days after the storm, we took on thirty-six inches in twenty-four hours; but in clear weather, I made them take as much of it out as I was able, and attached it the best we possibly could; we're presently taking on not even thirteen inches.\n\nThe flag of the Empire of Haiti (1804–1806)\nHaïti, l'an 1er, 5e, jour de l'indépendance.\n\nChère maman moi,\n\nAmbassadeurs à nous, partis pour chercher argent France, moi voulé écrire à vous par yo, pour dire vous combien nous contens. Français bon, oublié tout. Papas nous révoltés contre yo, papas nous tués papas yo, fils yo, gérens yo, papas nous brûlées habitations yo. Bagasse, eux viennent trouver nous! et dis nous, vous donner trente millions de gourdes à nous et nous laisser Haïti vous? Vous venez acheter du sucre, du café, de l’indigo chez nous? Mais vous payez la moitié du droit à nous. Vous pensez, chère maman, que nous avons accepté le marché. Le président nous a embrassés, bon papa Makau. Yo bu santé roi de France, santé Boyer, santé Christophe, santé Haïti, santé indépendance. Puis yo dansé Balcindé et Bai chi ca colé avec Haïtiens. Moi pas pouvé dire vous combien tout ça noble et beau.\n\nVenir voir fils à vous sur habitation, maman moi, li donné vous cassave, gouillave et pimentade. Il est bien content si vous pouvez mener la blanche France pour épouse. Dis-lui, si ben heureuse. Nous plus tuer blancs, frères, amis, et camarades à nous.\n\nFils à vous, embrassez-vous, chère maman, moi.\n\nCongo, Haïtien libre et indépendant, au Trou-Salé.[30]\n\nA Haitian planter\nHaiti, 1st year, 5th day of independence.\n\nMy dear mother,\n\nOur ambassadors left to get money from France, I want to write to you through them, to tell you how much we are happy. The French are good, they forgot everything. Our fathers revolted against them, our fathers killed their fathers, sons, managers, and our fathers burned down their plantations. Well, they came to find us, and told us, \"you give thirty million gourdes to us and we'll leave Haiti to you? (And we replied) Will you come buy sugar, coffee, and indigo from us? You will pay only half directly to us.\" Do you believe my dear mother, that we accepted the deal? Our President hugged the good papa Makau (the French ambassador). They drank to the health of the King of France, to the health of Boyer, to the health of Christophe, to the health of Haiti, to independence. Then they danced Balcindé and Bai chi ca colé with Haitian women. I can't tell you how beautiful and noble all of this is.\n\nCome see your son at his plantation, my mother, he will give you cassava, goyava, and pimentade. He will be happy if you can bring him a white Frenchwoman for a wife. Tell her, if you please. We won't kill anymore whites, brothers, friends, and camarades of ours.\n\nYour son hugs you, my dear mother.\n\nCongo, free and independent Haitian, at Trou-Salé.",
+          "examples": [
+            "Our ambassadors left to get money from France, I want to write to you through them, to tell you how much we are happy. The French are good, they forgot everything. Our fathers revolted against them, our fathers killed their fathers, sons, m"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Differences between Haitian Creole and French",
+          "body": "Haitian Creole and French have similar pronunciations and also share many lexical items.[31][32] However, many cognate terms actually have different meanings. For example, as Valdman mentions in Haitian Creole: Structure, Variation, Status, Origin, the word for \"frequent\" in French is fréquent; however, its cognate in Haitian Creole frekan means 'insolent, rude, and impertinent' and usually refers to people.[33] In addition, the grammars of Haitian Creole and French are very different. For example, in Haitian Creole, verbs are not conjugated as they are in French.[20] Additionally, Haitian Creole possesses different phonetics from standard French; however, it is similar in phonetic structure.[31] The phrase-structure is another similarity between Haitian Creole and French but differs slightly in that it contains details from its African substratum language.[31]\n\nBoth Haitian Creole and French have also experienced semantic change: words that had a single meaning in the 17th century have changed or have been replaced in both languages.[20] For example, \"Ki jan ou rele?\" (\"What is your name?\") corresponds to the French \"Comment vous appelez‑vous ?\". Although the average French speaker would not understand this phrase, every word in it is in fact of French origin: qui \"who\"; genre \"manner\"; vous \"you\", and héler \"to call\", but the verb héler has been replaced by appeler in modern French and reduced to a meaning of \"to flag down\".[20]\n\nClaire Lefebvre proposed the theory of relexification, arguing that the process of relexification (the replacement of the phonological representation of a substratum lexical item with the phonological representation of a superstratum lexical item, so that the Haitian creole lexical item looks like French, but works like the substratum language(s)) was central in the development of Haitian Creole.[34]\n\nThe Fon language, also known as the Fongbe language, is a modern Gbe language native to Benin, Nigeria and Togo in West Africa. This language has a grammatical structure similar to Haitian Creole, possibly making Creole a relexification of Fon with vocabulary from French. The two languages are often compared:[35]\n\nFrench\n\nFon\n\nHaitian Creole\n\nEnglish\n\nla maison[36]\n\nafe a\n\nkay la\n\nthe house",
+          "examples": [
+            "Haitian Creole and French have similar pronunciations and also share many lexical items.[31][32] However, many cognate terms actually have different meanings. For example, as Valdman mentions in Haitian Creole: Structure, Variation, Status,",
+            "Both Haitian Creole and French have also experienced semantic change: words that had a single meaning in the 17th century have changed or have been replaced in both languages.[20] For example, \"Ki jan ou rele?\" (\"What is your name?\") corres"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "History",
+      "summary": "Haitian Creole developed in the 17th and 18th centuries in the colony of Saint-Domingue, in a setting that mixed speakers of various Niger–Congo languages with French colonists.[11] In the early 1940s under President Élie Lescot, attempts were made to standardize the language. Am",
+      "sections": [
+        {
+          "heading": "Early development",
+          "body": "Haitian Creole developed in the 17th and 18th centuries in the colony of Saint-Domingue, in a setting that mixed speakers of various Niger–Congo languages with French colonists.[11] In the early 1940s under President Élie Lescot, attempts were made to standardize the language. American linguistic expert Frank Laubach and Irish Methodist missionary H. Ormonde McConnell developed a standardized Haitian Creole orthography. Although some regarded the orthography highly, it was generally not well received.[37] Its orthography was standardized in 1979. That same year Haitian Creole was elevated in status by the Act of 18 September 1979.[38] The Institut Pédagogique National established an official orthography for Creole, and slight modifications were made over the next two decades. For example, the hyphen (-) is no longer used, nor is the apostrophe.[39]: 131 [15]: 185–192  The only accent mark retained is the grave accent in ⟨è⟩ and ⟨ò⟩.[15]: 433",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Becoming an official language",
+          "body": "The Constitution of 1987 upgraded Haitian Creole to a national language alongside French.[40] It classified French as the langue d'instruction or \"language of instruction\", and Creole was classified as an outil d'enseignement or a \"tool of education\". The Constitution of 1987 names both Haitian Creole and French as the official languages, but recognizes Haitian Creole as the only language that all Haitians hold in common.[41]: 263 [42] French is spoken by only a small percentage of citizens.[11][17]",
+          "examples": [
+            "The Constitution of 1987 upgraded Haitian Creole to a national language alongside French.[40] It classified French as the langue d'instruction or \"language of instruction\", and Creole was classified as an outil d'enseignement or a \"tool of "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Literature development",
+          "body": "Even without government recognition, by the end of the 19th century, there were already literary texts written in Haitian Creole such as Oswald Durand's Choucoune and Georges Sylvain's Cric? Crac!. Félix Morisseau-Leroy was another influential author of Haitian Creole work. Since the 1980s, many educators, writers, and activists have written literature in Haitian Creole. In 2001, Open Gate: An Anthology of Haitian Creole Poetry was published. It was the first time a collection of Haitian Creole poetry was published in both Haitian Creole and English.[43] On 28 October 2004, the Haitian daily Le Matin first published an entire edition in Haitian Creole in observance of the country's newly instated \"Creole Day\".[44]: 556  Haitian Creole writers often use different literary strategies throughout their works, such as code-switching, to increase the audience's knowledge on the language.[17] Literature in Haitian Creole is also used to educate the public on the dictatorial social and political forces in Haiti.[17]\n\nNotable Haitian Creole–language writers\nThis section of a biography of a living person does not include any references or sources. Please help by adding reliable sources. Contentious material about living persons that is unsourced or poorly sourced must be removed immediately, especially if potentially libelous or harmful.  (January 2026) (Learn how and when to remove this message)\nLouis-Philippe Dalembert (b. 1962), poet and novelist\n\nFrankétienne (1936–2025), poet, playwright, painter, musician, activist\n\nAdy Jean-Gardy (b. 1967), international press activist\n\nJosaphat-Robert Large (1942–2017), poet, novelist and art critic\n\nFélix Morisseau-Leroy (1912–1998), poet and playwright\n\nElsie Suréna (b. 1956), writer and visual artist\n\nLyonel Trouillot (b. 1956), poet and novelist",
+          "examples": [
+            "Even without government recognition, by the end of the 19th century, there were already literary texts written in Haitian Creole such as Oswald Durand's Choucoune and Georges Sylvain's Cric? Crac!. Félix Morisseau-Leroy was another influent"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Sociolinguistics",
+      "summary": "Although both French and Haitian Creole are official languages in Haiti, French is often considered the high language and Haitian Creole the low language in the diglossic relationship of these two languages in society.[33] That is to say, for the minority of Haitian population th",
+      "sections": [
+        {
+          "heading": "Role in society",
+          "body": "Although both French and Haitian Creole are official languages in Haiti, French is often considered the high language and Haitian Creole the low language in the diglossic relationship of these two languages in society.[33] That is to say, for the minority of Haitian population that is bilingual, the use of these two languages largely depends on the social context: standard French is used more in public, especially in formal situations, whereas Haitian Creole is used more on a daily basis and is often heard in ordinary conversation.[45]\n\nThere is a large population in Haiti that speaks only Haitian Creole, whether under formal or informal conditions:\n\nFrench plays no role in the very formal situation of a Haitian peasant (more than 80% of the population make a living from agriculture) presiding at a family gathering after the death of a member, or at the worship of the family lwa or voodoo spirits, or contacting a Catholic priest for a church baptism, marriage, or solemn mass, or consulting a physician, nurse, or dentist, or going to a civil officer to declare a death or birth.\n\n— Yves Dejean[46]: 192",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Use in educational system",
+          "body": "In most schools, French is still the preferred language for teaching. Generally speaking, Creole is more used in public schools,[47] as that is where most children of ordinary families who speak Creole attend school.\n\nHistorically, the education system has been French-dominant. Except the children of elites, many had to drop out of school because learning French was very challenging to them and they had a hard time to follow up.[citation needed] The Bernard Reform of 1978 tried to introduce Creole as the teaching language in the first four years of primary school; however, the reform overall was not very successful.[48] The use of Creole has grown; after the earthquake in 2010, basic education became free and more accessible to the monolingual masses.[citation needed] In the 2010s, the government has attempted to expand the use of Creole and improve the school system.[49][50]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Orthography",
+      "summary": "Haitian Creole has a phonemic orthography with highly regular spelling, except for proper nouns and foreign words. According to the official standardized orthography, Haitian Creole is composed of the following 32 symbols: ⟨a⟩, ⟨an⟩, ⟨b⟩, ⟨ch⟩, ⟨d⟩, ⟨e⟩, ⟨è⟩, ⟨en⟩, ⟨f⟩, ⟨g⟩, ⟨h⟩,",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Haitian Creole has a phonemic orthography with highly regular spelling, except for proper nouns and foreign words. According to the official standardized orthography, Haitian Creole is composed of the following 32 symbols: ⟨a⟩, ⟨an⟩, ⟨b⟩, ⟨ch⟩, ⟨d⟩, ⟨e⟩, ⟨è⟩, ⟨en⟩, ⟨f⟩, ⟨g⟩, ⟨h⟩, ⟨i⟩, ⟨j⟩, ⟨k⟩, ⟨l⟩, ⟨m⟩, ⟨n⟩, ⟨ng⟩, ⟨o⟩, ⟨ò⟩, ⟨on⟩, ⟨ou⟩, ⟨oun⟩, ⟨p⟩, ⟨r⟩, ⟨s⟩, ⟨t⟩, ⟨ui⟩, ⟨v⟩, ⟨w⟩, ⟨y⟩, and ⟨z⟩.[51]: 100  The letters ⟨c⟩ and ⟨u⟩ are always associated with another letter (in the multigraphs ⟨ch⟩, ⟨ou⟩, ⟨oun⟩, and ⟨ui⟩). The Haitian Creole alphabet has no ⟨q⟩ or ⟨x⟩; when ⟨x⟩ is used in loanwords and proper nouns, it represents the sounds /ks/, /kz/, or /gz/.[15]: 433 \n\nConsonants\n\nHaitian orthography\nIPA\nExamples\nEnglish approximation\n\nb\n\nb\n\nbagay\n\nbow\n\nch\n\nʃ\n\ncho\n\nshoe\n\nd\n\nd\n\ndous\n\ndo\n\nf\n\nf\n\nfig\n\nfestival\n\ng\n\nɡ\n\ngwo\n\ngain\n\nh\n\nh\n\nhountò\n\nhotel\n\nj\n\nʒ\n\njedi\n\nmeasure\n\nk\n\nk\n\nkle\n\nsky\n\nl\n\nl\n\nliv\n\nclean\n\nm\n\nm\n\nmachin\n\nmother\n\nn\n\nn\n\nnòt\n\nnote\n\nng\n\nŋ\n\nbilding\n\nfeeling\n\np\n\np\n\npase\n\nspy\n\nr\n\nɣ\n\nrezon\n\nbetween go and loch\n\ns\n\ns\n\nsis\n\nsix\n\nt\n\nt\n\ntout\n\nto\n\nv\n\nv\n\nvyann\n\nvent\n\nz\n\nz\n\nzewo\n\nzero\n\nNon-native consonants\n\ndj\n\ndʒ\n\ndjaz\n\njazz\n\nSemivowels\n\nw\n\nw\n\nwi\n\nwe\n\ny\n\nj\n\npye\n\nyes\n\nSemivowel followed by vowel (digraph)\n\nui\n\nɥi\n\nuit\n\nroughly like sweet\n\nVowels\n\nHaitian orthography\nIPA\nExamples\nEnglish approximation\n\na\n(or à before an n)\n\na\n\nabako\npàn\n\nbra\n\ne\n\ne\n\nale\n\nhey\n\nè\n\nɛ\n\nfèt\n\nfestival\n\ni\n\ni\n\nlide\n\nmachine\n\no\n\no\n\noranj\n\nblow\n\nò\n\nɔ\n\ndeyò\n\nsort\n\nou\n\nu\n\nnou\n\nyou\n\nNasal vowels\n\nan\n(when not followed by a vowel)\n\nã\n\nanpil\n\nmany\n\nen\n(when not followed by a vowel)\n\nɛ̃\n\nmwen\n\nen [ɛ]\n\non\n(when not followed by a vowel)\n\nɔ̃\n\ntonton\n\ntone [o]\n\noun\n(rarely)\n\nũ\n\noungan\n\nNo English equivalent;\nnasalized [u]\n\nThere are no silent letters in the Haitian Creole orthography.\n\nAll sounds are always spelled the same, except when a vowel carries a grave accent ⟨`⟩ before ⟨n⟩, which makes it an oral vowel instead of a nasal vowel:\n⟨en⟩ for /ɛ̃/ and ⟨èn⟩ for /ɛn/;\n\n⟨on⟩ for /ɔ̃/ and ⟨òn⟩ for /ɔn/; and\n\n⟨an⟩ for /ã/ and ⟨àn⟩ for /an/.\n\nWhen immediately followed by a vowel in a word, the digraphs denoting the nasal vowels (⟨an⟩, ⟨en⟩, ⟨on⟩, and sometimes ⟨oun⟩) are pronounced as an oral vowel followed by /n/.\n\nThere is some ambiguity in the pronunciation of the high vowels of the letters ⟨i⟩ and ⟨ou⟩ when followed in spelling by ⟨n⟩.[52] Common words such as moun (\"person\") and machin (\"car\") end with consonantal /n/, while very few words, mostly adopted from African languages, contain nasalized high vowels, as in oungan (\"vodou priest\").\n\nThe diphthong /ɥi/ is extremely rare, and maybe only exists in the common word uit (← French huit) \"eight\". Most other instances of this diphthong have been replaced by /wi/, e.g. fwi (← fruit) \"fruit\", nwit (← nuit) \"night\".",
+          "examples": [
+            "Examples",
+            "Examples",
+            "There is some ambiguity in the pronunciation of the high vowels of the letters ⟨i⟩ and ⟨ou⟩ when followed in spelling by ⟨n⟩.[52] Common words such as moun (\"person\") and machin (\"car\") end with consonantal /n/, while very few words, mostly",
+            "The diphthong /ɥi/ is extremely rare, and maybe only exists in the common word uit (← French huit) \"eight\". Most other instances of this diphthong have been replaced by /wi/, e.g. fwi (← fruit) \"fruit\", nwit (← nuit) \"night\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Haitian orthography debate",
+          "body": "The first technical orthography for Haitian Creole was developed in 1940 by H. Ormonde McConnell and Primrose McConnell, Irish Methodist missionaries. It was later revised with the help of Frank Laubach, resulting in the creation of what is known as the McConnell–Laubach orthography.[15]: 434 [53]\n\nThe McConnell–Laubach orthography received substantial criticism from members of the Haitian elite. Haitian scholar Charles Pressoir critiqued the McConnell–Laubach orthography for its lack of codified front rounded vowels, which are typically used only by francophone elites.[15]: 436  Another criticism was of the broad use of the letters ⟨k⟩, ⟨w⟩, and ⟨y⟩, which Pressoir argued looked \"too American\".[15]: 431–432  This criticism of the \"American look\" of the orthography was shared by many educated Haitians, who also criticized its association with Protestantism.[15]: 432  The last of Pressoir's criticisms was that \"the use of the circumflex to mark nasalized vowels\" treated nasal sounds differently from the way they are represented in French, which he feared would inhibit the learning of French.[15]: 431 \n\nThe creation of the orthography was essentially an articulation of the language ideologies of those involved and brought out political and social tensions between competing groups. A large portion of this tension lay in the ideology held by many that the French language is superior, which led to resentment of the language by some Haitians and an admiration for it from others.[15]: 435  This orthographical controversy boiled down to an attempt to unify a conception of Haitian national identity. Where ⟨k⟩ and ⟨w⟩ seemed too Anglo-Saxon and American imperialistic, ⟨c⟩ and ⟨ou⟩ were symbolic of French colonialism.[54]: 191",
+          "examples": [
+            "The McConnell–Laubach orthography received substantial criticism from members of the Haitian elite. Haitian scholar Charles Pressoir critiqued the McConnell–Laubach orthography for its lack of codified front rounded vowels, which are typica"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "French-based orthography",
+          "body": "When Haiti was still a colony of France, edicts by the French government were often written in a French-lexicon creole and read aloud to the slave population.[55] The first written text of Haitian Creole was composed in the French-lexicon in a poem called Lisette quitté la plaine in 1757 by Duvivier de la Mahautière, a white Creole planter.[55][56]\n\nBefore Haitian Creole orthography was standardized in the late 20th century, spelling varied, but was based on subjecting spoken Haitian Creole to written French, a language whose spelling has a complicated relation to pronunciation. Unlike the phonetic orthography, French orthography of Haitian Creole is not standardized and varies according to the writer; some use exact French spelling, others adjust the spelling of certain words to represent pronunciation of the cognate in Haitian Creole, removing the silent letters. For example:\nLi ale travay nan maten (lit. \"He goes to work in the morning\") could be transcribed as:\n\nLi ale travay nan maten,\n\nLui aller travail nans matin, or\n\nLi aller travail nans matin.",
+          "examples": [
+            "Li ale travay nan maten (lit. \"He goes to work in the morning\") could be transcribed as:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Grammar",
+      "summary": "Haitian Creole grammar is highly analytical: for example, verbs are not inflected for tense or person, and there is no grammatical gender, which means that adjectives and articles are not inflected according to the noun. The primary word order is subject–verb–object as it is in F",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Haitian Creole grammar is highly analytical: for example, verbs are not inflected for tense or person, and there is no grammatical gender, which means that adjectives and articles are not inflected according to the noun. The primary word order is subject–verb–object as it is in French and English.\n\nMany grammatical features, particularly the pluralization of nouns and indication of possession, are indicated by appending certain markers, like yo, to the main word. There has been a debate going on for some years as to whether these markers are affixes or clitics, and if punctuation such as the hyphen should be used to connect them to the word.[15]: 185–192 \n\nAlthough the language's vocabulary has many words related to their French-language cognates, its sentence structure is like that of the West African Fon language.[35]\n\nHaitian Creole\n\nFon\n\nFrench\n\nEnglish\n\nbekàn\n\nbike\n\nmwen\n\nmy\n\nbekàn mwen\n\nbike my\n\nkeke\n\nbike\n\nche\n\nmy\n\nkeke che\n\nbike my\n\nma\n\nmy\n\nbécane\n\nbike\n\nma bécane\n\nmy bike\n\nmy bike\n\nbekàn\n\nbike\n\nmwen\n\nmy\n\nyo\n\nPL\n\nbekàn mwen yo\n\nbike my PL\n\nkeke\n\nbike\n\nche\n\nmy\n\nle\n\nPL\n\nkeke che le\n\nbike my PL\n\nmes\n\nmy\n\nbécanes\n\nbikes\n\nmes bécanes\n\nmy bikes\n\nmy bikes",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "There are six pronouns: first, second, and third person, each in both singular, and plural; all are of French etymological origin.[57] There is no difference between direct and indirect objects.\n\nHaitian Creole\n\nFon[24]: 142 \n\nFrench\n\nEnglish\n\nLong form\n\nShort form[39]: 131 [58]\n\nmwen\n\nm\n\nnyɛ̀\n\nje\n\nI\n\nj'\n\nme\n\nme\n\nm'\n\nmoi\n\nou[a][b]\n\nw\n\nhwɛ̀\n\ntu\n\nyou (singular), thou (archaic)\n\nte\n\nt'\n\ntoi\n\nli[c]\n\nl\n\né, éyɛ̀\n\nil\n\nhe\n\nelle\n\nshe, her\n\nle\n\nhim, it\n\nla\n\nher, it\n\nl'\n\nhim, her, it\n\nlui\n\nhim, her, it\n\nnou\n\nn\n\nmí\n\nnous\n\nwe, us\n\nvous[61]: 94 \n\nyou (plural)[d]\n\nyo[e]\n\ny\n\nyé\n\nils\n\nthey\n\nelles\n\nles\n\nthem\n\nleur\n\neux\n\n^ sometimes the French pronoun on (\"one\", \"[generic] you\", \"[singular] they\") is translated to Haitian Creole as ou[59] and other times it is translated as yo[60]\n\n^ sometimes ou is written as w and in the sample phrases below, w indicates ou.\n\n^ in the northern part of Haiti, li is often shortened to i as in Guadeloupe, Martinique and the other Lesser Antilles.\n\n^ in southern Haiti, the second person plural is zòt\n\n^ sometimes the French pronoun on (\"one\", \"[generic] you\", \"[singular] they\") is translated to Haitian Creole as yo[60] and other times it is translated as ou[59]",
+          "examples": [
+            "^ sometimes the French pronoun on (\"one\", \"[generic] you\", \"[singular] they\") is translated to Haitian Creole as ou[59] and other times it is translated as yo[60]",
+            "^ sometimes the French pronoun on (\"one\", \"[generic] you\", \"[singular] they\") is translated to Haitian Creole as yo[60] and other times it is translated as ou[59]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Possessive pronouns",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2026) (Learn how and when to remove this message)\nSingular\n\nHaitian Creole\n\nFrench\n\nEnglish\n\npa mwen an\n\nle mien\n\nmine (masculine)\n\nla mienne\n\nmine (feminine)\n\npa ou a\n\nle tien\n\nyours (masculine)\n\nla tienne\n\nyours (feminine)\n\npa li a\n\nle sien\n\nhis/hers/its (masculine)\n\nla sienne\n\nhis/hers/its (feminine)\n\npa nou an\n\nle/la nôtre\n\nours\n\nle/la vôtre\n\nyours (\"of you-PLURAL\")\n\npa yo a\n\nle/la leur\n\ntheirs\n\nPlural\n\nHaitian Creole\n\nFrench\n\nEnglish\n\npa mwen yo\n\nles miens\n\nmine\n\nles miennes\n\npa ou yo\n\nles tiens\n\nyours\n\nles tiennes\n\npa li yo\n\nles siens\n\nhis/hers/its\n\nles siennes\n\npa nou yo\n\nles nôtres\n\nours\n\nles vôtres\n\nyours (\"of you-PLURAL\")\n\npa yo\n\nles leurs\n\ntheirs",
+          "examples": [
+            "yours (\"of you-PLURAL\")",
+            "yours (\"of you-PLURAL\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Plural of nouns",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2026) (Learn how and when to remove this message)\nDefinite nouns are made plural when followed by the word yo; indefinite plural nouns are unmarked.\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nliv yo\n\nles livres\n\nthe books\n\nmachin yo\n\nles voitures\n\nthe cars\n\ntifi yo met wòb\n\nles filles mettent des robes\n\nthe girls put on dresses",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Possession",
+          "body": "Possession is indicated by placing the possessor or possessive pronoun after the item possessed. In the Capois dialect of northern Haiti, a or an is placed before the possessive pronoun. Note, however, that this is not considered the standard Kreyòl most often heard in the media or used in writing.[62]\n\nPossession does not indicate definiteness (\"my friend\" as opposed to \"a friend of mine\"), and possessive constructions are often followed by a definite article.\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nlajan li\n\nson argent\n\nhis money\n\nher money\n\nfanmi mwen\n\nma famille\n\nmy family\n\nfanmi m\n\nfanmi an m (Capois dialect)\n\nkay yo\n\nleur maison\n\ntheir house\n\nleurs maisons\n\ntheir houses\n\npapa ou\n\nton père\n\nyour father\n\npapa w\n\nchat Pyè a\n\nle chat de Pierre\n\nPierre's cat\n\nchèz Marie a\n\nla chaise de Marie\n\nMarie's chair\n\nzanmi papa Jean\n\nl'ami du père de Jean\n\nJean's father's friend\n\npapa vwazen zanmi nou\n\nle père du voisin de notre ami\n\nour friend's neighbor's father",
+          "examples": [
+            "Possession does not indicate definiteness (\"my friend\" as opposed to \"a friend of mine\"), and possessive constructions are often followed by a definite article."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Indefinite article",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2026) (Learn how and when to remove this message)\nThe language has two indefinite articles, on and yon (pronounced /õ/ and /jõ/) which correspond to French un and une. Yon is derived from the French il y a un (\"there is a\"). Both are used only with singular nouns, and are placed before the noun:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\non kouto\n\nun couteau\n\na knife\n\nyon kouto\n\non kravat\n\nune cravate\n\na necktie\n\nyon kravat",
+          "examples": [
+            "The language has two indefinite articles, on and yon (pronounced /õ/ and /jõ/) which correspond to French un and une. Yon is derived from the French il y a un (\"there is a\"). Both are used only with singular nouns, and are placed before the"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Definite article",
+          "body": "In Haitian Creole, the definite article has five forms,[63]: 28  and it is placed after the noun it modifies. The final syllable of the preceding word determines which form the definite article takes.[64]: 20  If the last sound is an oral consonant or a glide (spelled 'y' or 'w'), and if it is preceded by an oral vowel, the definite article is la:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nNote\n\nkravat la\n\nla cravate\n\nthe tie\n\nliv la\n\nle livre\n\nthe book\n\nkay la\n\nla maison\n\nthe house\n\nFrom French \"la cahut(t)e\" (English \"hut, shack\")\n\nkaw la\n\nle corbeau\n\nthe crow\n\nIf the last sound is an oral consonant and is preceded by a nasal vowel, the definite article is lan:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nlanp lan\n\nla lampe\n\nthe lamp\n\nbank lan\n\nla banque\n\nthe bank\n\nIf the last sound is an oral vowel and is preceded by an oral consonant, the definite article is a:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nkouto a\n\nle couteau\n\nthe knife\n\npeyi a\n\nle pays\n\nthe country\n\nIf the last sound is any oral vowel other than i or ou and is preceded by a nasal consonant, then the definite article is also a:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nlame a\n\nl'armée\n\nthe army\n\nanana a\n\nl'ananas\n\nthe pineapple\n\ndine a\n\nle dîner\n\nthe dinner\n\nnò a\n\nle nord\n\nthe north\n\nIf a word ends in mi, mou, ni, nou, or if it ends with any nasal vowel, then the definite article is an:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nfanmi an\n\nla famille\n\nthe family\n\njenou an\n\nle genou\n\nthe knee\n\nchen an\n\nle chien\n\nthe dog\n\npon an\n\nle pont\n\nthe bridge\n\nIf the last sound is a nasal consonant, the definite article is nan, but may also be lan:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nmachin nan\n\nla voiture\n\nthe car\n\nmachin lan\n\ntelefonn nan\n\nle téléphone\n\nthe telephone\n\nThe spelling \"telefòn\" is also attested.\n\ntelefonn lan\n\nfanm nan\n\nla femme\n\nthe woman\n\nfanm lan",
+          "examples": [
+            "From French \"la cahut(t)e\" (English \"hut, shack\")",
+            "The spelling \"telefòn\" is also attested."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Demonstratives",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2026) (Learn how and when to remove this message)\nThere is a single word sa that corresponds to English \"this\" and to \"that\" (and to French ce, ceci, cela, and ça). As in English, it may be used as a demonstrative, except that it is placed after the noun that it qualifies. It is often followed by a or yo (in order to mark number): sa a (\"this here\" or \"that there\"):\n\nHaitian Creole\n\nFrench\n\nEnglish\n\njaden sa bèl\n\nce jardin est beau\n\nthis garden is beautiful\n\nthat garden is beautiful\n\nAs in English, it may also be used as a pronoun, replacing a noun:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nsa se zanmi mwen\n\nc'est mon ami\n\nthis is my friend\n\nthat is my friend\n\nsa se chen frè mwen\n\nc'est le chien de mon frère\n\nthis is my brother's dog\n\nthat is my brother's dog",
+          "examples": [
+            "There is a single word sa that corresponds to English \"this\" and to \"that\" (and to French ce, ceci, cela, and ça). As in English, it may be used as a demonstrative, except that it is placed after the noun that it qualifies. It is often foll"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Verbs",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2026) (Learn how and when to remove this message)\nMany verbs in Haitian Creole are the same spoken words as the French infinitive, but there is no conjugation in the language; the verbs have one form only, and changes in tense, mood, and aspect are indicated by the use of markers:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nli ale travay nan maten\n\nil va au travail le matin\n\nhe goes to work in the morning\n\nelle va au travail le matin\n\nshe goes to work in the morning\n\nli dòmi aswè\n\nil dort le soir\n\nhe sleeps in the evening\n\nelle dort le soir\n\nshe sleeps in the evening\n\nli li Bib la\n\nil lit la Bible\n\nhe reads the Bible\n\nelle lit la Bible\n\nshe reads the Bible\n\nmwen fè manje\n\nje fais à manger\n\nI make food\n\nI cook\n\nnou toujou etidye\n\nnous étudions toujours\n\nwe always study\n\nCopula\nMain article: Copula (linguistics) § Haitian Creole\nThe concept expressed in English by the verb \"to be\" is expressed in Haitian Creole by three words, se, ye, and sometimes e.\n\nThe verb se (pronounced similarly to the English word \"say\") is used to link a subject with a predicate nominative:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nli se frè mwen\n\nc'est mon frère\n\nhe is my brother\n\nmwen se yon doktè\n\nje suis médecin\n\nI'm a doctor\n\nje suis docteur\n\nsa se yon pyebwa mango\n\nc'est un manguier\n\nthis is a mango tree\n\nthat is a mango tree\n\nnou se zanmi\n\nnous sommes amis\n\nwe are friends\n\nThe subject of a sentence with se might not be included. In which case, the sentence is interpreted as if the subject were sa (\"this\" or \"that\") or li (\"he\", \"she\" or \"it\"):\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nse yon bon ide\n\nc'est une bonne idée\n\nthat's a good idea\n\nthis is a good idea\n\nse nouvo chemiz mwen\n\nc'est ma nouvelle chemise\n\nthat's my new shirt\n\nthis is my new shirt\n\nTo express \"I want to be\", usually vin (\"to become\") is used instead of se.\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nli pral vin bofrè m\n\nil va devenir mon beau-frère\n\nhe will be my brother-in-law\n\nhe will be my stepbrother\n\nli pral vin bofrè mwen\n\nmwen vle vin yon doktè\n\nje veux devenir docteur\n\nI want to become a doctor\n\nsa pral vin yon pye mango\n\nça va devenir un manguier\n\nthat will become a mango tree\n\nthis will become a mango tree\n\nnou pral vin zanmi\n\nnous allons devenir amis\n\nwe will be friends\n\nYe also means \"to be\", but is placed exclusively at the end of a sentence, after the predicate and the subject (in that order):\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nmwen se Ayisyen\n\nje suis haïtien\n\nI am Haitian\n\nAyisyen mwen ye\n\nKòman ou ye?\n\nlit. Comment + vous + êtes (\"Comment êtes-vous?\")\n\nHow are you?\n\nHaitian Creole has stative verbs, which means that the verb \"to be\" is not covert when followed by an adjective. Therefore, malad means both \"sick\" and \"to be sick\":\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nmwen gen yon sè ki malad\n\nj'ai une sœur malade\n\nI have a sick sister\n\nsè mwen malad\n\nma sœur est malade\n\nmy sister is sick\n\nTo have\nThe verb \"to have\" is genyen, often shortened to gen.\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nmwen gen lajan nan bank lan\n\nj'ai de l'argent dans la banque\n\nI have money in the bank\n\nThere is\nThe verb genyen (or gen) also means \"there is\" or \"there are\":\n\nHaitian Creole\n\nFrench\n\nEnglish\n\ngen anpil Ayisyen nan Florid\n\nil y a beaucoup d'Haïtiens en Floride\n\nthere are many Haitians in Florida\n\ngen on moun la\n\nil y a quelqu'un là\n\nthere is someone here\n\nthere is someone there\n\npa gen moun la\n\nil n'y a personne là\n\nthere is nobody here\n\nthere is nobody there\n\nTo know\nThe Haitian Creole word for \"to know\" and \"to know how\" is konnen, which is often shortened to konn.\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nÈske ou konnen non li?\n\nEst-ce que tu connais son nom?\n\nDo you know his name?\n\nDo you know her name?\n\nmwen konnen kote li ye\n\nje sais où il est\n\nI know where he is\n\nje sais où elle est\n\nI know where she is\n\nMwen konn fè manje\n\nJe sais comment faire à manger\n\nI know how to cook\n(lit. \"I know how to make food\")\n\nÈske ou konn ale Ayiti?\n\nEst-ce que tu as été en Haïti?\n\nHave you been to Haiti?\n(lit. \"Do you know to go to Haiti?\")\n\nLi pa konn li franse\n\nIl ne sait pas lire le français\n\nHe cannot read French\n(lit. \"He doesn't know how to read French\")\n\nElle ne sait pas lire le français\n\nShe cannot read French\n(lit. \"She doesn't know how to read French\")\n\nTo do\nFè means \"do\" or \"make\". It has a broad range of meanings, as it is one of the most common verbs used in idiomatic phrases.\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nKòman ou fè pale kreyòl?\n\nComment as-tu appris à parler Créole?\n\nHow did you learn to speak Haitian Creole?\n\nMarie konn fè mayi moulen.\n\nMarie sait faire de la farine de maïs.\n\nMarie knows how to make cornmeal.\n\nTo be able to\nThe verb kapab (or shortened to ka, kap or kab) means \"to be able to (do something)\". It refers to both \"capability\" and \"availability\":\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nmwen ka ale demen\n\nje peux aller demain\n\nI can go tomorrow\n\npetèt mwen ka fè sa demen\n\nje peux peut-être faire ça demain\n\nmaybe I can do that tomorrow\n\nnou ka ale pita\n\nnous pouvons aller plus tard\n\nwe can go later\n\nTense markers\nThere is no conjugation in Haitian Creole. In the present non-progressive tense, one just uses the basic verb form for stative verbs:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nmwen pale kreyòl\n\nje parle créole\n\nI speak Creole\n\nWhen the basic form of action verbs is used without any verb markers, it is generally understood as referring to the past:\n\nHaitian Creole\n\nFrench\n\nEnglish\n\nmwen manje\n\nj'ai mangé\n\nI ate\n\nou manje\n\ntu as mangé\n\nyou ate\n\nli manje\n\nil a mangé\n\nhe ate\n\nelle a mangé\n\nshe ate\n\nnou manje\n\nnous avons mangé\n\nwe ate\n\nyo manje\n\nils ont mangé\n\nthey ate\n\nelles ont mangé\n\nManje means both \"food\" and \"to eat\", as manger does in Canadian French[citation needed]; m ap manje bon manje means \"I am eating good food\".\n\nFor other tenses, special \"tense marker\" words are placed before the verb. The basic ones are:\n\nTense marker\n\nTense\n\nAnnotations\n\nte\n\nsimple past\n\nfrom French été (\"been\")\n\nt ap\n\npast progressive\n\na combination of te and ap, \"was doing\"\n\nap\n\npresent progressive\n\nwith ap and a, the pronouns nearly always take the short form (m ap, l ap, n ap, y ap, etc.). From 18th-century French être après, progressive form\n\na\n\nfuture\n\nsome limitations on use. From French avoir à (\"to have to\")\n\npral\n\nnear or definite future\n\ntranslates to \"going to\". Contraction of French pour aller (\"going to\")\n\nta\n\nconditional future\n\na combination of te and a (\"will do\")\n\nSimple past or past perfect:\n\nHaitian Creole\n\nEnglish\n\nmwen te manje\n\nI ate\n\nI had eaten\n\nou te manje\n\nyou ate\n\nyou had eaten\n\nli te manje\n\nhe ate\n\nshe ate\n\nhe had eaten\n\nshe had eaten\n\nnou te manje\n\nwe ate\n\nwe had eaten\n\nyo te manje\n\nthey ate\n\nthey had eaten\n\nPast progressive:\n\nHaitian Creole\n\nEnglish\n\nmwen t ap manje\n\nI was eating\n\nou t ap manje\n\nyou were eating\n\nli t ap manje\n\nhe was eating\n\nshe was eating\n\nnou t ap manje\n\nwe were eating\n\nyo t ap manje\n\nthey were eating\n\nPresent progressive:\n\nHaitian Creole\n\nEnglish\n\nm ap manje\n\nI am eating\n\nw ap manje\n\nyou are eating\n\nl ap manje\n\nhe is eating\n\nshe is eating\n\nn ap manje\n\nwe are eating\n\ny ap manje\n\nthey are eating\n\nFor the present progressive, it is customary, though not necessary, to add kounye a (\"right now\"):\n\nHaitian Creole\n\nEnglish\n\nm ap manje kounye a\n\nI am eating right now\n\ny ap manje kounye a\n\nthey are eating right now\n\nAlso, ap manje can mean \"will eat\" depending on the context of the sentence:\n\nHaitian Creole\n\nEnglish\n\nm ap manje apre m priye\n\nI will eat after I pray\n\nI am eating after I pray\n\nmwen p ap di sa\n\nI will not say that\n\nI am not saying that\n\nNear or definite future:\n\nHaitian Creole\n\nEnglish\n\nmwen pral manje\n\nI am going to eat\n\nou pral manje\n\nyou are going to eat\n\nli pral manje\n\nhe is going to eat\n\nshe is going to eat\n\nnou pral manje\n\nwe are going to eat\n\nyo pral manje\n\nthey are going to eat\n\nFuture:\n\nHaitian Creole\n\nEnglish\n\nn a wè pita\n\nsee you later\n(lit. \"we will see later\")\n\nOther examples:\n\nHaitian Creole\n\nEnglish\n\nmwen te wè zanmi ou yè\n\nI saw your friend yesterday\n\nnou te pale lontan\n\nwe spoke for a long time\n\nlè l te gen uit an...\n\nwhen he was eight years old...\n\nwhen she was eight years old...\n\nm a travay\n\nI will work\n\nm pral travay\n\nI'm going to work\n\nn a li l demen\n\nwe'll read it tomorrow\n\nnou pral li l demen\n\nwe are going to read it tomorrow\n\nmwen t ap mache epi m te wè yon chen\n\nI was walking and I saw a dog\n\nRecent past markers include fèk and sòt (both mean \"just\" or \"just now\" and are often used together):\n\nHaitian Creole\n\nEnglish\n\nmwen fèk sòt antre kay la\n\nI just entered the house\n\nA verb mood marker is ta, corresponding to English \"would\" and equivalent to the French conditional tense:\n\nHaitian Creole\n\nEnglish\n\nyo ta renmen jwe\n\nthey would like to play\n\nmwen ta vini si m te gen yon machin\n\nI would come if I had a car\n\nli ta bliye w si ou pa t la\n\nhe would forget you if you weren't here\n\nshe would forget you if you weren't here\n\nNegation\nThe word pa comes before a verb and any tense markers to negate it:\n\nHaitian Creole\n\nEnglish\n\nRose pa vle ale\n\nRose doesn't want to go\n\nRose pa t vle ale\n\nRose didn't want to go",
+          "examples": [
+            "The concept expressed in English by the verb \"to be\" is expressed in Haitian Creole by three words, se, ye, and sometimes e.",
+            "The verb se (pronounced similarly to the English word \"say\") is used to link a subject with a predicate nominative:",
+            "The subject of a sentence with se might not be included. In which case, the sentence is interpreted as if the subject were sa (\"this\" or \"that\") or li (\"he\", \"she\" or \"it\"):",
+            "To express \"I want to be\", usually vin (\"to become\") is used instead of se.",
+            "Ye also means \"to be\", but is placed exclusively at the end of a sentence, after the predicate and the subject (in that order):",
+            "lit. Comment + vous + êtes (\"Comment êtes-vous?\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lexicon",
+      "summary": "Most of the lexicon of Creole is derived from French, with significant changes in pronunciation and morphology; often the French definite article was retained as part of the noun. For example, the French definite article la in la lune (\"the moon\") was incorporated into the Creole",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Most of the lexicon of Creole is derived from French, with significant changes in pronunciation and morphology; often the French definite article was retained as part of the noun. For example, the French definite article la in la lune (\"the moon\") was incorporated into the Creole noun for moon: lalin. However, the language also inherited many words of different origins, among them Wolof, Fon, Kongo, English, Spanish, Portuguese, Taino and Arabic.[citation needed]\n\nHaitian Creole creates and borrows new words to describe new or old concepts and realities. Examples of this are fè bak which was borrowed from English and means \"to move backwards\" (the original word derived from French is rekile from reculer), and also from English, napkin, which is being used as well as tòchon, from the French torchon.[citation needed]",
+          "examples": [
+            "Most of the lexicon of Creole is derived from French, with significant changes in pronunciation and morphology; often the French definite article was retained as part of the noun. For example, the French definite article la in la lune (\"the",
+            "Haitian Creole creates and borrows new words to describe new or old concepts and realities. Examples of this are fè bak which was borrowed from English and means \"to move backwards\" (the original word derived from French is rekile from recu"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Sample",
+          "body": "Haitian Creole\n\nIPA\n\nOrigin\n\nEnglish\n\nablado[65]\n\n/ablado/\n\nSpanish: hablador\n\n\"a talker\"\n\nanasi\n\n/anasi/\n\nAkan: ananse\n\nspider\n\nannanna\n\n/ãnãna/\n\nTaino: ananas; also used in French\n\npineapple\n\nAyiti\n\n/ajiti/\n\nTaino: Ahatti, lit. 'mountainous land'\n\nHaiti (\"mountainous land\")\n\nbagay\n\n/baɡaj/\n\nFrench: bagage, lit. 'baggage'\n\nthing\n\nbannann\n\n/bãnãn/\n\nFrench: banane, lit. 'banana'\n\nbanana/plantain\n\nbekàn\n\n/bekan/\n\nFrench: bécane\n\nbicycle\n\nbokit[13]\n\n/bokit/\n\nbucket\n\nbòkò\n\n/bɔkɔ/\n\nFon: bokono\n\nsorcerer\n\nBondye\n\n/bõdje/\n\nFrench: bon dieu, lit. 'good God'\n\nGod\n\nchenèt\n\n/ʃenɛt/\n\nFrench: quénette (French Antilles)\n\ngap between the two front teeth\n\nchouk\n\n/ʃuk/\n\nFula: chuk, lit. 'to pierce, to poke'\n\npoke\n\ndekabès\n\n/dekabes/\n\nSpanish: dos cabezas, lit. 'two heads'\n\ntwo-headed win during dominos\n\ndèyè\n\n/dɛjɛ/\n\nFrench: derrière\n\nbehind\n\ndiri\n\n/diɣi/\n\nFrench: du riz, lit. 'some rice'\n\nrice\n\nèkondisyone\n\n/ɛkondisjone/\n\nair conditioner\n\nair conditioner\n\nEtazini[66]\n\n/etazini/\n\nFrench: États-Unis\n\nUnited States\n\nfig\n\n/fiɡ/\n\nFrench: figue, lit. 'fig'\n\nbanana[67]\n\nje\n\n/ʒe/\n\nFrench: les yeux, lit. 'the eyes'\n\neye\n\nkannistè[13]\n\n/kannistɛ/\n\ncanister\n\ntin can\n\nkay\n\n/kaj/\n\nFrench: la cahutte, lit. 'the hut'\n\nhouse\n\nkle\n\n/kle/\n\nFrench: clé, lit. 'key'\n\nkey, wrench\n\nkle kola\n\n/kle kola/\n\nFrench: clé, lit. 'key'\n\nbottle opener\n\ncola\n\nkònfleks\n\n/kɔnfleks/\n\ncorn flakes\n\nbreakfast cereal\n\nkawotchou\n\n/kawotʃu/\n\nFrench: caoutchouc, lit. 'rubber'\n\ntire\n\nlalin\n\n/lalin/\n\nFrench: la lune, lit. 'the moon'\n\nmoon\n\nli\n\n/li/\n\nFrench: lui\n\nhe, she, him, her, it\n\nmakak\n\n/makak/\n\nFrench: macaque\n\nmonkey\n\nmanbo\n\n/mãbo/\n\nKongo: mambu or Fon: nanbo\n\nvodou priestess\n\nmarasa\n\n/maɣasa/\n\nKongo: mapassa\n\ntwins\n\nmatant\n\n/matãt/\n\nFrench: ma tante, lit. 'my aunt'\n\naunt, aged woman\n\nmoun\n\n/mun/\n\nFrench: monde, lit. 'world'\n\npeople, person\n\nmwen\n\n/mwɛ̃/\n\nFrench: moi, lit. 'me'\n\nI, me, my, myself\n\nnimewo\n\n/nimewo/\n\nFrench: numéro, lit. 'number'\n\nnumber\n\noungan\n\n/ũɡã/\n\nFon: houngan\n\nvodou priest\n\npiman\n\n/pimã/\n\nFrench: piment\n\na very hot pepper\n\npann\n\n/pãn/\n\nFrench: pendre, lit. 'to hang'\n\nclothesline\n\npodyab\n\n/podjab/\n\nFrench: pauvre diable or Spanish: pobre diablo\n\npoor devil\n\npwa\n\n/pwa/\n\nFrench: pois, lit. 'pea'\n\nbean\n\nsapat[65]\n\n/sapat/\n\nSpanish: zapato; French: savatte\n\nsandal\n\nseyfing\n\n/sejfiŋ/\n\nsurfing\n\nsea-surfing\n\ntonton\n\n/tõtõ/\n\nFrench: tonton\n\nuncle, aged man\n\nvwazen\n\n/vwazɛ̃/\n\nFrench: voisin\n\nneighbor\n\nzonbi\n\n/zõbi/\n\nKongo: nzumbi\n\nsoulless corpse, living dead, ghost, zombie\n\nzwazo\n\n/zwazo/\n\nFrench: les oiseaux, lit. 'the birds'\n\nbird",
+          "examples": [
+            "\"a talker\"",
+            "Haiti (\"mountainous land\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Examples",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2026) (Learn how and when to remove this message)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2026) (Learn how and when to remove this message)\n\nHaitian Creole\n\nEnglish\n\nPapa Nou ki nan sièl,\nké non ou jouinn tout réspè,\nké règn ou vini,\nké volonté ou akonpli,\nsou té a tankou nan sièl.\nBan nou jod a pin chak jou nou,\npadonnin nou péché nou,\ntankou nou padonnin moun ki ofansé nou.\nPa minnin nou nan tentasion,\nmin délivré nou an-ba malin an.\nAmen.\n\nOur Father, who art in heaven, hallowed be thy name,\nthy kingdom come,\nthy will be done,\non earth as it is in heaven.\nGive us this day, our daily bread,\nand forgive us our trespasses,\nas we forgive those who trespass against us.\nAnd lead us not into temptation,\nbut deliver us from evil.\nAmen.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Salutations",
+          "body": "Haitian Creole\n\nEnglish\n\nA demen!\n\nSee you tomorrow!\n\nA pi ta!\n\nSee you later!\n\nAdye!\n\nGood bye! (permanently)\n\nAnchante!\n\nNice to meet you! (lit. \"enchanted!\")\n\nBon apre-midi!\n\nGood afternoon!\n\nBòn chans!\n\nGood luck!\n\nBòn nui!\n\nGood night!\n\nBonjou!\n\nGood day!\n\nGood morning!\n\nBonswa!\n\nGood evening\n\nDezole!\n\nSorry!\n\nEskize m!\n\nExcuse me!\n\nKenbe la!\n\nHang in there! (informal)\n\nKi jan ou rele?\n\nWhat's your name?\n\nKi non ou?\n\nKi non w?\n\nKòman ou rele?\n\nMwen rele \n\nMy name is...\n\nNon m se.\n\nKi jan ou ye?\n\nHow are you?\n\nKi laj ou?\n\nHow old are you? (lit. \"What is your age?\")\n\nKi laj ou genyen?\n\nKòman ou ye?\n\nHow are you?\n\nKon si, kon sa\n\nSo, so\n\nKontinye konsa!\n\nKeep it up!\n\nM ap boule\n\nI'm managing (informal; lit. \"I'm burning\")\n(common response to sa kap fèt and sak pase)\n\nM ap kenbe\n\nI'm hanging on (informal)\n\nM ap viv\n\nI'm living\n\nMal\n\nBad\n\nMen wi\n\nOf course\n\nMèsi\n\nThank you\n\nMèsi anpil\n\nMany thanks\n\nMwen byen\n\nI'm well\n\nMwen dakò\n\nI agree\n\nMwen gen an\n\nI'm years old\n\nMwen la\n\nI'm so-so (informal; lit. \"I'm here\")\n\nN a wè pita!\n\nSee you later! (lit. \"We will see later!\")\n\nOrevwa!\n\nGood bye (temporarily)\n\nPa mal\n\nNot bad\n\nPa pi mal\n\nNot so bad\n\nPadon!\n\nPardon!\n\nSorry!\n\nMove!\n\nPadone m!\n\nPardon me!\n\nForgive me!\n\nPòte w byen!\n\nTake care! (lit. \"Carry yourself well!\")\n\nSa k ap fèt?\n\nWhat's going on? (informal)\n\nWhat's up? (informal)\n\nSa k pase?\n\nWhat's happening? (informal)\n\nWhat's up? (informal)\n\nTout al byen\n\nAll is well (lit. \"All goes well\")\n\nTout bagay anfòm\n\nEverything is fine (lit. \"Everything is in form\")\n\nTout pa bon\n\nAll is not well (lit. \"All is not good\")",
+          "examples": [
+            "Nice to meet you! (lit. \"enchanted!\")",
+            "How old are you? (lit. \"What is your age?\")",
+            "I'm managing (informal; lit. \"I'm burning\")",
+            "I'm so-so (informal; lit. \"I'm here\")",
+            "See you later! (lit. \"We will see later!\")",
+            "Take care! (lit. \"Carry yourself well!\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Proverbs and expressions",
+      "summary": "Proverbs play a central role in traditional Haitian culture and Haitian Creole speakers make frequent use of them as well as of other metaphors.[70]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Proverbs play a central role in traditional Haitian culture and Haitian Creole speakers make frequent use of them as well as of other metaphors.[70]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Proverbs",
+          "body": "Haitian Creole\n\nEnglish\n\nMen anpil, chay pa lou\n\nStrength through unity[71] (lit. \"With many hands, the burden is not heavy\";[72] Haitian Creole equivalent of the French on the coat of arms of Haiti, which reads l'union fait la force)\n\nApre bal, tanbou lou\n\nThere are consequences to your actions (lit. \"After the dance, the drum is heavy\")[73]\n\nSak vid pa kanpe\n\nNo work gets done on an empty stomach (lit. \"An empty bag does not stand up\")[74]: 60 \n\nPitit tig se tig\n\nLike father like son (lit. \"The son of a tiger is a tiger\")\n\nAk pasyans w ap wè tete pis\n\nAnything is possible (lit. \"With patience you will see the breast of the ant\")\n\nBay kou bliye, pote mak sonje\n\nThe giver of the blow forgets, the carrier of the scar remembers\n\nMache chèche pa janm dòmi san soupe\n\nYou will get what you deserve\n\nBèl dan pa di zanmi\n\nNot all smiles are friendly (lit. \"Good teeth don't mean (that person is) a friend\")\n\nBèl antèman pa di paradi\n\nA beautiful funeral does not guarantee heaven\n\nBèl fanm pa di bon mennaj\n\nA beautiful wife does not guarantee a happy marriage\n\nDan konn mòde lang\n\nPeople who work together sometimes hurt each other (lit. \"Teeth are known to bite the tongue\")\n\nSa k rive koukouloulou a ka rive kakalanga tou\n\nWhat happens to the dumb guy can happen to the smart one too (lit. \"What happens to the turkey can happen to the rooster too\")[74]: 75 \n\nChak jou pa Dimanch\n\nYour luck will not last forever (lit. \"Not every day is Sunday\")\n\nFanm pou yon tan, manman pou tout tan\n\nA woman is for a time, a mother is for all time[74]: 93 \n\nNèg di san fè, Bondye fè san di\n\nMan talks without doing, God does without talking[74]: 31 \n\nSa Bondye sere pou ou, lavalas pa ka pote l ale\n\nWhat God has saved for you, nobody can take it away\n\nNèg rich se milat, milat pòv se nèg\n\nA rich negro is a mulatto, a poor mulatto is a negro\n\nPale franse pa di lespri\n\nSpeaking French does not mean you are smart[74]: 114 \n\nWòch nan dlo pa konnen doulè wòch nan solèy\n\nThe rock in the water does not know the pain of the rock in the sun[75]\n\nRavèt pa janm gen rezon devan poul\n\nJustice will always be on the side of the stronger[76] (lit. \"A cockroach in front of a chicken is never correct\")\n\nSi ou bwè dlo nan vè, respèkte vè a\n\nIf you drink water from a glass, respect the glass\n\nSi travay te bon bagay, moun rich ta pran l lontan\n\nIf work were a good thing, the rich would have grabbed it a long time ago\n\nSèl pa vante tèt li di li sale\n\nLet others praise you (lit. \"Salt doesn't brag that it's salty,\" said to those who praise themselves)\n\nBouch granmoun santi, sak ladan l se rezon\n\nWisdom comes from the mouth of old people (lit. \"The mouth of the old stinks but what's inside is wisdom\")\n\nTout moun se moun\n\nEveryone matters (lit. \"Everybody is a person\")[77]",
+          "examples": [
+            "Strength through unity[71] (lit. \"With many hands, the burden is not heavy\";[72] Haitian Creole equivalent of the French on the coat of arms of Haiti, which reads l'union fait la force)",
+            "There are consequences to your actions (lit. \"After the dance, the drum is heavy\")[73]",
+            "No work gets done on an empty stomach (lit. \"An empty bag does not stand up\")[74]: 60",
+            "Like father like son (lit. \"The son of a tiger is a tiger\")",
+            "Anything is possible (lit. \"With patience you will see the breast of the ant\")",
+            "Not all smiles are friendly (lit. \"Good teeth don't mean (that person is) a friend\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Expressions",
+          "body": "Haitian Creole\n\nEnglish\n\nSe lave men, siye l atè\n\nIt was useless work (lit. \"Wash your hands and wipe them on the floor\")\n\nM ap di ou sa kasayòl te di bèf la\n\nMind your own business\n\nLi pale franse\n\nHe cannot be trusted, he is full of himself (lit. \"He speaks French\")[78]\n\nKreyòl pale, kreyòl konprann\n\nSpeak straightforwardly and honestly (lit. \"Creole talks, Creole understands\")[74]: 29 \n\nBouche nen ou pou bwè dlo santi\n\nYou have to accept a bad situation (lit. \"Pinch your nose to drink smelly water\")[74]: 55 \n\nMache sou pinga ou, pou ou pa pile: \"Si m te konnen!\"\n\n\"Be on your guard, so you don't have to say: 'If only I'd known!'\"[74]: 159 \n\nTann jis nou tounen pwa tann\n\nTo wait forever (lit. \"left hanging until we became string beans\" which is a word play on tann, which means both \"to hang\" and \"to wait\")\n\nSan pran souf\n\nWithout taking a breath; continuously\n\nW ap konn jòj\n\nWarning or threat of punishment or reprimand (lit. \"You will know George\")\n\nDis ti piti tankou ou\n\nDismissing or defying a threat or show of force (lit. \"Ten little ones like you couldn't.\")\n\nLè poul va fè dan\n\nNever (lit. \"When hens grow teeth\")[79]\n\nPiti piti zwazo fè nich li\n\nYou will learn (lit. \"Little by little the bird makes its nest\")[74]: 110",
+          "examples": [
+            "It was useless work (lit. \"Wash your hands and wipe them on the floor\")",
+            "He cannot be trusted, he is full of himself (lit. \"He speaks French\")[78]",
+            "Speak straightforwardly and honestly (lit. \"Creole talks, Creole understands\")[74]: 29",
+            "You have to accept a bad situation (lit. \"Pinch your nose to drink smelly water\")[74]: 55",
+            "Mache sou pinga ou, pou ou pa pile: \"Si m te konnen!\"",
+            "\"Be on your guard, so you don't have to say: 'If only I'd known!'\"[74]: 159"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Usage abroad",
+      "summary": "Haitian Creole display at a car rental counter in the Northwest Florida Beaches International Airport (2014)\nSee also: Haitian Americans and Haitian Canadians\nA CDC-sponsored poster about the COVID-19 prevention in Haitian Creole\nHaitian Creole is used widely among Haitians who h",
+      "sections": [
+        {
+          "heading": "United States and Canada",
+          "body": "Haitian Creole display at a car rental counter in the Northwest Florida Beaches International Airport (2014)\nSee also: Haitian Americans and Haitian Canadians\nA CDC-sponsored poster about the COVID-19 prevention in Haitian Creole\nHaitian Creole is used widely among Haitians who have relocated to other countries, particularly the United States and Canada. Some of the larger Creole-speaking populations are found in Montreal, Quebec (where French is the official language), New York City, Boston, and Central and South Florida (Miami, Fort Lauderdale, and Palm Beach). To reach out to the large Haitian population, government agencies have produced various public service announcements, school-parent communications, and other materials in Haitian Creole. For instance, Miami-Dade County in Florida sends out paper communications in Haitian Creole in addition to English and Spanish. In the Boston area, the Boston subway system and area hospitals and medical offices post announcements in Haitian Creole as well as English.[80] North America's only Creole-language television network is HBN, based in Miami. These areas also each have more than half a dozen Creole-language AM radio stations.[81]\n\nHaitian Creole and Haitian culture are taught in many colleges in the United States and the Bahamas. York College, City University of New York, features a minor in Haitian Creole.[82] Indiana University's Albert Valdman founded the country's first Creole Institute[83] where Haitian Creole, among other facets of Haiti, were studied and researched. The University of Kansas, Lawrence has an Institute of Haitian studies, founded by Bryant Freeman. The University of Massachusetts Boston, Florida International University, and Indiana University Bloomington offer seminars and courses annually at their Haitian Creole Summer Institutes. Brown University, University of Miami, Tulane University, and Duke University[84] also offer Haitian Creole classes, and Columbia University and NYU have jointly offered a course since 2015.[85][86] The University of Chicago began offering Creole courses in 2010.[87]\n\nAs of 2015[update], the New York City Department of Education counted 2,838 Haitian Creole-speaking English-language learners (ELLs) in the city's K–12 schools, making it the seventh most common home language of ELLs citywide and the fifth most common home language of Brooklyn ELLs.[88]: 19–20  Because of the large population of Haitian Creole-speaking students within NYC schools, various organizations have been established to respond to the needs of these students. For example, Flanbwayan and Gran Chimen Sant Kiltirèl, both located in Brooklyn, New York, aim to promote education and Haitian culture through advocacy, literacy projects, and cultural/artistic endeavors.[89]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Cuba",
+          "body": "See also: Haitian Cubans and Languages of Cuba\nHaitian Creole is the second most spoken language in Cuba after Spanish,[90][91] where over 300,000 Haitian immigrants speak it. It is recognized as a minority language in Cuba and a considerable number of Cubans speak it fluently. Most of these speakers have never been to Haiti and do not possess Haitian ancestry, but merely learned it in their communities. In addition, there is a Haitian Creole radio station operating in Havana.[91]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "Dominican Republic",
+          "body": "See also: Haitians in the Dominican Republic and Languages of the Dominican Republic\nAs of 2012[update], the language was also spoken by over 450,000 Haitians who reside in the neighboring Dominican Republic,[92] although the locals do not speak it. However, some estimates suggest that there are over a million speakers due to a huge population of undocumented immigrants from Haiti.[93]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        },
+        {
+          "heading": "The Bahamas",
+          "body": "As of 2009, up to 80,000 Haitians were estimated residing in the Bahamas,[94] where about 20,000 speak Haitian Creole. It is the third most‑spoken language after English and Bahamian Creole.[95]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Software",
+      "summary": "After the 2010 Haiti earthquake, international aid workers desperately needed translation tools for communicating in Haitian Creole. Furthermore, international organizations had little idea whom to contact as translators. As an emergency measure, Carnegie Mellon University releas",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "After the 2010 Haiti earthquake, international aid workers desperately needed translation tools for communicating in Haitian Creole. Furthermore, international organizations had little idea whom to contact as translators. As an emergency measure, Carnegie Mellon University released data for its own research into the public domain.[96] Microsoft Research and Google Translate implemented alpha version machine translators based on the Carnegie Mellon data.\n\nSeveral smartphone apps have been released, including learning with flashcards by Byki and two medical dictionaries, one by Educa Vision and a second by Ultralingua, the latter of which includes an audio phrase book and a section on cultural anthropology.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Haitian_Creole_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

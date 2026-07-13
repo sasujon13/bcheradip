@@ -1,0 +1,317 @@
+{
+  "title": "Grammar Book — Gàidhlig",
+  "languageCode": "gd",
+  "languageName": "Gàidhlig",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "This article includes a list of general references, but it lacks sufficient corresponding inline citations. Please help to improve this article by introducing more precise citations.  (May 2010) (Learn how and when to remove this message)\nThis article describes the grammar of the",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This article includes a list of general references, but it lacks sufficient corresponding inline citations. Please help to improve this article by introducing more precise citations.  (May 2010) (Learn how and when to remove this message)\nThis article describes the grammar of the Scottish Gaelic language.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Grammar overview",
+      "summary": "The 10th-century Book of Deer contains the oldest known text from Scotland that has distinctly Scottish Gaelic forms, here seen in the margins of a page from the Gospel of Matthew.\nGaelic shares with other Celtic languages a number of interesting typological features:[1]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The 10th-century Book of Deer contains the oldest known text from Scotland that has distinctly Scottish Gaelic forms, here seen in the margins of a page from the Gospel of Matthew.\nGaelic shares with other Celtic languages a number of interesting typological features:[1]\n\nVerb–subject–object basic word order in simple sentences with non-periphrastic verbal constructions, a typological characteristic relatively uncommon among the world's languages.\n\nconjugated prepositions (traditionally called \"prepositional pronouns\"): complex forms historically derived from the fusion of a preposition + pronoun sequence (see Prepositions below)\n\nprepositional constructions for expressing possession and ownership (instead of a verb like English have):\n\nTha taigh agam \"I have a house\" (lit. \"A house is at me\")\nTha an cat sin le Iain \"Iain owns that cat\" (lit. \"Is the cat that with Ian\")\nemphatic pronouns: Emphatic forms are systematically available in all pronominal constructions (See Pronouns below).\n\nTha cat agadsa ach tha cù agamsa \"You have a cat but I have a dog\"",
+          "examples": [
+            "conjugated prepositions (traditionally called \"prepositional pronouns\"): complex forms historically derived from the fusion of a preposition + pronoun sequence (see Prepositions below)",
+            "Tha taigh agam \"I have a house\" (lit. \"A house is at me\")",
+            "Tha an cat sin le Iain \"Iain owns that cat\" (lit. \"Is the cat that with Ian\")",
+            "Tha cat agadsa ach tha cù agamsa \"You have a cat but I have a dog\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Consonant mutations",
+          "body": "Lenition and slenderisation (also referred to as palatalisation or \"i-infection\") play a crucial role in Scottish Gaelic grammar.[2]\n\nLenition (sometimes inaccurately referred to as \"aspiration\"), as a grammatical process, affects the pronunciation of initial consonants, and is indicated orthographically by the addition of an ⟨h⟩:\n\ncaileag → chaileag \"girl\"\n\nbeag → bheag \"small\"\n\nfaca → fhaca \"saw\"\n\nsnog → shnog \"nice\"\n\nLenition is not indicated in writing for words beginning with ⟨l, n, r⟩. Nor does it affect words that begin with either a vowel, or with ⟨sg, sm, sp, st⟩. In most cases, lenition is caused by the presence of particular trigger words to the left (certain determiners, adverbs, prepositions, and other function words). In this article, the leniting effect of such words is indicated, where relevant, by the superscript \"+L\" (e.g. glè+L \"very\").\n\nSlenderisation, on the other hand, is a change in the pronunciation of the final consonant of a word, and it is typically indicated by the addition of an ⟨i⟩:\n\nfacal → facail \"word\"\n\nbalach → balaich \"boy\"\n\nòran → òrain \"song\"\n\nùrlar → ùrlair \"floor\"\n\ncailleach → caillich \"old woman\"\n\nIn monosyllabic words, slenderisation can cause more complex changes to the vowel:\n\nceòl → ciùil \"music\"\n\nfiadh → fèidh \"deer\"\n\ncas → cois \"foot\"\n\nSlenderisation usually has no effect on words that end in a vowel (e.g. bàta \"boat\"), or words whose final consonant is already slender (e.g. sràid \"street\"). In rare cases, for example in words where a historic silent final consonant is elided in spelling, this may re-appear in the slenderised form, e.g. tlà (< tlàth) usually slenderises to tlàith.\n\nMost cases of slenderisation can be explained historically as the palatalizing influence of a following front vowel (such as -⟨i⟩) in earlier stages of the language. Although this vowel has now disappeared, its effects on the preceding consonant are still preserved.[3] Similarly, lenition of initial consonants was originally triggered by the final vowel of the preceding word, but in many cases, this vowel is no longer present in the modern language.[4]\n\nMany word-final consonants have also disappeared in the evolution of Scottish Gaelic, and some traces of them can be observed in the form of prosthetic or linking consonants (⟨n-, h-, t-⟩, etc.) that appear in some syntactic combinations, for example, after some determiners (see below).[5]",
+          "examples": [
+            "Lenition and slenderisation (also referred to as palatalisation or \"i-infection\") play a crucial role in Scottish Gaelic grammar.[2]",
+            "Lenition (sometimes inaccurately referred to as \"aspiration\"), as a grammatical process, affects the pronunciation of initial consonants, and is indicated orthographically by the addition of an ⟨h⟩:",
+            "caileag → chaileag \"girl\"",
+            "beag → bheag \"small\"",
+            "faca → fhaca \"saw\"",
+            "snog → shnog \"nice\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nouns",
+      "summary": "Inflection of cù ('dog') in singular, dual (with the number dà), and plural\nGaelic nouns and pronouns belong to one of two grammatical genders: masculine or feminine. Nouns with neuter gender in Old Gaelic were redistributed between the masculine and feminine.",
+      "sections": [
+        {
+          "heading": "Gender and number",
+          "body": "Inflection of cù ('dog') in singular, dual (with the number dà), and plural\nGaelic nouns and pronouns belong to one of two grammatical genders: masculine or feminine. Nouns with neuter gender in Old Gaelic were redistributed between the masculine and feminine.\n\nThe gender of a small number of nouns differs between dialects. A very small group of nouns have declensional patterns that suggest mixed gender characteristics. Foreign nouns that are fairly recent loans arguably fall into a third gender class (discussed by Black), if considered in terms of their declensional pattern. It is arguable that feminine gender is under pressure and that the system may be becoming simplified with the feminine paradigms incorporating some typically masculine patterns.\n\nNouns have three grammatical numbers: singular, dual (vestigially) and plural. Dual forms of nouns are only found after the numeral dà (two), where they are obligatory. The dual form is identical in form to the dative singular; depending on noun class, the dual is therefore either the same in form as the common singular (the nominative-accusative, Class 1 nouns, Class 3 and Class 4 nouns), or have a palatalised final consonant in nouns of Class 2 and Class 5. Plurals are formed in a variety of ways, including suffixation (often involving the suffix -(e)an) and slenderisation. Pluralisation, as in Irish Gaelic and Manx, can vary according to noun class, however on the whole depends on the final sound of the singular form.\n\nThree Grammatical Number Forms: Singular, Dual (Vestigial), Plural\n\nNoun Class\n\nExample\n\nEnglish\n\n1\n\naon òran, dà òran, trì òrain\none song, two songs, three songs\n\n2\n\naon uinneag, dà uinneig, trì uinneagan\none window, two windows, three windows\n\n3\n\naon ghuth, dà ghuth, trì guthan\none voice, two voices, three voices\n\n4\n\naon bhàta, dà bhàta, trì bàtaichean\none boat, two boats, three boats\n\n5\n\naon chara, dà charaid, trì càirdean\none friend, two friends, three friends\n\nCardinal numerals\nFor counting, or with numerals that are not followed by a noun, the form is slightly different.\n\nCardinal counting numerals\n\nGaelic numeral\n\nEnglish\ntranslation\n\na h-aon\none\n\na dhà\ntwo\n\na trì\nthree\n\na ceithir\nfour\n\na còig\nfive\n\na sia\nsix\n\na seachd\nseven\n\na h-ochd\neight\n\na naoidh\nnine\n\na deich\nten\n\na h-aon deug\neleven\n\na dhà dheug\ntwelve",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Cases",
+          "body": "Nouns and pronouns in Gaelic have four cases: nominative, vocative, genitive, and dative (or prepositional) case. There is no distinct accusative case form; the nominative is used for both subjects and objects. Nouns can be classified into a number of major declension classes, with a small number of nouns falling into minor patterns or irregular paradigms. Case forms can be related to the base form by suffixation, lenition, slenderisation, or a combination of such changes. See the example paradigms below for further details.\n\nThe case system is now under tremendous pressure and speakers exhibit varying degrees of paradigm simplification.[citation needed]\n\nPrepositional or dative\nNouns in the dative case only occur after a preposition, and never, for example, as the indirect object of a verb.\n\nVocative\nNouns in the vocative case are introduced by the particle a+L, which lenites a following consonant, and is elided (and usually not written) before a vowel. The vocative form of feminine singular nouns is otherwise identical to the nominative; additionally, masculine singular nouns are slenderised in the vocative.\n\nfeminine:\nMàiri → a Mhàiri\n\nAnna → (a) Anna\n\nmasculine:\nSeumas → a Sheumais\n\nAonghas → (a) Aonghais\n\nGenitive\nIn the genitive construction, the genitive follows the word it governs: taigh m' athar house my father (genitive) \"my father's house\".",
+          "examples": [
+            "In the genitive construction, the genitive follows the word it governs: taigh m' athar house my father (genitive) \"my father's house\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Indefinite and definite",
+          "body": "Gaelic has no indefinite article. Cù may mean either \"dog\" or \"a dog\", and coin may mean either \"dogs\" or \"some dogs.\"[6]\n\nThe definite article is discussed below in full under articles. A noun or noun phrase is considered to be definite if it fulfils one of the following criteria.[6]\n\nIt is a proper noun\nMàiri \"Mary\"\n\nInbhir Nis \"Inverness\"\n\nAlba \"Scotland\"\n\nIt is preceded by an article\nan cù \"the dog\"\n\nna h-aibhnichean \"the rivers\"\n\nIt is preceded by a possessive determiner\nmo cheann \"my head\"\n\nàirde mo chinn \"at the top of my voice\"",
+          "examples": [
+            "Gaelic has no indefinite article. Cù may mean either \"dog\" or \"a dog\", and coin may mean either \"dogs\" or \"some dogs.\"[6]",
+            "Màiri \"Mary\"",
+            "Inbhir Nis \"Inverness\"",
+            "Alba \"Scotland\"",
+            "an cù \"the dog\"",
+            "na h-aibhnichean \"the rivers\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Pronouns",
+      "summary": "Gaelic has singular and plural personal pronouns (i.e., no dual forms). Gender is distinguished only in the 3rd person singular. A T-V distinction is found in the 2nd person, with the plural form sibh used also as a polite singular.[6]",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "Gaelic has singular and plural personal pronouns (i.e., no dual forms). Gender is distinguished only in the 3rd person singular. A T-V distinction is found in the 2nd person, with the plural form sibh used also as a polite singular.[6]\n\nPerson\n\nPronoun\n\nEnglish\n\nSimple\nEmphatic\n\nSingular\n\n1st\n\nmi\nmise\nI, me\n\n2nd\nFamiliar\n\nthu\ntu\nthusa\ntusa\nyou\n\nRespectful\n\nsibh\nsibhse\n\n3rd\n\nMasculine\n\ne\nesan\nhe, him\n\nFeminine\n\ni\nise\nshe, her\n\nPlural\n\n1st\n\nsinn\nsinne\nwe, us\n\n2nd\n\nsibh\nsibhse\nyou\n\n3rd\n\niad\niadsan\nthey, them\n\nIn most cases the Classical Gaelic lenited form of tu, i.e. thu, has become generalised. Tu is retained in constructions where it is preceded by a verb ending in -⟨n⟩ -⟨s⟩ or -⟨dh⟩ (incl. historic -⟨dh⟩):\n\nIs tu a rinn a' mhocheirigh! \"You are an early riser!\"\n\nBu tu an gaisgeach! \"What a hero you were!\" (In older Gaelic bu was written and pronounced budh)\n\nMun abradh tu “deas-dé.” \"Before you could say Jack Robinson.\"\n\nCuiridh tu an-seo e! \"You will put it here!\"\n\nEmphatic personal pronouns\nThe emphatic pronouns are used to express emphasis or contrast:[6]\n\nTha i bòidheach \"She's beautiful\"\n\nTha ise bòidheach \"She's beautiful (as opposed to somebody else)\"\n\nEmphatic forms are found in all pronominal constructions:\n\nan taigh aicese \"her house\"\n\nchuirinn-sa \"I would put\"\n\nna mo bheachd-sa \"in my opinion\"",
+          "examples": [
+            "Is tu a rinn a' mhocheirigh! \"You are an early riser!\"",
+            "Bu tu an gaisgeach! \"What a hero you were!\" (In older Gaelic bu was written and pronounced budh)",
+            "Mun abradh tu “deas-dé.” \"Before you could say Jack Robinson.\"",
+            "Cuiridh tu an-seo e! \"You will put it here!\"",
+            "Tha i bòidheach \"She's beautiful\"",
+            "Tha ise bòidheach \"She's beautiful (as opposed to somebody else)\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adjectives",
+      "summary": "Adjectives in Gaelic inflect according to gender and case in the singular. In the plural, a single form is used for both masculine and feminine genders, in all cases (although it may be lenited depending on the context).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectives in Gaelic inflect according to gender and case in the singular. In the plural, a single form is used for both masculine and feminine genders, in all cases (although it may be lenited depending on the context).\n\nAdjectives normally follow the noun they modify, and agree with it in gender, number and case. In addition, in the dative singular of masculine nouns, the leniting effect of a preceding definite article (see Articles below) can be seen on both the noun and the following adjective:\n\n(air) breac mòr \"(on) a big trout\"\n\n(air) a' bhreac mhòr \"(on) the big trout\"\n\nA small number of adjectives precede the noun, and generally cause lenition. For example:\n\nseann chù \"old dog\"\n\ndroch shìde \"bad weather\"\n\ndeagh thidsear \"good teacher\"",
+          "examples": [
+            "(air) breac mòr \"(on) a big trout\"",
+            "(air) a' bhreac mhòr \"(on) the big trout\"",
+            "seann chù \"old dog\"",
+            "droch shìde \"bad weather\"",
+            "deagh thidsear \"good teacher\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Determiners",
+      "summary": "Gaelic uses possessive determiners (corresponding to my, your, their, etc.) differently from English. In Gaelic, possessive determiners are used mostly to indicate inalienable possession, for example for body parts or family members.",
+      "sections": [
+        {
+          "heading": "Possessive determiners",
+          "body": "Gaelic uses possessive determiners (corresponding to my, your, their, etc.) differently from English. In Gaelic, possessive determiners are used mostly to indicate inalienable possession, for example for body parts or family members.\n\nAs indicated in the following table, some possessive determiners lenite the following word. Before a word beginning with a vowel, some of the determiners have elided forms, or require a linking consonant.[6]\n\nPerson\n\nDeterminer\n\nExamples\n\nbefore\nconsonant\nbefore\nvowel\n\nSingular\n\n1st\n\nmo+L\nm'\nmo mhàthair, m' athair\nmy mother, my father\n\n2nd\nFamiliar\n\ndo+L\nd'\ndo mhàthair, d' athair\nyour mother, your father\n\nRespectful\n\nur\nur n-\nur màthair, ur n-athair\nyour mother, your father\n\n3rd\nMasculine\n\na+L\na\na mhàthair, (a) athair\n\"his mother\", \"his father\"\n\nFeminine\n\na\na h-\na màthair, a h-athair\nher mother, her father\n\nPlural\n\n1st\n\nar\nar n-\nar màthair, ar n-athair\nour mother, our father\n\n2nd\n\nur\nur n-\nur màthair, ur n-athair\nyour mother, your father\n\n3rd\n\nan/am\nan\nam màthair, an athair\ntheir mother, their father\n\nThe 3rd plural possessive a takes the form am before words beginning with a labial consonant: ⟨b, p, f, m⟩.\n\nAs discussed above, the linking consonants n- and h- reflect the presence of a final consonant that has disappeared in other contexts. Ar and ur are derived from genitive plural forms that originally ended in a nasal.[7]\nThe feminine singular a derives from a form ending in final -⟨s⟩, whose only trace is now the prefixation of h- to a following vowel.[8]\n\nTo refer to non-permanent possession, one uses the preposition aig, as described above:\n\nam faclair aice her dictionary (lit. the dictionary at her)\n\nan leabhar aca their book (lit. the book at them)\n\nEmphatic suffixes with possessive determiners\nEmphatic suffixes are used with possessive determiners, and other parts of speech, to lend emphatic or contrastive power. They are used following nouns preceded by possessive pronouns to emphasize the pronominal element. Notice that -sa replaces -se in the first person singular in comparison to the pronominal emphatic suffixes above.[6]\n\nPerson\n\nEmphatic suffix\n\nExample\n\nEnglish\n\nSingular\n\n1st\n\n[noun]-sa\nmo làmh-sa\nmy hand\n\n2nd\nFamiliar\n\n[noun]-sa\ndo cheann-sa\nyour head\n\nRespectful\n\n[noun]-se\nur n-aodann-se\nyour face\n\n3rd\nMasculine\n\n[noun]-san\na uileann-san\nhis elbow\n\nFeminine\n\n[noun]-se\na co-ogha-se\nher cousin\n\nPlural\n\n1st\n\n[noun]-ne\nar n-ogha-ne\nour grandchild\n\n2nd\n\n[noun]-se\nur teaghlach-se\nyour family\n\n3rd\n\n[noun]-san\nam baile-san\ntheir town",
+          "examples": [
+            "Examples",
+            "\"his mother\", \"his father\"",
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Articles",
+          "body": "Gaelic has a definite article but no indefinite article:\n\ntaigh \"(a) house\"\n\nan taigh \"the house\"\n\nThe singular article is often used to designate an entire class.[6]\n\nam bradan \"salmon\"\n\nan t-each \"horses\"\n\nam feur \"grass\"\n\nAbstract nouns consistently take the singular article, as well.[6]\n\nan aois \"age\"\n\nan sgìos \"tiredness\"\n\nam blàs \"warmth\"\n\nThe form of the (definite) article depends on the number, gender, case of the noun. The following table shows the basic paradigm, as used when there is no assimilation to the initial sounds of the following word.\n\nSingular\nPlural\n\nMasculine\nFeminine\n\nNom.\n\nAN\nAN+L\n\nNA\n\nDat.\n\nAN+L\n\nGen.\n\nAN+L\nNA\nNAN\n\nThe superscript ⟨+L⟩ indicates that the following word is lenited. The actual realization of the capitalised forms in the paradigm above depends on the initial sound of the following word, as explained in the following table:\n\nused in:\n\nmasc. nom. sing.\n\nAN\n\nan t-\nbefore vowel\n\nam\nbefore ⟨b, f, m, p⟩\n\nan\nelsewhere\n\nused in:\n\nfem. nom. & dat. sing.,\nmasc. dat. & gen. sing.\n\nAN+L\n\na'+L\nbefore ⟨b, m, p, c, g⟩\n\nan+L\nbefore ⟨f⟩\n\nan t-\nbefore ⟨s⟩ + vowel, ⟨sl, sn, sr⟩\n\nan\nelsewhere (before ⟨d, n, t, l, r, sg, sm, sp, st⟩, vowel)\n\nused in:\n\nfem. gen. sing.,\nnom. & dat. plural\n\nNA\n\nna\nbefore consonant\n\nna h-\nbefore vowel\n\nused in:\n\ngen. plural\n\nNAN\n\nnam\nbefore ⟨b, f, m, p⟩\n\nnan\nelsewhere\n\nPutting all of those variants together into one table:\n\nBefore:\n\n⟨b, m, p⟩\n\n⟨c, g⟩\n\n⟨f⟩\n\n⟨s⟩ + vowel,\n⟨sl, sn, sr⟩\n\n⟨d, n, t, l⟩,\n⟨r⟩,\n⟨sg, sm, sp, st⟩\n\nvowel\n\nall else\n\nNom.\n\nSingular\n\nMasculine\n\nam\nan\nam\nan\nan\nan t-\nan\n\nFeminine\n\na'+L\na'+L\nan+L\nan t-\nan\nan+L\n\nPlural\n\nna\nna\nna\nna\nna\nna h-\nna\n\nDat.\n\nSingular\n\nMasculine\n\na'+L\na'+L\nan+L\nan t-\nan\nan\nan+L\n\nFeminine\n\nPlural\n\nna\nna\nna\nna\nna\nna h-\nna\n\nGen.\n\nSingular\n\nMasculine\n\na'+L\na'+L\nan+L\nan t-\nan\nan\nan+L\n\nFeminine\n\nna\nna\nna\nna\nna\nna h-\nna\n\nPlural\n\nnam\nnan\nnam\nnan\nnan\nnan\nnan\n\nThe forms of the definite article trace back to a Common Celtic stem *sindo-, sindā-. The initial ⟨s⟩, already lost in the Old Irish period, is still preserved in the forms of some prepositions (for example le \"with\" becomes leis before an article, similarly (ann) an \"in\", becomes anns — see below). The original d can be seen in the form an t-, and the leniting effect of the form an+L is a trace of a lost final vowel. The form na h- reflects an original final -⟨s⟩.[9]",
+          "examples": [
+            "taigh \"(a) house\"",
+            "an taigh \"the house\"",
+            "am bradan \"salmon\"",
+            "an t-each \"horses\"",
+            "am feur \"grass\"",
+            "an aois \"age\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Example paradigms",
+      "summary": "The following examples illustrate a number of nominal declension patterns, and show how the definite article combines with different kinds of nouns.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The following examples illustrate a number of nominal declension patterns, and show how the definite article combines with different kinds of nouns.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Masculine definite noun paradigms",
+          "body": "begins with ⟨c, g⟩:\n\ncat \"cat\"\nSing.\nPlural\n\nNom.\n\nan cat\n\nna cait\n\nDat.\n\na' chat\n\nGen.\n\na' chait\nnan cat\n\nVoc.\n\na chait\na chata\n\nbegins with ⟨b, m, p⟩:\n\nbalach \"boy\"\nSing.\nPlural\n\nNom.\n\nam balach\n\nna balaich\n\nDat.\n\na' bhalach\n\nGen.\n\na' bhalaich\nnam balach\n\nVoc.\n\na bhalaich\na bhalacha\n\nbegins with a vowel:\n\nòran \"song\"\nSing.\nPlural\n\nNom.\n\nan t-òran\n\nna h-òrain\n\nDat.\n\nan òran\n\nGen.\n\nan òrain\nnan òran\n\nVoc.\n\nòrain\nòran\n\n \n\nbegins with ⟨d, n, t, l, r⟩:\n\nrud \"thing\"\nSing.\nPlural\n\nNom.\n\nan rud\n\nna rudan\n\nDat.\n\nGen.\n\nan ruid\nnan rudan\n\nVoc.\n\na ruid\na ruda\n\nbegins with ⟨f⟩:\n\nfiadh \"deer\"\nSing.\nPlural\n\nNom.\n\nam fiadh\n\nna fèidh\n\nDat.\n\nan fhiadh\n\nGen.\n\nan fhèidh\nnam fiadh\n\nVoc.\n\nfhèidh\nfhiadha\n\nbegins with ⟨s, sl, sn, sr⟩:\n\nseòmar \"room\"\nSing.\nPlural\n\nNom.\n\nan seòmar\n\nna seòmraichean\n\nDat.\n\nan t-seòmar\n\nGen.\n\nan t-seòmair\nnan seòmraichean\n\nVoc.\n\na sheòmair\na sheòmraiche",
+          "examples": [
+            "cat \"cat\"",
+            "balach \"boy\"",
+            "òran \"song\"",
+            "rud \"thing\"",
+            "fiadh \"deer\"",
+            "seòmar \"room\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Feminine definite noun paradigms",
+          "body": "begins with ⟨c, g⟩:\n\ncaileag \"girl\"\nSing.\nPlural\n\nNom.\n\na' chaileag\n\nna caileagan\n\nDat.\n\nGen.\n\nna caileig(e)\nnan caileagan\n\nbegins with ⟨b, m, p⟩:\n\npìob \"pipe\"\nSing.\nPlural\n\nNom.\n\na' phìob\n\nna pìoban\n\nDat.\n\nGen.\n\nna pìoba\nnam pìob(an)\n\nbegins with a vowel:\n\nabhainn \"river\"\nSing.\nPlural\n\nNom.\n\nan abhainn\n\nna h-aibhnichean\n\nDat.\n\nGen.\n\nna h-aibhne\nnan aibhnichean\n\n \n\nbegins with ⟨d, n, t, l, r⟩:\n\nlèine \"shirt\"\nSing.\nPlural\n\nNom.\n\nan lèine\n\nna lèintean\n\nDat.\n\nGen.\n\nna lèine\nnan lèintean\n\nbegins with ⟨f⟩:\n\nfìdheall \"fiddle\"\nSing.\nPlural\n\nNom.\n\nan fhìdheall\n\nna fìdhlean\n\nDat.\n\nGen.\n\nna fidhle\nnam fidhlean\n\nbegins with ⟨s, sl, sn, sr⟩:\n\nsràid \"street\"\nSing.\nPlural\n\nNom.\n\nan t-sràid\n\nna sràidean\n\nDat.\n\nGen.\n\nna sràide\nnan sràid(ean)",
+          "examples": [
+            "caileag \"girl\"",
+            "pìob \"pipe\"",
+            "abhainn \"river\"",
+            "lèine \"shirt\"",
+            "fìdheall \"fiddle\"",
+            "sràid \"street\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Verbs",
+      "summary": "Verbal constructions may make use of synthetic verb forms which are marked to indicate person (the number of such forms is limited), tense, mood, and voice (active, impersonal/passive). Gaelic has very few irregular verbs, conjugational paradigms being remarkably consistent for t",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbal constructions may make use of synthetic verb forms which are marked to indicate person (the number of such forms is limited), tense, mood, and voice (active, impersonal/passive). Gaelic has very few irregular verbs, conjugational paradigms being remarkably consistent for two verb classes, with the two copular or \"be\" verbs being the most irregular. In the paradigm of the verb, the majority of verb-forms are not person-marked and independent pronouns are required as in English, Norwegian and other languages. Alongside constructions involving synthetic verb forms, analytic (or 'periphrastic') aspectual constructions are extremely frequently used and in many cases are obligatory (compare English \"be + -ing\" and Spanish \"estar + [verb]-ndo\" verbal constructions). These structures convey tense, aspect and modality, often in fused forms.\n\n'Verbal nouns' play a crucial role in the verbal system, being used in periphrastic verbal constructions preceded by a preposition where they act as the sense verb, and a stative verb conveys tense, aspect and mood information, in a pattern that is familiar from other Indo-European languages. Verbal nouns are true nouns in morphology and inherent properties, having gender, case and their occurrence in what are prepositional phrases, and in which non-verbal nouns are also found. Verbal nouns carry verbal semantic and syntactic force in such core verbal constructions as a result of their meaning content, as do other nouns found in such constructions, such as tha e na thost \"he is quiet, he stays silent\", literally \"he is in his silence\", which mirrors the stative usage found in tha e na shuidhe \"he is sitting, he sits\", literally \"he is in his sitting\". This is similar to words such as bed in English and letto in Italian when used in prepositional phrases such as in bed and a letto \"in bed\", where \"bed\" and letto express a stative meaning. The verbal noun covers many of the same notions as infinitives, gerunds and present participles in other Indo-European languages.\n\nTraditional grammars use the terms 'past', 'future tense', 'conditional', 'imperative' and 'subjunctive' in describing the five core Scottish Gaelic verb forms; however, modern scholarly linguistic texts reject such terms borrowed from traditional grammar descriptions based on the concepts of Latin grammar. In a general sense, the verb system is similar to that found in Irish, the major difference being the loss of the simple present, this being replaced by the periphrastic forms noted above. These periphrastic forms in Irish have retained their use of showing continuous aspect. The tense–aspect system of Gaelic is ill-studied; Macaulay (1992) gives a reasonably comprehensive account.",
+          "examples": [
+            "Verbal constructions may make use of synthetic verb forms which are marked to indicate person (the number of such forms is limited), tense, mood, and voice (active, impersonal/passive). Gaelic has very few irregular verbs, conjugational par",
+            "'Verbal nouns' play a crucial role in the verbal system, being used in periphrastic verbal constructions preceded by a preposition where they act as the sense verb, and a stative verb conveys tense, aspect and mood information, in a pattern"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Copula verbs",
+          "body": "The number of copular verbs and their exact function in Gaelic is a topic of contention among researchers. There is a certain amount of variation in sources, making it difficult to come to a definitive conclusion about certain aspects of copular verbs. However, there is some information that consistently shows up across these sources, covered in this section.\n\nGaelic has two copular \"be\" verbs, though some grammar books treat them as two parts of a single suppletive verb:\n\nBi: attributes a property to a noun or pronoun; its complement is typically a description that expresses position, state, non-permanent characteristic (see further below)\n\nTense\nform\n\nPresent\n\nIndependent\n\ntha\n\nRelative\n\ntha\n\nDependent\n\nbheil, eil\n\nPresent imperfective,  future\n\nIndependent\n\nbidh, bithidh\n\nDependent\n\nbi\n\nPast perfective\n\nIndependent\n\nbha\n\nDependent\n\nrobh\n\nPast imperfective\n\nbhiodh\n\nIs: Historically called the “copula” verb, is can be used in constructions with nominal complements and adjectival complements. It also has the additional function of “topicalization”, a term that means a certain element of a sentence is being emphasized as the topic of interest.[10]\n\nTense\nform\n\nPresent\n\nIndependent\n\nis, ’s\n\nRelative\n\nas\n\nPast\n\nbu, before a vowel and ⟨fh⟩: b’\n\nIs:\n\nIn English, italics (for text) and stress (for speech) are used to emphasize different elements of a sentence; one can also change the word order to put the emphasized element first. Scottish Gaelic, however, does not use stress and very rarely uses word order changes to create emphasis. Instead, it uses topicalization, for example when “a sentence with the verb is followed by the element topicalised” (MacAulay, 189). This equates the English fronting device \"it is X that...\":\n\nExamples (from MacAulay, pages 189–190):\n\n1The subject is emphasizedIs\n\nis\n\ne\n\n3SG-MASC-PN\n\nIain\n\nIan\n\na\n\nREL\n\nthug\n\ngave\n\nan\n\nthe\n\nleabhar\n\nbook\n\ndo\n\nto\n\nAnna\n\nAnna\n\nan-dè\n\nyesterday\n\nIs e Iain a thug an leabhar do Anna {an-dè}\n\nis 3SG-MASC-PN Ian REL gave the book to Anna yesterday\n\n\"It is Ian who gave the book to Anna yesterday.\"\n\n2The direct object is emphasizedIs\n\nis\n\ne\n\n3SG-MASC-PN\n\nan\n\nthe\n\nleabhar\n\nbook\n\na\n\nREL\n\nthug\n\ngave\n\nIain\n\nIan\n\ndo\n\nto\n\nAnna\n\nAnna\n\nan-dè\n\nyesterday\n\nIs e an leabhar a thug Iain do Anna {an-dè}\n\nis 3SG-MASC-PN the book REL gave Ian to Anna yesterday\n\n\"It is the book that Ian gave to Anna yesterday.\"\n\n3The indirect object is emphasizedIs\n\nis\n\nann\n\nin-it\n\ndo\n\nto\n\nAnna\n\nAnna\n\na\n\nREL\n\nthug\n\ngave\n\nIain\n\nIan\n\nan\n\nthe\n\nleabhar\n\nbook\n\nan-dè\n\nyesterday\n\nIs ann do Anna a thug Iain an leabhar {an-dè}\n\nis in-it to Anna REL gave Ian the book yesterday\n\n\"It is to Anna that Ian gave the book yesterday.\"\n\n4The adjunct is emphasizedIs\n\nis\n\nann\n\nin-it\n\nan-dè\n\nyesterday\n\na\n\nREL\n\nthug\n\ngave\n\nIain\n\nIan\n\nan\n\nthe\n\nleabhar\n\nbook\n\ndo\n\nto\n\nAnna\n\nAnna\n\nIs ann {an-dè} a thug Iain an leabhar do Anna\n\nis in-it yesterday REL gave Ian the book to Anna\n\n\"It was yesterday that Ian gave the book to Anna.\"\n\n5The complement is emphasized (for aspectual sentences)Is\n\nis\n\nann\n\nin-it\n\na’\n\nat\n\ntoirt\n\ngiving-VN\n\nan\n\nthe\n\nleabhair\n\nbook-GEN\n\ndo\n\nto\n\nAnna\n\nAnna\n\na\n\nREL\n\nbha\n\nwas\n\nIain\n\nIan\n\nIs ann a’ toirt an leabhair do Anna a bha Iain\n\nis in-it at giving-VN the book-GEN to Anna REL was Ian\n\n\"It was giving the book to Anna that Ian was.\"\n\nThe fronting use of is is part of its general function of ascribing descriptions to a complement (see below). Most commonly one will see classificatory or adjectival complements, as shown below:\n\n(a)Is\n\nis\n\nduine\n\nman\n\nIain\n\nIan\n\nIs duine Iain\n\nis man Ian\n\n\"Ian is a man.\"\n\n(b)Is\n\nis\n\nmath\n\ngood\n\nsin!\n\nthat\n\nIs math sin!\n\nis good that\n\n\"That is good!\"[10]\n\nBi:\nHistorically called the “substantive” verb, tha (the present indicative independent 3rd person singular form of bi) can be used in constructions with adjectival complements, locative predicates, and in aspectually marked sentences (MacAulay, page 180).\n\nExamples (MacAulay, page 178):\n\n(c)adjectival complementTha\n\nis\n\nan\n\nthe\n\ncàr\n\ncar\n\nmòr\n\nlarge\n\nTha an càr mòr\n\nis the car large\n\n\"The car is large.\"\n\n(d)locativeTha\n\nis\n\nan\n\nthe\n\ncàr\n\ncar\n\nair\n\non\n\nan\n\nthe\n\nrathad\n\nroad\n\nTha an càr air an rathad\n\nis the car on the road\n\n\"The car is on the road.\"\n\n(e)aspectually markedTha\n\nis\n\nan\n\nthe\n\ncàr\n\ncar\n\na’\n\nat\n\nsiubhal\n\ntravelling\n\nTha an càr a’ siubhal\n\nis the car at travelling\n\n\"The car is travelling.\"\n\nIt is also possible to use tha to describe a noun or pronoun with a nominal complement by using an embedded pronoun (MacAulay, page 179):\n\n(f)Example with thaTha\n\nis\n\nIain\n\nIan\n\nna\n\nin.3SG.MASC.PN (in-his; for convenience)\n\nshaighdear\n\nsoldier\n\nTha Iain na shaighdear\n\nis Ian {in.3SG.MASC.PN (in-his; for convenience)} soldier\n\n\"Ian is a soldier.\"\n\n(g)Example with isIs\n\nis\n\nsaighdear\n\nsoldier\n\nIain\n\nIan\n\nIs saighdear Iain\n\nis soldier Ian\n\n\"Ian is a soldier.\"\n\nThe two usages carry a semantic contrast. Is shows a permanent state, while tha shows that the state of being a soldier is temporary in some way or other. Often the tha construction is used when someone has just become a soldier, for example, while the is construction shows that being a soldier is a part of Ian's persona.\n\nNotice that the example using is exhibits a diversion from the typical VSO word order. In Classical Gaelic, is incorporates the subject (3rd person singular), the noun or adjective that follows is in the nominative, and the second noun/pronoun is objective in case. In Modern Gaelic, this has been reanalysed as V – Topic/Complement – S, or V – S – S, a \"double nominative construction\", as it were. Latin based descriptions, however, assume the first analysis. The tha example maintains VSO/VSC word order, where the complement is a prepositional phrase that states what state the subject is in (in the state of being a soldier); cf. tha e na shuidhe and tha e na thost above.\n\nThe difference between tha and is is that tha describes psychologically temporary states:\n\ntha mi sgìth \"I am tired\"\ntha an duine reamhair \"the man is fat\"\nIs, on the other hand, describes more permanent conditions — that is, states of being that are intrinsic and/or not seen as having an assumed end:\n\nis beag an taigh e \"it's a small house\"\nis Albannach mi \"I am Scottish\"\nIn the last example, for instance, if someone were to become a Scottish citizen, the phrase would be :Tha mi nam Albannach a-nise \"I am Scottish now\".",
+          "examples": [
+            "Gaelic has two copular \"be\" verbs, though some grammar books treat them as two parts of a single suppletive verb:",
+            "In English, italics (for text) and stress (for speech) are used to emphasize different elements of a sentence; one can also change the word order to put the emphasized element first. Scottish Gaelic, however, does not use stress and very ra",
+            "Examples (from MacAulay, pages 189–190):",
+            "\"It is Ian who gave the book to Anna yesterday.\"",
+            "\"It is the book that Ian gave to Anna yesterday.\"",
+            "\"It is to Anna that Ian gave the book yesterday.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Prepositions and similar words",
+      "summary": "Prepositions in Gaelic govern either the nominative, dative (prepositional),[6] or genitive case.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Prepositions in Gaelic govern either the nominative, dative (prepositional),[6] or genitive case.\n\nwith dative:\nair \"on\"\n\naig \"at\"\n\nanns/ann an \"in\"\n\nle(is) \"with\"\n\nri(s) \"to\"\n\nwith nominative:\nThe following originally governed a noun in the accusative; in modern Scottish Gaelic, the accusative has merged with other cases, usually the nominative or dative.\neadar \"between\"\n\ngu(s) \"until\"\n\nmar \"as\"\n\ngun \"without\"\n\nwith genitive:\ntarsainn \"across\"\n\nré \"during\"\n\nchùm, \"for (the) purpose, reason\"\n\ntrìd \"through\"\n\ntimcheall \"around\"\n\nThe derivation of these is from the following nouns:\ntarsainn \" the bottom of the doorway\"\n\nré \"time period\"\n\ntrìd is a nominalisation of the Classical Gaelic preposition trí \"through\" (in Gaelic now pronounced and written tro among other variants).\n\ntimcheall \"surroundings\".\n\nAll so-called \"compound prepositions\" consist of a simple preposition and a noun, and therefore the word they refer to is in the genitive case:\n\nri taobh a' bhalaich \"beside the boy\" (lit. \"by the boy's side\")\n\nSome prepositions have different forms (ending in -⟨s⟩ or -⟨n⟩) when followed by the article. In the case of -⟨s⟩, this is from the original initial ⟨s⟩- of the definite article (Old Irish in, ind from Proto-Celtic *sindos, *sindā, etc.), while the -⟨n⟩ continues the article fused with the preposition, with the article being repeated sometimes in modern Scottish Gaelic (eg. Old Irish fond euch \"under the horse\", Scottish Gaelic fon each or fon an each, in Classical Gaelic fán eoch):\n\nle Iain, leis a' mhinistear \"with Ian, with the minister\"\n\nfo bhròn, fon bhòrd or fon a' bhòrd \"under sorrow, under the table\"",
+          "examples": [
+            "air \"on\"",
+            "aig \"at\"",
+            "anns/ann an \"in\"",
+            "le(is) \"with\"",
+            "ri(s) \"to\"",
+            "eadar \"between\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Inflected prepositions with personal pronouns",
+          "body": "Prepositions that mark the dative take the conjugated dative forms of the personal pronouns, thus *aig mi \"at me\" and *le iad \"with them\" are incorrect. Such prepositions have conjugated forms, like verbs (see Inflected preposition). The following table presents some commonly used paradigms.[6]\n\n+\n\n\"me\"\n\n\"you,\nsg. fam.\"\n\n\"him\"\n\n\"her\"\n\n\"us\"\n\n\"you, pl.\"\n\n\"them\"\n\nmi\nthu\ne\ni\nsinn\nsibh\niad\n\n\"at\"\naig\n\nagam\nagad\naige\naice\nagainn\nagaibh\naca\n\n\"on\"\nair\n\norm\nort\nair\noirre\noirnn\noirbh\norra\n\n\"with\"\nle\n\nleam\nleat\nleis\nleatha\nleinn\nleibh\nleotha\n\n\"in\"\nann an\n\nannam\nannad\nann\ninnte\nannainn\nannaibh\nannta\n\n\"to, for\"\ndo\n\ndhomh\ndhut\ndha\ndhi\ndhuinn\ndhuibh\ndhaibh\n\nEmphatic forms\nLike the personal pronouns, inflected prepositions have emphatic forms derived by adding the following suffixes:[6] \n\n+\nsa\nsa\nsan\nse\ne\nse\nsan\n\n\"at\"\naig\n\nagamsa\nagadsa\naigesan\naicese\nagainne\nagaibhse\nacasan\n\n\"on\"\nair\n\normsa\nortsa\nairsan\noirrese\noirnne\noirbhse\norrasan\n\n\"with\"\nle\n\nleamsa\nleatsa\nleisan\nleathase\nleinne\nleibhse\nleothasan\n\n\"in\"\nann an\n\nannamsa\nannadsa\nannsan\ninntese\nannainne\nannaibhse\nanntasan\n\n\"to, for\"\ndo\n\ndhomhsa\ndhutsa\ndhasan\ndhise\ndhuinne\ndhuibhse\ndhaibhsan",
+          "examples": [
+            "Prepositions that mark the dative take the conjugated dative forms of the personal pronouns, thus *aig mi \"at me\" and *le iad \"with them\" are incorrect. Such prepositions have conjugated forms, like verbs (see Inflected preposition). The fo",
+            "\"me\"",
+            "\"him\"",
+            "\"her\"",
+            "\"us\"",
+            "\"you, pl.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Inflected prepositions with  possessive determiners",
+          "body": "When the preposition an \"in\" (often found in the combined form ann an) is followed by a possessive determiner, the two words create a combined form.[6] This also occurs with ag, the form of aig used with verbal nouns, and a+L.[6] As the last elements of these forms are the possessive determiners, the expected mutations occur.\n\n+\n\"my\"\n\"your,\nsg. fam.\"\n\"his\"\n\"her\"\n\"our\"\n\"your, pl.\"\n\"their\"\n\nmo\ndo\na\na\nar\nur\nan\n\n\"in\"\n[ann] an\n\nnam+L\nnad+L\nna+L\nna [h-]\nnar [n-]\nnur [n-]\nnan/nam\n\n\"at\"\nag\n\ngam+L\n\ngad+L\n\nga+L\n\nga [h-]\n\ngar [n-]\n\ngur [n-]\n\ngan/gam\n\n\"to\"\na+L\n\nam+L\n\nad+L\n\na+L\n\na [h-]\n\nar [n-]\n\nur [n-]\n\nan/am\n\nEmphatic forms\nThe emphatic forms of inflected prepositions based on possessive determiners follows the emphatic forms of the emphatic suffixes with possessive determiners. That is, the suffix is added to the noun following the possessive determiner rather than to the possessive determiner itself.[6]\n\n+\nsa\nsa\nsan\nse\nne\nse\nsan\n\n\"in\"\nann an\n\nnam+L {noun}-sa\n\nnad+L {noun}-sa\n<na+L {noun}-san\nna [h-] {noun}-se\nnar [n-] {noun}-ne\nnur {noun}-se\nnan/nam {noun}-san\n\n\"at\"\naig\n\ngam+L {noun}-sa\n\ngad+L {noun}-sa\nga+L {noun}-san\nga [h-] {noun}-se\ngar [n-] {noun}-ne\ngur {noun}-se\ngan/gam {noun}-san\n\nLess formally, gam etc can undergo lenition – i.e. gham, ghad etc (sometimes erroneously spelled dham, dhad etc) and there are two n-less variants of nam and nad:\n\n+\nsa\nsa\nsan\nse\nne\nse\nsan\n\n\"at\"\naig\n\ngham+L {noun}-sa\n\nghad+L {noun}-sa\ngha+L {noun}-san\ngha [h-] {noun}-se\nghar [n-] {noun}-ne\nghur {noun}-se\nghan/gham {noun}-san\n\n\"in\"\na\n\n'am+L {noun}-sa\n\n'ad+L {noun}-sa",
+          "examples": [
+            "When the preposition an \"in\" (often found in the combined form ann an) is followed by a possessive determiner, the two words create a combined form.[6] This also occurs with ag, the form of aig used with verbal nouns, and a+L.[6] As the las",
+            "\"my\"",
+            "\"his\"",
+            "\"her\"",
+            "\"our\"",
+            "\"your, pl.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "References and notes",
+      "summary": "^ See Celtic languages#Characteristics of Celtic languages.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^ See Celtic languages#Characteristics of Celtic languages.\n\n^ The phonological aspects of these processes are discussed in Scottish Gaelic phonology. See also Irish initial mutations.\n\n^ Lewis & Pedersen (1989), §167ff; Calder (1923), §6\n\n^ Thurneysen (1946), §230ff; Calder (1923), §19\n\n^ Thurneysen (1946), §§230, 236ff; Calder (1923), §§13, 48\n\n^ a b c d e f g h i j k l m n Ó Maolalaigh, Roibeard; Iain MacAonghuis (1999). Scottish Gaelic in Three Months. DK Publishing, Inc. ISBN 0-7894-4430-5.\n\n^ Lewis & Pedersen (1989), §357 (⟨ⁿ⟩ indicates nasal mutation):\n*nserōm > *ēsar/asar > OI athar > arⁿ > ar n-\n*sweserōm > *sear > OI sethar > farⁿ > (bh)ur n-\n\n^ Lewis & Pedersen (1989), §358; Thurneysen (1993), §§240, 441 (\"g\" indicates gemination):\n*esjās > OI ag > a h-\n\n^ Lewis & Pedersen (1989) §200; Thurneysen (1993) §467\n\n^ a b MacAulay, D., Dochartaigh, C.Ó., Ternes, E., Thomas, A.R., & Thomson, R.L. (1992). The Celtic languages. Cambridge: Cambridge University Press.",
+          "examples": [
+            "^ Lewis & Pedersen (1989), §358; Thurneysen (1993), §§240, 441 (\"g\" indicates gemination):"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        },
+        {
+          "heading": "Full reference citations",
+          "body": "Black, Ronald (1997). Cothrom Ionnsachaidh. Edinburgh: University of Edinburgh, Department of Celtic. ISBN 0-906981-33-6.\n\nCalder, George (1990) [1923]. A Gaelic Grammar. Glasgow: Gairm. ISBN 978-0-901771-34-6.\n\nDwelly, Edward (1988) [1901–11]. The Illustrated Gaelic-English Dictionary (10th ed.). Glasgow: Gairm. ISBN 978-1-871901-28-3.\n\nGillies, H. Cameron (2006) [1896]. Elements of Gaelic Grammar. Vancouver: Global Language Press. ISBN 978-1-897367-00-1.\n\nLamb, William (2008). Scottish Gaelic Speech and Writing: Register Variation in an Endangered Language. Belfast: Cló Ollscoil na Banríona. ISBN 978-0853898955.\n\nLamb, William (2024). Scottish Gaelic: A Comprehensive Grammar. London: Routledge. ISBN 9780367189181\n\nLewis, Henry; Holger Pedersen (1989). A Concise Comparative Celtic Grammar (3rd ed.). Göttingen: Vandenhoeck & Ruprecht. ISBN 3-525-26102-0.\n\nMacaulay, Donald (1992). The Celtic Languages. Cambridge: Cambridge University Press. ISBN 0-521-23127-2.\n\nMark, Colin (2006). Gaelic Verbs: Systemised and Simplified (2nd rev. ed.). Glasgow: Steve Savage Publishers Limited. ISBN 978-1-904246-13-8.\n\nÓ Maolalaigh, Roibeard; Iain MacAonghuis (1997). Scottish Gaelic in Three Months. Hugo's Language Books. ISBN 978-0-85285-234-7.\n\nThurneysen, Rudolf (1998) [1946]. A Grammar of Old Irish. Translated by D. A. Binchy and Osborn Bergin. Dublin: Dublin Institute for Advanced Studies. ISBN 1-85500-161-6.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Scottish_Gaelic_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

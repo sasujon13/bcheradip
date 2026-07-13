@@ -1,0 +1,273 @@
+{
+  "title": "Grammar Book — Gaelg",
+  "languageCode": "gv",
+  "languageName": "Gaelg",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Manx_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "The grammar of the Manx language has much in common with related Indo-European languages, such as nouns that display gender, number and case and verbs that take endings or employ auxiliaries to show tense, person or number. Other morphological features are typical of Insular Celt",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Manx language\n\nThe grammar of the Manx language has much in common with related Indo-European languages, such as nouns that display gender, number and case and verbs that take endings or employ auxiliaries to show tense, person or number. Other morphological features are typical of Insular Celtic languages but atypical of other Indo-European languages. These include initial consonant mutation, inflected prepositions and verb–subject–object word order.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "Manx nouns fall into one of two genders, masculine or feminine. As with Old Irish, there is evidence for the existence of a third neuter gender in Classical Manx, but neuter nouns are thought to have been gradually converted to masculine.[2]",
+      "sections": [
+        {
+          "heading": "Gender",
+          "body": "Manx nouns fall into one of two genders, masculine or feminine. As with Old Irish, there is evidence for the existence of a third neuter gender in Classical Manx, but neuter nouns are thought to have been gradually converted to masculine.[2]\n\nMasculine is considered the \"default\" or \"unmarked\" gender.[3] Nouns ending in a \"broad\" (non-palatalised) consonant are usually masculine, as are those ending in the suffixes: -agh, -an, -ane, -ee, -er, -erey, -ey, -oo, -oon, -oor, -ys. Nouns ending in a \"slender\" (palatalised) consonant are usually feminine, as are those ending in the suffixes: -ag, -age, -aght, -eig, -id, -oge. Verbnouns are also usually feminine, especially those ending in -ail or -eil.[3]",
+          "examples": [
+            "Masculine is considered the \"default\" or \"unmarked\" gender.[3] Nouns ending in a \"broad\" (non-palatalised) consonant are usually masculine, as are those ending in the suffixes: -agh, -an, -ane, -ee, -er, -erey, -ey, -oo, -oon, -oor, -ys. No"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Nouns show singular and plural number in Manx. Plurals can be formed from the singular by adding an ending, most often -yn (lioar \"book\", lioaryn \"books\"). Other endings include -aghyn, -ee, or a consonant followed by -yn. Sometimes a plural ending replaces a singular ending, as in the case of -agh becoming -ee or -eeyn or of -ee or -ey becoming -aghyn. Some mostly monosyllabic nouns pluralise by means of internal vowel change, such as mac \"son\" to mec, kayt \"cat\" to kiyt and dooiney \"man\" to deiney. Manx also has a handful of irregularly formed plurals, including ben \"woman\" to mraane, keyrey \"sheep\" to kirree and slieau \"mountain\" to sleityn.[3]",
+          "examples": [
+            "Nouns show singular and plural number in Manx. Plurals can be formed from the singular by adding an ending, most often -yn (lioar \"book\", lioaryn \"books\"). Other endings include -aghyn, -ee, or a consonant followed by -yn. Sometimes a plura"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        },
+        {
+          "heading": "Case",
+          "body": "Nominative\nThe base form of a noun is in the nominative case (carrey \"friend\", caarjyn \"friends\").\n\nVocative\nA nominative noun is lenited to become vocative, (charrey \"friend!\", chaarjyn \"friends!\"). This also extends to proper nouns. Moirrey, the Manx equivalent of the English name Mary, would be lenited to Voirrey, but this practice is less common for foreign names.[3] This form is commonly used in greetings (Vax veen \"dear Max\").\n\nGenitive\nSome mostly feminine nouns possess a distinct genitive form, usually ending in -ey, e.g. bleeaney \"of a year\" (nominative: blein), coshey \"of a foot\" (nominative: cass). Historical genitive singulars often survive in compounds and fixed expressions although no longer productive, such as thie-ollee \"cowhouse\" using the old genitive of ollagh \"cattle\" or mullagh y ching \"the crown\", literally \"the top of the head\", employing lenited king \"of a head\" (nominative: kione).[4] Keyrragh \"of sheep\" is the only distinct genitive plural, the nominative plural being kirree.\n\nDative\nThe dative case is encountered only in set expressions such as ry-chosh \"on foot\", where chosh is the lenited dative cosh \"foot\" (nominative: cass \"foot\").[5][3]",
+          "examples": [
+            "The base form of a noun is in the nominative case (carrey \"friend\", caarjyn \"friends\").",
+            "A nominative noun is lenited to become vocative, (charrey \"friend!\", chaarjyn \"friends!\"). This also extends to proper nouns. Moirrey, the Manx equivalent of the English name Mary, would be lenited to Voirrey, but this practice is less comm",
+            "Some mostly feminine nouns possess a distinct genitive form, usually ending in -ey, e.g. bleeaney \"of a year\" (nominative: blein), coshey \"of a foot\" (nominative: cass). Historical genitive singulars often survive in compounds and fixed exp",
+            "The dative case is encountered only in set expressions such as ry-chosh \"on foot\", where chosh is the lenited dative cosh \"foot\" (nominative: cass \"foot\").[5][3]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Articles",
+      "summary": "In common with the other Insular Celtic languages except Breton, Manx has a definite article but no indefinite article. The definite article takes the form yn before masculine nominative and genitive and feminine nominative nouns. This yn is often reduced to y before consonants o",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In common with the other Insular Celtic languages except Breton, Manx has a definite article but no indefinite article. The definite article takes the form yn before masculine nominative and genitive and feminine nominative nouns. This yn is often reduced to y before consonants or to 'n after grammatical words ending in a vowel. Plural nouns and feminine genitive nouns take the article ny, another archaic form of which is found in some place names as nyn.[3]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "Certain adjectives may be made plural by the addition of -ey to the singular form (ben veg \"little woman\", mraane veggey \"little women\"). In earlier versions of the language, these were used attributively, but are rarely employed in modern Manx.[3]",
+      "sections": [
+        {
+          "heading": "Number",
+          "body": "Certain adjectives may be made plural by the addition of -ey to the singular form (ben veg \"little woman\", mraane veggey \"little women\"). In earlier versions of the language, these were used attributively, but are rarely employed in modern Manx.[3]",
+          "examples": [
+            "Certain adjectives may be made plural by the addition of -ey to the singular form (ben veg \"little woman\", mraane veggey \"little women\"). In earlier versions of the language, these were used attributively, but are rarely employed in modern "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        },
+        {
+          "heading": "Degree of comparison",
+          "body": "Adjectives ending in -agh form their comparative/superlative form by replacing this with -ee, e.g. atçhimagh \"terrible\" becomes atçhimee, resulting in ny s'atçhimee \"more terrible\" and s'atçhimee \"most terrible\". As in Irish and Scottish Gaelic, the comparative-superlative is commonly marked by the copula verb s in the present and by in the past. The superlative is often shown by the word nys, from Middle Irish ní as \"thing that is\" (cf. Modern Irish níos, past ní ba).[6] A number of adjectives form their comparative/superlative irregularly.\n\nIrregular comparative/superlative forms of Manx adjectives\n\nPositive\n\nEnglish\n\nComparative/Superlative\n\naalin\n\nbeautiful\n\naaley\n\naashag\n\neasy\n\nassey\n\naeg\n\nyoung\n\naa\n\nard\n\nhigh\n\nyrjey\n\nbeg\n\nsmall\n\nloo\n\nbog\n\nsoft, moist\n\nbuiggey\n\nbwaagh\n\npretty\n\nbwaaie\n\nçheh\n\nhot\n\nçhoe\n\nçhionn\n\ntight, fast\n\nçhenney\n\nçhiu\n\nthick\n\nçhee\n\nfaggys\n\nnear\n\nniessey\n\nfoddey\n\nfar, long\n\nodjey\n\ngarroo\n\nrough\n\ngirroo\n\ngial\n\nbright, white\n\ngilley\n\ngiare\n\nshort\n\ngirrey\n\nlajer\n\nstrong\n\ntroshey\n\nleah\n\nsoon\n\nleaie\n\nlheann\n\nwide\n\nlea\n\nliauyr\n\nlong, tall\n\nlhiurey\n\nmie\n\ngood\n\nshare\n\nmoal\n\nslow\n\nmelley\n\nmooar\n\nlarge, big\n\nmoo\n\nolk\n\nbad, evil\n\nmessey\n\nreagh\n\nmerry, lively\n\nreaie\n\nroauyr\n\nfat, broad\n\nriurey\n\nshenn\n\nold\n\nshinney\n\nthanney\n\nthin\n\ntheinney\n\ntrome\n\nheavy\n\nthrimmey\n\nymmodee\n\nmany\n\nlee\n\nThe comparative/superlative can also be formed using smoo \"more\" with the positive form, e.g. s'thrimmey = smoo trome.[3]",
+          "examples": [
+            "Adjectives ending in -agh form their comparative/superlative form by replacing this with -ee, e.g. atçhimagh \"terrible\" becomes atçhimee, resulting in ny s'atçhimee \"more terrible\" and s'atçhimee \"most terrible\". As in Irish and Scottish Ga",
+            "The comparative/superlative can also be formed using smoo \"more\" with the positive form, e.g. s'thrimmey = smoo trome.[3]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Verbs",
+      "summary": "Manx verbs generally form their finite forms by means of periphrasis: inflected forms of the auxiliary verbs ve \"to be\" or jannoo \"to do\" are combined with the verbal noun of the main verb. Only the future, conditional, preterite and imperative can be formed directly by inflectin",
+      "sections": [
+        {
+          "heading": "Regular verbs",
+          "body": "Manx verbs generally form their finite forms by means of periphrasis: inflected forms of the auxiliary verbs ve \"to be\" or jannoo \"to do\" are combined with the verbal noun of the main verb. Only the future, conditional, preterite and imperative can be formed directly by inflecting the main verb, but even in these tenses, the periphrastic formation is more common in Late Spoken Manx.[7] An example using the forms of tilgey \"throwing\" is as follows.\n\nManx finite verb forms: tilgey \"throwing\"\n\nTense\n\nPeriphrastic form\n(literal translation)\n\nInflected form\n\nGloss\n\nPresent\n\nta mee tilgey\n(\"I am throwing\")\n\n–\n\n\"I throw\"\n\nImperfect\n\nva mee tilgey\n(\"I was throwing\")\n\n–\n\n\"I was throwing\"\n\nPerfect\n\nta mee er jilgey\n(\"I am after throwing\")[8]\n\n–\n\n\"I have thrown\"\n\nPluperfect\n\nva mee er jilgey\n(\"I was after throwing\")[8]\n\n–\n\n\"I had thrown\"\n\nPreterite\n\nren mee tilgey\n(\"I did throwing\")\n\nhilg mee\n\n\"I threw\"\n\nFuture\n\nneeym tilgey\n(\"I will do throwing\")\n\ntilgym\n\n\"I will throw\"\n\nConditional\n\nyinnin tilgey\n(\"I would do throwing\")\n\nhilgin\n\n\"I would throw\"\n\nImperative\n\njean tilgey\n(\"do throwing!\")\n\ntilg\n\n\"throw!\"\n\nPast participle\n\n–\n\ntilgit\n\n\"thrown\"\n\nThe future and conditional tenses (and in some irregular verbs, the preterite) make a distinction between \"independent\" and \"dependent\" forms. Independent forms are used when the verb is not preceded by any particle; dependent forms are used when a particle (e.g. cha \"not\") does precede the verb. For example, \"you will lose\" is caillee oo with the independent form caillee (\"will lose\"), while \"you will not lose\" is cha gaill oo with the dependent form caill (which has undergone eclipsis to gaill after cha). Similarly \"they went\" is hie ad with the independent form hie (\"went\"), while \"they did not go\" is cha jagh ad with the dependent form jagh.[9][10]\n\nThe fully inflected forms of the regular verb tilgey \"throwing\" are as follows. In addition to the forms below, a past participle may be formed using -it: tilgit \"thrown\".\n\nInflection of a regular Manx verb\n\nTense\n\nIndependent\n\nDependent\n\nRelative\n\nPreterite\n\nhilg\n\n(same as independent)\n\nFuture\n\ntilgym1, tilgmayd2, tilgee3\n\ndilgym1, dilgmayd2, dilgee3\n\ntilgys\n\nConditional\n\ntilgin1, tilgagh3\n\ndilgin1, dilgagh3\n\nImperative\n\ntilg\n\n(same as independent)\n\n^1 First person singular, making the use of a following subject pronoun redundant\n^2First person plural, making the use of a following subject pronoun redundant\n^3 Used with all other persons, meaning an accompanying subject must be stated, e.g. tilgee eh \"he will throw\", tilgee ad \"they will throw\"\nThere are a few peculiarities when a verb begins with a vowel, i.e. the addition of d' in the preterite and n' in the future and conditional dependent. Below is the conjugation of aase \"to grow\".\n\nInflection of a regular Manx verb beginning with a vowel\n\nTense\n\nIndependent\n\nDependent\n\nRelative\n\nPreterite\n\nd'aase1\n\n(same as independent)\n\nFuture\n\naasym, aasmayd, aasee\n\nn'aasym, n'aasmayd, n'aasee\n\naasys\n\nConditional\n\naasin, aasagh\n\nn'aasin, n'aasagh\n\nImperative\n\naase\n\n(same as independent)\n\n^1d' may also be spelt j when pronounced /dʲ/ [dʒ] i.e. before a slender vowel, e.g. \"ate\" can be either d'ee or jee.\nThese peculiarities extend to verbs beginning with f, e.g. faagail \"to leave\".\n\nInflection of a regular Manx verb beginning with f\n\nTense\n\nIndependent\n\nDependent\n\nRelative\n\nPreterite\n\nd'aag1\n\n(same as independent)\n\nFuture\n\nfaagym, faagmayd, faagee\n\nvaagym, vaagmayd, vaagee,\nn'aagym, n'aagmayd, n'aagee\n\naagys\n\nConditional\n\naagin, aagagh\n\nvaagin, vaagagh, n'aagin, n'aagagh\n\nImperative\n\nfaag\n\n(same as independent)\n\n^1Again, d' may also be spelt j where appropriate.",
+          "examples": [
+            "Manx verbs generally form their finite forms by means of periphrasis: inflected forms of the auxiliary verbs ve \"to be\" or jannoo \"to do\" are combined with the verbal noun of the main verb. Only the future, conditional, preterite and impera",
+            "Manx finite verb forms: tilgey \"throwing\"",
+            "(\"I am throwing\")",
+            "\"I throw\"",
+            "(\"I was throwing\")",
+            "\"I was throwing\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        },
+        {
+          "heading": "Irregular verbs",
+          "body": "A number of verbs are irregular in their inflection. \n\nInflected forms of irregular Manx verbs\n\nInfinitive\n\nPreterite\n\nFuture\n\nConditional\n\nImperative\n\nPast participle\n\nIndependent\n\nDependent\n\nIndependent\n\nDependent\n\nIndependent\n\nDependent\n\nçheet \"come\"\n\nhaink\n\ndaink\n\nhiggym, higmayd, hig\n\njiggym, jigmayd, jig\n\nharrin, harragh\n\ndarrin, darragh\n\ntar\n\nclashtyn \"hear\"\n\ncheayll\n\ngeayll\n\ncluinnyn, cluinnee, cluinmayd1\n\ngluinnyn, gluinnee, gluinmayd\n\nchluinnin, chluinnagh\n\ngluinnin, gluinnagh\n\nclasht\n\ncluinit\n\ncur \"put, give\"\n\nhug\n\ndug\n\nverrym, vermayd, ver\n\nderrym, dermayd, der\n\nverrin, verragh\n\nderrin, derragh\n\ncur\n\ncurrit\n\nfakin \"see\"\n\nhonnick\n\nvaik\n\nhee'm, hemayd, hee\n\nvaikym, vaikmyd, vaik\n\nheein, heeagh\n\nvaikin, vaikagh\n\njeeagh, cur-my-ner\n\nfaikinit\n\nfeddyn \"find\",\ngeddyn \"get\"\n\nhooar\n\ndooar\n\nyioym, yiowmayd, yiow\n\nvoym, vowmayd, vow\n\nyioin, yioghe\n\nvoin, voghe\n\nfow\n\nfeddinynt \"found\",\ngeddinynt \"given\"\n\ngoll \"go\"\n\nhie\n\njagh\n\nhem, hemmayd, hed\n\njem, jemmayd, jed\n\nraghin, ragh\n\n(same as independent)\n\ngow, immee\n\ngra \"say\"\n\ndooyrt\n\njirrym, jirmayd, jir\nabbyrym, abbyrmyd, abbyr\n\njirrym, jirmayd, jir\nniarrym, niarmayd, niar\nn'abbyrym, n'abbyrmyd, n'abbyr\n\nyiarrin, yiarragh\n\nniarrin, niarragh\n\nabbyr\n\ngrait\n\ngoaill \"take\"\n\nghow\n\ngoym, gowmayd, gowee2\n\ngoym, gowmayd, gow\n\nghoin, ghoghe\n\ngoin, goghe\n\ngow\n\ngoit\n\njean \"do\"\n\nren\n\nnee'm, neemayd, nee\n\njeanym, jeanmayd, jean\n\nyinnin, yinnagh\n\njinnin, jinnagh\n\njean\n\njeant\n\n^1Future relative: clinnys\n^2Future relative: gowee\nThe most common and most irregular verb in Manx is ve \"to be\", often used as an auxiliary verb. In addition to the usual inflected tenses, ve also has a present tense. The full conjugation of ve \"to be\" is as follows. Generally, the personal pronoun is used (ta mee \"I am\"), but the emphatic pronoun is also acceptable. For instance, row oo \"were you?\" is grammatically correct, but it is likely to be misheard in speech as row \"was\". As such, row uss is often used instead.[11]\n\nForms of verb ve \"to be\"\n\nForm\n\nIndependent\n\nDependent\n\nRelative\n\nPresent\n\nta\n\nvel, nel\n\n–\n\nPreterite\n\nva\n\nrow\n\n–\n\nFuture\n\nbee'm, beemayd, bee\n\n(same as independent)\n\nvees\n\nConditional\n\nveign, veagh\n\nbeign, beagh\n\n–\n\nImperative\n\nbee\n\n(same as independent)\n\n–",
+          "examples": [
+            "çheet \"come\"",
+            "clashtyn \"hear\"",
+            "cur \"put, give\"",
+            "fakin \"see\"",
+            "feddyn \"find\",",
+            "geddyn \"get\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Adverbs",
+      "summary": "Manx adverbs can be formed from adjectives by means of the word dy (from Middle Irish go \"with, until\"), e.g. mie \"good\" to dy mie \"well\", gennal \"cheerful\" to dy gennal \"cheerfully\". This dy is not used when preceded by such words as ro \"too\" and feer \"very\" or followed by dy li",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Manx adverbs can be formed from adjectives by means of the word dy (from Middle Irish go \"with, until\"), e.g. mie \"good\" to dy mie \"well\", gennal \"cheerful\" to dy gennal \"cheerfully\". This dy is not used when preceded by such words as ro \"too\" and feer \"very\" or followed by dy liooar \"enough\", e.g. feer vie \"very good, very well\", gennal dy liooar \"cheerful(ly) enough\". The prepositional phrase for \"home(wards)\" is formed with dy \"to\" and the noun balley \"place, town, homestead\" to give dy valley, while the noun thie \"house, home\" can be used unchanged as an adverb to convey the same meaning.[3]",
+          "examples": [
+            "Manx adverbs can be formed from adjectives by means of the word dy (from Middle Irish go \"with, until\"), e.g. mie \"good\" to dy mie \"well\", gennal \"cheerful\" to dy gennal \"cheerfully\". This dy is not used when preceded by such words as ro \"t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        },
+        {
+          "heading": "Adverbs of location and motion",
+          "body": "In common with its Goidelic sister languages, Manx has a number of adverbs corresponding to English \"up\" and \"down\", the meaning of which depend upon such things as motion or lack thereof and starting point in relation to the speaker.\n\nManx adverbs expressing \"up\" and \"down\"\n\nStationary\n\nMotion towards speaker\n\nMotion away from speaker\n\nabove\n\nheose\n\nneose\n\nseose\n\nbelow\n\nheese\n\nneese\n\nsheese\n\nExamples of practical usage are Ta dooinney heese y traid \"There's a man down the street\" and Ta mee goll sheese y traid \"I'm going down the street\", Jean drappal neese \"Climb up (towards me)\" and Jean drappal seose \"Climb up (away from me)\".\n\nLikewise, Manx possesses various other single words that distinguish between stationary location and direction or movement towards or away from the speaker, e.g. shiar \"to the east, eastwards\" and niar \"from the east\", sthie \"in, inside\" (location) and stiagh \"in, inside\" (direction), wass \"this side, here\", noon \"from this side, to the other side\" and noal \"over to this side, over to the other side\".[3]",
+          "examples": [
+            "In common with its Goidelic sister languages, Manx has a number of adverbs corresponding to English \"up\" and \"down\", the meaning of which depend upon such things as motion or lack thereof and starting point in relation to the speaker.",
+            "Manx adverbs expressing \"up\" and \"down\"",
+            "Examples of practical usage are Ta dooinney heese y traid \"There's a man down the street\" and Ta mee goll sheese y traid \"I'm going down the street\", Jean drappal neese \"Climb up (towards me)\" and Jean drappal seose \"Climb up (away from me)",
+            "Likewise, Manx possesses various other single words that distinguish between stationary location and direction or movement towards or away from the speaker, e.g. shiar \"to the east, eastwards\" and niar \"from the east\", sthie \"in, inside\" (l"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Pronouns",
+      "summary": "Technically, Manx has a T-V distinction where the second person singular pronoun oo is used to show familiarity while the second person plural shiu is used as a respectful singular as well as with plural referents. Because of the solidarity of the small speech community, however,",
+      "sections": [
+        {
+          "heading": "Personal",
+          "body": "Technically, Manx has a T-V distinction where the second person singular pronoun oo is used to show familiarity while the second person plural shiu is used as a respectful singular as well as with plural referents. Because of the solidarity of the small speech community, however, Manx speakers would automatically use oo when addressing another individual Manx speaker.[3]\n\nIn common with Irish and Scottish Gaelic, in addition to its regular personal pronouns, Manx has also a series used for emphasis. Under certain phonological circumstances, these can be used as unemphatic pronouns, e.g. \"you were not\" is cha row uss [xa ˈrau ʊs] as cha row oo [xa ˈrau u(ː)] sounds too similar to cha row [xa ˈrau] \"was not\".\n\nManx personal pronouns\n\nPerson\n\nRegular\n\nEmphatic\n\nFirst singular\n\nmee\n\nmish\n\nSecond singular\n\noo\n\nuss\n\nThird singular\n\nmasculine\n\neh\n\neshyn\n\nfeminine\n\nee\n\nish\n\nFirst plural\n\nshin\n\nshinyn\n\nSecond plural\n\nshiu\n\nshiuish\n\nThird plural\n\nad\n\nadsyn\n\nReflexive pronouns are formed with the addition of -hene, which can also indicate emphasis, e.g. mee-hene \"myself\", oo-hene \"yourself\".[3]",
+          "examples": [
+            "In common with Irish and Scottish Gaelic, in addition to its regular personal pronouns, Manx has also a series used for emphasis. Under certain phonological circumstances, these can be used as unemphatic pronouns, e.g. \"you were not\" is cha",
+            "Reflexive pronouns are formed with the addition of -hene, which can also indicate emphasis, e.g. mee-hene \"myself\", oo-hene \"yourself\".[3]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        },
+        {
+          "heading": "Interrogative",
+          "body": "Manx interrogative pronouns include quoi \"who?\", cre \"what?\" and c'red \"what?\".[3]",
+          "examples": [
+            "Manx interrogative pronouns include quoi \"who?\", cre \"what?\" and c'red \"what?\".[3]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        },
+        {
+          "heading": "Indefinite",
+          "body": "The Manx equivalent of English \"-ever\" or \"any-\" is erbee, e.g. quoi erbee \"whoever, anyone\". Ennagh is used like English \"some-\", e.g. peiagh ennagh \"someone\" (with peiagh \"person\").[3]",
+          "examples": [
+            "The Manx equivalent of English \"-ever\" or \"any-\" is erbee, e.g. quoi erbee \"whoever, anyone\". Ennagh is used like English \"some-\", e.g. peiagh ennagh \"someone\" (with peiagh \"person\").[3]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Determiners",
+      "summary": "A gender distinction is made in the third person singular by means of lenition following masculine e \"his, its\" and lack of lenition after feminine e \"her, its\".",
+      "sections": [
+        {
+          "heading": "Possessive",
+          "body": "A gender distinction is made in the third person singular by means of lenition following masculine e \"his, its\" and lack of lenition after feminine e \"her, its\".\n\nManx possessive determiners\n\nsingular\n\nplural\n\n1st person\n\nmy\n\nnyn\n\n2nd person\n\ndty\n\nnyn\n\n3rd person\n\nmasculine\n\ne\n\nnyn\n\nfeminine\n\ne\n\nAn alternative  to using the possessive pronouns is to precede a noun with the definite article and follow it with the inflected form of ec \"at\" to show the person, e.g. yn thie aym \"my house\" (literally \"the house at me\") instead of my hie \"my house\". This is especially useful in the plural, where all persons share one possessive pronoun, e.g. yn thie oc \"their house\", as opposed to nyn dhie \"our/your/their house\".\n\nPossessive determiners are used to indicate the object of a verbnoun, e.e. T'eh dy my akin \"He sees me\". E is dropped after the particle dy, although the mutation or lack thereof remains, and dy combines with nyn to give dyn, e.g. T'eh dy akin \"He sees him\", T'eh dy fakin \"He sees her\", T'eh dyn vakin \"He sees us/you/them\".[3]",
+          "examples": [
+            "A gender distinction is made in the third person singular by means of lenition following masculine e \"his, its\" and lack of lenition after feminine e \"her, its\".",
+            "An alternative  to using the possessive pronouns is to precede a noun with the definite article and follow it with the inflected form of ec \"at\" to show the person, e.g. yn thie aym \"my house\" (literally \"the house at me\") instead of my hie",
+            "Possessive determiners are used to indicate the object of a verbnoun, e.e. T'eh dy my akin \"He sees me\". E is dropped after the particle dy, although the mutation or lack thereof remains, and dy combines with nyn to give dyn, e.g. T'eh dy a"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Prepositions",
+      "summary": "Like the other Insular Celtic languages, Manx has so-called inflected prepositions, contractions of a preposition with a pronominal direct object, as the following common prepositions show. Note the sometimes identical form of the uninflected preposition and its third person sing",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Like the other Insular Celtic languages, Manx has so-called inflected prepositions, contractions of a preposition with a pronominal direct object, as the following common prepositions show. Note the sometimes identical form of the uninflected preposition and its third person singular masculine inflected form.\n\nConjugation of Manx prepositions using pronominal ending\n\nSingular\n\nPlural\n\n1st\nperson\n\n2nd\nperson\n\n3rd person\n\n1st\nperson\n\n2nd\nperson\n\n3rd\nperson\n\nmasc.\n\nfem.\n\nass\n\"out of\"\n\nassym\n\nassyd\n\nass\n\nassjee\n\nassdooin\n\nassdiu\n\nassdoo, assdaue\n\nayns\n\"in\"\n\naynym\n\naynyd\n\nayn\n\naynjee\n\nayn, ayndooin\n\nayndiu\n\nayndoo, ayndaue\n\nda\n\"to\"\n\ndou\n\ndhyt\n\nda\n\njee2\n\ndooin\n\ndiu\n\ndaue\n\ndys, gys1\n\"to\"\n\nhym\n\nhood\n\nhuggey\n\nhuic(k)\n\nhooin\n\nhiu\n\nhuc\n\nec\n\"at\"\n\naym\n\nayd\n\nechey\n\neck\n\nain\n\norroo\n\noc\n\ner\n\"on\"\n\norrym\n\nort\n\ner\n\nurree\n\norrin\n\nerriu\n\norroo\n\nfo\n\"under\"\n\nfoym\n\nfoyd\n\nfo\n\nfoee\n\nfoin\n\nfeue\n\nfoue\n\ngollrish\n\"like\"\n\ngollrym\n\ngollryt\n\ngollrish\n\ngollree\n\ngollrin\n\ngollriu\n\ngollroo\n\nharrish\n\"over\"\n\nharrym\n\nharryd\n\nharrish\n\nharree\n\nharrin\n\nharriu\n\nharroo, harrystoo\n\njeh\n\"of\"\n\njeem\n\njeed\n\njeh\n\nj'ee2\n\njin\n\njiu\n\njeu\n\nlesh\n\"with\"\n\nlhiam\n\nlhiat\n\nlesh\n\nlhee\n\nlhien\n\nlhiu\n\nlhieu\n\nmarish\n\"with\"3\n\nmarym\n\nmayrt\n\nmarish\n\nmaree\n\nmarin\n\nmeriu\n\nmaroo\n\nmysh\n\"about\"\n\nmoom\n\nmood\n\nmysh\n\nmooee\n\nmooin\n\nmiu\n\nmoo, mymboo\n\nrish\n\"to\"4\n\nrhym\n\nrhyt\n\nrish\n\nr'ee5\n\nrooin\n\nriu\n\nroo\n\nroish\n\"before\"\n\nroym\n\nroyd\n\nroish\n\nroee, rhymbee\n\nroin\n\nreue\n\nroue, rhymboo\n\nshaghey\n\"past\"\n\nshaghym\n\nshaghyd\n\nshaghey\n\nshaghee\n\nshaghin\n\nshaghiu\n\nshaghoo\n\nveih, voish\n\"from\"\n\nvoym\n\nvoyd\n\nvoish, veih\n\nvoee\n\nvoin\n\nveue\n\nvoue\n\n^1Dys is the usual word today. Gys is literary. This is also the inflection of hug \"to\".\n^2J'ee \"of her\" is distinguished from homophonous jee \"to her\" in spelling by means of an apostrophe.\n^3Sometimes, these forms, apart from mayrt are written with a circumflex over the first vowel, e.g. mârish, mêriu.\n^4Rish is equivalent to various different prepositions in English depending on context, e.g. clashtyn rish \"listen to\", caggey rish \"fight against\", rish tammylt \" for a while\".\n^5The spelling r'ee distinguishes it from the homophonic noun ree \"king\".\nIn addition to the above \"simple\" prepositions, Manx has a number of prepositional phrases based on a noun; being based on nouns, the possessive personal pronouns are used to refer to what would in English be pronominal prepositional objects. This also happens in English phrases such as \"for my sake\".[3]\n\nConjugation of Manx prepositional phrases using possessive pronouns\n\n1st person\nsingular\n\n2nd person\nsingular\n\n3rd person singular\n\nPlural\n\nmasc.\n\nfem.\n\nerskyn\n\"above\"\n\ner-my-skyn\n\ner-dty-skyn\n\ner-e-skyn\n\ner-e-skyn\n\ner-nyn-skyn\n\nmychione\n\"concerning\"\n\nmy-my-chione\n\nmy-dty-chione\n\nmy-e-chione\n\nmy-e-kione\n\nmy-nyn-gione\n\nson\n\"for the sake of\"\n\ner-my-hon\n\ner-dty-hon\n\ner-e-hon\n\ner-e-son\n\ner-nyn-son\n\nlurg\n\"after\"\n\nmy lurg\n\ndty lurg\n\ne lurg\n\ne lurg\n\nnyn lurg\n\nnoi\n\"against\"\n\nm'oi\n\ndt'oi\n\nn'oi\n\nny hoi\n\nnyn oi\n\ntrooid\n\"through\"\n\nmy hrooid\n\ndty hrooid\n\ne trooid\n\nurree\n\nnyn drooid\n\nAlternative conjugation patterns are sometimes found with these more complex prepositions using inflected prepositions, e.g. mychione aym for my-my-chione \"concerning me\", son ain \"for our sake\" instead of er-nyn-son \"for our/your/their sake\".[3]",
+          "examples": [
+            "\"out of\"",
+            "\"in\"",
+            "\"to\"",
+            "\"to\"",
+            "\"at\"",
+            "\"on\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Conjunctions",
+      "summary": "The main coordinating conjunctions in Manx are as \"and\", agh \"but\" and ny \"or\". Subordinating conjunctions include choud('s) \"while\", derrey \"until\", dy \"that; so that\", er-y-fa \"because\", ga dy/nagh \"although (affirmative/negative)\" and tra \"when\". My \"if\" introduces conditional",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The main coordinating conjunctions in Manx are as \"and\", agh \"but\" and ny \"or\". Subordinating conjunctions include choud('s) \"while\", derrey \"until\", dy \"that; so that\", er-y-fa \"because\", ga dy/nagh \"although (affirmative/negative)\" and tra \"when\". My \"if\" introduces conditional clauses as do myr \"as if\" and mannagh \"unless\".[3]",
+          "examples": [
+            "The main coordinating conjunctions in Manx are as \"and\", agh \"but\" and ny \"or\". Subordinating conjunctions include choud('s) \"while\", derrey \"until\", dy \"that; so that\", er-y-fa \"because\", ga dy/nagh \"although (affirmative/negative)\" and tr"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Numbers",
+      "summary": "Manx numbers are traditionally vigesimal, as seen below. Some speakers use a more modern decimal version of some numbers, in a similar way to Irish and Scottish Gaelic, for example, to simplify the teaching of arithmetic.[3]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Manx numbers are traditionally vigesimal, as seen below. Some speakers use a more modern decimal version of some numbers, in a similar way to Irish and Scottish Gaelic, for example, to simplify the teaching of arithmetic.[3]\n\nManx numbers\n\nValue\n\nCardinal\n\nOrdinal\n\nTraditional\n\nModern\n\n0\n\nneunhee, veg\n\n1\n\nun, nane1\n\nchied\n\n2\n\ndaa, jees1\n\nnah\n\n3\n\ntree\n\ntrass\n\n4\n\nkiare\n\nkiarroo\n\n5\n\nqueig\n\nqueigoo\n\n6\n\nshey\n\nsheyoo\n\n7\n\nshiaght\n\nshiaghtoo\n\n8\n\nhoght\n\nhoghtoo\n\n9\n\nnuy\n\nnuyoo\n\n10\n\njeih\n\njeihoo\n\n11\n\nnane jeig\n\nnane jeigoo\n\n12\n\ndaa yeig\n\ndaa yeigoo\n\n13\n\ntree jeig\n\ntrass jeig\n\n14\n\nkiare jeig\n\nkiarroo jeig\n\n15\n\nqueig jeig\n\nqueiggoo jeig\n\n16\n\nshey jeig\n\nsheyoo jeig\n\n17\n\nshiaght jeig\n\nshiaghtoo jeig\n\n18\n\nhoght jeig\n\nhoghtoo jeig\n\n19\n\nnuy jeig\n\nnuyoo jeig\n\n20\n\nfeedoo\n\nkiare\n\n21\n\nnane as feed\n\nfeed-nane\n\nchied as feed\n\n22\n\ndaa as feed\n\nfeed-jees\n\nnah as feed\n\n23\n\ntree as feed\n\nfeed-tree\n\ntrass as feed\n\n30\n\njeih as feed\n\ntreead\n\njeihoo as feed\n\n31\n\nnane jeig as feed\n\ntreead-nane\n\nchied jeig as feed\n\n32\n\ndaa yeig as feed\n\ntreead-jees\n\nnah jeig as feed\n\n33\n\ntree jeig as feed\n\ntreead-tree\n\ntrass jeig as feed\n\n40\n\ndaeed\n\nkiarad\n\ndaeedoo\n\n50\n\njeih as daeed, lieh cheead\n\nqueigad\n\njeihoo as daeed\n\n60\n\ntree feed\n\nsheyad\n\ntree feedoo\n\n70\n\ntree feed as jeih\n\nshiaghtad\n\ntree feedoo as jeih\n\n80\n\nkiare feed\n\nhoghtad\n\nkiare feedoo\n\n90\n\ntree feed as jeih\n\nnuyad\n\ntree feedoo as jeih\n\n100\n\nkeead\n\nkeeadoo\n\n1,000\n\njeih keead, milley, thousane\n\njeih cheeadoo, millioo, thousaneoo\n\n1,000,000\n\nmillioon\n\nmillioonoo\n\n^1Un and daa are used for counting objects (daa ghooinney \"two men\"). Nane and jees mean \"number one\" and \"number two\" in a more abstract, mathematical sense, and are used for phone numbers and arithmetic.",
+          "examples": [
+            "^1Un and daa are used for counting objects (daa ghooinney \"two men\"). Nane and jees mean \"number one\" and \"number two\" in a more abstract, mathematical sense, and are used for phone numbers and arithmetic."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manx_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,243 @@
+{
+  "title": "Grammar Book — ייִדיש",
+  "languageCode": "yi",
+  "languageName": "ייִדיש",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Yiddish_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Structure of the Yiddish language\nThis article includes a list of general references, but it lacks sufficient corresponding inline citations. Please help to improve this article by introducing more precise citations.  (November 2023) (Learn how and when to remove this message)\nYi",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Structure of the Yiddish language\nThis article includes a list of general references, but it lacks sufficient corresponding inline citations. Please help to improve this article by introducing more precise citations.  (November 2023) (Learn how and when to remove this message)\nYiddish grammar is the system of principles which govern the structure of the Yiddish language. This article describes the standard form laid out by YIVO while noting differences in significant dialects such as that of many contemporary Hasidim. As a Germanic language descended from Middle High German, Yiddish grammar is fairly similar to that of German, though it also has numerous linguistic innovations as well as grammatical features influenced by or borrowed from Hebrew, Aramaic, and various Slavic languages.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "Yiddish nouns are classified into one of three grammatical genders: masculine (זכר zokher), feminine (נקבֿה nekeyve) and neuter (נײטראַל neytral). To a large extent, the gender of a noun is unpredictable, though there are some regular patterns:",
+      "sections": [
+        {
+          "heading": "Gender",
+          "body": "Yiddish nouns are classified into one of three grammatical genders: masculine (זכר zokher), feminine (נקבֿה nekeyve) and neuter (נײטראַל neytral). To a large extent, the gender of a noun is unpredictable, though there are some regular patterns: \n\nnouns denoting specifically male humans and animals are usually masculine, and nouns denoting specifically female humans and animals are usually feminine\n\nnouns ending in an unstressed schwa are usually feminine\n\nnouns built on most of the common abstract noun suffixes, such as ־ונג -ung, ־קײט -keyt, and ־הײט -heyt, are feminine\n\ndiminutive nouns with the suffix ־ל -l or ־עלע -ele are neuter in the standard language\n\nGender assignment for new words and sporadic realignments of older ones are examples of the dynamic tendency observable for nouns that do not reflect an inherent sex. It designates nouns with vowel endings as feminine and those with consonant endings as masculine.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        },
+        {
+          "heading": "Case",
+          "body": "There are three grammatical cases in Yiddish: nominative, accusative and dative. The nominative case generally is used for the subject, the accusative for the direct object and the dative for an indirect object or object of a preposition. Nouns are normally not inflected for case, and case is indicated by the inflection of a related definite article or adjective. However, a handful of nouns do have inflectional endings to indicate the accusative and/or dative cases, which may be optional or obligatory, depending on the specific lexical item and dialect; examples of nouns that take obligatory case endings include certain kinship terms (טאַטע tate 'father', מאַמע mame 'mother'), the words ייִד yid 'Jew' and האַרץ harts 'heart'. In those cases, masculine nouns take the ending ן- -n in the accusative and dative singular, i.e. טאַטן tatn 'father', רבין rebn 'rabbi' or 'teacher'; feminine and neuter nouns take ן- -n only in the dative singular, where, for example, מאַמע mame becomes מאַמען mamen. Names of people are also inflected, i.e. משה Moyshe becomes משהן Moyshen and יאַנקל Yankl becomes יאַנקלען Yanklen. This also applies to names incorporating biblical titles, such as אליהו הנבֿיא Eliohu HaNovi 'Elijah the Prophet', which becomes אליהו הנבֿיאן Eliohu HaNovin. Both first and last names can be inflected on their own, but in cases where both names are together, only the surname is inflected.[2]\n\nYiddish does not have a genitive case per se. However, when the possessor is a human or occasionally other living beings, possession may be indicated with a suffixed ס- -s to the noun (like English possessive -'s) with any modifiers in the dative case. Otherwise, possession is normally indicated by the preposition פֿון fun 'of'.\n\nAnother genitive-like construction, the quantitative, is used to describe quantities of objects: אַ פֿול גלאָז הייסע טיי a ful gloz heyse tey (a full cup of hot tea); אַ גרופּע יונגע מענטשן a grupe yunge mentshn (a group of young people). The noun phrase representing the quantity is simply followed by noun representing the object described. This construction may not be used if the object has a definite article: אַ פֿול גלאָז מיט דער הײסער טײ a ful gloz mit der heyser tey (a full cup of the hot tea).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        },
+        {
+          "heading": "Plural",
+          "body": "There are two regular plural suffixes. For nouns ending in an unstressed vowel, the plural is regularly formed with the suffix -s; e.g., the plural of גרופּע grupe 'group' is גרופּעס grupes. For nouns ending in a consonant, the plural is regularly formed with -n; the plural of טיש tish 'table' is טישן tishn.\n\nA vast number of nouns use irregular plural forms, including -es (these are usually nouns of Slavic origin) and -er with a kind of apophony called Germanic umlaut (e.g., מאַן man 'man' → מענער mener 'men'; קינד kind 'child' → קינדער kinder 'children'), or umlaut alone (e.g., האַנט hant 'hand' → הענט hent 'hands'). Some words do not change in the plural (e.g., פֿיש fish 'fish'). Nouns built on the diminutive suffixes -l and -ele form the plural in -ekh (e.g., מײדל meydl 'girl' → מײדלעך meydlekh 'girls'), mirroring some German dialects in this regard.\n\nMost words of Hebrew origin use the Hebrew plural suffixes, either -im (e.g., ספֿר seyfer 'holy book' → ספֿרים sforim 'holy books') or -es (e.g., סוד sod 'secret' → סודות soydes 'secrets'). As these examples show, many plurals of Hebrew origin also involve an apophony of Hebrew origin. Not all words of Hebrew origin form their plurals in the same way they do in Hebrew: in particular, Hebrew feminine nouns ending in -ת tend to become masculine in Yiddish, and take the -im plural suffix, avoiding the uneuphonic ending *-ses: e.g. שבת shabes 'Shabbat' →  Yiddish שבתים‎ shabosim, not the expected *שבתות *shaboses.[3] This tendency also extends to cases when the Hebrew plural ends in -yes rather than -ses: e.g. תּכלית takhles 'purpose' → Hebrew תּכליות takhliyes, Yiddish תּכליתים takhleysim. Other words of Hebrew origin form a Germanic plural, e.g., קול kol 'voice' has the plural קולער keler, formed with the Germanic -er suffix and umlaut. Finally, there are a few words of non-Hebrew origin that take Hebrew plural suffixes, such as דאָקטער dokter 'doctor' → דאָקטוירים doktoyrim, פּױער poyer 'farmer' → פּױערים‎ poyerim.[3]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Articles",
+      "summary": "The definite article agrees in gender, number and case with the noun it is used with.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The definite article agrees in gender, number and case with the noun it is used with.\n\nYiddish definite article\n\nDefinite article (\"The\")\n\nSingular\n\nPlural\n\nMasculine\n\nNeuter\n\nFeminine\n\nNominative\n\nדער der\n\nדאָס dos\n\nדי di\n\nדי di\n\nAccusative\n\nדעם dem\n\nDative\n\nדעם dem\n\nדער der\n\nThe indefinite article is אַ a, which becomes אַן an before a word beginning with a vowel sound. Yiddish, like English, does not have a plural indefinite article.",
+          "examples": [
+            "Definite article (\"The\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "Attributive adjectives—that is, those that directly modify a noun—are inflected to agree with the gender, number and case of the noun they modify, while predicate adjectives remain uninflected. For example, one says דער גוטער מאַן der guter man 'the good man', but דער מאַן איז גו",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Attributive adjectives—that is, those that directly modify a noun—are inflected to agree with the gender, number and case of the noun they modify, while predicate adjectives remain uninflected. For example, one says דער גוטער מאַן der guter man 'the good man', but דער מאַן איז גוט Der man iz gut 'The man is good'. When an adjective is used absolutively—that is, to stand as the head of a noun phrase as if it were itself a noun—it is inflected as if it were followed by a noun: דער מאַן איז אַ גוטער Der man iz a guter 'The man is a good [one]'. Neuter singular adjectives are in some respects exceptional; in attributive position, they have no case ending unless their noun phrase is introduced by the definite article; in absolutive position, they use the distinctive suffix -s in the nominative and accusative cases.\n\nYiddish adjective declension\n\nגוט Gut \"good\"\n\nSingular\n\nPlural\n\nMasculine\n\nNeuter\n\nFeminine\n\nIndefinite\n\nDefinite\n\nAbsolutive\n\nNominative\n\nגוטער\nguter\n\nער- -er\n\nגוט\ngut\n\n-_\n\nגוטע\ngute\n\nע- -e\n\nגוטס\nguts\n\nס- -s\n\nגוטע\ngute\n\nע- -e\n\nגוטע\ngute\n\nע- -e\n\nAccusative\n\nגוטן\ngutn\n\nן- -n\n\nDative\n\nגוטן\ngutn\n\nן- -n\n\nגוטן\ngutn\n\nן- -n\n\nגוטן\ngutn\n\nן- -n\n\nגוטער\nguter\n\nער- -er\n\nThe ending -n becomes -en after an m, or a stressed vowel or diphthong; it becomes -em after n and, as an exception, in the adjective nay (new).[4] Yiddish is slightly simpler than German in that German -m and -n are both -n in Yiddish (or, in the case of the definite article, dem), and Yiddish does not have a genitive case. The \"definite\" and \"absolutive\" versions of the neuter gender are a relic of the strong vs. weak adjective endings of German (das gute Bier vs. gutes Bier).\n\nA class of pronominal adjectives, including אײן eyn 'one', קײן keyn 'none', and possessive pronouns such as מײַן mayn 'my, mine' and זײַן zayn 'his', display behavior opposite to that of ordinary adjectives: they are inflected for gender, number and case when used predicatively but not when used attributively. (Absolutively, they behave as normal adjectives).\n\nAdjectives normally precede the nouns, but they may follow the nouns as an absolutive construction for stylistic purposes: אַ שײנע פֿרױ a sheyne froy or אַ פֿרױ אַ שײנע a froy a sheyne ('a beautiful woman').",
+          "examples": [
+            "גוט Gut \"good\"",
+            "The ending -n becomes -en after an m, or a stressed vowel or diphthong; it becomes -em after n and, as an exception, in the adjective nay (new).[4] Yiddish is slightly simpler than German in that German -m and -n are both -n in Yiddish (or,"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Pronouns",
+      "summary": "Third person pronouns agree in gender with the noun they refer to. Thus, even inanimate objects should be referred to as er or zi if they are masculine or feminine. Neuter nouns receive es. A minority of speakers of the Northeastern dialect of Yiddish uses the dative forms of the",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Yiddish personal pronouns\n\nPersonal pronouns\n\n1st person\n\n2nd person\n\n3rd person\n\nSingular\n\nPlural\n\nSingular/ informal\n\nSingular formal/ Plural\n\nPlural informal\n\nSingular\n\nPlural\n\nStandard\n\nPolish[5]\n\nMasculine\n\nNeuter\n\nFeminine\n\nNominative\n\nאיך\nikh\n\nמיר\nmir\n\nדו\ndu\n\nאיר\nir\n\nעץ\nets\n\nער\ner\n\nעס\nes\n\nזי\nzi\n\nזײ\nzey\n\nAccusative\n\nמיך\nmikh\n\nאונדז\nundz\n\nדיך\ndikh\n\nאײַך\naykh\n\nענק\nenk\n\nאים\nim\n\nDative\n\nמיר\nmir\n\nדיר\ndir\n\nאים\nim\n\nאיר\nir\n\nThird person pronouns agree in gender with the noun they refer to. Thus, even inanimate objects should be referred to as er or zi if they are masculine or feminine. Neuter nouns receive es. A minority of speakers of the Northeastern dialect of Yiddish uses the dative forms of the single personal pronouns.[1] A T–V distinction, or the use of the 2nd plural form ir for a single addressee for reasons of respect, is archaic in YiVO Yiddish, but appears historically and in many colloquial varieties.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Verbs",
+      "summary": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (October 2022) (Learn how and when to remove this message)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (October 2022) (Learn how and when to remove this message)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        },
+        {
+          "heading": "Verb inflection",
+          "body": "Yiddish verbs are conjugated for person (first, second, and third) and number (singular and plural) in the present tense. In the imperative, they conjugate only for number. Nonfinite verb forms are the infinitive and the past participle.\n\nThe infinitive of a verb is formed with the suffix  ן- -n (which takes the form ען- -en in certain phonological contexts).[1] The imperative uses the base form of the verb with no affixes in the singular, and takes the suffix ט- -t in the plural. In the present tense, the first-person singular takes the base form of the verb; the other person/number combinations are regularly inflected according to the following table:\n\nYiddish present tense\n\nperson\nsingular\nplural\n\n1st\n–\nן-\n-n\n\n2nd\n\nסט-\n-st \n\nט-\n-t\n\nטס-\n-ts\n\n3rd\n\nט-\n-t \n\nן-\n-n\n\nA present participle, functioning as a derived adjective or adverb, is regularly constructed by adding the suffix דיק- -dik to the infinitive.\n\nPast participle\nThe past participle is used extensively in Yiddish. The majority of verbs (weak verbs) form the past participle by adding the prefix -גע ge- and the suffix ט- -t to the stem, e.g. געקויפֿט gekoyft 'bought'. However, strong verbs form the past participle with -גע ge- and ן- -n, usually accompanied by a vowel change, e. g. געהאָלפֿן geholfn 'helped' from the stem -העלפֿ helf- 'help'. The vowel change is unpredictable, and there is no way to tell from the infinitive whether a verb is weak or strong.\n\nThe prefix -גע ge- is omitted in past participles of verbs whose first syllable does not bear primary stress. There are two classes of verbs for which this happens: verbs with one of several unstressed stem prefixes, such as -פֿאַר far- or -באַ ba-; and verbs built on the stressed suffix יר- -ir, usually used for loanwords. Thus the past participles of פֿאַרקױפֿן farkoyfn 'to sell' and אַבאָנירן abonirn 'to subscribe' are, respectively, merely פֿאַרקױפֿט farkoyft and אַבאָנירט abonirt.\n\nSome participles vary between dialects and registers; for example, געװען geven is the usual past participle of זײַן zayn 'to be', but געװעזן gevezn (normally an adjective meaning 'former') may be used as the past participle in a \"Daytshmerish\" דײַטשמעריש (Standard German–imitating) register.[citation needed]\n\nExamples of conjugation\nThe table below shows the inflection of various Yiddish verbs. Most verbs are generally regular, with irregularities occurring predominantly in the past participle.\n\nYiddish verb inflection\n\nVerb inflection\n\nRegular verbs\n\nIrregular verbs\n\nקױפֿן Koyfn\n\nגעבן Gebn\n\nהאָבן Hobn\n\nטאָן Ton\n\nװעלן Veln\n\nוויסן Visn\n\nזײַן Zayn\n\nto buy\n\nto give\n\nto have\n\nto do\n\nto want\n\nfuture tense\n\nto know\n\nto be\n\nInfinitive\n\nקױפֿן koyfn\n\nן- -n\n\nגעבן gebn\n\nהאָבן hobn\n\nטאָן ton\n\nוועלן veln\n\nװיסן visn\n\nזײַן zayn\n\nPresent Participle\n\nקױפֿנדיק koyfndik\n\nנדיק- ndik\n\nגעבנדיק gebndik\n\nהאָבנדיק hobndik\n\nטוענדיק tuendik\n\nװעלנדיק velndik\n\nװיסנדיק visndik\n\nזײַענדיק zayendik\n\nPast Participle\n\nגעקױפֿט gekoyft\n\nגע- -ט ge -t\n\nגעגעבן gegebn\n\nגעהאַט gehat\n\nגעטאָן geton\n\nגעוואָלט gevolt\n\nגעװוּסט gevust\n\nגעװען geven\n\nPresent\n\nSingular\n\n1st person\n\nקױף koyf\n\n-_\n\nגיב gib\n\nהאָב hob\n\nטו tu\n\nװיל vil\n\nװעל vel\n\nװײס veys\n\nבין bin\n\n2nd person\n\nקױפֿסט koyfst\n\nסט- -st\n\nגיסט gist\n\nהאָסט host\n\nטוסט tust\n\nװילסט vilst\n\nװעסט vest\n\nװײסט veyst\n\nביסט bist\n\n3rd person\n\nקױפֿט koyft\n\nט- -t\n\nגיט git\n\nהאָט hot\n\nטוט tut\n\nװיל vil\n\nװעט vet\n\nװײס veys\n\nאיז iz\n\nPlural\n\n1st person\n\nקױפֿן koyfn\n\nן- -n\n\nגיבן gibn\n\nהאָבן hobn\n\nטוען tuen\n\nװילן viln\n\nװעלן veln\n\nװײסן veysn\n\nזענען zenen\n\n2nd person\n\nStandard\n\nקױפֿט koyft\n\nט- -t\n\nגיט git\n\nהאָט hot\n\nטוט tut\n\nװילט vilt\n\nװעט vet\n\nװײסט veyst\n\nזענט zent\n\nPolish[6]\n\nקויפֿטס koyfts\n\nטס- -ts\n\nגיטס gits\n\nהאָטס hots\n\nטוטס tuts\n\nװילטס vilts\n\nװעטס vets\n\nװײסטס veysts\n\nזענטס zents\n\n3rd person\n\nקױפֿן koyfn\n\nן- -n\n\nגיבן gibn\n\nהאָבן hobn\n\nטוען tuen\n\nװילן viln\n\nװעלן veln\n\nװײסן veysn\n\nזענען zenen\n\nImperative\n\nSingular\n\nקױף koyf\n\n-_\n\nגיב gib\n\nהאָב hob\n\nטו tu\n\nזײַ zay\n\nPlural\n\nStandard\n\nקױפֿט koyft\n\nט- -t\n\nגיט git\n\nהאָט hot\n\nטוט tut\n\nזײַט zayt\n\nPolish\n\nקױפֿטס koyfts\n\nטס- -ts\n\nגיטס gits\n\nהאָטס hots\n\nטוטס tuts\n\nזײַטס\n\nThe following table shows some additional irregular past participles:\n\nYiddish irregular past participles\n\nVerb\n\nPast participle\n\nNotes\n\nWord\n\nMeaning\n\nWord\n\nMeaning\n\nבלײַבן Blaybn\n\nto continue; to stay, remain\n\nגעבליבן geblibn\n\ncontinued, remaining\n\nברעכן Brekhn\n\nto break; to wring; to vomit\n\nגעבראָכן gebrokhn\n\nbroken\n\nברענגען Brengen\n\nto bring\n\nגעבראַכט gebrakht\n\nbrought\n\nRegular weak form געברענגט gebrengt also in use\n\nעסן Esn\n\nto eat\n\nגעגעסן gegesn\n\neaten\n\nגעלינגען Gelingen\n\nto succeed\n\nגעלונגען gelungen\n\nsucceeded\n\nGoes with the dative\n\nגעװינען Gevinen\n\nto win\n\nגעװוּנען gevunen\n\nwon\n\nגעװאָנען is also used.\n\nגײן Geyn\n\nto go, walk\n\nגעגאַנגען gegangen\n\ngone\n\nהײבן Heybn\n\nto lift, raise\n\nגעהױבן gehoybn\n\nlifted\n\nקלײַבן Klaybn\n\nto choose; to gather\n\nגעקליבן geklibn\n\nchosen, gathered\n\nלױפֿן Loyfn\n\nto run, hurry\n\nגעלאָפֿן gelofn\n\nran, hurried\n\nנעמען בײַ Nemen bay\n\nto get, take\n\nגענומען genumen\n\ntaken, gotten\n\nניסן Nisn\n\nto sneeze\n\nגענאָסן genosn\n\nsneezed\n\nרײַסן Raysn\n\nto rip, tear\n\nגעריסן gerisn\n\ntorn, ripped\n\nשענקען Shenken\n\nto give, grant\n\nגעשאָנקען geshonken\n\ngiven, granted\n\nשערן Shern\n\nto cut, shear\n\nגעשױרן geshoyrn, געשאָרן geshorn\n\nshorn\n\nשיסן Shisn\n\nto shoot\n\nגעשאָסן geshosn\n\nshot\n\nשלײַפֿן Shlayfn\n\nto hone, sharpen\n\nגעשליפֿען geshlifen\n\nhoned, sharpened\n\nשליסן Shlisn\n\nto close, lock\n\nגעשלאָסן geshlosn\n\nclosed, locked\n\nשמײַסן Shmaysn\n\nto whip, flog\n\nגעשמיסן geshmisn\n\nwhipped\n\nשמעלצן Shmeltzn\n\nto melt\n\nגעשמאָלצן geshmoltzn\n\nmelted, molten\n\nשפּײַען Shpayen\n\nto spit, spew\n\nגעשפּיגן geshpign\n\nspitten, spewn\n\nשרײַבן Shraybn\n\nto write\n\nגעשריבן geshribn\n\nwritten\n\nשטאַרבן Shtarbn\n\nto die\n\nגעשטאָרבן geshtorbn\n\ndead\n\nשטײן Shteyn\n\nto stand\n\nגעשטאַנען geshtanen\n\nstood\n\nשװימען Shvimen\n\nto swim\n\nגעשװוּמען geshvumen\n\nswum\n\nטרײַבן Traybn\n\nto drive\n\nגעטריבן getribn\n\ndriven\n\nציִען Tzien\n\nto pull\n\nגעצױגן getzoygn\n\npulled\n\nװערן Vern\n\nto become\n\nגעװאָרן gevorn\n\nbecame\n\nזינגען Zingen\n\nto sing\n\nגעזונגען gezungen\n\nsang\n\nזיצן Zitzn\n\nto sit\n\nגעזעסן gezesn\n\nsat\n\nגעזעצן gezetzn is also used.",
+          "examples": [
+            "Some participles vary between dialects and registers; for example, געװען geven is the usual past participle of זײַן zayn 'to be', but געװעזן gevezn (normally an adjective meaning 'former') may be used as the past participle in a \"Daytshmeri",
+            "Examples of conjugation"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        },
+        {
+          "heading": "Separable verbs",
+          "body": "Like German, Yiddish has a family of separable verbs. These are verb stems co-occurring with a particle that sometimes occurs as a prefix attached to the verb stem and sometimes as a separate word. The particle appears separate from the verb in the present tense, but is attached as a prefix in the infinitive and participle. For example, in אויסזאָגן oyszogn 'to reveal', the particle אױס oys is attached to the verb; but in the present tense זאָגט אױס zogt oys 'reveals', the particle appears as a separate word. In the past participle, the particle appears before the prefix ge-, as in אױסגעזאָגט oysgezogt 'revealed'.\n\nThe same grammatical structure of separable verbs is used for a class called \"periphrastic verbs\". In these, the uninflected particle, often a loanword from Hebrew, carries the main meaning, and it is accompanied by an inflected light verb. For example, in תּשובֿה טאָן tshuve ton 'repent', the word תּשובֿה tshuve is a Hebrew loanword meaning 'repentance', acting grammatically as a particle accompanying the verb טאָן ton 'do'.\n\nThe periphrastic-verb construction mechanism allows Yiddish to borrow many Hebrew verbs and verbal constructions. Present-participle forms of active Hebrew verbs are used as particles accompanying the light verb זײַן (zayn 'be'), while present participles of passive Hebrew verbs accompany the light verb װערן (vern 'become'):\n\nמסכּים זײַן (maskem zayn 'to agree')\n\nקונה־שם זײַן (koyne-shem zayn 'to gain popularity')\n\nנעלם װערן (nelm vern 'to disappear')\n\nזיך נתגלגל װערן (zikh nisgalgl vern 'to reincarnate')\n\nThe Hebrew verb paradigm nispoel (standard Hebrew nitpael), marginalized in Modern Hebrew due to its overlap with hitpael, is much more common in Yiddish.[7] Hence the word for \"to be impressed\" is נתפּעל װערן nispoel vern, as opposed to מתפּעל װערן as a Modern Hebrew speaker might expect.",
+          "examples": [
+            "The same grammatical structure of separable verbs is used for a class called \"periphrastic verbs\". In these, the uninflected particle, often a loanword from Hebrew, carries the main meaning, and it is accompanied by an inflected light verb.",
+            "The Hebrew verb paradigm nispoel (standard Hebrew nitpael), marginalized in Modern Hebrew due to its overlap with hitpael, is much more common in Yiddish.[7] Hence the word for \"to be impressed\" is נתפּעל װערן nispoel vern, as opposed to מת"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        },
+        {
+          "heading": "Auxiliary-verb constructions",
+          "body": "Like other varieties of High German and unlike literary German, Yiddish does not have the inflected past tense (preterite). Instead, the auxiliary verbs האָבן hobn 'to have' or זײַן zayn 'to be' are used with the past participle of the verb to construct the past tense. Most verbs take האָבן hobn; for example, the past tense of איך קױף ikh koyf 'I buy' is איך האָב געקױפֿט ikh hob gekoyft 'I bought'. About 30 intransitive verbs of motion or status and some of their derivatives take זײַן zayn; e.g., the past tense of איך קום ikh kum 'I come' is איך בין געקומען ikh bin gekumen 'I came'. Transitive derivatives of these exceptional verbs usually take  האָבן hobn: e.g., זײַן zayn is used with the intransitive גײן geyn 'go', but האָבן hobn is used with the derived transitive separable verb איבערגײן ibergeyn 'go across'.\n\nThe future tense in Yiddish is formed with a special auxiliary verb װעלן veln followed by the infinitive. As shown in the table above, its inflection is irregular.\n\nThe pluperfect is formed by adding the modifier געהאַט gehat (the past participle of האָבן hobn 'have') to the past tense: איך האָב געהאַט געזאָגט ikh hob gehat gezogt ('I had said'); איר זענט געהאַט געגאַנגען ir zent gehat gegangen (you had gone). The Future perfect tense is formed with the future tense auxiliary followed by the auxiliary verb האָבן and the participle of the verb: איך װעל האָבן געזאָגט ikh vel hobn gezogt (I will have said). These tenses are both very infrequent, especially in the spoken language. When the context makes the previousness of action clear, the ordinary past or future is used instead, and usually with an adverb such as שױן shoyn (already) or פֿריִער friër (earlier).\n\nThe auxiliary verb פֿלעגן (flegn), in combination with the infinitive (or participle, in some dialects), is used to form a habitual past aspect: for example, איך פֿלעג קומען ikh fleg kumen (I used to come).\n\nThe auxiliary װאָלט (volt), accompanying the past participle, is used to form a conditional mood: איך װאָלט געגאַנגען ikh volt gegangen 'I would have gone'.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        },
+        {
+          "heading": "Other aspectual constructions",
+          "body": "A \"momentaneous\" aspect, expressing a one-time action, an action done quickly, or an action done surprisingly, may be formed by the light verbs טאָן (ton, 'do') or געבן (gebn, 'give') followed by an indefinite article and the verb stem (identical to the first person singular form of most verbs), while superficially similar to something like English's 'have a look', the syntax is generally different between this aspect and an actual sentence with two objects.[8]\n\nFor example: איך האָב געגעבן אַ בוך דער מאַמען ikh hob gegebn a bukh der mamen ('I gave my mother a book'), which can be contrasted with איך האָב אַ קוק אָן געגעבן די מאַמע ikh hob a kuk on gegebn di mame ('I looked at my mother').\n\nVerb stems which have homophonous nouns, such as קוש kush ('kiss') may use the normal noun syntax and take adjectives. For example: די מאַמע האָט מיך געגעבן אַ קוש di mame hot mikh gegebn a kush ('My mom kissed me (once)')\n\nFurther examples: זי האָט אים אַ כאַפּ אָן געטאָן zi hot im a khap on geton ('she grabbed him [lit. she did him a grab on]'); מיר גיבן אַ שרײַ אויס mir gibn a shray oys ('we screamed out (at once) [lit. we give a scream out]').\n\nThe perfective aspect—indicating a completed action in the past or one whose completion is contemplated in the future—can be formed by adding a prefix or separable particle to many verbs. For example, the verb לײענען leyenen 'read' may be made perfective with the separable particle איבער iber or דורך durkh. Thus איך האָב געלייענט ikh hob geleyent means 'I read', 'I was reading'; while איך האָב איבערגעלייענט or איך האָב דורכגעלייענט ikh hob ibergeleyent / ikh hob durkhgeleyent means 'I read entirely', 'I read through'. Further examples:\n\nער װעט שרײַבן er vet shraybn 'he will write', 'he will do some writing'\n ער וועט אָנשרײַבן er vet onshraybn 'he will write completely', 'he will write up', 'he will get (something) written'\n\nמיר לערנען זיך פֿראַנצײזיש mir lernen zikh frantseyzish 'we are studying French', 'we are taking French' \nמיר ווילן זיך אויסלערנען פֿראַנצייזיש mir viln zikh oyslernen frantseyzish 'we want to learn French thoroughly'\n\nThe most common perfectivizing elements are the particles דורך ,איבער ,אָן ,אָפּ ,אױס (oys, op, on, iber, durkh) and the prefixes דער־ and צו־ (der-, tsu-), but there are no definitive rules for determining which of these are used with which verbs.\n\nVarious other aspects, generally paralleling the complex aspect system of the Slavic languages, are formed by auxiliary verbs or prefixes, sometimes combined with the reflexive particle זיך (zikh). Different aspects may be combined, if the logic of the sentence allows for it. Examples: איך פֿלעג געבן אַ שרײַב אָן ikh fleg gebn a shrayb on (I used to suddenly start and complete writing); זײ נעמען זיך צעלאַכן zey nemen zikh tselakhn (they start bursting into laughter).[9]",
+          "examples": [
+            "A \"momentaneous\" aspect, expressing a one-time action, an action done quickly, or an action done surprisingly, may be formed by the light verbs טאָן (ton, 'do') or געבן (gebn, 'give') followed by an indefinite article and the verb stem (ide"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Negation",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (October 2022) (Learn how and when to remove this message)\nThe negators are ניט nit and נישט nisht, which are only",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (October 2022) (Learn how and when to remove this message)\nThe negators are ניט nit and נישט nisht, which are only stressed when the emphasis is required.[4]\n\nUnder the scope of negation, indefinite noun phrases, singular or plural, use the negative article קײן keyn instead of the indefinite article אַ a or אַן an. Definite noun phrases under negation use the definite article as usual.\n\nYiddish allows and often requires double negation: קײנער איז דאָרטן נישט געװען keyner iz dortn nisht geven (literally: 'No one was not there') or איך האָב קײנעם נישט געזען ikh hob keynem nisht gezen (literally: 'I didn't see no one'). In colloquial speech even triple and multiple negations may occasionally be used: איך האָב נישט געװוּסט קײן גאָרנישט נישט ikh hob nisht gevust keyn gornisht nisht (literally: 'I have not known no nothing not').",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Diminutive and emphatic forms",
+      "summary": "Yiddish is rich in various emphatic and emotional forms, including several general diminutive, affectionate and emphatic suffixes may be added to Yiddish nouns and adjectives. Many other emotional suffixes are mainly used for personal names and for particular classes of nouns. Em",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Yiddish is rich in various emphatic and emotional forms, including several general diminutive, affectionate and emphatic suffixes may be added to Yiddish nouns and adjectives. Many other emotional suffixes are mainly used for personal names and for particular classes of nouns. Emphatic expression are also formed by reduplication of verbs, composite adjectives, various 'mood' particles and interjections.\n\nYiddish has two diminutive degrees.[10] The first degree is the regular diminutive. The second degree is a stronger, more affectionate diminutive. The second degree is also known as the iminutive.[11]\n\nIn order to form any diminutive, there sometimes needs to be a vowel shift (i-mutation/ i-umlaut).[10]  \n\nYiddish i-mutation\n\nStem vowel\n\nWord\n\nMeaning\n\nNormal\n\nUmlaut\n\nBase\n\nDiminutive\n\nIminutive\n\nאַ a\n\nע e\n\nקאַץ katz\n\nקעצל ketzl\n\nקעצעלע ketzele\n\nCat (kitten)\n\nאָ o\n\nע e\n\nלאָמפּ lomp\n\nלעמפּל lempl\n\nלעמפּעלע lempele\n\nLamp\n\nו u\n\nי i\n\nבוך bukh\n\nביכל bikhl\n\nביכעלע bikhele\n\nBook(let)\n\nױ oy\n\nײַ ay\n\nהױז hoyz\n\nהײַזל hayzl\n\nהײַזעלע hayzele\n\nHouse\n\nױ oy\n\nײ ey\n\nמױד moyd\n\nמײדל meydl\n\nמײדעלע meydele\n\nGirl\n\nThere are certain instances where only the plural can get any diminutive.\n\nקינדער, kinder (children) → קינדערלעך, kinderlekh[12] (children, diminutive).\n\nBesides the addition of -el and -ele, there are more ways to make a word be in the diminutive.[13] One way is by adding the ending טשיק-, or the Polish -czyk.\n\nיונגערמאַן, yungerman (young man) → יונגערמאַנטשיק, yungermanchik.[13]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Numerals",
+      "summary": "Number\n\nYiddish\n\nYIVO\n\nGerman\n\n0\n\nנול, זעראָ\n\nnul, zero\n\nnull\n\n1\n\nאײנס\n\neyns\n\neins\n\n2\n\nצװײ\n\ntsvey\n\nzwei\n\n3\n\nדרײַ\n\ndray\n\ndrei\n\n4\n\nפֿיר\n\nfir\n\nvier\n\n5\n\nפֿינף\n\nfinf\n\nfünf\n\n6\n\nזעקס\n\nzeks\n\nsechs\n\n7\n\nזיבן\n\nzibn\n\nsieben\n\n8\n\nאַכט\n\nakht\n\nacht\n\n9\n\nנײַן\n\nnayn\n\nneun\n\nNumber\n\nYiddish\n\nYIVO\n\nGe",
+      "sections": [
+        {
+          "heading": "Cardinal numbers",
+          "body": "Number\n\nYiddish\n\nYIVO\n\nGerman\n\n0\n\nנול, זעראָ\n\nnul, zero\n\nnull\n\n1\n\nאײנס\n\neyns\n\neins\n\n2\n\nצװײ\n\ntsvey\n\nzwei\n\n3\n\nדרײַ\n\ndray\n\ndrei\n\n4\n\nפֿיר\n\nfir\n\nvier\n\n5\n\nפֿינף\n\nfinf\n\nfünf\n\n6\n\nזעקס\n\nzeks\n\nsechs\n\n7\n\nזיבן\n\nzibn\n\nsieben\n\n8\n\nאַכט\n\nakht\n\nacht\n\n9\n\nנײַן\n\nnayn\n\nneun\n\nNumber\n\nYiddish\n\nYIVO\n\nGerman\n\n10\n\nצען\n\ntsen\n\nzehn\n\n11\n\nעלף, עלעף\n\nelf, elef\n\nelf\n\n12\n\nצװעלף, צװעלעף\n\ntsvelf, tsvelef\n\nzwölf\n\n13\n\nדרײַצן\n\ndraytsn\n\ndreizehn\n\n14\n\nפֿערצן\n\nfertsn\n\nvierzehn\n\n15\n\nפֿופֿצן\n\nfuftsen\n\nfünfzehn\n\n16\n\nזעכצן\n\nzekhtsn\n\nsechzehn\n\n17\n\nזיבעצן\n\nzibetsn\n\nsiebzehn\n\n18\n\nאַכצן\n\nakhtsn\n\nachtzehn\n\n19\n\nנײַנצן\n\nnayntsn\n\nneunzehn\n\nNumber\n\nYiddish\n\nYIVO\n\nGerman\n\n20\n\nצװאָנציק, צװאַנציק\n\ntsvontsik, tsvantsik\n\nzwanzig\n\n21\n\nאײן און צװאָנציק\n\neyn un tsvontsik\n\neinundzwanzig\n\n22\n\nצװײ און צװאָנציק\n\ntsvey un tsvontsik\n\nzweiundzwanzig\n\n30\n\nדרײַסיק\n\ndraysik\n\ndreißig\n\n40\n\nפֿערציק\n\nfertsik\n\nvierzig\n\n50\n\nפֿופֿציק\n\nfuftsik\n\nfünfzig\n\n60\n\nזעכציק\n\nzekhtsik\n\nsechzig\n\n70\n\nזיבעציק\n\nzibetsik\n\nsiebzig\n\n80\n\nאַכציק\n\nakhtsik\n\nachtzig\n\n90\n\nנײַנציק\n\nnayntsik\n\nneunzig\n\nNumber\n\nYiddish\n\nYIVO\n\nGerman\n\n12\n\nטוץ\n\ntuts\n\ndutzend\n\n144\n\nגראָס\n\ngros\n\ngros\n\n100\n\nהונדערט\n\nhundert\n\nhundert\n\n200\n\nצװײ הונדערט\n\ntsvey hundert\n\nzweihundert\n\nTsd.\n\nטױזנט\n\ntoyznt\n\ntausend\n\nMio.\n\nמיליאָן\n\nmilyon\n\nMillion",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        },
+        {
+          "heading": "Ordinal numbers",
+          "body": "Number\n\nYiddish\n\nYIVO\n\nGerman\n\n1st\n\nערשט\n\nersht\n\nerst\n\n2nd\n\nצװײט\n\ntsveyt\n\nzweit\n\n3rd\n\nדריט\n\ndrit\n\ndritt\n\n4th\n\nפֿערט, פֿערד\n\nfert, ferd\n\nviert\n\n5th\n\nפֿיפֿט\n\nfift\n\nfünft\n\n6th\n\nזעקסט\n\nzekst\n\nsechst\n\n7th\n\nזיבעט\n\nzibet\n\nsiebt\n\n8th\n\nאַכט\n\nakht\n\nacht\n\n9th\n\nנײַנט\n\nnaynt\n\nneunt\n\n10th\n\nצענט\n\ntsent\n\nzehnt\n\nNumber\n\nYiddish\n\nYIVO\n\nGerman\n\n11th\n\nעלעפֿט, עלפֿט\n\neleft, elft\n\nelft\n\n12th\n\nצװעלעפֿט, צװעלפֿט\n\ntsveleft, tsvelft\n\nzwölft\n\n13th\n\nדרײַצנט, דרײַצעט\n\ndraytsnt, draytset\n\ndreizehnt\n\n14th\n\nפֿערצנט, פֿערצעט\n\nfertsnt, fertset\n\nvierzehnt\n\n15th\n\nפֿופֿצנט, פֿופֿצעט\n\nfuftsnt, fuftset\n\nfünfzehnt\n\n16th\n\nזעכצנט, זעכצעט\n\nzekhtsnt, zekhtset\n\nsechzehnt\n\n17th\n\nזיבעצנט, זיבעצעט\n\nzibetsnt, zibetset\n\nsiebzehnt\n\n18th\n\nאַכטצנט, אַכטצעט\n\nakhtsnt, akhtset\n\nachtzehnt\n\n19th\n\nנײַנצנט, נײַנצעט\n\nnayntsnt, nayntset\n\nneunzehnt\n\n20th\n\nצװאָנציקסט, צװאַנציקסט\n\ntsvotsinkst, tsvantsikst\n\nzwanzigst\n\nNumber\n\nYiddish\n\nYIVO\n\nGerman\n\n21st\n\nאײן־און־צװאָנסיקסט\n\neyn un tsvontsikst\n\neinundzwanzigst\n\n30th\n\nדרײַסיקסט\n\ndraysikst\n\ndreißigst\n\n40th\n\nפֿערציקסט\n\nfertsikst\n\nvierzigst\n\n50th\n\nפֿופֿציקסט\n\nfuftsikst\n\nfünfzigst\n\n60th\n\nזעכציקסט\n\nzekhtsikst\n\nsechzigst\n\n70th\n\nזיבעציקסט\n\nzibetsikst\n\nsiebzigst\n\n80th\n\nאַכציקסט\n\nakhtsikst\n\nachzigst\n\n90th\n\nנײַנציקסט\n\nnayntsikst\n\nneunzigst\n\n100th\n\nהונדערטסט\n\nhundertst\n\nhundertst\n\n1000th\n\nטױזנטסט\n\ntoyzntst\n\ntausendst\n\nThe ordinals are adjectives, and as such are inflected to agree with the nouns they modify. For example: 'the first lady' is די ערשטע דאַמע (di ershte dame: since דאַמע dame 'lady' is feminine, the ordinal ערשט ersht takes the suffix -e to agree with it.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Syntax",
+      "summary": "Like most Germanic languages, Yiddish generally follows the V2 word order: the second constituent of any clause is a finite verb, regardless of whether the first constituent is the subject, an adverb, or another topicalized element. The V2 grammar of Yiddish differs from that of",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Like most Germanic languages, Yiddish generally follows the V2 word order: the second constituent of any clause is a finite verb, regardless of whether the first constituent is the subject, an adverb, or another topicalized element. The V2 grammar of Yiddish differs from that of German and other closely related languages, however: Yiddish uses V2 word order in subordinate clauses as well as main clauses, while in German only main clauses exhibit V2.[14]\n\nHowever, verb-initial word order may be used to indicate a causal or other close contextual relationship between consecutive sentences, with a meaning similar to English so.[15]\n\nIt is customary to use freer word order in Yiddish poetry.[citation needed]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Clitics",
+      "summary": "Optional contractions are commonly used in both spoken and literary Yiddish. Some auxiliary verbs and personal pronouns are often contracted, especially in colloquial speech. For example, the phrase ער האָט מיר געזאָגט er hot mir gezogt (he told me) may be contracted to ער׳ט מיר",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Optional contractions are commonly used in both spoken and literary Yiddish. Some auxiliary verbs and personal pronouns are often contracted, especially in colloquial speech. For example, the phrase ער האָט מיר געזאָגט er hot mir gezogt (he told me) may be contracted to ער׳ט מיר געזאָגט er't mir gezogt or ר׳האָט מיר געזאָגט r'hot mir gezogt with the auxiliary almost disappearing, while זאָלן מיר אים דערצײלן דאָס געהײמע װאָרט zoln mir im dertseyln dos geheyme vort (let's tell him the secret word) may be contracted to זאָל׳מיר׳ן דערצײלן ס׳געהײמע װאָרט zol'mir'n dertseyln s'geheyme vort. The last phrase is more characteristic for the Central (Polish) dialect.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Dialectal differences",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (December 2013) (Learn how and when to remove this message)\nThe Northern or so-called Lithuanian dialect of Yiddish",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (December 2013) (Learn how and when to remove this message)\nThe Northern or so-called Lithuanian dialect of Yiddish from the Baltic countries and Belarus is notable, among a number of other peculiarities, for its lack of the neuter gender and the simplified case system. Substantives which are neuter in standard literary Yiddish appear as masculine or feminine. Only two cases, nominative and accusative or oblique, exist in the Northern Yiddish, except for a few isolated remnants of the dative. The auxiliary verb האָבן hobn ('to have') may be used with any verb in the Northern Yiddish, including the cases when the literary Yiddish and other dialects require זײַן zayn ('to be').\n\nOther primary differences between the dialects are in the stressed vowels within the dialect, the differences in their morphology and grammar as well as the northern dialects are more conservative as mentioned above while southern dialects have preserved vowel distinctions.\n\nThe realization of stressed vowels is where the main phonetic distinctions across the different dialects are found. Long and short vowels are not separated in Yiddish. Stressed vowels are about the same length. Compared to their English equivalents, they are located closer to the peripheral locations of the cardinal vowels in the vocal tract.[4]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Yiddish_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

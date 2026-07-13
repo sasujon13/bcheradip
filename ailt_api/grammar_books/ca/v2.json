@@ -1,0 +1,613 @@
+{
+  "title": "Grammar Book — Català",
+  "languageCode": "ca",
+  "languageName": "Català",
+  "version": 2,
+  "sources": [
+    "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0",
+    "https://en.wikipedia.org/wiki/Catalan_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Chapter 1",
+      "summary": "La gramàtica del català és la ciència que estudia i descriu l'estructura de la llengua catalana.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "La gramàtica del català és la ciència que estudia i descriu l'estructura de la llengua catalana.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== Morfologia ==\nLa morfologia és la branca de la lingüística que estudia les regles que regeixen l'estructura interna dels mots.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== Morfologia nominal ===\nTant la flexió dels adjectius com la dels noms depenen de dues categories gramaticals: el gènere i el nombre, amb dos possibles valors cadascuna: masculí i femení, singular i plural, respectivament. Però, si bé els adjectius, els determinants i els quantificadors admeten variacions de gènere i nombre per raons de concordança amb el nom, aquest últim normalment té un gènere inherent i, en alguns casos, també un nombre inherent.\nDe les possibles combinacions entre els valors de gènere i de nombre, en sorgeix el paradigma flexiu adjectival:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Chapter 2",
+      "summary": "Pel que fa a la morfologia del pronoms, cal diferenciar entre pronoms tònics, o personals, i els àtons.\nEls primers tenen tres persones gramaticals que varien depenent del nombre i, algunes, del gènere, de la funció sintàctica, de les relacions socials (formes de tractament) i de",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Pel que fa a la morfologia del pronoms, cal diferenciar entre pronoms tònics, o personals, i els àtons.\nEls primers tenen tres persones gramaticals que varien depenent del nombre i, algunes, del gènere, de la funció sintàctica, de les relacions socials (formes de tractament) i de la varietat dialectal. El paradigma flexiu pronominal tònic és el següent:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "jo. 1a persona del singular.\nmi. 1a persona del singular, emprat darrere de preposició.\nnós. 1a persona del singular, forma arcaica emprada com a plural majestàtic.\ntu. 2a persona del singular.\nvós. 2a personal del singular, emprada en casos de diferència d'edat o de posició entre interlocutors o per expressar respecte.\nvostè. 2a persona del singular, emprat per adreçar-se a desconeguts o persones més grans o per expressar distància.\nell. 3a persona del singular masculí.\nella. 3a persona del singular femení.\nsi. 3a persona del singular, emprada en casos de reflexivitat i normalment substituïble per ell o ella. \nnosaltres. 1a persona del plural.\nvosaltres. 2a persona del plural.\nvostès. 2a persona del plural, plural de vostè, emprat en els mateixos casos que vostè, quan el receptor és més d'una persona.\nells. 3a persona del plural masculí.\nelles. 3a persona del plural femení.\nEls pronoms febles o àtons tenen un paradigma flexiu més elaborat, ja que varien depenent de la persona, el gènere, el nombre i la funció sintàctica, però també de la seva posició respecte al verb. Així doncs, un pronom feble que està davant del verb es diu que està en posició proclítica, mentre que un que hi està darrere, es diu que està en posició enclítica. A més, si un pronom està en situació proclítica i davant d'una consonant, es diu que la seva forma és reforçada, però, en canvi, si està davant d'una vocal, la seva forma és elidida; en posició enclítica, si el pronom està situat darrere d'una consonant (o d'una semivocal), es diu que té una forma plena, però, si està darrere d'un verb acabat en vocal, la seva forma és reduïda.\nEl diagrama I mostra totes les formes pronominals àtones. Els pronoms de la columna A s'usen quan el verb comença en consonant i els de la columna B quan el verb comença en vocal.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "A aquest quadre de pronoms, cal afegir-hi els pronoms en, ho i hi (forma plena). Tant ho com hi són invariables; en canvi, en varia depenent de la seva situació en relació amb el verb. Així, en posició proclítica en forma reforçada, es manté la forma plena en, mentre que en forma elidida, tenim n'. La seva forma plena en posició enclítica és -ne, mentre que la forma elidida en posició proclítica és 'n.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Chapter 3",
+      "summary": "==== Ordre i combinació dels pronoms febles ====\nLa fórmula general de combinació és:",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== Ordre i combinació dels pronoms febles ====\nLa fórmula general de combinació és:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "se + 2a p + 1a p + CI (3a p: li, els) + CD (3a p: el, la, els, les, ho) + adverbials (en, hi)\nSeguint l'ordre de la fórmula, sempre cap a la dreta, qualsevol combinació de dos o més pronoms és possible, exceptuant les combinacions: ho + en (* n'ho), o hi (* ho hi); i la repetició dels pronoms * en + en, * ho + ho o * hi + hi.\nEn la combinació de dos pronoms, l'apòstrof sempre es col·loca al més a la dreta possible:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "se't, se'ns, se'm, se'n, te'm, te'ls, te'l, te'n, etc.\nLes combinacions de el i la amb en s'escriuen l'en i la'n, respectivament:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Chapter 4",
+      "summary": "No puc traure-l'en (el meu fill, del col·legi)\nNo puc traure-la'n (la meua filla, del col·legi)\nVegeu: Combinació de dos pronoms febles",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "No puc traure-l'en (el meu fill, del col·legi)\nNo puc traure-la'n (la meua filla, del col·legi)\nVegeu: Combinació de dos pronoms febles",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== Morfologia verbal ===\nSegons la gramàtica tradicional, el verb és la paraula que expressa el procés o l'acció que el subjecte realitza o pateix, o bé l'existència o l'estat del subjecte, o la relació entre el predicat nominal i el subjecte.\nConsiderant el verb en si mateix hi podem distingir bàsicament:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "La conjugació: que és un conjunt ordenat de les formes que pot adoptar un verb en combinar-se l'arrel amb les desinències que donen lloc a les formes de cada paradigma. Els verbs es classifiquen en tres conjugacions segons la terminació de l'infinitiu:\nPrimera conjugació: acabats en -ar (cantar)\nSegona conjugació: acabats en -re (batre, coure), -er (haver, témer) o -r (dir, dur)\nTercera conjugació: acabats en -ir (sentir, patir)\nEl mode: és la categoria que expressa l'actitud que té el parlant respecte a allò que diu. Es distingeixen tres modes: indicatiu, subjuntiu i imperatiu.\nEl temps: és la categoria gramatical que situa cronològicament l'acció verbal en relació amb el moment en què es parla. El temps situa, bàsicament, els fets en el present, el passat o el futur.\nL'aspecte: és la categoria descriptiva del verb, relativa a la durada, al desenvolupament i a l'acompliment de l'acció descrita.\nLa persona: de la mateixa manera que els pronoms, els verbs varien depenent de la persona gramatical: primera, segona i tercera.\nEl nombre: els verbs, igual que la majoria de categories gramaticals, tenen formes en singular i en plural.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Chapter 5",
+      "summary": "==== Conjugació dels verbs ====\nEls verbs regulars segueixen la forma fonològica del radical i de les terminacions dels models de les conjugacions a què pertanyen; els verbs irregulars, en canvi, no les segueixen.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== Conjugació dels verbs ====\nEls verbs regulars segueixen la forma fonològica del radical i de les terminacions dels models de les conjugacions a què pertanyen; els verbs irregulars, en canvi, no les segueixen.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== Fonologia ==\nLa fonologia és la branca de la lingüística que estudia el valor funcional dels sons en les llengües i les seves alteracions sistemàtiques. Així, en català existeix un sistema vocàlic i un sistema consonàntic. Aquests dos sistemes diferencien els sons de la llengua en funció de tres factors: la sonoritat (sord/sonor), el punt d'articulació (bilabial, labiodental, dental, alveolar, palatal, velar i labiovelar) i el mode d'articulació (oclusiu, nasal, fricatiu, africat, aproximant, lateral, bategant i vibrant).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== Vocalisme ===\nEn català, el sistema vocàlic es compon de vuit vocals que es diferencien pels diferents graus d'obertura de la cavitat oral i pel punt d'articulació oral.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Chapter 6",
+      "summary": "El vocalisme àton del català varia depenent de la varietat dialectal. La neutralització, per exemple, és un tret fonològic característic de les varietats orientals:",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "El vocalisme àton del català varia depenent de la varietat dialectal. La neutralització, per exemple, és un tret fonològic característic de les varietats orientals:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "/a/, /e/, /ɛ/ → [ə]\n/o/, /ɔ/, /u/ → [u]\n/i/ → [i]\nEn alguns dialectes catalans, aquesta neutralització no es duu a terme seguint la regla general:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "/e/, /ɛ/ → [e]\n/o/, /ɔ/ → [o].\nLa neutralització de les vocals és pròpia de tots els parlars de la llengua catalana, però hi ha diferències en els sons resultants. També hi ha fenòmens de contacte vocàlics que alteren la realització fonètica dels conjunts vocàlics.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Chapter 7",
+      "summary": "=== Consonantisme ===\nEl sistema consonàntic del català no té gaires variacions dialectals, sinó que és un sistema força unitari:",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== Consonantisme ===\nEl sistema consonàntic del català no té gaires variacions dialectals, sinó que és un sistema força unitari:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "En el consonantisme també hi ha fenòmens de contacte consonàntics.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== Prosòdia ===\nL'accent fònic català només pot recaure en les tres últimes síl·labes del mot. Hi ha, doncs, paraules agudes, planes i esdrúixoles. Aquest accent fonètic, d'acord amb les normes d'accentuació catalanes, es pot convertir en un accent gràfic. També hi ha un accent fònic secundari en el radical de l'esquerra en paraules compostes, en les paraules derivades amb prefix tònic i en els adverbis formats amb el sufix -ment. A més, cal tenir en compte que el nucli sil·làbic català és una vocal, per la qual cosa l'accent del mot sempre cau sobre una vocal.\nGeneralment, la prosòdia oracional s'altera depenent de la modalitat oracional:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Chapter 8",
+      "summary": "Declaratives: to descendent\nInterrogatives: to ascendent (interrogatives totals) o descendent (interrogatives parcials)\nExclamatives i imperatives: to sostingut amb descens final abrupte.\nCompostes: to ascendent en el primer element i descendent en el segon.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "Declaratives: to descendent\nInterrogatives: to ascendent (interrogatives totals) o descendent (interrogatives parcials)\nExclamatives i imperatives: to sostingut amb descens final abrupte.\nCompostes: to ascendent en el primer element i descendent en el segon.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== Sintaxi ==\nLa sintaxi és la branca de la lingüística que estudia les relacions dels mots en una oració i les funcions que hi compleixen. Cal distingir entre categories i funcions. En primer lloc, les categories gramaticals caracteritzen les unitats lèxiques d'acord amb determinades propietats i es manifesten per mitjans lèxics, sintàctics o fonològics. La categoria és, per tant, quelcom inherent en el mot. Per exemple, el nom taula sempre és un nom, independentment de la seva posició dins l'oració. En segon lloc, la funció sintàctica fa referència a la relació gramatical que un element estableix amb uns altres elements d'una oració o d'un sintagma.\nLa l'estructura sintàctica catalana està composta per tot un seguit de sintagmes que giren al voltant del verb, un dels quals, que és un sintagma nominal, fa la funció sintàctica de subjecte. Els altres poden dur a terme les funcions de complements forts (Complement Directe, Complement Indirecte i Complement Preposicional) o bé, de Complements Circumstancials o adjunts.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== Concordança ===\nLa concordança és la relació d'un mot amb un altre del qual segueix les variacions pel que fa al gènere, al nombre i a la persona. La concordança (de persona i nombre) amb el verb és la prova sintàctica que permet identificar el subjecte d'una oració.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Chapter 9",
+      "summary": "=== Subjecte i predicat ===\nEl subjecte i el predicat són dues funcions gramaticals oracionals bàsiques de l'oració.\nEl subjecte està format per un sintagma nominal d'estructura i extensió variables que concorda en persona i nombre amb el nucli del predicat, el verb. Aquest últim",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== Subjecte i predicat ===\nEl subjecte i el predicat són dues funcions gramaticals oracionals bàsiques de l'oració.\nEl subjecte està format per un sintagma nominal d'estructura i extensió variables que concorda en persona i nombre amb el nucli del predicat, el verb. Aquest últim pot regir o no complements (complements forts) i pot portar circumstancials (anomenats també adjunts). En general, l'oració catalana té un subjecte (hi ha algunes excepcions) i un predicat, tots dos formats, com a mínim, per un nucli: un nom i un verb, respectivament. També pot portar adjunts oracionals.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== Tipus d'oracions ===\nLa sintaxi catalana inclou quatre tipus de frases, d'acord amb la seva estructura gramatical:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "Predicatives: tenen un subjecte, un verb i els complements d'ambdós. La Júlia va comprar una poma per a la seva mare. En Joan balla una cançó. \nAtributives: es formen amb un subjecte, un verb i un atribut. Aquestes estovalles són de fil. La biblioteca estava buida. La clau semblava rovellada. \nImpersonals: no admeten subjecte per restriccions semàntiques del verb; només tenen, per tant, un verb i els seus complements Neva. Plou molt.\nInacusatives: es formen mitjançant un verb i un sintagma nominal postverbal que fa una funció mixta de subjecte i complement directe. Avui s'han publicat tres notícies sobre terratrèmols.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Chapter 10",
+      "summary": "==== Ordre oracional ====\nL'ordre del subjecte i el predicat dins l'estructura oracional varia, en català, segons el tipus d'oració.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== Ordre oracional ====\nL'ordre del subjecte i el predicat dins l'estructura oracional varia, en català, segons el tipus d'oració.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "Predicatives: subjecte - verb - complements del verb\nAtributives: subjecte - verb - atribut\nImpersonals: verb - complements del verb\nInacusatives: verb - subjecte / complement directe",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== Oracions compostes ===\nTota oració que contingui més d'un verb és una oració composta. Hi ha dos tipus d'oracions compostes: les coordinades i les subordinades. En el primer cas, les dues oracions són oracions principals i estan al mateix nivell, superior, de l'estructura sintàctica. Són oracions que podrien construir-se autònomament (Jo vaig anar a comprar i la Maria va anar a classe). Aquestes oracions independents estan unides per un nexe que és el que expressa la relació entre ambdues (en l'exemple, el nexe és i i, per tant, tenim una oració copulativa).\nEn el segon cas, la subordinació, un dels predicats té una relació de dependència en relació amb l'oració principal. L'oració subordinada no té, doncs, autonomia, ja que forma part de l'oració principal (Vaig veure la noia que t'agradava). L'estructura d'una oració subordinada és la mateixa que la d'una oració principal. Un dels nexes subordinants més freqüents que.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Chapter 11",
+      "summary": "=== Pronoms febles ===\nLa riquesa del sistema de pronoms febles és una de les característiques sintàctiques més singulars del català. Aquesta riquesa s'ha relacionat sovint amb la possibilitat que té de modificar l'ordre no marcat de l'oració (descrit més amunt) per mitjà de tema",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== Pronoms febles ===\nLa riquesa del sistema de pronoms febles és una de les característiques sintàctiques més singulars del català. Aquesta riquesa s'ha relacionat sovint amb la possibilitat que té de modificar l'ordre no marcat de l'oració (descrit més amunt) per mitjà de tematitzacions, que permeten distribuir els elements més o menys informatius d'acord amb les motivacions pragmàtiques del parlant.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== Vegeu també ==\nEls numerals en català\nEls substantius numerals cardinals\nEls adjectius numerals ordinals",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        },
+        {
+          "heading": "Section 3",
+          "body": "== Enllaços externs ==\nGramàtica essencial de la llengua catalana, de l'IEC.\nGramàtica Bàsica de Parla Catalana.\nGramatica y apología de la llengua cathalana, per Josep Pau Ballot i Torres - Estampa de Joan Francesc Piferrer - Barcelona, 1814\nGramatica de la Lengua Catalana, per Antoni de Bofarull - Espasa Hermanos, Editores - Barcelona, 1867\nGramàtica Catalana, per Pompeu Fabra i Poch - Institut d'Estudis Catalans - Barcelona, 1933",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ca.wikipedia.org/wiki/Gram%C3%A0tica_del_catal%C3%A0"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Introduction",
+      "summary": "Morphology and syntax of Catalan\nCatalan / Valencian cultural domain Logo of the Institut d'Estudis Catalans and Acadèmia Valenciana de la Llengua\nHistory\nAndorra",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Morphology and syntax of Catalan\nCatalan / Valencian cultural domain Logo of the Institut d'Estudis Catalans and Acadèmia Valenciana de la Llengua\nHistory\nAndorra\n\nBalearic Islands\n\nCatalonia (timeline)\n\nRoussillon\n\nSardinia\n\nValencia\n\nCrown of Aragon\nPrincipality of Catalonia\n\nKingdom of Majorca\n\nKingdom of Valencia\n\nCatalan Republic\n\nCatalan constitutions\n\nFurs of Valencia\n\nTreaty of the Pyrenees\n\nNueva Planta\n\nPeople\nAlguerese\n\nAndorrans\n\nAragonese\n\nBalearics\nIbizans\n\nMallorcans\n\nMenorcans\n\nCatalans\n\nValencians\n\nLanguage\nHistory\n\nLiterature\n\nDialects and varieties\n\nGrammar\nPronunciation\nPhonetic history\n\nIPA guide\n\nSpelling-to-sound charts\n\nOrthography\nAlphabet\n\nBraille\n\nMorpho-syntax\nNouns\n\nPersonal pronouns\n\nVerbs (Conjugation)\n\nAcadèmia Valenciana de la Llengua (AVL)\n\nInstitut d'Estudis Catalans (IEC)\n\nInstitut and Fundació Ramon Llull (IRL & FRL)\n\nGeo-political divisions\nAndorra\n\nLa Franja\n\nBalearic Islands\nIbiza\n\nMallorca\n\nMenorca\n\nCatalonia\n\nEl Carxe\n\nPyrénées-Orientales (Northern Catalonia)\n\nL'Alguer\n\nValencia \n See Catalan Countries\n\nGovernment and politics\nAndorra\n\nAragon\n\nBalearic Islands\n\nCatalonia\n\nPyrénées-Orientales\n\nValencia \n See Catalan and Valencian nationalism, Catalan independence, Catalanophobia, Battle of Valencia\n\nTraditions and folklore\nMyths and legends\n\nTraditions\n\nCaganer\n\nCastells\n\nCorrefoc\n\nFalles\n\nFogueres de Sant Joan\n\nGegants i capgrossos\n\nMoros i cristians\n\nMuixeranga\n\nSaint George's Day\n\nTió de Nadal\n\nCuisine\nBalearic Islands\n\nCatalonia\n\nValencia\n\nCoca\n\nEnsaïmada\n\nPa amb tomàquet\n\nPaella\n\nArt\nCatalan art\n\nAntoni Gaudí\n\nAntoni Tàpies\n\nJoan Miró\n\nJoaquim Sorolla\n\nSalvador Dalí\n\nLiterature\nLiterature\nSegle d'or\n\nDecadència\n\nRenaixença\n\nModernisme\n\nNoucentisme\n\nMusic and performing arts\nMusic\nNova cançó\n\nRock català\n\nRumba catalana\n\nBall de bastons\n\nJotes\n\nSardana\n\nMedia\nCinema of Catalonia\n\nTelevision in Catalonia\n\nSportSport in Catalonia\n\nSymbols\nCatalonia\n\nFlags\nAndorra\n\nBalearic Islands\n\nCatalonia\n\nValencia\n\nBlasons\nAndorra\n\nBalearic Islands\n\nCatalonia\n\nValencia\n\nAnthems\nEl Gran Carlemany\n\nEls Segadors\n\nLa Balanguera\n\nHimne de l'Exposició\n\nDays\nCatalan Countries\n\nAndorra\n\nBalearic Islands\n\nCatalonia\n\nValencia\n\nv\nt\ne\n\nCatalan grammar, the morphology and syntax of the Catalan language, is similar to the grammar of most other Romance languages. Catalan is a relatively synthetic, fusional language.\n\nFeatures include:\n\nUse of definite and indefinite articles.[1]\n\nNouns, adjectives, pronouns and articles are inflected for gender (masculine and feminine) and number (singular and plural). The numerals 'one', 'two' and the numeral 'hundred' from two-hundred onwards are also inflected for gender.\n\nHighly inflected verbs, for person, number, tense, aspect, and mood (including a subjunctive).[1]\n\nWord order is freer than in English.[1]\n\nSome distinctive features of Catalan among Romance languages include the general lack of masculine markers (like Italian, Spanish, or Portuguese -o), a trait shared with French and Occitan; and the fact that the remote preterite tense of verbs is usually formed with a periphrasis consisting of the verb \"to go\" plus infinitive.",
+          "examples": [
+            "Some distinctive features of Catalan among Romance languages include the general lack of masculine markers (like Italian, Spanish, or Portuguese -o), a trait shared with French and Occitan; and the fact that the remote preterite tense of ve"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Articles",
+      "summary": "Catalan has two types of article, definite and indefinite. They are declined for gender and number, and must agree with the noun they qualify. As with other Romance languages, Catalan articles are subject to complex elision and contraction processes.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Catalan has two types of article, definite and indefinite. They are declined for gender and number, and must agree with the noun they qualify. As with other Romance languages, Catalan articles are subject to complex elision and contraction processes.\n\nThe inflection of articles is complex, especially because of frequent elision, but is similar to neighboring languages.[2] Catalan has more preposition–article contractions than Spanish, like dels (\"of + the [plural]\"), but fewer than Italian (which has sul, col, nel, etc.).[2]",
+          "examples": [
+            "The inflection of articles is complex, especially because of frequent elision, but is similar to neighboring languages.[2] Catalan has more preposition–article contractions than Spanish, like dels (\"of + the [plural]\"), but fewer than Itali"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Definite",
+          "body": "The tables below summarize the forms of the definite article, its elisions, and its contractions.\n\nDefinite article \n(elided forms in brackets)\n\nmasculine\nfeminine\n\nsingular\n\nel (l')\nla (l')\n\nplural\n\nels\nles\n\nContractions of the definite article\n\npreposition\n\na\nde\nper\n\narticle\nel\n\nal (a l')\ndel (de l')\npel (per l')\n\nels\n\nals\ndels\npels\n\nMasculine forms\nThe masculine singular form is el. The initial vowel is elided before a vowel or h, yielding to l'.[3]\n\nEl pare. L'avi.\n\"The father.\" \"The grandfather.\"\nEl is not elided if the word begins with semivocalic (h)i- [j].[3]\n\nEl iode. El hiat.\n\"The iodine.\" \"The hiatus\"\nThe masculine plural form is els. Both el and els combine with the prepositions a \"to\", de \"of\", and per \"for\", yielding the contractions al, als, del, dels, pel, pels.[3]\n\nHo dic al pare.\n\"I say it to the father.\" (\"I say it to my father\")\nAixò és del noi.\n\"This is of the boy.\" (\"This belongs to the boy\")\nCorria pels camins.\n\"I ran through the paths.\" (\"I ran along the paths\")\nEl does not contract with the aforementioned prepositions if the following word begins with vowel or h.[3]\n\nPorta-ho a l'avi.\n\"Bring this to the grandfather.\"\nBaixa de l'arbre.\n\"Get down from the tree.\"\nFeminine forms\nThe feminine singular form is la. The final vowel is elided before a vowel or h, yielding l'.[4]\n\nLa mare. L'àvia\n\"The mother.\" \"The grandmother\"\nLa is not contracted if the word begins with unstressed (h)i-, or (h)u-.[4]\n\nLa idea. La hipòtesi. La unitat. La humitat.\n\"The idea.\" \"The hypothesis.\" \"The unit.\" \"The humidity.\"\nLa is not elided with the words una \"one (hour)\", host \"hueste\", and ira \"wrath\"; as well as with words beginning with the Greek prefix a-, like asimetria \"asymmetry\".[4]\n\nThe feminine plural form is les.\n\nFeminine articles are not contracted with prepositions.[4]\n\nArticles for personal names\nForenames and surnames must carry a definite article. In addition to the ordinary singular forms, alternative forms derived from the Latin vocative domine can be used. The elision rules are the same for el and la.\n\nPersonal article\n(elided forms in brackets)\n\nmasculine\nfeminine\n\nen (n')\n\nna (n')\n\nEl Joan. L'Andreu. La Mercè. La Isabel. L'Olga.\nEn Joan. N'Andreu. Na Mercè. Na Isabel. N'Olga.\nDialectal variation\nIn Western Catalonia the dialectal versions lo and los are used instead of el and els.[3]\n\nIn some regions, especially in the Balearic islands, the definite article derives from the Latin determiner ipse. These forms are referred to as articles salats. Similar forms are found in Sardinian and some varieties of Occitan.\n\nBalearic definite article\n\nmasculine\nfeminine\n\nsingular\n\nes (s')\nsa (s')\n\nplural\n\nes, ets\nses\n\nBalearic definite article + amb (with)\n\nmasculine\nfeminine\n\nsingular\n\namb so\namb sa (amb s')\n\nplural\n\namb sos\namb ses",
+          "examples": [
+            "\"The father.\" \"The grandfather.\"",
+            "\"The iodine.\" \"The hiatus\"",
+            "The masculine plural form is els. Both el and els combine with the prepositions a \"to\", de \"of\", and per \"for\", yielding the contractions al, als, del, dels, pel, pels.[3]",
+            "\"I say it to the father.\" (\"I say it to my father\")",
+            "\"This is of the boy.\" (\"This belongs to the boy\")",
+            "\"I ran through the paths.\" (\"I ran along the paths\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Indefinite",
+          "body": "The table below summarize the forms of the indefinite article. Indefinite articles are not elided nor contracted.\n\nIndefinite article\n\nmasculine\nfeminine\n\nsingular\n\nun\nuna\n\nplural\n\nuns\nunes",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Overview of gender and number inflection",
+      "summary": "Most adjectives, and a fair number of nouns, inflect for gender. This usually follows a regular pattern of endings. The two main patterns are generally referred to as \"four-form\" and \"two-form\" adjectives. Four-form adjectives have distinct masculine and feminine forms, whereas t",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Most adjectives, and a fair number of nouns, inflect for gender. This usually follows a regular pattern of endings. The two main patterns are generally referred to as \"four-form\" and \"two-form\" adjectives. Four-form adjectives have distinct masculine and feminine forms, whereas two-form adjectives have the same form for both masculine and feminine. They are derived from the Latin first/second, and the third declension respectively. Many nouns follow the four-form inflection, but some may follow the two-form inflection. Some are irregular in some way.\n\nFour-form adjective\nverd (\"green\")\n\nmasculine\nfeminine\n\nsingular\n\nverd\nverda\n\nplural\n\nverds\nverdes\n\nTwo-form adjective\nindiferent (\"indifferent\")\n\nmasculine\nfeminine\n\nsingular\n\nindiferent\n\nplural\n\nindiferents\n\nSimilar to French, but unlike Portuguese, Spanish or Italian, the Latin/Romance final -o and -e have disappeared. Thus, the alternance of -o/-a in the four-form words has been substituted by -/-a.[5] There are only a few exceptions, like minso/minsa (\"scarce\").[5]\n\nAmong nouns, Catalan has few suppletive couplets, like Italian and Spanish, and unlike French. Thus, Catalan has noi/noia (\"boy\"/\"girl\") and gall/gallina (\"cock\"/\"chicken\"), whereas French has garçon/fille and coq/poule. [5]\n\nThere is a tendency to inflect adjectives as four-form instead of two-form, something that is prevalent in Occitan and standard in French. Thus, alongside traditional two-form bullent/bullent (\"boiling\"), one can also find four-form bullent/bullenta.[5]",
+          "examples": [
+            "Most adjectives, and a fair number of nouns, inflect for gender. This usually follows a regular pattern of endings. The two main patterns are generally referred to as \"four-form\" and \"two-form\" adjectives. Four-form adjectives have distinct",
+            "verd (\"green\")",
+            "indiferent (\"indifferent\")",
+            "Similar to French, but unlike Portuguese, Spanish or Italian, the Latin/Romance final -o and -e have disappeared. Thus, the alternance of -o/-a in the four-form words has been substituted by -/-a.[5] There are only a few exceptions, like mi",
+            "Among nouns, Catalan has few suppletive couplets, like Italian and Spanish, and unlike French. Thus, Catalan has noi/noia (\"boy\"/\"girl\") and gall/gallina (\"cock\"/\"chicken\"), whereas French has garçon/fille and coq/poule. [5]",
+            "There is a tendency to inflect adjectives as four-form instead of two-form, something that is prevalent in Occitan and standard in French. Thus, alongside traditional two-form bullent/bullent (\"boiling\"), one can also find four-form bullent"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Variants",
+          "body": "Many not completely predictable morphological alternations may occur between masculine and feminine, like:[5]\n\nAffrication: boig/boja (\"insane\") vs. lleig/lletja (\"ugly\")\n\nLoss of n: pla/plana (\"flat\") vs. segon/segona (\"second\")\n\nFinal obstruent devoicing: sentit/sentida (\"felt\") vs. dit/dita (\"said\") vs. fred/freda (\"cold\")\n\nIn words that end in a sibilant sound, the masculine plural ending is -os instead of just -s. Feminines still have -es or, if they follow the two-form declension, no ending at all. Compare: el pols/els polsos (\"the pulse\"/\"the pulses\") vs. la pols/les pols (\"the dust\"/\"the dusts\").[6]\n\nAdjectives that end in -aç, -iç, or -oç follow the two-form declension in the singular, but four-form in the plural, so that they actually have three forms:\n\nAdjective in -aç, -iç, or -oç \nfeliç (\"happy\")\n\nmasculine\nfeminine\n\nsingular\n\nfeliç\n\nplural\n\nfeliços\nfelices",
+          "examples": [
+            "Affrication: boig/boja (\"insane\") vs. lleig/lletja (\"ugly\")",
+            "Loss of n: pla/plana (\"flat\") vs. segon/segona (\"second\")",
+            "Final obstruent devoicing: sentit/sentida (\"felt\") vs. dit/dita (\"said\") vs. fred/freda (\"cold\")",
+            "In words that end in a sibilant sound, the masculine plural ending is -os instead of just -s. Feminines still have -es or, if they follow the two-form declension, no ending at all. Compare: el pols/els polsos (\"the pulse\"/\"the pulses\") vs. ",
+            "feliç (\"happy\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Nouns",
+      "summary": "Main article: Catalan nouns\nCatalan nouns are inflected for gender (masculine or feminine), and number (singular or plural). There is no case inflection. Articles and adjectives agree in gender and number with the noun they refer to.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Catalan nouns\nCatalan nouns are inflected for gender (masculine or feminine), and number (singular or plural). There is no case inflection. Articles and adjectives agree in gender and number with the noun they refer to.\n\nUsually, masculine nouns are unmarked, feminine nouns carry the suffix -a; and the plural is marked with the suffix -s, which makes the feminine ending turn into -e-. Thus, the most common declension paradigm for Catalan names is the one that follows:\n\nExample: \n declension of gat \"cat\"\n\nmasculine\nfeminine\n\nsingular\n\ngat\ngata\n\nplural\n\ngats\ngates",
+          "examples": [
+            "Example:",
+            "declension of gat \"cat\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Gender inflection",
+          "body": "The grammatical gender of a Catalan noun does not necessarily correspond with the real-life object's biological sex (or lack thereof). Nouns denoting a person, such as home \"man\" or dona \"woman\", generally agree with the natural gender of what is described. However, Catalan assigns gender to nouns without natural gender in arbitrary fashion. For example, the word tamboret (\"stool\") is masculine, while the word cadira (\"chair\") is feminine.\n\nLiving beings with distinct masculine and feminine forms\nLiving beings of the same species usually are designed by two nouns: one of masculine grammatical gender for biologically male individuals, and one of feminine grammatical gender for biologically female individuals. Both names, masculine and feminine, are usually only differentiated by their ending; sometimes the second is derived from the first or vice versa. Rarely, both come from different roots.[7]\n\nFormation of the feminine form from the masculine\nMost times the feminine form is created by appending the suffix -a to the unmarked masculine form.[7]\n\nNoi → noia. Avi → àvia.\n\"Boy – girl.\" \"Grandfather – grandmother.\"\nIf the masculine form ends in -t, -p, -f, -s, the addition of the feminine suffix -a may cause these consonants to become voiced to -d-, -b-, -v-, -s-; or not. There are no rules to deduce the change.[7]\n\nbecomes voiced\nremains unvoiced\n\nchange\nmasculine\nfeminine\ngloss\nmasculine\nfeminine\ngloss\n\n⟨-t⟩ → ⟨-d-⟩\n/t/ → /ð/\nnebot\nneboda\n\"nephew – niece\"\nnét\nneta\n\"grandson – granddaughter\"\n\n⟨-p⟩ → ⟨-b-⟩\n/p/ → /β/\nllop\nlloba\n\"wolf\"\n\n⟨-f⟩ → ⟨-v-⟩\n/f/ → /v~β/\nserf\nserva\n\"serf\"\n\n⟨-s⟩ → ⟨-s-⟩\n/s/ → /z/\nespòs\nesposa\n\"husband – wife\"\ngos\ngossa\n\"dog – bitch\"\n\nIf the masculine form ends in a stressed vowel, the feminine is created by appending the suffix -na.[7]\n\nGermà → germana\n\"Brother – sister.\"\nSometimes the feminine form is created by appending the suffix -essa to the unmarked masculine form.[7]\n\nSacerdot → sacerdotessa.\n\"Priest – priestess.\"\nFormation of the masculine form from the feminine\nSometimes the masculine form is created from the feminine by changing the suffix a for -ot.[8]\n\nBruixot ← bruixa.\n\"Sorcerer — witch.\"\nLiving beings with indistinct masculine and feminine forms\nSometimes a single noun is used to designate both masculine and feminine beings. To specify the biological gender of the being, the adjectives mascle \"male\", and femella \"female\" are used.[8]\n\nEl rossinyol. El rossinyol mascle. El rossinyol femella.\n\" The nightingale.\" \"The male nightingale.\" \"The female nightingale\"\nObjects, abstract concepts\nSince objects and abstract concepts have no biological gender, all of them only have one form. The gender of inanimate nouns is assigned arbitrarily. Sometimes the choice may seem contradictory.\n\nLa virilitat (f).\n\"The manliness.\"\nSometimes synonymous words may have different genders.\n\n El televisor (m) – la televisió (f). L'argent (m) – la plata (f)\n\"The TV.\" \"The silver.\"\nHomophonous words with different genders\nSome homonymous words may have different genders according to their meaning.[8]\n\nEl clau (m) – la clau (f)\n\"The nail – the key.\"",
+          "examples": [
+            "The grammatical gender of a Catalan noun does not necessarily correspond with the real-life object's biological sex (or lack thereof). Nouns denoting a person, such as home \"man\" or dona \"woman\", generally agree with the natural gender of w",
+            "\"Boy – girl.\" \"Grandfather – grandmother.\"",
+            "\"nephew – niece\"",
+            "\"grandson – granddaughter\"",
+            "\"wolf\"",
+            "\"serf\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Number inflection",
+          "body": "Like all the Western Romance languages, the formation of the plural involves the addition of the suffix -s to the singular. However, the stem may undergo some changes. The number inflection of adjectives follows the same rules.[9]\n\nMost times the plural form is created by appending the suffix -s to the singular form.[10]\nPare → pares. Avi → avis.\n\"Father – fathers.\" \"Grandfather – grandfathers.\"\n\nIf the singular ends in -a, the plural is usually formed with -es. Most of these nouns are feminine, but some are masculine.[10]\nCasa → cases (f). Problema → problemes (m).\n\"House – houses.\" \"Problem – problems\"\nHowever, if the singular ends in -ga, -ca, -gua, -qua, -ça, -ja, the plural is formed by -gues, -ques, -gües, -qües, -ces, -ges. This is done for orthographical reasons, and stem pronunciation remains identical in the singular and plural.[10]\n\nsound\n\ntransformation\n\nsingular \n (stem underlined)\n\nplural \n (stem underlined)\n\nIPA\ntranscription\n\ngloss\n\n/ɣ/\n⟨g⟩ → ⟨gu⟩\n\nfarga\nfargues\n/ˈfaɾɡə/, /ˈfaɾɡəs/\n/ˈfaɾɡa/, /ˈfaɾɡes/\n\"forge(s)\"\n\n/k/\n⟨c⟩ → ⟨qu⟩\n\noca\noques\n/ˈɔkə/, /ˈɔkəs/\n/ˈɔka/, /ˈɔkes/\n\"goose – geese\"\n\n/ɣw/\n⟨gu⟩ → ⟨gü⟩\n\nllengua\nllengües\n/ˈʎeŋɡwə/, /ˈʎeŋɡwəs/\n/ˈʎeŋɡwa/, /ˈʎeŋɡwes/\n\"tongue(s)\"\n\n/kw/\n⟨qu⟩ → ⟨qü⟩\n\npasqua\npasqües\n/ˈpaskwə/, /ˈpaskwəs/\n/ˈpaskwa/, /ˈpaskwes/\n\"Easter(s)\"\n\n/s/\n⟨ç⟩ → ⟨c⟩\n\nplaça\nplaces\n/ˈplasə/, /ˈplasəs/\n/ˈplasa/, /ˈplases/\n\"square(s)\"\n\n/ʒ/\n/d͡ʒ/\n⟨j⟩ → ⟨g⟩\n\npluja\npluges\n/ˈpluʒə/, /ˈpluʒəs/\n /ˈplud͡ʒa/, /ˈplud͡ʒes/\n\"rain(s)\"\n\n/d͡ʒ/\n/d͡ʒː/\n\nplatja\nplatges\n/ˈplad͡ʒə/, /ˈplad͡ʒəs/\n/ˈplad͡ːʒa/, /ˈplad͡ːʒes/\n\"beach(es)\"\n\nIf the singular form ends in a stressed vowel, the plural is usually created by appending the suffix -ns.[10]\nPa → pans (m). Capità → capitans (m). Acció → accions (f).\n\"Bread – breads.\" \"Captain – captains.\" \"Action – actions.\"\nHowever, some words ending in a stressed vowel form their plural in -s.[10] Many of them are relatively recent loanwords not directly inherited from late Latin.\nSofà → sofàs. Bambú → bambús.\n\"Sofa – sofas.\" \"Bamboo – bamboos.\"\n\nA few nouns ending in unstressed -e can also form their plural alternatively in -ns. It is considered archaic or dialectal.[11]\nHome → homes or hòmens. Orfe → orfes or òrfens\n\"Man – men.\" \"Orphan – orphans.\"\n\nMany masculine nouns ending in -s, ç form their plural with -os. -s- becomes voiced in the plural, but -ç- remains unvoiced.[11]\nGas → gasos /ˈgas – ˈgazus ~ ˈgazos/. Braç → braços /ˈbɾas – ˈbɾasus ~ ˈbɾasos/.\n\"Gas – gases.\" \"Arm – arms.\"\nIn some masculine nouns ending in -s, this remains unvoiced when adding -os, and thus becomes -ss-:[12]\nMost polysyllabic masculine words ending in -às, -ís, ús.\nFracàs → fracassos. Pastís → pastissos. Barnús → barnussos\n\"Failure – failures.\" \"Cake – cakes.\" \"Bathrobe – bathrobes\"\n\nMost masculine words ending in -os, -ós, òs.\nGos → gossos. Arròs → arrossos. Os → ossos.\n\"Dog – dogs.\" \"Rice – rices.\" \"Bear – bears\". (also \"Bone – bones\").\n\nMasculine paroxytone and proparoxytone nouns ending in -s are invariable.[13]\nLlapis → llapis. Òmnibus – òmnibus\n\"Pencil – pencils.\" \"Omnibus – omnibuses.\"\n\nFeminine nouns ending in an s-like sound (-s, -ç, -x, -z) have a plural that is pronounced the same as the singular. If the noun ends in -s, no ending is added.[13] Otherwise, an unpronounced -s is added.[11]\nPols → pols.\n\"Dust – dusts.\"\nCalç → calçs /ˈkals/.\n\"Lime – limes.\"\n\nNouns ending in -x pronounced /ks/ form plurals according to word stress. If the noun is stressed on the last syllable, the plural suffix is -os. Otherwise, the ending is -s and the plural form is homophonous with the singular.[13]\nReflex → reflexos /rəˈflɛksus ~ reˈflɛksos/. Índex → índexs /ˈindəks ~ ˈindeks/.\n\"Reflection – reflections.\" \"Index – indexes.\"\n\nNouns ending in -x pronounced /ʃ/ form their plural with -os.\nCalaix → calaixos.\n\"Drawer – drawers.\"\n\nNouns ending in -ig (/tʃ/) can form their plural in two ways, both acceptable:[13]\nAdding -s. Both forms will be homophonous. This is the preferred form in normative grammars, not so in general spoken use.\nFaig → faigs /ˈfatʃ/. Passeig → passeigs /pəˈsɛtʃ ~ paˈsetʃ/.\n\nReplacing -ig with jos or tjos. There are no rules to deduce which is to be used.\nFaig → fajos /ˈfat͡ʃ – ˈfaʒus ~ ˈfad͡ʒos/. Mig → mitjos. /ˈmit͡ʃ – ˈmidʒus ~ mid͡ːʒos/.\n\"Beech – beeches.\" \"Half – halves.\"\n\nNouns ending in -sc, -st, -xt can form their plural in two ways, both acceptable: Adding -s (preferred), or adding -os.[13]\nBosc → boscs or boscos. Gust → gusts or gustos. Pretext → pretexts or pretextos\n\"Forest – forests.\" \"Taste – tastes.\" \"Pretext – pretexts.\"\n\nFeminine nouns ending in -st always form the plural by adding -s.[13]\nHost → hosts.\n\"Army – armies.\"\n\nUnlike Spanish, but like French and Italian, in Catalan the participle can agree in gender and number when the direct object (which can be replaced by the pronouns el/lo, la, els/los, les) comes before the verb in compound tenses with the verb “haver”:\n\nHe vist el teu amic. → L'he vist.\n\nHe vist la teva amiga. → L'he vista.\n\nHe vist els teus amics. → Els he vistos.\n\nHe vist les teves amigues. → Les he vistes.\n\nIf the direct object comes after the verb, the participle does not change, so “he vista la teva amiga” would be incorrect. Furthermore, this also does not occur with the pronouns ho and en/ne. Note that Catalan never uses the preposition “a” for the direct object, unlike Spanish, which uses it with people (“He vist al teu amic” or “He vist a la teva amiga” would be incorrect in Catalan).",
+          "examples": [
+            "\"Father – fathers.\" \"Grandfather – grandfathers.\"",
+            "\"House – houses.\" \"Problem – problems\"",
+            "\"forge(s)\"",
+            "\"goose – geese\"",
+            "\"tongue(s)\"",
+            "\"Easter(s)\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Adjectives",
+      "summary": "A Catalan adjective must agree in gender and number with the noun it accompanies. Most adjectives are placed after the nouns. Adjectives can be divided into three declension paradigms. The number inflection rules are the same as the nouns.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "A Catalan adjective must agree in gender and number with the noun it accompanies. Most adjectives are placed after the nouns. Adjectives can be divided into three declension paradigms. The number inflection rules are the same as the nouns.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Declension",
+          "body": "Catalan adjectives can be divided in three groups according to the distinct forms it has.\n\nAdjective with 4 forms: \nverd \"green\"\n\nmasculine\nfeminine\n\nsingular\n\nverd\nverda\n\nplural\n\nverds\nverdes\n\nAdjective with 3 forms: \nfeliç \"happy\"\n\nmasculine\nfeminine\n\nsingular\n\nfeliç\n\nplural\n\nfeliços\nfelices\n\nAdjective with 2 forms: \nindiferent \"indifferent\"\n\nmasculine\nfeminine\n\nsingular\n\nindiferent\n\nplural\n\nindiferents\n\nFormation of the feminine singular from the masculine singular\nIn adjectives with distinct feminine singular form, the masculine is usually unmarked for gender, and ends in a consonant. The feminine singular form of regular adjectives can be created from the masculine singular.\n\nUnmarked masculine forms\nMost times the feminine form is created by appending the suffix -a to the unmarked masculine form.[14]\n\nSec – seca. Fred – freda. Continu – contínua.\n\"Dry.\" \"Cold.\" \"Continuous.\"\nIf the masculine form ends in -t, -c, -s, the addition of the feminine suffix -a may cause these consonants to become voiced to -d-, -g-, -s-; or not. There are no rules governing this change.[15]\n\nVoicing alternations\n\nbecomes voiced\nremains unvoiced\n\nchange\nmasculine\nfeminine\ngloss\nmasculine\nfeminine\ngloss\n\n⟨-t⟩ → ⟨-d-⟩\n/t/ → /ð/\nbuit\nbuida\n\"empty\"\nlent\nlenta\n\"slow\"\n\n⟨-c⟩ → ⟨-g-⟩\n/k/ → /ɣ/\ngroc\ngroga\n\"yellow\"\nric\nrica\n\"rich\"\n\n⟨-s⟩ → ⟨-s-⟩\n/s/ → /z/\nobès\nobesa\n\"obese\"\ngras\ngrassa\n\"fat\"\n\nIf the masculine form ends in a stressed vowel, the feminine is created by appending the suffix -na.; except nu \"nude\" and cru \"raw\".[16]\n\nPla – plana. Rodó – rodona.\n\"Flat.\" \"Round.\"\nIf the masculine form ends in -au, -eu, -iu, and -ou; the feminine is formed with -ava, -ea, -iva, and -ova.[16]\n\nBlau – blava. Europeu – europea. Viu – viva. Nou – nova.\n\"Blue.\" \"European.\" \"Alive.\" \"New.\"\nMarked masculine forms ending in -e or -o\nIf the masculine form ends in -e or -o, the final vowel is substituted with -a. Many of the adjectives ending in -o come from Spanish. [16]\n\nAmple – ampla. Maco – maca (Cf. Sp. \"majo\").\n\"Wide.\" \"Nice.\"\nAdjectives with indistinct masculine and feminine forms\nSome adjectives may have the same form in the masculine singular and feminine singular.\n\nAdjectives ending in -aç, -iç, and -oç.[16]\n\nCapaç – capaç. Feliç – feliç. Precoç – precoç.\n\"Capable.\" \"Happy.\" \"Precocious.\"\nAdjectives ending in stressed -al, stressed -el, and stressed or unstressed -il.[16]\n\nCentral – central. Rebel – rebel. Hostil – hostil. Mòbil – mòbil.\n\"Central.\" \"Rebel.\" \"Hostile.\" \"Mobile.\"\nAdjectives ending in -ar.[17]\n\nVulgar – Vulgar\n\"Vulgar\"\nIrregular feminine forms\nSome feminine adjectives are formed irregularly and do not adhere to the aforementioned formation rules.\n\nCommon Catalan irregular adjectives[16]\n\nmasculine\nfeminine\ngloss\n\noblic\nobliqua\n\"oblique\"\n\nboig\nboja\n\"insane\"\n\nroig\nroja\n\"red\"\n\nlleig\nlletja\n\"ugly\"\n\nmig\nmitja\n\"half\"\n\nnul\nnul·la\n\"null\"\n\ntranquil\ntranquil·la\n\"quiet\"\n\ncru\ncrua\n\"raw\"\n\nnu\nnua\n\"nude\"\n\njueu\njueva/jueua\n\"Jewish\"\n\nsueu\nsueva/sueua\n\"Suebian\"\n\nmal\nmala\n\"bad\"\n\nparal·lel\nparal·lela\n\"parallel\"\n\ncar\ncara\n\"expensive\"\n\nclar\nclara\n\"clear\"\n\navar\navara\n\"avaricious\"\n\nrar\nrara\n\"rare\"",
+          "examples": [
+            "verd \"green\"",
+            "feliç \"happy\"",
+            "indiferent \"indifferent\"",
+            "\"Dry.\" \"Cold.\" \"Continuous.\"",
+            "\"empty\"",
+            "\"slow\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Degrees of comparison",
+          "body": "Degrees of comparison are expressed with a construction implying the adverb més \"more\" or menys \"less\":\n\nMés ... que (\"more ... than\")\n\nSóc més alt que tu.\n\"I am taller than you.\"\nEl més ... de (\"the most ... of\")\n\nSóc el més alt de tots\n\"I am the tallest of all\".\nMenys ... que (\"less ... than\")\n\nSóc menys alt que tu.\n\"I am less tall than you.\"",
+          "examples": [
+            "Degrees of comparison are expressed with a construction implying the adverb més \"more\" or menys \"less\":",
+            "Més ... que (\"more ... than\")",
+            "\"I am taller than you.\"",
+            "El més ... de (\"the most ... of\")",
+            "\"I am the tallest of all\".",
+            "Menys ... que (\"less ... than\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Absolute superlative",
+          "body": "Like many other Romance languages, Catalan adjectives have an absolute superlative form, expressed with the suffix -íssim, placed between the stem and the gender / number suffix.\n\nAquest home és altíssim.\n\"This man is very very tall.\"\nAquestes dones són altíssimes.\n\"These women are very very tall.\"",
+          "examples": [
+            "\"This man is very very tall.\"",
+            "\"These women are very very tall.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Adverbs",
+      "summary": "Catalan adverbs, like their English counterparts, are used to modify adjectives, other adverbs, and verbs or clauses. They do not display any inflection; that is, their form does not change to reflect their precise role, nor any characteristics of what they modify.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Catalan adverbs, like their English counterparts, are used to modify adjectives, other adverbs, and verbs or clauses. They do not display any inflection; that is, their form does not change to reflect their precise role, nor any characteristics of what they modify.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Formation",
+          "body": "In Catalan, as in English, most adverbs are derived from adjectives. In most cases, this is done by adding the suffix -ment (\"-ly\") to the adjective's feminine singular form. For example, the feminine singular form of lent (\"slow\") is lenta, so the corresponding adverb is lentament (\"slowly\").\n\nAs in English, however, the adjective stem is sometimes modified to accommodate the suffix:\n\nAnd, as in English, many common adverbs are not derived from adjectives at all:\n\naixí (\"thus\", \"so\").\nahir (\"yesterday\").",
+          "examples": [
+            "In Catalan, as in English, most adverbs are derived from adjectives. In most cases, this is done by adding the suffix -ment (\"-ly\") to the adjective's feminine singular form. For example, the feminine singular form of lent (\"slow\") is lenta",
+            "així (\"thus\", \"so\").",
+            "ahir (\"yesterday\")."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Placement",
+          "body": "The placement of Catalan adverbs is almost the same as the placement of English adverbs.\n\nAn adverb that modifies an adjective or adverb comes before that adjective or adverb:\n\ncompletament cert (\"completely true\").\nmassa ben fet (\"too well done\").\nAn adverb that modifies an infinitive (verbal noun) generally comes after the infinitive:\n\ncaminar lentament (\"to walk slowly\").\nAn adverb that modifies a main verb or clause comes either after the verb, or before the clause:\n\nLentament ell comença a caminar or Ell comença lentament a caminar (\"Slowly, he begins to walk\" or \"He begins slowly to walk\").\nNote that, unlike in English, this is true even of negative adverbs:\n\nMai jo no he fet això or Jo no he fet mai això (\"Never have I done that\" or \"I have never done that\").",
+          "examples": [
+            "completament cert (\"completely true\").",
+            "massa ben fet (\"too well done\").",
+            "caminar lentament (\"to walk slowly\").",
+            "Lentament ell comença a caminar or Ell comença lentament a caminar (\"Slowly, he begins to walk\" or \"He begins slowly to walk\").",
+            "Mai jo no he fet això or Jo no he fet mai això (\"Never have I done that\" or \"I have never done that\")."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Possessives",
+      "summary": "Possessive pronouns are inflected for person and number of the possessor, and for gender and number of the possession.\nThe table below summarizes all the possible forms.",
+      "sections": [
+        {
+          "heading": "Possessive pronouns",
+          "body": "Possessive pronouns are inflected for person and number of the possessor, and for gender and number of the possession.\nThe table below summarizes all the possible forms.\n\nPossessive pronouns [18]\n\nsingular\nplural\n\nmasculine\nfeminine\nmasculine\nfeminine\n\nsingular\nfirst\n\nmeu\nmeva\nmeua\nmeus\nmeves\nmeues\n\nsecond\n\nteu\nteva\nteua\nteus\nteves\nteues\n\nthird\n\nseu\nseva\nseua\nseus\nseves\nseues\n\nplural\nfirst\n\nnostre\nnostra\nnostres\n\nsecond\n\nvostre\nvostra\nvostres\n\nthird\n\nseu\nseva\nseua\nseus\nseves\nseues\n\nEl cotxe és meu.\n\"The car is mine.\"\nThe feminine forms meva, teva, and seva may appear dialectally with /w/ instead of /β ~ v/: meua, teua, and seua. Their plural forms follow the same variation (meues, teues, and seues).[18]",
+          "examples": [
+            "\"The car is mine.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Possessive adjectives",
+          "body": "Possessive adjectives are, like the possessive pronouns, inflected for person and number of the possessor, and for gender and number of the possession. The table below summarizes all the possible forms. Notice how the plural possessor forms are identical to the possessive pronoun forms.\n\nPossessive adjectives[19]\n\nsingular\nplural\n\nmasculine\nfeminine\nmasculine\nfeminine\n\nsingular\nfirst\n\nmon\nma\nmos\nmes\n\nsecond\n\nton\nta\ntos\ntes\n\nthird\n\nson\nsa\nsos\nses\n\nplural\nfirst\n\nnostre\nnostra\nnostres\n\nsecond\n\nvostre\nvostra\nvostres\n\nthird\n\nllur\nllurs\n\nCentral Catalan has abandoned almost completely unstressed possessives (mon, etc.) in favour of constructions of article + stressed forms (el meu, etc.), a feature shared with Italian[2] and Portuguese.\n\nUnstressed forms are rarely used in the spoken language, and are only retained for family relatives and set phrases.[19]\n\nTon pare. Son avi.\n\"Your father.\" \"His / her grandfather.\"\nEn ma vida.\n\"In my whole life.\"\nInstead of this, a construction of definite article + possessive pronoun + noun is preferred.[19]\n\nMon cotxe. (literary, archaic)\nEl meu cotxe. (more common)\n\"My car.\"",
+          "examples": [
+            "\"Your father.\" \"His / her grandfather.\"",
+            "\"In my whole life.\"",
+            "\"My car.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Pronouns",
+      "summary": "Main article: Catalan personal pronouns\nThe morphology of Catalan personal pronouns is complex, specially in unstressed forms, which are numerous (13 distinct forms, compared to 11 in Spanish or 9 in Italian; French has such a different system that comparisons are not feasible).[",
+      "sections": [
+        {
+          "heading": "Personal pronouns",
+          "body": "Main article: Catalan personal pronouns\nThe morphology of Catalan personal pronouns is complex, specially in unstressed forms, which are numerous (13 distinct forms, compared to 11 in Spanish or 9 in Italian; French has such a different system that comparisons are not feasible).[2] Features include the neuter gender (ho) and the great degree of freedom when combining different unstressed pronouns (65 combinations).[2]\n\nThis flexibility allows Catalan to use extraposition extensively, much more than French or Spanish. Thus, Catalan can have m'hi recomanaren (\"they recommended me to him\"), whereas in French one must say ils m'ont recommendé à lui, and in Spanish me recomendaron a él.[2] This allows the placement of almost any nominal term as a sentence topic, without having to use so often the passive voice (as in French or English), or identifying the direct object with a preposition (as in Spanish).[2]\n\nCatalan stressed pronouns\n\n \nsingular\nplural\n\nfirst person\n\njo, mi\nnosaltres\n\nsecond person\ninformal\n\ntu\nvosaltres\n\nrespectful\n\nvós\nArchaic in most dialects.\n\nformal\n\nvostè\nvosté\nvostès\nvostés\n\nthird person\nmasculine\n\nell\nells\n\nfeminine\n\nella\nelles\n\nCatalan unstressed pronouns (only full forms)\n\nsingular\nplural\n\nfirst person\n\naccusative, dative, reflexive\n\nem\nens\n\nsecond person\n\net\nus\n\nthird person\n\naccusative\nmasculine\n\nel\nels\n\nfeminine\n\nla\nles\n\nobjective neuter\n\nho\n—\n\ndative\n\nli\nels\n\nreflexive\n\nes\n\nadverbial\n\nablative, genitive\n\nen\n\nlocative\n\nhi",
+          "examples": [
+            "This flexibility allows Catalan to use extraposition extensively, much more than French or Spanish. Thus, Catalan can have m'hi recomanaren (\"they recommended me to him\"), whereas in French one must say ils m'ont recommendé à lui, and in Sp"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Verbs",
+      "summary": "Main articles: Catalan verbs and Catalan conjugation\nCatalan verbs express an action or a state of being of a given subject, and like verbs in most of the Indo-European languages, Catalan verbs undergo inflection according to the following categories:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main articles: Catalan verbs and Catalan conjugation\nCatalan verbs express an action or a state of being of a given subject, and like verbs in most of the Indo-European languages, Catalan verbs undergo inflection according to the following categories:\n\nTense: past, present, future.\n\nNumber: singular or plural.\n\nPerson: first, second or third.\n\nMood: indicative, subjunctive, or imperative.\n\nAspect: Perfective aspect or imperfective aspect (distinguished only in the past tense as remote preterite or imperfect).\n\nVoice: active or passive.\n\nFinite Catalan verb forms for cantar (\"to sing\")\nonly 2nd person singular\n\nmood\ntime\nsimple\nperfect\n\nindicative\n\npresent\n\ncantes\nhas cantat\n\npast\n\nimperfect\n\ncantaves\nhavies cantat\n\nremote preterite\n\ncantares\nhagueres cantat\n\nfuture\n\ncantaràs\nhauràs cantat\n\nsubjunctive\n\npresent\n\ncantis\nhagis cantat\n\npast\n\ncantéssis\nhaguéssis cantat\n\nconditional\n\ncantaries\nhauries cantat\n\nimperative\n\ncanta\n—\n\nNon-finite Catalan verb forms for cantar (\"to sing\")\n\nsimple\nperfect\n\ninfinitive\n\ncantar\nhaver cantat\n\ngerund\n\ncantant\nhavent cantat\n\nparticiple\n\ncantat\n–\n\nLike all the Romance languages, Catalan verbal inflection is more complex than the nominal. Suffixation is omnipresent, while morphological alternations play a secondary role.[2] Vowel alternances are active, as well as infixation and suppletion. However, these are not as productive as in Spanish, and are mostly restricted to irregular verbs.[2]\n\nThe Catalan verbal system is basically common to all Western Romance, except that most dialects replace the analytic perfect indicative with a periphrastic tense composed of vaig, vas (vares), va, vam (vàrem), vau (vàreu), van (varen) and the infinitive.\n\nCatalan verbs are traditionally divided into three conjugations, with vowel themes -a-, -e-, -i-, the last two being split into two subtypes. However, this division is mostly theoretical.[2] Only the first conjugation is nowadays productive (with about 3500 common verbs), while the third (the subtype of servir, with about 700 common verbs) is semiproductive. The verbs of the second conjugation are fewer than 100, and it is not possible to create new ones, except by compounding.[2]",
+          "examples": [
+            "Finite Catalan verb forms for cantar (\"to sing\")",
+            "Non-finite Catalan verb forms for cantar (\"to sing\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        },
+        {
+          "heading": "Verbal periphrases",
+          "body": "Verbal periphrases of obligation:\n\nCaldre + que + infinitive (personal)\n\nCaldre + infinitive (impersonal)\n\nHaver + de + infinitive (personal)\n\nHaver-se + de + infinitive (impersonal)\n\nFer falta (impersonal)\n\nSer menester + que + verb in subjunctive (personal)\n\nSer menester + infinitive (impersonal)\n\nSer necessari + que + verb in subjunctive (personal)\n\nSer necessari + infinitive (impersonal)\n\n(*) Although it is not correct[further explanation needed] the usage of the verbal periphrasis *tenir + que + infinitive (obligation) in the Standard (instead of haver + de, which is roughly equivalent to English \"have to\"), it is widely used in colloquial Catalan and Valencian. The same occurs with *haver-hi + que + infinitive.\n\nVerbal periphrases of probability:\n\nDeure + infinitive\n\nPotser / Segurament / Probablement + verb in indicative\n\nPoder + ser + verb in subjunctive\n\nSer probable + que + verb in subjunctive\n\nSer possible + que + verb in subjunctive\n\nPoder + infinitive (it is also a periphrasis of capability)\n\nVerbal periphrases of imminence, intention or future: \n\nAra + verb in present or future (immediate action)\n\nDe seguida + verb in present or future (immediate action)\n\nTot seguit + verb in present or future (immediate action)\n\nVerb in present or future (not necessarily immediate action)\n\nPensar + infinitive (periphrasis of intention)\n\nEstar a punt de + infinitive (immediate action)\n\nOther modal and aspectual verbal periphrases:\n\nVindre a + infinitive (modal verbal periphrasis of approximation value, with the verb dir, to say, it has a justification aspect)\n\nGosar + infinitive (modal verbal periphrasis of audacity)\n\nSaber + infinitive (modal verbal periphrasis of ingressive value)\n\nAcabar de + infinitive (modal verbal periphrasis of culminative value)\n\nArribar a + infinitive (aspectual periphrasis of culminative and ponderative value)\n\nComençar a + infinitive (aspectual periphrasis of ingressive value)\n\nPosar-se a + infinitive (aspectual periphrasis of ingressive value)\n\nArrencar (or Arrancar) a + infinitive (aspectual periphrasis of ingressive value)\n\nRompre a + infinitive (aspectual periphrasis of ingressive value)\n\nVoler + infinitive (aspectual periphrasis of ingressive value)\n\nSoler + infinitive (aspectual periphrasis of habitual value)\n\nTornar a + infinitive (aspectual periphrasis of repetitive value)\n\nEstar + gerund (aspectual periphrasis of progressive value)\n\nAnar + gerund (aspectual periphrasis of progressive value)\n\nContinuar + gerund (aspectual periphrasis of durative value)\n\nSeguir + gerund (aspectual periphrasis of durative value)\n\nTindre + past participle (aspectual periphrasis of resultative value)\n\nQuedar + past participle (aspectual periphrasis of resultative value)\n\nDeixar + past participle (aspectual periphrasis of resultative value)",
+          "examples": [
+            "(*) Although it is not correct[further explanation needed] the usage of the verbal periphrasis *tenir + que + infinitive (obligation) in the Standard (instead of haver + de, which is roughly equivalent to English \"have to\"), it is widely us"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Catalan_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,446 @@
+{
+  "title": "Grammar Book — Português",
+  "languageCode": "pt",
+  "languageName": "Português",
+  "version": 2,
+  "sources": [
+    "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Eight_-_Meeting_People",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Five_-_Going_Shopping",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Four_-_Where_Do_You_Come_From?",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Nine_-_Getting_The_Groceries",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_One_-_Saying_Hello",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Seven_-_What_Time_Is_It?",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Six_-_The_Train",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Ten_-_My_House",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Three_-_What_Are_You_Going_To_Do?",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Two_-_I_Like...",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Eleven_-_Whose_Is_This?",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Fifteen_-_Eating_Out_Part_II",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Fourteen_-_Eating_Out",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Thirteen_-_At_The_Doctor",
+    "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Twelve_-_The_Weekend",
+    "https://en.wikipedia.org/wiki/Portuguese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Foram assinalados vários problemas nesta página ou se(c)ção: \nAs fontes não cobrem todo o texto.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Foram assinalados vários problemas nesta página ou se(c)ção: \nAs fontes não cobrem todo o texto.\n\nTexto necessita de revisão, devido a inconsistências e/ou dados de confiabilidade duvidosa.\n\nNecessita ser reciclada de acordo com o livro de estilo.\n\nContém referências que necessitam de formatação.\n\nO conteúdo pode ser de natureza não enciclopédica.\n\nPrecisa de correção textual.\n\n Nota: Para a obra de João de Barros, veja Grammatica da lingua portuguesa.\nA gramática da língua portuguesa é o estudo objetivo e sistemático dos elementos fonemas, morfemas, palavras, frases, etc. e dos processos de formação, construção, flexão e expressão que constituem e também caracterizam o sistema do idioma português.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Substantivos",
+      "summary": "Substantivo é a palavra que nomeia os seres. O conceito de seres deve incluir os nomes, ou seja são palavras variáveis que designam as coisas, ação, qualidade, emoção, nomes, etc. de pessoas, de lugares, de instituições, de grupos, de indivíduos e de entes de natureza espiritual",
+      "sections": [
+        {
+          "heading": "Conceito",
+          "body": "Substantivo é a palavra que nomeia os seres. O conceito de seres deve incluir os nomes, ou seja são palavras variáveis que designam as coisas, ação, qualidade, emoção, nomes, etc. de pessoas, de lugares, de instituições, de grupos, de indivíduos e de entes de natureza espiritual ou mitológica.\n\nExemplos: mulher, sociedade, vegetação, alma, Maria, senado, paineira, anjo, Brasil, cidade, cavalo, sereia, Teresina, comunidade, cidadão, saci.\n\nAlém disso devem incluir nomes de ações, estados, qualidades, sensações, sentimentos.\n\nExemplos: acontecimento, honestidade, amor, correria, miséria, liberdade, encontro, integridade, raiva, hipocrisia, corrupção.\n\nÉ toda e qualquer palavra que permite a anteposição do artigo definido ou indefinido.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Dos adjetivos",
+      "summary": "Ver artigo principal: Adjetivo\nAdjetivo é a expressão modificadora que denota qualidade, condição ou estado de um ser. No trecho abaixo estão destacados os adjetivos.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Ver artigo principal: Adjetivo\nAdjetivo é a expressão modificadora que denota qualidade, condição ou estado de um ser. No trecho abaixo estão destacados os adjetivos.\n\nOceano terrível, mas imenso\n\nDe vagas procelosas que se enrolam\n\nFloridas rebentando em branca espuma\n\nNum pólo e noutro pólo\n\n— Gonçalves Dias\n\nLocução adjetiva é a expressão formada de preposição somado a um substantivo com valor de um adjetivo:\n\nHomem de coragem = homem corajoso\nLivro sem capa = livro desencapado\nObservação: nem sempre é encontrado um adjetivo de sentido perfeitamente idêntico ao de locução adjetiva:\n\nColega de turma.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        },
+        {
+          "heading": "Adjetivo explicativo e restritivo",
+          "body": "O adjetivo pode ser explicativo ou restritivo.\n\nExplicativo: é o que designa uma qualidade, condição ou estado essencial ao ser:\n\nHomem mortal, água mole, gelo frio\nRestritivo: o que designa qualidade, condição ou estado acidental ao ser:\n\nHomem bom, água morna, gelo pequeno",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        },
+        {
+          "heading": "Grau dos adjetivos",
+          "body": "Há três graus na qualidade expressa pelo adjetivo: positivo, comparativo e superlativo.\n\nO positivo enuncia simplesmente a qualidade:\n\nO rapaz é cuidadoso.\n\nO comparativo compara qualidade entre dois ou mais seres estabelecendo:\n\na) uma igualdade:\n\nb) uma superioridade:\n\nc) uma inferioridade:\n\no rapaz é tão cuidadoso quanto (ou como) os outros.\n\no rapaz é mais cuidadoso que (ou do que) os outros.\n\no rapaz é menos cuidadoso que (ou do que) os outros.\n\nO superlativo pode:\n\na) ressaltar, com vantagem ou desvantagem, a qualidade do ser em relação a outros seres:\n\nO rapaz do mais cuidadoso dos (ou dentre os) pretendentes ao emprego.\n\nO rapaz do menos cuidadoso dos pretendentes.\n\nb) indicar que a qualidade do ser ultrapassa a noção comum que se tem dessa mesma qualidade:\n\nO rapaz é muito cuidadoso.\n\nO rapaz é cuidadosíssimo.\n\nNo primeiro caso, a qualidade é ressaltada em relação ou comparação com os outros pretendentes. Diz-se que o superlativo é relativo.\n\nForma-se o superlativo relativo com a intercalação do adjetivo nas fórmulas o mais ... de (ou dentre), o menos ... de (ou dentre).\n\nNo segundo caso, a superioridade é ressaltada sem nenhuma relação com outros seres. Diz-se que o superlativo é absoluto ou intensivo\n\nO superlativo absoluto pode ser analítico ou sintético. Forma-se o analítico com a anteposição de palavra intensiva (muito, extremamente, extraordinariamente, et noc.) ao adjetivo: muito cuidadoso.\n\nO sintético é obtido por meio do sufixo -issimo (ou outro de valor intensivo) acrescido ao adjetivo no grau positivo: cuidadosíssimo.\n\nQuanto ao sentido, cuidadosíssimo diz mais, é mais enfático do que muito cuidadoso. Na linguagem coloquial, se desejamos que o superlativo\n\nabsoluto analítico seja mais enfático, costumamos repetir a palavra.\n\nAlterações gráficas no superlativo absoluto.\n\na) ao receber o sufixo intensivo, o adjetivo no grau positivo pode sofrer certas modificações\n\ncuidadosa - cuidadosíssima\n\nelegante - elegantíssimo\n\ncuidadoso - cuidadosíssimo\n\nb) os terminados em -vel átono adota-se o radical latino, terminado em -bil:\n\namável - amabilíssimo, móvel - mobilíssimo\n\nc) Os adjetivos terminados em ro e re, áspero e livre, passam para o superlativo mediante acréscimo da terminação rimo ao nominativo latino dessas palavras.\n\nacre - acérrimo\n\náspero - aspérrimo\n\ncélebre - celebérrimo\n\ncélere - celérrimo\n\níntegro - integérrimo\n\nlivre - libérrimo\nAo lado do superlativo à base do termo latino, pode circular o que procede do adjetivo no grau positivo acrescido da terminação -íssimo:\n\nagílimo - agilíssimo\n\nantiqüíssimo - antiguíssimo\n\ncrudelíssimo - cruelíssimo\n\ndulcissimo - docissimo\n\nfacílimo - facilíssimo\n\nhumílimo - humildíssimo\n\nmacérrimo - magríssimo\n\nnigérrimo - negríssimo\n\npaupérrimo - pobríssimo\n\nOBs.: Chamamos a atenção para as palavras terminadas em -io, na sua forma sintética, apresentam dois is:\n\nsério - seriíssimo\n\nprecário - precariíssimo\n\nfrio - friíssimo\n\nnecessário - necessariíssimo\n\nTendem a fixar-se as formas populares seríssimo (coisa seríssima), necessaríssimo e semelhantes, com um i apenas.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Artigos definidos e indefinidos",
+      "summary": "Artigo é a palavra variável que se antepõe aos substantivos que designam seres determinados (o, a, os,, as) ou indeterminados (um, uma, uns, umas).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Artigo é a palavra variável que se antepõe aos substantivos que designam seres determinados (o, a, os,, as) ou indeterminados (um, uma, uns, umas).\n\nDaí a divisão dos artigos em definidos (que são o, a, os, as) e indefinidos\n\n(um, uma, uns, umas):\n\nQuero o livro.\n\nQuero um livro.\n\nNo primeiro caso, o substantivo designa um livro determinado e conhecido, inconfundível para a pessoa que fala ou escreve.\n\nNo segundo, o substantivo designa um livro qualquer dentre outros.\n\nPrecedido, de artigo definido pode também o substantivo exprimir a\n\nespécie inteira:\n\no homem é mortal.\n\nNão se trata aqui de um homem determinado, mas, sim, uma referência\n\nao ser humano em geral.\n\nNem sempre se evidencia a oposição entre o, a, os, as e um, uma, uns,\n\numas, porque os artigos aparecem em construções dos mais variados valores.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Pronomes",
+      "summary": "Pronome é a expressão que designa os seres sem dar-lhes nome nem qualidade, indicando-os apenas como pessoa do discurso.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Pronome é a expressão que designa os seres sem dar-lhes nome nem qualidade, indicando-os apenas como pessoa do discurso.\n\nPessoas do discurso. - Três são as pessoas do discurso: a que fala (1.a pessoa), a que se fala (2.a pessoa) e a pessoa ou coisa de que\n\nse fala (3.a pessoa).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Morfologia verbal",
+      "summary": "Os verbos são divididos em três conjugações, identificadas pela terminação dos infinitivos, -ar, -er, -ir (e -or, remanescente no único verbo, pôr, juntamente com seus compostos; este verbo pertence, todavia, à conjugação de infinitivos terminados em -er, pois tem origem no latim",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Gramática\n\nClassificação\n\nComunicação\n\nFonética\n\nFonologia\n\nMorfologia\n\nSintaxe\n\nSemântica\n\nEtimologia\n\nEstilística\n\nLiteratura\n\nTipos\n\nDescritiva\n\nGerativa\n\nFormal\n\nFuncional\n\nNormativa\n\nTransformacional\n\nUniversal\n\nImplícita\n\nContrastiva\n\nReflexiva\n\nHistórica\n\nArtigos Relacionados\n\nGramática\n\nLinguística\n\nLexicologia\n\nRetórica\n\nLíngua\n\nOs verbos são divididos em três conjugações, identificadas pela terminação dos infinitivos, -ar, -er, -ir (e -or, remanescente no único verbo, pôr, juntamente com seus compostos; este verbo pertence, todavia, à conjugação de infinitivos terminados em -er, pois tem origem no latim poner, evoluindo para poer e pôr). A maioria dos verbos terminam em ar, tais como cantar. De uma forma geral, os verbos com a mesma terminação seguem o mesmo padrão de conjugação. Porém, são abundantes os verbos irregulares e alguns chegam a ser até mesmo anômalos: ir, ser, saber, pôr e seus derivados apor, opor, compor, dispor, supor, propor, decompor, recompor, repor, sobrepor, transpor e antepor.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        },
+        {
+          "heading": "Tempos e aspectos",
+          "body": "Há, no português, três tempos e diversos aspectos, a saber:\n\nPresente, que exprime ações frequentes ou corriqueiras.\n\nPretérito, exprimindo ações terminadas no passado, sendo dividido em:\nPretérito imperfeito, ações inacabadas;\n\nPretérito perfeito, ações acabadas;\n\nPréterito mais-que-perfeito, ação anterior a uma já acabada;\n\nFuturo, que exprime ações pontuais que ocorrerão no futuro, sendo divididos em:\nFuturo do presente, ações que serão executadas;\n\nFuturo do pretérito, ações que poderiam ser executadas.\n\nNa língua portuguesa, os verbos são divididos em seis modos, de acordo com o que exprimem:\n\nIndicativo, para exprimir fatos tidos como certos (certeza);\n\nConjuntivo ou subjuntivo, para exprimir suposições (possibilidade);\n\nImperativo, para exprimir instruções (ordem, pedido, conselho);\n\nCondicional, para exprimir condições (normalmente, tendo como base suposições);\n\nInfinitivo, formas verbais que não exprimem nada autónomos, sendo dividido em:\nInfinitivo pessoal, em que cada forma corresponde a uma pessoa;\n\nInfinitivo impessoal, em que a forma dá nome ao seu verbo;\n\nFormas nominais, sendo estas o gerúndio, muito utilizado na conjugação perifrástica. Participio passado ou Adjectivo verbal, utilizada para tempos compostos e para a voz passiva, e infinitivo impessoal.\n\nConjugação perifrástica\nA conjugação perifrástica refere-se a não tempos — chamemos-lhe assim porque, embora esteja gramaticalmente correcto utilizar qualquer uma das formas abaixo, estas não são tempos verbais na nossa gramática.\n\nPodemos utilizar a conjugação perifrástica para exprimir os seguintes sentidos:[1]\n\nNecessidade - ter de + infinitivo (ex.: Eu tenho de melhorar a Wikipédia.);\n\nCerteza - haver de + infinitivo (ex.: Hei de[2] conseguir melhorar.);\n\nIntenção - estar para + infinitivo (ex.: Estou para melhorar.) ou estar prestes a + infinitivo (ex.: Estou prestes a melhorar.);\n\nRealização futura - verbo ir no presente do indicativo + infinitivo do verbo principal (ex.: Vou ler o artigo sobre a Língua Portuguesa na Wikipédia.)\n\nRealização próxima - verbo estar no presente do indicativo + a + infinitivo (ex.: Estou a editar a Wikipédia.) ou verbo estar no presente do indicativo + gerúndio (ex.: Estou editando a Wikipédia.)\n\nRealização gradual - verbo ir no presente do indicativo + gerúndio (ex.: Vou editando a Wikipédia.)\n\nAcontecimento simultâneo(1) - verbo ir no pretérito imperfeito do indicativo + a + infinitivo (ex.: Ia a rever a Wikipédia quando recebi uma mensagem de correio eletrónico.)\n\nAcontecimento simultâneo(2) - verbo estar no pretérito imperfeito do indicativo + a + infinitivo (ex.:\"Estava a rever a Wikipédia quando recebi uma mensagem de correio eletrónico.\")\n\nProbabilidade ou dever - verbo dever no presente do indicativo + infinitivo (ex.: Devo propor aquele artigo para destaque.)\n\nAconselhamento ou reflexão - verbo dever no pretérito imperfeito do indicativo + infinitivo (ex.: Devias ter proposto aquele artigo para destaque.) ou verbo dever no futuro do pretérito do indicativo + infinitivo (ex.: Deverias ter proposto aquele artigo para destaque.)\n\nVoz passiva\nComparem-se as frases:\n\n1) Camões escreveu Os Lusíadas.\n\n2) Os Lusíadas foram escritos por Camões.\n\nAs frases 1) e 2) descrevem a mesma situação mas apresentam uma diferença a nível sintáctico. De acordo com a tradição gramatical greco-latina, em 1) o verbo está na voz activa e em 2), na voz passiva.\nO objecto directo de 1), \"Os Lusíadas\", passa a sujeito em 2), enquanto o sujeito de 1), \"Camões\", passa a agente da passiva em 2): \"por Camões\".\n\nNa voz passiva, o verbo principal está no particípio passado, concordando em género e número com o sujeito, e tem como auxiliar o verbo \"ser\". Ainda de acordo com a gramática tradicional, existe um segundo tipo de construção passiva, expressa pelo pronome apassivador \"se\" e com o verbo na voz activa na terceira pessoa, de que é exemplo 3), e a voz reflexiva, com o verbo na voz activa e os pronomes oblíquos \"me\", \"te\", \"se\", \"nos\", \"vos\", tal como em 4).\n\n3) Não se vê [= é vista] uma nuvem no céu.\n\n4) Feri-me ao cortar o pão.\n\nActualmente propõe-se uma nova terminologia para estas construções.\n\nA construção passiva exemplificada em 2) é denominada passiva sintáctica ou perifrástica (Mateus et al., 03) ou passiva sintáctica (Peres et al., 95), enquanto 3) é denominada passiva de -se (Mateus et al., 03) ou passiva de clítico (Peres et al., 95).\n\nA Gramática da Língua Portuguesa (Mateus et al., 03) faz a distinção entre passivas pessoais, onde o sujeito ocorre antes do verbo, e passivas impessoais, onde o verbo ocorre antes do sujeito:\n\n5) As praias foram destruídas pelo maremoto.\n\n6) Foram destruídas muitas praias pelo maremoto.\n\nNas passivas impessoais, o sujeito é geralmente uma expressão indefinida, sendo tal aqui expresso por “muitas”.\nEstes autores referem ainda as passivas adjectivais, construídas com auxiliares como estar, ficar, andar:\n\n7) As praias ficaram destruídas.\n\n8) As praias estão destruídas.\n\nTenha em conta que a voz passiva só pode ser feita com verbos transitivos (verbos que seleccionam complemento, como por exemplo comer, ler, amar, abrir) e não com verbos intransitivos (verbos que não seleccionam complemento, como por exemplo correr, rir, andar).[3]\n\nUso coloquial\nNa forma coloquial da língua há particularidades na conjugação verbal que ocorrem na conversação, mesmo entre aqueles com mais estudo. Isso não se manifesta, porém, na forma um pouco mais erudita quando escrita.\n\nO futuro simples é sempre substituído pela forma composta com o verbo auxiliar IR no presente do indicativo + o infinitivo do verbo: dificilmente alguém fala eu farei, diz-se sempre eu vou fazer;\n\nO pretérito mais-que-perfeito simples é sempre substituído pela forma composta com o verbo auxiliar \"ter\" (não \"haver\") no pretérito imperfeito do indicativo + o particípio passado do verbo: Dificilmente alguém fala eu fizera, diz-se eu tinha feito. Quase não se fala também eu havia feito quando na conversação coloquial.como linguagem formal ou informal com girias e etc...\n\nNuma forma mais coloquial, principalmente entre os menos letrados, usa-se muito o pretérito imperfeito como se fosse o futuro do pretérito (condicional): Em lugar de em seu lugar, eu agiria de outra forma, diz-se em seu lugar eu agia de outra forma;[4]",
+          "examples": [
+            "Acontecimento simultâneo(2) - verbo estar no pretérito imperfeito do indicativo + a + infinitivo (ex.:\"Estava a rever a Wikipédia quando recebi uma mensagem de correio eletrónico.\")",
+            "O objecto directo de 1), \"Os Lusíadas\", passa a sujeito em 2), enquanto o sujeito de 1), \"Camões\", passa a agente da passiva em 2): \"por Camões\".",
+            "Na voz passiva, o verbo principal está no particípio passado, concordando em género e número com o sujeito, e tem como auxiliar o verbo \"ser\". Ainda de acordo com a gramática tradicional, existe um segundo tipo de construção passiva, expres",
+            "O pretérito mais-que-perfeito simples é sempre substituído pela forma composta com o verbo auxiliar \"ter\" (não \"haver\") no pretérito imperfeito do indicativo + o particípio passado do verbo: Dificilmente alguém fala eu fizera, diz-se eu tin"
+          ],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Morfologia nominal",
+      "summary": "Todos os substantivos portugueses apresentam dois gêneros: masculino ou inclusivo e feminino ou exclusivo. Muitos adjetivos e pronomes, e todos os artigos, indicam o gênero dos substantivos a que eles se referem. O gênero feminino em adjetivos é formado de modo diferente dos subs",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Todos os substantivos portugueses apresentam dois gêneros: masculino ou inclusivo e feminino ou exclusivo. Muitos adjetivos e pronomes, e todos os artigos, indicam o gênero dos substantivos a que eles se referem. O gênero feminino em adjetivos é formado de modo diferente dos substantivos. Muitos adjetivos terminados em consoante permanecem inalterados: \"homem superior\", \"mulher superior\", da mesma forma os adjetivos terminados em \"e\": \"homem forte\", \"mulher forte\". Fora isso, o substantivo e o adjetivo devem sempre estar em concordância: \"homem alto\", \"mulher alta\".\n\nO grau dos substantivos é, de uma forma genérica, representado pelos sufixos \"-ão, -ona\" para o aumentativo e \"-inho, -inha\" para o diminutivo, ainda que haja numerosas variações para representar esses graus.\n\nOs adjetivos podem ser empregados em forma comparativa ou superlativa. A forma comparativa é representada pelos advérbios \"mais…que\", \"menos…que\" e \"tanto…quanto\" (ou \"como\"), e a forma superlativa é representada pelas locuções \"o mais\" ou \"o menos\". Para representar o superlativo absoluto, pode-se ainda acrescentar os sufixos \"-íssimo, -íssima\" (alguns adjetivos, no entanto, fazem o superlativo absoluto com a terminação \"-érrimo, -érrima\", ou \"-ílimo\", \"-ílima\").\n\nOs substantivos vêm geralmente acompanhados de um numeral, pronome ou artigo, assumindo variações de acordo com as funções sintáticas, a saber:\n\nNominativo (sujeito ou objeto direto): a, o, este, esta, isto, esse, essa, isso, aquele, aquela, aquilo;\n\nGenitivo (adjunto adnominal de posse): da, do, deste, desta, disto, desse, dessa, disso, daquele, daquela, daquilo;\n\nLocativo (adjunto adverbial de lugar): na, no, neste, nesta, nisto, nesse, nessa, nisso, naquele, naquela, naquilo;\n\nDativo (objeto indireto): à, ao, àquele, àquela, àquilo (a preposição não se funde com os demais demonstrativos).\n\nOs advérbios podem ser formados pelo feminino dos adjetivos, com o acréscimo do sufixo \"-mente\", por exemplo: certo = cert(a)mente.",
+          "examples": [
+            "Todos os substantivos portugueses apresentam dois gêneros: masculino ou inclusivo e feminino ou exclusivo. Muitos adjetivos e pronomes, e todos os artigos, indicam o gênero dos substantivos a que eles se referem. O gênero feminino em adjeti",
+            "O grau dos substantivos é, de uma forma genérica, representado pelos sufixos \"-ão, -ona\" para o aumentativo e \"-inho, -inha\" para o diminutivo, ainda que haja numerosas variações para representar esses graus.",
+            "Os adjetivos podem ser empregados em forma comparativa ou superlativa. A forma comparativa é representada pelos advérbios \"mais…que\", \"menos…que\" e \"tanto…quanto\" (ou \"como\"), e a forma superlativa é representada pelas locuções \"o mais\" ou ",
+            "Os advérbios podem ser formados pelo feminino dos adjetivos, com o acréscimo do sufixo \"-mente\", por exemplo: certo = cert(a)mente."
+          ],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Acidentais",
+      "summary": "Aquelas que passaram a ser preposições, mas são provenientes de outras classes gramaticais, como: afora (= exceto), como (= na qualidade de), conforme (= de acordo com), consoante (= conforme), durante, exceto (= com exceção de), feito (= tal qual), fora (= exceto), mediante (= p",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Aquelas que passaram a ser preposições, mas são provenientes de outras classes gramaticais, como: afora (= exceto), como (= na qualidade de), conforme (= de acordo com), consoante (= conforme), durante, exceto (= com exceção de), feito (= tal qual), fora (= exceto), mediante (= por meio de), menos (= exceto), salvo (= exceto), segundo (= conforme), tirante (= exceto), visto (= por).\n\nAgimos conforme a atitude deles.\nConversamos muito durante a viagem.\nObtiveram como resposta um bilhete.\nEle terá que fazer o trabalho.\nConversamos pouco durante a viagem.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Bibliografia",
+      "summary": "SQUARTINI, Mario (1998) Verbal Periphrases in Romance—Aspect, Actionality, and Grammaticalization ISBN 3-11-01",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "SQUARTINI, Mario (1998) Verbal Periphrases in Romance—Aspect, Actionality, and Grammaticalization ISBN 3-11-01\n\nALMEIDA, Napoleão Mendes de. Gramática Metódica da Língua Portuguesa. 46.ed.São Paulo: Saraiva, 2009.\n\nTERRA, Ernani e NICOLA, José de. Português de Olho no Mundo do Trabalho. 1.ed. São paulo; Scipione, 2004.\n\nLuft, Celso Pedro. Novo Manual de Português. 17.ed. São Paulo; Globo, 1991.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://pt.wikipedia.org/wiki/Gram%C3%A1tica_da_l%C3%ADngua_portuguesa"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson Eight - Meeting People",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Nine",
+      "sections": [
+        {
+          "heading": "Lesson Eight - Meeting People",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Nine\n\nIn this case ( Do I know you? = Eu conheço você?) \nI know how is it. ( Eu sei como é isso)\n\nWho are you? Quem é você?\nWhat is your name? Qual o seu nome?\nWhere are you from? De onde você é?\nWhat are you working in? No que você trabalha?\nRemember\n\nWhat is this? O que é isso?\nWhat is your name? Qual o seu nome?\nWho is he? Quem é ele?\nHow can I help you? Como posso ajudar você?\nEspero ter ajudado, qualquer coisa editem pessoal.",
+          "examples": [],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Nine",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Eight_-_Meeting_People"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Lesson Five - Going Shopping",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Six",
+      "sections": [
+        {
+          "heading": "Lesson Five - Going Shopping",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Six\n\nHere, Ricardo is in a clothes shop. He asks the attendant, Carla, if he can have a white shirt - uma camisa branca.\nHe also asks for something else - um chapéu. This means \"a hat\". We've come across the words for \"a\". These are called, properly, \"indefinite articles\" (as opposed to the words for \"the\", which are called \"definite articles\"). This is because the word \"a\" or \"an\" is indefinite - it doesn't specify which shirt or hat. Let's have a look at this table.\n\nSome examples? Sure. \n\nQuickly, what does that e mean by itself? Simple - e means \"and\". Let's have some practice.\n\nAnother major word we need to get to know is Quero. This word means \"I want\". Of course, there are other conjugations...\nVocê quer alguma coisa? - Do you want something? Sim, quero uma camisa branca. - Yes, I want a white shirt.\nO senhor quer também uma camisa preta?\nTambém means quite simply \"also\". So we have \"Do you want also a black shirt?\". But what on earth is this phrase, o senhor? Well, we've already learnt that você is more polite than tu. However, there is another level of politeness used in Portuguese. This form of \"you\" is used with people you don't know well, or people you have to show respect to, like bosses or teachers. Basically, this form allows you to refer to people indirectly. So rather than address someone directly by name or with a pronoun such as \"você\", you address them as if you were addressing a third person, \"o senhor\" (\"the gentleman\") or \"a senhora\" (\"the lady\"). This added distance makes the speech more polite. Take note, however, that this form of \"you\" changes according to the gender of the person you're talking to, plus how many people you are talking to as well!\nHave a look at the table below...",
+          "examples": [
+            "He also asks for something else - um chapéu. This means \"a hat\". We've come across the words for \"a\". These are called, properly, \"indefinite articles\" (as opposed to the words for \"the\", which are called \"definite articles\"). This is becau",
+            "Quickly, what does that e mean by itself? Simple - e means \"and\". Let's have some practice.",
+            "Another major word we need to get to know is Quero. This word means \"I want\". Of course, there are other conjugations...",
+            "Também means quite simply \"also\". So we have \"Do you want also a black shirt?\". But what on earth is this phrase, o senhor? Well, we've already learnt that você is more polite than tu. However, there is another level of politeness used in P"
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Six",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Five_-_Going_Shopping"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Lesson Four - Where Do You Come From?",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Five",
+      "sections": [
+        {
+          "heading": "Lesson Four - Where Do You Come From?",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Five\n\nThis time Ricardo and João are talking about where they live, and what nationality they are.\nDe onde é você? - Where are you from?\nBy now you may have picked up that, like in a couple of other European languages, the word for \"of\" or \"from\" is de. The word onde means \"where\". To avoid ambiguity, in this case você is used most of the time. And finally, you should remember é - it means \"he/she/it is\" or \"you are\" (when using você) - as part of the verb ser. \nJoão responds thus:\nSou de Lisboa - I am from Lisbon.\nCan you remember what sou means? It means \"I am\" (when using ser as the verb). So we have \"I am from...\". Of course, you can put anything after the \"de\".\n\nIf you were looking closely at the dialogue, you may have spotted a way to tell someone where you come from in a different way. Instead of saying, \"I am from France\" - Sou de França - you can say \"I am French\".\nIn Portuguese, this is done as in English - by using the verb \"ser\" and an adjective, like \"French\" or \"Australian\". Why do we use ser? Because your nationality is a permanent feature of you. It is WHAT you are, rather than HOW you are at a particular moment.\nHowever first we need to have a look at the different nationalities.\n\nSome examples?\n\nAs pointed out above, something strange goes on when we talk about more than one homem (man). Instead of homems we get homeNs (men).\n\nReturn to Portuguese – Return to Contents – Go to Lesson Five",
+          "examples": [
+            "By now you may have picked up that, like in a couple of other European languages, the word for \"of\" or \"from\" is de. The word onde means \"where\". To avoid ambiguity, in this case você is used most of the time. And finally, you should rememb",
+            "Can you remember what sou means? It means \"I am\" (when using ser as the verb). So we have \"I am from...\". Of course, you can put anything after the \"de\".",
+            "If you were looking closely at the dialogue, you may have spotted a way to tell someone where you come from in a different way. Instead of saying, \"I am from France\" - Sou de França - you can say \"I am French\".",
+            "In Portuguese, this is done as in English - by using the verb \"ser\" and an adjective, like \"French\" or \"Australian\". Why do we use ser? Because your nationality is a permanent feature of you. It is WHAT you are, rather than HOW you are at a"
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Five",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Four_-_Where_Do_You_Come_From?"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson Nine - Getting The Groceries",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Ten\nDemonstrative Pronouns\nA demonstrative pronoun is used to point out something : this/these for something close to the speaker and that/those for something further away.\nIn Portuguese there are three sets of demonstrativ",
+      "sections": [
+        {
+          "heading": "Lesson Nine - Getting The Groceries",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Ten\nDemonstrative Pronouns\nA demonstrative pronoun is used to point out something : this/these for something close to the speaker and that/those for something further away.\nIn Portuguese there are three sets of demonstrative pronouns:\n\nRemember that the trailing \"s\" denotes plural. Demonstratives ending in \"a\" or \"as\" refer to feminine nouns.\nIsso and essa means that, este means this. Isso is only used for a neuter meaning \"this thing\". Masculine nouns use este meaning. \n\nEssa bola \"That ball\" (feminine singular).\nEste carro \"This car\" (masculine singular).\nIsso or Isso ai \"That one\" or \"That thing over there\".\nRead the sentences below:\n\nPoderia-me / Podias-me dar isso?   \"Could you / Can you give me that?\"\nO que é aquilo?  \"What is that?\"",
+          "examples": [
+            "Remember that the trailing \"s\" denotes plural. Demonstratives ending in \"a\" or \"as\" refer to feminine nouns.",
+            "Isso and essa means that, este means this. Isso is only used for a neuter meaning \"this thing\". Masculine nouns use este meaning.",
+            "Essa bola \"That ball\" (feminine singular).",
+            "Este carro \"This car\" (masculine singular).",
+            "Isso or Isso ai \"That one\" or \"That thing over there\".",
+            "Poderia-me / Podias-me dar isso?   \"Could you / Can you give me that?\""
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Ten\nDemonstrative Pronouns\nA demonstrative pronoun is used to point out something : this/these for something close to the speaker and that/thos",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Nine_-_Getting_The_Groceries"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson One - Saying Hello",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Two\nWelcome to the Portuguese Language Course Wikibook. Good luck - or should we say, boa sorte!",
+      "sections": [
+        {
+          "heading": "Lesson One - Saying Hello",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Two\nWelcome to the Portuguese Language Course Wikibook. Good luck - or should we say, boa sorte!\n\n\n== Dialogue 1 ==\n\nAnalysing each sentence:\n\nBom dia -  translates as (\"good day\"), but is normally used until 12PM as a short form of \"boa manhã/madrugada\"(\"good morning\") and never after sun down.\nOther greetings include:\n\nBoa tarde (“good afternoon”)\nBoa noite (“good evening, good night”).\nOlá (“hello”) - informal.\nOi (“hi”) - informal.\n\nO meu nome é Ricardo - My name is Ricardo (\"Richard\" could also be used if pronunciation is an issue).\nO (/u/, “the”) - masculine singular definite article;\nmeu (/mew/, “my”) - masculine singular first-person singular possessive pronoun;\nnome (/ˈno.mɨ/, “name”) - masculine noun;\né (/ɛ/, “is”) - third-person singular present indicative of verb ser (“to be”);\nRicardo (/ʁi.ˈkaɾ.ðu/, “Ricardo”).\nNote that the direct translation would be “the my name is Ricardo.” But in Portuguese you can optionally use the definite article (English the) before possessive pronouns (English “my”, “our”, “his”, etc.;) This sentence is equivalent to “Meu nome é Ricardo.”\nIn informal language, or in spoken language in general, \"Chamo-me João\" similar in context to the use of \"I'm João\", a more direct translation would be \"I'm called João\". João can also be changed into John.\n\nComo está? - “How are you?”\nComo (/ˈko.mu/, “how”)\nestá (/ɨʃ.ˈta/, “you are; well”)\nIn this type of situation, the inquiry about someone's state may only be a show of politeness and consideration, an implicit request to engage in personal conversation and an acknowledgment of the other's presence, rather than explicit probe into private matters. The targeted (it may be directed to a group \"Como estão?\") is given the opportunity to refuse engagement by keeping the answer simple and positive, like in the example or elaborate and explain if the deeper personal relation is reciprocal or welcomed. This of course depends on the social environment where it takes place...\n\nJoão then answers:\n\nTudo bem, obrigado. E você? - “All right, thank you.”\nObrigado (“thank you”) - this can only be used by men. If you are a woman, you must use obrigada instead.\nE (“and”)\nvocê (“you”) - this is the second-person singular formal pronoun. Despite being second-person, verbs following it are conjugated in the third-person. The informal second-person pronoun is tu.\n\n\n=== Articles ===\nThe English language has three articles: the (definite article), a and an (indefinite articles). Portuguese has four definite and four indefinite articles, as they inflect in gender and number.\nThe definite articles are:\n\nO (/u/, “masculine singular”): o homem - “the man”\nOs (/uʃ/, “masculine plural”): os homens - “the men”\nA (/ɐ/, “feminine singular”): a mulher - “the woman”\nAs (/ɐʃ/, “feminine plural”): as mulheres - “the women”\nThe indefinite articles are:\n\nUm (/ũ/, “masculine singular”): um homem - “a man”\nUns (/ũʃ/, “masculine plural”): uns homens - “some men”\nUma (/ˈu.mɐ/, “feminine singular”): uma mulher - “a woman”\nUmas (/ˈu.mɐʃ/, “feminine plural”): umas mulheres - “some women”\nNote that the indefinite plural article translates as English some.\n\n\n=== Gender ===\nThe English language has three genders: masculine (he), feminine (she) and neuter (it). Portuguese has two, but, unlike English, all nouns and most pronouns have a gender, even inanimate things like casa (“house, feminine”) and ouro (“gold, masculine”).\nGrammatical gender in Portuguese aren’t always the same as the object’s real gender. For example, criança (“child”) is always a feminine word, whether you are referring to a boy or a girl.\nThe Portuguese genders are:\n\nmasculine; and\nfeminine.\nAs a Portuguese learner, you must memorise the gender of every word. In most cases, the gender of a word can be identified by its ending:\n\nWords ending in o are usually masculine;\nWords ending in a are usually feminine;\nWords ending in ção are usually feminine;\nWords ending in dor are usually masculine;\nWords ending in ente and ista are usually used for both genders;\n\n\n=== Number ===\nLike English, Portuguese words can be singular or plural. Portuguese plurals end in s. Usually the following rules apply:\n\nSingulars ending in vowels pluralise with s: carro (“car”) → carros (“cars”);\nSingulars ending in r, z and n pluralise with es: mar (“sea”) → mares (“seas”);\nSingulars ending in s pluralise with es if the stress is in the last syllable: país (“country”) → países (“countries”); they are the same when plural if the stress is not in the last syllable: atlas (“atlas”) → atlas (“atlases”);\nSingulars ending in m pluralise with ns replacing the m: bem (“good”) → bens (“goods”);\nSingulars ending in x are the same when plural: tórax (“thorax”) → tórax (“thoraxes”);\nSingulars ending in il pluralise with:\nis replacing the il if the stress is in the last syllable: canil (“kennel”) → canis (“kennels”);\neis replacing the il if the stress is not in the last syllable: míssil (“missile”) → mísseis (“missiles”);\nOther singulars ending in l pluralise with is replacing the l: jornal (“newspaper”) → jornais (“newspapers”);\nSingulars ending in ão pluralise with:\nões replacing the ão (most common): opção (“option”) → opções (“options”);\nães replacing the ão: pão (“bread”) → pães (“breads”);\ns: mão (“hand”) → mãos (“hands”);\n\n\n=== Ser and estar ===\nLet's analyse the third line, in which Ricardo answers:\nEstou bem, obrigado. - “I am fine, thank you.”\nThe meaning of bem and obrigado have already been explained. The other word, estou means I am. It is one of two verbs that translate to our English ‘I am’, the other being sou.\nConsider the following English phrases and their Portuguese translations:\n\nEstou is a form of Estar and sou is a form of ser and both verbs translate as to be. For a Portuguese learner, it is important to know when to use one and when to use the other:\n\nEstar implies that something is temporary, that it can be changed. It is used, for example, for being somewhere, for being wearing something, for having a curable disease, for being in a certain state of mind.\nSer implies that something is unlikely to change. It is used, for example, for being a certain nationality, for being young, old, a teenager, an adult, etc., for being always big or small, for having an incurable disease.\nThere some exceptions to these rules. For example, “I am dead” is “Eu estou morto.” even though the fact someone is dead is unlikely to change.\nEstou is a form of the verb estar. Confused? Think of a verb like a tree. On the trunk there's the verb's name - this is called the infinitive. Some examples of infinitives are...\n\n ESTAR      -     SER    -     TER   -    COMER    -    FALAR    -    ABRIR\n To be in        To be       To have      To eat       To speak      To open\n\nNow we have to imagine the branches of the tree. Each branch is a different TENSE of the verb. Example? 'I am running' is present continuous tense because it is happening NOW whereas 'I was running' is past continuous tense because it happened in the PAST. \nFinally, the leaves on the branches are different CONJUGATIONS. Example? We say 'I run' and 'you run' but 'he/she/it runS' with an 's' on the end. This is a different conjugation of the present indicative tense of the verb 'to run'. However in Portuguese there are more conjugations than in English.\nLet's take a look at the conjugations for the verb ESTAR. We already know that one of them will be 'está', from the dialogue.\n ESTAR - To Be in \n\nLook back at the dialogue. Ricardo says Estou bem. We can see that the first word means 'am'. Bem simply means 'well'. So we have 'Am well.' We seem to be missing the 'I'! However, in Portuguese, because there are different conjugations for the different people, you can often leave out the 'I, we, they' etc. if it is obvious. In the case of 'I' and 'we' it is always obvious in the present tense.\nThere's also always a bit of confusion at the start between the different forms of 'you'.\n\nTu – This is really mostly used in Portugal, and some regions from Brazil. It is a really casual way of saying ‘you’ – used between close friends or to children. If in doubt, don’t use it, use 'o senhor/a senhora' (masculine/feminine).\nVocê – It only refers to one person. Used in informal speech mainly in Brazil.\nVocês – Plural form of ‘tu’ or ‘você’.\nThere is also one other form of you: Vós. However this form is less used and is mostly used by people in Northern Portugal and in classic literature. Therefore we shall ignore this form of \"you\". However if you need to understand it, the grammar references on this Wikibook include Vós - which, I should point out, is like vocês -  it is currently only used when talking to more than one person. Still confused? Check out the Personal Pronouns of Subject page.\nMuito prazer means It's a pleasure.\nAdeus means goodbye. \n\n\n=== Exercises ===\n\nReturn to Portuguese – Return to Contents – Go to Lesson Two",
+          "examples": [
+            "Bom dia -  translates as (\"good day\"), but is normally used until 12PM as a short form of \"boa manhã/madrugada\"(\"good morning\") and never after sun down.",
+            "O meu nome é Ricardo - My name is Ricardo (\"Richard\" could also be used if pronunciation is an issue).",
+            "In informal language, or in spoken language in general, \"Chamo-me João\" similar in context to the use of \"I'm João\", a more direct translation would be \"I'm called João\". João can also be changed into John.",
+            "In this type of situation, the inquiry about someone's state may only be a show of politeness and consideration, an implicit request to engage in personal conversation and an acknowledgment of the other's presence, rather than explicit prob",
+            "There is also one other form of you: Vós. However this form is less used and is mostly used by people in Northern Portugal and in classic literature. Therefore we shall ignore this form of \"you\". However if you need to understand it, the gr"
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Two\nWelcome to the Portuguese Language Course Wikibook. Good luck - or should we say, boa sorte!",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_One_-_Saying_Hello"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson Seven - What Time Is It?",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Eight",
+      "sections": [
+        {
+          "heading": "Lesson Seven - What Time Is It?",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Eight\n\nHere are the numbers 1-10 in Portuguese. It is essential that you learn these by heart. Next is a table with some other numbers in portuguese.\n\nNow, to our usual dialogue.\n\nIn Portuguese, the way you tell the time is similar to English. You first say the hour number, then the word e and finally the minute number. Ex: São sete e vinte. - It's seven twenty. \nFor half an hour, you say e meia in the place of \"and a half\" or e trinta as in thirty and in case the minute number is very close to the full hour (bigger than 30), it is more common to say the remaining time to the next hour, using the structure: São + remaining time in minutes + para a(s) + next hour. Ex: São duas e meia. - It's two and a half. São cinco para as quatro - It's five to four.\nAlso, there are synonyms for midnight and midday in Portuguese: meia-noite and meio-dia, respectively. These words are used the same way. Ex: É meio-dia. - It's midday.\nNow, let's do some exercises:\n1)Tell the times below in Portuguese:\na)10:30 PM\nb)8:55 AM\nc)3:15 AM\nd)7:25 AM\ne)1:00 PM\nf)4:40 PM\ng)12:50 PM\nh)11:55 AM\nAnswers:\n1)\na)São dez e meia.\nb)São cinco para as nove.\nc)São três e quinze.\nd)São sete e vinte e cinco.\ne)É uma hora.*\nf)São vinte para as cinco.\ng)São dez para uma.\nh)São cinco para meio-dia.\n\nNote that since one hour is singular, the verb ser is in the singular form.",
+          "examples": [
+            "For half an hour, you say e meia in the place of \"and a half\" or e trinta as in thirty and in case the minute number is very close to the full hour (bigger than 30), it is more common to say the remaining time to the next hour, using the st"
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Eight",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Seven_-_What_Time_Is_It?"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson Six - The Train",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Seven",
+      "sections": [
+        {
+          "heading": "Lesson Six - The Train",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Seven\n\nHere Ricardo is buying a ticket on a train station (o comboio in Portugal, \"the train\", is translated as o trem in Brazil). He also asks some other questions about the train he wants to catch. In this lesson we're going to learn how to make questions in Portuguese. We've already seen one way of asking about things, when we looked at verbs like \"gostar\".\n\nThese are almost exactly the same as stating something.\n\nIn fact, the only difference between these sentences is that there is a question mark at the end. In Portuguese, you can ask a yes/no question by just stating something, and putting a question mark at the end of it. In the spoken language, you should pronounce with a raising intonation to the end of the sentence, just like in English. This is an extremely easy way to form a question.\n STATEMENT & QUESTION MARK  =  YES/NO QUESTION \nAnd how do we answer such questions? Well, of course, with a \"Yes\" or a \"No\". When Alberto asks Ricardo:\nO senhor tem bilhete?\nRicardo could answer with...\n\nWe've also encountered another way to ask questions. Back in lesson three we learnt how to ask someone what they were going to do on a certain day. Do you remember?\nO que vai fazer na terça-feira? - What are you going to do on Tuesday?\nO que eles vão fazer no domingo? - What are they going to do on Sunday?\nThe two words 'O que' mean \"what?\" You can also ask \"o que é que...\", which literally means \"what is it that...\".",
+          "examples": [
+            "Here Ricardo is buying a ticket on a train station (o comboio in Portugal, \"the train\", is translated as o trem in Brazil). He also asks some other questions about the train he wants to catch. In this lesson we're going to learn how to make",
+            "And how do we answer such questions? Well, of course, with a \"Yes\" or a \"No\". When Alberto asks Ricardo:",
+            "The two words 'O que' mean \"what?\" You can also ask \"o que é que...\", which literally means \"what is it that...\"."
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Seven",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Six_-_The_Train"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson Ten - My House",
+      "summary": "This page or section is an undeveloped draft or outline.\nYou can help to develop the work, or you can ask for assistance in the project room. \nLet's take a look at the conjugations for the verb TER.",
+      "sections": [
+        {
+          "heading": "Lesson Ten - My House",
+          "body": "This page or section is an undeveloped draft or outline.\nYou can help to develop the work, or you can ask for assistance in the project room. \nLet's take a look at the conjugations for the verb TER.\n\n TER - To Have \n\nI have\n\nEu\n\ntenho\n\nYou (familiar) have\n\nTu\n\ntens\n\nHe has\n\nEle\n\ntem\n\nShe has\n\nEla\n\ntem\n\nYou (formal) have\n\nVocê\n\ntem\n\nWe have\n\nNós\n\ntemos\n\nYou (plural informal) have\n\nVós\n\ntendes\n\nYou (plural formal) have\n\nVocês\n\ntêm\n\nThey have\n\nEles \nElas\n\ntêm\ntêm",
+          "examples": [],
+          "learnerTip": "This page or section is an undeveloped draft or outline.\nYou can help to develop the work, or you can ask for assistance in the project room. \nLet's take a look at the conjugations for the verb TER.",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Ten_-_My_House"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson Three - What Are You Going To Do?",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Four",
+      "sections": [
+        {
+          "heading": "Lesson Three - What Are You Going To Do?",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Four\n\nIn this dialogue João and Ricardo are talking about what they are going to do. What day? Well, let's have a look at the days of the week before we go any further.\n\nNote: If it's clear that you are talking about days of the week, you don't actually have to say 'feira'. \nSo Ricardo says\nRicardo: Olá. O que vai fazer no sábado?\nOlá of course means 'hello'. \nO que você vai fazer (no sábado) ?\nThis is a very useful phrase that basically means 'What are you going to do (on Saturday)?' You can of course replace the 'sábado' with whichever day you want to use. 'No' is a contraction of 'em' (in) and 'o' ('the', masculine). Weekend days are masculine, whereas week days are feminine, so you'll say 'no domingo' (on Sunday) but 'na segunda(-feira)' (on Monday).\nThe answer will be something along the lines of:\n(Eu) vou (fazer, nadar, comer)\nThis means 'I am going'. 'Vou' is one part of the word 'ir' which means 'to go' in Portuguese. Just like in English, we say what we will do by saying 'going to', in Portuguese we can use the verb 'ir' (which, as a verb, changes for each person that it refers to, like 'estar' and 'ser') to talk about the future. First we need to look at how to conjugate (change for each person) the verb 'ir'. Remember the tree analogy? 'Ir' is called the infinitive - the trunk - of the verb. We can't just simply use it, we have to change it.\n\nIR - Present Indicative Tense\nEu vou - I go\nTu vais - You (familiar) go\nVocê vai - You (informal) go\nEle/Ela vai  - He/She goes\nNós vamos - We go\nVocês vão - You (plural) go\nEles/Elas vão - They (group of males or mixed) / They (group of females) go\n\nYou need to memorize the conjugations for this verb because it is IRREGULAR - it has no pattern to it.\nYou may also recognize a word from the dialogue. Ricardo asked João, \nComo vai? - How are you doing (literally \"How are you going?\")\nThis is another way to ask how someone is. Do you remember Como está? from the first lesson? Remember that como means \"how\". So como vai? literally means \"How are you going?\". It can be replied to exactly like \"Como está\".\n\nNow that we know how this verb conjugates for every person, we can use it to say what someone is going to do.\n\nOf course you can use any of the conjugations we have learned, not just eu vou and Nós vamos.\nTry out the following exercise\n\nThe infinitive forms of verbs - like gostar, ser and ir - are used quite a bit in Portuguese - but usually only when there is another verb before them. For instance, we know that we use the infinitive after the verb 'ir'.\nWe also know how to say \"I like something\". But how do we say \"I like to do something\"?\nThis is nearly as simple as saying \"I am going to do something\". Except here we use the verb gostar (remember, this means to like) instead of ir - and we slip the word de in as well.\n\nReturn to Portuguese – Return to Contents – Go to Lesson Four",
+          "examples": [
+            "Como vai? - How are you doing (literally \"How are you going?\")",
+            "This is another way to ask how someone is. Do you remember Como está? from the first lesson? Remember that como means \"how\". So como vai? literally means \"How are you going?\". It can be replied to exactly like \"Como está\".",
+            "We also know how to say \"I like something\". But how do we say \"I like to do something\"?",
+            "This is nearly as simple as saying \"I am going to do something\". Except here we use the verb gostar (remember, this means to like) instead of ir - and we slip the word de in as well."
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Four",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Three_-_What_Are_You_Going_To_Do?"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Lesson Two - I Like...",
+      "summary": "Return to Portuguese – Return to Contents – Go to Lesson Three\nWelcome to the second lesson in our Portuguese language course. If you haven't already, have a look at Lesson One - Saying Hello",
+      "sections": [
+        {
+          "heading": "Lesson Two - I Like...",
+          "body": "Return to Portuguese – Return to Contents – Go to Lesson Three\nWelcome to the second lesson in our Portuguese language course. If you haven't already, have a look at Lesson One - Saying Hello\n\nOnce again, don't worry if you don't pick up everything - or even anything. However some words are fairly obvious.\no chocolate - this means the chocolate.\nThe o we slipped in above means the in Portuguese - but here's the catch - only for certain words. Because in Portuguese we introduce a concept called 'noun gender' which means that every noun - that is, every word that represents a thing - animal, mineral, vegetable - is either masculine or feminine. This is a mostly abstract concept. However, there are some words like 'homem' ('man', which is masculine) and 'mulher' ('woman', which is feminine) that follow logical patterns (as do others that refer to something with a specific gender). Most words, however, like 'carvão' ('coal', which is masculine) and 'casa' ('house', which is feminine) seem to be completely random. That is why you always have to learn the gender of a word when you learn a word. \nHave a look at these examples.\n\nAs you can see, the word for 'the' changes with every gender. It also changes depending on the NUMBER of things you are talking about. If there is more than one object we call it 'plural' and so the word for 'the' changes again. \nUnfortunately, the word for 'the' isn't the only thing that changes with gender. Adjectives - words that describe an object - change depending on what gender the object they are describing is.\nSome more examples...\n\nCan you see a pattern? We started with amarelo to translate \"yellow\". Can you see the similarity between the word for \"the\" in this instance - o - and the ending of the adjective, amarelo?  When the word for \"the\" changes to a, so too does the end of the adjective - we get amarela. So to change an adjective from masculine to feminine, we just change the final letter from an o with the masculine form to an a in the feminine.\nTo get to the plural forms, add an s - amarelos and amarelas.\nTry the following exercise out.\n\n \nHow did you do? It's not that tricky if you keep in mind the link between the word for \"the\" and the ending of the adjective.\n\nBefore we go, let's have a look at three things.\n1. The Verb SER \nYou may have noticed that, despite the fact that we said last lesson that the verb for \"to be\" is estar, when we said \"The house is yellow\" we translated it as a casa é amarela. Shouldn't that be a casa está amarela? Unfortunately in Portuguese there are two verbs that translate to the English verb \"to be\". One is estar - the other is ser.\nLet's have a look at the verb table for SER in the Present Indicative Tense:\n SER - To Be \n\nSo when to use ser and when to use estar? \nOne way to remember the difference is to remember where they came from. Ser comes from the Latin word 'esse'. In English, we derive the word essence from the same Latin root. Ser is used to talk about WHAT something or someone is. The verb estar that we met in Lesson One comes from the Latin stare, from which we also get our English word status. Estar is used to talk about the state of something, HOW is it. Some examples...\n\nWhen talking about the location of something, use ser if the thing being located is always or usually there (like a building) but estar if (like a person, or animal) they tend to move around and are only in the spot for a period of time.\nIf you still find ser and estar confusing, go the this page - Ser and Estar\n2. The second thing we still haven't got around to the main point of this article - how to say we like something. In the dialogue \nRicardo asks Tu gostas de chocolate? This means \"Do you like chocolate?\"\nJoão responds, Sim, gosto de chocolate. This means \"Yes, I like chocolate.\"\nSo we have a formula for asking someone whether they like something. We can also respond.\n\nThe response will be \n\nOK, but why do we have the options of do/da/dos/das? Perhaps you have picked up on the endings of these words? They correspond to the words meaning \"the\". But why do we say do instead of o or das instead of as? Well, because in English we talk of \"to like\" wheras in Portuguese the phrase is gostar de which means \"to like of\". As a memory aid, you can think of the English phrase \"to be fond of\", which, like the Portuguese \"gostar\", does not make sense without that \"of\". The word for \"of\" in Portuguese is de. However when it appears before the words o, a, os and as we contract it - we squeeze the two words up. So, for instance\ngostar de a amiga - \"to like the friend\". This is incorrect. Squish 'de' and 'a' into one word - 'da'. We now have gostar da amiga.\n\n3. The final thing we need to look at is the order of adjectives. Usually in English the adjective (or describing word) comes BEFORE the word it is describing. For example.\nThe YELLOW dog. The POLITE mother. \nHowever in Portuguese the opposite (usually) happens.\nO cão amarelo - The yellow dog (literally, \"The dog yellow\")\n A mãe educada - The polite mother. (literally, \"The mother polite\")\nAdjectives can also be placed BEFORE the word they describe. This will cause their meaning to change slightly. However, we will deal with that situation a little later on.\nThat is all for Lesson 2. Have a little rest then see how you fare on Lesson Three.",
+          "examples": [
+            "Can you see a pattern? We started with amarelo to translate \"yellow\". Can you see the similarity between the word for \"the\" in this instance - o - and the ending of the adjective, amarelo?  When the word for \"the\" changes to a, so too does ",
+            "How did you do? It's not that tricky if you keep in mind the link between the word for \"the\" and the ending of the adjective.",
+            "You may have noticed that, despite the fact that we said last lesson that the verb for \"to be\" is estar, when we said \"The house is yellow\" we translated it as a casa é amarela. Shouldn't that be a casa está amarela? Unfortunately in Portug",
+            "Ricardo asks Tu gostas de chocolate? This means \"Do you like chocolate?\"",
+            "João responds, Sim, gosto de chocolate. This means \"Yes, I like chocolate.\"",
+            "OK, but why do we have the options of do/da/dos/das? Perhaps you have picked up on the endings of these words? They correspond to the words meaning \"the\". But why do we say do instead of o or das instead of as? Well, because in English we t"
+          ],
+          "learnerTip": "Return to Portuguese – Return to Contents – Go to Lesson Three\nWelcome to the second lesson in our Portuguese language course. If you haven't already, have a look at Lesson One - Saying Hello",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L1/Lesson_Two_-_I_Like..."
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson Eleven - Whose Is This?",
+      "summary": "== Introduction ==\nOne very important part of the Portuguese language is describing possession. This should be learned step-by-step. In portuguese, each person has four variants, the possessive pronous varies not only with the subject but also with the object.",
+      "sections": [
+        {
+          "heading": "Lesson Eleven - Whose Is This?",
+          "body": "== Introduction ==\nOne very important part of the Portuguese language is describing possession. This should be learned step-by-step. In portuguese, each person has four variants, the possessive pronous varies not only with the subject but also with the object.\n\n\n== First Person ==\nThat is, when something is mine.\nSubject: me\nObject:\nmale singular   > meu;\nmale plural     > meus;\nfemale singular > minha;\nfemale plural   > minhas.",
+          "examples": [],
+          "learnerTip": "== Introduction ==\nOne very important part of the Portuguese language is describing possession. This should be learned step-by-step. In portuguese, each person has four variants, the possessive pronou",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Eleven_-_Whose_Is_This?"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lesson Fifteen - Eating Out Part II",
+      "summary": "ele/ela/você\n      com \n+  e\n      ele \ncome",
+      "sections": [
+        {
+          "heading": "Lesson Fifteen - Eating Out Part II",
+          "body": "< Portuguese:L2\n\n    \n      comer\n      remove 'er'\n\ncom\n\n      eu\n      com \n+  o\n      eu \ncomo\n    \n    \n      tu\n      com \n+  es\n      tu\n  comes\n    \n    \n      ele/ela/você\n      com \n+  e\n      ele \ncome\n    \n    \n      nós\n      com \n+  emos\n      nós comemos\n\n      \n    \n    \n      vós\n      com \n+  eis\n      vós comeis\n\n      \n    \n    \n      eles/elas/vocês\n      com \n+  em\n      eles\ncomem\n    \n\n    \n      abrir\n      remove 'ir'\n\nabr\n\n      eu\n      abr \n+  o\n      eu \nabro\n    \n    \n      tu\n      abr \n+  es\n      tu\n  abres\n    \n    \n      ele/ela/você\n      abr \n+  e\n      ele \nabre\n    \n    \n      nós\n      abr \n+  imos\n      nós abrimos\n\n      \n    \n      vós\n      abr \n+  is\n      vós abris\n\n      \n    \n    \n      eles/elas/vocês\n      abr \n+  em\n      eles\nabrem",
+          "examples": [],
+          "learnerTip": "ele/ela/você\n      com \n+  e\n      ele \ncome",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Fifteen_-_Eating_Out_Part_II"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Lesson Fourteen - Eating Out",
+      "summary": "By now, we have seen many verbs, like gostar, ser, estar and ter. Up until now, we have looked at the various conjugations of these verbs individually. However, for the vast majority of Portuguese verbs, there are simple rules to follow in order to get the various conjugations fo",
+      "sections": [
+        {
+          "heading": "Lesson Fourteen - Eating Out",
+          "body": "By now, we have seen many verbs, like gostar, ser, estar and ter. Up until now, we have looked at the various conjugations of these verbs individually. However, for the vast majority of Portuguese verbs, there are simple rules to follow in order to get the various conjugations for a verb. In Portuguese, there are three main types of verbs: those that end with -ar, those that end in er and ir. Of these, some are irregular - that means the rules don't apply. However, most of them are regular. Now we'll have a look at the most common types of verbs, those that end in -ar.",
+          "examples": [],
+          "learnerTip": "By now, we have seen many verbs, like gostar, ser, estar and ter. Up until now, we have looked at the various conjugations of these verbs individually. However, for the vast majority of Portuguese ver",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Fourteen_-_Eating_Out"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lesson Thirteen - At The Doctor",
+      "summary": "The doctor is treated with \"doutor\" (\"doutora\" would be the feminine). Sometimes with the name, but always with \"doutor\". (\"Doutor Souza\").",
+      "sections": [
+        {
+          "heading": "Lesson Thirteen - At The Doctor",
+          "body": "The doctor is treated with \"doutor\" (\"doutora\" would be the feminine). Sometimes with the name, but always with \"doutor\". (\"Doutor Souza\").\n\nThe regular verb \"doer\" (to feel pain or hurt), is defective. It just exists in two conjugations. Singular (dói) and plural (doem).\nNow, it is time to learn some new words:\n\n\n== Expressions ==\n\"Trata com que frequencia\" / Treat it with what frequency\n\"Eu faço-o três vezes por semana\" / I do it three times a week  \n\"Tenho/Tens (o que)\" / I/You have got (what)\nThe disease (prolonged sickness) is determined with the verb to have \"ter\" / to have,\n\n\n== Body vocabulary ==",
+          "examples": [
+            "The doctor is treated with \"doutor\" (\"doutora\" would be the feminine). Sometimes with the name, but always with \"doutor\". (\"Doutor Souza\").",
+            "The regular verb \"doer\" (to feel pain or hurt), is defective. It just exists in two conjugations. Singular (dói) and plural (doem).",
+            "\"Trata com que frequencia\" / Treat it with what frequency",
+            "\"Eu faço-o três vezes por semana\" / I do it three times a week",
+            "\"Tenho/Tens (o que)\" / I/You have got (what)",
+            "The disease (prolonged sickness) is determined with the verb to have \"ter\" / to have,"
+          ],
+          "learnerTip": "The doctor is treated with \"doutor\" (\"doutora\" would be the feminine). Sometimes with the name, but always with \"doutor\". (\"Doutor Souza\").",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Thirteen_-_At_The_Doctor"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Lesson Twelve - The Weekend",
+      "summary": "Here Ricardo and João are talking about what they and their families are doing.\nEstou a ler um livro - I am reading a book.\nIn Portuguese, as in English, there are two ways to say what you do in the present. One is the simple present tense. 'I run', or 'They swim'. However, we ca",
+      "sections": [
+        {
+          "heading": "Lesson Twelve - The Weekend",
+          "body": "Here Ricardo and João are talking about what they and their families are doing.\nEstou a ler um livro - I am reading a book.\nIn Portuguese, as in English, there are two ways to say what you do in the present. One is the simple present tense. 'I run', or 'They swim'. However, we can also say 'I am running' or 'They are swimming'. This is called the \"present progressive\" tense, and this is the tense that our two friends are using in this dialogue here.\nUnfortunately there are two different forms of the present progressive. One is used in Portugal and one is used in Brazil. We have encountered the European Portuguese form. It can be formed as follows...\n\nLet's do some practice...",
+          "examples": [
+            "In Portuguese, as in English, there are two ways to say what you do in the present. One is the simple present tense. 'I run', or 'They swim'. However, we can also say 'I am running' or 'They are swimming'. This is called the \"present progre"
+          ],
+          "learnerTip": "Here Ricardo and João are talking about what they and their families are doing.\nEstou a ler um livro - I am reading a book.\nIn Portuguese, as in English, there are two ways to say what you do in the p",
+          "source": "https://en.wikibooks.org/wiki/Portuguese/Contents/L2/Lesson_Twelve_-_The_Weekend"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

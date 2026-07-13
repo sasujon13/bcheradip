@@ -1,0 +1,143 @@
+{
+  "title": "Grammar Book — ⵜⴰⵎⴰⵣⵉⵖⵜ",
+  "languageCode": "tzm",
+  "languageName": "ⵜⴰⵎⴰⵣⵉⵖⵜ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Tamazight_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Central Atlas Tamazight Berber variety\nThis article is about the grammar of Central Atlas Tamazight. For the grammar of Berber languages in general, see Berber languages.\nThe grammar of Central Atlas Tamazight (also referred to as just Tamazight[nb 1]) has a two-ge",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Central Atlas Tamazight Berber variety\nThis article is about the grammar of Central Atlas Tamazight. For the grammar of Berber languages in general, see Berber languages.\nThe grammar of Central Atlas Tamazight (also referred to as just Tamazight[nb 1]) has a two-gender (tawsit[1]) system, VSO typology, emphatic consonants (realized in Tamazight as velarized), and a templatic morphology, sharing various similarities with other Berber languages.\n\nTamazight has a verbo-nominal distinction, with adjectives being a subset of verbs.[2][3]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "Nouns may be masculine or feminine and singular or plural. Definiteness is not marked (even though many loanwords from Arabic contain what was originally the Arabic definite article).[4]  Normally plurals end in /-n/, singular masculines have the prefix /a-/ and plurals /i-/, and",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nouns may be masculine or feminine and singular or plural. Definiteness is not marked (even though many loanwords from Arabic contain what was originally the Arabic definite article).[4]  Normally plurals end in /-n/, singular masculines have the prefix /a-/ and plurals /i-/, and feminines have the circumfix /t(a)...t(ː)/ in singular and /t(i)...(in/t)/ in plural.[5] In Ayt Seghrouchen initial /a/ is dropped in many singular nouns, though their plurals and construct states are similar to Ayt Ayache.[6]\n\nPlurals may either involve a regular change (\"sound plurals\"), internal vowel change (\"broken plurals\"), or a combination of the two.[7] Some plurals are mixed, e.g. /tafust/ ('hand') > /tifusin/ ('hands').[8]\n\nNative masculine singular nouns usually start with /a(m)-/ in singular and /i-/ in plural, and \"sound plurals\" (as opposed to \"broken plurals\" which also take the suffix /-n/ in plural).[9] This suffix undergoes the following assimilatory rules:\n\n/-n/ + /-n/ > /-nː/ (in AA and AS)\n\n/-r/ + /-n/ > /-rː/ (only AA)\n\n/-l/ + /-n/ > /-lː/) (only AA) [10]\n\nNative feminine usually are surrounded by /t...(t)/ (or /m...t/) in the singular. \"Sound\" plurals usually take /t(i/u)...n/ and \"Broken\" plurals /ti-/.[11]\n\nExamples:.[12]\n\n/axam/-/ixamn/ 'big tent(s)' (m)\n/amaziɣ/-/imaziɣn/ 'Berber(s)' (m)\n/adaʃu//-/iduʃa/ 'sandal(s)' (m)\n/asrdun/-/isrdan/ 'mule(s)' (m)\n/taxamt/-/tixamin/ 'tent(s)' (f)\n/tafunast/-/tifunasin/ 'cow(s)' (f)\n/tagrtilt/-/tigrtal/ 'mat(s)' (f)\n/tamazirt/-/timizar/ 'property(ies)' (f)\nNouns may be put into the construct state (contrasting with free state) to indicate possession, or when the subject of a verb follows the verb. This is also used for nouns following numerals and some prepositions (note that /ɣɾ/, 'to', only requires this for feminine nouns), as well as the word /d-/ ('and').[13] The construct state is formed as follows:\n\nIn masculine nouns:\n\nInitial /a/ > /u, wː, wa/\nInitial /i/ > /i, j, ji/\nInitial /u/ > /wu/\nIn feminine nouns:\n\nInitial /ta/ > /t/ or rarely /ta/\nInitial /ti/ > /t/ or rarely /ti/\nInitial /tu/ > /tu/ [14]\nExamples (in AA):[14]\n\n/babuxam/ (< /axam/) 'head of the house'\n/ijːs ntslit/ (< /tislit/) 'the horse of the bride'",
+          "examples": [
+            "Plurals may either involve a regular change (\"sound plurals\"), internal vowel change (\"broken plurals\"), or a combination of the two.[7] Some plurals are mixed, e.g. /tafust/ ('hand') > /tifusin/ ('hands').[8]",
+            "Native masculine singular nouns usually start with /a(m)-/ in singular and /i-/ in plural, and \"sound plurals\" (as opposed to \"broken plurals\" which also take the suffix /-n/ in plural).[9] This suffix undergoes the following assimilatory r",
+            "Native feminine usually are surrounded by /t...(t)/ (or /m...t/) in the singular. \"Sound\" plurals usually take /t(i/u)...n/ and \"Broken\" plurals /ti-/.[11]",
+            "Examples:.[12]",
+            "Examples (in AA):[14]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "Tamazight's use of possessive suffixes mirrors that of many other Afroasiatic languages.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Tamazight's use of possessive suffixes mirrors that of many other Afroasiatic languages.\n\nPronouns[15]\n\nPerson\n\nSubject\n\nPossessive \n suffix\n\nObject1 \n (affixed2)\n\nDialect:\n\nAA\n\nAS\n\nAA\n\nAS\n\nAA\n\nAS\n\ndirect \n object\n\nindirect \n object\n\nI\n\n/nkː/\n\n/ntʃ ~ ntʃint/\n\n/-(i)nw/3\n\n/i/\n\nyou (ms)\n\n/ʃɡː/\n\n/ʃkː ~ ʃkːint/\n\n/-nʃ/\n\n/-nːs/\n\n/aʃ/4\n\n/ʃ/\n\nyou (fs)\n\n/ʃmː/\n\n/ʃmː ~ ʃmːint/\n\n/-nːm/\n\n/am/4\n\n/ʃm/\n\nhe\n\n/ntːa/\n\n/ntːa ~ ntːan/\n\n/-ns/\n\n/-nːs/\n\n/as/4\n\n/t/\n\nshe\n\n/ntːat/\n\n/tː/\n\nwe (m)\n\n/nkʷːni/\n\n/ntʃni/\n\n/-nːɣ/\n\n/-nːx/\n\n/aɣ/4\n\n/ax/\n\nwe (f)\n\n/ntʃninti/\n\nyou (mp)\n\n/kʷnːi/\n\n/ʃnːi/\n\n/-nːun/\n\n/awn/4\n\n/ʃun/\n\nyou (fp)\n\n/kʷnːinti/\n\n/ʃnːinti/\n\n/-nːkʷnt/\n\n/-nːʃnt/\n\n/akʷnt/4\n\n/awnt ~ aʃnt/\n\n/ʃunt/\n\nthey (m)\n\n/nitni/\n\n/-nsn/\n\n/-nːsn/\n\n/asn/4\n\n/tn/\n\nthey (f)\n\n/nitni/\n\n/nitnti/\n\n/-nsnt/\n\n/-nːsnt/\n\n/asnt/4\n\n/tnt/\n\nof verbs and prepositions\n\nwhether objective pronouns are prefixed or suffixed is determined by various factors\n\n-inw is used when the noun ends in a consonant\n\nIn Ayt Ayache these have the allomorphs /-ʃ/, /-m/, /-s/, etc. after prepositions. These mutate after /-d/ (e.g. in /ad-/).\n\nAyt Seghrouchen also has a special set of suffixes for future transitive verbs (which combine with the future marker /ad-/):\n\nAS future transitive pronouns[16]\n\nsingular\nplural\n\nm\nf\nm\nf\n\n1st\n\n/adi-/\n\n/adax-/\n\n2nd\n\n/aʃː-/\n\n/asːm-/\n\n/aʃːun-/\n\n3rd\n\n/atː-/\n\n/adtː-/\n\n/atːn-/\n\n/atːnt-/\n\nIndependent possessives are formed by attaching the possessive suffixes to /wi-/ (if the object possessed is masculine) or /ti-/' (for feminine), e.g. /winw/ ('mine').\n\nSpecial possessive suffixes are used with kinship terms.\n\nEmphatics are formed with the word /nːit/, e.g. /nkː nːit/ ('I myself').\n\nDemonstratives[17]\n\nProximate\n\nRemote\n\n(s)\n\n(pl)\n\n(s)\n\n(pl)\n\nAA\nAS\nAA\nAS\nAA\nAS\nAA\nAS\n\n(m)\n\n/wa/\n\n/wu/\n\n/wi/\n\n/inu/\n\n/wanː/\n\n/winː/\n\n/winː/\n\n/ininː/\n\n(f)\n\n/ta/\n\n/tu/\n\n/ti/\n\n/tinu/\n\n/tanː/\n\n/tinː/\n\n/tinː/\n\n/tininː/\n\nsuffixes\n\n/-a/1 / /-u/2\n\n/-inː/\n\nAyt Ayache\n\nAyt Seghrouchen\n\nWhen /-a/ / /-u/ / /-inː/ is suffixed to a noun ending in /a/ or /u/ epenthetic /j/ is inserted, e.g. /tabardaja/ ('this pack-saddle').\n\nOther deictic suffixes: /-dːɣ/ ('this'), /-nːa/ ('that'), e.g. /tadːartdːɣ/ ('this house'), /tadːartnːa/ ('that house').",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Verbs",
+      "summary": "Verbs are marked for tense, aspect, mood, voice, and polarity, and agree with the number, person, and gender of the subject.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbs are marked for tense, aspect, mood, voice, and polarity, and agree with the number, person, and gender of the subject.\n\nVerb framing\n\nSatellite framing is accomplished with the proximate affix[nb 2] /d/ (/dː/ in AS) and remote /nː/, e.g. /dːu/ 'to go' yields /i-dːa/ 'he went', /i-dːa-d/ 'he came', /i-dːa-nː/ 'he went there' (in AS the verb /rˠaħ/ 'to go' is used instead)[18]\n\nVoice\n\nDerived verb stems may be made from basic verb stems to create causatives, reciprocals, recipro-causatives, passives, or habituals.[19]\n\nCausatives are derived from unaugmented stems with the prefix /s(ː)-/.[nb 3][20]\n\n/ħudr/ 'bend' > /sħudr/\nHabituals are derived from unaugmented and reciprocal/recipro-causative stems with the prefix /tː-/ (sometimes with internal change), from causatives by an infixed vowel, and from passives by an optional infixed vowel:[21]\n/fa/ 'yawn' > /tːfa/\n\n(/ħudr/ 'bend' >) /sħudr/ > /sħudur/\n(/ʕum/ 'swim' > /mːsʕum/ >) /tːmːsʕum/\n(/bdr/ 'mention' > /tːubdr/ >) /tːubdar/\nReciprocals are formed with the prefix /m(ː)-/, and recipro-causatives with /-m(ː)s-/, sometimes with internal change.[22]\n\n/sal/ 'ask' > /mːsal/\nPassives are formed with the prefix /tːu-/:[23]\n/ħnːa/ 'pity' > /tːuħnːa/\n\nTense, mode, and subject\n\n/ad-/ marks future tense, /is-/ marks interrogative mode, and /ur-/ marks negative mode.\n\nPronominal complement markers cliticize to the verb, with the indirect object preceding the direct object, e.g. /izn-as-t/ \"he sold it to him\".[24]\n\nTamazight subject affixes[25]\n\nSubject\n(AA)\n(AS)\n\ns\n\n1\n\n/...-ɣ/\n/...-x/\n\n2\n\n/t-...-d/\n/t-...-t/\n\n3\n\nm\n\n/i-.../\n\nf\n\n/t-.../\n\npl\n\n1\n\n/n-.../\n\n2\n\nm\n\n/t-...-m/\n\nf\n\n/t-...-nt/\n\n3\n\nm\n\n/...-n/\n\nf\n\n/...-nt/\n\nPast-tense conjugation of /dawa/ 'cure' (Ayt Ayache)[26]\n\nSubject\n\nAffirmative\n\nNegative\n\ns.\n\n1\n\n/dawaɣ/\n\n/uɾdawaɣ/\n\n2\n\n/tdawad/\n\n/uɾtdawad/\n\n3\n\nm\n\n/idawa/\n\n/uɾidawa/\n\nf\n\n/tdawa/\n\n/uɾtdawa/\n\npl.\n\n1\n\n/ndawa/\n\n/uɾndawa/\n\n2\n\nm\n\n/tdawam/\n\n/uɾtdawam/\n\nf\n\n/tdawant/\n\n/uɾtdawant/\n\n3\n\nm\n\n/dawan/\n\n/uɾdawan/\n\nf\n\n/dawant/\n\n/uɾdawant/\n\nCentral Atlas Tamazight uses a bipartite negative construction (e.g. /uriffiɣ ʃa/ 'he didn't go out') which apparently was modeled after proximate Arabic varieties, in a common development known as Jespersen's Cycle.[27] This is a phenomenon where a postverbal item is reanalyzed as being an element of a discontinuous negation marker composed of it and the preverbal negation marker.[28] It is present in multiple Berber varieties, and is argued to have originated in neighboring Arabic and been adopted by contact.[28]\n\nStandard negation is accompanied by a negative indefinite pronoun, walu.[29]\n\nImperative conjugation of /rwl/ 'run' in 2nd person[30]\n\nAA\nAS\n\ns\n\n/rwl/\n\npl\n\n(m)\n\n/rwlat/\n\n/rwlm/\n\n(f)\n\n/rwlnt/\n\nTamazight has a null copula.[2] The words /ɡ/ /iʒ/ 'to be, to do' may function as a copula in Ayt Ayache and Ayt Seghrouchen respectively, especially in structures preceded by /aj/ 'who, which, what'.[31]\n\nMany Arabic loans have been integrated into the Tamazight verb lexicon. They adhere fully to patterns of native stems, and may even undergo ablaut.[32]\n\nAblaut\n\nIn Ayt Ayache, ablaut occurs only in affirmative and/or negative past (in applicable verb classes). Types of ablaut include Ø:i/a,  Ø:i, and a:u, which may be accompanied by metathesis.[33] In Ayt Seghrouchen types of ablaut include Ø:i (in negative), i/a, i/u, a-u, and a-i.[34]",
+          "examples": [
+            "Pronominal complement markers cliticize to the verb, with the indirect object preceding the direct object, e.g. /izn-as-t/ \"he sold it to him\".[24]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adjectives",
+      "summary": "Adjectives come after the noun they modify, and inflect for number and gender:[35][36]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectives come after the noun they modify, and inflect for number and gender:[35][36]\n\n/argaz amʕdur/ 'the foolish man' (lit. 'man foolish')\n/tamtˤot tamʕdurt/ 'the foolish woman'\n/irgzen imʕdar/ 'the foolish men'\n/tajtʃin timʕdar/ 'the foolish women'\nAdjectives may also occur alone, in which case they become an NP.[36]\n\nPractically all adjectives also have a verbal form used for predicative purposes, which behaves just like a normal verb:[36]\n\n/i-mmuʕdr urgaz/ 'the man is foolish' (lit. '3ps-foolish man')\n/argaz i-mmuʕdr-n/ 'the foolish man' [using a non-finite verb]\nAs such, adjectives may be classed as a subset of verbs which also have other non-verbal features.[37] However Penchoen (1973:21) argues that they are actually nouns.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Particles",
+      "summary": "Prepositions include /xf/ ('on'), /qbl/ ('before'), /ɣɾ/ ('to'), and /ɡ/ ('until'). These may take pronominal suffixes (see Pronouns).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Prepositions\n\nPrepositions include /xf/ ('on'), /qbl/ ('before'), /ɣɾ/ ('to'), and /ɡ/ ('until'). These may take pronominal suffixes (see Pronouns).\n\nSome prepositions require the following noun to be in the construct state, while others do not.\n\nPrepositions requiring\nconstruct state[38]\n\nTamazight\n\nGloss\n\n/ɣɾ/1\n\n'to'\n\n/i/\n\n'to'\n\n/j/\n\n'in'\n\n/s/\n\n'with (instrumental)'\n\n/amː/\n\n'like'\n\n/xf/\n\n'on'\n\n/zy/\n\n'from'\n\n/d/\n\n'with'\n\n/n/\n\n'of'\n\n/dːaw/\n\n'under'\n\n/inɡɾ ~ nɡɾ/\n\n'between'\n\nonly requires construct state if the following noun is feminine\n\nPrepositions not requiring\nconstruct state[38]\n\nTamazight\n\nGloss\n\n/s/\n\n'to (directional)'\n\n/qbl/\n\n'before'\n\n/bʕd/\n\n'after'\n\n/bla/\n\n'without'\n\n/aɾ/\n\n'until (to)'\n\n/alː/\n\n'until (to)'\n\n/n/ encliticizes onto the following word (which is put into construct state), and assimilates to some initial consonants: it becomes /l/ before a noun with initial /l/, /w/ before initial /a/, and /j/ before initial /i/ (note that this creates geminates rather than doubled phonemes, e.g. /ʃa lːħlib/ 'some milk').[39] Nouns with initial /a/ normally drop in when following /ʃa/ 'some of', e.g. /ʃa wksum/ (< |ʃa n aksum|) 'some meat', but some don't, following the normal rules of construct state, e.g. /ʃa wːataj/ (< |ʃa n ataj|) 'some tea'.[39]\n\nConjunctions\n\nThe conjunction /d/ 'and' requires construct state, and also assimilates to a following /t/, e.g. /aɣjul tːfunast/ 'the donkey and the cow'.[40]\n\nOther conjunctions include:\n\nTamazight conjunctions[41]\n\nAyt Ayache\nAyt Seghrouchen\nGloss\n\n/lːij/\n/zɡːa/\nwhen, while\n\n/ɣas anːaxf ɣas/\n/xas/, /adinx/\nas soon as\n\n/aj/\n/aj/, /din/\nwho, which\n\n/akʷːma/\n/akːadin/\nwhatever\n\n/akʷːmani/\n/akːmani/\nwherever\n\n/akʷːmilmi/\n\nwhenever\n\n/akʷːanːa/\n\nwhatever\n\n/akʷːunːa/\n\nwhoever\n\n/d/\nand\n\n/d/\nwith",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Numerals",
+      "summary": "The first few (1–3 in Ayt Ayache, 1–2 in Ayt Seghrouchen) cardinal numerals have native Berber and borrowed Arabic forms. The Arabic numerals are only used for counting in order and for production of higher numbers when combined with the tens.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Cardinal numerals\n\nThe first few (1–3 in Ayt Ayache, 1–2 in Ayt Seghrouchen) cardinal numerals have native Berber and borrowed Arabic forms. The Arabic numerals are only used for counting in order and for production of higher numbers when combined with the tens.\n\n1–3[42]\n\nNumber\n\nNative\n\nBorrowed\n\nAyt Ayache\n\nAyt Seghrouchen\n\n1\n\n(m)\n\n/jun/\n\n/idʒ/\n\n/waħd/\n\n(f)\n\n/jut/\n\n/iʃt/\n\n2\n\n(m)\n\n/sin/\n\n/snat/\n\n/tnajn/\n\n(f)\n\n/snat/\n\n3\n\n(m)\n\n/ʃɾad/\n\n/tlata/\n\n(f)\n\n/ʃɾatː/\n\nAll higher cardinals are borrowed from Arabic. This is consistent with the linguistic universals that the numbers 1–3 are much more likely to be retained, and that a borrowed number generally implies that numbers greater than it are also borrowed. The retention of one is also motivated by the fact that Berber languages near-universally use unity as a determiner.[43]\n\nThe numbers 3–9 have special apocopated forms, used before the words /snin/ ('years'), /mjːa/ ('100'), /alaf/ ('1,000'), and /mlajn/ ('million'), e.g. /sbʕ snin/ ('7 years'; without the preposition /n/).\n\n3–9[44]\n\nNumber\n\nGeneral\n\nApocopated\n\n3\n\n(/tlata/)\n\n/tlt/\n\n4\n\n/ɾˠbʕa/\n\n/ɾˠbʕ/\n\n5\n\n/xmsa/\n\n/xms/\n\n6\n\n/stːa/\n\n/stː/\n\n7\n\n/sbʕa/\n\n/sbʕ/\n\n8\n\n/tmanɾa/\n\n/tmn/\n\n9\n\n/tsʕa/\n\n/tsʕ/\n\nThe numbers 11–19 only end in /-ɾ/ before the words /ʕam/ ('year') and /alf/ ('thousand'; without the preposition /n/).\n\n10–19[45]\n\n10\n\n/ʕʃɾˠa/\n\n11\n\n/ħ daʕʃ(ɾ)/\n\n12\n\n/tnaʕʃ(ɾ)/\n\n13\n\n/tltˠaʕʃ(ɾ)/\n\n14\n\n/ɾˠbʕtˠaʕʃ(ɾ)/\n\n15\n\n/xmstaʕʃ/ / /xmstˠaʕʃɾ/\n\n16\n\n/stːaʕʃ/ / /stˠːaʕʃɾ/\n\n17\n\n/sbʕtˠaʕʃ(ɾ)/\n\n18\n\n/tmntaʕʃ/tmntˠaʕʃɾ/\n\n19\n\n/tsʕtˠaʕʃ(ɾ)/\n\n/mjːat/ is only used for '100' before /alf/ ('1,000') or /ʕam/ ('year'; without the preposition /n/). Also note the dual forms, and /ʒuʒ mlajn/ for '2,000,000'.\n\n20–99[46]\n\n20\n\n/ʕʃɾin/\n\n21\n\n/waħ d uʕʃɾin/\n\n22\n\n/tnajn uʕʃɾin/\n\n23\n\n/tlata wʕʃɾin/\n\n24\n\n/tsʕa wʕʃɾin/\n\n30\n\n/tlatin/\n\n31\n\n/waħ d utlatin/\n\n37\n\n/sbʕa wtlatin/\n\n40\n\n/ɾˠbʕin/\n\n50\n\n/xmsin/\n\n60\n\n/stːin/\n\n70\n\n/sbʕin/\n\n80\n\n/tmanin/\n\n90\n\n/tsʕin/\n\n100-999[47]\n\n100\n\n/mjːa(t)/\n\n154\n\n/mjːa wɾbʕa uxmsin/\n\n200\n\n/mitajn/\n\n231\n\n/mitajn uwaħ d utlatin/\n\n300\n\n/tlt mjːa/\n\n400\n\n/ɾˠbʕ mjːa/\n\n500\n\n/xms mjːa/\n\n600\n\n/stː mjːa/\n\n700\n\n/sbʕ mjːa/\n\n800\n\n/tmn mjːa/\n\n900\n\n/tsʕ mjːa/\n\n1000- ...[48]\n\n1000\n\n/alf/\n\n2000\n\n/alfajn/\n\n3000\n\n/tlt alf/\n\n4000\n\n/ɾˠbʕ alf/\n\n6000\n\n/stː alf/\n\n10,000\n\n/ʕʃɾˠ alaf/\n\n14,000\n\n/ɾˠbʕtˠaʕʃɾ alf/\n\n100,000\n\n/mjːat alf/\n\n200,000\n\n/mitajn alf/\n\n1,000,000\n\n/mljun/\n\n2,000,000\n\n/ʒuʒ mlajn/\n\n40,000,000\n\n/ɾˠbʕin mljun/\n\n1,000,000,000\n\n/mljaɾ/\n\nCardinal numbers precede the modified noun, connected by the preposition /n/ (optional for the number 1).[49]\n\nThe procliticization-triggered phonological change of /n/ may cause /jun/ / /jut/ and /sin/ to become proclitics /ju-/, /si-/, e.g. /julːʕil/ ('one boy'), /jutːɾbatː ~ jut ntɾbatː/ ('one girl'), /siwːaɾːjalː/ ('two rials').[50]\n\nWhen referring to money, /qːlː/ ('minus') and /ɣiɾ/ ('except') may be used, for example: /mjːa qːlː/ / /ɣiɾ ʕʃɾˠa/ ('90 [rials]'), /mitajn qːlː ʕʃɾin/ ('180 [rials]'), /mitajn ɣiɾ xmsa/ ('195 [rials]').[51]\n\nNouns following numerals require construct state.\n\nOrdinal numerals\n\nThe word for 'the first' is unique in that it is not derived from a cardinal stem and it inflects for number:\n\n'the first'\n\nsingular\n\nplural\n\nm\n\n/amzwaɾu/\n\n/imzwura/\n\nf\n\n/tamzwaɾutː/\n\n/timzwura/\n\nFrom 'the second' on, ordinals are formed by prefixing /wisː-/ in the masculine and /tisː-/ in the feminine (using the native Berber forms of 2 and 3).\n\nFractions\n\nThere are unique words which may be used for some fractions, although male ordinals can be used for 1/4 on.[52]\n\nTamazight\n\nGloss\n\n/amnasˠf/, /azin/1\n\n'half'\n\n/tːulut/\n\n'1/3'\n\n/ɾˠːubuʕ/\n\n'1/4'\n\n/lxumus/\n\n'1/5'\n\n/sːudus/\n\n'1/6'\n\n/tːumun/\n\n'1/8'\n\n/lʕuʃuɾˠ/\n\n'1/10'\n\n/amnasˠf/ may be used in both Ayt Ayache and Ayt Seghrouchen, while /azin/ is specific to the latter",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Syntax",
+      "summary": "Word order is usually Verb + Subject [in construct state] but sometimes is Subject [in free state] + Verb, e.g. (/ifːɣ umaziɣ/ vs. /amaziɣ ifːɣ/ 'the Berber went out').[53] Tamazight exhibits pro-drop behavior.[54]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Word order is usually Verb + Subject [in construct state] but sometimes is Subject [in free state] + Verb, e.g. (/ifːɣ umaziɣ/ vs. /amaziɣ ifːɣ/ 'the Berber went out').[53] Tamazight exhibits pro-drop behavior.[54]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        },
+        {
+          "heading": "Questions",
+          "body": "wh- questions are always clefts, and multiple wh-questions are not found.[55] This means that Tamazight cannot grammatically express an equivalent to the English \"who saw what?\".[56]\n\nTamazight's clefting, relativisation, and wh-interrogation cause what is called \"anti-agreement effects\", similarly to Shilha.[55] This is when the verb doesn't agree with or agrees in a special way with wh-words.[57] In Berber, the feminine singular prefix /t-/ disappears when the subject is a wh- phrase, but only for affirmative verbs.[58]",
+          "examples": [
+            "wh- questions are always clefts, and multiple wh-questions are not found.[55] This means that Tamazight cannot grammatically express an equivalent to the English \"who saw what?\".[56]",
+            "Tamazight's clefting, relativisation, and wh-interrogation cause what is called \"anti-agreement effects\", similarly to Shilha.[55] This is when the verb doesn't agree with or agrees in a special way with wh-words.[57] In Berber, the feminin"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamazight_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

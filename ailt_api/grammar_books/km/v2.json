@@ -1,0 +1,188 @@
+{
+  "title": "Grammar Book — ខ្មែរ",
+  "languageCode": "km",
+  "languageName": "ខ្មែរ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Khmer_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "This article describes the grammar of the Khmer (Cambodian) language, focusing on the standard dialect.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Khmer language\n\nAspects\nPhonology\n\nGrammar\n\nAlphabet\n\nKeyboard\n\nNumerals\n\nLiterature\n\nDialects\nOverview\n\nNorthern Khmer\n\nWestern Khmer\n\nKhmer Khe\n\nStages\nProto-Khmeric\n\nOld Khmer\n\nMiddle Khmer\n\nv\nt\ne\n\nThis article describes the grammar of the Khmer (Cambodian) language, focusing on the standard dialect.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Word formation",
+      "summary": "Khmer is primarily an analytic language, with no inflection. There is some derivation by means of prefixes and infixes, but it is no longer always productive,[1] as those elements are often crystallized in words inherited from Old Khmer. Even in Old Khmer, the same affix could ha",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Khmer is primarily an analytic language, with no inflection. There is some derivation by means of prefixes and infixes, but it is no longer always productive,[1] as those elements are often crystallized in words inherited from Old Khmer. Even in Old Khmer, the same affix could have multiple functions (for example, it could serve as a nominalizer in one word and as a causativizer in another).\n\nA common infix has the form [-ɑm(n)-] or [-ɑn-] (or with other vowels), inserted after an initial consonant, especially to convert adjectives or verbs into nouns.\n\nCompounding is common; in a compound of two nouns, the head generally comes first, often the reverse of the English order: \"duck egg\" is ពងទា [pɔːŋ tiə], literally \"egg-duck\".",
+          "examples": [
+            "Compounding is common; in a compound of two nouns, the head generally comes first, often the reverse of the English order: \"duck egg\" is ពងទា [pɔːŋ tiə], literally \"egg-duck\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Word order",
+      "summary": "Since Khmer is an analytic language, word order is relatively fixed, as changes in word order often affect meaning. Khmer is generally a subject–verb–object (SVO) language. Topicalization is common: the topic of the sentence is often placed at the start, with the rest of the sent",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Since Khmer is an analytic language, word order is relatively fixed, as changes in word order often affect meaning. Khmer is generally a subject–verb–object (SVO) language. Topicalization is common: the topic of the sentence is often placed at the start, with the rest of the sentence a comment on that topic.\n\nLike in English, prepositions are used rather than postpositions (words meaning \"in\", \"on\", etc. precede the noun that they govern).[2] The language is generally head-initial so modifiers come after the words modified (adjectives, possessives, demonstratives, relative clauses, etc. follow nouns; adverbs mostly follow verbs; and so on).",
+          "examples": [
+            "Like in English, prepositions are used rather than postpositions (words meaning \"in\", \"on\", etc. precede the noun that they govern).[2] The language is generally head-initial so modifiers come after the words modified (adjectives, possessiv"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Nouns",
+      "summary": "Khmer nouns have no grammatical gender or grammatical number inflections. There are no articles, but indefiniteness is often expressed by the word for \"one\" following the noun. Plurality can be marked by postnominal particles, numerals, or reduplication of a following adjective,",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Khmer nouns have no grammatical gender or grammatical number inflections. There are no articles, but indefiniteness is often expressed by the word for \"one\" following the noun. Plurality can be marked by postnominal particles, numerals, or reduplication of a following adjective, which, although it is similar to intensification, is usually differentiated by context:[3]\n\nឆ្កែ\n\ncʰkae\n\ndog\n\nធំ\n\ntʰom\n\nlarge\n\nឆ្កែ ធំ\n\ncʰkae tʰom\n\ndog large\n\nlarge dog\n\nឆ្កែ\n\ncʰkae\n\ndog\n\nធំៗ\n\ntʰom tʰom\n\nlarge large\n\nឆ្កែ ធំៗ\n\ncʰkae {tʰom tʰom}\n\ndog {large large}\n\nlarge dogs or a very large dog\n\nឆ្កែ\n\ncʰkae\n\ndog\n\nបី\n\nɓəj\n\nthree\n\nឆ្កែ បី\n\ncʰkae ɓəj\n\ndog three\n\nthree dogs\n\nឆ្កែ\n\ncʰkae\n\ndog\n\nខ្លះ\n\nkʰlah\n\nsome\n\nឆ្កែ ខ្លះ\n\ncʰkae kʰlah\n\ndog some\n\nsome dogs\n\n \n\nPossessives are formed by placing the noun or pronoun representing the possessor after the main noun, often with the word របស់ [rəbɑh] between them. (The word របស់ is also a noun, meaning \"thing\".)",
+          "examples": [
+            "Khmer nouns have no grammatical gender or grammatical number inflections. There are no articles, but indefiniteness is often expressed by the word for \"one\" following the noun. Plurality can be marked by postnominal particles, numerals, or ",
+            "Possessives are formed by placing the noun or pronoun representing the possessor after the main noun, often with the word របស់ [rəbɑh] between them. (The word របស់ is also a noun, meaning \"thing\".)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Numbers and classifiers",
+      "summary": "In Khmer, a number that indicates quantity follows the noun.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In Khmer, a number that indicates quantity follows the noun.\n\nសៀវភៅ\n\nsiəw pʰɨw\n\nbook\n\nបួន\n\nɓuən\n\nfour\n\nសៀវភៅ បួន\n\n{siəw pʰɨw} ɓuən\n\nbook four\n\nfour books\n\nExceptions include nouns indicating passage of time such as hours or days, units of measurements and currencies, all of which function as noun classifiers without the explicit mention of what is being classified. Reversal of the order can change the meaning:\n\nបី\n\nɓəj\n\nthree\n\nម៉ោង\n\nmaoŋ\n\nhour\n\nបី ម៉ោង\n\nɓəj maoŋ\n\nthree hour\n\nthree hours\n\nម៉ោង\n\nmaoŋ\n\nhour\n\nបី\n\nɓəj\n\nthree\n\nម៉ោង បី\n\nmaoŋ ɓəj\n\nhour three\n\nthree o'clock\n\n \n\nClassifying particles for use with numerals and nouns exist but are optional, unlike Thai, except in introductory clauses. They are used for clarity or formality, and number precedes classifiers.\n\nសត្វ\n\nsat\n\nanimal\n\nក្របី\n\nkrɑbəj\n\nbuffalo\n\nពីរ\n\npiː\n\ntwo\n\nសត្វ ក្របី ពីរ\n\nsat krɑbəj piː\n\nanimal buffalo two\n\ntwo buffaloes\n\nសត្វ\n\nsat\n\nanimal\n\nក្របី\n\nkrɑbəj\n\nbuffalo\n\nពីរ\n\npiː\n\ntwo\n\nក្បាល\n\nkbaːl\n\nanimal CL\n\nសត្វ ក្របី ពីរ ក្បាល\n\nsat krɑbəj piː kbaːl\n\nanimal buffalo two {animal CL}\n\ntwo (head of) buffaloes\n\n \n\nThe following example illustrates the superfluous mention of what is being classified:\n\nបី\n\nɓəj\n\nthree\n\nរៀល\n\nriəl\n\nriel\n\nបី រៀល\n\nɓəj riəl\n\nthree riel\n\nthree riels\n\nលុយ\n\nluj\n\nmoney\n\nបី\n\nɓəj\n\nthree\n\nរៀល\n\nriəl\n\nriel\n\nលុយ បី រៀល\n\nluj ɓəj riəl\n\nmoney three riel\n\nthree riels of money or simply three riels\n\n \n\nCounting in Khmer is based on a biquinary system (6 to 9 have the form \"five one\", \"five two\", etc.) However, the words for multiples of ten from 30 to 90 are not related to the basic Khmer numbers but are probably borrowed from Thai. The Khmer script has its own versions of the Arabic numerals.\n\nThe principal number words are listed in the following table, which gives Western and Khmer digits, Khmer spelling and IPA transcription:[1]\n\n0\n\n០\n\nសូន្យ\n\n[soun]\n\n1\n\n១\n\nមួយ\n\n[muəj]\n\n2\n\n២\n\nពីរ\n\n[piː]\n\n20\n\n២០\n\nម្ភៃ\n\n[mphej]\n\n3\n\n៣\n\nបី\n\n[ɓəːj]\n\n30\n\n៣០\n\nសាមសិប\n\n[saːm səp]\n\n4\n\n៤\n\nបួន\n\n[ɓuən]\n\n40\n\n៤០\n\nសែសិប\n\n[sae səp]\n\n5\n\n៥\n\nប្រាំ\n\n[pram]\n\n50\n\n៥០\n\nហាសិប\n\n[haː səp]\n\n6\n\n៦\n\nប្រាំមួយ\n\n[pram muəj]\n\n60\n\n៦០\n\nហុកសិប\n\n[hok səp]\n\n7\n\n៧\n\nប្រាំពីរ\n\n[pram piː], [pram pɨl]\n\n70\n\n៧០\n\nចិតសិប\n\n[cət səp]\n\n8\n\n៨\n\nប្រាំបី\n\n[pram ɓəːj]\n\n80\n\n៨០\n\nប៉ែតសិប\n\n[paet səp]\n\n9\n\n៩\n\nប្រាំបួន\n\n[pram ɓuən]\n\n90\n\n៩០\n\nកៅសិប\n\n[kaʋ səp]\n\n10\n\n១០\n\nដប់\n\n[ɗɑp]\n\n100\n\n១០០\n\nមួយរយ\n\n[muəj rɔːj]\n\nIntermediate numbers are formed by compounding the above elements. Powers of ten are denoted by រយ [rɔːj] (100), ពាន់ [pŏən] (1,000), ម៉ឺន [məɨn] (10,000), សែន [saen] (100,000), លាន [liən] (1,000,000) and កោដិ [kaot] (10,000,000). For more information, see Khmer numerals.\n\nOrdinal numbers are formed by placing the particle ទី [tiː] before the corresponding cardinal number.",
+          "examples": [
+            "Counting in Khmer is based on a biquinary system (6 to 9 have the form \"five one\", \"five two\", etc.) However, the words for multiples of ten from 30 to 90 are not related to the basic Khmer numbers but are probably borrowed from Thai. The K"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Demonstratives",
+      "summary": "In Khmer, demonstratives follow the nouns that they modify. In standard literary Khmer, there are two degrees of distance, but there are other distinctions in colloquial language. Demonstratives can also function as articles only after introductory clauses.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In Khmer, demonstratives follow the nouns that they modify. In standard literary Khmer, there are two degrees of distance, but there are other distinctions in colloquial language. Demonstratives can also function as articles only after introductory clauses.\n\nDemonstrative\nAlternative Forms\nMeaning\n\nនេះ (nih)\nហ្នឹង (nəŋ)\nThis\n\nនោះ (nuh)\nហ្នុង (noŋ)\nThat",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Pronouns",
+      "summary": "The pronominal system is complex and is full of honorific variations.  There is generally no single pronoun appropriate for all situations, with the choice of pronoun based on age, gender, and relationship. Nouns referring to a specific person, like brother or uncle, can be used",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The pronominal system is complex and is full of honorific variations.  There is generally no single pronoun appropriate for all situations, with the choice of pronoun based on age, gender, and relationship. Nouns referring to a specific person, like brother or uncle, can be used as pronouns even when one directly addresses the person.\n\nFor some examples of typical pronoun forms, see Khmer language – Social registers. Below is a table of the most common kinship terms that are also used as personal pronouns.\n\nKinship term\nReciprocal\nTranslation\nNon-kinship usage\nNote\n\nឪពុក \n /ʔəw puk/\nកូន \n /koːn/\nfather; child\nnone\nformally refers to one's own father, other terms for \"father/dad\" include: /paː/, /ʔəw/, /bəi daː/, /puk/\n\nម្តាយ \n /mdaːj/\nកូន \n /koːn/\nmother; child\n\nMany other terms are used commonly: /mae/, /maʔ/\n\nបង \n /bɑːŋ/\nប្អូន, អូន \n /pʔoːn/, /ʔoːn/\nolder sibling\nan older man or woman of the same generation; the man in a romantic relationship\nចែ /cae/ is a Chinese-derived term used to refer to a woman around the same age in Cambodia and is more often said among Chinese Cambodians and sometimes in urban settings\n\nប្អូន, អូន\nបង\nyounger sibling\na younger person of the same generation; a child; the woman in a romantic relationship\nOther colloquial terms are used to refer to younger generations using /ʔaː/ as a diminutive: /ʔaː nuh/, /miː nuh/, /niəŋ/\n\nកូន \n /koːn/\nប៉ា, មែ \n /paː/, /mae/\nbiological child or grandchild\na young child; a person at least one generation younger\n\nចៅ \n /caw/\nតា, យាយ \n /taː/, /jiəj/\ngrandchild, cousin of junior generations\na young child; a person at least one generation younger\n\nតា \n /taː/\nចៅ or កូន \n /caw/ or /koːn/\ngrandfather\nany man of grandparents' generation\nother terms can be used depending on family structure and dialect\n\nយាយ \n /jiəj/\nចៅ or កូន\ngrandmother\na middle-aged (married) woman\nother terms may be used depending on family structure and dialect\n\nមីង \n /miːŋ/\nក្មួយ \n /kmuəj/\na parent's younger sister/sister-in-law\nany woman of parents' generation, but younger than parents, a young (usually unmarried) woman (formal)\nអ៊ី /ʔiː/ is the equivalent Chinese term and, similar to /cae/, is sometimes used in urban areas and among Chinese Cambodians\n\nពូ \n /puː/\nក្មួយ \n /kmuəj/\na parent's younger brother/brother-in-law\nany man of parents' generation, but younger than parents; also a man slightly older than the speaker (formal)\nan equivalent, but more colloquial, term is /miə/\n\nអ៊ុំ \n /ʔom/\nក្មួយ \n /kmuəj/\na parent's older sibling; his/her spouse\nany person of parents' generation but older than parents\n\nអ្នក \n /nĕəʔ/\nប្អូន \n /pʔoːn/\n\"you\" (when addressing an older brother- or sister-in-law)\n\nthird person equivalent is បងថ្លៃ /bɑːŋ tʰlai/",
+          "examples": [
+            "formally refers to one's own father, other terms for \"father/dad\" include: /paː/, /ʔəw/, /bəi daː/, /puk/",
+            "\"you\" (when addressing an older brother- or sister-in-law)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Adjectives",
+      "summary": "Adjectives in Khmer follow the noun; doubling the adjective can indicate plurality or intensify the meaning (see Nouns above). Adjectives follow verbs when they function as adverbs. Adjectives are actually stative verbs and are used without a copula and can be negated, like other",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectives in Khmer follow the noun; doubling the adjective can indicate plurality or intensify the meaning (see Nouns above). Adjectives follow verbs when they function as adverbs. Adjectives are actually stative verbs and are used without a copula and can be negated, like other verbs.\n\nComparatives are expressed using the word ជាង /ciəŋ/: \"A X /ciəŋ/ [B]\" (A is more X [than B]). The most common way to express superlatives is with ជាងគេ /ciəŋ keː/: \"A X /ciəŋ keː/\" (A is X-est of all).[3]",
+          "examples": [
+            "Comparatives are expressed using the word ជាង /ciəŋ/: \"A X /ciəŋ/ [B]\" (A is more X [than B]). The most common way to express superlatives is with ជាងគេ /ciəŋ keː/: \"A X /ciəŋ keː/\" (A is X-est of all).[3]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Reduplication",
+      "summary": "In Khmer, nouns and adjectives can be reduplicated.  Reduplication can occur as perfect reduplicates or by altering the rhyme of words. Khmer also uses compound reduplication in which two phonologically unrelated words with similar or identical meanings are compounded.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In Khmer, nouns and adjectives can be reduplicated.  Reduplication can occur as perfect reduplicates or by altering the rhyme of words. Khmer also uses compound reduplication in which two phonologically unrelated words with similar or identical meanings are compounded.\n\nThe Khmer script includes the symbol ៗ, which indicates that the preceding word or phrase is to be repeated.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Verbs",
+      "summary": "As is typical of most East Asian languages,[4] Khmer verbs do not inflect at all; tense and aspect can be expressed using particles (such as កំពុង [kəmpuŋ], placed before a verb to express continuous aspect) and adverbs (such as \"yesterday\", \"earlier\", \"tomorrow\"), or may be unde",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "As is typical of most East Asian languages,[4] Khmer verbs do not inflect at all; tense and aspect can be expressed using particles (such as កំពុង [kəmpuŋ], placed before a verb to express continuous aspect) and adverbs (such as \"yesterday\", \"earlier\", \"tomorrow\"), or may be understood from context. Serial verb construction is quite common.",
+          "examples": [
+            "As is typical of most East Asian languages,[4] Khmer verbs do not inflect at all; tense and aspect can be expressed using particles (such as កំពុង [kəmpuŋ], placed before a verb to express continuous aspect) and adverbs (such as \"yesterday\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        },
+        {
+          "heading": "Questions",
+          "body": "Yes–no questions can be formed by placing the particle ទេ /teː/ at the end of a sentence. This particle can also serve as an emphatic particle (it is also used in negative sentences, as shown below), and so intonation may be required to indicate that a question is being asked.\n\nIn wh-questions, the question word generally remains in its usual grammatical position in the sentence, rather than being brought to the start as in English (that is, wh-fronting does not normally take place).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        },
+        {
+          "heading": "Negation",
+          "body": "Verbs can be negated in three primary fashions, all of which convey a slightly different connotation or formality. The most common method of negation is a discontinuous construction placing មិន \"[mɨn]\" (not, not to be) before the verb and ending the verb phrase with ទេ \"[teː]\", which, as a stand-alone word can be either \"no\" or a particle contradicting a previous statement. Colloquially, the final \"ទេ\" may be omitted.\n\nខ្ញុំ\n\nkʰɲom\n\nជឿ\n\ncɨə\n\nខ្ញុំ ជឿ\n\nkʰɲom cɨə\n\nI believe\n\nខ្ញុំ\n\nkʰɲom\n\nមិន\n\nmɨn\n\nជឿ\n\ncɨə\n\nទេ\n\nteː\n\nខ្ញុំ មិន ជឿ ទេ\n\nkʰɲom mɨn cɨə teː\n\nI don't believe\n\nAnother fairly common way of indicating negation uses អត់ (also spelled ⟨ឥត⟩) \"[ɑt]\" instead of មិន. \"អត់\", as an independent word, means \"without\" or \"lacking\" and expresses a similar connotation when used to negate a verb.\n\nខ្ញុំ\n\nkʰɲom\n\nអត់\n\nɑt\n\nឃ្លាន\n\nkhliə̯n\n\nទេ\n\nteː\n\nខ្ញុំ អត់ ឃ្លាន ទេ\n\nkʰɲom ɑt khliə̯n teː\n\n\"I am not hungry.\" (lit. \"I (am) without hunger\".)\n\nA third method is basically identical to the first method except ពុំ \"[pum]\" is used instead of \"[mɨn]\".  This is used only in literary or very formal contexts.",
+          "examples": [
+            "Verbs can be negated in three primary fashions, all of which convey a slightly different connotation or formality. The most common method of negation is a discontinuous construction placing មិន \"[mɨn]\" (not, not to be) before the verb and e",
+            "Another fairly common way of indicating negation uses អត់ (also spelled ⟨ឥត⟩) \"[ɑt]\" instead of មិន. \"អត់\", as an independent word, means \"without\" or \"lacking\" and expresses a similar connotation when used to negate a verb.",
+            "\"I am not hungry.\" (lit. \"I (am) without hunger\".)",
+            "A third method is basically identical to the first method except ពុំ \"[pum]\" is used instead of \"[mɨn]\".  This is used only in literary or very formal contexts."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Khmer_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

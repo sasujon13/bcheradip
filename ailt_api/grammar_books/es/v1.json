@@ -1,0 +1,140 @@
+{
+  "title": "Libro de gramática — Español",
+  "languageCode": "es",
+  "languageName": "Español",
+  "version": 1,
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Sonidos y ortografía",
+      "summary": "Alfabeto, pronunciación y escritura.",
+      "sections": [
+        {
+          "heading": "El alfabeto",
+          "body": "El español usa el alfabeto latino. La ñ y los acentos (á, é) marcan sonidos y la sílaba tónica.",
+          "examples": [
+            "niño",
+            "café",
+            "hola"
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Sustantivos y artículos",
+      "summary": "Género, número y artículos.",
+      "sections": [
+        {
+          "heading": "Artículos",
+          "body": "un/una, el/la, los/las. El género es masculino o femenino.",
+          "examples": [
+            "un libro",
+            "la casa",
+            "los niños"
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Verbos — presente",
+      "summary": "Presente de indicativo.",
+      "sections": [
+        {
+          "heading": "Presente",
+          "body": "Tres conjugaciones: -ar, -er, -ir. Ser y estar son esenciales.",
+          "examples": [
+            "Yo hablo.",
+            "Ella come.",
+            "Estamos aquí."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Preguntas y negación",
+      "summary": "Preguntar y negar.",
+      "sections": [
+        {
+          "heading": "Negación",
+          "body": "no + verbo: No entiendo.",
+          "examples": [
+            "No sé.",
+            "No está aquí."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adjetivos",
+      "summary": "Concordancia de género y número.",
+      "sections": [
+        {
+          "heading": "Concordancia",
+          "body": "El adjetivo concuerda: casa blanca, libros interesantes.",
+          "examples": [
+            "chico alto",
+            "chica alta"
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Pronombres",
+      "summary": "Pronombres personales.",
+      "sections": [
+        {
+          "heading": "Sujeto",
+          "body": "yo, tú, él/ella, nosotros, vosotros, ellos.",
+          "examples": [
+            "Te quiero.",
+            "Me ve."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Pasado y futuro",
+      "summary": "Pretérito y futuro.",
+      "sections": [
+        {
+          "heading": "Pretérito",
+          "body": "Pretérito perfecto o indefinido según el registro.",
+          "examples": [
+            "He comido.",
+            "Ayer estudié."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Patrones cotidianos",
+      "summary": "Cortesía y frases útiles.",
+      "sections": [
+        {
+          "heading": "Cortesía",
+          "body": "por favor, gracias, perdón.",
+          "examples": [
+            "¿Puede ayudarme?",
+            "Muchas gracias."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,188 @@
+{
+  "title": "Grammar Book — Gĩkũyũ",
+  "languageCode": "ki",
+  "languageName": "Gĩkũyũ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Kikuyu_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Bantu language in Kenya\nYou can help expand this article with text translated from the corresponding article in Portuguese.  (2025) Click [show] for important translation instructions.\nView a machine-translated version of the Portuguese article.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Bantu language in Kenya\nYou can help expand this article with text translated from the corresponding article in Portuguese.  (2025) Click [show] for important translation instructions.\nView a machine-translated version of the Portuguese article.\n\nMachine translation, like DeepL or Google Translate, is a useful starting point for translations, but translators must follow the LLM translation guideline, revise errors as necessary and confirm that the translation is accurate, rather than simply copy-pasting machine-translated text into the English Wikipedia.\n\nConsider adding a topic to this template: there are already 570 articles in the main category, and specifying|topic= will aid in categorization.\n\nDo not translate text that appears unreliable or low-quality. If possible, verify the text with references provided in the foreign-language article.\n\nYou must provide copyright attribution in the edit summary accompanying your translation by providing an interlanguage link to the source of your translation. A model attribution edit summary is Content in this edit is translated from the existing Portuguese Wikipedia article at [[:pt:língua quicuia]]; see its history for attribution.\n\nYou may also add the template {{Translated|pt|língua quicuia}} to the talk page.\n\nFor more guidance, see Wikipedia:Translation.\n\nKikuyuGĩkũyũcode: kik promoted to code: ki Pronunciation[ɣēkōjó]Native toKenyaRegionCentral ProvinceEthnicityAgĩkũyũNative speakers8.3 million (2019 census)[1]Language familyNiger–Congo?\n\nAtlantic–CongoVolta–CongoBenue–CongoBantoidSouthern BantoidBantuNortheast BantuUpland BantuThagiicuKikuyu–TemiKikuyu\n\nDialects\nGichugu\n\nMathira\n\nNdia\n\nNorthern Gikuyu\n\nSouthern Gikuyu\n\nWriting system\nLatin script\n\nGicandi script\n\nLanguage codesISO 639-1kiISO 639-2kikISO 639-3kikGlottologkiku1240Guthrie codeE.51[2]This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nPersonMũGĩkũyũPeopleAGĩkũyũLanguageGĩGĩkũyũCountryBũrũrĩ Wa Gĩkũyũ\nKikuyu or Gikuyu (Gikuyu: Gĩkũyũ [ɣēkōjó]) (also known as Gĩgĩkũyũ) is a Bantu language spoken by the Gĩkũyũ (Agĩkũyũ) of Kenya. Kikuyu is mainly spoken in the area encompassing the former Central Province (between Nyeri, Kirinyaga, Kiambu, Murang'a and Nyahururu) and surrounding areas like Nairobi, Nakuru and Laikipia. The Kikuyu people traditionally identify their ancestral lands by the surrounding mountain ranges in Central Kenya, including Mount Kenya, which they call Kĩrĩmanyaga and the Aberdare Range.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Phonology",
+      "summary": "Symbols shown in angle brackets replace the IPA symbols which are not in the orthography.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Symbols shown in angle brackets replace the IPA symbols which are not in the orthography.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Vowel phonemes[3]\n\nFront\n\nCentral\n\nBack\n\nHigh\n\ni\n\nu\n\nMid-high\n\ne ⟨ĩ⟩\n\no ⟨ũ⟩\n\nMid-low\n\nɛ ⟨e⟩\n\nɔ ⟨o⟩\n\nLow\n\na",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Consonant phonemes[3]\n\nBilabial\n\nDental/\nAlveolar\n\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nm\n\nn\n\nɲ ⟨ny⟩\n\nŋ ⟨ng'⟩\n\nPlosive\n\nvoiceless\n\n(p)\n\nt\n\nk\n\nvoiced\n\nᵐb ⟨mb⟩\n\nⁿd ⟨nd⟩\n\nᵑg ⟨ng⟩\n\nAffricate\n\nⁿʤ ⟨nj⟩\n\nFricative\n\nvoiceless\n\nʃ ⟨c⟩\n\nh\n\nvoiced\n\nβ ⟨b⟩\n\nð ⟨th⟩\n\nɣ ⟨g⟩\n\nLiquid\n\nɾ ⟨r⟩\n\nApproximant\n\nj ⟨y⟩\n\nw\n\nThe voiceless stops are variously aspirated. The voiced stops /ᵐb ⁿd ᶮdʒ ᵑɡ/ often realized without prenasalisation as [b d dʒ ɡ].",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Tones",
+          "body": "Kikuyu has two level tones (high and low), a low-high rising tone, and downstep.[4]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Vowel harmony",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (May 2026) (Learn how and when to remove this message)\nKikuyu features a vowel height-based harmony system similar to that in Kiswahili. In verbs, underlying [o] and [e] may appear as [ɔ] and [ɛ] if the root of a word contains either of the latter two. The effect can be shown by contrasting the two verbs: hũrĩra ('hit for') and horera ('cool for'), where neither *horĩra nor *hũrera are possible.\n\nIn non-verbs, the [e] of a prefix preceding [i] in a root can morph to [i], shown in rĩ- appearing as riitho ('eye'), and [o] in a prefix appears as [u] when preceding either [u] or [ɔ]. This is shown with the prefix kũ- in the words kuona and kuuma.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Alphabet",
+      "summary": "Kikuyu is written in a Latin alphabet. It does not use the letters f  l  p  q  s  v  x  z, and adds the letters ĩ and ũ. The Kikuyu alphabet is:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Kikuyu is written in a Latin alphabet. It does not use the letters f  l  p  q  s  v  x  z, and adds the letters ĩ and ũ. The Kikuyu alphabet is:\n\na  b  c  d  e  g  h  i  ĩ  j  k  m  n  o  r t  u  ũ  w  y[5]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Grammar",
+      "summary": "Gĩkũyũ has subject–verb–object word order. It uses prepositions rather than postpositions.[6] Nouns are followed by possessive and demonstrative pronouns, which can coexist in that order, and subsequently adjectives, quantifiers, and numerals, which have no order among themselves",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Gĩkũyũ has subject–verb–object word order. It uses prepositions rather than postpositions.[6] Nouns are followed by possessive and demonstrative pronouns, which can coexist in that order, and subsequently adjectives, quantifiers, and numerals, which have no order among themselves.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Noun classes",
+          "body": "Gĩkũyũ has 17 noun classes.\n\nClass 1 (prefix mũ-) comprises animate/human nouns and is singular, while class 2 (prefix a-) comprises animate/human nouns but is plural. Kinship terms and some other words belong to these classes but take no prefixes.\n\nClass 3 (prefix mũ-) comprises nature/landscape words and others that are not semantically related, and is singular. Class 4 (prefix mĩ-) comprises the same words, but is plural.\n\nClass 5 (prefix rĩ- if stem is vowel initial, i- if consonant-initial) comprises plant/landscape words and others that do not fit the pattern, and is singular. Class 6 (prefix ma-) comprises the same words, but is plural. Occasionally, class 6 nouns have the prefix marĩ-, perhaps because the class 5 form is reanalyzed as the stem. Nouns of classes 1, 9, 11, 12, 14, and 15 can be pluralised with the class 6 form.\n\nClass 7 (prefix gĩ- if stem is t, k, c, or th initial, kĩ- otherwise) is an augmentative class with some inherent, not especially augmented members. Class 8 (prefix ci- if stem is vowel initial, i- if consonant initial) is the same, but plural. These classes' prefixes can be used to augment nouns of other classes.\n\nClass 9 comprises most animals, most loanwords, a few body parts, and semantically unrelated others. Class 10 is the same, but plural. Because words of these classes begin with nasal or unnasalisable consonants, and lose their nasality when marked with a different class prefix, the proposed prefix is nasalisation. This prefix cannot always be applied to loanwords.\n\nClass 11 (prefix rũ-) comprises long, thin, or string-like nouns, as well as others that do not fit the pattern. Its default plural is class 10, with occasional class 6 forms. It is hypothesized that if the prefix rũ- is added to a stem that already begins with rũ, the prefix is deleted. The class 6/11 plurals vary just as the Class 5/6 plurals do: the Class 6 prefix, ma-, attaches sometimes to the noun stem itself, and sometimes to the class 11 form.\n\nClass 12 (prefix ga- if stem is t, k, c, or th initial, ka- otherwise) is a diminutive class with some inherent, not especially diminutive members. Class 13 (prefix tũ-) is the same, but plural. These classes' prefixes can be used to diminutise nouns of other classes.\n\nClass 14 (ũ-) comprises abstract concepts and semantically unrelated others, and is pluralised by class 6.\n\nClass 15 (prefix gũ- if stem is t, k, c, or th initial, kũ- otherwise) comprises only body parts and verbal infinitives—more semantically and syntactically motivated than other classes. It is pluralised, when possible, by class 6.\n\nClass 16 (prefix ha-) is a definite locative class. Class 17 (prefix kũ-/gũ-) is an indefinite locative class. These classes can be singular or plural based on context.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Adjectives and pronouns",
+          "body": "Adjectives agree with the noun via adjective class prefixes (usually identical to the noun class prefixes). Other modifiers do so via agreement class prefixes, which are often simply the vowel of the noun class prefix.\n\nPersonal pronouns may take the place of a noun or a noun phrase. Since person and noun class are marked on verbs, they are usually only used emphatically or in response to questions. Except for those of classes 3 and 14, the pronouns are formed by adding agreement class prefixes to the stem o.\n\nThe dependent pronoun - 'and/with X' - is formed by adding comitative preposition to the relevant personal pronouns.\n\nThe possessive pronoun is formed by adding the relevant possessive stem to the agreement class prefix of the possessed noun.\n\nRelative pronouns are formed by adding the relevant agreement class prefix to the relative stem.\n\nDemonstrative pronouns come in distal, proximal, and anaphoric forms. Relative pronouns are written identically to distal demonstratives, but are distinguished by vowel length - the first syllable of a relative pronoun is short, while the first syllable of a distal demonstrative is long.\n\nAdjectives are comparatively rare, and do not cover even every colour. Qualities are usually expressed instead as associative constructions, which connect two nouns or noun phrases where the first noun (head) is modified by the second. The associative is formed by prefixing the stem a with the agreement class prefix of the head noun. It can also denote possession, location, and ordinal numerals.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Numbers",
+          "body": "Numerals 11-19 are formed with the construction 'ten and X'. The final numeral, if it inflects, agrees with the noun being counted. However, if the final numeral is 1, it agrees with the singular class of the noun being counted, because 1 is singular, even if the overall number being formed is not.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Verbs can be marked for focus, noun class agreement, negation, reflexivity, reciprocality, causativity, intensive meanings, reversive meanings, applicative (valency increasing) meanings, tense, and aspect.[3]\n\nOften a clear division between derivational and inflecitonal marking in verbs is unclear and depends largely on the individual verbs themselves, as in other Northeast Bantu languages like Kiswahili. Some examples of inflectional marking include:[3]\n\nApplicative suffix -ĩr-\n\netha rũhiũ - look for the machete\n\nethera Njeri rũhiũ - look for the machete for Njeri\n\nTransitivizing suffix -i-\n\nathomi maranoga - the students are getting tired\n\nathomi maranogia mwarimũ - the students are tiring out the teacher\n\nReciprocal suffix -an-\n\ntwende - let us love\n\ntwendane - let us love each other\n\nHowever, some of these affixes can also serve to add derivational meaning to certain verbs by changing their meaning, for example:\n\nApplicative suffix -ĩr-\ntũma Kamarũ - send Kamarũ\n\ntũmĩra Kamarũ - use Kamarũ\n\nTransitivizing suffix -i-\n\nenda njomo yaku - love your sword\n\nendia njomo yaku - sell your sword\n\nReciprocal suffix -an- +  -i-\n\ncema - sneak/creep/walk stealthily\n\ncemania - meet up",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        },
+        {
+          "heading": "Tense and aspect",
+          "body": "Source:[3]\n\nTenses include remote past (before yesterday), past (yesterday), recent past (earlier today), present, near future (later today), and remote future (after today). There also exists an 'uncertain future' marker for verbs that denotes a time not known by one or both speakers.\n\nAspects include habitual, imperfective, completive, perfect and progressive. Sequential, a subtype of progressive, denotes events that occur in a sequence. There is also a marker for persistive events.\n\nThe order of affixes on verbs is thus:\n\nFocus marker - subject class - negation - tense - object class/reflexive mark - stem reduplication - verb stem - one or more of the many suffixes of unspecific nature - final vowel\n\nOrder of Affixes in Gĩkũyũ\n\nFOC\n\nSC\n\nNEG\n\nT\n\nOC/\nREFLEX\n\nREDUP\n\nSTEM\n\nRECIP\n\nINTS\n\nMID/\nREVERS\n\nCAUS\n\nAPP\n\nTRANS\n\nPV/\nFV\n\nMany of the suffixes listed are only available to certain verbs, and whether they are derivational or inflectional also changes on a verb to verb basis. Some of them may change form slightly due to vowel harmony, adding further irregularity to their function.\n\nFocus marker, subject agreement particles exist for 1st and 2nd person, the discourse participants,\n\nGĩkũyũ Person Concord\n\nSubject\n\nObject\n\n1SG\n\nN-\n\n-N-\n\n1PL\n\ntũ-\n\n-tũ-\n\n2SG\n\nũ-\n\n-kũ/gũ-\n\n2PL\n\nmũ-\n\n-mu-\n\nN is a flexible morpheme that causes the appearance of a nasal consonant depending on its environment:[3]\n\nnon-verb specific interactions include:\n[Nβ] → [ᵐb]\n\n[Nt] and [Nɾ] → [ⁿd]\n\n[Nk] → [ᵑg]\n\n[Nʃ] → [ⁿʤ]\n\n[Nð] → [ð]\n\n[Nɣ] → either [ŋ] or [ᵑg]\n\n[Nj] → [ɲ]\n\nverb specific N interactions occur through the 1SG marker, and work by adding a preceding:\n[Nɛ], [Nɔ] → [ɲɛ], [ɲɔ]\n\n[Nu], [Ne], [Ni] → [ⁿʤu], [ⁿʤe], [ⁿʤi]\n\n[Na] → [ⁿda]\n\nThe subject agreement is otherwise based on noun class. A verb can exhibit noun class agreement for all arguments, but agrees less commonly with non-human nouns.\n\nGĩkũyũ Verb Concords by Noun Class\n\nClass\n\nNoun\n\nEnglish\n\nSubject Agreement\n\nObject Agreement\n\n1\n\nmũndũ\nperson\na-\n-mu-\n\n2\n\nandũ\npeople\nma-/wa-\n-ma/wa-\n\n3\n\nmũting'oe\ntail\nũ-\n-mũ-\n\n4\n\nmĩting'oe\ntails\nĩ-\n-mĩ-\n\n5\n\nigego\ntooth\nrĩ-\n-rĩ-\n\n6\n\nmagego\nteeth\nma-\n-ma-\n\n7\n\ngĩcungi\nsieve\nkĩ-/gĩ-\n-kĩ/gĩ-\n\n8\n\nicungi\nsieves\ni/ci-\n-ci-\n\n9/10\n\nngui\ndog(s)\nĩ-\n-mĩ-\n\n11\n\nrũĩgĩ\nhawk\nrũ-\n-rũ-\n\n12\n\nkaana\ninfant\nka-/ga-\n-ka/ga-\n\n13\n\ntwana\ninfants\ntũ-\n-tũ-\n\n14\n\nũtukũ\nnight\nũ-\n-ũ-\n\n15\n\ngũcera\nto go on a walk\nkũ-/gũ-\n-kũ/gũ-\n\n16\n\nhaha\nhere\nha-\n-ha-\n\n17\n\ngwitũ\nour place\nkũ-/gũ-\n-kũ/gũ-\n\nIn addition to active and passive voices, there is a middle voice with an intermediate connotation.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Sample phrases",
+      "summary": "How are you doing?\nŨrĩ mwega? or Wĩ mwega",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "English\nGĩkũyũ\n\nHow are you\nŨhoro waku or kũhana atĩa?\n\nGive me water\nHe maaĩ\n\nHow are you doing?\nŨrĩ mwega? or Wĩ mwega\n\nI am hungry\nNdĩ mũhũtu\n\nHelp me\nNdeithie\n\nI am good\nNdĩ mwega\n\nAre you a friend?\nWĩ mũrata?\n\nBye, be blessed\nTigwo na wega/Tigwo na thaayũ\n\nI love you\nNĩngwendete.\n\nCome here\nŨka haha\n\nI will phone you\nNĩngũkũhũrĩra thimũ\n\nI give thanks\nNĩndacokia ngatho\n\nI'm blessed\nNdĩ mũrathime\n\nGive me money\nHe mbeca / He mbia\n\nStop nonsense\nTiga wana / tiga ũrimũ\n\nDon't laugh\nNdũgatheke\n\nYou are learned\nWĩ mũthomu\n\nThank you\nThengiũ / Nĩ wega / Nĩ ngaatho\n\nGo in peace\nThiĩ na thaayũ\n\nDay\nMũthenya\n\nNight\nŨtukũ\n\nGod\nNgai\n\nAncestral Spirits\n\nNgomi\n\nCountry/state/Nation\nBũrũri",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Sample text",
+      "summary": "The Gikuyu believe in God\nthe creator of heaven and earth,",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "English[8]\n\nKikuyu[8]\n\nThe Gikuyu believe in God\nthe creator of heaven and earth,\n\nthe giver of all things.\n\nGĩkũyũ nĩ gĩtĩkĩtie Ngai\nmumbi wa Igũrũ na Thĩ\nna mũheani wa indo ciothe\n\nLetter from the Hen to the Eagle[9]\n\nMarũa Ma Ngũkũ Kũrĩ Rwĩgĩ[9]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Literature",
+      "summary": "There is notable literature written in the Kikuyu language. For instance, Ngũgĩ wa Thiong'o's Mũrogi wa Kagogo (Wizard of the Crow) is the longest known book written in Kikuyu. Other authors writing in Kikuyu are Gatua wa Mbũgwa and Waithĩra wa Mbuthia. Mbuthia has published vari",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "There is notable literature written in the Kikuyu language. For instance, Ngũgĩ wa Thiong'o's Mũrogi wa Kagogo (Wizard of the Crow) is the longest known book written in Kikuyu. Other authors writing in Kikuyu are Gatua wa Mbũgwa and Waithĩra wa Mbuthia. Mbuthia has published various works in different genres—essays, poetry, children stories and translations—in Kikuyu. The late Wahome Mutahi also sometimes wrote in Kikuyu. Also, Gakaara wa Wanjaũ wrote his popular book, Mau Mau Author in Detention, which won a Noma Award in 1984.[10]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "In popular culture",
+      "summary": "In the 1983 movie Star Wars Episode VI: Return of the Jedi, the character Nien Nunb speaks in the Kikuyu language.[11]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In the 1983 movie Star Wars Episode VI: Return of the Jedi, the character Nien Nunb speaks in the Kikuyu language.[11]\n\nThe 2023 song Mwaki by Brazilian DJ Zerb features a Kenyan artist, Sofiya Nzau, singing in Kikuyu.[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kikuyu_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,626 @@
+{
+  "title": "Grammar Book — فارسی",
+  "languageCode": "fa",
+  "languageName": "فارسی",
+  "version": 2,
+  "sources": [
+    "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C",
+    "https://en.wikibooks.org/wiki/Persian/Archive_Lessons",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_1",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_10",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_11",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_12",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_13",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_14",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_15",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_16",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_17",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_18",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_19",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_2",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_20",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_21",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_22",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_3",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_4",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_5",
+    "https://en.wikibooks.org/wiki/Persian/Lesson_6",
+    "https://en.wikipedia.org/wiki/Persian_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Chapter 1",
+      "summary": "دستور زبان فارسی یا دستور زبان پارسی دستور زبان زبان فارسی است که گویش‌های آن در ایران، افغانستان، ازبکستان (در سمرقند، بخارا و ولایت سرخان‌دریا) و تاجیکستان رایج هستند. دستور زبان فارسی با دستور زبان‌های دیگر زبان‌های هندواروپایی همانندی دارد. این زبان در دوره میانه بسیاری از وی",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "دستور زبان فارسی یا دستور زبان پارسی دستور زبان زبان فارسی است که گویش‌های آن در ایران، افغانستان، ازبکستان (در سمرقند، بخارا و ولایت سرخان‌دریا) و تاجیکستان رایج هستند. دستور زبان فارسی با دستور زبان‌های دیگر زبان‌های هندواروپایی همانندی دارد. این زبان در دوره میانه بسیاری از ویژگی‌های دستوری پیچیده خود را، از جمله جنس دستوری، از دست داد و امروزه فارسی نو از اندک زبان‌های هندواروپایی بدون ساختار جنسی به‌شمار می‌رود.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== تاریخچه ==\nمیرزا حبیب اصفهانی، آموزگار زبان فارسی در استانبول، نخستین فارسی‌زبانی است که کوشید دستور زبان فارسی را تدوین کند. «دستور سخن» (استانبول ۱۲۸۹)، «دبستان فارسی» (استانبول ۱۳۰۸)، خلاصه رهنمای فارسی (استانبول ۱۳۰۹) و رهبر فارسی (استانبول ۱۳۱۰) کتاب‌هایی است که میرزا حبیب برای آموزش دستور زبان فارسی تألیف کرده است.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "== ترتیب واژگان ==\nترتیب واژگان در جمله در فارسی معیار به صورت نهاد-مفعول-فعل است. با توجه به اینکه فارسی زبانی ضمیرانداز است، در جملاتی که ضمیر حذف شده است، تشخیص نهاد تا پایان جمله مشخص نیست:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "کتاب آبی را دیدم← (من)\nکتاب آبی را دیدید← (شما)\nجمله‌واره هسته مقدم بر جمله‌واره وابسته است و میان این دو معمولاً که قرار می‌گیرد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Chapter 2",
+      "summary": "به من گفت که امروز نمی‌آید.\nدر فارسی نوشتاری در آغاز جمله جزء پرسشی آیا برای پرسیدن پرسش‌های بله و خیر پدیدار می‌شود. پیراینده‌های دستوری، همانند صفت‌ها، معمولاً همراه با ساختار اضافه پس از اسم‌ها می‌آیند، اما گهگاهی نیز مقدم بر اسم‌ها می‌آیند. فارسی یکی از اندک زبان‌هایی با ترتی",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "به من گفت که امروز نمی‌آید.\nدر فارسی نوشتاری در آغاز جمله جزء پرسشی آیا برای پرسیدن پرسش‌های بله و خیر پدیدار می‌شود. پیراینده‌های دستوری، همانند صفت‌ها، معمولاً همراه با ساختار اضافه پس از اسم‌ها می‌آیند، اما گهگاهی نیز مقدم بر اسم‌ها می‌آیند. فارسی یکی از اندک زبان‌هایی با ترتیب نهاد-مفعول-فعل است که از حرف اضافه استفاده می‌کند. تنها نشانگر حالت دستوری در زبان نوشتاری را (رو یا و در زبان گفتاری) است که پس از مفعول مستقیم می‌آید.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "کتاب آبی را از کتابخانه گرفت.\nترتیب جمله در فارسی معمولاً به صورت نهاد-عبارت اضافی-مفعول-فعل است. اگر مفعول مشخص باشد، ترتیب به صورت (نهاد) (مفعول + را) (عبارت اضافی) فعل می‌آید. با این وجود ترتیب واژگان در فارسی نسبتاً آزاد است، که بدان قلب نحوی می‌گویند، زیرا بخش‌های جمله عموماً مبهم هستند و حروف اضافه و نشانگر مفعول (را) کمک می‌کنند تا نقش عبارت اسمی تعیین شود. انعطاف‌پذیری فارسی برای جابه‌جا اجزا به آن این امکان را داده است که از توانایی بالایی در نظم‌پردازی و قافیه‌بندی برخوردار باشد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "== حرف تعریف ==\nدر زبان رسمی و معیار، هیچ حرف تعریفی (همانند the در انگلیسی یا ال در عربی) وجود ندارد و معرفه بودن یک اسم بیشتر با نبود نشانه‌های نکره (یک یا ی) مشخص می‌شود. با این حال در زبان گفتاری، پسوندهای -ـِه، -ـَه یا -ـو به عنوان حرف تعریف استفاده می‌شوند. -ـِه جدیدتر است و بیشتر در مناطق شهری استفاده می‌شود؛ -ـَه قدیمی‌تر و در مناطق روستایی و -ـو نیز بیشتر در گویش‌های جنوبی ایران استفاده می‌شود.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "ادبی: کتاب روی میز است.\nگفتاری: کتابِه روی میزه.\nبرای اسم‌های جمع، نشانه جمع ها هم به عنوان نشانه جمع و هم به عنوان حرف تعریف عمل می‌کند.\nنشانه نکره هم در فارسی معیار و هم در فارسی گفتاری یک است که گاه به یه خلاصه می‌شود.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Chapter 3",
+      "summary": "=== جنس ===\nاسم‌ها و ضمیرهای فارسی دارای جنس دستوری نیستند. وام‌واژگان عربی که دارای نشانه مؤنث ة هستند در فارسی ـه/-ه نوشته و به واژگان بدون جنسی تبدیل می‌شوند. بسیاری از وام‌واژگان عربی شکل جمع مؤنث -ات را حفظ می‌کنند، اما صفت‌های توصیفی آن‌ها هیچ جنسیتی ندارند. صفت‌های عربی نی",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== جنس ===\nاسم‌ها و ضمیرهای فارسی دارای جنس دستوری نیستند. وام‌واژگان عربی که دارای نشانه مؤنث ة هستند در فارسی ـه/-ه نوشته و به واژگان بدون جنسی تبدیل می‌شوند. بسیاری از وام‌واژگان عربی شکل جمع مؤنث -ات را حفظ می‌کنند، اما صفت‌های توصیفی آن‌ها هیچ جنسیتی ندارند. صفت‌های عربی نیز جنسیتشان را در فارسی از دست داده‌اند.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== جمع ===\nجمع فارسی: (ان، ها)\nهمه اسم‌ها در فارسی با پسوند -ها جمع می‌شوند که پس از اسم می‌آیند و شکل آن را تغییر نمی‌دهند. شکل‌های جمع پس از اعداد یا صفت‌های زیاد یا بسیاری پدیدار نمی‌شوند. -ها زمانی استفاده می‌شود که اسم معرفه باشد و پیش از آن عدد نباشد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "سه تا کتاب\nبسیاری کتاب\nکتاب‌های بسیار\nکتاب‌ها\nمن کتابی را دوست دارم\nآن‌ها دانشجو هستند\nآن‌ها دانشجوها هستند\nدر زبان گفتاری، وقتی اسم‌ها و ضمیرها با همخوان پایان می‌یابند،ها به ا کاهش می‌یابد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "ادبی: آن‌ها\nغیررسمی (ایران): اونا\nدر زبان ادبی، برای جمع اسم‌های جاندار از -ان (یا -گان، -یان و -وان) نیز استفاده می‌شود، ولی -ها در زبان گفتاری رایج‌تر است.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Chapter 4",
+      "summary": "ادبی: پرندگان\nگفتاری: پرنده‌ها\nاسم‌هایی که از عربی وام گرفته شده‌اند، معمولاً دارای یک شکل ویژه جمع هستند و با -ات یا به صورت شکسته (مکسر) می‌آیند؛ مثلاً کتاب/کتب. اسم‌های عربی نیز می‌توانند نشانه‌های جمع فارسی را بپذیرند. پرکاربردترین شکل جمع بستگی به خود واژه دارد.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "ادبی: پرندگان\nگفتاری: پرنده‌ها\nاسم‌هایی که از عربی وام گرفته شده‌اند، معمولاً دارای یک شکل ویژه جمع هستند و با -ات یا به صورت شکسته (مکسر) می‌آیند؛ مثلاً کتاب/کتب. اسم‌های عربی نیز می‌توانند نشانه‌های جمع فارسی را بپذیرند. پرکاربردترین شکل جمع بستگی به خود واژه دارد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== حالت‌های دستوری ===\nدر فارسی سه حالت دستوری وجود دارد: نهادی (یا فاعلی)، ندایی (یا آیی) و مفعولی (یا رایی). حالت نهادی بدون علامت است اما حالات ندایی و مفعولی به ترتیب از پسوندهای «ا (-آ)» و «را» استفاده می‌برند. سایر حالت‌های غیرفعلی با حرف اضافه مشخص می‌شوند.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "نهادی: کتاب آنجاست / کتاب‌ها آنجایند\nفعل شکل جمع نهاد بی‌جان می‌تواند به صورت مفرد بیاید، به ویژه در زبان گفتاری: کتاب‌ها اونجاست.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "ندایی: سعدیا مرد نکونام نمیرد هرگز\nمفعولی: کتاب را به من بده\nمالکیت با ساختار اضافه: کتابِ آرش",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Chapter 5",
+      "summary": "== ضمیرها ==\nفارسی یک زبان ضمیرانداز است و در آن جمله‌های بدون نهاد هم معنی دارند و بنابراین استفاده از ضمیرهای شخصی اختیاری است. ضمیرها همواره یک شکل دارند مگر اینکه مفعول شوند و به آن‌ها را افزوده شود. شکل مفعولی ضمیر اول شخص مفرد من را می‌تواند به مراکوتاه شود یا به‌صورت گفتار",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "== ضمیرها ==\nفارسی یک زبان ضمیرانداز است و در آن جمله‌های بدون نهاد هم معنی دارند و بنابراین استفاده از ضمیرهای شخصی اختیاری است. ضمیرها همواره یک شکل دارند مگر اینکه مفعول شوند و به آن‌ها را افزوده شود. شکل مفعولی ضمیر اول شخص مفرد من را می‌تواند به مراکوتاه شود یا به‌صورت گفتاری منو تلفظ شود.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "* از سوم شخص جمع برای احترام استفاده می‌شود.\nفارسی از این نظر که ضمیر دوم شخص جمع (شما) به عنوان شکل احترامی یک مخاطب استفاده می‌شود، به فرانسوی شبیه است. تو در فارسی در میان دوستان صمیمی استفاده می‌شود. با این حال، فارسی با زبان‌های شمال هند همچون هندوستانی از این نظر شباهت دارد که ضمیر سوم شخص جمع (ایشان) برای احترام برای اشاره به یک نفر استفاده می‌شود؛ به ویژه در حضور او:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "ببخشید شما ایرانی هستید/هستی؟\nایشان به من گفتند/گفت برویم داخل.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "=== ضمیرهای مالکیت ===\nضمیرهای مالکیت فارسی برای بیان مالکیت استفاده می‌شوند. این ضمیرها به شرح زیرند:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Chapter 6",
+      "summary": "کتابتان روی میزه.\nکتابم روی میز است.\nچهره‌ات را دوست دارم.\nچهره‌اش زیبا بود.\nوقتی اسم با واکه پایان می‌یابد، پیش از ضمیر پیوسته یک ی برای آسانی تلفظ افزوده می‌شود. با این حال در گویش‌های محاوره‌ای ایرانی رایج است که اگر واژه با ها جمع بسته شود، ضمیر ـَ/ـِ خود را از دست می‌دهد؛ بر",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "کتابتان روی میزه.\nکتابم روی میز است.\nچهره‌ات را دوست دارم.\nچهره‌اش زیبا بود.\nوقتی اسم با واکه پایان می‌یابد، پیش از ضمیر پیوسته یک ی برای آسانی تلفظ افزوده می‌شود. با این حال در گویش‌های محاوره‌ای ایرانی رایج است که اگر واژه با ها جمع بسته شود، ضمیر ـَ/ـِ خود را از دست می‌دهد؛ برای نمونه ماشین‌هایم، ماشین‌هام تلفظ می‌شود. حتی در محاوره برای راحتی تلفظ ه نیز می‌افتد و ماشینام تلفظ می‌شود. گاه، ها به صورت پیوسته نوشته می‌شود: ماشینها.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== نقش‌نمای اضافه ===\nراه دیگری برای بیان مالکیت استفاده از ضمیر یا اسم با نقش‌نمای اضافه است. اگرچه در سوم شخص این به معنای تغییر شخص است. این‌ها همچنین هرگز نمی‌توانند به عنوان نشانه مالکیت یا مفعول مستقیم در جمله‌ای استفاده شوند که در آن فاعل همان فعل هم وجود داشته باشد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "کتابِ شما روی میزه.\nکتابِ من روی میزه.\nکتابِ استاد روی میز است.\nاکبر برادرِ او را دید.\nاکبر برادرش را دید.\nدرست: برادرم را دیدم.\nنادرست: برادرِ من را دیدم. چون مالکیت نهاد هم در ضمیر پیوسته و هم در ساختار نقش‌نمای اضافه نشان داده شده است.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "=== ضمیرهای مفعولی ===\nضمیرهای مفعولی همانند ضمیرهای فاعلی هستند (که پس از آن‌ها حرف اضافه را می‌آید)، اما مفعول‌ها همچنین می‌توانند با نشانگرهای مالکیت که در بالا توضیح داده شد، نشان داده شوند که به جای اسم به فعل متصل می‌شوند و نیاز به حرف اضافه را از بین می‌برند. برای نمونه.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Chapter 7",
+      "summary": "=== ضمیرهای اشاره ===\nضمیرهای اشاره در فارسی این و آن هستند که شکل جمع آن‌ها به ترتیب این‌ها و آن‌ها برای اسم‌های بی‌جان و جاندار و اینان و آنان برای اسم‌های جاندار است. توجه داشته باشید که آن و آن‌ها به عنوان ضمیرهای سوم شخص نیز کاربرد دارند.\nضمیرهای اشاره همچنین می‌توانند با ضم",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== ضمیرهای اشاره ===\nضمیرهای اشاره در فارسی این و آن هستند که شکل جمع آن‌ها به ترتیب این‌ها و آن‌ها برای اسم‌های بی‌جان و جاندار و اینان و آنان برای اسم‌های جاندار است. توجه داشته باشید که آن و آن‌ها به عنوان ضمیرهای سوم شخص نیز کاربرد دارند.\nضمیرهای اشاره همچنین می‌توانند با ضمیرهای نامعین یعنی یکی و یکی‌ها ترکیب شوند و این یکی، آن یکی، این یکی‌ها و آن یکی‌ها را بسازند.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== صفت ==\nصفت‌ها در فارسی معمولاً با استفاده از ساختار نقش‌نمای اضافه پس از اسمی که توصیف می‌کنند، می‌آیند. با این حال، صفت‌ها می‌توانند در ساختار اسم مرکب، مقدم بر اسم بیایند؛ همانند خوش‌بخت و بدکار. صفت‌ها می‌توانند به ترتیب‌های مختلفی پس از اسم بیایند و در این حالت صفت‌هایی که در پایان آمده‌اند تأکید بیشتری دارند.\nدر فارسی صفت برتر با پسوند تَر و صفت برترین با پسوند تَرین مشخص می‌شود. صفت‌های برتر که به صورت مستقیم مورد استفاده قرار می‌گیرند پس از اسم‌هایی که آن‌ها را توصیف می‌کنند، می‌آیند اما صفت‌های برترین پس از آن اسم پدیدار می‌شوند. برای صفت‌های برتر واژه از کاربرد دارد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "فعل‌ها در فارسی با الگوی زیر ساخته می‌شوند:\nپیشوند منفی‌ساز - پیشوند استمراری، اخباری، التزامی یا امری - بن فعل - پسوند گذشته - ضمیر شخصی - ضمیر مفعولی",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "پسوند منفی‌ساز: نَـ، که پیش از پیشوند استمراری نِـ تلفظ می‌شود\nپیشوند استمراری یا اخباری: می\nپیشوند التزامی یا امری: بِـ\nپسوند گذشته: د، که پس از همخوان‌های بی‌واک ت تلفظ می‌شود.\nضمیر شخصی: همانند -ـَم، ـی و غیره.\nضمیر مفعولی: پرکاربردترین آن‌ها ـَش یا ـِش هستند.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Chapter 8",
+      "summary": "* در زمان گذشته، بن گذشته بدون شناسه می‌آید؛ برای نمونه رفت درست است نه رفتد.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "* در زمان گذشته، بن گذشته بدون شناسه می‌آید؛ برای نمونه رفت درست است نه رفتد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "* در زمان گذشته، بن گذشته بدون شناسه می‌آید؛ برای نمونه رفت درست است نه رفتد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "=== زمان‌ها ===\nاین‌ها پرکاربردترین زمان‌های دستوری فارسی هستند:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== مصدر ====\nمصدرها در فارسی با ـَن پایان می‌یابند: خوردن. بن گذشته فعل با حذف ـَن ساخته می‌شود:.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Chapter 9",
+      "summary": "==== گذشته ساده ====\nزمان گذشته ساده با افزودن ضمیرهای شخصی به پایان بن گذشته ساخته می‌شوند. گرچه در سوم شخص مفرد، ضمیر گذاشته وجود ندارد: خورد.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== گذشته ساده ====\nزمان گذشته ساده با افزودن ضمیرهای شخصی به پایان بن گذشته ساخته می‌شوند. گرچه در سوم شخص مفرد، ضمیر گذاشته وجود ندارد: خورد.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== گذشته استمراری ====\nزمان استمراری با افزودن 'می' به فعل‌های گذشته ساده ساخته می‌شود: می‌خوردم.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== گذشته نقلی ====\nبرای ساخت فعل در زمان گذشته نقلی ابتدا ـه را به پایان بن فعل می‌افزاییم و سپس فعل است را صرف کرده و بدان می‌افزاییم. پس در مورد خوردن اول شخص خورده‌ام و سوم شخص خورده است است. گرچه در محاوره است حذف می‌شود و فقط خورده خوانده می‌شود.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "==== گذشته دور ====\nگذشته دور با افزودن صرف فعل بود به همان ساختار بن+ـه ایجاد می‌شود. همانند خورده بود. در سوم شخص مفرد، بود افزوده می‌شود (بدون شناسه).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Chapter 10",
+      "summary": "==== آینده ====\nزمان آینده با افزودن صرف حال فعل خواستن به سوم شخص مفرد فعل مورد نظر ساخته می‌شود. پس خورد می‌شود خواهد خورد. برای فعل‌های مرکب، همانند تمیز کردن، خواهد در میان دو بخش فعل قرار می‌گیرد، و کردن صرف می‌شود: تمیز خواهد کرد. برای منفی‌سازی، به خواهد نَـ افزوده می‌شود:",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "==== آینده ====\nزمان آینده با افزودن صرف حال فعل خواستن به سوم شخص مفرد فعل مورد نظر ساخته می‌شود. پس خورد می‌شود خواهد خورد. برای فعل‌های مرکب، همانند تمیز کردن، خواهد در میان دو بخش فعل قرار می‌گیرد، و کردن صرف می‌شود: تمیز خواهد کرد. برای منفی‌سازی، به خواهد نَـ افزوده می‌شود: نخواهد خورد. زمان آینده معمولاً در فارسی محاوره‌ای استفاده نمی‌شود.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "==== حال اخباری ====\nحال اخباری با افزودن پیشوند می به بن مضارع فعل و صرف آن ساخته می‌شود. برای ساخت بن مضارع از مصدر قانون خاصی وجود ندارد و آن باید از قبل شنیده شده باشد. برای نمونه بن مضارع فعل خوردن، خور است و بنابراین حال اخباری اول شخص مفرد به صورت می‌خورم است. شناسه سوم شخص مفرد ـَد است. منفی‌سازی با افزودن نَـ پیش از می انجام می‌پذیرد که در سایر زمان‌ها نِـ تلفظ می‌شود. برای ساخت زمان آینده در فارسی محاوره‌ای معمولاً یک قید (مثلا: فردا) به حال اخباری افزوده می‌شود.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "==== حال التزامی ====\nحال التزامی با جابه‌جا کردن می حال اخباری با بِـ (یا بُـ پیش از فعل‌هایی که واکه ـُ دارند) ایجاد می‌شود: بخورم.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "=== فعل‌های مرکب ===\nدر فارسی فعل‌های سبک همانند کردن معمولاً با اسم‌ها فعل مرکب را می‌سازند. برای نمونه اسم گفتگو با افزودن فعل سبک کردن به فعل مرکب گفتگو کردن تبدیل می‌شود. با افزودن فعل سبک به اسم، صفت، حرف اضافه یا عبارت اضافه فعل مرکب تشکیل شود. تنها بخشی از فعل مرکب که صرف می‌شود همان فعل سبک (مثل کردن) است و ترتیب واژگان تغییری نمی‌کند:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Chapter 11",
+      "summary": "دارم گفتگو می‌کنم\nگفتگو کرده‌ام\nگفتگو خواهم کرد\nسایر نمونه‌های فعل مرکب با فعل کردن:",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "دارم گفتگو می‌کنم\nگفتگو کرده‌ام\nگفتگو خواهم کرد\nسایر نمونه‌های فعل مرکب با فعل کردن:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 2",
+          "body": "=== فعل‌های کمکی ===\nباید: صرف نمی‌شود. جمله هسته التزامی می‌شود.\nشاید: صرف نمی‌شود. جمله هسته التزامی می‌شود.\nتوانستن: صرف می‌شود. جمله هسته التزامی می‌شود.\nخواستن - (طلبیدن): صرف می‌شود. جمله هسته التزامی می‌شود.\nخواستن - (آینده): صرف می‌شود. فعل اصلی بدون زمان می‌آید.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 3",
+          "body": "== حرف‌های اضافه ==\nحرف‌های اضافه در فارسی پیش از متمم خویش می‌آیند. آن‌ها با دو شیوه استفاده می‌شوند: گروهی همانند در مستقیماً بدون نقش‌نمای اضافه پیش از متمم خویش می‌آیند و دسته‌ای بزرگ‌تر با نقش‌نمای اضافه به اسم افزوده می‌شوند:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        },
+        {
+          "heading": "Section 4",
+          "body": "== منابع ==\nلازار، ژیلبر (۱۳۸۴)، دستور زبان فارسی معاصر، ترجمهٔ مهستی بحرینی، تهران: هرمس، مرکز بین‌المللی گفتگوی تمدن‌ها، شابک ۹۶۴-۳۶۳-۱۷۷-X{{یادکرد}}:  نگهداری یادکرد:تاریخ به‌طور خودکار ترجمه‌شده (رده)\nعشوری، محمد (۱۳۸۴)، نگرشی نو به فعل فارسی، تهران: نشر کوچک، شابک ۹۶۴-۵۵۸۹-۲۵-۸{{یادکرد}}:  نگهداری یادکرد:تاریخ به‌طور خودکار ترجمه‌شده (رده)\nمجیدی، مریم، مجله علمی پژوهشی زبان و ادبیات فارسی، تهران (۱۳۸۶)، آموزش دستور زبان فارسی، چالش‌ها و راهکارها، شاپا ISSN ۵۷۳۷–۱۷۳۵ ISSN {{یادکرد}}: مقدار |issn= را بررسی کنید (کمک)نگهداری یادکرد:تاریخ به‌طور خودکار ترجمه‌شده (رده)\nدالن، اشک (2017), Modern persisk grammatik (in Swedish), استکهلم: انتشارات دراگومان",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Chapter 12",
+      "summary": "دستور زبان پارسی نگارش دکتر نوید فاضل\nآموزش دستور زبان فارسی،چالش‌ها و راهکارها",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "دستور زبان پارسی نگارش دکتر نوید فاضل\nآموزش دستور زبان فارسی،چالش‌ها و راهکارها",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://fa.wikipedia.org/wiki/%D8%AF%D8%B3%D8%AA%D9%88%D8%B1_%D8%B2%D8%A8%D8%A7%D9%86_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Archive Lessons",
+      "summary": "== Lesson 2 ==\nدرس دو==درس دوم - Les 2==  + : من - אני\n===ن م / aa n m ===  + : مادر - אֵם",
+      "sections": [
+        {
+          "heading": "Archive Lessons",
+          "body": "== Lesson 1 ==\n\n\n== Lesson 2 ==\nدرس دو==درس دوم - Les 2==  + : من - אני\n===ن م / aa n m ===  + : مادر - אֵם  \n\nمن -ik  + : مادرم - אמי\nمادر - moeder  + : برادر - אח\nمادرم - mijn moeder  + : برادرم - אחי\nبرادر - broer  + : بابا - אב\nبرادرم - mijn broer  + : بابام - אבי\nبابا - pappa  + : نان - לחם\nبابام - mijn pappa  + : بادام - amandelen\nنان - brood  + : باران - גשם\nبادام - amandelen  + : ابر - ענן\nباران - regen  + : انار - רימון\nابر - wolk  + : دارم - יש לי\nانار - granaatappel  + : ندارم - ik heb het niet, ik heb geen\nدارم - ik heb  + : من بادام دارم - ik heb amandelen\nندارم - ik heb het niet, ik heb geen  + : بابا نان داد - pappa geeft brood\nمن بادام دارم - ik heb amandelen  + : من بادام ندارم - ik heb geen amandelen\nبابا نان داد - pappa geeft brood  + : من انار دارم - ik heb een granaatappel\nمن بادام ندارم - ik heb geen amandelen  + : بابا بادام داد - pappa geeft amandelen\nمن انار دارم - ik heb een granaatappel\nبابا بادام داد - pappa geeft amandelen\n\n\n== Lesson 3 ==\n\n\n== درس  سوم ==\n\n\n=== س  ت / t s ===\nس - s\nت - t\nداس - sikkel\nتاب - schommel\nاست - is\nاسب  - paard\nسبد - mand\nآن  - dat, die\nبست - vast\nآمد - komt\nدست - hand\nسارا - Sara naam van een meisje\nدارا - Dara naam van een jongen\nدر  - in\nداد  - geeft\nنداد  - geeft niet\nدارد  - heeft\nندارد  - heeft niet\nآن مرد اسب دارد  - die man heeft een paard\nآن مرد سبد دارد  - die man heeft een mandje\nآن مرد با اسب آمد - hij komt met een paard\nآن مرد در باران آمد - hij komt in de regen\nآن مرد تند آمد - die man komt snel\nآن تاب است  - dat is een schommel\nآن سبد است - dat is een mand\nسارا سبد در دست دارد  - Sara heeft een mand in haar hand\nدارا در سبد انار دارد  - Dara heeft een granaatappel in zijn mand\n\n\n== Lesson 4 ==\n\n\n== او و / o oo ==\nو - oo\nاو - hij, zij\nتوت - moerbei\nدوست - liefde, vriend, vriendin\nدندان - tanden\nدندانم - mijn tanden\nآدم - mens\nدوست - vriend\nبا - met\nدارو - medicijn\nدارم - ik heb\nندارم - ik heb het niet, ik heb geen\nدانا - slim\nمادر - moeder\nمادرم - mijn moeder\nمن توت دوست دارم - ik hou van moerbei\nسارا توت دوست دارد - Sara houdt van moerbei\nاو با من دوست است  - hij is mijn vriend\nمن مادرم را دوست دارم - ik hou van mijn moeder\nمن بابام را دوست دارم - ik hou van mijn vader\nمن برادرم را دوست دارم - ik hou van mijn broer\nمن سارا را دوست دارم - Ik hou van Sara\nمن دارا را دوست دارم - Ik hou van Dara\n\n\n== Lesson 5 ==\n\n\n=== ي    ز   / j z ===\nايران - Iran\nسيب - appel\nبر مي دارد - hij pakt en zij pakt\nسيني - dienblad\nسوزن - naald\nمي دوزد - naaiende (werkwoord, onvoltooid tegenwoordige tijd)\nدامن - rok\nآن - dat, die\nاين - dit, deze\nتنور - oven\nتبر - bijl\nبز - geit\nمار - slang\nدود - rook\nزن - vrouw\nاين سيني است - dit is een dienblad\nدر سيني سيب است - op het dienblad is een appel\nبابا سيب برميدارد - pappa pakt een appel\n- dat is een naald\nسوزان با سوزن دامن ميدوزد - Suzanne maakt een rok met een naald\nاو با سوزن ميدوزد - hij naait met een naald, zij naait met een naald\nاو با سوزن ميدوزد - die vrouw heeft een naald\n\n\n== Lesson 6 ==\nدرس 6\n\nك     او      ت\nنمك - zout\nنمكدان - zoutvat\nاكرم - Akram\nكودك - kind\nمي ريزد - strooiende\nآن نمك است - dat is zout\nاردك - eend\nبازي كردن - spelen\nبازي مي كند - hij speelt\nآن نمكدان است - dat is een zoutvat\nاين كودك اكرم است - Dit kind heet Akram\nاكرم نمكدان در دست دارد - Akram heeft een zoutvat in de hand\nاو با نمكدان نمك مي ريزد - Zij strooit zout met het zoutvat\nاين اردك است - dit is een eend\nارذك در آب بازي مي كند - de eend speelt in het water\nاين بز است - dit is een geit\nاين بز بازي مي كند - die geit speelt\n\n\n== Lesson 7 ==\nدرس7\n\nپ       و\nتوپ  - bal\nدوست – vriend, vriendin, liefde\nمي اندازد – hij gooit,  zij gooit\nپري  - Pari meisjesnaam\nپا – voet\nدارد – hij heeft, zij heeft\nمي ميكند – deed\nكردن – doen\nاكرم توپ دارد – Akram heeft een bal\nاكرم با پري دوست است – Akram is met Pari bevriend\nاكرم با پري توپ بازي مي كند – Akram en Pari spelen met een bal\nپري توپ را با پامي اندازد - Pari schopt de bal\n\n\n== Lesson 8 ==\nدرس 8\nو  \n\nمرد – man (man)\nزن – vrouw (woman)\nتند - snel (fast)\nدوات – inktpot (inkwell)\nپروين – Parvin (meisjesnaam) (girls name)\nپرويز – Parviz (jongensnaam) (boys name)\nنانوا – bakker (baker)\nدويدن – rennen (hele werkwoord) (running)\nمي دود – hij rent, zij rent (he, she runs)\nبيرون – uit, buiten (out)\nمي پزد – hij kookt, zij kookt (he, she cooks)\nپختن- - koken, bakken (hele werkwoord) (cooking, baking)\nاين دوات است – dit is een inktpot (this is an inkwell)\nپرويز با پروين دوست است – Parvin is met Parviz bevriend\nاين مرد نانوا است – die mijnheer is bakker\nنانوا نان مي پزد – de bakker bakt brood\nآن مرد از نانوائي تند آمد – die man komt snel uit de bakkerij\nپرويز با پروين دوست است\n\n\n== Lesson 9 ==\nدرس9\n\nامروز – vandaag\nد يروز – gisteren\nد بستان – basisschool\nبودن – zijn\nآمدن – komen\nاسم – naam\nباريد ن – regenen,sneeuwen\nمن - ik\nنام – naam\nنادر – Nader  (jongensnaam)\nكتاب – boek\nامين – Amin (jongensnaam)\nپس دادن – teruggeven\nپس داد – hij geeft, zij geeft\nامروز باران باريد – vandaag regent het\nمن از دبستان آمدم - ik kom uit school\nمن از د بستان تند آمدم – ik kom snel uit school\n\n\n== Lesson 16 ==\nدرس16 -les 16 \n\nتميز\n\nلاله - tulp ook meisjesnaam\nشاخه - tak\nگلدان - plant\nپژمرده - verlept\nلانه - kooi, nest\nژاله - Jaleh meisjesnaam\nگفت - hij zegt\nگفتن - zeggen\nليوان - glas(als in wijnglas)\nزياد - veel\nكم - weinig\nدرخت - boom\nتميز - schoen\nكثيف - vies\nفهميدن - weten\nروز - dag\nزيبا - mooi\nدادن - geven\nكلاس - klas\nجوجه - kuiken\nژاله و لا له دوست هستند - Jaleh en Laleh zijn vriendinnen\nژاله گل كاشت در گلدان - Jaleh zet de bloem in een vaas\nو به گلدان آب داد - Ze geeft met de gieter water\nاگر به گل آب ندهيم خشگ وپژمرده مي شود - Als jullie plant geen water geven, dan wordt hij geel en verlept hij\nلاله ليوان دارد وبا آن آب مي خورد - Laleh heeft een glas en drinkt daar water uit\nدر خانه اكرم درخت بزرگي است - dichtbij het huis Akram is een grote boom\nودر بالاي درخت لانه كنجشك است - en bovenin de boom is een nest van een spreeuw\nتكليف خانه - Huiswerk\n - جمله بسازيد ـ خشك - جوجه - درخت - Zin maken\n      فعل بسازيد كثيف كردن - فهميدن تميز كردن - werkwoord vervoegen\n\n\n== Lesson 17 ==\nدرس 17 les17\n\nهر روز - elke dag\nديروز - gisteren\nفردا - morgen\nآفتاب - zonneschijn\nخورشيد - zon\nمهتاب - maanlicht\nماه - maan\nخواهر - zuster\nخانه - huis\nروشن - licht\nتاريك - donker\nگرم- warm\nسرد - koud\nبزرگ - groot\nكوچك - klein\nخوب - goed\nبد - slecht\nشب - nacht\nروز - dag\nمسواك - tandenborstel\nحوله - handdoek\nصابون - zeep\nدندان - tanden\nاز خواب بيدار شدن - wakker worden\nبابا صورتش را سشت- pappa wast zijn gezicht\nمن مسواك زدم\nمن مسواك زدم - ik poets mijn tanden\nما از خواب بيدار شديم - wij worden wakker\nروز خورشيدزمين را روشن مي كند - overdag schijnt de zon\nشب ماه زمين را روشن مي كند - 's nachts schijnt de maan\nلاله دست و صورت خود را با حوله خشك مي كند - Laleh droogt haar gezicht met een handdoek\nخدا ما را دوست دارد - God houdt van ons\n\n\n== Lesson 18 ==\nدرس 18\n\nلثه - tandvlees\nدانه - zaad\nستاره - ster\nپشت - achter\nجلو - voor\nثريا - Soraya meisjesnaam\nكثيف - vies\nممكن - misschien- mogelijk\nدهان - mond\nبيماري - ziekte\nمريضي - ziekte\nدرد - pijn\nصحبت - gesprek\nموقع - tijd\nمزرعه - boerderij\nشروع - begin\nتمام - klaar\nجمع - samen\nخراب - kapot\nظهر - middag\nمدرسه - school\nبچه ها - kinderen\nآوردن - brengen\nلذت - lekker\nباغبان - tuinman\nرضا - Reza jongensnaam\nاضغر - Asgar jongensnaam\nغذا - eten\nمن مدرسه شروع كردم - mijn school begint\nثريا مريض بود - Soraya was ziek\nمن يك مزرعه زيبا ديدم - Ik zag een mooie boerderij\nاصغر و رضا ضهر از مدرسه آمدند - Asgar en Reza komen 's middags uit school\nستارها در آسمان هستند - sterren zijn in de de hemel\nلثه و دندان رضا مريض است - het tandvlees en de tanden van Reza zijn ziek\nمدرسه اصغر نزديك است - De school van Asgar is dichtbij.\nتكليف شب - Huiswerk\nخمله بسازيد - Zinnen maken\nمدرسه - خراب - ظهر - لذت - باغبان\nفعل بسازيد - werkwoord vervoegen\nآوردن -  مريض ششدن - لذت بردن - صحبت كردن\n\n\n== Lesson 19 ==\nدرس 19\n\nطاهره - Thohereh meisjesnaam\nحاضر - klaar\nبعضي - sommige\nعصر - middag\n- blij\nغمگين - verdriet\nاجازه - mag\nتشكر - dank\nشناخت - ken\nآموزگار - lerares, leraar\nمعلم - lerares, leraar\nحياط - tuin\nوسط - middel\nقله - bergpiek\nكشتي - schip\nباغ - bloementuin\nتيغ - doorn\nعمو - oom\nميوه - fruit\nمن از ميوها سيب را بيشتر دوست دارم - ik vind een appel het lekkerste fruit\nمادر بزرگم باغ انار و سيب دارد - mij oma heeft een boomgaard met appels en granaatappels\nگلها در باغ تيغ داردند و بايد ما موا ظب باشيم - we moeten oppassen voor doornen in de tuin\nزنگ تفريح بود وما بازي كرديم - Wij spelen in de pauze\nوهمه در زنگ تفريح با هم آشنا هستند - in de pauze kennen alle kinderen elkaar\nوفاطمه وطاهره با صابون دست و صورت خود را مي شو يند - Tahereh en Fatimeh wassen hun handen met zeep\nتكليف شب - huiswerk\nجمله بسازيد - zinnen maken\nآشنا - ظهر - درد - بازي كردن\n\nفعل بسازيد - werkwoorden vervoegen\nدوست بودن - ميوه خوردن - تفريح كردن - خداحافظي كردن\n\n\n== Lesson 20 ==\n درس    20\n\nفصل - seizoen\nبهار - lente\nتابستان - zomer\nپائئز - herfst\nزمستان - winter\nگرم - warm\nسرد - koud\nهوا - weer\nشكوفه -bloesem\nعيد - feest\nعيد نوروز nieuwjaar\nبرف -sneeuw\nچشمه - bron\nبرگ - blad\nدر بهار هوا خوب است - in de lente is het mooi weer\nوعيد نوروزاول بهار است - Het Iraanse nieuwjaar begint op de eerste dag van de lente\nدر بهار درختان شكوفه ميآورد - in de lente hebben bomen bloesem\nدر تابستان هوا گرم است - in de zomer is het weer warm\nوميوه ها در تابستان رسيده مي شوند - in de zomer rijpt het fruit\nدر پائئز هوا سرد است وباد مي آيد - in de herfst is het koud en komt de wind\nودر زمستان هوا سرد است و برف و با ران مي بارد - in de winter is het koud en komt er regen en sneeuw\nتكليف شب - huiswerk\nجمله بسازيد - zinnen maken\n بهار -   پائئز -  زمستان  -  تابستان  \n\nفعل بسازيد - werkwoord vervoegen\n باران باريدن - تفريح كردن - ميوه خوردن - باغباني كردن\n\n\n== Lesson 21 ==\n21\n\nايام هفته - naam van de dagen van de week\nشنبه zaterdag\nيكشنبه - zondag\nدوشنبه - maandag\nسه شنبه - dinsdag\nچهار شنبه - woensdag\nپنج شنبه - donderdag\nجمعه - vrijdag\nمـــــاها - naam van de maanden\nبهار - lente\nفروردين - farvardien\nارديبهشت - ordibehesht\nخرداد - khordad\nتابستان - zomer\nتير - tier\nمرداد - mordad\nشهريور- shahrivar\nپائئز - herfst\nمهر - mehr\nآبان - aban\nآذر - azar\nزمستان - winter\nدي - dey\nبهمن - bahman\nاسفند - esfand\nhet alfabet:\n\nآا - a\nب - b\nپ - p\nت - t\nث - s, wordt beschreven als de s van Soraya\nج - dj, uitspreken als de engelse j in jungle\nچ - ch, uitspreken als engelse ch in child\nر - r\nز - z\nژ - zj\nس - s\nش - sj, uitspreken als de eerste twee letters van het engelse woord shovel\nص - s\nض - z\nط - t\nع - a\nغ - gh, klank tussen een k en h in, wordt achterin de keel uitgesproken\nف - f\nق - gh, klank tussen een k en h in, wordt achterin de keel uitgesproken\nك - k, als de engelse c in cat\nگ - zachte k, als de engelse g in god\nل - L\nم - m\nن - n\nو - w, wordt soms als een oe uitgesproken\nه - h\nي - i, wordt soms als een nederlandse j uitgesproken\nde cijfers:\n\n1 = (yek) یک\n2 = (do) دو\n3 = (se) سه\n4 = (cahâr) چهار\n5 = (panj) پنج\n6 = (šeš) شش\n7 = (haft) هفت\n8 = (hašt) هشت\n9 = (noh) نه\n10 = (dah) ده\n11 = (yâzdah) یازده\n12=(davâzdah) دوازده\n13 = (sizdah) سیزده\n14 = (cahârdah) چهارده\n15 = (pânzdah) پانزده\n16 = (šânzdah) شانزده\n17 = (hafdah) هفده\n18 = (haždah) هجده\n19 = (nuzdah) نوزده\n20  = (bist) بیست\n25 = (bisto panj) بیست و پنج\nDe tientallen:\n\n30 = (si) سی\n40 = (cehel) چهل\n50 = (panjâh) پنجاه\n60 = (šast) شصت\n70 = (haftâd) هفتاد\n80 = (haštâd) هشتاد\n90 = (navad) نود\nDe honderdtallen:\n\n100 = (sad) صد\n200 = (devist) دویشت\n300 = (sisad) شیصد\n400 = (cahârsad) چهارصد\n500 = (pânsad) پانصد\n600 = (šešsad) شش صد\n700 = (haftsad) هفت صد\n800 = (haštsad) هشت صد\n900 = (nohsad) نه صد\n1000 = (hezâr) هزار\n2000    = (do hezâr) دو هزار\n10.000   = (dah hezâr) ده هزار\n100.000  = (sad hezâr) صد هزار\n1.000.000  = (miliyon) ملیون\n\n\n== Lesson 22 ==\n22\n\n- Mijnheer\nخانم - Mevrouw\nدوشیزه - Mejuffrouw\nبله - Ja\nخوانا - Leesbaar\nنه - Nee\nسلام - Hallo\nصبح بخیر - Goedemorgen\nظهربخیر - Goedemiddag\nعصر بخیر - Goedenavond\nشب بخیر - Goedenacht\nخداحفظ - Tot ziens\nخواهش میکنم - Alstublieft\nمتشکرم - Dank u wel\nخیلی ممنون - dank u wel\nمرسی - merci\nببخشید - Pardon\nحال شما چطورید - Hoe gaat het met u\nخیلی خوب، متشکرم - Heel goed, dank u wel\nاجزه هست - Is het toegestaan\nبفرمایید - Ga uw gang\nExercise on this lesson…",
+          "examples": [
+            "dat is een naald",
+            "جمله بسازيد ـ خشك - جوجه - درخت - Zin maken",
+            "blij",
+            "Mijnheer"
+          ],
+          "learnerTip": "== Lesson 2 ==\nدرس دو==درس دوم - Les 2==  + : من - אני\n===ن م / aa n m ===  + : مادر - אֵם",
+          "source": "https://en.wikibooks.org/wiki/Persian/Archive_Lessons"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson 1",
+      "summary": "In this lesson, you will learn basic greetings, the first nine Persian letters, connecting letters, and unwritten vowels.",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "In this lesson, you will learn basic greetings, the first nine Persian letters, connecting letters, and unwritten vowels.\n\n\n== Dialogue: ‹salâm!› ==\nShirin sees her friend Arash in passing and greets him:\n\nThe dialogues in lessons 1 through 3 are shown in UniPers, a system of writing the Persian language in the Latin alphabet.  In later lessons, the native Persian script is shown along with a transcription.\n\nExplanation\n\nArash and Shirin are using a casual style of speech typical among friends. Later lessons will use various styles of speech, including some for more formal situations.\nVocabulary\n\n‹salâm›   IPA:  /sæˈlɒːm/ — “peace” a common greeting like “hello” in English\n‹cetori›    /t͡ʃeˈtoɾiː/ — “how are (you)” (informal, used among friends)\n‹tow›    /tow/ — “you” (informal)\n‹mersi›    /'meɾsiː/ — “thanks”\n‹man›    /mæn — “I, me”\n‹xubam›    /ˈxuːbæm/ — “(I) am fine/well/good”\n\n\n== The Persian Alphabet ==\nThe Persian language has six vowel sounds and twenty-three consonant sounds.  Old Persian was written using its own cuneiform alphabet.  Other scripts were used in later stages of the language, and eventually the Arabic alphabet was adopted.   The sounds of Persian are different from Arabic, though, so four letters were added for Persian sounds that do not exist in Arabic ( پ  ‹pe›, چ  ‹ce›, ژ  ‹že›, and گ  ‹gâf›), and letters for several foreign Arabic sounds are pronounced like their closest Persian approximation.\nThus, the twenty-nine sounds of Persian are written in the Perso-Arabic script, which has thirty-two letters and is called الفبا  ‹alefbâ›, named after its first two letters (similar to \"ABCs\" in English).  It is a cursive script, written from right to left like Arabic, opposite of the English direction. The letters are presented in the first four lessons of this book, followed by a summary of the whole alphabet in the \"Alphabet summary\" section of Lesson 4.\n\n\n== ا  ‹alef› ==\n\nThe first letter in Persian is ا  ‹alef›.\nAt the beginning of a word (on the right side), alef has two forms.  The form on the far right here with the madde (the small \"hat\" on top: آ ) is written as a tall, vertical stroke from top to bottom followed by the madde on top written from right to left as a straight ( - ) or curved ( ~ ) line.  This form represents a doubled alef ( اا ).  It is pronounced with the long vowel sound /ɒː/ (IPA), transcribed here as ‹â›.  That is, it has a long duration and is produced with rounded lips and the tongue low and far back in the mouth, like a slow version of the vowel in the Queen's English pronunciation of hot, American English caught, or South African English park.  When the first letter of a word is alef without a \"hat\" (  ا  ), it is read as a short vowel: ‹a› (IPA: /æ/) as in at, ‹e› (/e/) as in end or ‹o› (/o/) as in open, as will be seen in later examples.\nWhen alef appears later in a word (after the first letter), it is always written without the \"hat\" ( ا ) and it always represents long ‹â›.\n\n\n== ب ‹be›,  پ ‹pe›, ت ‹te›, ث ‹se› ==\n\nAfter alef ( ا ), the next four Persian letters, shown on the right, are all written similarly but with varying dots.\nPersian letters have names that begin with the sound they make, so these four letters make the sounds ‹b›, ‹p›, ‹t›, and ‹s›.\n\nThe second Persian letter is ب  ‹be›.  It represents the /b/ sound.  Its name sounds like a quick pronunciation of the English word “bay”.\n\nThe Persian word آب  ‹âb› (“water”) is shown on the right.  In this word, the initial alef is written with a “hat” ( آ ), so it is read as long ‹â›.  Persian is written from right to left and positioned on and around a horizontal baseline that is typically not visible on the page.  The swooping stroke of ب is written from right to left and sits on that baseline, as does آ .  The dot is below the baseline and, like the dot in the English cursive letter i, it is written after the connected strokes in the word.\n\nAs shown on the right, the swooping stroke of each ب connects with the following ا to spell بابا  ‹bâbâ›, an informal word for “father”, similar to the English words “dad” and “daddy”.  The other letters in this section are like ب in that each has a swooping stroke that sits on the baseline and connects with the following letter, and each has one or more dots that are written after all of the connected strokes of the word.\nNote that the alefs in بابا are not at the beginning of the word, so they represent long ‹â› and are not written with a “hat”.\n\nThe third Persian letter is پ  ‹pe›.  It is pronounced as /p/ and its name sounds like a quick pronunciation of the English word “pay”.  Its swooping stroke is written from right to left like the other letters of this group, then after the rest of the connected strokes of the word are written, the three dots of پ are written below the baseline.\n\nپ followed by ا spells the word پا  ‹pâ› (“foot”).\n\nThe letter ت  ‹te› is pronounced like /t/ and is written with two dots above the swooping line.  Its name rhymes with the other letters in this section.\n\nت followed by ا spells the word تا  ‹tâ› (“until”).\n\nThe letter ث  ‹se› is one of three separate Persian letters for the /s/ sound, since that is the Persian approximation of the letter's Arabic sound [θ].  In Persian, its name sounds like an abbreviated version of the English word “say”.  It is used mainly in words of Arabic origin and is not a very common letter in Persian.\n\nAs shown on the right, ث appears twice in the word اثاث  ‹asâs› (“furniture”).\nNote the difference between a hatless initial alef pronounced as short ‹a› and an alef in the middle of a word, pronounced as long ‹â›.\n\n\n== ج ‹jim›, چ ‹ce›, ح ‹he›, خ ‹xe› ==\n\nThe next four Persian letters, shown on the right, are all written similarly but with varying dots.\n\nThe letter ج  ‹jim› is transcribed as ‹j› and pronounced as [d͡ʒ] (i.e. like the English letter j in jump). The top stroke is written first from left to right above the baseline, followed by the lower hook extending counterclockwise below the baseline.  The dot is written later, after any other connected strokes in the word.\n\nج followed by ا spells the word جا  ‹jâ› (“place”). This example shows that the shape of this letter changes when another letter follows it.  The top stroke is still written from left to right, but a simple right-to-left stroke along the baseline replaces the hook when another letter follows.  The other letters in this section change shape similarly when another letter follows.\nWhen a ج follows a connecting letter, as in پنج  ‹panj› (“five”) or اینجا  ‹injâ› (“here”), the top stroke is still written before the tail (or the following connecting stroke, as the case may be).\n\nThe letter چ  ‹ce› is transcribed in UniPers as ‹c› and pronounced as [t͡ʃ] (i.e., like ch in English church).\n\nThe letter ح  ‹he› is pronounced as /h/.  Its name sounds like a quick version of the English word “hay” (that is, it does not sound like the English word “he”). \n\nح followed by ب spells the word حب  ‹hab› (“pill”).\n\nThe letter خ  ‹xe›  is pronounced like the IPA sound [x] (like the Spanish letter j or the German ch), transcribed in UniPers as ‹x›.\n\nخ followed by ا and ج spells the word خاج  ‹xâj› (“cross”).  Like the previous few letters, the tail of خ is not written when another letter follows it.\n\n\n== Exercises ==\n\n\n== Review ==\nIn this lesson, you learned some greetings, the first nine letters of the Persian Alphabet, and how to spell several words with those letters from right to left.  You also learned that short vowels are usually not written, and that many letters change their shape depending on whether they connect with letters before or after them.\n\n\n== Next: Lesson 2 ( ۲ ), The alphabet (continued) ==\nContinue to Lesson 2 ( ۲ ), The alphabet (continued) >>",
+          "examples": [
+            "‹salâm›   IPA:  /sæˈlɒːm/ — “peace” a common greeting like “hello” in English",
+            "‹cetori›    /t͡ʃeˈtoɾiː/ — “how are (you)” (informal, used among friends)",
+            "‹tow›    /tow/ — “you” (informal)",
+            "‹mersi›    /'meɾsiː/ — “thanks”",
+            "‹man›    /mæn — “I, me”",
+            "‹xubam›    /ˈxuːbæm/ — “(I) am fine/well/good”"
+          ],
+          "learnerTip": "In this lesson, you will learn basic greetings, the first nine Persian letters, connecting letters, and unwritten vowels.",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson 10",
+      "summary": "In this lesson, you will learn how use prepositions and the definite direct object marker in Persian.",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "In this lesson, you will learn how use prepositions and the definite direct object marker in Persian.\n\n\n== Dialogue: ... ‹...› ==\n... and... are talking....\n\nExplanation\n\n... and ....\nVocabulary\n\nآقا  ‹âqâ› IPA:  /ɒːˈɣɒː/ — “Mr.”\nدرس 10 \n\nه\nش\nسه – drie\nنامه – letter\nبه – naar\nمد ير – directeur\nسبزي – groente\nبيمار – ziek, patient\nنوستن – schrijven\nمي نويسد – hij schrijft\nشسستن – wassen\nريختن – gieten\nمي ريزد – hij giet\nپاك كردن - schoonmaken\nكشك – yoghurtsoort\nآش – soep\nداشتن – hebben\nرشته – macaroni soort\nاكرم سه روز بيمار بود – Akram was drie dagen ziek\nمادر اكرم نامه نوشت – De moeder van Akram schrijft een brief\nاكرم آش درست كرد – Akram maakt soep\nمادر امين سبزي را شست – De moeder van Amin wast de groente\nاو در آش كشك و سبزي مي ريزذ - Zij doet (soort yoghurt) en de groente in de soep\nمادر امين سبزي را شست – Amin en Akram houden van soep\n\n\n== Direct objects ==\nThe word را  ‹râ› marks definite direct objects in Persian.  That is, \nColloquially, را   is pronounced ‹ro› after a vowel or ‹o› after a consonant.\nIn written Persian, من را ‹man râ›  may contract to مارا ‹mârâ› , but colloquially pronounced ‹mano›.  Similarly, written تو را ‹to râ›  can contract to تورا ‹torâ›  but colloquially pronounced ‹toro›.\n\n\n== Review ==\n\n\n== Next: Lesson 11 ( ۱۱ ), Present tense ==\nContinue to Lesson 11 ( ۱۱ ), Present tense >>",
+          "examples": [
+            "آقا  ‹âqâ› IPA:  /ɒːˈɣɒː/ — “Mr.”"
+          ],
+          "learnerTip": "In this lesson, you will learn how use prepositions and the definite direct object marker in Persian.",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson 11",
+      "summary": "In this lesson, you will learn about direct objects and prepositions in Persian.",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "In this lesson, you will learn about direct objects and prepositions in Persian.\n\n\n== Dialogue ==\nدرس 11\n\nف\nكيف – tas\nد فتر – schrift\nپد ر – vader\nپذرش – zijn vader\nمسافرت – reis, vakantie\nدرس – les\nفراموش – vergeet\nفردا – morgen\nبردن – meenemen\nمي برد – hij neemt mee\nمادرش – zijn moeder\nبرادرش – zijn broer\nدفترش – zijn schrift\nكتابشاست – zijn boek\nامين برادر اكرم است – Amin is de broer van Akram\nپدر اكرم فردا به مسافرت مي رود – morgen gaat de vader van Akram op reis\nامين كتابش را فراموش نمي كند – Amin vergeet het boek\nامين و اكرم درس را دوست دارند – Amin en Akram leren graag\nامين كتاب دار – Amin heeft een boek\nمن كيف دارم – Ik heb een tas\n\n\n== Direct objects ==\nDefinite or human object enclitic را  ‹râ›, colloquially pronounced or /o/ after consonant, /ro/ after vowel.\nPersian doesn't have a direct article like “the”. In some situations را   carries similar meaning, but is less used than \"the\".\n\n\n== Prepositions ==\nprepositions:\n\nاز  ‹az› (“from, than, by”)\nبا  ‹bâ› (“with”)\nبرای  ‹barâye› (“for, in order to”)\nبی  ‹bi› (“without”)\nبدون  ‹bedun-e› (“without”)\nبه  ‹be› (“to, in, at, on”)\nدنبال  ‹dombâl-e› (“behind”)\nپشت  ‹post-e› (“behind”)\nنزدیک  ‹nazdik-e› (“near”)\n‌ پیش  ‹pish-e› (“before, in front of”)\nجلو  ‹jelo-ye› (“before, in front of”)\nروی  ‹ruy-e› (“on, on the face of”)\nتو  ‹tu-ye› (“inside, into”)\nدر  ‹dar› (“in”)\nزیر  ‹zir-e› (“under”)\nSome Persian verbs often are accompanied by prepositional phrases that translate into English as transitive verbs with direct objects, especially common with از ‹az› (“from, than, by”) and بی ‹bi› (“without”).\n\n\n== Sentence structure ==\n(subject) (definite object را) (prep phrases) (adverbs) (predicate nominative/adjective) verb\n\n\n== Notes ==\n\n\n== Next: Lesson 12 ( ۱۲ ), Simple present tense ==\nContinue to Lesson 12 ( ۱۲ ), Simple present tense >>",
+          "examples": [
+            "Persian doesn't have a direct article like “the”. In some situations را   carries similar meaning, but is less used than \"the\"."
+          ],
+          "learnerTip": "In this lesson, you will learn about direct objects and prepositions in Persian.",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson 12",
+      "summary": "ميخ – talk, speak1\nتخته – hout\nميز – tafel\nكمد – kast\nخانه – house\nخريد – hij koopt\nخريدن – kopen,(werkwoord voor kopen)\nفروختن – verkopen, (werkwoord voor verkopen)\nساختن – maken, (werkwoord voor maken)\nساخت – hij maakt\nكمك – help\nكمك كردن - help, (werkwoord voor helpen)\nبازار –",
+      "sections": [
+        {
+          "heading": "Lesson 12",
+          "body": "خ\n\nميخ – talk, speak1\nتخته – hout\nميز – tafel\nكمد – kast\nخانه – house\nخريد – hij koopt\nخريدن – kopen,(werkwoord voor kopen)\nفروختن – verkopen, (werkwoord voor verkopen)\nساختن – maken, (werkwoord voor maken)\nساخت – hij maakt\nكمك – help\nكمك كردن - help, (werkwoord voor helpen)\nبازار – markt\nفعل) تخته خريدن) – hout kopen\nمن تخته خريدم - ik koop hout\nتو تخته خريدي – jij koopt hout\nاوتخته خريد – hij koopt hout\nما تخته خريديم – wij kopen hout\nشما تخته خريديد – jullie kopen hout\nايشان تخته خريدند – zij kopen hout\nامين با پدرش از بازارآمد – Amin komt van de markt met zijn vader\nانها تخته و ميخ خريدند – Zij kopen hout en spijkers\nپدرش با تخته وميخ ميزساخت – Zijn vader maakt van hout en spijkers een tafel\nامين با پدرش در ساختن ميز كمك كرد – Amin helpt zijn vader met het maken van een tafel\nتكليف شب – jullie's homework\nفعل بسازيد – werkwoord vervoegen\nخريدن – buy\nفروختن – verkopen\nساختن – do, make\nكمك كردن – help\nجمله بسازيد – zin maken\nپدر   . تخته. ميز . بازار. ميخ\nجمله هاي زير را كامل كنيد- invullen\nخورشيد – zon\nخود – zelf\nنوك – bek\nآسمان – lucht, hemel. firmament\nخوردن – eat\nنوشتن – write\nرفتن go\n. خروس......... دارد\nخروس به زمين نوك مي زند ودانه ..........\n.............  را در آسمان مي بينيم\nامين به دوست ........... نامه مي نويسد.\nسارا..........  روز بيمار بود .\n\n\n== Simple present tense ==\n\nThe simple present tense is used to describe an event or to comment about the state of something without regard to a particular time, as shown in the example on the right.\n\nThe table on the right shows the simple present tense forms of گرفتن  ‹gereftan› (“to get”), consisting of the present/imperfect prefix می ‹mi› , the present stem گیر ‹gir›  and suffixes to indicate the person and number.\nTo make a simple present tense form of a Persian verb, begin with the prefix می ‹mi› .  Then add the present tense stem (which can be looked up in most dictionaries), e.g. گیر ‹gir› .  Finally, add the appropriate present tense personal suffix from the table below to make the simple present tense verb form:\n\nAs you can see, the present tense personal suffixes are the same as the past tense ones, except for the third person singular, which is د ‹ad›  in the present tense and nothing in the past.\nEvery Persian verb has two stems: the imperative/present stem and the past stem. In general, both stems of each verb must be learned because neither is not completely predictable from the other.  There are some common patterns, though.  For example, verbs whose infinitives end with تن ‹tan› , دن ‹dan› , or یدن ‹idan›  often form the present stem by dropping those endings:\n\nThe simple present tense is also used to talk about a future event, as shown on the right.\nThe simple present tense can also be used to express that an event is occurring at the very moment that the speaker is speaking, but the present continuous tense is used more often for that purpose in both English and Persian.  The present continuous tense will be discussed in a later chapter.\n\n\n== Review ==\n\n\n== References ==",
+          "examples": [],
+          "learnerTip": "ميخ – talk, speak1\nتخته – hout\nميز – tafel\nكمد – kast\nخانه – house\nخريد – hij koopt\nخريدن – kopen,(werkwoord voor kopen)\nفروختن – verkopen, (werkwoord voor verkopen)\nساختن – maken, (werkwoord voor mak",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_12"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson 13",
+      "summary": "In lessons ... through ..., you learned ....\nIn this lesson, you will learn about personal clitics used after noun phrases, alternative pronomial direct objects as clitics, and differences between spoken and written forms.",
+      "sections": [
+        {
+          "heading": "Lesson 13",
+          "body": "In lessons ... through ..., you learned ....\nIn this lesson, you will learn about personal clitics used after noun phrases, alternative pronomial direct objects as clitics, and differences between spoken and written forms.\n\n\n== Dialogue: ... ‹...› ==\n... talks with ...:\n\nExplanation\n\n... and ... are....\nVocabulary\n\n...  ‹......› IPA:  /...ˈ.../... — “...”\nدرس 13\n\nق  چ\nزيبا دوچرخه سواري را دوست دارد\nقاشق – lepel\nبشقاب – bord\nسفره – tafelkleed\nاتاق – kamer\nدوچرخه – fiets\nچاي – thee\nپيچ – schroef\nسفت – zacht\nآوردن – brengen\nريختن – schenken\nآچار  – gereedschap\nباز – open\nبسته – dicht\nدوچرخه سواري كردن – fietsen, (werkwoord)\nقند – suikerklontje\nشيرين – zoet\nزيبا – mooi, ook een meisjesnaam\nخراب – kapot\nدانستن – weten, (werkwoord)\nامين واكرم به مادر خود كمك مي كنند – Amin en Akram helpen hun eigen moeder\nاكرم سفره و قاشق و بشقاب را به اتاق مياورد  – Akram brengt het bord, de lepel en het tafelkleed naar de kamer\nمادر زيبا چاي درست كرد – De moeder van Ziba zet thee\nزيبا دوچرخه سواري را دوست دارد – Ziba houdt van fietsen\nتكليف. شب.  – Huiswerk\nجمله بسازيد  .   دوچرخه . قاشق . چاي .  – Een zin maken\nفعل بسازيد . مي داند .    مي آورد.  ريختن   - werkwoord vervoegen\n\n\n== Personal clitics with noun phrases ==\nGrammar: (bound) personal enclitics after (singular or plural) noun phrase:\n\nAfter consonant: /am/, /at/, /aš/, /emân/, /etân/, /ešân/\nAfter و or ا, /yam/, /yat/...\nAfter ه or ی, singular suffixes are spelled with leading zwnj+ا.\nOften expresses possession /pedaram/ (\"my father\"), /dust-e xubam/ (\"my good friend\")\nalternative pronomial direct objects as enclitics\n\n\n== Colloquial ==\nDifferences between spoken and written forms\n\nwritten را colloquially ‹o› or ‹ro›.  With possessive endings:\nکتابم را به او دادم ‹ketâbamow be u dâdam› (“I gave my book to him.”)\nکتابت را به او دادم ‹ketâbatow be u dâdam› (“I gave your book to him.”)\nکتابش را به او دادم ‹ketâbašow be u dâdam› (“I gave her book to him.”)\nکتابمان را به او دادم ‹ketâbemunow be u dâdam› (“I gave our book to him.”)\nکتابتان را به او دادم ‹ketâbetunow be u dâdam› (“I gave your book to him.”)\nکتابشان را به او دادم ‹ketâbašunow be u dâdam› (“I gave their book to him.”)\ncolloquial ‹e›, ‹s› for است\ncolloquial verb endings: ه ‹eh›\nwritten ان ‹ân› vs spoken ‹un›, but not in خانم ‹xânom›\nColloquially, when ‹â› comes before ‹a›, the latter elides:\n\nدست‌هایم ‹dasthâyam› (“my hands”) pronounced ‹dastâm›\nپایم ‹pâyam› (“my foot”) pronounced ‹pâm›\n\n\n== Notes ==\n\n\n== Next: Lesson 14 ( ۱۴ ), Light verbs ==\nContinue to Lesson 14 ( ۱۴ ), Light verbs >>",
+          "examples": [
+            "...  ‹......› IPA:  /...ˈ.../... — “...”",
+            "Often expresses possession /pedaram/ (\"my father\"), /dust-e xubam/ (\"my good friend\")"
+          ],
+          "learnerTip": "In lessons ... through ..., you learned ....\nIn this lesson, you will learn about personal clitics used after noun phrases, alternative pronomial direct objects as clitics, and differences between spo",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_13"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Lesson 14",
+      "summary": "درس 14 - les 14\nسگ - hond\nحيوان - dieren\nمهربان - aardig\nگوسسفند - schaap\nگرگ - wolf\nرفتن - gaan\nآمدن - komen\nبرگشتن - terugkomen\nديدن - zien\nترس - bang\nترسيدن - bang zijn\nگفتن - zeggen\nگردش - picknick, wandeling\nگردش كردن - picknicken\nنزديك - dichtbij\nپدر بزرگ - opa\nزري - Zari m",
+      "sections": [
+        {
+          "heading": "Lesson 14",
+          "body": "درس 14 - les 14\nسگ - hond\nحيوان - dieren\nمهربان - aardig\nگوسسفند - schaap\nگرگ - wolf\nرفتن - gaan\nآمدن - komen\nبرگشتن - terugkomen\nديدن - zien\nترس - bang\nترسيدن - bang zijn\nگفتن - zeggen\nگردش - picknick, wandeling\nگردش كردن - picknicken\nنزديك - dichtbij\nپدر بزرگ - opa\nزري - Zari meisjesnaam\nنزديك شدن - dichtbij komen\nنگهداري - oppas\nنگهداري كردن - oppassen\nچوپان - herder\nيك روز اكرم و زري با پدر بزرگ به گردش رفتند - Akram en Zari gingen met opa wandelen\nدر راه يك سگ چوپان ديدند - Onderweg zagen zij een herdershond\nكه از گوسفندان نگهداري مي كرد - Zij pasten op de schapen\nگرگ اجازه نداشت به گوسفندان نزديك شود - Een wolf mag niet bij de schapen komen\nگرگ از سگ چوپان مي ترسدو به آنها نزديك نمي شود - Een wolf is bang voor de herdershond en komt niet dichtbij hen\nپدر بزرگ گفت: سگ حيوان خوب و با وفا است - Opa zegt dat het een trouwe hond is\nتكليف شب .   جمله بسازيد - huiswerk\nچوپان  .  ترس . سك  گوسفند - zin maken\nفعل بسازيد .   گردش كردن  .  ترسيدن   .  رفتن werkwoord vervoegen\n\n\n== Light verbs ==\nMost verbs in Persian are light verbs.  There are relatively few simple verbs still in use.\n\nیاد گرفتن  ‹yâd gereftan› (“to learn”)\nکار داشتن  ‹kâr dâštan› (“to be busy”) (“to have work”), e.g. کار دارم ‹kâr dâram› (“I’m busy.”)\nکار کردن  ‹kâr kardan› (“to do work”)\nپیدا شدن  ‹peydâ šodan› (“to become found”)\nگوش دادن  ‹guš dâdan› (“to give ear (listen)”)\nخوب بودن  ‹xub budan› (“to be good”)\nSome light verbs are active vs. passive in pairs with کردن vs. شدن (e.g. تلفن کردن, تمیر کردن, گریه کردن, فراموش کردن, فکر کردن)\n\nکلیدم را گم کردم. ‹kelidamow gom kardam› (“I lost my key.”)\nکلیدم گم شد. ‹kelidam gom šod› (“My key was lost.”)",
+          "examples": [],
+          "learnerTip": "درس 14 - les 14\nسگ - hond\nحيوان - dieren\nمهربان - aardig\nگوسسفند - schaap\nگرگ - wolf\nرفتن - gaan\nآمدن - komen\nبرگشتن - terugkomen\nديدن - zien\nترس - bang\nترسيدن - bang zijn\nگفتن - zeggen\nگردش - picknic",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_14"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson 15",
+      "summary": "كشاورز - tuinder\nكشاورزي كردن - tuinieren\nاسب - paard\nگاري - rijtuig\nمي بندد - vastmaken\nاستفاده - gebruiken\nسنگين - zwaar\nسبك - licht\nجواد - Jawad jongensnaam\nپدر - vader\nبرنج - rijst\nگندم - tarwe, graan\nجو - gerst\nكاشتن - planten werkwoord\nمريم - Mariam meisjesnaam\nاين مردكشاور",
+      "sections": [
+        {
+          "heading": "Lesson 15",
+          "body": "درس 15 - Les 15\n\nو مردم از آن استفاده مي كنند\n\nكشاورز - tuinder\nكشاورزي كردن - tuinieren\nاسب - paard\nگاري - rijtuig\nمي بندد - vastmaken\nاستفاده - gebruiken\nسنگين - zwaar\nسبك - licht\nجواد - Jawad jongensnaam\nپدر - vader\nبرنج - rijst\nگندم - tarwe, graan\nجو - gerst\nكاشتن - planten werkwoord\nمريم - Mariam meisjesnaam\nاين مردكشاورز است - die man is tuinder\nاو اسب را به گاري مي بندد - Hij zet het paard voor het rijtuig\nاو با گاري بار سنگين مي بدد - Hij trekt het zware rijtuig\nپدر جواد گشاورز است - de vader van Jawad is tuinder\nاو برنج و گندم مي كارد - hij plant rijst en tarwe\nو مردم از آن استفاده مي كنند - en daar maken mensen gebruik van\nتكليف شب . - huiswerk\nجمله بسازيد:   برنج  گندم  پدر  كشاورز جواد - zinnen maken\nفعل بسازيد:   كاشتن استفاده كردن  كشا ورزي كردن - werkwoord vervoegen",
+          "examples": [],
+          "learnerTip": "كشاورز - tuinder\nكشاورزي كردن - tuinieren\nاسب - paard\nگاري - rijtuig\nمي بندد - vastmaken\nاستفاده - gebruiken\nسنگين - zwaar\nسبك - licht\nجواد - Jawad jongensnaam\nپدر - vader\nبرنج - rijst\nگندم - tarwe, g",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_15"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lesson 16",
+      "summary": "In this lesson, you will learn the past perfect tense.",
+      "sections": [
+        {
+          "heading": "Lesson 16",
+          "body": "In this lesson, you will learn the past perfect tense.\n\n\n== Dialogue: ... ‹...› ==\n... and... are talking....\n\nExplanation\n\n... and ....\nVocabulary\n\n{{{1}}}  ‹{{{2}}}› IPA:  [[:Media:fa-{{{1}}}.ogg|{{{3}}}]]\n\n\n== Past perfect tense ==\n ‹bud› (“he/she had written”)\n\nIn spoken Persian, /-e/ of the past participle elides with the copular clitic, making the past perfect sound like the simple past in all but the third singular, where the final /-e/ is still pronounced.\n\n\n== Exercises ==\n\n\n== Review ==\nIn this lesson, you learned the past perfect tense.\n\n\n== Next: Lesson 17 ( ۱۷ ), Comparative and superlative adjectives ==\nContinue to Lesson 17 ( ۱۷ ), Comparative and superlative adjectives >>",
+          "examples": [],
+          "learnerTip": "In this lesson, you will learn the past perfect tense.",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_16"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Lesson 17",
+      "summary": "In this lesson, you will learn about the comparative and superlative forms of Persian adjectives.",
+      "sections": [
+        {
+          "heading": "Lesson 17",
+          "body": "In this lesson, you will learn about the comparative and superlative forms of Persian adjectives.\n\n\n== Dialogue: ... ‹...› ==\n... and... are talking....\n\nExplanation\n\n... and ....\nVocabulary\n\nآقا  ‹âqâ› IPA:  /ɒːˈɣɒː/ — “Mr.”\nاستاذ  ‹ostâd›  /oˈstɒːd/ — “professor”\nی  ‹ye, e› — “of” (see explanation of ezâfe below)\nدرس 17 les17\n\nهر روز - elke dag\nديروز - gisteren\nفردا - morgen\nآفتاب - zonneschijn\nخورشيد - zon\nمهتاب - maanlicht\nماه - maan\nخواهر - zuster\nخانه - huis\nروشن - licht\nتاريك - donker\nگرم- warm\nسرد - koud\nبزرگ - groot\nكوچك - klein\nخوب - goed\nبد - slecht\nشب - nacht\nروز - dag\nمسواك - tandenborstel\nحوله - handdoek\nصابون - zeep\nدندان - tanden\nاز خواب بيدار شدن - wakker worden\nبابا صورتش را سشت- pappa wast zijn gezicht\nمن مسواك زدم\nمن مسواك زدم - ik poets mijn tanden\nما از خواب بيدار شديم - wij worden wakker\nروز خورشيدزمين را روشن مي كند - overdag schijnt de zon\nشب ماه زمين را روشن مي كند - 's nachts schijnt de maan\nلاله دست و صورت خود را با حوله خشك مي كند - Laleh droogt haar gezicht met een handdoek\nخدا ما را دوست دارد - God houdt van ons\n\n\n== Comparative adjectives ==\nبهتر  ‹behtar› (“better”)\n\n\n== Superlative adjectives ==\n\n\n== Exercises ==\n\n\n== Review ==\nIn this lesson, you learned comparative and superlative adjectives.\n\n\n== Next: Lesson 18 ( ۱۸ ), Subjunctive ==\nContinue to Lesson 18 ( ۱۸ ), Subjunctive >>",
+          "examples": [
+            "آقا  ‹âqâ› IPA:  /ɒːˈɣɒː/ — “Mr.”",
+            "استاذ  ‹ostâd›  /oˈstɒːd/ — “professor”",
+            "ی  ‹ye, e› — “of” (see explanation of ezâfe below)"
+          ],
+          "learnerTip": "In this lesson, you will learn about the comparative and superlative forms of Persian adjectives.",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_17"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lesson 18",
+      "summary": "لثه - tandvlees\nدانه - zaad\nستاره - ster\nپشت - achter\nجلو - voor\nثريا - Soraya meisjesnaam\nكثيف - vies\nممكن - misschien- mogelijk\nدهان - mond\nبيماري - ziekte\nمريضي - ziekte\nدرد - pijn\nصحبت - gesprek\nموقع - tijd\nمزرعه - boerderij\nشروع - begin\nتمام - klaar\nجمع - samen\nخراب - kapot",
+      "sections": [
+        {
+          "heading": "Lesson 18",
+          "body": "18درس\n\nلثه - tandvlees\nدانه - zaad\nستاره - ster\nپشت - achter\nجلو - voor\nثريا - Soraya meisjesnaam\nكثيف - vies\nممكن - misschien- mogelijk\nدهان - mond\nبيماري - ziekte\nمريضي - ziekte\nدرد - pijn\nصحبت - gesprek\nموقع - tijd\nمزرعه - boerderij\nشروع - begin\nتمام - klaar\nجمع - samen\nخراب - kapot\nظهر - middag\nمدرسه - school\nبچه ها - kinderen\nآوردن - brengen\nلذت - lekker\nباغبان - tuinman\nرضا - Reza jongensnaam\nاضغر - Asgar jongensnaam\nغذا - eten\nمن مدرسه شروع كردم - mijn school begint\nثريا مريض بود - Soraya was ziek\nمن يك مزرعه زيبا ديدم - Ik zag een mooie boerderij\nاصغر و رضا ضهر از مدرسه آمدند - Asgar en Reza komen 's middags uit school\nستارها در آسمان هستند - sterren zijn in de de hemel\nلثه و دندان رضا مريض است - het tandvlees en de tanden van Reza zijn ziek\nمدرسه اصغر نزديك است - De school van Asgar is dichtbij.\nتكليف شب - Huiswerk\nخمله بسازيد - Zinnen maken\nمدرسه - خراب - ظهر - لذت - باغبان\nفعل بسازيد - werkwoord vervoegen\nآوردن -  مريض ششدن - لذت بردن - صحبت كردن",
+          "examples": [],
+          "learnerTip": "لثه - tandvlees\nدانه - zaad\nستاره - ster\nپشت - achter\nجلو - voor\nثريا - Soraya meisjesnaam\nكثيف - vies\nممكن - misschien- mogelijk\nدهان - mond\nبيماري - ziekte\nمريضي - ziekte\nدرد - pijn\nصحبت - gesprek\nم",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_18"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Lesson 19",
+      "summary": "طاهره - Thohereh meisjesnaam\nحاضر - klaar\nبعضي - sommige\nعصر - middag\n- blij\nغمگين - verdriet\nاجازه - mag\nتشكر - dank\nشناخت - ken\nآموزگار - lerares, leraar\nمعلم - lerares, leraar\nحياط - tuin\nوسط - middel\nقله - bergpiek\nكشتي - schip\nباغ - bloementuin\nتيغ - doorn\nعمو - oom\nميوه - f",
+      "sections": [
+        {
+          "heading": "Lesson 19",
+          "body": "درس 19\n\nطاهره - Thohereh meisjesnaam\nحاضر - klaar\nبعضي - sommige\nعصر - middag\n- blij\nغمگين - verdriet\nاجازه - mag\nتشكر - dank\nشناخت - ken\nآموزگار - lerares, leraar\nمعلم - lerares, leraar\nحياط - tuin\nوسط - middel\nقله - bergpiek\nكشتي - schip\nباغ - bloementuin\nتيغ - doorn\nعمو - oom\nميوه - fruit\nمن از  ميوها سيب را بيشتر دوست دارم - ik vind een appel het lekkerste fruit\nمادر بزرگم باغ انار و سيب دارد - mij oma heeft een boomgaard met appels en granaatappels\nگلها در باغ  تيغ داردند و بايد ما موا ظب باشيم - we moeten oppassen voor doornen in de tuin\nزنگ تفريح بود وما بازي كرديم - Wij spelen in de pauze\nوهمه در زنگ تفريح با هم آشنا هستند - in de pauze kennen alle kinderen elkaar\nوفاطمه وطاهره با صابون دست و صورت خود را مي شو يند - Tahereh en Fatimeh wassen hun handen met zeep\n\nتكليف شب - huiswerk\nجمله بسازيد - zinnen maken\nآشنا - ظهر - درد - بازي كردن\n\nفعل بسازيد - werkwoorden vervoegen\nدوست بودن - ميوه خوردن - تفريح كردن - خداحافظي كردن",
+          "examples": [
+            "blij"
+          ],
+          "learnerTip": "طاهره - Thohereh meisjesnaam\nحاضر - klaar\nبعضي - sommige\nعصر - middag\n- blij\nغمگين - verdriet\nاجازه - mag\nتشكر - dank\nشناخت - ken\nآموزگار - lerares, leraar\nمعلم - lerares, leraar\nحياط - tuin\nوسط - mid",
+          "source": "https://en.wikibooks.org/wiki/Persian/Lesson_19"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

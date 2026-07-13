@@ -1,0 +1,144 @@
+{
+  "title": "Grammar Book — Soomaali",
+  "languageCode": "so",
+  "languageName": "Soomaali",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Somali_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Somali language\nSomali is an agglutinative language, using many affixes and particles to determine and alter the meaning of words. As in other related Afroasiatic languages, Somali nouns are inflected for gender, number and case, while verbs are inflected for perso",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Somali language\nSomali is an agglutinative language, using many affixes and particles to determine and alter the meaning of words. As in other related Afroasiatic languages, Somali nouns are inflected for gender, number and case, while verbs are inflected for persons, number, tenses, and moods.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "Affixes change according to a number of rules.  The definite article is a suffix, with the basic form being -ki or -ka for masculine nouns and -ti or -ta for feminine nouns.  The k or t is the actual article marker, although it can change depending on the preceding consonant, wit",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Affixes change according to a number of rules.  The definite article is a suffix, with the basic form being -ki or -ka for masculine nouns and -ti or -ta for feminine nouns.  The k or t is the actual article marker, although it can change depending on the preceding consonant, with the following vowel determined by the case of the noun.  Articles do not change for singular or plural.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Absolutive case",
+          "body": "The basic form of a Somali noun is in absolutive case.  In this case, the article maintains the vowel -a.\n\nSomali\n\nEnglish\n\nbuug\n\n(a) book\n\nbuugga\n\nthe book\n\ngacan\n\n(a) hand\n\ngacanta\n\nthe hand",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Nominative case",
+          "body": "The subject of a sentence takes nominative case.  In this case, the article takes the vowel -u.  If the subject of the sentence includes multiple nouns, only the last takes the nominative ending for the article.\n\nIf there is no article, a tonal change signifies nominative case, although this is not represented in the orthography.  Feminine nouns ending in a consonant take the suffix -i in nominative case without an article.\n\nSomali\n\nEnglish\n\nnin\n\nman\n\nnin-ka\n\nthe man\n\nnin-ku...\n\nthe man... (followed by a verb)\n\nnin-ka iyo wiil-ku...\n\nthe man and the boy...",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Genitive case",
+          "body": "Genitive case is generally indicated through a tonal change.  Some feminine nouns take an ending, -eed, -aad or -od, depending on the final consonant of the root word.\n\nSomali\n\nEnglish\n\náf\n\n(a) language\n\ncarab\n\nArab (people)\n\náf carabi\n\nArabic language\n\nVocative case\nVocative case is indicated either through a tonal change or with the suffixes -ow (m. sg.), -ohow (m. pl.), -eey/-aay/-ooy (f. sg.) or -yahay (f. pl.).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "Gender is not marked in nouns without the definite article.  The gender of nouns does not follow any particular rule and is not generally obvious.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Nouns form their plural in three ways, including reduplication. The plural suffixes include -ooyin, -ayaal, -o, -yo, -yaalo, and -yaabo, with some irregular plurals; thus the plural formation is often irregular. Many nouns exhibit gender polarity, whereby they change gender in the plural form, e.g. buug-ga (the book) is masculine in the singular, but buugag-ta (the books) is feminine.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "Somali personal pronouns exhibit separate clitic and emphatic forms.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Somali personal pronouns exhibit separate clitic and emphatic forms. \n\nThe clitics distinguish a subject and an object form. In the 3rd person non clitic object forms exist. If a transitive verb is used without any overtly expressed object, an object pronoun would need to be added in an English translation. \n\nThe emphatic personal pronouns behave like nouns. The emphatic forms in the table are the basic, unmarked forms (traditionally referred to as absolutive case), and, just like nouns, they all take on the ending -u instead of -a when they function as the non-focused subject of a clause. A focused subject will however be expressed by the basic form listed in the table.\n\n \n\nEmphatic\n\nClitic (short)\n\nPerson\n\nSubject\n\nObject\n\n1. sing.\n\naniga\n\naan\n\ni\n\n2. sing.\n\nadiga\n\naad\n\nku\n\n3. sing. m.\n\nisaga\n\nuu\n\n--\n\n3. sing. f.\n\niyada\n\nay\n\n--\n\n1. plur. (inclusive)\n\ninnaga\n\naynu\n\nina\n\n1. plur. (exclusive)\n\nannaga\n\naannu\n\nna\n\n2. plur.\n\nidinka\n\naydin\n\nidin\n\n3. Pl.\n\niyaga\n\nay\n\n--",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Verbs",
+      "summary": "Somali verbs consist of a stem to which suffixes are added.  Verbs in indicative mood exist in four tenses, present, present continuous, past and past continuous, in addition to a subjunctive mood form for present and future tense.  Verbs in Somali conjugate mainly through the ad",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Somali verbs consist of a stem to which suffixes are added.  Verbs in indicative mood exist in four tenses, present, present continuous, past and past continuous, in addition to a subjunctive mood form for present and future tense.  Verbs in Somali conjugate mainly through the addition of suffixes, although a very small number of common verbs use a conjugation using prefixes.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Infinitive and verbal nouns",
+          "body": "The infinitive is created through the suffix -i or -n depending on verb class, e.g. keeni (to bring) and siin (to give).  The infinitive is used in present tense only with the modal verb karid (to be able).  Verbal nouns are formed with the endings -id, -n and -sho, e.g. keenid (the bringing), siin (the giving) and barasho (the learning) and are used and declined as per normal nouns.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Indicative mood",
+          "body": "Present\nPresent tense refers to an action which may or may not be happening at present.  It may be used to express something which happens habitually or repeatedly.  The present tense conjugation of keen (to bring) follows:\n\nPerson\n\nPresent\n\nEnglish\n\n1. Sing.\n\n(waan) keenaa\n\nI bring\n\n2. Sing.\n\n(waad) keentaa\n\nyou bring\n\n3. Sing. m.\n\n(wuu) keenaa\n\nhe brings\n\n3. Sing. f.\n\n(way) keentaa\n\nshe brings\n\n1. Pl.\n\n(waan) keennaa\n\nwe bring\n\n2. Pl.\n\n(waad) keentaan(keentiin)\n\nyou (pl.) bring\n\n3. Pl.\n\n(way) keenaan\n\nthey bring\n\nPast\nPast tense is used to describe a completed action in the past with a discrete duration. The conjugation of keen (to bring) is:\n\nPerson\n\nForm\n\nEnglish\n\n1. Sing.\n\n(waan) keenay\n\nI brought\n\n2. Sing.\n\n(waad) keentay\n\nyou brought\n\n3. Sing. m.\n\n(wuu) keenay\n\nhe brought\n\n3. Sing. f.\n\n(way) keentay\n\nshe brought\n\n1. Pl.\n\n(waan) keennay\n\nwe brought\n\n2. Pl.\n\n(waad) keenteen\n\nyou (pl.) brought\n\n3. Pl.\n\n(way) keeneen\n\nthey brought\n\nnb: The final -ay can also be pronounced and written -ey.\n\nPresent continuous\nThe present continuous tense is formed with the suffix -ay- / -na- (depending on dialect) and the endings from the present tense. The present continuous forms of keen are:\n\nPerson\n\nForm\n\nEnglish\n\n1. Sing.\n\n(waan) keenayaa\n\nI am bringing\n\n2. Sing.\n\n(waad) keenaysaa\n\nyou are bringing\n\n3. Sing. m.\n\n(wuu) keenayaa\n\nhe is bringing\n\n3. Sing. f.\n\n(way) keenaysaa\n\nshe is bringing\n\n1. Pl.\n\n(waan) keenaynaa\n\nwe are bringing\n\n2. Pl.\n\n(waad) keenaysaan\n\nyou (pl.) are bringing\n\n3. Pl.\n\n(way) keenayaan\n\nthey are bringing\n\nPast continuous\nPast continuous is formed with the suffix -na / -ay and the past tense endings: keen+ay+ey = keenayey = I was bringing.  Is it used to describe actions in the past which happened over a period of time: Intuu 'akhrinayey' wargeyska wuu 'quracanayey' = While he was reading the newspaper, he was eating breakfast.\n\nPerson\n\nForm\n\nEnglish\n\n1. Sing.\n\n(waan) keenayey\n\nI was bringing\n\n2. Sing.\n\n(waad) keenaysey\n\nyou were bringing\n\n3. Sing. m.\n\n(wuu) keenayey\n\nhe was bringing\n\n3. Sing. f.\n\n(way) keenaysey\n\nshe was bringing\n\n1. Pl.\n\n(waan) keenayney\n\nwe were bringing\n\n2. Pl.\n\n(waad) keenayseen\n\nyou (pl.) were bringing\n\n3. Pl.\n\n(way) keenayeen\n\nthey were bringing\n\nFuture\nFuture tense is formed with the infinitive of the required verb and the present tense of doon (to want):\n\nPerson\n\nForm\n\nEnglish\n\n1. Sing.\n\n(waan) keeni doonaa\n\nI will bring\n\n2. Sing.\n\n(waad) keeni doontaa\n\nyou will bring\n\n3. Sing. m.\n\n(wuu) keeni doonaa\n\nhe will bring\n\n3. Sing. f.\n\n(way) keeni doontaa\n\nshe will bring\n\n1. Pl.\n\n(waan) keeni doonnaa\n\nwe will bring\n\n2. Pl.\n\n(waad) keeni doontaan\n\nyou (pl.) will bring\n\n3. Pl.\n\n(way) keeni doonaan\n\nthey will bring",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        },
+        {
+          "heading": "Subjunctive mood",
+          "body": "The subjunctive is used only in subordinate clauses and certain prepositional phrases.  The present subjunctive differs from the indicative only in that the vowel in the endings changes from a to o.  Future subjunctive uses the infinitive plus the present subjunctive form of doon.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Syntax",
+      "summary": "Somali has several strategies to indicate where the intention or the interest or the focus is located in the phrase: a topic-comment or focus construction. The focus particles baa, ayaa, and waxaa put the focus —and thus the emphasis— on nouns and noun phrases. Each of these focu",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Somali has several strategies to indicate where the intention or the interest or the focus is located in the phrase: a topic-comment or focus construction. The focus particles baa, ayaa, and waxaa put the focus —and thus the emphasis— on nouns and noun phrases. Each of these focus particles can also be suffixed with the masculine and feminine clitics uu and ay. If the particle takes a clitic, it then must harmonize with it e.g. wuxuu and waxay.\n\nExample:\n\nMaxamed baa baxay – Mohamed went out\n\nSahra ayaa baxday – Sarah went out\n\nWaxaa baxay Maxamed – It was Mohamed who went out\n\nThus, the words baa, ayaa, and waxaa unconsciously raise the question of \"Who went out?\", answerable by the noun.\n\nSecondly, Somali has the particle waa, which puts the focus on verbs and verb phrases it is often contracted as wuu and way for masculine and feminine noun phrases. Also, in the example below note how the noun, focus particle, and verb are each marked for gender. This sort of abundance of gender marking is common and often obligatory in Somali.\n\nExample:\n\nMaxamed wuu baxay – Mohamed went out\n\nSahro way baxday – Sarah went out\n\nIn this case, the question would be \"(Subject) did what?\", this time answerable by the verb.\n\nAlso, it is not obligatory for gender clitics to be attached to the corresponding focus particle. Often they are simply placed after the particle (waxaa uu, waa ay, ayaa uu). This sort of marking is often seen in rural dialects and in literature while the combined marking (wuxuu, way, ayuu) is often seen in city dialects, although it is very common to see both regardless of location and register. \n\nSentences in Somali are typically of the order Subject-Object-Verb (SOV).  Nouns have different tonal markings for number, gender (masculine and feminine), and case or role in the sentence.",
+          "examples": [
+            "Example:",
+            "Thus, the words baa, ayaa, and waxaa unconsciously raise the question of \"Who went out?\", answerable by the noun.",
+            "Example:",
+            "In this case, the question would be \"(Subject) did what?\", this time answerable by the verb."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Somali_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

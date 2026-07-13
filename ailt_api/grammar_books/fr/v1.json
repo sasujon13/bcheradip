@@ -1,0 +1,141 @@
+{
+  "title": "Livre de grammaire — Français",
+  "languageCode": "fr",
+  "languageName": "Français",
+  "version": 1,
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Sons et orthographe",
+      "summary": "Alphabet, prononciation et écriture.",
+      "sections": [
+        {
+          "heading": "L'alphabet français",
+          "body": "Le français utilise l'alphabet latin avec des accents (é, è, ê, ç). Le 'e' muet en fin de mot est souvent muet.",
+          "examples": [
+            "chat /ʃa/",
+            "école /ekɔl/",
+            "garçon"
+          ],
+          "learnerTip": "Écoutez et répétez — la liaison relie les mots à l'oral."
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Noms et articles",
+      "summary": "Genre, nombre et articles définis/indéfinis.",
+      "sections": [
+        {
+          "heading": "Articles",
+          "body": "un/une (indéfini), le/la/les (défini). Les noms ont un genre masculin ou féminin.",
+          "examples": [
+            "un livre",
+            "une maison",
+            "le chat",
+            "les enfants"
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Verbes — présent",
+      "summary": "Présent des verbes réguliers et essentiels.",
+      "sections": [
+        {
+          "heading": "Présent",
+          "body": "Trois groupes: -er (parler), -ir (finir), -re (vendre). Être et avoir sont irréguliers.",
+          "examples": [
+            "Je parle.",
+            "Il finit.",
+            "Nous avons."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Questions et négation",
+      "summary": "Former des questions et dire non.",
+      "sections": [
+        {
+          "heading": "Négation",
+          "body": "ne … pas autour du verbe: Je ne comprends pas.",
+          "examples": [
+            "Je ne sais pas.",
+            "Elle n'est pas là."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adjectifs",
+      "summary": "Accord en genre et en nombre.",
+      "sections": [
+        {
+          "heading": "Accord",
+          "body": "L'adjectif s'accorde: une grande maison, des livres intéressants.",
+          "examples": [
+            "un garçon petit",
+            "une fille petite"
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Pronoms",
+      "summary": "Pronoms sujets et compléments.",
+      "sections": [
+        {
+          "heading": "Sujets",
+          "body": "je, tu, il/elle, nous, vous, ils/elles.",
+          "examples": [
+            "Je t'aime.",
+            "Elle me voit."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Passé et futur",
+      "summary": "Passé composé et futur simple.",
+      "sections": [
+        {
+          "heading": "Passé composé",
+          "body": "avoir/être + participe passé: J'ai mangé. Elle est partie.",
+          "examples": [
+            "Nous avons étudié.",
+            "Ils sont arrivés."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Usages quotidiens",
+      "summary": "Politesse et expressions utiles.",
+      "sections": [
+        {
+          "heading": "Politesse",
+          "body": "Utilisez s'il vous plaît, merci, excusez-moi. Tutoiement/vouvoiement selon le contexte.",
+          "examples": [
+            "Pourriez-vous m'aider?",
+            "Merci beaucoup."
+          ],
+          "learnerTip": ""
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

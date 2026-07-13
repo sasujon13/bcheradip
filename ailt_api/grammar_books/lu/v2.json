@@ -1,0 +1,76 @@
+{
+  "title": "Grammar Book — Tshiluba",
+  "languageCode": "lu",
+  "languageName": "Tshiluba",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Luba-Katanga_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Language\nNot to be confused with Tshiluba.\nKilubaLuba-KatangaKilubaNative toDemocratic Republic of the CongoRegionKatanga ProvinceNative speakers3,101,000 (2024)[1]Language familyNiger–Congo?",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Language\nNot to be confused with Tshiluba.\nKilubaLuba-KatangaKilubaNative toDemocratic Republic of the CongoRegionKatanga ProvinceNative speakers3,101,000 (2024)[1]Language familyNiger–Congo?\n\nAtlantic–CongoVolta-CongoBenue–CongoBantoidSouthern BantoidBantuLubanLuba languagesKiluba\n\nLanguage codesISO 639-1luISO 639-2lubISO 639-3lubGlottologluba1250Guthrie codeL.33[2]Location of speakers:\n  Luba-Kasai\n  Luba-Katanga\nLuba-Katanga, also known as Luba-Shaba and Kiluba (Luba-Katanga: Kiluba), is a Bantu language (Zone L) of Central Africa. It is spoken mostly in the south-east area of the Democratic Republic of the Congo by the Luba people.[3]\n\nKiluba is spoken in the area around Kabongo, Kamina, Luena, Lubudi, Malemba Nkulu, Mulongo, Kabalo and Kaniama, mostly in Katanga. Kiluba is not and has never been mutually intelligible with Tshiluba. From linguistic analysis it can also be seen that neither was derived from the other due to linguistic and tonal compositions. The two groups of people have distinct historical origins according to their oral traditions and history. \n\nJust like the vast majority of bantu languages, they both distinctly have bantu dialects to which they are closely related to and share historical ties with.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Luba-Katanga_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Writing",
+      "summary": "Luba-Katanga has 22 letters, 5 vowels and 17 consonants.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Luba-Katanga has 22 letters, 5 vowels and 17 consonants.\n\nVowels: A E I O U\n\nConsonants: B D F G H J K L M N P S T V W Y Z",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Luba-Katanga_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Phonology",
+      "summary": "A five vowel system with vowel length is present in Luba-Katanga:",
+      "sections": [
+        {
+          "heading": "Vowels",
+          "body": "A five vowel system with vowel length is present in Luba-Katanga:\n\nFront\n\nCentral\n\nBack\n\nClose\n\ni iː\n\nu uː\n\nMid\n\ne eː\n\no oː\n\nOpen\n\na aː",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Luba-Katanga_language"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Bilabial\n\nLabio-\ndental\n\nAlveolar\n\nPost-alv./\nPalatal\n\nVelar\n\nNasal\n\nm\n\nn\n\nɲ\n\nŋ\n\nStop\n\nvoiceless\n\np\n\nt\n\nk\n\nvoiced\n\nb\n\nd\n\nɡ\n\nvl. prenasal\n\nᵐp\n\nⁿt\n\nᵑk\n\nvd. prenasal\n\nᵐb\n\nⁿd\n\nᵑɡ\n\nFricative\n\nvoiceless\n\n(ɸ)\n\nf\n\ns\n\nʃ\n\nvoiced\n\n(β)\n\nv\n\nz\n\nʒ\n\nvl. prenasal\n\nᶬf\n\nⁿs\n\nⁿʃ\n\nvd. prenasal\n\nᶬv\n\nⁿz\n\nⁿʒ\n\nApproximant\n\nl\n\nj\n\nw\n\n/p, b/ can have the allophones [ɸ, β] when in intervocalic positions or before a semivowel.[4]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Luba-Katanga_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Sample text",
+      "summary": "Sample text in Luba-Katanga- Pādi palembwe amba mwingidi wa “Tattannu, muledi wa Bukila bwa Munonga” —ko kunena’mba i enka Tatenai utelelwe ne mu mukanda wa mu Bible wa Ezela.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Sample text in Luba-Katanga- Pādi palembwe amba mwingidi wa “Tattannu, muledi wa Bukila bwa Munonga” —ko kunena’mba i enka Tatenai utelelwe ne mu mukanda wa mu Bible wa Ezela.\n\nTranslation\n\nIt identifies a witness to the transaction as a servant of “Tattannu, governor of Across-the-River” —the same Tattenai who appears in the Bible book of Ezra.\n\n(Translation from Jehovah's Witnesses)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Luba-Katanga_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

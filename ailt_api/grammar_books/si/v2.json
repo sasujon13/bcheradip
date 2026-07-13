@@ -1,0 +1,317 @@
+{
+  "title": "Grammar Book — සිංහල",
+  "languageCode": "si",
+  "languageName": "සිංහල",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Sinhala_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Indo-Aryan language of Sri Lanka\n\"Srilankan language\" redirects here. For an overview of languages spoken in Sri Lanka, see Languages of Sri Lanka.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Indo-Aryan language of Sri Lanka\n\"Srilankan language\" redirects here. For an overview of languages spoken in Sri Lanka, see Languages of Sri Lanka.\n\nSinhala\nසිංහල භාෂාව\n\nSinghala Başāwa\n\nalso Sinhala Basawa \n\nPronunciationIPA: [ˈsiŋɦələ]Native toSri LankaEthnicitySinhaleseSpeakersL1: 18 million (2021)[1]\nL2: 2 million  (2021)[1]\nTotal: 20 million (2021)[1]Language familyIndo-European\n\nIndo-IranianIndo-AryanSouthern ZoneSinhalese–Maldivian[1]Sinhala\n\nWriting system\nSinhala script\n\nSinhala Braille\n\nOfficial statusOfficial language inSri LankaLanguage codesISO 639-1siISO 639-2sinISO 639-3sinGlottologsinh1246Linguasphere59-ABB-a   Sinhalese is the majority language where the vast majority are first language speakers\n   Sinhalese is the majority language, with other languages being spoken largely or as a second language (such as Malay and Tamil)\nSinhala (/ˈsɪnhələ, ˈsɪŋələ/ SIN-hə-lə, SING-ə-lə;[2] Sinhala: සිංහල, siṁhala, [ˈsiŋɦələ]),[3] sometimes called Sinhalese (/ˌsɪn(h)əˈliːz, ˌsɪŋ(ɡ)əˈliːz/ SIN-(h)ə-LEEZ, SING-(g)ə-LEEZ), is an Indo-Aryan language primarily spoken by the Sinhalese people of Sri Lanka, who make up the largest ethnic group on the island, numbering about 16 million.[4][1] It is also the first language of about 2 million other Sri Lankans, as of 2001.[5] It is written in the Sinhalese script.\n\nThe language has two main varieties, written and spoken, and is a notable example of the linguistic phenomenon known as diglossia.[6]\n\nSinhala is one of the official and national languages of Sri Lanka. Along with Pali, it played a major role in the development of Theravada Buddhist literature.[1]\n\nEarly forms of the Sinhalese language are attested to as early as the 3rd century BCE.[7] The language of these inscriptions, still retaining long vowels and aspirated consonants, is a Prakrit similar to Magadhi, a regional associate of the Middle-Indian Prakrits that had been spoken during the lifetime of the Buddha.[8] The most closely related languages to Sinhalese are the Vedda language and the Maldivian languages; the former is an endangered indigenous creole still spoken by a minority of Sri Lankans, which mixes Sinhalese with an isolate of unknown origin. Old Sinhalese borrowed various aspects of Vedda into its main Indo-Aryan substrate.[9]\n\nThere are 1,500 poems written in the 6th–10th centuries on the Sigiriya Mirror Wall. These poems are believed to have been composed by pilgrims who came to visit the Buddhist monastery of Sigiriya, which was active at this time.[10]\nLetters of the Sinhalese script",
+          "examples": [
+            "\"Srilankan language\" redirects here. For an overview of languages spoken in Sri Lanka, see Languages of Sri Lanka."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Etymology",
+      "summary": "Main article: Names of Sri Lanka § Sinhala\nSinhala (Siṅhala) is a Sanskrit term; the corresponding Middle Indo-Aryan (Eḷu) word is Sīhala.\nThe name is a derivative of the Sanskrit word for 'lion' siṁha.[11] The name is sometimes glossed as 'abode of lions', and attributed to a su",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Names of Sri Lanka § Sinhala\nSinhala (Siṅhala) is a Sanskrit term; the corresponding Middle Indo-Aryan (Eḷu) word is Sīhala.\nThe name is a derivative of the Sanskrit word for 'lion' siṁha.[11] The name is sometimes glossed as 'abode of lions', and attributed to a supposed former abundance of lions on the island.[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "History",
+      "summary": "According to the chronicle Mahāvaṃsa, written in Pali, Prince Vijaya of the Vanga Kingdom and his entourage merged in Sri Lanka with later settlers from the Pandya kingdom.[13][14][15] In the following centuries, there was substantial immigration from Eastern India, including add",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "According to the chronicle Mahāvaṃsa, written in Pali, Prince Vijaya of the Vanga Kingdom and his entourage merged in Sri Lanka with later settlers from the Pandya kingdom.[13][14][15] In the following centuries, there was substantial immigration from Eastern India, including additional migration from the Vanga Kingdom (Bengal), as well as Kalinga and Magadha.[16] This influx led to an admixture of features of Eastern Prakrits.[citation needed]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Stages of historical development",
+          "body": "The development of Sinhala is divided into four epochs:[17]\n\nElu Prakrit (3rd c. BCE to 4th c. CE)\n\nProto-Sinhala (4th c. CE to 8th c. CE)\n\nMedieval Sinhala (8th c. CE to 13th c. CE)\n\nModern Sinhala (13th c. CE to the present)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Phonetic development",
+          "body": "The most important phonetic developments of Sinhala include:\n\nthe loss of aspiration as a distinction for plosive consonants (e.g. kanavā \"eating\" corresponds to Sanskrit khādati, Hindustani khānā)\n\nthe loss of original vowel length distinction; long vowels in the modern language are found in loanwords (e.g. vibāgaya \"exam\" < Sanskrit vibhāga) or as a result of sandhi, either after elision of intervocalic consonants (e.g. dānavā \"to put\" < damanavā) or in originally compound words.\n\nthe simplification of consonant clusters and geminate consonants into geminates and single consonants respectively (e.g. Sanskrit viṣṭā \"time\" > Helu viṭṭa > Modern Sinhala viṭa)\n\ndevelopment of /tʃ/ to /s/ and/or /ɦ/ (e.g. san̆da/han̆da \"moon\" corresponds to Sanskrit candra) and development of /dʒ/ to /d/ (e.g. dæla \"web\" corresponds to Sanskrit jāla)\n\ndevelopment of prenasalized consonants from Sanskrit nasal + voiced stops (as in han̆da)[18]\n\nretention of initial /w/ and /j/, the latter only shared with Kashmiri (as in viṭa and yutu \"fit, proper\" < Sanskrit yukta)[19]",
+          "examples": [
+            "the loss of aspiration as a distinction for plosive consonants (e.g. kanavā \"eating\" corresponds to Sanskrit khādati, Hindustani khānā)",
+            "the loss of original vowel length distinction; long vowels in the modern language are found in loanwords (e.g. vibāgaya \"exam\" < Sanskrit vibhāga) or as a result of sandhi, either after elision of intervocalic consonants (e.g. dānavā \"to pu",
+            "the simplification of consonant clusters and geminate consonants into geminates and single consonants respectively (e.g. Sanskrit viṣṭā \"time\" > Helu viṭṭa > Modern Sinhala viṭa)",
+            "development of /tʃ/ to /s/ and/or /ɦ/ (e.g. san̆da/han̆da \"moon\" corresponds to Sanskrit candra) and development of /dʒ/ to /d/ (e.g. dæla \"web\" corresponds to Sanskrit jāla)",
+            "retention of initial /w/ and /j/, the latter only shared with Kashmiri (as in viṭa and yutu \"fit, proper\" < Sanskrit yukta)[19]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Western vs. Eastern Prakrit features",
+          "body": "According to Wilhelm Geiger, an example of a possible Western feature in Sinhala is the retention of initial /v/ which developed into /b/ in the Eastern languages (e.g. Sanskrit viṁśati \"twenty\", Sinhala visi-, Hindi bīs). This is disputed by Muhammad Shahidullah who says that Helu Prakrit branched off from the Eastern Prakrits prior to this change. He cites the edicts of Ashoka, no copy of which shows this sound change.[20]\n\nAn example of an Eastern feature is the ending -e for masculine nominative singular (instead of Western -o) in Helu. There are several cases of vocabulary doublets, one example being the words mæssā (\"fly\") and mækkā (\"flea\"), which both correspond to Sanskrit makṣikā but stem from two regionally different Prakrit words macchiā (Western Prakrits) and makkhikā (as in Eastern Prakrits like Pali).",
+          "examples": [
+            "According to Wilhelm Geiger, an example of a possible Western feature in Sinhala is the retention of initial /v/ which developed into /b/ in the Eastern languages (e.g. Sanskrit viṁśati \"twenty\", Sinhala visi-, Hindi bīs). This is disputed ",
+            "An example of an Eastern feature is the ending -e for masculine nominative singular (instead of Western -o) in Helu. There are several cases of vocabulary doublets, one example being the words mæssā (\"fly\") and mækkā (\"flea\"), which both co"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Pre-1815 Sinhalese literature",
+          "body": "This section needs expansion. You can help by adding missing information.  (January 2024)\nIn 1815, the island of Ceylon came under British rule. During the career of Christopher Reynolds as a Sinhalese lecturer at the School of African and Oriental Studies, University of London, he extensively researched the Sinhalese language and its pre-1815 literature. The Sri Lankan government awarded him the Sri Lanka Ranjana medal for his work. He wrote the 377-page An anthology of Sinhalese literature up to 1815, selected by the UNESCO National Commission of Ceylon[21]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Substratum influence in Sinhala",
+          "body": "According to Wilhelm Geiger, Sinhala has features that set it apart from other Indo-Aryan languages. Some of the differences can be explained by the substrate influence of the parent stock of the Vedda language.[22] Sinhala has many words that are only found in Sinhala, or shared between Sinhala and Vedda and not etymologically derivable from Middle or Old Indo-Aryan. Possible examples include kola for leaf in Sinhala and Vedda (although others suggest a Dravidian origin for this word.[23][24][25]), dola for pig in Vedda and offering in Sinhala. Other common words are rera for wild duck, and gala for stones (in toponyms used throughout the island, although others have also suggested a Dravidian origin).[26][27][28] There are also high frequency words denoting body parts in Sinhala, such as olluva for head, kakula for leg, bella for neck and kalava for thighs, that are derived from pre-Sinhalese languages of Sri Lanka.[29] The oldest known Sinhala grammar, Sidatsan̆garavā, written in the 13th century CE, recognised a category of words that exclusively belonged to early Sinhala. The grammar lists naram̆ba (to see) and koḷom̆ba (fort or harbour) as belonging to an indigenous source. Koḷom̆ba is the source of the name of the commercial capital Colombo.[30][31]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "South Dravidian substratum influence",
+          "body": "The consistent left branching syntax and the loss of aspirated stops in Sinhala is attributed to a probable South Dravidian substratum effect.[32] This has been explained by a period of prior bilingualism:\n\n\"The earliest type of contact in Sri Lanka, not considering the aboriginal Vedda languages, was that which occurred between South Dravidian and Sinhala. It seems plausible to assume prolonged contact between these two populations as well as a high degree of bilingualism. This explains why\nSinhala looks deeply South Dravidian for an Indo-Aryan language. There is corroboration in genetic findings.\"[33]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Influences from neighbouring languages",
+          "body": "In addition to many Tamil loanwords, several phonetic and grammatical features also present in neighbouring Dravidian languages set modern spoken Sinhala apart from its Northern Indo-Aryan relatives. These features are evidence of close interactions with Dravidian speakers. Some of the features that may be traced to Dravidian influence are:\n\nthe loss of aspiration\n\nthe use of the attributive verb of kiyana \"to say\" as a subordinating conjunction with the meanings \"that\" and \"if\", e.g.:\n\nඒක\n\nēka\n\nit\n\nඅලුත්\n\naḷut\n\nnew\n\nකියලා\n\nkiyalā\n\nhaving-said\n\nමම\n\nmama\n\nI\n\nදන්නවා\n\ndannavā\n\nknow\n\nඒක අලුත් කියලා මම දන්නවා\n\nēka aḷut kiyalā mama dannavā\n\nit new having-said I know\n\n\"I know that it is new.\"\n\nඒක\n\nēka\n\nit\n\nඅලුත්\n\naḷut\n\nnew\n\nද\n\nda\n\nQ\n\nකියලා\n\nkiyalā\n\nhaving-said\n\nමම\n\nmama\n\nI\n\nදන්නේ\n\ndannē\n\nknow-EMP\n\nනැහැ\n\nnæhæ\n\nnot\n\nඒක අලුත් ද කියලා මම දන්නේ නැහැ\n\nēka aḷut da kiyalā mama dannē næhæ\n\nit new Q having-said I know-EMP not\n\n\"I do not know whether it is new.\"",
+          "examples": [
+            "the use of the attributive verb of kiyana \"to say\" as a subordinating conjunction with the meanings \"that\" and \"if\", e.g.:",
+            "\"I know that it is new.\"",
+            "\"I do not know whether it is new.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "European influence",
+          "body": "As a result of about 3 centuries of colonial rule, interaction, settlement and assimilation, modern Sinhala contains some Portuguese, Dutch and English loanwords.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Influences on other languages",
+          "body": "Macanese Patois or Macau Creole (known as Patuá to its speakers) is a creole language derived mainly from Malay, Sinhala, Cantonese, and Portuguese, which was originally spoken by the Macanese people of the Portuguese colony of Macau. It is now spoken by a few families in Macau and in the Macanese diaspora.[34]\n\nThe language developed first mainly among the descendants of Portuguese settlers who often married women from Malacca and Sri Lanka rather than from neighbouring China, so the language had strong Malay and Sinhala influence from the beginning.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Accents and dialects",
+      "summary": "The Sinhala language has different types of variations which are commonly identified as dialects and accents. Among those variations, regional variations are prominent. Some of the well-known regional variations of Sinhala language are:[35]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Sinhala language has different types of variations which are commonly identified as dialects and accents. Among those variations, regional variations are prominent. Some of the well-known regional variations of Sinhala language are:[35]\n\nThe Uva Province variation (Monaragala, Badulla).\n\nThe southern variation (Matara, Galle).\n\nThe up-country variation (Kandy, Matale).\n\nThe Sabaragamu variation (Kegalle, Balangoda).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Uva regional variation in relation to grammar",
+          "body": "People from Uva province also have a unique linguistic variation in relation to the pronunciation of words. In general, Sinhala singular words are pluralized by adding suffixes like -o, -hu, -wal or -waru. But when it comes to Monaragala, the situation is somewhat different as when nouns are pluralized a nasal sound is added.[35]\n\nGeneral way of pluralizing Sinhala words\n\nThe way Uva people pluralize words\n\nkàntawǝ\n\nǝ\n\nwoman\n\nkantàwò\n\nò\n\nwomen\n\nkàntawǝ kantàwò\n\nǝ ò\n\nwoman women\n\nlindha\n\n \n\nwell\n\nlindha+n\n\nlindhan\n\nwells\n\nlindha lindha+n\n\n{} lindhan\n\nwell wells\n\npotǝ\n\nǝ\n\nbook\n\npot\n\nØ\n\nbooks\n\npotǝ pot\n\nǝ Ø\n\nbook books\n\noya\n\n \n\nstream\n\noya+n\n\noyan\n\nstreams\n\noya oya+n\n\n{} oyan\n\nstream streams\n\nlindhǝ\n\nǝ\n\nwell\n\nlindhǝ+wal\n\n+ wal\n\nwells\n\nlindhǝ lindhǝ+wal\n\nǝ {+ wal}\n\nwell wells",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Southern variation",
+          "body": "The Kamath language (an indigenous language of paddy culture) used by the Southerners is somewhat different from the 'Kamath language' used in other parts (Uva, Kandy) of Sri Lanka as it is marked with a systematic variation; 'boya' at the end of the majority of nouns as the examples below show.[35]\n\nCrops: Kurakkan boya (bran)\n            Rambakan boya (banana)\nTools: Thattu boya (bucket)\nOther words: Nivahan boya (home)\nHere the particular word 'boya' means 'a little' in the Southern region and at the end of most of nouns, 'boya' is added regularly. This particular word 'boya' is added to most words by the Southern villages as a token of respect towards the things (those things can be crops, tools etc.) they are referring to.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Diglossia",
+          "body": "In Sinhala there is distinctive diglossia, where the literary language and the spoken language differ from each other in significant ways. While the lexicon can vary continuously between formal and informal contexts, there is a sharp contrast between two distinct systems for syntax and morphology. The literary language is used in writing for all forms of prose, poetry, and for official documents, but also orally for TV and radio news broadcasts. The spoken language is used in everyday life and spans informal and formal contexts. Religious sermons, university lectures, political speeches, and personal letters occupy an intermediate space where features from both spoken and literary Sinhala are used together, and choices about which to include give different impressions of the text.[36]\n\nA number of syntactic and morphological differences exist between the two varieties. The most apparent difference is the absence of subject-verb agreement in spoken Sinhala. Agreement is the hallmark of literary Sinhala, and is the sole characteristic used in determining whether a given example of Sinhala is in the spoken or literary variety. Other distinctions include:\n\nThe copula ව‌ෙනවා (venavā), lit. 'happening'  in equational sentences is required in literary but prohibited in spoken Sinhala.\n\nThe accusative and locative cases are missing in colloquial spoken Sinhala (but recovered in formal speech).[37]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Writing system",
+      "summary": "Main articles: Sinhala script and Sinhala Braille\nආයුබෝවන් (āyubōwan) means \"welcome\", literally wishing one a long life\nThe Sinhala script, (Sinhala hodiya), is based on the ancient Brahmi script, and is thus a Brahmic script along with most Indian scripts and many Southeast Asi",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main articles: Sinhala script and Sinhala Braille\nආයුබෝවන් (āyubōwan) means \"welcome\", literally wishing one a long life\nThe Sinhala script, (Sinhala hodiya), is based on the ancient Brahmi script, and is thus a Brahmic script along with most Indian scripts and many Southeast Asian scripts. The Sinhala script is closely related to Grantha script and Khmer script, but it has also taken some elements from the related Kadamba script.[38][39]\n\nThe writing system for Sinhala is an abugida, where the consonants are written with letters while the vowels are indicated with diacritics (pilla) on those consonants, unlike alphabets like English where both consonants and vowels are full letters, or abjads like Urdu where vowels need not be written at all. Also, when a diacritic is not used, an \"inherent vowel\", either /a/ or /ə/, is understood, depending on the position of the consonant within the word. For example, the letter ක k on its own indicates ka, realized as /ka/ in stressed syllables and /kə/ in unstressed syllables. The other monophthong vowels are written: කා /kaː/, කැ /kæ/, and කෑ /kæː/ (after the consonant); කි /ki/ and කී /kiː/ (above the consonant); කු /ku/ and කූ /kuː/ (below the consonant); කෙ /ke/ and කේ /keː/ (before the consonant); and lastly, කො /ko/ and කෝ /koː/ (surrounding the consonant). For simple /k/ without a following vowel, a vowel-cancelling diacritic called හල් කිරීම (/hal kiriːmə/, hal kirima) is used, creating ක් /k/.\n\nThere are also a few diacritics for consonants, such as /r/ in special circumstances, although the tendency now is to spell words with the full letter ර /r/, with a hal kirima on whichever consonant has no vowel following it. One word that is still spelt with an \"r\" diacritic is ශ්‍රී, as in ශ්‍රී ලංකාව (Śri Lankāwa). The \"r\" diacritic is the curved line under the first letter (\"ශ\" → \"ශ්‍ර\"). A second diacritic representing the vowel sound /iː/ completes the word (\"ශ්‍ර\" → \"ශ්‍රී\").\n\nSeveral of these diacritics occur in two or more forms, and the form used depends on the shape of the consonant letter. Vowels also have independent letters, but these are only used at the beginning of words where there is no preceding consonant to add a diacritic to.\n\nThe complete script consists of about 60 letters, 18 for vowels and 42 for consonants. However, only 57 (16 vowels and 41 consonants) are required for writing colloquial spoken Sinhala (śuddha Sinhala).[citation needed] The rest indicate sounds that have been merged in the course of linguistic change, such as the aspirates, and are restricted to Sanskrit and Pali loan words. One letter (ඦ), representing the sound /ⁿd͡ʒa/, is attested in the script, although only a few words using this letter are known (වෑංඦන, ඉඦූ).\n\nThe Sinhala script is written from left to right, and is mainly used for Sinhala. It is also used for the liturgical languages Pali and Sanskrit, which are important in Buddhism and academic works. The alphabetic sequence is similar to those of other Brahmic scripts:\n\na/ā æ/ǣ i/ī u/ū [ŗ] e/ē [ai] o/ō [au] k [kh] g [gh] ṅ c [ch] j [jh] [ñ] ṭ [ṭh] ḍ [ḍh] [ṇ] t [th] d [dh] n p [ph] b [bh] m y r l v/w [ś ṣ] s h [ḷ] f",
+          "examples": [
+            "ආයුබෝවන් (āyubōwan) means \"welcome\", literally wishing one a long life",
+            "The writing system for Sinhala is an abugida, where the consonants are written with letters while the vowels are indicated with diacritics (pilla) on those consonants, unlike alphabets like English where both consonants and vowels are full ",
+            "There are also a few diacritics for consonants, such as /r/ in special circumstances, although the tendency now is to spell words with the full letter ර /r/, with a hal kirima on whichever consonant has no vowel following it. One word that "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Phonology",
+      "summary": "External audio \"The Sound of the Sinhala language\" (ILoveLanguages!)\nSinhala has a smaller consonant inventory than most Indo-Aryan languages, but simultaneously has a larger vowel inventory than most. As an insular Indo-Aryan language, it and Dhivehi have features divergent from",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "External audio \"The Sound of the Sinhala language\" (ILoveLanguages!)\nSinhala has a smaller consonant inventory than most Indo-Aryan languages, but simultaneously has a larger vowel inventory than most. As an insular Indo-Aryan language, it and Dhivehi have features divergent from rest of the Indo-Aryan languages. Sinhala's nasal consonants are unusual among Indo-Aryan languages for lacking the retroflex nasal /ɳ/ while retaining nasals in the other four positions. Sinhala and Dhivehi are together unique for having prenasalised consonants, which are not found in any other Indo-Aryan language.",
+          "examples": [
+            "External audio \"The Sound of the Sinhala language\" (ILoveLanguages!)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Sinhala has prenasalised consonants, or 'half nasal' consonants, but has lost the distinction between aspirated and unaspirated stops. It still has the distinction between dental/alveolar and retroflex stops. A short homorganic nasal occurs before a voiced stop, it is both shorter than a nasal alone and shorter than a sequence of nasal plus stop.[40] The nasal is syllabified with the onset of the following syllable, which means that the moraic weight of the preceding syllable is left unchanged. For example, tam̆ba 'copper' contrasts with tamba 'boil'.\nSinhala is one of only three languages reported to have a contrast between prenasalized consonants and their corresponding clusters, along with Fula and Selayarese, although the nature of this contrast is debated.[41][42] For example, \n\nFour-way contrast in Sinhala[41]\n\nSinhala script\nIPA\nISO 15919\nTranslation\n\nකද\n[ka.d̪ə]\nkada\nshoulder pole\n\nකඳ\n[ka.ⁿd̪ə]\nkan̆da\ntrunk\n\nකන්ද\n[kan̪.d̪ə]\nkanda\nhill\n\nකන\n[ka.nə]\nkana\nearhill\n\nA prenasalized consonant [ᵐb] in Sri Lanka Malay ga.mbar has a shorter nasal segment and a longer preceding vowel.\nAn [mb] cluster in Sri Lanka Malay sam.bal has a longer nasal and a shorter preceding vowel.\nSri Lankan Malay has been in contact with Sinhala a long time and has also developed prenasalized stops. The spectrograms on the right show the word gambar with a prenasalized stop and the word sambal with a sequence of nasal+voiced stop, yet not prenasalized. The difference in the length of the [m] part is clearly visible. The nasal in the prenasalized word is much shorter than the nasal in the other word.\n\nAll consonants other than the prenasalised consonants, /ŋ/, /ɸ/, /h/, and /ʃ/ can be geminated (occur as double consonants), but only between vowels.[40] In contexts that otherwise trigger gemination, prenasalised consonants become the corresponding nasal-voiced consonant sequence (e.g. /ⁿd/ is replaced with nd).[43]\n\nLabial\n\nDental/\nAlveolar\n\nRetroflex\n\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nm\nn\n\nɲ\nŋ\n\nStop/\nAffricate\nvoiceless\n\np\nt\nʈ\ntʃ\nk\n\nvoiced\n\nb\nd\nɖ\ndʒ\nɡ\n\nprenasalised\n\nᵐb\nⁿd\nᶯɖ\n\nᵑɡ\n\nFricative\n\n(f~ɸ)\ns\n\n(ʃ)\n\nh\n\nTrill\n\nr\n\nApproximant\n\nʋ\nl\n\nj\n\n/ʃ/ is found in learned borrowings from Sanskrit, including in the honorific ශ්‍රී (śrī), found in phrases including the country's name, Sri Lanka (ශ්‍රී ලංකා, /ʃriː laŋkaː/). /f~ɸ/ is restricted to loans, typically for English. They are commonly sometimes replaced by  /s/ and /p/ respectively. Some speakers use [f], as in English, and some use [ɸ] due to its similarity to the native /p/.[citation needed]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Sinhala vowel chart, from Perera & Jones (1919:5)\nSinhala has seven vowel qualities, with a phonemic vowel length distinction between long and short for all qualities, giving a total inventory of 14 vowels. The long vowel /əː/ is not present in native Sinhala words, but instead is found in certain English loanwords. Like in non-rhotic dialects of English, this long vowel can be represented graphically by the short vowel followed by an ⟨r⟩ (ර්), as in ෂර්ට් /ʃəːʈ/ (\"shirt\").[40]\n\nFront\n\nCentral\n\nBack\n\nshort\n\nlong\n\nshort\n\nlong\n\nshort\n\nlong\n\nClose\n\ni\n\niː\n\nu\n\nuː\n\nMid\n\ne\n\neː\n\nə\n\n(əː)\n\no\n\noː\n\nOpen\n\næ\n\næː\n\na\n\naː\n\n/a/ and /ə/ have a largely complementary distribution, found primarily in stressed and unstressed syllables, respectively. However, there are certain contrasting pairs between the two phonemes, particularly between homographs කර /karə/ (\"shoulder\") and කර /kərə/ (\"to do\"). In writing, /a/ and /ə/ are both spelt without a vowel sign attached to the consonant letter, so the patterns of stress in the language must be used to determine the correct pronunciation. Stress is largely predictable and only contrastive between words in relatively few cases, so this does not present a problem for determining the pronunciation of a given word.[44]\n\nNasalisation of vowels is common in certain environments, particularly before a prenasalised consonant. Nasalised /ãː/ and /æ̃ː/ exist as marginal phonemes, only present in certain interjections.[40]",
+          "examples": [
+            "Sinhala has seven vowel qualities, with a phonemic vowel length distinction between long and short for all qualities, giving a total inventory of 14 vowels. The long vowel /əː/ is not present in native Sinhala words, but instead is found in",
+            "/a/ and /ə/ have a largely complementary distribution, found primarily in stressed and unstressed syllables, respectively. However, there are certain contrasting pairs between the two phonemes, particularly between homographs කර /karə/ (\"sh"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Phonotactics",
+          "body": "Most Sinhala syllables are of the form CV. Native Sinhalese words are limited in syllable structure to (C)V(C), V̄, and CV̄(C), where V is a short vowel, V̄ is a long vowel, and C is a consonant. Exceptions exist for the marginal segment CC.[43] Prenasalised plosives are restricted to occurring intervocalically, and cannot end a syllable. Much more complicated consonant clusters are allowed in loan words, particularly from Sanskrit and English, an example being ප්‍රශ්‍නය praśnaya (\"question\").[45] Words cannot end in nasals other than /ŋ/.[46] Because of historical loss of the fricative /h/ in the suffix /-hu/, /-u/ at the end of a word behaves as its own syllable.[43]",
+          "examples": [
+            "Most Sinhala syllables are of the form CV. Native Sinhalese words are limited in syllable structure to (C)V(C), V̄, and CV̄(C), where V is a short vowel, V̄ is a long vowel, and C is a consonant. Exceptions exist for the marginal segment CC"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Stress",
+          "body": "The first syllable of each word is stressed, with the exception of the verb කරනවා /kərənəˈwaː/ (\"to do\") and all of its inflected forms where the first syllable is unstressed. Syllables using long vowels are always stressed. The remainder of the syllables are unstressed if they use a short vowel, unless they are immediately followed by one of: a CCV syllable, final /j(i)/ (-යි), final /wu/ (-වු), or a final consonant without a following vowel. The sound sequence /ha/ is always stressed, except after the vowel sound /i/ (-ඉ) and not before a consonant without a following vowel.[47]",
+          "examples": [
+            "The first syllable of each word is stressed, with the exception of the verb කරනවා /kərənəˈwaː/ (\"to do\") and all of its inflected forms where the first syllable is unstressed. Syllables using long vowels are always stressed. The remainder o"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Morphology",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (October 2023) (Learn how and when to remove this message)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (October 2023) (Learn how and when to remove this message)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Nominal morphology",
+          "body": "The main features marked on Sinhala nouns are case, number, definiteness and animacy.\n\nCases\nSinhala distinguishes several cases. The five primary cases are the nominative, accusative, dative, genitive, and ablative. Some scholars also suggest that it has a locative and instrumental case. However, for inanimate nouns the locative and genitive, and instrumental and ablative, are identical. In addition, for animate nouns these cases formed by placing atiŋ (\"with the hand\") and laᵑgə (\"near\") directly after the nominative.[48]\n\nThe brackets with most of the vowel length symbols indicate the optional shortening of long vowels in certain unstressed syllables.\n\nanimate\n\ninanimate\n\nsingular\nplural\n\nsingular\nplural\n\nnominative\n\nminiha(ː)\n\nminissu\n\npotə\n\npot\n\naccusative\n\nminiha(ː)wə\n\nminissu(nwə)\n\ndative\n\nminiha(ː)ʈə\n\nminissu(ɳ)ʈə\n\npotəʈə\n\npotwələʈə\n\ngenitive\n\nminiha(ː)ge(ː)\n\nminissu(ŋ)ge(ː)\n\npote(ː)\n\npotwələ\n\nlocative\n\nminiha(ː) laᵑgə\n\nminissu(n) laᵑgə\n\nablative\n\nminiha(ː)geŋ\n\nminissu(n)geŋ\n\npoteŋ\n\npotwaliŋ\n\ninstrumental\n\nminiha(ː) atiŋ\n\nminissu(n) atiŋ\n\nvocative\n\nminiho(ː)\n\nminissuneː\n\n-\n\n-\n\nGloss\n\n'man'\n\n'men'\n\n'book'\n\n'books'\n\nNumber marking\nThis section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (May 2024) (Learn how and when to remove this message)\nForming plurals in Sinhala is unpredictable. In Sinhala animate nouns, the plural is marked with -o(ː), a long consonant plus -u, or with -la(ː). Most inanimates mark the plural through disfixation. Loanwords from English mark the singular with ekə, and do not mark the plural. This can be interpreted as a singulative number.\n\nSG\n\nammaː\ndeviyaː\nhoraː\npotə\nreddə\nkantoːruvə\nsatiyə\nbus ekə\npaːrə\n\nPL\n\namməla(ː)\ndeviyo(ː)\nhoru\npot\nredi\nkantoːru\nsati\nbus\npaːrəval\n\nGloss\n\n'mother(s)'\n'god(s)'\n'thie(f/ves)'\n'book(s)'\n'cloth(es)'\n'office(s)'\n'week(s)'\n'bus(es)'\n'street(s)'\n\nOn the left hand side of the table, plurals are longer than singulars. On the right hand side, it is the other way round, with the exception of paːrə \"street\". [+Animate] lexemes are mostly in the classes on the left-hand side, while [-animate] lexemes are most often in the classes on the right hand.\n\nIndefinite article\nThe indefinite article is -ek for animates and -ak for inanimates. The indefinite article exists only in the singular, where its absence marks definiteness. In the plural, (in)definiteness does not receive special marking.[citation needed]",
+          "examples": [
+            "Sinhala distinguishes several cases. The five primary cases are the nominative, accusative, dative, genitive, and ablative. Some scholars also suggest that it has a locative and instrumental case. However, for inanimate nouns the locative a",
+            "On the left hand side of the table, plurals are longer than singulars. On the right hand side, it is the other way round, with the exception of paːrə \"street\". [+Animate] lexemes are mostly in the classes on the left-hand side, while [-anim"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Verbal morphology",
+          "body": "Sinhala distinguishes three conjugation classes.\nSpoken Sinhala does not mark person, number or gender on the verb (literary Sinhala does). In other words, there is no subject–verb agreement.\n\n1st class\n\n2nd class\n\n3rd class\n\nverb\nverbal adjective\n\nverb\nverbal adjective\n\nverb\nverbal adjective\n\npresent (future)\n\nkanəwaː\n\nkanə\n\narinəwaː\n\narinə\n\npipenəwaː\n\npipenə\n\npast\n\nkæːwaː\n\nkæːwə\n\næriyaː\n\næriyə\n\npipunaː\n\npipunə\n\nanterior\n\nkaːlaː\n\nkaːpu\n\nærəlaː\n\nærəpu\n\npipilaː\n\npipicca\n\nsimultaneous\n\nkanə kanə / ka kaa(spoken)\n\narinə arinə / æra æra(spoken)\n\npipenə pipenə/ pipi pipi(spoken)\n\ninfinitive\n\nkannə/kanḍə\n\narinnə/arinḍə\n\npipennə/pipenḍə\n\nemphatic form\n\nkanneː\n\narinneː\n\npipenneː\n\ngloss\n\neat\n\nopen\n\nblossom",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Syntax",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (September 2023) (Learn how and when to remove this message)\nLeft-branching language (see branching), which means t",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (September 2023) (Learn how and when to remove this message)\nLeft-branching language (see branching), which means that determining elements are usually put in front of what they determine (see example below).\n\nAn exception to this is formed by statements of quantity which usually stand behind what they define.\n\nex.මල්\n\n/mal\n\nflowers\n\nහතර\n\nhatərə/\n\nfour\n\nමල් හතර\n\n/mal hatərə/\n\nflowers four\n\n\"the four flowers\"\n(it can be argued that the numeral is the head in this construction, and the flowers the modifier, so that a more literal English rendering would be \"a floral foursome\")\n\nSOV (subject–object–verb) word order, common to most left-branching languages.\n\nAs is common in left-branching languages, it has no prepositions, only postpositions (see Adposition).\n\nex.පොත\n\n/potə\n\nbook\n\nයට\n\njaʈə/\n\nunder\n\nපොත යට\n\n/potə jaʈə/\n\nbook under\n\n\"under the book\"\n\nSinhala has no copula. There are two existential verbs, which are used for locative predications, but these verbs are not used for predications of class-membership or property-assignment, unlike English is.\n\nex.මම\n\n/mamə\n\nI\n\nපොහොසත්\n\npoːsat/\n\nrich\n\nමම පොහොසත්\n\n/mamə poːsat/\n\nI rich\n\n\"I am rich\"\n\nThere are almost no conjunctions as English that or whether, but only non-finite clauses that are formed by the means of participles and verbal adjectives.\n\nex.පොත්\n\n/pot\n\nbooks\n\nලියන\n\nliənə\n\nwriting\n\nමිනිසා\n\nminisa/\n\nman\n\nපොත් ලියන මිනිසා\n\n/pot liənə minisa/\n\nbooks writing man\n\n\"The man who writes books\"",
+          "examples": [
+            "\"the four flowers\"",
+            "(it can be argued that the numeral is the head in this construction, and the flowers the modifier, so that a more literal English rendering would be \"a floral foursome\")",
+            "\"under the book\"",
+            "\"I am rich\"",
+            "\"The man who writes books\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Semantics",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (September 2023) (Learn how and when to remove this message)\nThere is a four-way deictic system (which is rare): Th",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (September 2023) (Learn how and when to remove this message)\nThere is a four-way deictic system (which is rare): There are four demonstrative stems (see demonstrative pronouns):\n\nමේ /meː/ \"here, close to the speaker\"\n\nඕ /oː/ \"there, close to the person addressed\"\n\nඅර /arə/ \"there, close to a third person, visible\"\n\nඒ /eː/ \"there, close to a third person, not visible\"",
+          "examples": [
+            "මේ /meː/ \"here, close to the speaker\"",
+            "ඕ /oː/ \"there, close to the person addressed\"",
+            "අර /arə/ \"there, close to a third person, visible\"",
+            "ඒ /eː/ \"there, close to a third person, not visible\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        },
+        {
+          "heading": "Discourse",
+          "body": "Sinhala is a pro-drop language: any arguments of a sentence can be omitted when they can be inferred from context. This is not only true for subject – as in Italian, for instance – but also objects and other parts of the sentence can be \"dropped\" in Sinhala if they can be inferred. In that sense, Sinhala can be called a \"super pro-drop language\", like Japanese.\n\nex.කොහෙද\n\nkoɦedə\n\nwhere\n\nගියේ\n\nɡie\n\nwent\n\nකොහෙද ගියේ\n\nkoɦedə ɡie\n\nwhere went\n\ncan mean \"where did I/you/he/she/we... go\"",
+          "examples": [
+            "Sinhala is a pro-drop language: any arguments of a sentence can be omitted when they can be inferred from context. This is not only true for subject – as in Italian, for instance – but also objects and other parts of the sentence can be \"dr",
+            "can mean \"where did I/you/he/she/we... go\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Sinhala_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,319 @@
+{
+  "title": "Grammar Book — Malti",
+  "languageCode": "mt",
+  "languageName": "Malti",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Maltese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Semitic language spoken mostly in Malta\"Malti\" redirects here. For people with the name, see Malti (given name).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Semitic language spoken mostly in Malta\"Malti\" redirects here. For people with the name, see Malti (given name).\n\nMalteseMaltiPronunciation[ˈmɐːltɪ]Native toMaltaEthnicityMalteseNative speakers570,000 (2012)[1]Language familyAfro-Asiatic\n\nSemiticWest SemiticCentral SemiticArabicMaghrebiPre-Hilalian[2]Pre-Hilalian Tunisian[3]Sicilian ArabicMaltese\n\nEarly formsSicilian Arabic\nOld Maltese\n\nDialects\nCottonera\n\nGozitan\n\nQormi\n\nŻejtuni\n\nAustralian\n\nCentral\n\nWestern\n\nEastern\n\nŻurrieq\n\nPort Maltese\n\nMġarr\n\nXlukkajr\n\nGħaxaq\n\nQawsra †\n\nWriting systemLatin (Maltese alphabet)\nMaltese BrailleOfficial statusOfficial language inMalta\nEuropean UnionRegulated byNational Council for the Maltese Language\nIl-Kunsill Nazzjonali tal-Ilsien MaltiLanguage codesISO 639-1mtISO 639-2mltISO 639-3mltGlottologmalt1254Linguasphere12-AAC-cThis article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nA Maltese speaker, recorded in Malta\nMaltese (Maltese: Malti, also L-Ilsien Malti or Lingwa Maltija) is a Central Semitic language derived from late medieval Sicilian Arabic with Romance superstrata. It is the only Semitic language officially written in the Latin script. It is spoken by the Maltese people and is a national language of Malta, and is the only official Semitic and Afroasiatic language of the European Union.[4] The pioneering Maltese linguists Canon Giovanni Pietro Francesco Agius de Soldanis and Mikiel Anton Vassalli both mistakenly hypothesised that Maltese originated from the Punic language. Later scholars like John L. Hayes considered it to be descended from a North African dialect of Colloquial Arabic, which was introduced to Malta when the Aghlabids captured it in the 9th century.[5] However, genetic studies and historical evidence have established that Malta was depopulated after that raid, and that the island was subsequently repopulated by settlers from Sicily and Calabria who spoke Siculo-Arabic, which had developed as a Maghrebi Arabic dialect in the Emirate of Sicily between 831 and 1091.[6][7][8] As a result of the Norman invasion of Malta and the subsequent re-Christianisation of the islands, Maltese evolved independently of Classical Arabic in a gradual process of Latinisation.[9][10] It is therefore exceptional as a variety of historical Arabic that has no diglossic relationship with Classical or Modern Standard Arabic.[11] Maltese is thus classified separately from the 30 varieties constituting the modern Arabic macrolanguage. Maltese is also distinguished from Arabic and other Semitic languages since its morphology has been deeply influenced by Romance languages, namely Italian and Sicilian.[12]\n\nThe original Arabic base comprises around one-third of the Maltese vocabulary, especially words that denote basic ideas and the function words,[13] but about half of the vocabulary is derived from standard Italian and Sicilian;[14] and English words make up 6–20% of the vocabulary.[15] A 2016 study shows that, in terms of basic everyday language, speakers of Maltese are able to understand less than a third of what is said to them in Tunisian Arabic and Libyan Arabic,[16] which are Maghrebi Arabic dialects related to Siculo-Arabic,[17] whereas speakers of Tunisian Arabic and Libyan Arabic are able to understand about 40% of what is said to them in Maltese.[18] This reported level of asymmetric intelligibility is considerably lower than the mutual intelligibility found between mainstream varieties of Arabic.[19]\n\nMaltese has always been written in the Latin script, the earliest surviving example dating from the late Middle Ages.[20] It is the only standardised Semitic language written exclusively in the Latin script.[21]",
+          "examples": [
+            "Semitic language spoken mostly in Malta\"Malti\" redirects here. For people with the name, see Malti (given name)."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "History",
+      "summary": "Main article: History of the Maltese language\nSee also: History of Malta\nOldest Maltese text: Il-Kantilena by Pietru Caxaro, 15th century\nThe origins of the Maltese language are attributed to the arrival, early in the 11th century, of settlers from neighbouring Sicily, where Sicu",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: History of the Maltese language\nSee also: History of Malta\nOldest Maltese text: Il-Kantilena by Pietru Caxaro, 15th century\nThe origins of the Maltese language are attributed to the arrival, early in the 11th century, of settlers from neighbouring Sicily, where Siculo-Arabic was spoken, reversing the Fatimid Caliphate's conquest of the island at the end of the 9th century.[22] \n\nThe Norman conquest in 1091, followed by the expulsion of the Muslims, complete by 1249, permanently isolated the vernacular from its Arabic source, creating the conditions for its evolution into a distinct language.[22] In contrast to Sicily, where Siculo-Arabic became extinct and was replaced by Sicilian, the vernacular in Malta continued to develop alongside Italian, eventually replacing it as official language in 1934, alongside English.[22] The first written reference to the Maltese language is in a will of 1436, where it is called lingua maltensi. The oldest known document in Maltese, Il-Kantilena (Xidew il-Qada) by Pietru Caxaro, dates from the 15th century.[23]\n\nThe earliest known Maltese dictionary was a 16th-century manuscript entitled \"Maltese-Italiano\"; it was included in the Biblioteca Maltese of Mifsud in 1764, but is now lost.[24] A list of Maltese words was included in both the Thesaurus Polyglottus (1603) and Propugnaculum Europae (1606) of Hieronymus Megiser, who had visited Malta in 1588–1589; Domenico Magri gave the etymologies of some Maltese words in his Hierolexicon, sive sacrum dictionarium (1677).[23]\n\nAn early manuscript dictionary, Dizionario Italiano e Maltese, was discovered in the Biblioteca Vallicelliana in Rome in the 1980s, together with a grammar, the Regole per la Lingua Maltese, attributed to a French knight named Thezan.[24][25] The first systematic lexicon is that of Giovanni Pietro Francesco Agius de Soldanis, who also wrote the first systematic grammar of the language and proposed a standard orthography.[24]\n\nThe language declined heavily under the British administration of Malta, declining in use compared to English. Following the independence of Malta, language reforms under the Dom Mintoff government saw the language gain an increase in use, and today is used regularly in Malta.[26]",
+          "examples": [
+            "The earliest known Maltese dictionary was a 16th-century manuscript entitled \"Maltese-Italiano\"; it was included in the Biblioteca Maltese of Mifsud in 1764, but is now lost.[24] A list of Maltese words was included in both the Thesaurus Po"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Demographics",
+      "summary": "This section appears to contradict another section of this article. Please see the talk page for more information.  (February 2024)\nEthnologue reports a total of 530,000 Maltese speakers: 450,000 in Malta and 79,000 in the diaspora. Most speakers also use English,[1] usually the",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section appears to contradict another section of this article. Please see the talk page for more information.  (February 2024)\nEthnologue reports a total of 530,000 Maltese speakers: 450,000 in Malta and 79,000 in the diaspora. Most speakers also use English,[1] usually the local dialect known as Maltese English.\n\nThe largest diaspora community of Maltese speakers is in Australia, with 36,000 speakers reported in 2006 (down from 45,000 in 1996, and expected to decline further).[27]\n\nThe Maltese linguistic community in Tunisia originated in the 18th century. Numbering several thousand in the 19th century, it was reported to be only 100 to 200 people as of 2017.[28]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Classification",
+      "summary": "Maltese is descended from Siculo-Arabic, a Semitic language within the Afroasiatic family.[29] In the course of its history, Maltese has been influenced by Sicilian, Italian, to a lesser extent by Norman, and, more recently, English. Today, the core vocabulary (including both the",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Maltese is descended from Siculo-Arabic, a Semitic language within the Afroasiatic family.[29] In the course of its history, Maltese has been influenced by Sicilian, Italian, to a lesser extent by Norman, and, more recently, English. Today, the core vocabulary (including both the most commonly used vocabulary and function words) is Semitic, with a large number of loanwords.[14] Due to the Sicilian influence on Siculo-Arabic, Maltese has many language contact features and is most commonly described as a language with a large number of loanwords.[30]\n\nMaltese has historically been classified in various ways, with some arguing that it was derived from ancient Punic (another Semitic language) instead of Siculo-Arabic,[23][31][32] and others arguing it is one of the Berber languages (another language family within Afroasiatic).[23] Implausibly, Fascist Italy classified it as regional Italian.[33]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Dialects",
+      "summary": "Main articles: Żejtun dialect, Qormi dialect, Cottonera dialect, and Maltralian\nUrban varieties of Maltese are closer to Standard Maltese than rural varieties,[34] which have some characteristics that distinguish them from Standard Maltese.\nThey tend to show some archaic features",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main articles: Żejtun dialect, Qormi dialect, Cottonera dialect, and Maltralian\nUrban varieties of Maltese are closer to Standard Maltese than rural varieties,[34] which have some characteristics that distinguish them from Standard Maltese.\nThey tend to show some archaic features[34] such as the realisation of ⟨kh⟩ and ⟨gh⟩ and the imāla of Arabic ā into ē (or ī especially in Gozo), considered archaic because they are reminiscent of 15th-century transcriptions of this sound.[34] Another archaic feature is the realisation of Standard Maltese ā as ō in rural dialects.[34]\nThere is also a tendency to diphthongise simple vowels, e.g., ū becomes eo or eu.[34]\nRural dialects also tend to employ more Semitic roots and broken plurals than Standard Maltese.[34] In general, rural Maltese is less distant from its Siculo-Arabic ancestor than is Standard Maltese.[34]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Phonology",
+      "summary": "Vassalli's Storja tas-Sultân Ċiru (1831) is an example of Maltese orthography in the 19th century, before the later standardisation introduced in 1924. Note the similarities with the various varieties of romanised Arabic.\nVoiceless stops are only lightly aspirated and voiced stop",
+      "sections": [
+        {
+          "heading": "Consonants",
+          "body": "Consonant phonemes[35][36]\n\nLabial\n\nDental/\nAlveolar\n\nPostalveolar\n\nPalatal\n\nVelar\n\nPharyngeal\n\nGlottal\n\nNasal\n\nm\n\nn\n\nPlosive\n\np\nb\n\nt\nd\n\nk\nɡ\n\nʔ\n\nAffricate\n\nt͡s\nd͡z\n\nt͡ʃ       d͡ʒ\n\nFricative\n\nf\nv\n\ns\nz\n\nʃ        ʒ\n\nħ\n\nTrill\n\nr\n\nApproximant\n\nl\n\nj\n\nw\n\nVassalli's Storja tas-Sultân Ċiru (1831) is an example of Maltese orthography in the 19th century, before the later standardisation introduced in 1924. Note the similarities with the various varieties of romanised Arabic.\nVoiceless stops are only lightly aspirated and voiced stops are fully voiced. Voicing is carried over from the last segment in obstruent clusters; thus, two- and three-obstruent clusters are either voiceless or voiced throughout, e.g. /niktbu/ is realised [ˈniɡdbu] \"we write\" (similar assimilation phenomena occur in languages like French or Czech). Maltese has final-obstruent devoicing of voiced obstruents and word-final voiceless stops have no audible release, making voiceless–voiced pairs phonetically indistinguishable in word-final position.[37]\n\nGemination is distinctive word-medially and word-finally in Maltese. The distinction is most rigid intervocalically after a stressed vowel. Stressed, word-final closed syllables with short vowels end in a long consonant, and those with a long vowel in a single consonant; the only exception is where historic *ʕ and *ɣ meant the compensatory lengthening of the succeeding vowel. Some speakers have lost length distinction in clusters.[38]\n\nThe two nasals /m/ and /n/ assimilate for place of articulation in clusters.[39] /t/ and /d/ are usually dental, whereas /t͡s d͡z s z n r l/ are all alveolar. /t͡s d͡z/ are found mostly in words of Italian origin, retaining length (if not word-initial).[40] /d͡z/ and /ʒ/ are only found in loanwords, e.g. /ɡɐdˈd͡zɛt.tɐ/ gazzetta \"newspaper\" and /tɛ.lɛˈvɪ.ʒɪn/ televixin \"television\".[41] The pharyngeal fricative /ħ/ is velar ([x]), uvular ([χ]), or glottal ([h]) for some speakers.[42]",
+          "examples": [
+            "Voiceless stops are only lightly aspirated and voiced stops are fully voiced. Voicing is carried over from the last segment in obstruent clusters; thus, two- and three-obstruent clusters are either voiceless or voiced throughout, e.g. /nikt",
+            "The two nasals /m/ and /n/ assimilate for place of articulation in clusters.[39] /t/ and /d/ are usually dental, whereas /t͡s d͡z s z n r l/ are all alveolar. /t͡s d͡z/ are found mostly in words of Italian origin, retaining length (if not w"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Vowel phonemes\n\nFront\n\nCentral\n\nBack\n\nshort\n\nlong\n\nshort\n\nlong\n\nshort\n\nlong\n\nClose\n\niː\n\nNear-close\n\nɪ\n\nɪː\n\nʊ\n\nʊː\n\nOpen-mid\n\nɛ\n\nɛː\n\nɔ\n\nɔː\n\nNear-open\n\nɐ\n\nɐː\n\nDiphthongs\n\n/ɐɪ/ /ɐʊ/ /ɛɪ/ /ɛʊ/ /ɪʊ/ /ɔɪ/ /ɔʊ/\n\nMaltese has five short vowels, /ɐ ɛ ɪ ɔ ʊ/, written a e i o u; six long vowels, /ɐː ɛː ɪː iː ɔː ʊː/, written a, e, ie, i, o, u, all of which (with the exception of ie /ɪː/) can be known to represent long vowels in writing only if they are followed by an orthographic għ or h (otherwise, one needs to know the pronunciation; e.g. nar (fire) is pronounced /nɐːr/); and seven diphthongs, /ɐɪ ɐʊ ɛɪ ɛʊ ɪʊ ɔɪ ɔʊ/, written aj or għi, aw or għu, ej or għi, ew, iw, oj, and ow or għu.[9]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Historical phonology",
+          "body": "The Maltese consonant system has undergone several changes when compared to Classical Arabic:[43]\n\nClassical Arabic\n\nLetter\n\nت\nط\nث\n\nد\nض\nذ\nظ\n\nس\nص\nح\nخ\n\nع\nغ\n\nء‎\n\nق\n\nه\n\nRomanisation\n\nt\n\nṭ\n\nṯ\n\nd\n\nḍ\n\nḏ\n\nẓ\n\ns\n\nṣ\n\nḥ\n\nẖ\n\nʿ\n\nġ\n\nʾ\n\nq\n\nh\n\nPronunciation\n\n/t/\n\n/tˤ/\n\n/θ/\n\n/d/\n\n/dˤ/\n\n/ð/\n\n/ðˤ/\n\n/s/\n\n/sˤ/\n\n/ħ/\n\n/x~χ/\n\n/ʕ/\n\n/ɣ~ʁ/\n\n/ʔ/\n\n/q/\n\n/h/\n\nMaltese\n\nLetter\n\nT t\n\nD d\n\nS s\n\nĦ ħ\n\nGħ għ\n\nQ q\n\nH h\n\nPronunciation\n\n/t/\n\n/d/\n\n/s/\n\n/ħ/\n\n/ʕ/\n\n/ʔ/\n\nWhile many of these changes (chiefly the merger of emphatic consonants with their non-pharyngealized counterparts) are the result of European influence, others (such as the merger of ق /q/ into /ʔ/) are found in other varieties of Arabic, and may be either independent developments or features of the Sicilian Arabic dialect which Maltese descends from.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Orthography",
+      "summary": "This section needs editing to comply with Wikipedia's Manual of Style. In particular, it has problems with punctuation and text styling in the table. Please help improve the content.  (October 2022) (Learn how and when to remove this message)\nMain articles: Maltese alphabet and M",
+      "sections": [
+        {
+          "heading": "Alphabet",
+          "body": "This section needs editing to comply with Wikipedia's Manual of Style. In particular, it has problems with punctuation and text styling in the table. Please help improve the content.  (October 2022) (Learn how and when to remove this message)\nMain articles: Maltese alphabet and Maltese Braille\nThe modern system of Maltese orthography was introduced in 1924.[44] Below is the Maltese alphabet, with IPA symbols and approximate English pronunciation:\n\nLetter\nName\nIPA (letter name)\nMaltese example\nIPA (orthographically representing)\nApproximate English pronunciation\n\nA a\na\naː\naħmar 'red'\nɐ, aː, æː\nSimilar to 'u' in nut in RP; [aː] similar to father in Irish English; [æː] similar to cat in American English. In some dialects, it may be [ɒː] in certain locations as in what in some American English dialects.\n\nB b \nbe\nbeː\nbaħar 'sea'\nb\nbar, but at the end of a word, it is devoiced to [p].\n\nĊ ċ \nċe\nt͡ʃeː\nċavetta 'key'\nt͡ʃ\nchurch (note: undotted 'c' has been replaced by 'k', so when 'c' does appear, it is to be spoken the same way as 'ċ')\n\nD d \nde\ndeː\ndar 'home'\nd\nday, but at the end of a word, it is devoiced to [t].\n\nE e \ne\neː\nerbgħa 'four'\neː, ɛ, øː, ə\n[e:] somewhat like face in Northern England English; [ɛ] end.\nWhen short, it is often changed to [øː, œ] when following, and more often when followed by, 'w'.\nWhen at the end of a word in an unstressed syllable, it is pronounced as schwa [ə, Vᵊ], as in comma.\n\nF f \neffe\nɛf(ː)ᵊ\nfaħam 'coal'\nf\nfar\n\nĠ ġ \nġe\nd͡ʒøː\nġar 'neighbour'\nd͡ʒ\ngem, but at the end of a word, it is devoiced to [tʃ].\n\nG g \nge\ngeː\ngawwija 'seagull'\nɡ\ngame, but at the end of a word, it is devoiced to [k].\n\nGħ għ \najn\najn, æːn\ngħasfur 'bird'\n(ˤ)ː, ħː\nHas the effect of lengthening and pharyngealising associated vowels (għi and għu are [i̞(ˤ)j] (may be transcribed as [ə(ˤ)j]) and [oˤ]).\nWhen found at the end of a word, or immediately before 'h', it has the sound of a double 'ħ' (see below).\n\nH h \nakka\nak(ː)ɐ\nhu 'he'\n\nNot pronounced except in the word hieni; at the end of a word (such as ktibnih), even after adding the negating suffix (such as ma ktibnihx); or at the end of a verb, even after adding pronominal suffixes (such as xebbaht); in these cases, it has the sound of 'ħ'.\n\nĦ ħ \nħe\nħeː, heː, xe:\nħanut 'shop'\nħ\nNo English equivalent; sounds similar to /h/ but is articulated with a lowered larynx.\n\nI i \ni\niː\nikel 'food'\ni̞ː, iː, ɪ\n[i̞ː] bite (the way commonly realized in Irish English or [iː] in other words as beet but more forward) and when short, as [ɪ] bit.\nOccasionally, 'i' is used to display il-vokali tal-leħen (the vowel of the voice) as in words like l-iskola or l-iMdina; in this case, it takes the schwa sound.\n\nIe ie \nie\niːᵊ, ɛː\nieqaf 'stop'\nɛː, iːᵊ\nSounds similar to yield or RP near, or opened up slightly towards bed or RP square\n\nJ j \nje\njə, jæ, jɛ\njum 'day'\nj\nyard\n\nK k \nke\nkə, kæ, kɛ\nkelb 'dog'\nk\nkettle\n\nL l \nelle\nɛl(ː)ᵊ\nlibsa 'dress'\nl\nline\n\nM m \nemme\nɛm(ː)ᵊ\nmara 'woman'\nm\nmarch\n\nN n \nenne\nɛn(ː)ᵊ\nnanna 'granny'\nn\nnext\n\nO o \no\noː\nors 'bear'\no, ɔ, ɒ\n[o] as in somewhere between similar to Scottish English o in no [ɔ] like 'aw' in RP law, but short or [ɒ] as in water in some American English dialects.\n\nP p \npe\npeː, pə\npaġna 'page, sheet'\np\npart\n\nQ q \nqe\nʔø, ʔ(ʷ)ɛ, ʔ(ʷ)æ, ʔ(ʷ)ə\nqattus 'cat'\nʔ\nglottal stop, found in the Cockney English pronunciation of \"bottle\" or the phrase \"uh-oh\" /ʔʌʔoʊ/.\n\nR r \nerre\nɛɹ(ː)ᵊ, æɹ(:)ᵊ, ɚ(ː)ᵊ or ɛr(ː)ᵊ, ær(:)ᵊ, ər(ː)ᵊ\nre 'king'\nr, ɹ\n[r] as in General American English butter, or ɹ road (r realization changes depending on dialect or location in the word).\n\nS s \nesse\nɛs(ː)ᵊ\nsliem 'peace'\ns\nsand\n\nT t \nte\nteː\ntieqa 'window'\nt\ntired\n\nU u \nu\nuː, ʉ\nuviera 'egg cup'\nu, ʉ, ʊ\n[u] as in General American English boot, or in some dialects, it may be realized as [ʉ] as in some American English realizations of student; short u is [ʊ] put.\n\nV v \nve\nvøː, veː, və\nvjola 'violet'\nv\nvast, but at the end of a word, it is devoiced to [f].\n\nW w \nve doppja /u doppja/we\nvedɒp(ː)jɐ, uːdɒp(ː)jɐ, wøː\nwidna 'ear'\nw\nwest\n\nX x \nxe\nʃə, ʃøː\nxadina 'monkey'\nʃ / ʒ\nshade, sometimes as measure; when doubled, the sound is elongated, as in \"Cash shin\" vs. \"Cash in\".\n\nŻ ż \nże/żeta\nzə, zø:, ze:t(ɐ)\nżarbun 'shoe'\nz\nmaze, but at the end of a word, it is devoiced to [s].\n\nZ z \nze\nt͡sə, t͡søː, t͡seːt(ɐ)\nzalza 'sauce'\nt͡s / d͡z\npizza for [t͡s]\n\nFinal vowels with grave accents (à, è, ì, ò, ù) are also found in some Maltese words, mostly of Italian origin, such as sigurtà (old Italian: sicurtà 'security'), kafè (Italian: caffè 'coffee'), Marì (a name), però (Italian: però 'but') and tiramisù (Italian: tiramisù 'tiramisu').\n\nThe official rules governing the structure of the Maltese language are recorded in the official guidebook Tagħrif fuq il-Kitba Maltija (English: Knowledge on Writing in Maltese) issued by the Akkademja tal-Malti (Academy of the Maltese language). The first edition of this book was printed in 1924 by the Maltese government's printing press. The rules were further expanded in the 1984 book, iż-Żieda mat-Tagħrif, which focused mainly on the increasing influence of Romance and English words. In 1992 the academy issued the Aġġornament tat-Tagħrif fuq il-Kitba Maltija, which updated the previous works.[45]\n\nThe National Council for the Maltese Language (KNM) is the main regulator of the Maltese language (see Maltese Language Act, below). However, the academy's orthography rules are still valid and official.",
+          "examples": [
+            "glottal stop, found in the Cockney English pronunciation of \"bottle\" or the phrase \"uh-oh\" /ʔʌʔoʊ/.",
+            "shade, sometimes as measure; when doubled, the sound is elongated, as in \"Cash shin\" vs. \"Cash in\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Written Maltese",
+          "body": "Since Maltese evolved after the Italo-Normans ended Arab rule of the islands, a written form of the language was not developed for a long time after the Arabs' expulsion in the middle of the thirteenth century. Under the rule of the Knights Hospitaller, both French and Italian were used for official documents and correspondence. During the British colonial period, the use of English was encouraged through education, with Italian being regarded as the next-most important language.\n\nIn the late 18th century and throughout the 19th century, philologists and academics such as Mikiel Anton Vassalli made a concerted effort to standardise written Maltese. Many examples of written Maltese exist from before this period, always in the Latin alphabet, Il-Kantilena from the 15th century being the earliest example of written Maltese. In 1934, Maltese was recognised as an official language.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Samples",
+          "body": "Maltese has both Semitic vocabulary and words derived from Romance languages, primarily Italian. Words such as tweġiba (Arabic origin) and risposta (Italian origin) have the same meaning (\"answer\") but are both used in Maltese, rather like \"answer\" and \"response\" in English. Below are two versions of the same translations, one with vocabulary mostly derived from Semitic root words and the other using Romance loanwords from the Treaty establishing a Constitution for Europe [a]\n\nEnglish\n\nMaltese (Semitic vocabulary)\n\nMaltese (Romance vocabulary)\n\nThe Union is founded on the values of respect for human dignity, freedom, democracy, equality, the rule of law and respect for human rights, including the rights of persons belonging to minorities. These values are common to the Member States in a society in which pluralism, non-discrimination, tolerance, justice, solidarity and equality between women and men prevail.\n\nL-Għaqda hija mibnija fuq is-siwi ta' għadir għall-ġieħ il-bniedem, ta' ħelsien, ta' għażil il-ġemgħa, ta' ndaqs bejn il-ġnus, tas-saltna tad-dritt[b] u tal-għadir għall-ħaqq tal-bniedem, wkoll il-ħaqq ta' wħud li huma f'minoranzi.[c] Dan is-siwi huwa mqassam bejn il-Pajjiżi[d] Msieħba, f'nies li tħaddan il-kotrija, li ma tgħejjibx, li ddann, li tgħaqqad u li tiżen indaqs in-nisa u l-irġiel.\n\nL-Unjoni hija bbażata fuq il-valuri tar-rispett għad-dinjità tal-bniedem, il-libertà, id-demokrazija, l-ugwaljanza, l-istat tad-dritt u r-rispett għad-drittijiet tal-bniedem, inklużi d-drittijiet ta' persuni li jagħmlu parti minn minoranzi. Dawn il-valuri huma komuni għall-Istati Membri f'soċjetà fejn jipprevalu l-pluraliżmu, in-non-diskriminazzjoni, it-tolleranza, il-ġustizzja, is-solidarjetà u l-ugwaljanza bejn in-nisa u l-irġiel.\n\nBelow is the Lord's Prayer in Maltese compared to other Semitic languages (Arabic and Syriac) with cognates highlighted:\n\nEnglish\n\nMaltese[46]\n\nStandard Arabic (Romanised)[47]\n\nSyriac (Romanised)[48]\n\nOur Father, who art in heaven, hallowed be thy name. Thy kingdom come, thy will be done, on earth, as it is in heaven.\n\nGive us this day our daily bread and forgive us our trespasses as we\n\nforgive those who trespass against us;\n\nand lead us not into temptation, but deliver us from evil.\n\nAmen\n\nMissierna, li inti fis-smewwiet, jitqaddes ismek, tiġi saltnatek, ikun li trid int, kif fis-sema, hekkda fl-art.\nĦobżna ta' kuljum agħtina llum. Aħfrilna dnubietna, bħalma naħfru lil min hu ħati għalina.\n\nU la ddaħħalniex fit-tiġrib, iżda eħlisna mid-deni.\n\nAmmen\n\nʔabāna, allaḏi fī as-samāwāt, li-yataqaddas ismuka, li-yaʔti malakūtuka, li-takun mašīʔatuka, kamā fī as-samāʔi kaḏālika ʕalā al-arḍ.\n\nḵubzana kafāfanā ʔaʕṭinā alyawm, wa aḡfir lanā ḏunūbanā, kamā naḡfiru naḥnu ʔayḍan lil-muḏnibīn ʔilaynā.\n\nwa lā tudḵilna fī tajāriba, lākin najjinā min aš-širrīr.\n\nʔāmīn\n\nAbun, d-bashmayo, nithqadash shmokh, tithe malkuthokh, nehwe sebyonokh aykano d-bashmayo oph bar`o.\nhab lan lahmo d-sunqonan yowmono washbuq lan hawbayn wahtohayn\n\naykano doph hnan shbaqan l-hayobayn lo ta`lan l-nesyuno elo paso lan men bisho\n\nAmin\n\nMaltese pronunciation\nBelow is the Universal Declaration of Human Rights in Maltese compared to Arabic:\n\nEnglish[49]\n\nMaltese[50]\n\nStandard Arabic (Romanised)[51]\n\nAll human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.\n\nIl-bnedmin kollha jitwieldu ħielsa u ugwali fid-dinjità u d-drittijiet. Huma mogħnija bir-raġuni u bil-kuxjenza u għandhom iġibu ruħhom ma' xulxin bi spirtu ta' aħwa.\n\nYūlad jamīʻ al-nās aḥrār-an mutasāwīn fil-karāma-ti wal-huqūq-i, wa-qad wuhibū ʻaql-an wa-ḍamīr-an wa-ʻalayhim an yuʻāmil-u baʻduhum baʻd-an bi-rūh al-ikhāʼ-i.",
+          "examples": [
+            "Maltese has both Semitic vocabulary and words derived from Romance languages, primarily Italian. Words such as tweġiba (Arabic origin) and risposta (Italian origin) have the same meaning (\"answer\") but are both used in Maltese, rather like "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Vocabulary",
+      "summary": "Although the original vocabulary of Maltese was Siculo-Arabic, it has incorporated a large number of borrowings from Romance sources (Sicilian, Italian, and French) and, more recently, Germanic ones (from English).[52]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Although the original vocabulary of Maltese was Siculo-Arabic, it has incorporated a large number of borrowings from Romance sources (Sicilian, Italian, and French) and, more recently, Germanic ones (from English).[52]\n\nThe historical source of modern Maltese vocabulary is 52% Italian/Sicilian, 32% Arabic/Siculo-Arabic, 10% French and 6% English, with the remainder being Spanish and German.[14][53][54] Today, most function words are Arabic, so despite only making up about a third of the vocabulary, they are the most used when speaking the language. In this way, Maltese is similar to English, a Germanic language that has been strongly influenced by Norman French and Latin (58% of English vocabulary).\n\nAs a result of this, Romance language-speakers (and to a lesser extent English speakers) can often easily understand more technical ideas expressed in Maltese, such as Ġeografikament, l-Ewropa hi parti tas-superkontinent tal-Ewrasja ('Geographically, Europe is part of the supercontinent of Eurasia'), while not understanding a single word of a basic sentence such as Ir-raġel qiegħed fid-dar ('The man is in the house'), which would be easily understood by any Arabic speaker.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Arabic",
+          "body": "At the time Malta was thoroughly Arabized, the conquerors brought to the island the vulgar (colloquial) variant of Arabic, not the classical one (Classical Arabic); therefore, the Maltese language differs from Classical Arabic in the same way as the Arabic dialects differ from Classical Arabic. The Maltese language also comprises a considerable number of Maghrebi features,[55] but in other ways, it can be closer to other Arabic dialects, or closer to Classical Arabic than to the other dialects as in the word ra ('to see'). While Arabic words represent roughly one-third of the Maltese lexicon, they comprise most of the language's core vocabulary, as well as most of its most frequently used words.[14][15]\n\nŻammit (2000) found that 40% of a sample of 1,821 Quranic Arabic roots were found in Maltese, considerably lower than that found in the Moroccan (58%) and Lebanese (72%) varieties of Arabic.[56] An analysis of the etymology of the 41,000 words in Aquilina's Maltese–English Dictionary shows that 32% of the Maltese vocabulary is of Arabic origin.[14] Usually, words expressing basic concepts and ideas, such as raġel (man), mara (woman), tifel (boy), dar (house), xemx (sun), and sajf (summer), are of Arabic origin. Moreover, belles-lettres in Maltese aim to maximise their use of vocabulary belonging to this group.[34]\n\nMaltese\n\nTunisian\n\nMoroccan\n\nEgyptian\n\nHejazi\n\nStandard Arabic\n\nEnglish\n\niva (ijwa, ija, iwa)\n\nih, iwah, ayh, aywah\n\niyeh\n\naywa\n\nīwa\n\nنعم (naʕam)\n\nyes\n\nfejn\n\nfīn, fayn, wīn, wayn\n\nfīn, wīn\n\nfēn\n\nfēn\n\nأين ('ayn)\n\nwhere\n\nxiex\n\nešnu, šnu\n\nšnu, 'āš\n\n'ēh\n\n'ēš\n\nماذا (māḏā)\n\nwhat\n\ngħaliex\n\nʕlēš, lēš, ʕlēh, lēh\n\nʕlāš, ʕlayāš\n\nlēh\n\nlēš\n\nلماذا (limāḏā)\n\nwhy\n\nġewwa\n\nwost, dēkhel\n\nel-dāḵil\n\ngowwa\n\njuwwa\n\nداخل (dāḵil)\n\ninside\n\nbarra\n\nbarra\n\nbarra\n\nbarra\n\nbarra\n\nخارج (ḵārij)\n\noutside\n\nġab\n\njēb\n\njāb\n\ngāb\n\njāb\n\nأحضر ('aḥḍara), جاء بـ (jā'a bi-)\n\nto bring\n\nsaqsa, staqsa*\n\nshal\n\nsaqṣa, sāl\n\nsa'al\n\nsa'al\n\nسأل (sa'ala)\n\nto ask\n\nraqad\n\nrqad, nanni\n\nnʕas, rqad\n\nnām\n\nnām, ragad\n\nنام (nāma), رقد (raqada)\n\nto sleep\n\nra\n\nra, šēf\n\nšāf\n\nšāf\n\nšāf\n\nرأى (ra'ā)\n\nto see\n\nried, xtaq**\n\nḥebb\n\nḥabb, bḡa\n\nʕāyez\n\nbiḡi\n\nأراد ('arāda)\n\nto want\n\nħdax\n\nḥdēš\n\nḥdāš\n\nḥidāšar\n\niḥdaʕaš\n\nأَحَدَ عَشَرَ ('aḥada ʕašara)\n\neleven\n\ntnax\n\nṭnāš\n\ntnāš\n\nitnašar\n\niṭnaʕaš\n\nاِثْنَا عَشَرَ (iṯnā ʕašara)\n\ntwelve\n\nNotes: * from Arabic استقصى (istaqṣā) \"to investigate\", ** from Arabic اشتاق (ištāqa) \"to yearn for \".\n\nThe following table compares additional cognates in Maltese and some other varieties of Arabic (all forms are written phonetically, as in the source):[57]\n\nMaltese\n\nTunisian\n\nCairene\n\nDamascene\n\nIraqi\n\nNegev\n(bedouin)\n\nYemenite\n(Sanaani)\n\nMoroccan\n\nStandard Arabic\n\nEnglish\n\nqalb /ʔalp/\n\nqalb\n\n'alb\n\n'aleb\n\ngaleb\n\ngalb\n\ngalb\n\nqalb\n\nقلب (qalb) /qalb/\n\nheart\n\nwaqt /waʔt/\n\nwaqt\n\nwa't\n\nwa'et\n\nwaket\n\nwagt\n\nwagt\n\nwaqt\n\nوقت (waqt) /waqt/\n\ntime\n\nqamar /ʔamar/\n\nqmar\n\n'amar\n\n'amar\n\nqamar\n\ngumar\n\ngamar\n\nqmar\n\nقمر (qamar) /qamar/\n\nmoon\n\nkelb /kelp/\n\nkalb\n\nkalb\n\nkaleb\n\nčaleb\n\nčalb\n\nkalb\n\nkalb\n\nكلب (kalb) /kalb/\n\ndog\n\nSiculo-Arabic dialect which was spoken in Sicily and Malta is the ancestor of the Maltese language,[14] some Siculo-Arabic words are still used in modern Sicilian (a Romance language spoken in Sicily):\n\nMaltese\n\nSiculo-Arabic\n(in Sicilian)\n\nArabic text\n\nEnglish\n\nbebbuxu\n\nbabbaluci\n\nببوش (babbūš)\n(a Berber word)\n\nsnail\n\nġiebja\n\ngebbia\n\nجابية (jābiya)\n\ncistern\n\nġunġlien\n\ngiuggiulena\n\nجلجلان (juljulān)\n\nsesame seed\n\nsieqja\n\nsaia\n\nساقية (sāqiya)\n\ncanal\n\nkenur\n\ntannura\n\nتنور (tannūr)\n\noven\n\nżagħfran\n\nzaffarana\n\nزعفران (zaʿfarān)\n\nsaffron\n\nżahra (less common than fjura, borrowed from Sicilian)\n\nzagara\n\nزهرة (zahra)\n\nblossom\n\nżbib\n\nzibbibbu\n\nزبيب (zabīb)\n\nraisins\n\nzokk (borrowed through Sicilian)\n\nzuccu\n\nساق (sāq)\n\ntree trunk\n\ntebut\n\ntabbutu\n\nتابوت (tābūt)\n\ncoffin\n\nThe Maltese language has merged many of the original Arabic consonants (in particular the emphatic consonants) with others common to European languages. Thus, original Arabic /d/, /ð/, and /dˤ/ all merged into Maltese /d/. The vowels, meanwhile, separated from the three in Classical Arabic (/a i u/) into five, as is more typical of many European languages (/a ɛ i o u/). Some unstressed short vowels have been elided. The common Arabic greeting as salāmu 'alaykum is cognate with is-sliem għalikom in Maltese (lit. \"the peace for you\", peace be with you), as are similar greetings in other Semitic languages (e.g. shalom ʿalekhem in Hebrew).",
+          "examples": [
+            "Notes: * from Arabic استقصى (istaqṣā) \"to investigate\", ** from Arabic اشتاق (ištāqa) \"to yearn for \".",
+            "The Maltese language has merged many of the original Arabic consonants (in particular the emphatic consonants) with others common to European languages. Thus, original Arabic /d/, /ð/, and /dˤ/ all merged into Maltese /d/. The vowels, meanw"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Berber",
+          "body": "Like the Maghrebi Arabic dialects, Maltese has a significant vocabulary derived from Berber languages. Whether these words entered Maltese by being inherited from Siculo-Arabic or were directly loaned from Berber languages is not yet known. These include:[60]\n\nMaltese\n\nBerber languages\n\nEnglish\n\ngremxula\n\nazrem ašal, lit. 'land worm', (Kabyle)\n\nlizard\n\nfekruna\n\nfakrūn (Tunisian Arabic), tifakrunin (Jerbi), ifekran (Tashelhiyt), ifkran (Kabyle)\n\nturtle\n\ngeddum\n\naqadum, lit. 'face, frown' (Kabyle)\n\nchin\n\ngendus\n\ngandūz, lit. 'young calf' (Jerbi)\n\nox, bull\n\ngerżuma\n\nageržum (Mozabite, Tashelhiyt)\n\nthroat\n\ntfief\n\ntilfaf (Ouargli), tifāf, tilfāf, tiffāf (Tarifit)\n\nsow thistle (Sonchus oleraceus)\n\ntengħud\n\ntalaɣūda (Tunisian Arabic), telɣūda (Algerian Arabic)\n\nspurge (Euphorbia)\n\nkosksu\n\nkuskesu, kuskus (Kabyle)\n\ncouscous, small round pasta\n\nfartas\n\naferḍas (Ouargli, Kabyle)\n\nbald\n\ngħaffeġ\n\n‘affež (Algerian Arabic), effeẓ (Ouargli, Mozabite)\n\nto crush, to squash\n\nżrinġ\n\ntažrant (Jerbi)\n\nfrog\n\nżrar\n\nzrar (Mozabite, Ouargli), azrar (Kabyle, Nafusi)\n\ngravel\n\nwerżieq\n\nwárẓag (Mrazig)\n\ncicada, lit. screamer, shrieker\n\nbuqexrem\n\nbuqišrem (Kabyle)\n\nvervain (Verbena officinalis)\n\nfidloqqom\n\nfudalɣem (Kabyle)\n\nborage (Borago officinalis)\n\nżorr\n\nuzur (Kabyle), uzzur (Tarifit)\n\nrude, arrogant\n\nlellex\n\nlelleš (Mozabite)\n\nto shine, to glitter\n\npespes\n\nbbesbes (Ouargli)\n\nto whisper\n\nteptep\n\nṭṭebṭeb (Ouargli)\n\nto blink, to twinkle\n\nwebbel\n\nwebben (Mozabite)\n\nto induce, to tempt",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "English",
+          "body": "English loanwords, which are becoming increasingly common, can make up between 6% and 20% of the Maltese vocabulary.[15][14] This percentage discrepancy is due to the fact that a number of new English loanwords are sometimes not considered part of the official Maltese vocabulary, hence they are not included in certain dictionaries.[14] Also, English loanwords of Latinate origin are very often Italianized, as discussed above. English loanwords are generally transliterated, although standard English pronunciation is virtually always retained. Below are a few examples:\n\nMaltese\n\nEnglish\n\nfutbol\n\nfootball\n\nbaskitbol\n\nbasketball\n\nklabb\n\nclub\n\nfriġġ\n\nfridge\n\nkompjuter\n\ncomputer\n\nkejk\n\ncake\n\n\"Fridge\" is a common shortening of \"refrigerator\". \"Refrigerator\" is a Latinate word which could be imported into Maltese as rifriġeratur, whereas the Italian word is frigorifero or refrigeratore.",
+          "examples": [
+            "\"Fridge\" is a common shortening of \"refrigerator\". \"Refrigerator\" is a Latinate word which could be imported into Maltese as rifriġeratur, whereas the Italian word is frigorifero or refrigeratore."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Calendar",
+          "body": "The days of the week (Maltese: jiem il-ġimgħa) in Maltese, which are derived from Arabic, are referred to by number which is also typical in other Semitic languages, Days of the week are commonly preceded by the word nhar meaning 'day'.\n\nEnglish\n\nMaltese\n\nLiteral\n\nSunday\n\nIl-Ħadd\n\nfirst [day]\n\nMonday\n\nIt-Tnejn\n\nsecond [day]\n\nTuesday\n\nIt-Tlieta\n\nthird [day]\n\nWednesday\n\nL-Erbgħa\n\nfourth [day]\n\nThursday\n\nIl-Ħamis\n\nfifth [day]\n\nFriday\n\nIl-Ġimgħa\n\ngathering [day]\n\nSaturday\n\nIs-Sibt\n\nSabbath [day]\n\nThe months of the year (Maltese: xhur is-sena) in Maltese are mostly derived from Sicilian, though Frar and Awwissu may be derived from African Romance via Siculo-Arabic.\n\nEnglish\n\nMaltese\n\nJanuary\n\nJannar\n\nFebruary\n\nFrar\n\nMarch\n\nMarzu\n\nApril\n\nApril\n\nMay\n\nMejju\n\nJune\n\nĠunju\n\nJuly\n\nLulju\n\nAugust\n\nAwwissu\n\nSeptember\n\nSettembru\n\nOctober\n\nOttubru\n\nNovember\n\nNovembru\n\nDecember\n\nDiċembru",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Time",
+          "body": "English\n\nMaltese\n\ntoday\n\nillum\n\nyesterday\n\nilbieraħ\n\ntomorrow\n\ngħada\n\nsecond\n\nsekonda\n\nminute\n\nminuta (archaic: dqiqa)\n\nhour\n\nsiegħa\n\nday\n\njum or ġurnata\n\nweek\n\nġimgħa\n\nmonth\n\nxahar\n\nyear\n\nsena",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Question words",
+          "body": "English\n\nMaltese\n\nExample\n\nTranslation\n\nWhat (standalone)\n\nXiex\n\nXiex?\n\nWhat?\n\nWhat (preceding)\n\nX'\n\nX' għamilt?\n\nWhat did you do?\n\nWho\n\nMin\n\nMin hu dak?\n\nWho is he?\n\nHow\n\nKif\n\nKif inti llum?\n\nHow are you today?\n\nWhere\n\nFejn\n\nFejn sejjer?\n\nWhere are you going?\n\nWhere (from)\n\nMnejn\n\nMnejn ġie?\n\nWhere did he come from?\n\nWhy\n\nGħala, Għaliex, Għalxiex, Ilgħala\n\nGħala telaq?\n\nWhy did he leave?\n\nWhich\n\nLiem, Liema\n\nLiem wieħed hu tajjeb?\n\nWhich one is good?\n\nWhen\n\nMeta\n\nMeta ħa titlaq?\n\nWhen will you leave?\n\nHow Much\n\nKemm\n\nKemm jiswa dan?\n\nHow much does this cost?",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Sample phrases",
+          "body": "English[61]\n\nMaltese\n\nHello.\n\nĦelow.\n\nYes.\n\nIva.\n\nYes, please.\n\nIva, jekk jogħġbok.\n\nNo.\n\nLe.\n\nNo thanks.\n\nLe, grazzi.\n\nPlease.\n\nJekk jogħġbok.\n\nThank you.\n\nGrazzi.\n\nThank you very much.\n\nGrazzi ħafna.\n\nYou're welcome.\n\nM'hemmx imniex.\n\nI'd like a coffee please.\n\nNixtieq kafè, jekk jogħġbok.\n\nTwo beers please.\n\nŻewġ birer, jekk jogħġbok.\n\nCheers!\n\nSaħħa!\n\nExcuse me.\n\nSkużani.\n\nWhat time is it?\n\nX'ħin hu?\n\nCan you repeat that please?\n\nTista' tirrepeti jekk jogħġbok?\n\nPlease speak more slowly.\n\nJekk jogħġbok tkellem iktar bil-mod.\n\nI don't understand.\n\nMhux qed nifhem / Ma fhimtx.\n\nSorry.\n\nSkużani.\n\nWhere are the toilets?\n\nFejn huma t-toilets?\n\nHow much does this cost?\n\nKemm jiswa dan? / Kemm tiswa din?\n\nWelcome!\n\nMerħba!\n\nGood morning.\n\nL-għodwa t-tajba / Bonġu.\n\nGood afternoon.\n\nIl-waranofsinhar it-tajjeb.\n\nGood evening.\n\nIs-serata t-tajba. / Bonswa\n\nGoodnight.\n\nIl-lejl it-tajjeb. / Il-lejla t-tajba\n\nGoodbye.\n\nSaħħa / Ċaw.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Grammar",
+      "summary": "Maltese grammar is fundamentally derived from Arabic, although Latin and English noun pluralisation patterns are also used on borrowed words.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Maltese grammar is fundamentally derived from Arabic, although Latin and English noun pluralisation patterns are also used on borrowed words.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Adjectives and adverbs",
+          "body": "Adjectives follow nouns. There are no separately formed native adverbs, and word order is fairly flexible. Both nouns and adjectives of Semitic origin take the definite article (for example, It-tifel il-kbir, lit. \"The boy the elder\"=\"The elder boy\"). This rule does not apply to adjectives of Romance origin.",
+          "examples": [
+            "Adjectives follow nouns. There are no separately formed native adverbs, and word order is fairly flexible. Both nouns and adjectives of Semitic origin take the definite article (for example, It-tifel il-kbir, lit. \"The boy the elder\"=\"The e"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Nouns",
+          "body": "Nouns are pluralised and also have a dual marker. Semitic plurals are complex; if they are regular (sħaħ), they are marked by -iet/-ijiet, e.g., art, artijiet \"lands (territorial possessions or property)\" (cf. Arabic -at and Hebrew -ot/-oth) or -in (cf. Arabic -īn and Hebrew -im). If irregular, they fall in the 'plural miksur' (broken plural) category, in which a word is pluralised by internal vowel changes: ktieb, kotba\" book\", \"books\"; raġel, irġiel \"man\", \"men\". Some nouns can also take both kinds of plurals, like bieb (door) = bwieb, bibien, triq (road) = toroq, triqat, and tazza (cup) = tazzez, tazzi\n\nWords of Romance origin are usually pluralised in two manners: addition of -i or -jiet . For example, lingwa, lingwi \"languages\", from Sicilian lingua, lingui.\n\nWords of English origin are pluralised by adding either an \"-s\" or \"-jiet\", for example, friġġ, friġis from the word fridge. Some words can be pluralised with either of the suffixes to denote the plural. A few words borrowed from English can amalgamate both suffixes, like brikksa from the English brick, which can adopt either collective form brikks or the plural form brikksiet. Interestingly, some nouns of English origins still take Semitic plurals, like senter (gun) coming from 'centre', takes the plural snieter, like in ħanut (shop) = ħwienet, although it is no longer done with new loanwords.\n\nDerivation\nAs in Arabic, nouns are often derived by changing, adding or removing the vowels within a triliteral root. These are some of the patterns used for nouns:[62]\n\nCaCiC – xadin (monkey), sadid (rust)\n\nCCiC – żbib (raisin), ġbid (pulling)\n\nCaCCa – baqra (cow), basla (onion)\n\nCeCCa – werqa (leaf), xewqa (wish)\n\nCoCCa – borka (wild duck), forka (gallows)\n\nCaCC – qalb (heart), sajd (fishing)\n\nCeCC – kelb (dog), xemx (sun)\n\nCCuCija – tfulija (childhood), xbubija (maidenhood)\n\nCCuCa – rtuba (softness), bjuda (whiteness)\n\nCaCCaC – tallab (beggar), bajjad (whitewasher)\n\nThe so-called mimated nouns (nomi mimmati) use the prefix m- in addition to vowel changes. This pattern can be used to indicate place names, tools, abstractions, etc. These are some of the patterns used for mimated nouns:\n\nma-CCeC – marden (spindle)\n\nmi-CCeC – minkeb (elbow), miżwed (pod)\n\nmu-CCaC – musmar (nail), munqar (beak)",
+          "examples": [
+            "Nouns are pluralised and also have a dual marker. Semitic plurals are complex; if they are regular (sħaħ), they are marked by -iet/-ijiet, e.g., art, artijiet \"lands (territorial possessions or property)\" (cf. Arabic -at and Hebrew -ot/-oth",
+            "Words of Romance origin are usually pluralised in two manners: addition of -i or -jiet . For example, lingwa, lingwi \"languages\", from Sicilian lingua, lingui.",
+            "Words of English origin are pluralised by adding either an \"-s\" or \"-jiet\", for example, friġġ, friġis from the word fridge. Some words can be pluralised with either of the suffixes to denote the plural. A few words borrowed from English ca"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Article",
+          "body": "\"Il-\" redirects here. For other uses, see Il (disambiguation).\nThe proclitic il- is the definite article, equivalent to \"the\" in English and \"al-\" in Arabic.\n\nThe Maltese article becomes l- before or after a vowel.\n\nl-omm (the mother)\n\nrajna l-Papa (we saw the Pope)\n\nil-missier (the father)\n\nThe Maltese article assimilates to a following non-ġ coronal consonant (called konsonanti xemxin \"sun consonants\"), namely:\n\nĊ iċ-ċikkulata (the chocolate)\n\nD id-dar (the house)\n\nN in-nar (the fire)\n\nR ir-razzett (the farm)\n\nS is-serrieq (the saw)\n\nT it-tifel (the child)\n\nX ix-xemx (the sun)\n\nŻ iż-żarbuna (the shoe)\n\nZ iz-zalzett (the sausage)",
+          "examples": [
+            "\"Il-\" redirects here. For other uses, see Il (disambiguation).",
+            "The proclitic il- is the definite article, equivalent to \"the\" in English and \"al-\" in Arabic.",
+            "The Maltese article assimilates to a following non-ġ coronal consonant (called konsonanti xemxin \"sun consonants\"), namely:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Verbs show the Semitic triliteral pattern, in which a verb is conjugated with prefixes, suffixes, and infixes (for example ktibna, Arabic katabna, Hebrew kathabhnu (Modern Hebrew: katavnu) \"we wrote\"). An example is the Semitic root X-M-X ('sun'), for example xemx (sun), xmux (suns), xemxi (sunny), xemxata (sunstroke), nixxemmex (I sunbathe), ma xxemmixtx (I didn't sunbathe), tixmix (the act of sunbathing). \n\nMaltese also features the agglutination of verb suffixes indicating direction of action, for example agħmilhomli \"make them for me\"← agħmel \"make\" in the imperative + hom from huma \"them\" + li suffix indicating first person singular and ħaslitielu \"she washed it for him\"←ħaslet \"she washed\" from the verb ħasel \"to wash\" + ie the object + lu suffix indicating third person masculine singular.\n\nThe two tenses are present and perfect. The Maltese verb system incorporates Romance verbs and adds Maltese suffixes and prefixes to them, for example; iddeċidejna \"we decided\" ← (i)ddeċieda \"decide\", a Romance verb + -ejna, a Maltese first person plural perfect marker. There is no infinitive in Maltese, yet something similar called the mamma is used, where the 3rd person male perfect singular is considered the root where the consonants are used to form the root (l-għerq), and the verb form found in dictionaries.\n\nIn order to make a future sentence, we use the present tense with the addition of ħa or sejjer (conjugated, abbreviated to se or ser for simplicity). Ex. Għada ħa mmur naħsel il-ħwejjeġ (tomorrow I'll go wash my clothes).",
+          "examples": [
+            "Verbs show the Semitic triliteral pattern, in which a verb is conjugated with prefixes, suffixes, and infixes (for example ktibna, Arabic katabna, Hebrew kathabhnu (Modern Hebrew: katavnu) \"we wrote\"). An example is the Semitic root X-M-X (",
+            "Maltese also features the agglutination of verb suffixes indicating direction of action, for example agħmilhomli \"make them for me\"← agħmel \"make\" in the imperative + hom from huma \"them\" + li suffix indicating first person singular and ħas",
+            "The two tenses are present and perfect. The Maltese verb system incorporates Romance verbs and adds Maltese suffixes and prefixes to them, for example; iddeċidejna \"we decided\" ← (i)ddeċieda \"decide\", a Romance verb + -ejna, a Maltese first"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Media",
+      "summary": "Main article: Language in the media in Malta\nAs Malta is a multilingual country, the use of Maltese in the mass media is shared with other European languages, namely English and Italian. The majority of television stations broadcast from Malta in English or Maltese, although broa",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Language in the media in Malta\nAs Malta is a multilingual country, the use of Maltese in the mass media is shared with other European languages, namely English and Italian. The majority of television stations broadcast from Malta in English or Maltese, although broadcasts from Italy in Italian are also received on the islands. Similarly, there are more Maltese-language radio programs than English ones broadcast from Malta, but again, Italian broadcasts are also picked up. Coverage in newspaper periodicals is generally equally split between Maltese and English.\n\nMaltese is little used on the internet and few websites are written in the language. In a survey of Maltese cultural websites conducted in 2004 on behalf of the Maltese government, 12 of 13 were in English only and the remaining one was multilingual but did not include Maltese.[63] In 2011, only 6.5 per cent of Maltese internet users reported employing Maltese online, which may be a consequence of the lack of online support for the language.[64]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Code-switching",
+      "summary": "The Maltese population, being fluent in both Maltese and English, displays code-switching (referred to as Maltenglish) in certain localities and between certain social groups.[14]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Maltese population, being fluent in both Maltese and English, displays code-switching (referred to as Maltenglish) in certain localities and between certain social groups.[14]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Footnotes",
+      "summary": "^  Treaty establishing a Constitution for Europe Archived 2015-12-29 at the Wayback Machine, see p. 17 Archived 2020-08-04 at the Wayback Machine",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^  Treaty establishing a Constitution for Europe Archived 2015-12-29 at the Wayback Machine, see p. 17 Archived 2020-08-04 at the Wayback Machine\n\n^ dritt (pl. drittijiet) is derived from Sicilian drittu (right).\n\n^ minoranza (pl. minoranzi) is derived from Italian minoranza (minority).\n\n^ pajjiż (pl. pajjiżi) is derived from Sicilian pajisi (country).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Maltese_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

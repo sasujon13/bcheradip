@@ -1,0 +1,315 @@
+{
+  "title": "Grammar Book — Türkmen",
+  "languageCode": "tk",
+  "languageName": "Türkmen",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Turkmen/Lesson_One",
+    "https://en.wikibooks.org/wiki/Turkmen/Lesson_One/Exercise",
+    "https://en.wikibooks.org/wiki/Turkmen/Lesson_Two",
+    "https://en.wikipedia.org/wiki/Turkmen_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson One",
+      "summary": "SIZIŇ ADYŇYZ NÄME?\nWhat is your name?\nSalam, or hello, and welcome to your first official class! OK, so I bet that now you really want to learn Turkmen, right? Well then, let's start off with our names!\nThroughout this lesson we will be analysing part of a conversation between a",
+      "sections": [
+        {
+          "heading": "Lesson One",
+          "body": "<< Alphabet - Contents - Lesson Two >>\n\nSIZIŇ ADYŇYZ NÄME?\nWhat is your name?\nSalam, or hello, and welcome to your first official class! OK, so I bet that now you really want to learn Turkmen, right? Well then, let's start off with our names!\nThroughout this lesson we will be analysing part of a conversation between a Turkmen man called Murat and a Turkmen woman called Bahargül. Let's begin...\n\n\n== Siziň adyňyz näme? ==\n\"Siziň adyňyz näme?\" or \"What is your name?\" is, for obvious reasons, a very important phrase to learn. The phrase literally translates word-by-word as Your name what?. The word näme simply means \"what\", and like other Turkmen question words, it always goes to the end of the sentence.\nRead the conversation between Murat and Bahargül below:\n\nMurat: Salam!\nBahargül: Salam.\nMurat: Siziň adyňyz näme?\nBahargül: Meniň adym Bahargül. Siziň adyňyz näme?\nMurat: Meniň adym Murat.\nAlthough there might not be words in there that you understand, it should be pretty obvious what each sentence means, considering that you already know how to say salam and siziň adyňyz näme?, and that you know their names, too. Before you can read the translation for this conversation, first let's look at some important grammatical points.\n\n\n=== Cases ===\nLike Russian or German, Turkic languages have a system of grammatical cases. Cases are defined by changes that occur to a word when it is placed in different grammatical context. English has cases for personal pronouns. For example: \"I see him\", \"He sees me\". Not \"Me sees he\", \"Him sees I\". Turkmen, however, has six cases, and these cases are used for all words, not just personal pronouns. The six Turkmen cases are: the nominative, used for the subject of the sentence; the genitive, similar to English possessives; the dative, used to show directed action; the accusative, which is similar to the English \"direct object\"; the locative, which shows locality; and the instrumental, which is used to show origin.\nWhile six cases might seem a bit overwhelming at first, it should be noted that the case suffixes simply replace our English prepositions such as \"from,\" \"at,\" \"with,\" \"in,\" \"on,\" and \"to\". Also, the rules for their use are remarkably simple and inflexible, unlike those of the Russian cases.\nIn the case of the conversation that we were looking at, cases were used with personal pronouns (e.g. Siziň). These follow fairly straightforwardly from the regular case endings. For now, though, we will only be learning the nominative and genitive cases. As you can see, its all fairly straightforward, except for ol which changes to on- in every non-nominative case. To make a pronoun genitive, simply add -iň or -yň, depending on the pronoun's vowel harmony.\n\nThat's all fairly easy, but you still can't say My name is in Turkmen if you only know how to make a pronoun genitive. Unlike English, the Turkmen language also adds a suffix to the object of possession. This may at times be redundant (Meniň kakam geldi. = My father-(my) came.) but often the possessive participle is omitted (Kakam geldi. = Father-(my) came.) so the suffix alone shows possession, for example, adym Murat alone still means My name is Murat, even without using meniň.\nThe suffix added to a noun depends on it's vowel harmony, so using the words kaka (father), eje (mother), at (name) and it (dog), let's look at the suffixes which need to be added:\n\nAs mentioned already, the noun alone already indicates possession, so pronouns such as meniň, seniň, etc., don't HAVE to be used. For example, in Turkmen My name is John could either be Meniň adym John or simply just Adym John.\nAs you can see in the above table, possessive suffixes for nouns are not only about vowel harmony, but also whether the noun, in it's nominative form, ends in a vowel or a consonant.\nYou've also probably noticed that at changes to ad- when a suffix is added to it. The word at is merely one of the few irregularities of the Turkmen language, and its good that you're getting used to it at an early stage.\n\n\n=== Is? ===\nYou may be wondering what the word for \"is\" is in Turkmen. The truth is, there isn't one.\nIf you tried to translate \"he is\" by itself into Turkmen, or any Turkic language for that matter, it would be impossible. If you tried to translate \"he is good\" into Turkmen, it would translate as ol ýagşy, which would translate word-by-word back into English as \"he good\".\nIt works in the same way in \"Siziň adyňyz näme?\" and \"Meniň adym...\", which literally translate word-by-word as \"Your name what?\" and \"My name...\" respectively.\n\n\n=== Sentence order ===\nTurkmen, like other Turkic languages, follows an SOV (Subject Object Verb) sentence order. Don't know what subject, object or verb are? Let's look at a very basic demonstration in English, which uses SVO instead of SOV:\n\nIn this case, Bobby is the subject, because he is the one kicking the ball (i.e. the subject is the word executing or otherwise attributed to the verb); kicked is the verb because it is a word of action (i.e. verbs show what is taking/has taken/will take place); and the ball is the object because it is being kicked by Bobby (i.e. something happens to the object by the subject by means of the verb).\nNow that we've established what the subject, object and verb actually are, you'll be able to understand that in Turkmen, the subject goes first, then the object, and then the verb. This is true in most cases, but in some instances, mostly in sentences without verbs such as O ýagşy or Siziň adyňyz näme?, the sentence order is just SO. Unlike in English, in which all sentences need to have verbs, in Turkmen certain things such as \"he is nice\" can be demonstrated, as shown in the Is? section of this page, without the use of a verb.\nOn the other hand, as a result of pronouns not being needed in Turkmen, sentences can also be verb only, such as \"geldi\" (he came), although the subject (he) is still technically in the verb, so \"geldi\" itself is both a subject and a verb. If you look at it in this sense, then you'll find that all Turkmen sentences have at least a subject.\nWe will look at verbs in more detail at a later stage in this book.\nIt is certainly worth practising everything you've learned in this lesson with an exercise. Click here to do this lesson's exercise.\nIt is also worth reading about subject, object and verb on Wikipedia for a better explanation of these things.\n\n<< Alphabet - Contents - Lesson Two >>",
+          "examples": [
+            "\"Siziň adyňyz näme?\" or \"What is your name?\" is, for obvious reasons, a very important phrase to learn. The phrase literally translates word-by-word as Your name what?. The word näme simply means \"what\", and like other Turkmen question word",
+            "Like Russian or German, Turkic languages have a system of grammatical cases. Cases are defined by changes that occur to a word when it is placed in different grammatical context. English has cases for personal pronouns. For example: \"I see ",
+            "While six cases might seem a bit overwhelming at first, it should be noted that the case suffixes simply replace our English prepositions such as \"from,\" \"at,\" \"with,\" \"in,\" \"on,\" and \"to\". Also, the rules for their use are remarkably simpl",
+            "You may be wondering what the word for \"is\" is in Turkmen. The truth is, there isn't one.",
+            "If you tried to translate \"he is\" by itself into Turkmen, or any Turkic language for that matter, it would be impossible. If you tried to translate \"he is good\" into Turkmen, it would translate as ol ýagşy, which would translate word-by-wor",
+            "It works in the same way in \"Siziň adyňyz näme?\" and \"Meniň adym...\", which literally translate word-by-word as \"Your name what?\" and \"My name...\" respectively."
+          ],
+          "learnerTip": "SIZIŇ ADYŇYZ NÄME?\nWhat is your name?\nSalam, or hello, and welcome to your first official class! OK, so I bet that now you really want to learn Turkmen, right? Well then, let's start off with our name",
+          "source": "https://en.wikibooks.org/wiki/Turkmen/Lesson_One"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Exercise",
+      "summary": "== → ==\nTranslate the phrases below from Turkmen to English. All vocabulary has previously been covered.",
+      "sections": [
+        {
+          "heading": "Exercise",
+          "body": "GÖNÜKME\nExercise\n\n\n== → ==\nTranslate the phrases below from Turkmen to English. All vocabulary has previously been covered.\n\nOnyň ejesi.\nSiziň itiňiz.\nBiziň gyzymyz.\nMeniň kakam.\nOlaryň gülü.\nSeniň balykyň.\nOnyň oglany.\nGurbagamyz.\nGuşuň.\nAdym Sona.\nCheck your answers here.\n\n\n== → ==\nTranslate the phrases below from English to Turkmen. Any vocabulary not previously covered is given. Also remember that pronouns don't have to be used.\n\nYour (sing.) face.\nMy television.\nTheir dog.\nYour (pl.) flower.\nHis radio.\nHer hand.\nOur (pl.) hair.\nTheir snake.\nMy name is Oguldurdy.\nMy father's name is Murat.\n\n\n=== Vocab ===\n\nCheck your answers here.\n\n\n== Conversation ==\nBy this stage you should be able to fully comprehend the conversation between Murat and Bahargül. Let's take another look at it:\n\nMurat: Salam!\nBahargül: Salam.\nMurat: Siziň adyňyz näme?\nBahargül: Meniň adym Bahargül. Siziň adyňyz näme?\nMurat: Meniň adym Murat.\nNow translate it into English. When you're done, check your answer here.\n\n\n== Solutions ==",
+          "examples": [],
+          "learnerTip": "== → ==\nTranslate the phrases below from Turkmen to English. All vocabulary has previously been covered.",
+          "source": "https://en.wikibooks.org/wiki/Turkmen/Lesson_One/Exercise"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson Two",
+      "summary": "<< Lesson One - Contents - Lesson Three >>",
+      "sections": [
+        {
+          "heading": "Lesson Two",
+          "body": "<< Lesson One - Contents - Lesson Three >>\n\nÝAGDAÝYŇYZ NIÇIK?\nHow are you?\nSalam, my Turkmenists! In this lesson we will continue looking at Murat and Bahargül. This time, though, they will be asking each other Ýagdaýyňyz niçik?. Although this translates as \"How are you?\", it literally means \"How is your situation/condition/etc.?\" (ýagdaý = condition, state, circumstance, etc.).\n\nMurat: Salam, Bahargül!\nBahargül: Salam!\nMurat: Ýagdaýyňyz niçik?\nBahargül: Ýagşy. Siz?\nMurat: Ajaýyp!\n\n<< Lesson One - Contents - Lesson Three >>",
+          "examples": [
+            "Salam, my Turkmenists! In this lesson we will continue looking at Murat and Bahargül. This time, though, they will be asking each other Ýagdaýyňyz niçik?. Although this translates as \"How are you?\", it literally means \"How is your situation"
+          ],
+          "learnerTip": "<< Lesson One - Contents - Lesson Three >>",
+          "source": "https://en.wikibooks.org/wiki/Turkmen/Lesson_Two"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Introduction",
+      "summary": "Grammar of the Turkmen language\nThis article has multiple issues. Please help improve it or discuss these issues on the talk page. (Learn how and when to remove these messages)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Turkmen language\nThis article has multiple issues. Please help improve it or discuss these issues on the talk page. (Learn how and when to remove these messages)\n\n      This article needs more citations. Please help improve this article by adding citations to reliable sources. Unsourced material may be challenged and removed.\nFind sources: \"Turkmen grammar\" – news · newspapers · books · scholar · JSTOR  (October 2025) (Learn how and when to remove this message)\nThis article should specify the language of its non-English content using {{lang}} or {{langx}}, {{transliteration}} for transliterated languages, and {{IPA}} for phonetic transcriptions, with an appropriate ISO 639 code. Wikipedia's multilingual support templates may also be used - notably tk for Turkmen. See why.  (October 2025)\n    \n (Learn how and when to remove this message)\nTurkmen grammar (Turkmen: Türkmen diliniň grammatikasy) is the grammar of the Turkmen language, whose dialectal variants are spoken in Turkmenistan, Iran, Afghanistan, Russia (in Stavropol krai), China (Salar Turkmens), Uzbekistan, Tajikistan and others.[citation needed] Turkmen grammar, as described in this article, is the grammar of standard Turkmen as spoken and written by Turkmen people in Turkmenistan.\n\nTurkmen is a highly agglutinative language; that is, much of the grammar is expressed by means of suffixes added to nouns and verbs. It is very regular compared with many other languages of non-Turkic group. For example, obalardan \"from the villages\" can be analysed as oba \"village\", -lar (plural suffix) and -dan (ablative case, meaning \"from\"); alýaryn \"I take\" as al \"take\", -ýar (present tense) and -yn (first person singular).\n\nAnother characteristic of Turkmen is vowel harmony. Most suffixes have two or four different forms, the choice between which depends on the vowel of the word's root or the preceding suffix. For example, the ablative case of obalar is obalardan \"from the villages\" but the ablative case of itler \"dogs\" is itlerden \"from the dogs\".\n\nVerbs have six grammatical persons (three singular and three plural), various voices (active, passive, reflexive, reciprocal and causative),[a] and a large number of grammatical tenses. Meanings such as \"not\", \"be able\", \"must\" and \"if\", which are expressed as separate words in most other languages, are usually expressed with verbal suffixes in Turkmen. A characteristic of Turkmen which is shared by neighbouring languages such as Persian is that the perfect tense suffix (in Turkmen -miş, -myş) often has an inferential meaning, e.g. gelýärmiş \"it would seem (they say) that he/she is coming\".\n\nVerbs also have a number of participial forms, which Turkmen makes plentiful use of. Clauses which begin with \"who\" or \"because\" in English are generally expressed by means of participial phrases in Turkmen. Meanings such as \"behind\", \"for\", \"like/similar to\" etc. are expressed as postpositions following the noun rather than prepositions before it.",
+          "examples": [
+            "Find sources: \"Turkmen grammar\" – news · newspapers · books · scholar · JSTOR  (October 2025) (Learn how and when to remove this message)",
+            "Turkmen is a highly agglutinative language; that is, much of the grammar is expressed by means of suffixes added to nouns and verbs. It is very regular compared with many other languages of non-Turkic group. For example, obalardan \"from the",
+            "Another characteristic of Turkmen is vowel harmony. Most suffixes have two or four different forms, the choice between which depends on the vowel of the word's root or the preceding suffix. For example, the ablative case of obalar is obalar",
+            "Verbs have six grammatical persons (three singular and three plural), various voices (active, passive, reflexive, reciprocal and causative),[a] and a large number of grammatical tenses. Meanings such as \"not\", \"be able\", \"must\" and \"if\", wh",
+            "Verbs also have a number of participial forms, which Turkmen makes plentiful use of. Clauses which begin with \"who\" or \"because\" in English are generally expressed by means of participial phrases in Turkmen. Meanings such as \"behind\", \"for\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Phonology",
+      "summary": "Turkmen contains phonemic short and long vowels, although the vowel length other than phonemes of üý and ä is not reflected in the orthography. Turkmen also employs vowel harmony, a process that is common in fellow Turkic languages. Vowels and their sounds are as follows:",
+      "sections": [
+        {
+          "heading": "Vowels",
+          "body": "Turkmen contains phonemic short and long vowels, although the vowel length other than phonemes of üý and ä is not reflected in the orthography. Turkmen also employs vowel harmony, a process that is common in fellow Turkic languages. Vowels and their sounds are as follows:\n\nFront\n\nBack\n\nunrounded\n\nrounded\n\nunrounded\n\nrounded\n\nshort\n\nlong\n\nshort\n\nlong\n\nshort\n\nlong\n\nshort\n\nlong\n\nClose\n\ni/и\n/ɪ/\n\ni/и\n/ɪː/\n\nü/ү\n/ʏ/\n\nüý/үй\n/ʏː/\n\ny/ы\n/ɯ/\n\ny/ы\n/ɯː/\n\nu/у\n/ʊ/\n\nu/у\n/ʊː/\n\nMid\n\ne/е\n/ɛ/\n\nö/ө\n/œ/\n\nö/ө\n/œː/\n\no/о\n/o/\n\no/о\n/oː/\n\nOpen\n\nä/ә\n/æː/\n\na/а\n/ɑ/\n\na/а\n/ɑː/\n\nSome optionally mark vowel length by macrons, as in daş¹ \"far\", daş² \"outside\", and dāş \"stone\";[2] or by a colon (:), as in da:ş. Despite the fact that ⟨ä⟩ is always long, it is optionally marked with one of these diacritics above, so the letter ⟨ä⟩ in some loanwords like şäher and ähli is pronounced short. Technically, all vowels have long and short variants (if including ē and short ä), but the existence of the previously-mentioned phonemes are fairly rare. The long ē only exists in the indefinite future suffix -ēr (the front variant never appears as **-är) and its compensatory lengthening unreflected in orthography (see § Phonological processes), while the short ä only exists in Persian loans and historical fusions (alyp gitmek → äkitmek).\n\nLong vowels cause the final voiceless consonant to be voiced; compare ōt /oːd/ with dialectal Turkish od (both mean \"fire\").\n\nExamples of short and long minimal pairs\nMacrons are used for words containing long vowels.\n\nShort\n\nMeaning\n\nLong\n\nMeaning\n\nat\n\n'horse'\n\nāt\n\n'name'\n\nbil\n\n'know!'\n\nbīl\n\n'waist'\n\not\n\n'grass'\n\nōt\n\n'fire'\n\npil\n\n'elephant'\n\npīl\n\n'shovel'\n\ndaş\n\n'far'\n\ndāş\n\n'stone'\n\nýaz\n\n'write!'\n\nyāz\n\n'spring'\n\ntut\n\n'catch!'\n\ntūt\n\n'mulberry'\n\nöl\n\n'die!'\n\nȫl\n\n'wet'\n\nPairs without homographs\n\nōn\n\n\"ten\"\n\nVowel harmony\nLike other Turkic languages, Turkmen is characterised by vowel harmony. In general, words of native origin consist either entirely of front vowels (inçe çekimli sesler) or entirely of back vowels (ýogyn çekimli sesler). Prefixes and suffixes reflect this harmony, taking different forms depending on the word to which they are attached.\n\nThe infinitive form of a verb determines whether it will follow a front vowel harmony or back vowel harmony. Words of foreign origin, mainly Russian, Persian or Arabic, do not follow vowel harmony.\n\nIn addition to this backness harmony, progressive rounding harmony is also found in Turkmen.[3] There are few suffixes which exhibits written close vowel rounding harmony, like the genitive case ending (-iň/un/ün/yn), the (nominal) possessive suffixes, and past tense suffixes, but not with mid and open vowels, where it otherwise not reflected in the orthography.\n\nThe long phonemes /aː/, /æː/, and /ɯː/ always cancel labial harmony, while short /ɯ/ cancels it word-finally (umūmy is still pronounced as umūmy, but umūmylyk is pronounced umūmuluk). Labial harmony in loanwords are inconsistent, and it is only works in loans that assimilated to the Turkmen phonology like Perso-Arabic loans.",
+          "examples": [
+            "Some optionally mark vowel length by macrons, as in daş¹ \"far\", daş² \"outside\", and dāş \"stone\";[2] or by a colon (:), as in da:ş. Despite the fact that ⟨ä⟩ is always long, it is optionally marked with one of these diacritics above, so the ",
+            "Long vowels cause the final voiceless consonant to be voiced; compare ōt /oːd/ with dialectal Turkish od (both mean \"fire\").",
+            "Examples of short and long minimal pairs",
+            "\"ten\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Stress",
+          "body": "Turkmen stress usually falls in the last syllable, with a secondary stress in the first syllable of a word containing more than three syllables (abadan \"prosperous\" /ˌɑbɑˈdɑn/). The exceptions to this rule include some pre-accenting suffixes and particles (the stress moves to the previous syllable), and loanwords preserve its original stress.",
+          "examples": [
+            "Turkmen stress usually falls in the last syllable, with a secondary stress in the first syllable of a word containing more than three syllables (abadan \"prosperous\" /ˌɑbɑˈdɑn/). The exceptions to this rule include some pre-accenting suffixe"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Turkmen consonant phonemes (shown with the letters of the Turkmen alphabet used to represent them), not including allophones:\n\nLabial\n\nDental\n\nAlveolar\n\nPostalv./\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nm/м\n/m/\n\nn/н\n/n/\n\nň/ң\n/ŋ/\n\nPlosive/\nAffricate\n\nvoiceless\n\np/п\n/p/\n\nt/т\n/t/\n\nç/ч\n/t͡ʃ/\n\nk/к\n/k/\n\nvoiced\n\nb/б\n/b/\n\nd/д\n/d/\n\nj/җ\n/d͡ʒ/\n\ng/г\n/ɡ/\n\nFricative\n\nvoiceless\n\n(f/ф\n/f/)\n\ns/с\n/θ/\n\nş/ш\n/ʃ/\n\nh/х\n/h/\n\nvoiced\n\nz/з\n/ð/\n\n(ž/ж\n/ʒ/)\n\nApproximant\n\nw/в\n/w/\n\nl/л\n/l/\n\ný/й\n/j/\n\nRhotic\n\nr/р\n/ɾ/\n\nNote that s/с and z/з represent /θ/ and /ð/, which are not [s] and [z], a unique feature among the Turkic languages (cf. ceceo in some Spanish dialects), it is shared by another Turkic language Bashkir, of which has both /s/~/z/ and /θ/~/ð/. The value /ʒ/ and /f/ only exist in loanwords. /s, z/ also occurs in Russian loanwords but its pronunciation may depend on the speaker's level of bilingualism with Russian.[1]\n\nSounds /b, ɡ/ are realized as fricatives [v, ɣ] when in intervocalic positions and when after obstruents or taps. /ɡ/ also spirantizes to [ɣ] in word-final positions and when before obstruents.\n\nSounds /ɡ, k, l/ are heard as back [ɢ, q, ɫ] when within back-vowel environments.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Phonological processes",
+          "body": "These consonant combinations are pronounced differently and assimilated in spoken Turkmen:[4]\n\nWhen written\n\nWhen pronounced\n(spoken)\n\nç + d\n\nşd\n\nç + l\n\nşl\n\nç + j\n\nşş\n\nş + j\n\nç + s\n\nşs\n\ng + b\n\ngw\n\nl + d\n\nll\n\nn + d\n\nnn\n\ns + d\n\nss\n\ns + t\n\nt + s\n\nz + s\n\nt + ç\n\nçç\n\nz + d\n\nzz\n\nThe phonemes /l/ and /ɾ/ are deleted when succeeded by indefinite future suffix -er (see § Verbs) and preceded by an identical vowel. Thus, geler (third-person singular indefinite future of gelmek 'to go') is actually pronounced as gēr. The phonemes /ɡ, ɢ/ spirantize to [ɣ, ʁ] before and after obstruents, after taps, word-finally, and intervocalically; and to [x, χ] before and after voiceless obstruents (i.e., /t, p, θ, ʃ, tʃ/). For example, agşam /ɑgˈʃɑːm/ → [ɑχˈʃɑːm].\n\nPhonemes /b/, /d/, and /ɡ/ are devoiced to [p], [t] and [k], respectively, after voiceless consonants: e.g., ykbal → ykpal, açdy → aşty, etc.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Nominals",
+      "summary": "Turkmen has six cases: nominative, (specifically definite) accusative, dative, genitive, instrumental/ablative and locative. Plurals are formed from -lar/ler, but it is not used when the quantity is explicit. Nouns can also take possessive suffixes, see also § Personal morphemes.",
+      "sections": [
+        {
+          "heading": "Nouns",
+          "body": "Turkmen has six cases: nominative, (specifically definite) accusative, dative, genitive, instrumental/ablative and locative. Plurals are formed from -lar/ler, but it is not used when the quantity is explicit. Nouns can also take possessive suffixes, see also § Personal morphemes.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Suffixes",
+          "body": "Case suffixes\n\nCase\n\nTurkmen name\n\nEnding\n\nNominative\n\nBaş düşüm\n\n-∅\n\nAccusative\n\nÝeňiş düşüm\n\n-(n)i[b]\n\nGenitive\n\nEýelik düşüm\n\n-(n)iň[b]\n\nAblative\n\nÝöneliş düşüm\n\n-den\n\nLocative\n\nWagt-orun düşüm\n\n-de\n\nDative\n\nÇykyş düşüm\n\n-e[b]\n\nUnproductive cases\n\nEquative\n\n—N/a\n\n-çe\n\nAllative\n\n—N/a\n\n-eri, -ik\n\nInstrumental\n\n—N/a\n\n-in\n\nNouns ending in -ç, -k, -p, -t are voiced to -j, -g, -b, and -d in accusative, genitive, and dative endings; however, it is somewhat inconsistent as some monosyllabic nouns do not follow rules, but other monosyllabic nouns containing a long vowel which is not reflected on the Turkmen orthography, do. The Turkmen genitive exhibits written labial harmony, yielding to -iň, -yň, -uň, and -üň.\n\nWhen the noun ends in -e, the accusative, genitive, and dative ending became -äni, -äniň, and -ä (these endings were pronounced with long [æː]). Also notice that dative of vowel-ending nouns has its last letter can being removed and just simply -a or -ä. If the third-from-last vowel contain a rounded vowel, the vowels -i and -y are automatically changed to -ü and -u before locative and ablative cases (doly → doludan).\n\nDative, locative and ablative ending also has endings in -nden, -nde, and -ne, but it is only used when preceded by third-person singular possessive suffix (öýü, öýüni, öýünüň, öýünden, öýunde, öýune). After the second-person singular possessive suffix, the genitive ending -iň simply deletes (*öýüňiň → öýüň).[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Vowel deletion",
+          "body": "As in table below, ogul becomes ogly in accusative case. This vowel deletion occurred mostly in disyllabic nouns, when the first syllable is a short open vowel (including mid vowels) and last syllable is closed, while nouns with more than two syllables only applied to nouns with -iş/-yş verbal noun suffix and compounds containing nouns which retains its vowel deletion rules. These rules only apply to singular accusative, genitive, and dative cases; also with all single singular person possessive forms.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Examples of declension",
+          "body": "Vowel lengths are included.\n\nCase\n\nExample\n\nConsonant-ending nouns\n\nVowel-ending nouns\n\nWith consonant voicing\n\nWith vowel deletion\n\nsygyr\n\nner\n\nöý\n\nýara\n\ngije\n\ndoly\n\nköpek\n\nogul\n\nNominative\n\nSygyr yzyna geldi.\n\nsygyr\n\nner\n\nöý\n\nýara\n\ngije\n\ndoly\n\nköpek\n\nogul\n\nAccusative\n\nMen sygyry sagdym.\n\nsygyry\n\nneri\n\nöýi\n\nýarāny\n\ngijǟni\n\ndolȳny\n\nköpegi\n\nogly\n\nGenitive\n\nMen sygyryň guýrugyny çekdim.\n\nsygyryň\n\nneriň\n\nöýüň\n\nýarānyň\n\ngijǟniň\n\ndolȳnyň\n\nköpegiň\n\nogluň\n\nLocative\n\nSygyrda näme günä bar?\n\nsygyrda\n\nnerde\n\nöýda\n\nýarada\n\ngijede\n\ndoluda\n\nköpekde\n\nogulda\n\nAblative\n\nBu kesel sygyrdan geçdi. Men sygyrdan ýadadym.\n\nsygyrdan\n\nnerden\n\nöýden\n\nýaradan\n\ngijeden\n\ndoludan\n\nköpekden\n\noguldan\n\nDative\n\nMen sygyra iým berdim.\n\nsygyra\n\nnere\n\nöýe\n\nýarā\n\ngijǟ\n\ndola\n\nköpege\n\nogla",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Adjectives",
+          "body": "Adjectives typically come before the noun. Unlike Romance languages, adjectives does not agree with number or case of the following noun. Comparatives are made by the suffix -rek (follows vowel harmony), and superlatives are made analytically by adding iň or has before the adjective.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Pronouns",
+      "summary": "Personal pronouns are inflected for cases; but unlike nouns, pronouns are inflected irregularly. Colloquially, genitive forms of singular pronouns were further fused to meň, seň, and oň, respectively. The irregular forms are in bold.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Personal pronouns are inflected for cases; but unlike nouns, pronouns are inflected irregularly. Colloquially, genitive forms of singular pronouns were further fused to meň, seň, and oň, respectively. The irregular forms are in bold.\n\nPersonal pronouns\n\n1st person\n\n2nd person\n\n3rd person\n\nSingular\nPlural\n\nSingular\nPlural\n\nSingular\nPlural\n\nNominative\n\nmen\n\nbiz\n\nsen\n\nsiz\n\nol\n\nolar\n\nAccusative\n\nmeni\n\nbizi\n\nseni\n\nsizi\n\nony\n\nolary\n\nGenitive\n\nmeniň\n\nbiziň\n\nseniň\n\nsiziň\n\nonuň\n\nolaryň\n\nAblative\n\nmenden\n\nbizden\n\nsenden\n\nsizden\n\nondan\n\nolardan\n\nLocative\n\nmende\n\nbizde\n\nsende\n\nsizde\n\nonda\n\nolarda\n\nDative\n\nmaňa\n\nbize\n\nsaňa\n\nsize\n\noňa\n\nolara\n\nIn addition to pronouns above, genitive pronouns can also has absolute possessive suffix -ky/ki by adding after genitive forms, resulting on forms meniňki, biziňki, seniňki, siziňki, onuňky, and olaryňky. This suffix can be also added on nouns.\n\nThe demonstrative pronouns include proximal bu and şu; medial ol and şol, and distal include all of medial demonstratives with addition of hol (all distal demonstratives are pronounced long ōl, şōl, and hōl). There are further distinctions between the demonstratives, the proximal şu is used for immediate objects while bu is for other objects; the distal hol is used for more distant objects, with remaining forms has no semantic differences (ol, şol). These demonstratives is also irregularly inflected like personal pronouns, with the oblique forms of bu, şu, ol, şol, and hol are mun-, şun-, on-, şon-, hon-; respectively.\n\nMain interrogative pronouns include:\n\nQuestion\n\nTranslation\n\n\"what\"\n\nnäme\n\n\"where\"\n\nnire\n\n\"when\"\n\nhaçan\n\n\"who\"\n\nkim\n\n\"why\"\n\nnäme üçin\n\n\"which\"\n\nhaýsy\n\n\"how\"\n\nniçik\n\nOther interrogative pronouns include näçe \"how many\", näçinji \"which (of an ordinal series)\", nädejerede \"to what amount\", nädip \"how (manner)\", nähili, neneň, and natüýsli \"what kind of\". With the exceptions of haýsy, naçan, and nähili, all interrogative pronouns are declinable like nouns.[1]",
+          "examples": [
+            "\"what\"",
+            "\"where\"",
+            "\"when\"",
+            "\"who\"",
+            "\"why\"",
+            "\"which\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Personal morphemes",
+          "body": "Here is the personal suffixes:[1]\n\nVerbal\n\n1st person\n\n2nd person\n\n3rd person\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nPersonal\n\n-in\n\n-is\n\n-siň\n\n-siňiz\n\n-∅\n\n-lar\n\nPossessive\n\n-im\n\n-ik\n\n-iň\n\n-iňiz\n\n-i\n\n-iler\n\nIndirective\n\n-im\n\n-ik/-imiz\n\n-iň\n\n-iňiz\n\n-in\n\n-lar\n\nNegative habitual present\n\n-emok\n\n-emizok\n\n-eňok\n\n-eňizok\n\n-enok\n\n-enoklar\n\nNegative indefinite future\n\n-merin\n\n-meris\n\n-mersiň\n\n-mersiňiz\n\n-mez\n\n-mezler\n\nThe \"possessive\" endings are not a true possessive, but rather attached to past and conditional tenses. Indirective particle and modal suffixes are ultimately have same suffixes, and the last syllable (-emok) of  -ok suffixes lacks vowel harmony (ýazmak → ýazamyzok, but gelmek → gelemizok).\n\nNominal (in front vowels)\n\nPossessive\n\nSingular\n\nPlural\n\n1st person\n\n-im\n\n-imiz\n\n2nd person\n\n-iň\n\n-iňiz\n\n3rd person\n\n-(s)i\n\nDespite the fact that nominal possessive suffixes only distinguishes number in first and second persons, the suffix -lary/leri in the meaning of \"their\" also exists. The singular and plural of 3rd person plural possessives are the same. These suffixes except for third-person suffixes has a written rounding harmony (in -im/um/üm/ym), but plural possessives (other than -leri) has a close unrounded vowel next to rounded vowel (imiz/umyz/ümiz/ymyz).\n\nNouns ending in -ç, -k, -p, and -t is also voiced to -j, -g, -b, and -d before vowel-starting suffixes, similarly to grammatical cases.",
+          "examples": [
+            "The \"possessive\" endings are not a true possessive, but rather attached to past and conditional tenses. Indirective particle and modal suffixes are ultimately have same suffixes, and the last syllable (-emok) of  -ok suffixes lacks vowel ha",
+            "Despite the fact that nominal possessive suffixes only distinguishes number in first and second persons, the suffix -lary/leri in the meaning of \"their\" also exists. The singular and plural of 3rd person plural possessives are the same. The"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Verbs",
+      "summary": "Verbs are conjugated for numbers (singular and plural), persons (first, second and third), tenses (present, past, and future), and moods (indicative, conditional, obligational, intentional, imperative). Infinitives are formed by the suffix -mek, according to the vowel harmony rul",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Verbs are conjugated for numbers (singular and plural), persons (first, second and third), tenses (present, past, and future), and moods (indicative, conditional, obligational, intentional, imperative). Infinitives are formed by the suffix -mek, according to the vowel harmony rules.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Tense suffixes",
+          "body": "Finite tenses\nDefinite future, intentional, and obligational are does not inflect for person and have the same forms, thus an explicit subject pronoun is needed. Thus, these tenses always use däl for their negations (for compound tenses, the ending is placed after däl, i.e. geljekdim → geljek däldim).\n\nFusion occurs in spoken Turkmen, for example spoken -ýän for standard -ýärin.[4]\n\nTense\n\nSuffix\n\nExample (in 3SG)\n\nUses \"personal\" suffixes\n\nPresent\n\n-ýär\n\ngelýär\n\nFuture indefinite\n\n-er\n\ngeler\n\nUses \"possessive\" suffixes\n\nPast\n\n-di\n\ngeldi\n\nPluperfect\n\n-ipdi\n\ngelipdi\n\nPlup. negative\n\n-mändi\n\ngelmändi\n\nPast unwitnessed\n\n-ipdir\n\ngelipdir\n\nConditional\n\n-se\n\ngelse\n\nImpersonal\n\nFuture definite\n\n-jek\n\ngeljek\n\nIntentional\n\n-mekçi\n\ngelmekçi\n\nObligational\n\n-meli\n\ngelmeli\n\nUses \"-ok\" suffixes\n\nPresent negative\n\n-ok\n\ngelenok\n\nContinuous present\n\"Relic\" simple present suffix -Ir can only be used in four verbs, oturmak \"to sit\", ýatmak \"to sleep\", durmak \"to stand\", and ýöremek \"to walk\" in these corresponding forms:\n\nOturmak\n\nÝatmak\n\nDurmak\n\nÝöremek\n\n1SG\n\notyryn\n\nýatyryn\n\ndurun\n\nýörün\n\n2SG\n\notyrsyň\n\nýatyrsyň\n\ndursuň\n\nýörsüň\n\n3SG\n\notyr\n\nýatyr\n\ndur\n\nýör\n\n1PL\n\notyrys\n\nýatyrys\n\ndurus\n\nýörüs\n\n2PL\n\notyrsyňyz\n\nýatyrsyňyz\n\ndursuňyz\n\nýörsüňiz\n\n3PL\n\notyrlar\n\nýatyrlar\n\ndurlar\n\nýörlar\n\nThese special verbs are used to indicate a continuous action of something (general continuous actions in some parts of Turkmenistan), it is used with verb stem plus the converb suffix -yp/-ip. These forms can also be used alone, and past continuous can also be formed with third-person singular of these verbs + past tense suffixes.\n\nSimilar present continuous construction also occurs in Kazakh.\n\nImperatives\n\nEnding\n\nsingular\n\nplural\n\n1st person\n\n-(e)ýin\n\n-(e)liň\n\n2nd person\n\n-∅\n\n-(i)ň\n\n3rd person\n\n-sin\n\n-sinler\n\nIn addition to main imperatives, these imperative forms are somewhat more complex:\n\n1st plural imperative (two people): -(a)ly/(e)li\n\nInformal polite: -sana/sene\n\nFormal polite:\nRequest: -(i)p + bersene\n\nCommand: -seňizläň\n\nEncouraging command: -ber\n\nPolite 1st singular imperative: -(e)ýin-le\n\nNon-finites\n\nPresent participle\n\n-ýän\n\nImpersonal past participle\n\n-(ä)n\n\nPersonal past participle\n\n-dik\n\nFuture definite participle\n\n-jek\n\nFuture indefinite participle\n\n-er\n\nAdverbial participle\n\n-mäge\n\nConverb\n\n-ip\n\nThere is various ways to form gerund by using the suffix -(ý)iş/uş/üş/yş, -ma/me, the infinitive, or by infinitive + dative suffix -a/-e. There is also desiderative gerund formed by infinitive + nominal possessive suffix + accusative suffix (-magymy, -magyňy, magyny, ...), or by the suffix -as/äs. Note the negative of -er is -mez, same as future indefinite suffix.",
+          "examples": [
+            "Example (in 3SG)",
+            "Uses \"personal\" suffixes",
+            "Uses \"possessive\" suffixes",
+            "Uses \"-ok\" suffixes",
+            "\"Relic\" simple present suffix -Ir can only be used in four verbs, oturmak \"to sit\", ýatmak \"to sleep\", durmak \"to stand\", and ýöremek \"to walk\" in these corresponding forms:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Negation",
+          "body": "There are multiple ways to negate Turkmen verbs. Negation of some verb tenses is with the particle däl, similar to English \"not\"; but also to negate nouns or adjectives.\n\nMen\n\n1sg\n\nşu\n\nthis\n\nkitaby\n\nbook-ACC\n\nokamaly\n\nread-OBLIG\n\ndäl.\n\nNEG\n\nMen şu kitaby okamaly däl.\n\n1sg this book-ACC read-OBLIG NEG\n\n\"I do not have to read this book.\" or, \"I should not read this book.\"  (sentence elicited for the latter meaning)\n\nOl\n\n3sg\n\naç\n\nhungry\n\ndäl.\n\nNEG\n\nOl aç däl.\n\n3sg hungry NEG\n\n\"He is not hungry.\" (note the lack of copula)\n\nKofe\n\ngyzgyn\n\ndäl\n\nbolup\n\nbiler.\n\nKofe gyzgyn däl bolup biler.\n\n\"The coffee might not be hot.\"\n\nKofe\n\ngyzgyn\n\ndälmi?\n\nKofe gyzgyn dälmi?\n\n\"Isn't the coffee hot?\"\n\nThe phonetically similar suffix -ok is another option: it attaches to the verb which it negates.  It comes after the stem and before the tense suffix. The suffix -ok does not modify its form due to vowel harmony. In addition to -ok there is another suffix -me which placed before the tense suffix.  It appears that -me is used when dealing with one event and -ok for more habitual or lasting states:\n\nMen bilemok.\n\"I don't know.\"\nMen bilemokdym.\n\"I didn't know (for a long time).\"\nMen bilmedim.\n\"I didn't know (on one occasion).\"\n(These correspond to the positive forms Men bilyärin, Men bilyärdim and Men bildim. The suffix -ok is irregularly inflected, see § Personal morphemes. Instead of forming *-mer, the negative indefinite future suffix yields -mez and it is also irregularly inflected. The converb -ip also has irregular negative -män)\n\nOl\n\n3sg\n\najyganok.\n\nhunger-GER-NEG\n\nOl ajyganok.\n\n3sg hunger-GER-NEG\n\n'He is not hungry.' (cf. däl construction below); literally *'He is not hungering'\n\nSpeakers of Eastern dialects of Turkmen, influenced by Uzbek, are less likely to utilise the -ok suffix.\n\nThere is no an equivalent in Turkmen to the English prefix 'un-'.  That is, one can't simply attach an affix to a verb to indicate the opposite action, as in wrap the present → unwrap the present. It appears that different tenses use different forms of negation, as in the following sentences:\n\nMen ylgamok.\nI am not running. (present)\nMen ylgamadym.\nI did not run.  (past)\nMen ylgajak däl.\nI will not run.  (definite future)",
+          "examples": [
+            "There are multiple ways to negate Turkmen verbs. Negation of some verb tenses is with the particle däl, similar to English \"not\"; but also to negate nouns or adjectives.",
+            "\"I do not have to read this book.\" or, \"I should not read this book.\"  (sentence elicited for the latter meaning)",
+            "\"He is not hungry.\" (note the lack of copula)",
+            "\"The coffee might not be hot.\"",
+            "\"Isn't the coffee hot?\"",
+            "\"I don't know.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Evidentiality",
+          "body": "Turkmen verbs can also mark evidentiality. Evidentiality of a reported event is determined by four markers, suffixed to the finite verb, roughly (the last syllable of -dirminäm lacks vowel harmony):\n\n-di (direct evidence, the past tense)\n\n-(i)pdir (hearsay)\n\n-dirminäm (indirect evidence)\n\n-miş (rumoured that)\n\nSome independent particles may be said to convey evidentiality: one such word is the particle eken.\n\n1.Aman\n\nAman\n\nsyrkawla-p-dyr.\n\nbecome sick-EV-COP\n\nAman syrkawla-p-dyr.\n\nAman {become sick-EV-COP}\n\n(I heard that) Aman is sick.(information is \"hearsay\")\n\nCompare 1 with 2.a and 2.b:\n\n2.a.Aman\n\nAman\n\nsyrkawla-dy.\n\nbecome sick-3SG.PAST\n\nAman syrkawla-dy.\n\nAman {become sick-3SG.PAST}\n\n2.b.Aman\n\nAman\n\nsyrkaw.\n\nsick.\n\nAman syrkaw.\n\nAman sick.\n\nAman is sick. (speaker has spoken with Aman)\n\n3.Maral\n\nMaral\n\nAşgabat-dan\n\nAshgabat-ABL\n\ngel-ip-dir.\n\ncome-EV-COP\n\nMaral Aşgabat-dan gel-ip-dir.\n\nMaral Ashgabat-ABL come-EV-COP\n\n(I heard that) Maral came from Ashgabat.\n\n4.Ben\n\nBen\n\nsen-iň\n\nyou-GEN\n\nköke-ler-iň-i\n\ncookie-PL-2SG.POSS-ACC\n\niý-di.\n\neat-3s.PAST\n\nBen sen-iň köke-ler-iň-i iý-di.\n\nBen you-GEN cookie-PL-2SG.POSS-ACC eat-3s.PAST\n\nBen ate your cookies.\n\ni. The speaker saw Ben eat the cookies (direct evidence).\nii. Ben told the speaker that he ate the cookies.\n5.Ben\n\nBen\n\nsen-iň\n\nyou-GEN\n\nköke-ler-iň-i\n\ncookie-PL-2SG.POSS-ACC\n\niý-ip-dir.\n\neat-EV-COP\n\nBen sen-iň köke-ler-iň-i iý-ip-dir.\n\nBen you-GEN cookie-PL-2SG.POSS-ACC eat-EV-COP\n\nBen ate your cookies.\n\ni. The speaker heard from someone else that Ben ate the cookies (hearsay).\nii. Generally, the speaker learned through means other than 4.i and 4.ii that Ben ate the cookies.\n6.a.Ben\n\nBen\n\niý-ip-dir-mikä(n)\n\neat-EV-COP-EV\n\nsen-iň\n\nyou-GEN\n\nköke-ler-iň-i.\n\ncookie-PL-2SG.POSS-ACC\n\nBen iý-ip-dir-mikä(n) sen-iň köke-ler-iň-i.\n\nBen eat-EV-COP-EV you-GEN cookie-PL-2SG.POSS-ACC\n\nBen ate your cookies, or more loosely: I wonder if Ben ate your cookies.\n\ni. The speaker saw evidence of the action, i.e. crumbs, and \"made the connection.\" (informant's account)\nii. The speaker \"doesn't concretely know [Ben] ate them.\" (informant's account)\niii. In the words of the informant: \"I am questioning myself. But it's not a question.\"\niv. In other words: a deduction from indirect evidence, a suspicion\n6.b.Men\n\nI\n\n(...)\n\n(...)\n\niý-ip-dir-in-mikäm?\n\neat-EV-1SG.PRES(?)-EV\n\nMen (...) iý-ip-dir-in-mikäm?\n\nI (...) eat-EV-1SG.PRES(?)-EV\n\nDid I eat something?\n\ni. The speaker questions whether or not s/he has performed an action.\nii. Evidence of the particular action may be direct, however the nature of its complement (i.e. an item of food) may be in doubt.\n7.Ben\n\nBen\n\niý-en-miş\n\neat-PART\n\nsen-iň\n\nbe-RUM\n\nköke-ler-iň-i.\n\nyou-GEN\n\n \n\ncookie-PL-2SG.POSS-ACC\n\nBen iý-en-miş sen-iň köke-ler-iň-i.\n\nBen eat-PART be-RUM you-GEN cookie-PL-2SG.POSS-ACC\n\nIt is rumoured that Ben ate your cookies. Mismatch in the number of words between lines: 4 word(s) in line 1, 5 word(s) in line 2  (help); Unknown glossing abbreviation(s) (help);\n\ni. The action has been passed on via several speakers, or gossiped, similar to in the English gloss.\nNote the postposed complement in 7. A tree of 7 would look something like {(Ben [{(the one who ate [ti])} must be]) [your cookies] i} using different brackets only in order to make the nesting more obvious.\n\nIn 6.a., the verb appears in the form iý-ip-dir-minäm. The final two syllables have been analyzed as one evidential particle, glossed as EV. This follows partly from the intuitions of the informant, and partly from the consistence: it always appears as -minäm. Nonetheless, it could also be glossed as ...eat-EV-COP-INT-what..., something like, literally, 'Did Ben eat your cookies, or what?'",
+          "examples": [
+            "(I heard that) Aman is sick.(information is \"hearsay\")",
+            "i. The speaker saw evidence of the action, i.e. crumbs, and \"made the connection.\" (informant's account)",
+            "ii. The speaker \"doesn't concretely know [Ben] ate them.\" (informant's account)",
+            "iii. In the words of the informant: \"I am questioning myself. But it's not a question.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Additional suffixes",
+      "summary": "Interrogatives are formed by the suffix -mi/my, it is not used when with interrogative pronouns like näme and kim.",
+      "sections": [
+        {
+          "heading": "Interrogatives",
+          "body": "Interrogatives are formed by the suffix -mi/my, it is not used when with interrogative pronouns like näme and kim.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Temporal",
+          "body": "Temporal are marked with the suffix -ka/kä, the \"possessive\" personal suffixes (see also § Personal morphemes) was added to this suffix.",
+          "examples": [
+            "Temporal are marked with the suffix -ka/kä, the \"possessive\" personal suffixes (see also § Personal morphemes) was added to this suffix."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Verbal extensions",
+          "body": "The causative suffixes -dir and -ir; and the passive,  reflexive, and reciprocal suffixes exhibits written labial harmony. Only the verb görmek \"to see\" which takes the causative suffix -kez. Note that these suffixes were derivational.\n\nPassive: -(i)l (after most letters except -l, where it same as reflexive)\n\nReflexive: -(i)n\n\nReciprocal: -(i)ş\n\nCausative: -dir (after consonants); -t (after vowels); -ir; -üz; -er; -der",
+          "examples": [
+            "The causative suffixes -dir and -ir; and the passive,  reflexive, and reciprocal suffixes exhibits written labial harmony. Only the verb görmek \"to see\" which takes the causative suffix -kez. Note that these suffixes were derivational."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        },
+        {
+          "heading": "Others",
+          "body": "-da/de preceded by a hyphen (-) is used to make meanings like \"and\", \"also\", and \"even though\" in conditional statements.",
+          "examples": [
+            "-da/de preceded by a hyphen (-) is used to make meanings like \"and\", \"also\", and \"even though\" in conditional statements."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Syntax",
+      "summary": "The default word order in Turkmen is subject–object–verb (SOV). Verbs generally come at the end of the sentence or clause; and adjectives and possessive nouns come before the noun they describe. To mark absence of a noun or an adjective, is with the predicative adjective ýok.[4]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The default word order in Turkmen is subject–object–verb (SOV). Verbs generally come at the end of the sentence or clause; and adjectives and possessive nouns come before the noun they describe. To mark absence of a noun or an adjective, is with the predicative adjective ýok.[4]\n\nOnuň\n\n3sg\n\nmaşyny\n\ncar-GEN\n\nýok.\n\nNEG\n\nOnuň maşyny ýok.\n\n3sg car-GEN NEG\n\n\"He does not have a car.\"\n\nÖýde\n\nhouse-LOC\n\nAmandan\n\nAman-INST\n\nbaşga\n\nexcept\n\nadam\n\nperson\n\nýok.\n\nNEG\n\nÖýde Amandan başga adam ýok.\n\nhouse-LOC Aman-INST except person NEG\n\n\"There is no one but Aman in the house.\"",
+          "examples": [
+            "\"He does not have a car.\"",
+            "\"There is no one but Aman in the house.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Turkmen_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

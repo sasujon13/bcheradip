@@ -1,0 +1,204 @@
+{
+  "title": "Grammar Book — Lingála",
+  "languageCode": "ln",
+  "languageName": "Lingála",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Lingala_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Bantu language spoken in Africa\nThis article is about the Lingala language. For Lingala music, see Soukous. For other uses, see Lingala (disambiguation).\nNot to be confused with Ngala language.\nLingalaNgalaLingálaNative toDemocratic Republic of the Congo, Republic of the CongoReg",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Bantu language spoken in Africa\nThis article is about the Lingala language. For Lingala music, see Soukous. For other uses, see Lingala (disambiguation).\nNot to be confused with Ngala language.\nLingalaNgalaLingálaNative toDemocratic Republic of the Congo, Republic of the CongoRegionCongo RiverSpeakersL1: 21 million (2021)[1]\nL2: 20 million (2021)[1]Language familyNiger–Congo?\n\nAtlantic–CongoBenue–CongoSouthern BantoidBantu (Zone C)Bangi–Ntomba (C.30)Bangi–MoiBangiLingala\n\nDialects\nBangala\n\nWriting systemAfrican Reference Alphabet (Latin), Mandombe scriptOfficial statusOfficial language in\n Congo–Kinshasa (national language)\n\n Congo-Brazzaville (national language)\n\nLanguage codesISO 639-1lnISO 639-2linISO 639-3linGlottologling1269Guthrie codeC30B[2]Linguasphere99-AUI-fGeographic distribution of Lingala speakers, showing regions of native speakers (dark green) and regions where Lingala is spoken by a minority. (light green)This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nLingala (or Ngala, Lingala: Lingála) is a Bantu language spoken in the northwest of the Democratic Republic of the Congo, the northern half of the Republic of the Congo, in their capitals, Kinshasa and Brazzaville, and to a lesser degree as a trade language because of emigration in neighbouring Angola or Central African Republic. Lingala has 20 million native speakers and about another 20 million second-language speakers, for an approximate total of 40 million speakers.[1] A significant portion of both Congolese diasporas speaks Lingala in their countries of immigration like Belgium, France or the United States.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "History",
+      "summary": "Before 1880, Bobangi was an important trade language on the western sections of the Congo River, between Stanley Pool (Kinshasa) and the confluence of the Congo and Ubangi rivers (Republic of Congo and Democratic Republic of Congo).[3] When the first Europeans and their West- and",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Before 1880, Bobangi was an important trade language on the western sections of the Congo River, between Stanley Pool (Kinshasa) and the confluence of the Congo and Ubangi rivers (Republic of Congo and Democratic Republic of Congo).[3] When the first Europeans and their West- and East-African troops started founding state posts for the Belgian king along this river section in the early 1880s, they noticed the widespread use and prestige of Bobangi.[4] They attempted to learn it, but only cared to acquire an imperfect knowledge of it, a process that gave rise to a new, strongly restructured variety, called \"the trade language\", \"the language of the river\", or \"Bobangi-pidgin\", among other names.[5][6] In 1884, Europeans introduced this restructured variety of Bobangi in the state post Bangala Station to communicate with local Congolese, some of whom had second-language knowledge of original Bobangi, and with the Congolese from more remote areas whom missionaries and colonials had been relocating to the station by force.[7] The language of the river was therefore soon renamed \"Bangala\", a label the Europeans had since 1876 also been using as a convenient, but erroneous and non-original[8][9][4] ethnic name for all Congolese of that region.[10]\n\nAround 1901–2, CICM missionaries started a project to \"purify\" the Bangala language by cleansing it from the \"impure\", pidginlike features it had acquired when it emerged out of Bobangi in the early 1880s.\n\nAround and shortly after 1901, a number of both Catholic and Protestant missionaries working in the western and northern Congo Free State, independently of one another but in strikingly parallel terms, judged that Bangala as it had developed out of Bobangi was too \"pidgin like\", \"too poor\" a language to function as a proper means of education and evangelization. Each of them set out on a program of massive corpus planning, aimed at actively \"correcting\" and \"enlarging\" Bangala from above [...]. One of them was the Catholic missionary Egide De Boeck of the Congregatio Immaculati Cordis Mariae (CICM, commonly known as \"the Missionaries of Scheut\" or \"Scheutists\"), who arrived in Bangala Station – Nouvelle Anvers in 1901. Another one was the Protestant missionary Walter H. Stapleton [...], and a third one the Catholic Léon Derikx of the Premonstratensian Fathers [...]. By 1915, De Boeck's endeavors had proven to be more influential than Stapleton's, whose language creative suggestions, as the Protestant missionaries' conference of 1911 admitted, had never been truly implemented [...]. Under the dominance of De Boeck's work, Derikx's discontinued his after less than 10 years.[11]\n\nLingala's importance as a vernacular has since grown with the size and importance of its main centers of use, Kinshasa and Brazzaville; with its use as the lingua franca of the armed forces; and with the popularity of soukous music.",
+          "examples": [
+            "Before 1880, Bobangi was an important trade language on the western sections of the Congo River, between Stanley Pool (Kinshasa) and the confluence of the Congo and Ubangi rivers (Republic of Congo and Democratic Republic of Congo).[3] When",
+            "Around 1901–2, CICM missionaries started a project to \"purify\" the Bangala language by cleansing it from the \"impure\", pidginlike features it had acquired when it emerged out of Bobangi in the early 1880s.",
+            "Around and shortly after 1901, a number of both Catholic and Protestant missionaries working in the western and northern Congo Free State, independently of one another but in strikingly parallel terms, judged that Bangala as it had develope"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Name",
+      "summary": "At first the language the European pioneers and their African troops had forged out of Bobangi was called \"the river language\", \"the trade language\", and other volatile names. Beginning in 1884, it was called \"Bangala\", due to its introduction in Bangala Station. After 1901, Cath",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "At first the language the European pioneers and their African troops had forged out of Bobangi was called \"the river language\", \"the trade language\", and other volatile names. Beginning in 1884, it was called \"Bangala\", due to its introduction in Bangala Station. After 1901, Catholic missionaries of CICM, also called the Congregation of Scheutists, proposed to rename the language \"Lingala\". It took some decades for this to be generally accepted both by colonials and the Congolese.[12] The name Lingala first appears in writing in a 1901-2 publication by the CICM missionary Égide De Boeck.[13] This name change was accepted in western and northwestern Congo, and in other countries where the language was spoken, but not in northeastern Congo, where the variety of the language spoken locally is still called Bangala.[14]",
+          "examples": [
+            "At first the language the European pioneers and their African troops had forged out of Bobangi was called \"the river language\", \"the trade language\", and other volatile names. Beginning in 1884, it was called \"Bangala\", due to its introduct"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Characteristics and usage",
+      "summary": "Lingala is a Bantu language of Central Africa[23] with roots in the Bobangi language, which provided most of its lexicon and grammar.[24] In its basic vocabulary, Lingala also borrows from other languages, such as Kikongo varieties, Ubangian languages, Swahili, French, Portuguese",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Lingala is a Bantu language of Central Africa[23] with roots in the Bobangi language, which provided most of its lexicon and grammar.[24] In its basic vocabulary, Lingala also borrows from other languages, such as Kikongo varieties, Ubangian languages, Swahili, French, Portuguese, English, and various African languages (note local and foreign interaction with Krumen).\n\nIn practice, the extent of borrowing varies widely with speakers of different regions (commonly among young people), and during different occasions.\n\nFrench \n\nmomí comes from the old French ma mie (\"my dear\"), and can sound like it means \"grandmother\", but means \"girlfriend\"\n\nkelási for class/school\n\nSpanish\n\nchiclé for chewing gum\n\nPortuguese\n\nmanteka for butter\n\nmésa for table\n\nsapátu for shoes\n\nEnglish\n\nmíliki for milk\n\nsúpu for soup\n\nmamiwata for mermaid, literally mammy/water\n\nbúku for book[25]\n\nmótuka, from motor-car, for car[26]",
+          "examples": [
+            "momí comes from the old French ma mie (\"my dear\"), and can sound like it means \"grandmother\", but means \"girlfriend\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Variation",
+      "summary": "The Lingala language can be divided into several regiolects and sociolects. The major regional varieties are northwestern Lingala, Kinshasa Lingala and Brazzaville Lingala.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Lingala language can be divided into several regiolects and sociolects. The major regional varieties are northwestern Lingala, Kinshasa Lingala and Brazzaville Lingala.\n\nLiterary Lingala (lingala littéraire or lingala classique in French) is a standardized form used mostly in education and news broadcasts on state-owned radio or television and in Roman Catholic religious services, It is taught as a subject at some educational levels. It is historically associated with the work of the Catholic Church, the Belgian CICM missionaries in particular. It has a seven-vowel system (/a/ /e/ /ɛ/ /i/ /o/ /ɔ/ /u/) with an obligatory tense-lax vowel harmony. It also has a full range of morphological noun prefixes with mandatory grammatical agreement system with subject–verb, or noun–modifier for each of class. It is largely used in formal functions and in some forms of writing. Most native speakers of Spoken Lingala and Kinshasa Lingala consider it incomprehensible.[27]\n\nNorthwestern (or Equateur) Lingala is the product of the (incomplete) internalization by Congolese of the prescriptive rules the CICM missionaries intended when designing Literary Lingala.[28][29] The northwest is a zone where the CICM missionaries strongly supported the network of schools.\n\nSpoken Lingala (called lingala parlé in French) is the variety mostly used in Lingalaphones' day-to-day lives. It has a full morphological noun prefix system, but the agreement system in the noun phrase is laxer than the literary variety's. There is a five-vowel system and no vowel harmony. Spoken Lingala is largely used in informal functions, and the majority of Lingala songs use spoken Lingala. Modern spoken Lingala is influenced by French; French verbs, for example, may be \"lingalized\", adding Lingala inflection prefixes and suffixes: \"acomprenaki te\" or \"acomprendraki te\" (\"he did not understand\", using the French word comprendre) instead of classic Lingala \"asímbaki ntína te\" (literally: \"s/he grasped/held the root/cause not\"). These French influences are more prevalent in Kinshasa and indicate an erosion of the language as education in French becomes accessible to more of the population. There are pronunciation differences between \"Catholic Lingala\" and \"Protestant Lingala\", for example nzala/njala (\"hunger\").\n\nLingala ya Bayankee (sometimes called Yanké) is a sociolect widely used in Kinshasa, e.g., by street youth, street vendors, criminal gangs and homeless children.[30] Langila is a little-studied language game (or ludic practice) musicians initially created shortly after 2000 that is increasingly used in social media and sites of cultural production.",
+          "examples": [
+            "Spoken Lingala (called lingala parlé in French) is the variety mostly used in Lingalaphones' day-to-day lives. It has a full morphological noun prefix system, but the agreement system in the noun phrase is laxer than the literary variety's."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Phonology",
+      "summary": "pronounced slightly higher than the cardinal o,\n realized as [o̝]",
+      "sections": [
+        {
+          "heading": "Vowels",
+          "body": "Front\n\nBack\n\nClose\n\ni\n\nu\n\nClose-mid\n\ne\n\no\n\nOpen-mid\n\nɛ\n\nɔ\n\nOpen\n\na\n\nIPA\n\nExample (IPA)\n\nExample (written)\n\nMeaning\n\nNotes\n\ni\n\n/lilála/\n\nlilála\n\norange\n\nu\n\n/kulutu/\n\nkulútu\n\nelder\n\ne\n\n/eloᵑɡi/\n\nelongi\n\nface\n\no\n\n/mobáli/\n\nmobáli\n\nboy\n\npronounced slightly higher than the cardinal o,\n realized as [o̝]\n\nɛ\n\n/lɛlɔ́/\n\nlɛlɔ́\n\ntoday\n\nɔ\n\n/ᵐbɔ́ᵑɡɔ/\n\nmbɔ́ngɔ\n\nmoney\n\na\n\n/áwa/\n\náwa\n\nhere\n\nVowel harmony\nLingala words show vowel harmony to some extent. The close-mid vowels /e/ and /o/ normally do not mix with the open-mid vowels /ɛ/ and /ɔ/ in words. For example, the words ndɔbɔ 'fishhook' and ndobo 'mouse trap' are found, but not *ndɔbo or *ndobɔ.\n\nVowel shift\nThe Lingala spoken in Kinshasa shows a vowel shift from /ɔ/ to /o/, leading to the absence of the phoneme /ɔ/ in favor of /o/. The same occurs with /ɛ/ and /e/, leading to just /e/. So in Kinshasa, a native speaker will say mbóte as /ᵐbóte/, compared to the more traditional pronunciation, /ᵐbɔ́tɛ/.",
+          "examples": [
+            "Example (IPA)",
+            "Example (written)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Labial\n\nCoronal\n\nPalatal\n\nDorsal\n\nNasal\n\nm /m/\n\nn /n/\n\nny /ɲ/\n\nPlosive\n\nvoiceless\n\np /p/\n\nt /t/\n\nk /k/\n\nprenasal voiceless\n\nmp /ᵐp/\n\nnt /ⁿt/\n\nnk /ᵑk/\n\nvoiced\n\nb /b/\n\nd /d/\n\ng /ɡ/\n\nprenasal voiced\n\nmb /ᵐb/\n\nnd /ⁿd/\n\nng /ᵑɡ/\n\nFricative\n\nvoiceless\n\nf /f/\n\ns /s/\n\nsh /ʃ/\n\nprenasal voiceless\n\nns /ⁿs/\n\nvoiced\n\nv /v/\n\nz /z/\n\n(/ʒ/)\n\nprenasal voiced\n\nnz /ⁿz/\n\nApproximant\n\nw /w/\n\nl /l/\n\ny /j/\n\nIPA\n\nExample (IPA)\n\nExample (written)\n\nMeaning\n\np\n\n/napɛ́si/\n\nnapɛ́sí\n\nI give\n\nᵐp\n\n/ᵐpɛᵐbɛ́ni/\n\nmpɛmbɛ́ni\n\nnear\n\nb\n\n/boliᵑɡo/\n\nbolingo\n\nlove\n\nᵐb\n\n/ᵐbɛlí/\n\nmbɛlí\n\nknife\n\nt\n\n/litéja/\n\nlitéya\n\nlesson\n\nⁿt\n\n/ⁿtɔ́ᵑɡɔ́/\n\nntɔ́ngó\n\ndawn\n\nd\n\n/daidai/\n\ndaidai\n\nsticky\n\nⁿd\n\n/ⁿdeko/\n\nndeko\n\nsibling, cousin, relative\n\nk\n\n/mokɔlɔ/\n\nmokɔlɔ\n\nday\n\nᵑk\n\n/ᵑkóló/\n\nnkóló\n\nowner\n\nɡ\n\n/ɡalamɛ́lɛ/\n\ngalamɛ́lɛ\n\ngrammar\n\nᵑɡ\n\n/ᵑɡáí/\n\nngáí\n\nme\n\nm\n\n/mamá/\n\nmamá\n\nmother\n\nn\n\n/bojini/\n\nboyini\n\nhate\n\nɲ\n\n/ɲama/\n\nnyama\n\nanimal\n\nf\n\n/fɔtɔ́/\n\nfɔtɔ́\n\nphotograph\n\nv\n\n/veló/\n\nveló\n\nbicycle\n\ns\n\n/sɔ̂lɔ/\n\nsɔ̂lɔ\n\ntruly\n\nⁿs\n\n/ɲɔ́ⁿsɔ/\n\nnyɔ́nsɔ\n\nall\n\nz\n\n/zɛ́lɔ/\n\nzɛ́lɔ\n\nsand\n\nⁿz[a]\n\n/ⁿzáᵐbe/\n\nnzámbe\n\nGod\n\nʃ\n\n/ʃakú/\n\ncakú or shakú\n\nAfrican grey parrot\n\nl\n\n/ɔ́lɔ/\n\nɔ́lɔ\n\ngold\n\nj\n\n/jé/\n\nyé\n\nhim; her (object pronoun)\n\nw\n\n/wápi/\n\nwápi\n\nwhere\n\n^ [ᶮʒ] is allophonic with [ʒ] depending on the dialect.\n\nPrenasalized consonants\nThe prenasalized stops formed with a nasal followed by a voiceless plosive are allophonic to the voiceless plosives alone in some variations of Lingala.\n\n/ᵐp/: [ᵐp] or [p]\ne.g.: mpɛmbɛ́ni is pronounced [ᵐpɛᵐbɛ́ni] but in some variations [pɛᵐbɛ́ni]\n\n/ⁿt/: [ⁿt] or [t]\ne.g.: ntɔ́ngó is pronounced ⁿtɔ́ᵑɡó but in some variations [tɔ́ᵑɡó]\n\n/ᵑk/: [ᵑk] or [k]\ne.g.: nkanya (fork) is pronounced [ᵑkaɲa] but in some variations [kaɲa]\n\n/ⁿs/: [ⁿs] or [s] (inside a word)\ne.g.: nyɔnsɔ is pronounced [ɲɔ́ⁿsɔ] but in some variations [ɲɔ́sɔ]\n\nThe prenasalized voiced occlusives, /ᵐb/, /ⁿd/, /ᵑɡ/, /ⁿz/, do not vary.",
+          "examples": [
+            "Example (IPA)",
+            "Example (written)",
+            "e.g.: mpɛmbɛ́ni is pronounced [ᵐpɛᵐbɛ́ni] but in some variations [pɛᵐbɛ́ni]",
+            "e.g.: ntɔ́ngó is pronounced ⁿtɔ́ᵑɡó but in some variations [tɔ́ᵑɡó]",
+            "e.g.: nkanya (fork) is pronounced [ᵑkaɲa] but in some variations [kaɲa]",
+            "e.g.: nyɔnsɔ is pronounced [ɲɔ́ⁿsɔ] but in some variations [ɲɔ́sɔ]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        },
+        {
+          "heading": "Tones",
+          "body": "Lingala is a tonal language. Tone is a distinguishing feature in minimal pairs, e.g.: mutu (human being) and mutú (head), or kokoma (to write) and kokóma (to arrive). There are two main tones, low and high, and two less common ones: starting high, dipping low, and ending high, all within the same vowel sound, e.g., mǐso (eyes); and starting low, rising high, and ending low, e.g., bôngó (therefore).\n\nTonal morphology\nTense morphemes carry tones.\n\nkoma     komL-a \n write\n\nsepela     seLpel-a \n enjoy\n\nsimple present\n\nL-aL\n\nnakoma     naL-komL-aL \n I write\n\nosepela     oL-seLpelL-aL \n you-SG enjoy\n\nsubjunctive\n\nH-aL\n\nnákoma     naH-komL-aL \n I would write\n\nósepéla     oH-seLpelH-aH \n you-SG would enjoy\n\npresent\n\nL-iH\n\nnakomí     naL-komL-iH \n I have been writing\n\nosepelí     oL-seLpelL-iH \n you-SG have been enjoying",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Grammar",
+      "summary": "Akin to all Bantu languages, Lingala has a noun class system in which nouns are classified according to the prefixes they bear and the prefixes they trigger in sentences. The table below shows Lingala's noun classes ordered according to the numbering system widely used in descrip",
+      "sections": [
+        {
+          "heading": "Noun class system",
+          "body": "Akin to all Bantu languages, Lingala has a noun class system in which nouns are classified according to the prefixes they bear and the prefixes they trigger in sentences. The table below shows Lingala's noun classes ordered according to the numbering system widely used in descriptions of Bantu languages.\n\nClass\nNoun prefix\nExample\nTranslation\n\n1\nmo-\nmopési\ngiver\n\n2\nba-\nbapési\ngivers\n\n3\nmo-\nmokíla\ntail\n\n4\nmi-\nmikíla\ntails\n\n5\nli-\nliloba\nword\n\n6\nma-\nmaloba\nwords\n\n7\ne-\nelɔ́kɔ\nthing\n\n8\nbi-\nbilɔ́kɔ\nthings\n\n9\nm-/n-\nntaba\ngoat\n\n10\nm-/n-\nntaba\ngoats\n\n9a\nØ\nsánzá\nmoon\n\n10a\nØ\nsánzá\nmoons\n\n11\nlo-\nlolému\ntongue\n\n14\nbo-\nbosɔtɔ\ndirt\n\n15\nko-\nkosála\nto work (infinitive)\n\nIndividual classes pair up to form singular/plural pairs, sometimes called genders. There are seven genders. The singular classes 1, 3, 5, 7, and 9 take their plural forms from classes 2, 4, 6, 8, 10, respectively. Additionally, many household items found in class 9 take a class 2 prefix (ba) in the plural: lútu → balútu 'spoon', mésa → bamésa 'table', sáni → basáni 'plate'. Words in class 11 usually take a class 10 plural. Most words from class 14 (abstract nouns) do not have a plural counterpart.\n\nClass 9 and 10 have a nasal prefix, which assimilates to the following consonant. Thus, the prefix shows up as 'n' on words that start with t or d, e.g. ntaba 'goat', but as 'm' on words that start with b or p (e.g. mbísi 'fish'). There is also a prefixless class 9a and 10a, exemplified by sánzá → sánzá 'moon(s) or month(s)'. Possible ambiguities are resolved by context.\n\nNoun class prefixes show up not only on the noun itself, but as markers throughout a sentence. In the sentences below, the class prefixes are underlined. (There is a special verbal form 'a' of the prefix for class 1 nouns.)\n\nmolakisi\n\nCL1.teacher\n\nmolaí\n\nCL1.tall\n\nyangó\n\nthat\n\nabíkí\n\nCL1:recovered\n\nmolakisi molaí yangó abíkí\n\nCL1.teacher CL1.tall that CL1:recovered\n\n'That tall teacher recovered'\n\nbato\n\nCL2.people\n\nbakúmisa\n\nCL2.praise\n\nNkómbó\n\nname\n\nya\n\nof\n\nYɔ́\n\nYou\n\nbato bakúmisa Nkómbó ya Yɔ́\n\nCL2.people CL2.praise name of You\n\n'(Let) people praise Your name' (a sentence from the Lord's Prayer)\n\nTo a certain extent, noun class allocation is semantically governed. Classes 1/2, as in all Bantu languages, mainly contain words for human beings; similarly, classes 9/10 contain many words for animals. In other classes, semantical regularities are mostly absent or obscured by many exceptions.",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        },
+        {
+          "heading": "Verb inflections and morphology",
+          "body": "Verbal extensions\nFour morphemes modify verbs. They are added to a verb root in the following order:\n\nReversive (-ol-)\ne.g.: kozinga to wrap and kozingola to develop\n\nCausative (-is-)\ne.g. : koyéba to know and koyébisa to inform\n\nApplicative (-el-)\ne.g. : kobíka to heal (self), to save (self) and kobíkela to heal (someone else), to save (someone)\n\nPassive (-am-)\ne.g. : koboma to kill and kobomama to be killed\n\nReciprocal or stationary (-an-, sometimes -en-)\ne.g. : kokúta to find and kokútana to meet\n\nTense inflections\nThe first tone segment affects the subject part of the verb; the second attaches to the semantic morpheme attached to its root.\n\npresent perfect (LH-í)\n\nsimple present (LL-a)\n\nrecurrent present (LL-aka)\n\nundefined recent past (LH-ákí)\n\nundefined distant past (LH-áká)\n\nfuture (L-ko-L-a)\n\nsubjunctive (HL-a)",
+          "examples": [
+            "e.g.: kozinga to wrap and kozingola to develop",
+            "e.g. : koyéba to know and koyébisa to inform",
+            "e.g. : kobíka to heal (self), to save (self) and kobíkela to heal (someone else), to save (someone)",
+            "e.g. : koboma to kill and kobomama to be killed",
+            "e.g. : kokúta to find and kokútana to meet"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Writing system",
+      "summary": "Lingala is more a spoken than a written language, and has several different writing systems, most of them ad hoc. As literacy in Lingala tends to be low, its popular orthography is very flexible and varies among the two republics. Some orthographies are heavily influenced by Fren",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Lingala is more a spoken than a written language, and has several different writing systems, most of them ad hoc. As literacy in Lingala tends to be low, its popular orthography is very flexible and varies among the two republics. Some orthographies are heavily influenced by French; influences include a double S, ss, to transcribe [s] (in the Republic of the Congo); ou for [u] (in the Republic of the Congo); i with trema, aï, to transcribe [áí] or [aí]; e with acute accent, é, to transcribe [e]; e to transcribe [ɛ], o with acute accent, ó, to transcribe [ɔ] or sometimes [o] in opposition to o transcribing [o] or [ɔ]; i or y can both transcribe [j]. The allophones are also found as alternating forms in the popular orthography; sango is an alternative to nsango (information or news); nyonso, nyoso, nionso, nioso (every) are all transcriptions of nyɔ́nsɔ.\n\nIn 1976, the Société Zaïroise des Linguistes (Zairian Linguists Society) adopted a writing system for Lingala, using the open e (ɛ) and the open o (ɔ) to write the vowels [ɛ] and [ɔ], and sporadic usage of accents to mark tone, though the limitation of input methods prevents Lingala writers from easily using the ɛ and ɔ and the accents. For example, it is almost impossible to type Lingala according to that convention with a common English or French keyboard. The convention of 1976 reduced the alternative orthography of characters but did not enforce tone marking. The lack of consistent accentuation is lessened by contextual disambiguation.\n\nThe popular orthographies are often more simplified and ambiguous than the academic-based ones. Many Lingala books, papers, the translation of the Universal Declaration of Human Rights, Internet forums, newsletters, and major websites such as Google's Lingala do not use the Lingala-specific characters ɛ and ɔ. Tone marking is found in most literary works.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        },
+        {
+          "heading": "Alphabet",
+          "body": "COVID-19 information in Lingala\nThe Lingala alphabet has 35 letters and digraphs. Each digraph has a specific place in the alphabet; for example, mza comes before mba, because the digraph mb follows the letter m. The letters r and h are rare but present in borrowed words. Accents indicate the tones as follows:\n\nno accent for default tone, the low tone\n\nacute accent for the high tone\n\ncircumflex for descending tone\n\ncaron for ascending tone\n\nVariants\n\nExample\n\na\n\nA\n\ná â ǎ\n\nnyama, matáta, sâmbóle, libwǎ\n\nb\n\nB\n\nbísó\n\nc\n\nC\n\nciluba\n\nd\n\nD\n\nmadɛ́su\n\ne\n\nE\n\né ê ě\n\nkomeka, mésa, kobênga\n\nɛ\n\nƐ\n\nɛ́ ɛ̂ ɛ̌\n\nlɛlɔ́, lɛ́ki, tɛ̂\n\nf\n\nF\n\nlifúta\n\ng\n\nG\n\nkogánga\n\ngb\n\nGb\n\ngbagba\n\nh\n\nH\n\nbohlu (bohrium)\n\ni\n\nI\n\ní î ǐ\n\nwápi, zíko, tî, esǐ\n\nk\n\nK\n\nkokoma\n\nl\n\nL\n\nkolála\n\nm\n\nM\n\nkokóma\n\nmb\n\nMb\n\nkolámba, mbwá, mbɛlí\n\nmp\n\nMp\n\nlímpa\n\nn\n\nN\n\nlíno\n\nnd\n\nNd\n\nndeko\n\nng\n\nNg\n\nndéngé\n\nnk\n\nNk\n\nnkámá\n\nns\n\nNs\n\nnsɔ́mi\n\nnt\n\nNt\n\nntaba\n\nny\n\nNy\n\nnyama\n\nnz\n\nNz\n\nnzala\n\no\n\no\n\nó ô ǒ\n\nmoto, sóngóló, sékô\n\nɔ\n\nƆ\n\nɔ́ ɔ̂ ɔ̌\n\nsɔsɔ, yɔ́, sɔ̂lɔ, tɔ̌\n\np\n\nP\n\npɛnɛpɛnɛ\n\nr\n\nR\n\nmalaríya\n\ns\n\nS\n\nkopésa\n\nt\n\nT\n\ntatá\n\nu\n\nU\n\nú\n\nbutú, koúma\n\nv\n\nV\n\nkovánda\n\nw\n\nW\n\nkáwa\n\ny\n\nY\n\nkoyéba\n\nz\n\nZ\n\nkozala",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        },
+        {
+          "heading": "Sample",
+          "body": "English\n\nLingala\n\nI moved to Luanda in January this year due to a new job that I had applied for last year. I am happy that I got it and now I'm thinking of building a house in Mbanza Kongo next year so that my family can have a house.\n\nNabimoli na luanda na sanza ya yambo ya mobu moye mpo na mosala namikomisaki mobu moleki. Nasepeli kozwa mwango  mpé nakani kotonga ndako na Mbanza-Kongo na mobu mokoya mpo na libota lya nga bazala na esika\n\n[31]\n\nLord's Prayer\nThe Lord's Prayer (Catholic version)\n\nTatá wa bísó, ozala o likoló,\nbato bakúmisa Nkómbó ya Yɔ́,\nbandima bokonzi bwa Yɔ́, mpo elingo Yɔ́,\nbasálá yangó o nsé,\nlokóla bakosalaka o likoló\nPésa bísó lɛlɔ́ biléi bya mokɔlɔ na mokɔlɔ,\nlímbisa mabé ma bísó,\nlokóla bísó tokolimbisaka baníngá.\nSálisa bísó tondima masɛ́nginyá tê,\nmpe bíkisa bísó o mabé.\nNa yɔ́ bokonzi,\nnguyá na nkembo,\no bileko o binso sékô.\nAmen.\nThe Lord's Prayer (Protestant version used in Ubangi-Mongala region)\n\nTatá na bísó na likoló,\nnkómbó na yɔ́ ezala mosanto,\nbokonzi na yɔ́ eya,\nmokano na yɔ́ esalama na nsé\nlokola na likoló.\nPésa bísó kwanga ekokí lɛlɔ́.\nLímbisa bísó nyongo na bísó,\npelamoko elimbisi bísó bango nyongo na bango.\nKamba bísó kati na komekama tê,\nkasi bíkisa bísó na mabé.\nMpo ete na yɔ́ ezalí bokonzi,\nna nguyá, na nkembo,\nlobiko na lobiko.\nAmen.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        },
+        {
+          "heading": "Sample text from Universal Declaration of Human Rights",
+          "body": "Bato nyonso na mbotama bazali nzomi pe bakokani na limemya pe makoki. Bazali na mayele pe base, geli kofanda na bondeko okati na bango.\n(Article 1 of Universal Declaration of Human Rights)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        },
+        {
+          "heading": "Mandombe",
+          "body": "The Mandombe script is an abugida, primarily used to write Kikongo, that can also be used for Lingala. It is used as a liturgical script in the church of Kimbangu.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Lingala_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

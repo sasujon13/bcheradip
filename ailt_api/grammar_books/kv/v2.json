@@ -1,0 +1,136 @@
+{
+  "title": "Grammar Book — Коми",
+  "languageCode": "kv",
+  "languageName": "Коми",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Komi_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Komi language\nThis article deals with the grammar of the Komi language of the northeastern European part of Russia (the article \"Komi language\" discusses the language in general and contains a quick overview of the language).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Komi language\nThis article deals with the grammar of the Komi language of the northeastern European part of Russia (the article \"Komi language\" discusses the language in general and contains a quick overview of the language).",
+          "examples": [
+            "This article deals with the grammar of the Komi language of the northeastern European part of Russia (the article \"Komi language\" discusses the language in general and contains a quick overview of the language)."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Pronouns",
+      "summary": "Komi pronouns are inflected much in the same way that nouns are. However, personal pronouns are usually only inflected in the grammatical cases and cannot be inflected in the locative cases.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Komi pronouns are inflected much in the same way that nouns are. However, personal pronouns are usually only inflected in the grammatical cases and cannot be inflected in the locative cases.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Personal pronouns",
+          "body": "Komi personal pronouns inflect in the grammatical cases and the approximative case. Personal pronouns in the nominative case are listed in the following table:\n\nPersonal pronouns\n\nKomi\nEnglish\n\nSingular\n\nме\n[ˈme]\nI\n\nтэ\n[ˈte]\nyou\n\nсійӧ\n[ˈsijɘ]\nhe/she/it\n\nPlural\n\nми\n[ˈmi]\nwe\n\nті\n[ˈti]\nyou\n\nнайӧ\n[ˈnajɘ]\nthey",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nominals",
+      "summary": "As with other languages in the Uralic family, Komi does not encode grammatical gender. Nouns and personal pronouns make no gender distinction; сійӧ/sijö  means both 'he' and 'she', depending on the referent.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "As with other languages in the Uralic family, Komi does not encode grammatical gender. Nouns and personal pronouns make no gender distinction; сійӧ/sijö  means both 'he' and 'she', depending on the referent.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Cases",
+          "body": "Komi has seventeen noun cases: nine core grammatical cases and eight locative cases. The locative cases are usually only used with inanimate references with the exception of the elative, terminative, approximative and egressive cases. There is no difference in the meaning of the translative and prolative cases.\n\nKomi cases\n\nCase\nSuffix\nEnglish prep.\nExample\nTranslation\n\nCore grammatical cases\n\nnominative\n—\n-\n\nкерка\n[ˈkerka]\nhouse\n\ngenitive\n\n-лӧн\n[-lɘn]\nof / 's\n\nкеркалӧн\n[ˈkerkalɘn]\nof a house / house's\n\naccusative\n\n-ӧс\n[-ɘs]\n-\n\nкеркаӧс\n[ˈkerkaɘs]\nhouse (as an object)\n\nablative\n\n-лысь\n[-lɯɕ]\nfrom\n\nкеркалысь\n[ˈkerkalɯɕ]\nfrom a house\n\ndative\n\n-лы\n[-lɯ]\nto/for\n\nкеркалы\n[ˈkerkalɯ]\nto a house\n\ninstrumental\n\n-ӧн\n[-ɘn]\nwith/by means of\n\nкеркаӧн\n[ˈkerkaɘn]\nby means of a house\n\ncomitative\n\n-кӧд\n[-kɘd]\nwith/accompanied by\n\nкеркакӧд\n[ˈkerkakɘd]\nwith a house\n\ncaritive\n\n-тӧг\n[-tɘɡ]\nwithout\n\nкеркатӧг\n[ˈkerkatɘɡ]\nwithout a house\n\nconsecutive\n\n-ла\n[-la]\ngone/come for[1]\n\nкеркала\n[ˈkerkala]\nfor a house\n\nLocative cases\n\ninessive\n\n-ын\n[-ɯn]\nin\n\nкеркаын\n[ˈkerkaɯn]\nin a house\n\nillative\n\n-ӧ\n[-ɘ]\ninto\n\nкеркаӧ\n[ˈkerkaɘ]\ninto a house\n\nelative\n\n-ысь\n[-ɯɕ]\nout of\n\nкеркаысь\n[ˈkerkaɯɕ]\nout of a house\n\ntranslative\n\n-ті\n[-ti]\nalong\n\nкеркаті\n[ˈkerkati]\nalong a house\n\nprolative\n\n-ӧд\n[-ɘd]\nalong\n\nкеркаӧд\n[ˈkerkaɘd]\nalong a house\n\nterminative\n\n-ӧдз\n[-ɘdʑ]\nend up\n\nкеркаӧдз\n[ˈkerkaɘdʑ]\nend up at a house\n\napproximative\n\n-лань\n[-laɲ]\ntowards\n\nкеркалань\n[ˈkerkalaɲ]\ntowards a house\n\negressive\n\n-сянь\n[-ɕaɲ]\nstarting from\n\nкеркасянь\n[ˈkerkaɕaɲ]\nstarting from a house\n\nStem extension\nPreceding suffixes that start with a vowel, nouns may use an extended stem.\n\nNouns ending in в often change this consonant to л, e.g. ныв (\"girl\") → нылыс (\"his/her girl\").\n\nSome nouns ending in дз, дь and ль undergo gemination, e.g.:\n\nвидз (\"lawn\") → виддзыд (\"your lawn\");\nдодь (\"sled\") → доддьыс (\"his sled\");\nкуль (\"demon\") → кулльысь (\"from a demon\").\nAnother group of nouns undergoes epenthesis, e.g.:\n\nпон (\"dog\") → понйыс (\"his/her dog\");\nун (\"dream\") → унмӧн (\"by means of a dream\");\nош (\"bear\") → ошкысь (\"from a bear\");\nгӧп (\"puddle\") → гӧптын (\"in a puddle\");\nкыв (\"language\") → кывйын (\"his/her language\").\nPersonal pronouns\nThe declension of personal pronouns is quite systematic as well:\n\nKomi personal pronoun declensions\n\nCase\n1st pers. sing.\n2nd pers. sing.\n3rd pers. sing.\n1st pers. pl\n2nd pers. pl.\n3rd pers pl.\n\nnominative\nме\nтэ\nсійӧ\nми\nті\nнайӧ\n\ngenitive\nменам\nтэнад\nсылӧн\nмиян\nтіян\nналӧн\n\naccusative\nменӧ\nтэнӧ\nсійӧс\nмиянӧс\nтіянӧс\nнайӧс\n\nablative\nменсьым\nтэнсьыд\nсылысь\nмиянлысь\nтіянлысь\nналысь\n\ndative\nменым\nтэныд\nсылы\nмиянлы\nтіянлы\nналы\n\ninstrumental\nмеӧн\nтэӧн\nсыӧн\nмиянӧн\nтіянӧн\nнаӧн\n\ncomitative\nмекӧд\nтэкӧд\nсыкӧд\nмиянкӧд\nтіянкӧд\nнакӧд\n\ncaritive\nметӧг\nтэтӧг\nсытӧг\nмиянтӧг\nтіянтӧг\nнатӧг\n\nconsecutive\nмела\nтэла\nсыла\nмиянла\nтіянла\nнала\n\nelative\nмеысь\nтэысь\nсыысь\nмиянысь\nтіянысь\nнаысь\n\nterminative\nмеӧдз\nтэӧдз\nсыӧдз\nмиянӧдз\nтіянӧдз\nнаӧдз\n\napproximative\nмелань\nтэлань\nсылань\nмиянлань\nтіянлань\nналань\n\negressive\nмесянь\nтэсянь\nсысянь\nмиянсянь\nтіянсянь\nнасянь",
+          "examples": [
+            "Example",
+            "Nouns ending in в often change this consonant to л, e.g. ныв (\"girl\") → нылыс (\"his/her girl\").",
+            "видз (\"lawn\") → виддзыд (\"your lawn\");",
+            "додь (\"sled\") → доддьыс (\"his sled\");",
+            "куль (\"demon\") → кулльысь (\"from a demon\").",
+            "пон (\"dog\") → понйыс (\"his/her dog\");"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Plural",
+          "body": "There are two types of nominal plurals in Komi. One is the plural for nouns -яс (with the exception of -ян in пиян, \"the sons / boys\" and -ана/-яна in words ending on -анин/-янин, e.g. зыряна, \"Zyrians\") and the other is the plural for adjectives -ӧсь. \n\nNominal plural\nIn attributive plural phrases, the noun is always in plural, while the adjective is not required to be in the plural:  \n\nAttributive plural\n\nKomi\nEnglish\n\nмича(ӧсь) нывъяс\n(the) beautiful girls\n\nThe plural marker always comes before other endings (i.e. cases and possessive suffixes) in the morphological structure of plural nominal. \n\nMorphological order\n\nKomi\nEnglish\n\nнывъяслы\nto the girls\n\nSince -яс, -ян and -яна start with a soft vowel, they may be preceded by either a hard sign (ъ) or a soft sign (ь), depending on the preceding letter:\n\nMorphological order\n\nKomi\nEnglish\n\nва; ваяс\nwater; waters\n\nун; унъяс\ndream; dreams\n\nлӧдз; лӧдзьяс\nhorsefly; horseflies\n\nPredicative plural\nAs in Hungarian, if the subject is plural, the adjective is always plural when it functions as the sentence's predicative:\n\nAttributive plural\n\nKomi\nEnglish\n\nнывъяс мичаӧсь\nthe girls are beautiful\n\nкеркаяс ыджыдӧсь\nthe houses are big",
+          "examples": [
+            "There are two types of nominal plurals in Komi. One is the plural for nouns -яс (with the exception of -ян in пиян, \"the sons / boys\" and -ана/-яна in words ending on -анин/-янин, e.g. зыряна, \"Zyrians\") and the other is the plural for adje"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Possessive suffixes",
+          "body": "Nominal possessive suffixes\nKomi possessive suffixes are added to the end of nouns either before or after a case ending. The possessive suffixes vary in the nominative and accusative cases and with case endings. \n\nNominative possessive suffix\n\nSuffix ending\nKomi\nEnglish\n\n-ӧй\nёртӧй \nmy friend\n\n-ыд\nёртыд\nyour (sg.) friend\n\n-ыс\nёртыс\nhis/her friend\n\n-ным\nёртным\nour friend\n\n-ныд\nёртныд\nyour (pl.) friend\n\n-ныс\nёртныс\ntheir friend\n\nAccusative possessive suffixes\nAccusative possessive suffixes are shown in the following table. Note that the possessive of the first person in the accusative matches the simple accusative.\n\nAccusative possessive suffix\n\nSuffix ending\nKomi\nEnglish\n\n-ӧс\nёртӧс\nmy friend\n\n-тӧ\nёрттӧ\nyour (sg.) friend\n\n-сӧ\nёртсӧ\nhis/her friend\n\n-нымӧс\nёртнымӧс\nour friend\n\n-нытӧ\nёртнытӧ\nyour (pl.) friend\n\n-нысӧ\nёртнысӧ\ntheir friend",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Verbs",
+      "summary": "Komi infinitives are marked with -ны. as in мунны, 'to go'. Some infinitives have a so called connecting vowel ы which is dropped in the verbal stem when affixing, for example, a personal ending such as in the verb велӧдчыны ‘to study’ → велӧдча 'I study'.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Komi infinitives are marked with -ны. as in мунны, 'to go'. Some infinitives have a so called connecting vowel ы which is dropped in the verbal stem when affixing, for example, a personal ending such as in the verb велӧдчыны ‘to study’ → велӧдча 'I study'. \n\nThere is one phoneme which undergoes consonant gradation when adding a suffix beginning with a vowel. This change is в → л as in овны ‘to live’ → олан ‘you live’. Another exception is the verb локны, which has an epenthetic [t] added before a suffix beginning with a vowel, e.g. локтан ‘you come’.\n\nThe indicative mood has four tenses: present, future and two past tenses. In addition, there are four past tense structures which include auxiliary verbs. Verbs are negated by use of an auxiliary negative verb that conjugates with personal endings. Separate personal pronouns are not required in verb phrases.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Present tense",
+          "body": "The verbal personal markers in the Komi present tense are:\n\nPersonal endings of verbs\n\nPerson\n\nEnding\n\nSingular\n\nPlural\n\n1st\n-а\n-ам\n\n2nd\n-ан\n-анныд\n\n3rd\n-ӧ\n-ӧны\n\nPresent tense\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nуджала\nI work\n\n2nd\nуджалан\nyou work\n\n3rd\nуджалӧ\nhe/she works\n\nPlural\n\n1st\nуджалам\nwe work\n\n2nd\nуджаланныд\nyou work\n\n3rd\nуджалӧны\nthey work\n\nThe negative indicative present is formed by the auxiliary о- negative verb and the verbal stem in the first person and with -ӧй in the first and second person plural and -ны in the third person plural.\n\nThe negative verb conjugates with the ending -г in first person, -н in the second person and -з in the third person. The first and second person plural is marked with -ӧ. \n\nPresent tense negative\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nог уджав\nI do not work\n\n2nd\nон уджав\nyou do not work\n\n3rd\nоз уджав\nhe/she does not work singing\n\nPlural\n\n1st\nогӧ уджалӧй\nwe do not work\n\n2nd\nонӧ уджалӧй \nyou (pl) do not work\n\n3rd\nоз уджавны\nthey do not work",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Future tense",
+          "body": "The affirmative and negative future tense in Komi is basically the same as in the present with the exception of the third person in the affirmative, ending in -ас (singular) and -асны (plural):\n\nуджалас\nhe/she will work\n\nуджаласны\nthey will work",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Past tense",
+          "body": "The conventionally used designations preterite and perfect are used with denotations which are divergent from their usual meanings in the grammar of other languages.\n\nPreterite I\nThe first preterite can be compared with the simple past in English. Preterite I is marked with і/и.\n\nPreterite I\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nуджалі\nI worked\n\n2nd\nуджалін\nyou worked\n\n3rd\nуджаліс\nhe/she worked\n\nPlural\n\n1st\nуджалім\nwe worked\n\n2nd\nуджалінныд\nyou worked\n\n3rd\nуджалісны\nthey worked\n\nThe negative preterite I is formed by the auxiliary э- negative verb with the same personal endings as in present tense. The main verb is the same as in the present tense\n\nPreterite I negative\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nэг уджав\nI did not work\n\n2nd\n эн уджав\nyou did not work\n\n3rd\nэз уджав\nhe/she did not work\n\nPlural\n\n1st\nэгӧ уджалӧй\nwe did not work\n\n2nd\nэнӧ уджалӧй\nyou did not work\n\n3rd\nэз уджавны\nthey did not work\n\nPreterite II\nThe second preterite is a past tense with an evidentiality distinction. It can be compared to the English perfect in which the speaker did not personally observe the past event. The preterite II is marked with -ӧм-, which is historically related to the third infinitive in Finnish. \n\nPreterite II\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nуджалӧма\nI evidently worked\n\n2nd\nуджалӧмыд\nyou evidently worked\n\n3rd\nуджалӧма\nhe/she evidently worked\n\nPlural\n\n1st\nуджалӧмаӧсь\nwe evidently worked\n\n2nd\nуджалӧманыд\nyou evidently worked\n\n3rd\nуджалӧмаӧсь/уджалӧмны\nthey evidently worked\n\nThe negative preterite II is formed by including the auxiliary copular negative verb абу 'is not', e.g. абу уджалӧма (I have evidently not worked), абу уджалӧмыд (you have evidently not worked) etc.\n\nAuxiliary past tenses\nThere are four past tenses in Komi which use a preterite form of the main verb and a preterite form of the auxiliary verb 'to be'.\n\nPreterite III\nThe Komi preterite III makes use of the main verb in the present tense and the auxiliary вӧлі, 'was' in third person singular, in simple past. The pluperfect I tense expresses a continuation of action that has happened in the (distant) past.  \n\nPreterite III\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nвӧлі уджала\nI was working\n\n2nd\nвӧлі уджалан\nyou were working\n\n3rd\nвӧлі уджалӧ\nhe/she was working\n\nPlural\n\n1st\nвӧлі уджалам\nwe were working\n\n2nd\nвӧлі уджаланныд\nyou were working\n\n3rd\nвӧлі уджалӧны\nthey were working\n\nThe negative preterite III is formed by including the auxiliary copular verb вӧлі  ‘was' with the main verb in the present negative.\n\nPreterite III negative\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nвӧлі ог уджав\nI was not working\n\n2nd\nвӧлі он уджав\nyou were not working\n\n3rd\nвӧлі оз уджав\nhe/she was not working\n\nPlural\n\n1st\nвӧлі огӧ уджалӧй\nwe was not working\n\n2nd\nвӧлі онӧ уджалӧй \nyou were not working\n\n3rd\nвӧлі оз уджавны\nthey were not working\n\nPreterite IV\nThe Komi preterite IV (pluperfect) makes use of the main verb in the preterite II form and the auxiliary вӧлі, 'was' in third person singular, in simple past. The preterite IV tense expresses an evidently completed action that has happened in the (distant) past.  \n\nPreterite IV\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nвӧлі уджалӧма\nI have evidently worked\n\n2nd\nвӧлі уджалӧмыд\nyou have evidently worked\n\n3rd\nвӧлі уджалӧма\nhe/she has evidently worked\n\nPlural\n\n1st\nвӧлі уджалӧмаӧсь\nwe have evidently worked\n\n2nd\nвӧлі уджалӧманыд\nyou have evidently worked\n\n3rd\nвӧлі уджалӧмаӧсь/уджалӧмны\nthey have evidently worked\n\nThe negative preterite IV is formed by including the auxiliary copular negative verb абу 'is not', e.g. вӧлі абу уджалӧма (I have evidently not worked), вӧлі абу уджалӧмыд (you have evidently not worked) etc.\n\nPreterite V\nThe Komi preterite V makes use of the main verb in the present form and the auxiliary вӧлӧм, 'apparently was' in third person singular, preterite II. The preterite V tense expresses an evidently continuous action that has happened in the (distant) past.  \n\nPresent tense\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nвӧлӧм уджала\nI was evidently working\n\n2nd\nвӧлӧм уджалан\nyou were evidently working\n\n3rd\nвӧлӧм уджалӧ\nhe/she was evidently working\n\nPlural\n\n1st\nвӧлӧм уджалам\nwe were evidently working\n\n2nd\nвӧлӧм уджаланныд\nyou were evidently working\n\n3rd\nвӧлӧм уджалӧны\nthey were evidently working\n\nThe negative preterite V is formed by including the auxiliary copular verb вӧлӧм 'evidently  was' with the main verb in the present negative.\n\nPreterite V negative\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nвӧлӧм ог уджав\nI was not evidently working\n\n2nd\nвӧлӧм он уджав\nyou were not evidently working\n\n3rd\nвӧлӧм оз уджав\nhe/she was not evidently working\n\nPlural\n\n1st\nвӧлӧм огӧ уджалӧй\nwe were not evidently working\n\n2nd\nвӧлӧм онӧ уджалӧй \nyou were not evidently working\n\n3rd\nвӧлӧм оз уджавны\nthey were not evidently working\n\nPreterite VI\nThe Komi preterite VI makes use of the main verb in the preterite II form and the auxiliary вӧлӧм, 'apparently was' in third person singular, preterite II. The preterite VI tense expresses an evidently completed action that has happened in the (distant) past.  \n\nPreterite VI\n\nPerson\nуджавны\nEnglish\n\nSingular\n\n1st\nвӧлӧм уджалӧма\nI had evidently worked\n\n2nd\nвӧлӧм уджалӧмыд\nyou had evidently worked\n\n3rd\nвӧлӧм уджалӧма\nhe/she had evidently worked\n\nPlural\n\n1st\nвӧлӧм уджалӧмаӧсь\nwe had evidently worked\n\n2nd\nвӧлӧм уджалӧманыд\nyou had evidently worked\n\n3rd\nвӧлӧм уджалӧмаӧсь/уджалӧмны\nthey had evidently worked\n\nThe negative preterite VI is formed by including the auxiliary copular negative verb абу 'is not', e.g. вӧлӧм абу уджалӧма (I had evidently not worked), вӧлӧм абу уджалӧмыд (you had evidently not worked) etc.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        },
+        {
+          "heading": "Participles",
+          "body": "Komi verbs have past and present participles. These participles can also be passive or active. In addition to affirmative participles, Komi also has a caritive participle.\n\nThe present participle is -ысь. It is a participle which expresses continuous action and is always active. It is affixed to the stems of the verb.\n\nParticiple\nEnglish\n\nвелӧдысь ныв\na girl that studies\n\nсьылысь пи\na boy that sings\n\nIn addition to functioning as regular attributive participle, the present participle also functions as a nominalizing derivational suffix.\n\nas a participle\nEnglish\nas a noun\nEnglish\n\nвелӧдысь ныв\na girl that studies\nвелӧдысь\nstudent\n\nсьылысь пи\na boy that sings\nсьылысь\nsinger\n\nThe participle -ан/-ана denotes continuous action and can be active as in сетан ки ‘a giving hand’. It can also be passive, formed from a transitive verb with the noun acting as the object as in лыддян небӧг, 'a book being read'. The agent in the phrase is in the instrumental case: Тайӧ мамӧй вуран дӧрӧм, ’This is a shirt sewn by mother’.\n\nThe past participle is -ӧм. It is an attributive participle which expresses completed action. It can be active with the head noun as agent велӧдчӧм морт 'a learned person', passive formed from a transitive verbs велӧдчӧм урок 'a lesson that was learned', the noun acting as the object as in гижӧм небӧг 'a book that was written'. The agent in the phrase is in the instrumental case: Иван Куратовӧн гижӧм небӧг, 'A book written by Ivan Kuratov'.\n\nThe caritive participle is -тӧм. \n\nParticiple\nEnglish\n\nгижтӧм небӧг\na book which has not  been written\n\nнебӧг гижтӧм\nthe book cannot be written",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Komi_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

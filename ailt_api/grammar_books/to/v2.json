@@ -1,0 +1,182 @@
+{
+  "title": "Grammar Book — lea fakatonga",
+  "languageCode": "to",
+  "languageName": "lea fakatonga",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Tongan_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Polynesian language\nThis article is about the Polynesian language; not to be confused with Tonga language or Dungan language.\nThis article's lead section may be too short to adequately summarize the key points. Please consider expanding the lead to provide an accessible overview",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Polynesian language\nThis article is about the Polynesian language; not to be confused with Tonga language or Dungan language.\nThis article's lead section may be too short to adequately summarize the key points. Please consider expanding the lead to provide an accessible overview of all important aspects of the article.  (March 2022)Tonganlea faka-TongaNative toTonga;\nsignificant immigrant community in New Zealand and the United StatesEthnicityTongansNative speakers(187,000\n\n96,000 in Tonga cited 1998)[1]\n73,000 elsewhere (no date), primarily in NZ, U.S., and Australia[2]\n\nLanguage familyAustronesian\n\nMalayo-PolynesianOceanicPolynesianTongicTongan\n\nWriting systemLatin-basedOfficial statusOfficial language inTongaLanguage codesISO 639-1toISO 639-2tonISO 639-3tonGlottologtong1325This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nTongan (English pronunciation: /ˈtɒŋ(ɡ)ən/ TONG-(g)ən;[3][4][5][a] lea fakatonga) is an Austronesian language of the Polynesian branch native to the island nation of Tonga. It has around 187,000 speakers.[6] It uses the word order verb–subject–object and, although primarily spoken, the written form uses Latin script.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Related languages",
+      "summary": "Tongan is one of the multiple languages in the Polynesian branch of the Austronesian languages, along with Hawaiian, Cook islander, Māori, and Tahitian, for example. Together with Niuean, and possibly Niuafo’ouan, it forms the Tongic subgroup of Polynesian.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Tongan is one of the multiple languages in the Polynesian branch of the Austronesian languages, along with Hawaiian, Cook islander, Māori, and Tahitian, for example. Together with Niuean, and possibly Niuafo’ouan, it forms the Tongic subgroup of Polynesian.\n\nTongan is unusual among Polynesian languages in that it has a so-called definitive accent. As with all Polynesian languages, Tongan has adapted the phonological system of proto-Polynesian.\n\nTongan has retained the original proto-Polynesian *h, but has merged it with the original *s as /h/. (The /s/ found in modern Tongan derives from *t before high front vowels). Most Polynesian languages have lost the original proto-Polynesian glottal stop /ʔ/; however, it has been retained in Tongan and a few other languages including Rapa Nui.[b]\n\nIn proto-Polynesian, *r and *l were distinct phonemes, but in most Polynesian languages they have merged, represented orthographically as ⟨r⟩ in most East Polynesian languages, and as ⟨l⟩ in most West Polynesian languages. However, the distinction can be reconstructed because Tongan kept the *l but lost the *r.[c]\n\nTongan has heavily influenced the Wallisian language after Tongans colonized the island of ʻUvea in the 15th and 16th centuries.[7]\n\nPolynesian sound correspondences\n\nPhoneme\n\nProto-Polynesian\n\nTongan\n\nNiuean\n\nSamoan\n\nRapa Nui\n\nTahitian\n\nMāori\n\nCook Is. Māori\n\nHawaiian\n\nEnglish\n\n/ŋ/\n\n*taŋata\n\ntangata\n\ntagata\n\ntagata\n\ntangata\n\ntaʻata\n\ntangata\n\ntangata\n\nkanaka\n\nperson\n\n/s/\n\n*sina\n\nhina\n\nhina\n\nsina\n\nhina\n\nhinahina\n\nhina\n\nʻina\n\nhina\n\ngrey-haired\n\n/h/\n\n*kanahe\n\nkanahe\n\nkanahe\n\nʻanae\n\nʻanae\n\nkanae\n\nkanae\n\nʻanae\n\nmullet (fish)\n\n/ti/\n\n*tiale\n\nsiale\n\ntiale\n\ntiale\n\ntiare\n\ntiare\n\ntīare\n\ntiare\n\nkiele\n\ngardenia\n\n/k/\n\n*waka\n\nvaka\n\nvaka\n\nvaʻa\n\nvaka\n\nvaʻa\n\nwaka\n\nvaka\n\nwaʻa\n\ncanoe\n\n/f/\n\n*fafine\n\nfefine\n\nfifine\n\nfafine\n\nvahine\n\nvahine\n\nwahine\n\nvaʻine\n\nwahine\n\nwoman\n\n/ʔ/\n\n*matuqa[d]\n\nmatuʻa\n\nmatua\n\nmatua\n\nmatuʻa\n\nmetua\n\nmatua\n\nmetua, matua\n\nmakua\n\nparent\n\n/r/\n\n*rua\n\nua\n\nua\n\nlua\n\nrua\n\nrua[e]\n\nrua\n\nrua\n\nʻelua\n\ntwo\n\n/l/\n\n*tolu\n\ntolu\n\ntolu\n\ntolu\n\ntoru\n\ntoru\n\ntoru\n\ntoru\n\nʻekolu\n\nthree",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Writing",
+      "summary": "The earliest attempts to transcribe the Tongan language were made by Willem Schouten and Jacob Le Maire of the Dutch East India Company when they first arrived in 1616. They transcribed a limited number of nouns and verbs using phonetic Dutch spelling and added them to a growing",
+      "sections": [
+        {
+          "heading": "History",
+          "body": "The earliest attempts to transcribe the Tongan language were made by Willem Schouten and Jacob Le Maire of the Dutch East India Company when they first arrived in 1616. They transcribed a limited number of nouns and verbs using phonetic Dutch spelling and added them to a growing list of Polynesian vocabulary. Abel Tasman, also of the Dutch East India Company, attempted to converse with indigenous Tongans using vocabulary from this list when he arrived on Tongatapu on 20 January 1643, although he was poorly understood, likely using words added from different Polynesian languages.[8]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        },
+        {
+          "heading": "Alphabet",
+          "body": "Tongan is presently written in a subset of the Latin script. In the old, \"missionary\" alphabet, the order of the letters was modified: the vowels were put first and then followed by the consonants: a, e, i, o, u, with variation of letter ā. That was still so as of the Privy Council decision of 1943 on the orthography of the Tongan language. However, C. M. Churchward's grammar and dictionary favoured the standard European alphabetical order, which, since his time, has been in use exclusively:\n\nTongan alphabet\n\nLetter\n\na, ā\n\ne\n\nf\n\nh\n\ni\n\nk\n\nl\n\nm\n\nn\n\nng\n\no\n\np\n\ns\n\nt\n\nu\n\nv\n\nʻ (fakauʻa)\n\nPronunciation\n\n/a/\n\n/e/\n\n/f/\n\n/h/\n\n/i/\n\n/k/\n\n/l/\n\n/m/\n\n/n/\n\n/ŋ/1\n\n/o/\n\n/p/2\n\n/s/3\n\n/t/\n\n/u/\n\n/v/\n\n/ʔ/4\n\nNotes:\n\nwritten as g but still pronounced as [ŋ] (as in Samoan) before 1943\n\nunaspirated; written as b before 1943\n\nsometimes written as j before 1943 (see below)\n\nthe glottal stop. It should be written with the modifier letter turned comma (Unicode 0x02BB) and not with the single quote open or with a mixture of quotes open and quotes close. See also ʻokina.\n\nThe above order is strictly followed in proper dictionaries. Therefore, ngatu follows nusi, ʻa follows vunga and it also follows z if foreign words occur. Words with long vowels come directly after those with short vowels. Improper wordlists may or may not follow these rules. (For example, the Tonga telephone directory for years now ignores all rules.[citation needed])\n\nThe original j, used for /tʃ/, disappeared in the beginning of the 20th century, merging with /s/. By 1943, j was no longer used. Consequently, many words written with s in Tongan are cognate to those with t in other Polynesian languages. For example, Masisi (a star name) in Tongan is cognate with Matiti in Tokelauan; siale (Gardenia taitensis) in Tongan and tiare in Tahitian. This seems to be a natural development, as /tʃ/ in many Polynesian languages derived from Proto-Polynesian /ti/.",
+          "examples": [
+            "Tongan is presently written in a subset of the Latin script. In the old, \"missionary\" alphabet, the order of the letters was modified: the vowels were put first and then followed by the consonants: a, e, i, o, u, with variation of letter ā."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Phonology",
+      "summary": "/l/ may also be heard as an alveolar flap sound [ɺ].",
+      "sections": [
+        {
+          "heading": "Consonants",
+          "body": "Labial\n\nAlveolar\n\nVelar\n\nGlottal\n\nNasal\n\nm\n\nn\n\nŋ\n\nPlosive\n\np\n\nt\n\nk\n\nʔ\n\nFricative\n\nvoiceless\n\nf\n\ns\n\nh\n\nvoiced\n\nv\n\nLateral\n\nl\n\n/l/ may also be heard as an alveolar flap sound [ɺ].",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Front\n\nCentral\n\nBack\n\nHigh\n\ni\n\nu\n\nMid\n\ne\n\no\n\nLow\n\na",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        },
+        {
+          "heading": "Syllabification",
+          "body": "Each syllable has exactly one vowel. The number of syllables in a word is exactly equal to the number of vowels it has.\n\nLong vowels, indicated with a toloi (macron), count as one, but may in some circumstances be split up in two short ones, in which case, they are both written. Toloi are supposed to be written where needed, in practice this may be seldom done.\n\nEach syllable may have no more than one consonant.\n\nConsonant combinations are not permitted. The ng is not a consonant combination, since it represents a single sound. As such it can never be split, the proper hyphenation of fakatonga (Tongan) therefore is fa-ka-to-nga.\n\nEach syllable must end in a vowel. All vowels are pronounced, but an i at the end of an utterance is usually unvoiced.\n\nThe fakauʻa is a consonant. It must be followed (and, except at the beginning of a word, preceded) by a vowel. Unlike the glottal stops in many other Polynesian languages texts, the fakauʻa is always written. (Only sometimes before 1943.)\n\nStress normally falls on the next-to-last syllable of a word with two or more syllables; example: móhe (sleep), mohénga (bed). If, however, the last vowel is long, it takes the stress; example: kumā (mouse) (stress on the long ā). The stress also shifts to the last vowel if the next word is an enclitic; example: fále (house), falé ni (this house). Finally the stress can shift to the last syllable, including an enclitic, in case of the definitive accent; example: mohengá ((that) particular bed), fale ní (this particular house). It is also here that a long vowel can be split into two short ones; example: pō (night), poó ni (this night), pō ní (this particular night). Or the opposite: maáma (light), māmá ni (this light), maama ní (this particular light). There are some exceptions to the above general rules. The stress accent is normally not written, except where it is to indicate the definitive accent or fakamamafa. But here, too, people often neglect to write it, only using it when the proper stress cannot be easily derived from the context.\n\nAlthough the acute accent has been available on most personal computers from their early days onwards, when Tongan newspapers started to use computers around 1990 to produce their papers, they were unable to find, or failed to enter, the proper keystrokes, and it grew into a habit to put the accent after the vowel instead of on it: not á but a´.[citation needed] But as this distance seemed to be too big, a demand arose for Tongan fonts where the acute accent was shifted to the right, a position halfway in between the two extremes above. Most papers still follow this practice.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Grammar",
+      "summary": "By contrast, Tongan has three articles, and possessives also have a three-level definiteness distinction:",
+      "sections": [
+        {
+          "heading": "Articles",
+          "body": "English uses only two articles:\n\nindefinite a\n\ndefinite the\n\nBy contrast, Tongan has three articles, and possessives also have a three-level definiteness distinction:\n\nindefinite, nonspecific: ha. Example: ko ha fale ('a house', 'any house' - the speaker has no specific house in mind, any house will satisfy this description, e.g. 'I want to buy a house')\n\nindefinite, specific: (h)e. Example: ko e fale ('a (particular) house' - the speaker has a specific house in mind, but the listener is not expected to know which house, e.g. 'I bought a house')\n\ndefinite, specific: (h)e with the shifted ultimate stress. Example: ko e falé ('the house', - the speaker has a specific house in mind and the listener is expected to know which one from context, e.g. 'I bought the house I told you about').",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        },
+        {
+          "heading": "Registers",
+          "body": "There are three registers which consist of\n\nordinary words (the normal language)\n\nhonorific words (the language for the chiefs)\n\nregal words (the language for the king)\n\nThere are also further distinctions between \n\npolite words (used for more formal contexts)\n\nderogatory words (used for informal contexts, or to indicate humility)\n\nFor example, the phrase \"Come and eat!\" translates to:\n\nordinary: haʻu ʻo kai (come and eat!); Friends, family members and so forth may say this to each other when invited for dinner.\n\nhonorific: meʻa mai pea ʻilo (come and eat!); The proper used towards chiefs, particularly the nobles, but it may also be used by employees towards their bosses, or in other similar situations. When talking about chiefs, however, it is always used, even if they are not actually present, but in other situations only on formal occasions. A complication to the beginning student of Tongan is that such words very often also have an alternative meaning in the ordinary register: meʻa (thing) and ʻilo (know, find).\n\nregal: hāʻele mai pea taumafa (come and eat!); Used towards the king or God. The same considerations as for the honorific register apply. Hāʻele is one of the regal words which have become the normal word in other Polynesian languages.",
+          "examples": [
+            "For example, the phrase \"Come and eat!\" translates to:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "The Tongan language distinguishes three numbers: singular, dual, and plural. They appear as the three major columns in the tables below.\n\nThe Tongan language distinguishes four persons: First person exclusive, first person inclusive, second person and third person. They appear as the four major rows in the tables below.  This gives us 12 main groups.\n\nSubjective and objective\nIn addition, possessive pronouns are either alienable (reddish) or inalienable (greenish), which Churchward termed subjective and objective. This marks a distinction that has been referred to, in some analyses of other Polynesian languages, as a-possession versus o-possession, respectively,[f] though more Tongan-appropriate version would be ʻe-possession and ho-possession.\n\nSubjective and objective are fitting labels when dealing with verbs: ʻeku taki \"my leading\" vs. hoku taki \"my being led\".  However, this is less apt when used on nouns.  Indeed, in most contexts hoku taki would be interpreted as \"my leader\", as a noun rather than a verb.  What then of nouns that have no real verb interpretation, such as fale \"house\"?\n\nChurchward himself laid out the distinction thus:[9]\n\nBut what about those innumerable cases in which the possessive can hardly be said to correspond either to the subject or to the object of a verb?  What, for example, is the rule or the guiding principle, which lies behind the fact that a Tongan says ʻeku paʻanga for ' my money' but hoku fale for 'my house'?\nIt may be stated as follows: the use of ʻeku for 'my' implies that I am active, influential, or formative, &c., towards the thing mentioned, whereas the use of hoku for 'my' implies that the thing mentioned is active, influential, or formative, &c., towards me.  Or, provided that we give a sufficiently wide meaning to the word 'impress', we may say, perhaps, that ʻeku is used in reference to things upon which I impress myself, while hoku is used in reference to things which impress themselves upon me.\n\nʻE possessives are generally used for:\n\nGoods, money, tools, utensils, instruments, weapons, vehicles, and other possessions which the subject owns or uses (ʻeku paʻanga, \"my money\")\n\nAnimals or birds which the subjects owns or uses (ʻeku fanga puaka, \"my pigs\")\n\nThings which the subject eats, drinks, or smokes (ʻeku meʻakai, \"my food\")\n\nThings which the subject originates, makes, mends, carries, or otherwise deals with (ʻeku kavenga, \"my burden\")\n\nPersons in the subject's employ, under their control, or in their care (ʻeku tamaioʻeiki \"my male servant\")\n\nHo possessives are generally used for\n\nThings which are a part of the subject or 'unalienable' from the subject, such as body parts (hoku sino, \"my body\")\n\nPersons or things which represent the subject (hoku hingoa, \"my name\")\n\nThe subject's relatives, friends, associates, or enemies (hoku hoa, \"my companion (spouse)\")\n\nThings which are provided for the subject or devolve to them or fall to their lot (hoku tofiʻa, \"my inheritance\")\n\nIn general, persons or things which surround, support, or control the subject, or on which the subject depends (hoku kolo, \"my village/town\")\n\nThere are plenty of exceptions which do not fall under the guidelines above, for instance, ʻeku tamai, \"my father\".  The number of exceptions is large enough to make the alienable and inalienable distinction appear on the surface to be as arbitrary as the grammatical gender distinction for Romance languages, but by and large the above guidelines hold true.\n\nCardinal pronouns\nThe cardinal pronouns are the main personal pronouns which in Tongan can either be preposed (before the verb, light colour) or postposed (after the verb, dark colour). The first are the normal alienable possessive pronouns, the latter the stressed alienable pronouns, which are sometimes used as reflexive pronouns, or with kia te in front the inalienable possessive forms. (There is no possession involved in the cardinal pronouns and therefore no alienable or inalienable forms).\n\nCardinal pronouns\n\nPosition\n\nSingular\n\nDual\n\nPlural\n\n1st person\n\nexclusive \n(I, we, us)\n\npreposed\n\nu, ou, ku\n\nma\n\nmau\n\npostposed\n\nau\n\nkimaua\n\nkimautolu\n\ninclusive\n(one, we, us)\n\npreposed\n\nte\n\nta\n\ntau\n\npostposed\n\nkita\n\nkitaua\n\nkitautolu\n\n2nd person\n\npreposed\n\nke\n\nmo\n\nmou\n\npostposed\n\nkoe\n\nkimoua\n\nkimoutolu\n\n3rd person\n\npreposed\n\nne\n\nna\n\nnau\n\npostposed\n\nia\n\nkinaua\n\nkinautolu\n\nall the preposed pronouns of one syllable only (ku, u, ma, te, ta, ke, mo, ne, na) are enclitics which never can take the stress, but put it on the vowel in front of them. Example: ʻoku naú versus ʻokú na (not: ʻoku ná).\n\nfirst person singular, I uses u after kuo, te, ne, and also ka (becomes kau), pea, mo and ʻo; but uses ou after ʻoku; and uses ku after naʻa.\n\nfirst person inclusive (I and you) is somewhat of a misnomer, at least in the singular. The meanings of te and kita can often rendered as one, that is the modesty I.\n\nExamples of use.\n\nNaʻa ku fehuʻi: I asked\n\nNaʻe fehuʻi (ʻe) au: I(!) asked (stressed)\n\nʻOku ou fehuʻi au: I ask myself\n\nTe u fehuʻi kiate koe: I shall ask you\n\nTe ke tali kiate au: You will answer me\n\nKapau te te fehuʻi: If one would ask\n\nTau ō ki he hulohula?: Are we (all) going to the ball?\n\nSinitalela, mau ō ki he hulohula: Cinderella, we go to the ball (... said the evil stepmother, and she went with two of her daughters, but not Cinderella)\n\nAnother archaic aspect of Tongan is the retention of preposed pronouns.[citation needed] They are used much less frequently in Samoan and have completely disappeared in East Polynesian languages, where the pronouns are cognate with the Tongan postposed form minus ki-. (We love you: ʻOku ʻofa kimautolu kia te kimoutolu; Māori: e aroha nei mātou i a koutou).\n\nPossessive pronouns\nThe possessives for every person and number (1st person plural, 3rd person dual, etc.) can be further divided into normal or ordinary (light colour), emotional (medium colour) and emphatic (bright colour) forms. The latter is rarely used, but the two former are common and further subdivided in definite (saturated colour) and indefinite (greyish colour) forms.\n\nPossessive pronouns\n\ndefinite\nor not\n\ntype\n\nsingular\n\ndual\n\nplural\n\nalienable2,5\n\ninalienable2,5\n\nalienable2,5\n\ninalienable2,5\n\nalienable2,5\n\ninalienable2,5\n\n1st person\n(exclusive)\n(my, our)\n\ndefinite\n\nordinary\n\nheʻeku1\n\nhoku\n\nheʻema1\n\nhoma\n\nheʻemau1\n\nhomau\n\nindefinite\n\nhaʻaku\n\nhaku\n\nhaʻama\n\nhama\n\nhaʻamau\n\nhamau\n\ndefinite\n\nemotional\n\nsiʻeku\n\nsiʻoku\n\nsiʻema\n\nsiʻoma\n\nsiʻemau\n\nsiʻomau\n\nindefinite\n\nsiʻaku\n\nsiʻaku\n\nsiʻama\n\nsiʻama\n\nsiʻamau\n\nsiʻamau\n\nemphatic3\n\nhaʻaku\n\nhoʻoku\n\nhaʻamaua\n\nhoʻomaua\n\nhaʻamautolu\n\nhoʻomautolu\n\n1st person\n(inclusive)4\n(my, our)\n\ndefinite\n\nordinary\n\nheʻete1\n\nhoto\n\nheʻeta1\n\nhota\n\nheʻetau1\n\nhotau\n\nindefinite\n\nhaʻate\n\nhato\n\nhaʻata\n\nhata\n\nhaʻatau\n\nhatau\n\ndefinite\n\nemotional\n\nsiʻete\n\nsiʻoto\n\nsiʻeta\n\nsiʻota\n\nsiʻetau\n\nsiʻotau\n\nindefinite\n\nsiʻate\n\nsiʻato\n\nsiʻata\n\nsiʻata\n\nsiʻatau\n\nsiʻatau\n\nemphatic3\n\nhaʻata\n\nhoʻota\n\nhaʻataua\n\nhoʻotaua\n\nhaʻatautolu\n\nhoʻotautolu\n\n2nd person\n(your)\n\ndefinite\n\nordinary\n\nhoʻo\n\nho\n\nhoʻomo\n\nhomo\n\nhoʻomou\n\nhomou\n\nindefinite\n\nhaʻo\n\nhao\n\nhaʻamo\n\nhamo\n\nhaʻamou\n\nhamou\n\ndefinite\n\nemotional\n\nsiʻo\n\nsiʻo\n\nsiʻomo\n\nsiʻomo\n\nsiʻomou\n\nsiʻomou\n\nindefinite\n\nsiʻao\n\nsiʻao\n\nsiʻamo\n\nsiʻamo\n\nsiʻamou\n\nsiʻamou\n\nemphatic3\n\nhaʻau\n\nhoʻou\n\nhaʻamoua\n\nhoʻomoua\n\nhaʻamoutolu\n\nhoʻomoutolu\n\n3rd person\n(his, her, its, their)\n\ndefinite\n\nordinary\n\nheʻene1\n\nhono\n\nheʻena1\n\nhona\n\nheʻenau1\n\nhonau\n\nindefinite\n\nhaʻane\n\nhano\n\nhaʻana\n\nhana\n\nhaʻanau\n\nhanau\n\ndefinite\n\nemotional\n\nsiʻene\n\nsiʻono\n\nsiʻena\n\nsiʻona\n\nsiʻenau\n\nsiʻonau\n\nindefinite\n\nsiʻane\n\nsiʻano\n\nsiʻana\n\nsiʻana\n\nsiʻanau\n\nsiʻanau\n\nemphatic3\n\nhaʻana\n\nhoʻona\n\nhaʻanaua\n\nhoʻonaua\n\nhaʻanautolu\n\nhoʻonautolu\n\nNotes:\n\nthe ordinary definite possessives starting with he (in italics) drop this prefix after any word except ʻi, ki, mei, ʻe. Example: ko ʻeku tohi, my book; ʻi heʻeku tohi, in my book.\n\nall ordinary alienable possessive forms contain a fakauʻa, the inalienable forms do not.\n\nthe emphatic forms are not often used, but if they are, they take the definitive accent from the following words (see below)\n\nfirst person inclusive (me and you) is somewhat of a misnomer. The meanings of heʻete, hoto, etc. can often rendered as one's, that is the modesty me.\n\nthe choice between an alienable or inalienable possessive is determined by the word or phrase it refers to. For example: ko ho fale '(it is) your house' (inalienable), ko ho'o tohi, '(it is) your book' (alienable). *Ko ho tohi, ko hoʻo fale* are wrong. Some words can take either, but with a difference in meaning: ko ʻene taki 'his/her leadership'; ko hono taki 'his/her leader'.\n\nExamples of use.\n\nko haʻaku/haku kahoa: my garland (any garland from or for me)\n\nko ʻeku/hoku kahoa: my garland (it is my garland)\n\nko ʻeku/hoku kahoá: my garland, that particular one and no other\n\nko heʻete/hoto kahoa: one's garland {mine in fact, but that is not important}\n\nko siʻaku kahoa: my cherished garland (any cherished garland from or for me)\n\nko siʻeku/siʻoku kahoa: my cherished garland (it is my cherished garland)\n\nko haʻakú/hoʻokú kahoa: garland (emphatically mine) – that particular garland is mine and not someone else's\n\nko homa kahoa: our garlands (exclusive: you and I are wearing them, but not the person we are talking to)\n\nko hota kahoa: our garlands (inclusive: you and I are wearing them, and I am talking to you)\n\nOther pronouns\nThese are the remainders: the pronominal adjectives (mine), indirect object pronouns or pronominal adverbs (for me) and the adverbial possessives (as me).\n\nOther pronouns\n\ntype\n\nsingular1\n\ndual\n\nplural\n\nalienable\n\ninalienable\n\nalienable\n\ninalienable\n\nalienable\n\ninalienable\n\n1st person\n(exclusive)\n(my, our)\n\npronominal adjective\n\nʻaʻaku\n\nʻoʻoku\n\nʻamaua\n\nʻomaua\n\nʻamautolu\n\nʻomautolu\n\npronominal adverb\n\nmaʻaku\n\nmoʻoku\n\nmaʻamaua\n\nmoʻomaua\n\nmaʻamautolu\n\nmoʻomautolu\n\nadverbial possessive\n\nmaʻaku\n\nmoʻoku\n\nmaʻama\n\nmoʻoma\n\nmaʻamau\n\nmoʻomau\n\n1st person\n(inclusive)\n(my, our)\n\npronominal adjective\n\nʻaʻata\n\nʻoʻota\n\nʻataua\n\nʻotaua\n\nʻatautolu\n\nʻotautolu\n\npronominal adverb\n\nmaʻata\n\nmoʻota\n\nmaʻataua\n\nmoʻotaua\n\nmaʻatautolu\n\nmoʻotautolu\n\nadverbial possessive\n\nmaʻate\n\nmoʻoto\n\nmaʻata\n\nmoʻota\n\nmaʻatau\n\nmoʻotau\n\n2nd person\n(your)\n\npronominal adjective\n\nʻaʻau\n\nʻoʻou\n\nʻamoua\n\nʻomoua\n\nʻamoutolu\n\nʻomoutolu\n\npronominal adverb\n\nmaʻau\n\nmoʻou\n\nmaʻamoua\n\nmoʻomoua\n\nmaʻamoutolu\n\nmoʻomoutolu\n\nadverbial possessive\n\nmaʻo\n\nmoʻo\n\nmaʻamo\n\nmoʻomo\n\nmaʻamou\n\nmoʻomou\n\n3rd person\n(his, her, its, their)\n\npronominal adjective\n\nʻaʻana\n\nʻoʻona\n\nʻanaua\n\nʻonaua\n\nʻanautolu\n\nʻonautolu\n\npronominal adverb\n\nmaʻana\n\nmoʻona\n\nmaʻanaua\n\nmoʻonaua\n\nmaʻanautolu\n\nmoʻonautolu\n\nadverbial possessive\n\nmaʻane\n\nmoʻono\n\nmaʻana\n\nmoʻona\n\nmaʻanau\n\nmoʻonau\n\nNotes:\n\nthe first syllable in all singular pronominal adjectives (in italics) is reduplicated and can be dropped for somewhat less emphasis\n\nthe pronominal adjectives put a stronger emphasis on the possessor than the possessive pronouns do\n\nthe use of the adverbial possessives is rare\n\nExamples of use:\n\nko hono valá: it is his/her/its clothing/dress\n\nko e vala ʻona: it is his/her/its (!) clothing/dress\n\nko e vala ʻoʻona: it is his/her/its (!!!) clothing/dress\n\nko hono valá ʻona: it is his/her/its own clothing/dress\n\nko hono vala ʻoná: it is his/her/its own clothing/dress; same as previous\n\nko hono vala ʻoʻoná: it is his/her/its very own clothing/dress\n\nʻoku ʻoʻona ʻa e valá ni: this clothing is his/hers/its\n\nʻoku moʻona ʻa e valá: the clothing is for him/her/it\n\nʻoange ia moʻono valá: give it (to him/her/it) as his/hers/its clothing",
+          "examples": [
+            "Subjective and objective are fitting labels when dealing with verbs: ʻeku taki \"my leading\" vs. hoku taki \"my being led\".  However, this is less apt when used on nouns.  Indeed, in most contexts hoku taki would be interpreted as \"my leader\"",
+            "Goods, money, tools, utensils, instruments, weapons, vehicles, and other possessions which the subject owns or uses (ʻeku paʻanga, \"my money\")",
+            "Animals or birds which the subjects owns or uses (ʻeku fanga puaka, \"my pigs\")",
+            "Things which the subject eats, drinks, or smokes (ʻeku meʻakai, \"my food\")",
+            "Things which the subject originates, makes, mends, carries, or otherwise deals with (ʻeku kavenga, \"my burden\")",
+            "Persons in the subject's employ, under their control, or in their care (ʻeku tamaioʻeiki \"my male servant\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        },
+        {
+          "heading": "Numerals",
+          "body": "0-9\n\n0\n\nnoa\n\n1\n\ntaha\n\n2\n\nua\n\n3\n\ntolu\n\n4\n\nfā\n\n5\n\nnima\n\n6\n\nono\n\n7\n\nfitu\n\n8\n\nvalu\n\n9\n\nhiva\n\nIn Tongan, \"telephone-style\" numerals can be used: reading numbers by simply saying their digits one by one.[10][11] For 'simple' two-digit multiples of ten both the 'full-style' and 'telephone-style' numbers are in equally common use, while for other two-digit numbers the 'telephone-style' numbers are almost exclusively in use:\n\n10-90 'tens'\n\n#\n\n'full-style'\n\n'telephone-style'\n\n10\n\nhongofulu\n\ntaha-noa\n\n20\n\nungofulu/uofulu\n\nua-noa\n\n30\n\ntolungofulu\n\ntolu-noa\n\n...\n\n11-99\n\n#\n\n'full-style'\n\n'telephone-style'\n\n11\n\nhongofulu ma taha\n\ntaha-taha\n\n24\n\nungofulu ma fā\n\nua-fā\n\n...\n\nexceptions\n\n#\n\nTongan\n\n22\n\nuo-ua\n\n55\n\nnime-nima\n\n99\n\nhive-hiva\n\n100-999 'simple'\n\n#\n\nTongan\n\n100\n\nteau\n\n101\n\nteau taha\n\n110\n\nteau hongofulu\n\n120\n\nteau-ua-noa\n\n200\n\nuongeau\n\n300\n\ntolungeau\n\n...\n\n100-999 'complex'\n\n#\n\nTongan\n\n111\n\ntaha-taha-taha\n\n222\n\nuo-uo-ua\n\n482\n\nfā-valu-ua\n\n...\n\n1000-\n\n#\n\nTongan\n\n1000\n\ntaha-afe\n\n2000\n\nua-afe\n\n...\n\n10000\n\nmano\n\n100000\n\nkilu\n\n1000000\n\nmiliona\n\n...\n\nʻOku fiha ia? (how much (does it cost)?) Paʻanga ʻe ua-nima-noa (T$2.50)\n\nIn addition there are special, traditional counting systems for fish, coconuts, yams, etc.[12] (Cf. Classifier (linguistics).)",
+          "examples": [
+            "In Tongan, \"telephone-style\" numerals can be used: reading numbers by simply saying their digits one by one.[10][11] For 'simple' two-digit multiples of ten both the 'full-style' and 'telephone-style' numbers are in equally common use, whil"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Literature",
+      "summary": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2010) (Learn how and when to remove this message)\nTongan has a very rich oral literature and is primarily a spo",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (January 2010) (Learn how and when to remove this message)\nTongan has a very rich oral literature and is primarily a spoken, rather than written, language.\n\nOne of the first publications of Tongan texts was in William Mariner's grammar and dictionary of the Tongan language, edited and published in 1817 by John Martin as part of volume 2 of Mariner's Account of the Natives of the Tonga Islands, in the South Pacific Ocean.[13]  Orthography has changed since Mariner's time.\n\nAn annotated list of dictionaries and vocabularies of the Tongan language is available at the website of the Bibliographical Society of America under the resource heading 'Breon Mitchell\": .\n\nThe Bible and the Book of Mormon were translated into Tongan and few other books were written in it.[14]\n\nThere are several weekly and monthly magazines in Tongan, but there are no daily newspapers.\n\nWeekly newspapers, some of them twice per week:\n\nKo e Kalonikali ʻo Tonga\n\nKo e Keleʻa\n\nTaimi ʻo Tonga\n\nTalaki\n\nKo e Tauʻatāina\n\nTonga Maʻa Tonga\n\nMonthly or two-monthly papers, mostly church publications:\n\nTaumuʻa lelei (Catholic Church)\n\nTohi fanongonongo (Free Wesleyan)\n\nLiahona (The Church of Jesus Christ of Latter-day Saints)[15]\n\nʻOfa ki Tonga (Tokaikolo)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Calendar",
+      "summary": "The Tongan calendar was based on the phases of the moon and had 13 months. The main purpose of the calendar, for Tongans, was to determine the time for the planting and cultivation of yams (ufi), which were Tonga's most important staple food.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Tongan calendar was based on the phases of the moon and had 13 months. The main purpose of the calendar, for Tongans, was to determine the time for the planting and cultivation of yams (ufi), which were Tonga's most important staple food. \n\nTraditional calendar[16][17][18]\n\nTraditional Month\nGregorian Calendar\n\nSignificance\n\nLihamuʻa\nmid-November to early December\n\nWarm weather, trees flower\n\nLihamui\nmid-December to early January\n\nTrees bear fruit\n\nVaimuʻa\nmid-January to early February\n\nStart of rainy season\n\nVaimui\nmid-February to early March\n\nFakaafu Moʻui\nmid-March to early April\n\nStart of cyclone season (fakaʻafu lit. 'sweltering'), new ufi tubers develop\n\nFakaaafu Mate\nmid-April to early May\n\nEnd (mate) of cyclone season\n\nHilingakelekele\nmid-May to early June\n\nufi harvest (lit. 'uncovering from dirt')\n\nHilingameaʻa\nmid-June to early July\n\nEnd (meaʻa lit. 'clean') of ufi harvest\n\nʻAoʻao, ʻAoʻaokimasisiva\nmid-July to early August\n\nFuʻufuʻunekinanga\nmid-August to early September\n\nʻUluenga\nmid-September to early October\n\nufi tubers develop and withers leaves (lit. 'yellow head')\n\nTanumanga\nearly October to late October\n\n\"burying\" of new shoots from ufi tubers\n\nʻOʻoamofanongo\nlate October to early November\n\nLimited water and food stock\n\nDay\n\nTongan Term\n\nMonday\nMōnite\n\nTuesday\nTūsite\n\nWednesday\nPulelulu\n\nThursday\nTuʻapulelulu\n\nFriday\nFalaite\n\nSaturday\nTokonaki\n\nSunday\nSāpate\n\nMonth\n\nTransliteration\n\nJanuary\nSānuali\n\nFebruary\nFēpueli\n\nMarch\nMaʻasi\n\nApril\nʻEpeleli\n\nMay\nMē\n\nJune\nSune\n\nJuly\nSiulai\n\nAugust\nʻAokosi\n\nSeptember\nSēpitema\n\nOctober\nʻOkatopa\n\nNovember\nNōvema\n\nDecember\nTisema",
+          "examples": [
+            "\"burying\" of new shoots from ufi tubers"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Sample text",
+      "summary": "Article 1 of the Universal Declaration of Human Rights in Tongan:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Article 1 of the Universal Declaration of Human Rights in Tongan:\n\nKo e kotoa ‘o ha’a tangata ‘oku fanau’i mai ‘oku tau’ataina pea tatau ‘i he ngeia mo e ngaahi totonu. Na’e fakanaunau’i kinautolu ‘aki ‘a e ‘atamai mo e konisenisi pea ‘oku totonu ke nau feohi ‘i he laumalie ‘o e nofo fakatautehina.[19]\n\nArticle 1 of the Universal Declaration of Human Rights in English:\n\nAll human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tongan_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,402 @@
+{
+  "title": "Grammar Book — Română",
+  "languageCode": "ro",
+  "languageName": "Română",
+  "version": 2,
+  "sources": [
+    "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_1",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_11",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_12",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_2",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_3",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_4",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_5",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_6",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_7",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_8",
+    "https://en.wikibooks.org/wiki/Romanian/Lesson_9",
+    "https://en.wikipedia.org/wiki/Romanian_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Gramatica limbii române  constituie un ansamblu de reguli care descriu formele corecte de modificare a cuvintelor românești și a îmbinărilor acestora în propoziții. Obiectul de cercetare este, așadar, structura gramaticală a limbii, respectiv morfologia și sintaxa.[1][necesită su",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Gramatică\n\n Morfologie\n\nParte de vorbire\n\nFlexibilă\n\n• Adjectiv\n\n• Articol\n\n• Numeral\n\n• Pronume\n\n• Substantiv\n\n• Verb\n\nNeflexibilă\n\n• Adverb\n\n• Conjuncție\n\n• Interjecție\n\n• Prepoziție\n\n• Locuțiune\n\nSintaxă\n\nCazuri\n\nSintaxa propoziției\n\nParte de propoziție\n\nSintaxa frazei\n\nPropoziție subordonată\n\nGramatica limbii române  constituie un ansamblu de reguli care descriu formele corecte de modificare a cuvintelor românești și a îmbinărilor acestora în propoziții. Obiectul de cercetare este, așadar, structura gramaticală a limbii, respectiv morfologia și sintaxa.[1][necesită sursă mai bună]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Substantive",
+      "summary": "Articol principal: Substantiv\nSubstantive după gen\nSubstantivele sunt categorizate în trei genuri: masculin, feminin și neutru.",
+      "sections": [
+        {
+          "heading": "Substantive",
+          "body": "Articol principal: Substantiv\nSubstantive după gen\nSubstantivele sunt categorizate în trei genuri: masculin, feminin și neutru.\n\nSubstantive după număr\nArticol principal: Număr (gramatică)\nSubstantivele sunt categorizate după număr în singular și plural.\n\nSubstantive după caz\nSubstantivele sunt categorizate după caz în: nominativ, acuzativ, dativ, genitiv, vocativ.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Articole",
+      "summary": "Articol principal: Articol (gramatică)\nArticolele sunt categorizate în articol hotărât și articol nehotărât.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Articol principal: Articol (gramatică)\nArticolele sunt categorizate în articol hotărât și articol nehotărât.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Pronume",
+      "summary": "Pronume personale\nArticol principal: Pronume personal\nPronume reflexive\nArticol principal: Pronume reflexiv\nPronume demonstrative\nArticol principal: Pronume demonstrativ\nPronume de întărire\nArticol principal: Pronume de întărire\nPronume relative și interogative\nArticole principal",
+      "sections": [
+        {
+          "heading": "Pronume",
+          "body": "Pronume personale\nArticol principal: Pronume personal\nPronume reflexive\nArticol principal: Pronume reflexiv\nPronume demonstrative\nArticol principal: Pronume demonstrativ\nPronume de întărire\nArticol principal: Pronume de întărire\nPronume relative și interogative\nArticole principale: Pronume relativ și Pronume interogativ\nPronume negative\nArticol principal: Pronume negativ",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adjective",
+      "summary": "Articol principal: Adjectiv\nAdjectiv pronominal\nArticol principal: Adjectiv pronominal\nAdjectiv posesiv\nArticol principal: Adjectiv posesiv",
+      "sections": [
+        {
+          "heading": "Adjective",
+          "body": "Articol principal: Adjectiv\nAdjectiv pronominal\nArticol principal: Adjectiv pronominal\nAdjectiv posesiv\nArticol principal: Adjectiv posesiv",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Verbe",
+      "summary": "Timpul viitor\nLimba română este unică în rândul limbilor romanice pentru timpul său viitor care, spre deosebire de cele mai multe limbi-surori, nu apelează la un sistem sintetic, ci la cel analitic.[2] Cu alte cuvinte, timpul viitor al limbii române se formează prin auxiliar plus",
+      "sections": [
+        {
+          "heading": "Timpuri",
+          "body": "Timpul viitor\nLimba română este unică în rândul limbilor romanice pentru timpul său viitor care, spre deosebire de cele mai multe limbi-surori, nu apelează la un sistem sintetic, ci la cel analitic.[2] Cu alte cuvinte, timpul viitor al limbii române se formează prin auxiliar plus infinitiv și nu prin adăugarea unei terminații.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Gramatici moderne",
+      "summary": "Iorgu Iordan, Gramatica limbii române, București, 1937",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Iorgu Iordan, Gramatica limbii române, București, 1937\n\nAlexandru Rosetti și Jacques Byck, Gramatica limbii române, București, 1943\n\nGramatica limbii române, vol. I-II, București, 1954; ediția a II-a, revăzută și adăugită, 1963 (coordonator Alexandru Graur)\n\nMioara Avram, Gramatica pentru toți, București, 1986\n\nGramatica limbii române, vol I, Cuvântul, vol II, Enunțul, București, Editura Academiei Române, 2005, coordonator Valeria Guțu Romalo (ediție revizuită, 2008)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Gramatici comparative",
+      "summary": "Prima încercare a unei gramatici comparative a limbii române a făcut-o Ioan Manliu cu lucrarea Gramatica istorică și comparativă a limbei române pentru cursul superior, (1894)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Prima încercare a unei gramatici comparative a limbii române a făcut-o Ioan Manliu cu lucrarea Gramatica istorică și comparativă a limbei române pentru cursul superior, (1894)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Gramatici structuraliste",
+      "summary": "Iorgu Iordan, Valeria Guțu-Romalo, Alexandru Niculescu, Structura morfologică a limbii române contemporane, (1967)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Iorgu Iordan, Valeria Guțu-Romalo, Alexandru Niculescu, Structura morfologică a limbii române contemporane, (1967)\n\nValeria Guțu-Romalo, Morfologia structurală a limbii române, (1968)\n\nMaria Manoliu-Manea, Sistematica substitutelor din româna contemporană standard, (1968)\n\nGeorgeta Ciopmec, Constantin Dominte, Valeria Guțu-Romalo, Clement Mîrza, Emanuel Vasiliu, Limba română contemporană, vol. I (red. acad. Ion Coteanu), (1974)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Note",
+      "summary": "^ Croitor, Blanca ([f.a]). Ești COOL și dacă vorbești corect!. ACADEMIA ROMÂNĂ. p. 38.  Verificați datele pentru: |date= (ajutor)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^ Croitor, Blanca ([f.a]). Ești COOL și dacă vorbești corect!. ACADEMIA ROMÂNĂ. p. 38.  Verificați datele pentru: |date= (ajutor)\n\n^ Maiden et al, p. 9",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Bibliografie",
+      "summary": "Elena Barborică, Mirela Teodorescu, Liviu Onu, Introducere în filologia română, București, Editura Didactică și Pedagogică, 1972",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Elena Barborică, Mirela Teodorescu, Liviu Onu, Introducere în filologia română, București, Editura Didactică și Pedagogică, 1972\n\nIstoria lingvisticii românești, coordonator: acad. Iorgu Iordan, București, Editura Științifică și Enciclopedică, 1978\n\nGheorghe Constantinescu-Dobridor, Mic dicționar de terminologie lingvistică, București, Editura Albatros, 1980\n\n***, Gramatici din secolele XVIII-XIX aflate în colecțiile speciale ale Bibliotecii Naționale a României 1917-2017, Biblioteca Națională a României, București, 2017",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Bibliografie",
+      "summary": "Maiden, M; Dragomirescu, A; Dindelegan, G. P; Bărbulescu, O. U; Zafiu, R; The Oxford History of Romanain Morphology, Oxford, Oxford University Press, 2021.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Maiden, M; Dragomirescu, A; Dindelegan, G. P; Bărbulescu, O. U; Zafiu, R; The Oxford History of Romanain Morphology, Oxford, Oxford University Press, 2021.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ro.wikipedia.org/wiki/Gramatica_limbii_rom%C3%A2ne"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Lesson 1",
+      "summary": "== Basic sayings ==\nDa — Yes\nNu — No\nPoate — Maybe\nSalut/Bună — Hello, Hi, Hey\nLa revedere — Goodbye\nCe mai faci? / Ce mai faceţi? — How are you? (informal/formal)\n(Eu sunt) bine — (I am) well\nRău — Bad(ly)\nProst — Bad(ly)\nAșa și așa — So and so\nȘi/Dar_tu? / Dar/Și_dumneavoastră?",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "== Basic sayings ==\nDa — Yes\nNu — No\nPoate — Maybe\nSalut/Bună — Hello, Hi, Hey\nLa revedere — Goodbye\nCe mai faci? / Ce mai faceţi? — How are you? (informal/formal)\n(Eu sunt) bine — (I am) well\nRău — Bad(ly)\nProst — Bad(ly)\nAșa și așa — So and so\nȘi/Dar_tu? / Dar/Și_dumneavoastră? — And you? (informal/formal)\nDar tu? / Dar dumneavoastră? — And you? (informal/formal) - literally \"but you?\"\nMulţumesc — Thank you\nTe rog / Vă rog — Please (informal/formal)\nÎmi pare bine — Pleased to meet you\nÎmi pare rău — I'm sorry\nScuzaţi-mă / Scuzaţi — Excuse me\nScuze - Sorry (informal)\n\n\n== Introductions ==\nCum te cheamă? — (informal) What is your name? (lit. How are you called?)\nCum vă numiţi/cheamă? — (formal) What is your name? (lit. How are you named?)\nMă cheamă . . . — I am called . . .\nMă numesc . . . — I am named . . .\nNumele meu este . . . — My name is . . .\nÎmi face placere să vă întâlnesc. — Nice to meet you. (It does pleasure to me to meet you.)\nAcesta este prietenul meu . . . — This is my friend . . . (for a male)\nAceasta este prietena mea . . . — This is my friend . . . (for a female)",
+          "examples": [
+            "Da — Yes",
+            "Nu — No",
+            "Poate — Maybe",
+            "Salut/Bună — Hello, Hi, Hey",
+            "La revedere — Goodbye",
+            "Ce mai faci? / Ce mai faceţi? — How are you? (informal/formal)"
+          ],
+          "learnerTip": "== Basic sayings ==\nDa — Yes\nNu — No\nPoate — Maybe\nSalut/Bună — Hello, Hi, Hey\nLa revedere — Goodbye\nCe mai faci? / Ce mai faceţi? — How are you? (informal/formal)\n(Eu sunt) bine — (I am) well\nRău — B",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson 11",
+      "summary": "== House Rooms ==\nattic -> mansardă\ncellar -> pivniță\ndining room -> sufragerie\nhall -> hol\noffice -> birou\ntoilet -> toaletă\nbedroom -> dormitor\nroof -> acoperiş\nkitchen -> bucătărie",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "== House Rooms ==\nattic -> mansardă\ncellar -> pivniță\ndining room -> sufragerie\nhall -> hol\noffice -> birou\ntoilet -> toaletă\nbedroom -> dormitor\nroof -> acoperiş\nkitchen -> bucătărie\n\n\n== Things you may find around the house ==\nplug -> ştecher\nsocket -> priză\nlamp -> lampă\nphone -> telefon\nbattery -> acumulator (baterie)\ndoor -> uşă\nceiling -> tavan\nwindow -> fereastră\nwall -> perete",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson 12",
+      "summary": "hand - mână\nleg - picior\nbody - corp\nnose - nas\nmouth - gura\nteeth - dinte\neyes - ochi\nears - urechi\nfingers - degete\nfoot - talpa piciorului\nknee - genunchi\nelbow - cot\neye brows - sprâncene",
+      "sections": [
+        {
+          "heading": "Lesson 12",
+          "body": "hand - mână\nleg - picior\nbody - corp\nnose - nas\nmouth - gura\nteeth - dinte\neyes - ochi\nears - urechi\nfingers - degete\nfoot - talpa piciorului\nknee - genunchi\nelbow - cot\neye brows - sprâncene",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_12"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Lesson 2",
+      "summary": "== GENUL / The Gender ==\nRomanian nouns are divided into three genders (genuri). They are masculine (m.), feminine (f.), neuter (n.).\nRomanian pronouns and articles are only masculine and feminine. When needed for neuter nouns, they use the masculine singular form and feminine pl",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "== GENUL / The Gender ==\nRomanian nouns are divided into three genders (genuri). They are masculine (m.), feminine (f.), neuter (n.).\nRomanian pronouns and articles are only masculine and feminine. When needed for neuter nouns, they use the masculine singular form and feminine plural form.\n\n\n== PRONUMELE / The Pronoun ==\n\n\n=== Pronumele Personale / Personal Pronouns ===\n\nIn Romanian there isn't a neuter pronoun for inanimate things. Either el or ea is used, depending on the gender of the noun.\nEi is used when at least one of the beings referred is masculine. Use ele only when all beings referred to are feminine and/or neutre.\n\n\n=== Pronumele de politeţe / Polite pronouns ===\n\nRemember when writing to capitalise Dumneavoastră. This pronoun always demands its verb to be at the 2nd person plural form. The singular form of the verb may be perceived as disrespectful, even rude.\n\n\n==== Colloquial ====\ndumneata / mata / matale - you (sg.)\nThese pronouns don't require the verb to be at the plural form, though this is considered more respectul. The pronouns themselves are more polite than tu, but less polite than Dumneavoastră.\n\n\n== ARTICOLUL / The Article ==\n\n\n=== Articolul nehotărât / The Indefinite Article ===\nThe indefinite article in Romanian precedes the noun.\n\nBecause neuter nouns function as masculine in the singular and feminine in the plural, they take the indefinite article \"un/unui.\"\nMale\n\nun copil (m., a child)\nnişte copii (m., some children)\nun bărbat (m., a man)\nnişte bărbaţi (m., some men)\nNeuter\n\nun tablou (n., a painting)\nnişte tablouri (n., some paintings)\nun tatuaj (n., a tattoo)\nnişte tatuaje (n., some tattoos)\nFeminine\n\no casă (f., a house)\nnişte case (f., some houses)\no femeie (f., a woman)\nnişte femei (f,. some women)\nFeminine nouns take their plural forms in the singular genitive/dative case.\n\ncasa unui bărbat (a man's house)\ncasa unei femei (a woman's house)\ncasa unor bărbaţi (some men's houses)\ncasa unor femei (some women's houses)\n\n\n=== Articolul hotărât / The Definite Article ===\nThe definite article in Romanian is enclitic (it is attached to the end of the noun).\nFor masculine and neuter nouns, the article is simply added to the end of the word. Note that in everyday speech, the 'l' is often left unpronounced. For instance, bărbatul (the man) would be pronounced bărbatu.\n\nFor feminine nouns, the last letter changes to a. In the genitive, \"i\" is added to the plural form of the noun.\n\nSingular, m. & n.: +l (the). The article has a u (called prosthetic) between it and the noun.\nbărbat (m., man) - bărbatul\nsavant (m. scholar) - savantul\ntablou (n., painting) - tabloul\nSingular, m. & n., ended in e: +le (the).\ncâine (m., dog) - câinele\nSingular, .f: -a (the).\nfemeie (woman) - femeia\nportocală (orange, the fruit) - portocala\n\nPlural, m.: +i to the indefinite plural form\nbărbaţi (men) - bărbaţii\nPlural, f. & n.: +le to the indefinite plural form\nfemei (f., women) - femeile\nportocale (f., oranges) - portocalele\ntablouri (n., paintings) - tablourile\n\n\n== SUBSTANTIVUL / The Noun ==\n\n\n=== Genul / The Gender ===\nRomanian nouns are divided into three genders (genuri). \nThey are masculine (m.), feminine (f.), neuter (n.).\n\n\n=== Numărul / The Number ===\nThe nouns of neutre gender may bear a masculine article in their singular form and a feminine article in their plural one.\n\n\n==== Singularul / The Singular ====\nMasculine singular nouns and neuter singular nouns generally end in:\n\na consonant:  om (m., man), copac (m., tree)\n-u:  ou (n., egg)\n-e:  rege (m., king)\n-ă:  tată (m., father)\nFeminine singular nouns generally end in:\n\n-ă: copilă ([little] girl)\n-e:  femeie (woman)\n-are:  floare (flower)\n-ere:  distrugere (destruction)\n-ire:  convertire (conversion)\n-siune:  sesiune (session)\n-ţie:  producţie (production)\n-ţiune:  naţiune (nation)\n-ziune:  televiziune (television)\n\n\n==== Pluralul / The Plural ====\nMasculine plural:\n\nending in vowel change ending to i:\ncâine (dog) -> câini\nending in consonant: +i:\nnor (cloud) -> nori\npoliţist (policeman) -> poliţişti\nFeminine plural:\n\nending in -ă change ending to -e\ncopilă ([little] girl) -> copile\nfată (girl) -> fete\nfereastră (window) -> ferestre\nprofesoară (female teacher) -> profesoare\nending in -ă change ending to -i\nuşă (door) -> uşi\nmaşină (car) -> maşini\nstradă (street) -> străzi\nbancă (bank) -> bănci\nending in -e: change ending to -i\ncarte (book) -> cărţi\nclădire (building) -> clădiri\nfemeie (woman) -> femei\nnoapte (night) -> nopţi\npasăre (bird) -> păsări\nNeuter plural:\n\n+e:\ncalculator (computer) -> calculatoare\ncreion (crayon) -> creioane\noraş (town, city) -> oraşe\nscaun (chair) -> scaune\ntelefon (phone) -> telefoane\ntelevizor (TV set) -> televizoare\nziar (newspaper) -> ziare\nverb (verb) -> verbe\n+uri:\nradio (radio station, radio receiver) -> radiouri\nsens (meaning) -> sensuri\ntren (train) -> trenuri\nzid (wall) -> ziduri\n\n\n=== Orthographic changes ===\n-ea- add +i >>>> -e-\n-oa- add +i >>>> -o-\n-d add +i >>>> -z\n-t add +i >>>> -ţ\n-s- add +i >>>> -ş-\n-st- add +i >>>> -şt-\n-a- add +e >>>> -e-\n-e- add +e >>>> -ea-\n-o- add +e >>>> -oa-\n-î- add +e >>>> -i-",
+          "examples": [
+            "Because neuter nouns function as masculine in the singular and feminine in the plural, they take the indefinite article \"un/unui.\"",
+            "For feminine nouns, the last letter changes to a. In the genitive, \"i\" is added to the plural form of the noun."
+          ],
+          "learnerTip": "== GENUL / The Gender ==\nRomanian nouns are divided into three genders (genuri). They are masculine (m.), feminine (f.), neuter (n.).\nRomanian pronouns and articles are only masculine and feminine. Wh",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson 3",
+      "summary": "== A Trip - O CĂLĂTORIE ==\nAirport - Aeroport\nPlane - Avion\nTrain - Tren\nBy car - Cu mașina\nArrivals - Sosiri\nDepartures - Plecări\nEntrance - Intrare\nExit - Ieşire\nTo The Platforms - Spre peroane\nInformation desk - Birou de informaţii\nTickets - Bilete / Biletele la control (when",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "== A Trip - O CĂLĂTORIE ==\nAirport - Aeroport\nPlane - Avion\nTrain - Tren\nBy car - Cu mașina\nArrivals - Sosiri\nDepartures - Plecări\nEntrance - Intrare\nExit - Ieşire\nTo The Platforms - Spre peroane\nInformation desk - Birou de informaţii\nTickets - Bilete / Biletele la control (when you need to present the tickets)\nReservations - Rezervări\nSmoker - Fumători\nNonsmoker - Nefumători\nAll Aboard - În vagoane\nSleeping car - Vagon de dormit\nEating - La masă\nBaggage - Bagaj\nBaggage-Porters - Hamali (de bagaje)\nRegistering (Checking) Baggage - Înregistrarea bagajelor\nUnderground (Subway) - Metroul\nCoach (long-distance bus) - Autocarul\nBus-tram (streetcar) - Autobuz-Tramvai\nBus Stop - Staţie de autobuz\n Ex: Where is the bus stop? - Unde este staţia de autobuz?\n\nRequest Stop - Staţie facultativă\nTaxi - Taxi\nTrain - Tren\nRailway station - Gară\n\n\n== Exercises/Exerciţii ==\nA. Translate to Romanian. Traduceţi în română.\n\n 1. Where is the subway?\n 2. Where is the information desk?\n 3. Where is the bus stop?\n\nB. Traduceţi în engleză.\n\n 1. Bilete.\n 2. La masă.\n 3. În vagoane!",
+          "examples": [],
+          "learnerTip": "== A Trip - O CĂLĂTORIE ==\nAirport - Aeroport\nPlane - Avion\nTrain - Tren\nBy car - Cu mașina\nArrivals - Sosiri\nDepartures - Plecări\nEntrance - Intrare\nExit - Ieşire\nTo The Platforms - Spre peroane\nInfo",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Lesson 4",
+      "summary": "== Verbele - Verbs ==\na citi - to read\na scrie - to write\na rescrie - to rewrite\na povesti - to tell a story\na asculta - to listen\na minţi - to lie\na înţelege - to understand\na vedea - to see\na auzi - to hear\na crea - to create\na simţi - to feel\na atinge - to touch\na iubi - to (m",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "== Verbele - Verbs ==\na citi - to read\na scrie - to write\na rescrie - to rewrite\na povesti - to tell a story\na asculta - to listen\na minţi - to lie\na înţelege - to understand\na vedea - to see\na auzi - to hear\na crea - to create\na simţi - to feel\na atinge - to touch\na iubi - to (make) love\na urî - to hate\na vorbi - to talk\na striga - to shout\na râde - to laugh\na zâmbi - to smile\na plânge - to cry\na uita - to forget\na-şi aminti - to remember\na merge - to walk, to go\na urca - to climb\na coborî - to descend\na se aşeza - to sit down\na se ridica - to stand up\na se culca - to go to sleep\na dormi - to sleep\na se trezi - to wake up\na cădea - to fall\na fugi - to run\na încetini - to slow down\na accelera - to speed up\na sări - to jump\na mânca - to eat\na bea - to drink\na face - to make\na face un duş - to take a shower\na face de mâncare - to cook\na face patul - to make the bed\na spăla (ceva) - to wash (something)\na se spăla - to wash (himself/herself)\na curăţa - to clean/to scrub\na şterge - to clean up/to wipe/to erase\na păta - to stain/to soil\na murdări -to get dirty (something)\na fi - to be\na avea - to have\nA fi and a avea are used as auxiliary verbs (\"a avea\" is conjugated a bit differently when used this way)\nSe - is used as compound for transitive verbs\n\n\n== CONJUGARE - CONJUGATION ==\nFour conjugations, according to the different terminations of the verbs:\nFirst conjugation, with \"-a\" as a termination in the infinitive: There are two ways of conjugating verbs of this type, and there is no way of telling by looking at the infinitive which one it will be (it just needs to be memorized).\nfirst way (shorter conjugation)\n\na cânta - to sing\neu cânt - I sing\ntu cânţi - you sing\nel/ea cântă - he/she/it sings\nnoi cântăm - we sing\nvoi cântaţi - you (pl) sing\nei/ele cântă - they sing\nsecond way (longer conjugation) \n\na lucra - to work\neu lucrez - I work\ntu lucrezi - you work\nel/ea lucrează - he/she/it works\nnoi lucrăm - we work\nvoi lucraţi - you work\nei/ele lucrează - they work\nSecond conjugation, with \"-ea\" as a termination in the infinitive:\n\na tăcea - to be silent\neu tac - I am silent\ntu taci - you are silent\nel/ea tace - he/she/it is silent\nnoi tăcem - we are silent\nvoi tăceţi - you (pl) are silent\nei/ele tac - they are silent\nThird conjugation, with \"-e\" as a termination in the infinitive:\n\na merge - to go\neu merg - I go\ntu mergi - you go\nel/ea merge - he/she/it goes\nnoi mergem - we go\nvoi mergeţi - you go\nei/ele merg - they go\nFourth conjugation, with \"-i\" as a termination in the infinitive: There are also two different ways to conjugate verbs of this type, and once again, there is no way to a priori tell which one to use. One must learn which pattern a particular verb uses (although one does get a \"feel\" for it after a while).\nFirst way (shorter conjugation)\n\na fugi - to run\neu fug - I run\ntu fugi - you run\nel/ea fuge - he/she/it runs\nnoi fugim - we run\nvoi fugiţi - you (pl) run\nei/ele fug - they run\nsecond way (longer conjugation)\n\na vorbi - to talk\neu vorbesc - I talk\ntu vorbeşti - you talk\nel/ea vorbeşte - he/she/it talks\nnoi vorbim - we talk\nvoi vorbiţi - you talk\nei/ele vorbesc - they talk\nCONJUGATION OF THE IRREGULAR VERBS A FI (=to be) AND A AVEA (=to have)\n\na fi :\neu sunt - I am\ntu eşti - you are\nel/ea este - he/she/it is\nnoi suntem - we are\nvoi sunteţi - you are\nei/ele sunt - they are\na avea:\neu am - I have\ntu ai - you have\nel/ea are - he/she/it has\nnoi avem - we have\nvoi aveţi - you have\nei/ele au - they have",
+          "examples": [
+            "A fi and a avea are used as auxiliary verbs (\"a avea\" is conjugated a bit differently when used this way)",
+            "First conjugation, with \"-a\" as a termination in the infinitive: There are two ways of conjugating verbs of this type, and there is no way of telling by looking at the infinitive which one it will be (it just needs to be memorized).",
+            "Second conjugation, with \"-ea\" as a termination in the infinitive:",
+            "Third conjugation, with \"-e\" as a termination in the infinitive:",
+            "Fourth conjugation, with \"-i\" as a termination in the infinitive: There are also two different ways to conjugate verbs of this type, and once again, there is no way to a priori tell which one to use. One must learn which pattern a particula"
+          ],
+          "learnerTip": "== Verbele - Verbs ==\na citi - to read\na scrie - to write\na rescrie - to rewrite\na povesti - to tell a story\na asculta - to listen\na minţi - to lie\na înţelege - to understand\na vedea - to see\na auzi -",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Lesson 5",
+      "summary": "== O zi de recreere - A recreation day ==\nA se juca - To play\nA arunca - To throw\nMinge - Ball\nEx : El îi aruncă mingea lui. - He throws his ball to him",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "== O zi de recreere - A recreation day ==\nA se juca - To play\nA arunca - To throw\nMinge - Ball\nEx : El îi aruncă mingea lui. - He throws his ball to him\n\nA plăcea - To like\nA urî - To hate\n\n\n== Locuri - Places ==\nBibliotecă - Library\nParc - Park\nPiscină - Swimming pool\nPlajă - Beach\nRestaurant - Restaurant\nSală de concert - Concert hall\nStadion - Stadium\nTeatru - Theatre\n\n\n== Jocuri - Games ==\nBaseball - Baseball\nBasket - Basketball\nFotbal - Football (soccer)\nFotbal american - Football (American)\nGolf - Golf\nTenis - Tennis\nVolei - Volleyball\nCărţi - Cards\nDame - Checkers/Draughts\nŞah - Chess\n\n\n== Exerciţii - Exercises ==\n1. Traduceţi în română.\n\n1. I'm going to a restaurant\n2. He plays soccer.\n3. I hate baseball.\n\n2. Traduceţi în engleză.\n\n1. Eu urăsc.\n2. Librărie.\n3. Îmi place şahul.",
+          "examples": [],
+          "learnerTip": "== O zi de recreere - A recreation day ==\nA se juca - To play\nA arunca - To throw\nMinge - Ball\nEx : El îi aruncă mingea lui. - He throws his ball to him",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson 6",
+      "summary": "Romanian past tense is different from Present because you are required to use pronouns to indicate who is doing the action. This is because the verb itself does not conjugate and therefore the pronoun is required to.",
+      "sections": [
+        {
+          "heading": "Lesson 6",
+          "body": "Romanian past tense is different from Present because you are required to use pronouns to indicate who is doing the action. This is because the verb itself does not conjugate and therefore the pronoun is required to.\n\nYou may have noticed that the pronouns are nearly identical to the conjugated forms of 'have/has' in Romanian. Keep this in mind when memorizing.\n\nAbove 'Merge' (s/he goes) has been modified for the past tense. Notice how the 'S' ending is used.\n\nAbove 'Spune' (s/he speaks) has been modified for the past tense. Again, notice the replacement of the final consonants with an 'S'.\n\nAbove 'Face' (s/he does) has been modified for the past tense. See here how, like the other examples the final consonant has been replaced. This makes no sense on paper, as on it paper it hasn't changed. 'C' is 'C'. But it has changed in pronunciation. Rather than being pronounced as 'Fachay', it is pronounced as 'Fuhkoot'. This is a result of the letter 'C' having two alternative sounds in Romanian (it is the only letter to do so). The difference between this example and the other two is that instead of an 'S' at the end, there is a 'T'. Both 'S' and 'T' are used for the Romanian past tense, so when you come across a new vowel, make sure to know if the past tense ends in an 'S' or a 'T'.",
+          "examples": [],
+          "learnerTip": "Romanian past tense is different from Present because you are required to use pronouns to indicate who is doing the action. This is because the verb itself does not conjugate and therefore the pronoun",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_6"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Lesson 7",
+      "summary": "== Familia - The family ==\nFamilia mea : My family\nBunică : Grandmother\nBunic : Grandfather\nMătuşă : Aunt\nUnchi : Uncle\nMamă : Mother\nTată : Father\nMătuşă : Aunt\nUnchi : Uncle\nVerişor : Cousin(m)\nSora : Sister\nEu : I\nFrate : Brother\nVerişoară : Cousin(f)\nPărinţi - Parents\nSoţie -",
+      "sections": [
+        {
+          "heading": "Lesson 7",
+          "body": "== Familia - The family ==\nFamilia mea : My family\nBunică : Grandmother\nBunic : Grandfather\nMătuşă : Aunt\nUnchi : Uncle\nMamă : Mother\nTată : Father\nMătuşă : Aunt\nUnchi : Uncle\nVerişor : Cousin(m)\nSora : Sister\nEu : I\nFrate : Brother\nVerişoară : Cousin(f)\nPărinţi - Parents\nSoţie - Wife\nSoţ - Husband\nCopil - Son\nCopilă - Daughter\nCopii - Children\nBunici - Granparents\nNepot - Grandson\nNepoată - Granddaughter\nNepoţi - Grandchildren\nNepot - Nephew\nNepoată - Niece\nFamilia Vitregă - Step Family\nMamă vitregă - Stepmother\nTată vitreg - Stepfather\nSoră vitregă - Half sister\nFrate vitreg - Half brother\n\n\n== Exerciţii ==\n1. Traduceţi în engleză.\n\n1.Am fost la bibliotecă cu Sora.\n2.Verişor.\n3.Fratele joacă volei.\n\n2. Traduceţi în română.\n\n1. Nephew.\n2. My aunt is in Bucharest(Bucureşti).\n3. He has a stepmother",
+          "examples": [],
+          "learnerTip": "== Familia - The family ==\nFamilia mea : My family\nBunică : Grandmother\nBunic : Grandfather\nMătuşă : Aunt\nUnchi : Uncle\nMamă : Mother\nTată : Father\nMătuşă : Aunt\nUnchi : Uncle\nVerişor : Cousin(m)\nSora",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_7"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Lesson 8",
+      "summary": "=== Cuvinte generale / General words ===\nProfesor - Teacher (m)\nProfesoară - Teacher (f)\nBursă - Scholarship\nDiplomă - Diploma\nBac(alaureat) - High school exit exam\nBibliotecă - Library\nNote - Grades (as on a test)\nOră - Classe/Course\nClasă - Grade (e.g. 6th Grade)\nÎn ora de [...",
+      "sections": [
+        {
+          "heading": "Lesson 8",
+          "body": "== La şcoală / At School ==\n\n\n=== Cuvinte generale / General words ===\nProfesor - Teacher (m)\nProfesoară - Teacher (f)\nBursă - Scholarship\nDiplomă - Diploma\nBac(alaureat) - High school exit exam\nBibliotecă - Library\nNote - Grades (as on a test)\nOră - Classe/Course\nClasă - Grade (e.g. 6th Grade)\nÎn ora de [...] - In [...] class\n\n\n=== În timpul orelor / During classes ===\nTablă - Blackboard, chalkboard\nCretă - Chalk\nPupitru, bancă, masă, catedră - Desk (Student desk / student desk / table / teacher desk)\nTest - Test\nTemă - Homework\nClasă - Classroom\nPauză - Recess\nCurte - Courtyard\n\n\n=== Şcoli şi studenţi / Schools and Students ===\nŞcoală - School\nStudent - Student (m)\nStudentă - Student (f)\nÎnvăţământul primar (Clasele I-IV) - Similar to grades 1-4/5 or elementary school in the United States\nÎnvăţământul gimnazial (Clasele V-VIII) - Similar to grades 5/6-8 or Middle school/Junior High in the United States\nŞcolar - 1-8 grades student\nLiceu (9-12) - High school (10-12)\nLicean - High school student (9-12)\nUniversitate - University\nFacultate - University\nÎnvăţământul superior - Higher education, graduate school\n\n\n=== Bunurile şcolare - School supplies ===\nCretă - Chalk\nTablă - Blackborad, chalkboard\nPix - Pen\nCreion - Pencil\nCalculator (de buzunar) - Calculator\nCarte - Book\nCaiet - Notebook/Exercise book\nHârtie - Paper\nFoaie de hârtie, filă de hârtie - Sheet of paper\nClasor - Three-ring binder\nGhiozdan - Small backpack\nRucsac - Big backpack\nGuma, Radieră - Eraser\nRiglă, liniar - Ruler\nCariocă, marker - Marker\n\n\n=== Clasele / Grades ===\n12th Grade\tClasa a XII-a\n11th Grade\tClasa a XI-a\n10th Grade\tClasa a X-a\n9th Grade\tClasa a IX-a\n\n8th Grade\tClasa a VIII-a\n7th Grade\tClasa a VII-a\n6th Grade\tClasa a VI-a\n5th Grade\tClasa a V-a\n\n4th Grade\tClasa a IV-a\n3rd Grade\tClasa a III-a\n2th Grade\tClasa a II-a\n1st Grade\tClasa I / Clasa întâi\n\nIn Romania, the grades are written with roman numerals.\n\n\n=== Grading system ===\nIn the primary school, the grading system is the following:\n\nFoarte Bine - Very Good\nBine - Good\nSufficient/Satisfăcător - Pass\nInsufficient/Nesatisfăcător - Fail\nIn the secondary school, the grading system is different, using numbers. It varies from:\n\n10 - Excellent, highest grade achievable\n5 - Pass grade\n1-4 - Fail\n\n\n=== Verbe / Verbs ===\nA da un test - To take a test\nA studia, a învăţa - To study\nA scrie - To write\nA ridica (mâna) - To raise (the hand)\nA pune o întrebare - To Ask a question\nA întreba - To ask\nA asculta - To listen\nA Auzi - To hear",
+          "examples": [],
+          "learnerTip": "=== Cuvinte generale / General words ===\nProfesor - Teacher (m)\nProfesoară - Teacher (f)\nBursă - Scholarship\nDiplomă - Diploma\nBac(alaureat) - High school exit exam\nBibliotecă - Library\nNote - Grades",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_8"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lesson 9",
+      "summary": "== Băuturi - Beverages ==\nCeai - Tea\nLapte   - Milk\nApă - Water\nApă plată - Flat Water\nApă minerală - Sparkling Water\nSifon - Soda, also referred to as Cola\nBere - Beer\nVin - Wine",
+      "sections": [
+        {
+          "heading": "Lesson 9",
+          "body": "== Băuturi - Beverages ==\nCeai - Tea\nLapte   - Milk\nApă - Water\nApă plată - Flat Water\nApă minerală - Sparkling Water\nSifon - Soda, also referred to as Cola\nBere - Beer\nVin - Wine\n\n\n== Mâncăruri - Foods ==\nPâine - Bread\nCartof - Potato\nPiure de cartofi  - Mashed Potatoes\nCartofi prăjiți - Fries\nCaşcaval        - Balkan Cheese, usually put on bread, used as a cooking ingredient or eaten as a snack\nBrânza - Cheese\nFriptură - Roasted Meat\nSupă - Soup\nPui - Chicken\nVacă - Beef (lit. \"Cow\")\nRață - Duck\nPorc - Pork (lit. \"Pig\")\nPortocale - Oranges\nRoșii            - Tomatoes\nPâine prăjită - Toast (lit. \"Fried bread\")\nMăr - Apple\n\n\n== Tacâmuri/Eating utensils ==\nCuţit - Knife\nFurculiţă - Fork\nLingură    - Tablespoon\nLinguriţă- Teaspoon\nPahar      - Glass, alt. Cup\nCană       - Cup, alt. Mug\nFarfurie   - Plate\nPoftă bună! - Equivalent to \"bon appétit!\"",
+          "examples": [
+            "Vacă - Beef (lit. \"Cow\")",
+            "Porc - Pork (lit. \"Pig\")",
+            "Pâine prăjită - Toast (lit. \"Fried bread\")",
+            "Poftă bună! - Equivalent to \"bon appétit!\""
+          ],
+          "learnerTip": "== Băuturi - Beverages ==\nCeai - Tea\nLapte   - Milk\nApă - Water\nApă plată - Flat Water\nApă minerală - Sparkling Water\nSifon - Soda, also referred to as Cola\nBere - Beer\nVin - Wine",
+          "source": "https://en.wikibooks.org/wiki/Romanian/Lesson_9"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Nouns",
+      "summary": "Romanian nouns are categorized into three genders: masculine, feminine, and neuter. The neuter behaves like the masculine in the singular and the feminine in the plural, unlike the neuter in Latin which had distinct forms.[8] Nouns which in their dictionary form (singular, nomina",
+      "sections": [
+        {
+          "heading": "Gender",
+          "body": "Romanian nouns are categorized into three genders: masculine, feminine, and neuter. The neuter behaves like the masculine in the singular and the feminine in the plural, unlike the neuter in Latin which had distinct forms.[8] Nouns which in their dictionary form (singular, nominative, with no article) end in a consonant or the vowel/semivowel -u are mostly masculine or neuter; if they end in -ă or -a they are usually feminine. In the plural, the ending -i corresponds generally to masculine nouns, whereas feminine and neuter nouns often end in -e. In synchronic terms, Romanian neuter nouns can also be analysed as \"ambigeneric\", that is as being masculine in the singular and feminine in the plural (see below)[9] and even in diachronic terms certain linguists have argued that this pattern, as well as that of case differentiation, was in a sense \"re-invented\" rather than a \"direct\" continuation of the Latin neuter.[10] However, most noun genders correspond to Latin categorization, such as first declension which remained feminine. Similarly third declension nouns retained the gender from Latin, neuter included, most likely reinforced by the Latin plural form -ores which gave the feminine plural -uri in Romanian. Second declension nouns were reanalysed on their semantic characteristic (cervus >cerb \"stag\" remained masculine but campus >câmp  \"field\" became neuter). As for the fourth declension, the nouns were analysed in regards to their plural endings as the declension collapsed into the second, being reassigned as neutral based on the -ores plural form. The change of gender can thus be explained by syncretism and homophony.[1]\n\nExamples:\n\nMasculine: om ('man, human being'), bou ('ox'), copac ('tree');\n\nNeuter: drum ('road'), cadou ('present, gift'), exemplu ('example');\n\nFeminine: bunică ('grandmother'), carte ('book'), cafea ('coffee').\n\nFor nouns designating people the grammatical gender can only be masculine or feminine, and is strictly determined by the biological sex, no matter the phonetics of the noun. For example, nouns like tată (father) and popă (priest) are masculine as they refer to male people, although phonetically they are similar to typical feminine nouns.\n\nFor native speakers, the general rule for determining a noun's gender relies on the \"one-two\" test, which consists in inflecting the noun to both the singular and the plural, together with the numbers one and two. Depending on the gender, the numbers will have different forms for each of the three genders: masculine nouns will be un-doi; feminine nouns, o-două; neuter nouns, un-două.\n\nMasculine: un om, doi oameni ('one human being', 'two human beings'), un iepure, doi iepuri ('one rabbit', 'two rabbits'). In this case both un and doi are in their masculine forms.\n\nFeminine: o fată, două fete ('one girl', 'two girls'), o pasăre, două păsări ('one bird', 'two birds'). In this case both o and două are in their feminine forms.\n\nNeuter: un corp, două corpuri ('one body', 'two bodies'), un sertar, două sertare ('one drawer', 'two drawers'). In this case un is in its masculine form while două is in its feminine form. This is the only case in which the two numbers have different genders.\n\nRomanian numbers generally have a single form regardless of the gender of the determined noun. Exceptions are the numbers un/o ('one') doi/două ('two') and all the numbers made up of two or more digits when the last digit is 1 or 2; these have masculine and feminine forms. In Romanian there is no gender-neutral form for numbers, adjectives or other noun determiners.",
+          "examples": [
+            "Romanian nouns are categorized into three genders: masculine, feminine, and neuter. The neuter behaves like the masculine in the singular and the feminine in the plural, unlike the neuter in Latin which had distinct forms.[8] Nouns which in",
+            "Examples:",
+            "For native speakers, the general rule for determining a noun's gender relies on the \"one-two\" test, which consists in inflecting the noun to both the singular and the plural, together with the numbers one and two. Depending on the gender, t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Romanian_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Romanian has two grammatical numbers: singular and plural. Morphologically, the plural form is built by adding specific endings to the singular form. For example, nominative nouns without the definite article form the plural by adding one of the endings -i, -uri, -e, or -le. The plural formation mechanism, often involving other changes in the word structure, is an intrinsic property of each noun and has to be learned together with it.\n\nExamples:\n\n-i: pom – pomi ('tree'), cal – cai ('horse'), tată – tați ('father'), barcă – bărci ('boat');\n\n-uri: tren – trenuri ('train'), treabă – treburi ('job, task'), cort – corturi ('tent');\n\n-e: pai – paie ('straw'), masă – mese ('table, meal'), teatru – teatre ('theater'), muzeu – muzee ('museum');\n\n-le: stea – stele ('star'), cafea – cafele ('coffee'), pijama – pijamale ('pajama').",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Romanian_grammar"
+        },
+        {
+          "heading": "Case",
+          "body": "Romanian has inherited three cases from Latin: nominative/accusative, dative/genitive and vocative. Morphologically, the nominative and the accusative are identical in nouns; similarly, the genitive and the dative share the same form (these pairs are distinct in the personal pronouns, however). The vocative is less used as it is normally restricted to nouns designating people or things which are commonly addressed directly. Additionally, nouns in the vocative often borrow the nominative form even when there is a distinct vocative form available.\n\nThe genitive-dative form can be derived from the nominative. For feminine nouns the form used in the dative/genitive singular is most often identical to the nominative plural, for example o carte – unei cărți – două cărți (a book – of/to a book – two books).\n\nIf the noun is determined by a determiner other than the definite article (an indefinite article, a demonstrative, an indefinite quantifier), then the genitive-dative affixes are applied to this determiner, not to the noun, for example un băiat – unui băiat ('a boy' – 'of/to a boy'). Similarly, if the noun is determined by the definite article (an enclitic in Romanian, see that section), the genitive-dative mark is added at the end of the noun together with the article, for example băiatul – băiatului ('the boy' – 'of/to the boy'), cartea – cărții ('the book' – 'of/to the book'). Masculine proper names designating people form the genitive-dative by placing the article lui before the noun: lui Brâncuși ('of/to Brâncuși'); the same applies to feminine names only when they don't have a typically feminine ending: lui Carmen.\n\nIn usual genitival phrases such as numele trandafirului ('the name of the rose'), the genitive is only recognized by the specific ending (-lui in this example) and no other words are necessary. However, in other situations, usually if the noun modified by the genitive attribute is indefinite, the genitival article is required, as for example in câteva opere ale scriitorului ('some of the writer's works').\n\nRomanian dative phrases exhibit clitic doubling similar to that in Spanish, in which the noun in the dative is doubled by a pronoun. The position of this pronoun in the sentence depends on the mood and tense of the verb. For example, in the sentence Le dau un cadou părinților ('I give a present to [my] parents'), the pronoun le doubles the noun părinților without bringing any additional information.\n\nAs specified above, the vocative case in Romanian has a special form for most nouns. The tendency in contemporary Romanian is to use the nominative forms, however. The traditional vocative is retained in speech, however, especially in informal speech, or by people living in the countryside. It is seen as a mark of unrefined speech by the majority of city-dwellers, who refrain from its usage. The forms of the vocative are as follows. (Note that the vocative does not have both definite and indefinite forms. The following rules are to be applied for the indefinite form of the nouns):\n\nSingular feminine nouns and proper names ending in an unstressed -ă/-a take the ending -o e.g. fată → fato ('girl!'). Some popular vocative forms are different, though: Maria → Mărie! ('Mary!').\n\nSingular feminine nouns ending in an unstressed -e take the ending -eo e.g. punte → punteo! ('bridge!'). Sometimes, the e is dropped altogether.\n\nSingular feminine nouns ending in a stressed -a take the ending -auo e.g. nuia → nuiauo! ('stick!').\n\nSingular masculine and neuter nouns ending in a consonant take the ending -ule e.g. băiat → băiatule! ('boy!'). The vocative for animate nouns is sometimes formed as if the noun were a proper name: băiat → băiete! (see below).\n\nSingular masculine and neuter nouns ending in unstressed -e/-ă take no extra ending (-Ø) e.g. frate → frate! ('brother!').\n\nMasculine proper names take the ending -e e.g. Ștefan → Ștefane! ('Stephen!'). Some words also experience some change in their vowels (Ion → Ioane! 'John!').\n\nAll plural nouns take the ending -lor e.g. mere → merelor! ('apples!').\n\nHere are some examples of nouns completely inflected.\n\nWithout a definite article\n\nMasculine\n\nFeminine\n\nNeuter\n\nSingular\nPlural\nSingular\nPlural\nSingular\nPlural\n\nNominative\nAccusative\n\nbăiat \n[bəˈjat]\n\nbăieți \n[bəˈjet͡sʲ]\n\nmamă \n[ˈmamə]\n\nmame \n[ˈmame]\n\nou \n[ow]\n\nouă \n[ˈowə]\n\nGenitive\nDative\n\nmame \n[ˈmame]\n\nWith a definite article\n\nMasculine\n\nFeminine\n\nNeuter\n\nSingular\nPlural\nSingular\nPlural\nSingular\nPlural\n\nNominative\nAccusative\n\nbăiatul \n[bəˈjatul]\n\nbăieții \n[bəˈjet͡sij]\n\nmama \n[ˈmama]\n\nmamele \n[ˈmamele]\n\noul \n[ˈo.ul]\n\nouăle \n[ˈowəle]\n\nGenitive\nDative\n\nbăiatului \n[bəˈjatuluj]\n\nbăieților \n[bəˈjet͡silor]\n\nmamei \n[ˈmamej]\n\nmamelor \n[ˈmamelor]\n\noului \n[ˈo.uluj]\n\nouălor \n[ˈowəlor]\n\nMasculine\n\nFeminine\n\nNeuter\n\nSingular\nPlural\nSingular\nPlural\nSingular\nPlural\n\nVocative\n\nbăiatule/băiete \n[bəˈjatule, bəˈjete]\n\nbăieților \n[bəˈjet͡silor]\n\nmamo \n[ˈmamo]\n\nmamelor \n[ˈmamelor]\n\noule \n[ˈo.ule]\n\nouălor \n[ˈowəlor]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Romanian_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

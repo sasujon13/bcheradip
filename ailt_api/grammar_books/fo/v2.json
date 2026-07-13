@@ -1,0 +1,120 @@
+{
+  "title": "Grammar Book — Føroyskt",
+  "languageCode": "fo",
+  "languageName": "Føroyskt",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Faroese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Faroese language\nFaroese grammar is typical of a North Germanic language; Faroese is an inflected language with three grammatical genders and four cases: nominative, accusative, dative and genitive.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Faroese language\nFaroese grammar is typical of a North Germanic language; Faroese is an inflected language with three grammatical genders and four cases: nominative, accusative, dative and genitive.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Noun inflection",
+      "summary": "Below is a representation of three grammatical genders, two numbers and four cases in the nominal inflection. This is an overview - Faroese has more declensions than are listed here. In modern Faroese, the genitive has a very limited use, and possession is mostly expressed with v",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Below is a representation of three grammatical genders, two numbers and four cases in the nominal inflection. This is an overview - Faroese has more declensions than are listed here. In modern Faroese, the genitive has a very limited use, and possession is mostly expressed with various prepositional phrases instead. For most native speakers, the genitive is a learned and somewhat stilted form compared to the other cases, which are learned naturally in regular colloquial situations.\n\nExamples:\n\nhvør, hvat? interrogative pronoun \"who, what?\"\n\nein indefinite article \"a\"\n\nstórur adjective \"big\"\n\nbátur noun \"boat\"\n\nein stórur bátur – a big boat (m.)\n\nein vøkur genta – a beautiful girl (f.)\n\neitt gott barn – a good child (n.)\n\nIn the plural you will see that the numeral tvey (2) is inflected.\n\nIndefinite phrases\n\nSingular\n\n?\n\nMasculine\n\n?\n\nFeminine\n\n?\n\nNeuter\n\nNominative\n\nhvør?\n\nein stórur bátur\n\nhvør?\n\nein vøkur genta\n\nhvat?\n\neitt gott barn\n\nAccusative\n\nhvønn?\n\nein stóran bát\n\nhvørja?\n\neina vakra gentu\n\nhvat?\n\neitt gott barn\n\nDative\n\nhvørjum?\n\neinum stórum báti\n\nhvørj(ar)i?\n\neinari vakari gentu\n\nhvørjum?\n\neinum góðum barni\n\nGenitive\n\nhvørs?\n\n(eins stórs báts)\n\nhvørjar?\n\n(einar vakrar gentu)\n\nhvørs?\n\n(eins góðs barns)\n\nPlural\n\n?\n\nMasculine\n\n?\n\nFeminine\n\n?\n\nNeuter\n\nNominative\n\nhvørjir?\n\ntveir stórir bátar\n\nhvørjar?\n\ntvær vakrar gentur\n\nhvørji?\n\ntvey góð børn\n\nAccusative\n\nhvørjar?\n\ntveir stórar bátar\n\nhvørjar?\n\ntvær vakrar gentur\n\nhvørji?\n\ntvey góð børn\n\nDative\n\nhvørjum?\n\ntveimum stórum bátum\n\nhvørjum?\n\ntveimum vøkrum gentum\n\nhvørjum?\n\ntveimum góðum børnum\n\nGenitive\n\nhvørja?\n\n(tveggja stóra báta)\n\nhvørja?\n\n(tveggja vakra genta)\n\nhvørja?\n\n(tveggja góða barna)\n\nIf the noun is definite, the adjective inflects weak, and the noun gets a suffix article, as in any Scandinavian language, although Icelandic does not generally need a pre-posed definite article in this construction.\n\nThe interrogative pronoun is the same as above. In the plural, the plural form of the definite article is used.\n\nExamples:\n\ntann stóri báturin – the big boat-the\n\ntann vakra gentan – the beautiful girl-the\n\ntað góða barnið – the good child-the\n\nDefinite phrases\n\nSingular\n\nMasculine\n\nFeminine\n\nNeuter\n\nNominative\n\ntann stóri báturin\n\ntann vakra gentan\n\ntað góða barnið\n\nAccusative\n\ntann stóra bátin\n\nta vøkru gentuna\n\ntað góða barnið\n\nDative\n\ntí stóra bátinum\n\ntí vøkru gentuni\n\ntí góða barninum\n\nGenitive\n\n(tess stóra bátsins)\n\n(teirrar vøkru gentunnar)\n\n(tess góða barnsins)\n\nPlural\n\nMasculine\n\nFeminine\n\nNeuter\n\nNominative\n\nteir stóru bátarnir\n\ntær vøkru genturnar\n\ntey góðu børnini\n\nAccusative\n\nteir stóru bátarnar\n\ntær vøkru genturnar\n\ntey góðu børnini\n\nDative\n\nteimum stóru bátunum\n\nteimum vøkru gentunum\n\nteimum góðu børnunum\n\nGenitive\n\n(teirra stóru bátanna)\n\n(teirra vøkru gentunna)\n\n(teirra góðu barnanna)",
+          "examples": [
+            "Examples:",
+            "hvør, hvat? interrogative pronoun \"who, what?\"",
+            "ein indefinite article \"a\"",
+            "stórur adjective \"big\"",
+            "bátur noun \"boat\"",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        },
+        {
+          "heading": "Personal Pronouns",
+          "body": "Faroese personal pronouns are:\n\nPersonal pronouns\n\nSingular\n\n1.\n\n2.\n\n3. m\n\n3. f\n\n3. n\n\nNominative\n\neg\n\ntú\n\nhann\n\nhon\n\ntað\n\nAccusative\n\nmeg\n\nteg\n\nhana\n\nDative\n\nmær\n\ntær\n\nhonum\n\nhenni\n\ntí\n\nGenitive\n\nmín\n\ntín\n\nhansara\n\nhennara\n\ntess\n\nPlural\n\n1.\n\n2.\n\n3. m\n\n3. f\n\n3. n\n\nNominative\n\nvit\n\ntit\n\nteir\n\ntær\n\ntey\n\nAccusative\n\nokkum\n\ntykkum\n\nDative\n\nteimum\n\nGenitive\n\nokkara\n\ntykkara\n\nteirra\n\nSingular\n\n1st person: eg [eː] – I, meg [meː] – me (acc.), mær [mɛaɹ] – me (dat.), mín [mʊin] – my\n\n2nd person: tú [tʉu] – you, teg [teː] – you (acc.), tær [tɛaɹ] – you (dat.), tín [tʊin] – your (gen.)\n\n3rd person masculine: hann [hanː] – he, him (nom., acc.), honum [ˈhoːnʊn] – him (dat.), hansara [ˈhansaɹa] – his (gen.)\n\n3rd person feminine: hon [hoːn] – she, hana [ˈhɛana] – her (acc.), henni [hɛnːɪ] – her (dat.), hennara [ˈhɛnːaɹa] – her (gen.)\n\n3rd person neuter: tað [tɛa] – it (nom., acc.), tí [tʊi] – it (dat.), tess [tɛsː] – its (gen.)\n\nPlural\n\n1st person: vit [viːt] – we, okkum [ɔʰkːʊn] – us (acc., dat.), okkara [ˈɔʰkːaɹa] – our (gen.)\n\n2nd person: tit [tiːt] – you (pl.), tykkum [ˈtɪʰkːʊn] – you (acc., dat. pl.) tykkara [ˈtɪʰkːaɹa] – your (gen. pl.)\n\n3rd person masculine: teir [taiɹ]~[tɔiɹ] – they, them (m. nom., acc.), teimum [ˈtaimʊn]~[ˈtɔimʊn] – them (dat.), teirra [ˈtaiɹːa]~[ˈtɔiɹːa] – their (gen.)\n\n3rd person feminine: tær [tɛaɹ] – they, them (f. nom., acc.)\n\n3rd person neuter: tey [tɛi] – they, them (n. nom., acc.)\n\nThe 3rd person plural neuter tey is used in all cases when both genders are meant, as in:\n\nteir eru onglendingar – they [male] are Englishmen\n\ntær eru føroyingar – they [women] are Faroese\n\ntey eru fólk úr Evropa – they [neuter] are people from Europe",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Verbs",
+      "summary": "There are 4 classes of weak inflection of verbs (with some underclasses).",
+      "sections": [
+        {
+          "heading": "Weak Inflection",
+          "body": "There are 4 classes of weak inflection of verbs (with some underclasses).\n\nExamples:\n\nstem-final -a, 2–3.pers.sg. -r – kalla! (imperative), tú/hann kalla-r (you call/he calls)\n\n2–3.pers.sg. -ur – tú/hann sel-ur (you sell/he sells)\n\n2–3.pers.sg. -ir – tú/hann døm-ir (you judge/he judges)\n\n2. pers.sg. -rt – tú rø-rt (you row). In certain surroundings, skerping occurs: eg rógvi [eː ɹɛɡvɪ] (I row) vs. egg róði [eː ɹɔuwɪ] (I rowed).\n\nWeak Inflection\n\nInfinitive\n\n1. kalla\n\n2. selja\n\n3. døma\n\n4. rógva\n\nSingular\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st pers.\n\nkalli\n\nkallaði\n\nselji\n\nseldi\n\ndømi\n\ndømdi\n\nrógvi\n\nróði\n\n2nd pers.\n\nkallar\n\nkallaði\n\nselur\n\nseldi\n\ndømir\n\ndømdi\n\nrørt\n\nróði\n\n3rd pers.\n\nkallar\n\nkallaði\n\nselur\n\nseldi\n\ndømir\n\ndømdi\n\nrør\n\nróði\n\nPlural\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st, 2nd, 3rd pers.\n\nkalla\n\nkallaðu\n\nselja\n\nseldu\n\ndøma\n\ndømdu\n\nrógva\n\nróðu\n\nSupine\n\nkallað\n\nselt\n\ndømt\n\nróð",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        },
+        {
+          "heading": "Strong Inflection",
+          "body": "These verbs are also referred to as regular, unlike English and German, the other two Germanic languages, which treat them otherwise. There are 7 classes (with underclasses), distinguished by the variations of the stem-vowel:\n\ní – í – ei – i- i; – at bíta – hann bítur – hann beit – teir bitu – teir hava bitið (bite)\n\nó/ú – ý – ey – u- o; – at bróta – hann brýtur – hann breyt – teir brutu – teir hava brotið (break)\n\ne/i/ø – i – a – u- o/u; – at svimja – hann svimur  – hann svam – teir svumu – teir hava svomið (swim)\n\ne/o – e – a – ó – o; – at bera – hann ber – hann bar – teir bóru – teir hava borið (bear)\no – e – o – o – o; – at koma – hann kemur – hann kom – teir komu – teir hava komið (come)\n\ne/i – e/i – a/á – ó – i; – at liggja – hann liggur – hann lá – teir lógu – teir hava ligið (lie)\n\na – e – ó – ó – a; – at fara – hann fer – hann fór – teir fóru – teir hava farið (go)\n\na/á – æ – e – i – i; – at fáa – hann fær – hann fekk – teir fingu – teir hava fingið (get)\n\nStrong Inflection\n\nInfinitive\n\n1. bíta\n\n2. bróta\n\n3. svimja\n\n4. koma\n\n5. liggja\n\n6. fara\n\n7. fáa\n\nSingular\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st pers.\n\nbíti\n\nbeit\n\nbróti\n\nbreyt\n\nsvimji\n\nsvam\n\nkomi\n\nkom\n\nliggi\n\nlá\n\nfari\n\nfór\n\nfái\n\nfekk\n\n2nd pers.\n\nbítur\n\nbeitst\n\nbrýtur\n\nbreytst\n\nsvimur\n\nsvamst\n\nkemur\n\nkomst\n\nliggur\n\nlást\n\nfert\n\nfórt\n\nfært\n\nfekst\n\n3rd pers.\n\nbítur\n\nbeit\n\nbrýtur\n\nbreyt\n\nsvimur\n\nsvam\n\nkemur\n\nkom\n\nliggur\n\nlá\n\nfer\n\nfór\n\nfær\n\nfekk\n\nPlural\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st, 2nd, 3rd pers.\n\nbíta\n\nbitu\n\nbróta\n\nbrutu\n\nsvimja\n\nsvumu\n\nkoma\n\nkomu\n\nliggja\n\nlógu\n\nfara\n\nfóru\n\nfáa\n\nfingu\n\nSupine\n\nbitið\n\nbrotið\n\nsvomið\n\nkomið\n\nligið\n\nfarið\n\nfingið",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        },
+        {
+          "heading": "Auxiliary verbs",
+          "body": "The auxiliary verbs in Faroese are:\n\nat vera – to be\n\nat hava – to have\n\nat verða – to be, become\n\nat blíva – to be, become\n\nAuxiliary verbs\n\nInfinitive\n\n1. vera\n\n2. hava\n\n3. verða\n\n4. blíva\n\nSingular\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st pers.\n\neri\n\nvar\n\nhavi\n\nhevði\n\nverði\n\nvarð\n\nblívi\n\nbleiv\n\n2nd pers.\n\nert\n\nvart\n\nhevur\n\nhevði\n\nverður\n\nvarðst\n\nblívur\n\nbleivst\n\n3rd pers.\n\ner\n\nvar\n\nhevur\n\nhevði\n\nverður\n\nvarð\n\nblívur\n\nbleiv\n\nPlural\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st, 2nd, 3rd pers.\n\neru\n\nvóru\n\nhava\n\nhøvdu\n\nverða\n\nvórðu\n\nblíva\n\nblivu\n\nSupine\n\nverið\n\nhavt\n\nverðið\n\nblivið\n\nNote that vera and verða are homonyms.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        },
+        {
+          "heading": "Preterite-present verbs",
+          "body": "The preterite-present verbs in Faroese are:\n\nat kunna – to be able to\n\nat munna – to want\n\nat mega – to be allowed to\n\nat skula – shall\n\nat vita – to know\n\nat vilja – to want\n\nPreterite-present verbs\n\nInfinitive\n\n1. kunna\n\n2. munna\n\n3. mega\n\n4. skula\n\n5. vita\n\n6. vilja\n\nSingular\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st pers.\n\nkann\n\nkundi\n\nman\n\nmundi\n\nmá\n\nmátti\n\nskal\n\nskuldi\n\nveit\n\nvisti\n\nvil\n\nvildi\n\n2nd pers.\n\nkanst\n\nkundi\n\nmanst\n\nmundi\n\nmást\n\nmátti\n\nskalt\n\nskuldi\n\nveitst\n\nvisti\n\nvilt\n\nvildi\n\n3rd pers.\n\nkann\n\nkundi\n\nman\n\nmundi\n\nmá\n\nmátti\n\nskal\n\nskuldi\n\nveit\n\nvisti\n\nvil\n\nvildi\n\nPlural\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\nPresent\n\nPast\n\n1st, 2nd, 3rd pers.\n\nkunnu/\nkunna\n\nkundu\n\nmunnu/\nmunna\n\nmundu\n\nmugu/\nmega\n\nmáttu\n\nskulu/\nskula\n\nskuldu\n\nvita\n\nvistu\n\nvilja\n\nvildu\n\nSupine\n\nkunnað\n\nmunnað\n\nmegað\n\nskulað\n\nvitað\n\nviljað",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "Most adjectives inflect for gender, number, case and definitiveness, and for positive, comparative and superlative.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Most adjectives inflect for gender, number, case and definitiveness, and for positive, comparative and superlative.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adverbs",
+      "summary": "Many adverbs inflect in positive, comparative and superlative.",
+      "sections": [
+        {
+          "heading": "Adverbs",
+          "body": "Many adverbs inflect in positive, comparative and superlative.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Faroese_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

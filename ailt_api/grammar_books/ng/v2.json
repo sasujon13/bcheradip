@@ -1,0 +1,55 @@
+{
+  "title": "Grammar Book — Owambo",
+  "languageCode": "ng",
+  "languageName": "Owambo",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Ndonga_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Dialect in Namibia\nOshindongaOshindongaNative toNamibia and southern AngolaRegionOvambolandNative speakers810,000 (2006)[1]Language familyNiger–Congo?",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Dialect in Namibia\nOshindongaOshindongaNative toNamibia and southern AngolaRegionOvambolandNative speakers810,000 (2006)[1]Language familyNiger–Congo?\n\nAtlantic–CongoBenue–CongoSouthern BantoidBantuKavango–SouthwestSouthwest BantuOvamboOshindonga\n\nLanguage codesISO 639-1ngISO 639-2ndoISO 639-3ndoGlottologndon1254Guthrie codeR.22[2]Linguasphere99-AUR-lc\nOshindonga, is a Bantu dialect spoken in Namibia and parts of Angola. It is a standardized dialect of the Ovambo language, and is mutually intelligible with Kwanyama, the other Ovambo dialect with a standard written form. With 810,000 speakers, the language has the largest number of speakers in Namibia.  \n\nMartti Rautanen translated the Bible into the Oshindonga dialect. Beginning his work in 1885, he published the New Testament in 1903, but it took until 1920 to finish the Old Testament. His Bible translation became the basis of a standardized form of Ndonga.[3]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ndonga_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Phonology",
+      "summary": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (February 2025) (Learn how and when to remove this message)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section does not cite any sources. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (February 2025) (Learn how and when to remove this message)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ndonga_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Oshindonga uses a five-vowel system: \n\nFront\n\nBack\n\nClose\n\ni\nu\n\nMid\n\ne\no\n\nOpen\n\na",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ndonga_language"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Oshindonga contains the following consonant phonemes: \n\nLabial\n\nDental\n\nAlveolar\n\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nvoiceless\n\nm̥\n\nn̥\n\nŋ̊\n\nvoiced\n\nm\n\nn\n\nɲ\n\nŋ\n\nPlosive\n\nvoiceless\n\np\n\nt\n\nk\n\nʔ\n\nvoiced\n\nb\n\nd\n\ng\n\naffricate\n\nts\n\nFricative\n\nvoiceless\n\nf\n\nθ\n\ns\n\nʃ\n\nx\n\nh\n\nvoiced\n\nv\n\nð\n\nz\n\nʒ\n\nɣ\n\nApproximant\n\nmedian\n\nw\n\nj\n\nlateral\n\nl\n\nPrenasalized sounds are listed below: \n\n[m̥p], [mb], [ɱv], [n̥θ], [nð], [n̥ʃ], [n̥t], [nd], [nz], [n̥ts], [ŋk], [ŋɡ]\n\nOshindonga also contains many other consonant compounds, listed below:\n\n[m̥pʰ], [n̥tʰ], [n̥kʰ], [m̥pʰw], [n̥tʰw], [n̥kʰw], [n̥dz], [n̥tsʰ], [ndʒ], [xw], [tsʼ] (voiceless, ejective, alveolar affricate), [psʲ] (voiceless, palatalized, labio-alveolar affricate)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ndonga_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

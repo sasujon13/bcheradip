@@ -1,0 +1,104 @@
+{
+  "title": "Grammar Book — Otjiherero",
+  "languageCode": "hz",
+  "languageName": "Otjiherero",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Herero_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Bantu language of Namibia and Botswana\nOvaHereroOtjihereroNative toNamibia, Botswana, AngolaRegionKunene, Omaheke Region and Otjozondjupa Region in Namibia; Ghanzi in Botswana; Namibe, Huíla and Cunene in AngolaEthnicityOshiHerero, Himba, Mbanderu, Tjimba, Kwisi, TwaNative speake",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Bantu language of Namibia and Botswana\nOvaHereroOtjihereroNative toNamibia, Botswana, AngolaRegionKunene, Omaheke Region and Otjozondjupa Region in Namibia; Ghanzi in Botswana; Namibe, Huíla and Cunene in AngolaEthnicityOshiHerero, Himba, Mbanderu, Tjimba, Kwisi, TwaNative speakers250,000 (2015–2018)[1]Language familyNiger–Congo?\n\nAtlantic–CongoVolta-CongoBenue–CongoBantoidSouthern BantoidBantuKavango – Southwest BantuSouthwest BantuHerero (R.30)OvaHerero\n\nDialects\nHimba\n\nKuvale\n\nZemba (Thimba, Otjizemba)\n\nHakawona (Otjihakawona)\n\nBotswana Herero\n\nWriting systemLatin (OshiHerero alphabet)\nHerero BrailleLanguage codesISO 639-1hz HereroISO 639-2her HereroISO 639-3her  HereroGlottologhere1253  HereroGuthrie codeR.30 (R31,311,312); R.101 (Kuvale)[2]ELPHereroThe disparate distribution of the Herero language in Namibia, showing the concentration of Herero speakers on the Kalahari boundary in the east, as well as the outlying Herero-speaking Himba people of the Kaokoveld in the far north-west.This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nPersonOmu-\n\nOmuHerero, OmuHimba, OmuMbanderuPeopleOva-\n\nOvaHerero, OvaHimba, OvaMbanderuLanguageOtji-\n\nOtjiHerero, OtjiHimba, OtjiMbanderu\nA Herero speaker, recorded in Namibia.\nHerero (Otjiherero) is a Bantu language spoken by the Herero and Mbanderu peoples in Namibia and Botswana, as well as by small communities of people in southwestern Angola. There were 250,000 speakers in these countries between 2015 and 2018.[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Herero_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Distribution",
+      "summary": "Its linguistic distribution covers a zone called Hereroland, which is constituted of the region of Omaheke along with the Otjozondjupa and Kunene Regions. The Himba people, who are related to the Herero and Mbanderu, speak a dialect very close to Otjiherero. Many Herero-speakers",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Its linguistic distribution covers a zone called Hereroland, which is constituted of the region of Omaheke along with the Otjozondjupa and Kunene Regions. The Himba people, who are related to the Herero and Mbanderu, speak a dialect very close to Otjiherero. Many Herero-speakers live in Windhoek, the capital of Namibia.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Herero_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Phonology",
+      "summary": "The sounds /f s l/ are found in loanwords.[3]",
+      "sections": [
+        {
+          "heading": "Consonants",
+          "body": "Labial\n\nDental\n\nAlveolar\n\nPalatal\n\nVelar\n\nGlottal\n\nNasal\n\nm\n\nn̪\n\nn\n\nɲ\n\nPlosive/\nAffricate\n\nplain\n\np\n\nt̪\n\nt\n\ntʃ\n\nk\n\nprenasal\n\nᵐb\n\nⁿd̪\n\nⁿd\n\nⁿdʒ\n\nᵑɡ\n\nFricative\n\nvoiceless\n\n(f)\n\nθ\n\n(s)\n\nh\n\nvoiced\n\nv\n\nð\n\nTrill\n\nr\n\nApproximant\n\nw\n\n(l)\n\nj\n\nThe sounds /f s l/ are found in loanwords.[3]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Herero_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Front\n\nCentral\n\nBack\n\nClose\n\ni   iː\n\nu   uː\n\nMid\n\nɛ   ɛː\n\nɔ   ɔː\n\nOpen\n\nɑ   ɑː",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Herero_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Script",
+      "summary": "Because of the translation of missionary Gottlieb Viehe (1839–1901) of the Bible into Herero, at the end of the 19th century, the spoken language was transcribed to an alphabet based on the Latin script. Father Peter Heinrich Brincker (1836–1904) translated several theological wo",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Because of the translation of missionary Gottlieb Viehe (1839–1901) of the Bible into Herero, at the end of the 19th century, the spoken language was transcribed to an alphabet based on the Latin script. Father Peter Heinrich Brincker (1836–1904) translated several theological works and songs.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Herero_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Education",
+      "summary": "Otjiherero is taught in Namibian schools both as a native tongue and as a secondary language. It is included as a principal material at the University of Namibia. Otjiherero is also one of the six minority languages that are used by the Namibian State Radio (NBC). Gamsberg Macmil",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Otjiherero is taught in Namibian schools both as a native tongue and as a secondary language. It is included as a principal material at the University of Namibia. Otjiherero is also one of the six minority languages that are used by the Namibian State Radio (NBC). Gamsberg Macmillan, as of 2008[update], has published the only dictionary in Otjiherero.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Herero_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Varieties",
+      "summary": "The Hakaona variety is now considered a separate Bantu language, as sometimes is Zemba (Otjizemba).[4] Maho (200) also removes Kuvale to Bantu Zone R.10, while differentiating North-West Herero (Kaokoland Herero, including Zemba and presumably Himba and Hakaona), R.311, and Botsw",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Hakaona variety is now considered a separate Bantu language, as sometimes is Zemba (Otjizemba).[4] Maho (200) also removes Kuvale to Bantu Zone R.10, while differentiating North-West Herero (Kaokoland Herero, including Zemba and presumably Himba and Hakaona), R.311, and Botswana Herero (including Mahalapye Herero), R.312, as distinct from but closely related to Herero proper. Within Herero proper, he recognizes two dialects: Central Herero and Mbandero (East Herero).\n\nNorthwest/Zemba is found on either side of the Namibian–Angolan border. Central Herero covers a large area in central Namibia, with East Herero and a few islands to the east but still in Namibia. Botswana Herero consists of a few scattered islands in Botswana, with about 15% of the population of Herero proper.[2]\n\nEthnologue separates Zimba as a distinct language but retains Himba, East Herero, and Botswana Herero within the Herero language. However, it no longer recognizes Kuvale as a dialect but as a separate language.[5]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Herero_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

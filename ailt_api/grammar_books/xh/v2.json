@@ -1,0 +1,210 @@
+{
+  "title": "Grammar Book — isiXhosa",
+  "languageCode": "xh",
+  "languageName": "isiXhosa",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Xhosa_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "XhosaisiXhosaPronunciation[ìsíᵏǁʰɔ́sà] ⓘNative toSouth Africa \n LesothoRegioneastern Eastern Cape; scattered communities elsewhereEthnicityAmaXhosaNative speakers8 million (2013)[1]\n11 million L2 speakers (2002)[2]Language familyNiger–Congo?",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nguni language of southern South Africa\n\nXhosaisiXhosaPronunciation[ìsíᵏǁʰɔ́sà] ⓘNative toSouth Africa \n LesothoRegioneastern Eastern Cape; scattered communities elsewhereEthnicityAmaXhosaNative speakers8 million (2013)[1]\n11 million L2 speakers (2002)[2]Language familyNiger–Congo?\n\nAtlantic–CongoVolta-CongoBenue–CongoBantoidSouthern BantoidBantuSouthern BantuNguni-TsongaNguniZundaXhosa\n\nWriting systemLatin (Xhosa alphabet)\nXhosa Braille\nDitema tsa DinokoSigned formsSigned Xhosa[3]Official statusOfficial language in South Africa\n ZimbabweRecognised minority\nlanguage in BotswanaLanguage codesISO 639-1xhISO 639-2xhoISO 639-3xhoGlottologxhos1239Guthrie codeS.41[4]Linguasphere99-AUT-fa incl.\nvarieties 99-AUT-faa\nto 99-AUT-faj +\n99-AUT-fb (isiHlubi)Proportion of the South African population that speaks Xhosa at home\n  0–20%\n  20–40%\n  40–60%\n  60–80%\n  80–100%This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nXhosa (/ˈkoʊsə/ KOH-sə,[5][6][7] Xhosa: [ᵏǁʰôːsa] ⓘ), formerly spelled Xosa and also known by its local name isiXhosa, is a Bantu language, indigenous to Southern Africa and one of the official languages of South Africa and Zimbabwe.[8] \n\nXhosa is spoken as a first language by approximately 8 million people and as a second language in South Africa, particularly in Eastern Cape, Western Cape, Northern Cape and Gauteng, and also in parts of Zimbabwe and Lesotho.[9] It has perhaps the heaviest functional load of click consonants in a Bantu language (approximately tied with Yeyi), with one count finding that 10% of basic vocabulary items contained a click.[10]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Classification",
+      "summary": "Xhosa is part of the branch of Nguni languages, which also include Zulu, Southern Ndebele and Northern Ndebele, called the Zunda languages.[11] Zunda languages effectively form a dialect continuum of variously mutually intelligible varieties.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Xhosa is part of the branch of Nguni languages, which also include Zulu, Southern Ndebele and Northern Ndebele, called the Zunda languages.[11] Zunda languages effectively form a dialect continuum of variously mutually intelligible varieties.\n\nXhosa is, to a large extent, mutually intelligible with Zulu and with other Nguni languages to a lesser extent. Nguni languages are, in turn, classified under the much larger abstraction of Bantu languages.[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Geographical distribution",
+      "summary": "Geographical distribution of the Xhosa in South Africa: density of Xhosa home-language speakers.    < 1 /km²   1–3 /km²   3–10 /km²   10–30 /km²   30–100 /km²   100–300 /km²   300–1000 /km²   1000–3000 /km²   > 3000 /km²\nTrilingual government building sign in Afrikaans, English a",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Geographical distribution of the Xhosa in South Africa: density of Xhosa home-language speakers.    < 1 /km²   1–3 /km²   3–10 /km²   10–30 /km²   30–100 /km²   100–300 /km²   300–1000 /km²   1000–3000 /km²   > 3000 /km²\nTrilingual government building sign in Afrikaans, English and Xhosa\nSign outside the AmaZink township theatre restaurant in Kayamandi welcoming visitors in Xhosa\nXhosa is the most widely distributed African language in South Africa, though the most commonly spoken South African language is Zulu.[12] Xhosa is the second most common Bantu home language in South Africa. As of 2003[update] approximately 5.3 million Xhosa-speakers, the majority, live in the Eastern Cape, followed by the Western Cape (approximately 1 million), Gauteng (671,045), the Free State (246,192), KwaZulu-Natal (219,826), North West (214,461), Mpumalanga (46,553), the Northern Cape (51,228), and Limpopo (14,225).[13] There is a small but significant Xhosa community of about 200,000 in Zimbabwe.[14] Also, a small community of Xhosa speakers (18,000) live in Quthing District, Lesotho.[15]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Orthography",
+      "summary": "The Xhosa language uses the 26 basic letters of the Latin alphabet, with digraphs, trigraphs, and even tetragraphs being used to represent some sounds. Tone, stress, and vowel length are generally not indicated in writing.[16] For further details, see the phonology section below.",
+      "sections": [
+        {
+          "heading": "Latin script",
+          "body": "The Xhosa language uses the 26 basic letters of the Latin alphabet, with digraphs, trigraphs, and even tetragraphs being used to represent some sounds. Tone, stress, and vowel length are generally not indicated in writing.[16] For further details, see the phonology section below.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Phonology",
+      "summary": "Xhosa has an inventory of ten vowels: [a], [ɛ~e], [i], [ɔ~o] and [u] written a, e, i, o and u in order, all occurring in both long and short.",
+      "sections": [
+        {
+          "heading": "Vowels",
+          "body": "Xhosa has an inventory of ten vowels: [a], [ɛ~e], [i], [ɔ~o] and [u] written a, e, i, o and u in order, all occurring in both long and short.\n\nXhosa vowel phonemes\n\nFront\n\nBack\n\nshort\n\nlong\n\nshort\n\nlong\n\nClose\n\ni ⟨i⟩\n\niː ⟨ii⟩\n\nu ⟨u⟩\n\nuː ⟨uu⟩\n\nMid\n\nɛ ⟨e⟩\n\neː ⟨ee⟩\n\nɔ ⟨o⟩\n\noː ⟨oo⟩\n\nOpen\n\na ⟨a⟩\n\naː ⟨aa⟩",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        },
+        {
+          "heading": "Tones",
+          "body": "Xhosa is a tonal language with two inherent phonemic tones: low and high. Tones are rarely marked in the written language, but they can be indicated ⟨a⟩ [à], ⟨á⟩ [á], ⟨â⟩ [áà], ⟨ä⟩ [àá]. Long vowels are phonemic but are usually not written except for ⟨â⟩ and ⟨ä⟩, which are each sequence of two vowels with different tones that are realized as long vowels with contour tones (⟨â⟩ high–low = falling, ⟨ä⟩ low–high = rising).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        },
+        {
+          "heading": "Consonants",
+          "body": "Xhosa is rich in uncommon consonants. Besides pulmonic egressive sounds, which are found in all spoken languages, it has a series of ejective stops and one implosive stop. It has 15 click consonants (18 if one counts the prenasalized clicks; in comparison, Juǀʼhoan, spoken in Botswana and Namibia, has 48, and Taa, with roughly 4,000 speakers in Botswana, has 83). \n\nThe following table lists the consonant phonemes of the language, with the pronunciation in IPA on the left and the orthography on the right:\n\nLabial\n\nDental/Alveolar\n\nPost-\nalveolar\n\nVelar\n\nGlottal\n\nmedian\n\nlateral\n\nmedian\n\nlateral\n\nClick\n\ntenuis/ejective[17][note 1]\n\nᵏǀʼ ⟨c⟩\n\nᵏǁʼ ⟨x⟩\n\nᵏǃʼ ⟨q⟩\n\naspirated\n\nᵏǀʰ ⟨ch⟩\n\nᵏǁʰ ⟨xh⟩\n\nᵏǃʰ ⟨qh⟩\n\nslack voice\n\nᶢ̥ǀʱ ⟨gc⟩\n\nᶢ̥ǁʱ ⟨gx⟩\n\nᶢ̥ǃʱ ⟨gq⟩\n\nnasal\n\nᵑǀ ⟨nc⟩\n\nᵑǁ ⟨nx⟩\n\nᵑǃ ⟨nq⟩\n\nslack-voice nasal[note 2]\n\nᵑǀʱ ⟨ngc⟩\n\nᵑǁʱ ⟨ngx⟩\n\nᵑǃʱ ⟨ngq⟩\n\nprenasalized tenuis/ejective[18][note 3]\n\nŋᵏǀʼ ⟨nkc⟩\n\nŋᵏǁʼ ⟨nkx⟩\n\nŋᵏǃʼ ⟨nkq⟩\n\nPlosive\n\ntenuis/ejective[note 1]\n\npʼ ⟨p⟩\n\ntʼ ⟨t⟩\n\nt̠ʲʼ ⟨ty⟩\n\nkʼ ⟨k⟩\n\nʔ[a]\n\naspirated\n\npʰ ⟨ph⟩\n\ntʰ ⟨th⟩\n\nt̠ʲʰ ⟨tyh⟩\n\nkʰ ⟨kh⟩\n\nslack voice\n\nb̥ʱ ⟨bh⟩\n\nd̥ʱ ⟨d⟩\n\nd̠̥ʲʱ ⟨dy⟩\n\nɡ̊ʱ ⟨g⟩\n\nimplosive\n\nɓ ⟨b⟩\n\nAffricate\n\nejective\n\ntsʼ ⟨ts⟩\n\ntʃʼ ⟨tsh⟩\n\nkxʼ ⟨kr⟩\n\nk𝼄ʼ ⟨kl⟩[b]\n\naspirated\n\ntsʰ ⟨ths⟩\n\ntʃʰ ⟨thsh⟩\n\nkxʰ ⟨krh⟩\n\nslack voice\n\nd̥zʱ ⟨dz⟩[c]\n\nd̥ʒʱ ⟨j⟩\n\nFricative\n\nvoiceless\n\nf ⟨f⟩\n\ns ⟨s⟩\n\nɬ ⟨hl⟩\n\nʃ ⟨sh⟩\n\nx ⟨rh⟩\n\nh ⟨h⟩\n\nslack voice\n\nv̤ ⟨v⟩[d]\n\nz̤ ⟨z⟩\n\nɮ̤ ⟨dl⟩\n\nʒ̤ ⟨zh⟩[e]\n\nɣ̤ ⟨gr⟩\n\nɦ ⟨hh⟩\n\nNasal\n\nfully voiced\n\nm ⟨m⟩\n\nn ⟨n⟩\n\nn̠ʲ ⟨ny⟩\n\nŋ ⟨ngʼ⟩\n\nslack voice\n\nm̤ ⟨mh⟩\n\nn̤ ⟨nh⟩\n\nn̠̤ʲ ⟨nyh⟩\n\nŋ̤ ⟨ngh⟩[f]\n\nLiquid\n\nfully voiced\n\nr ⟨r⟩[g]\n\nl ⟨l⟩\n\nbreathy voiced\n\nr̤ ⟨r⟩[g]\n\nl̤ ⟨lh⟩\n\nSemivowel\n\nfully voiced\n\nj ⟨y⟩[h]\n\nw ⟨w⟩\n\nslack voice\n\nj̤ ⟨yh⟩\n\nw̤ ⟨wh⟩\n\n^ The unwritten glottal stop is present in words like uku(ʔ)ayinela \"to iron\", uku(ʔ)a(ʔ)aza \"to stutter\", uku(ʔ)amza \"to stall\".\n\n^ The onset cluster /kl/ from phonologized loanwords such as ikliniki \"the clinic\" can be realized as a single consonant [kʟ̥ʼ].\n\n^ These two consonants, [dz] and [dz̤], are found in loans. Both are spelled ⟨dz⟩, the same as the consonant [d̥zʱ].\n\n^ In informal writing, this murmured consonant can sometimes be seen spelled as ⟨vh⟩ as in ukuvha, but this is non-standard.\n\n^ These two consonants, [ʒ] and [ʒ̤], are found in borrowings. Both are spelled ⟨zh⟩.\n\n^ This consonant, [ŋ̤], is found in loans. It is spelled ⟨ngh⟩.\n\n^ a b These two consonants, [r] and [r̤], are found in borrowings. Both are spelled ⟨r⟩.\n\n^ Sequences of /jw/ as in ukushiywa \"abandonment\" are phonologically realized [ɥ], but this sound is non-phonemic.\n\nIn addition to the ejective affricate [tʃʼ], the spelling ⟨tsh⟩ may also be used for either of the aspirated affricates [tsʰ] and [tʃʰ].\n\nThe breathy voiced glottal fricative [ɦ] is sometimes spelled ⟨h⟩.\n\nThe ejectives tend to be ejective only in careful pronunciation or in salient positions and, even then, only for some speakers. Otherwise, they tend to be tenuis (plain) stops. Similarly, the tenuis (plain) clicks are often glottalised, with a long voice onset time, but that is uncommon.[inconsistent]\n\nThe murmured clicks, plosives and affricates are only partially voiced, with the following vowel murmured for some speakers. That is, da may be pronounced [dʱa̤] (or, equivalently, [d̥a̤]). They are better described as slack voiced than as breathy voiced. They are truly voiced only after nasals, but the oral occlusion is then very short in stops, and it usually does not occur at all in clicks. Therefore, the absolute duration of voicing is the same as in tenuis stops. (They may also be voiced between vowels in some speaking styles.) The more notable characteristic is their depressor effect on the tone of the syllable.[19]\n\nConsonant changes with prenasalisation\nMain article: Fortition\nWhen consonants are prenasalised, their pronunciation and spelling may change. The murmur no longer shifts to the following vowel. Fricatives become affricated and, if voiceless, they become ejectives as well: mf is pronounced [ɱp̪fʼ], ndl is pronounced [ndɮ], n+hl becomes ntl [ntɬʼ], n+z becomes ndz [ndz], n+q becomes [n͡ŋǃʼ] etc. The orthographic b in mb is the voiced plosive [mb]. Prenasalisation occurs in several contexts, including on roots with the class 9 prefix /iN-/, for example on an adjective which is feature-matching its noun:\n\n/iN- + ɬɛ/ → intle \"beautiful\" (of a class 9 word like inja \"dog\")\n\nWhen aspirated clicks (⟨ch, xh, qh⟩) are prenasalised, the silent letter ⟨k⟩ is added (⟨nkc, nkx, nkq⟩) to prevent confusion with the nasal clicks ⟨nc, nx, nq⟩, and are actually distinct sounds. The prenasalized versions have a very short voicing at the onset which then releases in an ejective, like the prenasalized affricates, while the phonemically nasal clicks have a very long voicing through the consonant. When plain voiceless clicks (⟨c, x, q⟩) are prenasalized, they become slack voiced nasal (⟨ngc, ngx, ngq⟩).\n\nList of consonant changes with prenasalisation\n\nPhoneme\n\nPrenasalised\n\nExamples (roots with class 10 /iiN-/ prefix)\n\nRule\n\n/pʰ/, /tʰ/, /t̠ʲʰ/, /kʰ/, /ǀʰ/, /ǁʰ/, /ǃʰ/\n\n[mpʼ], [ntʼ], [n̠t̠ʲʼ], [ŋkʼ], [n̪͡ŋǀʼ], [n͡ŋǁʼ], [n̠͡ŋǃʼ]\n\nphumla \"to rest\" → iimpumlo \"noses\"\n\nthetha \"to speak\" → iintetho \"speeches\"\n\ntyhafa \"to weaken\" → iintyafo \"weaknesses\"\n\nkhathala \"care about\" → iinkathalo \"cares\"\n\nchazela \"explain\" → inkcazelo \"information\"\n\nxhasa \"to support\" → inkxaso \"support\"\n\nqhuba \"to drive\" → inkqubo \"process\"\n\nAspiration is lost on obstruents.\n\n/t̠ʲ/\n\n/n̠d̠ʲ/\n\ntyeba \"to be rich\" → iindyebo \"wealths\"\n\nVoiceless palatal plosive becomes voiced.\n\n/ǀ/, /ǁ/, /ǃ/\n\n/ŋǀʱ/, /ŋǁʱ/, /ŋǃʱ/\n\nucango \"door\" → iingcango \"doors\"\n\nuxande \"rectangle\" → iingxande \"rectangles\"\n\nuqeqesho \"training\" → iingqeqesho \"trainings\"\n\nTenuis clicks become slack voiced nasal.\n\n/ɓ/\n\n/mb̥ʱ/\n\nimbali \"story\" → iimbali \"histories\"\n\nImplosive becomes slack voiced.\n\n/f/, /s/, /ʃ/, /ɬ/, /x/\n/v/, /z/, /ɮ/, /ɣ/\n\n[ɱp̪f], /nts/, /ntʃ/, /ntɬ/, /ŋkx/\n[ɱb̪̊vʱ], [nd̥zʱ], [nd̥ɮʱ], [ŋɡ̊ɣʱ]?\n\nfuya \"to breed\" → iimfuyo \"breeds\"\n\nusana \"child\" → iintsana \"children\"\n\nshumayela \"to preach\" → iintshumayelo \"sermons\"\n\nisihloko \"title\" → iintloko \"heads\"\n\nvuma \"approve\" → iimvume \"approvals\"\n\nzama \"try\" → iinzame \"attempts\"\n\nukudleka \"wear and tear\" → iindleko \"costs\"\n\nFricatives become affricates. Only phonemic, and thus reflected orthographically, for /nts/, /ntʃ/, /ntɬ/ and /ŋkx/.\n\n/m/, /n/, /n̠ʲ/, /ŋ/\n/ǀ̃/, /ǁ̃/, /ǃ̃/\n\n/m/, /n/, /n̠ʲ/, /ŋ/\n/ǀ̃/, /ǁ̃/, /ǃ̃/\n\numeyile \"Mr. Mule (as a storybook character) → iimeyile \"mules\"\n\ninoveli \"novel\" → iinoveli \"novels\"\n\nngena \"bring in\" → ingeniso \"profit\"\n\nunyawo \"foot\" → iinyawo \"feet\"\n\nncokola \"to chat\" → incoko \"conversation\"\n\nunxweme \"sea shore\" → iinxweme \"sea shores\"\n\nnqula \"worship\" → iinqula \"adam's apple\"\n\nNo change when the following consonant is itself a nasal.\n\nConsonant changes with palatalisation\nPalatalisation is a change that affects labial consonants whenever they are immediately followed by /j/.[dubious – discuss][This is not what we show in the table.] While palatalisation occurred historically, it is still productive, as is shown by palatalization before the passive suffix /-w/ and before diminutive suffix /-ana/. This process can skip rightwards to non-local syllables (i.e. uku-sebenz-is-el + wa -> ukusetyenziselwa \"be used for\"), but does not affect morpheme-initial consonants (i.e. uku-bhal+wa -> ukubhalwa \"to be written\", instead of illicit *ukujalwa). The palatalization process only applies once, as evidenced by ukuphuphumisa+wa -> ukuphuphunyiswa \"to be made to overflow\", instead of the illicit alternative, *ukuphutshunyiswa.\n\nList of consonant changes with palatalisation\n\nOriginal\nconsonant\n\nPalatalised\nconsonant\n\nExamples\n\np\n\ntʃ\n\nuku- + kopa + -wa → ukukotshwa [ukukot͡ʃʷa] (to be copied)\n\npʰ\n\ntʃʰ\n\nuku- + phuph + -wa → ukuphutshwa [ukupʰut͡ʃʰʷa] (to be dreamt)\n\nb̥ʱ\n\nd̥ʒʱ\n\nuku- + gab + wa → ukugajwa [ukugad̥ʒʱʷa] (to be thrown up)\n\nɓ\n\nt̠ʲ\n\nubu- + -ala → utywala [ut̠ʲʷala] (alcohol)\n\nsebenz + -is + -el +wa -> setyenziselwa [set̠ʲenziselwa] (used for)\n\nm\n\nn̠ʲ\n\nuku- + zam + -wa → zanywa [ukuzan̠ʲʷa] (to be tried on)\n\nmp\n\nntʃ\n\nuku- + krwemp + wa → ukukrwentshwa [ukukχʷ'ɛntʃʷa] (to be scratched)\n\nmb̥ʱ\n\nnd̥ʒʱ\n\nuku + bamb + wa → ukubanjwa [ukuɓand̥ʒʱʷa] (to be caught)",
+          "examples": [
+            "^ The unwritten glottal stop is present in words like uku(ʔ)ayinela \"to iron\", uku(ʔ)a(ʔ)aza \"to stutter\", uku(ʔ)amza \"to stall\".",
+            "^ The onset cluster /kl/ from phonologized loanwords such as ikliniki \"the clinic\" can be realized as a single consonant [kʟ̥ʼ].",
+            "^ Sequences of /jw/ as in ukushiywa \"abandonment\" are phonologically realized [ɥ], but this sound is non-phonemic.",
+            "/iN- + ɬɛ/ → intle \"beautiful\" (of a class 9 word like inja \"dog\")",
+            "Examples (roots with class 10 /iiN-/ prefix)",
+            "phumla \"to rest\" → iimpumlo \"noses\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Morphology",
+      "summary": "In keeping with many other Bantu languages, Xhosa is an agglutinative language, with an array of prefixes and suffixes that are attached to root words. As in other Bantu languages, nouns in Xhosa are classified into morphological classes, or genders (15 in Xhosa), with different",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In keeping with many other Bantu languages, Xhosa is an agglutinative language, with an array of prefixes and suffixes that are attached to root words. As in other Bantu languages, nouns in Xhosa are classified into morphological classes, or genders (15 in Xhosa), with different prefixes for both singular and plural. Various parts of speech that qualify a noun must agree with the noun according to its gender. Agreements usually reflect part of the original class with which the word agrees. The word order is subject–verb–object, like in English.\n\nThe verb is modified by affixes to mark subject, object, tense, aspect and mood. The various parts of the sentence must agree in both class and number.[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        },
+        {
+          "heading": "Nouns",
+          "body": "The Xhosa noun consists of two essential parts, the prefix and the stem. Using the prefixes, nouns can be grouped into noun classes, which are numbered consecutively, to ease comparison with other Bantu languages. Which they call 'amahlelo'\n\nThe following table gives an overview of Xhosa noun classes, arranged according to singular-plural pairs.\n\nClass\n\nSingular\n\nPlural\n\nExample\n\n1/2\n\num-\n\naba-, abe-\n\numntu , abantu\n\n1a/2a\n\nu-\n\noo-\n\nutitshala , ootitshala\n\n3/4\n\num-\n\nimi-\n\numthi , imithi\n\n5/6\n\ni-, ili-1\n\nama-, ame-\n\nilitye , amatye\n\n7/8\n\nis(i)-2\n\niz(i)-2\n\nisitya , izitya\n\n9/10\n\niN-3\n\niiN-3, iziN-4\n\ninja , izinja\n\n11/10\n\nu-, ulu-1, ulw-, ul-\n\niiN-3, iziN-4\n\nuluthi\n\n14\n\nubu-, ub-, uty-\n\nubuthi\n\n15\n\nuku-\n\nukutya\n\n1 Before monosyllabic stems, e.g. iliso (eye), uluhlu (list).\n\n2 is- and iz- replace isi- and izi- respectively before stems beginning with a vowel, e.g. isandla/izandla (hand/hands).\n\n3 The placeholder N in the prefixes iN- and iiN- is a nasal consonant which assimilates in place to the following consonant (producing an im- before vowels), but is typically absent in loanwords.\n\n4 Before monosyllabic stems in some words.",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Verbs use the following prefixes for the subject and object:\n\nPerson/\nClass\n\nSubject\n\nObject\n\n1st sing.\n\nndi-\n\n-ndi-\n\n2nd sing.\n\nu-\n\n-ku-\n\n1st plur.\n\nsi-\n\n-si-\n\n2nd plur.\n\nni-\n\n-ni-\n\n1\n\nu-\n\n-m-\n\n2\n\nba-\n\n-ba-\n\n3\n\nu-\n\n-wu-\n\n4\n\ni-\n\n-yi-\n\n5\n\nli-\n\n-li-\n\n6\n\na-\n\n-wa-\n\n7\n\nsi-\n\n-si-\n\n8\n\nzi-\n\n-zi-\n\n9\n\ni-\n\n-yi-\n\n10\n\nzi-\n\n-zi-\n\n11\n\nlu-\n\n-lu-\n\n14\n\nbu-\n\n-bu-\n\n15\n\nku-\n\n-ku-\n\nreflexive\n\n—\n\n-zi-",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        },
+        {
+          "heading": "Examples",
+          "body": "ukudlala – to play\nukubona – to see\numntwana – a child\nabantwana – children\numntwana uyadlala – the child is playing\nabantwana bayadlala – the children are playing\nindoda – a man\namadoda – men\nindoda iyambona umntwana – the man sees the child\namadoda ayababona abantwana – the men see the children",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Sample phrases and text",
+      "summary": "The following is a list of phrases that can be used when one visits a region whose primary language is Xhosa:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The following is a list of phrases that can be used when one visits a region whose primary language is Xhosa:\n\nXhosa\n\nEnglish\n\nMolo\n\nHello\n\nMolweni\n\nhello, to a group of people\n\nUnjani?\n\nhow are you?\n\nNinjani?\n\nHow are you?, to a group of people\n\nNdiphilile\n\nI'm okay\n\nSiphilile\n\nWe're okay\n\nNdiyabulela (kakhulu)\n\nThank you (a lot)\n\nEnkosi (kakhulu)\n\nThanks (a lot)\n\nNgubani igama lakho?\n\nWhat is your name?\n\nIgama lam ngu....\n\nMy name is....\n\nNgubani ixesha?\n\nWhat is the time?\n\nNdingakunceda?\n\nCan I help you?\n\nHamba kakuhle\n\nGoodbye/go well/safe travels\n\nNihambe kakuhle\n\nGoodbye/go well/safe travels\n(said to a group of people)\n\nEwe\n\nYes\n\nHayi\n\nNo\n\nAndiyazi\n\nI don't know\n\nUyakwazi ukuthetha isiNgesi?\n\nCan you speak English?\n\nNdisaqala ukufunda isiXhosa\n\nI've just started learning Xhosa\n\nUthetha ukuthini?\n\nWhat do you mean?\n\nNdicela ukuya ngasese?\n\nMay I please go to the bathroom?\n\nNdiyakuthanda\n\nI love you\n\nUxolo\n\nSorry\n\nUsapho\n\nFamily\n\nThetha\n\nTalk/speak",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "History",
+      "summary": "Main article: Xhosa people\nThis section needs expansion. You can help by adding missing information.  (August 2019)\nEnglish missionary Henry Hare Dugmore helped translate the Bible into Xhosa in 1859\nNelson Mandela was a Xhosa and was a member of the royal family of the Thembu tr",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Xhosa people\nThis section needs expansion. You can help by adding missing information.  (August 2019)\nEnglish missionary Henry Hare Dugmore helped translate the Bible into Xhosa in 1859\nNelson Mandela was a Xhosa and was a member of the royal family of the Thembu tribe\nXhosa-speaking people have inhabited coastal regions of southeastern Africa since before the 16th century. They refer to themselves as the amaXhosa and their language as isiXhosa. Ancestors of the Xhosa migrated to the east coast of Africa and came across Khoisan-speaking people; \"as a result of this contact, the Xhosa people borrowed some Khoisan words along with their pronunciation, for instance, the click sounds of the Khoisan languages\".[20] The Bantu ancestor of Xhosa did not have clicks, which attests to a strong historical contact with a Khoisan language that did. An estimated 15% of Xhosa vocabulary is of Khoisan origin.[15] Unlike many Khoisan languages, which have four places of click articulation, Xhosa has only three, missing the palatal clicks. However, and unusually for an Nguni language, Xhosa also has a full set of palatal pulmonic consonants. This inventory is similar to many of the Kalahari Khoe languages, especially in the east, which have a full set of palatal pulmonic consonants, and several of which have lost their palatal clicks as well.[21]\n\nJohn Bennie was a Scottish Presbyterian missionary and early Xhosa linguist. Bennie, along with John Ross (another missionary), set up a printing press in the Tyhume Valley and the first printed works in Xhosa came out in 1823 from the Lovedale Press in the Alice region of the Eastern Cape. But, as with any language, Xhosa had a rich history of oral traditions from which the society taught, informed, and entertained one another. The first Bible translation was in 1859, produced in part by Henry Hare Dugmore.[15]",
+          "examples": [
+            "Xhosa-speaking people have inhabited coastal regions of southeastern Africa since before the 16th century. They refer to themselves as the amaXhosa and their language as isiXhosa. Ancestors of the Xhosa migrated to the east coast of Africa "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Role in modern society",
+      "summary": "See also: Xhosa literature\nThe role of indigenous languages in South Africa is complex and ambiguous. Their use in education has been governed by legislation, beginning with the Bantu Education Act, 1953.[12]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "See also: Xhosa literature\nThe role of indigenous languages in South Africa is complex and ambiguous. Their use in education has been governed by legislation, beginning with the Bantu Education Act, 1953.[12]\n\nAt present, Xhosa is used as the main language of instruction in many primary schools and some secondary schools, but is largely replaced by English after the early primary grades, even in schools mainly serving Xhosa-speaking communities. The language is also studied as a subject in such schools.\n\nThe language of instruction at universities in South Africa is English (or Afrikaans, to a diminishing extent[22]), and Xhosa is taught as a subject, both for native and for non-native speakers.\n\nLiterary works, including prose and poetry, are available in Xhosa, as are newspapers and magazines. The South African Broadcasting Corporation broadcasts in Xhosa on both radio (on Umhlobo Wenene FM) and television, and films, plays and music are also produced in the language. The best-known performer of Xhosa songs outside South Africa was Miriam Makeba, whose Click Song #1 (Xhosa Qongqothwane) and \"Click Song #2\" (Baxabene Ooxam) are known for their large number of click sounds.\n\nIn 1996[update], the literacy rate for first-language Xhosa speakers was estimated at 50%.[15]",
+          "examples": [
+            "Literary works, including prose and poetry, are available in Xhosa, as are newspapers and magazines. The South African Broadcasting Corporation broadcasts in Xhosa on both radio (on Umhlobo Wenene FM) and television, and films, plays and mu"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        },
+        {
+          "heading": "Anthem",
+          "body": "Nkosi Sikelel' iAfrika is part of the national anthem of South Africa, national anthem of Tanzania and Zambia, and the former anthem of Zimbabwe and Namibia. It is a hymn written in Xhosa by Enoch Sontonga in 1897. The single original stanza was:\n\nNkosi, sikelel' iAfrika\n\nMaluphakanyis' uphondo lwayo,\n\nYizwa imithandazo yethu,\n\nNkosi sikelela, thina lusapho lwayo.\n\nTranslation:\nGod bless Africa\n\nRaise high her glory\n\nHear our prayers\n\nGod bless us, we her children[23]\n\nAdditional stanzas were written later by Sontonga and other writers, and the original verse was translated into Sotho[23] and Afrikaans, as well as English.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "In popular culture",
+      "summary": "In The Lion King and its reboot, Rafiki, the sagely mandrill chants in Xhosa.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In The Lion King and its reboot, Rafiki, the sagely mandrill chants in Xhosa.\n\nIn the Marvel Cinematic Universe films Captain America: Civil War, Black Panther, Avengers: Infinity War, Avengers: Endgame, Black Panther: Wakanda Forever, and the TV show The Falcon and the Winter Soldier, the language spoken in the fictional African nation of Wakanda is Xhosa. This came about because South African actor John Kani, a native of the Eastern Cape province who plays Wakandan King T'Chaka, speaks Xhosa and suggested that the directors of the fictional Civil War incorporate a dialogue in the language. For Black Panther, director Ryan Coogler \"wanted to make it a priority to use Xhosa as much as possible\" in the script, and provided dialect coaches for the film's actors.[24]",
+          "examples": [
+            "In the Marvel Cinematic Universe films Captain America: Civil War, Black Panther, Avengers: Infinity War, Avengers: Endgame, Black Panther: Wakanda Forever, and the TV show The Falcon and the Winter Soldier, the language spoken in the ficti"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Xhosa_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

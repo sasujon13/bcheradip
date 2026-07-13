@@ -1,0 +1,417 @@
+{
+  "title": "Grammar Book — தமிழ்",
+  "languageCode": "ta",
+  "languageName": "தமிழ்",
+  "version": 2,
+  "sources": [
+    "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D",
+    "https://en.wikipedia.org/wiki/Tamil_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Chapter 1",
+      "summary": "தமிழ் மொழி 'இயற்றமிழ், இசைத்தமிழ், நாடகத் தமிழ்,' என மூன்று பிரிவுகளை உடையது.  இவையே 'முத்தமிழ்' என அழைக்கப்படக் காரணமாக விளங்குகிறது. முன்னோர் முத்தமிழின் பிரிவுகள் ஒவ்வொன்றுக்கும் தனித்தனியே இலக்கணம் அமைத்தனர். அகத்தியம் முத்தமிழுக்கும் உரிய இலக்கண நூல் என்பர். இருப்பினும், பொத",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "தமிழ் மொழி 'இயற்றமிழ், இசைத்தமிழ், நாடகத் தமிழ்,' என மூன்று பிரிவுகளை உடையது.  இவையே 'முத்தமிழ்' என அழைக்கப்படக் காரணமாக விளங்குகிறது. முன்னோர் முத்தமிழின் பிரிவுகள் ஒவ்வொன்றுக்கும் தனித்தனியே இலக்கணம் அமைத்தனர். அகத்தியம் முத்தமிழுக்கும் உரிய இலக்கண நூல் என்பர். இருப்பினும், பொதுவாகத் தமிழ் இலக்கணம் என்பது இயற்றமிழ் இலக்கணத்தைக் குறிப்பதாயிற்று. செய்யுள், உரைநடை ஆகியவற்றின் தொகுதி இயற்றமிழாகும். தொல்காப்பியம் இயற்றமிழில் கிடைத்துள்ள மிகப்பழைய இலக்கண நூலாகும்.\nதமிழ் இலக்கணம் ஐந்து வகை. அவை,",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "எழுத்து\nசொல்\nபொருள்\nயாப்பு\nஅணி\nஅறிஞர் தமிழ் இலக்கணத்தை மூன்று வகை இலக்கணம் என்றும் ஆறு இலக்கணம் என்றும் ஏழு  இலக்கணம் என்றும் வகைப்படுத்துவர்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Chapter 2",
+      "summary": "=== முதலெழுத்து ===\n\"எழுத்தெனப் படுவ அகர முதல னகர இறுவாய் முப்பஃ தென்ப\"\n\"உயிரும் உடம்புமாம் முப்பது முதலே\"\n'அ' முதல் 'ஔ' வரையுள்ள 12 உயிரெழுத்துகளும், 'க்' முதல் 'ன்' வரையுள்ள 18 மெய்யெழுத்துகளும் ஆகிய முப்பதும் முதலெழுத்துகள் எனப்படும்",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== முதலெழுத்து ===\n\"எழுத்தெனப் படுவ அகர முதல னகர இறுவாய் முப்பஃ தென்ப\"\n\"உயிரும் உடம்புமாம் முப்பது முதலே\"\n'அ' முதல் 'ஔ' வரையுள்ள 12 உயிரெழுத்துகளும், 'க்' முதல் 'ன்' வரையுள்ள 18 மெய்யெழுத்துகளும் ஆகிய முப்பதும் முதலெழுத்துகள் எனப்படும்",
+          "examples": [
+            "\"எழுத்தெனப் படுவ அகர முதல னகர இறுவாய் முப்பஃ தென்ப\"",
+            "\"உயிரும் உடம்புமாம் முப்பது முதலே\""
+          ],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "உயிரெழுத்துகள்: உயிரெழுத்துகள் 12 அவை அ, ஆ, இ, ஈ, உ, ஊ, எ, ஏ, ஐ, ஒ, ஓ, ஔ\nமெய்யெழுத்துகள்: மெய்யெழுத்துகள் 18 அவை க், ங், ச், ஞ், ட், ண், த், ந், ப், ம், ய், ர், ல், வ், ழ், ள், ற்,ன்\nஉயிரெழுத்துகள் குறில், நெடில் என இரண்டு வகைப்படும்.  மெய்யெழுத்துகள் வல்லினம், மெல்லினம், இடையினம் என்று மூன்று வகைப்படும்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Chapter 3",
+      "summary": "=== சார்பெழுத்துகள் ===\n\"சார்ந்து வரன் மரபின் மூன்று அலங்கடையே\"",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== சார்பெழுத்துகள் ===\n\"சார்ந்து வரன் மரபின் மூன்று அலங்கடையே\"",
+          "examples": [
+            "\"சார்ந்து வரன் மரபின் மூன்று அலங்கடையே\""
+          ],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "சார்பு எழுத்து மூன்று என்பது மரபு என்கிறார் தொல்காப்பியர்\nஅவை குற்றியலிகரம் குற்றியலுகரம் மற்றும் ஆய்தம் \nஆனால் பிற்காலத்தில் நன்னூலார் அதை விரிபு படுத்தி :",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Chapter 4",
+      "summary": "உயிர்மெய் எழுத்து\nஆய்த எழுத்து\nஉயிரளபெடை\nஒற்றளபெடை\nகுற்றியலுகரம்\nகுற்றியலிகரம்\nஐகாரக் குறுக்கம்\nஔகாரக் குறுக்கம்\nமகரக்குறுக்கம்\nஆய்தக்குறுக்கம்\nஎனச் சார்பெழுத்து பத்து வகைப்படும். முதலெழுத்துகளைச் சார்ந்து வருவதாலும், முதலெழுத்து திரிபு, விகாரத்தால் பிறந்ததாலும் இவை சார்பெழுத்துக",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "உயிர்மெய் எழுத்து\nஆய்த எழுத்து\nஉயிரளபெடை\nஒற்றளபெடை\nகுற்றியலுகரம்\nகுற்றியலிகரம்\nஐகாரக் குறுக்கம்\nஔகாரக் குறுக்கம்\nமகரக்குறுக்கம்\nஆய்தக்குறுக்கம்\nஎனச் சார்பெழுத்து பத்து வகைப்படும். முதலெழுத்துகளைச் சார்ந்து வருவதாலும், முதலெழுத்து திரிபு, விகாரத்தால் பிறந்ததாலும் இவை சார்பெழுத்துகள் என அழைக்கப்படுகின்றன.\nஇவ்வாறு, உயிர் எழுத்துகள் 12, மெய் எழுத்துகள் 18 , உயிர்மெய் எழுத்துகள் (இவைகள் உயிர் மெய் இரண்டும் சார்ந்து வரல் ஆதலின் சார்பெழுத்து எனப்படும் 216), ஆய்தம் ஆகிய 247 எழுத்துகளே, தமிழ் எழுத்துகள் எனப்படும்.\nதமிழ் இலக்கியங்களுக்குப் பாடுபொருள்களாக அமைவன அகப்பொருள்களும் புறப்பொருள்களும் ஆகும். அதில் ஒத்த அன்புடைய தலைவனும் தலைவியும் ஒருவரையொருவர் காதலித்து நடத்தும் வாழ்க்கை நிகழ்ச்சிகளை விளக்கிக் கூறுவது அகப்பொருள். அறம், பொருள், வீடு ஆகிய (இன்பம் ஒழிந்த) மூன்று பேறுகளைப் பற்றியும் கல்வி, வீரம், கொடை, புகழ் முதலியன பற்றியும் கூறுவது புறப்பொருள்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== எழுத்து குறித்த இலக்கணச் செய்தி ==\nஎழுத்தெண்ணிச் சீரும் அடியும் வரையறுக்கும் நிலையைத் தொல்காப்பியம் குறிப்பிடுகிறது.\nவஞ்சியுரிச்சீர், குறளடி, சிந்தடி, அளவடி, நெடிலடி, கழி நெடிலடி போன்றவை எழுத்தடிப்படையில் எழுத்தெண்ணி சீர்களும் அடிகளுமாகும்.\nவஞ்சியுரிச்சீர்",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Chapter 5",
+      "summary": "நேர் இறுதி ஐந்து எழுத்து\nநிரை இறுதி ஆறு எழுத்து\nசிறுமை மூன்று எழுத்து\nபெருமை ஆறு எழுத்து\n4 முதல் 6 எழுத்து வரை - குறளடி\n7 முதல் 9 எழுத்து வரை - சிந்தடி\n10 முதல் 14 எழுத்து வரை - அளவடி\n15 முதல் 17 எழுத்து வரை - நெடிலடி\n18 முதல் 20 எழுத்து வரை - கழி நெடிலடி\nமெய்யெழுத்து உயிரில் எழு",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "நேர் இறுதி ஐந்து எழுத்து\nநிரை இறுதி ஆறு எழுத்து\nசிறுமை மூன்று எழுத்து\nபெருமை ஆறு எழுத்து\n4 முதல் 6 எழுத்து வரை - குறளடி\n7 முதல் 9 எழுத்து வரை - சிந்தடி\n10 முதல் 14 எழுத்து வரை - அளவடி\n15 முதல் 17 எழுத்து வரை - நெடிலடி\n18 முதல் 20 எழுத்து வரை - கழி நெடிலடி\nமெய்யெழுத்து உயிரில் எழுத்து என்று குறிக்கப் பெறுகிறது.\nஓரடிக்கு 4 முதல் 20 எழுத்து வரை ஆசிரியப்பா வருமென்றும், 7 முதல் 16 எழுத்து வரை வெண்பா வருமென்றும், 13 முதல் 20 எழுத்து வரை கலிப்பா வருமென்றும் தொல்காப்பியர் குறிக்கிறார்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== சொல் ==\nஓர் எழுத்து தனித்து நின்றோ பல எழுத்துகள் தொடர்ந்து நின்றோ பொருள் தருவது சொல் எனப்படும்.\nஎ.கா:  வீடு, கண், போ,\nசொல்லின் வகைகள்",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Chapter 6",
+      "summary": "அகப்பொருள்\nபுறப்பொருள்\nதமிழ் இலக்கியங்களுக்குப் பாடுபொருள்களாக அமைவன அகப்பொருள்களும் புறப்பொருள்களும். ஒத்த அன்புடைய தலைவனும் தலைவியும் ஒருவரையொருவர் காதலித்து நடத்தும் வாழ்க்கை நிகழ்ச்சிகளை விளக்கிக் கூறுவது அகப்பொருள். அறம், பொருள், வீடு ஆகிய (இன்பம் ஒழிந்த) மூன்று பேறுகளை பற்ற",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "அகப்பொருள்\nபுறப்பொருள்\nதமிழ் இலக்கியங்களுக்குப் பாடுபொருள்களாக அமைவன அகப்பொருள்களும் புறப்பொருள்களும். ஒத்த அன்புடைய தலைவனும் தலைவியும் ஒருவரையொருவர் காதலித்து நடத்தும் வாழ்க்கை நிகழ்ச்சிகளை விளக்கிக் கூறுவது அகப்பொருள். அறம், பொருள், வீடு ஆகிய (இன்பம் ஒழிந்த) மூன்று பேறுகளை பற்றியும், கல்வி, வீரம், கொடை, புகழ் முதலியன பற்றியும் கூறுவது புறப்பொருள்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== யாப்பு ==\nயாப்பு என்பதற்குப் புலவர்களால் செய்யப்பெறும் செய்யுள் என்பது பொருள். செய்யுள் இயற்றுதற்குரிய இலக்கணம் யாப்பிலக்கணமாகும். யாப்பு, பாட்டு, தூக்கு, தொடர்பு, செய்யுள் இவை யாவும் ஒரு பொருள் குறித்த பல சொற்களாகும்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Chapter 7",
+      "summary": "=== யாப்பின் உறுப்புகள் ===\nயாப்பு வேறு, செய்யுள் வேறு; அசைகளால் யாக்கப்படுவதால் அது யாப்பு\nயாப்பின் உறுப்புகள் ஆறு. அவை",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== யாப்பின் உறுப்புகள் ===\nயாப்பு வேறு, செய்யுள் வேறு; அசைகளால் யாக்கப்படுவதால் அது யாப்பு\nயாப்பின் உறுப்புகள் ஆறு. அவை",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "எழுத்து\nஅசை\nசீர்\nதளை\nஅடி\nதொடை\nஉயிர் எழுத்துகளும், உயிர்மெய்யெழுத்துகளும் தத்தம் ஒலி அளவுகளைப் பொருத்து குறில் அல்லது நெடில் என வழங்கப்படுகின்றன. குற்றெழுத்து, நெட்டெழுத்துகளின் அடுக்குகளை அசைகளாக வகுத்துள்ளனர். நேரசை, நிரையசை ஈரசைகளாவன. குறிலோ நெடிலோ தனித்தோ ஒற்றடுத்தோ வருதல் நேரசையாகும். இருகுறிலிணைந்து வருதலும், குறில் நெடிலிணைந்து வருதலும், இவை இரண்டும் ஒற்றடுத்து வருதலும் நிரையசையாகும். ஒலிப்பியல் அடிப்படையில் அசைகளே கவிதைகளின் அடிப்படைக் கூறுகளாவன. அசைகளின் கூட்டு சீர் எனப்படும். சீர்கள் ஒன்றன்பின் ஒன்றாக வருதலால் தளைகள் உண்டாகும். தளை என்னும் சொல்லுக்குக் கட்டுவது, பொருந்துவது என்பது பொருளாகும். நின்ற சீரின் ஈற்றசையும் வரும் சீரின் முதல் அசையும் ஒன்றியும், ஒன்றாமலும் வருவது தளையாகும். இவ்வாறாக சீர்கள் இணைந்த தளைகள் பொருந்தி நின்று அடுத்து நடப்பது அடி எனப்படும். அடிகளும் அவ்வடிகளில் உள்ள சீர்களும் பொருத்தமுற தொடுக்கப்படுவது தொடையாகும். தொடை என்பது காரணப்பெயராகும்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Chapter 8",
+      "summary": "=== யாப்பின் அடிப்படையில் பா வகைகள் ===\nவெண்பா\nஆசிரியப்பா\nகலிப்பா\nவஞ்சிப்பா",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "=== யாப்பின் அடிப்படையில் பா வகைகள் ===\nவெண்பா\nஆசிரியப்பா\nகலிப்பா\nவஞ்சிப்பா",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== அணி ==\nஅணி என்பதற்கு அழகு என்பது பொருள். செய்யுளில் அமைந்து கிடக்கும் சொல்லழகு, பொருளழகு முதலியவற்றை வரையறுத்துக் கூறுவது அணி இலக்கணமாகும். அணி பலவகைப்படும். அவற்றுள் சில,",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Chapter 9",
+      "summary": "தன்மையணி\nஉவமையணி\nஉருவக அணி\nபின்வருநிலையணி\nதற்குறிப்பேற்ற அணி\nவஞ்சப் புகழ்ச்சியணி\nவேற்றுமை அணி\nஇல்பொருள் உவமையணி\nஎடுத்துக்காட்டு உவமையணி\nஇரட்டுறமொழிதலணி",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "தன்மையணி\nஉவமையணி\nஉருவக அணி\nபின்வருநிலையணி\nதற்குறிப்பேற்ற அணி\nவஞ்சப் புகழ்ச்சியணி\nவேற்றுமை அணி\nஇல்பொருள் உவமையணி\nஎடுத்துக்காட்டு உவமையணி\nஇரட்டுறமொழிதலணி",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        },
+        {
+          "heading": "Section 2",
+          "body": "== மேலும் காண்க ==\nதமிழ் இலக்கண விரிவு\nஆங்கில இலக்கியம்\nஆங்கில இலக்கணம்\nபிரெஞ்சு இலக்கணம்\nபிரெஞ்சு இலக்கணம்\nஎசுபெரந்தோ\nவேற்றுமையுருபு",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Chapter 10",
+      "summary": "== வெளியிணைப்புகள் ==\nநூலகம் இணையத்தில் தமிழிலக்கணத்திற்கான வலைவாசல்.\nஇலக்கணப் பாடபுத்தகம் -  தமிழ்நாடு பாட நூல் நிறுவனத்தின் பள்ளிகளுக்கான இலக்கணப் புத்தகம்.",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "== வெளியிணைப்புகள் ==\nநூலகம் இணையத்தில் தமிழிலக்கணத்திற்கான வலைவாசல்.\nஇலக்கணப் பாடபுத்தகம் -  தமிழ்நாடு பாட நூல் நிறுவனத்தின் பள்ளிகளுக்கான இலக்கணப் புத்தகம்.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://ta.wikipedia.org/wiki/%E0%AE%A4%E0%AE%AE%E0%AE%BF%E0%AE%B4%E0%AF%8D_%E0%AE%87%E0%AE%B2%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%A3%E0%AE%AE%E0%AF%8D"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Introduction",
+      "summary": "Grammar of the Tamil language\nThis article may contain original research. Please improve it by verifying the claims made and adding inline citations. Statements consisting only of original research should be removed.  (June 2025) (Learn how and when to remove this message)",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Tamil language\nThis article may contain original research. Please improve it by verifying the claims made and adding inline citations. Statements consisting only of original research should be removed.  (June 2025) (Learn how and when to remove this message)\n\nPalm leaf manuscript of Tolkappiyam\nMuch of Tamil grammar is extensively described in the oldest available grammar book for Tamil, the Tolkāppiyam (dated between 300 BCE and 300 CE). Modern Tamil writing is largely based on the 13th century grammar Naṉṉūl, which restated and clarified the rules of the Tolkāppiyam with some modifications.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Parts of Tamil grammar",
+      "summary": "Traditional Tamil grammar consists of five parts, namely eḻuttu, sol, poruḷ, yāppu and aṇi.  Of these, the last two are mostly applicable in poetry.[1]  The following table gives additional information about these parts.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Traditional Tamil grammar consists of five parts, namely eḻuttu, sol, poruḷ, yāppu and aṇi.  Of these, the last two are mostly applicable in poetry.[1]  The following table gives additional information about these parts.\n\nTamil name\n\nMeaning\n\nMain grammar books\n\neḻuttu\n\nletter\n\nTolkāppiyam, Nannūl\n\nsol\n\nword\n\nTolkāppiyam, Nannūl\n\nporuḷ\n\ncontent\n\nTolkāppiyam\n\nyāppu\n\ncompilation\n\nYāpparuṅkalakkārikai\n\naṇi\n\ndecoration\n\nTaṇṭiyalaṅkāram\n\nEḻuttu (writing) defines and describes the letters of the Tamil alphabet and their classification. It describes the nature of phonemes and their changes with respect to different conditions and locations in the text.\n\nSol defines the types of the words based on their meaning and the origin. It defines the gender, number, cases, tenses, classes, harmony etc. This chapter also provides rules for compounding the words.\n\nPorul defines the contents of poetry. It gives guidance on which topic to choose for poetry based on certain conditions like the nature of the land or time or the people. It gives a distinction between Agam (internal / love life) and Puram (external / worldly life).\n\nYāppu defines rules for composing Traditional poetry. It defines the basic building block Asai and describes how asai should be joined to form a sīr, joining sīr for an adi.\n\nAṇi defines techniques used for comparing, praising and criticizing the taken topics.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Letters",
+      "summary": "The script of Tamil Language consists of 247 letters. The script falls under the category Abugida, in which consonant-vowel sequences are written as a unit. The grammar classifies the letters into two major categories.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The script of Tamil Language consists of 247 letters. The script falls under the category Abugida, in which consonant-vowel sequences are written as a unit. The grammar classifies the letters into two major categories. \n\nPrime Letters – முதலெழுத்து mutaleḻuttu\n\nDependent Letters – சார்பெழுத்து sārpeḻuttu",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        },
+        {
+          "heading": "Prime letters",
+          "body": "12 vowels and 18 consonants are classified as the prime letters. \n\nThe vowels (உயிரெழுத்துகள் uyireḻuttukaḷ):  அ (a), ஆ (ā), இ (i), ஈ( ī), உ (u), ஊ (ū), எ (e), ஏ (ē), ஐ (ai), ஒ (o), ஓ (ō), ஔ (au)\n\nThe consonants (மெய்யெழுத்துகள் meyyeḻuttukaḷ): க், ங், ச், ஞ், ட், ண், த், ந், ப், ம், ய், ர், ல், வ், ழ், ள், ற், ன்\n\nThe vowels are called uyir, meaning soul, in Tamil. The consonants are known as mey, meaning body. When the alphasyllabary is formed, the letter shall be taking the form of the consonants, that is the body, and the sound shall be that of the corresponding vowel, that is the soul.\n\nThe vowels are categorized based on the length, as short (kuril) and long(nedil). The short vowels are pronounced for a duration 1 unit, while the long vowels take two units. Based on the duration of the sound, the vowels form 5 pairs. The other two vowels ஐ(ai) and ஔ(au) are diphthongs formed by joining the letters அ(a)+இ(i) and அ(a)+உ(u). Since these two are a combination two short letters, their pronunciation takes 2 units of time, that is they fall under nedil category. ஐ(ai) and ஔ(au) can also be spelt அய் and அவ். This form is known as eḻuttuppōli and is generally not recommended.\n\nThe consonants are categorised into three groups, வல்லினம் valliṉam (hard), மெல்லினம் melliṉam (soft) and இடையினம் iṭaiyiṉam (medium), based on the nature of the sound. வல்லினம் are various non-nasal consonants, மெல்லினம் are the nasal versions of the corresponding வல்லினம் consonant, and இடையினம் are other non-nasal consonants. Most often, when there is a nasal sound preceding a வல்லினம் consonant, it is the corresponding மெல்லினம் consonant of the said வல்லினம் consonant.\n\nvalliṉam\n\nmelliṉam\n\niṭaiyiṉam\n\nக் k\n\nங் ṅ\n\nய் y\n\nச் s\n\nஞ் ñ\n\nர் r\n\nட் ṭ\n\nண் ṇ\n\nல் l\n\nத் t\n\nந் n\n\nவ் v\n\nப் p\n\nம் m\n\nழ் ḻ\n\nற் ṟ[2]\n\nன் ṉ[3]\n\nள் ḷ[4]\n\nFrom the 30 prime letters, the dependent letters are formed.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        },
+        {
+          "heading": "Dependent letters",
+          "body": "Tamil grammar defines 10 categories of Dependent letters.\n\nAlphasyllabic letters உயிர்மெய் எழுத்து uyirmey eḻuttu\n\nAidam ஆய்த எழுத்து āyta eḻuttu\n\nElongated vowel உயிரளபெடை uyiraḷapeṭai\n\nElongated consonant ஒற்றளபெடை oṟṟaḷapeṭai\n\nShortened u குற்றியலுகரம் kuṟṟiyalukaram\n\nShortened i குற்றியலிகரம் kuṟṟiyalikaram\n\nShortened ai ஐகாரக் குறுக்கம் aikārak kuṟukkam\n\nShortened au ஔகாரக் குறுக்கம் aukārak kuṟukkam\n\nShortened m மகரக்குறுக்கம் makarakkuṟukkam\n\nShortened Aidam ஆய்தக்குறுக்கம் āytakkuṟukkam\n\nThe alphasyllabic letters – 216 in total – are formed by combining the consonants and the vowels. The duration of the sound is that of the vowel attached to the consonant (or the inherent vowel, in case of the pure consonants). For example, the table below shows the formation of க் based letters.\n\nCombination\nUyirmei form\nISO 15919\nIPA\n\nக் + அ\nக\nka\n[kʌ]\n\nக் + ஆ\nகா\nkā\n[kɑː]\n\nக் + இ\nகி\nki\n[ki]\n\nக் + ஈ\nகீ\nkī\n[kiː]\n\nக் + உ\nகு\nku\n[ku], [kɯ]\n\nக் + ஊ\nகூ\nkū\n[kuː]\n\nக் + எ\nகெ\nke\n[ke]\n\nக் + ஏ\nகே\nkē\n[keː]\n\nக் + ஐ\nகை\nkai\n[kʌj]\n\nக் + ஒ\nகொ\nko\n[ko]\n\nக் + ஓ\nகோ\nkō\n[koː]\n\nக் + ஔ\nகௌ\nkau\n[kʌʋ]\n\nAidam is also known as தனிநிலை taṉinilai (stand alone). The aidam is always preceded by a single short letter (தனிக்குறில் taṉikkuṟil) and followed by a hard alphasyllabic letter (வல்லின உயிர்மெய் valliṉa uyirmey). It takes half unit time for pronunciation.\n\nUyiraḷapeṭai (உயிரளபெடை) and Oṟṟaḷapeṭai (ஒற்றளபெடை) are formed by elongating the duration of pronunciation of a letter to satisfy certain grammatical rules while composing poetry. In Uyiralapetai, the intrinsic vowel of the letter that is elongated is written next to it, to indicate that the letter now is pronounced for 3 units of time.\n\nIn Kutriyalukaram, the duration of the short 'u' letters of vallinam category (கு, சு, டு, து, பு, று) is reduced to half units, when the letter is found at the end of the word, preceded by multiple letters or a single nedil(long) letter.\n\nIf a word with kutriyalikaram is followed by a word with 'ய'(ya) as the first letter, the u sound is corrupted to i sound and takes a half unit of time for pronunciation.\n\nIn Aikarakurukkam and Aukarakurukkam, the duration of the letters ஐ and ஔ are reduced to 1 1/2 units if they are the first letters of the word. If situated elsewhere it is reduced to 1 unit.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Vanjiyar",
+      "summary": "In Tamil, a single letter standing alone or multiple letters combined form a word. Tamil is an agglutinative language – words consist of a lexical root to which one or more affixes are attached.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In Tamil, a single letter standing alone or multiple letters combined form a word. Tamil is an agglutinative language – words consist of a lexical root to which one or more affixes are attached.\n\nMost Tamil affixes are suffixes. These can be derivational suffixes, which either change the part of speech of the word or its meaning, or inflectional suffixes, which mark categories such as person, number, mood, tense, etc.  There is no absolute limit on the length and extent of agglutination, which can lead to long words with a large number of suffixes, which would require several words or a sentence in English.  To give an example, the word pōkamuṭiyātavarkaḷukkāka (போகமுடியாதவர்களுக்காக) means \"for the sake of those who cannot go\", and consists of the following morphemes:\n\ngo\n\nbe possible (impersonal)\n\nepenthetic approximant letter\nbreaks illegal diphthongs\n\nnegation\n(impersonal)\n\nnominalizer\nhe/she who does\n\nplural marker\n\nto\n\nfor\n\npōka\n\nmuṭi\n\ny\n\nāta\n\nvar\n\nkaḷ\n\nukku\n\nāka\n\nWords formed as a result of the agglutinative process are often difficult to translate. Today Translations,[5] a British translation service, ranks the Tamil word செல்லாதிருப்பவர் (sellātiruppavar, meaning a certain type of truancy) as number 8 in their The Most Untranslatable Word In The World list.\n\nIn Tamil, words are classified into four categories namely,\n\nNouns Peyarsol\n\nVerbs Vinaisol\n\nParticles and Pre-/Postpositions Idaisol\n\nAdjective and Adverbs Urisol\n\nAll categories of nouns are declinable. Verbs are conjugated to indicate person, tense, gender, number and mood. The other two classes are indeclinable.",
+          "examples": [
+            "Most Tamil affixes are suffixes. These can be derivational suffixes, which either change the part of speech of the word or its meaning, or inflectional suffixes, which mark categories such as person, number, mood, tense, etc.  There is no a"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Nouns",
+      "summary": "Nouns are inflected based on number and grammatical case, of which there are 9: nominative case, accusative case, dative case, instrumental case, sociative case, locative case, ablative case, genitive case, and vocative case. If the plural is used, the noun is inflected by suffix",
+      "sections": [
+        {
+          "heading": "Noun",
+          "body": "Nouns are inflected based on number and grammatical case, of which there are 9: nominative case, accusative case, dative case, instrumental case, sociative case, locative case, ablative case, genitive case, and vocative case. If the plural is used, the noun is inflected by suffixing the noun stem with first the plural marker -kaḷ, and then with the case suffix, if any. Otherwise, if the singular is used, the noun is instead inflected by suffixing either the noun stem with the case suffix, or the oblique stem with the case suffix. An optional euphonic increment -iṉ or -aṉ can occur before the case suffix.\n\ncase\n\nsuffix\n\nnominative\n\n-∅\n\naccusative\n\n-ai\n\ninstrumental\n\n-āl, -(aik) koṇṭu\n\nsociative\n\n-ōṭu, -uṭaṉ\n\ndative\n\n-(uk)ku, -iṉ poruṭṭu, -iṉ nimittam\n\nbenefactive\n\n-(u)kkāka\n\nablative\n\n-il(ē) iruntu [irrational], -iṭam iruntu [rational], -iṉiṉṟu\n\ngenitive\n\n-atu, -uṭaiya\n\nlocative\n\n-il(ē) [irrational], -iṭam [rational], -kkul [deeper sense, within]\n\nvocative\n\n-ē, -ā\n\nNominative case\nThe nominative case is used for the subject of an intransitive verb, the agent of a transitive verb, the predicate of a nominal sentence, and subject and object complements. It is the base form of the noun with no suffix.\n\nKumār māṇavaṉ.\n\n\"Kumar (is) (a) student.\"\n\nKumār māṇavaṉāka ākiṉṟāṉ.\n\n\"Kumar becomes (a) student.\"\n\nKatavu tiṟantatu.\n\n\"The door opened.\"\n\nIt can also be used to mark the direct object when it is indefinite and irrational.\n\nAccusative case\nThe accusative case marks the direct object of a transitive verb. It is marked by the suffix -ai. It is required when the direct object is rational. When used with irrational nouns, the accusative must be used when the direct object is definite. When an irrational direct object is indefinite, the nominative is used instead, unless there is an explicit indefinite determiner present, in which case either the nominative or accusative may be used.\n\nKumār paiyanai pārttāṉ.\n\n\"Kumar saw a/the boy.\"\n(rational direct object, the accusative must be used regardless of definiteness)\n\nNāṉ eṉ cāviyai tolaittēṉ.\n\n\"I lost my key.\"\n(irrational direct object, the possessive pronoun eṉ makes the noun definite, the accusative must be used)\n\nNāṉ cāviyai tolaittēṉ.\n\n\"I lost the key.\"\n(irrational direct object, the accusative shows the noun is definite)\n\nNāṉ cāvi tolaittēṉ.\n\n\"I lost a key.\"\n(irrational direct object, the nominative shows the noun is indefinite)\n\nNāṉ oru cāvi(yai) tolaittēṉ.\n\n\"I lost a key.\"\n(irrational direct object, the determiner oru makes the noun explicitly indefinite, accusative is optional)\n\nDative case\nThe dative case is marked with -ukku, -kku, or -ku. It expresses an indirect object, a goal of motion, a purpose, or an experiencer.\n\nKumār appāvukku oru paṭattai kāṭṭiṉāṉ.\n\n\"Kumar showed father a picture.\"\n(indirect object)\n\nKumār ūrukku pōṉāṉ\n\n\"Kumar went to a town.\"\n\n(goal of motion, in this sense restricted to inanimate nouns)\n\nKumār taṉ uṭampukku ṭāṉik uṭkoḷkiṟāṉ.\n\n\"Kumar takes tonic for his health.\"\n(purpose)\n\nKumārukku oru vīṭu vēnṭum.\n\n\"Kumar wants a house.\"\n(experiencer)\n\nInstrumental case\nThe instrumental case is shown with -āl. It marks the instrument, means, source, or reason by which an action occurs.\n\nKumār kattiyāl paḻattai veṭṭiṉāṉ.\n\n\"Kumar cut the fruit with a knife.\"\n\nIt also marks the agent in passive constructions.\n\nKumār appāvāl aṭikkappaṭṭāṉ.\n\n\"Kumar was beaten by father.\"\n\nSociative case\nThe sociative case is marked with either -ōṭu or -uṭaṉ. The latter is almost only used in poetic and written Tamil. It shows that the noun it modifies is involved in the action of the sentence.\n\nKumār taṉ maṉaiviyōṭu vantāṉ.\nKumār taṉ maṉaiviyuṭaṉ vantāṉ.\n\n\"Kumar came with his wife.\"\n\nLocative case\nThe locative case is marked with either -il or -iṭam. -il occurs with inanimate nouns and plural animate nouns, while iṭam occurs with animate nouns in both numbers. It shows location. The locative also has -kkul, which is a deeper sense of being within something. \n\nKuruvi marattil uṭkārkiṟatu.\n\n\"The sparrow is sitting on the tree.\"\n\nAthu viitukkul irukkirathu.\n\n\"That is within the house.\"\n\nVocative case\nThe vocative case is marked with multiple suffixes. The two main ones are ē and ā[6]. The ē ending can be used for any word. The ā  ending can only be used for words ending with -an or -am (keep in mind that these words that can use the ā ending can still use the ē ending). Along with this, many times, people use other rules to turn words into the vocative case. The word often stays the same or gets stress or an elongated vowel at the end of the word. In colloquial speech and slang, the vocative is often paired with Ey!\n\nEy! Murugā!\n\n\"Hey! Murugan!\"\n\nNaaykalē, kadikkaathe.\n\n\"Dogs, don't bite.\"\n\nAasiriyarē, enne ceyye pōkirōm?\n\n\"Teacher, what are we going to do?\"\n\nLakshmiyē, ingae pāru.\n\n\"Lakshmi, look here.\"\n\nThambi! Engae irukkukiraay!?\n\n\"Little brother! Where are you!?\"\n\nAblative case\nThe ablative case is expressed through the suffix -iliruntu added onto the locative of a noun. This directly translates to, \"after being in/at\". It marks motion away from something or getting something from somewhere. This case loosely translates to \"from\" in English.\n\nKumār marattiliruntu viḻuntāṉ.\n\n\"Kumar fell from the tree.\"",
+          "examples": [
+            "\"Kumar (is) (a) student.\"",
+            "\"Kumar becomes (a) student.\"",
+            "\"The door opened.\"",
+            "\"Kumar saw a/the boy.\"",
+            "\"I lost my key.\"",
+            "\"I lost the key.\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        },
+        {
+          "heading": "Oblique stems",
+          "body": "The oblique stem of a noun is used before adding case suffixes, as a modifier in genitive function before a head noun, as the first element of a compound, and before postpositions.\n\nOblique Stem Formation[7]\n\nRule\n\nRule Application\n\nTamil\n\nEnglish\n\nNotes\n\nNominative\n\nOblique\n\n0\n\ngeneral (doesn't apply to other rules)\n\npeyar\n\npeyar-\n\nname\n\nNo change. The nominative is identical to the oblique stem. Most Tamil words belong to this group.\n\n1\n\nends with -am\n\nmaram\n\nmaratt(u)-\n\ntree\n\nFinal -am is replaced with -att(u).\n\n2\n\nadjective turned into a noun (people who are..., things that are..., etc.)\n\npala\n\npalavaṟṟ(u)-\n\nmany\n\nConsists of only five words. The suffix -aṟṟ(u) is added to the end of the word.\n\n3\n\nends with -ṭu or -ṟu\n\nvīṭu\n\nvīṭṭ(u)-\n\nhouse\n\nThe consonant in the last syllable -ṭu or -ṟu is doubled, yielding -ṭṭ(u) or -ṟṟ(u). This applies to all words that end in -ṭu or -ṟu, except those consisting of two short syllables.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        },
+        {
+          "heading": "Genders and number",
+          "body": "The grammatical gender of Tamil nouns corresponds to their natural sex. Nouns in Tamil have two numbers, singular and plural.\n\nGrammatical gender, known as பா pā in Tamil, encompasses both the concepts of gender and number, thus is highly predictable. Masculine and feminine genders are only applicable to \"higher class\" nouns. Even though the genders of animals are marked in a sentence (e.g.: பெண் நாய் peṇ nāy \"female, dog\"), grammatically they are handled as a neuter noun. Thus there are five genders in Tamil, namely, masculine singular (ஆண்பால் āṇpāl), feminine singular (பெண்பால் peṇpāl), high-class plural (பலர்பால் palarpāl), lower-class singular (ஒன்றன்பால் oṉṟaṉpāl), lower-class plural (பலவின்பால் palaviṉpāl). These are summarized in the table below.\n\npeyarccol (Name-words/Nouns)\n\nrational\n\nirrational\n\nClass\n\nMale\n\nFemale\n\nCollective\n\nOne\n\nMany\n\nExample: \"doer\"\n\nceytavaṉ\nHe who did\n\nceytavaḷ\nShe who did\n\nceytavar\nThey who did\n\nceytatu\nThat which did\n\nceytavai\nThose which did",
+          "examples": [
+            "Grammatical gender, known as பா pā in Tamil, encompasses both the concepts of gender and number, thus is highly predictable. Masculine and feminine genders are only applicable to \"higher class\" nouns. Even though the genders of animals are ",
+            "Example: \"doer\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Pronouns",
+      "summary": "he, who is near to the 3rd person or someone not present",
+      "sections": [
+        {
+          "heading": "Demonstratives and interrogatives",
+          "body": "இவன் \n ivan\n\nhe, who is near to the 1st person\n\nnear deixis, demonstrative particle\n\nஉவன் \n uvan\n\nhe, who is near to the 2nd person\n\ndistant deixis, demonstrative particle\n\nஅவன் \n avan\n\nhe, who is near to the 3rd person or someone not present\n\ndistant deixis, demonstrative particle\n\nஎவன் \n evan\n\nwho? (male singular)\n\ninterrogative particle\n\nIn Tamil, the demonstrative particles are a- (அ), i- (இ), and u- (உ) (archaic and has fallen out of use, except in Sri Lankan dialects). These demonstrative particles display deictic properties. i- (இ) is a near deixis form, which demonstrates the objects around/near the first person, while a- (அ) has distant deixis form, which demonstrates things near the 3rd person. u- (உ) was used to indicate objects near the second person, but has gradually fallen out of use. In modern Tamil i- (இ) indicates objects nearer and a- (அ) indicates objects in a distance. Using these particles demonstrative pronouns are derived. The same set of pronouns is also used as personal pronouns in 3rd person. e.g. avan (he), atu (that object/being), anta (that)\n\ne- (எ) and yā- யா are the two important interrogative particles in Tamil. e- (எ) is used for deriving the interrogative pronouns. e.g. evaṉ (which one, 3rd person singular masculine), enta (which), etaṟku (for what?)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        },
+        {
+          "heading": "Personal pronouns",
+          "body": "First person plural pronouns in Tamil distinguish between inclusive and exclusive we. In Tamil, plural terminators are used for honorific addressing. It could be noted in both 2nd and 3rd persons. There are unique personal pronouns available for first and second persons while demonstrative pronouns are used in place of personal pronouns as well.\n\nPronoun\n\nEnglish \n Translation\n\nPerson / Gender / Number\n\nNominative\n\nOblique\n\nநான் \n nāṉ\n\nஎன் \n eṉ\n\nI\n\n1st / neutral / singular\n\nநாம் \n nām\n\nநம் \n nam\n\nInclusive we\n\n1st / neutral / plural\n\nநாங்கள் \n nāṅkaḷ\n\nஎங்கள் \n eṅkaḷ\n\nExclusive we\n\n1st / neutral / plural\n\nநீ  \n nī\n\nஉன்  \n uṉ\n\nyou\n\n2nd / neutral / singular\n\nநீர்\nnīr\n\nஉம்  \n um\n\nHonorific singular you\n\n2nd / neutral / singular\n\nநீங்கள் \n nīṅkaḷ\n\nஉங்கள் \n uṅkaḷ\n\n2nd / neutral / singular\n\nPlural you\n\n2nd / neutral / plural\n\nஅவன் / இவன் \n avaṉ / ivaṉ\n\nHe (that/this)\n\n3rd / masculine / singular\n\nஅவள் / இவள் \n avaḷ / ivaḷ\n\nShe (that/this)\n\n3rd / feminine / singular\n\nஅவர் / இவர் \n avar / ivar\n\nHonorific he/she (that/this)\n\n3rd / neutral / singular\n\nThey (low class) (that/this)\n\n3rd / neutral / plural\n\nஅவர்கள் / இவர்கள் \n avarkaḷ/ivarkaḷ\n\nThey (high class) (that/this)\n\n3rd / neutral / plural\n\nஅது / இது \n atu / itu\n\nIt (animals and objects) (that/this)\n\n3rd / neuter / singular\n\nஅவை / இவை \n avai / ivai\n\nஅவற்று / இவற்று \n avaṟṟu / ivaṟṟu\n\nThey (animals and objects) (that/this)\n\n3rd / neuter / plural\n\nதான்\ntāṉ\n\nதன்\ntaṉ\n\n-self (himself, myself, etc)\n\nReflexive / neutral / singular\n\nதாம்\ntām\n\nதம்\ntam\n\nHonorific -self (himself, myself, etc)\n\nReflexive / neutral / singular\n\nதாங்கள் \n tāṅkaḷ\n\n-selves (themselves, ourselves, etc)\n\nReflexive / neutral / plural[8]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Verbs",
+      "summary": "Like Tamil nouns, Tamil verbs are also inflected through the use of suffixes.  A typical Tamil verb form will have a number of suffixes, which show person, number, mood, tense and voice, as is shown by the following example aḻintukkoṇṭiruntēṉ (அழிந்துக்கொண்டிருந்தேன்) \"(I) was be",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Like Tamil nouns, Tamil verbs are also inflected through the use of suffixes.  A typical Tamil verb form will have a number of suffixes, which show person, number, mood, tense and voice, as is shown by the following example aḻintukkoṇṭiruntēṉ (அழிந்துக்கொண்டிருந்தேன்) \"(I) was being destroyed\":\n\nMorphemes\n\naḻi\n\n-ntu\n\n(k)koṇṭiru\n\n-nt-\n\n-ēn\n\nFunctions\n\nroot (base)\n\ntense-voice marker\n\naspect marker\n\ntense marker\n\nperson-number-gender marker\n\n\"to be destroyed\"\n\naffective voice; past (absolutive)\n\nprogressive aspect\n\npast tense\n\nfirst person,\nsingular\n\nPerson and number are indicated by suffixing the oblique case of the relevant pronoun (ēṉ in the above example).  The suffixes to indicate tenses and voice are formed from grammatical particles, which are added to the stem. The chart below outlines the most common set of suffixes used to conjugate for person and tense, but different groups of Tamil verbs may use other sets of suffixes or have irregularities.[9]\n\nTamil Verb Classes\n\nClass\nRoot (Example)\nPast\nPresent\nFuture\n\nI\ncey \"to do\"\n-t- (ceyt-)\n-kiṟ1- (ceykiṟ-)\n-v- (ceyv-)\n\nII\nmīḷ \"to be redeemed\"\n-ṇṭ- (mīṇṭ-)\n-kiṟ- (mīḷkiṟ-)\n-v- (mīḷv-)\n\nIII\nkol \"to kill\"\n-ṉṟ- (koṉṟ-)\n-kiṟ- (kolkiṟ-)\n-v- (kolv-)\n\nIV\nvaḷar \"to grow (intr.)\"\n-nt- (vaḷarnt-)\n-kiṟ- (vaḷarkiṟ-)\n-v- (vaḷarv-)\n\nV\npāṭu \"to sing\"\n-i[ṉ]- (pāṭi[ṉ]-)\n-kiṟ- (pāṭukiṟ-)\n-v- (pāṭuv-)\n\nVI\npōṭu \"to put\"\n-ṭṭ- (pōṭṭ-)\n-kiṟ- (pōṭukiṟ-)\n-v- (pōṭuv-)\n\nVII\nuṇ \"to eat\"\n-ṭ- (uṇṭ-)\n-kiṟ- (uṇkiṟ-)\n-p- (uṇp-)\n\nVIII\neṉ \"to say\"\n-ṟ- (eṉṟ-)\n-kiṟ- (eṉkiṟ-)\n-p- (eṉp-)\n\nIX\nkēḷ \"to hear, listen, ask\"\n-ṭṭ- (kēṭṭ-)\n-ṭkiṟ- (kēṭkiṟ-)\n-ṭp- (kēṭp-)\n\nX\nvil \"to sell\"\n-ṟṟ- (viṟṟ-)\n-ṟkiṟ- (viṟkiṟ-)\n-ṟp- (viṟp-)\n\nXI\nvaḷar \"to grow (tr.)\"\n-tt- (vaḷartt-)\n-kkiṟ- (vaḷarkkiṟ-)\n-pp- (vaḷarpp-)\n\nXII\niru \"to be\"\n-nt- (irunt-)\n-kkiṟ- (irukkiṟ-)\n-pp- (irupp-)\n\nXIII (irregular)\ncā \"to die\"\n– (cett-)\n– (cākiṟ-)\n– (cāv-)\n\n1The infix -kiṟ- is a shortening of the infix -kiṉṟ-, which is also sometimes used.[8]\n\nTamil personal terminations[8]\n\nPerson\nSingular\n\nHonorary\nSingular\n\nPlural\n\n1st\n-ēṉ\n-ōm\n\n2nd\n-āy\n\n-īr/-īrkaḷ\n\n-īrkaḷ\n\n3rd masc.\n-āṉ\n\n-ār\n-ār/-ārkaḷ/-aṉar\n\n3rd fem.\n-āḷ\n\n3rd neu.\n-atu1\n-aṉa2\n\n1Class X verbs take -iṟṟu added directly to the root (-iṉ + -tu). In the future, -um is added directly to the root of verbs in Classes I through VIII, whereas -um replaces the -iṟ- in the present stem to form the future of verbs in Classes IX through XIII (and no termination is added afterwards).\n\n2This suffix takes an irregular present in -kiṉṟ-/-kkiṉṟ- before it. The -um future (see directly above) can be used in the plural, as well.\n\nTamil has three simple tenses – past, present, and future – indicated by simple suffixes, and a series of perfects, indicated by compound suffixes.  Mood is implicit in Tamil, and is normally reflected by the same morphemes which mark tense categories.  These signal whether the happening spoken of in the verb is unreal, possible, potential, or real. Tamil verbs also mark evidentiality, through the addition of the hearsay clitic ām.[10]\n\nTamil has two voices.  The first - used in the example above - indicates that the subject of the sentence undergoes or is the object of the action named by the verb stem, and the second indicates that the subject of the sentence directs the action referred to by the verb stem.  These voices are not equivalent to the notions  of transitivity or causation, or to the active-passive or reflexive-nonreflexive division of voices found in Indo-European languages.",
+          "examples": [
+            "Like Tamil nouns, Tamil verbs are also inflected through the use of suffixes.  A typical Tamil verb form will have a number of suffixes, which show person, number, mood, tense and voice, as is shown by the following example aḻintukkoṇṭirunt",
+            "\"to be destroyed\"",
+            "cey \"to do\"",
+            "mīḷ \"to be redeemed\"",
+            "kol \"to kill\"",
+            "vaḷar \"to grow (intr.)\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        },
+        {
+          "heading": "Auxiliaries",
+          "body": "Tamil has no articles.  Definiteness and indefiniteness are indicated either by context or by special grammatical devices, such as using the number \"one\" as an indefinite article.  In the first person plural, Tamil makes a distinction between inclusive pronouns that include the listener and exclusive pronouns that do not.  Tamil does not distinguish between adjectives and adverbs – both fall under the category uriccol.  Conjunctions are called iṭaiccol.\n\nVerb auxiliaries are used to indicate attitude, a grammatical category which shows the state of mind of the speaker, and his attitude about the event spoken of in the verb. Common attitudes include pejorative opinion, antipathy, relief felt at the conclusion of an unpleasant event or period, and unhappiness at or apprehension about the eventual result of a past or continuing event.",
+          "examples": [
+            "Tamil has no articles.  Definiteness and indefiniteness are indicated either by context or by special grammatical devices, such as using the number \"one\" as an indefinite article.  In the first person plural, Tamil makes a distinction betwe"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Sentence structure",
+      "summary": "Except in poetry, the subject precedes the object, and the verb concludes the sentence. In a standard sentence, therefore, the order is usually subject–object–verb (SOV), but object–subject–verb is also common.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Except in poetry, the subject precedes the object, and the verb concludes the sentence. In a standard sentence, therefore, the order is usually subject–object–verb (SOV), but object–subject–verb is also common.\n\nTamil is a null-subject language. Not all Tamil sentences have subjects, verbs, and objects. It is possible to construct valid sentences that have only a verb, such as muṭintuviṭṭatu (முடிந்துவிட்டது, \"It is completed\"), or only a subject and object, such as atu eṉ vīṭu (அது என் வீடு, \"That is my house\").\n\nThe elements that are present, however, must follow the SOV order. Tamil does not have an equivalent for the existential verb to be; it is included in the translations only to convey the meaning. The negative existential verb, to be not, however, does exist in the form of illai (இல்லை) and goes at the end of the sentence (and does not change with number, gender, or tense). The verb to have in the meaning \"to possess\" is not translated directly, either. To say \"I have a horse\" in Tamil, a construction equivalent to \"There is a horse to me\" or \"There exists a horse to me\", is used.\n\nTamil lacks relative pronouns, but their meaning is conveyed by relative participle constructions, built using agglutination. For example, the English sentence \"Call the boy who learned the lesson\" is said in Tamil like \"That-lesson-learned-boy call\".",
+          "examples": [
+            "Tamil is a null-subject language. Not all Tamil sentences have subjects, verbs, and objects. It is possible to construct valid sentences that have only a verb, such as muṭintuviṭṭatu (முடிந்துவிட்டது, \"It is completed\"), or only a subject a",
+            "The elements that are present, however, must follow the SOV order. Tamil does not have an equivalent for the existential verb to be; it is included in the translations only to convey the meaning. The negative existential verb, to be not, ho",
+            "Tamil lacks relative pronouns, but their meaning is conveyed by relative participle constructions, built using agglutination. For example, the English sentence \"Call the boy who learned the lesson\" is said in Tamil like \"That-lesson-learned"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Example",
+      "summary": "A sample passage in Tamil script with transliteration.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "A sample passage in Tamil script with transliteration.\n\nஆசிரியர்\n\nĀciriyar\n\nவகுப்புக்குள்\n\nvakuppukkuḷ\n\nநுழைந்தார்.\n\nnuḻaintār.\n\nஆசிரியர் வகுப்புக்குள் நுழைந்தார்.\n\nĀciriyar vakuppukkuḷ nuḻaintār.\n\nThe teacher entered the classroom.\n\nஅவர்\n\nAvar\n\nஉள்ளே\n\nuḷḷē\n\nநுழைந்தவுடன்\n\nnuḻaintavuṭaṉ\n\nமாணவர்கள்\n\nmāṇavarkaḷ\n\nஎழுந்தனர்.\n\neḻuntaṉar.\n\nஅவர் உள்ளே நுழைந்தவுடன் மாணவர்கள் எழுந்தனர்.\n\nAvar uḷḷē nuḻaintavuṭaṉ māṇavarkaḷ eḻuntaṉar.\n\nAs soon as he entered, the students got up.\n\nவளவன்\n\nVaḷavaṉ\n\nமட்டும்\n\nmaṭṭum\n\nதன்\n\ntaṉ\n\nஅருகில்\n\narukil\n\nநின்று\n\nniṉṟu\n\nகொண்டிருந்த\n\nkoṇṭirunta\n\nமாணவி\n\nmāṇavi\n\nகனிமொழியுடன்\n\nKaṉimoḻiyuṭaṉ\n\nபேசிக்\n\npēcik\n\nகொண்டிருந்தான்.\n\nkoṇṭiruntāṉ.\n\nவளவன் மட்டும் தன் அருகில் நின்று கொண்டிருந்த மாணவி கனிமொழியுடன் பேசிக் கொண்டிருந்தான்.\n\nVaḷavaṉ maṭṭum taṉ arukil niṉṟu koṇṭirunta māṇavi Kaṉimoḻiyuṭaṉ pēcik koṇṭiruntāṉ.\n\nOnly Vaḷavaṉ was talking to Kaṉimoḻi who was standing next to him.\n\nநான்\n\nNāṉ\n\nஅவனை\n\navaṉai\n\nஎச்சரித்தேன்.\n\neccarittēṉ.\n\nநான் அவனை எச்சரித்தேன்.\n\nNāṉ avaṉai eccarittēṉ.\n\nI warned him.\n\nWord (romanised)\n\nWord (in Tamil Script)\n\nTranslation\nMorphemes\nPart of speech\n\nPerson, Gender, Tense\nCase\nNumber\n\nRemarks\n\nāciriyar\n\nஆசிரியர்\nteacher\nāciriyar\nnoun\n\nn/a, gender-neutral, n/a\nnominative\nhonorific plural indicated by suffix ar\n\nThe feminine gender āciriyai can be used here too; the masculine gender āciriyaṉ is rarely used, considering the honored position of the teacher\n\nvakuppukkuḷ \n\nவகுப்புக்குள்\ninside the class room\nvakuppu+-kk-\n+uL\nadverb\n\nn/a\nlocative\nn/a\n\nSandhi (called puṇarcci in Tamil) rules in Tamil require euphonic changes during agglutination (such as the introduction of y in this case)\n\nnuḻaintār\n\nநுழைந்தார்\nentered\nnuḻaintār\nverb\n\nthird, gender-neutral, past\n\nhonorific plural\n\nIn an honorific context, the masculine and feminine equivalents nuḻaintāṉ and nuḻaintāḷ are replaced by the collective nuḻaintār\n\navar\n\nஅவர்\nHe\navar\npronoun\n\nthird, gender-neutral, n/a\nnominative\nhonorific plural indicated by suffix ar\n\nIn honorific contexts, the masculine and feminine forms avaṉ and avaḷ are not used\n\nuḷḷē\n\nஉள்ளே\ninside\nuḷḷē\nadverb\n\nn/a\n\nn/a\n\nnuḻaintavuṭaṉ\n\nநுழைந்தவுடன்\nupon entering\nnuḻainta +\n uṭaṉ\nadverb\n\nn/a\n\nn/a\n\nSandhi rules require a v to be inserted between an end-vowel and a beginning-u during agglutination.\n\nmāṇavarkaḷ\n\nமாணவர்கள்\nstudents\nmāṇavarkaḷ\ncollective noun\n\nn/a, masculine, often used with gender-neutral connotation, n/a\nnominative\nplural indicated by suffix kaḷ\n\neḻuntaṉar\n\nஎழுந்தனார்\ngot up\neḻuntaṉar\nverb\n\nthird, gender-neutral, past\n\nplural\n\nVaḷavaṉ\n\nவாளவன்\nVaLavan (name)\nVaḷavaṉ\nproper noun\n\nn/a, masculine, usually indicated by suffix aṉ, n/a\nnominative\nsingular\n\nmaṭṭum\n\nமற்றும்\nonly\nmaṭṭum\nadverb\n\nn/a\n\nn/a\n\ntaṉ\n\nதன்\nhis (self) own\ntaṉ\npronoun\n\nn/a, gender-neutral, n/a\n\nsingular\n\narukil\n\nஅருகில்\nnear (lit. \"in nearness\")\naruku + il\nadverb\n\nn/a\nlocative\nn/a\n\nThe postposition il indicates the locative case\n\nniṉṟu koṇṭirunta\n\nநின்று கொண்டிருந்த\nstanding\nniṉṟu + koṇṭu + irunta\nadverb\n\nn/a\n\nn/a\n\nThe verb has been morphed into an adverb by the incompleteness due to the terminal a\n\nmāṇavi\n\nமாணவி\nstudent\nmāṇavi\npronoun\n\nn/a, feminine, n/a\n\nsingular\n\nKaṉimoḻiyuṭaṉ\n\nகனிமொழியுடன்\nwith Kaṉimoḻi (name of a person)\nKaṉimoḻi + uṭaṉ\nProper noun\n\nn/a\ncomitative\nn/a\n\nThe name Kaṉimoḻi literally means sweet language\n\npēcik koṇṭiruntāṉ\n\nபேசிக் கொண்டிருந்தான்\nwas talking\npēci + koṇṭu +iruntāṉ\nverb\n\nthird, masculine, past continuous\n\nsingular\n\nContinuousness indicated by the incompleteness brought by koṇṭu\n\nnāṉ\n\nநான்\nI\nnāṉ\npronoun\n\nfirst person, gender-neutral, n/a\nnominative\nsingular\n\navaṉai\n\nஅவனை\nhim\navanai\npronoun\n\nthird, masculine, n/a\naccusative\nsingular\n\nThe postposition ai indicates accusative case\n\neccarittēṉ\n\nஎச்சரிட்டேன்\ncautioned\neccarittēṉ\nverb\n\nfirst, indicated by suffix -ēn, gender-neutral, past\n\nsingular, plural would be indicated by substituting -ēn with -ōm",
+          "examples": [
+            "near (lit. \"in nearness\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tamil_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

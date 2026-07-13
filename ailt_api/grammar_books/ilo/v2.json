@@ -1,0 +1,284 @@
+{
+  "title": "Grammar Book — Ilokano",
+  "languageCode": "ilo",
+  "languageName": "Ilokano",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Ilocano_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Rules of word and sentence formation in the Philippine language\nIlocano grammar is the study of the morphological and syntactic structures of the Ilocano language, a language spoken in the northern Philippines by ethnic Ilocanos and Ilocano communities in other parts of the Phili",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Rules of word and sentence formation in the Philippine language\nIlocano grammar is the study of the morphological and syntactic structures of the Ilocano language, a language spoken in the northern Philippines by ethnic Ilocanos and Ilocano communities in other parts of the Philippines, especially in Mindanao and overseas such as the United States, Canada, Australia, the Middle East and other parts of the world.\n\nIlocano is an agglutinative language. This agglutinating characteristic is most apparent in its verbal morphology, which has a Philippine-type voice system.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Determiners",
+      "summary": "Ilocano has two subsets of determiners. Articles are similar to \"the\" and \"a\" or \"an\" in English. Demonstratives point out something (\"this\" or \"that\"), whether what is being referred to is in space, in time or is something previously mentioned.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Ilocano has two subsets of determiners. Articles are similar to \"the\" and \"a\" or \"an\" in English. Demonstratives point out something (\"this\" or \"that\"), whether what is being referred to is in space, in time or is something previously mentioned.\n\nIlocano determiners have only two forms (core and oblique) — unlike Ilocano pronouns, which have three distinct forms: absolutive, ergative and oblique. The core form may function for either the absolutive or ergative cases.",
+          "examples": [
+            "Ilocano has two subsets of determiners. Articles are similar to \"the\" and \"a\" or \"an\" in English. Demonstratives point out something (\"this\" or \"that\"), whether what is being referred to is in space, in time or is something previously menti"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        },
+        {
+          "heading": "Articles",
+          "body": "Ilocano has two sets of articles, common and personal. Personal articles are used for people, names, and personal titles. Common articles are used with all other nouns (including names of countries and cities).\n\nCommon\n\nCase\n\nSingular\n\nPlural\n\nCore\n\nti[note 1]\n\ndagiti\n\nOblique\n\niti\n\nkadagiti\n\nPersonal\n\nCase\n\nSingular\n\nPlural\n\nCore\n\nni\n\nda\n\nOblique\n\nken ni\n\nkada\n\nKinship terms such as \"mother\" or \"uncle\" can take either set of articles. Preceded by the common article, the term is more generalized or conceptual; preceded by a personal article, the reference is more specific (the speaker refers to a member of his or her family or a specific antecedent).\n\nNapan ti ama idiay eskuelaan ti anakna.\nThe father went to his child's school.\n\nNapan ni ama idiay eskuelaan ni kabsat.\nFather went to sister's/brother's school.\n\nThe same can also be said of titles or offices.\n\nNakitak ni maestra idiay padaya.\nI saw teacher at the party.\n(referring to the speaker's teacher in school)\n\nNakakitaak iti maestra idiay padaya.\nI saw a teacher at the party.\n(any teacher)",
+          "examples": [
+            "Kinship terms such as \"mother\" or \"uncle\" can take either set of articles. Preceded by the common article, the term is more generalized or conceptual; preceded by a personal article, the reference is more specific (the speaker refers to a m"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        },
+        {
+          "heading": "Future",
+          "body": "The demonstrative inton, intono, tono, ton is used with reference to the future (< i- + (n)to \"FUT\" (+ no \"CONJ\")).[2] It does not share the same morphology of the other demonstratives. It is commonly found in fixed time phrases and acts adverbially. It functions to subordinate clauses referring to future time.\n\nExamples:\n\nintono bigat\ntomorrow (lit. future morning)\n\nintono rabii\ntonight (lit. future night/evening)\n\nintono sumaruno a tawen\nnext year (lit. future year)\n\nintono sumaruno a dua a tawen\nin the next two years (lit. in the future two years)\n\nMapan agbakasion intono dumakkel ti sueldona.\nHe will go on vacation when his salary increases (in the future).",
+          "examples": [
+            "The demonstrative inton, intono, tono, ton is used with reference to the future (< i- + (n)to \"FUT\" (+ no \"CONJ\")).[2] It does not share the same morphology of the other demonstratives. It is commonly found in fixed time phrases and acts ad",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "Indefinite pronouns are formed with the appropriate interrogative and the particle man.",
+      "sections": [
+        {
+          "heading": "Indefinite Pronouns",
+          "body": "Indefinite pronouns are formed with the appropriate interrogative and the particle man. \n\nAn alternate form is with uray preceding the interrogative. These forms, however, can stand alone.\n\nInterrogative\n\nGloss\n\nIndefinite w/ man\n\nIndefinite w/ uray\n\nGloss\n\nsiasino\n\nwho?\n\nsiasino man, siasinoman\n\nuray siasino\n\nanyone, anybody, whoever\n\nania\n\nwhat?\n\nania man, aniaman\n\nuray ania\n\nanything, whatever\n\nkaano\n\nwhen?\n\nkaano man, kaanoman\n\nuray kaano\n\nanytime, whenever\n\ninton-ano\n\nwhen? (in the future)\n\ninton-ano man, inton-anoman\n\nuray inton-ano\n\nanytime, whenever (in the future)\n\nkasano\n\nhow?\n\nkasano man, kasanoman\n\nuray kasano\n\nhowever, anyhow\n\nsadino\n\nwhere?\n\nsadino man, sadinoman\n\nuray sadino\n\nwherever, anywhere\n\nExamples:\n\nAnia ti kayatmo? What do you want?\nUray ania. Anything.\nBUT, NOT...\n*Ania man.",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Nouns",
+      "summary": "Nouns are classed as either common or personal; personal nouns are introduced by the personal article ni. Names of people or anthropomorphized nouns are marked by ni (ni Juan, Juan). Kinship terms and titles can also be preceded by ni (ni tatang, ni kaeskuelam). They may be intro",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Nouns are classed as either common or personal; personal nouns are introduced by the personal article ni. Names of people or anthropomorphized nouns are marked by ni (ni Juan, Juan). Kinship terms and titles can also be preceded by ni (ni tatang, ni kaeskuelam). They may be introduced by ti (the common article) if the speaker is making a generalization. All other nouns (the common nouns) are introduced by ti; for example, ti aso (\"the dog\") and ti balay (\"the house\").",
+          "examples": [
+            "Nouns are classed as either common or personal; personal nouns are introduced by the personal article ni. Names of people or anthropomorphized nouns are marked by ni (ni Juan, Juan). Kinship terms and titles can also be preceded by ni (ni t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adjectives",
+      "summary": "Root adjectives\nRoot adjectives do not have any of the common derivational affixes such as a-, ma-, na- or any other derivational affix. Many root adjectives denote physical characteristics (especially physical abnormalities).",
+      "sections": [
+        {
+          "heading": "Adjectives",
+          "body": "Root adjectives\nRoot adjectives do not have any of the common derivational affixes such as a-, ma-, na- or any other derivational affix. Many root adjectives denote physical characteristics (especially physical abnormalities).\n\nExample\nbassit  small\ndakkel  big\nbaro    new\ndaan    old (applied to inanimate objects)\nbaket   old (applied to animate females)\nlakay   old (applied to animate males)\nbuttiog pot-bellied (applied to men)\ntuleng  deaf\npangkis cross-eyed/cock-eyed\n\nDerived adjectives\nNa-\n\nThe most common prefix for deriving adjectives. The na- prefix denotes the descriptive quality of the root.\n\nRoot\n\nGloss\n\nAdjective\n\nGloss\n\nalsem\n\nsourness, acidity\n\nnaalsem\n\nsour, acid\n\ngasang\n\nspice, spiciness, heat\n\nnagasang\n\nspicy, hot (taste)\n\npait\n\nbile, bitterness\n\nnapait\n\nbitter, acrid\n\nuyong\n\nseverity, harshness\n\nnauyong\n\nharsh, mean, severe\n\nMa-\n\nSome roots have a derived adjective form that begins with ma-; a number have derived adjectives in both ma- and na-. The chief difference is that ma- prefix denotes a condition or an experience.\n\nRoot\n\nGloss\n\nna-\n\nma-\n\nsakit\n\nsickness, pain, disease\n\nnasakit painful\n\nmasakit ill, sick\n\nlam-ek\n\nchill\n\nnalam-ek cold (weather)\n\nmalam-ek to be, feel cold\n\nulaw\n\ndizziness, nausea\n\n–\n\nmaulaw to be, feel dizzy\n\nA-\n\nA fixed number of roots begin with a-, an archaic prefix which is no longer productive (e.g. atiddog, \"long\"; as a result, the prefix no longer has a meaning of its own.\n\nRoot\n\nGloss\n\nAdjective\n\nGloss\n\ntiddog\n\nlength\n\natiddog\n\nlong\n\nbaba\n\nlower part\n\nababa\n\nshort (height)\n\nAdjectival degrees and forms\nPositive\n\nThe positive form is the \"dictionary\" form (or plain form) from which the other degrees can be derived.\n\nComparative\n\nThe comparative form of adjectives is used when comparing at least two nouns, where one has more of the characteristic denoted by the adjective. The comparative form is derived by reduplicating the first syllable of the root; for example, 'naud-udi, \"(the) later (one in a sequence) < naudi, \"last\" < udi \"rear\".\n\nModerate\n\nThe moderate form of an adjective denotes that what is being described has some degree of quality. In English, this is expressed by \"rather\" or \"somewhat\". The moderate degree is formed by prefixing paN- and suffixing -en to the root. The final -N is the organic nasal of the first consonant of the root (which is lost in the case of stops).\n\nComparative superlative\n\nThe superlative is the form that is used when something has the greatest degree of a characteristic, in comparison to other items. It is formed by prefixing ka- and suffixing -an to the root.\n\nAbsolute superlative\n\nThe intensive degree denotes that what it being described is the epitome of the adjective's meaning. A near parallelism is the use of -ísimo/a in Spanish or -issimo/a  in Italian.\n\nThe prefix naka- is added with the reduplication of the first three phonetic segments of the root (e.g. nakabakbaknang, \"very wealthy, rich\".\n\nExcessive\n\nThe excessive is used to denote that the quality of the adjective is extreme. This degree is formed using the adverb unay with the positive form of the adjective (e.g. nabaknang unay \"too, extremely, overly wealthy, rich\".\n\nIntensive\n\nThis form corresponds to the use of \"how\" or \"so\" in English in a phrases of wonder, admiration or surprise. The intensive is formed by prefixing nag- to the root (for example, nagbaknang \"very wealthy\" < baknang \"wealth, riches\". Commonly, the intensive is accompanied by the enclitic -(e)n, e.g. Nagbaknangen ni Maria \"Maria's very rich!\"\n\nRoot: pudot \"warmth\"\n\nDegree\n\nForm\n\nGloss\n\nPositive\n\nnapudot\n\nwarm\n\nComparative\n\nnapudpudot\n\nwarmer\n\nModerate\n\npamudoten\n\nrather warm\n\nComparative Superlative\n\nkapudotan\n\nwarmest\n\nAbsolutive Superlative\n\nnakapudpudot\n\nvery warm\n\nExcessive\n\nnapudot unay\n\ntoo warm\n\nIntensive\n\nnagpudoten\n\nso warm! how warm!",
+          "examples": [
+            "Example",
+            "A fixed number of roots begin with a-, an archaic prefix which is no longer productive (e.g. atiddog, \"long\"; as a result, the prefix no longer has a meaning of its own.",
+            "The positive form is the \"dictionary\" form (or plain form) from which the other degrees can be derived.",
+            "The comparative form of adjectives is used when comparing at least two nouns, where one has more of the characteristic denoted by the adjective. The comparative form is derived by reduplicating the first syllable of the root; for example, '",
+            "The moderate form of an adjective denotes that what is being described has some degree of quality. In English, this is expressed by \"rather\" or \"somewhat\". The moderate degree is formed by prefixing paN- and suffixing -en to the root. The f",
+            "The prefix naka- is added with the reduplication of the first three phonetic segments of the root (e.g. nakabakbaknang, \"very wealthy, rich\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Verbs",
+      "summary": "Main article: Ilokano verb\nAlthough other word classes in Ilokano are not diverse in forms, verbs are morphologically complex inflecting for grammatical distinctions such as tense/aspect, number and focus.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Ilokano verb\nAlthough other word classes in Ilokano are not diverse in forms, verbs are morphologically complex inflecting for grammatical distinctions such as tense/aspect, number and focus.\n\nIlokano has a morphosyntactic alignment that shares characteristics of both Nominative–accusative and Ergative–absolutive known as the Austronesian alignment.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Adverbs",
+      "summary": "Locatives correspond to \"here\" and \"there\". They have a three-way distinction similar to the demonstratives: proximal, medial and distal, and can be used with nouns to specify location. In addition, they can replace a noun phrase in the oblique case which concerns location.",
+      "sections": [
+        {
+          "heading": "Locatives",
+          "body": "Locatives correspond to \"here\" and \"there\". They have a three-way distinction similar to the demonstratives: proximal, medial and distal, and can be used with nouns to specify location. In addition, they can replace a noun phrase in the oblique case which concerns location.\n\nLocative determiners\n\nSpace\nForm\nGloss\n\nProximal\n\nditoy\n\nhere\n\nMedial\n\ndita\n\nthere\n\nDistal\n\nidiay\nsadiay\n\nthere or yonder\n\nExamples:\n\nImmay ditoy balay.\nHe came to our house (here).\n\nNapan dita a balay.\nHe went to that house (just over there).\nHe went to the house.\n\nNapan idiay.\nHe went there.(referring to a far place)",
+          "examples": [
+            "Locatives correspond to \"here\" and \"there\". They have a three-way distinction similar to the demonstratives: proximal, medial and distal, and can be used with nouns to specify location. In addition, they can replace a noun phrase in the obl",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        },
+        {
+          "heading": "Manner",
+          "body": "Ilocano has a set of adverbs referring to manner. They are a combination of kas (\"like/as\") and the abbreviated determiner forms toy, ta and diay.\n\nLocative determiners\n\nSpace\nForm\nGloss\n\nProximal\n\nkastoy\n\nlike this, this way\n\nMedial\n\nkasta\n\nlike that, that way\n\nDistal\n\nkasdiay\n\nlike that, that way\n\nExamples:\n\nKinitak a kastoy.\nI looked at him like this.\n\nApay sinuratmo a kasta?\nWhy did you write it that way?\n\nNagsala a kasdiay.\nShe danced like that (over there, like she is dancing).\n\nAs with many word categories in Ilocano, prefixing ag- (a verbalizing prefix) results in verbs expressing the generality of the action (possibly accompanied by an imitating gesture).\n\nExamples:\n\nNagkastoy.\nHe went like this/He did this.\n\nAgkasta kunana.\nShe said that she would go like that/do that.\n\nNagkasdiayak.\nI went like that/do that (over there) (pointing to someone who is in the midst of the action in question).\n\nAdding pa- (a directional prefix), direction is implied.\n\nExamples:\n\nNagpakastoy.\nHe went/came here. He went/came through here.\n\nAgpakasta kunana.\nShe said that she would go/come there. She said she would go/come through there.\n\nNagpakasdiayak.\nI went/came (over) there. I went/came through (over) there.",
+          "examples": [
+            "Ilocano has a set of adverbs referring to manner. They are a combination of kas (\"like/as\") and the abbreviated determiner forms toy, ta and diay.",
+            "Examples:",
+            "Examples:",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Numbers",
+      "summary": "Main article: Ilocano numbers\nIlocano has two number systems: one native and the other derived from Spanish. The systems are used interchangeably; however, the situation can dictate which system is preferred. Typically, Ilocanos use native numbers for one through ten and Spanish",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Ilocano numbers\nIlocano has two number systems: one native and the other derived from Spanish. The systems are used interchangeably; however, the situation can dictate which system is preferred. Typically, Ilocanos use native numbers for one through ten and Spanish numbers for amounts of ten and higher. Time is told using the Spanish system and numbers for hours and minutes; for example, alas dos (two o'clock). For dates, cardinal Spanish numbers are the norm; for example, 12 (dose) ti Julio (the twelfth of July).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Typology",
+      "summary": "Ilocano employs a predicate-initial structure: verbs and adjectives occur in the first position of the sentence, then the rest of the sentence follows.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Ilocano employs a predicate-initial structure: verbs and adjectives occur in the first position of the sentence, then the rest of the sentence follows.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Verb phrases",
+      "summary": "This section is empty.  You can help by adding to it.  (October 2022)\nComment-topic sentences in Ilokano, similar to other Philippine languages such as Tagalog, are defined by a generalized usage and lack of verb. Comment-topic sentences are used commonly to make relational state",
+      "sections": [
+        {
+          "heading": "Comment-topic",
+          "body": "This section is empty.  You can help by adding to it.  (October 2022)\nComment-topic sentences in Ilokano, similar to other Philippine languages such as Tagalog, are defined by a generalized usage and lack of verb. Comment-topic sentences are used commonly to make relational statements between or about one or more \"topics,\" or to make generalized statements. This sentence construction relies on the common and personal articles to indicate topic or non-topic information. The most basic formula for Comment-topic sentences can be seen as follows:[citation needed]\n\n\"Adjective\" + \"topic marker\" + \"Topic\"\n\nNapintas ni Ana.\nAna is beautiful.\n\nNapintas da Ana ken Tina.\nAna and Tina are beautiful.\n\nni and da can also be used to introduce titles of people.\n\nBaknang ni Mayor Gonzales.\nMayor Gonzales is rich.\n\nNalaing nga duktor da Dr. Jose ken Dra. Regina.\nDr. Jose and Dra. Regina are smart doctors.\n\nExamples using the common or \"topic non-name\" articles: \n\nNabanglo ti sabong.\nThe flower is fragrant.\n\nSadot ti lalaki.\nThe man is lazy.\n\nDelikado dagiti lamok.\nThe mosquitos are dangerous.\n\nNagaget dagiti estudiante.\nThe students are diligent.\n\nNote in the examples above that the statements are translated with is/are, but do not use or require a verb or existential to be grammatically correct.",
+          "examples": [
+            "Comment-topic sentences in Ilokano, similar to other Philippine languages such as Tagalog, are defined by a generalized usage and lack of verb. Comment-topic sentences are used commonly to make relational statements between or about one or ",
+            "\"Adjective\" + \"topic marker\" + \"Topic\"",
+            "Examples using the common or \"topic non-name\" articles:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Existentials",
+      "summary": "Two existential particles, adda and awan, are used in Ilokano to express modes of possession and existence. While adda is used as either an absolute or current existential, awan is used as a negative existential.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Two existential particles, adda and awan, are used in Ilokano to express modes of possession and existence. While adda is used as either an absolute or current existential, awan is used as a negative existential.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        },
+        {
+          "heading": "Adda",
+          "body": "Adda can indicate absolute possession, which signifies that the possessor owns the possessed object regardless of whether or not the object is with him at the moment.\n\nAdda kadi kotsem?\nDo you have a car?\n\nAdda kadi asawamon?\nDo you have a spouse already?\n\nIt can also indicate current possession, meaning that the possessed object is within reach of its owner. This requires the possessor to be in the oblique case (e.g. kaniák).\n\nAdda ti tulbek kaniak.\nI have the key (on me now).\n\nFor emphasis, possessors may also precede the possessed objects.\n\nAdda kaniak ti tulbek.\nI (am the one) who has the key.\n\nAdda can combine with the spatial demonstrative adverbs to produce addadtoy, \"is/are here\"; addadta, \"is/are there\" and addadiay, \"is/are there (yonder)\".",
+          "examples": [
+            "Adda can combine with the spatial demonstrative adverbs to produce addadtoy, \"is/are here\"; addadta, \"is/are there\" and addadiay, \"is/are there (yonder)\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        },
+        {
+          "heading": "Awan",
+          "body": "Awan is used as the negative of adda.\n\nAwan ti luganko.\nI don't have a car.\n\nAwan ti aso ni Maria.\nMaria does not have a dog.\n\nAwan kaniak.\nI don't have it.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Negation",
+      "summary": "Saan/Di\nSaan (and its variant, haan) and di (no, not) occupy the predicate slot of phrases in which they occur. As a result, personal pronouns and other enclitics will bind to it instead of the word or phrase that saan or di negates. The combination of the ergative first person p",
+      "sections": [
+        {
+          "heading": "Negation",
+          "body": "Saan/Di\nSaan (and its variant, haan) and di (no, not) occupy the predicate slot of phrases in which they occur. As a result, personal pronouns and other enclitics will bind to it instead of the word or phrase that saan or di negates. The combination of the ergative first person pronoun (i.e. ko) does not combine with di in the expected *diko. Instead, diak is used. Saan  requires the use of the ligature a/nga with verbal predicates; di does not.\n\nExamples:\n\nVerb predicate\n+ Napanak idiay tiendaan. (I went to the store.)\n– Saanak a napan idiay tiendaan. (I did not go to the store.)\n– Diak napan idiay tiendaan.\n\nNoun predicate\n+ Estudianteka. (You are a student.)\n– Saanka nga estudiante. (You are not a student.)\n\nAdjective predicate\n+ Nalaingak. (I am intelligent.)\n– Saanak a nalaing. (I am not intelligent.)\n\nAwan",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Interrogatives",
+      "summary": "The following table contains common simple interrogatives:",
+      "sections": [
+        {
+          "heading": "Simple",
+          "body": "The following table contains common simple interrogatives:\n\nInterrogative\n\nGloss\n\nNotes\n\nAnia\n\nWhat?\n\nApay\n\nWhy?\n\nAsino\nSino\n\nSinno\n\nWho?\n\nSiasino\n\nWho?\n\nPlural\n\nAyan\n\nWhere?\n\nUsed when inquiring about a place\n\nSadino\n\nWhere?\n\nUsed when inquiring where an action is performed\n\nInton-ano\n\nWhen?\n\nUsed when inquiring about a time in the future\n\nKaano\n\nWhen?\n\nUsed when inquiring about a present or past time\n\nKasano\n\nHow?\n\nSagmamano\n\nHow much?\n\nUsed when inquiring about a price\n\nMano\n\nHow many?/How much?\n\nAsino, sino, sinno, siasino\n\nThere are no differences between these; siasino, however, can denote pluratity.\n\nAyan and sadino\n\nAyan is used when inquiring the location of something; for example, Ayan ti tulbekko? \"Where are my keys?\" Sadino, on the other hand, is used in conjunction with verbs, e.g. Sadino ti papanam? \"Where are you going?\".\n\nInton-ano and kaano\n\nInton-ano is used when inquiring about a time in the future, kaano about a past or present time. Compare the following examples:\n\nInton-ano ti misa? (When is the mass? When will the mass be?)\nKaano ti misa? (When is the mass?)\nKaano daydi misa? (When was that mass? Note how the use of daydi adds emphasis on the past)",
+          "examples": [
+            "Ayan is used when inquiring the location of something; for example, Ayan ti tulbekko? \"Where are my keys?\" Sadino, on the other hand, is used in conjunction with verbs, e.g. Sadino ti papanam? \"Where are you going?\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        },
+        {
+          "heading": "Locative",
+          "body": "In addition to the locative interrogatives, Ayan? and Sadino, the locative form of the verb can be used alone with a change in intonation.\n\nExamples:\n\nPanganam?\nWhere are you eating?\n\nNangalaanyo?\nWhere did you get it?",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        },
+        {
+          "heading": "Complex",
+          "body": "Complex interrogatives have the characteristic -ano appended. The following are a few which occur (or are possible):\n\nInterrogative\n\nGloss\n\nNotes\n\nAgpaano?\n\nIn which direction? To where?\n\nag-, pa- (directional morpheme) and -ano\n\nMaikamano?\n\nIn what order?\n\nmaika- (ordinal prefix) and mano (how much, many?)\n\nMamin-ano?\n\nHow many times?\n\nmamin- (multiplicative prefix) and -ano\n\nTaga-ano?\n\nFrom where?\n\ntaga- (prefix of origin) and -ano\n\nKapin-ano?\n\nHow related?\n\nkapin- (prefix of kinship relation) and -ano\n\nExamples:\n\nAgpaanoka? (Where are you going to? Which way are you going?)\nTaga-anoda? (Where are they from?)\nKapin-ano isuna? (How is he related?)",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Ilocano_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

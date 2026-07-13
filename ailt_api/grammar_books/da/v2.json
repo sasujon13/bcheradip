@@ -1,0 +1,549 @@
+{
+  "title": "Grammar Book — Dansk",
+  "languageCode": "da",
+  "languageName": "Dansk",
+  "version": 2,
+  "sources": [
+    "https://da.wikipedia.org/wiki/Dansk_grammatik",
+    "https://en.wikibooks.org/wiki/Danish/Lesson_1",
+    "https://en.wikibooks.org/wiki/Danish/Lesson_2",
+    "https://en.wikibooks.org/wiki/Danish/Lesson_3",
+    "https://en.wikibooks.org/wiki/Danish/Lesson_4",
+    "https://en.wikipedia.org/wiki/Danish_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Der er for få eller ingen kildehenvisninger i denne artikel, hvilket er et problem. Du kan hjælpe ved at angive troværdige kilder til de påstande, som fremføres i artiklen.\nDansk grammatik er det danske sprogs grammatik, dvs. læren om, hvordan ordene forandrer form i forskellige",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Der er for få eller ingen kildehenvisninger i denne artikel, hvilket er et problem. Du kan hjælpe ved at angive troværdige kilder til de påstande, som fremføres i artiklen.\nDansk grammatik er det danske sprogs grammatik, dvs. læren om, hvordan ordene forandrer form i forskellige funktioner (morfologi), og hvordan ordene sættes sammen til meningsfulde sætninger (syntaks).\n\nDansk er et svagt flekterende sprog.[1] Det har relativt få bøjningsformer, men kan også ses som et agglutinerende sprog, hvis man opdeler bøjningsparadigmerne i kategorier, der hver har én betydning.[2]:221-223",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Substantiver",
+      "summary": "På dansk kan substantiver (også kaldet navneord) bøjes i tal og bestemthed. Et substantiv har køn som en indbygget egenskab som andre ord (adjektiver, artikler m.m.) skal bøjes efter.[2]:171  Derudover findes en genitivform.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "På dansk kan substantiver (også kaldet navneord) bøjes i tal og bestemthed. Et substantiv har køn som en indbygget egenskab som andre ord (adjektiver, artikler m.m.) skal bøjes efter.[2]:171  Derudover findes en genitivform.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Kasus",
+          "body": "I den tidlige middelalder havde dansk fire kasus: nominativ, akkusativ, dativ og genitiv (som islandsk, færøsk og tysk). Nominativ og akkusativ faldt i løbet af det 12. århundrede sammen. Dativ er i dag kun bevaret i faste udtryk, f.eks. på fode, i live, stundom (dativ pluralis af stund). I modsætning til substantiver skelner pronominerne mellem nominativ og oblik (også kaldet akkusativ).\n\nPå moderne dansk består kasusbøjningen af substantiver af en genitivform, og formen uden genitivendelse kan kaldes nominativ. Genitivformen består af endelsen -s som placeres efter alle andre endelser. Hvis et substantiv slutter på -s inden tilføjelse af genitivendelse, markeres det i skriftsproget i stedet med en apostrof. Ved personnavne der i forvejen slutter på -s udtales genitivformen ofte -es.[3]:68  Eftersom -s kan skilles fra substantivet og sættes på et hvilket som helst ord eller et helt sætningsled, kan det diskuteres, om der overhovedet er tale om en kasusbøjning. Et eksempel (taget fra internettet) er denne sætning:\n\n\"Jeg håber virkelig at du vil prøve at sætte dig i en af de dødes sted, eller i en af dem der mistede en af dem de elskers sted\"\nHer er et genitiv-s hæftet på et finit verbum, hvilket ville være uhørt i et kasussprog (som tysk, russisk eller latin). I virkeligheden er det hele sætningsleddet \"en af dem der mistede en af dem de elsker\", der på den måde bliver sat i genitiv. Denne frie brug af genitiv-s er almindeligt i talt sprog, men vil blive opfattet som forkert i det skrevne sprog af mange sprogbrugere.\n\nPå ældre dansk kunne genitiv også stå efter bestemte præpositioner, særlig til. Denne brug er bevaret i faste udtryk: til vands, til søs. Udtrykkene til stede og til hånde har bevaret den gamle genitiv pluralis på -a.",
+          "examples": [
+            "\"Jeg håber virkelig at du vil prøve at sætte dig i en af de dødes sted, eller i en af dem der mistede en af dem de elskers sted\"",
+            "Her er et genitiv-s hæftet på et finit verbum, hvilket ville være uhørt i et kasussprog (som tysk, russisk eller latin). I virkeligheden er det hele sætningsleddet \"en af dem der mistede en af dem de elsker\", der på den måde bliver sat i ge"
+          ],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Bestemthed",
+          "body": "Bestemt artikel og køn i danske dialekter. På Sjælland er man først gået fra tre til to køn i nyere tid.\nSubstantiver bøjes efter bestemthed. Bestemthed markerer at modtager forventes at kende det som substantivet henviser til, mens ubestemthed bruges når modtager ikke har forudgående kendskab. Den ubestemte form i singularis er substantivets umarkerede form, dvs. uden endelse. Den bestemte form i singularis markeres med en endelse som afhænger af substantivets iboende køn: fælleskønsord tager -en, mens intetkønsord tager -et; dog uden e hvis ordet allerede ender på det, medmindre det er trykstærkt. Den bestemte form i pluralis markeres med endelsen -ne hvis det forekommer efter pluralisendelserne -er eller e, eller -ene hvis substantivet ikke har en pluralisform markeret med en endelse (fx (en) mus - (flere) mus). Ved tilføjelsen af endelser kan substantiverne blive ramt af synkope, og i skriftsproget kan bøjningerne medføre konsonantfordobling (fx spil - spillet).[3]:66-67 \n\nBestemthedsendelse er historisk et gammelt pronomen, oldnordisk inn \"denne\" (beslægtet med engelsk yone og tysk jener). Eftersom de to elementer er smeltet sammen både ortografisk og fonetisk, kan man tale om en særlig bøjningsform.[kilde mangler]\n\nBestemthed bliver ikke udtrykt ved bestemthedsendelse, hvis der lægger sig et adjektiv til det pågældende substantiv. Her bruges der i stedet de bestemte artikler den, det, de foranstillet substantivet i ubestemt form (norsk og svensk har i disse tilfælde både foranstillet og efterstillet artikel på én gang).[3]:172 \n\nUbestemt artikel\nIngen artikel\nBestemt artikel\n\nEfterstillet\nForanstillet\n\nfælleskøn\n\nen bog\nen billig bog\nLones bog\nLones billige bog\nbogen\n\nden billige bog\n\nintetkøn\n\net hus\net stort hus\nPeters hus\nPeters store hus\nhuset\n\ndet store hus\n\npluralis\n\nbøger\nbillige bøger\nLones bøger\nLones billige bøger\nbøgerne\n\nde billige bøger",
+          "examples": [
+            "Bestemthedsendelse er historisk et gammelt pronomen, oldnordisk inn \"denne\" (beslægtet med engelsk yone og tysk jener). Eftersom de to elementer er smeltet sammen både ortografisk og fonetisk, kan man tale om en særlig bøjningsform.[kilde m"
+          ],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Tal",
+          "body": "Tællelige substantiver bøjes i tal: enten i en singularisform (ental), der er umarkeret, eller en pluralisform (flertal). Pluralisformen laves for ca. 70% af de tællelige substantiver ved at tilføje endelsen -er der har formen -r hvis substantivets umarkerede form slutter på e. Omtrent 20% af dem får endelsen -e, mens 10% ikke markeres. Lån fra andre sprog bevarer ofte deres pluralisform i det långivende sprog (fx. hotdog - hotdogs fra engelsk eller konto - konti fra italiensk) eller har både en pluralisform med den danske samt indlånte endelse (fx singularis forum med pluralisformerne fora fra latin og forummer). Bøjningen kan medføre synkope eller at ordet skrives med dobbeltkonsonant. En mindre gruppe har pluralisformer som udover evt. endelse markeres med omlyd (fx. and - ænder). Abstrakte og utællelige substantiver har ikke en pluralisform. Enkelte substantiver (plurale tantum) findes kun i en pluralisform (fx. bukser). Både fælles- og intetkønsord kan have alle tre forskellige pluralisformer - med -e, -er eller ingen endelse.[3]:64-66 \n\nkøn\nsingularis\npluralis\n\nubestemt\nbestemt\nubestemt\nbestemt\n\nfælleskøn\n\nen dreng\nen sag\nen kvinde\nen mus\ndrengen\nsagen\nkvinden\nmusen\ndrenge\nsager\nkvinder\nmus\ndrengene\nsagerne\nkvinderne\nmusene\n\nintetkøn\n\net land\net fængsel\net æble\n et lyn\nlandet\n fængslet\næblet\n lynet\nlande\nfængsler\næbler\n lyn\nlandene\nfængslerne\næblerne\n lynene\n\nFravær af endelse i pluralis er dog mere almindelig i intetkøn, og det var oprindelig den eneste endelse (lande hed tidligere land osv.). Den bestemte pluralisform består af pluralisformen efterfulgt af -ne uanset grammatisk køn.\n\nNogle substantiver bøjes dog efter andre mønstre hvor de ændrer vokalen i flertal:\n\n \n\npluralis -er\n\npluralis -e\n\npluralis -\n\na ⇒ æ\n\nand - ænder\nkraft - kræfter\nnat - nætter\nstad – stæder\nstand - stænder\ntand – tænder\ntang – tænger\n\nfa(de)r – fædre\n\nmand – mænd\n\na ⇒ ø\n\n \n\ndatter - døtre\n\nbarn – børn\n\no ⇒ ø\n\nbog – bøger\nbonde - bønder\nfod – fødder\nklo – kløer\nko – køer\nrod - rødder\nso – søer\n\nbro(de)r – brødre\nmo(de)r – mødre\n\n \n\nå ⇒ æ\n\nhånd – hænder\nrå – ræer\ntå – tæer\n\n \n\ngås - gæs\n\nDer er tale om omlyd, dvs. en ændring af vokalen under indflydelse af en vokal i den følgende stavelse. Disse substantiver tilhører en særlig gruppe af såkaldte konsonantstammer, der på urnordisk havde pluralisendelsen -iz, hvorimod de fleste andre han- og hunkønsord havde endelsen -ōz. Udover at ændre vokalen er disse substantiver også kendetegnet ved at bevare et eventuelt stød i flertal. Dette kan ligeledes forklares med henvisning til den forskellige endelse: På olddansk er den første nemlig reduceret til -R, hvorimod den anden er blevet til -aR; tænnR var på den måde et enstavelsesord og fik derfor stød, mens dagaR var et tostavelsesord og fik derfor ikke stød.\n\nDer er et enkelt intetkønsord med vokalændring: barn – børn. Her er der også tale om omlyd, men denne gang ikke i-omlyd, men u-omlyd, idet urnordisk i intetkøn havde pluralisendelsen -u (tidligere -ō). Et a bliver på olddansk å-agtigt foran et (eventuelt forsvundet) u, og dette å bliver senere til ø. I alle andre intetkønsord er u-omlyden imidlertid blevet opgivet allerede i middelalderen, og på svensk er den endda også forsvundet i dette ord (barn). På islandsk lever den derimod i bedste velgående: börn \"børn\", lönd \"lande\", vötn \"vande\" osv.",
+          "examples": [
+            "Der er et enkelt intetkønsord med vokalændring: barn – børn. Her er der også tale om omlyd, men denne gang ikke i-omlyd, men u-omlyd, idet urnordisk i intetkøn havde pluralisendelsen -u (tidligere -ō). Et a bliver på olddansk å-agtigt foran"
+          ],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronominer",
+      "summary": "Uddybende artikel: Pronominer i dansk\nDe danske pronominer (også kaldet stedord) kan opdeles i flere underklasser: personlige, upersonlige, demonstrative m.m.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Uddybende artikel: Pronominer i dansk\nDe danske pronominer (også kaldet stedord) kan opdeles i flere underklasser: personlige, upersonlige, demonstrative m.m.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Personlige pronominer",
+          "body": "De personlige pronominer er en række ord der referer til en kategori og markerer dens tilstedeværelse i konteksten - fx tilstedeværelse når man taler til en du-person, eller tidligere benævnelse ved bruge af tredje person. Udover de forskellige personformer, har pronominerne kasusformer - enten nominativ eller oblik (evt. også kaldet akkusativ). De kan evt. også få et genitiv-s på, men har også separate possessive former til tilsvarende funktioner. De menneskelige pronominer kan inddeles efter sexus, mens den og det reflekterer samme kategorier af grammatisk køn som substantiverne.[2]:180-181 \n\n \nNominativ\nOblik\nPossessiv\n\nfælleskøn\nintetkøn\npluralis\n\nSingularis\n\nførste person\n\njeg\nmig\nmin\nmit\nmine\n\nanden person\n \n\ndu\ndig\ndin\ndit\ndine\n\nhøflig\n\nDe\nDem\nDeres\n\ntredje person\n(menneskelig)\nhankøn\n\nhan\nham\nhans\n\nhunkøn\n\nhun\nhende\nhendes\n\ntredje person\n(ikke-menneskelig)\nfælleskøn\n\nden\nden\ndens\n\nneuter\n\ndet\ndet\ndets\n\nrefleksiv\n\n-\nsig\nsin\nsit\nsine\n\nPluralis\n\nførste person\n\nvi\nos\nvor\nvort\nvore\n\nvores\n\nanden person\n \n\nI\njer\njeres\n\nhøflig\n\nDe\nDem\nDeres\n\ntredje person\n\nde\ndem\nderes\n\nrefleksiv\n\n-\nsig\nderes\n\nDen høflige form har siden 1970'erne ikke været almindeligt at bruge, når man taler til fremmede. Det bliver i dag næsten kun brugt i offentlige skrivelser og over for medlemmer af kongehuset. Det har dog i de senere år fået en renæssance i butikssproget. Som en hovedregel kan man dog sige du i en hvilken som helst situation, uden at det vil være påfaldende.\n\nDet refleksive pronomen bruges, når et objekt eller et possessiv er identisk med sætningens subjekt (i tredje person): f.eks. manden slog sin kone ihjel ~ manden slog hans kone ihjel.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Verber",
+      "summary": "Det danske verbum har ni[kilde mangler] forskellige bøjningsformer. Verbalformerne deles op i finitte og infinitte former, hvor de finitte er sætningsdannende.[3]:99",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Det danske verbum har ni[kilde mangler] forskellige bøjningsformer. Verbalformerne deles op i finitte og infinitte former, hvor de finitte er sætningsdannende.[3]:99 \n\ninfinitte former\n\naktiv\npassiv\n\nInfinitiv\n(at) vente\n(at) ventes, (at) blive ventet\n\nVerbalsubstantiv\nventen\n \n\nPræsens participium\nventende\n \n\nPerfektum participium\nventet\n \n\nfinitte former\n\nPræsens\nventer\nventes, bliver ventet\n\nPræteritum\nventede\nventedes, blev ventet\n\nImperativ\nvent\nbliv ventet",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Person og tal",
+          "body": "I modsætning til mange andre sprog, bøjes danske verber ikke i person eller tal: jeg venter, du venter, han, hun, den, det venter, vi venter, I venter, de venter. Indtil begyndelsen af det 20. århundrede var det dog almindeligt at bøje i tal i dannet skriftligt sprog.[9] Disse former kan man stadig møde i ældre prosa og salmer:\n\nSvage verber\nStærke verber\n\nStærke verber\n\nStærke verber\n\nStærke verber\nModalverber\n\nsingularis\npluralis\nsingularis\npluralis\n\nsingularis  pluralis\n\nsingularis  pluralis\n\nsingularis       pluralis\nsingularis\npluralis\n\nPræsens\nventer\nvente\ntager\ntage\n\nvinder        vinde\n\ngår              gange\n\nhjælper         hjælpe\nskal\nskulle\n\nPræteritum\nventede\nventede\ntog\ntoge\n\nvandt          vunde\n\ngik               ginge\n\nhjalp              hjulpe\nskulde\nskulde\n\nImperativ\nvent\nventer\ntag\ntager\n\nvind            vinder\n\ngak              ganger\n\nhjælp             hjælper\n-\n-\n\nI den autoriserede oversættelse af Det Nye Testamente fra 1907 hed det således Søger, saa skulle I finde (Matt. 7:7, Luk. 11:9)[10]; det var i 1948-oversættelsen blevet til Søg, så skal I finde.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Modalverber",
+          "body": "Modalverberne er også en gruppe af uregelmæssige verber. De kaldes også præteritopræsentiske verber, fordi deres præsens har samme form som et stærkt verbums præteritum (uden endelse i stedte for -er som i andre verber). Historisk er der tale om præteritum, i en resultativ betydning: jeg ved betyder oprindelig jeg har set, erfaret (jf. latin videō \"se\").\n\nModalverber bruges til at udtrykke modale kategorier som mulighed og kunnen. De styrer i den anvendelse infinitiv uden at i modsætning til andre verber, der følges af en infinitiv. Det er dog ikke alle præteritopræsentiske verber, der kan kaldes modalverber, således ikke vide.\n\nInfinitiv\nPræsens\nPræteritum\nParticipium\n\nburde \nbør \nburde \nburdet\n\nkunne \nkan \nkunne \nkunnet\n\nmåtte \nmå \nmåtte \nmåttet\n\nskulle \nskal \nskulle \nskullet\n\nturde \ntør \nturde \nturdet\n\nville \nvil \nville \nvillet",
+          "examples": [
+            "Modalverberne er også en gruppe af uregelmæssige verber. De kaldes også præteritopræsentiske verber, fordi deres præsens har samme form som et stærkt verbums præteritum (uden endelse i stedte for -er som i andre verber). Historisk er der ta"
+          ],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Tider",
+          "body": "Af tempus har verberne en præsensform (også kaldet nutid) og en præteritumsform (også kaldet datid). Præsensformen dannes ved at tilføje -r til infinitivformen, eller via en anden analyse tilføje -er til imperativformen. Verber med en rod der slutter på r i forvejen, udtales i præsens på samme som infinitiv formen, selvom de staves anderledes, fx. invitere-inviterer og høre-hører.[3]:102 \n\nSvage og stærke verber\nDer skelnes ligesom i de andre germanske sprog mellem to præteritumsformer: stærke og svage verber. De svage verber danner præteritum med endelsen -ede eller -te, hvor de stærke verber ikke har nogen endelse i præteritum, men som regel en vokalændring (aflyd).[3]:102 \n\nDe svage verber findes i to undergrupper: den store svage klasse af verber danner præteritum og participium på hhv. -ede og -et, og den lille svage klasse af verber (ca. 110 eksemplarer) danner præteritum og participium på -te, -t. De to grupper holdes dog ikke skarpt adskilt. I den lille svage gruppe findes der en række verber, der har vokalændring pga. omlyd i præteritum og participiet, f.eks. sætte : satte, sælge : solgte.[3]:103 \n\nIkke-morfologiske tider\nførnutid og førdatid dannes med hjælpeverbet har, havde + participiet, f.eks. han har købt en bil, han havde købt en bil. En række bevægeverber danner dog perfektum med er, var: han er gået sin vej (som på tysk er ist gegangen og fransk il est allé, men modsat engelsk he has gone). Nogle verber har begge muligheder, således at har bliver brugt for handlingen og er for resultatet: han har rejst meget, men han er rejst.\n\nFremtid udtrykkes med modalverberne vil eller skal + infinitiv, f.eks. tror du, det vil regne?, vi skal nok komme igen i morgen. Ofte står der blot en præsens, idet fremtidsbetydningen fremgår af sammenhængen, f.eks. i morgen køber han en bil.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Modus",
+          "body": "Dansk har to modus, indikativ og konjunktiv. Sidstnævnte findes i disse to former:\n\nDen germanske præsens konjunktiv er faldet sammen med infinitiven på dansk og bliver kun brugt i faste udtryk med en ønskende betydning: f.eks. leve kongen, det være hermed gjort.\n\nDen germanske præteritum konjunktiv er faldet sammen med præteritum indikativ på dansk. Den er stadig i levende brug i følgende anvendelser:\nPotentialis: Betingelsesledsætninger, der udtrykker mulighed. har præteritum, mens den overordnede sætning enten har præteritum eller, mere almindeligt, ville + infinitiv i den overordnede sætning. F.eks. hvis jeg var rig, byggede jeg et palads / ville jeg bygge et palads eller (uden konjunktion i betingelsessætningen) var jeg rig, byggede jeg et palads.\n\nOptativ: Et ønske bliver normalt udtrykt med gid eller bare + præteritum: gid jeg havde en elefant, bare det aldrig var sket. Den kan også udtrykkes med en elliptisk betingelsessætning, gerne med et adverbium som bare eller blot, f.eks. hvis jeg da bare havde en elefant!, var det bare aldrig sket!).\n\nImaginativ: I børnelege er det almindeligt at bruge præteritum, når der tales om de forestillede personers tanker og handlinger.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Diatese",
+          "body": "Ligesom de andre nordiske sprog har dansk en særlig passiv diatese med endelsen -s, der historisk set er en reduceret form af det refleksive pronomen sig, e.g. han kalder sig > han kaldes (sammenlign italiensk si chiama \"han hedder\"). Denne s-passiv bruges side om side med en passivform dannet med verbet blive + participiet. Passiv står i modsætning til aktiv som ikke markeres.",
+          "examples": [
+            "Ligesom de andre nordiske sprog har dansk en særlig passiv diatese med endelsen -s, der historisk set er en reduceret form af det refleksive pronomen sig, e.g. han kalder sig > han kaldes (sammenlign italiensk si chiama \"han hedder\"). Denne"
+          ],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        },
+        {
+          "heading": "Participium",
+          "body": "De stærke verber havde oprindelig også en særlig endelse i participiet, -en i stedet for -(e)t. Denne endelse er stadig levende i jysk i alle anvendelser af participiet, f.eks. jeg har funden ud af det, han har hjulpen mig – som det er almindeligt i ældre dansk. På moderne rigsdansk bruges en-endelsen derimod kun, når participiet fungerer som et adjektiv, og det kun i skarp konkurrence med t-former, f.eks. opgaven er bunden, en ubuden gæst (men en uindbudt gæst!).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Ordstilling",
+      "summary": "Hovedsætninger\nI en dansk sætning har rækkefølgen af ordene betydning for, hvilken funktion de enkelte ord har i sætningen. Det, der i et kasussprog bliver udtrykt ved hjælp af kasus, bliver på dansk altså udtrykt ved en særlig placering af det pågældende ord.",
+      "sections": [
+        {
+          "heading": "Ordstilling",
+          "body": "Hovedsætninger\nI en dansk sætning har rækkefølgen af ordene betydning for, hvilken funktion de enkelte ord har i sætningen. Det, der i et kasussprog bliver udtrykt ved hjælp af kasus, bliver på dansk altså udtrykt ved en særlig placering af det pågældende ord.\n\nI en hovedsætning vil man i reglen have følgende ordstilling:\n\nForfelt || Finit verbum | Subjekt | Adverbium A || Infinit verbum | Objekt | Adverbium B\nMan taler gerne om Diderichsens feltskema. Forfeltet er det sted, hvor man sætter et ord, der særlig skal fremhæves. Hvis der ikke er noget andet ord, vil man i en fremsættende sætning trække subjektet frem i forfeltet:\n\nManden || ville | – | ikke || være | taget | af sted\nSå meget | vil | jeg | ikke || give | – | for en brugt bil\nFor tusind år siden | erobrede | vikingerne | – || – | England | -\nDa han var kommet hjem fra ferie || fandt | han | – || – | døren | ulåst\nSverige | har | jeg | ikke || været | – | i (men jeg har engang været i Norge)\nSpist den | har | han | ikke || – | – | – (nej, han har slugt den)\nI en spørgende sætning vil man enten sætte et spørgende pronomen eller adverbium i forfeltet eller lade det stå tomt, dvs. begynde med verbet:\n\n– || Har | manden | virkelig || slået | sin kone | ihjel?\nHvor || har | du | – || lagt | kniven? | -\nNår subjektet kommer i forfeltet, taler man om ligefrem ordstilling, mens man taler om omvendt ordstilling (eller inversion), når subjektet følger verbet. Som det fremgår, er det den omvendte ordstilling, der er er grundprincippet i en dansk hovedsætning, men i realiteten er ligefrem ordstilling langt hyppigere end omvendt ordstilling.\n\nRækkefølgen af subjekt, verbum og objekt varierer fra sprog til sprog. Der er seks tænkelige rækkefølger: SVO, SOV, VSO, VOS, OVS, OSV. Dansk (og de andre nordiske sprog og tysk er egentlig et VSO-sprog. Engelsk og de romanske sprog har næsten altid VSO (selv om engelsk har rester af OSV). På Latin er ordstillingen fri, men det hyppigste er SOV. Se også artiklen sprogtypologi.\n\nLedsætninger\nLedsætninger har en noget anden ordrækkefølge:\n\nSætningsindleder || Subjekt | Adverbium A | Finit verbum || Infinit verbum | Objekt | Adverbium B\nSom det ses er verbet skubbet hen efter det første adverbiumsfelt. Denne forskydning er beslægtet med den velkendte tyske regel, der sætter det finitte verbum til sidst i en sætning.\n\n(Han fortalte sin kone,) at || butikken | ikke | havde || – | flere kartofler |\n(Huset,) som || de | havde | – || købt | – | for tredive år siden, (var nu til salg)\nPå dansk kan reglen dog blive brudt, hvis der af den ene eller den anden grund bliver sat et led ind først i bisætningen. Her vil der normalt være hovedsætningsordstilling:\n\n(Moderen råbte, at) hvis de ikke kom ind nu, || ville | de | snart || få | enden | på komedie",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Referencer",
+      "summary": "^ Karen Lund (1. december 2009). \"Et sprogtypologisk blik på alverdens sprog\". Sprogforum. 15 (47): 29-37. doi:10.7146/SPR.V15I47.113187. ISSN 1399-8617. Wikidata Q131598462.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "^ Karen Lund (1. december 2009). \"Et sprogtypologisk blik på alverdens sprog\". Sprogforum. 15 (47): 29-37. doi:10.7146/SPR.V15I47.113187. ISSN 1399-8617. Wikidata Q131598462.\n\n^ a b c Erik Hansen; Lars Heltoft (2011). Grammatik over det Danske Sprog (1. udgave). Det Danske Sprog- og Litteraturselskab. ISBN 978-87-7533-008-9. LCCN 2012499011. OCLC 772551798. OL 31018315M. Wikidata Q58673045.\n\n^ a b c d e f g h i Lisa Holm Christensen; Robert Zola Christensen (2014). Dansk grammatik (3. udgave). Odense: Syddansk Universitetsforlag. ISBN 978-87-7674-777-0. LCCN 2014409636. OCLC 880430322. OL 31182846M. Wikidata Q117288981.\n\n^ Ejskjær, Inger; Lund, Jørn (2022-04-01). \"danske dialekter\". lex.dk - Den Store Danske. Hentet 2023-05-16.\n\n^ https://ordregister.dk/id/COR.41062\n\n^ https://ordregister.dk/id/COR.86399\n\n^ Det Centrale Ordregister, opslag https://ordregister.dk/id/COR.88827 og https://ordregister.dk/id/COR.98248\n\n^ Marie Møller Larsen (17. september 2024). \"Flere ord får foretaget grammatisk kønsskifte – nu er det hamsterens tur\". TV2.dk. Wikidata Q130361092.\n\n^ sproget.dk: Bøjning i præsens og imperativ pluralis\n\n^ Det nye testamente - Novum Testamentum\n\nv\nd\nr\nDansk (sprog)\nAlfabet\nÆ\n\nØ\n\nÅ\n\nBraille\n\nFonologi\nStød\n\nDania\n\nGrammatik\nKasusrelikter\n\nPronominer\n\nSætningsskema\n\nOrdforråd\n\nStednavne\n\nDanske dialekter\nRigsdansk\n\n    Jysk\nVestjysk\nThybomål\n\nØstjysk\nVendelbomål\n\n       Sønderjysk\nMellemslesvigsk\n\nSydslesvigdansk\n\nAngeldansk\n\nFjoldemål\n\nØmål\nFynsk\nTåsingsk\n\nSjællandsk\nKalundborg-jysk\n\nØstdansk\nSkånsk\n\nBlekingsk\n\nBornholmsk\n\nListermål\n\nHallandsk\n\nAndre varianter\nDanglish\n\nGammeldansk\n\nGøtudanskt\n\nNydansk\n\nOlddansk\n\nRotvælsk\n\nOrganisationer\nCenter for Leksikografi\n\nDansk Sprognævn\n\nDet Danske Sprog- og Litteraturselskab\n\nUniversitets-Jubilæets danske Samfund\n\nUdgivelser om dansk\nsproget.dk\n\nordnet.dk\n\n    Grammatikbøger\nElementær Dansk Grammatik\n\nGrammatik over det Danske Sprog\n\n    Ordbøger\nDansk Navneleksikon\n\nDen Danske Begrebsordbog\n\nDen Danske Ordbog\n\nMoths Ordbog\n\nNudansk Ordbog\n\nOrdbog over det danske Sprog\n\nRetskrivningsordbogen\n\nVidenskabernes Selskabs Ordbog\n\n    Tidsskrifter\nDanske Studier\n\nDanske Talesprog\n\nNy Forskning i Grammatik\n\nNyS\n\nTidsskrift for Sprogforskning\n\nMål og Mæle\n\nAndet\nDet Centrale Ordregister\n\nDanNet\n\nDansk tegnsprog\n\nModersmål-Prisen\n\nÅrets ord",
+          "examples": [
+            "^ Karen Lund (1. december 2009). \"Et sprogtypologisk blik på alverdens sprog\". Sprogforum. 15 (47): 29-37. doi:10.7146/SPR.V15I47.113187. ISSN 1399-8617. Wikidata Q131598462.",
+            "^ Ejskjær, Inger; Lund, Jørn (2022-04-01). \"danske dialekter\". lex.dk - Den Store Danske. Hentet 2023-05-16.",
+            "^ Marie Møller Larsen (17. september 2024). \"Flere ord får foretaget grammatisk kønsskifte – nu er det hamsterens tur\". TV2.dk. Wikidata Q130361092."
+          ],
+          "learnerTip": "",
+          "source": "https://da.wikipedia.org/wiki/Dansk_grammatik"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson 1",
+      "summary": "^ Lektion 2: Familie ^ Lektion 3: Tal og Farver ^",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "^ Lektion 2: Familie ^ Lektion 3: Tal og Farver ^\n\n\n=== A note on pronunciation ===\nDanish words are rather difficult for English-speakers to pronounce correctly when given only the written form. Even after hearing the words being spoken, the sounds can be frustrating to reproduce. The pronunciation guide is an attempt to explain how the words should be spoken, but these rules are quite hard to follow when confronted with a word like Smørrebrødsjomfru (refers to a woman making something called \"Smørrebrød\", which is a slice of dark bread with butter and a lot of fillings on top, like salad, fish, \"remoulade\" etc.).\nHere's a very incomplete list of tips for the simple greetings in this lesson:\n\nHej (\"Hi\") = almost like the English Hi. Sound sample Media:Hej.ogg\nDav = say Dau. Sound sample Media:Dav.ogg\nGoddag (\"Goodday\") = the last g is silent. Sound sample Media:Goddag.ogg\nGodmorgen (\"Goodmorning\") = \"go-moarn\". The r is pronounced in the back of the throat, nearly silent. Sound sample Media:Godmorgen.ogg\n\n\n== Hellos and Goodbyes in Danish ==\nHellos:\n\nHello!                Hej!\n                      Hejsa!\n                      Dav!\n                      Goddag!\nGood morning!         Godmorgen!\nGood evening!         Godaften!\nWhat's up!            Hvad så! \n\nGoodbyes:\n\nGoodbye/Farewell      Farvel!\nBye!                  Hej hej!\nSee you later!        Vi ses senere!\nSee you!(Shortened)   Vi ses!\nGood night!           Godnat!\n\n\n== Samtale 1 ~ Conversation 1 ==\nSofie and Louise are friends. They meet and talk about their day.\nLouise: Hej Sofie, hvordan går det?\nSofie: Det går godt, tak. Hvad med dig?\nLouise: Jeg har det fint.\nSofie: Hvad så?\nLouise: Ikke noget særligt\nSofie: Hej hej, Louise.\nLouise: Vi ses.\n\n\n=== Ordforklaringer ~ Vocabulary ===\n\nYou can probably figure out the rest, with the help of the Hellos and Goodbyes table.\n\n\n== Samtale 2 ==\nTake a look at this short formal conversation to see how Danes address each other formally.\nHr. Nilsen: Goddag! Hvordan har De det?\nHr. Klaaborg: Goddag! Jeg har det fint, tak.\nHr. Nilsen: Godt, Farvel!\nHr. Klaaborg: Farvel!\n\nVoice sample (one voice) \n\n\n=== Ordforklaringer ===\n\nYou may have noticed that hr. Nilsen referred to hr. Klaaborg as De. This is the polite form for you, as opposed to the casual du, which Sofie and Louise used. This is rarely used in Danish today though, but can still be seen when people demand great respect, like, for example, the nobility.\n\n\n=== Flere ordforklaringer ~ More vocabulary ===\nbesøge                    visit\nbro                       bridge\nven, venner               friend, friends\nsamtale, samtaler         conversation, conversations\ngrammatik                 grammar\nlektie                    homework\nlektion                   lesson\ngade, vej                 street, road\nordforklaringer           word explanations, vocabulary\n\nat gå                     to go/walk\nmed                       with\nat være                   to be\n\nat møde                   to meet\nat besøge                 to visit\nat forstå                 to understand\n\nmen                       but, however\nogså                      also, too, as well\ntak                       thank you; thanks\ndet                       it (pronoun)\nnej                       no\nja                        yes\nkorrekt                   correct\nallerede                  already\nsmuk                      beautiful\nmeget                     very\nog                        and\n\n\n== Pronominer ~ Pronouns ==\nThe Danish pronouns shouldn't be too hard to memorize, as they are most of the time close to their English equivalents. vi = we and os = us, for example.\n\n^ Lektion 2: Familie ^ Lektion 3: Tal og Farver ^",
+          "examples": [
+            "Danish words are rather difficult for English-speakers to pronounce correctly when given only the written form. Even after hearing the words being spoken, the sounds can be frustrating to reproduce. The pronunciation guide is an attempt to ",
+            "Hej (\"Hi\") = almost like the English Hi. Sound sample Media:Hej.ogg",
+            "Goddag (\"Goodday\") = the last g is silent. Sound sample Media:Goddag.ogg",
+            "Godmorgen (\"Goodmorning\") = \"go-moarn\". The r is pronounced in the back of the throat, nearly silent. Sound sample Media:Godmorgen.ogg"
+          ],
+          "learnerTip": "^ Lektion 2: Familie ^ Lektion 3: Tal og Farver ^",
+          "source": "https://en.wikibooks.org/wiki/Danish/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson 2",
+      "summary": "This is an unfinished translation of Swedish/Lesson_4.",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "This is an unfinished translation of Swedish/Lesson_4.\n\n^ Lektion 1: Velkommen ^ Lektion 3: Tal og Farver ^\n\n\n== Immediate family ==\n\n\n==== Forældre ~ Parents ====\nJust like in English, the Danish language has several words for mother and father. Starting with the words for mother, we see:\n\nMor\nAnd sometimes:\n\nModer\nThe most common word for father is:\n\nFar\nBut occasionally\n\nFader\nis used.\n\n\n==== Søskende ~ Siblings ====\nThe words for søskende (siblings) are for brother:\n\nBror\nBroder\nand for sister:\n\nSøster\n\n\n==== Børn ~ Children ====\nIn Danish, the words for son and daughter are close to English. They are søn and datter, respectively.\n\n\n== The rest of the family ==\nOnkel = Uncle, used mostly for a man married to a moster or faster\nMorbror = Mother's brother\nFarbror = Father's brother\nTante = Aunt, used mostly about a woman married to a farbror or morbror\nMoster = Mother's sister\nFaster = Father's sister\nNiece = Niece\nNevø = Nephew\nFætter = Male cousin\nKusine = Female cousin\n\n\n==== Bedsteforældre ~ Grandparents ====\nGrandparents are also quite simple. Keep in mind mor is mother and far is father.\nMaternal Grandparents:\n\nMormor = Maternal grandmother\nMorfar = Maternal grandfather\nPaternal Grandparents:\n\nFarmor = Paternal grandmother\nFarfar = Paternal grandfather\nThe Danish word for grandchild is barnebarn.\n\n\n==== Oldeforældre ~ Great-grandparents ====\nOldefar/Oldefader = Great-grandfather\nOldemor/Oldemoder = Great-grandmother\nThe Danish word for great-grandchild is oldebarn\n\n\n==== Tipoldeforældre ~ Great-great-grandparents ====\nTipoldefar/Tipoldefader = Great-great-grandfather\nTipoldemor/Tipoldemoder = Great-great-grandmother\nThe Danish word for great-great-grandchild is tipoldebarn.\n\nFor every generation from this point forward you add another tip- to the title.\n\n^ Lektion 1: Velkommen ^ Lektion 3: Tal og Farver ^",
+          "examples": [],
+          "learnerTip": "This is an unfinished translation of Swedish/Lesson_4.",
+          "source": "https://en.wikibooks.org/wiki/Danish/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Lesson 3",
+      "summary": "^ Lektion 1: Velkommen ^ Lektion 2: Familie ^",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "^ Lektion 1: Velkommen ^ Lektion 2: Familie ^\n\nIn this section we attempt to teach you numbers and colors in Danish.\n\n\n== Tal ~ Numbers ==\nThe Danish number system can be confusing. Instead of saying twenty-one, in Danish the equivalent is literally one-and-twenty. This rule goes all the way up to the nineties. It can seem illogical at times, especially when reciting phone numbers. The hundreds, thousands, millions and so on are put in the same order as in English. If you want to say four thousand two hundred twenty-four it's fire tusinde to hundrede og fireogtyve which literally is four thousands two hundreds fourandtwenty. Notice that there aren't any spaces in numbers below 100 when written in words in Danish, but numbers higher than 100 are split up in several words. Also notice that thousands are mentioned in plural because there's more than one (fire tusinde-).\n\n\n== Farver ~ Colours ==\nRed - Rød\nBlue - Blå\nYellow - Gul\nGreen - Grøn\nPurple - Lilla\nOrange - Orange\nBrown - Brun\nBlack - Sort\nWhite - Hvid\nGrey - Grå\n\n^ Lektion 1: Velkommen ^ Lektion 2: Familie ^",
+          "examples": [],
+          "learnerTip": "^ Lektion 1: Velkommen ^ Lektion 2: Familie ^",
+          "source": "https://en.wikibooks.org/wiki/Danish/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson 4",
+      "summary": "In this section of Danish, we are going to cover up on words for basic clothes. It won't be a long lesson, we'll just see how it goes ;-)",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "^ Lektion 3: Tal ^ Lektion 2: Familie ^\n\nIn this section of Danish, we are going to cover up on words for basic clothes. It won't be a long lesson, we'll just see how it goes ;-)\n\n\n== Clothes ==\n\nHat - Hat\nShirt - Skjorte\nPants - Bukser (Cowboybukser is for Cowboy pants ;-))\nDress - Kjole\nSkirt - Nederdel\nShoes - Sko\nSuit - Jakkesæt\nSocks - Strømper\nJacket - Frakke\n\n\n=== How does this whole thing work? ===\nTo wear - at have på (literally “to have on”)\nFor the present tense of \"at have på\", would be for har på. And for this to be used in sentences such as \"I am wearing pants\" (or \"I have pants on\"), it would be: Jeg har bukser på. If we wanted to say \"I am not wearing pants\", then we would say \"Jeg har ikke bukser på\". Simple? Ain't it?\nJUST REMEMBER!\n\n\n== Examples ==\nJeg har en frakke på - I am wearing a coat\nJeg har ikke tøj på - I am not wearing clothes (Let's hope you don't need to say this)\nHun har en nederdel på - She is wearing a skirt\nDe har busker på - They are wearing pants\nHan har en jakkesæt på - He is wearing a suit\nHan har cowboybukser på - He is wearing cowboy pants\n\n\n=== Notes ===\nIt's possible to not have the article on. Don't get what I mean? Look:\n\nJeg har en frakke på - I am wearing a jacket\nJeg har frakke på - I am wearing a jacket\nBoth are correct. But the first one, with the article, is used to show special importance to the object being worn.\nRemember to also include the 'på' at the end! Take a look:\n\nJeg har en nederdel på - I am wearing a skirt\nJeg har en nederdel - I have a skirt (This sentence does not have the same meaning as the first sentence. This makes the hearer/person you're talking to/reader think you have a skirt, not wearing the skirt).\n\n\n== Conclusion ==\nThanks for reading, and taking an interest to learn the Danish language. Post any comments/suggestions/concerns on the discussion page. Tak og farvel! \n\n^ Lektion 3: Tal ^ Lektion 2: Familie ^",
+          "examples": [
+            "For the present tense of \"at have på\", would be for har på. And for this to be used in sentences such as \"I am wearing pants\" (or \"I have pants on\"), it would be: Jeg har bukser på. If we wanted to say \"I am not wearing pants\", then we woul"
+          ],
+          "learnerTip": "In this section of Danish, we are going to cover up on words for basic clothes. It won't be a long lesson, we'll just see how it goes ;-)",
+          "source": "https://en.wikibooks.org/wiki/Danish/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Nouns",
+      "summary": "There are two grammatical genders in Danish: common and neuter. All nouns are mostly arbitrarily divided into these two classes. The singular indefinite article (a/an in English) is en for common-gender nouns and et for neuter nouns. They are often informally called n-words and t",
+      "sections": [
+        {
+          "heading": "Inflections",
+          "body": "There are two grammatical genders in Danish: common and neuter. All nouns are mostly arbitrarily divided into these two classes. The singular indefinite article (a/an in English) is en for common-gender nouns and et for neuter nouns. They are often informally called n-words and t-words.\n\nEn dreng. A boy.\n\nEt fængsel. A jail.\n\nUnlike English, definite nouns in Danish are rendered by adding a suffix (i.e. not an article) to the indefinite form (unless qualified by an adjective; see below). The definite singular ending is -en for common-gender nouns and -et for neuter nouns.\n\nDrengen. The boy.\n\nFængslet. The jail.\n\nThe plural noun suffixes are more complex. The following table shows the possible inflections of regular Danish nouns of both grammatical genders.\n\nGender\nSingular\nPlural\nMeaning\n\nIndefinite\nDefinite\nIndefinite\nDefinite\n\nCommon\n\nen bil\nen kvinde\nen dreng\nen sko\nbilen\nkvinden\ndrengen\nskoen\nbiler\nkvinder\ndrenge\nsko\nbilerne\nkvinderne\ndrengene\nskoene\n\n\"car\"\n\"woman\"\n\"boy\"\n\"shoe\"\n\nNeuter\n\net træ\net æble\n et lyn\n et kammer\ntræet\næblet\nlynet\nkammeret\ntræer\næbler\nlyn\nkamre\ntræerne\næblerne\nlynene\nkamrene\n\n\"tree\"\n\"apple\"\n\"flash of lightning\" \n\"chamber\"\n\nThe most common plural ending is -er. Besides an extremely large number of other nouns, nearly all those that end with unstressed -e take it,[note 1] as does the vast majority of those that end with a monophthong other than -e.[note 2]\n\nThe zero plural ending is predominantly used with neuter nouns.[note 3]\n\nThe plural ending -e is used with:\n\na large number of monosyllabic nouns that end with a consonant or diphthong[note 4] (and any compound ending with one of those monosyllabic nouns)\n\nalmost all nouns that end with unstressed -er[note 5]\n\neight common-gender nouns that end with unstressed -el: apostel, discipel, djævel, engel, himmel, stimmel, vrimmel, variabel[note 6]\n\nsome of the nouns denoting persons that end with -ing[note 7] (all of which are common gender)\n\nsome other common-gender plurisyllabic nouns[note 8]\n\nIn the singular definite, common-gender nouns always take the ending -en, while neuter nouns always take -et. Plural definite adds -ene to the indefinite if it has no suffix[note 9] or a borrowed suffix,[note 10] otherwise -ne (exception: mennesker \"human beings, people\" → menneske(r)ne).\n\nNouns that end in unstressed -e lose the -e when adding an ending: kvinde, kvind-en, kvind-er, kvind-erne \"woman\". Nouns that end in unstressed -er, -el, or -en lose or keep the e according to the rules below. When the loss of the e leads to a double consonant coming immediately before the stem-final r, l, or n,  it is simplified (e.g. fætter, fæt_r-e \"male first cousin\"; seddel, sed_l-en, sed_l-er \"(bank)note\"). \n\nAll nouns ending in unstressed -er can keep the e before the definite singular ending: fætter-en, kammer-et, orkest(e)r-et. The common-gender nouns in this group must keep it, with the sole exception of baluster, which can also be neuter: balust(e)ren/balust(e)ret.\n\nOf the nouns ending in unstressed -er that take the indefinite plural ending -e, those that keep the e of the stem before the indefinite plural ending (e.g. banner-e) lose the plural ending -e before the definite plural ending -ne (e.g. banner-_-ne) – but see kælder below. (Those that lose the e of the stem before the indefinite plural ending (e.g. ced_r-e) follow the main rule and keep the plural ending -e before the definite plural ending -ne (e.g. ced_r-e-ne).)\n\nOf the common-gender nouns ending in unstressed -er, the vast majority take the plural ending -e and keep the e of the stem in all forms: arbejder, arbejder-en, arbejder-e, arbejder-_-ne. Of the minority, those that take the plural ending -e keep the e of the stem in the definite singular form (with the sole exception mentioned above) and lose it in the plural forms: mester, mester-en, mest_r-e, mest_r-e-ne. Some inflect either like arbejder or like mester: salamander, salamander-en, salamand(e)r-e, salamander-_-ne/salamand_r-e-ne. Kælder inflects like arbejder or like mester in the indefinite plural, but only like mester in the definite plural: kælder, kælder-en, kæld(e)r-e, kæld_r-e-ne.\n\nWith seven exceptions,[note 11] all nouns ending in unstressed -el can lose the e before all endings: cykel, cyk_l-en, cyk_l-er, cyk_l-er-ne; engel, eng_l-en, eng_l-e, eng_l-e-ne; bibel, bib(e)l-en, bib_l-er, bib_l-er-ne; himmel, him(me)len, him_l-e, him_l-e-ne. With the seven exceptions already mentioned plus another seven,[note 12] all nouns in this group must lose the e before the plural endings. The word pixel can't lose the e before the plural ending -s, but must lose it before the plural ending -er: pix(e)l-en, pixel-s/pix_l-er, pix_l-er(-)ne.\n\nAll nouns ending in unstressed -en can keep the e before all endings.\n\nIt is common for nouns to change during inflection in ways that aren't reflected in spelling. They can lose stød (e.g. hus [ˈhuːˀs], huset [ˈhuːˀsəð], huse [ˈhuːsə]), add stød, or lengthen the root vowel (the last two possibilities are exemplified by bad [ˈpæð], badet [ˈpæːˀðð̩]).\n\nThere are many nouns with irregular plurals. Here are some examples:\n\nGender\nSingular\nPlural\nMeaning\n\nIndefinite\nDefinite\nIndefinite\nDefinite\n\nCommon\n\nen mand\nen gås\nen tand\nen hånd\nen tå\nen bog\nen bonde\nen ko\nen drink\nen Oscar\nen jalapeno\nen risiko\nmanden\ngåsen\ntanden\nhånden\ntåen\nbogen\nbonden\nkoen\ndrinken\nOscaren\njalapenoen\nrisikoen\nmænd\ngæs\ntænder\nhænder\ntæer\nbøger\nbønder\nkøer\ndrinks\nOscars\njalapenos\nrisici[2]\nmændene\ngæssene\ntænderne\nhænderne\ntæerne\nbøgerne\nbønderne\nkøerne\ndrinksene\nOscarene\njalapenoerne\nrisiciene[3]\n\n\"man\"\n\"goose\"\n\"tooth\"\n\"hand\"\n\"toe\"\n\"book\"\n\"farmer\"\n\"cow\"\n\"drink\"\n\"Academy Award\"\n\"jalapeño\"\n\"risk\"\n\nNeuter\n\net barn\net bræt\net onomato-\npoietikon\nbarnet\nbrættet\nonomato-\npoietikonet\nbørn\nbrædder\nonomato-\npoietika\nbørnene\nbrædderne\nonomato-\npoietikaene\n\n\"child\"\n\"board\"\n\"onomato-\npoietic\"\n\nMost either have vowel change with or without a suffix, or are foreign words using their native plurals.\n\nIf a noun is preceded by a number composed of more than one distinct part, the last part determines the grammatical number. 1001 Nat (literally \"1001 Night\") and to en halv time (literally \"two and a half hour\") use singular nouns, whereas English would use \"nights\" and \"hours\".",
+          "examples": [
+            "\"car\"",
+            "\"woman\"",
+            "\"boy\"",
+            "\"shoe\"",
+            "\"tree\"",
+            "\"apple\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Possessive",
+          "body": "There are no case declensions in Danish nouns (unlike the pronouns). Nouns are inflected only for possession which is expressed with a possessive enclitic, for example min fars hus, \"my father's house\", where the noun far carries the possessive enclitic.[4] As in English, but unlike in case-inflected languages such as German, this enclitic -s is not a marker of a genitive case; a case inflection only modifies a single noun (and any adjectives in agreement with it), but in longer noun phrases the possessive enclitic attaches to the last word in the phrase, which need not be the head-noun or even a noun at all. For example, the phrases kongen af Danmark's bolsjefabrik, \"the king of Denmark's candy factory\", or det er pigen Uffe bor sammen meds datter \"that is the girl Uffe lives with's daughter\", where the enclitic attaches to a stranded preposition.[5][6]\n\nWhen the noun can be considered part of the possessor noun physically (a part-whole relation), the possessive is often replaced by a prepositional phrase, e.g. låget på spanden \"the lid on the bucket\", bagsiden af huset \"the back of the house\" rather than spandens låg, husets bagside, which are not incorrect but more formal, and less informative.\n\nOlder case forms exist as relics in phrases like i live \"alive\" (liv = \"life\"), på tide \"about time\" (tid = \"time\"), på fode \"on his foot\" (fod = \"foot\"). Similarly, the genitive is used in certain fossilised prepositional phrases (with til \"to\"): til fods \"on foot\", til vands/søs \"by water/sea\", gå til hånde \"assist\" (hånde being an old genitive plural of hånd \"hand\", now replaced by hænder). (Compare \"thereof\" in English, the possessive case of \"there\", which survives only in fossilised semi-archaic or legal phrases like \"or part thereof\").",
+          "examples": [
+            "There are no case declensions in Danish nouns (unlike the pronouns). Nouns are inflected only for possession which is expressed with a possessive enclitic, for example min fars hus, \"my father's house\", where the noun far carries the posses",
+            "When the noun can be considered part of the possessor noun physically (a part-whole relation), the possessive is often replaced by a prepositional phrase, e.g. låget på spanden \"the lid on the bucket\", bagsiden af huset \"the back of the hou",
+            "Older case forms exist as relics in phrases like i live \"alive\" (liv = \"life\"), på tide \"about time\" (tid = \"time\"), på fode \"on his foot\" (fod = \"foot\"). Similarly, the genitive is used in certain fossilised prepositional phrases (with til"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Articles",
+          "body": "Danish has indefinite and definite articles (kendeord) functioning as determiners. The indefinite article is placed before a noun and takes the forms en (common gender) and et (neuter) depending on the noun. These forms are identical (in writing) to the numeral meaning one. Definiteness is only marked with an article placed before the noun when the noun has other preceding modifiers (e.g. adjectives), and the definite article then has the forms den (common), det (neuter) and de (plural). When lacking preceding modifiers, nouns are marked as definite with the definite suffixes -en (common), -et (neuter), -(e)ne (plural).[1]\n\nIndefinite\nNo article\nDefinite article\n\nSuffix\nArticle\n\nCommon\n\nen hund\nen stor hund\nLones hund\nLones store hund\nhunden\nden store hund\n\nNeuter\n\net hus\net stort hus\nPeters hus\nPeters store hus\nhuset\ndet store hus\n\nPlural\n\nhunde\nstore hunde\nhuse\nstore huse\nLones hunde\nLones store hunde\nPeters huse\nPeters store huse\nhundene\nhusene\n\nde store hunde\nde store huse",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Pronouns",
+      "summary": "Personal pronouns in Danish have three cases: nominative, oblique (accusative and dative), and possessive (or genitive).[1]: 88  The nominative form is used when the pronoun is used as an unmodified subject,[7]: 49  while the oblique form is used anywhere else: as direct and indi",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Personal pronouns in Danish have three cases: nominative, oblique (accusative and dative), and possessive (or genitive).[1]: 88  The nominative form is used when the pronoun is used as an unmodified subject,[7]: 49  while the oblique form is used anywhere else: as direct and indirect object of verbs, prepositional complement, subject predicate, part of coordinated subject,[6]: 162–167  or with following modifiers (such as der 'there' and prepositional phrases).[7]: 49 \n\nNominative case\nOblique case\nPossessive\n\nCommon\nNeuter\nPlural\n\nSingular\n\nFirst person\n\njeg I\nmig me\nmin my/mine\nmit\nmine\nI\n\nSecond person\ninformal1)\n\ndu (thou)\ndig (thee)\ndin (thy/thine)\ndit\ndine\nyou\n\npolite1)\n\nDe\nDem\nDeres\n\nThird person\n(personal)\nmasculine\n\nhan he\nham him\nhans his\nhe\n\nfeminine\n\nhun she\nhende her\nhendes her(s)\nshe\n\nThird person\n(inanimate)\ncommon\n\nden\nden\ndens\nthey, it\n\nneuter\n\ndet it\ndet it\ndets its\n\nReflexive2)\n\n–\nsig\nsin\nsit\nsine\nhim, her, it\n\nPlural\n\nFirst person\n\nvi we\nos us\nvor3)\nvort3)\nvore3)\nwe\n\nvores our(s)\n\nSecond person\ninformal1)\n\nI (ye)\njer you\njeres your(s)\nyou (all)\n\npolite1)\n\nDe\nDem\nDeres\n\nThird person\n\nde they\ndem them\nderes their(s)\nthey\n\nReflexive2)\n\n–\nsig\nderes\n\n1) Since the 1970s, the polite form De (cf. German Sie) is no longer the normal form of addressing adult strangers. It is only used in formal letters or when addressing the royal family. It is sometimes used by shop assistants and waiters to flatter their customers. As a general rule, one can use du almost in every situation without offending anyone.[6]\n\n2) The reflexive pronoun is used when the object or possessive is identical to the grammatical subject of the sentence: Han kyssede sin kone \"He kissed his (own) wife\" ~ Han kyssede hans kone \"he kissed his (somebody else's) wife\". It is also used when referring to the subject of an infinite nexus, e.g. an accusative with infinitive: Rødhætte bad jægeren hilse sin kone \"Little Red Riding Hood asked the hunter to greet his wife\", where sin refers to the hunter. This difference is often not observed by Jutlandic speakers.\n\n3) Vores is the only form normally used in current spoken language; vor, vort and vore are more archaic, and perceived as formal or solemn.\n\nDanish also has the generic pronoun man 'one, you'; én is often used as its oblique form.[1]: 95  The second person singular pronoun du 'you' can also be used with generic reference.[8]",
+          "examples": [
+            "2) The reflexive pronoun is used when the object or possessive is identical to the grammatical subject of the sentence: Han kyssede sin kone \"He kissed his (own) wife\" ~ Han kyssede hans kone \"he kissed his (somebody else's) wife\". It is al"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Verbs",
+      "summary": "In contemporary Danish, the verb has up to nine distinct forms, as shown in the chart below.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "In contemporary Danish, the verb has up to nine distinct forms, as shown in the chart below.\n\nNon-finite forms\n\nActive forms\nPassive forms\n\nInfinitive\n(at) vente\nto wait/expect\n(at) ventes, (at) blive ventet\nto be expected\n\nVerbal noun\nventen\na waiting\n\nPresent participle\nventende\nwaiting/expecting\n\nPast participle\n(har) ventet\n(have) waited/expected\n(var) ventet\n(was) expected\n\nFinite forms\n\nPresent tense\nventer\nwait(s)/expect(s)\nventes, bliver ventet\nam/is/are expected\n\nPast tense\nventede\nwaited/expected\nventedes, blev ventet\nwas/were expected\n\nImperative\nvent\nwait/expect\nbliv ventet\nbe expected",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Person and number",
+          "body": "Verbs do not vary according to person or number: jeg venter, du venter, han, hun, den, det venter, vi venter, I venter, de venter. However, until the beginning of the twentieth century, it was normal to inflect the present tense in number in educated prose. There existed also a special plural form in the imperative. These forms are not used anymore, but can be found in older prose:\n\nweak verbs\nstrong verbs\n\nSingular\nPlural\n\nSingular\nPlural\n\nPresent\nventer\nvente\nwait(s)\ntager\ntage\ntake(s)\n\nPast\nventede\nventede\nwaited\ntog\ntoge\ntook\n\nImperative\nvent!\nventer!\nwait\ntag!\ntager!\ntake\n\nFor example, Søger, saa skulle I finde \"Seek, and ye shall find\" (Matthew 7:7); in the 1992 translation Søg, så skal I finde.",
+          "examples": [
+            "For example, Søger, saa skulle I finde \"Seek, and ye shall find\" (Matthew 7:7); in the 1992 translation Søg, så skal I finde."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Tenses",
+          "body": "Like in other Germanic languages, the conjugation of verb tenses is divided into two groups: The first group, the so-called weak verbs, indicates the past tense by adding the suffixes -ede or -te. The second, called strong verbs, forms the past tense with a zero ending and, in most cases, certain vowel changes.\n\nThe future tense is formed with the modal verbs vil or skal and the infinitive, e.g. tror du, det vil regne, \"do you think it's going to rain\", vi skal nok komme igen i morgen, \"we'll come again tomorrow\". Often the present tense is also used as future, only with the addition of a time specification i morgen køber han en bil, \"tomorrow he'll buy a car\".\n\nIn the perfect, the word har (\"have, has\") is placed before the past participle: han har købt en bil, \"he has bought a car\". In certain words implying a movement, however, er (\"am, are, is\") is used instead:  han er gået sin vej, \"he has gone\" (like German er ist gegangen or French il est allé). In such cases har is used for the activity, while er is used if the result is what is interesting. Han har rejst meget, \"he has traveled a lot\". Han er rejst, \"he is gone\", he is not here anymore.\n\nSimilarly, the pluperfect is formed with havde or var: han havde købt en bil, han var gået sin vej. NB?. The perfect is used in many cases where English would have a simple preterite.[when?]",
+          "examples": [
+            "The future tense is formed with the modal verbs vil or skal and the infinitive, e.g. tror du, det vil regne, \"do you think it's going to rain\", vi skal nok komme igen i morgen, \"we'll come again tomorrow\". Often the present tense is also us",
+            "In the perfect, the word har (\"have, has\") is placed before the past participle: han har købt en bil, \"he has bought a car\". In certain words implying a movement, however, er (\"am, are, is\") is used instead:  han er gået sin vej, \"he has go"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Moods",
+          "body": "In Danish, there are two finite moods, indicative and imperative. Depending on interpretation, there may also be an optative.\n\nThe indicative mood is used everywhere, unless the imperative or optative is required.\n\nThe imperative is used in commands: \"Kør langsomt!\" (Drive slowly!), \"Kom her!\" (Come here!). (The imperative is the stem of the verb.)\n\nThe optative is rare and used only in archaic or poetic constructions. It's probably more correct to describe these as elliptical constructions leaving out a modal and just retaining an infinitive, e.g. \"Gud være lovet!\" (God be praised!), \"Kongen længe leve!\" (Long live the king!) – completely analogous to the English use.\n\nIn short, Danish morphology offers very little in moods. Just like English, Danish depends on tense and modals to express moods.\n\nExample: Where a language with an explicit subjunctive mood (such as German, Spanish, or Icelandic) would use that mood in hypothetical statements, Danish uses a strategy similar to that of English. Compare:\n\na. Real, or at least possibly real, situation in present time: Hvis Peter køber kage, laver Anne kaffe. \"If Peter buys [some] cake, Anne makes coffee.\" Here, the present indicative is used.\n\nb. Real, or at least possibly real, situation in past time: Hvis Peter købte kage, lavede Anne kaffe. \"If Peter bought [some] cake, Anne made coffee.\" Here, the past indicative is used.\n\nc. Unreal situation in present time: Hvis Peter købte kage, lavede Anne kaffe. \"If Peter bought [some] cake, Anne made (i.e. would make) coffee.\" (Implying: But Peter doesn't actually buy any cake, so Anne doesn't make coffee—making the whole statement hypothetical.) Here, the past indicative is used.\n\nd1. Unreal situation in past time: Hvis Peter havde købt kage, havde Anne lavet kaffe. \"If Peter had bought [some] cake, Anne had made (i.e., would have made) coffee.\" (Implying that Peter didn't actually buy any cake and so Anne didn't make coffee—making the whole statement hypothetical.) Here, the pluperfect indicative is used.\n\nIn the hypothetical cases (c. and d.), Danish creates distance from reality by \"moving the tense one step back\". Although these sentences are possible, it would be normal in Danish, as in English, to further stress the irreality by adding a modal. So that, instead of either example c. or d1, Danish can add ville (would) in the main sentence, creating a periphrastic subjunctive:\n\nd2. Unreal situation in past time: Hvis Peter havde købt kage, ville Anne have lavet kaffe. \"If Peter had bought [some] cake, Anne would have made coffee.\"\n\n(As can be seen from the examples, Danish, unlike English, places the auxiliary verb before the subject when a main clause follows a subordinate clause, but this word order is unconnected with the mood of the sentence. See V2 word order.)",
+          "examples": [
+            "The imperative is used in commands: \"Kør langsomt!\" (Drive slowly!), \"Kom her!\" (Come here!). (The imperative is the stem of the verb.)",
+            "The optative is rare and used only in archaic or poetic constructions. It's probably more correct to describe these as elliptical constructions leaving out a modal and just retaining an infinitive, e.g. \"Gud være lovet!\" (God be praised!), ",
+            "Example: Where a language with an explicit subjunctive mood (such as German, Spanish, or Icelandic) would use that mood in hypothetical statements, Danish uses a strategy similar to that of English. Compare:",
+            "a. Real, or at least possibly real, situation in present time: Hvis Peter køber kage, laver Anne kaffe. \"If Peter buys [some] cake, Anne makes coffee.\" Here, the present indicative is used.",
+            "b. Real, or at least possibly real, situation in past time: Hvis Peter købte kage, lavede Anne kaffe. \"If Peter bought [some] cake, Anne made coffee.\" Here, the past indicative is used.",
+            "c. Unreal situation in present time: Hvis Peter købte kage, lavede Anne kaffe. \"If Peter bought [some] cake, Anne made (i.e. would make) coffee.\" (Implying: But Peter doesn't actually buy any cake, so Anne doesn't make coffee—making the who"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Voice",
+          "body": "Like the other Scandinavian languages, Danish has two ways of making the passive voice. One is a special inflection using the suffix -s, which is historically a reduced enclitic form of the reflexive pronoun sig (\"himself, herself, itself, themselves\"), e.g. han kalder sig \"he calls himself\" > han kaldes \"he is called\". The second is a periphrastic form made with the verb blive (\"to remain, to become\").\n\nIn addition to the normal passive usage, the passive also denotes:\n\na reciprocal meaning (only with the s-passive): Hans og Jørgen mødtes på gaden \"John and George met on the street\", vi ses på onsdag \"we'll see each other on Wednesday\", I må ikke slås \"you must not fight\" (literally \"beat each other\").\n\nan intransitive meaning (a lexicalised s-passive): der findes / fandtes mange grunde til at komme \"there are / were many reasons why one should come\" (literally: \"are / were found\").\n\nan impersonal meaning: der kæmpes / bliver kæmpet om pladserne \"there is a struggle for the seats\".\n\nIn the preterite, the periphrastic form is preferred in non-formal speech except in reciprocal and impersonal passives: de sås ofte \"they often saw each other\", der fandtes en lov imod det \"there was a law against it\" (but real passive: de blev set af politiet \"they were seen by the police\", der blev fundet en bombe \"a bomb was found\").\n\nThe s-form of the verb can also imply habitual or repetitive action, e.g. bilen vaskes \"the car is washed\" (regularly) vs. bilen bliver vasket \"the car is (being) washed\" (right now, soon, next week, etc.)\n\nIn Swedish, the s-passive of the perfect participle is regular both in the real passive and in other functions, e.g. vårt företag har funnits sedan 1955 \"our company has existed since 1955\"; bilen har setts ute på Stockholms gator \"the car has been seen in the streets of S.\" In Danish, however, the real passive has only periphrastic forms in the perfect: bilen er blevet set ude på Stockholms gader. In the lexicalised and reciprocal passives, on the other hand, we find a combination of the verb have and the s-passive preterite: e.g. mødtes \"have met\", har fandtes \"have existed\" etc. (but the irregular har set(e)s \"have seen each other\" is much more common than har sås, which is considered substandard).",
+          "examples": [
+            "Like the other Scandinavian languages, Danish has two ways of making the passive voice. One is a special inflection using the suffix -s, which is historically a reduced enclitic form of the reflexive pronoun sig (\"himself, herself, itself, ",
+            "a reciprocal meaning (only with the s-passive): Hans og Jørgen mødtes på gaden \"John and George met on the street\", vi ses på onsdag \"we'll see each other on Wednesday\", I må ikke slås \"you must not fight\" (literally \"beat each other\").",
+            "an intransitive meaning (a lexicalised s-passive): der findes / fandtes mange grunde til at komme \"there are / were many reasons why one should come\" (literally: \"are / were found\").",
+            "an impersonal meaning: der kæmpes / bliver kæmpet om pladserne \"there is a struggle for the seats\".",
+            "In the preterite, the periphrastic form is preferred in non-formal speech except in reciprocal and impersonal passives: de sås ofte \"they often saw each other\", der fandtes en lov imod det \"there was a law against it\" (but real passive: de ",
+            "The s-form of the verb can also imply habitual or repetitive action, e.g. bilen vaskes \"the car is washed\" (regularly) vs. bilen bliver vasket \"the car is (being) washed\" (right now, soon, next week, etc.)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Present participles",
+          "body": "The present participle is used to a much lesser extent than in English. Where English often uses non-finite clauses, Danish instead uses subordinate or coordinate clauses with a finite verb, e.g. eftersom han var konge, var det ham, der måtte bestemme, \"Being the king, he had the last word\". The present participle is used in two circumstances:\n\nas an attributive adjective: en dræbende tavshed, \"a boring (lit. killing) silence\", en galoperende inflation, \"a runaway inflation\", hendes rødmende kinder, \"her blushing cheeks\".\n\nadverbially with verbs of movement: han gik syngende ned ad gaden, \"he walked down the street singing\"\n\nIf the present participle carries an object or an adverb, the two words are normally treated as a compound orthographically and prosodically: et menneskeædende uhyre, \"a man-eating monster\", en hurtig(t)løbende bold, \"a fast(-going) ball\", fodbold- og kvindeelskende mænd, \"men loving football and women\".",
+          "examples": [
+            "The present participle is used to a much lesser extent than in English. Where English often uses non-finite clauses, Danish instead uses subordinate or coordinate clauses with a finite verb, e.g. eftersom han var konge, var det ham, der måt",
+            "as an attributive adjective: en dræbende tavshed, \"a boring (lit. killing) silence\", en galoperende inflation, \"a runaway inflation\", hendes rødmende kinder, \"her blushing cheeks\".",
+            "adverbially with verbs of movement: han gik syngende ned ad gaden, \"he walked down the street singing\"",
+            "If the present participle carries an object or an adverb, the two words are normally treated as a compound orthographically and prosodically: et menneskeædende uhyre, \"a man-eating monster\", en hurtig(t)løbende bold, \"a fast(-going) ball\", "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Past participles",
+          "body": "The past participle is used primarily in the periphrastic constructions of the passive (with blive) and the perfect (with være). It is often used in non-finite constructions in so-called \"free predicatives\":[9]: 109  Således oplyst(e) kan vi skride til afstemning, \"Now being informed, we can take a vote\", han tog, opfyldt af had til tyrannen, ivrig del i forberedelserne til revolutionen, \"filled with hatred of the tyrant, he participated eagerly in the preparations for the revolution\".\n\nThe past participle of the weak verbs has the ending -et or -t. The past participle of the strong verbs originally had the ending -en, neuter -et, but the common form is now restricted to the use as an adjective (e.g. en bunden opgave), and it has not been preserved in all verbs. When it is combined with er and har to form passive and perfect constructions, the neuter form, which happens to be identical to the ending of the weak verbs, is used. In the Jutlandic dialects, -en is frequently used in such constructions.\n\nAs to the voice of the past participle, it is passive if the verb is transitive, and active if it is intransitive.",
+          "examples": [
+            "The past participle is used primarily in the periphrastic constructions of the passive (with blive) and the perfect (with være). It is often used in non-finite constructions in so-called \"free predicatives\":[9]: 109  Således oplyst(e) kan v"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Infinitive and verbal nouns",
+          "body": "The infinitive may be defined as a verb form that is equivalent to a noun syntactically. The Danish infinitive may be used as the subject or object of a verb like in English: at rejse er at leve \"to travel is to live\", jeg elsker at spise kartofler \"I love to eat potatoes\". Furthermore, the Danish infinitive may also be governed by a preposition (where English normally has the gerund): han tog livet af sig ved at springe ud af et vindue \"he killed himself by jumping out of a window\".\n\nThe infinitive normally has the marker at, pronounced ɑd̥ or in normal speech ʌ, thereby being homonymous with the conjunction og \"and\", with which it is sometimes confused in spelling. The bare infinitive is used after the modal verbs kunne, ville, skulle, måtte, turde, burde.\n\nA rarer form is the verbal noun with the ending -en (not to be confused with the definite article) which is used when the infinitive carries a pronoun, an indefinite article or an adjective: hans evindelige skrigen var enerverende, \"his never-ending crying was tedious\", der var en løben og råben på gangene, \"people ran and cried in the hall\". This use has a connotation of something habitual and is often used in a negative sense. It is used in formal information like Henstillen af cykler forbudt, \"It is prohibited to leave your bike here.\" Whereas the infinitive is accompanied with adjectives in the neuter (det er svært at flyve, \"it is difficult to fly\"), the verbal noun governs the common gender. Due to the rarity of this form, Danes often mistakenly write Henstilling af cykler forbudt (lit. \"Recommendation of bikes prohibited\") instead, using a more familiar word form.\n\nVerbal nouns like viden \"knowledge\" (literally: \"knowing\") or kunnen \"ability\" (literally: \"being able\") have become lexicalised due to the influence of German (Wissen, Können). Like the proper verbal noun, these forms have no plural, and they cannot carry the definite article; so, when English has the knowledge, Danish must use a pronoun or a circumlocution: e.g. hans viden, denne viden, den viden man havde.\n\nDanish has various suffixes for turning a verb into a real noun:\n\nthe suffix -(n)ing: hængning \"hanging\" (: hænge), samling \"collection\" (: samle). The suffix, which is still productive, is related to the German -(n)ung and the English -ing. Words with this suffix belong to the common (originally feminine) gender. The variant without -n- is used after stems ending in n, nd, r and consonant + l.\n\nthe suffix -else: bekræftelse \"confirmation\" (: bekræfte). The suffix, which is still productive, takes the common gender.\n\nthe suffix -sel: fængsel \"jail\" (: fange), fødsel \"birth\" (: føde\"). The suffix is used to form both concrete nouns (in the neuter) and abstract nouns (in the common).\n\nthe verbal stem with no ending: fald \"fall\" (: falde), tab \"loss\" (: tabe), kast \"throw\" (: kaste), håb \"hope\" (: håbe), normally as a neuter noun.\n\nthe verbal stem with some change of vowel or consonant: gang \"walk(ing)\" (: gå), stand \"state\" (: stå), sang \"song\" (: synge), dåb \"baptism\" (: døbe). They normally have the common gender.\n\nthe suffix -(e)st: fangst \"catching\" (: fange), ankomst \"arrival\" (: ankomme), hyldest \"ovation\" (: hylde). The type takes the common gender.\n\nthe suffix -tion, -sion: funktion \"function\" (: fungere), korrektion \"correction\" (: korrigere), eksplosion \"explosion\" (: eksplodere). This type is restricted to stems of Latin origin (which normally have the suffix -ere in the verbal forms, cf. German -ieren). They take the common gender.\n\nthe suffix \"-n\": \"råben\" \"shouting\" (: \"råbe\"), \"løben\" \"running\" (: \"løbe\"). Takes the common gender.",
+          "examples": [
+            "The infinitive may be defined as a verb form that is equivalent to a noun syntactically. The Danish infinitive may be used as the subject or object of a verb like in English: at rejse er at leve \"to travel is to live\", jeg elsker at spise k",
+            "The infinitive normally has the marker at, pronounced ɑd̥ or in normal speech ʌ, thereby being homonymous with the conjunction og \"and\", with which it is sometimes confused in spelling. The bare infinitive is used after the modal verbs kunn",
+            "A rarer form is the verbal noun with the ending -en (not to be confused with the definite article) which is used when the infinitive carries a pronoun, an indefinite article or an adjective: hans evindelige skrigen var enerverende, \"his nev",
+            "Verbal nouns like viden \"knowledge\" (literally: \"knowing\") or kunnen \"ability\" (literally: \"being able\") have become lexicalised due to the influence of German (Wissen, Können). Like the proper verbal noun, these forms have no plural, and t",
+            "the suffix -(n)ing: hængning \"hanging\" (: hænge), samling \"collection\" (: samle). The suffix, which is still productive, is related to the German -(n)ung and the English -ing. Words with this suffix belong to the common (originally feminine",
+            "the suffix -else: bekræftelse \"confirmation\" (: bekræfte). The suffix, which is still productive, takes the common gender."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Numerals",
+      "summary": "Spelling\nPronunciation\nSpelling\nPronunciation",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Danish numbers are:\n\nNumber\nCardinal numbers\nOrdinal numbers\n\nSpelling\nPronunciation\nSpelling\nPronunciation\n\n0\n\nnul\n[ˈnɔl]\nnulte\n[ˈnɔld̥ə]\n\n1\n\nen : et\n[ˈeːˀn] : [ed̥]\nførste\n[ˈfɶ(ɐ̯)sd̥ə]\n\n2\n\nto\n[ˈtˢoːˀ]\nanden : andet\n[ˈann̩] : [ˈanəð̞]\n\n3\n\ntre\n[ˈtˢʁ̥æːˀ]\ntredje\n[ˈtˢʁ̥að̞jə]\n\n4\n\nfire\n[ˈfiːɐ]\nfjerde\n[ˈfjɛːɐ] or [ˈfjeːɐ]\n\n5\n\nfem\n[ˈfɛmˀ] (also [ˈfœmˀ] in younger speech)\nfemte\n[ˈfɛmd̥ə]\n\n6\n\nseks\n[ˈsɛɡ̊s]\nsjette\n[ˈɕɛːd̥ə]\n\n7\n\nsyv\n[ˈsyʊ̯ˀ]\nsyvende\n[ˈsyʊ̯ˀnə]\n\n8\n\notte\n[ˈɔːd̥ə]\nottende\n[ˈʌd̥nə]\n\n9\n\nni\n[ˈniːˀ]\nniende\n[ˈniːˀnə]\n\n10\n\nti\n[ˈtˢiːˀ]\ntiende\n[ˈtˢiːˀnə]\n\n11\n\nelleve\n[ˈɛlʋə]\nellevte\n[ˈɛlfd̥ə]\n\n12\n\ntolv\n[ˈtˢʌlˀ]\ntolvte\n[ˈtˢʌld̥ə]\n\n13\n\ntretten\n[ˈtˢʁ̥ɑd̥n̩]\ntrettende\n[ˈtˢʁ̥ɑd̥nə]\n\n14\n\nfjorten\n[ˈfjoɐ̯d̥n̩]\nfjortende\n[ˈfjoɐ̯d̥nə]\n\n15\n\nfemten\n[ˈfɛmd̥n̩]\nfemtende\n[ˈfɛmd̥nə]\n\n16\n\nseksten\n[ˈsɑjsd̥n̩]\nsekstende\n[ˈsɑjs(d̥)nə]\n\n17\n\nsytten\n[ˈsød̥n̩]\nsyttende\n[ˈsød̥nə]\n\n18\n\natten\n[ˈad̥n̩]\nattende\n[ˈad̥nə]\n\n19\n\nnitten\n[ˈned̥n̩]\nnittende\n[ˈned̥nə]\n\n20\n\ntyve\n[ˈtˢyːʊ]\ntyvende\n[ˈtˢy(ː)ʊ̯nə]\n\n21\n\nenogtyve\n[ˈeːˀnɐˌtˢyːʊ]\nenogtyvende\n[ˈeːˀnɐˌtˢy(ː)ʊ̯nə]\n\n22\n\ntoogtyve\n[ˈtˢoːˀɐˌtˢyːʊ]\ntoogtyvende\n[ˈtˢoːˀɐˌtˢy(ː)ʊ̯nə]\n\n30\n\ntredive\n[ˈtˢʁ̥ɑð̞ʋə]\ntredivte\n[ˈtˢʁ̥ɑð̞fd̥ə]\n\n40\n\nfyrre (arch. fyrretyve)\n[ˈfɶːɐ] ([ˈfɶːɐˌtˢyːʊ])\nfyrretyvende\n[ˈfɶːɐˌtˢyːʊ̯nə]\n\n50\n\nhalvtreds (arch. halvtredsindstyve)\n[halˈtˢʁ̥as] ([halˈtˢʁ̥asn̩sˌtˢyːʊ])\nhalvtredsindstyvende\n[halˈtˢʁ̥asn̩sˌtˢy(ː)ʊ̯nə]\n\n60\n\ntres (arch. tresindstyve)\n[ˈtˢʁ̥as] ([ˈtˢʁ̥asn̩sˌtˢyːʊ])\ntresindstyvende\n[ˈtˢʁ̥asn̩sˌtˢy(ː)ʊ̯nə]\n\n70\n\nhalvfjerds (arch. halvfjerdsindstyve)\n[halˈfjæɐ̯s] ([halˈfjæɐ̯sn̩sˌtˢyːʊ])\nhalvfjerdsindstyvende\n[halˈfjæɐ̯sn̩sˌtˢy(ː)ʊ̯nə]\n\n80\n\nfirs (arch. firsindstyve)\n[ˈfiɐ̯ˀs] ([ˈfiɐ̯ˀsn̩sˌtˢyːʊ])\nfirsindstyvende\n[ˈfiɐ̯ˀsn̩sˌtˢy(ː)ʊ̯nə]\n\n90\n\nhalvfems (arch. halvfemsindstyve)\n[halˈfɛmˀs] ([halˈfɛmˀsn̩sˌtˢyːʊ])\nhalvfemsindstyvende\n[halˈfɛmˀsn̩sˌtˢy(ː)ʊ̯nə]\n\n100\n\nhundred(e), et hundred(e)\n[(ˈed̥) ˈhun(ʁ)ɐð̞(ð̞̩)]\nhundrede, et hundrede\n[(ˈed̥) ˈhun(ʁ)ɐð̞(ð̞̩)]\n\n101\n\n(et) hundred(e) (og) en\n[(ˈed̥) ˈhun(ʁ)ɐð̞ (ɐ) ˈeːˀn]\n(et) hundred(e) (og) første\n[(ˈed̥) ˈhun(ʁ)ɐð̞ (ɐ) ˈfɶ(ɐ̯)sd̥ə]\n\n200\n\nto hundred(e)\n[ˈtˢoːˀ ˈhun(ʁ)ɐð̞(ð̞̩)]\nto hundrede\n[ˈtˢoːˀ ˈhun(ʁ)ɐð̞(ð̞̩)]\n\n1,000\n\ntusind, et tusind\n[(ˈed̥) ˈtˢuːˀsn̩]\ntusinde, et tusinde\n[(ˈed̥) ˈtˢuːˀsnə]\n\n1,100\n\net tusind et hundred(e), elleve hundred(e)\n[ˈed̥ ˈtˢuːˀsn̩ ˈed̥ ˈhun(ʁ)ɐð̞(ð̞̩), ˈɛlʋə ˈhun(ʁ)ɐð̞(ð̞̩)]\net tusind et hundrede, elleve hundrede\n[ˈtˢuːˀsnə ˈed̥ ˈhun(ʁ)ɐð̞(ð̞̩), ˈɛlʋə ˈhun(ʁ)ɐð̞(ð̞̩)]\n\n2,000\n\nto tusind\n[ˈtˢoːˀ ˈtˢuːˀsn̩]\nto tusinde\n[ˈtˢoːˀ ˈtˢuːˀsnə]\n\n1,000,000\n\nen million, en million\n[ˈeːˀn mil(i)ˈjoːˀn]\nmillonte\n[mil(i)ˈjoːˀnd̥ə]\n\n2,000,000\n\nto millioner\n[ˈtˢoːˀ mil(i)ˈjoːˀnɐ]\nto millonte\n[ˈtˢoːˀ mil(i)ˈjoːˀnd̥ə]\n\n1,000,000,000\n\nen milliard\n[ˈeːˀn mil(i)ˈjɑːˀd̥]\nmilliardte\n[mil(i)ˈjɑːˀd̥ə]\n\n2,000,000,000\n\nto milliarder\n[ˈtˢoːˀ mil(i)ˈjɑːˀd̥ɐ]\nto milliardte\n[ˈtˢoːˀ mil(i)ˈjɑːˀd̥ə]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Vigesimal system",
+          "body": "Counting above forty is in part based on a base 20 number system, called vigesimal: halvtred-s(inds-tyve) = 21⁄2 x 20, tre-s(inds-tyve) = 3 x 20, halvfjerd-s(inds-tyve) = 31⁄2 x 20, fir-s(inds-tyve) = 4 x 20, halvfem-s(inds-tyve) = 41⁄2 x 20 (halvtredje, halvfjerde and halvfemte [lit. \"halfthird\", \"halffourth\" and halffifth\"] being old words for 21⁄2, 31⁄2 and 41⁄2). This is unlike Swedish and Norwegian, both of which use a decimal system.\n\nThe word fyrre / fyrretyve = \"40\" does not belong to the vigesimal system. The optional second part of the word is not the number tyve, \"20\", but an old plural of ti, \"ten\" (like in English forty, German vierzig); the first part is a variant of the number fire, \"four\". Similarly, tredive is a compound of tre, \"three\", and a weakened form of the old plural of ti, \"ten\".\n\nVigesimal systems are known in several European languages: French, Breton, Welsh, Albanian, and Basque. Some [who?] scholars speculate that the system belongs to an \"Old European\" (i.e. pre-Indo-European) substratum, whereas others argue that the system is a recent innovation of the Middle Ages. See Vigesimal.",
+          "examples": [
+            "Counting above forty is in part based on a base 20 number system, called vigesimal: halvtred-s(inds-tyve) = 21⁄2 x 20, tre-s(inds-tyve) = 3 x 20, halvfjerd-s(inds-tyve) = 31⁄2 x 20, fir-s(inds-tyve) = 4 x 20, halvfem-s(inds-tyve) = 41⁄2 x 2",
+            "The word fyrre / fyrretyve = \"40\" does not belong to the vigesimal system. The optional second part of the word is not the number tyve, \"20\", but an old plural of ti, \"ten\" (like in English forty, German vierzig); the first part is a varian",
+            "Vigesimal systems are known in several European languages: French, Breton, Welsh, Albanian, and Basque. Some [who?] scholars speculate that the system belongs to an \"Old European\" (i.e. pre-Indo-European) substratum, whereas others argue th"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Sequence of numbers",
+          "body": "The units are placed before the tens with an intervening og (\"and\"): toogfyrre (42), seksoghalvfjers (76). The units and the tens are placed after the hundreds with an optional og: to hundred (og) femoghalvfjers. This system is similar to that of German and Dutch (zweiundvierzig, zweihundertfünfundsiebzig), but unlike that of Swedish (fyrtiotvå, tvåhundrasjuttiofem).",
+          "examples": [
+            "The units are placed before the tens with an intervening og (\"and\"): toogfyrre (42), seksoghalvfjers (76). The units and the tens are placed after the hundreds with an optional og: to hundred (og) femoghalvfjers. This system is similar to t"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Adjectives and adverbs",
+      "summary": "There are three forms of the adjective in Danish:",
+      "sections": [
+        {
+          "heading": "Declension",
+          "body": "There are three forms of the adjective in Danish:\n\nbasic form or common, used with singular words of the common gender (\"n-words\").\nen billig bog, \"a cheap book\"; en stor dreng, \"a big boy\"\n\nt-form or neuter, used with singular words of the neuter gender (\"t-words\") and as an adverb. Only words ending in a consonant or the vowels -i or -å take -t. Others are unchanged.\net billigt tæppe, \"a cheap carpet\"; et stort hus, \"a big house\"\nhan bor billigt, \"he has a low rent (lit. lives cheaply)\"\n\ne-form or plural / definite, used in the plural and with a definite article, a pronoun or a genitive. Only words ending in a consonant take -e. Others are unchanged.\nden billige bog, \"the cheap book\"; hans store hus, \"his big house\"\nbillige bøger, \"cheap books\"; store huse, \"big houses\"",
+          "examples": [
+            "basic form or common, used with singular words of the common gender (\"n-words\").",
+            "en billig bog, \"a cheap book\"; en stor dreng, \"a big boy\"",
+            "t-form or neuter, used with singular words of the neuter gender (\"t-words\") and as an adverb. Only words ending in a consonant or the vowels -i or -å take -t. Others are unchanged.",
+            "et billigt tæppe, \"a cheap carpet\"; et stort hus, \"a big house\"",
+            "han bor billigt, \"he has a low rent (lit. lives cheaply)\"",
+            "den billige bog, \"the cheap book\"; hans store hus, \"his big house\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Agreement",
+          "body": "The adjective must agree with the word that it qualifies in both gender and number. This rule also applies when the adjective is used predicatively: huset er stort, \"the house is big\", or bøgerne er billige, \"the books are cheap\".\n\nAn exception to the rule of agreement are the superlative and, in regular prose, the past participle when used in the verbal meaning (e.g. børnene er sluppet løs, \"the children have been let out\", but børnene er løsslupne, \"the children are unrestrained\").",
+          "examples": [
+            "The adjective must agree with the word that it qualifies in both gender and number. This rule also applies when the adjective is used predicatively: huset er stort, \"the house is big\", or bøgerne er billige, \"the books are cheap\".",
+            "An exception to the rule of agreement are the superlative and, in regular prose, the past participle when used in the verbal meaning (e.g. børnene er sluppet løs, \"the children have been let out\", but børnene er løsslupne, \"the children are"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Definite form",
+          "body": "The definite e-form is historically identical to the so-called weak declension of the Germanic adjective, cf. German ein großes Haus, \"a big house\" ~ das große Haus, \"the big house\". But whereas the German definite form is not used after a genitive (Peters großes Haus), or following the bare forms of the possessive and indefinite pronouns (mein, kein großes Haus) – but conversely is used after the indefinite pronoun in the forms that have an ending (meinem, keinem großen Haus = dem großen Haus) – the Danish definite form is used in all instances after any determiner save the indefinite article:\n\nSingular\nPlural\n\nIndefinite form\nDefinite form\nIndefinite form\nDefinite form\n\nen stor bog\nbogen er stor\nLones store bog\nhendes store bog\nmin store bog\nden store bog\nstore bøger\nbøgerne er store\nLones store bøger\nhendes store bøger\nmine store bøger\nde store bøger\n\net stort hus\nhuset er stort\nPeters store hus\nhans store hus\nmit store hus\ndet store hus\nstore huse\nhusene er store\nPeters store huse\nhans store huse\nmine store huse\nde store huse\n\nbasic form\nt-form\ne-form",
+          "examples": [
+            "The definite e-form is historically identical to the so-called weak declension of the Germanic adjective, cf. German ein großes Haus, \"a big house\" ~ das große Haus, \"the big house\". But whereas the German definite form is not used after a "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Comparison",
+          "body": "The Danish adjectives and adverbs are inflected according to three degrees of comparison. The comparative has the ending -ere (sometimes -re) and the superlative has the ending -st (sometimes -est): e.g. hurtig, hurtigere, hurtigst, \"quick, -er, -est\"; fræk, frækkere, frækkest, \"impertinent/audacious/kinky, -er, -est\"; lang, længere, længst (with umlaut), \"long, -er, -est\". The choice between -st and -est is determined by the syllable structure (to avoid uncomfortable consonant clusters), whereas the variant -re is used only in a few frequent comparatives.\n\nIn many cases, especially in longer words and words of a Latin or Greek origin, the comparative and superlative are formed with the adverbs mere and mest instead: e.g. intelligent, mere intelligent, mest intelligent.\n\nThe comparative is inflexible, and it is not used with the definite article (in which case Danish uses the superlative instead). The conjunction of comparison is end, \"than\".\n\nThe superlative is inflected like the positive (the t-form being identical to the n-form); længst, længste. When used as a predicate, the basic form is used instead of the e-form: hans ben er længst \"his legs are the longest\". And since a superlative used attributively must necessarily modify something definite, the e-form is always used there: den vredeste killing er vredest \"the angriest kitty is angriest\".",
+          "examples": [
+            "The Danish adjectives and adverbs are inflected according to three degrees of comparison. The comparative has the ending -ere (sometimes -re) and the superlative has the ending -st (sometimes -est): e.g. hurtig, hurtigere, hurtigst, \"quick,",
+            "The comparative is inflexible, and it is not used with the definite article (in which case Danish uses the superlative instead). The conjunction of comparison is end, \"than\".",
+            "The superlative is inflected like the positive (the t-form being identical to the n-form); længst, længste. When used as a predicate, the basic form is used instead of the e-form: hans ben er længst \"his legs are the longest\". And since a s"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Irregularities",
+          "body": "The inflection of some adjectives is irregular:\n\nNy (new) and fri (free) take -t and optionally -e, even though they end in vowels.\n\nSeveral common adjectives with the suffix -s (historically the ending of the genitive) are inflexible, e.g. fælles, \"common\" (: fælle, \"fellow\"); ens, \"identical\" (: en \"one\"); træls, \"annoying\" (: træl, \"slave\") (one also hears trælst, trælse).\n\nAdjectives with the very common -sk ending are special. If they are polysyllabic or refer to a country, geographic area or ethnic group, they never take -t. Et klassisk stykke (a classical piece), et svensk hus (a Swedish house). Otherwise the -t is optional. Et friskt pust, or et frisk pust (a breath of fresh air).\n\nSome words never take the t-ending: stems ending in another -t (e.g. mat, \"weak\"; sort, \"black\") stems ending in -et (-ed) [-əð̞] (e.g. tobenet, \"biped\"; elsket, \"loved\"; fremmed, \"foreign\"). This is also the case with the word glad [ɡ̊lað̞] \"happy\".\n\nThe t-form sometimes undergoes phonetical changes that are not reflected orthographically, especially shortening of the preceding vowel or assimilation of a preceding consonant: e.g. god [ɡ̊oːˀ(ð̞)] : godt [ɡ̊ʌd̥]; ny [nyːˀ] : nyt [nyd̥]; syg [syːˀ(j)] : sygt [syɡ̊d̥] (alternatively [syːˀd̥]). The adjectives ending in -en (originally past participles of the strong verbs) have either -ent [-ənd̥] or -et [-əð̪] in the t-form: e.g. et sunke(n)t skib, \"a sunken ship\"; et give(n)t antal, \"a given number\" (the choice is often a matter of style or tradition).\n\nAdjectives in -vis have an optional -t in the t-form: et gradvis(t) salg, \"a phased sale\".\n\nSome adverbs may be formed with the basic form instead of the t-form, especially those ending in -ig, -lig and -vis: det forstår han selvfølgelig ikke, \"that, of course, he does not understand\"; the t-less form of such adverbs is obligatory when the adverb is isolated (i.e. with no corresponding adjective) or the meaning of the adverb is essentially different from that of the adjective (e.g. endelig, \"finally, at last\" ~ endeligt, \"definitively\"). In other cases, the t-less form is preferred when the adverb qualifies an adjective (e.g. væsentlig(t) større, considerably larger\").\n\nThe comparative and superlative of some frequent adjectives have umlaut: e.g. lang, længere, længst, \"long, longer, longest\"; ung, yngre, yngst, \"young, younger, youngest\"; stor, større, størst, \"big, bigger, biggest\".\n\nOne adjective is suppletive: lille, \"little, small\" (n- and t-form and definite e-form) ~ små (plural e-form), småt (adverb t-form). Six adjectives are suppletive in the three degrees of comparison: god, bedre, bedst, \"good, better, best\"; dårlig, værre, værst, \"bad, worse, worst\"; gammel, ældre, ældst, \"old, older, oldest\", mange, flere, flest; \"many, more, most\"; megen/-et, mere, mest, \"much, more, most\"; lille / lidt, mindre, mindst \"little, less / smaller, least / smallest\". Irregular, but not suppletive are få, færre, færrest, \"few, fewer, fewest\" and nær, nærmere, nærmest, \"close, closer, closest\".",
+          "examples": [
+            "Several common adjectives with the suffix -s (historically the ending of the genitive) are inflexible, e.g. fælles, \"common\" (: fælle, \"fellow\"); ens, \"identical\" (: en \"one\"); træls, \"annoying\" (: træl, \"slave\") (one also hears trælst, træ",
+            "Some words never take the t-ending: stems ending in another -t (e.g. mat, \"weak\"; sort, \"black\") stems ending in -et (-ed) [-əð̞] (e.g. tobenet, \"biped\"; elsket, \"loved\"; fremmed, \"foreign\"). This is also the case with the word glad [ɡ̊lað̞",
+            "The t-form sometimes undergoes phonetical changes that are not reflected orthographically, especially shortening of the preceding vowel or assimilation of a preceding consonant: e.g. god [ɡ̊oːˀ(ð̞)] : godt [ɡ̊ʌd̥]; ny [nyːˀ] : nyt [nyd̥]; s",
+            "Adjectives in -vis have an optional -t in the t-form: et gradvis(t) salg, \"a phased sale\".",
+            "Some adverbs may be formed with the basic form instead of the t-form, especially those ending in -ig, -lig and -vis: det forstår han selvfølgelig ikke, \"that, of course, he does not understand\"; the t-less form of such adverbs is obligatory",
+            "The comparative and superlative of some frequent adjectives have umlaut: e.g. lang, længere, længst, \"long, longer, longest\"; ung, yngre, yngst, \"young, younger, youngest\"; stor, større, størst, \"big, bigger, biggest\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Interjections",
+      "summary": "Danish has a number of interjections. Emotive interjections include av 'ow' [6]: 503  among others. Response tokens include ja and nej 'yes' and 'no', and nå (approx. 'oh'), okay and mm.[10] When responding to polar questions, ja and nej are sensitive to the presence of a negatio",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Danish has a number of interjections. Emotive interjections include av 'ow' [6]: 503  among others. Response tokens include ja and nej 'yes' and 'no', and nå (approx. 'oh'), okay and mm.[10] When responding to polar questions, ja and nej are sensitive to the presence of a negation (ikke 'not', ingen 'nobody' or aldrig 'never') in the question, so that nej confirms a negated statement, and jo, an alternate form of ja is used to disconfirm a negated statement.[11] They can be used in various combinations with other words (including other response tokens).[6]: 507",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Syntax",
+      "summary": "Danish is a V2-language, meaning that the finite verb can usually be found in second position in a main clause. [12][13]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Danish is a V2-language, meaning that the finite verb can usually be found in second position in a main clause. [12][13]\n\nThe basic sentence structure is Subject-Verb-Object. [13] Paul Diderichsen developed a model of the Danish sentences with different slots to be filled.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Main Clauses",
+          "body": "According to Diderichsen's model, main clauses have the following structure:  \n\nFront Position\n\nFinite Verb\n\n(Subject)\n\nClausal Adverbial\n\nNon-Finite Verb\n\nObject/Complement/Real Subject\n\nOther Adverbial[14][6]\n\nF\n\nv\n\nn\n\na\n\nV\n\nN\n\nA\n\nAlligevel\n\nkunne\n\nde\n\ngodt\n\nforetage\n\nundersøgelsen\n\nhvert år.\n\nnonetheless\n\ncould\n\nthey\n\nwell\n\nperform\n\nexamination-the\n\nevery year[14]\n\nNot every slot of the model needs to be filled in order to form a grammatical main clause. The model shows relative positions of constituents, especially in relation to the finite verb. So a sentence like\n\nJens\n\nkøbte\n\nen bil\n\ni går.\n\nF\n\nv\n\nn\n\na\n\nV\n\nN\n\nA\n\nJens\n\nbought\n\na car\n\nyesterday.[6]\n\nis fully grammatical even though not every slot of the clause model is filled. The only position that is obligatory to form a clause is the v-position of the finite verb.\n\nEvery slot of the model can be filled by specific constituents. \n\nThe F-position can be filled by a nominal as subject or object, adverbials or non-finite verbs, i.e. by most phrases that can form constituents.[6]\n\nAs Danish is a V2-language, the second position (v) is always filled with the finite verb. \n\nIf the subject is not in the F-position, it can be found in the n-position; other nominals are also possible.[6] \n\nThe a-position contains clausal adverbials, e.g. negation and may contain more than one element.[6]\n\nNon-finite verbs or particles or both can be found in the V-position. [6]\n\nThe N-position is filled by nominals which can function as objects, in case of ditransitive verbs there can be two objects here, complements or the real subject if there is a dummy subject der in F-position.[6]\n\nThe A-position contains other adverbials, which are called content adverbials.[12]\n\nThe N-position and A-position can also be seen as sequences of positions as they can be filled by more than one constituent and because there is an internal order to these constituents, e.g. that direct objects usually follow indirect objects in the N-position. [12]\n\nConstituents in the F-position\nThe F-position of main clauses can be filled by a variety of constituents. When this happens, the subject is moved to the n-position. Most frequently, adverbial expressions of time and place are moved to the F-position.[6]\n\nThis movement is performed to mark the fronted constituent pragmatically; constituents with either high or low pragmatic prominence can be fronted.[12] Consequently information already known from the pretext can be found in this position as well as new information.[13] To express contrast, the element in F-position is stressed.[12] Focused elements are not usually found in the F-position except for wh-words in wh-questions.[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Subordinate Clauses",
+          "body": "Below you can see the model for the structure of subordinate clauses:\n\nConjunction\n\nSubject\n\nClausal Adverbial\n\nFinite Verb\n\nNon-Finite Verb\n\nObject/Complement/Real Subject\n\nOther Adverbial[14][6]\n\nk\n\nn\n\na\n\nv\n\nV\n\nN\n\nA\n\nom\n\nhan\n\nikke\n\nhavde\n\nspist\n\nmiddag\n\nmed Niels.[6]\n\nthat\n\nhe\n\nnot\n\nhad\n\neaten\n\ndinner\n\nwith Niels.\n\nDifferent to main clauses, the first position k is for the subordinate conjunction. This position is usually filled, but the conjunction at and the relative pronoun som can sometimes be omitted.[6]\n\nThe subject of the clause follows in the n-position. This position needs to be filled in every subordinate clause.[6]\n\nIn difference to main clauses, clausal adverbials precede the finite verb in subordinate clauses.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        },
+        {
+          "heading": "Sentence types",
+          "body": "Questions\nDanish has a number of question types. Polar interrogatives have interrogative word order (i.e. an unfilled foundation field), while content questions have a question word (HV-ord 'wh-word') in the foundation field. Declarative questions and in situ questions also exist.\n\nImperative\nBesides using the imperative form of the verb, the imperative sentence type is characterized by not having a subject. However, it is possible to have it, always placed after the verb.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Danish_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

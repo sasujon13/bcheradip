@@ -1,0 +1,234 @@
+{
+  "title": "Grammar Book — Татар",
+  "languageCode": "tt",
+  "languageName": "Татар",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Tatar_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Kipchak Turkic language\nFor other uses, see Tatar language (disambiguation).",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Kipchak Turkic language\nFor other uses, see Tatar language (disambiguation).\n\nTatarтатар теле\ntatar tele\nتاتار تلىُ‎ • تاتار تلی‎\nтатарча • tatarça • تاتارچاA clock in Bauman Street, Kazan, depicting the traditional Arabic scriptRegionVolga-Ural regionEthnicityVolga Tatars, QarataysSpeakersL1: 4 million (2020)[1]\nL2: 810,000 (2020)[1]Language familyTurkic\n\nCommon TurkicKipchakKipchak–BulgarTatar\n\nEarly formUral-Volga Turki\nDialects\nKazan Tatar / Central \n (majority)\n\nMishar Tatar / Western\n\nWriting systemTatar alphabets (Cyrillic, Latin, formerly Arabic)Official statusOfficial language inTatarstan (Russia)Recognised minority\nlanguage inChina[2]\n\nPoland[3]Regulated byInstitute of Language, Literature and Arts of the Academy of Sciences of the Republic of TatarstanLanguage codesISO 639-1ttISO 639-2tatISO 639-3tatGlottologtata1255Linguasphere44-AAB-beTatar is classified as Vulnerable by the UNESCO Atlas of the World's Languages in Danger.[4]This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nTatar book written in the Arabic script entitled Ancient Bulgars (Borınğı bolğarlar, 1924)\nTatar (/ˈtɑːtər/ TAH-tər;[5] Tatar: татар теле, romanized: tatar tele or татарча, romanized: tatarça) is a Turkic language spoken by the Tatars mainly located in modern Republic of Tatarstan, wider Volga-Ural region, as well as many other regions of Russia. Tatar belongs to the Kipchak branch of Turkic languages, the same branch as Bashkir, Kazakh, Nogai and Kyrgyz.\n\nThe two main dialects of Tatar are the Central Dialect (urta / qazan; most common), and the Western Dialect (könbatış / mişər). The literary Tatar language is based on the Central Dialect and on a local variant of Türki. Tatar should not be confused with Crimean Tatar or Siberian Tatar, which are different languages, although also part of the Kipchak language group. \n\nLike other Turkic languages, Tatar was traditionally written in the Arabic script for most of its history. Since 1939, the alphabet has been Cyrillic, though a number of Latin-based versions have also been used over the years.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Geographic distribution",
+      "summary": "The Tatar language is spoken by about 5 million people.\nMost speakers live in Russia, but there are also communities in Azerbaijan, China, Finland, Georgia, Israel, Kazakhstan, Latvia, Lithuania, Romania, Turkey, Ukraine, the United States, Uzbekistan[citation needed].\nMordva's Q",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Tatar language is spoken by about 5 million people.\nMost speakers live in Russia, but there are also communities in Azerbaijan, China, Finland, Georgia, Israel, Kazakhstan, Latvia, Lithuania, Romania, Turkey, Ukraine, the United States, Uzbekistan[citation needed].\nMordva's Qaratay group also speak a variant of Kazan Tatar.\n\nIn the 2010 census, 69% of Russian Tatars claimed at least some knowledge of the Tatar language.[6] In Tatarstan, 93% of Tatars and 3.6% of Russians claimed to have at least some knowledge of the Tatar language. In neighbouring Bashkortostan, 67% of Tatars, 27% of Bashkirs, and 1.3% of Russians claimed to understand basic Tatar language.[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Official status",
+          "body": "The word Qazan – قازان is written in Arabic script in the semblance of a Zilant.\nBilingual guide in Kazan Metro\nA subway sign in Tatar (top) and Russian\nTatar, along with Russian, is the official language of the Republic of Tatarstan. The official script of the Tatar language is based on the Cyrillic script with some additional letters. The Republic of Tatarstan passed a law in 1999, which came into force in 2001, establishing an official Tatar Latin alphabet. A Russian federal law overrode it in 2002, making Cyrillic the sole official script in Tatarstan since. Unofficially, other scripts are used as well, mostly Latin and Arabic. All official sources in Tatarstan must use Cyrillic on their websites and in publishing. In other cases, where Tatar has no official status, the use of a specific alphabet depends on the preference of the author.[citation needed]\n\nThe Tatar language was made a de facto official language in Russia in 1917, but only within the Tatar Autonomous Soviet Socialist Republic. Tatar is also considered to have been the official language in the short-lived Idel-Ural State, briefly formed during the Russian Civil War.\n\nThe usage of Tatar declined during the 20th century.[citation needed] By the 1980s, the study and teaching of Tatar in the public education system was limited to rural schools. However, Tatar-speaking pupils had little chance of entering university because higher education was available in Russian almost exclusively.\n\nAs of 2001, Tatar was considered a potentially endangered language while Siberian Tatar received \"endangered\" and \"seriously endangered\" statuses, respectively.[8] Higher education in Tatar can only be found in Tatarstan, and is restricted to the humanities. In other regions Tatar is primarily a spoken language and the number of speakers as well as their proficiency tends to decrease. Tatar is popular as a written language only in Tatar-speaking areas where schools with Tatar language lessons are situated. On the other hand, Tatar is the only language in use in rural districts of Tatarstan.\n\nSince 2017, Tatar language classes are no longer mandatory in the schools of Tatarstan.[9] According to the opponents of this change, it will further endanger the Tatar language and is a violation of the Tatarstan Constitution which stipulates the equality of Russian and Tatar languages in the republic.[10][11]",
+          "examples": [
+            "As of 2001, Tatar was considered a potentially endangered language while Siberian Tatar received \"endangered\" and \"seriously endangered\" statuses, respectively.[8] Higher education in Tatar can only be found in Tatarstan, and is restricted "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Dialects",
+      "summary": "These dialects also have subdivisions. Significant contributions to the study of the Tatar language and its dialects, were made by a scientist Gabdulkhay Akhatov, who is considered to be the founder of the modern Tatar dialectological school.[citation needed]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "There are two main dialects of Tatar:\n\nCentral or Middle (Urta / Qazan)\n\nWestern (Könbatış / Mişär)\n\nThese dialects also have subdivisions. Significant contributions to the study of the Tatar language and its dialects, were made by a scientist Gabdulkhay Akhatov, who is considered to be the founder of the modern Tatar dialectological school.[citation needed]\n\nSpoken idioms of Siberian Tatars, which differ significantly from the above two, are often considered as the third dialect group of Tatar by some, but as an independent language on its own by others.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Central or Middle",
+          "body": "The Central or Middle dialectal group is spoken in Kazan and most of Tatarstan and is the basis of the standard literary Tatar language. Middle Tatar includes the Nagaibak dialect.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Mishar",
+          "body": "Main article: Mishar Tatar dialect\nThe Western (Mishar) dialect is distinguished from the Central dialect most clearly by the absence of the uvular q and ğ and the rounded å of the first syllable. Letters ç and c are pronounced as affricates.[12] Regional differences exist also.[13]\n\nMishar Dialect, and especially its regional variant in Sergachsky district (Nizhny Novgorod), is said to be \"faithfully close\" to the ancient Kipchak language.[14] Some linguists, such as Radlov, Samoylovich, think that Mishar traditionally belongs to the Kipchak-Cuman group of languages, rather than to the Kipchak-Bulgar group.[15]\n\nMishar is the dialect spoken by the Tatar minority of Finland.[16]",
+          "examples": [
+            "Mishar Dialect, and especially its regional variant in Sergachsky district (Nizhny Novgorod), is said to be \"faithfully close\" to the ancient Kipchak language.[14] Some linguists, such as Radlov, Samoylovich, think that Mishar traditionally"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Siberian Tatar",
+          "body": "Main article: Siberian Tatar language\nTwo main isoglosses that characterize Siberian Tatar are ç as [ts] and c as [j], corresponding to standard [ɕ] and [ʑ]. There are also grammatical differences within the dialect, scattered across Siberia.[17]\n\nMany linguists claim the origins of Siberian Tatar dialects are actually independent of Volga–Ural Tatar; these dialects are quite remote both from Standard Tatar and from each other, often preventing mutual comprehension. The claim that this language is part of the modern Tatar language is typically supported by linguists in Kazan, Moscow[18] and by Siberian Tatar linguists[19][20][21] and denounced by some Russian and Tatar[22] ethnographs.\n\nOver time, some of these dialects were given distinct names and recognized as separate languages (e.g. the Chulym language) after detailed linguistic study. However, the Chulym language was never classified as a dialect of Tatar language. Confusion arose because of the endoethnonym \"Tatars\" used by the Chulyms. The question of classifying the Chulym language as a dialect of the Khakass language was debatable. A brief linguistic analysis shows that many of these dialects exhibit features which are quite different from the Volga–Ural Tatar varieties, and should be classified as Turkic varieties belonging to several sub-groups of the Turkic languages, distinct from Kipchak languages to which Volga–Ural Tatar belongs.[citation needed]",
+          "examples": [
+            "Over time, some of these dialects were given distinct names and recognized as separate languages (e.g. the Chulym language) after detailed linguistic study. However, the Chulym language was never classified as a dialect of Tatar language. C"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Phonology",
+      "summary": "Tatar vowel formants F1 and F2 (in the picture, \"F1\" and \"F2\" labels are mistakenly transposed)[citation needed]\nThere exist several interpretations of the Tatar vowel phonemic inventory. In total Tatar has nine or ten native vowels, and three or four loaned vowels (mainly in Rus",
+      "sections": [
+        {
+          "heading": "Vowels",
+          "body": "Tatar vowel formants F1 and F2 (in the picture, \"F1\" and \"F2\" labels are mistakenly transposed)[citation needed]\nThere exist several interpretations of the Tatar vowel phonemic inventory. In total Tatar has nine or ten native vowels, and three or four loaned vowels (mainly in Russian loanwords).[23][24]\n\nAccording to Baskakov (1988) Tatar has only two vowel heights, high and low. There are two low vowels, front and back, while there are eight high vowels: front and back, round (R+) and unround (R−), normal and short (or reduced).[23]\n\nFront\n\nBack\n\nR−\n\nR+\n\nR−\n\nR+\n\nHigh\n\nNormal\n\ni\n\nü\n\nï\n\nu\n\nShort\n\ne\n\nö\n\në\n\no\n\nLow\n\nä\n\na\n\nPoppe (1963) proposed a similar yet slightly different scheme with a third, higher mid, height, and with nine vowels.[23]\n\nFront\n\nBack\n\nR−\n\nR+\n\nR−\n\nR+\n\nHigh\n\ni\n\nü\n\nu\n\nHigher Mid\n\ne\n\nö\n\nï\n\no\n\nLow\n\nä\n\na\n\nAccording to Makhmutova (1969) Tatar has three vowel heights: high, mid and low, and four tongue positions: front, front-central, back-central and back (as they are named when cited).[23]\n\nFront\n\nCentral\n\nBack\n\nFront\n\nBack\n\nR−\n\nR+\n\nR−\n\nR+\n\nR−\n\nR+\n\nR−\n\nR+\n\nHigh\n\ni\n\nü\n\nï\n\nu\n\nMid\n\ne\n\nö\n\në\n\no\n\nLow\n\nä\n\na\n\nThe mid back unrounded vowel ''ë is usually transcribed as ı, though it differs from the corresponding Turkish vowel.\n\nThe tenth vowel ï is realized as the diphthong ëy (IPA: [ɯɪ]), which only occurs word-finally, but it has been argued to be an independent phoneme.[23][24]\n\nPhonetically, the native vowels are approximately thus (with the Cyrillic letters and the usual Latin romanization in angle brackets):\n\nFront\n\nBack\n\nR−\n\nR+\n\nR−\n\nR+\n\nHigh\n\nи ⟨i⟩\n[i]\n\nү ⟨ü⟩\n[y~ʉ]\n\nый ⟨ıy⟩\n[ɯɪ]\n\nу ⟨u⟩\n[u]\n\nMid\n\nэ, е ⟨e⟩\n[ĕ~ɘ̆]\n\nө ⟨ö⟩\n[ø̆~ɵ̆]\n\nы ⟨ı⟩\n[ɤ̆~ʌ̆]\n\nо ⟨o⟩\n[ŏ]\n\nLow\n\nә ⟨ä⟩\n[æ~a]\n\nа ⟨a⟩\n[ɑ]\n\nIn polysyllabic words, the front-back distinction is lost in reduced vowels: all become mid-central.[23] The mid reduced vowels in an unstressed position are frequently elided, as in кеше keşe [kĕˈʃĕ] > [kʃĕ] 'person', or кышы qışı [qɤ̆ˈʃɤ̆] > [qʃɤ̆] '(his) winter'.[24] Low back /ɑ/ is rounded [ɒ] in the first syllable and after [ɒ], but not in the last, as in бала bala [bɒˈlɑ] 'child', балаларга balalarğa [bɒlɒlɒrˈʁɑ] 'to children'.[24] In Russian loans there are also [ɨ], [ɛ], [ɔ], and [ä], written the same as the native vowels: ы, е/э, о, а respectively.[24]\n\nHistorical shifts\nHistorically, the Old Turkic mid vowels have raised from mid to high, whereas the Old Turkic high vowels have become the Tatar reduced mid series. (The same shifts have also happened in Bashkir.)[25]\n\nVowel\n\nOld Turkic\n\nKazakh\n\nTatar\n\nBashkir\n\nGloss\n\n*e\n\n*et\n\net\n\nit\n\nit\n\n'meat'\n\n*ö\n\n*söz\n\nsöz\n\nsüz\n\nhüź [hyθ]\n\n'word'\n\n*o\n\n*sol\n\nsol\n\nsul\n\nhul\n\n'left'\n\n*i\n\n*it\n\nit\n\net\n\net\n\n'dog'\n\n*ï\n\n*qïz\n\nqız\n\nqız [qɤ̆z]\n\nqıź [qɤ̆θ]\n\n'girl'\n\n*u\n\n*qum\n\nqum\n\nqom\n\nqom\n\n'sand'\n\n*ü\n\n*kül\n\nkül\n\nköl\n\nköl\n\n'ash'",
+          "examples": [
+            "Tatar vowel formants F1 and F2 (in the picture, \"F1\" and \"F2\" labels are mistakenly transposed)[citation needed]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Consonants",
+          "body": "The consonants of Tatar[24]\n\nLabial\n\nDental\n\nPost-\nalveolar\n\nPalatal\n\nVelar\n\nUvular\n\nGlottal\n\nNasals\n\nм ⟨m⟩\n/m/\n\nн ⟨n⟩\n/n/\n\nң ⟨ñ⟩\n/ŋ/\n\nPlosives\n\nVoiceless\n\nп ⟨p⟩\n/p/\n\nт ⟨t⟩\n/t/\n\nк ⟨k⟩\n/k/\n\nкъ ⟨q⟩\n/q/‡\n\nэ/ь ⟨ʼ⟩\n/ʔ/*\n\nVoiced\n\nб ⟨b⟩\n/b/\n\nд ⟨d⟩\n/d/\n\nг ⟨g⟩\n/ɡ/\n\nAffricates\n\nVoiceless\n\nц ⟨ts⟩\n/ts/*†\n\nч ⟨ç⟩\n/tɕ/*†\n\nVoiced\n\nҗ ⟨c⟩\n/dʑ/†\n\nFricatives\n\nVoiceless\n\nф ⟨f⟩\n/f/*\n\nс ⟨s⟩\n/s/\n\nш ⟨ş⟩\n/ʃ/\n\nч ⟨ś⟩\n/ɕ/\n\nх ⟨x⟩\n/χ/\n\nһ ⟨h⟩\n/h/*\n\nVoiced\n\nв ⟨v⟩\n/v/*\n\nз ⟨z⟩\n/z/\n\nж ⟨j⟩\n/ʒ/*\n\nҗ ⟨ź⟩\n/ʑ/\n\nгъ ⟨ğ⟩\n/ʁ/‡\n\nTrill\n\nр ⟨r⟩\n/r/\n\nApproximants\n\nл ⟨l⟩\n/l/\n\nй ⟨y⟩\n/j/\n\nу/ү/в ⟨w⟩\n/w/\n\nNotes\n\n^* The phonemes /v/, /ts/, /tɕ/, /ʒ/, /h/, /ʔ/ are only found in loanwords. /f/ occurs more commonly in loanwords, but is also found in native words, e.g. yafraq 'leaf'.[24] /v/, /ts/, /tɕ/, /ʒ/ may be substituted with the corresponding native consonants /w/, /s/, /ɕ/, /ʑ/ by some Tatars.\n^† /dʑ/ and /tɕ/ are the dialectal Western (Mişär) pronunciations of җ ⟨c⟩ /ʑ/ and ч ⟨ç⟩ /ɕ/, the latter are in the literary standard and in the Central (Kazan) dialect. /ts/ is the variant of ч ⟨ç⟩ /ɕ/ as pronounced in the Eastern (Siberian) dialects and some Western (Mişär) dialects. Both /tɕ/ and /ts/ are also used in Russian loanwords (the latter written ц).\n^‡ In native words, /q/ and /ʁ/ are allophones of /k/ and /ɡ/ in the environment of back vowels, and written in Cyrillic with plain к and г. This is not the case in Perso-Arabic loanwords, where the difference is phonemic.[26]\nPalatalization\nTatar consonants usually undergo slight palatalization before front vowels. However, this allophony is not significant and does not constitute a phonemic status. This differs from Russian where palatalized consonants are not allophones but phonemes on their own. There are a number of Russian loanwords which have palatalized consonants in Russian and are thus written the same in Tatar (often with the \"soft sign\" ь). The Tatar standard pronunciation also requires palatalization in such loanwords; however, some Tatar may pronounce them non-palatalized.",
+          "examples": [
+            "Tatar consonants usually undergo slight palatalization before front vowels. However, this allophony is not significant and does not constitute a phonemic status. This differs from Russian where palatalized consonants are not allophones but "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Syllables",
+          "body": "In native words there are six types of syllables (Consonant, Vowel, Sonorant):\n\nV (ı-lıs, u-ra, ö-rä)\n\nVC (at-law, el-geç, ir-kä)\n\nCV (qa-la, ki-ä, su-la)\n\nCVC (bar-sa, sız-law, köç-le, qoş-çıq)\n\nVSC (ant-lar, äyt-te, ilt-kän)\n\nCVSC (tört-te, qart-lar, qayt-qan)\n\nLoanwords allow other types: CSV (gra-mota), CSVC (käs-trül), etc.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Prosody",
+          "body": "Stress is usually on the final syllable. However, some suffixes cannot be stressed, so the stress shifts to the syllable before that suffix, even if the stressed syllable is the third or fourth from the end. A number of Tatar words and grammatical forms have the natural stress on the first syllable. Loanwords, mainly from Russian, usually preserve their original stress (unless the original stress is on the last syllable, in such a case the stress in Tatar shifts to suffixes as usual, e.g. sovét > sovetlár > sovetlarğá).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Phonetic alterations",
+          "body": "Tatar phonotactics dictate many pronunciation changes which are not reflected in the orthography.\n\nUnrounded vowels ı and e become rounded after o or ö:\n\nкоры/qorı > [qoro]\nборын/borın > [boron]\nкөзге/közge > [közgö]\nсоры/sorı > [soro]\nNasals are assimilated to the following stops:\n\nунбер/unber > [umber]\nменгеч/mengeç > [meñgeç]\nStops[clarification needed] are assimilated to the preceding nasals (this is reflected in writing):\n\nурманнар/urmannar ( < urman + lar)\nкомнар/komnar ( < kom + lar)\nVoicing may also undergo assimilation:\n\nкүзсез/küzsez > [küssez]\nUnstressed vowels may be syncopated or reduced:\n\nурыны/urını> [urnı]\nкилене/kilene > [kilne]\nVowels may also be elided:\n\nкара урман/qara urman > [qarurman]\nкилә иде/kilä ide > [kiläyde]\nтуры урам/turı uram > [tururam]\nбула алмыйм/bula almıym > [bulalmıym]\nIn consonant clusters longer than two phones, ı or e (whichever is dictated by vowel harmony) is inserted into speech as an epenthetic vowel.\n\nбанк/bank > [bañqı]\nFinal consonant clusters are simplified:\n\nартист/artist > [artis]\nFinal devoicing is also frequent:\n\nтабиб/tabib > [tabip]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Grammar",
+      "summary": "Tatar nouns are inflected for cases and numbers. Case suffixes change depending on the last consonants of the noun, while nouns ending in for example p/k (п/к) are voiced to b/g (б/г) when a possessive suffix is added (kitap –> kitabım / китабым, \"my book\"). Suffixes below are in",
+      "sections": [
+        {
+          "heading": "Nouns",
+          "body": "Tatar nouns are inflected for cases and numbers. Case suffixes change depending on the last consonants of the noun, while nouns ending in for example p/k (п/к) are voiced to b/g (б/г) when a possessive suffix is added (kitap –> kitabım / китабым, \"my book\"). Suffixes below are in back vowel, with front variant can be seen at #Phonology section.\n\nCase\n\nAfter voiced consonants\n\nAfter nasals\n\nAfter unvoiced consonants\n\nSpecial endings\n\nNominative (баш килеш)\n\n–\n\nAccusative (төшем килеше)\n\n-ны -nı\n\n-н -n\n\nGenitive (иялек килеше)\n\n-ның -nıñ\n\nDative (юнәлеш килеше)\n\n-га -ğa\n\n-ка -qa\n\n-а, -на -a, -na\n\nLocative (урын-вакыт килеше)\n\n-да -da\n\n-та -ta\n\n-нда -nda\n\nAblative (чыгыш килеше)\n\n-дан -dan\n\n-нан -nan\n\n-тан -tan\n\n-ннан -nnan\n\nPlural\n\nNominative\n\n-лар -lar\n\n-нар -nar\n\n-лар -lar\n\nAccusative\n\n-ларны -larnı\n\n-нарны -narnı\n\n-ларны -larnı\n\nGenitive\n\n-ларның -larnıñ\n\n-нарның -narnıñ\n\n-ларның -larnıñ\n\nDative\n\n-ларга -larğa\n\n-нарга -narğa\n\n-ларга -larğa\n\nLocative\n\n-ларда -larda\n\n-нарда -narda\n\n-ларда -larda\n\nAblative\n\n-лардан -lardan\n\n-нардан -nardan\n\n-лардан -lardan\n\nThe declension of possessive suffixes is even more irregular, with the dative suffix -а used in 1st singular and 2nd singular suffixes, and the accusative, dative, locative, and ablative endings -н, -на, -нда, -ннан is used after 3rd person possessive suffix. Nouns ending in -и, -у, or -ү, although phonologically vowels, take consonantic endings.[28]\n\nPerson\n\nAfter consonants\n\nAfter vowels\n\n1st singular\n\n-ым -ım\n\n-м -m\n\n2nd singular\n\n-ың -ıñ\n\n-ң -ñ\n\n3rd\n\n-ы -ı\n\n-сы -sı\n\n1st plural\n\n-ыбыз -ıbız\n\n-быз -bız\n\n2nd plural\n\n-ыгыз -ığız\n\n-гыз -ğız",
+          "examples": [
+            "Tatar nouns are inflected for cases and numbers. Case suffixes change depending on the last consonants of the noun, while nouns ending in for example p/k (п/к) are voiced to b/g (б/г) when a possessive suffix is added (kitap –> kitabım / ки"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Declension of pronouns",
+          "body": "The declension of personal and demonstrative pronouns tends to be irregular. Irregular forms are in bold.\n\nPersonal pronouns\n\nCase\nSingular\nPlural\n\nI\nyou (sg.), thou\nhe, she, it\nwe\nyou (pl.)\nthey\n\nNominative\n\nмин min\nсин sin\nул ul\nбез bez\nсез sez\nалар alar\n\nAccusative\n\nмине mine\nсине sine\nаны anı\nбезне bezne\nсезне sezne\nаларны alarnı\n\nGenitive\n\nминем minem\nсинең sineñ\nаның anıñ\nбезнең bezneñ\nсезнең sezneñ\nаларның alarnıñ\n\nDative\n\nмиңа miña\nсиңа siña\nаңа aña\nбезгә bezgä\nсезгә sezgä\nаларга alarğa\n\nLocative\n\nминдә mindä\nсиндә sindä\nанда anda\nбездә bezdä\nсездә sezdä\nаларда alarda\n\nAblative\n\nминнән minnän\nсиннән sinnän\nаннан annan\nбездән bezdän\nсездән sezdän\nалардан alardan\n\nDemonstrative pronouns\n\nCase\nSingular\nPlural\n\n\"This\"\n\"That\"\n\"These\"\n\"Those\"\n\nNominative\n\nбу bu\nшул şul\nболар bolar\nшулар şular\n\nAccusative\n\nмоны monı\nшуны şunı\nболарны bolarnı\nшуларны şularnı\n\nGenitive\n\nмоның monıñ\nшуның şunıñ\nболарның bolarnıñ\nшуларның şularnıñ\n\nDative\n\nмоңа moña\nшуңа şuña\nболарга bolarğa\nшуларга şularğa\n\nLocative\n\nмонда monda\nшунда şunda\nболарда bolarda\nшуларда şularda\n\nAblative\n\nмоннан monnan\nшуннан şunnan\nболардан bolardan\nшулардан şulardan\n\nInterrogative pronouns\n\nCase\nWho?\nWhat?\n\nNominative\n\nкем kem\nнәрсә närsä\n\nAccusative\n\nкемне kemne\nнәрсәне närsäne\n\nGenitive\n\nкемнең kemneñ\nнәрсәнең närsäneñ\n\nDative\n\nкемгә kemgä\nнәрсәгә närsägä\n\nLocative\n\nкемдә kemdä\nнәрсәдә närsädä\n\nAblative\n\nкемнән kemnän\nнәрсәдән närsädän",
+          "examples": [
+            "\"This\"",
+            "\"That\"",
+            "\"These\"",
+            "\"Those\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Like some other Turkic languages, Tatar employs no proper articles to convey definiteness; instead, this semantic property is marked by different morphemes. Broadly speaking, definiteness corresponds to the English 'the', while indefiniteness corresponds to 'a' or 'an'. The verb conjunction is affected by the definitness of the its arguments (subject or object).[29] [30][31] \n\nTense\n\nAfter voiced consonants\n\nAfter unvoiced consonants\n\nAfter vowels\n\nPresent\n\n-а -a\n\n-ый -ıy\n\nDefinite past\n\n-ды -dı\n\n-ты -tı\n\n-ды -dı\n\nIndefinite past\n\n-ган -ğan\n\n-кан -qan\n\n-ган -ğan\n\nDefinite future\n\n-ачак -açaq\n\n-ячак -yaçaq\n\nIndefinite future\n\n-ар/ыр -ar/-ır\n\n-р -r\n\nConditional\n\n-са -sa\n\nNon-finite tenses\n\nPresent participle\n\n-учы -uçı\n\nPast participle\n\n-ган -ğan\n\n-кан -qan\n\n-ган -ğan\n\nFuture participle\n\n-асы -ası\n\n-ыйсы -ıysı\n\nDefinite future participle\n\n-ачак -açaq\n\nIndefinite future participle\n\n-ар/-ыр -ar/ır\n\n-р -r\n\nVerbal participle\n\n-ып -ıp\n\n-п -p\n\nPre-action gerund\n\n-ганчы -ğançı\n\n-канчы -qançı\n\n-ганчы -ğançı\n\nPost-action gerund\n\n-гач -ğaç\n\n-кач -qaç\n\n-гач -ğaç\n\nVerbal noun\n\n-у\n\nInfinitive\n\n-мак -maq\n\n-арга/-ырга -arğa/ırğa\n\n-рга -rğa\n\nThe distribution of present tense suffixes is complicated, with the former (also with vowel harmony) is used with verb stems ending in consonants, and the latter is used with verb stem ending in vowels (with the last vowel being deleted, eşläw / эшләү – eşli / эшли; compare Turkish işlemek – continuous işliyor). The distribution of indefinite future tense is more complicated in consonant-ending stems, it is resolved by -арга/-ырга infinitives (yazarga / язарга – yazar / язар). However, because some have verb citation forms in verbal noun (-у), this rule becomes somewhat unpredictable.\n\nTenses are negated with -ма, however in the indefinite future tense and the verbal participle they become -mas / -мас and -mıyça / -мыйча instead, respectively. Alongside vowel-ending stems, the suffix also becomes -мый when negates the present tense. To form interrogatives, the suffix -мы is used.\n\nPersonal inflections\n\nType\n\n1st singular\n\n2nd singular\n\n3rd singular\n\n1st plural\n\n2nd plural\n\n3rd plural\n\nI\n\n-мын/-м -mın/-m\n\n-сың -sıñ\n\n-∅\n\n-быз -bız\n\n-сыз -sız\n\n-лар/-нар -lar/-nar\n\nII\n\n-м -m\n\n-ң -ñ\n\n-∅\n\n-к -q, -k\n\n-гыз -ğız\n\n-лар/-нар -lar/-nar\n\nImperative\n\n-ыйм -ıym\n\n-∅\n\n-сын -sın\n\n-ыйк -ıyq\n\n-(ы)гыз -ığız\n\n-сыннар -sınnar\n\nDefinite past and conditional tenses use type II personal inflections instead. When in the case of present tense, short ending (-м) is used. After vowels, the first person imperative forms deletes the last vowel, similar to the present tense does (eşläw – eşlim). Like plurals of nouns, the suffix -лар change depending the preceding consonants (-alar, but -ğannar).\n\nAnomalous verbs\nSome verbs fall into this category. Dozens of them have irregular stems with a final mid vowel, but obscured on the infinitive (uqu – uqı, uqıy; tözü – töze, tözi). The verbs qoru / кору \"to build\", tanu / тану \"to disclaim\", taşu / ташу \"to spill\" have contrastive meanings with verbs with their final vowelled counterparts, meaning \"to dry\", \"to know\", \"to carry\".\n\nThe verb дию (diyu) \"to say\" is significantly more irregular than any other verbs: its 2nd person singular imperative is digen (диген), while its expected regular form is repurposed as the present tense forms (dim, diñ, di…).[28]",
+          "examples": [
+            "Some verbs fall into this category. Dozens of them have irregular stems with a final mid vowel, but obscured on the infinitive (uqu – uqı, uqıy; tözü – töze, tözi). The verbs qoru / кору \"to build\", tanu / тану \"to disclaim\", taşu / ташу \"t",
+            "The verb дию (diyu) \"to say\" is significantly more irregular than any other verbs: its 2nd person singular imperative is digen (диген), while its expected regular form is repurposed as the present tense forms (dim, diñ, di…).[28]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Predicatives",
+          "body": "After voiced consonants\n\nAfter unvoiced consonants\n\n1st singular\n\n-мын -mın\n\n2nd singular\n\n-сың -sıñ\n\n3rd\n\n-дыр -dır\n\n-тыр -tır\n\n1st plural\n\n-быз -bız\n\n2nd plural\n\n-сыз -sız\n\nThese predicative suffixes have now fallen into disuse, or rarely used.[32]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Writing system",
+      "summary": "Main articles: Tatar alphabets and Jaꞑalif\nTatar Latin (Jaꞑalif) and Arabic scripts, 1927\nSome guides in Kazan are in Latin script, especially in fashion boutiques.\nTatar sign on a madrasah in Nizhny Novgorod, written in both Arabic and Cyrillic Tatar scripts\nDuring its history,",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main articles: Tatar alphabets and Jaꞑalif\nTatar Latin (Jaꞑalif) and Arabic scripts, 1927\nSome guides in Kazan are in Latin script, especially in fashion boutiques.\nTatar sign on a madrasah in Nizhny Novgorod, written in both Arabic and Cyrillic Tatar scripts\nDuring its history, Tatar has been written in Arabic, Latin and Cyrillic scripts.\n\nBefore 1928, Tatar was mostly written in Arabic script (Иске имля/İske imlâ, \"Old orthography\", to 1920; Яңа имла/Yaña imlâ, \"New orthography\", 1920–1928).\n\nDuring the 19th century, Russian Christian missionary Nikolay Ilminsky devised the first Cyrillic alphabet for Tatar. This alphabet is still used by Christian Tatars (Kryashens).\n\nIn the Soviet Union after 1928, Tatar was written with a Latin alphabet called Jaꞑalif.\n\nIn 1939, in Tatarstan and all other parts of the Soviet Union, a Cyrillic script was adopted and is still used to write Tatar. It is also used in Kazakhstan.\n\nThe Republic of Tatarstan passed a law in 1999 that came into force in 2001 establishing an official Tatar Latin alphabet. A Russian federal law overrode it in 2002, making Cyrillic the sole official script in Tatarstan since. In 2004, an attempt to introduce a Latin-based alphabet for Tatar was further abandoned when the Constitutional Court ruled that the federal law of 15 November 2002 mandating the use of Cyrillic for the state languages of the republics of the Russian Federation[33] does not contradict the Russian constitution.[34] In accordance with this Constitutional Court ruling, on 28 December 2004, the Tatar Supreme Court overturned the Tatarstani law that made the Latin alphabet official.[35]\n\nIn 2012 the Tatarstan government adopted a new Latin alphabet but with limited usage (mostly for Romanization).\n\nIn 2024, the modified Common Turkic Alphabet replaced letter ä with ə, which was already in use in Azerbaijani, as well as among Tatar activists using the Latin alphabet.[36][37][38]\n\nTatar Perso-Arabic alphabet (before 1928):\n\nآ\n\nا\n\nب\n\nپ\n\nت\n\nث\n\nج\n\nچ\n\nح\n\nخ\n\nد\n\nذ\n\nر\n\nز\n\nژ\n\nس\n\nش\n\nص\n\nض\n\nط\n\nظ\n\nع\n\nغ\n\nف\n\nق\n\nك\n\nگ\n\nنك\n\nل\n\nم\n\nن\n\nه\n\nو\n\nۇ\n\nڤ\n\nی\n\nئ\n\nTatar Old Latin (Jaꞑalif) alphabet (1928 to 1940):\n\nA a\n\nB ʙ\n\nC c\n\nÇ ç\n\nD d\n\nE e\n\nƏ ə\n\nF f\n\nG g\n\nƢ ƣ\n\nH h\n\nI i\n\nJ j\n\nK k\n\nL l\n\nM m\n\nN n\n\nꞐ ꞑ\n\nO o\n\nƟ ɵ\n\nP p\n\nQ q\n\nR r\n\nS s\n\nŞ ş\n\nT t\n\nU u\n\nV v\n\nX x\n\nУ y\n\nZ z\n\nƵ ƶ\n\nЬ ь\n\n'\n\nTatar Old Cyrillic alphabet (by Nikolay Ilminsky, 1861; the letters in parentheses are not used in modern publications):\n\nА а\n\nӒ ӓ\n\nБ б\n\nВ в\n\nГ г\n\nД д\n\nЕ е\n\nЁ ё\n\nЖ ж\n\nЗ з\n\nИ и\n\n(Іі)\n\nЙ й\n\nК к\n\nЛ л\n\nМ м\n\nН н\n\nҤ ҥ\n\nО о\n\nӦ ӧ\n\nП п\n\nР р\n\nС с\n\nТ т\n\nУ у\n\nӰ ӱ\n\nФ ф\n\nХ х\n\nЦ ц\n\nЧ ч\n\nШ ш\n\nЩ щ\n\nЪ ъ\n\nЫ ы\n\nЬ ь\n\n(Ѣѣ)\n\nЭ э\n\nЮ ю\n\nЯ я\n\n(Ѳѳ)\n\nTatar Cyrillic alphabet (1939; the letter order adopted in 1997):\n\nА а\n\nӘ ә\n\nБ б\n\nВ в\n\nГ г\n\nД д\n\nЕ е\n\nЁ ё\n\nЖ ж\n\nҖ җ\n\nЗ з\n\nИ и\n\nЙ й\n\nК к\n\nЛ л\n\nМ м\n\nН н\n\nҢ ң\n\nО о\n\nӨ ө\n\nП п\n\nР р\n\nС с\n\nТ т\n\nУ у\n\nҮ ү\n\nФ ф\n\nХ х\n\nҺ һ\n\nЦ ц\n\nЧ ч\n\nШ ш\n\nЩ щ\n\nЪ ъ\n\nЫ ы\n\nЬ ь\n\nЭ э\n\nЮ ю\n\nЯ я\n\n1999 Tatar Latin alphabet, made official by a law adopted by Tatarstani authorities but annulled by the Tatar Supreme Court in 2004:[35]\n\nA a\n\nƏ ə\n\nB b\n\nC c\n\nÇ ç\n\nD d\n\nE e\n\nF f\n\nG g\n\nĞ ğ\n\nH h\n\nI ı\n\nİ i\n\nJ j\n\nK k\n\nQ q\n\nL l\n\nM m\n\nN n\n\nꞐ ꞑ\n\nO o\n\nƟ ɵ\n\nP p\n\nR r\n\nS s\n\nŞ ş\n\nT t\n\nU u\n\nÜ ü\n\nV v\n\nW w\n\nX x\n\nY y\n\nZ z\n\nʼ\n\n2012 Tatar Latin alphabet[39]\n\nA a\n\nÄ ä\n\nB b\n\nC c\n\nÇ ç\n\nD d\n\nE e\n\nF f\n\nG g\n\nĞ ğ\n\nH h\n\nI ı\n\nİ i\n\nJ j\n\nK k\n\nQ q\n\nL l\n\nM m\n\nN n\n\nÑ ñ\n\nO o\n\nÖ ö\n\nP p\n\nR r\n\nS s\n\nŞ ş\n\nT t\n\nU u\n\nÜ ü\n\nV v\n\nW w\n\nX x\n\nY y\n\nZ z\n\nʼ",
+          "examples": [
+            "Before 1928, Tatar was mostly written in Arabic script (Иске имля/İske imlâ, \"Old orthography\", to 1920; Яңа имла/Yaña imlâ, \"New orthography\", 1920–1928)."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "History",
+      "summary": "Main article: Turkic languages § Vocabulary comparison\nThe ancestors of Tatar are the extinct Turkic Bulgar and Kipchak languages.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Turkic languages § Vocabulary comparison\nThe ancestors of Tatar are the extinct Turkic Bulgar and Kipchak languages.\n\nThe literary Tatar language is based on the Central Tatar (Kazan) dialect and on Türki, also known as Old Tatar Language. Both are members of the Volga-Ural subgroup of the Kipchak group of Turkic languages, although they also partly derive from the ancient Volga Bulgar language.\n\nCrimean Tatar, although similar by name, belongs to another subgroup of the Kipchak languages. Unlike Kazan Tatar, Crimean Tatar is heavily influenced by Turkish (mostly its Ottoman variety with Arabic, and Persian influences) and Nogai languages.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        },
+        {
+          "heading": "Influences in Tatar",
+          "body": "Most of the Uralic languages in the Volga River area have strongly influenced the Tatar language,[40] as have the Arabic, Russian, and Persian languages.[41]\n\nArabic, and Persian loanwords\nThe Tatars joined the Islamic world in the 10th century, enabling Arabic, and Persian influences on the language.\n\nLoanwords have largely been borrowed from Persian.[26] The stock can be split into an everyday register and a literary register.[26] The everyday register survived the Soviet era, while the literary register was replaced with Russian loans.[26]\n\nPre-modern literary works used loanwords heavily, similar to Ottoman Turkish.[26] In the early 1900s, reformist intellectuals led a movement to temper the usage of Arabic, and Persian loanwords.[26]\n\nTatar has merged many sounds of the loanwords it has borrowed from Arabic.[26] Some sets of otherwise-homophonous consonants are distinguished by how they condition the backness or frontness of vowels. For example, ع (ayn) and غ (ghayn) are both borrowed as ğ, but ayn additionally produces front vowels while ghayn produces back vowels.\n\nIn the Mishar dialect, ğ is not pronounced. For example, şiğer (شعر, шигырь, \"poem\") is şigır or şiyır.[42][43]\n\nLong-A (alif) is realised as a, and short-A (fathah) is ä[26] (عيسى, Ğəysə). Alif with hamza (أ) is also ä, but Tatar İske imlâ spelling omits the hamza (امين / أمين, Əmin). Vowel harmony also affects realisation (عبد الله, Ğabdulla; عبد الرشيد, Ğəbderrəşit). This is also the case with ö/o (عمر, Ğömər; عثمان, Ğosman).[citation needed] However, this rule is often inconsistent when transliterating from Cyrillic to Latin.[original research?] The spelling of borrowings is systematic; for example, سلام \"hello\" is written as сәлам with a long-A but pronounced as сәләм.[44]\n\nDuring the Golden Horde (1242–1502), the ancestors of modern Tatars used Persian in addition to their Turkic language to a relatively significant extent, especially in poetry and even after the Golden Horde. For example, the long-serving Khan of the Kazan Khanate (1438–1552), Möxəmməd-Əmin, wrote poetry in Persian. In religious and legal matters Arabic was used.[45][46] Many Persian poetic works, and Arabic religious works are considered part of Tatar literature today.[47]\n\nRussian\nFrom incorporation into the Russian Empire to present-day status as a part of the Russian Republic, the Russian language has also exerted influence on Tatar.\n\nThis accelerated dramatically during the Soviet era for political reasons, with Russian loanwords supplanting Arabic, and Persian loanwords, such that up to half of a dictionary's words were Russian loans.[26][48][49]\n\nAfter the fall of the Soviet Union, learned speakers have endeavored to de-Russify by restoring Persian, and Arabic loanwords, similar (yet converse to) Turkish post-Ottoman replacement of Persian, and Arabic loanwords.[48][26][48]\n\nDiaspora language such as Finnish Tatar has been less affected by Soviet developments.[48]",
+          "examples": [
+            "In the Mishar dialect, ğ is not pronounced. For example, şiğer (شعر, шигырь, \"poem\") is şigır or şiyır.[42][43]",
+            "Long-A (alif) is realised as a, and short-A (fathah) is ä[26] (عيسى, Ğəysə). Alif with hamza (أ) is also ä, but Tatar İske imlâ spelling omits the hamza (امين / أمين, Əmin). Vowel harmony also affects realisation (عبد الله, Ğabdulla; عبد ال"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Sample text",
+      "summary": "Tatar pronunciation\nArticle 1 of the Universal Declaration of Human Rights in Tatar (Cyrillic):",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Tatar pronunciation\nArticle 1 of the Universal Declaration of Human Rights in Tatar (Cyrillic):\n\nБарлык кешеләр дә азат һәм үз абруйлары һәм хокуклары ягыннан тиң булып туалар. Аларга акыл һәм вөҗдан бирелгән, һәм алар бер-берсенә карата туганнарча мөнасәбәттә булырга тиешләр.\nArticle 1 of the Universal Declaration of Human Rights in Tatar (Latin):\n\nBarlıq keşelər də azat həm üz abruyları həm xoquqları yağınnan tiñ bulıp tuwalar. Alarğa aqıl həm wöcdan birelgən, həm alar ber-bersenə qarata tuğannarça mönəsəbəttə bulırğa tiyeşlər.\nInternational Phonetic Alphabet transcription:\n\n[bɒrˈɫɤq kʃɘ̆ˈlær dæ ɒˈzɑt hæm ʉz ɒβˌrujɫɑˈrɤ hæm χoˌquqɫɑˈrɤ ˌʝɒʁɤnˈnɑn ˈtiŋ buˈɫɤp ˌtuwɑˈɫɑr ‖ ˌɒɫɒrˈʁɑ ɒˈqɤɫ hæm wɵʑˈdɑn ˌbirɘlˈɡæn hæm ɒˈɫɑr ˌbɘr‿ˌbɘrsɘˈnæ ˌqɒrɒˈtɑ tuˌʁɑnnɑrˈɕɑ mɵˌnɑsæβætˈtæ ˌbuɫɤrˈɢɑ ˌtijɘʃˈlær ‖]\nArticle 1 of the Universal Declaration of Human Rights in English:\n\nAll human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Tatar_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

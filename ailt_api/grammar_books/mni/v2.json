@@ -1,0 +1,251 @@
+{
+  "title": "Grammar Book — মৈতৈলোন্",
+  "languageCode": "mni",
+  "languageName": "মৈতৈলোন্",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Manipuri_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "This article contains the Meitei alphabet. Without proper rendering support, you may see errors in display.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Meitei language\n\nThis article contains the Meitei alphabet. Without proper rendering support, you may see errors in display.\n\nSemantic reduplication in Classical Meitei language word for \"Tiger\" - combination of words originated from Ningthouja & Khuman linguistic varieties\nMeitei grammar (Meitei: Meetei Lonmit), sometimes also known as Manipuri grammar (Meitei: Manipuri Lonmeet),[1][2] is the whole system and structure of Meitei language (also known as Manipuri), consisting of syntax and morphology (including inflections) and also phonology and semantics.[3][4]\n\nThe Meitei language clearly has characteristics of the Tibeto-Burman language group. These features include three types of velar nasal sounds, many words that sound the same, changes in the meaning of verbs, repeating or expanding words, final particles, a focus on aspect (how an action is happening) instead of tense (when it happens), no gender marking, a verb-final sentence structure, and a system where verbs are formed by adding many suffixes and fewer prefixes.[5]",
+          "examples": [
+            "Semantic reduplication in Classical Meitei language word for \"Tiger\" - combination of words originated from Ningthouja & Khuman linguistic varieties"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "The declension of nouns is very simple.[6] The terminations are-",
+      "sections": [
+        {
+          "heading": "Case",
+          "body": "The declension of nouns is very simple.[6] The terminations are-\n\nCases\n\nMeitei suffices\n\nExamples\n\nDescription[6]\n\nNominative case\n\n-na\n\nmi-na\n\na man (mi alone is often used).\n\nGenitive case\n\n-gi\n\nmi-gi\n\nof a man.\n\nDative case\n\n-da\n\nmi-da (also mingonda*)\n\nto a man.\n\nAccusative case\n\n-bu\n\nmi-bu\n\na man.\n\nAblative case\n\n-dagi\n\nmi-dagi (also mingondagi*)\n\nfrom a man.\n\nLocative case\n\n-da\n\nmaphamda\n\nin a place",
+          "examples": [
+            "Examples"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "The plural in the case of human beings is formed by adding \"sing\"/\"shing\" (meitei: -ꯁꯤꯡ) to the word and declining in the same manner as in the singular, as :-\n\nmising, ꯃꯤꯁꯤꯡ - men.\n\nMisinggi, ꯃꯤꯁꯤꯡꯒꯤ - of men, etc.\n\nThere is no plural form for animals and other things. \"Kheibik\" and \"pumnamak\", all, or \"yamna\", many, are used to indicate plurality.[6]",
+          "examples": [
+            "The plural in the case of human beings is formed by adding \"sing\"/\"shing\" (meitei: -ꯁꯤꯡ) to the word and declining in the same manner as in the singular, as :-",
+            "There is no plural form for animals and other things. \"Kheibik\" and \"pumnamak\", all, or \"yamna\", many, are used to indicate plurality.[6]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "Gender, in the case of animals, is indicated by the addition of \"laba\" (meitei: ꯂꯥꯕ) for the masculine and \"amom\" (meitei: ꯑꯃꫭꯝ) for the feminine, as :--\n\nSagol laba, ꯁꯒꫭꯜ ꯂꯥꯕ- a stallion.\n\nSagol amom, ꯁꯒꫭꯜ ꯑꯃꫭꯝ - a mare.\n\nIn the case of human beings, gender is indicated by the addition of \"nupa\"/\"nipa\" and \"nupi\"/\"nipi\", but only when the same word is used for both male and female, as:-\n\nmacha-nupa, ꯃꯆꯥꯅꯨꯄꯥ - a son.\n\nmacha-nupi, ꯃꯆꯥꯅꯨꯄꯤ - a daughter.[6]",
+          "examples": [
+            "Gender, in the case of animals, is indicated by the addition of \"laba\" (meitei: ꯂꯥꯕ) for the masculine and \"amom\" (meitei: ꯑꯃꫭꯝ) for the feminine, as :--",
+            "In the case of human beings, gender is indicated by the addition of \"nupa\"/\"nipa\" and \"nupi\"/\"nipi\", but only when the same word is used for both male and female, as:-"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pronouns",
+      "summary": "The form ending in \"hak\" is honorific. The plural is formed by adding \"khoi\" to the singular non-honorific form. Pronouns are declined in the same way, as \"mi\", a man.[7]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The personal pronouns are :\n\n\"ai\"/\"ei\" or \"eihak\" - I,\n\n\"nang\" or \"nahak\" - thou/you,\n\n\"ma\" or \"mahak\" - he/she/it.[7]\n\nThe form ending in \"hak\" is honorific. The plural is formed by adding \"khoi\" to the singular non-honorific form. Pronouns are declined in the same way, as \"mi\", a man.[7]",
+          "examples": [
+            "\"ai\"/\"ei\" or \"eihak\" - I,",
+            "\"nang\" or \"nahak\" - thou/you,",
+            "\"ma\" or \"mahak\" - he/she/it.[7]",
+            "The form ending in \"hak\" is honorific. The plural is formed by adding \"khoi\" to the singular non-honorific form. Pronouns are declined in the same way, as \"mi\", a man.[7]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Singular",
+          "body": "Case[7]\n\nFirst person pronouns\n\nSecond person pronouns\n\nThird person pronouns\n\nNominative case\n\neina\n\nnangna\n\nmâna\n\nGenitive case\n\neigi\n\nnanggi\n\nmagi\n\nDative case\n\neingonda\n\nnangonda\n\nmângonda\n\nAccusative case\n\neibu\n\nnangbu\n\nmâbu.\n\nAblative case\n\neigondagi\n\nnangondagi\n\nmangondagi.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Plural",
+          "body": "Case[7]\n\nFirst person pronouns\n\nSecond person pronouns\n\nThird person pronouns\n\nNominative case\n\neikhoi\n\nnakhoi\n\nmâkhoi.\n\nGenitive case\n\neikhoigi\n\nnakhoigi\n\nmâkhoigi.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "The demonstrative pronouns are\n\nasi, or masi - this.\n\nadu, or madu - that.\n\n\"Asi\" is also used in the same sense as \"adu\".[7]",
+          "examples": [
+            "\"Asi\" is also used in the same sense as \"adu\".[7]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Interrogative pronouns",
+          "body": "The interrogative pronouns are\n\nkana or kanano - who?\n\nkadai - what?[7]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Relative pronouns",
+          "body": "Relative pronouns are not used. A verbal participle with \"asi\" or \"adu\" is used in the place of relative pronouns, as:\n\nThe man who came yesterday leaves to-day = \"ngarang lakpa mi adu ngasi chatkani.\"[7]",
+          "examples": [
+            "Relative pronouns are not used. A verbal participle with \"asi\" or \"adu\" is used in the place of relative pronouns, as:",
+            "The man who came yesterday leaves to-day = \"ngarang lakpa mi adu ngasi chatkani.\"[7]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "All adjectives end in \"ba\", and an initial \"a\" may always be prefixed without altering the meaning, as:-",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "All adjectives end in \"ba\", and an initial \"a\" may always be prefixed without altering the meaning, as:-\n\nGood - aphaba, or phaba.\n\nLarge - achauba, or chauba.[6]\n\nAdjectives can be declined like verbs, as :-\n\nIt was very good \"masi yamna phare,\" where \"phaba\" has been changed into \"phare\" to give the word a past meaning. \"Ba\" is changed into \"bi\" in the feminine. Adjectives have no plural form.[6]",
+          "examples": [
+            "All adjectives end in \"ba\", and an initial \"a\" may always be prefixed without altering the meaning, as:-",
+            "It was very good \"masi yamna phare,\" where \"phaba\" has been changed into \"phare\" to give the word a past meaning. \"Ba\" is changed into \"bi\" in the feminine. Adjectives have no plural form.[6]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Verbs",
+      "summary": "The conjugation of the Meitei verb is very complex. According to Arthur John Primrose (1888), no language has such a variety of tense forms to express present, past, or future action as found in Meitei language. Most of the varieties have distinct meanings of their own. Every ver",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The conjugation of the Meitei verb is very complex. According to Arthur John Primrose (1888), no language has such a variety of tense forms to express present, past, or future action as found in Meitei language. Most of the varieties have distinct meanings of their own. Every verb has also a negative and interrogative form conjugated in all tenses except the interrogative future like the simple verb. The Meitei linguistic system divides the verb into present, past, and future tenses. They also have an imperative tense form under the present tense forms they classify what in English grammar is called the perfect tense. There are no less than eight different present tense forms with corresponding forms for the past and future tenses.[8]\n\nThere is no difference in the terminations of a tense, singular or plural, for the first, second, and third persons except in the imperative, which is irregular.[8]\n\nThe subjunctive mood is expressed by a participle ending in \"labadi\" or \"rabadi\". The \"labadi\" is used when the verb root ends in a consonant, \"rabadi\" when the root ends in vowel.[8]\n\nThe rule for the interchange of \"l\" and \"r\" is also observed in other tenses, \"r\" is always used after a vowel, \"l\" after a consonant.[8]",
+          "examples": [
+            "The subjunctive mood is expressed by a participle ending in \"labadi\" or \"rabadi\". The \"labadi\" is used when the verb root ends in a consonant, \"rabadi\" when the root ends in vowel.[8]",
+            "The rule for the interchange of \"l\" and \"r\" is also observed in other tenses, \"r\" is always used after a vowel, \"l\" after a consonant.[8]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Participles",
+      "summary": "The present participle ends in \"duna\" as:-",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The present participle ends in \"duna\" as:-\n\nTouduna - doing.[9]\n\nThe past participle ends in \"khiduna\" or \"luduna\", as:-\n\nChatkhiduna - having gone.\n\nTouruduna - having done.[9]\n\nThe future participle ends in \"laga\" or \"raga\" as \"chatlaga,\" \"touraga.\"[9]\n\nThe participle ending in \"lingaida\" or \"ringaida\" means at the time of doing a thing, as \"when I was going there I saw him\" = \"aina asida chatlingaida maboo aina uram-mi.\"[9]\n\nThe participle in \"kadabagi\" or \"nanaba\" is used to express a purpose, as, \"you make preparations to go\" = \"nang chatna-naba thourang tou.\"[9]\n\nParticiple in \"ringaida\" or \"lingaida\" - at the time of doing a thing.[9]\n\nAt the time of doing - tou-ringaida\n\nAt the time of going - chat-lingaida.[9]\n\nParticiple in \"gadabagi\" (kadabagi) or \"nanaba\" - in order to do a thing.[9] \n\nI am arranging to do it - ei tou-gadabagi thourang touri\n\nI am arranging to go - ei chat-kadabagi (chat-nanaba) thourang touri.[9]\n\nParticiple in \"rabadi\" or \"labadi\" - if I do a thing.[9]\n\nIf you do it -  tou-rabadi\n\nI shall go - eina chat-kani\n\nIf I go - eina chat-labadi\n\nI will tell him - eina mangonda haigani\n\nParticiple in \"banina\" or \"panina\" - because.[9]\n\nBecause I did it he is pleased - eina toura-banina ma nungaire.\n\nBecause I went he was angry - eina chat-panina ma saore.\n\nParticiple in \"gadaba\" - must do a thing.[9]\n\nVerbal noun in \"bani\" or \"pani\".[9]\n\nThe man who does - tou-bani.\n\nThe man who goes - chat-pani.\n\nThe man who did - tou-khrabani.\n\nThe man who went - chat-kadabani\n\nThe man who shall do - tou-gadabani.\n\nThe man who shall go - chat-kadabani.[9]\n\nThese verbal nouns can be used in the different tense forms, but the three forms given above are in general use, the other forms are rarely used.[9]\n\nIn sentences such as the following: \"the work which is being done is good,\" \"the work which has been done is good,\" the passive tense forms are expressed by participle forms preceding the noun to which they are related, as,[9]\n\nthe work which is being done is good - \"touriba thabak adu fei;\"\n\n\"the work which has been done is good\" - \"toukhriba thabak adu fei.\"[9]\n\nAfter words like \"kari\" (what), \"karam\" (why), and other interrogative adverbs, a form is used ending in \"page\" or \"bage\", for example,[9]\n\n\"what are you doing?\" - \"nang kari touriage?\"\n\n\"How did you go?\" - \"nang karam chat-lubage?\"[9]",
+          "examples": [
+            "The present participle ends in \"duna\" as:-",
+            "The past participle ends in \"khiduna\" or \"luduna\", as:-",
+            "The future participle ends in \"laga\" or \"raga\" as \"chatlaga,\" \"touraga.\"[9]",
+            "The participle ending in \"lingaida\" or \"ringaida\" means at the time of doing a thing, as \"when I was going there I saw him\" = \"aina asida chatlingaida maboo aina uram-mi.\"[9]",
+            "The participle in \"kadabagi\" or \"nanaba\" is used to express a purpose, as, \"you make preparations to go\" = \"nang chatna-naba thourang tou.\"[9]",
+            "Participle in \"ringaida\" or \"lingaida\" - at the time of doing a thing.[9]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Negative and Interrogative forms",
+      "summary": "Each of the eight forms for the present and past tenses have corresponding negative and interrogative forms. There is only one future negative and interrogative form. It is unnecessary to give all the different negative and interrogative forms for the present and past tenses as o",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Each of the eight forms for the present and past tenses have corresponding negative and interrogative forms. There is only one future negative and interrogative form. It is unnecessary to give all the different negative and interrogative forms for the present and past tenses as only two or three forms are in general use. The conjugation of the verbs \"touba\" and \"chatpa\" in their negative and interrogative forms is given below:[10]",
+          "examples": [
+            "Each of the eight forms for the present and past tenses have corresponding negative and interrogative forms. There is only one future negative and interrogative form. It is unnecessary to give all the different negative and interrogative fo"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Negative Conjugation",
+          "body": "Present tense (to do)[10]\n\nPresent tense (to go)[10]\n\nTouroi, toude\n\nchat-loi.\n\nTouramde\n\nchat-lammoi.\n\nPast tense (to do)\n\nPast tense (to go)\n\nToudre, tourudre\n\nchatte, chatlam-dre\n\nTouramdre\n\nchat-ludre.\n\nFuture tense (to do)\n\nFuture tense (to go)\n\nTouraroi\n\nchat-laroi",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        },
+        {
+          "heading": "Interrogative Conjugation",
+          "body": "Present tense (to do)[10]\n\nPresent tense (to go)[10]\n\nToubra, toura-bra\n\nchatlibra, chat-pra\n\nchatloidra, chat-tabra\n\nToudabra, toudrabra\n\nPast tense (to do)\n\nPast tense (to go)\n\nTourabra, tou-rambra\n\nchatlurabra, chat-lambra.\n\nTourudabra, touramdra\n\nchatludra, chatlamdra.\n\nFuture tense (to do)\n\nFuture tense (to go)\n\nTougera, Tougadra\n\nchat-kera, chat-kadra",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Adverbs",
+      "summary": "English adverbs[11]\n\nMeitei equivalents[11]\n\nAgain\nAlike\n\nAlready\n\nAlso\n\nAmuk.\nAmattâni.\n\nHoujik.\n\nAdusung.\n\nAlways\nApart\n\nBackwards\n\nBelow\n\nBefore\n\nBehind\n\nDaily\n\nDownwards\n\nEarly\n\nElsewhere\n\nHence\n\nHere\n\nHitherto\n\nHow\n\nImmediately\n\nLike\n\nLittle\n\nMonthly\n\nMuch\n\nNamely\n\nNever\n\nNe",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "English adverbs[11]\n\nMeitei equivalents[11]\n\nAgain\nAlike\n\nAlready\n\nAlso\n\nAmuk.\nAmattâni.\n\nHoujik.\n\nAdusung.\n\nAlways\nApart\n\nBackwards\n\nBelow\n\nBefore\n\nBehind\n\nDaily\n\nDownwards\n\nEarly\n\nElsewhere\n\nHence\n\nHere\n\nHitherto\n\nHow\n\nImmediately\n\nLike\n\nLittle\n\nMonthly\n\nMuch\n\nNamely\n\nNever\n\nNearly\n\nNo\n\nNow\n\nOften\n\nOnce\n\nOut\n\nOpposite\n\nOnly\n\nPerhaps\n\nProbably\n\nQuickly\n\nSince\n\nSoon\n\nSometimes\n\nMahousâ (leikhûk).\nTôpna (tôngngânna).\n\nTungdâ.\n\nMakhada.\n\nMamângdâ (hânna).\n\nMatungdâ.\n\nNumit khuding.\n\nKumthabada.\n\nNganna.\n\nMapham amada.\n\nAsômdagi.\n\nAsida.\n\nHoujik phâoba.\n\nKaramna.\n\nHoujik mak.\n\nMannana.\n\nKhajikta.\n\nThakudingda.\n\nYamna.\n\nAdumak.\n\nKhaknattabâ.\n\nKharanangairê.\n\nNatte (mai).\n\nHoujik.\n\nHanna hanna.\n\nAmarak.\n\nMapân.\n\nMâiyôk nana.\n\nMakta.\n\nKarigumba.\n\nWôiba mâllê.\n\nThûnâ.\n\nAsidaraktagî.\n\nKharleiraga.\n\nKarikarigumbada.\n\nSomewhere\nThen\n\nThere\n\nThus\n\nTogether\n\nUnless\n\nUntil\n\nUpwards\n\nVery\n\nWhen?\n\nWell\n\nWhence\n\nWhence?\n\nWhere?\n\nWhere\n\nWhy?\n\nYes\n\nYearly\n\nKarigumba mapham-da.\nMâduda.\n\nMadarakta.\n\nMaram asidaraktagî.\n\nLôinana.\n\nNattarabadi.\n\nAdupkimakhai.\n\nMathak lõmda.\n\nYamna.\n\nKadaungei.\n\nPhai.\n\nAdudagi.\n\nKadaidagi?\n\nKadai?\n\nAduda?\n\nKari?\n\nHôi.\n\nChahi khuding.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Prepositions",
+      "summary": "English prepositions[11][12]\n\nMeitei equivalents[11][12]\n\nAccording to\nAbove\n\nAfter\n\nAmong\n\nAt\n\nBefore\n\nBehind\n\nBelow\n\nBeside\n\nBetween\n\nFor\n\nFrom\n\nIn, Into\n\nOf\n\nOn\n\nOut\n\nMatunginna.\nMathakta.\n\nMatungda.\n\nMarakta.\n\nDa (affix).\n\nMamangda.\n\nMatungda.\n\nMakhada.\n\nManakta.\n\nMarakta.\n\nD",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "English prepositions[11][12]\n\nMeitei equivalents[11][12]\n\nAccording to\nAbove\n\nAfter\n\nAmong\n\nAt\n\nBefore\n\nBehind\n\nBelow\n\nBeside\n\nBetween\n\nFor\n\nFrom\n\nIn, Into\n\nOf\n\nOn\n\nOut\n\nMatunginna.\nMathakta.\n\nMatungda.\n\nMarakta.\n\nDa (affix).\n\nMamangda.\n\nMatungda.\n\nMakhada.\n\nManakta.\n\nMarakta.\n\nDamak.\n\nDagi (affix).\n\nManungda.\n\nGi (affix).\n\nThakta.\n\nMapândâ\n\nTo\nTill \n\nWith \n\nWithout\n\nYouba.\nPhâoba.\n\nLôinana.\n\nNattana.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Conjunctions",
+      "summary": "English conjunctions[12]\n\nMeitei equivalents[12]\n\nAlthough\nAnd \n\nAs \n\nso \n\nBecause \n\nBut \n\nElse \n\nFor \n\nHowever \n\nIf \n\nLikewise \n\nOr \n\nWherefore \n\nYet\n\nTinnaba hâiba.\nHaibabu.\n\nAmasung.\n\nAdum adumnâ.\n\nKaramnâ.\n\nTauigumbasung.\n\nNattarabadi.\n\nKaramna, maramna.\n\nAdumakpu.\n\nAdumna, b",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "English conjunctions[12]\n\nMeitei equivalents[12]\n\nAlthough\nAnd \n\nAs \n\nso \n\nBecause \n\nBut \n\nElse \n\nFor \n\nHowever \n\nIf \n\nLikewise \n\nOr \n\nWherefore \n\nYet\n\nTinnaba hâiba.\nHaibabu.\n\nAmasung.\n\nAdum adumnâ.\n\nKaramnâ.\n\nTauigumbasung.\n\nNattarabadi.\n\nKaramna, maramna.\n\nAdumakpu.\n\nAdumna, badi.\n\nSu, adumna (suffix).\n\nWairabasung.\n\nAduna.\n\nTauigumbasung.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Manipuri_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

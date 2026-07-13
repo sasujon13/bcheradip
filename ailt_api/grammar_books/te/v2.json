@@ -1,0 +1,284 @@
+{
+  "title": "Grammar Book — తెలుగు",
+  "languageCode": "te",
+  "languageName": "తెలుగు",
+  "version": 2,
+  "sources": [
+    "https://te.wikipedia.org/wiki/%E0%B0%A4%E0%B1%86%E0%B0%B2%E0%B1%81%E0%B0%97%E0%B1%81_%E0%B0%B5%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%95%E0%B0%B0%E0%B0%A3%E0%B0%82",
+    "https://en.wikipedia.org/wiki/Telugu_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Chapter 1",
+      "summary": "తెలుగు వ్యాకరణం లేదా తెలుగు నుడికట్టు పై  సిద్ధాంత గ్రంథాన్ని నన్నయ్య సంస్కృతంలో ఆంధ్రశబ్దచింతామణి అనే పేరుతో  వ్రాశారు.  ఆ తరువాత అధర్వణ, ఆహోబల సూత్రాలు, వార్తికాలు, భాష్యాలు వ్రాశారు. 19వ శతాబ్దంలో చిన్నయసూరి సులభమైన తెలుగు వ్యాకరణాన్ని బాలవ్యాకరణం అనే పేరుతో రాశారు. నన్నయ ప్రక",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "తెలుగు వ్యాకరణం లేదా తెలుగు నుడికట్టు పై  సిద్ధాంత గ్రంథాన్ని నన్నయ్య సంస్కృతంలో ఆంధ్రశబ్దచింతామణి అనే పేరుతో  వ్రాశారు.  ఆ తరువాత అధర్వణ, ఆహోబల సూత్రాలు, వార్తికాలు, భాష్యాలు వ్రాశారు. 19వ శతాబ్దంలో చిన్నయసూరి సులభమైన తెలుగు వ్యాకరణాన్ని బాలవ్యాకరణం అనే పేరుతో రాశారు. నన్నయ ప్రకారం నియమాలు లేని భాషను గ్రామ్యం లేక అపభ్రంశం కావున సాహిత్యానికి పనికిరాదనేవారు. కావున అప్పట్లో  సాహిత్యమంతా వ్యాకరణానికి లోబడి వుండేది.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://te.wikipedia.org/wiki/%E0%B0%A4%E0%B1%86%E0%B0%B2%E0%B1%81%E0%B0%97%E0%B1%81_%E0%B0%B5%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%95%E0%B0%B0%E0%B0%A3%E0%B0%82"
+        },
+        {
+          "heading": "Section 2",
+          "body": "తెలుగు అక్షరాలు\nతెలుగు పదాలు\nతెలుగు వాక్యాలు\nవిభక్తి\nవచనములు\nసంధి\nసమాసం\nఛందస్సు \nఅలంకారాలు\nప్రకృతి - వికృతి\nభాషాభాగాలు",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://te.wikipedia.org/wiki/%E0%B0%A4%E0%B1%86%E0%B0%B2%E0%B1%81%E0%B0%97%E0%B1%81_%E0%B0%B5%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%95%E0%B0%B0%E0%B0%A3%E0%B0%82"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Chapter 2",
+      "summary": "== పుస్తకాలు ==\nతెలుగు వ్యాకరణం: వర్రే సాంబశివరావు, దేవీ పబ్లికేషన్స్, విజయవాడ, 1999.\nలిటిల్ మాస్టర్స్ తెలుగు వ్యాకరణం-యం.విశ్వనాథరాజు ఎం.ఎ, నవరత్న బుక్ సెంటర్ విజయవాడ",
+      "sections": [
+        {
+          "heading": "Section 1",
+          "body": "== పుస్తకాలు ==\nతెలుగు వ్యాకరణం: వర్రే సాంబశివరావు, దేవీ పబ్లికేషన్స్, విజయవాడ, 1999.\nలిటిల్ మాస్టర్స్ తెలుగు వ్యాకరణం-యం.విశ్వనాథరాజు ఎం.ఎ, నవరత్న బుక్ సెంటర్ విజయవాడ",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://te.wikipedia.org/wiki/%E0%B0%A4%E0%B1%86%E0%B0%B2%E0%B1%81%E0%B0%97%E0%B1%81_%E0%B0%B5%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%95%E0%B0%B0%E0%B0%A3%E0%B0%82"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Introduction",
+      "summary": "Telugu is an agglutinative language with person, tense, case and number being inflected on the end of nouns and verbs. Its word order is usually subject-object-verb, with the direct object following the indirect object. The grammatical function of the words are marked by suffixes",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Telugu language\n\nTelugu is an agglutinative language with person, tense, case and number being inflected on the end of nouns and verbs. Its word order is usually subject-object-verb, with the direct object following the indirect object. The grammatical function of the words are marked by suffixes that indicate case and postpositions that follow the oblique stem. It is also head-final and a pro-drop language.\n\nThe first treatise on Telugu grammar (Telugu: వ్యాకరణము, romanized: vyākaraṇamu), the Andhra Shabda Chintamani (Telugu: ఆంధ్ర శబ్ద చింతామణి, romanized: Āndhra śabda cintāmaṇi) was written in Sanskrit by Nannayya, who is considered the first poet (ādikavi) and grammarian of the Telugu language, in the 11th century CE. In the 13th century, Andhra Bhasha Bhushanamu, a foundational Telugu grammar and vocabulary work, was written by the 13th-century scholar Mulaghatika Ketana, and is considered the first comprehensive Telugu grammar written in Telugu. In the 19th century, Paravastu Chinnaya Suri wrote a simplified work on Telugu grammar called Bāla Vyākaraṇam (lit. Children's grammar), borrowing concepts and ideas from Nannayya, in Telugu.[1]\n\nAccording to Nannayya, language without 'Niyama' or the language which does not adhere to Vyākaranam is called Grāmya (lit of the village) or Apabhraṃśa, is unfit for literary usage. All literary texts in Telugu follow the Vyākaraṇam.[1] Following pure telugu movement to minimise loan words and maximize usage of native telugu that is naatu telugu, a melimi telugu version is introduced where the term melimi means \"fine\" or excellence\". grammar for this version is telugu nudikattu",
+          "examples": [
+            "According to Nannayya, language without 'Niyama' or the language which does not adhere to Vyākaranam is called Grāmya (lit of the village) or Apabhraṃśa, is unfit for literary usage. All literary texts in Telugu follow the Vyākaraṇam.[1] Fo"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Nouns",
+      "summary": "Telugu is more inflected than other literary Dravidian languages. Telugu nouns are inflected for number (singular, plural), gender (masculine, feminine, neuter) and grammatical case (nominative, accusative, instrumental, dative, ablative, genitive, locative and vocative).[2]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Telugu is more inflected than other literary Dravidian languages. Telugu nouns are inflected for number (singular, plural), gender (masculine, feminine, neuter) and grammatical case (nominative, accusative, instrumental, dative, ablative, genitive, locative and vocative).[2]\n\nThere is a rich system of derivational morphology in Telugu. Verbs and adjectives can be converted into nouns by adding a variety of suffixes.\n\nExample:\n\nverb\n\nceyu + ika = ceyika(action)\n\nadjective\n\nmanchi + thanam = manchithanam (goodness)",
+          "examples": [
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "Telugu has three genders, which govern verb agreement:\n\nmasculine ( puliṅgamu),\n\nfeminine (strī liṅgamu),\n\nneuter (napunsaka liṅgamu).\n\nIn Telugu the occurrence of the suffix (–ḍu) almost always encodes masculine gender. For example: \n\ntammuḍu (younger brother),\n\nmukhyuḍu (important man),\n\nRāmuḍu (Rāma),\n\nnāyakuḍu (leader).\n\nHowever, there are nouns that do not end in (-ḍu) that belong to the masculine class. For example: \n\nannayya (elder brother),\n\nmāmayya (uncle).\n\nMost of the words ending in -ḍu are borrowings from Sanskrit words ending in -a, and therefore the feminine forms of these words are equivalent to the Sanskrit words.\n\nMasculine\n\nSanskrit original\n\nFeminine\n\nnartakuḍu\nnartaka\nnartaki\n\nvācakuḍu\nvācaka\nvācaki\n\npremikuḍu\npremika\npreyasi\n\nSometimes, a word ending in -ḍu is feminized by adding the suffix -ālu to the root. The -a ending of the root becomes -ur. This phenomenon is known as the rugāgama sandhi.\n\nMasculine\n\nSanskrit original\n\nFeminine\n\nnartakuḍu\nnartaka\nnartakurālu\n\npriyuḍu\npriya\npriyurālu\n\nbhaktuḍu\nbhakta\nbhakturālu\n\nNeuter-gendered words usually contain the suffix -amu. This suffix descends from the Old Telugu suffix -ambu and is increasingly losing the final -u to become -aṁ. These neuter words are often borrowed from Sanskrit words ending in -a or -u. The final -a usually becomes -amu, and the final -u becomes -uvu. \n\nSanskrit original\n\nTelugu\n\nākāśam\n\nākāśamu\n\nmadhu\n\nmadhuvu\n\nHowever, Telugu sometimes uses the same forms for singular feminine and neuter genders– the third person pronoun (అది /ad̪i/) can be used to refer to animals and objects.[3]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Anything with quantity one is singular (ekavachanam).\nAnything more than one in number is called plural (bahuvachanam), as in English. Formation of the plural stem, however, is relatively complicated, although the ending is centered on variants -lu or -ḷu.\n\nIn Telugu the plural is also used to as an honorific. Some nouns are always plural and some are always singular. For example, water (nīru) and milk (pālu) are always plural.\n\nGod (bhagavantudu), sun (suryudu), earth (bhūmi), and moon (chandrudu) are always singular form.\n\nPlural formation\n\nRules[4]\n\nRule\n\nTelugu\n\nEnglish\n\nNotes\n\nExceptions\n\nSingular\n\nPlural\n\n0\n\nāvu\n\nāvulu\n\ncow\n\nNo modification of the stem, and variant -lu is used.\n\ncellelu → celleṇḍḷu, celleḷḷu \"younger sister\"\n\ncēnu → cēlu \"field with a crop\"\n\nkūturu → kūtuṇḍḷu, kūtuḷḷu \"daughter\"\n\neddu → eddulu, eḍḷu \"bullock\"\n\npēnu → pēlu \"louse\"\n\n1\n\ncōṭu\n\ncōṭḷu\n\ncrore\n\nVowels in -ṭ[i/u], -ṇṭ[i/u], or -ṇḍ[i/u] in the singular is deleted, and variant -ḷu is used. Forms in -ṇḍḷu varies with -ḷḷu, used in western and eastern dialects, respectively.\n\npaṇḍu\n\npaṇḍḷu\npaḷḷu\n\nfruit\n\n2\n\nkālu\n\nkāḷḷu\n\nleg\n\n-ḍ[i/u], -l[i/u], or -r[i/u] (-li or -ri are limited to nouns with at least 3 syllables) in the singular are replaced by -ḷḷu. Some instances of -ḷḷu have alternative form -rlu.\n\nalluḍu → alluṇḍḷu, alluḷḷu \"son-in-law\"\n\nēḍu → ēṇḍḷu, ēḷḷu \"year\"\n\njītagāḍu → jītagāṇḍḷu, jītagāḷḷu \"servant\"\n\nkāḍi → kāṇḍḷu, kāḷḷu \"yoke\"\n\nkumāruḍu → kumārulu, kumāruḷḷu \"son\"\n\nmanamarālu → manamarāṇḍḷu, manamarāḷḷu \"granddaughter\"\n\npēru\n\npēḷḷu\npērlu\n\nname\n\nkoḍavali → koḍavanḍḷu, koḍavaḷḷu \"sickle\"\n\n-gāri → -gārlu \"a honorific suffix\"\n\n-sāri → -sārlu \"time\"\n\n3\n\nguḍḍu\n\nguḍḷu\n\negg\n\n-ṭṭ[i/u] and -ḍḍ[i/u] in the singular change into -ṭ- and -ḍ- before variant -ḷu.\n\n4\n\nillu\n\niṇḍḷu\niḷḷu\n\nhouse\n\n-llu and -nnu in the singular are replaced by -ṇḍḷu or -ḷḷu.\n\njunnu → junnulu \"kind of cheese\"\n\npannu → pannulu \"tax\"\n\nponnu → ponnulu \"iron ring\"\n\ntannu → tannulu \"beating\"\n\nṭannu → ṭannulu \"tonne\"\n\nvennu → vennulu \"back, ear of corn\"\n\n5\n\npustakam\n\npustakālu\n\nbook\n\n-[a/ā]m and -em in the singular are replaced by -ā- and -ē- before variant -lu.\n\n6\n\nabbāy(i)\n\nabbāy(i)lu\n\nson, boy\n\nThe vowel in -yi- is sometimes deleted, and variant -lu is used.\n\n7\n\ncēyi\nceyyi\n\ncētulu\n\nhand\n\n-(y)yi in the singular is replaced by -tulu, and the vowel preceding -yyi becomes long after pluralization (ceyyi → cētulu).\n\npoyyi → poyyilu, poyilu \"hearth\"\n\nrāyi → rāḷḷu \"rock\"\n\nveyyi → vēlu \"thousand\"\n\n8\n\npilli\n\npillulu\n\ncat\n\nThe vowel -i- is replaced by -u-, and the variant -lu is used. In native nouns with more than three syllables, all instances of -i- is ablauted to -u-.\n\npeṇḍḷi, peḷḷi → peṇḍḷinḍḷu, peḷḷiḷḷu \"marriage\"\n\nrātri → rātriḷḷu \"night\"\n\nvari → vaḍlu \"paddy\"\n\nmaniṣi\n\nmanuṣulu\n\nperson",
+          "examples": [
+            "cellelu → celleṇḍḷu, celleḷḷu \"younger sister\"",
+            "cēnu → cēlu \"field with a crop\"",
+            "kūturu → kūtuṇḍḷu, kūtuḷḷu \"daughter\"",
+            "eddu → eddulu, eḍḷu \"bullock\"",
+            "pēnu → pēlu \"louse\"",
+            "alluḍu → alluṇḍḷu, alluḷḷu \"son-in-law\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Numerals",
+          "body": "Cardinal numbers and quantifiers in Telugu vary based on whether or not the noun being counted is human, or non-human. The numbers from 1-7 have unique forms between the human and non-human forms, whereas numbers greater than 7 simply use the measure word మంది mandi to denote number. Ordinal numbers merely replace the final vowel of the non-human cardinal form with -ō and do not vary between human and non-human nouns.\n\n1\n\n2\n\n3\n\n4\n\n5\n\n6\n\n7\n\n8\n\n9\n\n10\n\nNon-Human\n\nఒక\noka\n(prepositive)\n\nఒకటి\nokaṭi\n\nరెండు\nreṇḍu\n\nమూడు\nmūḍu\n\nనాలుగు\nnālugu\n\nఐదు\naidu\n\nఆరు\nāru\n\nఏడు\nēḍu\n\nఎనిమిది\nenimidi\n\nతొమ్మిది\ntommidi\n\nపది\npadi\n\nHuman\n\nఒకడు\nokaḍu\n(male informal)\n\nఒకతే\nokatē\n(female informal)\n\nఒకరు\nokaru\n(respectful)\n\nఇద్దరు\niddaru\n\nముగ్గురు\nmugguru\n\nనలుగురు\nnaluguru\n\nఐదుగురు\naiduguru\n\nఆరుగురు\nāruguru\n\nఏడుగురు\nēḍuguru\n\nఎనిమిది మంది\nenimidi mandi\n\nతొమ్మిది మంది\ntommidi mandi\n\nపది మంది\npadi mandi\n\nOrdinal\n\nమొదటి, ఒకటో\nmodaṭi, okaṭō\n\nరెండో\nreṇḍō\n\nమూడో\nmūḍō\n\nనాలుగో\nnālugō\n\nఐదో\naidō\n\nఆరో\nārō\n\nఏడో\nēḍō\n\nఎనిమిదో\nenimidō\n\nతొమ్మిదో\ntommidō\n\nపదో\npadō",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Case",
+          "body": "A Grammar of Modern Telugu by Krishnamurti and Gwynn (1985), which focuses on a grammatical description of modern spoken Telugu rather than classical literary Telugu, presents a simple analysis of grammatical case, in comparison with classical Telugu:\n\nOnly the nominative, genitive, accusative, and dative cases are regularly used, and the locative case is formed using the suffixes -lō, -lōpala which were originally placed in the Genitive case by traditional grammarians to fit into the Sanskrit case scheme. The instrumental+sociative case suffix is -tō (while classical has -cēn/-cētan for instrumental and -tōn/-tōḍan for sociative); the colloquial suffixes for ablative case are -nuṇḍi/-nuñci. Ablative case is also used for comparative statements in colloquial Telugu, for which the suffixes are -kaṇṭe/-kannā. Another usage of ablative case is to indicate 'because of' noun, where the suffix -valla (classical -valanan) is used. The benefactive suffixes in classical (-koṟakun/-kai) are completely replaced by -kōsam in modern colloquial Telugu. The genitive form of a noun is defaulted to its oblique stem, i.e., oblique stem of a noun serves as its genitive case by default, though an explicit suffix -yokka is used in formal contexts (refer to oblique stem formation below).\n\nThe accusative case suffix is -ni/-nu, with the former always used after final syllables containing -i-, and the latter elsewhere but freely varies with -ni. The intervening vowel is sometimes deleted between -ḍ-, -l-, -n-, -ṇ-, -r- and the suffix, e.g. mimmala \"you (plural) + -ni → mimmalni, vāḍi \"him\" + -ni → vāṇṇi (*-ḍni → -ṇṇi).\n\nIn neuter nouns, the nominative singular ending -am changes before the accusative and dative case suffixes, such that the combined forms of these endings are neuter accusative singular -ānni (← *-ānini) and neuter dative singular -āniki.[5]\n\nCase\n\nSuffix\n\nExample\n\nDative\n\n-ki/-ku\n\nఅతను బడికి వెళ్తాడు\nAtanu baḍiki veḷtāḍu\nHe goes to school\n\nAccusative\n\n-ni/-nu\n\nఅతను అబ్బాయిని చూస్తాడు\nAtanu abbāyini cūstāḍu\nHe sees the boy\n\nSociative + Instrumental\n\n-tō\n\nఅతను కుక్కతో ఆడుకుంటాడు\nAtanu kukkatō āḍukuṇṭāḍu\nHe plays with the dog\n\nఅతను చేతితో రాస్తున్నాడు\n\nAtanu cētitō rāstunnāḍu\nHe is writing using hand\n\nAblative\n\n-nuṇḍi/-nuñci ('from')\n-kaṇṭē/-kannā (comparative)\n\n-valla ('because of')\n\nఅతను ఇంటినుండి బయలుదేరాడు\nAtanu iṇṭinuṇḍi bayaludērǣḍu\nHe set out from home\n\nఅతనికంటే నేను పొడుగు\n\nAtanikaṇṭē nēnu poḍugu\nI am taller than him\n\nఅతనివల్ల నేను ఓడిపొయ్యాను\n\nAtanivalla ōḍipoyyǣnu\nI have lost because of him\n\nLocative\n\n-lō/lōpala\n\nఅతను గదిలో ఉన్నాడు\nAtanu gadilō unnāḍu\nHe is in the room\n\nOblique stem formation\nFormation of the oblique stem, also usually but not always the same as the genitive (by default homophonous unless noted), is relatively complicated just like pluralization. The plural oblique stem, however, is either -la or -ḷa.\n\nClasses[6]\n\nClass\n\nTelugu\n\nEnglish\n\nNotes\n\nNominative\n\nOblique\n\nA\n\nceṭṭu\n\nceṭṭu-\n\ntree\n\nNo change.\n\nB\n\nkālu\n\nkāli-\n\nleg\n\nHuman nouns ending in -ḍu, -lu, -nu, or -ru (including a few non-human nouns ending in -lu or -ru) replace -u with -i.\n\nC\n\ngūḍu\n\ngūṭi-\n\ntree\n\nNon-human nouns ending in -ḍ[i/u], -l[i/u], -r[i/u] replace the endings with -ṭi.\n\nD\n\nillu\n\niṇṭi-\n\nhouse\n\nOnly limited to nouns cannu \"breast\", illu \"house\", kannu \"eye\", oḷḷu \"body\", pannu \"teeth\", and villu \"bow\".\n\nkannu\n\nkaṇṭi-\n\neye\n\nE\n\ncēyi\nceyyi\n\ncēti-\n\nhand\n\nOnly limited to nouns cēyi \"hand\", gōyi \"pit\", nēyi \"ghee\", nūyi \"well\", rāyi \"stone\", gorru \"hearth\", and Parru, all of them except the last three show variation between -V̄yi vs. -Vyyi.\n\ngorru\n\ngorti\n\nhearth\n\nF\n\nkalam\n\nkalāni-\n\npen\n\nAll nouns ending in -am replace the ending with -āni, although the genitive is homophonous with nominative instead of the oblique stem.",
+          "examples": [
+            "The accusative case suffix is -ni/-nu, with the former always used after final syllables containing -i-, and the latter elsewhere but freely varies with -ni. The intervening vowel is sometimes deleted between -ḍ-, -l-, -n-, -ṇ-, -r- and the",
+            "Example",
+            "Only limited to nouns cannu \"breast\", illu \"house\", kannu \"eye\", oḷḷu \"body\", pannu \"teeth\", and villu \"bow\".",
+            "Only limited to nouns cēyi \"hand\", gōyi \"pit\", nēyi \"ghee\", nūyi \"well\", rāyi \"stone\", gorru \"hearth\", and Parru, all of them except the last three show variation between -V̄yi vs. -Vyyi."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Examples",
+          "body": "Only nominative, genitive, accusative, and dative cases are shown here.\n\nkukka \"dog\"\n\nSingular\n\nPlural\n\nNominative\n\nkukka\n\nkukkalu\n\nGenitive\n\nkukkala\n\nAccusative\n\nkukkani\n\nkukkalani\n\nDative\n\nkukkaki\n\nkukkalaki",
+          "examples": [
+            "kukka \"dog\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Sentence Structure",
+      "summary": "Telugu word order tends to be subject–object–verb. It is head-final - the head follows its complements. Since Telugu is a pro-drop language, the subject can be omitted as the verb already marks person and number.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Telugu word order tends to be subject–object–verb. It is head-final - the head follows its complements. Since Telugu is a pro-drop language, the subject can be omitted as the verb already marks person and number.\n\nరాముడు\n\nRāmuḍu\n\nRam\n\nSubject\n\nబడికి\n\nbaḍiki\n\nto school\n\nObject\n\nవెళ్తాడు.\n\nveḷtāḍu\n\ngoes.\n\nVerb\n\nరాముడు బడికి వెళ్తాడు.\n\nRāmuḍu baḍiki veḷtāḍu\n\nRam {to school} goes.\n\nSubject Object Verb\n\nRam goes to school.\n\nఅతను\n\nAtanu\n\nHe\n\nSubject\n\nకుక్కను\n\nkukkanu\n\nthe dog\n\nObject\n\nచూస్తాడు\n\ncūstāḍu\n\nsees\n\nVerb\n\nఅతను కుక్కను చూస్తాడు\n\nAtanu kukkanu cūstāḍu\n\nHe {the dog} sees\n\nSubject Object Verb\n\nHe sees the dog",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Sandhi or joining",
+      "summary": "Sandhi is the fusion of sounds across word boundaries and the alteration of sounds due to neighboring sounds or due to the grammatical function of adjacent words.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Sandhi is the fusion of sounds across word boundaries and the alteration of sounds due to neighboring sounds or due to the grammatical function of adjacent words.\n\nTelugu sandhis can be divided into native ones and those derived from Sanskrit ones.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Sanskrit Sandhis",
+          "body": "These sandhis usually take place when the two words undergoing Sandhi are words borrowed from Sanskrit.\n\nSavarṇadīrghasandhi (Vowel lengthening)\nThe savarṇadīrgha sandhi, from Sanskrit savarṇa 'same sound' and dīrgha 'long', this sandhi takes place when the first word ends in the same vowel that the second word starts with. The two vowels join to form one long vowel. \n\nExamples of the savarṇadīrgha sandhi\n\nInitial word\n\nFinal word\n\nResult\n\ndeva\n\nālayamu\n\ndēvālayamu\n\npārvati\n\nīśvaruḍu\n\npārvatīśvaruḍu\n\naṇu\n\nutpatti\n\naṇūtpatti\n\nGuṇasandhi (Vowel raising)\nThe guṇasandhi takes place when a word final -a is followed by either -i, -u or -r̥. The sandhi yields -ē, -ō and -ar respectively. -ē, -ō and -ar are collectively called the guṇas, hence the name.\n\nExamples of the guṇasandhi\n\nInitial word\n\nFinal word\n\nResult\n\nmahā\n\nindra\n\nmahēndra\n\ndhana\n\nutpatti\n\ndhanōtpatti\n\ndēva\n\nr̥ṣi\n\ndēvarṣi\n\nVr̥ddhisandhi (Diphthongization)\nThe vr̥ddhisandhi, from Sanskrit vr̥ddhi-, 'growth', takes place when a word final -a is followed by -ē or -ai, -ō or -au, and -ar or -ār, and yields -ai, -au and -ār respectively. -ai, -au and -ār are collectively called the vr̥ddhis, hence the name.\n\nExamples of the vr̥ddhisandhi\n\nInitial word\n\nFinal word\n\nResult\n\nvasudha\n\nēka\n\nvasudhaika\n\nmahā\n\naikyata\n\nmahaikyata\n\nvīra\n\nōjassu\n\nvīraujassu\n\ndivya\n\nauṣadhamu\n\ndivyauṣadhamu\n\nYaṇādēśasandhi (Glide insertion)\nThe yaṇādēśasandhi takes place when word final -i, -u or -r̥ is followed by a non-similar vowel. The sandhi yields either -y-, -v- or -r- respectively. These are known as the yaṇās.\n\nExamples of the yaṇādēśasandhi\n\nInitial word\n\nFinal word\n\nResult\n\nati\n\nāśa\n\natyāśa\n\nsu\n\nāgatamu\n\nsvāgatamu\n\npitr̥\n\nājña\n\npitrājña",
+          "examples": [
+            "Examples of the savarṇadīrgha sandhi",
+            "Examples of the guṇasandhi",
+            "Examples of the vr̥ddhisandhi",
+            "Examples of the yaṇādēśasandhi"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Native sandhis",
+          "body": "These sandhis usually occur when one or both of the words is a native Telugu word, or is a Sanskrit borrowing that is treated as such (ex. iṣṭamu).\n\nAkārasandhi (Elision of a)\nThis sandhi occurs when a word final -a is followed by any vowel. The word final -a is removed, and the following vowel takes its place.\n\nExamples of akārasandhi\n\nInitial word\n\nFinal word\n\nResult\n\niṅkā\n\nēṇṭi\n\niṅkēṇṭi\n\npuṭṭina\n\nillu\n\npuṭṭinillu\n\namma\n\naṇṭē\n\nammaṇṭē\n\nteliyaka\n\nuṇḍenu\n\nteliyakuṇḍenu\n\nIkārasandhi\nThis sandhi occurs when a word final -i is followed by any vowel. The word final -i is removed, and the following vowel takes its place.\n\nExamples of ikārasandhi\n\nInitial word\n\nFinal word\n\nResult\n\nmari\n\neppuḍu\n\nmareppuḍu\n\nvāḍi\n\nillu\n\nvāḍillu\n\nēmi\n\naṇṭivi\n\nēmaṇṭivi\n\nēmi\n\na(y)inadi\n\nēma(y)inadi\n\nēmi\n\nundi\n\nēmundi\n\nUkārasandhi\nThis sandhi occurs when a word final -u is followed by any vowel. The word final -u is removed, and the following vowel takes its place.\n\nExample of ukārasandhi\n\nInitial word\n\nFinal word\n\nResult\n\nceppu\n\niṅkā\n\nceppiṅkā\n\nvāḍu\n\nevaḍu\n\nvāḍevaḍu\n\nnīḷlu\n\nunnāyā\n\nnīḷlunnāyā\n\nvāḍu\n\nannāḍu\n\nvāḍannāḍu\n\nTrikasandhi\nOne of the most complicated of the sandhis, the trikasandhi is of two forms:\n\nWhen a final -ā -ī or -ē is followed by a non-clustered consonant, the vowel is shortened, and the unclustered consonant is geminated.\n\nWhen the word mūḍu (three) is followed by a consonant, the word-final -ḍu is eliminated. This triggers the first rule of the trikasandhi, and the now-word-final -ū is shortened, and the following consonant is geminated. When the consonant is l-, sometimes it is geminated to -ḷḷ- instead.\n\nExamples of the trikasandhi\n\nInitial word\n\nFinal word\n\nResult\n\nī\n\nkālamu\n\nikkālamu\n\nē\n\ncōṭu\n\neccōṭu\n\nā\n\nbhaṅgi\n\nabbaṅgi\n\nmūḍu\n\nlōkamulu\n\nmullōkamulu\n\nmūḍu\n\nkōṭi\n\nmukkōṭi\n\nĀmrēḍitasandhi\nThis sandhi deals with repeated words, i.e., pairs of same words. This sandhi forms some of the most used irregular-looking words in the language. It has three rules:\n\nWhen a vowel-initial word is repeated, the final vowel of the first word is eliminated.\n\nWord final forms of ka (ka, ki, ku, ke, etc.) of the first word are eliminated and the first rule is applied.\n\nThe andādi words (anduku, iggulu, tumuru, tuniyalu, etc.) when compounded lead to irregular forms.\n\nExamples of the āmrēḍitasandhi\n\nWord\n\nResult\n\naura\n\nauraura\n\nendun\n\nendendun\n\nappaṭiki\n\nappaṭappaṭiki\n\nūran\n\nūrūran\n\nceduru\n\ncellāceduru\n\niggulu\n\niṟṟiggulu\n\nDviruktaṭakārasandhi\nSometimes regarded as a form of the āmrēḍitasandhi, the dviruktaṭakārasandhi occurs when kaḍādi (kaḍa, naḍuma, madhyāhnamu, bayalu, etc.) words are compounded. A dviruktaṭakāra, a geminated -ṭṭ- forms from this sandhi, hence the name.\n\nExamples of the dviruktaṭakārasandhi\n\nInitial word\n\nFinal word\n\nResult\n\nmadhyāhnamu\n\nmadhyāhnamu\n\nmiṭṭamadhyāhnamu\n\npagalu\n\npagalu\n\npaṭṭapagalu\n\nnaḍuma\n\niṇṭlō\n\nnaṭṭiṇṭlō\n\nGasaḍadavādēśasandhi\nTrika Sandhi.\n\nDugagama Sandhi.\n\nSaraladesha Sandhi\n\nGasadadavadesha Sandhi.\n\nRugagama Sandhi.\n\nYadagama Sandhi.\n\nPrathametara Vibhakti Sandhi.\n\nUchadadi sandhi.",
+          "examples": [
+            "Examples of akārasandhi",
+            "Examples of ikārasandhi",
+            "Example of ukārasandhi",
+            "Examples of the trikasandhi",
+            "Examples of the āmrēḍitasandhi",
+            "Examples of the dviruktaṭakārasandhi"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Samasam or nominal compounds",
+      "summary": "Samasam or samasa occurs with various structures, but morphologically speaking they are essentially the same: each noun (or adjective) is in its (weak) stem form, with only the final element receiving case inflection.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Samasam or samasa occurs with various structures, but morphologically speaking they are essentially the same: each noun (or adjective) is in its (weak) stem form, with only the final element receiving case inflection.\n\nSome of the Telugu samasams are:\n\nTatpuruṣa Samasam.\nPrathama tatpurusha samasam\n\nDvitiya tatpurusha samasam\n\nTrutiya tatpurusha samasam\n\nChaturthi tatpurusha samasam\n\nPanchami tatpurusha samasam\n\nShashti tatpurusha samasam\n\nSaptami tatpurusha samasam\n\nNai tatpurusha samasam\n\nKarmadhāraya Samasam.\nViśeshana purwapada karmadharaya samasam\n\nViśeshana uttarapada karmadharaya samasam\n\nViśeshana ubhayapada karmadharaya samasam\n\nUpamana purvapada karmadharaya samasam\n\nUpamana uttarapada karmadharaya samasam\n\nAvadharana purvapada karmadharaya samasam\n\nSambhavana purvapada karmadharaya samasam\n\nDvigu Samasam.\n\nDvandva Samasam.\n\nBahuvrīhi Samasam.\n\nAmredita Samasam.\n\nAvyayībhāva Samasam",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Alankaram or ornamentation",
+      "summary": "Telugu Alankaram is a figure of speech which means ornaments or embellishments which are used to enhance the beauty of the poems. There are two types of Alankarams, 'Shabdalankaram' which primarily focuses on Sound and 'Arthalamkaram' which focuses on meaning. These two alankaram",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Telugu Alankaram is a figure of speech which means ornaments or embellishments which are used to enhance the beauty of the poems. There are two types of Alankarams, 'Shabdalankaram' which primarily focuses on Sound and 'Arthalamkaram' which focuses on meaning. These two alankarams are further broken down in to different categories.[7]  \nshabdalankaras are 6 types where as there are nearly 30 to 40 types in ardhalankaras.\n\nShabdalankaram\nVruttyanuprasa\n\nChekanuprasa\n\nLatanuprasa\n\nantyanuprasa\n\nYamakam\n\nMukta pada grastam\n\nArthalamkaram\nUpamanaalankaram\n\nUtprekshaalankaram\n\nRupakaalankaram\n\nShleshalankaram\n\nArthantaranyaasam\n\nAtishayokti\n\nDrushtantam\n\nSwabhavokti\n\nvyajastu\n\nvirodhi\n\nvishamamu\n\nparikaramu\n\nbranti madala\n\nkramalam",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Chandassu or Telugu prosody",
+      "summary": "Main article: Chandas (Telugu)\nMetrical poetry in Telugu is called 'Chandassu' or 'Chandas'. ya-maa-taa-raa-ja-bhaa-na-sa-la-gam is called the chandassu chakram. Utpalamala, Champakamala, Mattebha vikreeditham, Sardoola Vikreeditham, Kanda, Aata veladi, Theta geethi, Sragdhara, B",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Chandas (Telugu)\nMetrical poetry in Telugu is called 'Chandassu' or 'Chandas'. ya-maa-taa-raa-ja-bhaa-na-sa-la-gam is called the chandassu chakram. Utpalamala, Champakamala, Mattebha vikreeditham, Sardoola Vikreeditham, Kanda, Aata veladi, Theta geethi, Sragdhara, Bhujangaprayata, etc. are some metrics used in Telugu poetry.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Verbs",
+      "summary": "Look up Appendix:Telugu verbs in Wiktionary, the free dictionary.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Look up Appendix:Telugu verbs in Wiktionary, the free dictionary.\n\nAlthough the morphological (grammatical) structure of Telugu verbs is quite evidently complex and complicated, the basic conjugation of subject person and number endings in modern spoken Telugu is in fact rather straightforward:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Past tense",
+          "body": "Past tense\n\nPast tense negative\n\n1st person singular\nనేను\nnēnu\n\nవెళ్ళాను\nveḷḷānu\nI went\n\nవెళ్ళలేదు\nveḷḷalēdu\nI didn't go\n\n2nd person singular\nనువ్వు\nnuvvu\n\nవెళ్ళావు\nveḷḷāvu\nYou went\n\nవెళ్ళలేదు\nveḷḷalēdu\nYou didn't go\n\n3rd person singular masculine\nఅతను\natanu\n\nవెళ్ళాడు\nveḷḷāḍu\nHe went\n\nవెళ్ళలేదు\nveḷḷalēdu\nHe didn't go\n\n3rd person singular feminine/neuter\nఆమె\nāme\n\nవెళ్ళింది\nveḷḷindi\nShe went\n\nవెళ్ళలేదు\nveḷḷalēdu\nShe didn't go\n\n1st person plural\nమేము\nmēmu\n\nవెళ్ళాము\nveḷḷāmu\nWe went\n\nవెళ్ళలేదు\nveḷḷalēdu\nWe didn't go\n\n2nd person plural\nమీరు\nmīru\n\nవెళ్ళారు\nveḷḷāru\nYou (plural) went\n\nవెళ్ళలేదు\nveḷḷalēdu\nYou (plural) didn't go\n\n3rd person plural masculine/feminine\nవారు\nvāru\n\nవెళ్ళారు\nveḷḷāru\nThey (masc./fem.) went\n\nవెళ్ళలేదు\nveḷḷalēdu\nThey (masc./fem.) didn't go\n\n3rd person plural neuter\nఅవి\navi\n\nవెళ్లాయి\nveḷlāyi\nThey (neuter) went\n\nవెళ్ళలేదు\nveḷḷalēdu\nThey (neuter) didn't go\n\nThe vowel -ā- is pronounced as /æː/ in the past tense ending, except in some verbs. In the verbs an- \"to say\", kan- \"to buy\", kon- \"to bring forth\", kūrcun- \"to be seated\", nilcun- \"to stand\", tin- \" to eat\", un- \"to be\", and vin- \" to hear\", -nā (with /aː/) is used instead.",
+          "examples": [
+            "The vowel -ā- is pronounced as /æː/ in the past tense ending, except in some verbs. In the verbs an- \"to say\", kan- \"to buy\", kon- \"to bring forth\", kūrcun- \"to be seated\", nilcun- \"to stand\", tin- \" to eat\", un- \"to be\", and vin- \" to hear"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Present tense",
+          "body": "Present tense\n\nPresent tense negative\n\n1st person singular\nనేను\nnēnu\n\nవెళ్తున్నాను\nveḷtunnānu\n\nI am going\n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nI am not going\n\n2nd person singular\nనువ్వు\nnuvvu\n\nవెళ్తున్నావు\nveḷtunnāvu\n\nYou are going\n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nYou aren't going \n\n3rd person singular masculine\nఅతను\natanu\n\nవెళ్ళుతున్నాడు\nveḷḷutunnāḍu\n\nHe is going\n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nHe isn't going \n\n3rd person singular feminine/neuter\nఆమె\nāme\n\nవెళ్తోంది\nveḷtōndi\n\nShe is going\n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nShe isn't going\n\n1st person plural\nమేము\nmēmu\n\nవెళ్తున్నాము\nveḷtunnāmu\n\nWe are going\n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nWe aren't going\n\n2nd person plural\nమీరు\nmīru\n\nవెళ్తున్నారు\nveḷtunnāru\n\nYou (plural) are going\n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nYou (plural) aren't going\n\n3rd person plural masculine/feminine\nవారు\nvāru\n\nవెళ్తున్నారు\nveḷtunnāru\n\nThey (masc./fem.) are going\n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nThey (masc./fem.) aren't going\n\n3rd person plural neuter\nఅవి\navi\n\nవెళ్తున్నాయి\nveḷtunnāyi\n\nThey (neuter) are going \n\nవెళ్లట్లేదు\nveḷlaṭlēdu\n\nThey (neuter) aren't going",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Future tense",
+          "body": "Future tense\n\nFuture tense negative\n\n1st person singular\nనేను\nnēnu\n\nవెళ్తాను\nveḷtānu\n\nI will go\n\nవెళ్ళను\nveḷḷanu\n\nI won't go\n\n2nd person singular\nనువ్వు\nnuvvu\n\nవెళ్తావు\nveḷtāvu\n\nYou will go\n\nవెళ్లవు\nveḷlavu\n\nYou won't go\n\n3rd person singular masculine\nఅతను\natanu\n\nవెళ్తాడు\nveḷtāḍu\n\nHe will go\n\nవెళ్ళడు\nveḷḷaḍu\n\nHe won't go\n\n3rd person singular feminine/neuter\nఆమె\nāme\n\nవెళ్తుంది\nveḷtundi\n\nShe will go\n\nవెళ్ళదు\nveḷḷadu\n\nShe won't go\n\n1st person plural\nమేము\nmēmu\n\nవెళ్తాము\nveḷtāmu\n\nWe will go\n\nవెళ్ళము\nveḷḷamu\n\nWe won't go\n\n2nd person plural\nమీరు\nmīru\n\nవెళ్తారు\nveḷtāru\n\nYou (plural) will go\n\nవెళ్ళరు\nveḷḷaru\n\nYou (plural) won't go\n\n3rd person plural masculine/feminine\nవారు\nvāru\n\nవెళ్తారు\nveḷtāru\n\nThey (masc./fem.) will go\n\nవెళ్ళరు\nveḷḷaru\n\nThey (masc./fem.) won't go\n\n3rd person plural neuter\nఅవి\navi\n\nవెళ్తాయి\nveḷtāyi\n\nThey (neuter) will go\n\nవెళ్ళవు\nveḷḷavu\n\nThey (neuter) won't go\n\n[8]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Imperative",
+          "body": "Informal\n\nFormal\n\nInformal negative\n\nFormal negative\n\nవెళ్ళు\nveḷḷu\n\nGo\n\nవెళ్ళండి\nveḷḷaṇḍi\n\nGo (formal)\n\nవెళ్ళకు\nveḷḷaku\n\nDon't go\n\nవెళ్ళకండి\nveḷḷakaṇḍi\n\nDon't go (formal)\n\n[6]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Converbs",
+          "body": "Telugu has two types of converbs, present and past. These are heavily used to form compound sentences. \n\nPast\n\nPresent\n\nవెళ్ళి\nveḷḷi\n\nHaving gone...\n\nవెళ్తూ\nveḷtū\n\nWhile going...\n\nఇంటికి వెళ్ళి, కిరణ్ తన ఫోన్ చూసింది. iṇṭiki veḷḷi, kiraṇ tana phon cūsindi. - Kiran went home and looked at her phone.\n\nఇంటికి వెళ్తూ, కిరణ్ తన ఫోన్ చూస్తోంది. iṇṭiki veḷtū, kiraṇ tana phon cūstondi. - Kiran is looking at her phone while going home.\n\nNote that in most cases, all sub clauses using these types of converbs need to share a subject.[9]\n\n*వాడు ఇంటికి వెళ్ళి, కిరణ్ తన ఫోన్ చూసింది. *vāḍu iṇṭiki veḷḷi, kiraṇ tana phon cūsindi. - *He went home and Kiran looked at her phone. (Incorrect)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        },
+        {
+          "heading": "Participles",
+          "body": "Telugu forms relative clauses with participles. There are three main participles in Telugu: the perfective, the imperfective, and the negative.\n\nParticiples of veḷḷu (to go)\n\nPerfective\n\nImperfective\n\nNegative\n\nవెళ్ళిన\n\nవెళ్ళే\n\nవెళ్ళని\n\nveḷḷina\n\nveḷḷē\n\nveḷḷani\n\nఇంటికి వెళ్ళిన బాలుడి పేరు సాహిల్. - Iṇṭiki veḷḷina bāluḍi pēru Sāhil. - The name of the boy who went home is Sahil.\n\nఇంటికి వెళ్ళే బాలుడి పేరు సాహిల్. - Iṇṭiki veḷḷē bāluḍi pēru Sāhil. - The name of the boy who goes home is Sahil.\n\nఇంటికి వెళ్ళని బాలుడి పేరు సాహిల్. - Iṇṭiki veḷḷani bāluḍi pēru Sāhil. - The name of the boy who does not go/did not go is Sahil.\n\nNotice that the negative participle does not show tense. Context is used to disambiguate the tense in this case.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Telugu_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

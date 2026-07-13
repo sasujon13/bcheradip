@@ -1,0 +1,87 @@
+{
+  "title": "Grammar Book — नेपाली",
+  "languageCode": "ne",
+  "languageName": "नेपाली",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Nepali_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammatical rules and syntax in the Nepali language",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammatical rules and syntax in the Nepali language\n\nThis article contains Indic text. Without proper rendering support, you may see question marks or boxes, misplaced vowels or missing conjuncts instead of Indic text.\n\nNepali grammar is the morphology and syntax of Nepali, an Indo-European language spoken in South Asia.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Nepali_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Morphology",
+      "summary": "Nepali nouns that denote male and female beings are sometimes distinguished by suffixation or through pairs of lexically differing terms.[1] Thus one pattern involves masculine -o/ā vs feminine -ī suffixes (e.g. chorā \"son\" : chorī \"daughter\", buṛho \"old man\" : buṛhī \"old woman\")",
+      "sections": [
+        {
+          "heading": "Nouns",
+          "body": "Nepali nouns that denote male and female beings are sometimes distinguished by suffixation or through pairs of lexically differing terms.[1] Thus one pattern involves masculine -o/ā vs feminine -ī suffixes (e.g. chorā \"son\" : chorī \"daughter\", buṛho \"old man\" : buṛhī \"old woman\"), while another such phenomenon is that of the derivational feminine suffix -nī (e.g. chetrī \"Chetri\" : chetrīnī \"Chetri woman\", kukur \"dog\" : kukurnī \"female dog\"). Beyond this, nouns are otherwise not overtly marked (i.e. inanimate nouns, abstract nouns, all other animates).\n\nOverall, in terms of grammatical gender, among Indo-Aryan languages, Nepali possesses an \"attenuated gender\" system, in which \"gender accord typically is restricted to female animates (so that the system is essentially restructured as zero/+Fem), optional or loose even then […], and greatly reduced in syntactic scope. […] In Nepali, the [declensional] ending is a neutral -o, changeable to -ī with Personal Feminines in more formal style.\"[2][clarification needed]\n\nNepali distinguishes two numbers, with a common pluralizing suffix for nouns in -harū (e.g. mitra \"friend\" : mitraharū \"friends\"). Unlike the English plural it is not mandatory, and may be left unexpressed if plurality is already indicated in some other way: e.g. by explicit numbering, or agreement. Riccardi (2003:554) further notes that the suffix \"rarely indicates simple plurality: it often means that other objects of the same or a like class are also indicated and may be translated as 'and other things'.\"",
+          "examples": [
+            "Nepali nouns that denote male and female beings are sometimes distinguished by suffixation or through pairs of lexically differing terms.[1] Thus one pattern involves masculine -o/ā vs feminine -ī suffixes (e.g. chorā \"son\" : chorī \"daughte",
+            "Overall, in terms of grammatical gender, among Indo-Aryan languages, Nepali possesses an \"attenuated gender\" system, in which \"gender accord typically is restricted to female animates (so that the system is essentially restructured as zero/",
+            "Nepali distinguishes two numbers, with a common pluralizing suffix for nouns in -harū (e.g. mitra \"friend\" : mitraharū \"friends\"). Unlike the English plural it is not mandatory, and may be left unexpressed if plurality is already indicated "
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Nepali_grammar"
+        },
+        {
+          "heading": "Adjectives",
+          "body": "Adjectives may be divided into declinable and indeclinable categories. Declinables are marked, through termination, for the gender and number of the nouns they qualify. The declinable endings are -o for the \"masculine\" singular, -ī for the feminine singular, and -ā for the plural. e.g. sāno kitāb \"small book\", sānī keṭī \"small girl\", sānā kalamharū \"small pens\".\n\n\"Masculine\", or rather \"neutral\" -o is the citation form and the otherwise overwhelmingly more encountered declension, as previously noted, gender in Nepali is attenuated and accord \"typically is restricted to female animates\", and \"optional or loose even then\". However, \"In writing, there has been a strong tendency by some to extend the use of feminine markers beyond their use in speech to include the consistent marking of certain adjectives with feminine endings. This tendency is strengthened by some Nepali grammars and may be reinforced by the influence of Hindi upon both speech and writing.\"[3]\n\nIndeclinable adjectives are completely invariable, and can end in either consonants or vowels (except -o).\n\nExamples of declinable adjectives:[4] ṭhūlo \"big\", rāmro \"good\", seto \"white\", sāno \"small\".\n\nExamples of indeclinable adjectives:[5] garīb \"poor\", saphā \"clean\", dhanī \"rich\", nayā̃ \"new\".",
+          "examples": [
+            "Adjectives may be divided into declinable and indeclinable categories. Declinables are marked, through termination, for the gender and number of the nouns they qualify. The declinable endings are -o for the \"masculine\" singular, -ī for the ",
+            "\"Masculine\", or rather \"neutral\" -o is the citation form and the otherwise overwhelmingly more encountered declension, as previously noted, gender in Nepali is attenuated and accord \"typically is restricted to female animates\", and \"optiona",
+            "Examples of declinable adjectives:[4] ṭhūlo \"big\", rāmro \"good\", seto \"white\", sāno \"small\".",
+            "Examples of indeclinable adjectives:[5] garīb \"poor\", saphā \"clean\", dhanī \"rich\", nayā̃ \"new\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Nepali_grammar"
+        },
+        {
+          "heading": "Postpositions",
+          "body": "In Nepali the locus of grammatical function or \"case-marking\" lies within a system of agglutinative suffixes or particles known as postpositions, which parallel English's prepositions. There is a number of such one-word primary postpositions:\n\nko – genitive marker; variably declinable in the manner of an adjective. X ko/kī/kā Y has the sense \"X's Y\", with ko/kī/kā agreeing with Y.\n\nlāī – marks the indirect object (hence named  \"dative marker\"), or, if definite, the direct object.\n\nle – both instrumental and ergative marker; in its latter capacity it is applied to the subject obligatorily in the transitive perfective/perfect and optionally in other transitive aspects.\n\nmā – general locative marker; \"in, at, on\", etc.\n\nbhandā – an ablative postposition used for comparatives and along with adverbs for compound postpositions.\n\nRiccardi (2003:557) lists the following other common primary postpositions: tala \"below\", muni \"under\",  dekhi \"from\", bāṭa \"from\", sãga \"with\", sita \"with\", pachi \"after\", samma \"up to\", bittikai \"as soon as\".\n\nBeyond this come compound postpositions, composed of a primary postposition (most likely ko or bhandā) plus an adverb.\n\nko lāgi \"for\", ko pachāṛī \"behind\", ko viruddha \"against\", bhandā māthi \"above\", bhandā par \"beyond\", etc.",
+          "examples": [
+            "In Nepali the locus of grammatical function or \"case-marking\" lies within a system of agglutinative suffixes or particles known as postpositions, which parallel English's prepositions. There is a number of such one-word primary postposition",
+            "ko – genitive marker; variably declinable in the manner of an adjective. X ko/kī/kā Y has the sense \"X's Y\", with ko/kī/kā agreeing with Y.",
+            "lāī – marks the indirect object (hence named  \"dative marker\"), or, if definite, the direct object.",
+            "mā – general locative marker; \"in, at, on\", etc.",
+            "Riccardi (2003:557) lists the following other common primary postpositions: tala \"below\", muni \"under\",  dekhi \"from\", bāṭa \"from\", sãga \"with\", sita \"with\", pachi \"after\", samma \"up to\", bittikai \"as soon as\".",
+            "ko lāgi \"for\", ko pachāṛī \"behind\", ko viruddha \"against\", bhandā māthi \"above\", bhandā par \"beyond\", etc."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Nepali_grammar"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "Nepali has personal pronouns for the first and second persons, while third person forms are of demonstrative origin, and can be categorized deictically as proximate and distal. The pronominal system is quite elaborate, by reason of its differentiation on lines of sociolinguistic formality. In this respect it has three levels or grades of formality/status: low, middle, and high (see T-V distinction for further clarification). Pronouns do not distinguish gender.\n\nThe first person singular pronoun is म ma, and the first person plural is हामी hāmī. The following table lists the second and third person singular forms.\n\n2nd pn.\n\n3rd pn.\n\nProx.\n\nDist.\n\nLow\n\nतँ tã\n\nयो yo (यस yas)\n\nत्यो tyo (त्यस tyas)\n\nऊ ū (उस us)\n\nMiddle\n\nतिमी timī\n\nयिनी yinī (यिन yin)\n\nतिनी tinī (तिन tin)\n\nउनी unī (उन un)\n\nHigh\n\nतपाईं tapāī̃\n\nयहाँ yahā̃\n\nवहाँ wahā̃\n\nyo and tyo have yī and tī as plurals, while other pronouns pluralize (including hāmī, for emphasis, but excluding ū) with the common suffix -harū. Also, bracketed beside of a number of forms in the above chart are their oblique counterparts, used when they (as demonstrative pronouns) or that which they qualify (as demonstrative determiners) are followed by a postposition. However, the need to oblique weakens the longer distance between demonstrative and postposition gets. Also, one exception which does not require obliquing is -sãga \"with\".",
+          "examples": [
+            "yo and tyo have yī and tī as plurals, while other pronouns pluralize (including hāmī, for emphasis, but excluding ū) with the common suffix -harū. Also, bracketed beside of a number of forms in the above chart are their oblique counterparts"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Nepali_grammar"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Verbs in Nepali are quite highly inflected, agreeing with the subject in number, gender, status and person. They also inflect for tense, mood, and aspect. As well as these inflected finite forms, there are also a large number of participial forms.\n\nPossibly the most important verb in Nepali, as well as the most irregular, is the verb हुनु hunu 'to be, to become'. In the simple present tense, there are at least three conjugations of हुनु hunu, only one of which is regular. The first, the ho-conjugation is, broadly speaking, used to define things, and as such its complement is usually a noun. The second, the cha-conjugation is used to describe things, and the complement is usually an adjectival or prepositional phrase. The third, the huncha-conjugation, is used to express regular occurrences or future events, and also expresses 'to become' or 'to happen'.\n\nThey are conjugated as follows:\n\nSimple Present conjugation of the verb हुनु hunu\n\nहो ho\n\nछ cha\n\nहुन्छ huncha\n\nFirst person singular\n\nहुँ hũ\n\nछु chu\n\nहुन्छु hunchu\n\nFirst person plural\n\nहौँ haũ\n\nछौँ chaũ\n\nहुन्छौँ hunchaũ\n\nSecond person singular low-grade\n\nहोस् hos\n\nछस् chas\n\nहुन्छस् hunchas\n\nSecond person middle-grade/plural\n\nहौ hau\n\nछौ chau\n\nहुन्छौ hunchau\n\nHigh grade\n\nहुनुहन्छ hunuhuncha\n\nहुनुहन्छ hunuhuncha\n\nहुनुहन्छ hunuhuncha\n\nThird person singular low-grade\n\nहो ho\n\nछ cha\n\nहुन्छ huncha\n\nThird person middle-grade/plural masculine\n\nहुन् hun\n\nछन् chan\n\nहुन्छन् hunchan\n\nThird person middle-grade/plural feminine\n\nहुन् hun\n\nछिन् chin\n\nहुन्छिन् hunchin\n\nहुनु hunu also has two suppletive stems in the simple past, namely भ- bha- (the use of which corresponds to the huncha-conjugation) and थि- thi- (which corresponds to both the cha and ho-conjugations) which are otherwise regularly conjugated. भ- bha- is also the stem used in the formation of the various participles.\n\nThe finite forms of regular verbs are conjugated as follows (using गर्नु garnu 'to do' as an example):\n\nFinite forms of गर्नु garnu 'to do'\n\nSimple Present/Future\n\nProbable Future\n\nSimple Past\n\nPast Habitual\n\nInjunctive\n\nImperative\n\nFirst person singular\n\nगर्छु\n\ngarchu\n\nगर्छु\n\ngarchu\n\n'I (will) do'\n\nगरुँला\n\ngarũlā\n\nगरुँला\n\ngarũlā\n\n'I will (probably) do'\n\nगरेँ\n\ngarẽ\n\nगरेँ\n\ngarẽ\n\n'I did'\n\nगर्थेँ\n\ngarthẽ\n\nगर्थेँ\n\ngarthẽ\n\n'I used to do'\n\nगरुँ\n\ngarũ\n\nगरुँ\n\ngarũ\n\n'may I do'\n\n–\n\nFirst person plural\n\nगर्छौँ\n\ngarchaũ\n\nगर्छौँ\n\ngarchaũ\n\n'We (will) do'\n\nगरौँला\n\ngaraũlā\n\nगरौँला\n\ngaraũlā\n\n'We will (probably) do'\n\nगर्यौ\n\ngaryaũ\n\nगर्यौ\n\ngaryaũ\n\n'We did'\n\nगर्थ्यौँ\n\ngarthyaũ\n\nगर्थ्यौँ\n\ngarthyaũ\n\n'We used to do'\n\nगरौँ\n\ngaraũ\n\nगरौँ\n\ngaraũ\n\n'may we do, let's do'\n\n–\n\nSecond person singular low-grade\n\nगर्छस्\n\ngarchas\n\nगर्छस्\n\ngarchas\n\n'you (will) do'\n\nगर्लास्\n\ngarlās\n\nगर्लास्\n\ngarlās\n\n'you will (probably) do'\n\nगरिस्\n\ngaris\n\nगरिस्\n\ngaris\n\n'you did'\n\nगर्थिस्\n\ngarthis\n\nगर्थिस्\n\ngarthis\n\n'you used to do'\n\nगरेस्\n\ngares\n\nगरेस्\n\ngares\n\n'may you do'\n\nगर्\n\ngar\n\nगर्\n\ngar\n\n'do!'\n\nSecond person middle-grade/plural\n\nगर्छौ\n\ngarchau\n\nगर्छौ\n\ngarchau\n\n'you (will) do'\n\nगरौला\n\ngaraulā\n\nगरौला\n\ngaraulā\n\n'you will (probably) do'\n\nगर्यौ\n\ngaryau\n\nगर्यौ\n\ngaryau\n\n'you did'\n\nगर्थ्यौ\n\ngarthyau\n\nगर्थ्यौ\n\ngarthyau\n\n'you used to do'\n\nगरौ\n\ngarau\n\nगरौ\n\ngarau\n\n'may you do'\n\nगर\n\ngara\n\nगर\n\ngara\n\n'do'\n\nHigh grade\n\nगर्नुहुन्छ\n\ngarnuhuncha\n\nगर्नुहुन्छ\n\ngarnuhuncha\n\n'you (will) do'\n\nगर्नुहोला\n\ngarnuhola\n\nगर्नुहोला\n\ngarnuhola\n\n'you will (probably) do'\n\nगर्नुभयो\n\ngarnubhayo\n\nगर्नुभयो\n\ngarnubhayo\n\n'you did'\n\nगर्नुहुन्थ्यो\n\ngarnuhunthyo\n\nगर्नुहुन्थ्यो\n\ngarnuhunthyo\n\n'you used to do'\n\nगर्नुहोस्\n\ngarnuhos\n\nगर्नुहोस्\n\ngarnuhos\n\n'may you do, please do'\n\n–\n\nThird person singular low-grade\n\nगर्छ\n\ngarcha\n\nगर्छ\n\ngarcha\n\n'he does'\n\nगर्ला\n\ngarlā\n\nगर्ला\n\ngarlā\n\n'he will (probably) do'\n\nगर्यो\n\ngaryo\n\nगर्यो\n\ngaryo\n\n'he did'\n\nगर्थ्यो\n\ngarthyo\n\nगर्थ्यो\n\ngarthyo\n\n'he used to do'\n\nगरोस्\n\ngaros\n\nगरोस्\n\ngaros\n\n'may he do'\n\n–\n\nThird person middle-grade/plural masculine\n\nगर्छन्\n\ngarchan\n\nगर्छन्\n\ngarchan\n\n'they (will) do'\n\nगर्लान्\n\ngarlān\n\nगर्लान्\n\ngarlān\n\n'they will (probably) do'\n\nगरे\n\ngare\n\nगरे\n\ngare\n\n'they did'\n\nगर्थे\n\ngarthe\n\nगर्थे\n\ngarthe\n\n'they used to do'\n\nगरून्\n\ngarūn\n\nगरून्\n\ngarūn\n\n'may they do'\n\n–\n\nThird person middle-grade/plural feminine\n\nगर्छिन्\n\ngarchin\n\nगर्छिन्\n\ngarchin\n\n'she (will) do'\n\nगर्लिन्\n\ngarlin\n\nगर्लिन्\n\ngarlin\n\n'she will (probably) do'\n\nगरिन्\n\ngarin\n\nगरिन्\n\ngarin\n\n'she did'\n\nगर्थिन्\n\ngarthin\n\nगर्थिन्\n\ngarthin\n\n'she used to do'\n\nगरुन्\n\ngarūn\n\nगरुन्\n\ngarūn\n\n'may she do'\n\n–\n\nAs well as these, there are two forms which are infinitival and participial in origin, but are frequently used as if they were finite verbs. Again using गर्नु garnu as an example, these are गरेको gareko 'did' and गर्ने garne 'will do'. Since they are simpler than the conjugated forms, these are often overused by non-native speakers, which can sound stilted.\n\nThe eko-participle is also the basis of perfect constructions in Nepali. This is formed by using the auxiliary verb हुनु hunu (usually the cha-form in the present tense and the thi-form in the past) with the eko-participle. So, for example, मैले काम गरेको छु maile kām gareko chu means 'I have done (the) work'.\n\nInfinitives\nNepali has two infinitives. The first is formed by adding -नु nu to the verb stem. This is the citation form of the verb, and is used in a number of constructions, the most important being the construction expressing obligation. This is formed by combining the nu-infinitive with the verb पर्नु parnu 'to fall'. This is an impersonal construction, which means that the object marker -लाई lāī is often added to the agent, unless the verb is transitive, in which case the ergative/instrumental case marker -ले le is added. So, for example, I have to do work would be translated as मैले काम गर्नुपर्छ maile kām garnuparcha. It is also used with the postposition -अघि aghi 'before'. गर्नुअघि garnuaghi, then, means 'before doing'.\n\nThe second infinitive is formed by adding -न na to the verb stem. This is used in a wide variety of situations, and can generally be used where the infinitive is used in English. For example, म काम गर्न रामकहाँ गएको थिएँ ma kām garna rāmkahā̃ gaeko thiẽ 'I had gone to Ram's place to do work'.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Nepali_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

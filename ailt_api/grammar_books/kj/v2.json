@@ -1,0 +1,55 @@
+{
+  "title": "Grammar Book — Kuanyama",
+  "languageCode": "kj",
+  "languageName": "Kuanyama",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Kuanyama_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Dialect in Namibia\nKwanyamaOshikwanyamaNative toAngola and NamibiaRegionCunene Province (Angola), Ovamboland (Namibia)Native speakers1,003,783 in Angola (2024);[1]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Dialect in Namibia\nKwanyamaOshikwanyamaNative toAngola and NamibiaRegionCunene Province (Angola), Ovamboland (Namibia)Native speakers1,003,783 in Angola (2024);[1]\n\n250,000 in Namibia (2006)Language familyNiger–Congo?\n\nAtlantic–CongoVolta-CongoBenue–CongoBantoidSouthern BantoidBantuKavango–SouthwestSouthwest BantuOvamboKwanyama\n\nLanguage codesISO 639-1kjISO 639-2kuaISO 639-3kuaGlottologkuan1247Guthrie codeR.21[2]Linguasphere99-AUR-la\nKwanyama (Portuguese: Cuanhama) is a national language of Angola and Namibia. It is a standardized dialect of the Ovambo language, and is mutually intelligible with Oshindonga, the other Ovambo dialect with a standard written form.\n\nThe entire Christian Bible has been translated into Kwanyama and was first published in 1974 under the name Ombibeli by the South African Bible Society.[3] Jehovah's Witnesses released a translation of the new testament, the New World Translation of the Christian Greek Scriptures in Kwanyama in 2019,[4] both printed and electronic online version.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kuanyama_language"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Phonology",
+      "summary": "/t/ and /d/ are dentalized when followed by a front vowel /i/. An /s/ sound can only occur in loanwords.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Consonants\n\nLabial\n\nAlveolar\n\nPalatal\n\nVelar\n\nGlottal\n\nPlosive\n\nvoiceless\n\np\n\nt~t̪\n\ntʃ\n\nk\n\nvoiced\n\nb\n\nd~d̪\n\ndʒ\n\nprenasal\n\nᵐb\n\nⁿd\n\nⁿdʒ\n\nᵑɡ\n\nFricative\n\nvoiceless\n\nf\n\n(s)\n\nʃ\n\nx\n\nh\n\nvoiced\n\nv\n\nNasal\n\nvoiced\n\nm\n\nn\n\nɲ\n\nvoiceless\n\nm̥\n\nn̥\n\nɲ̊\n\nŋ̊\n\nApproximant\n\nw\n\nl\n\nj\n\n/t/ and /d/ are dentalized when followed by a front vowel /i/. An /s/ sound can only occur in loanwords.\n\nVowels\n\nFront\n\nBack\n\nClose\n\ni\n\nu\n\nMid\n\ne\n\no\n\nOpen\n\na\n\nTones\n\nKwanyama has two tones : high and low.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kuanyama_language"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Grammar",
+      "summary": "Verbs are inflected for two tenses: present and non-present. There is a mandatory subject concord before verbs, indicating person, tense, and negation. Verbs are divided into two categories, active and stative, each of which have different subject concords. The future tense in ac",
+      "sections": [
+        {
+          "heading": "Verbs",
+          "body": "Verbs are inflected for two tenses: present and non-present. There is a mandatory subject concord before verbs, indicating person, tense, and negation. Verbs are divided into two categories, active and stative, each of which have different subject concords. The future tense in active verbs is indicated by inserting the auxiliary ka after the nonpast subject concord.\n\nKwanyama subject concords\n\nActive\n\nStative\n\nPerson\n\nNegation\n\nPast\n\nNonpast\n\nPerson\n\nNegation\n\nPast\n\nPresent\n\nFuture\n\n1S\n\n+\n\nOnda\n\nOhandi/Ohai\n\n1S\n\n+\n\nOnda li ndi\n\nOndi\n\nOhandi ka kala ndi\n\n-\n\nInandi\n\nItandi\n\n-\n\nKandi li ndi\n\nKandi/ Nghi\n\nItandi ka kala ndi\n\n2S\n\n+\n\nOwa\n\nOto\n\n2S\n\n+\n\nOwa li u\n\nOu\n\nOto ka kala u\n\n-\n\nIno\n\nIto\n\n-\n\nKwa li u\n\nKu\n\nIto ka kala u\n\n3S\n\n+\n\nOkwa\n\nOta\n\n3S\n\n+\n\nOkwa li e\n\noku\n\nOta ka kala e\n\n-\n\nIna\n\nIta\n\n-\n\nKa li e\n\nKe\n\nIta ka kala e\n\n1P\n\n+\n\nOtwa\n\nOhatu\n\n1P\n\n+\n\nOtwa li tu\n\nOtu\n\nOhatu ka kala tu\n\n-\n\nInatu\n\nItatu\n\n-\n\nKatwa li tu\n\nKatu\n\nItatu ka kala tu\n\n2P\n\n+\n\nOmwa\n\nOtamu\n\n2P\n\n+\n\nOmwa li mu\n\nOmu\n\nOtamu ka kala mu\n\n-\n\nInamu\n\nItamu\n\n-\n\nKamwa li mu\n\nKamu\n\nItamu ka kala mu\n\n3P\n\n+\n\nOva\n\nOtaa/Otava\n\n3P\n\n+\n\nOva li ve\n\nOve\n\nOtava ka kala ve\n\n-\n\nInaa/Inava\n\nItaa/Itava\n\n-\n\nKava li ve\n\nKave\n\nItava ka kala ve\n\nAnother way to negate a verb is to add the prefix ha- before the verb stem (ex. okwiimba 'to sing' -> okuhaimba 'to not sing').[5]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kuanyama_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

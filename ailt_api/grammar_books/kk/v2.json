@@ -1,0 +1,176 @@
+{
+  "title": "Grammar Book — Қазақ",
+  "languageCode": "kk",
+  "languageName": "Қазақ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Kazakh_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Kazakhқазақша, қазақ тілі\nqazaqşa, qazaq tılı\nقازاقشا, قازاق ٴتىلى\nقزاقچه, قزاق تلىKazakh in Cyrillic, Latin, and Perso-Arabic scriptsPronunciation[qʰɑzɑqˈʃɑ]\n[qʰɑˈzɑq tʰɘˈlɘ]Native toKazakhstan, China, Mongolia, Russia, Kyrgyzstan, UzbekistanRegionCentral Asia\n(Turkestan)Ethnici",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Kipchak Turkic language\n\nKazakhқазақша, қазақ тілі\nqazaqşa, qazaq tılı\nقازاقشا, قازاق ٴتىلى\nقزاقچه, قزاق تلىKazakh in Cyrillic, Latin, and Perso-Arabic scriptsPronunciation[qʰɑzɑqˈʃɑ]\n[qʰɑˈzɑq tʰɘˈlɘ]Native toKazakhstan, China, Mongolia, Russia, Kyrgyzstan, UzbekistanRegionCentral Asia\n(Turkestan)EthnicityKazakhsNative speakers16 million (2021 census)[1]Language familyTurkic\n\nCommon TurkicKipchakKipchak–NogaiKazakh\n\nWriting systemKazakh alphabets (Cyrillic script, Latin script, Perso-Arabic script, Kazakh Braille)Official statusOfficial language inKazakhstan\nRussia\nAltai Republic[2]\n\nChina\n\nIli Kazakh Autonomous Prefecture\n\nBarköl Kazakh Autonomous County\n\nMori Kazakh Autonomous County\n\nAksay Kazakh Autonomous County\n\nOrganisations:\nOrganization of Turkic States\nCollective Security Treaty Organization\n\nRegulated byMinistry of Culture and Sports\n Ministry of Science and Higher Education of the Republic of KazakhstanLanguage codesISO 639-1kkISO 639-2kazISO 639-3kazGlottologkaza1248Linguasphere44-AAB-ccThis article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nA Kazakh speaker, recorded in Taiwan\nA Kazakh speaker, recorded in Kazakhstan\nKazakh[a] is a Turkic language of the Kipchak branch spoken in Central Asia by the Kazakhs. It is closely related to Nogai, Kyrgyz and Karakalpak. It is the official language of Kazakhstan, and has official status in the Altai Republic of Russia. It is also a minority language in the Ili Kazakh Autonomous Prefecture in Xinjiang, China, and in the Bayan-Ölgii Province of western Mongolia. The language is also spoken by many ethnic Kazakhs throughout the former Soviet Union (some 472,000 in Russia according to the 2010 Russian census), Germany, and Turkey.\n\nLike other Turkic languages, Kazakh is an agglutinative language and employs vowel harmony. Kazakh builds words by adding suffixes one after another to the word stem, with each suffix expressing only one unique meaning and following a fixed sequence. Ethnologue recognizes three mutually intelligible dialect groups: Northeastern Kazakh—the most widely spoken variety, which also serves as the basis for the official language—Southern Kazakh, and Western Kazakh. The language shares a degree of mutual intelligibility with the closely related Karakalpak language while its Western dialects maintain limited mutual intelligibility with the Altai languages.\n\nIn October 2017, then-president Nursultan Nazarbayev decreed that the writing system would change from using Cyrillic to Latin script by 2025. The proposed Latin alphabet has been revised several times and as of January 2021 is close to the inventory of the Turkish alphabet, though lacking the letters C and Ç and having four additional letters: Ä, Ñ, Q and Ū (though other letters such as Y have different values in the two languages). It is scheduled to be phased in from 2023 to 2031.[5] Over one million Kazakh speakers in Xinjiang use a modified version of the Perso-Arabic script for writing.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Geographic distribution",
+      "summary": "Speakers of Kazakh are spread over a vast territory from the Tian Shan to the western shore of the Caspian Sea. Kazakh is the official state language of Kazakhstan, with nearly 10 million speakers (based on information from the CIA World Factbook[6] on population and proportion o",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Speakers of Kazakh are spread over a vast territory from the Tian Shan to the western shore of the Caspian Sea. Kazakh is the official state language of Kazakhstan, with nearly 10 million speakers (based on information from the CIA World Factbook[6] on population and proportion of Kazakh speakers).[7]\n\nIn China, nearly two million ethnic Kazakhs and Kazakh speakers reside in the Ili Kazakh Autonomous Prefecture of Xinjiang.[citation needed]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "History",
+      "summary": "The Kipchak branch of Turkic languages, to which Kazakh belongs, was largely consolidated during the period of the Golden Horde. The modern Kazakh language is thought to have taken shape around 1465 AD, during the formation of the Kazakh Khanate. Modern Kazakh is likely a descend",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The Kipchak branch of Turkic languages, to which Kazakh belongs, was largely consolidated during the period of the Golden Horde. The modern Kazakh language is thought to have taken shape around 1465 AD, during the formation of the Kazakh Khanate. Modern Kazakh is likely a descendant of both Chagatay Turkic as spoken by the Timurids and Kipchak Turkic as spoken in the Golden Horde.[citation needed]\n\nKazakh contains a substantial number of loanwords from Persian and Arabic, owing to frequent historical interactions between Kazakhs and Iranian ethnic groups to the south. Furthermore, Persian served as a lingua franca in the Kazakh Khanate, enabling Kazakhs to incorporate Persian words into their spoken and written vernacular. Meanwhile, Arabic was used by Kazakhs in mosques and mausoleums, functioning as a language reserved for religious contexts – much as Latin served as a liturgical language in the Western European cultural sphere.\n\nThe Kazakhs used the Arabic script to write their language until approximately 1929. In the early 1900s, the Kazakh activist Akhmet Baitursynuly reformed the Kazakh–Arabic alphabet, but his work was largely overshadowed by Soviet presence in Central Asia. Subsequently, the new Soviet regime compelled the Kazakhs to adopt a Latin script, and later a Cyrillic script in the 1940s. Today, Kazakhs use both the Cyrillic and Latin scripts to write their language, although a presidential decree issued in 2017 ordered the transition from Cyrillic to Latin by 2031.\n\nAlthough not classified as an endangered language, Kazakh was described in 2024 as being in a somewhat vulnerable position by Kazakhstan's Minister of Science and Higher Education, Sayasat Nurbek, falling into a category where the number of speakers is not increasing as rapidly as had been anticipated.[8]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Phonology and orthography",
+      "summary": "Kazakh exhibits tongue-root vowel harmony, with some words of recent foreign origin (e.g., Russian, Persian, Arabic) as exceptions. There is also a system of rounding harmony which resembles that of Kyrgyz, but which does not apply as strongly and is not reflected in the orthogra",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Kazakh exhibits tongue-root vowel harmony, with some words of recent foreign origin (e.g., Russian, Persian, Arabic) as exceptions. There is also a system of rounding harmony which resembles that of Kyrgyz, but which does not apply as strongly and is not reflected in the orthography. This system only applies to the mid vowels /e/, /ɘ/, /ə/ (and not /ɑ/), and happens in the next syllables.[9] Thus, jūldyz 'star', bügın 'today', and ülken 'big' are actually pronounced as jūldūz, bügün, and ülkön, respectively.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Consonants",
+          "body": "The following chart depicts the consonant inventory of standard Kazakh;[b] many of the sounds, however, are allophones of other sounds or appear only in recent loanwords. The 18 consonant phonemes listed by Vajda are without parentheses—since these are phonemes, their listed place and manner of articulation are very general, and will vary from what is shown. (/t͡s/ rarely appears in normal speech.) Kazakh has 19 native consonant phonemes; these are the stops /p, b, t, d, k, ɡ, q/, fricatives /s, z, ʃ, ʒ, ʁ/, nasals /m, n, ŋ/, liquids /r, l/, and two glides /w, j/.[10] The sounds /f, v, χ, h, t͡s, t͡ɕ/ are found only in loanwords. /ʒ/ is heard as an alveolo-palatal affricate [d͡ʒ] in the Kazakh dialects of Uzbekistan and China. The sounds [q] and [ʁ] may be analyzed as allophones of /k/ and /ɡ/ in words with back vowels, but exceptions occur in loanwords.[c]\n\nKazakh consonant phonemes[11]\n\nLabials\n\nAlveolar\n\n(Alveolo-)\npalatal\n\nVelar\n\nUvular\n\nNasal\n\nm ⟨м/m⟩\n\nn ⟨н/n⟩\n\nŋ ⟨ң/ñ⟩\n\nStop\n\nvoiceless\n\np ⟨п/p⟩\n\nt ⟨т/t⟩\n\nk ⟨к/k⟩\n\nq ⟨қ/q⟩\n\nvoiced\n\nb ⟨б/b⟩\n\nd ⟨д/d⟩\n\nɡ ⟨г/g⟩\n\nFricative\n\nvoiceless\n\ns ⟨с/s⟩\n\nɕ ⟨ш/ş⟩\n\nvoiced\n\nz ⟨з/z⟩\n\nʑ ⟨ж/j⟩\n\n(ʁ) ⟨ғ/ğ⟩\n\nApproximant\n\nl ⟨л/l⟩\n\nj ⟨й/i⟩\n\nw ⟨у/u⟩\n\nTrill/Tap\n\nr ⟨р/r⟩\n\nVoiced obstruents syllable-finally become devoiced,[9] as normally indicated in the orthography.\n\n/ŋ/ can never occur in word initial position.\n\n/j, z, r, l, ʁ/ occur word-initially only in loanwords.\n\n/l/ is velarized [ɫ] in words with back vowels.\n\nVoiceless stops /p, t, k, q/ are aspirated [pʰ, tʰ, kʰ, qʰ], and the voice onset time is highest in word-initial position. If followed by another obstruent, they may be unreleased [p̚, t̚, k̚, q̚].\n\n/r/ is often heard as a tap [ɾ] in rural speech, as well as in dialects spoken in China.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Kazakh has a system of 8 or 9 phonemic vowels. The rounding contrast and /æ/ generally only occur as phonemes in the first syllable of a word, but do occur later allophonically; see the section on harmony below for more information. Moreover, /æ/ has been included artificially due to the influence of Arabic, Persian and, later, Tatar languages during the Islamic period.[12] It can be found in some native words, however.\n\nAccording to Vajda, the front/back quality of vowels is actually one of neutral versus retracted tongue root.[11]\n\nPhonetic values are paired with the corresponding character in Kazakh's Cyrillic and Latin alphabets.\n\nKazakh vowel phonemes\n\nFront\n\nCentral\n\nBack\n\nClose\n\nɘ ⟨і/ı⟩\n\nʉ ⟨ү/ü⟩\n\nʊ ⟨ұ/ū⟩\n\nMid\n\ne ⟨э/e⟩\n\nə ⟨ы/y⟩\n\no ⟨о/o⟩\n\nOpen\n\næ ⟨ә/ä⟩\n\nɵ ⟨ө/ö⟩\n\nɑ ⟨а/a⟩\n\nKazakh vowels by their pronunciation\n\nFront and central\n\nBack\n\nunrounded\n\nrounded\n\nunrounded\n\nrounded\n\nClose\n\nɘ ⟨і/ı⟩\n\nʉ ⟨ү/ü⟩\n\nə ⟨ы/y⟩\n\nʊ ⟨ұ/ū⟩\n\nOpen\n\nje ⟨е/e⟩ / æ ⟨ә/ä⟩\n\nɵ ⟨ө/ö⟩\n\nɑ ⟨а/a⟩\n\no ⟨о/o⟩\n\nThere is significant debate over the Kazakh vowel chart, but all analyses agree on an eight-vowel system with [æ] being artificially added due to influence from Arabic and Persian.\n\nThe vowel /e/ is often pronounced as the diphthong [je] at the beginning of words, with the exception of root e-. Urban Kazakh speakers have a greater tendency to palatalize all /e/, caused by Russian influence.[13]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Vowel harmony",
+          "body": "Kazakh exhibits tongue-root vowel harmony (also called soft-hard harmony), and arguably weakened rounding harmony which is implied in the first syllable of the word. All vowels after the first rounded syllable are the subject to this harmony with the exception of /ɑ/, and in the following syllables, e.g., өмір [wɵˈmʉr], қосы [qʰoˈsʊ]. Notably, urban Kazakh speakers tend to violate rounding harmony, as well as pronouncing Russian borrowings against the rules.[13]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Syllable structure",
+          "body": "Kazakh's syllable structure is (C)V(C)(C). Syllables containing consonant clusters CC typically are combination of sonorant (/r, l, n, j/) and a stop (mainly /t/). Other types of syllables are also permitted due to recent loanwords, mainly from Russian.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Stress",
+          "body": "Most words in Kazakh are stressed in the last syllable, except:[14][15][16]\n\nWhen counting objects, numbers are stressed in the first syllable, but stressed in the last syllable in collective numbers suffixed by -eu (bıreu, altau from bır, alty):\n\nbır, ekı, üş, tört, bes, alty, jetı, ...\n'one, two, three, four, five, six, seven, ...'\nDefinite and negative pronouns are stressed in the first syllable:\n\nbärıne eşkımge\n'to everyone, to no one'\nIndividual onomatopoeic words and interjections are stressed on the first syllable\n\nCertain suffixes do not take stress, including:\nthe predicate suffixes -mın/-myn, -sıñ/-syñ, -mız/-myz (e.g., baqyttymyz [bɑχə̆tˈtʰəməz] 'we are happy', balasyñ [bɑˈɫɑsəŋ] 'you're a child')\n\nthe suffixes -dei/-dai, -tei/-tai (e.g., börıdei [bɵˈrʉdʲej] 'like a wolf')\n\nthe optative suffix -iın/-iyn (e.g., jazaiyn [ʒɑˈzɑjən] 'let's write')\n\nthe negative suffixes -me/-ma, -be/-ba, -pe/-pa (e.g., jylama [ʒəˈɫɑmɑ] 'don't cry', qoryqpa [qʰoˈrʊqpʰɑ] 'fear not')\n\nparticles and postpositions -şı/-şy (e.g., qaraşy! [qʰɑˈrɑʃə] 'look!'), ğoi, etc.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Orthography",
+          "body": "Main article: Kazakh alphabets\nNowadays, Kazakh is mostly written in the Cyrillic script, with an Arabic-based alphabet being used by Kazakh speakers in China. On 26 October 2017, via Presidential Decree 569, Kazakhstan announced it would adopt the Latin script by 2025.[17][18] However, this transition has been delayed.\n\nSince the Cyrillic alphabet was originally designed for Slavic languages, it had to be modified to better fit the sounds of Turkic languages like Kazakh. Several new letters were added and some existing ones modified: ә, ғ, қ, ң, ө, ұ, ү, һ, і.\n\nThe Cyrillic letter у after a consonant represents a combination of sounds /ɘ/, /ʉ/, ы /ə/, /ʊ/ with glide /w/,[19] e.g., кіру [kʰɘˈrɘw], су [sʊw], көру [kʰɵˈrʉw], атысу [ɑtʰə̆ˈsəw]. The Cyrillic letter ю undergoes the same process but with /j/ at the beginning.\n\nThe letter и represents a combination of sounds /ɘ/ (in front-vowel contexts) or /ə/ (in back vowel contexts) with glide /j/,[19] e.g., тиіс [tʰɘˈjɘ̆s], оқиды [woqʰəjˈdə]. In Russian loanwords, particularly in educated speech, it is often realized as /ʲi/ (when stressed) or /ʲɪ/ (when unstressed), e.g., изоморфизм [ɪzəmɐrˈfʲizm].\n\nThe letter я represents either /jɑ/ or /jæ/ depending on vowel harmony.\n\nThe letter щ represents /ʃː/, e.g. ащы [ɑʃˈʃə].\n\nMeanwhile, the letters в, ё, ф, х, һ, ц, ч, ъ, ь, э are only used in loanwords—mostly those of Russian origin, but sometimes of Persian and Arabic origin. They are often substituted in spoken Kazakh.\n\nThe table below compares the various scripts.\n\nIPA[20][21]\n\nCyrillic\n\nLatin\n\nArabic\n\nBraille\n\n2021[22]\n\n2018[23][24]\n2017\nLetter\nName\n\n[ɑ]\n\nА а\n\nA a\nا‎\nAlif\n⠁\n\n[æ]\n\nӘ ә\nÄ ä\nÁ á\nA' a'\nٵ‎\nHamza + Alif\n⠜\n\n[b]\n\nБ б\nB b\nب‎\nBa\n⠃\n\n[v]\n\nВ в\nV v\nۆ‎\nWaw with háček\n⠺\n\n[g]\n\nГ г\nG g\nگ‎\nGaf\n⠛\n\n[ʁ]\n\nҒ ғ\nĞ ğ\nǴ ǵ\nG' g'\nغ‎\nGhain\n⠻\n\n[d]\n\nД д\nD d\nد‎\nDal\n⠙\n\n[(j)e]\n\nЕ е\n\nE e\nە‎\nHa\n⠑\n\n[jo]\n\nЁ ё\nİo io\nIo ıo\n—N/a\n(يو‎)\nYa + Waw\n⠡\n\n[(d)ʒ]\n\nЖ ж\nJ j\nج‎\nJeem\n⠚\n\n[z]\n\nЗ з\nZ z\nز‎\nZa\n⠵\n\n[əj, ɘj, i]\n\nИ и\nİ i\nI ı\nI' i'\n ي‎\nYa\n⠊\n\n[j]\n\nЙ й\n⠽\n\n[k]\n\nК к\nK k\nك‎\nKaf\n⠅\n\n[q]\n\nҚ қ\nQ q\nق‎\nQaf\n⠹\n\n[l~ɫ]\n\nЛ л\nL l\nل‎\nLam\n⠇\n\n[m]\n\nМ м\nM m\nم‎\nMeem\n⠍\n\n[n]\n\nН н\nN n\nن‎\nNoon\n⠝\n\n[ŋ~ɴ]\n\nҢ ң\nÑ ñ\nŃ ń\nN' n'\nڭ‎\nKaf with three dots\n⠩\n\n[(w)o]\n\nО о\n\nO o\nو‎\nWaw\n⠕\n\n[(w)ɵ]\n\nӨ ө\nÖ ö\nÓ ó\nO' o'\nٶ‎\nHamza + Waw\n⠣\n\n[p]\n\nП п\nP p\nپ‎\nPa\n⠏\n\n[ɾ~r]\n\nР р\nR r\nر‎\nRa\n⠗\n\n[s]\n\nС с\nS s\nس‎\nSeen\n⠎\n\n[t]\n\nТ т\nT t\nت‎\nTa\n⠞\n\n[(V)w, u]\n\nУ у\nU u\nÝ ý\nY' y'\nۋ‎\nWaw with 3 dots\n⠥\n\n[ʊ]\n\nҰ ұ\nŪ ū\nU u\nۇ‎\nWaw with damma\n⠌\n\n[ʉ]\n\nҮ ү\nÜ ü\nÚ ú\nU' u'\nٷ‎\nHamza + Waw with damma\n⠬\n\n[f]\n\nФ ф\nF f\nف‎\nFa\n⠋\n\n[h]\n\nҺ һ\nH h\nھ\nHa\n⠓\n\n[χ]\n\nХ х\nخ\nKha\n⠓\n\n[ts]\n\nЦ ц\nTs ts\nS s\n—N/a\n(تس‎)\nTa + Seen\n⠉\n\n[tɕ]\n\nЧ ч\nTş tş\nCh ch\nC' c'\nچ‎\nCheem\n⠟\n\n[ʃ]\n\nШ ш\nŞ ş\nSh sh\nS' s'\nش‎\nSheen\n⠱\n\n[ɕː]\n\nЩ щ\nŞtş ştş\nShch shch\n—N/a\n(شش‎)\nSheen + Sheen\n⠭\n\n—N/a\n\nЪ ъ\n—N/a\n⠷\n\n[ə]\n\nЫ ы\nY y\nى‎\nAlif maqṣūrah\n⠮\n\n[ɘ]\n\nІ і\nI ı\nI i\nئ‎\nHamza + Ya\n⠊\n\n—N/a\n\nЬ ь\n—N/a\n⠾\n\n[e~ɛ]\n\nЭ э\nE e\n—N/a\n(ە‎)\nHa\n⠪\n\n[jʊ]\n\nЮ ю\nİu iu\nIý ıý\n( يۋ ‎)\nYa + Waw with damma\n⠳\n\n[jɑ]\n\nЯ я\nİa ia\nIa ıa\n(يا‎)\nYa + Alif\n⠫",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Grammar",
+      "summary": "Kazakh is generally verb-final, though various permutations on SOV (subject–object–verb) word order can be used, for example, due to topicalization.[25] Inflectional and derivational morphology, both verbal and nominal, in Kazakh, exists almost exclusively in the form of agglutin",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Kazakh is generally verb-final, though various permutations on SOV (subject–object–verb) word order can be used, for example, due to topicalization.[25] Inflectional and derivational morphology, both verbal and nominal, in Kazakh, exists almost exclusively in the form of agglutinative suffixes. Kazakh is a nominative-accusative, head-final, left-branching, dependent-marking language.[26]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Nouns",
+          "body": "Kazakh has no noun class or gender system. Nouns are declined for number (singular or plural) and one of seven cases:\n\nNominative\n\nAccusative\n\nGenitive\n\nDative\n\nLocative\n\nAblative\n\nInstrumental[12]\n\nThe suffix for case is placed after the suffix for number.\n\nDeclension of nouns for case[26]\n\nCase\n\nMorpheme\n\nPossible forms\n\nkeme 'ship'\naua 'air'\nşelek 'bucket'\nsäbız 'carrot'\nbas 'head'\ntūz 'salt'\nqan 'blood'\nkün 'day'\n\nNom\n\n—\n—\nkeme\naua\nşelek\nsäbız\nbas\ntūz\nqan\nkün\n\nAcc\n\n-ny\n-nı, -ny, -dı, -dy, -tı, -ty\nkemenı\nauany\nşelektı\nsäbızdı\nbasty\ntūzdy\nqandy\nkündı\n\nGen\n\n-nyñ\n-nıñ, -nyñ, -dıñ, -dyñ, -tıñ, -tyñ\nkemenıñ\nauanyñ\nşelektıñ\nsäbızdıñ\nbastyñ\ntūzdyñ\nqannyñ\nkünnıñ\n\nDat\n\n-ga\n-ge, -ğa, -ke, -qa\nkemege\nauağa\nşelekke\nsäbızge\nbasqa\ntūzğa\nqanğa\nkünge\n\nLoc\n\n-da\n-de, -da, -te, -ta\nkemede\nauada\nşelekte\nsäbızde\nbasta\ntūzda\nqanda\nkünde\n\nAbl\n\n-dan\n-den, -dan, -ten, -tan, -nen, -nan\nkemeden\nauadan\nşelekten\nsäbızden\nbastan\ntūzdan\nqannan\nkünnen\n\nInst\n\n-men\n-men(en), -ben(en), -pen(en)\nkememen\nauamen\nşelekpen\nsäbızben\nbaspen\ntūzben\nqanmen\nkünmen\n\nDeclension of nouns for number[12]\n\nMorpheme\n\nPossible\nForms\n\nbala\n'child'\n\nkirpi\n'hedgehog'\n\nqazaq\n'Kazakh'\n\nmektep\n'school'\n\nadam\n'person'\n\ngül\n'flower'\n\nsöz\n'word'\n\nsingular\n\n–\n\n–\n\nbala\n\nkirpi\n\nqazaq\n\nmektep\n\nadam\n\ngül\n\nsöz\n\nplural\n\n-lar\n\n-lar, -ler, -ter, -tar, -der, -dar\n\nbalalar\n\nkirpiler\n\nqazaqtar\n\nmektepter\n\nadamdar\n\ngülder\n\nsözder",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "There are eight personal pronouns in Kazakh:\n\nPersonal pronouns[26]\n\nSingular\n\nPlural\n\n1st person\n\nmen\n\nbız\n\n2nd person\n\ninformal\n\nsen\n\nsender\n\nformal\n\nsız\n\nsızder\n\n3rd person\n\nol\n\nolar\n\nThe declension of the pronouns is outlined in the following chart. Singular pronouns exhibit irregularities, while plural pronouns do not. Irregular forms are highlighted in bold.[26]\n\nNumber\nSingular\nPlural\n\nPerson\n1st\n2nd\n3rd\n1st\n2nd\n3rd\n\nFamiliar\nPolite\nFamiliar\nPolite\n\nNominative\n\nmen\nsen\nsız\nol\nbız\nsender\nsızder\nolar\n\nGenitive\n\nmenıñ\nsenıñ\nsızdıñ\nonyñ\nbızdıñ\nsenderdıñ\nsızderdıñ\nolardyñ\n\nDative\n\nmağan\nsağan\nsızge\noğan\nbızge\nsenderge\nsızderge\nolarğa\n\nAccusative\n\nmenı\nsenı\nsızdı\nony\nbızdı\nsenderdı\nsızderdı\nolardy\n\nLocative\n\nmende\nsende\nsızde\nonda\nbızde\nsenderde\nsızderde\nolarda\n\nAblative\n\nmenen\nsenen\nsızden\nodan\nbızden\nsenderden\nsızderden\nolardan\n\nInstrumental\n\nmenımen\nsenımen\nsızben\nonymen\nbızben\nsendermen\nsızdermen\nolarmen\n\nIn addition to the pronouns, there are several more sets of morphemes dealing with person.[26]\n\nMorphemes indicating person[26]\n\nPronouns\nCopulas\nPossessive endings\nPast/Conditional\n\n1st sg\n\nmen\n-mın/-myn\n-(ı)m/-(y)m\n-(ı)m/-(y)m\n\n2nd sg\n\nsen\n-sıñ/-syñ\n-(ı)ñ/-(y)ñ\n-(ı)ñ\n\n2nd sg formal\n\nsız\n-sız/-syz\n-(ı)ñız/-(y)ñyz\n-(ı)ñız/-(y)ñyz\n\n3rd sg\n\nol\n–\n-(s)ı/-(s)y\n–\n\n1st pl\n\nbız\n-mız/-myz\n-(ı)mız/-(y)myz\n-(ı)k/-(y)q\n\n2nd pl\n\nsender\n-sıñder/-syñdar\n-laryñ/-lerıñ\n-(ı)ñder/-(y)ñdar\n\n2nd pl formal\n\nsızder\n-sızder/-syzdar\n-(ı)ñız/-(y)ñyz\n-(ı)ñızder/-(y)ñyzdar\n\n3rd pl\n\nolar\n–\n-lary/-lerı\n–",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Adjectives",
+          "body": "Adjectives in Kazakh are not declined for any grammatical category of the modified noun. Being a head-final language, adjectives are always placed before the noun that they modify. Kazakh has two varieties of adjectives:\n\nQualitative – used to describe properties of the noun, such as color\n\nRelational – adjectives formed from words from other parts of speech[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Degrees of comparison",
+          "body": "Comparative\nThe comparative form can be created by appending the suffix -(y)raq/-(ı)rek or -tau/-teu/-dau/-dau to an adjective.\n\nSuperlative\nThe superlative form can be created by placing the morpheme eñ before the adjective.[12] The superlative form can also be expressed by reduplication.[27]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Kazakh may express different combinations of tense, aspect and mood through the use of various verbal morphology or through a system of auxiliary verbs, many of which might better be considered light verbs. The present tense is a prime example of this; progressive tense in Kazakh is formed with one of four possible auxiliaries. These auxiliaries otyr 'sit', tūr 'stand', jür 'go' and jat 'lie', encode various shades of meaning of how the action is carried out and also interact with the lexical semantics of the root verb: telic and non-telic actions, semelfactives, durative and non-durative, punctual, etc. There are selectional restrictions on auxiliaries: motion verbs, such as бару 'go' and келу 'come' may not combine with otyr. Any verb, however, can combine with jat 'lie' to get a progressive tense meaning.[26]\n\nProgressive aspect in the present tense[26]\n\nKazakh\nAspect\nEnglish translation\n\nMen jüzemın\nnon-progressive\n'I (will) swim [every day].'\n\nMen jüzıp jatyrmyn\nprogressive\n'I am swimming [right now].'\n\nMen jüzıp otyrmyn\nprogressive/durative\n'I am [sitting and] swimming. / I have been swimming.'\n\nMen jüzıp tūrmyn\nprogressive/punctual\n'I am [in the middle of] swimming [this very minute].'\n\nMen jüzıp jürmın\nhabitual\n'I swim [frequently/regularly]'\n\nWhile it is possible to think that different categories of aspect govern the choice of auxiliary, it is not so straightforward in Kazakh. Auxiliaries are internally sensitive to the lexical semantics of predicates, for example, verbs describing motion:[26]\n\nSelectional restrictions on Kazakh auxiliaries[26]\n\nSentence\n\nAuxiliary Used\n\nSuda\n\nwater-LOC\n\nbalyq\n\nfish\n\njüzedı\n\nswim-PRES-3\n\nSuda balyq jüzedı\n\nwater-LOC fish swim-PRES-3\n\n'Fish swim in water' (general statement)\n\n∅ (present/future tense used)\n\nSuda\n\nwater-LOC\n\nbalyq\n\nfish\n\njüzıp\n\nswim-CVB\n\njatyr\n\nAUX.3\n\nSuda balyq jüzıp jatyr\n\nwater-LOC fish swim-CVB AUX.3\n\n'The/A fish is swimming in the water'\n\njat－ 'to lie', general marker for progressive aspect.\n\nSuda\n\nwater-LOC\n\nbalyq\n\nfish\n\njüzıp\n\nswim-CVB\n\njür\n\nAUX.3\n\nSuda balyq jüzıp jür\n\nwater-LOC fish swim-CVB AUX.3\n\n'The fish is swimming [as it always does] in the water'\n\njür – 'go', dynamic/habitual/iterative\n\nSuda\n\nwater-LOC\n\nbalyq\n\nfish\n\njüzıp\n\nswim-CVB\n\ntūr\n\nAUX.3\n\nSuda balyq jüzıp tūr\n\nwater-LOC fish swim-CVB AUX.3\n\n'The fish is swimming in the water'\n\ntūr – 'stand', progressive marker to show the swimming is punctual\n\n*\n\n \n\nSuda\n\nwater-LOC\n\nbalyq\n\nfish\n\njüzıp\n\nswim-CVB\n\notyr\n\nAUX.3\n\n* Suda balyq jüzıp otyr\n\n{} water-LOC fish swim-CVB AUX.3\n\n*The fish has been swimming\n\nNot a possible sentence in Kazakh\n\notyr – 'sit', ungrammatical in this sentence; otyr can only be used for verbs that are stative in nature\n\nIn addition to the complexities of the progressive tense, there are many auxiliary-converb pairs that encode a range of aspectual, modal, volitional, evidential and action- modificational meanings. For example, the pattern verb + köru, with the auxiliary verb köru 'see', indicates that the subject of the verb attempted or tried to do something (compare the Japanese てみる temiru construction).[26]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Annotated text with gloss",
+      "summary": "From the first stanza and refrain of \"Menıñ Qazaqstanym\" (\"My Kazakhstan\"), the national anthem of Kazakhstan:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "From the first stanza and refrain of \"Menıñ Qazaqstanym\" (\"My Kazakhstan\"), the national anthem of Kazakhstan:\n\nМенің Қазақстаным\n\nMen-ıñ Qazaqstan-ym\n\nАлтын күн\n\nаспаны\n\n{Алтын күн} аспаны\n\n[ɑ̝ɫ̪ˈt̪ʰə̃ŋ‿kʰʏ̞̃n̪ ɑ̝s̪pʰɑ̝̃ˈn̪ə]\n\nAltyn\n\ngold\n\nkün\n\nsun\n\naspan-y\n\nsky-3.POSS\n\nAltyn kün aspan-y\n\ngold sun sky-3.POSS\n\n'Sky of the golden sun'\n\nАлтын\n\nдән\n\nдаласы\n\nАлтын дән даласы\n\n[ɑ̝ɫ̪ˈt̪ʰə̃n̪‿d̪æ̝̃n̪ d̪ɑ̝ɫ̪ɑ̝ˈs̪ə |]\n\nAltyn\n\ngold\n\ndän\n\ngrain\n\ndala-sy\n\nsteppe-3.POSS\n\nAltyn dän dala-sy\n\ngold grain steppe-3.POSS\n\n'Steppe of the golden grain'\n\nЕрліктің\n\nдастаны\n\nЕрліктің дастаны\n\n[je̘r̪l̪ɪ̞k̚ˈt̪ʰɪ̞̃ŋ̟ d̪ɑ̝s̪t̪ʰɑ̝̃ˈn̪ə]\n\nErlık-tıñ\n\ncourage legend-GEN\n\ndastan-y\n\nepic-3.POSS-NOM\n\nErlık-tıñ dastan-y\n\n{courage legend-GEN} epic-3.POSS-NOM\n\n'The legend of courage'\n\nЕліме\n\nқарашы!\n\nЕліме қарашы!\n\n[je̘l̪ɪ̞̃ˈmʲe̘ qʰɑ̝ˈr̪ɑ̝ʃə ‖]\n\nEl-ım-e\n\ncountry-1SG.DAT\n\nqara-şy\n\nlook-IMP\n\nEl-ım-e qara-şy\n\ncountry-1SG.DAT look-IMP\n\n'Look at my country!'\n\nЕжелден\n\nер\n\nдеген\n\nЕжелден ер деген\n\n[je̘ʒʲe̘l̪ʲˈd̪ʲẽ̘n̪ je̘r̪ d̪ʲe̘ˈɡʲẽ̘n̪]\n\nEjel-den\n\nantiquity-ABL\n\ner\n\nhero\n\nde-gen\n\nsay-PTCP.PST\n\nEjel-den er de-gen\n\nantiquity-ABL hero say-PTCP.PST\n\n'Called heroes since ancient times'\n\nДаңқымыз\n\nшықты\n\nғой\n\nДаңқымыз шықты ғой\n\n[d̪ɑ̝̃ɴqʰə̃ˈməz̪ ʃəq̚ˈt̪ʰə ʁo̞j |]\n\nDañq-ymyz\n\nglory-1PL.POSS.NOM\n\nşyq-ty\n\nemerge-PST.3\n\nğoi\n\nEMPH\n\nDañq-ymyz şyq-ty ğoi\n\nglory-1PL.POSS.NOM emerge-PST.3 EMPH\n\n'Our glory emerged!'\n\nНамысын\n\nбермеген\n\nНамысын бермеген\n\n[n̪ɑ̝̃məˈs̪ə̃m‿bʲe̘r̪mʲe̘ˈɡʲẽ̘n̪]\n\nNamys-yn\n\nhonor-3.POSS-ACC\n\nber-me-gen\n\ngive-NEG-PTCP.PST\n\nNamys-yn ber-me-gen\n\nhonor-3.POSS-ACC give-NEG-PTCP.PST\n\n'They did not give up their honor'\n\nҚазағым\n\nмықты\n\nғой\n\nҚазағым мықты ғой\n\n[qʰɑ̝z̪ɑ̝ˈʁə̃m məq̚ˈt̪ʰə ʁo̞j ‖]\n\nQazağ-ym\n\nKazakh-1SG.POSS\n\nmyqty\n\nstrong\n\nğoi\n\nEMPH\n\nQazağ-ym myqty ğoi\n\nKazakh-1SG.POSS strong EMPH\n\n'My Kazakhs are mighty!'\n\nМенің\n\nелім,\n\nменің\n\nелім\n\nМенің елім, менің елім\n\n[mʲẽ̘ˈn̪ɪ̞̃ŋ̟ je̘ˈl̪ɪ̞̃m | mʲẽ̘ˈn̪ɪ̞̃ŋ̟ je̘ˈl̪ɪ̞̃m |]\n\nMen-ıñ\n\n1SG.GEN\n\nel-ım,\n\ncountry-1SG.NOM\n\nmenıñ\n\n1SG.GEN\n\nel-ım\n\ncountry-1SG.NOM\n\nMen-ıñ el-ım, menıñ el-ım\n\n1SG.GEN country-1SG.NOM 1SG.GEN country-1SG.NOM\n\n'My country, my country'\n\nГүлің\n\nболып,\n\nегілемін\n\nГүлің болып, егілемін\n\n[ɡʏ̞ˈl̪ʏ̞̃m‿bo̞ˈɫ̪ʊp | je̘ɣɪ̞ˈl̪ʲẽ̘mɪ̞̃n̪ |]\n\nGül-ıñ\n\nflower-2SG.NOM\n\nbol-yp,\n\nbe-CVB,\n\neg-ıl-e-mın\n\nroot-PASS-PRES-1SG\n\nGül-ıñ bol-yp, eg-ıl-e-mın\n\nflower-2SG.NOM be-CVB, root-PASS-PRES-1SG\n\n'As your flower, I am rooted in you'\n\nЖырың\n\nболып\n\nтөгілемін,\n\nелім\n\nЖырың болып төгілемін, елім\n\n[ʒəˈr̪ə̃m bo̞ˈɫ̪ʊp | t̪ʰɵɣʏ̞ˈl̪ʲẽ̘mɪ̞̃n̪ je̘ˈl̪ɪ̞̃m |]\n\nJyr-yñ\n\nsong-2SG.NOM\n\nbol-yp,\n\nbe-CVB,\n\ntög-ıl-e-mın,\n\nsing-PASS-PRES-1SG,\n\nel-ım\n\ncountry-1SG.POSS.NOM\n\nJyr-yñ bol-yp, tög-ıl-e-mın, el-ım\n\nsong-2SG.NOM be-CVB, sing-PASS-PRES-1SG, country-1SG.POSS.NOM\n\n'As your song, I shall be sung abound'\n\nТуған\n\nжерім\n\nменің\n\n–\n\nҚазақстаным\n\nТуған жерім менің – Қазақстаным\n\n[t̪ʰuˈʁɑ̝̃n̪‿d͡ʒʲe̘ˈr̪ɪ̞̃m mʲẽ̘ˈn̪ɪ̞̃ŋ̟ | qʰɑ̝ˌz̪ɑ̝ʁə̆s̪t̪ʰɑ̝̃ˈn̪ə̃m ‖]\n\nTu-ğan\n\nbirth-PTCP-PST\n\njer-ım\n\nplace-1SG.POSS.NOM\n\nmenıñ\n\n1SG.GEN\n\n–\n\n–\n\nQazaqstan-ym\n\nKazakhstan-1SG.POSS.NOM\n\nTu-ğan jer-ım menıñ – Qazaqstan-ym\n\nbirth-PTCP-PST place-1SG.POSS.NOM 1SG.GEN – Kazakhstan-1SG.POSS.NOM\n\n'My native land – My Kazakhstan'",
+          "examples": [
+            "From the first stanza and refrain of \"Menıñ Qazaqstanym\" (\"My Kazakhstan\"), the national anthem of Kazakhstan:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Kazakh_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

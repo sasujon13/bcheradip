@@ -24,6 +24,7 @@ from app.routers import (
     ext_auth,
     ext_project_knowledge,
     ext_provider_keys,
+    grammar_books,
     languages,
     learning,
     promo,
@@ -31,6 +32,7 @@ from app.routers import (
     subscription,
 )
 from app.seed import init_database, init_ext_database
+from app.services.grammar_store import list_available_codes as list_grammar_codes
 from app.services.pack_store import list_available_codes
 from app.services.email_templates import (
     OTP_TEMPLATE_VERSION,
@@ -94,6 +96,7 @@ api.include_router(subscription.router)
 api.include_router(promo.router)
 api.include_router(referral.router)
 api.include_router(languages.router)
+api.include_router(grammar_books.router)
 api.include_router(admin.router)
 api.include_router(ai.router)
 api.include_router(learning.router)
@@ -129,6 +132,7 @@ def health() -> dict:
         "database": "ailanguagetutor" if db_ok else "unavailable",
         "ext_database": "extcheradip" if ext_db_ok else "unavailable",
         "language_packs_available": len(list_available_codes()),
+        "grammar_books_available": len(list_grammar_codes()),
         "llm_keys_configured": bool(
             settings.gemini_api_key
             or settings.openai_api_key

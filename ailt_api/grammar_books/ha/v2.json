@@ -1,0 +1,305 @@
+{
+  "title": "Grammar Book — Hausa",
+  "languageCode": "ha",
+  "languageName": "Hausa",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Hausa/Lesson_1",
+    "https://en.wikibooks.org/wiki/Hausa/Lesson_3",
+    "https://en.wikibooks.org/wiki/Hausa/Lesson_4",
+    "https://en.wikipedia.org/wiki/Hausa_language"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "Hausa has 23 to 25 consonants depending on the speaker and dialect. Any consonant may be geminated (doubled).",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "==  ==\n\n\n=== Consonants ===\n\nHausa has 23 to 25 consonants depending on the speaker and dialect. Any consonant may be geminated (doubled).\n\n* Note: r̃ is normally written as r (without the diacritic).",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Hausa/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson 3",
+      "summary": "=== Gender assignment ===\nLike in many other languages, nouns in Hausa can be either masculine or feminine. While gender assignment is somewhat arbitrary, there are a few patterns:",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "==  ==\n\n\n=== Gender assignment ===\nLike in many other languages, nouns in Hausa can be either masculine or feminine. While gender assignment is somewhat arbitrary, there are a few patterns:\n\nThe grammatical gender of nouns always corresponds to natural sex. For example, mùtûm (\"man\") is masculine, while màcè (\"woman\") is feminine.\nNouns ending in -a are often - but not always - feminine. Ruwā (\"water\") is an example of a masculine noun ending in -a.\nThe names of countries, rivers and towns are tipically feminine.\nSome nouns may be either masculine or feminine. For example: kā̀kā (\"grandfather\" or \"grandmother\").\nPlural nouns are not marked for gender.\n\n\n=== Forming the feminine from a masculine noun ===\nThe feminine form of most masculine nouns referring to people or animals is derived as follows:\n\nA final -ō or -ū is replaced with -uwā.\ntsuntsū (\"male bird\") → tsuntsuwā (\"female bird\")\nA final -ē or -ī is replaced with -ìyā.\nBàhaushḕ (\"Hausa man\") → Bàhaushìyā (\"Hausa woman\")\nIn some cases, -ī is replaced with -ā instead of -ìyā.\njā̀kī (\"male donkey\") → jā̀kā (\"female donkey\")",
+          "examples": [
+            "The grammatical gender of nouns always corresponds to natural sex. For example, mùtûm (\"man\") is masculine, while màcè (\"woman\") is feminine.",
+            "Nouns ending in -a are often - but not always - feminine. Ruwā (\"water\") is an example of a masculine noun ending in -a.",
+            "Some nouns may be either masculine or feminine. For example: kā̀kā (\"grandfather\" or \"grandmother\").",
+            "tsuntsū (\"male bird\") → tsuntsuwā (\"female bird\")",
+            "Bàhaushḕ (\"Hausa man\") → Bàhaushìyā (\"Hausa woman\")",
+            "jā̀kī (\"male donkey\") → jā̀kā (\"female donkey\")"
+          ],
+          "learnerTip": "=== Gender assignment ===\nLike in many other languages, nouns in Hausa can be either masculine or feminine. While gender assignment is somewhat arbitrary, there are a few patterns:",
+          "source": "https://en.wikibooks.org/wiki/Hausa/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson 4",
+      "summary": "Plurals I Hausa language \nYaro                               Yara(o change to a)\nBabba Manya                Irregular \nMahaukaci Mahaukata Changing 'ci' to 'ta'\nSarki Sarakuna",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "Plurals I Hausa language \nYaro                               Yara(o change to a)\nBabba Manya                Irregular \nMahaukaci Mahaukata Changing 'ci' to 'ta'\nSarki Sarakuna",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Hausa/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Introduction",
+      "summary": "For other uses, see Hausa.\nHausaهَرْشَن هَوْسَا‎ Harshen/Halshen HausaPronunciation/hawˈsa/ listenⓘNative to\nNigeria",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Chadic language spoken in West Africa\n\nFor other uses, see Hausa.\nHausaهَرْشَن هَوْسَا‎ Harshen/Halshen HausaPronunciation/hawˈsa/ listenⓘNative to\nNigeria\n\nNiger[1]\n\nRegionWest AfricaEthnicityHausaSpeakersL1: 58 million (2023–2024)[1]\nL2: 36 million (2021–2024)[1]\nTotal: 94 million (2023–2024)[1]\nLanguage familyAfro-Asiatic\n\nChadicWestHausa–Gwandara (A.1)Hausa\n\nWriting systemLatin (Boko alphabet)\nArabic (Hausa Ajami)\nHausa Braille\nOfficial statusOfficial language in Niger (official status)\n Nigeria (national status)\nRecognised minority\nlanguage in BeninLanguage codesISO 639-1haISO 639-2hauISO 639-3hauGlottologhaus1257Linguasphere19-HAA-bAreas of Niger and Nigeria where Hausa people are based. Hausa tribes are shown in yellow.This article contains IPA phonetic symbols. Without proper rendering support, you may see question marks, boxes, or other symbols instead of Unicode characters. For an introductory guide on IPA symbols, see Help:IPA.\nHausa (/ˈhaʊsə/;[2] in Hausa: Harshen/Halshen Hausa listenⓘ /hawˈsa/; Ajami: هَرْشَن هَوْسَا‎) is a Chadic language spoken by over 94.5 million people in West Africa,[3] primarily by the Hausa people in Niger (where it is the sole official language, having replaced French in 2025) and Nigeria,[4] but also as a lingua franca in most of northern Nigeria, southern Niger, as well as in northern Cameroon, Ghana (mainly in the north of the country, but also extensively among the Zongo communities all across the country, including in the capital, Accra),[5] Benin and Togo, southern Chad, and parts of Sudan.[6] Hausa also has a significant number of speakers in Côte d’Ivoire and the Central African Republic.[7][6][8][9]\n\nHausa is a member of the Afroasiatic language family[10] and is the most widely spoken language within the Chadic branch of that family. Hausa is tonal, using relative pitch both to distinguish words, and mark grammatical categories. Ethnologue estimated that it was spoken as a first language by some 58 million people and as a second language by another 36 million, bringing the total number of Hausa speakers to an estimated 94 million.[1]\n\nIn Nigeria, the Hausa film industry is known as Kannywood.[11]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Classification",
+      "summary": "Main article: Afroasiatic languages\nHausa belongs to the West Chadic languages subgroup of the Chadic languages group, which in turn is part of the Afroasiatic language family.[12]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main article: Afroasiatic languages\nHausa belongs to the West Chadic languages subgroup of the Chadic languages group, which in turn is part of the Afroasiatic language family.[12]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Geographic distribution",
+      "summary": "Native speakers of Hausa, the Hausa people, are mostly found in southern Niger and northern Nigeria.[8][6][13] The language is used as a lingua franca by non-native speakers in most of northern Nigeria, southern Niger, northern Cameroon, northern Ghana, northern Benin, northern T",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Native speakers of Hausa, the Hausa people, are mostly found in southern Niger and northern Nigeria.[8][6][13] The language is used as a lingua franca by non-native speakers in most of northern Nigeria, southern Niger, northern Cameroon, northern Ghana, northern Benin, northern Togo, southern Chad and parts of Sudan.[6]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "By country",
+          "body": "Nigeria\nIn Nigeria, Hausa is dominant throughout the north, though not in the states of Kwara, Kogi and Benue. States and cities in which Hausa predominates include Kano, Kaduna, Katsina, Daura, Gobir, Zaria, Sokoto, Birnin Kebbi, Gusau, Dutse, Hadejia, Bauchi, Misau, Zamfara, Gombe, Nafada, Maiduguri, Yobe, Yola, Jalingo, Jos, Lafia, Nasarawa, Minna, Kontagora, Keffi and Abuja.[14]\n\nNiger\nHausa is spoken by approximately 53% of the population of Niger[15] and was declared the country's official language in 2025.[16] It is commonly spoken in the cities of Maradi, Diffa, Tahoua, Zinder, Tillaberi, Dosso, and Agadez.\n\nCameroon\nHausa is spoken in the north of Cameroon, including the cities of Ngaoundere, Garoua, and Maroua.[17]\n\nGhana\nHausa is the lingua franca of the Zongo communities across Ghana.[5]\n\nBenin\nHausa is spoken in northern Benin, including Parakou, Kandi, Natitingou, and Djougou.[18]\n\nTogo\nHausa is spoken in northern Togo, including Sokode, Kara, and Dapaong.[19]\n\nChad\nHausa is spoken in the southern part of Chad, including N'Djamena.[citation needed]\n\nSudan\nIn Sudan, Hausa is spoken in Jazirah, Darfur, Blue Nile, Kassala, Sennar, Gadaref,[20] Kordofan, Red Sea State, White Nile State, and River Nile.[citation needed]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Speakers by country",
+          "body": "Hausa is widely used as a lingua franca across much of West Africa and is spoken by people from various ethnic and cultural backgrounds across Northern Nigeria and Niger.[1]\n\nHausa speakers, Ethnologue (2025)[a]\n\nCountry\nHausa speakers (L1+L2)[1]\n\n Nigeria\n67 million\n\n Niger\n22 million\n\n Ivory Coast\n1.6 million\n\n Benin\n1 million\n\n Sudan\n900,000\n\n Ghana\n600,000\n\n Cameroon\n400,000\n\n Chad\n300,000",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Dialects",
+      "summary": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (February 2026) (Learn how and when to remove this message)\nA spoken sample of modern Hausa\nHausa presents a wide unifor",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This section needs more citations. Please help improve this section by adding citations to reliable sources. Unsourced material may be challenged and removed.  (February 2026) (Learn how and when to remove this message)\nA spoken sample of modern Hausa\nHausa presents a wide uniformity wherever it is spoken.[21] However, linguists have identified dialect areas with a cluster of features characteristic of each one.[22]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Traditional dialects",
+          "body": "Eastern Hausa dialects include Dauranci in Daura; Kananci in Kano; Bausanci in Bauchi; Gudduranci and Katagumci in Katagum, Misau, and part of Borno; Hadejanci in Hadejiya.[23]\n\nWestern Hausa dialects include Sakkwatanci in Sokoto; Katsinanci in Katsina; Arewanci (also a Northern dialect) and Gobiranci in Dogondoutchi; Adaranci in Ader; Kabanci in Kebbi; Zanhwaranci in Zamfara; Kurfayanci in Kourfeye; Damagaranci in Damagaram; Tibiranci in Madari. Katsinanci is transitional between Eastern and Western dialects. Sakkwatanci is used in a variety of classical Hausa literature, and is often known as Classical Hausa.[24]\n\nZazzaganci in Zazzau is the major Southern dialect.[25]\n\nThe Daura (Dauranci) and Kano (Kananci) dialects are the standard.  The BBC, Deutsche Welle, Radio France Internationale and Voice of America offer Hausa services on their international news web sites using Dauranci and Kananci. In recent language development Zazzaganci took over the innovation of writing and speaking the current Hausa language use.[26]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Northernmost dialects and loss of tonality",
+          "body": "The western to eastern Hausa dialects of Kurhwayanci, Damagaranci and Adaranci, represent the traditional northernmost limit of native Hausa communities. These are spoken in the northernmost sahel and mid-Saharan regions in west and central Niger in the Tillaberi, Tahoua, Dosso, Maradi, Agadez and Zinder regions. While mutually comprehensible with other dialects (especially Sakkwatanci, and to a lesser extent Gaananci), the northernmost dialects have slight grammatical and lexical differences owing to frequent contact with the Zarma, Fula, and Tuareg groups and cultural changes owing to the geographical differences between the grassland and desert zones. These dialects also have the quality of bordering on non-tonal pitch accent dialects.\n\nThis link between non-tonality and geographic location is not limited to Hausa alone, but is exhibited in other northern dialects of neighbouring languages; example includes differences within the Songhay language (between the non-tonal northernmost dialects of Koyra Chiini in Timbuktu and Koyraboro Senni in Gao; and the tonal southern Zarma dialect, spoken from western Niger to northern Ghana), and within the Soninke language (between the non-tonal northernmost dialects of Imraguen and Nemadi spoken in east-central Mauritania; and the tonal southern dialects of Senegal, Mali and the Sahel).[27]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Ghanaian Hausa dialect",
+          "body": "The Ghanaian Hausa dialect (Gaananci), spoken in Ghana and Togo, is a distinct western native Hausa dialect-bloc with adequate linguistic and media resources available. Separate smaller Hausa dialects are spoken by an unknown number of Hausa further west in parts of Burkina Faso, and in the Haoussa Foulane, Badji Haoussa, Guezou Haoussa, and Ansongo districts of northeastern Mali (where it is designated as a minority language by the Malian government), but there are very little linguistic resources and research done on these particular dialects at this time.\n\nGaananci forms a separate group from other Western Hausa dialects, as it now falls outside the contiguous Hausa-dominant area, and is usually identified by the use of c for ky, and j for gy. This is attributed to the fact that Ghana's Hausa population descend from Hausa-Fulani traders settled in the zongo districts of major trade-towns up and down the previous Asante, Gonja and Dagomba kingdoms stretching from the sahel to coastal regions, in particular the cities of Accra (Sabon Zango, Nima), Takoradi and Cape Coast\n\nGaananci exhibits noted inflected influences from Zarma, Gur, Jula-Bambara, Akan, and Soninke, as Ghana is the westernmost area in which the Hausa language is a major lingua-franca among sahelian/Muslim West Africans, including both Ghanaian and non-Ghanaian zango migrants primarily from the northern regions, or Mali and Burkina Faso. Ghana also marks the westernmost boundary in which the Hausa people inhabit in any considerable number. Immediately west and north of Ghana (in Côte d'Ivoire, and Burkina Faso), Hausa is abruptly replaced with Dioula–Bambara as the main sahelian/Muslim lingua-franca of what become predominantly Manding areas, and native Hausa-speakers plummet to a very small urban minority.\n\nBecause of this, and the presence of surrounding Akan, Gbe, Gur and Mande languages, Gaananci was historically isolated from the other Hausa dialects.[28] Despite this difference, grammatical similarities between Sakkwatanci and Ghanaian Hausa determine that the dialect, and the origin of the Ghanaian Hausa people themselves, are derived from the northwestern Hausa area surrounding Sokoto.[29]\n\nHausa is also widely spoken by non-native Gur, and Mandé Ghanaian Muslims, but differs from Gaananci, and rather has features consistent with non-native Hausa dialects.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Other native dialects",
+          "body": "Hausa is also spoken in various parts of Cameroon and Chad, which combined the mixed dialects of Northern Nigeria and Niger. In addition, Arabic has had a great influence in the way Hausa is spoken by the native Hausa speakers in these areas.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Non-native Hausa",
+          "body": "In West Africa, Hausa's use as a lingua franca has given rise to a non-native pronunciation that differs vastly from native pronunciation by way of key omissions of implosive and ejective consonants present in native Hausa dialects, such as ɗ, ɓ and kʼ/ƙ, which are pronounced by non-native speakers as d, b and k respectively.[30][31] This creates confusion among non-native and native Hausa speakers, as non-native pronunciation does not distinguish words like daidai (\"correct\") and ɗaiɗai (\"one-by-one\"). Another difference between native and non-native Hausa is the omission of vowel length in words and change in the standard tone of native Hausa dialects (ranging from native Fulani and Tuareg Hausa-speakers omitting tone altogether, to Hausa speakers with Gur or Yoruba mother tongues using additional tonal structures similar to those used in their native languages). Use of masculine and feminine gender nouns and sentence structure are usually omitted or interchanged, and many native Hausa nouns and verbs are substituted with non-native terms from local languages.\n\nNon-native speakers of Hausa numbered more than 25 million and, in some areas, live close to native Hausa. It has replaced many other languages especially in the north-central and north-eastern part of Nigeria and continues to gain popularity in other parts of Africa as a result of Hausa movies and music which spread out throughout the region.",
+          "examples": [
+            "In West Africa, Hausa's use as a lingua franca has given rise to a non-native pronunciation that differs vastly from native pronunciation by way of key omissions of implosive and ejective consonants present in native Hausa dialects, such as"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Hausa-based pidgins",
+          "body": "GibanawaRegionJega, NigeriaNative speakersNone[32]Language familyHausa-based pidginLanguage codesISO 639-3gibGlottologgiba1240ELPGibanawa\nThere are several pidgin forms of Hausa. Barikanchi was formerly used in the colonial army of Nigeria. Gibanawa is currently in widespread use in Jega in northwestern Nigeria, south of the native Hausa area.[32]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Loan words",
+          "body": "The Hausa language has a long history of borrowing words from other languages, usually from the  languages being spoken around and near Hausaland.[33] \n\nWord\n\nLanguage\n\nakwati - 'box', agogo - 'clock', ashana - 'matches'\n\nYoruba\n\ndattijo - 'old man', inna – 'mother', kawu – 'uncle'\n\nFulani\n\nkaratu – 'reading', rubutu – 'writing', birni – 'city'\n\nKanuri",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Phonology",
+      "summary": "Hausa has between 23 and 25 consonant phonemes depending on the speaker.",
+      "sections": [
+        {
+          "heading": "Consonants",
+          "body": "Hausa has between 23 and 25 consonant phonemes depending on the speaker.\n\nConsonant phonemes\n\nLabial\n\nAlveolar\n\nPost-\nalveolar\n\nVelar\n\nGlottal\n\npal.\n\nplain\n\nlab.\n\nNasal\n\nm\n\nn\n\nPlosive/\nAffricate\n\nimplosive\n\nɓ\n\nɗ\n\nvoiced\n\nb\n\nd\n\ndʒ ~ ʒ\n\nɡʲ\n\nɡ\n\nɡʷ\n\ntenuis\n\nt\n\ntʃ\n\nkʲ\n\nk\n\nkʷ\n\nʔ\n\nejective\n\ntsʼ ~ sʼ\n\n(tʃʼ)\n\nkʲʼ\n\nkʼ\n\nkʷʼ\n\nFricative\n\nvoiced\n\nz\n\ntenuis\n\nɸ ~ f ~ p\n\ns\n\nʃ\n\nh\n\nApproximant\n\nl\n\nj   j̰\n\nw\n\nRhotic\n\nr\n\nɽ\n\nThe three-way contrast between palatalized /kʲ ɡʲ kʲʼ/, plain /k ɡ kʼ/, and labialized velars /kʷ ɡʷ kʷʼ/ is found only before long and short /a/, e.g. /kʲʼaːɽa/ ('grass'), /kʼaːɽaː/ ('to increase'), /kʷʼaːɽaː/ ('shea-nuts'). Before front vowels, only palatalized and labialized velars occur, e.g. /kʲiːʃiː/ ('jealousy') vs. /kʷiːɓiː/ ('side of body'). Before rounded vowels, only labialized velars occur, e.g. /kʷoːɽaː/ ('ringworm').[34][35]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Glottalic consonants",
+          "body": "Hausa has glottalic consonants (implosives and ejectives) at four or five places of articulation (depending on the dialect). They require movement of the glottis during pronunciation and have a staccato sound.\n\nThey are written with modified versions of Latin letters. They can also be denoted with an apostrophe, either before or after depending on the letter, as shown below:\n\nɓ / b', an implosive consonant, [ɓ], sometimes [ʔb];\n\nɗ / d', an implosive [ɗ], sometimes [dʔ];\n\nts', an ejective consonant, [tsʼ] or [sʼ], according to the dialect;\n\nch', an ejective [tʃʼ] (does not occur in Kano dialect)\n\nƙ / k', an ejective [kʼ]; [kʲʼ] and [kʷʼ] are separate consonants;\n\nƴ / 'y is a palatal approximant with creaky voice, [j̰],[36] found in only a small number of high-frequency words (e.g. /j̰áːj̰áː/ \"children\", /j̰áː/ \"daughter\"). Historically it developed from palatalized [ɗ].[37]",
+          "examples": [
+            "ƴ / 'y is a palatal approximant with creaky voice, [j̰],[36] found in only a small number of high-frequency words (e.g. /j̰áːj̰áː/ \"children\", /j̰áː/ \"daughter\"). Historically it developed from palatalized [ɗ].[37]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Vowels",
+          "body": "Hausa vowel chart, from Schuh & Yalwa (1999:91). The short vowels /i, u, a/ have a much wider range of allophones than what is presented on the chart.\nHausa vowels occur in five different vowel qualities, all of which can be short or long, totaling 10 monophthongs. In addition, there are four diphthongs, giving a total number of 14 vocalic phonemes.\n\nFront\n\nCentral\n\nBack\n\nClose\n\ni iː\n\nu uː\n\nMid\n\ne eː\n\no oː\n\nOpen\n\na aː\n\nIn comparison with the long vowels, the short /i, u/ can be similar in quality to the long vowels, mid-centralized to [ɪ, ʊ] or centralized to [ɨ, ʉ].[38]\n\nMedial /i, u/ can be neutralized to [ɨ ~ ʉ], with the rounding depending on the environment.[39]\n\nMedial /e, o/ are neutralized with /a/.[39]\n\nThe short /a/ can be either similar in quality to the long /aː/, or it can be as high as [ə], with possible intermediate pronunciations ([ɐ ~ ɜ]).[38]\n\nThe 4 diphthongs in Hausa are /ai, au, iu, ui/.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Tones",
+          "body": "Hausa is a tonal language. Each of its five vowels may have low tone, high tone or falling tone.[40] In standard written Hausa, tone is not marked. In recent linguistic and pedagogical materials, tone is marked by means of diacritics.\n\nà è ì ò ù – low tone: grave accent (`)\nâ ê î ô û – falling tone: circumflex (ˆ)\nAn acute accent (´) may be used for high tone, but the usual practice is to leave high tone unmarked.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Morphology",
+      "summary": "Except for the Zaria and Bauchi dialects spoken south of Kano, Hausa distinguishes between masculine and feminine genders.[24]",
+      "sections": [
+        {
+          "heading": "Nouns",
+          "body": "Except for the Zaria and Bauchi dialects spoken south of Kano, Hausa distinguishes between masculine and feminine genders.[24]\n\nHausa, like the rest of the Chadic languages in particular and Afro-Asiatic languages in general, is known for its complex, irregular pluralization of nouns. Noun plurals in Hausa are derived using a variety of morphological processes, such as suffixation, infixation, reduplication, or a combination of any of these processes. There are 20 plural classes proposed by Newman (2000).[41]\n\nClass\nAffix\nSingular (ex.)\nPlural (ex.)\nGloss (ex.)\n\n1\n\na-a\nsirdì\nsiràda\n'saddle'\n\n2\n\na-e\ngulbi\ngulàbe\n'stream'\n\n3\n\na-u\nkurmì\nkuràmu\n'grove'\n\n4\n\n-aCe\nwuri\nwuràre\n'place'\n\n5\n\n-ai\nmalàm\nmalàmai\n'teacher'\n\n6\n\n-anni\nwatà\nwàtànni\n'moon'\n\n7\n\n-awa\ntalàkà\ntalakawa\n'commoner'\n\n8\n\n-aye\nzomo\nzomàye\n'hare'\n\n9\n\n-Ca\ntabò\ntabba\n'scar'\n\n10\n\n-Cai\ntudù\ntùddai\n'high ground'\n\n11\n\n-ce2\nciwò\ncìwàce-cìwàce\n'illness'\n\n12\n\n-Cuna\ncikì\ncikkunà\n'belly'\n\n13\n\n-e2\ncamfì\ncàmfe-càmfe\n'superstition'\n\n14\n\n-i\ntàurarò\ntàuràri\n'star'\n\n15\n\n-oCi\ntagà\ntagogi\n'window'\n\n16\n\n-u\nkujèra\nkùjèru\n'chair'\n\n17\n\nu-a\ncokàli\ncokulà\n'spoon'\n\n18\n\n-uka\nlayi\nlayukà\n'lane'\n\n19\n\n-una\nrìga\nrigunà\n'gown'\n\n20\n\nX2\nàkàwu\nàkàwu-àkàwu\n'clerk'",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "Hausa marks tense differences by different sets of subject pronouns, sometimes with the pronoun combined with some additional particle. For this reason, a subject pronoun must accompany every verb in Hausa, regardless of whether the subject is known from previous context or is expressed by a noun subject.[42] Thus Hausa is a non pro-drop language.\n\nTime, aspect, and mood[43]\n\n1st person\n\n2nd person\n\n3rd person\n\nindef\n\nsingular\n\nplural\n\nsingular\n\nplural\n\nsingular\n\nplural\n\nm\n\nf\n\nm\n\nf\n\nperfect\n\nnaː\n\nmun\n\nkaː\n\nkin\n\nkun\n\njaː\n\ntaː\n\nsun\n\nan\n\nrelative\n\nna\n\nmukà\n\nka\n\nkikà\n\nkukà\n\nja\n\nta\n\nsukà\n\nakà\n\nnegative\n\nbàn ... ba\n\nbàmù ... ba\n\nbàkà ... ba\n\nbàkì ... ba\n\nbàkù ... ba\n\nbài ... ba\n\nbàtà ... ba\n\nbàsù ... ba\n\nbà’à ... ba\n\ncontinuous\n\ninàː\n\nmunàː\n\nkanàː\n\nkinàː\n\nkunàː\n\njanàː / ʃinàː\n\ntanàː\n\nsunàː\n\nanàː\n\nrelative\n\nnakèː / nikèː\n\nmukèː\n\nkakèː\n\nkikèː\n\nkukèː\n\njakèː / ʃikèː\n\ntakèː\n\nsukèː\n\nakèː\n\nnegative\n\nbaː nàː\n\nbaː màː\n\nbaː kàː\n\nbaː kjàː\n\nbaː kwàː\n\nbaː jàː\n\nbaː tàː\n\nbaː sàː\n\nbaː àː\n\nnegative\n(possessives)\n\nbâː ni\n\nbâː mu\n\nbâː ka\n\nbâː ki\n\nbâː ku\n\nbâː ʃi\n\nbâː ta\n\nbâː su\n\nbâː a\n\nsubjunctive\n\nìn\n\nmù\n\nkà\n\nkì\n\nkù\n\njà\n\ntà\n\nsù\n\nà\n\nnegative\n\nkadà/kâr ìn\n\nkadà/kâr mù\n\nkadà/kâr kà\n\nkadà/kâr kì\n\nkadà/kâr kù\n\nkadà/kâr jà\n\nkadà/kâr tà\n\nkadà/kâr sù\n\nkadà/kâr à\n\nfuture\n\nzân / zaː nì\n\nzaː mù\n\nzaː kà\n\nzaː kì\n\nzaː kù\n\nzâi / zaː jà\n\nzaː tà\n\nzaː sù\n\nzaː à\n\nnegative\n\nbà/bàː zân ... ba /\nbà/bàː zaː nì ... ba\n\nbà/bàː zaː mù ... ba\n\nbà/bàː zaː kà ... ba\n\nbà/bàː zaː kì ... ba\n\nbà/bàː zaː kù ... ba\n\nbà/bàː zâi ...ba /\nbà/bàː zaː jà ... ba\n\nbà/bàː zaː tà ... ba\n\nbà/bàː zaː sù ... ba\n\nbà/bàː zaː à ... ba\n\nindefinite future\n\nnâː\n\nmâː/mwâː\n\nkâː\n\nkjâː\n\nkwâː\n\njâː\n\ntâː\n\nsâː/swâː\n\nâː\n\nnegative\n\nbà nâː... ba\n\nbà mâː/mwâː ... ba\n\nbà kâː ... ba\n\nbà kjâː ... ba\n\nbà kwâː ... ba\n\nbà jâː ... ba\n\nbà tâː ... ba\n\nbà sâː/swâː ... ba\n\nbà âː ... ba\n\nhabitual\n\nnakàn\n\nmukàn\n\nkakàn\n\nkikàn\n\nkukàn\n\njakàn\n\ntakàn\n\nsukàn\n\nakàn\n\nnegative\n\nbà nakàn ... ba\n\nbà mukàn ... ba\n\nbà kakàn ... ba\n\nbà kikàn ... ba\n\nbà kukàn ... ba\n\nbà jakàn ... ba\n\nbà takàn ... ba\n\nbà sukàn ... ba\n\nbà akàn ... ba",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        },
+        {
+          "heading": "Verbs",
+          "body": "Hausa verbs are classified into 7 grades:[44][45]\n\nGrade\nSuffix (no object)\nTonal pattern\nSemantics\nExample\n\n1\n\n-ā\nH-L(-H),\nH-L(-L)\nmostly transitive verbs\nkāmā̀ (to take)\n\n2\n\n-ā\nL-H(-L),\n(L-)L-H\ntransitive verbs\nsàyā (to buy)\n\n3\n\n-a,\n-i[b]\nL-H(-L),\nH-L (rare)\nintransitive verbs\nshìga (to enter)\n\n4\n\n-ē[c]\nH-L(-H),\nH-L(-L)\nmostly intransitive verbs expressing the completion of an action\nriƙḕ (to hold)\n\n5\n\n-ar\n-ad[d]\nH-H(-H)\nmostly transitive verbs with a causative meaning\nmayar̃ (to put back)\n\n6\n\n-ō\nH-H(-H)\nmostly transitive verbs expressing an action performed near the speaker\nkāwō (to bring)\n\n7\n\n-u\n(L-)-L-H\nintransitive verbs with a passive meaning\nkā̀mu (to get captured)\n\nUnlike most languages, Hausa verbs are not conjugated for tense-aspect-mood, but rather for the type of object that follows them.[45]\n\nGrade\nNo object\nFollowed by a pronoun\nFollowed by a noun\nFollowed by an indirect object\n\n1\n\n-ā\n-ā\n-a\n-ā\n\n2\n\n-ā\n-ē\n-ī\n(unpredictable)\n\n3\n\n-a\n\n(unpredictable)\n\n4\n\n-ē\n-ē\n-e\n-ē\n\n5\n\n-ar\n(-ar) da, \n-she\n(-ar) da\n-ar\n\n6\n\n-ō\n-ō\n-ō\n-ō\n\n7\n\n-u\n\nAlso note that Hausa has many irregular verbs that do not conform to the systems above.",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Writing systems",
+      "summary": "Main article: Hausa Braille\nHausa is one of three indigenous languages of Nigeria that have been rendered in braille.",
+      "sections": [
+        {
+          "heading": "Other systems",
+          "body": "Main article: Hausa Braille\nHausa is one of three indigenous languages of Nigeria that have been rendered in braille.\n\nAt least three other writing systems for Hausa have been proposed or \"discovered\". None of these are in active use beyond perhaps some individuals.\n\nA Hausa alphabet, named in some sources as Salifou or Gobiri, supposedly of ancient origin[53] and in use north of Maradi, Niger.[54][failed verification][55][56]\n\nA script that apparently originated with the writing/publishing group Raina Kama in the 1980s.[57]\n\nA script called \"Tafi\" proposed in the 1970s(?)[58]",
+          "examples": [
+            "At least three other writing systems for Hausa have been proposed or \"discovered\". None of these are in active use beyond perhaps some individuals.",
+            "A script called \"Tafi\" proposed in the 1970s(?)[58]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Oral literature",
+      "summary": "Introduction to Hausa proverbs in Rattray (1913)In 1905, George Charleton Merrick (a British army officer and Hausa interpreter)[59] published Hausa Proverbs, a collection of over 400 proverbs in Hausa (Roman script) with English translations.[60] Here are some of those proverbs:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Introduction to Hausa proverbs in Rattray (1913)In 1905, George Charleton Merrick (a British army officer and Hausa interpreter)[59] published Hausa Proverbs, a collection of over 400 proverbs in Hausa (Roman script) with English translations.[60] Here are some of those proverbs: \n\n\"Fawa biu tana bata hankali'n kuda.\" \"Two pieces of meat confuse the mind of the fly (i.e to hesitate between two things).\" (#18)\n\n\"Da ayi jiranka ga abinchi, gara akayi ka jira'n abinchi.\" \"Better that you should be made to wait for food than that food should be made to wait for you.\" (#26)\n\n\"Kunkurru ya so dambe, ba shi da yasa.\" \"The tortoise wishes to fight with his fists, but he has no fingers (i.e. impotent wrath).\" (#45)\n\n\"Komi ya ke chikkin dan kaza, shafu ya deddi da sanninshi.\" \"Whatever there is inside a chicken, the hawk has been familiar with it for a very long time (i.e. there is not much that you can teach me about that).\" (#47)\n\n\"Kaffa'n woni ba ta wa woni taffia.\" \"The legs of one man are no good to another for walking.\" (#61)\n\nCharles Henry Robinson's Hausa Grammar, also published in 1905, contains a selection of proverbs in Hausa (Roman script) with English translations; here are a few of those proverbs:[61]\n\n\"Giwa awani gari zomo.\" \"An elephant is a hare in another town (i.e. a great man is a nobody where no one knows him).\"\n\n\"Idan ka rubuta ya tabbatta, idan ka kiyaye ya gudu.\" \"If you write, the writing remains; if you keep a thing in your mind, it flees away.\"\n\n\"Alberkachin kaza kadangari shi kan sha ruan kasko.\" \"Thanks to the fowl, the lizard finds water to drink in the pot (i.e. if there were no fowls, there would be no water put out; this is said when a man gains some benefit through no virtue of his own).\"\n\n\"Karambanin akwai ta gaida kura.\" \"It is no business of the goat to salute the hyena; i.e. if a man meddles with that which does not concern him, he has only himself to thank for his misfortune.\"\n\n\"Haukan kaza amren musuru.\" \"It is madness for the fowl to marry a cat (i.e. the meaning is practically the same as the preceding).\"\n\nA collection of over 100 Hausa proverbs in both Hausa and English translation appears in Volume 2 of R. S. Rattray's Hausa Folklore, Customs, Proverbs, etc. by Malam Shaihu.[62] The Hausa text is printed both in Arabic script as provided by Malam Shaihu, a Kano-born Hausa teacher,[63] and in Roman transliteration provided by Rattray. Here are some of those proverbs:\n\n\"Hanchi bai san dadin gishiri ba.\" \"The nose does not know the flavor of the salt.\" (#7)\n\n\"Kinwa che ba ta gida, domin hakanan bera ke gada.\" \"The cat is not at home, because of that the mice are playing.\" (#15)\n\n\"Kaza mai-yaya, ita ke tsoro shirwa.\" \"It is the hen with chicks that fears the hawk.\" (#21)\n\n\"Gingidin kunama, kowa ya taba, shi sha kashi.\" \"The snoozing scorpion, whoever touches it (quickly) gets a blow.\" (#39)\n\n\"Harara bai mari ba.\" \"A frown is not a slap (it does not hurt).\" (#43)\n\nCover of AJN Tremearne's Hausa Folktales (1914) showing Gizo the SpiderRattray also includes 30 stories told in Hausa by Malam Shaihu: 21 stories with human characters in volume 1,[64] and 9 animal stories in volume 2,[65] featuring a cycle of stories about Gizo, the trickster spider of Hausa tradition.\n\nThere are several other collections of traditional Hausa tales available in both Hausa and English translation. J.F. Schon's Magana Hausa of 1885 includes the Hausa text of 83 tales with an English translation available in some, but not all, editions.[66] In 1914, A.J.N. Tremearne published the Hausa texts of over 170 Hausa stories in Hausa Folktales,[67] which features Gizo the trickster spider on its cover, with English translations having appeared earlier in Tremearne's Hausa Superstitions and Customs[68] and other publications. More recently, Neil Skinner's Hausa Tales and Traditions[69] provides English translations of the stories that first appeared in 1924 in Frank Edgar’s Tatsuniyoyi na Hausa.[70]",
+          "examples": [
+            "\"Fawa biu tana bata hankali'n kuda.\" \"Two pieces of meat confuse the mind of the fly (i.e to hesitate between two things).\" (#18)",
+            "\"Da ayi jiranka ga abinchi, gara akayi ka jira'n abinchi.\" \"Better that you should be made to wait for food than that food should be made to wait for you.\" (#26)",
+            "\"Kunkurru ya so dambe, ba shi da yasa.\" \"The tortoise wishes to fight with his fists, but he has no fingers (i.e. impotent wrath).\" (#45)",
+            "\"Komi ya ke chikkin dan kaza, shafu ya deddi da sanninshi.\" \"Whatever there is inside a chicken, the hawk has been familiar with it for a very long time (i.e. there is not much that you can teach me about that).\" (#47)",
+            "\"Kaffa'n woni ba ta wa woni taffia.\" \"The legs of one man are no good to another for walking.\" (#61)",
+            "\"Giwa awani gari zomo.\" \"An elephant is a hare in another town (i.e. a great man is a nobody where no one knows him).\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Example text",
+      "summary": "Article 1 of the Universal Declaration of Human Rights in Hausa:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Article 1 of the Universal Declaration of Human Rights in Hausa:\n\nDuk ‘yan adam ana haihuwarsu ne a matsayin ‘yantattun ‘ya’ya, kuma mutuncinsu da haƙƙoƙinsu daidai yake da na kowa. Suna da tunani da cikakken hankali, saboda haka ake son duk mu’amalar da za su yi, ta kasance akwai ‘yan’uwantaka a tsakani.[71]\nArticle 1 of the Universal Declaration of Human Rights in English\n\nAll human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.[72]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hausa_language"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

@@ -1,0 +1,417 @@
+{
+  "title": "Grammar Book — 中文",
+  "languageCode": "zh",
+  "languageName": "中文",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Grammar/Comparisons",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Grammar/Use_of_边...边...",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_1",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_1/Exercises",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_1/Stroke_Order",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_10",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_10/Stroke_Order",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_11",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_11/Stroke_Order",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_12",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_12/Stroke_Order",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13/Examples",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13/Exercises",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13/Stroke_Order",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_15",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_17",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_17/Examples",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_2",
+    "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_2/Exercises",
+    "https://en.wikipedia.org/wiki/Chinese_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "= Lesson 1: 你好！ =\nIt is appropriate to start off the introduction to Chinese with the common greeting 你好  ‹nǐ hǎo› (“hello”)。 Below is a dialogue between two people meeting each other for the first time.",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "= Lesson 1: 你好！ =\nIt is appropriate to start off the introduction to Chinese with the common greeting 你好  ‹nǐ hǎo› (“hello”)。 Below is a dialogue between two people meeting each other for the first time.\n\n\n== Dialogues ==\n\n\n=== Dialogue 1 ===\n\n\n=== Dialogue 2 ===\n\n\n== Vocabulary ==\n\n\n=== Proper Nouns ===\n\nForming the nationality is usually as simple as adding on 人  ‹rén› (“person”) to the country name. 中国  ‹Zhōngguó› (“China”) becomes 中国人  ‹Zhōngguó rén› (“a person of Chinese nationality”), and so forth.\n\n\n== Grammar ==\n\n\n=== Basic Sentences ===\n\n1.  我叫艾美。\n\nWǒ jiào Àiměi.\nI'm called Amy.\n\n\n=== Sentences using shì [是] ===\n\n1.  我是中国人。\n\nWǒ shì Zhōngguórén.\nI am a Chinese person.\n2.  她是金妮。\n\nTā shì Jīnní.\nShe is Ginny.\n3.  她们是英国人。\n\nTāmen shì Yīngguórén.\nThey are English.\n\n1.  他不是东尼。\n\nTā bú shì Dōngní.\nHe is not Tony.\n2.  我不是美国人。\n\nWǒ bú shì Měiguórén.\nI am not American.\n\n\n=== Articles ===\nThere are no articles in Chinese grammar.  While English noun clauses often begin with \"a\", \"an\", or \"the\", Chinese is less verbose.\nAn example:\n\n我是中国人。\nWǒ shì Zhōngguórén.\nI am [a] Chinese person.\nAn \"a\" appears in the English translation, but the singular and indefinite nature of 中国人  ‹Zhōngguórén› (“Chinese person”) is just inferred in Chinese.\n\n\n=== The question particle 吗  ‹ma› ===\n\nThe declarative example sentence in #1 is transformed into an interrogative in #2.\n1. 她是金妮。\n\nTā shì Jīnní.\nShe is Ginny.\n2. 她是金妮吗？\n\nTā shì Jīnní ma?\nShe is Ginny?\n\n\n=== The question particle 呢  ‹ne› ===\n\n1.  我叫东尼, 你呢？\n\nWǒ jiào Dōngní, nǐ ne?\nI'm called Tony. How about you?\n2.  艾美是中国人, 他呢？\n\nÀiměi shì Zhōngguórén, tā ne?\nAmy is Chinese. How about him?\n\n\n=== Question words ===\n\n1. 他们是哪国人？\n\nTāmen shì nǎ guó rén?\nWhat nationality are they? (literally, \"They are which country person?\")\n2. 谁是美国人？\n\nShéi shì Měiguórén?\nWho is American?\n3. 她是谁？\n\nTā shì shéi?\nWho is she? (literally, \"She is who?\")\n\nIn Chinese, each question word appears where its answer would complete the surrounding sentence.\nAnswer to above:\n1. 他们是英国人。\n\nTāmen shì nǎ guó rén。\nThey are British. (literally, \"They are England country person?\")\n2. 她是美国人。\n\nTa shì Měiguórén。\nShe is American.\n3. 她是艾美。\n\nTā shì Àiměi。\nShe is Amy.\n(repacing 谁 with the answer)",
+          "examples": [
+            "There are no articles in Chinese grammar.  While English noun clauses often begin with \"a\", \"an\", or \"the\", Chinese is less verbose.",
+            "An \"a\" appears in the English translation, but the singular and indefinite nature of 中国人  ‹Zhōngguórén› (“Chinese person”) is just inferred in Chinese.",
+            "What nationality are they? (literally, \"They are which country person?\")",
+            "Who is she? (literally, \"She is who?\")",
+            "They are British. (literally, \"They are England country person?\")"
+          ],
+          "learnerTip": "= Lesson 1: 你好！ =\nIt is appropriate to start off the introduction to Chinese with the common greeting 你好  ‹nǐ hǎo› (“hello”)。 Below is a dialogue between two people meeting each other for the first ti",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Exercises",
+      "summary": "== Matching Sentences ==\nMatch the situations (1-8) to the appropriate lines of dialog (a-h):",
+      "sections": [
+        {
+          "heading": "Exercises",
+          "body": "== Matching Sentences ==\nMatch the situations (1-8) to the appropriate lines of dialog (a-h):\n\n1) Tony introduces himself. He says:\n2) Amy asks Ginny what her name is.  She asks:\n3) Ginny asks Amy which country she is from. She asks:\n4) Tony sees Ginny walking by and asks Owen who she is. He asks:\n5) Amy thinks Tony is British, so he answers that he is not. He says:\n6) Owen meets his friends Ginny and Tony and greets them. He says:\n7) Amy tells Owen that the three people over there are Chinese. She says:\n8) Ginny meets another French student and tells him that she is also French. She says:\nLines of dialog:\n\na) Nǐmen hǎo.\nb) Tā shì shuí?\nc) Wǒ jiào Dōngní.\nd) Nǐ shì nǎ guó rén?\ne) Wǒ yě shì Fǎguórén.\nf) Wǒ bú shì Yīngguórén.\ng) Nǐ jiào shénme míngzi?\nh) Tāmen shì Zhōngguórén.",
+          "examples": [],
+          "learnerTip": "== Matching Sentences ==\nMatch the situations (1-8) to the appropriate lines of dialog (a-h):",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_1/Exercises"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Stroke Order",
+      "summary": "This page shows the stroke orders to write the characters introduced in Chinese (Mandarin)/Lesson 1. Click on an image to see the full-sized image. Red links are replaced with images as soon as they are made available. All images are from the Stroke Order Project on Wikimedia Com",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "This page shows the stroke orders to write the characters introduced in Chinese (Mandarin)/Lesson 1. Click on an image to see the full-sized image. Red links are replaced with images as soon as they are made available. All images are from the Stroke Order Project on Wikimedia Commons.\nThe leftmost column gives the number of the character according to the lesson's vocabulary section. The letters by some numbers indicate extra notes: \n\n- \"s\" and \"t\" refer to simplified and traditional ways of writing the same character.\n- \"f\" refers to the feminine equivalent of the same word.\n- \"a\" and \"b\" refer to parts of multi-character words and phrases.",
+          "examples": [
+            "- \"s\" and \"t\" refer to simplified and traditional ways of writing the same character.",
+            "- \"f\" refers to the feminine equivalent of the same word.",
+            "- \"a\" and \"b\" refer to parts of multi-character words and phrases."
+          ],
+          "learnerTip": "This page shows the stroke orders to write the characters introduced in Chinese (Mandarin)/Lesson 1. Click on an image to see the full-sized image. Red links are replaced with images as soon as they a",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_1/Stroke_Order"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Lesson 10",
+      "summary": "== Notes ==\n1.^ In China (mainland and Honkong) people use 地铁 (dì tiě) for subway, while Taiwanese use 捷運 (jié yùn) instead.",
+      "sections": [
+        {
+          "heading": "Lesson 10",
+          "body": "= Lesson 10: 打電話 =\n\n\n=== Dialogue 10 ===\n\n\n== Vocabulary ==\n\n\n== Notes ==\n1.^ In China (mainland and Honkong) people use 地铁 (dì tiě) for subway, while Taiwanese use 捷運 (jié yùn) instead.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_10"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Stroke Order",
+      "summary": "== 电 ==\n\n\n== 话 ==\n\n\n== 電 ==\n\n\n== 話 ==\n\n\n== 媽 ==\nFile:媽-bw.png\n\n\n== 妈 ==\n\n\n== 星 ==\n\n\n== 期 ==\n\n\n== 日 ==\n\n\n== 好 ==\n\n\n== 有 ==\n\n\n== 空 ==\n\n\n== 到 ==\n\n\n== 时 ==\n\n\n== 時 ==\n\n\n== 候 ==\n\n\n== 見 ==\n\n\n== 见 ==",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "== 电 ==\n\n\n== 话 ==\n\n\n== 電 ==\n\n\n== 話 ==\n\n\n== 媽 ==\nFile:媽-bw.png\n\n\n== 妈 ==\n\n\n== 星 ==\n\n\n== 期 ==\n\n\n== 日 ==\n\n\n== 好 ==\n\n\n== 有 ==\n\n\n== 空 ==\n\n\n== 到 ==\n\n\n== 时 ==\n\n\n== 時 ==\n\n\n== 候 ==\n\n\n== 見 ==\n\n\n== 见 ==",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_10/Stroke_Order"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson 11",
+      "summary": "= means there are no differences in characters.\n* means those are different in using words, rather than in characters.",
+      "sections": [
+        {
+          "heading": "Lesson 11",
+          "body": "= Lesson 11: Taiwan / 第十一課：臺灣 =\n\n\n== Vocabulary ==\n\nNote\n\n= means there are no differences in characters.\n* means those are different in using words, rather than in characters.\n\n\n=== Chinese Characters ===\n\n\n== Grammar ==\n美麗（的）風景 = beautiful scenery\nSometimes Chinese people drop the ‘的’ for adjectives to keep it from appearing too many times. They will say ‘美麗風景’ and ‘免費圖書（Free book）’ without the adverb '的'.",
+          "examples": [],
+          "learnerTip": "= means there are no differences in characters.\n* means those are different in using words, rather than in characters.",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_11"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Stroke Order",
+      "summary": "== 台 ==\n\n\n== 臺 ==\nFile:臺-bw.png\n\n\n== 海 ==\n\n\n== 岛 ==\nFile:岛-bw.png\n\n\n== 島 ==\nFile:島-bw.png\n\n\n== 南 ==\n\n\n== 产 ==\n\n\n== 產 ==\nFile:產-bw.png\n\n\n== 鲜 ==\n\n\n== 鮮 ==\nFile:鮮-bw.png\n\n\n== 丽 ==\n\n\n== 麗 ==\nFile:麗-bw.png\n\n\n== 風 ==\nFile:風-bw.png\n\n\n== 风 ==\n\n\n== 景 ==",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "== 台 ==\n\n\n== 臺 ==\nFile:臺-bw.png\n\n\n== 海 ==\n\n\n== 岛 ==\nFile:岛-bw.png\n\n\n== 島 ==\nFile:島-bw.png\n\n\n== 南 ==\n\n\n== 产 ==\n\n\n== 產 ==\nFile:產-bw.png\n\n\n== 鲜 ==\n\n\n== 鮮 ==\nFile:鮮-bw.png\n\n\n== 丽 ==\n\n\n== 麗 ==\nFile:麗-bw.png\n\n\n== 風 ==\nFile:風-bw.png\n\n\n== 风 ==\n\n\n== 景 ==",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_11/Stroke_Order"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson 12",
+      "summary": "= Lesson 12: Mandarin is so interesting/ 第十二课：汉语真有趣！ =",
+      "sections": [
+        {
+          "heading": "Lesson 12",
+          "body": "= Lesson 12: Mandarin is so interesting/ 第十二课：汉语真有趣！ =\n\n\n== 繁体字/Traditional Characters ==\n（仲文在走廊遇到了他的好友思源）                                                                                                                                                                        \n思源：嗨！仲文！你吃早飯了嗎？                                                                                                  \n仲文：早上好，思源！我吃過早飯了。                                                                                            \n思源：根據天氣預報，這一天都會有雨。我沒辦法到操場踢毽子了，真無聊啊。                               \n仲文：確實很無聊，不如咱們來玩斷句遊戲吧！                                                                               \n思源：好啊，你先來！                                                                                                                    \n仲文：這幾天天天天氣不好，請根據語意斷開它吧！                                                                        \n思源：我看看。嗯，答案應該是“這幾天/天天/天氣不好“對吧！ 【1】                                           \n仲文：答案正確，換你來考我吧。                                                                                                  \n思源：這句怎麼樣？小明明明明白白的卻裝作不明白。                                                                      \n仲文：答案是“小明/明明/明明白白/的/卻裝作不明白“對吧？ 【2】                                               \n思源：答案正確，你真厲害！                                                                                                                                                                                                                    \n仲文：過獎了，你也很厲害！                                                                                                           \n思源：漢語真有趣啊！我們兩個的句中都有反復出現的同一個字，可它們卻有不同的意思，還成功構成了一個完整的句子。                                                                                                           \n仲文：確實。漢語真有趣！                                                                                                           \n（上課鈴響起）                                                                                                                          \n思源：上課了，我先走了。回見！                                                                                                    \n仲文：回見！                                                                                                                                          \n\n\n== 简体字/Simplified Characters ==\n（仲文在走廊遇到了他的好友思源）        \n思源：嗨！仲文！你吃早饭了吗？\n仲文：早上好，思源！我吃过早饭了。\n思源：根据天气预报，这一天都会有雨。我没办法到操场踢毽子了，真无聊啊。\n仲文：确实很无聊，不如咱们来玩断句游戏吧！\n思源：好啊，你先来！\n仲文：这几天天天天气不好，请语意断开它吧！\n思源：我看看。嗯，答案应该是“这几天/天天/天气不好”对吧！【1】\n仲文：答案正确，换你来考我吧。\n思源：这句怎么样？小明明明明明白白的却装作不明白。\n仲文：答案是“小明/明明/明明白白/的/却装作不明白”对吧？【2】\n思源：答案正确，你真厉害！\n仲文：过奖了，你也很厉害！\n思源：汉语真有趣啊！我们两个的句中都有反复出现的同一个字，可它们却有不同的意思，还成功构成了一个完整的句子。\n仲文：确实。汉语真有趣！\n（上课铃响起）\n思源：上课了，我先走了。回见！\n仲文：回见！\n\n\n== 汉语拼音  / Chinese Pinyin ==\n(Zhòng wén zài zǒuláng yù dàole tā de hǎoyǒu sīyuán) \nsīyuán: Hāi! Zhòng wén! Nǐ chī zǎofànle ma?\nZhòng wén: Zǎoshang hǎo, sīyuán! Wǒ chīguò zǎofànle.\nSīyuán: Gēnjù tiānqì yùbào, zhè yītiān dūhuì yǒu yǔ. Wǒ méi bànfǎ dào cāochǎng tī jiànzile, zhēn wúliáo a.\nZhòng wén: Quèshí hěn wúliáo, bùrú zánmen lái wán duànjù yóuxì ba!\nSīyuán: Hǎo ya, nǐ xiān lái! \nZhòng wén: Zhè jǐ tiāntiāntiān tiānqì bù hǎo, qǐng yǔyì duàn kāi tā ba! \nSīyuán: Wǒ kàn kàn.ng , dá'àn yīnggāi shì “zhè jǐ tiān/tiān tiān/tiānqì bù hǎo” duì ba![1]\nZhòng wén: Dá'àn zhèngquè, huàn nǐ lái kǎo wǒ ba.\nSīyuán: Zhè jù zěnme yàng? Xiǎomíngmíngmíngmíngmíngbáibái de què zhuāng zuò bù míngbái.\nZhòng wén: Dá'àn shì “xiǎo míng/míng míng/míng míngbái bái/de/què zhuāng zuò bù míng bái” duì ba?[2]\nSīyuán: Dá'àn zhèngquè, nǐ zhēn lìhài!\nZhòng wén: Guòjiǎngle, nǐ yě hěn lìhài! \nSīyuán: Hànyǔ zhēn yǒuqù a! Wǒmen liǎng gè de jù zhōng dōu yǒu fǎnfù chūxiàn de tóng yīgè zì, kě tāmen què yǒu bùtóng de yìsi, hái chénggōng gòuchéngle yīgè wánzhěng de jùzi.  \nZhòng wén: Quèshí. Hànyǔ zhēn yǒuqù! \n(Shàngkè líng xiǎngqǐ)\nsīyuán: Shàngkèle, wǒ xiān zǒule. Zàijiàn!\nZhòng wén: Zàijiàn!\n\n\n== 翻译/translate ==\n(Zhongwen runs into his good friend Siyuan in the hallway.)\nSiyuan: Hi, Zhongwen! Have you had breakfast?\nZhongwen: Good morning, Siyuan! Yes, I have.\nSiyuan: The weather forecast says it’s going to rain all day. I won't be able to go to the sports field to play shuttlecock; it’s such a bore.\nZhongwen: It really is boring. How about we play a sentence-parsing game?\nSiyuan: Sure! You go first.\nZhongwen: Here’s one: \"The weather has been bad every day lately.\" Try breaking it down based on meaning!\nSiyuan: Let me see... Hmm, the answer should be \"These past few days / every day / the weather is bad,\" right? [1]\nZhongwen: That’s correct! Now it’s your turn to test me.\nSiyuan: How about this one? \"Xiao Ming clearly understood, yet pretended not to understand.\"\nZhongwen: The answer is \"Xiao Ming / clearly / understood / yet / pretended not to understand,\" right? [2]\nSiyuan: Correct! You’re really good at this.\nZhongwen: You’re too kind—you’re great at it too!\nSiyuan: Chinese is so interesting! Both of our sentences feature the same character repeated multiple times, yet they carry different meanings and still form complete, coherent sentences.\nZhongwen: Indeed. Chinese is fascinating!\n(The class bell rings.)\nSiyuan: Class is starting; I’ve got to go. See you later!\nZhongwen: See you later!\n\n\n== 语法/語法 Grammar ==\n[1] “这几天/天天/天气不好” means \"These past few days / every day / the weather is bad\"\n[2] “小明/明明/明明白白/的/却装作不明白” means \"Xiao Ming / clearly / understood / yet / pretended not to understand\"\nThese sentences uses the same character again and again, however, every character has its own meaning. You don't necessarily need to use it, but you may need to understand it.",
+          "examples": [
+            "Zhongwen: Here’s one: \"The weather has been bad every day lately.\" Try breaking it down based on meaning!",
+            "Siyuan: Let me see... Hmm, the answer should be \"These past few days / every day / the weather is bad,\" right? [1]",
+            "Siyuan: How about this one? \"Xiao Ming clearly understood, yet pretended not to understand.\"",
+            "Zhongwen: The answer is \"Xiao Ming / clearly / understood / yet / pretended not to understand,\" right? [2]",
+            "[1] “这几天/天天/天气不好” means \"These past few days / every day / the weather is bad\"",
+            "[2] “小明/明明/明明白白/的/却装作不明白” means \"Xiao Ming / clearly / understood / yet / pretended not to understand\""
+          ],
+          "learnerTip": "= Lesson 12: Mandarin is so interesting/ 第十二课：汉语真有趣！ =",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_12"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Stroke Order",
+      "summary": "== 明 ==\n\n\n== 白 ==\n\n\n== 天 ==\n\n\n== 氣 ==\nFile:氣-bw.png\n\n\n== 气 ==\n\nItalics are for Traditional characters.",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "== 明 ==\n\n\n== 白 ==\n\n\n== 天 ==\n\n\n== 氣 ==\nFile:氣-bw.png\n\n\n== 气 ==\n\nItalics are for Traditional characters.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_12/Stroke_Order"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson 13",
+      "summary": "= Lesson 13: I am sick / 第十三课/第十三課：我生病了 =",
+      "sections": [
+        {
+          "heading": "Lesson 13",
+          "body": "= Lesson 13: I am sick / 第十三课/第十三課：我生病了 =\n\n\n== Vocabulary ==\n\n\n=== Chinese Character ===\n\nSee the stroke orders here.\n\n\n== Note ==",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Examples",
+      "summary": "== 要……，……才会…… (Need to..., then... will...) ==",
+      "sections": [
+        {
+          "heading": "Examples",
+          "body": "= 语法练习 Grammar Practice =\n\n\n== 要……，……才会…… (Need to..., then... will...) ==\n\n\n=== Explanation ===\nSimplified:[Subject] 要 [condition/action] ， [result] 才会 [improve/be achieved].\nTraditional:[Subject] 要 [condition/action] ， [result] 才會 [improve/be achieved].\n\n\n=== Example ===\nTraditional:你要多喝水，病才會好。\nSimplified:你要多喝水，病才会好。\nPinyin: Nǐ yào duō hē shuǐ, bìng cái huì hǎo.\nTranslation: You need to drink more water, then you will get better.\n\n\n=== Practice ===\nSee Chinese (Mandarin)/Lesson 13/Exercises for exercise.\n\n\n== 動詞 + 了 + 賓語，動詞 + 了 + 賓語 (Completed Actions Sequence) ==\n\n\n=== Explanation ===\nVerb + 了 + object, verb + 了 + object。\nV1 + 了 + N1 ， V2 + 了 + N2。\n\n\n=== Example ===\nTraditional:吃了藥，睡了覺，我覺得好多了。\nSimplified:吃了药，睡了觉，我觉得好多了。\nPinyin: Chī le yào, shuì le jiào, wǒ juéde hǎoduō le.\nTranslation: After taking the medicine and sleeping, I feel much better.\n\n\n=== Practice ===\nSee Chinese (Mandarin)/Lesson 13/Exercises for exercise.",
+          "examples": [],
+          "learnerTip": "== 要……，……才会…… (Need to..., then... will...) ==",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13/Examples"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Exercises",
+      "summary": "== 要……，……才会…… (Need to..., then... will...) ==",
+      "sections": [
+        {
+          "heading": "Exercises",
+          "body": "== 要……，……才会…… (Need to..., then... will...) ==\n\n\n=== Try to finish the sentence ===\n身体要多运动，...才会...？\n跟朋友相处要互相体谅，...才会...？\n平时养成存钱的习惯，...才会...？\n\n\n=== Traditional Character ===\n身體要多運動，...才會...？\n跟朋友相處要互相體諒，...才會...？\n平常養成存錢的習慣，...才會...？",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13/Exercises"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Stroke Order",
+      "summary": "= Characters that has no difference between the Traditional and Simplified =",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "= Traditional characters =\n\n\n== 頭 ==\n\n\n== 臉 ==\nFile:臉-bw.png\n\n\n== 醫 ==\nFile:醫-bw.png\n\n\n== 藥 ==\nFile:藥-bw.png\n\n\n= Characters that has no difference between the Traditional and Simplified =\n\n\n== 病 ==\n\n\n== 痛 ==\nFile:痛-bw.png\n\n\n== 熱 ==\nFile:熱-bw.png\n\n\n== 感 ==\n\n\n== 冒 ==\n\n\n== 喝 ==\n\n\n== 睡 ==\n\n\n= Simplified character =\n\n\n== 頭 ==\n\n\n== 脸 ==\n\n\n== 醫 ==\n\n\n== 藥 ==",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_13/Stroke_Order"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Lesson 15",
+      "summary": "== English ==\nChina, officially called the People's Republic of China (PRC), is a country in  which  56 different peoples inhabit, located in East Asia. It has beautiful views, a long history, and diverse culture. The people living there welcome you and their wonderful language i",
+      "sections": [
+        {
+          "heading": "Lesson 15",
+          "body": "= Lesson 15: 中国/中國 =\n\n\n== English ==\nChina, officially called the People's Republic of China (PRC), is a country in  which  56 different peoples inhabit, located in East Asia. It has beautiful views, a long history, and diverse culture. The people living there welcome you and their wonderful language is waiting for your exploration.\n\n\n== Vocabulary ==\n共和国    /gòng hé guó/ republic\n东亚 /dōng yà/ East Asia\n秀丽 /xiù lì/ beautiful, pretty\n悠久/ yōu jiǔ/ so long\n多元 /duō yuán/ diverse\n好客/hào kè/ welcome to\n探索/ tàn suǒ/ n. exploration verb. explore\n\n\n== Note ==",
+          "examples": [],
+          "learnerTip": "== English ==\nChina, officially called the People's Republic of China (PRC), is a country in  which  56 different peoples inhabit, located in East Asia. It has beautiful views, a long history, and div",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_15"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Lesson 17",
+      "summary": "= Lesson 17: Common heteronyms in Chinese 基础多音字/基礎多音字 =\nYou might notice in some character in Chinese, for example, 長, has two pronunciation. Just like English,  Chinese also has heteronym. Today, we are going to learn some basic heteronym in Chinese!",
+      "sections": [
+        {
+          "heading": "Lesson 17",
+          "body": "= Lesson 17: Common heteronyms in Chinese 基础多音字/基礎多音字 =\nYou might notice in some character in Chinese, for example, 長, has two pronunciation. Just like English,  Chinese also has heteronym. Today, we are going to learn some basic heteronym in Chinese!\n\n\n== What are heteronyms? ==\nHeteronym is a word which has two different pronunciation with two meaning. In English, for example, the word \"tear\" can mean liquid from the eyes, but it can also mean to rip. In Chinese, heteronyms are called 多音字(duōyīnzì) or 破音字(pòyīnzì).\n\n\n== List of common heteronyms in Chinese ==\n\n\n== More than two Pronunciation ==\n\n\n=== 著/着 ===\nzhe — The Continuous \"-ing\"\nzháo — The Successful Result\nzhuó — To Wear or Apply\nzhù — To Write or Manifest\nzhāo — The Move or Trick",
+          "examples": [
+            "Heteronym is a word which has two different pronunciation with two meaning. In English, for example, the word \"tear\" can mean liquid from the eyes, but it can also mean to rip. In Chinese, heteronyms are called 多音字(duōyīnzì) or 破音字(pòyīnzì)",
+            "zhe — The Continuous \"-ing\"",
+            "zháo — The Successful Result",
+            "zhuó — To Wear or Apply",
+            "zhù — To Write or Manifest",
+            "zhāo — The Move or Trick"
+          ],
+          "learnerTip": "= Lesson 17: Common heteronyms in Chinese 基础多音字/基礎多音字 =\nYou might notice in some character in Chinese, for example, 長, has two pronunciation. Just like English,  Chinese also has heteronym. Today, we",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_17"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Examples",
+      "summary": "Simplified (简)\n\nTraditional (繁)\n\nPinyin 1\n\nExample 1\n\nPinyin 2\n\nExample 2\n\n长\n\n長\n\ncháng\n\n长度(length)\n\nzhǎng\n\n长高(Growing taller)\n\n行\n\n行\n\nxíng\n\n行走(walk)\n\nháng\n\n第一行(first row)\n\n得\n\n得\n\ndé\n\n得到(get)\n\nděi\n\n总得(must)\n\n还\n\n還\n\nhái\n\n还要(still need)\n\nhuán\n\n还钱(return money)\n\n好\n\n好\n\nhǎo\n\n好棒(good)\n\nhào",
+      "sections": [
+        {
+          "heading": "Examples",
+          "body": "Simplified (简)\n\nTraditional (繁)\n\nPinyin 1\n\nExample 1\n\nPinyin 2\n\nExample 2\n\n长\n\n長\n\ncháng\n\n长度(length)\n\nzhǎng\n\n长高(Growing taller)\n\n行\n\n行\n\nxíng\n\n行走(walk)\n\nháng\n\n第一行(first row)\n\n得\n\n得\n\ndé\n\n得到(get)\n\nděi\n\n总得(must)\n\n还\n\n還\n\nhái\n\n还要(still need)\n\nhuán\n\n还钱(return money)\n\n好\n\n好\n\nhǎo\n\n好棒(good)\n\nhào\n\n好客(hospitable）\n\n乐\n\n樂\n\nlè\n\n快乐(happy)\n\nyuè\n\n音乐(music)\n\n觉\n\n覺\n\njué\n\n察觉(aware)\n\njiào\n\n睡觉(sleep)\n\n看\n\n看\n\nkàn\n\n看书(read book)\n\nkān\n\n看门(look after the house)\n\n少\n\n少\n\nshǎo\n\n少量(little amount)\n\nshào\n\n少女(young girl)\n\n便\n\n便\n\nbiàn\n\n便利(convenient)\n\npián\n\n便宜(cheap)\n\n重\n\n重\n\nzhòng\n\n重物(heavy thing)\n\nchóng\n\n重复(repeat)\n\n发\n\n發\n\nfā\n\n批发(Wholesale）\n\nfà\n\n头发(hair)\n\n调\n\n調\n\ntiáo\n\n调味(Seasoning)\n\ndiào\n\n声调(tone)\n\n切\n\n切\n\nqiē\n\n切菜(cut vegetable)\n\nqiè\n\n切记(must remember)",
+          "examples": [
+            "Example 1",
+            "Example 2"
+          ],
+          "learnerTip": "Simplified (简)\n\nTraditional (繁)\n\nPinyin 1\n\nExample 1\n\nPinyin 2\n\nExample 2\n\n长\n\n長\n\ncháng\n\n长度(length)\n\nzhǎng\n\n长高(Growing taller)\n\n行\n\n行\n\nxíng\n\n行走(walk)\n\nháng\n\n第一行(first row)\n\n得\n\n得\n\ndé\n\n得到(get)\n\nděi\n\n总得(mu",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_17/Examples"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Lesson 2",
+      "summary": "= Lesson 2: 今天你忙不忙？ =\nLesson 2 contains a dialogue of two students discussing their classes for the day.",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "= Lesson 2: 今天你忙不忙？ =\nLesson 2 contains a dialogue of two students discussing their classes for the day.\n\n\n== Dialogues ==\nDialogue 1\n\nDialogue 2\n\n\n== Vocabulary ==\n\n\n== Grammar ==\n\n\n=== The adverb Hěn [很] ===\n1. 我很忙。\nWǒ hěn máng\nI (am) very busy.\n\n\n=== Le [了] as emphasizer ===\n1. 太多了。\nTài duō le.\n(That's) too many.\n2. 太少了。\n\nTài shăo le.\n(That's) too few.\n\n\n=== Affirmative-negative questions ===\n\nExample:\n\nQ: 他是不是东尼？\n\nTā shì bu shì Dōngní?\nIs he Tony?\nliterally, \"He is or not Tony?\"\nA: 是 (的)（是，他是/嗯，他是）。or 不是（不，他不是）。\n\nShì de. (Shì tā shì) or Bú shì (Bù tā bú shì).\nYes (he is). or No (he isn't).\nExample: \nQ:艾美今天忙不忙？/艾美今天忙不？\n\nÀiměi jīntiān máng bù （máng）?\nIs Amy busy today?\nliterally, \"Today, Amy busy or not busy\"\nA: 她很忙。or 她不忙。\n\nTā hěn máng. or Tā bù máng.\nYes, she (is) very busy. or No, she (is) not busy.\n\n\n=== Sentences using yǒu [有] ===\n\nExample: \n我有三门课。\n\nWǒ yǒu sān mén kè.\nI have three classes.\n\nExample: \n今天，他们没有课。\n\nJīntiān tāmen méi yǒu kè.\nToday, they don't have [any] classes.\n\nExample: \n\n今天，他们一门课都没有。\n\nJīntiān tāmen yì mén kè dōu méi yǒu.\nToday, they don't have a single class.",
+          "examples": [
+            "Example:",
+            "literally, \"He is or not Tony?\"",
+            "Example:",
+            "literally, \"Today, Amy busy or not busy\"",
+            "Example:",
+            "Example:"
+          ],
+          "learnerTip": "= Lesson 2: 今天你忙不忙？ =\nLesson 2 contains a dialogue of two students discussing their classes for the day.",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Exercises",
+      "summary": "== Translate and transliterate the following sentences. ==\n今天， 你忙不忙？\n今天，我很忙。我有五节课！\n五节？太多了。今天，我只有一节。\n一节？太少了！。\n今天，我只有三节课。我很忙。\n你好吗？我很好，你呢？\n我很好，谢谢你。\n你叫什么名字？我是玛丽娅，你呢？\n我是美国人，你是中国人吗？\n是的。\n我是中国人。",
+      "sections": [
+        {
+          "heading": "Exercises",
+          "body": "== Translate and transliterate the following sentences. ==\n今天， 你忙不忙？\n今天，我很忙。我有五节课！\n五节？太多了。今天，我只有一节。\n一节？太少了！。\n今天，我只有三节课。我很忙。\n你好吗？我很好，你呢？\n我很好，谢谢你。\n你叫什么名字？我是玛丽娅，你呢？\n我是美国人，你是中国人吗？\n是的。\n我是中国人。\n\n\n== Traditional Characters ==\n今天， 你忙不忙？\n今天，我很忙。我有五節課！\n五節？太多了。今天，我只有一節。\n一節？太少了！。\n今天，我只有三節課。我很忙。\n你好嗎？我很好，你呢？\n我很好，謝謝你。\n你叫什么名字？我是瑪麗亞，你呢？\n我是美國人，你是中國人嗎？\n是的。\n我是中國人。\nSee Chinese (Mandarin)/Answer Key for answers.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_2/Exercises"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Stroke Order",
+      "summary": "This page shows the stroke orders to write the characters introduced in Chinese (Mandarin)/Lesson 2. Click on an image to see the full-sized image. Red links are replaced with images as soon as they are made available. All images are courtesy of the Chinese stroke order project o",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "This page shows the stroke orders to write the characters introduced in Chinese (Mandarin)/Lesson 2. Click on an image to see the full-sized image. Red links are replaced with images as soon as they are made available. All images are courtesy of the Chinese stroke order project on Wikicommons.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_2/Stroke_Order"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Lesson 3",
+      "summary": "= Lesson 3: 助詞 =\nThe Chinese language employs heavy usage of particles to modify the meaning of characters and sentences. Since Chinese has neither inflections nor tense, the mastery of particles is an absolute must if one is to fully comprehend both written and spoken Chinese. B",
+      "sections": [
+        {
+          "heading": "Lesson 3",
+          "body": "= Lesson 3: 助詞 =\nThe Chinese language employs heavy usage of particles to modify the meaning of characters and sentences. Since Chinese has neither inflections nor tense, the mastery of particles is an absolute must if one is to fully comprehend both written and spoken Chinese. Below, you will find some of the most common particles in everyday Chinese.\n\n\n== The De {的} particle ==\n\nExample:\n\n      她  的   名字   是   金妮。\n       Tā de míngzi shì Jīnní.\n      Her name is Ginny.\n\nExample 她是一个美丽的姑娘\n        Tā shì yīge měilì de gū’niang.\n       She is a beautiful girl.\n\nwhere \"美丽\" \"beautiful\" is an adjective, and\nExample 研究是一个科学的过程\n\n       Yánjīu shì yígè kēxué dè guòchéng\n       Researching is a scientific process. \n\nand where \"科学\" is a noun in Chinese and is turned into adjective using \"的\".\n\n\n== The Le {了} / Liăo {了} particle ==\nPerfective Aspect Particle\n\nExample:\n\n      他  走  了。\n       Tā zŏu le.\n      He has gone. \n\n※The \"le\" here is used to modify 走 (zŏu, to go) into an action which has already been completed.\n\nExample:\n\n      別   再   打扰  我  了! \n      別   再   打擾  我  了! \n      Bié zài dărăo wŏ le! \n      Do not bother me again!\n\n※In this instance, le is used in conjunction with bié (\"do not\") to form an imperative. Note: most imperatives are not formed using this construction.\n\nExample:\n\n      我  实在    吃  不  了   了。\n      我  實在    吃  不  了   了。 \n       Wŏ shízài chī bù liăo le. \n      I cannot possibly eat any more.\n\nAt first glance, this sentence may seem a bit daunting as it includes two instances of the le particle, paired side-by-side. However, the first le is understood to be liăo given its placement (bù + le is a nonsensical pairing). Therefore, liăo serves to indicate the capability of eating any further and le emphasizes this assertion.\n\n\n== The Zhe [着] particle showing continuation ==\n\n1.  他睡着觉时有人敲门。\n\nTā shuìzhe jiào shí yǒurén qiāomén\nWhile he was sleeping, someone knocked on the door.\n\nFor this sentence, you can take out \"着\" and just say \"他睡觉时有人敲门。\" as \"时\" means \"while\" here.\n\n\n== The Zháo [着] particle indicating accomplishment ==\n\n1. 我终于把东西买着了!\n\n   我終於把東西買著了!)\n\nWŏ zhōngyú bă dōngxī măi zháo le.\nI've finally been able to buy this item! \nAnd another word, dào [到], can be seen as a substitution for 着, in most cases they are interchangeable. \n2. 他在行窃时被当场抓到。\n\nTā zài xíng qìe shí beì dāng chǎng zhuā dào.\nHe was (is) caught in the act of stealing.\nThe 把 + N + V + 着(到)了 construction is particularly useful and should be studied.\n\n\n== The De [得] particle indicating degree ==\n\n1. 我说得很好.\n\nWŏ shuō de hěn hăo.\nI speak very well.\nThis construct often requires a context to gain its full meaning. \nIf you wish to speak more specifically about an action, the two constructs below demonstrate the use of 得 with a direct object.\n\n2. 我说中文说得很好.\n\nWŏ shuō zhōngwén shuō de hěn hăo.\nI speak Chinese very well.\nNote the dual-use of the verb.\n\n3. 中文我说得很好.\n\nZhōngwén wŏ shuō de hěn hăo.\nI speak Chinese very well.\nThis construct emphasizes the object (here being \"Chinese\").\n\n4. 我中文说得很好.\n\nWŏ zhōngwén shuō de hěn hăo.\nI speak Chinese very well.\nThis expression is the simplification of the 2nd expression by eliminating the 1st verb. This form is even more frequently used than the 2nd expression above.\n\n\n== Vocabulary ==",
+          "examples": [
+            "Example:",
+            "Example 她是一个美丽的姑娘",
+            "where \"美丽\" \"beautiful\" is an adjective, and",
+            "Example 研究是一个科学的过程",
+            "and where \"科学\" is a noun in Chinese and is turned into adjective using \"的\".",
+            "Example:"
+          ],
+          "learnerTip": "= Lesson 3: 助詞 =\nThe Chinese language employs heavy usage of particles to modify the meaning of characters and sentences. Since Chinese has neither inflections nor tense, the mastery of particles is a",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_3"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Stroke Order",
+      "summary": "Note:italic fonts are for Traditional characters",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "Note:italic fonts are for Traditional characters\n\n\n== 走 ==\n\n\n== 打 ==\n\n\n== 擾 ==\nFile:擾-bw.png\n\n\n== 扰 ==\nFile:扰-bw.png\n\n\n== 实 ==\n\n\n== 實 ==\nFile:實-bw.png\n\n\n== 吃 ==\n\n\n== 睡 ==\n\n\n== 覺 ==\nFile:覺-bw.png\n\n\n== 觉 ==\n\n\n== 时 ==\n\n\n== 時 ==\n\n\n== 敲 ==\nFile:敲-bw.png\n\n\n== 門 ==\n\n\n== 门 ==\n\n\n== 终 ==\n\n\n== 終 ==\nFile:終-bw.png\n\n\n== 于 ==\n\n\n== 於 ==\nFile:於-bw.png\n\n\n== 东 ==\n\n\n== 東 ==\n\n\n== 西 ==\n\n\n== 玩 ==\n\n\n== 喝 ==",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_3/Stroke_Order"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Lesson 4",
+      "summary": "=== Subject-Verb-Object ===\nThe order of most Chinese sentences, like in English, is S-V-O, that is Subject-Verb-Object.",
+      "sections": [
+        {
+          "heading": "Lesson 4",
+          "body": "= Lesson 4: Word order and Verbs =\n\n\n== Basic Word Order ==\n\n\n=== Subject-Verb-Object ===\nThe order of most Chinese sentences, like in English, is S-V-O, that is Subject-Verb-Object.\n\n我看这本书。\n我看這本書。\nWǒ kàn zhè běn shū.\nI read this book.\nWord order in Chinese is more rigid than in English. However, sometimes you may find sentences that seem to defy normal word order. For example, 我住在中国。wǒ zhù zài zhōngguó. The English translation does this too: I live in China. The reason for this is that \"in China\" is a preposition (prepositions indicate place or time) that is tacked on to the main sentence—\"I live.\"\nMore examples:\n\n下午一点半，我们走。\nXiàwǔ yīdiǎn bàn, wǒmen zǒu.\nAt 1:30 in the afternoon, we'll go.\n在青岛，我看到了。\nZài qīngdǎo, wǒ kàn dào le.\nIn Qingdao, I saw it.\nAs in English, a preposition can also appear after a subject.\n\n我在我家看这本书。\n我在我家看這本書。\nWǒ zài wǒ jiā kàn zhè běn shū.\nI read this book at my house.\n我明天看这本书。\n我明天看這本書。\nWǒ míngtiān kàn zhè běn shū.\nI will read this book tomorrow.\nWhen using both a preposition for time and a preposition for place, put the preposition for time first.\n\n我明天在我家看这本书。\n我明天在我家看這本書。\nWǒ míngtiān zài wǒ jiā kàn zhè běn shū.\nI will read this book at my house tomorrow.\n明天在我家，我看这本书。\n明天在我家，我看這本書。\nMíngtiān zài wǒ jiā, wǒ kàn zhè běn shū.\nTomorrow at my house, I will read this book.\n明天，我在我家看这本书。\n明天，我在我家看這本書。\nMíngtiān, wǒ zài wǒ jiā kàn zhè běn shū.\nTomorrow, I will read this book at my house.\nNote the variation in word order. You can also place a preposition for place, but not for time, at the end of a sentence.\n\n我看这本书在我家。\n我看這本書在我家。\nWǒ kàn zhè běn shū zài wǒ jiā.\nI read this book at my house.\n\n\n=== Topic-Comment ===\nAnother structure for Chinese sentences is topic-comment.  That is, the first thing mentioned is the topic of discussion and then the speaker will add a comment following that.\nIt is used to emphasize a certain part of the sentence.  In the following example, the speaker wants to emphasize that he is going to read the particular book being discussed.\n\n这本书，我明天在我家看。\n這本書，我明天在我家看。\nZhè běn shū, wǒ míngtiān zài wǒ jiā kàn.\n\nI will read this book tomorrow.\n\n\n== Comparisons Using bǐ [比] ==\n\n她比我忙。\nTā bǐ wǒ máng.\nShe is busier than I am.\n\n东尼也比我忙很多。\n東尼也比我忙很多。\nDōngní yě bǐ wǒ máng hěn duō.\nTony is also a lot busier than I am.\n\n\n== Notes ==",
+          "examples": [
+            "Word order in Chinese is more rigid than in English. However, sometimes you may find sentences that seem to defy normal word order. For example, 我住在中国。wǒ zhù zài zhōngguó. The English translation does this too: I live in China. The reason f"
+          ],
+          "learnerTip": "=== Subject-Verb-Object ===\nThe order of most Chinese sentences, like in English, is S-V-O, that is Subject-Verb-Object.",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_4"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lesson 5",
+      "summary": "Zhè bĕn shū lǐ méi yŏu yí gè Hànzì.\nThis book doesn’t contain one Chinese character.\n2.  那间宿舍有六十个学生。",
+      "sections": [
+        {
+          "heading": "Lesson 5",
+          "body": "= Lesson 5: Measure words =\n\n\n== Text ==\n\n\n== Vocabulary ==\n\n\n== Measure Words/量词(liàngcí) ==\n\n1.  这本书里没有一个汉字。\n\nZhè bĕn shū lǐ méi yŏu yí gè Hànzì.\nThis book doesn’t contain one Chinese character.\n2.  那间宿舍有六十个学生。\n\nNà jiān sùshè yŏu liùshí ge xuésheng.\nThat dorm has sixty students.\nThe phrase 一朵花 (yī duǒ huā) means \"one flower,\" but how would you say \"a pile of flowers?\" It's simple: just change the classifier. The phrase 一堆花 (yī duī huā) means \"a pile of flowers.\" You could also say 一把花 (yī bǎ huā; a handful of flowers), 一桶花 (yī tǒng huā; a bucket of flowers), or 一种花 (yī zhǒng huā; a kind of flower). You can see that measure words act as adjectives.\nIn Chinese, like in English, you can omit the noun if it's already known, leaving only the classifier. 你看到那种（花）吗？ (Nǐ kàn dào nà zhǒng (huā) ma?) means \"Did you see that kind (of flower)?\" You can see that measure words also act as nouns.\nMeasure words are also used with demonstrative pronouns (this, that). For example, 这朵花 means \"this flower,\" and 那朵花 means \"that flower.\"\nYou might also encounter something like this: 书架上有书本。 (Shūjià shàng yǒu shūběn.) which means \"The bookshelf has books on it.\" Note that the classifier is after the noun. This signifies multiple books where the exact number is not important, here translated \"books.\" The sentence 书架上有书。, means the same as above, but is without the classifier.\n\n\n=== Some Common Measure Words ===\nColumn key: Trad. is Traditional, Simp. shows changes made for the simplified variant (if any).\n\nSee Chinese measure words on Wikipedia for a more complete reference.",
+          "examples": [
+            "The phrase 一朵花 (yī duǒ huā) means \"one flower,\" but how would you say \"a pile of flowers?\" It's simple: just change the classifier. The phrase 一堆花 (yī duī huā) means \"a pile of flowers.\" You could also say 一把花 (yī bǎ huā; a handful of flowe",
+            "In Chinese, like in English, you can omit the noun if it's already known, leaving only the classifier. 你看到那种（花）吗？ (Nǐ kàn dào nà zhǒng (huā) ma?) means \"Did you see that kind (of flower)?\" You can see that measure words also act as nouns.",
+            "Measure words are also used with demonstrative pronouns (this, that). For example, 这朵花 means \"this flower,\" and 那朵花 means \"that flower.\"",
+            "You might also encounter something like this: 书架上有书本。 (Shūjià shàng yǒu shūběn.) which means \"The bookshelf has books on it.\" Note that the classifier is after the noun. This signifies multiple books where the exact number is not important,"
+          ],
+          "learnerTip": "Zhè bĕn shū lǐ méi yŏu yí gè Hànzì.\nThis book doesn’t contain one Chinese character.\n2.  那间宿舍有六十个学生。",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_5"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Stroke Order",
+      "summary": "Note: Italic for Traditional Characters\n\n\n== 山 ==\n\n\n== 村 ==\n\n\n== 去 ==\n\n\n== 烟 ==\nFile:烟-bw.png\n\n\n== 煙 ==\nFile:煙-bw.png\n\n\n== 家 ==\n\n\n== 亭 ==\nFile:亭-bw.png\n\n\n== 台 ==\n\n\n== 臺 ==\nFile:臺-bw.png\n\n\n== 座 ==\nFile:座-bw.png\n\n\n== 枝 ==\nFile:枝-bw.png\n\n\n== 花 ==",
+      "sections": [
+        {
+          "heading": "Stroke Order",
+          "body": "Note: Italic for Traditional Characters\n\n\n== 山 ==\n\n\n== 村 ==\n\n\n== 去 ==\n\n\n== 烟 ==\nFile:烟-bw.png\n\n\n== 煙 ==\nFile:煙-bw.png\n\n\n== 家 ==\n\n\n== 亭 ==\nFile:亭-bw.png\n\n\n== 台 ==\n\n\n== 臺 ==\nFile:臺-bw.png\n\n\n== 座 ==\nFile:座-bw.png\n\n\n== 枝 ==\nFile:枝-bw.png\n\n\n== 花 ==",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Chinese_(Mandarin)/Lesson_5/Stroke_Order"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

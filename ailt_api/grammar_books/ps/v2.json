@@ -1,0 +1,759 @@
+{
+  "title": "Grammar Book — پښتو",
+  "languageCode": "ps",
+  "languageName": "پښتو",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Pashto_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Dialects\nWanetsi\nCentral Pashto\nSouthern\nNorthern\nOther dialects",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Pashto language\n\nPashtuns\n\nCulture\n\nliterature\n\nWriting systems\nPashto alphabet\n\nDialects\nWanetsi\nCentral Pashto\nSouthern\nNorthern\nOther dialects\n\nLanguage regulation\nAcademy of Sciences of Afghanistan\nPashto Academy\n\nNative to\nAfghanistan\n\nPakistan\nPashtunistan\nPashtun diaspora\n\nv\nt\ne\n\nPashto[1] is an S-O-V language with split ergativity. Adjectives come before nouns. Nouns and adjectives are inflected for gender (masc./fem.), number (sing./plur.), and case (direct, oblique, ablative and vocative). The verb system is very intricate with the following tenses: Present; simple past; past progressive; present perfect; and past perfect. In any of the past tenses (simple past, past progressive, present perfect, past perfect), Pashto is an ergative language; i.e., transitive verbs in any of the past tenses agree with the object of the sentence. The dialects show some non-standard grammatical features, some of which are archaisms or descendants of old forms.\n\nIn the following article stress is represented by the following markers over vowels: ә́, á, ā́, ú, ó, í and é.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Pronouns",
+      "summary": "Note: هغه as a demonstrative pronoun (that) has initial stress [háğa] whereas the personal pronoun (he, she, it) has final stress [hağá].[1]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Note: هغه as a demonstrative pronoun (that) has initial stress [háğa] whereas the personal pronoun (he, she, it) has final stress [hağá].[1]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Personal pronouns",
+          "body": "Person & Number\n\nEnglish\n\nDirect\n\nIndirect\n\n1st person\n\nSingular\n\nI\n\nزه\nza\n\nما\nma\n\nPlural\n\nwe\n\nموږ\nmuzh\nمونږ\nmung/mang (in Peshawari/ Northern Dialect)\n\nما\nma\n\n2nd person\n\nSingular\n\nyou (sing.)\n\nته\nta\n\nتا\ntaa\n\nPlural\n\nyou (plur.)\n\nتاسو\nتاسې\ntaaso/taase\n\n[2]\n\n[3]\n\nتا\ntaa\n\n3rd person\n\nVisible\n\nSingular\n\nMasc.\n\nhe\n\nدی\nday/(Da in Peshawari /Northern Dialect)\n\nده\nda\n\nFem.\n\nshe\n\nدا\ndaa\n\nدې\nde\n\nPlural\n\nthey\n\nدوی\ndoi/(Dwi in Peshawari Dialect)\nدای\ndai (Northern dialect)\n\nدوی\ndoi/Dwi/dai\n\nInvisible\n\nSingular\n\nMasc.\n\nhe (invis.)\n\nهغه\nhaghā\n\nهغہ\nhagha\n\nFem.\n\nshe (invis.)\n\nهغه\nhaghā\n\nهغې\nhaghé\n\nPlural\n\nthey (invis.)\n\nهغوی\nhaghui/(haghwi in Peshawari Dialect)\n\nهغوی\nhaghui/haghwi",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "دغه dağha (this)\n\nDirect\n\nدغه\ndáğha\n\nIndirect\n\nدې\nde\n\nهغه háğha (that)\n\nSingular\n\nPlural\n\nMasc.\n\nFem.\n\nDirect\n\nهغه\nháğha\n\nIndirect\n\nهغۀ\nháğhә\n\nهغې\nháğhe\n\nهغو\nháğho",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Possessive pronouns",
+          "body": "There is no plural form with nouns.\n\nIndependent forms\n\nSingular\n\nPlural\n\n1st person\n\nزما\nzma\n\nزموږ\nzamuzh\nزمونږ\nzamunzh[2]/(Zmung/Zmang in Peshawari Dialect)\n\n2nd person\n\nستا\nsta\n\nستاسو\nstaaso\n\n3rd person\n\nVisible\n\nMasc.\n\nد ده\nda da\n\nد دوی\nda doi/Dwi\n\nFem.\n\nد دې\nda de\n\nInvisible\n\nMasc.\n\nد هغہ\nda hagha\n\nد هغوی\nda haghui/Haghwi\n\nFem.\n\nد هغې\nda haghe\n\nEnclitic forms\n\nSingular\n\nPlural\n\n1st person\n\nمې\nme\n\nمو\nmo, mu\n\n2nd person\n\nدې\nde, di\n\nمو\nmo, mu[2]\n\n3rd person\n\nيې\nye",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Interrogative pronouns",
+          "body": "who\n\nwhich\n\nwhich\n[ord. numbers]\n\nLiterary\n\nwhich\n[ord. numbers]\n\nYusapzai\n\nwhat\n\nhow many\n\nhow much\n\nhow\n\nDirect\n\nMasc.\n\nڅوک\ntsok\n\nکوم\nkom\n\nڅووم\ntsowə́m\n\nڅويم\nswajə́m\n\nڅه\ntsə\n\nڅومره\ntsómra\n\nڅونه\ntsóna\n\nڅنګه\ntsə́nga\n\nFem.\n\nکومه\nkóma\n\nڅوومه\ntsowə́ma\n\nڅويمه\nswaima\n\nOblique\n\nMasc.\n\nچا\nčhā\n\nکوم\nkom\n\nڅووم\ntsowə́m\n\nڅويم\nswajə́m\n\nFem.\n\nکومې\nkóme\n\nڅوومې\ntsowə́me\n\nڅويمې\nswaime\n\nIndefinite\nIn order to distinguish sentences with indefinites from questions, یو /yaw/ 'one' may be added, to yield یو څوک /yaw ʦok/ 'someone' and یو څه /yaw ʦə/ 'something'.\n\nWhen هر /har, ar/ 'every' precedes the indefinite pronouns, the combination can mean everyone [هر څوک], everything [هر څه], each one [هر یو]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nouns",
+      "summary": "Pashto inflects nouns into four grammatical cases: direct, oblique, ablative (also known as oblique II) and vocative. The oblique case is used as prepositional case as well as in the past tense as the subject of transitive verbs (i.e. in ergative construction), and the ablative c",
+      "sections": [
+        {
+          "heading": "Case and gender",
+          "body": "Pashto inflects nouns into four grammatical cases: direct, oblique, ablative (also known as oblique II) and vocative. The oblique case is used as prepositional case as well as in the past tense as the subject of transitive verbs (i.e. in ergative construction), and the ablative case is used with certain prepositions and with some numerals.\n\nThere are two genders: masculine and feminine. Gender of a noun is indicated by its ending. Animate nouns' gender agrees with biological gender regardless of the ending.[4]\n\nMasculine Nouns\n\nFeminine Nouns\n\nEnding  Phoneme\n\nEnding  Phoneme\n\nEnds in diphthong oɪ\n\nEnds in diphthong əi\n\nزوی\nzoy\n\nson\n\nهوسۍ\nhosә́i\n\ndeer\n\nEnds in diphthong ɑi\n\nEnds in e\n\nځای\ndzā́y\n\nplace\n\nملګرې\nmalgә́re\n\nfriend [female]\n\nEnds in unstressed aɪ\n\nEnds in unstressed a\n\nګاډی\ngā́ḍay\n\ncar\n\nژبه\nžә́ba\n\ntongue, language\n\nEnds in stressed aɪ\n\nEnds in o\n\nسړی\nsaṛáy\n\nman\n\nپيشو\npišhó\n\ncat\n\nEnds in stressed a [few nouns]\n\nEnds in stressed a [most nouns]\n\nګېنډه\ngenḍá\n\nrhino\n\nمېله\nmelá\n\na fair\n\nEnds in ə\n\nورارۀ\nwrārә́\n\nbrother's son\n\nEnds in consonant [most nouns]\n\nEnds in consonant [few nouns]\n\nتنور\ntanúr\n\noven\n\nمېچن\nmečhә́n\n\nhandmill\n\nEnds in u\n\nڅانډو\ntsānḍú\n\nhusband of a wife's sister\n\nEnds in diphthong aw\n\nEnds in əw\n\nپلو\npaláw\n\nside\n\nکټو\nkaṭә́w\n\ncooking pot\n\nEnd in i [only for  professions]\n\nEnd in i [most nouns]\n\nدوبي\ndobí\n\nwasherman\n\nبدي\nbadí\n\nhostility\n\nEnds in ɑ [few nouns]\n\nEnds in ɑ [most nouns]\n\nماما\nmāmā́\n\nmaternal uncle\n\nرڼا\nraṇā́\n\nlight\n\nPashto has no definite article. But when necessary, definiteness may be indicated by other means such as demonstratives. Likewise, it may be contraindicated by use of the word for \"one\", يو; as in \"يو روغتون\" – \"a hospital\".",
+          "examples": [
+            "Pashto has no definite article. But when necessary, definiteness may be indicated by other means such as demonstratives. Likewise, it may be contraindicated by use of the word for \"one\", يو; as in \"يو روغتون\" – \"a hospital\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Class 1",
+          "body": "Masculine nouns\nGenerally, animate masculine nouns take ان -ā́n in plural, and inanimate ones take ونه -úna. Masculine nouns ending in ۀ -ә lose it when attaching the suffixes. The grammatical animacy usually corresponds with physical animacy, but there are some exceptions, like مېړۀ meṛә́ \"husband\" is inanimate grammatically with plural مېړونه meṛúna, and پل pul \"bridge\" is animate — پلان pulā́n.\n\nThe nouns ending in -i, -ā (these are always animate) or -u (these can be both animate and inanimate) take ان with -g-, -y- or -w- inserted between vowels.\n\nWords ending in -āCә́ pattern (like وادۀ wādә́ \"wedding\") have short -a- in plural.\n\nEnding in a consonant\n(animate)\n\nSingular\nPlural\n\nDirect\n\nان \nā́n\n\nOblique\nانو\nā́no\n\nAblative\nه\na\n\nVocative\n\nEnding in a consonant\n(inanimate)\n\nSingular\nPlural\n\nDirect\n\nونه \núna\n\nOblique\nونو \núno\n\nAblative\nه\na\n\nVocative\n\nEnding in -ә́\n(animate)\n\nSingular\n\nPlural\n\nDirect\n\nۀ ә́\n\nان\nā́n\n\nOblique\n\nانو\nā́no\n\nAblative\n\nVocative\n\nEnding in -ә́\n(inanimate)\n\nSingular\n\nPlural\n\nDirect\n\nۀ ә́\n\nونه\núna\n\nOblique\n\nونو\núno\n\nAblative\n\nVocative\n\nEnding in -i\n\nSingular\n\nPlural\n\nDirect\n\nي\ni\n\nيان\nyā́n\n\nOblique\n\nیانو\nyā́no\n\nAblative\n\nVocative\n\nEnding in -ā\n\nSingular\n\nPlural 1\n\nPlural 2\n\nDirect\n\nا\nā\n\nايان\nāyā́n\n\nاګان\nāgā́n\n\nOblique\n\nايانو\nāyā́no\n\nاګانو\nāgā́no\n\nAblative\n\nVocative\n\nEnding in -u\n\nSingular\n\nPlural 1\n\nPlural 2\n\nDirect\n\nو\nu\n\nوان\nwā́n\n\nګان\ngā́n\n\nOblique\n\nوانو\nwā́no\n\nګانو\ngā́no\n\nAblative\n\nVocative\n\nExamples\n\nپلار \"father\"\n\nSingular\nPlural\n\nDirect\nپلار\nplār\nپلرونه \nplərunə\n\nOblique\nپلرونو\npləruno\n\nAblative\nپلاره\nplā́ra\n\nVocative\n\nغوږ \"ear\"\n\nSingular\nPlural\n\nDirect\nغوږ\nğhwəg\n\nغوږونه\nğhwəgúna\n\nOblique\nغوږونو\nğhwəgúno\n\nAblative\nغوږه\nğhwə́ga\n\nVocative\n\n \n\nلېوۀ \"wolf\"\n\nSingular\n\nPlural\n\nDirect\n\nلېوۀ\nlewә́\n\nلېوان\nlewā́n\n\nOblique\n\nلېوانو\nlewā́no\n\nAblative\n\nVocative\n\nزړۀ \"heart\"\n\nSingular\n\nPlural\n\nDirect\n\nزړۀ\nzṛә́\n\nزړونه\nzṛúna\n\nOblique\n\nزړونو\nzṛúno\n\nAblative\n\nVocative\n\nوادۀ \"wedding\"\n\nSingular\n\nPlural\n\nDirect\n\nوادۀ\nwādә́\n\nودونه\nwadúna\n\nOblique\n\nودونو\nwadúno\n\nAblative\n\nVocative\n\nدرزي \"tailor\"\n\nSingular\n\nPlural\n\nDirect\n\nدرزي\ndarzí\n\nدرزيان\ndarzyā́n\n\nOblique\n\nدرزیانو\ndarzyā́no\n\nAblative\n\nVocative\n\nباچا \"king\"\n\nSingular\n\nPlural\n\nDirect\n\nباچا\nbāčā́\n\nباچايان\nbāčāyā́n\n\nOblique\n\nباچايانو\nbāčāyā́no\n\nAblative\n\nVocative\n\nماما \"(maternal) uncle\"\n\nSingular\n\nPlural\n\nDirect\n\nماما\nmāmā́\n\nماماګان\nmāmāgā́n\n\nOblique\n\nماماګانو\nmāmāgā́no\n\nAblative\n\nVocative\n\nغٙل\"thife\"\n\nSingular\n\nPlural\n\nDirect\n\nغٙل\nġal\n\nغٙلان\nġalā́n\n\nOblique\n\nغٙلونا\nġalúnā \n\nAblative\n\nVocative\n\nالو \"potato\"\n\nSingular\n\nPlural\n\nDirect\n\nالو\nalú\n\nالوګان\nalugā́n\n\nOblique\n\nالوګانو\nalugā́no\n\nAblative\n\nVocative\n\nFeminine nouns\nFeminine nouns generally have final -a. They change it to -e in the oblique cases and direct plural and to -o in oblique plural, independently of their animacy. A few feminine nouns end in a consonant, they still take the same endings.\n\nIn Southern Pashto, the final -e is pronounced -i when unstressed. For example, the plural of سترګه stә́rga \"eye\" and لار lār \"way\" would be سترګې stә́rge and لارې lā́re in the North, but سترګي stә́rgi and لاري lā́ri in the South, while مڼه maṇá \"apple\" and تخته taxtá \"board\" would be مڼې maṇé and تختې taxté in both dialect groups.\n\nThere are also feminine nouns ending in other vowels, particularly -e (they take یانې -yā́ne in the plural) and -ā or -o (they take either ګانې -gā́ne or وې -we). In Southern Pashto they are یاني -yā́ni, ګاني -gā́ni and وي -wi (the last one is not as common as in Northern Pashto and is mostly restricted to a few nouns).\n\nEnding in -a\n\nSingular\n\nPlural\n\nDirect\n\nه\na\n\nې\ne\n\nOblique\n\nې\ne\n\nو\no\n\nAblative\n\nVocative\n\nEnding in a consonant\n\nSingular\n\nPlural\n\nDirect\n\nې\ne\n\nOblique\n\nې\ne\n\nو\no\n\nAblative\n\nVocative\n\nEnding in -e\n\nSingular\n\nPlural\n\nDirect\n\nې\ne\n\nیانې\nyā́ne\n\nOblique\n\nیانو\nyā́no\n\nAblative\n\nVocative\n\nEnding in -ā and -o\n\nSingular\n\nPlural\n\nDirect\n\nګانې or وې\ngā́ne or we\n\nOblique\n\nګانو or وو\ngā́no or wo\n\nAblative\n\nVocative\n\nExamples\n\nاسپه \"horse, mare\"\n\nSingular\n\nPlural\n\nDirect\n\nاسپه\náspa\n\nاسپې\náspe\n\nOblique\n\nاسپې\náspe\n\nاسپو\náspo\n\nAblative\n\nVocative\n\nمياشت \"month\"\n\nSingular\n\nPlural\n\nDirect\n\nمياشت\nmyā́šht\n\nمياشتې\nmyā́šhte\n\nOblique\n\nمياشتې\nmyā́šhte\n\nمياشتو\nmyā́šhto\n\nAblative\n\nVocative\n\nخواښې \"mother-in-law\"\n\nSingular\n\nPlural\n\nDirect\n\nخواښې\nxwā́x̌e\n\nخواښیانې\nxwax̌yā́ne\n\nOblique\n\nخواښیانو\nxwax̌yā́no\n\nAblative\n\nVocative\n\nرڼا \"light\"\n\nSingular\n\nPlural\n\nDirect\n\nرڼا\nraṇā́\n\nرڼاوې or رڼاګانې\nraṇā́we or raṇāgā́ne\n\nOblique\n\nرڼاوو or رڼاګانو\nraṇā́wo or raṇāgā́no\n\nAblative\n\nVocative\n\nبیزو \"monkey\"\n\nSingular\n\nPlural\n\nDirect\n\nبیزو\nbizó\n\nبیزوګانې or بیزووې\nbizogā́ne or bizówe\n\nOblique\n\nبیزوګانو or بیزوو\nbizogā́no or bizówo\n\nAblative\n\nVocative",
+          "examples": [
+            "Generally, animate masculine nouns take ان -ā́n in plural, and inanimate ones take ونه -úna. Masculine nouns ending in ۀ -ә lose it when attaching the suffixes. The grammatical animacy usually corresponds with physical animacy, but there ar",
+            "Words ending in -āCә́ pattern (like وادۀ wādә́ \"wedding\") have short -a- in plural.",
+            "Examples",
+            "پلار \"father\"",
+            "غوږ \"ear\"",
+            "لېوۀ \"wolf\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Class 2",
+          "body": "In class 2 there's only masculine nouns, both animate and inanimate. They are subject to various alterations inside the stems. The take -ə́ in the plural and oblique forms.\n\nNouns with -ú- or -ó- in the last syllable change them to -ā-. Some nouns like تنور tanúr \"oven\" belong to the mixed conjugation, they form their oblique forms as Class 2 nouns, but their plurals are derived according to Class 1 pattern (but the -ú/ó- may be reduced to -a- in Southern dialects or -ə- in Northern dialects). The word پالېز paléz \"kitchen garden\" is often cited as an example of a noun that belongs to class 2, but doesn't undergo any stem changes.[5]\n\nThere are some animate masculine nouns ending in -á (مېلمه melma \"guest\", اسبه asba \"(horse) shepherd\", غوبه ğoba \"(cow) shepherd\", کوربه korba \"owner of the house\" etc.), they also belong to Class 2.\n\nMonosyllabic nouns with -a- lose it and take -ə in the oblique and plural forms. There several exceptions here: غر ğar \"mountain\", ور war \"door\", ګز gaz \"gaz (unit of length)\", من man \"man (unit of weight)\", ټغر ṭağar \"rug\" take ونه -úna in the plural form (غرونه ğrúna, ورونه warúna/wrúna etc).\n\nNouns with -á- in the last syllable change it to -ə́-. Most of them are mixed in their conjugation: they can take (or not take) -ā́n or -úna in the plural form. A lot of inanimate nouns in this class can take both suffixes. The only exception here is سخر sxar \"stone\", which is always sxə́r in plural. This subclass also contains words suffixed with ګر, ور, ن, زن.\n\nWith -ú/ó-\n\nSingular\n\nPlural\n\nDirect\n\núC, óC\n\nāCə́\n\nOblique\n\nāCə́\n\naCó\n\nAblative\n\núCa, óCa\n\nVocative\n\n \n\nMixed\n\nSingular\n\nPlural\n\nDirect\n\núC, óC\n\nuCúna, oCúna or əCúna\n\nOblique\n\nuCə́, óCə́\n\nuCúno, oCúno or əCúno\n\nAblative\n\núCa, óCa\n\nVocative\n\nExamples\n\nپښتون \"Pashtun\"\n\nSingular\n\nPlural\n\nDirect\n\nپښتون\npəx̌tún\n\nپښتانه\npəx̌tānə́\n\nOblique\n\nپښتانه\npəx̌tānə́\n\nپښتنو\npəx̌tanó\n\nAblative\n\nپښتونه\npəx̌túna\n\nVocative\n\n \n\nشپون \"shepherd\"\n\nSingular\n\nPlural\n\nDirect\n\nشپون\nšpún\n\nښپانۀ\nšpānə́\n\nOblique\n\nښپانۀ\nšpānə́\n\nشپنو\nšpanó\n\nAblative\n\nشپونه\nšpúna\n\nVocative\n\nسکور \"coal\"\n\nSingular\n\nPlural\n\nDirect\n\nسکور\nskór\n\nسکارۀ\nskārə́\n\nOblique\n\nسکارۀ\nskārə́\n\nسکرو\nskaró\n\nAblative\n\nسکوره\nskóra\n\nVocative\n\n \n\nتنور \"oven\"\n\nSingular\n\nPlural\n\nDirect\n\nتنور\ntanúr\n\nتنرونه or تنورونه\ntanərúna or tanurúna\n\nOblique\n\nتناره\ntanārə́\n\nتنرونو or تنورونو\ntanərúno or tanurúno\n\nAblative\n\nتنوره\ntanúra\n\nVocative\n\nتول \"weight\"\n\nSingular\n\nPlural\n\nDirect\n\nتول\ntol\n\nتولونه\ntolúna\n\nOblique\n\nتالۀ\ntālə́\n\nتولونو\ntolúno\n\nAblative\n\nتوله\ntóla\n\nVocative\n\nمېلمه \"guest\"\n\nSingular\n\nPlural\n\nDirect\n\nمېلمه\nmelmá\n\nمېلمانه or مېلمه\nmelmānə́ or melmə́\n\nOblique\n\nمېلمانه or مېلمه\nmelmānə́ or melmə́\n\nمېلمنو or مېلمو\nmelmanó or melmó\n\nAblative\n\nمېلمه\nmelmá\n\nVocative\n\nغل \"thief\"\n\nSingular\n\nPlural\n\nDirect\n\nغل\nğal\n\nغله\nğlə\n\nOblique\n\nغله\nğlə\n\nغلو\nğlo\n\nAblative\n\nغله\nğhála\n\nVocative\n\nغر \"mountain\"\n(exception)\n\nSingular\nPlural\n\nDirect\nغر\nğhar\n\nغرونه or (rare) غرۀ\nğhrúna or ğhrə\n\nOblique\nغرونو\nğhrúno\n\nAblative\nغره\nğhára\n\nğhrə\n\nVocative\n\nدښمن \"enemy\"\n\nSingular\n\nPlural\n\nDirect\n\nدښمن\ndux̌mán\n\nدښمن or دښمنان\ndux̌mə́n or dux̌mənā́n\n\nOblique\n\nدښمن\ndux̌mə́n\n\nدښمنو or دښمنانو\ndux̌mə́no or dux̌mənā́no\n\nAblative\n\nدښمنه\ndux̌mána\n\nVocative\n\nپالېز \"kitchen garden\"\n\nSingular\n\nPlural\n\nDirect\n\nپالېز\npaléz\n\nپلېزونه\npalezúna\n\nOblique\n\nپالېزۀ or پالېز\npalezə́ or paléz\n\nپلېزونو\npalezúno\n\nAblative\n\nپلېزه\npaléza\n\nVocative",
+          "examples": [
+            "Nouns with -ú- or -ó- in the last syllable change them to -ā-. Some nouns like تنور tanúr \"oven\" belong to the mixed conjugation, they form their oblique forms as Class 2 nouns, but their plurals are derived according to Class 1 pattern (bu",
+            "There are some animate masculine nouns ending in -á (مېلمه melma \"guest\", اسبه asba \"(horse) shepherd\", غوبه ğoba \"(cow) shepherd\", کوربه korba \"owner of the house\" etc.), they also belong to Class 2.",
+            "Monosyllabic nouns with -a- lose it and take -ə in the oblique and plural forms. There several exceptions here: غر ğar \"mountain\", ور war \"door\", ګز gaz \"gaz (unit of length)\", من man \"man (unit of weight)\", ټغر ṭağar \"rug\" take ونه -úna in",
+            "Nouns with -á- in the last syllable change it to -ə́-. Most of them are mixed in their conjugation: they can take (or not take) -ā́n or -úna in the plural form. A lot of inanimate nouns in this class can take both suffixes. The only excepti",
+            "Examples",
+            "پښتون \"Pashtun\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Class 3",
+          "body": "Nouns in Class 3 are related to adjectives ending in -ay, -əy, -e.\n\nMasculine -áy (note the stress) nouns, especially if animate, sometimes have alternative plurals in -yā́n. Its usage is somewhat dialect-dependent, they aren't as common in Southern Pashto.\n\nAmong feminine -əy nouns, even inanimate ones can take یانې or ګانې, they also can stay unchanged in the plural. Some abstract nouns suffixed with ي -i (such as دوستي \"friendship\", چلاکي \"trickiness\", ګرمي \"heatness\" etc.) also belong here.\n\nEnding in -ay\n(masculine)\n\nSingular\n\nPlural 1\n\nPlural 2\n\nDirect\n\nی\nay\n\nي\ni\n\nيان\nyā́n\n\nOblique\n\nي\ní\n\nو or یو\no or әyo/iyo\n\nيانو\nyā́no\n\nAblative\n\nیه\naya\n\nVocative\n\nEnding in -e\n(feminine)\n\nSingular\n\nPlural\n\nDirect\n\nې e\n\nې e\n\nOblique\n\nو or یو\no or әyo/iyo\n\nAblative\n\nVocative\n\nEnding in -əy\n(feminine)\n\nSingular\n\nPlural 1\n\nPlural 2\n\nPlural 3\n\nDirect\n\nۍ, ي\nə́y, i\n\nۍ\nə́y\n\nیانې\nyā́ne\n\nګانې\ngā́ne\n\nOblique\n\nو\no\n\nیانو\nyā́no\n\nګانو\ngā́no\n\nAblative\n\nVocative\n\nExamples\n\nسپی \"dog\"\n\nSingular\n\nPlural\n\nDirect\n\nسپی\nspáy\n\nسپي or سپیان\nspí or spiyā́n\n\nOblique\n\nسپي\nspí\n\nسپو or سپیو or سپیانو\nspó or spío or spiyā́no\n\nAblative\n\nسپیه\nspáya\n\nVocative\n\nسپۍ \"she-dog\"\n\nSingular\n\nPlural\n\nDirect\n\nسپۍ\nspə́i\n\nسپۍ or سپیانې or سپۍګانې\nspə́y or spə́iyā́ne or spə́igā́ne\n\nOblique\n\nسپیو or سپیانو or سپۍګانو\nspə́yo or spə́iyā́no or spə́igā́no \n\nAblative\n\nVocative\n\nملګری \"male friend\"\n\nSingular\n\nPlural\n\nDirect\n\nملګری\nmalgə́ray\n\nملګري\nmalgə́ri\n\nOblique\n\nملګري\nmalgə́ri\n\nملګرو or ملګریو\nmalgə́ro or malgə́ryo\n\nAblative\n\nملګریه\nmalgə́rya\n\nVocative\n\nملګرې \"female friend\"\n\nSingular\n\nPlural\n\nDirect\n\nملګرې\nmalgə́re\n\nملګرې\nmalgə́re\n\nOblique\n\nملګرو or ملګریو\nmalgə́ro or malgə́ryo\n\nAblative\n\nVocative",
+          "examples": [
+            "Among feminine -əy nouns, even inanimate ones can take یانې or ګانې, they also can stay unchanged in the plural. Some abstract nouns suffixed with ي -i (such as دوستي \"friendship\", چلاکي \"trickiness\", ګرمي \"heatness\" etc.) also belong here.",
+            "Examples",
+            "سپی \"dog\"",
+            "سپۍ \"she-dog\"",
+            "ملګری \"male friend\"",
+            "ملګرې \"female friend\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Uncountable nouns",
+          "body": "They don't have plural forms. They take و -o in the oblique and ablative forms.\n\nFeminine\nExamples include اوړه [oṛә́ – flour], اوبه [obә́ -water], پۍ [pə́i – milk] etc.\n\nExample: اوبه – water\n\nSingular\n\nPlural\n\nDirect\n\nاوبه\nobә́\n\nOblique\n\nاوبو\nobó\n\nAblative\n\nVocative\n\nExample: پۍ – milk\n\nSingular\n\nPlural\n\nDirect\n\nپۍ\npə́i\n\nOblique\n\nپيو\npə́io\n\nAblative\n\nVocative\n\nMasculine\nExamples include: ږدن [ẓ̌dәn -sorghum], دال [dāl -lentils], شراب [šarā́b – alcohol]\n\nExample: دال – lentils\n\nSingular\n\nPlural\n\nDirect\n\nدال\ndāl\n\nOblique\n\nدالو\ndā́lo\n\nAblative\n\nVocative\n\nداله\ndā́la",
+          "examples": [
+            "Examples include اوړه [oṛә́ – flour], اوبه [obә́ -water], پۍ [pə́i – milk] etc.",
+            "Example: اوبه – water",
+            "Example: پۍ – milk",
+            "Examples include: ږدن [ẓ̌dәn -sorghum], دال [dāl -lentils], شراب [šarā́b – alcohol]",
+            "Example: دال – lentils"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Irregular nouns",
+          "body": "These are limited to nouns denoting kinship.\n\nFeminine – \"or\" stem\nThese include:\n\nمور /mor/ 'mother'; plural stem /máynd-/\n\nخور /xor/ 'sister'; plural stem /xwáynd-/\n\nترور /tror/ 'paternal aunt'; plural stem /tráynd-/\n\nنګور /ngor/ 'daughter-in-law'; plural stem /ngáynd-/\n\nExample:\n\nSingular\n\nPlural\n\nDirect\n\nمور\nmor\n\nمېندې\nmáynde\n\nOblique\n\nمېندو\nmáyndo\n\nAblative\n\nمورې\nmóre\n\nVocative\n\nBrother and daughter\nورور= brother takes وڼه in direct plural\n\nSingular\n\nPlural\n\nDirect\n\nورور\nwror\n\nوروڼه\nwrúṇa\n\nOblique\n\nوروڼو\nwrúṇo\n\nAblative\n\nوروره\nwrorá\n\nVocative\n\nلور= daughter takes وڼې in direct plural\n\nSingular\n\nPlural\n\nDirect\n\nلور\nlur\n\nلوڼې\nlúṇe\n\nOblique\n\nلوڼو\nlúṇo\n\nAblative\n\nلورې\nlúre\n\nVocative\n\nSon\n\nSingular\n\nPlural\n\nDirect\n\nزوی\nzoy\n\nزامن\nzāmə́n\n\nOblique\n\nزامنو\nzāmə́no\n\nAblative\n\nزویه\nzoya\n\nVocative",
+          "examples": [
+            "Feminine – \"or\" stem",
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Adjectives",
+      "summary": "An adjective is called stāynúm in Pashto [ستاينوم]. The adjectives or stāynumúna agree with the nouns they modify in gender, number, and case.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "An adjective is called stāynúm in Pashto [ستاينوم]. The adjectives or stāynumúna agree with the nouns they modify in gender, number, and case.\n\nClass 1\n\nClass 2\n\nClass 3\n\nCategory 1\n\nCategory 2\n\nCategory 3\n\nCategory 4\n\nCategory 5\n\nMasculine\n\nSingular\n\nDirect\n\n-\n-ay\n\nOblique II\n\n-a\n-aya\n-i\n\nVocative\n\n-e\n\nOblique\n\n-\n-ə\n-i\n\nPlural\n\nDirect\n\nOblique/Vocative\n\n-o\n-io/-o\n-yo/-o\n\nFeminine\n\nSingular\n\nDirect\n\n-a\n-əy\n-e\n\nOblique II\n\nVocative\n\n-e\n\nOblique I\n\nPlural\n\nDirect\n\nOblique/Vocative\n\n-o\n-əyo/-o\n-yo/-o\n\nNotes:\n\nIn the plural, both obliques and the vocative merge into a single form.\n\nSingular Oblique I and plural Direct always merge into a single form.\n\nThe above two conditions mean that there can be at most five distinct forms for masculine adjectives (but in fact, no class distinguishes more than four).\n\nFor feminine adjectives, singular Oblique I and Vocative merge, while singular Direct and Oblique II merge; combined with mergers noted previously, there can be at most three distinct forms for feminine adjectives.\n\nCategories 2 and 3 have stem and stress alternations among different cases. Category 3 has a basic distinction between the masculine singular Direct, Oblique II and Vocative, with stem stress, and all other forms, with a (sometimes) different stem and with ending stress (e.g. masc. trīx, fem. traxá \"bitter\"; masc. sūr, fem. srá \"red\"; masc. sōṛ, fem. saṛá \"cold\"; fem. raṇā \"light\" with only one stem). Category 2 has the same stress alternation, but has three distinct stems, with stressed stem vowel 'o' or 'u' in masculine singular Direct, Oblique II and Vocative, unstressed stem vowel 'ā' in masculine singular Oblique I and plural Direct, and unstressed stem vowel 'a' in all other forms (e.g. masc. sing. pōx, masc. plur. pāxǝ́, fem. paxá \"ripe, cooked\").",
+          "examples": [
+            "Categories 2 and 3 have stem and stress alternations among different cases. Category 3 has a basic distinction between the masculine singular Direct, Oblique II and Vocative, with stem stress, and all other forms, with a (sometimes) differe"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Class 1",
+          "body": "Case-marking suffixes\nClass I adjectives are consonant-final in their citation form and keep the stress on the final syllable of the stem.\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nه\na\n\nې\ne\n\nOblique\n\nو\no\n\nې\ne\n\nو\no\n\nAblative\n\nه\na\n\nVocative\n\nStem allomorphy\nIn the Southern dialects, Class I adjectives with certain stem shapes will undergo mutation either:\n\nVowel harmony\n\nor\n\nCentralization\n\nIn other dialects these vowels do not mutate.\n\nVowel harmony\nClass I adjectives with the stressed stem vowel /ə́/ (Southern), such as دنګ /dəng/ 'tall', undergo regressive harmony in the feminine direct plural and in both oblique plural forms—when the suffix vowel is /o/.\n\nCentralization\nClass I adjectives for which the last syllable in the masculine direct singular form is ور /‑wár/, ګر /‑gár/, جن /‑ján/, or م ن /‑mán/, as well as ordinal numbers ending in م /‑ám/, undergo a different vowel alternation: the vowel /á/ of the final syllable centralizes to /ə́/ in feminine non-direct singulars and in all plural forms, irrespective of gender.\n\nClass I forms with stem allomorphy\nExample 1 = سپک (light – in weight) \n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nسپک\nspak\nspək (Southern)\n\nسپک\nspak\nspək (Southern)\n\nسپکه\nspáka\nspə́ka (Southern)\n\nسپکې\nspáke\nسپکي\nspə́ki (Southern)\n\nOblique\n\nسپکو\nspáko\nspə́ko (Southern)\nspóko (Southern)\n\nسپکې\nspáke\nسپکي\nspə́ki (Southern)\n\nسپکو\nspáko\nspə́ko (Southern)\nspóko (Southern)\n\nAblative\n\nسپکه\nspáka\nspə́ka (Southern)\n\nVocative\n\nThe paradigm for the adjective سپک /spək/ 'light' in above shows the Southern dialect's Vowel harmony rule.\n\nExample 2 = زړور (brave) \n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nزړور\nzṛawár\n\nزړور\nzṛawár\nzṛawə́r (Southern)\n\nزړوره\nzṛawára\n\nزړورې\nzṛawáre\nزړوري\nzṛawə́ri (Southern)\n\nOblique\n\nزړورو\nzṛawáro\nzṛawə́ro (Southern)\n\nزړورې\nzṛawáre\nزړوري\nzṛawə́ri (Southern)\n\nزړورو\nzṛawáro\nzṛawə́ro (Southern)\n\nAblative\n\nزړوره\nzṛawár\n\nVocative\n\nThe paradigm for the adjective زړور /zṛawár/ 'brave' illustrates centralization rule for the Southern dialect.\n\nAnimacy\nWhen modifying animate nouns, some Class I adjectives may take the animate plural suffixes of Class I nouns example:\n\nex:مشران وروڼهMəʃarɑn\n\nwruɳa\n\nMəʃarɑn wruɳa\n\n'Elder brothers'",
+          "examples": [
+            "Example 1 = سپک (light – in weight)",
+            "Example 2 = زړور (brave)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Class 2",
+          "body": "Class 2 adjectives can end in either a consonant or a stressed schwa ( ه /‑ə́/). Except for the masculine singular ablative and vocative suffixes, the suffixes of Class II are\ninherently stressed. These stressed suffixes are the chief difference between Class 1 and Class 2, although there are a few differences in suffix shape as well. Whether a consonant-final adjective belongs to Class 1 (stem-stressed) or Class II (suffix-stressed) is a property of the lexeme and is not predictable.\n\nCase-marking suffixes\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\n-Ø\n\nۀ\nə́\n\nه\ná\n\nې\né\n\nOblique\n\nۀ\nə́\n\nو\nó\n\nې\né\n\nو\nó\n\nAblative\n\nه\n–\n\nVocative\n\nStem allomorphy\nSome Class2 adjectives undergo stem allomorphy processes upon inflection, all of them stress-conditioned. The first, Syncope I, affects the final vowels of /ə́/-final Class 2 adjectives; the rest affect the stem vowels of consonant-final Class 2 adjectives (which either lower or delete when unstressed). Lowering affects only back vowels, but not all of them. It is not possible to predict which rule, Back vowel lowering or Syncope II, applies to a given consonant-final adjective. The rules are:\n\nSyncope I\n\nBack vowel lowering\n\nMonophthongization\n\nLengthening\n\nSyncope II\n\nEpenthesis\n\nSyncope I\nV2 → Ø/ V́1_\n\nV́1 → Ø/ _V́2\n\nIf suffixation results in two adjacent vowels and only one is stressed, the unstressed vowel deletes. If both are stressed, the first vowel deletes. This rule applies to vowel-final adjectives.\n\nExamole: Vowel-final adjectives that end in stressed ۀ /‑ə́/\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nتېرۀ\nterə́\n\nتېرۀ\nterə́\n\nتېره\nterá\n\nتېرې\nteré\n\nOblique\n\nتېرو\nteró\n\nتېرې\nteré\n\nتېرو\nteró\n\nAblative\n\nVocative\n\nVowel-final adjectives that end stressed ه /‑ə́/ in their citation form include تېره /terə/́ 'sharp'. These can be reliably identified from this citation form as belonging to Class 2; no other class has adjectives ending in /-ə́/. The final stem-vowel of these adjectives undergoes one or other of the morphophonemic rules of Syncope I.\n\nBack vowel lowering\nV-stress] [+back, → V[-high]/ C_\n\nInmost Class 2 consonant-final adjectives with non-initial back vowels, و /o/, /u/ lowers to /a/ when unstressed.\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nپوخ\npox\n\nپاخۀ\npāxə́\n\nپخه\npaxá\n\nپخې\npaxé\n\nOblique\n\nپاخۀ\npāxə́\n\nپخو\npaxó\n\nپخې\npaxé\n\nپخو\npaxó\n\nAblative\n\nپوخه\npóxa\n\nVocative\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nړوند\nṛund\n\nړاندۀ\nṛāndə́\n\nړنده\nṛandá\n\nړندې\nṛandé\n\nOblique\n\nړاندۀ\nṛāndə́\n\nړندو\nṛandó\n\nړندې\nṛandé\n\nړندو\nṛandó\n\nAblative\n\nړوند\nṛúnda\n\nVocative\n\nIn most consonant-final adjectives where the stem vowel is a back vowel, و /o/, /u/, it will undergo vowel lowering in unstressed position, followed by lengthening when the next syllable contains /ə́/ such as for the words, پو خ /pox/ 'cooked, ripe' and ړوند /ṛund/ 'blind', illustrated above.\n\nMonophthongization\na[+stress]w → V-high] [+back,\n\nwa[+stress] → V-high] [+back,\n\nIn adjectives with /aw/ or /wa/ in the stem [usually seen in the feminine tense], those sequences simplify to /o/ when stressed.\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nتود\ntod\n\nتاودۀ\ntāwdə́\n\nتوده\ntawdá\n\nتودې\ntawdé\n\nOblique\n\nتاودۀ\ntāwdə́\n\nتودو\ntawdó\n\nتودې\ntawdé\n\nتودو\ntawdó\n\nAblative\n\nتوده\ntóda\n\nVocative\n\nBack vowel breaking: تود /tod/ 'hot'; stem = /tawd/.\n\nLengthening\na → ā /_(C)Cə́\n\nShort /a/ lengthens to long /ā/ when the syllable following it contains /ə́/. This rule affects those adjectives that undergo back vowel lowering, such as for پاخۀ → پوخ and ړاندۀ → ړوند and those that undergo monophthongization, such as تاودۀ → تود.\n\nLengthening\nV[-stress] → Ø\n\nIn a few consonant-final adjectives the stem vowel is deleted when not stressed.\n\nExample = سور /sur/ – red\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nسور\nsur\n\nسرۀ\nsrə\n\nسره\nsra\n\nسرې\nsre\n\nOblique\n\nسرۀ\nsrə\n\nسرو\nsro\n\nسرې\nsre\n\nسرو\nsro\n\nAblative\n\nسوره\nsúra\n\nVocative\n\nEpenthesis\nØ → a/C_CC or CC_C\n\nIf syncope results in a triple consonant cluster, an /a/ might be inserted after the first or second consonant.",
+          "examples": [
+            "Example = سور /sur/ – red"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Class 3",
+          "body": "These adjectives end in the diphthong participial suffix, ی /‑ay/, in the masculine direct singular form/. This suffix may be stressed or unstressed.\n\nCase-marking suffixes\nStressed\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nی\náy\n\nي\ní\n\nۍ\nə́i\n\nۍ\nə́i\n\nOblique\n\nي\ní\n\nو\nó\n\nیو\n\nə́yo/ío \n\nو\nó\n\nیو\n\nə́yo/ío \n\nAblative\n\nیه\náya\n\nVocative\n\nUnstressed\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nی\nay\n\nي\ni\n\nې\ne\n\nې\ne\n\nOblique\n\nي\ni\n\nو\no\n\nو\no\n\nAblative\n\nVocative\n\nیه\nya\n\nStressed\nExample = زلمی (young/youth – the ی is stressed) \n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nزلمی\nzalmá y\n\nزلمي\nzalmí\n\nزلمۍ\nzalmə́i\n\nزلمۍ\nzalmə́i\n\nOblique\n\nزلمي\nzalmí\n\nزلمو\nzalmó\nزلمیو \nzalmío (Southern) \n zalmə́yo (Northern)\n\nزلمو\nzalmó\nزلمیو \nzalmío (Southern) \n zalmə́yo (Northern)\n\nAblative\n\nVocative\n\nزلمیه\nzalmáya\n\nUnstressed\nExample = سوی (burnt- the ی is unstressed) \n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nسوی\nsə́way\nsə́wəy (South Western)\n\nsə́we (North Eastern)\n\nسوي\nsə́wi\n\nسوې\nsə́we\n\nسوې\nsə́we\n\nOblique\n\nسوي\nsə́wi\n\nسویو \nsə́wyo (Northern)\nسوو\nsə́wo\n\nسویې \nsə́wye (Northern)\nسوې\nsə́we\n\nسویو \nsə́wyo (Northern)\nسوو\nsə́wo\n\nAblative\n\nVocative\n\nسویه(Northern)\nsə́way\nسوې(Southern)\nsə́we\n\nسوو\nsə́wo\n\nسوې\nsə́we\n\nسوو\nsə́wo",
+          "examples": [
+            "Example = زلمی (young/youth – the ی is stressed)",
+            "Example = سوی (burnt- the ی is unstressed)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Class 4",
+          "body": "This the \"non-declining\" class – these do not decline. These adjectives are generally borrowed from other languages. They do not have masculine-feminine or singular-plural distinction.\n\nBut some speakers use the oblique suffixes  و /‑o/, وو /‑wo/ on these adjectives in the plural oblique, ablative and vocative cases.\n\nExample = شمالي (Persian-Arabic borrowing) \n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nشمالي\nšamālí\n\nOblique\n\nAblative\n\nVocative\n\nExample = شمالي (Southern Dialect) \n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nشمالي\nšamālí\n\nOblique\n\nشمالي\nšamālí\n\nشمالو \nšamāló\n\nشمالي\nšumālí\n\nشمالو \nšamāló\n\nAblative\n\nVocative",
+          "examples": [
+            "This the \"non-declining\" class – these do not decline. These adjectives are generally borrowed from other languages. They do not have masculine-feminine or singular-plural distinction.",
+            "Example = شمالي (Persian-Arabic borrowing)",
+            "Example = شمالي (Southern Dialect)"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Derivational affixes",
+      "summary": "Pashto utilities morphological derivation: there is an addition to the base form or stem of a word in order to modify its meaning [not grammatical function like verbal suffixes].",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Pashto utilities morphological derivation: there is an addition to the base form or stem of a word in order to modify its meaning [not grammatical function like verbal suffixes].",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Prefixes",
+          "body": "These are attached at the beginning of words. Here is a list of the most common ones:\n\nPrefix\nMeaning\n\nنا\na negative prefix to nouns or particles having the same meaning as English \"un, in, dis, non\" etc.\n\nبې\nthis means \"without\". When prefixed to words it is equivalent to the English \"dis, less\" etc.\nConsidered a preposition.\n\nبيا\nthis means again. When prefixed to words it is equivalent to English \"re\"\n\nهم\nthis means same, equivalent. When prefixed with the word it is equivalent to the English \"co and homo\"\n\nګڼ\nthis means crowded and numerous. When prefixed with the word it is equivalent to the English \"multi\"\n\nدوه\nthis means two. When prefixed with the word it is equivalent to the English \"bi\"\n\nA list of examples:\n\nWord\nEnglish meaning\nPrefixed word\nEnglish meaning\n\nنا \n nā \nوړ\nwaṛ\n\nsuitable\nناوړ\nnāwáṛ\n\nunsuitable\n\nبې \n be \nکور\nkor\n\nhome\nبې کوره\nbe kóra\n\n[کور in the ablative case]\n\nhomeless\n\nبيا \n byā \nجوړول\njoṛawә́l\n\nto make\nبيا جوړول\nbyā joṛawә́l\n\nto remake\n\nهم\n ham \n[زولی [نارينه]، زولې [ښځينه\nzólay, zóle\n\nage [classical Pashto]\nهمزولی، همزولې\nhamzólay, hamzól\n\ncoeval\n\nګڼ\n gaṇ\nهېواديز\nhewādíz\n\nnational\nګڼ هېواديز\ngaṇhewādíz\n\nmultinational\n\nدوه\n dwa\nاړخيز\naṛxíz\n\naṛx= side, íz = adjective forming suffix\nدوه اړخيز\ndwa aṛxíz\n\nbilateral",
+          "examples": [
+            "a negative prefix to nouns or particles having the same meaning as English \"un, in, dis, non\" etc.",
+            "this means \"without\". When prefixed to words it is equivalent to the English \"dis, less\" etc.",
+            "this means again. When prefixed to words it is equivalent to English \"re\"",
+            "this means same, equivalent. When prefixed with the word it is equivalent to the English \"co and homo\"",
+            "this means crowded and numerous. When prefixed with the word it is equivalent to the English \"multi\"",
+            "this means two. When prefixed with the word it is equivalent to the English \"bi\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Suffixes",
+          "body": "These are attached at the end of a word. Here is a list of the most common ones:\n\nPrefix\nMeaning\n\nتوب\nthis is affixed to nouns and adjectives to form masculine concept/abstract nouns.\n\nتیا\nthis is affixed to nouns and adjectives to form feminine concept/abstract nouns.\n\nي\nthis is affixed to noun to make adjectives.\n\nي\na suffix also used to create nouns of profession.\n\nيز [masculine] \n يزه [feminine]\nadjectival suffix. Used to make adjectives from nouns. Becomes \"yiz\" if preceded by a vowel e.g. سوله=سوله ييز\n\nمن\nsuffix that forms nouns and adjectives that mean possessing a quality or object\n\nجن\n\nadjective-forming suffix; having the quality of the noun e.g. چنجن [worm-eaten; stubbornly picky]\n\nين\n\nan adjective-forming suffix applied to nouns denoting a material\n\nور\nan adjective forming suffix to show endowment/possession.\n\nم\n\nforms ordinal number names from cardinals\n\nښت\nthis is affixed to adjectives (including verbal adjectives) to show a state of being\n\nګلوي\nthis is affixed to nouns to form feminine concept/abstract nouns mostly to do with association e.g. پیژند ګلوي, پلار ګلوي etc.\n\nوالی\nthis is affixed to nouns and adjectives to form masculine concept/abstract nouns.\n\nولي\nthis is affixed to nouns and adjectives to form feminine concept/abstract nouns.\n\nځی\nthis makes nouns denoting place of the action\n\nنه\nthis is the most common suffix used to makes nouns from verb. The new suffixed word has feminine gender.\n\nون\nless frequently used than نه. This also creates nouns from verbs\n\nاک\nthis is used to make only two nouns [خوراک and څښاک] denoting consumable noun. Like Japanese particle もの.\n\nتون\nused to create nouns of place. Meaning the \"(main) place of\"\n\nپال [masculine]\n پاله [feminine]\nmeans someone is the cherisher/nourisher of the word attached. It is like Persian پرست but unlike پرست only used for agentive nouns not as an adjective.\n\nپالنه\nmakes concept/abstract nouns showing the root's cherishing/fostering. Like Persian پرستي\n\nواکي\nmakes nouns which signify \"mastery of\", \"rule of\" or \"endowment with in quality\" with the root word. Related to word واک [authority].\n\nوال\nmakes nouns showing that noun is a resident of that place, is engaged in the activity indicated in the root word, possessor of the root word. Like English suffix \"er\", \"or\" and \"ist\".\n\nواله\n\nmakes nouns denoting owenership\n\nګر\nused to form an actor noun. Denoting maker, doer, worker etc. of the root.\n\nچي\nan agent-noun suffix borrowed from Ottoman Turkish. Only used with borrowed words.\n\nګوټی\na diminutive suffix. Example مېز [table] – مېزګوټی [small table].\n\nوزمه\nsuffix to indicate something is like/similar to the root word but not that word. Also used to denote shades of colour.\n\nنی\n\nsuffix affixed to words having to do with time and location\n\nی\n\nsuffix affixed to place names to form a masculine noun living or found in that place\n\nۍ\n\nsuffix affixed to place names to form a feminine noun living or found in that place\n\nګنۍ\nsuffix for nouns expressing kinship/relationships\n\nوړ [masculine]\n وړه [feminine]\nthis is used exactly as the English -able. Forms adjectives meaning fit/able to be done or suitable to.\n\nيالی [masculine]\n يالۍ [feminine]\nforms adjectives from nouns. The adjective shows a quality that can be possessed.\n\nغاړی [masculine] \n غاړې [feminine]\nforms actor/agent nouns that have to do with an art/skill [example: لوبغاړی, سندرغاړی]. Also used to create adjective/nouns related to the throat [غاړه] such as بوږغاړی [harsh sounding]\n\nچک\nan adjectival suffix showing that the new word is \"somewhat\" like the root word. Similar to \"ish\" suffix in English.\n\nډله\nthis means group. It can be used as suffix to denote team, group, company etc.\n\nهار\naccording to Z. A. Pashtoon: \"suffix used to form onomatopoeic words indicating the repetition or intensification of a sound\". according to H. G. Raverty: a suffix \"affixed to nouns signifying sound of any kind, in forming the plural\".\n\nA list of examples:\n\nWord\nEnglish meaning\nPrefixed word\nEnglish meaning\n\nتوب\n tob \nبربنډ\nbarbə́nḍ\n\nnude\nبربنډتوب\nbarbənḍtób\n\nnudeness/nudity\n\nتیا\n tyā \nروغ\nroğh\n\nhealthy\nروغتيا\nroğhtyā́\n\nhealth\n\nي \n i\nولس\n(w)ulə́s\n\nnation\nولسي\n(w) uləsí\n\nnational\n\nي \ni\nترکاڼ\ntarkā́ṇ\n\ncarpenter\nترکاڼي\ntarkāṇí\n\ncarpentry\n\nيز/يزه \n iz/iza\nلمر\nlmar\n\nsun\nلمريز\nlmaríz \nلمريزه\n\nlmaríza\n\nsolar\n\nيز/يزه \n yiz/yiza\nوټه\nwáṭa\n\neconomy\nوټه ييز\nwaṭayíz\nوټه ييزه\n\nwaṭayíza\n\neconomic\n\nمن\n man \nلانجه\nlānjá\n\nproblem\nلانجمن\nlānjamán\n\nlānjamə́n\n\nproblematic\n\nجن\njən\n\nکرکه\nkrә́ka\n\nrepugnance\n\nکرکجن\nkrәkjә́n\n\nsomeone who is repugnant\nto something\n\nين\nin\n\nزر\nzar\n\ngold\n\nزرين\nzarín\n\ngolden\n\nور\n war\nګټه\ngáṭa\n\nprofit\nګټور\ngaṭawár\n\nadvantageous\n\nم\nam/əm\n\nاووه\nuwə́\n\nseven\n\nاووم\nuwə́m\n\nseventh\n\nښت\n əx̌t\nجوړ\njoṛ\n\nmade/built\nجوړښت\njoṛə́x̌t\n\nstructure\n\nګلوي\n galwi\nپلار\nplār\n\nfather\nپلارګلوي\nplār\n\npaternity\n\nوالی\n wālay\nاوږد\nuẓ̌d\n\nlong\nاوږدوالی\nuẓ̌dwā́lay\n\nlength/height\n\nولي\n wali\nورور\nwror\n\nbrother\nورورولي\nwrorwalí\n\nbrotherhood\n\nځی\n dzay\nښوول\nx̌owə́l\n\nto teach\nښونځی\nx̌owə́ndzay\n\nschool\n\nنه\nəna\nغوښتل\nğox̌tə́l\n\nto demand\nغوښتنه\nğox̌tə́na\n\ndemand\n\nون\n un\nبدلول\nbadlawə́l\n\nto change\nبدلون\nbadlún \n\nchange\n\nاک \n āk\nڅښل\ntsx̌ə́l\nخوړل\n\nxwaṛə́l\n\nto drink\nto eat\nڅښاک\ntsx̌āk\nخوراک\n\nxwaṛā́k\n\ndrink\nfood\n\nتون\n tun\nپوهنه\npohə́na\n\nknowledge\nپوهنتون\npohəntún\n\nuniversity\n\nپال/پاله \n pal/pāla\nمېلمه\nmelmá\n\nguest\nمېلمه پال\nmelmapā́l\nمېلمه پاله\n\nmelmapā́la\n\nhost\n\nپالنه\n pālana\nمېلمه\nmelmá\n\nguest\nمېلمه پالنه\nmelmapālə́na\n\nhospitality\n\nواکي\n wāki\nپلار\nplār\n\nfather\nپلارواکي\nplārwākí\n\npatriarchy\n\nوال\n wāl\nليک\nlik\n\nwriting\nليکوال\nlikwā́l\n\nwriter\n\nواله'\nwālə\n\nغنم\nğhanə́m\n\nwheat\n\nغنم واله\nğhanəmwālə\n\nwheat-merchant\n\nګر\n gər\nکوډه\nkóḍa\n\nmagic\nکوډګر\nkoḍgə́r\n\nkoḍgár\n\nmagician\n\nچي\n chi\nتوپ\ntop\n\ncannon\nتوپچي\ntopčí\n\ncannoneer\n\nګوټی\n goṭay\nکتاب\nkitā́b\n\nbook\nکتاب ګوټی\nkitābgóṭay\n\nbooklet\n\nوزمه\n wazma\nتور\ntor\n\nblack\nتور وزمه\ntorwázma\n\nblackish\n\nنی\n(a)náy\n\nکال\nkāl\n\nyear\n\nکالنی\nkālanáy\n\nannual\n\nی\náy\n\nجاپان\njāpā́n\n\nJapan\n\nجاپانی\njāpānáy\n\na Japanese male\n\nۍ\nə́i\n\nجاپان\njāpā́n\n\nJapan\n\nجاپانۍ\njāpānə́i\n\na Japanese female\n\nګنۍ\n ganai\nپلار\nplār\nمور\n\nmor\n\nfather\nmother\nپلارګنۍ\nplārganə́i\nمورګنۍ\n\nmorganə́i\n\npaternal-family\nmaternal-family\n\nوړ/وړه \n waṛ/waṛa\nخندا\nxandā́\n\nlaughter\nخنداوړ\nxandāwáṛ\nخنداوړه\n\nxandāwáṛa\n\nlaughable\n\nيالۍ /يالی \n yālay/yālə́i\nننګ\nnang\n\nhonor\nننګيالی\nnangyāláy\nننګيالۍ\n\nnangyālə́i\n\nhonorable\n\nغاړې /غاړی \n ğāṛay/ğāṛe\nسندره\nsandə́ra\n\nsong\nسندرغاړی\nsandərğā́ṛay\nسندرغاړې\n\nsandərğā́ṛe\n\nsinger\n\nچک\n cak\nسپين\nspin\n\nwhite\nسپين چک\nspinčák\n\nwhitish\n\nډله\nḍala\nلوب\nlob\n\nroot word of\n play\nلوبډله\nlobḍála\n\nteam (sports)\n\nهار\nhār\nپړک\npṛak\n\nslap/clap\nپړکهار\npṛakahā́r\n\nclapping/sounds of claps",
+          "examples": [
+            "adjectival suffix. Used to make adjectives from nouns. Becomes \"yiz\" if preceded by a vowel e.g. سوله=سوله ييز",
+            "used to create nouns of place. Meaning the \"(main) place of\"",
+            "makes nouns which signify \"mastery of\", \"rule of\" or \"endowment with in quality\" with the root word. Related to word واک [authority].",
+            "makes nouns showing that noun is a resident of that place, is engaged in the activity indicated in the root word, possessor of the root word. Like English suffix \"er\", \"or\" and \"ist\".",
+            "an adjectival suffix showing that the new word is \"somewhat\" like the root word. Similar to \"ish\" suffix in English.",
+            "according to Z. A. Pashtoon: \"suffix used to form onomatopoeic words indicating the repetition or intensification of a sound\". according to H. G. Raverty: a suffix \"affixed to nouns signifying sound of any kind, in forming the plural\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Creating new words",
+          "body": "Other than the recognised words above; new words can be coined by speakers through these affixes\n\nExample:\n\nCreating a new word process\n\nExisting word\n\nExisting suffix\n\nNew word\n\nغو\nğo\n\nييز\nyíz\n\nغوييز\nğoyíz\n\nsex\n\nadjective-forming suffix\n\nsexual",
+          "examples": [
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Infinitive",
+      "summary": "This is called Kaṛnúmay [کړنومی] in Pashto that is \"the name of a verb\".[6] It shows an infinite action or occurrence. It is used as a noun. It acquires the gender and number of a masculine plural noun.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This is called Kaṛnúmay [کړنومی] in Pashto that is \"the name of a verb\".[6] It shows an infinite action or occurrence. It is used as a noun. It acquires the gender and number of a masculine plural noun.\n\nFormed: Past Imperfective Stem + verbal ل (ә́l)\n\nConjugation Class\n\nPast Imperfective Stem\n\nInfinitives\n\n1st\n\n-کېد\n\nked-\n\nbecome\n\n-کېد\n\nked-\n\nbecome\n\nکېدل\n\nkedә́l\n\nto become\n\nکېدل\n\nkedә́l\n\n{to become}\n\n2nd\n\n-ننوت\n\nnənawat-\n\n-ننوت\n\nnənawat-\n\nننوتل\n\nnənawatә́l\n\nto enter\n\nننوتل\n\nnənawatә́l\n\n{to enter}\n\n3rd\n\nJoined\n\n-ښخو\n\nx̌axaw-\n\ndo bury\n\n-ښخو\n\nx̌axaw-\n\n{do bury}\n\nښخول\n\nx̌axawә́l\n\nto bury\n\nښخول\n\nx̌axawә́l\n\n{to bury}\n\nUnjoined\n\n-سوچ کو\n\nsoč kaw-\n\ndo think\n\n{-سوچ کو}\n\n{soč kaw-}\n\n{do think}\n\nسوچ کول\n\nsoč kawә́l\n\nto think\n\n{سوچ کول}\n\n{soč kawә́l}\n\n{to think}\n\nExample: وکړل [past perfective tense of the transitive verb کول – \"to do\"] shows agreement with masculine plural object that is the infinitive وهل.\n\nex:هغوی په خپلو کښې وهل وکړلHağúi\n\nthey:DIR:3:PL\n\npә\n\non:PREP\n\nxpә́lo\n\nown:OBL:M:PL\n\nke\n\non:POST\n\nwahә́l\n\nto-beat:PST:CONT:3:M:PL\n\nwә́kṛəl\n\ndo:PST:PRF:3:PL\n\nHağúi pә xpә́lo ke wahә́l wә́kṛəl\n\nthey:DIR:3:PL on:PREP own:OBL:M:PL on:POST to-beat:PST:CONT:3:M:PL do:PST:PRF:3:PL\n\nThey have fought amongst themselves",
+          "examples": [
+            "This is called Kaṛnúmay [کړنومی] in Pashto that is \"the name of a verb\".[6] It shows an infinite action or occurrence. It is used as a noun. It acquires the gender and number of a masculine plural noun.",
+            "Example: وکړل [past perfective tense of the transitive verb کول – \"to do\"] shows agreement with masculine plural object that is the infinitive وهل."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Double infinitives",
+          "body": "These are formed by combining two infinitives\n\n– either by combining a simple infinitive with a prefixed infinitive.\n\nSimple infinitive\nPrefixed infinitive\nDouble infinitive\n\nتلل [going]\nراتلل [coming]\nتلل راتلل [coming and going]\n\nګرځېدل [to walk/walking]\nراګرځېدل [to repass]\nګرځېدل راګرځېدل [walking about]\n\n– or by combining two simple infinitives:\n\nSimple infinitive 1\nSimple infinitive 2\nDouble infinitive\n\nخوړل [eating]\nڅښل [drinking]\nخوړل څښل [eating drinking]\n\nوهل [beating/hitting]\nټکول [knocking]\nوهل ټکول [beating]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Verb",
+      "summary": "Pashto has three tenses: Past, present and future.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Pashto has three tenses: Past, present and future.\n\nThe future tense is the same as present tense with the exception of markers.\n\nAspect: Pashto in every tense has perfective aspect [بشپړاړخ][6] and imperfective aspect [نابشپړاړخ]. The perfective aspect indicates completion of an action while the imperfective aspect indicates continuous or habitual action.\n\nPashto verbs are of four categories: simple verbs, prefixed verbs, a-initial verbs and compound verbs.\n\nPrefixed verbs, a-initial verbs and compound verbs are separable.\n\nPashto verbs can be conjugated by the bases they have.\n\nPresent and imperative forms are formed on present bases. Past, optative, and infinitive forms are formed on past bases.\n\nBased on the stems they classed as either single stemmed, two stemmed or multiple stemmed\n\nVerbs agree in person and in number with either the objects or subjects of sentences, depending on tense and construction.\n\nAgreement is indicated with verbal suffixes following the verb stem which indicate person and number.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Verbs: categories",
+      "summary": "They are in the morpheme state.\n\nExamples:\n\nInfinitive\nTransliteration\nMeaning\n\nتلل\n\ntlə́l\nto go\n\nوتل\n\nwatə́l\nto go out\n\nګرځېدل\n\ngardzedə́l\n\nto walk\n\nکول\n\nkawə́l\n\nto do\n\nخوړل\n\nxwaṛә́l\n\nto eat",
+      "sections": [
+        {
+          "heading": "Simple verbs",
+          "body": "They are in the morpheme state.\n\nExamples:\n\nInfinitive\nTransliteration\nMeaning\n\nتلل\n\ntlə́l\nto go\n\nوتل\n\nwatə́l\nto go out\n\nګرځېدل\n\ngardzedə́l\n\nto walk\n\nکول\n\nkawə́l\n\nto do\n\nخوړل\n\nxwaṛә́l\n\nto eat",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Prefixed verbs",
+          "body": "These are described below as doubly irregular.\n\nThey take the form of a derivational prefix plus a verb base.\n\nDeictic prefixed verb\nThese correspond to the oblique pronominal and directionals clitics.\n\nPrefix\nDirection\nExample\n\nExample meaning\n\nرا\nrā\n\ntowards 1st person\nراتلل\nrā tlә́l\n\nto come\n\nدر\ndər/dar \n\ntowards 2nd person\nدرتلل\ndәr tlә́l \n\nto go towards you\n\nور\nwər/war\n\ntowards 3rd person\n\nورکول\nwәr kawә́l\n\nto give\n\nNon-productive prefixed verbs\nLike deictic prefixed these are subject to the same rules of stress movement to show perfective aspect, as well as to separation from the rest of the verb by negative morphemes and second-position clitics. But generally their meanings are not synchronically separable from the verbal lexeme of which they are a part of.\n\nPrefix\nTransliteration\nExample\n\nExample meaning\n\nکښې\n\nkxe [Northern]\nkṣ̌i [Southern]\n\nکښېوتل\nkxewatә́l\n\nto drop into\n\nکې\n\nke [Northern]\nki [Southern]\n\nکېښودل\nkex̌awdә́l \n\nto put\n\nنن\n\nnəna\n\nننوتل\nnənawatә́l\n\nto enter\n\nپورې\n\npore\n\nپورې ايستل\npore istә́l\n\nto traverse\n\nتېر\n\nter\n\nتېروتل\nterwatә́l\n\nto get mistaken\n\nپرا\n\nprā\n\nپرانيستل\nprānistә́l\n\nto open\n\nپرې\n\npre\n\nپرېوتل\nprewatә́l\n\nto lie down\n\nExample: پرېکول – to cut. The prefix [پرې] is separated from the verb stem [کول] by a second position clitic [يې]\n\nex:پرې يې کړهpré\n\ncut:VB:PREFIX:AOR\n\nye\n\nit/he/she:3:WK\n\nkṛá\n\ncut:VB:AOR:IMP:SG\n\npré ye kṛá\n\ncut:VB:PREFIX:AOR it/he/she:3:WK cut:VB:AOR:IMP:SG\n\nCut it",
+          "examples": [
+            "Example",
+            "Example meaning",
+            "Example",
+            "Example meaning",
+            "Example: پرېکول – to cut. The prefix [پرې] is separated from the verb stem [کول] by a second position clitic [يې]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "a-initial verbs",
+          "body": "These begin with ا /a/; but they do not include compound verbs beginning with /a/.\n\nExamples:\n\nInfinitive\nTransliteration\nMeaning\n\nاڼول\n\naṇawə́l\nto gather\n\nاستول\n\nastawə́l\nto send\n\nاخيستل\n\naxistə́l\n\nto buy\n\nTheir syntactic behaviour resembles that of prefixed verbs: the initial /a/ can separate from the rest of the verb as though it were a prefix. Unlike prefixed verbs, a-initial verbs differ in that\n\nthey take the prefix و  /wə́/ for perfective forms.\n\nex:وا\n\nwā́\n\nbuy:AOR\n\nمې\n\nme\n\nI:SG:WK\n\nخيستل\n\nxistəl\n\nbuy:PST:3PL:M\n\nوا مې خيستل\n\nwā́ me xistəl\n\nbuy:AOR I:SG:WK buy:PST:3PL:M\n\nI bought them\n\nUnlike all the verbs; they are unusual, in that their stress is variable in the imperfective aspect: it can be either be initial or non-initial. Other verbs can not have initial stress. When the /a/ is separated from the rest of the verb in the imperfective aspect it has initial stress.\n\nExample: initial stress\n\nex:ا\n\ná\n\nbuy:CONT\n\nمې\n\nme\n\nI:SG:WK\n\nخيستل\n\nxistəl\n\nbuy:PST:3PL:M\n\nا مې خيستل\n\ná me xistəl\n\nbuy:CONT I:SG:WK buy:PST:3PL:M\n\nI was buying them\n\nExample: non-initial stress\n\nex:اخيستل\n\naxistə́l\n\nbuy:CONT:PST:3PL:M\n\nمې\n\nme\n\nI:SG:WK\n\nاخيستل مې\n\naxistə́l me\n\nbuy:CONT:PST:3PL:M I:SG:WK\n\nI was buying them",
+          "examples": [
+            "Examples:",
+            "Example: initial stress",
+            "Example: non-initial stress"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Compound verbs",
+          "body": "There are two categories of compound verbs. There are also some exceptions to these.\n\nFirst category\nThese are formed by adding ول [-wә́l] and ېدل [edә́l] verbal-suffixes to nouns, adjectives or adverbs. The attaching noun, adjective and adverb should not end in a vowel.\n\nExample:\n\nWord\nVerb formed\n\nښخ\nx̌ax \n\nadjective, singular, mas\n\nښخول\nx̌awә́l\n\nburied\n\nto bury\n\nExceptions\nThere are also exceptions to this category. Example: سوچ کول etc.\n\nWord\nVerb formed\n\nسوچ\nsoč \n\nnoun, singular masculine\n\nسوچ کول\nsoč kawә́l\n\nthought\n\nto think\n\nSecond category\nThese are formed adding auxiliary verbs کول and کېدل to the noun and adjectives. The attaching noun and adjective end in a vowel.\n\nExamples:\n\nWord\nVerb formed\n\nښايسته\nx̌āistá \n\nadjective, feminine, class 4\n\nښايسته کول\nx̌āista kawә́l\n\npretty\n\nto make pretty\n\nستړی\nstә́ṛay\n\nnoun,  sing. masc., class 3\n\nستړی کول\nstəṛay kawә́l\n\ntired\n\nto tire",
+          "examples": [
+            "Example:",
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Verbs: conjugation classes",
+      "summary": "These can be divided in reference to the verb categories as above:[7]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "These can be divided in reference to the verb categories as above:[7]\n\nFirst Conjugation Class: Simple Verbs and A-Initial Verbs\n\nSecond Conjugation Class: Prefixed Verbs\n\nThird Conjugation Class: Compound Verbs",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Verbs:  bases",
+      "summary": "Pashto verb bases are formed according to the tense (present/past) and aspect (perfective/imperfective) of a verb.[7]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Pashto verb bases are formed according to the tense (present/past) and aspect (perfective/imperfective) of a verb.[7]\n\nAspect\n\nThe perfective aspect is indicated by the stressed prefix و /wә́/ or in the case of complex verbs [prefixed verbs, a-initial and compound verbs] by stress on the prefix or complement. The imperfective aspect  is indicated by the absence of و /wə/ or stress on the verb itself rather than the prefix or complement.[7]\n\nTense\n\nThe present tense either by the absence of this suffix (transitives), or by the suffix ېږ  /ég/ (intransitives).[7]\n\nFor single stem verbs: the past tenses is indicated by either the suffix ل /ə́l/ (for transitive verbs) or ېد /ed(ə́l)/ (for intransitives).\n\nFor two or more stemmed verbs:  the past tense is indicated by stem allomorphy.\n\nBases\n\nTherefore, the following four-fold-method to differentianate of bases:\n\n1. present perfective\n\n2. present imperfective\n\n3. past perfective\n\n4. past impefective\n\nInflection\n\nIn order to make fully inflected verbs, you add either of the following to these bases:[7]\n\na verbal suffix\n\nan imperative or optative suffix, or\n\nan adjectival suffix (to form a participle)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Verbs:  Single Stems",
+      "summary": "These are referred to as Weak Verbs by Anna Boyle.[7]\nThese have one stem. From this single stem from all four bases are predictable.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "These are referred to as Weak Verbs by Anna Boyle.[7]\nThese have one stem. From this single stem from all four bases are predictable.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "First Conjugation Class",
+          "body": "Transitive\nHere is  an example first conjugation class transitive verb: \"to tie\"\n\nVerb\n\nStem\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\nImperfective\n\n-وتړ\nwә́  taṛ-\n\n-تړ\ntaṛ-\n\n-وتړل\nwә́ taṛ әl-\n\n-تړل\ntaṛә́l-\n\nتړل\ntaṛә́l \n\nتړ\ntaṛ\n\nNotes:\n\npresent imperfective base = stem\n\npresent perfective base: و  /wә́/ + stem\n\npast imperfective base: stem+ ل /ə́l/ (suffix obligatory)\n\npast perfective base: و  /wә́/ + stem+ ل /əl/(suffix obligatory)\n\nIntransitive\nHere is  an example first conjugation class intransitive verb: \"to reach\"\n\nVerb\n\nStem\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfective\n\n-ورسېږ\n wә́  raseẓ̌-\n\n-رسېږ\n raseẓ̌-\n-(ورسېد(ل\nwә́ rased(ә́l)-\n-(رسېد(ل\nrásed-\n\nرسېدل\n rasedә́l\n\nرس\nras\n\nNotes:\n\npresent imperfective base: stem+ ېږ /eg/\n\npresent perfective base: و  /wә́/ + stem+ ېږ /eg/\n\npast imperfective base: stem + ېد /ed/ (+ ل /ə́l/—prohibited in 3rd Person Sing. Masc; optional elsewhere)\n\npast perfective base:  و  /wә́/ + stem + ېد /ed/( + ل /əl/— prohibited in 3rd Person Sing. Masc; optional elsewhere)",
+          "examples": [
+            "Here is  an example first conjugation class transitive verb: \"to tie\"",
+            "Here is  an example first conjugation class intransitive verb: \"to reach\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Second Conjugation Class",
+          "body": "In the second conjugation, perfectives are formed by a shift of stress to the existing prefix, rather than the addition of the و  /wә́/ prefix.\n\nHere is  an example first conjugation class transitive verb: \"to bring (to speaker)\"\n\nVerb\n\nStem\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\nImperfective\n\n-راوړ\nrā́ wṛ-\n\n-راوړ\nrā wṛ-\n\n-راوړل\nrā́ wṛә́l-\n\n-راوړل\nrā wṛә́l-\n\nراوړل\nrāwṛә́l \n\nراوړ\nrā wṛ\n\nNotes:\n\npresent imperfective base = stem\n\npresent perfective base: stressed prefix + stem\n\npast imperfective base: prefix + stem+ ل /ə́l/(suffix obligatory)\n\npast perfective base: stressed prefix + stem+ ل /ə́l/(suffix obligatory)",
+          "examples": [
+            "Here is  an example first conjugation class transitive verb: \"to bring (to speaker)\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Verbs:  Two  Stems",
+      "summary": "These are referred to as Strong Verbs by Anna Boyle[7]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "These are referred to as Strong Verbs by Anna Boyle[7]\n\nThese have two stems:  present stem and a past stem.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "First Conjugation Class",
+          "body": "The stems can either share initial sounds as in example:\n\na) where ل is replaced by ن in the present tense:\n\nVerb\n\nPresent Stem\n\nPresent\n\nPast Stem\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfect\n\nوژل \n wažә́l\n\nوژن\nwažən\n\n-و وژن\n wә́ wažən-\n-وژن\n wažən-\n\nوژ\nwaž\n\n-(و وژ(ل \nwә́ waž(əl)-\n-(وژ(ل \nwaž(ә́l)-\n\nb) where و is added in the middle in the present tense:\n\nVerb\n\nPresent Stem\n\nPresent\n\nPast Stem\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfect\n\nبلل \n balә́l\n\nبول\nbol\n\n-و بول\n wә́ bol-\n-بول\n bol-\n\nبل\nbal\n\n-(و بل(ل \nwә́ baləl-\n-(بل(ل \nbal(ә́l)-\n\nc) The verb ختل [to climb]:\n\nVerb\n\nPresent Stem\n\nPresent\n\nPast Stem\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfect\n\nختل\n xatә́l\n\nخېژ\n xež\n\n-و خېژ\n wә́ xež-\n-خېژ\n xež-\n\nخت\nxat\n\n[or خوت xot]\n\n-(و خت(ل \nwә́ xat(əl)-\n-(خت(ل \nxat(ә́l)-\n\nd) where دل is dropped in the present tense:\n\nVerb\n\nPresent Stem\n\nPresent\n\nPast Stem\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfect\n\nپېژندل \n pežandә́l\n\nپېژن \n pežan\n\n-و پېژن\n wә́ pežan-\n-پېژن \n pežan-\n\nپېژند \npežand\n\n-(و پېژند(ل \nwә́ pežand(əl)-\n-(پېژند(ل \npežand(ә́l)-\n\nاوبدل \n obdә́l\n\nاوب \n ob\n\n-و اوب\nwә́ ob-\n-اوب \n ob-\n\nاوبد\nobd\n\n-(و اوبد(ل\n wә́ ob(əl)-\n-(اوبد(ل \nobd(ә́l)-\n\nOr they can be  share no similar sounds\n\nExample: the verb لیدل [to see]\n\nVerb\n\nPresent Stem\n\nPresent\n\nPast Stem\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfect\n\nلیدل\nlidә́l \n\nوین \n win\n\n-ووین\nwә́ win-\n\n-وین\nwin- \n\nلید\nlid\n\n-(ولید(ل\nwә́ lid(əl)-\n\n-(لید(ل\nlid(ә́l)-\n\nIn either case the same rules apply, as noted by Anna Boyle:[8]\n\nNotes:\n\npresent imperfective base = present stem\n\npresent perfective base: و  /wә́/ + present stem\n\npast imperfective base: past stem (+ ل /ə́l/—prohibited in 3rd Person Sing. Masc; optional elsewhere)\n\npast perfective base: و  /wә́/ + past stem(+ ل /ə́l/—prohibited in 3rd Person Sing. Masc; optional elsewhere)",
+          "examples": [
+            "Example: the verb لیدل [to see]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Second Conjugation Class",
+          "body": "As above, in  the second conjugation, perfectives are formed by a shift of stress to the existing prefix, rather than the addition of the و  /wә́/ prefix.\n\nExample one: the verb پرېښودل  [to leave]\n\nVerb\n\nPresent Stem\n\nPast Stem\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfective\n\nپرېښودل \n prex̌odә́l\n\nپرېږد \n preẓ̌d\n\nپرېښود  \n prex̌od\n\n-پرېږد\n pré ẓ̌d-\n-پرېږد \n pre ẓ̌d-\n-(پرېښود(ل \npré x̌od(əl)-\n-(پرېښود(ل \npre x̌od(ә́l)-\n\nNotes:[8]\n\npresent imperfective base = present stem\n\npresent perfective base: stressed prefix + present stem\n\npast imperfective base: prefix + past stem (+ ل /ə́l/—prohibited in 3rd Person Sing. Masc.; optional elsewhere)\n\npast perfective base: stressed prefix + past stem(+ ل /ə́l/—prohibited in 3rd Person Sing. Masc; optional elsewhere)",
+          "examples": [
+            "Example one: the verb پرېښودل  [to leave]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Verbs: Multiple Stems",
+      "summary": "These are referred to as Strong Verbs by Anna Boyle.[7]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "These are referred to as Strong Verbs by Anna Boyle.[7]\n\nThese are verbs whose imperfective and perfective stems differ as well as their present and past stems. The difference between perfective and imperfective is carried by stress; in perfective the stress is on the first part of the verb whereas in imperfective the stress is on the last syllables.\n\nThese examples have been taken from Anna Boyle, pages 219–224 with the tables rearranged:[9]\n\nExamples:\n\nObservation:  either three stemmed [ږد, کېږد, کېښود] or four stemmed [یښود ږد, کېږد, کېښود] \n\nVerb\n\nMeaning\n\nPresent\n\nPast\n\nPerfective\n\nImperfectiv\n\nPerfective\n\nImperfective\n\nیښودل \n ix̌odә́l\nto put\n-کېږد\n kéẓ̌d-\n-ږد \n ẓ̌d-\n-(کېښود(ل \nkéx̌od(əl)-\n-(کېښود(ل \nkex̌od(ә́l)-\n-(یښود(ل \nix̌od(ә́l)-\n\nObservation: Four stems \n\nVerb\n\nMeaning\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfective\n\nبېول\n bewә́l\nبوول\nbowә́l\n\nto take [to a place]\nto lead away\n\n-بوځ\n bódz-\n-بياي\n byāy-\n-(بوتل(ل \nbótl(əl)-\n-(بېو(ل\nbew(ә́l)-\nor\n-(بوو(ل\nbow(ә́l)-\n\nObservation: Four Stems\n\nVerb\n\nMeaning\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfective\n\nتلل\ntlә́l\n\nto go\n\n-و)لاړش) \n (w)lā́ṛ š‑-\n-ځ\ndz- \n\n-و)لاړل)\n(w)lā́ṛəl‑\n\n-(تل(ل \ntl(ә́l)-\n\nObservation: This example contains locative prefixes را,در,ور  \n\nVerb\n\nMeaning\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfective\n\nراتلل\n rā tlә́l\nto come (towards 1st person)\n-راش\n rā́ sh-\n-راځ\n rā dz-\n-(راغ(ل \nrā́ ğ(l)-\n-(راتل(ل \nrā tl(ә́l)-\n\nدرتلل\n dar tlә́l\n\nto go (towards 2nd person\n\n-درش\n dә́r sh-\n\n-درځ\n dәr dz-\n\n-(درغ(ل \ndә́r ğ(l)-\n\n-(درتل(ل \ndәr tl(ә́l)-\n\nورتلل\n war tlә́l\n\nto go (towards 3rd person)\n\n-ورش\n wә́r sh-\n\n-ورځ\n wәr dz-\n\n-(ورغ(ل \nwә́r ğ(l)-\n\n-(ورتل(ل \nwәr tl(ә́l)-\n\nObservation:Three stems:وړ [wṛ] for imperfective and یوس + یووړ for the perfectives . Note – Prefixed وړل /wṛә́l/ 'to carry', use its weak stem [as illustrated with پرېوتل above]\n\nVerb\n\nMeaning\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfective\n\nوړل\nwṛә́l\nto carry\n-یوس\nyós-\n-وړ\nwṛ-\n-(یووړ(ل \nyówṛ(әl)-\n-(وړ(ل \nwṛ(ә́l)-\n\nNotes:[9]\n\n• Present imperfective base = (present) imperfective stem\n\n• Present perfective base: initial-stressed present perfective stem\n\n• Past imperfective base: (past continuous) stem+ (ل /ə́l/—prohibited in 3rd Person Sing. Masc; optional elsewhere)\n\n• Past perfective base: initial-stressed past perfective stem + (ل /ə́l/—prohibited in 3rd Person Sing. Masc; optional elsewhere)",
+          "examples": [
+            "Examples:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Verbs: aspect",
+      "summary": "Pashto in every tense has an aspect: perfective aspect [بشپړاړخ] and imperfective aspect [نابشپړاړخ]. The perfective aspect indicates completion or termination of an action. The imperfective aspect indicates continuity of an action or the habitual nature of the action.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Pashto in every tense has an aspect: perfective aspect [بشپړاړخ] and imperfective aspect [نابشپړاړخ]. The perfective aspect indicates completion or termination of an action. The imperfective aspect indicates continuity of an action or the habitual nature of the action.\n\nPresent\n\nPast\n\nPerfective\n\nImperfective\n\nPerfective\n\nImperfective\n\nVerb – خوړل [to eat]\n\nزه ډوډۍ وخورم نو بيا به راشم\n[Once] I eat food then i'll come\n\nزه ډوډۍ خورم\nI am eating\n\nما ډوډۍ وخوړه\nI ate food\n\nما ډوډۍ خوړه چې هغۀ راغلو\nI was eating when he came\n\nNuanance\n\nCompleting the action [to eat]\nin the present moment\n\nContinuing the action [to eat]\nin the present moment\n\nCompletion of the action [to eat]\nin the past\n\nContinuity of the action [to eat]\nin the past",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Stress",
+          "body": "See also: Pashto phonology\nIn both aspects the stress [خج] is applied to the verb. In perfective, the stress is applied to the initial part of the verb, while in the imperfective it is generally applied to the final part of the verb.[12]\n\nAspect\n\nPerfective\n\nImperfective\n\nExample: Wahə́l [to beat]\n\nما ډوکړه ووهله\n\nزه ډوکړه وهم\n\nTransliteration\n\nMā ḍukṛá wə́-wahəla\n\nZə ḍukṛá wahə́m\n\nStress notes\n\nStress shifts to the prefix wə́\n\nStress to the final verbal suffix ə́m\n\nLiteral meaning\n\nI [pronoun oblique case] small-drum [female-singular noun] beat [feminine 3rd person past tense]\n\nI [pronoun direct case] small-drum [female-singular noun] am-beating [1st person present tense]\n\nEnglish Equivalent\n\nI played the small-drum.\n\nI am playing the small drum\n\nFirst conjugation\nFirst conjugation verbs, e.g. وهل as above, can be recognised by perfective form, which begin with the prefix و /wə́/, which carries an inherent stress. In a-initial verbs, the perfecive prefix و  /wə́/ coalesces with the /a/ to form a prefix وا /wā́/.\n[8]\nExample:\n\nAspect\n\nPerfective\n\nImperfective\n\nExample: Wahə́l [to beat]\n\nما پانګه واچوله\n\nزه پانګه اچوم\n\nTransliteration\n\nMā  pā́nga wā́cawə́la\n\nZə pā́nga acawə́m\n\nStress notes\n\nStress shifts to the prefix wā́\n\nStress to the final verbal suffix ə́m\n\nLiteral meaning\n\nI [pronoun oblique case] capital [female-singular noun] pour [feminine 3rd person past tense]\n\nI [pronoun direct case] capital [female-singular noun] pour [1st person present tense]\n\nEnglish Equivalent\n\nI invested\n\nI am investing\n\nSecond conjugation\nThese are referred to as prefixed verbs aboves: all of the form prefix + stem. These behave morphosyntactically: they undergo stress shift to form the perfectived, and they can be separated from the stem by a second-position clitic or the negative morpheme.[8]\n\nکښېناستم - Stress to Distinguish Aspect\n\nFirst pronunciation: imperfective aspect with final stress [ә́m],\n Second pronunciation: perfective aspect with initial stress on prefix [ké]\nProblems playing this file? See media help.\n\nExample:\n\nAspect\n\nPerfective\n\nImperfective\n\nExample: K[x̌]enɑstə́l [to sit]\n\nکښېناستم\n\nکښېناستم\n\nTransliteration\n\nkénɑstəm\n\nkenɑstə́m\n\nStress notes\n\nStress shifts to the prefix  ké\n\nStress to the final verbal suffix ə́m\n\nLiteral meaning\n\nsit [1st person past tense]\n\nsit [1st person past tense]\n\nEnglish Equivalent\n\nI sat down\n\nI was sitting down\n\nThird conjugation\nThese are called compound verbs above – those with adjective complements and noun complements + forms of کول /kawə́l/ or کېدل /kedə́l/. Here the perfective is formed by:[8]\n\nshifting stress from the verbalizer to the noun or adjective complement, according to the lexical stress of noun or adjective\n\nusing the irregular perfective forms of the verbalizer (rather than the forms with و  /wə́/).\n\nMany third conjugation verbs are contracted in the imperfective aspect, in perfective constructions, the complement is always separate from the verbalizer.\n\nExample 1:\n\nAspect\n\nPerfective\n\nImperfective\n\nTransitive: Joṛ-awə́l [to make]\n\nډوډۍ مې جوړه کړه\n\nډوډۍ جوړوم\n\nTransliteration\n\nḍoḍə́i me jóṛa kṛa\n\nḍoḍə́i joṛawə́m\n\nStress notes\n\nStress shifts to the adjective element jóṛa\n\nStress to the verb element in ə́m\n\nLiteral meaning\n\nfood/bread [feminine noun] I [1st person sing. weak pronoun] made [singular feminine adjective] do [3rd person sing. fem. past tense]\n\nfood/bread [feminine noun] make [1st person present tense]\n\nEnglish Equivalent\n\nI made food\n\nI am making food\n\nExample 2:\n\nAspect\n\nNote\n\nPerfective\n\nImperfective\n\nThe verbal suffix ېږ [éẓ̌] is stressed in the imperfective.\nDue to this the final syllable ي[i] in our example is not stressed.\n\nCompare the past imperfective sentence\n\nکور جوړېده\n\nkor joṛedə́\n\nThe house was getting made\n\nHere the normal rules of aspect-stress are followed with the final syllable də́ being stressed.\n\nIntransitive: Joṛ-edə́l [to get made]\n\nکور جوړ شه\n\nکور جوړېږي\n\nTransliteration\n\nkor jóṛ šə\n\nkor joṛéẓ̌i\n\nStress notes\n\nStress shifts to the adjective element  jóṛ\n\nStress to the verbal element in éẓ̌i\n\nLiteral meaning\n\nhouse [masc. sing. noun]  made [singular masc. adjective] do [3rd person sing. masc. past tense]\n\nhouse [masc. sing. noun] make [1st person present tense]\n\nEnglish Equivalent\n\nThe house got made\n\nThe house is getting made",
+          "examples": [
+            "Example: Wahə́l [to beat]",
+            "Example:",
+            "Example: Wahə́l [to beat]",
+            "Example:",
+            "Example: K[x̌]enɑstə́l [to sit]",
+            "Example 1:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Verbs: verbal suffixes",
+      "summary": "Verbal suffixes in Pashto denote person, gender and number.[13]",
+      "sections": [
+        {
+          "heading": "Personal suffixes",
+          "body": "Verbal suffixes in Pashto denote person, gender and number.[13] \n\nNumber\n\nPerson\n\nGender\n\nVerbal suffix\n\nDialect variation\n\nSingular\n\n1st person\n\nم\nəm\n\nFeminine\n\nمه\nəma\n\n2nd person\n\nې\ne\n\n3rd person present\n\nي\ni\n\n3rd person past\n\nMasculine\n\nverb stem only [no suffix]\nor\nۀ / ه \nə\n\nو \no – in  Peshawar Dialect\nSee below\n\nFeminine\n\nه\na\n\nPlural\n\n1st person\n\nو\nu\n\nي\ni – in Wazirwola and Dzadrani\n\n2nd person\n\nئ\nəɪ\n\nاست\n āst – in South Western\n\n3rd person present\n\nي\ni\n\n3rd person past\n\nMasculine\n\nل\nəl\n\nFeminine\n\nې\ne\n\nIt is easy to demonstrate these in with intransitive verbs in the imperfective.\n\nPresent imperfective tense\nGəḍéẓ̌ is the present imperfective stem of the verb gaḍedəl [to dance]. \n\nNumber\n\nPerson\n\nVerbal suffix\n\nExample\n\nTranslation\n\nSingular\n\n1st person\n\nم\nəm\nزه ګډېږم\nZə gaḍéẓ̌əm\nI am dancing\n\n2nd person\n\nې\ne\nته ګډېږې\nTə gaḍéẓ̌ē\nYou are dancing\n\n3rd person\n\nي\ni\nدی/دا ګډېږي\nDay/Dā gaḍéẓ̌i\nHe/She is dancing\n\nPlural\n\n1st person\n\nو\nū\nموږ ګډېږو\nMuẓ̌ gaḍéẓ̌u\nWe are dancing\n\n2nd person\n\nئ\nai\nتاسو ګډېږئ\n Tā́so gaḍéẓ̌ai\nYou are dancing\n\n3rd person\n\nي\ni\nدوی/هغوی ګډېږي\nDúi/Hağúi gaḍéẓ̌i\nThey are dancing\n\nPast imperfective tense\nGəḍēd is the past stem of the verb gaḍēdəl [to dance].\n\nNumber\n\nPerson\n\nGender\n\nVerbal suffix\n\nExample\n\nTranslation\n\nSingular\n\n1st person\n\nم\nəm\nزه ګډېدم\nZə gaḍedә́m\nI was dancing\n\n2nd person\n\nې\ne\nتۀ ګډېدې\nTə gaḍedé\nYou were dancing\n\n3rd person\n\nMasculine\n\nۀ \nə\nدی ګډېدۀ\nDay gaḍedә́\nHe was dancing\n\nFeminine\n\nه\na\nدا ګډېده\nDā gaḍedá\nShe was dancing\n\nPlural\n\n1st person\n\nو\nu\nموږ ګډېدو\nMuẓ̌ gaḍedú\nWe were dancing\n\n2nd person\n\nئ\nәi\nتاسو ګډېدئ\n Tā́so gaḍedә́i\nYour were dancing\n\n3rd person\n\nل\nəl\nدوی/هغوی ګډېدل\nDúi/Hağúi gaḍedә́l\nThey were dancing\n\nFeminine\n\nې\ne\nدوی/هغوی ګډېدې\nDúi/Hağúi gaḍedé\nThey were dancing\n\nNote: In the plural the 3rd person past masculine can denote both genders when talking about a group. While in the plural the 3rd person past feminine is only used when talking about a group of individuals classed in the female gender.\n\nExample:\n\nهغوی ګډېدل [They were dancing] – can imply only males dancing or both males and females dancing\n\nهغوی ګډېدې [They were dancing] – implies only women were dancing. It can also be used for transgender people [ايجړاګان] by itself. But you can not say ايجړاګان ګډېدې since ايجړا is a masculine noun so one would use ايجړاګان ګډېدل.",
+          "examples": [
+            "Example",
+            "Example",
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "3rd Person Past Singular Masculine",
+          "body": "Generally ه [ə] or  no-stem suffix is employed. But sometimes  ئ [əi] is found also.\n\nPAST – 3rd Person  Singular Masculine\n\nMorphology\n\nVerb\n\nVerbal Suffix employed\n\nImperfective\n\nPerfective\n\nوتل-\n-watəl\n\nالوتل\nalwatә́l\n\nto fly\n\nnone\n\nالوت\nalwát\n\nوالوت\nwā́lwat\n\nپرېوتل\nprewatә́l\n\nto fall\n\nپرېووت\nprewót\n\nپرېووت\npréwot\n\nپوري وتل\npori watә́l\n\nto cross\n\nپوري ووت\npori wót\n\nپوري ووت\npóri wot\n\nننوتل\nnənawatә́l\n\nto enter\n\nننوت\nnənawát\n\nننوت\nnә́nawat\n\nوتل\nwatә́l\n\nto go out\n\nوت\nwát\n\nwót\n\nووت\nwә́wat\n\nwә́wot\n\nتېروتل\nterwatә́l\n\nto be mistaken\n\nتېروت\nterwát\n\nتېروت\ntérwat\n\nتلل-\n-tləl\n\nراتلل\nrā tlә́l\nto come\n\nئ\nəi\n\nراغئ\nrāğә́i\n\nراغئ\nrā́ğəi\n\nدرتلل\ndar tlә́l\nto go\n\n[towards 2nd person]\n\nدرغئ\ndarğә́i\n\nدرغئ\ndárğәi\n\nورتلل\nwar tlә́l\n[towards 3rd person]\n\nورغئ\nwarğә́i\n\nورغئ\nwárğəi\n\nاروېدل\nto hear\n\nۀ\nə\n\nاروېده\narwedә́\n\nوروېده\nwárweda\n\nایشېدل\nto boil\n\nایشېده\nišedә́\n\nوایشېده\nwә́ išedә́\n\nبرېښېدل\nto shine/appear\n\nبرېښېده\nbrex̌dә́\n\nوبرېښېده\nwә́ brex̌də\n\nدرومېدل\nto march\n\nدرومېده\ndrumedә́\n\nودرومېده\nwә́ drumedə\n\nزېږېدل\nto be born\n\nزېږېده\nzeẓ̌edә́\n\nوزېږېده\nwә́ zeẓ̌edə\n\nPlural suffix of وتل watəl\nWith وتل the plural suffix ل(əl) is not used instead:\n\nPAST – 3rd Person  Singular Masculine\n\nChange\n\nPAST – 3rd Person  Plural Masculine\n\nVerb\n\nVerbal Suffix employed\n\nImperfective\n\nPerfective\n\nImperfective\n\nPerfective\n\nالوتل\nalwatә́l\n\nto fly\n\nnone\n\nالوت\nalwát\n\nوالوت\nwā́lwat\n\nووت← واتۀ\nwot → wātə\n\nالوته\nalwātә́\n\nوالواته\nwā́lwātə\n\nپرېوتل\nprewatә́l\n\nto fall\n\nپرېووت\nprewót\n\nپرېووت\npréwot\n\nپرېواته\nprewātә́\n\nپرېواته\npréwātә́\n\nپوري وتل\npori watә́l\n\nto cross\n\nپوري ووت\npori wót\n\nپوري ووت\npóri wot\n\nپوري واته\npori wātә́\n\nپوري واته\npóri wātə\n\nننوتل\nnənawatә́l\n\nto enter\n\nننوت\nnənawát\n\nننوت\nnә́nawat\n\nننواته\nnənawātә́\n\nننواته\nnә́nawātə\n\nوتل\nwatә́l\n\nto go out\n\nوت\nwát\n\nwót\n\nووت\nwә́wat\n\nwә́wot\n\nواته\nwātә́\n\nوواته\nwә́wātə\n\nتېروتل\nterwatә́l\n\nto be mistaken\n\nتېروت\nterwát\n\nتېروت\ntérwat\n\nتېرواته\nterwātә́\n\nتېرواته\ntérwātә́",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Verbs: agreement",
+      "summary": "As can be seen from the intransitive verb above [ګډېدل] – the verb agrees with the subject.",
+      "sections": [
+        {
+          "heading": "Intransitive verbs",
+          "body": "As can be seen from the intransitive verb above [ګډېدل] – the verb agrees with the subject.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Verbs: participle",
+      "summary": "The present participle is formed with the past imperfective stem without ل (əl) + ونک (unk) and declension follows the pattern of unstressed ی (ay).",
+      "sections": [
+        {
+          "heading": "Present participle",
+          "body": "The present participle is formed with the past imperfective stem without ل (əl) + ونک (unk) and declension follows the pattern of unstressed ی (ay).\n\nExample ليکل [likəˈl] – writer → ليک [lik] past imperfective stem → ليکونکی [likəwúnkay] – writer\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nDirect\n\nليکونکی\nlikúnkay\n\nليکونکي\nlikúnki\n\nليکونکې\nlikúnke\n\nليکونکې\nlikúnke\n\nOblique\n\nليکونکي\nlikúnki\n\nليکونکو \nlikúnko\n\nليکونکې \nlikúnke\n\nليکونکو \nlikúnko\n\nAblative\n\nليکونکي\nlikúnki\n\nليکونکو \nlikúnko\n\nليکونکې \nlikúnke\n\nليکونکو \nlikúnko\n\nVocative\n\nليکونکیه\nlikúnkya\n\nليکونکو\nlikúnko\n\nليکونکې\nlikúnke\n\nليکونکو\nlikúnko",
+          "examples": [
+            "Example ليکل [likəˈl] – writer → ليک [lik] past imperfective stem → ليکونکی [likəwúnkay] – writer"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Past participle",
+          "body": "Past participle suffix\nThe past participle employs the following stems. It is used in perfect constructions of the verb.\n\nMasculine\n\nFeminine\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nی\nay\n\nي\ni\n\nې\ne\n\nPresent perfect\nThis is formed in the following ways:\n\nCategory 1 [non-compound verbs]: Past imperfective stem + past participle suffix + present imperfective of \"to be\"\n\nCategory 2 [compound verbs]: Past perfective stem of کېدل-ېدل and کول-ول + past participle suffix + present imperfective of \"to be\"\n\nExample: of Category 1 verb رسېدل\n\nSingular\n\nPlural\n\nTranslation\n\n1st person\n\nMasculine\n\nرسېدلی یم\nrasedə́lay\n\nyəm\n\nرسېدلي یو\nrasedə́li yu\n\nSingular: I have reached\nPlural: We have reached\n\nFeminine\n\nرسېدلې یم\nrasedə́le\n\nyəm\n\nرسېدلې یو\nrasedə́le yu\n\n2nd person\n\nMasculine\n\nرسېدلی یې\nrasedə́lay ye\n\nرسېدلي یئ\nrasedə́li yəy\n\nSingular: You have reached\nPlural: You have reached\n\nFeminine\n\nرسېدلې یې\nrasedə́le ye\n\nرسېدلې یئ\nrasedə́le yəy\n\n3rd person\n\nMasculine\n\nرسېدلی دی\nrasedə́lay day\n\nرسېدلي دي\nrasedə́li di\n\nSingular masc: He has reached\nSingular fem.: She has reached\n\nPlural: They have reached\n\nFeminine\n\nرسېدلې ده\nrasedə́le da\n\nرسېدلې دي\nrasedə́le di\n\nFuture perfect\nFormed by به [future marker] +present perfect\n\nSingular\n\nPlural\n\nTranslation\n\n1st person\n\nMasculine\n\nبه رسېدلی یم\nbə rasedə́lay\n\nyəm\n\nبه رسېدلي یو\nbə rasedə́li yu\n\nSingular: I will have reached\nPlural: We will have reached\n\nFeminine\n\nبه رسېدلې یم\nbə rasedə́le\n\nyəm\n\nبه رسېدلې یو\nbə rasedə́le yu\n\n2nd person\n\nMasculine\n\nبه رسېدلی یې\nbə rasedə́lay ye\n\nبه رسېدلي یئ\nbə rasedə́li yəy\n\nSingular: You will have reached\nPlural: You will have reached\n\nFeminine\n\nبه رسېدلې یې\nbə rasedə́le ye\n\nبه رسېدلې یئ\nbə rasedə́le yəy\n\n3rd person\n\nMasculine\n\nبه رسېدلی دی\nbə rasedə́lay day\n\nبه رسېدلي دي\nbə rasedə́li di\n\nSingular masc: He will have reached\nSingular fem.: She will have reached\n\nPlural: They will have reached\n\nFeminine\n\nبه رسېدلې ده\nbə rasedə́le da\n\nبه رسېدلې دي\nbə rasedə́le di\n\nPast perfect\nThis is formed in the following ways:\n\nCategory 1 [non-compound verbs]: Past imperfective stem + past participle suffix + past imperfective of \"to be\"\n\nCategory 2 [compound verbs]: Past perfective stem of کېدل-ېدل and کول-ول + past participle suffix + past imperfective of \"to be\"\n\nExample:\n\nSingular\n\nPlural\n\nTranslation\n\n1st person\n\nMasculine\n\nرسېدلی وم\nrasedə́lay\n\nwəm\n\nرسېدلي وو\nrasedə́li wu\n\nSingular: I had reached\nPlural: We had reached\n\nFeminine\n\nرسېدلی وم\nrasedə́le\n\nwəm\n\nرسېدلې وو\nrasedə́le wu\n\n2nd person\n\nMasculine\n\nرسېدلی وې\nrasedə́lay we\n\nرسېدلي وئ\nrasedə́li wəy\n\nSingular: You had reached\nPlural: You all had reached\n\nFeminine\n\nرسېدلې وې\nrasedə́le we\n\nرسېدلې وئ\nrasedə́le wəy\n\n3rd person\n\nMasculine\n\nرسېدلی وه\nrasedə́lay wə\n\nرسېدلي وو\nrasedə́li wu\n\nSingular masc.: He had reached\nSingular fem.: She had\n\nPlural: They had reached\n\nFeminine\n\nرسېدلې وه\nrasedə́le wa\n\nرسېدلې وې\nrasedə́le we\n\nAgreement\nTransitive verbs uses ergative construction: Past participle + verb \"to be\" agree with object; subject is in oblique case\n\nIntransitive verbs: Past participle+ verb \"to be\" agree with the subject\n\nExample: Intransitive Category 2 verb پخېدل [to ripen, mature]\n\nSubject\nPast participle\nTo be [present]\n\nTo be past\n\nGrammar\n\nزه [masculine]\n\nپوخ شوی\npox šə́way \n\nيم\nyəm\n\nوم\nwəm\n\n1st person, singular, masculine\n\nزه[feminine]\n\nپخه شوې\npaxa šə́we\n\nيمه\nyəmá\n\nومه\nwəmá\n\n1st person, singular, feminine\n\nموږ\n\nپاخه شوي\npāxə šə́wi\nيو\nyu\n\nوو\nwu\n\n1st person, plural, masculine\n\nموږ [all women]\n\nپخې شوې\npaxe šə́we\n\nيو\nyu\n\nوو\nwu\n\n1st person, plural, feminine\n\nته [masculine]\n\nپوخ شوی\npox šə́way\n\nيې\nye\n\nوې\nwe\n\n2nd person, singular, masculine\n\nته [femine]\n\nپخه شوې\npaxa šə́we\n\nيې\nye\n\nوې\nwe\n\n2nd person, singular, feminine\n\nتاسو\n\nپاخه شوي\npāxə šə́wi\n\nيئ\nyəi\n\nوئ\nəi\n\n2nd person, plural, masculine\n\nتاسو [all women]\n\nپخې شوې\npaxe šə́we\n\nيئ\nyəi\n\nوئ\nəi\n\n2nd person, plural, feminine\n\nالو\n\nپوخ شوی\npox šə́way\n\nدی\nday\n\nوه\nwə\n\n3rd person, singular, masculine\n\nالوګان\n\nپاخه شوي\npāxə šə́wi\n\nدي\ndi\n\nوو\nwu\n\n3rd person, plural, masculine\n\nمڼه\n\nپخه شوې\npaxa šə́we\n\nده\nda\n\nوه\nwa\n\n3rd person, singular, feminine\n\nمڼې\n\nپخې شوې\npaxe šə́we\n\nدي\ndi\n\nوې\nwe\n\n3rd person, plural, feminine",
+          "examples": [
+            "Category 1 [non-compound verbs]: Past imperfective stem + past participle suffix + present imperfective of \"to be\"",
+            "Category 2 [compound verbs]: Past perfective stem of کېدل-ېدل and کول-ول + past participle suffix + present imperfective of \"to be\"",
+            "Example: of Category 1 verb رسېدل",
+            "Category 1 [non-compound verbs]: Past imperfective stem + past participle suffix + past imperfective of \"to be\"",
+            "Category 2 [compound verbs]: Past perfective stem of کېدل-ېدل and کول-ول + past participle suffix + past imperfective of \"to be\"",
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Verbs: potential construction",
+      "summary": "The imperfective optative = past imperfective base of verb+ ای-āy [Southern Dialects], ی-ay [North Western Dialects], ې [North Eastern Dialects]",
+      "sections": [
+        {
+          "heading": "Optative",
+          "body": "The imperfective optative = past imperfective base of verb+ ای-āy [Southern Dialects], ی-ay [North Western Dialects], ې [North Eastern Dialects]\n\nThe perfective optative = past perfective base of verb+ ای-āy [Southern Dialects], ی-ay [North Western Dialects], ې [North Eastern Dialects]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Present potential",
+          "body": "Formed by:\n\nImperfective optative + present perfective of کېدل\n\nExample:\n\nSingular\n\nPlural\n\nTranslation\n\n1st person\n\nرسېدلی شم\nrasedə́lay šəm\n\nرسېدی شم\n\nrasedáy šəm\n\nرسېدلی شو\nrasedə́lay šu\n\nرسېدی شو\n\nrasedáy šu\n\nI/We can reach\n\n2nd person\n\nرسېدلی شې\nrasedə́lay še\n\nرسېدی شې\n\nrasedáy še\n\nرسېدلی شئ\nrasedə́lay šəy\n\nرسېدی شئ\n\nrasedáy šəy\n\nYou can reach\n\n3rd person\n\nرسېدلی شي\nrasedə́lay ši\n\nرسېدی شي\n\nrasedáy ši\n\nHe/She/They can reach",
+          "examples": [
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Past potential",
+          "body": "Past potential 1\nTo indicate:\n\nEvent did not take place: مونږ تېر کال جوار کرلی شوه [We might have been able to plant corn last year]\n\nEvent carried out over extended period of time: مونږ ډرامې ليدلی شوې [We were able to watch TV-shows]\n\nFormed by:\n\nImperfective optative + present perfective of کېدل\n\nExample:\n\nSingular\n\nPlural\n\n1st person\n\nرسېدلی شو(ل)م\nrasedə́lay šw(əl)əm\n\nرسېدی شو(ل)م\n\nrasedáy šw(əl)əm\n\nرسېدلی شو(ل)و\nrasedə́lay šw(əl)u\n\nرسېدی شو(ل)و\n\nrasedáy šw(əl)u\n\n2nd person\n\nرسېدلی شو(ل)ې\nrasedə́lay šw(əl)e\n\nرسېدی شو(ل)ې\n\nrasedáy šw(əl)e\n\nرسېدلی شو(ل)ئ\nrasedə́lay šw(əl)əy\n\nرسېدی شو(ل)ئ\n\nrasedáy šw(əl)əy\n\n3rd person\n\nرسېدلی شو(ل)ه\nrasedə́lay šw(əl)e\n\nرسېدی شو(ل)ه\n\nrasedáy šw(əl)e\n\nPast potential 2\nTo indicate:\n\nWhere the event was actually carried out e.g. تۀ هلته په وخت ورسېدلی شوې؟ [You were able to get there on time]\n\nFormed by:\n\nPerfective optative + past perfective of کېدل\n\nSingular\n\nPlural\n\n1st person\n\nورسېد(ل)ی شو(ل)م\nwə́rased(əl)ay šw(əl)əm\n\nورسېد(ل)ی شو(ل)و\nwə́rased(əl)ay šw(əl)u\n\n2nd person\n\nورسېد(ل)ی شو(ل)ې\nwə́rased(əl)ay šw(əl)e\n\nرسېدلورسېد(ل)ی شو(ل)ئ\nwə́rased(əl)ay šw(əl)əy\n\n3rd person\n\nورسېد(ل)ی شو(ل)ه\nwə́rased(əl)ay šw(əl)ə",
+          "examples": [
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Verbs: causative construction",
+      "summary": "This is used to make verbs that mean \"to make (someone/something) do X\" [where do X is the original verb].",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This is used to make verbs that mean \"to make (someone/something) do X\" [where do X is the original verb].\n\nFormation: verb stem + an affix و  /‑aw‑/.\n\nThe causative can either use the present stem or past stem [and sometimes both] – depending on the original verb.\n\nOriginal verb\n\nStem used in bold\n\nCausative verb\n\nPresent\n\nPast\n\nلوستل\n lwastә́l\nto read\n\n-لول \n lwal-\n‑ لوست\nlwast- \n\nلولول \nlwalawә́l\nto cause to read\n\nزنګل\nzangә́l\n\nto swing\n\n-زانګ\nzāng-\n\n-زنګ\nzang-\n\nزنګول\nzangawә́l\n\nto rock [e.g. in a cradle]\n\nالوتل\nalwatә́l\n\nto fly\n\n-الوز\nalwuz-\n\n-الوت\nalwat-\n\nالوزول\nalwuzawә́l\n\nto make fly; to explode something\n\nاغوستل\naghustә́l\n\nto wear\n\n-اغوند\naghund-\n\n-اغوست\naghust-\n\nاغوندول/ اغوستول\naghundawә́l/aghustawә́l\n\nto dress someone\n\nExample:\n\nخندل – original verb\n\nخندول – causative verb\n\nمه خانده\nmá xānda\n\nمه (يې) خندوه\nmá (ye) xandawa\n\nDon't laugh !\n\nDon't make him/her laugh !",
+          "examples": [
+            "This is used to make verbs that mean \"to make (someone/something) do X\" [where do X is the original verb].",
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Verbs: imperative form",
+      "summary": "This is used to make commands. The present stems of the verbs are used to make commands:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "This is used to make commands. The present stems of the verbs are used to make commands:\n\nVerb\n\nStem used in bold\n\nPresent\n\nPast\n\nلوستل\n lwastә́l\nto read\n\n-لول \n lwal-\n‑ لوست\nlwast-",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "The two verbal suffixes are employed:\n\nNumber\n\nSuffix\n\nSingular\n\nه\na\n\nPlural\n\nئ\nəi\n\nExample:\n\nVerb\n\nNumber\n\nSingular\n\nPlural\n\nراتلل\n rātlә́l\nto come\n\nراځه \n rādzá\nراځئ\nrādzә́i \n\ncome\n\ncome\n\nThe singular is told to one person; the plural is told to more than one person or as form of respectful command.",
+          "examples": [
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Positive command",
+          "body": "Pashto positive imperative have two aspects: perfective (initial stress) an imperfective (final stress)\n\nوهل – to beat\nwahә́l\n\nImperfective\n\nPerfective\n\nوهه\nwahá\n\nو وهه\nwә́ waha\n\nbeat it [focus on continuance]\n\nbeat it [focus on completion]\n\nIn general the perfective aspect is used to make commands. However, for doubly irregular verbs, the imperfective aspect is used.\n\nIntensive\nThe imperfective aspect in the imperative is also used to convey a sense of an urgent command example:\n\nخوره چې ځوxwrá če dzú—Finish eating, so we go.\n\nCompound verbs\nTransitive\nFor compounds in the transitive, the nominal/adjective part of the verb agrees with the direct object.\n\nپاکول – to clean\npākawә́l\n\nMasculine object\n\nFeminine object\n\nکور\n\nکوټه\n\nته کور پاک کړه\ntә kor pā́k ka\n\nته کوټه پاکه کړه\ntә koṭá pā́ka ka\n\nClean the house\n\nClean the room\n\nWhere the is no object, the nominal/adjective part of the verb agrees with the subject\n\nپاکول – to clean\npākawә́l\n\nNo object of the verb\n\nMasculine subject\n\nFeminine subject\n\nSaid to a male\n\nSaid to a female\n\nته پاک کړه\ntә pā́k ka\n\nته پاکه کړه\ntә pā́ka ka\n\nYou clean it\n\nYou clean it\n\nIntransitive\nFor compounds in the intransitive, the nominal/adjective part of the verb agrees with the subject\n\nپاکېدل – to get clean\npākedә́l\n\nMasculine subject\n\nFeminine subject\n\nته پاک شه\ntә pā́k ša\n\nته پاکه شه\ntә pā́ka ša\n\nGet clean\n\nGet clean",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Negative command",
+          "body": "Pashto Negative Imperatives only employs the Imperfective Aspect with stress on the particle مه /má/.\n\nCompare:\n\nوهل – to beat\nwahә́l\n\nImperfective -positive\n\nNegative command\n\nوهه\nwahá\n\nمه وهه\nmá waha\n\nbeat it\n\ndon't beat it\n\nPrefixed verbs\nNorth Eastern Pashto treats negative forms differently for prefixed verbs, placing the negative particle before the entire verb, whereas some other dialects place it between the prefix and the stem.\n\nپرېکول – to cut\nprekawә́l\n\nPrefix: پرې\nStem: کول\n\nNorth Eastern\n\nOther\n\nمه پرېکوه\nmá pre kawa\n\nپرې مه کوه\npre má kawa\n\ndon't cut\n\ndon't cut",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Verbs: phrasal verbs",
+      "summary": "These by adding noun to verbs to make verbs phrase-like meaning.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "These by adding noun to verbs to make verbs phrase-like meaning.\n\nExamples\nWord\n\nRoot verb\nFinal verb\n\nتوره کول\ntúra kawə́l\n\nsword\n\nto do\nto perform a brave act\n\nتڼۍ شلول\ntaṇә́i šlawə́l \n\nbutton(s)\n\nto tear\nto toil/endeavour\n\nټېل وهل\nṭel wahə́l\n\npush\n\nto beat\n\nto shove\n\nسا اخستل\nsā axәstә́l\n\nbreath\n\nto take\n\nto breathe\n\nګټه کول\nGata Kawal\n\nStone\n\nTo earn much money\n\nTo save or earn money or something for a specific purpose",
+          "examples": [
+            "Examples"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Future Tense",
+      "summary": "The future tense is formed with the addition of به /bә/; which has been defined by Tegey as a \"future marker\"[23] and as a \"modal clitic\" by Boyle.[5]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The future tense is formed with the addition of به /bә/; which has been defined by Tegey as a \"future marker\"[23] and as a \"modal clitic\" by Boyle.[5]",
+          "examples": [
+            "The future tense is formed with the addition of به /bә/; which has been defined by Tegey as a \"future marker\"[23] and as a \"modal clitic\" by Boyle.[5]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Future Expression",
+          "body": "The clitic  به /bә/ is added to the present perfective verb to convey future time event, speculation, or doubt.[5]\n\nVerb\n\nPresent Perfective\n\nFuture\n\nوهل\nwahә́l\n\nto beat\n\n-ووه\nwә́ wah- \n\n-به ووه\nbə wә́wah-\n\nExample:\n1st Person Singular\n\nزه ووهم\n(zə) wә́ wahәm\n\nزه به ووهم\n(zə) bə wә́wahəm\n\nI beat [completed in present]\n\nI will beat\n\nex:پلار به مې ګانده پيسې  ولېږيplār\n\nfather:M:DIR\n\nbә\n\nwill:FUT\n\nme\n\nI:1:SG:WK\n\npaisé\n\nmoney:F:DIR:PL\n\nwә́leẓ̌i\n\nsend:AOR:PRS:3:SG:M\n\nplār bә me paisé wә́leẓ̌i\n\nfather:M:DIR will:FUT I:1:SG:WK money:F:DIR:PL send:AOR:PRS:3:SG:M\n\nMy father will send money",
+          "examples": [
+            "Example:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "With Present Imperfective Tense",
+          "body": "The clitic  به /bә/ is added to the present imperfective  verb to convey future event – but with. different nuances explained below.\n\nVerb\n\nPresent Imperfective\n\nFuture\n\nوهل\nwahә́l\n\nto beat\n\n-ووه\nwә́ wah- \n\n-به ووه\nbə wә́wah-\n\nExample:\n1st Person Singular\n\nزه وهم\n(zə)  wahә́m\n\nزه به وهم\n(zə) bə wahә́m\n\nI am beating\n\nI will keep on beating\n\nTo describe a  future reference that is repeated or ongoing:[5]\n\nex:پلار به مې  پيسې لېږي او زه به خورمهplār\n\nfather:M:DIR\n\nbә\n\nwill:FUT\n\nme\n\nI:1:SG:WK\n\npaisé\n\nmoney:F:DIR:PL\n\nléẓ̌i\n\nsend:AOR:PRS:3:SG:M\n\naw\n\nand\n\nzә\n\nI:1:SG:STR:DIR\n\nbә\n\nwill:FUT\n\nxwrә́ma\n\neat:CONT:PRS:3:SG:F\n\nplār bә me paisé léẓ̌i aw zә bә xwrә́ma\n\nfather:M:DIR will:FUT I:1:SG:WK money:F:DIR:PL send:AOR:PRS:3:SG:M and I:1:SG:STR:DIR will:FUT eat:CONT:PRS:3:SG:F\n\nMy father will send money and I will (continue to) eat\n\nPresent Imperfective verb base is also used where future marker like \"tomorrow\", \"next week\" etc. is used:[24]\n\nex:پلار به مې پيسې ګانده  لېږيplār\n\nfather:M:DIR\n\nbә\n\nwill:FUT\n\nme\n\nI:1:SG:WK\n\npaisé\n\nmoney:F:DIR:PL\n\ngā́nda\n\ntomorrow:F:DIR\n\nléẓ̌i\n\nsend:AOR:PRS:3:SG:M\n\nplār bә me paisé gā́nda léẓ̌i\n\nfather:M:DIR will:FUT I:1:SG:WK money:F:DIR:PL tomorrow:F:DIR send:AOR:PRS:3:SG:M\n\nMy father will send money tomorrow\n\nTo contrast a future action with another future action:[25]\n\nex:ته به ځې زه به پاتې کېږمtә\n\nyou:2:SG:STR:DIR\n\nbә\n\nwill:FUT\n\ndzé\n\ngo:CONT:PRS:2:SG\n\nzә\n\nI:1:SG:STR:DIR\n\nbә\n\nwill:FUT\n\npāte\n\nbehind:F\n\nkéẓ̌әm\n\nbecome:CONT:PRS:1:SG\n\ntә bә dzé zә bә pāte kéẓ̌әm\n\nyou:2:SG:STR:DIR will:FUT go:CONT:PRS:2:SG I:1:SG:STR:DIR will:FUT behind:F become:CONT:PRS:1:SG\n\nYou'll be going, I'll be staying.",
+          "examples": [
+            "Example:",
+            "Present Imperfective verb base is also used where future marker like \"tomorrow\", \"next week\" etc. is used:[24]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Negative Future Expressions",
+      "summary": "With Present Perfect Base, negative future expressions can be created with the negative marker نه /nә/ and future marker  به /bә/.[26]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "With Present Perfect Base, negative future expressions can be created with the negative marker نه /nә/ and future marker  به /bә/.[26]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "First Conjugation Class",
+          "body": "Simple Verbs\nIf there is a grammatical subject or object:[27]\n\nSubject/Object +  به /bә/ + و /wә́/ + نه /nә/ + present verb stem + verbal suffix\n\nex:مېوه به و نه خوريmewá\n\nfruit:F:SG:DIR\n\nbә\n\nwill:FUT\n\nwә́\n\neat...:AOR:PRS:3\n\nnə\n\nnot:NEG\n\nxwri\n\n...eat:AOR:PRS:3\n\nmewá bә wә́ nə xwri\n\nfruit:F:SG:DIR will:FUT eat...:AOR:PRS:3 not:NEG ...eat:AOR:PRS:3\n\nHe/She/They will not eat the fruit\n\nIf there is both a grammatical subject and object:[27]\n\nSubject +  به /bә/ + object+ و /wә́/ + نه /nә/ + present verb stem + verbal suffix\n\nex:زه به ليک و نه لېږمzә\n\nI:1:SG:STR:DIR\n\nbә\n\nwill:FUT\n\nlik\n\nletter:SG:M:DIR\n\nwә́\n\nsend...:AOR:PRS:1:SG\n\nnə\n\nnot:NEG\n\nléẓ̌әm\n\n...send:AOR:PRS:1:SG\n\nzә bә lik wә́ nə léẓ̌әm\n\nI:1:SG:STR:DIR will:FUT letter:SG:M:DIR send...:AOR:PRS:1:SG not:NEG ...send:AOR:PRS:1:SG\n\nI will not send the letter\n\nIf there is no grammatical subject nor grammatical object:[27]\n\nو /wә́/ +  به /bә/ + نه /nә/ + present verb stem + verbal suffix\n\nex:و به نه ګرځيwә́\n\nwalk...:AOR:PRS:3\n\nbә\n\nwill:FUT\n\nnə\n\nnot:NEG\n\ngardzi\n\n...walk:AOR:PRS:3\n\nwә́ bә nə gardzi\n\nwalk...:AOR:PRS:3 will:FUT not:NEG ...walk:AOR:PRS:3\n\nHe/She/They will not walk\n\na-initial verbs\nThe و /wә́/ changes to وا /wā́/.[27] Thereby:\n\nIf there is a grammatical subject or object:\n\nSubject/Object +  به /bә/ +  وا /wā́/ + نه /nә/ + present verb stem + verbal suffix\n\nVerb: اخستل [axstә́l]\n\nex:مېوه به وا نه خليmewá\n\nfruit:F:SG:DIR\n\nbә\n\nwill:FUT\n\nwā́\n\nbuy...:AOR:PRS:3\n\nnə\n\nnot:NEG\n\nxli\n\n...buy:AOR:PRS:3\n\nmewá bә wā́ nə xli\n\nfruit:F:SG:DIR will:FUT buy...:AOR:PRS:3 not:NEG ...buy:AOR:PRS:3\n\nHe/She/They will not buy the fruit\n\nIf there is both a grammatical subject and object:\n\nSubject +  به /bә/ + object+ وا /wā́/ + نه /nә/ + present verb stem + verbal suffix\n\nVerb: استول [astawә́l]\n\nex:موږ به ليک وا نه ستووmunẓ̌\n\nwe:1:PL:STR:DIR\n\nbә\n\nwill:FUT\n\nlik\n\nletter:SG:M:DIR\n\nwā́\n\nsend...:AOR:PRS:1:SG\n\nnə\n\nnot:NEG\n\nstawu\n\n...send:AOR:PRS:1:SG\n\nmunẓ̌ bә lik wā́ nə stawu\n\nwe:1:PL:STR:DIR will:FUT letter:SG:M:DIR send...:AOR:PRS:1:SG not:NEG ...send:AOR:PRS:1:SG\n\nWe will not send the letter\n\nIf there is no grammatical subject nor grammatical object:\n\nوا /wā́/ +  به /bә/ + نه /nә/ + present verb stem + verbal suffix\n\nVerb: اچول [ačawә́l]\n\nex:وا به نه چوېwā́\n\nput...:AOR:PRS:2:SG\n\nbә\n\nwill:FUT\n\nnə\n\nnot:NEG\n\nčawe\n\n...put:AOR:PRS:2:SG\n\nwā́ bә nə čawe\n\nput...:AOR:PRS:2:SG will:FUT not:NEG ...put:AOR:PRS:2:SG\n\nYou will not put it",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Second Conjugation Class",
+          "body": "First: Between the prefix and the verb base  نه /nә́/  is placed[28] \n\nVerb\n\nExample\n\nFuture\n\nبوولbowә́l\n\nto take\n\nbowә́l\n\n{to take}\n\nبوزوbózu\n\nwe take\n\nbózu\n\n{we take}\n\nبو نه زوbo nә́ zu\n\n(we) not take\n\n{bo nә́ zu}\n\n{(we) not take}\n\nSecond:  به /bә/  can then be placed\n\nBefore verb:\n\nex:کور ته به لاړ نه شوkor\n\nhouse:M:SG:DIR\n\nta\n\nto:POST\n\nbә\n\nwill:FUT\n\nlāṛ\n\ngo...:AOR:PRS:1:PL\n\nnә́\n\nnot:NEG\n\nšu\n\ngo...:AOR:PRS:1:PL\n\nkor ta bә lāṛ nә́ šu\n\nhouse:M:SG:DIR to:POST will:FUT go...:AOR:PRS:1:PL not:NEG go...:AOR:PRS:1:PL\n\nWe wont got to the house\n\nOr before the object (likely where there is a subject)\n\nex:موږ به کور ته  لاړ نه شوmuẓ̌\n\nwe:1:PL:STR:DIR\n\nbə\n\nwill:FUT\n\nkor\n\nhouse:M:SG:DIR\n\nta\n\nto:POST\n\nlāṛ\n\ngo...:AOR:PRS:1:PL\n\nnә́\n\nnot:NEG\n\nšu\n\ngo...:AOR:PRS:1:PL\n\nmuẓ̌ bə kor ta lāṛ nә́ šu\n\nwe:1:PL:STR:DIR will:FUT house:M:SG:DIR to:POST go...:AOR:PRS:1:PL not:NEG go...:AOR:PRS:1:PL\n\nWe wont got to the house",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Third Conjugation Class",
+          "body": "With compound verbs: نه /nә/  is inserted between the verb element and the noun/adjective element.[27]\n\nExample: روغېدل [roğedә́l]\n\nex:ته به روغه نه شېtə\n\nyou:2:SG:STR:DIR\n\nbә\n\nwill:FUT\n\nróğa\n\nrecover...:F:ADJ:SG\n\nnə\n\nnot:NEG\n\nše\n\n...become:AOR:PRS:2:SG\n\ntə bә róğa nə še\n\nyou:2:SG:STR:DIR will:FUT recover...:F:ADJ:SG not:NEG ...become:AOR:PRS:2:SG\n\nYou won't recover",
+          "examples": [
+            "Example: روغېدل [roğedә́l]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Adverbs",
+      "summary": "Adverbs that modify adjectives, verbs or verb phrases, and sentences; can be divided into the classes of time, place, manner, and degree.[30]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adverbs that modify adjectives, verbs or verb phrases, and sentences; can be divided into the classes of time, place, manner, and degree.[30]\n\nThese adverbs can act alone or as part of an adpositional phrase.\n\nActing alone:\n\nex:مخکښې راغلهmə́xkx̌e\n\nbefore:ADV\n\nrā́ğla\n\ncome:AOR:PST:3:SG:F\n\nmə́xkx̌e rā́ğla\n\nbefore:ADV come:AOR:PST:3:SG:F\n\nShe came earlier\n\nActing as adipositional phrase:\n\nex:د ماما نه مخکښې راغلهdə\n\nof\n\nmāmā́\n\nmaternal-uncle:DIR:M:SG\n\nna\n\nfrom\n\nmə́xkx̌e\n\nbefore:ADV\n\nrā́ğla\n\ncome:AOR:PST:3:SG:F\n\ndə māmā́ na mə́xkx̌e rā́ğla\n\nof maternal-uncle:DIR:M:SG from before:ADV come:AOR:PST:3:SG:F\n\nShe came before (my) uncle",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Adverbs of time",
+          "body": "These include adverbs with time reference and quantifier-like items.[30]\n\nCommon adverbs of time:\n\nAdverb\nTransliteration\nMeaning\n\nتل\n\ntəl\n\nalways\n\nهر کله\n\nhar kә́la\n\nwhenever\n\nهیڅ کله (نه)\n\nhits kә́la (na)\n\nnever\n\nاوس\n\nos\n[some dialects: وس \"was\"]\n\nnow\n\nنن\n\nnən\n\ntoday\n\nپرون\n\nparún\n\nyesterday\n\nګانده\n\ngā́nda\n\ntomorrow\n\nسبا\n\nsabā́\n\nوختي\n\nwaxtí\n\nearly\n\nوروسته\n\nwrústa\n\nlater\n\nپس\n\npas\n\nمخکښې\n\nmə́xkx̌e\n\nbefore\n\nلا\n\nlā\n\nyet\n\nex:تل دې خدای لرهtəl\n\nalways:ADV\n\nde\n\nNEC\n\nxwdā́y\n\ngod:DIR\n\nlará\n\nhave:CONT:PRS:IMP:SG\n\ntəl de xwdā́y lará\n\nalways:ADV NEC god:DIR have:CONT:PRS:IMP:SG\n\nMay God keep you (well/alive) forever!",
+          "examples": [
+            "[some dialects: وس \"was\"]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        },
+        {
+          "heading": "Adverbs of place",
+          "body": "This informs us where something takes place.\n\nCommon adverbs of time:[31]\n\nAdverb\nTransliteration\nMeaning\n\nپورته\n\npórta\n\nabove\n\nپاسه\n\nрā́sa\n\nدننه\n\ndanə́na\n\ninside\n\nننه\n\nnə́na\n\nدباندي\n\ndəbā́ndi\n\noutside\n\nبهر\n\nbahár\n\nباندې\n\nbā́nde\n\non top\n\nلاندې\n\nlā́nde\n\nbelow\n\nنژدې\n\nnəždé\n\nnear\n\nپوري\n\npóre\n\naround\n\nلرې\n\nlә́re\n\nfar\n\nکښته\n\nkx̌ə́ta\n\nunderneath\n\nهيچرې\n\nhičárta\n\nnowhere\n\nهيچرته\n\nhičáre\n\nex:کښته کښېنهkx̌ə́ta\n\nunderneath:ADV\n\nkx̌éna\n\nsit:AOR:PRS:IMP:SG\n\nkx̌ə́ta kx̌éna\n\nunderneath:ADV sit:AOR:PRS:IMP:SG\n\nSit down.\n\nDemonstrative pronouns\nThese are both adverbs and demonstrative pronouns\n\nAdverb\n\nTransliteration\nMeaning\n\nدلته\n\ndə́lta\n\nhere\n\nWaziri\n\nدېلې\ndéle\n\nدولته\ndɔláta\n\nOther Dialects\n\nدلې\ndále\n\nهلته\n\nhálta\n\nthere\n\nOther Dialects\n\nهلې\nhále\n\nExample sentence in Waziri:\n\nex:دېلې ځںdéle\n\nhereADV\n\ndzə̃\n\ngo:CONT:PRS:1:SG\n\ndéle dzə̃\n\nhereADV go:CONT:PRS:1:SG\n\nI am going here",
+          "examples": [
+            "Example sentence in Waziri:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Pashto_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

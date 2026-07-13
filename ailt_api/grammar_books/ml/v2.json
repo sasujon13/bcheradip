@@ -1,0 +1,209 @@
+{
+  "title": "Grammar Book — മലയാളം",
+  "languageCode": "ml",
+  "languageName": "മലയാളം",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Malayalam_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Grammar of the Indian Malayalam language\nMalayalam is a Dravidian language featuring an agglutinative grammar. Its word order is generally subject–object–verb (SOV), although other orders are often employed for reasons such as emphasis. Nouns are inflected for case and number, wh",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Indian Malayalam language\nMalayalam is a Dravidian language featuring an agglutinative grammar. Its word order is generally subject–object–verb (SOV), although other orders are often employed for reasons such as emphasis. Nouns are inflected for case and number, while verbs are conjugated for tense, mood, and causativity. In archaic forms, verbs were also conjugated for person, gender, number, and polarity). Adjectives, adverbs, postpositions, and conjunctions are invariant and do not undergo inflection.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Nouns",
+      "summary": "The declensional paradigms for some common nouns and pronouns are given below. As Malayalam is an agglutinative language, it is difficult to delineate the cases strictly and determine how many there are, although seven or eight is the generally accepted number. Alveolar plosives",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "The declensional paradigms for some common nouns and pronouns are given below. As Malayalam is an agglutinative language, it is difficult to delineate the cases strictly and determine how many there are, although seven or eight is the generally accepted number. Alveolar plosives and nasals (although the modern Malayalam script does not distinguish the latter from the dental nasal) are marked with a macron below, following the convention of the National Library at Kolkata romanization.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Pronouns",
+          "body": "There are three persons – first, second, and third. The first person has three forms – singular, inclusive plural (i.e. speaker, listener, and possibly others), and exclusive plural (i.e. speaker and others, but not the listener). The second person has three forms – singular informal, singular formal and plural. Of these, the singular formal and plural forms are similar. A fourth form ('respectful' or 'official') is sometimes used in certain official documents and announcements.\n\nThe third person has eight forms – proximal and distal forms of singular masculine, singular feminine, singular neutral and plural. The masculine and feminine genders are used for humans and anthropomorphised non-humans. Non-living objects, plants and most animals take the neutral gender. The plural form is used for multiple objects of any gender. The plural form can also be used for a single person to show respect or because the gender is unknown or irrelevant.\n\nPersonal Pronoun\n\nsingular\n\nplural\n\n1st person\n\nExclusive\n\nഞാൻ\n\nñān̠\n\nഞാൻ\n\nñān̠\n\nI\n\nഞങ്ങൾ\n\nñaṅṅaḷ\n\nഞങ്ങൾ\n\nñaṅṅaḷ\n\nwe\n\nInclusive\n\nനാം\n\nnām\n\n/\n\n/\n\nനമ്മൾ\n\nnammaḷ\n\nനാം / നമ്മൾ\n\nnām / nammaḷ\n\nwe\n\n2nd person\n\nInformal\n\nനീ\n\nnī\n\nനീ\n\nnī\n\nyou\n\nനിങ്ങൾ\n\nniṅṅaḷ\n\nനിങ്ങൾ\n\nniṅṅaḷ\n\nyou (all)\n\nFormal\n\nനിങ്ങൾ\n\nniṅṅaḷ\n\nനിങ്ങൾ\n\nniṅṅaḷ\n\nyou\n\n'Respectful' / 'Official'\n\nതാങ്കൾ\n\ntāṅkaḷ\n\nതാങ്കൾ\n\ntāṅkaḷ\n\nyou\n\n3rd person\n\nProximal\n\nMasculine\n\nഇവൻ\n\nivan̠\n\nഇവൻ\n\nivan̠\n\n(this) he\n\nഇവർ\n\nivar̠\n\nഇവർ\n\nivar̠\n\n(this) they\n\nFeminine\n\nഇവൾ\n\nivaḷ\n\nഇവൾ\n\nivaḷ\n\n(this) she\n\nNeutral\n\nഇത്\n\nitŭ\n\nഇത്\n\nitŭ\n\nthis/it\n\nഇവ\n\niva\n\nഇവ\n\niva\n\nthese\n\nDistal\n\nMasculine\n\nഅവൻ\n\navan̠\n\nഅവൻ\n\navan̠\n\n(that) he\n\nഅവർ\n\navar̠\n\nഅവർ\n\navar̠\n\n(that) they\n\nFeminine\n\nഅവൾ\n\navaḷ\n\nഅവൾ\n\navaḷ\n\n(that) she\n\nNeutral\n\nഅത്\n\natŭ\n\nഅത്\n\natŭ\n\nthat/it\n\nഅവ\n\nava\n\nഅവ\n\nava\n\nthose\n\nReflexive\n\nതാൻ\n\ntān̠\n\nതാൻ\n\ntān̠\n\nhimself\n\nതാങ്കൾ\n\ntāṅkaḷ\n\nതാങ്കൾ\n\ntāṅkaḷ\n\nthemselves\n\n തങ്ങൾ\n\ntaṅṅaḷ\n\nതങ്ങൾ\n\ntaṅṅaḷ\n\nthemselves\n\nThese are the commonly used pronouns though in total they have rarer synonyms and dialectal/colloquial forms, for example 2SG \"you\" can have around  over 10 forms like nī, niṅṅaḷ, tāṉ, tāṅkaḷ, aṅṅŭ, tvaṁ, sanskritic gendered bhavāṉ, bhavati, dialectal for nī: ī, iyyŭ, ijjŭ, ji etc. Some colloquial dialects use avaṉmār̠, avaḷmār̠ as (dist.) 3Pl. masculine and feminine pronouns.",
+          "examples": [
+            "These are the commonly used pronouns though in total they have rarer synonyms and dialectal/colloquial forms, for example 2SG \"you\" can have around  over 10 forms like nī, niṅṅaḷ, tāṉ, tāṅkaḷ, aṅṅŭ, tvaṁ, sanskritic gendered bhavāṉ, bhavati"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Cases",
+          "body": "Vocative forms are given in parentheses after the nominative, as the only pronominal vocatives that are used are the third person ones, which only occur in compounds.\n\nSingular\n\nCase\nവിഭക്തി\n\n1st person\n\n2nd person\n\n3rd person (distal)[note 1]\n\ninformal\nformal\n\nmasculine\nfeminine\nnon-human\n\nNominative\nനിർദ്ദേശിക \n\nഞാൻ\nñāṉ\n\nനീ\nnī\n\nനിങ്ങൾ\nniṅṅaḷ\n\nഅവൻ\navaṉ (voc. avaṉē)\n\nഅവൾ\navaḷ (voc. avaḷē)\n\nഅത്\natŭ (voc. atiṉē)\n\nAccusative\nപ്രതിഗ്രാഹിക\n\nഎന്നെ\neṉṉe\n\nനിന്നെ\nniṉṉe\n\nനിങ്ങളെ\nniṅṅaḷe\n\nഅവനെ\navaṉe\n\nഅവളെ\navaḷe\n\nഅതിനെ\natiṉe\n\nGenitive\nസംബന്ധിക\n\nഎന്റെ/എന്നുടെ/എൻ\neṉṟe/eṉṉuṭe/eṉ\n\nനിന്റെ/നിന്നുടെ/നിൻ\nniṉṟe/niṉṉuṭe/niṉ\n\nനിങ്ങളുടെ\nniṅṅaḷuṭe\n\nഅവന്റെ/അവനുടെ\navaṉṟe/avaṉuṭe\n\nഅവളുടെ\navaḷuṭe\n\nഅതിന്റെ\natiṉṟe\n\nDative\nഉദ്ദേശിക\n\nഎനിക്ക്\neṉikkŭ\n\nനിനക്ക്\nniṉakkŭ\n\nനിങ്ങൾക്ക്\nniṅṅaḷkkŭ\n\nഅവന്\navaṉŭ\n\nഅവൾക്ക്\navaḷkkŭ\n\nഅതിന്\natiṉŭ\n\nInstrumental\nപ്രായോജിക\n\nഎന്നാൽ\neṉṉāl\n\nനിന്നാൽ\nniṉṉāl\n\nനിങ്ങളാൽ\nniṅṅaḷāl\n\nഅവനാൽ\navaṉāl\n\nഅവളാൽ\navaḷāl\n\nഅതിനാൽ\natiṉāl\n\nLocative\nആധാരിക\n\nഎന്നിൽ\neṉṉil\n\nനിന്നിൽ\nniṉṉil\n\nനിങ്ങളിൽ\nniṅṅaḷil\n\nഅവനിൽ\navaṉil\n\nഅവളിൽ\navaḷil\n\nഅതിൽ\natil\n\nSociative\nസംയോജിക\n\nഎന്നോട്\neṉṉōṭŭ\n\nനിന്നോട്\nniṉṉōṭŭ\n\nനിങ്ങളോട്\nniṅṅaḷōṭŭ\n\nഅവനോട്\navaṉōṭŭ\n\nഅവളോട്‌\navaḷōṭŭ\n\nഅതിനോട്\natiṉōtŭ\n\nNotes:\n\n^ For proximal form, replace the initial 'a' with an 'i'.\n\nPlural\n\nCase\nവിഭക്തി\n\n1st person\n\n2nd person\n\n3rd person\n\nexclusive\n\ninclusive\n\nNominative\nനിർദ്ദേശിക \n\nഞങ്ങൾ\nñaṅṅaḷ\n\nനമ്മൾ/നാം\nnammaḷ/nām\n\nനിങ്ങൾ\nniṅṅaḷ \n\nഅവർ\navaṟ (voc. avarē)\n\nAccusative\nപ്രതിഗ്രാഹിക\n\nഞങ്ങളെ\nñaṅṅaḷe\n\nനമ്മളെ/നമ്മെ\nnammaḷe/namme\n\nനിങ്ങളെ\nniṅṅaḷe\n\nഅവരെ\navare\n\nGenitive\nസംബന്ധിക\n\nഞങ്ങളുടെ\nñaṅṅaḷuṭe\n\nനമ്മളുടെ/നമ്മുടെ\nnammaḷuṭe/nammuṭe\n\nനിങ്ങളുടെ\nniṅṅaḷuṭe\n\nഅവരുടെ\navaruṭe\n\nDative\nഉദ്ദേശിക\n\nഞങ്ങൾക്ക്\nñaṅṅaḷkkŭ\n\nനമ്മൾക്ക്/നമുക്ക്\nnammaḷkkŭ/namukkŭ\n\nനിങ്ങൾക്ക്\nniṅṅaḷkkŭ\n\nഅവർക്ക്\navaṟkkŭ\n\nInstrumental\nപ്രായോജിക\n\nഞങ്ങളാൽ\nñaṅṅaḷāl\n\nനമ്മളാൽ/നമ്മാൽ\nnammaḷāl/nammāl\n\nനിങ്ങളാൽ\nniṅṅaḷāl\n\nഅവരാൽ\navarāl\n\nLocative\nആധാരിക\n\nഞങ്ങളിൽ\nñaṅṅaḷil\n\nനമ്മളിൽ/നമ്മിൽ\nnammaḷil/nammil\n\nനിങ്ങളിൽ\nniṅṅaḷil\n\nഅവരിൽ\navaril\n\nSociative\nസംയോജിക\n\nഞങ്ങളോട്\nñaṅṅaḷōṭŭ\n\nനമ്മളോട്/നമ്മോട്\nnammaḷōṭŭ/nammōṭŭ\n\nനിങ്ങളോട്\nniṅṅaḷōṭŭ\n\nഅവരോട്\navarōṭŭ\n\nThe mnemonic 'നിപ്രസം ഉപ്രസം ആ' (niprasam uprasam ā) created by combining the first sounds of the case names is used.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "The suffix -കൾ (-kaḷ), which changes to -ങ്ങൾ (-ṅṅaḷ) when the nouns ends in -അം (-aṁ), is the most common suffix for denoting plural nouns. It is used by all inanimate nouns, concrete or abstract, and most animate, non-gendered nouns. Two other suffixes, -മാർ (-māṟ) and അർ (-aṟ), are used exclusively by a few animate nouns. All suffixes follow the sandhi (സന്ധി) rules where applicable, and are not used when preceded by numeral adjectives. The following are a few examples.\n\nWord\n\nSingular\n\nPlural\n\nbook\n\nപുസ്തകം (pustakaṁ)\n\nപുസ്തകങ്ങൾ (pustakaṅṅaḷ)\n\numbrella\n\nകുട (kuṭa)\n\nകുടകൾ (kuṭakaḷ)\n\nfish\n\nമീൻ (mīṉ)\n\nമീനുകൾ (mīṉukaḷ)\n\nfemale\n\nപെണ്ണ് (peṇṇŭ)\n\nപെണ്ണുങ്ങൾ (peṇṇuṅṅaḷ)\n\nyoungster\n\nയുവാവ് (yuvāvŭ)\n\nയുവാക്കൾ (yuvākkaḷ)\n\ncattle calf\n\nകിടാവ് (kiṭāvŭ)\n\nകിടാങ്ങൾ/കിടാക്കൾ\n(kiṭāṅṅaḷ/kiṭākkaḷ)\n\ndog\n\nനായ (nāya)\n\nനായ്ക്കൾ/നായകൾ\n(nāykkaḷ/nāyakaḷ)\n\nmother\n\nഅമ്മ (amma)\n\nഅമ്മമാർ (ammamāṟ)\n\nking\n\nരാജാവ് (rājāvŭ)\n\nരാജാക്കന്മാർ (rājākkaṉmāṟ)\n\nhuman\n\nമനുഷ്യൻ (manuṣyaṉ)\n\nമനുഷ്യർ (manuṣyaṟ)\n\ngujarati person\n\nഗുജറാത്തിക്കാരൻ/-രി (gujaṟāttikkār(aṉ/i))\n\nഗുജറാത്തിക്കാർ (gujaṟāttikkāṟ)\n\nA person from a place is denoted with -kāraṉ/kāri whose plural is -kāṟ. other ways include malayāḷikaḷ, tamiḻaṉmāṟ, kannaḍigaṟ.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Other nouns",
+          "body": "The following are examples of some of the most common declensional patterns.\n\nWord\n\ntree\n\nelephant\n\nhuman\n\ndog\n\nCase\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nSingular\n\nPlural\n\nNominative\n\nമരം (maram)\nമരങ്ങൾ (maraṅṅaḷ)\nആന (āṉa)\nആനകൾ (āṉakaḷ)\nമനുഷ്യൻ (maṉuṣyaṉ)\nമനുഷ്യർ (maṉuṣyar)\nപട്ടി (paṭṭi)\nപട്ടികൾ (paṭṭikaḷ)\n\nVocative\n\nമരമേ (maramē)\nമരങ്ങളേ (maraṅṅaḷē)\nആനയേ (āṉayē)\nആനകളേ (āṉakaḷē)\nമനുഷ്യാ (maṉuṣyā)\nമനുഷ്യരേ (maṉuṣyarē)\nപട്ടീ (paṭṭī)\nപട്ടികളേ (paṭṭikaḷē)\n\nAccusative\n\nമരത്തിനെ (marattiṉe)\nമരങ്ങളെ (maraṅṅaḷe)\nആനയെ (āṉaye)\nആനകളെ (āṉakaḷe)\nമനുഷ്യനെ (maṉuṣyaṉe)\nമനുഷ്യരെ (maṉuṣyare)\nപട്ടിയെ (paṭṭiye)\nപട്ടികളെ (paṭṭikaḷe)\n\nGenitive\n\nമരത്തിന്റെ (marattiṉṯe)\nമരങ്ങളുടെ (maraṅṅaḷuṭe)\nആനയുടെ (āṉayuṭe)\nആനകളുടെ (āṉakaḷuṭe)\nമനുഷ്യന്റെ (maṉuṣyaṉṯe)\nമനുഷ്യരുടെ (maṉuṣyaruṭe)\nപട്ടിയുടെ (paṭṭiyuṭe)\nപട്ടികളുടെ (paṭṭikaḷuṭe)\n\nDative\n\nമരത്തിന് (marattiṉŭ)\nമരങ്ങൾക്ക് (maraṅṅaḷkkŭ)\nആനയ്ക്ക് (āṉaykkŭ)\nആനകൾക്ക് (āṉakaḷkkŭ)\nമനുഷ്യന് (maṉuṣyaṉŭ)\nമനുഷ്യർക്ക് (maṉuṣyarkkŭ)\nപട്ടിക്ക് (paṭṭikkŭ)\nപട്ടികൾക്ക് (paṭṭikaḷkkŭ)\n\nInstrumental\n\nമരത്താൽ (marattāl)\nമരങ്ങളാൽ (maraṅṅaḷāl)\nആനയാൽ (āṉayāl)\nആനകളാൽ (āṉakaḷāl)\nമനുഷ്യനാൽ (maṉuṣyaṉāl)\nമനുഷ്യരാൽ (maṉuṣyarāl)\nപട്ടിയാൽ (paṭṭiyāl)\nപട്ടികളാൽ (paṭṭikaḷāl)\n\nLocative\n\nമരത്തിൽ (marattil)\nമരങ്ങളിൽ (maraṅṅaḷil)\nആനയിൽ (āṉayil)\nആനകളിൽ (āṉakaḷil)\nമനുഷ്യനിൽ (maṉuṣyaṉil)\nമനുഷ്യരിൽ (maṉuṣyaril)\nപട്ടിയിൽ (paṭṭiyil)\nപട്ടികളിൽ (paṭṭikaḷil)\n\nSociative\n\nമരത്തോട് (marattōṭŭ)\nമരങ്ങളോട് (maraṅṅaḷōṭŭ)\nആനയോട് (āṉayōṭŭ)\nആനകളോട് (āṉakaḷōṭŭ)\nമനുഷ്യനോട് (maṉuṣyaṉōṭŭ)\nമനുഷ്യരോട് (maṉuṣyarōṭŭ)\nപത്തിയോട് (paṭṭiyōṭŭ)\nപട്ടികളോട് (paṭṭikaḷōṭŭ)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Adjectives",
+      "summary": "Malayalam is thought to have no semantic category for adjectives, and instead relies heavily on using participial relative clauses for modifying nouns.[1][2] There are two classes of words that typically act as adjectives.[3]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Malayalam is thought to have no semantic category for adjectives, and instead relies heavily on using participial relative clauses for modifying nouns.[1][2] There are two classes of words that typically act as adjectives.[3]\n\nNative roots + -(iy)a: This includes words such as നൽ > നല്ല (nalla, good), വൽ > വലിയ (valiya, big), നനഞ്ഞു > നനഞ്ഞ (naṉañña, wet), and ചെറു/ചിറു > ചെറിയ/ചിറ്റ (ceṟiya/ciṟṟa, short). All such words can be directly used as adjectives, without further modification. The conventional view regarding this category of words is that they typically encode the possession of the property they signify in the participial marker (-a) attached to them, meaning a word such as നല്ല (nalla) would actually mean \"having goodness\". For instance: ഇതൊരു നല്ല പുസ്തകമാണ് (itoru nalla pustakamāṇŭ), translating to \"this is a good book\", could be thought to mean \"this is a goodness-having book\". Note that when used in typical relative clauses, the marker -a can be inflected for tense, but not when used here in an adjectival sense.\n\nRemoving the noun formative -am: This includes words such as സങ്കടം (saṅkaṭaṁ, sadness), മരം (maraṁ, tree), and ഉയരം (uyaraṁ, height/tallness). As in marattaṭi \"timber\", mara vīṭŭ \"wooden house\". Another way is in the form of -ഉള്ള (uḷḷa), the suffix for the non-finite existential copula. For instance: അവൻ ഉയരമുള്ള കുട്ടിയാണ് (avaṉ uyaramuḷḷa kuṭṭiyāṇŭ, translating to \"he is a tall child\") could be thought to mean \"he is a tallness-having child\". Since the suffix is non-finite it does not vary with tense or person. The exception is with color words like (skt. nīla >) nīla \"blue\" which can act as both a noun and an adjective.\n\nWords ending with -ṟu, -tu, -ṭu can have the plosive doubled to make an adjective as in kāṭŭ > kāṭṭŭ, kāṭṭu tī \"forest fire\"; cōṟŭ > cōṟṟŭ, cōṟṟupātram \"tiffin box\".\n\nWords ending with -vu can have the suffix removed to make an adjective, eg. nilāvŭ > nilā niḻal, rājāvŭ > rāja putraṉ.\n\nAnother adjectivizing suffix is -m added to some words ending with vowels, pai > paim \"green, gorgeous,\" paiṅkiḷi > \"green bird, parrot\"; pū > pūm \"flowery\", pūmpāṟṟa \"flower lizard, butterfly\".\n\nAnother adjectivizing suffix is -aṉ, eg. kaṭu > kaṭṭaṉ \"strong, thick\", kaṭṭaṉ cāya \"strong tea, black tea\".",
+          "examples": [
+            "Native roots + -(iy)a: This includes words such as നൽ > നല്ല (nalla, good), വൽ > വലിയ (valiya, big), നനഞ്ഞു > നനഞ്ഞ (naṉañña, wet), and ചെറു/ചിറു > ചെറിയ/ചിറ്റ (ceṟiya/ciṟṟa, short). All such words can be directly used as adjectives, withou",
+            "Removing the noun formative -am: This includes words such as സങ്കടം (saṅkaṭaṁ, sadness), മരം (maraṁ, tree), and ഉയരം (uyaraṁ, height/tallness). As in marattaṭi \"timber\", mara vīṭŭ \"wooden house\". Another way is in the form of -ഉള്ള (uḷḷa), ",
+            "Words ending with -ṟu, -tu, -ṭu can have the plosive doubled to make an adjective as in kāṭŭ > kāṭṭŭ, kāṭṭu tī \"forest fire\"; cōṟŭ > cōṟṟŭ, cōṟṟupātram \"tiffin box\".",
+            "Another adjectivizing suffix is -m added to some words ending with vowels, pai > paim \"green, gorgeous,\" paiṅkiḷi > \"green bird, parrot\"; pū > pūm \"flowery\", pūmpāṟṟa \"flower lizard, butterfly\".",
+            "Another adjectivizing suffix is -aṉ, eg. kaṭu > kaṭṭaṉ \"strong, thick\", kaṭṭaṉ cāya \"strong tea, black tea\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Verbs",
+      "summary": "Inflection of Malayalam verbs occurs for tense, aspect, and mode (TAM), and not for number (plurality) or gender. The dictionary form of verbs typically have the ending -ഉക (-uka), although some verbs have the ending ഇക (-ika) too.[4]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Inflection of Malayalam verbs occurs for tense, aspect, and mode (TAM), and not for number (plurality) or gender. The dictionary form of verbs typically have the ending -ഉക (-uka), although some verbs have the ending ഇക (-ika) too.[4]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Tenses",
+          "body": "Broadly, there are three tenses in Malayalam language: present, past and future. Verb forms in different tenses are created by either simply replacing the citation form ending (for present and future tense), or by suffixing the verb stem (obtained by removing the citation form ending and the preceding consonant) with a special marker depending on the class of the verb (for past tense).\n\nPresent tense\nThe present tense is formed by replacing the citation form ending with -ഉന്നു (-unnu). For example, the present tense form of പറയുക (paṟayuka, 'to say') is പറയുന്നു (paṟayunnu).\n\nFuture tense\nThe future tense is formed by replacing the citation form ending with -ഉം (-um). For example, the future tense form of നടക്കുക (naṭakkuka, 'to walk') is നടക്കും (naṭakkum).\n\nPast tense\nFor most verbs the marker -ഇ (-i) (or യി, (-yi) if the verb stem ends in a vowel) is added to the verb stem to create the past tense form, but other verb classes have different rules. A non-exhaustive list of the rules for different classes, as well as some exceptions, is given below.\n\nCommon Past Tense Formations\n\nCitation Ending\nChange Rule\nExample\n\n-ടുക (-ṭuka) \n(after short vowel)\n\nReplace ending with -ട്ടു (-ṭṭu)\n\nഇടുക → ഇട്ടു (iṭuka → iṭṭu)\n\n-റുക (-ṟuka) \n(after short vowel, trisyllabic)\n\nReplace ending with -റ്റു (-ṟṟu)\n\nഅറുക → അറ്റു (aṟuka → aṟṟu)\n\n-യ്യുക (-yyuka)\n\nReplace ending with -യ്തു (-ytu)\n\nചെയ്യുക → ചെയ്തു (ceyyuka → ceytu)\n\n-അക്കുക (-akkuka)\n\nReplace ending with -ന്നു (-nnu)\n\nനടക്കുക → നടന്നു (naṭakkuka → naṭannu)\n\n-ഇക്കുക (-ikkuka)\n\nReplace ending with -ച്ചു (-ccu)\n\nഅടിക്കുക → അടിച്ചു (aṭikkuka → aṭiccu)\n\n-യ്ക്കുക (-ykkuka)\n\nReplace ending with -ച്ചു (-ccu)\n\nനനയ്ക്കുക → നനച്ചു (naṉaykkuka → naṉaccu)\n\n-ഐക്കുക (-aikkuka)\n\nReplace ending with -ഐച്ചു (-aiccu)\n\nകൈക്കുക → കൈച്ചു (kaikkuka → kaiccu)\n\n-ഉക്കുക (-ukkuka)\n\nReplace ending with -ത്തു (-ttu)\n\nതണുക്കുക → തണുത്തു (taṇukkuka → taṇuttu)\n\n-ർക്കുക (-ṟkkuka)\n\nReplace ending with -ർത്തു (-ṟttu)\n\nഓർക്കുക → ഓർത്തു (ōṟkkuka → ōṟttu)\n\n-ൽക്കുക (-lkkuka)\n\nReplace ending with -റ്റു (-ṯṯu)\n\nതോൽക്കുക → തോറ്റു (tōlkkuka → tōṯṯu)\n\n-ൾക്കുക (-ḷkkuka)\n\nReplace ending with -ട്ടു (-ṭṭu)\n\nകേൾക്കുക → കേട്ടു (kēḷkkuka → kēṭṭu)\n\n-യുക (-yuka)\n\nReplace ending with -ഞ്ഞു (-ññu)\n\nപറയുക → പറഞ്ഞു (paṟayuka → paṟaññu)\n\n-രുക (-ruka)\n\nReplace ending with -ർന്നു (-ṟnnu)\n\nതീരുക → തീർന്നു (tīruka → tīṟnnu)\n\n-ലുക (-luka) / -ല്ലുക (-lluka)\n\nReplace ending with -ന്നു (-nnu)\n\nഅകലുക → അകന്നു (akaluka → akannu)\n\n-ളുക (-ḷuka) / -ള്ളുക (-ḷḷuka)\n\nReplace ending with -ണ്ടു (-ṇṭu)\n\nഉരുളുക → ഉരുണ്ടു (uruḷuka → uruṇṭu)\n\n-ഴുക (-ḻuka)\n\nReplace -ഉക with -ഴ്ന്നു (-ḻnnu)\n\nതാഴുക → താഴ്ന്നു (tāḻuka → tāḻnnu)\n\n-രിക (-rika)\n\nReplace ending with -ന്നു (-nnu)\n\nവരിക → വന്നു (varika → vannu)\n\n-ണുക (-ṇuka)\n\nReplace ending with -ണ്ടു (-ṇṭu)\n\nപൂണുക → പൂണ്ടു (pūṇuka → pūṇṭu)\n\n-ത്തുക (-ttuka)\n\nReplace ending with -ത്തി (-tti)\n\nനടത്തുക → നടത്തി (naṭattuka → naṭatti)\n\nExceptions and Irregulars\nനക്കുക (nakkuka, to lick) → നക്കി (nakki). (Exception to the -akkuka rule).\n\nഇരിക്കുക (irikkuka, to sit) → ഇരുന്നു (irunnu). (Exception to the -ikkuka rule).\n\nനിൽക്കുക (nilkkuka, to stand) → നിന്നു (ninnu). (Exception to the -lkkuka rule).\n\nതിന്നുക (tiṉṉuka, to eat) → തിന്നു (tinnu).\n\nവേകുക (vēkuka, to cook) → വെന്തു (ventu).\n\nനോകുക (nōkuka, to pain) → നൊന്തു (nontu).\n\nചാകുക (cākuka, to die) → ചത്തു (cattu).\n\nകാണുക (kāṇuka, to see) → കണ്ടു (kaṇṭu).\n\nOriginally found only in colloquial speech, past of -ḻuka as -ṇu is also seen in standard form now.\n\nവീഴുക (vīḻuka, to fall) → വീണു (vīṇu).",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Aspect",
+          "body": "Verb conjugations for the verb \"പോകുക\" (pōkuka, to go) based on the commonly recognized aspects in Malayalam are given below.[5] The past tense marker in this case is -ഇ (-i).\n\nTenses\n\nPast\n\nPresent\n\nFuture\n\nSimple\n\nപോയി\n\npōyi\n\nപോയി\n\npōyi\n\nപോകുന്നു\n\npōkunnu\n\nപോകുന്നു\n\npōkunnu\n\nപോകും\n\npōkum\n\nപോകും\n\npōkum\n\nContinuous\n\nപോകുകയായിരുന്നു\n\npōvukayāyirunnu\n\nപോകുകയായിരുന്നു\n\npōvukayāyirunnu\n\nപോകുകയാണ്\n\npōvukayāṇŭ\n\nപോകുകയാണ്\n\npōvukayāṇŭ\n\nപോയികൊണ്ടിരിക്കും\n\npōyikkoṇṭirikkum\n\nപോയികൊണ്ടിരിക്കും\n\npōyikkoṇṭirikkum\n\nPerfect\n\nപോയിട്ടുണ്ടായിരുന്നു/പോയിരുന്നു\n\npōyiṭṭuṇṭāyirunnu\n\nപോയിട്ടുണ്ടായിരുന്നു/പോയിരുന്നു\n\npōyiṭṭuṇṭāyirunnu\n\nപോയിട്ടുണ്ട്\n\npōyiṭṭuṇṭŭ\n\nപോയിട്ടുണ്ട്\n\npōyiṭṭuṇṭŭ\n\nപോയിട്ടുണ്ടാകും\n\npōyiṭṭuṇṭākum\n\nപോയിട്ടുണ്ടാകും\n\npōyiṭṭuṇṭākum\n\nPerfect continuous\n\nപോയിക്കൊണ്ടിരിക്കുകയായിരുന്നു\n\npōyikkoṇṭirikkunnuṇṭāyirunnu\n\nപോയിക്കൊണ്ടിരിക്കുകയായിരുന്നു\n\npōyikkoṇṭirikkunnuṇṭāyirunnu\n\nപോയിക്കൊണ്ടിരിക്കുകയാണ്\n\npōyikkoṇṭirikkunnuṇṭŭ\n\nപോയിക്കൊണ്ടിരിക്കുകയാണ്\n\npōyikkoṇṭirikkunnuṇṭŭ\n\nപോയിക്കൊണ്ടിരിക്കുകയായിരിക്കും\n\npōyikkoṇṭirikkunnuṇṭākum\n\nപോയിക്കൊണ്ടിരിക്കുകയായിരിക്കും\n\npōyikkoṇṭirikkunnuṇṭākum\n\nHabitual\n\nപോകാറുണ്ടായിരുന്നു\n\npōkāṟuṇṭāyirunnu\n\nപോകാറുണ്ടായിരുന്നു\n\npōkāṟuṇṭāyirunnu\n\nപോകാറുണ്ട്\n\npōkāṟuṇṭŭ\n\nപോകാറുണ്ട്\n\npōkāṟuṇṭŭ\n\n–",
+          "examples": [
+            "Verb conjugations for the verb \"പോകുക\" (pōkuka, to go) based on the commonly recognized aspects in Malayalam are given below.[5] The past tense marker in this case is -ഇ (-i)."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Mood",
+          "body": "Imperative\nBare root can act as an imperative, eg. cey! \"do!\", another way is by aorist suffix formal -ū (< -um), informal -ŭ eg. ceyyū/ceyyŭ and -aṇam/ēṇam, ceyyaṇam/ceyyēṇam \"must do!\" which is a short form of vēṇam. Originally in old Malayalam -Ø/-kku was for singular and -viṉ (weak verbs), -ppiṉ (strong verbs), -miṉ (after nasals) for plurals, eg 2sg cey, pl cey-viṉ \"do!\", sg naṭa/naṭakku \"walk!\", pl naṭa-pp-iṉ \"walk!\", kāṇmiṉ \"see!\". Plural set is rarely used in modern formal Malayalam and is interchangeable with the singular set. A polite imperative is made with -ka/-kka in finite forms, eg. ceyyuka \"do!\". Old Malayalam prohibitive was by adding -āy before -ka for singular and -viṉ for plural, eg. ceyy-āy-ka \"(one) should not do\", nill-āy-vin \"do not stand!\".[6]\n\nConditional\nIn old Malayalam -il/-kil were used as conditionals and is rarely used in modern formal Malayalam, eg. OMa. var-il/varu-kil \"if one comes\". Modern Malayalam uses past form and -āl (dialectal -ēl), Mdn Ma. vann-āl (dialectal vann-ēl) \"if one comes\". -āl can come only after verbs, eg uṇṭeṅkil = uṇṭēl but there can't be uṇṭāl. Concessive is made by adding -um to the conditional form, vann-āl-um. Another form is adding -eṅkil (from -en \"to say\" and -kil) to the past form, vann-eṅkil.[7]\n\nInfinitive\nIn Old Malayalam the infinitive was made by adding -ān to the non-past stem in -m/-pp/-uv-/-v, eg. kāṇ-m-āṉ \"to see\", koṭu-pp-āṉ \"to give\", cey-v-āṉ \"to do\". Modern Malaylam -āṉ acts as an infinitive suffix preceded by -kk in the case of strong verbs, eg. kāṇ-āṉ, koṭu-kk-āṉ, ceyy-āṉ.[8]\n\nPotential\n-ām is used for potential mood, ceyyām \"will do\", ceytēkkām \"may do\".",
+          "examples": [
+            "Bare root can act as an imperative, eg. cey! \"do!\", another way is by aorist suffix formal -ū (< -um), informal -ŭ eg. ceyyū/ceyyŭ and -aṇam/ēṇam, ceyyaṇam/ceyyēṇam \"must do!\" which is a short form of vēṇam. Originally in old Malayalam -Ø/-",
+            "In old Malayalam -il/-kil were used as conditionals and is rarely used in modern formal Malayalam, eg. OMa. var-il/varu-kil \"if one comes\". Modern Malayalam uses past form and -āl (dialectal -ēl), Mdn Ma. vann-āl (dialectal vann-ēl) \"if one",
+            "In Old Malayalam the infinitive was made by adding -ān to the non-past stem in -m/-pp/-uv-/-v, eg. kāṇ-m-āṉ \"to see\", koṭu-pp-āṉ \"to give\", cey-v-āṉ \"to do\". Modern Malaylam -āṉ acts as an infinitive suffix preceded by -kk in the case of st",
+            "-ām is used for potential mood, ceyyām \"will do\", ceytēkkām \"may do\"."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Copula",
+          "body": "Malayalam employs two defective verbs as its copulas. The first, -ആക് (ākŭ), is the plain equative copula. The second, -ഉണ്ട് (uṇṭŭ), is the locative copula and also used to indicate possession (with the subject/possessor in the dative case). These verbs change forms in different tenses and are usually suffixed to the noun phrases that are specified by the copula. The table below lists some examples.\n\nExample\n\nNotes\n\nEquative\n\nഅവൻ\n\navaṉ\n\nസന്തുഷ്ടനാണ്\n\nsantuṣṭaṉāṇŭ\n\nഅവൻ സന്തുഷ്ടനാണ്\n\navaṉ santuṣṭaṉāṇŭ\n\nHe is happy\n\nPresent tense form of ആക് is ആണ് (āṇŭ)\n\nഅവൻ\n\navaṉ\n\nസന്തുഷ്ടനായിരുന്നു\n\nsantuṣṭaṉāyirunnu\n\nഅവൻ സന്തുഷ്ടനായിരുന്നു\n\navaṉ santuṣṭaṉāyirunnu\n\nHe was happy\n\nPast tense form of ആക് is ആയിരുന്നു (āyirunnu)\n\nഅവൻ\n\navaṉ\n\nസന്തുഷ്ടനാകും\n\nsantuṣṭaṉākuṁ\n\nഅവൻ സന്തുഷ്ടനാകും\n\navaṉ santuṣṭaṉākuṁ\n\nHe will be happy\n\nFuture tense form of ആക് is ആകും (ākuṁ)\n\nLocative\n\nഅവൻ\n\navaṉ\n\nവീട്ടിലുണ്ട്\n\nvīṭṭiluṇṭŭ\n\nഅവൻ വീട്ടിലുണ്ട്\n\navaṉ vīṭṭiluṇṭŭ\n\nHe is in the house\n\nഉണ്ട് stays the same in the present tense\n\nഅവൻ\n\navaṉ\n\nവീട്ടിൽ\n\nvīṭṭil\n\nഉണ്ടായിരുന്നു\n\nuṇṭāyirunnu\n\nഅവൻ വീട്ടിൽ ഉണ്ടായിരുന്നു\n\navaṉ vīṭṭil uṇṭāyirunnu\n\nHe was in the house\n\nPast tense form of ഉണ്ട് is ഉണ്ടായിരുന്നു (uṇṭāyirunnu)\n\nഅവൻ\n\navaṉ\n\nവീട്ടിൽ\n\nvīṭṭil\n\nഉണ്ടാകും\n\nuṇṭākuṁ\n\nഅവൻ വീട്ടിൽ ഉണ്ടാകും\n\navaṉ vīṭṭil uṇṭākuṁ\n\nHe will be in the house\n\nFuture tense form of ഉണ്ട് is ഉണ്ടാകും (uṇṭākuṁ)\n\nPossessive\n\nഅവൾക്ക്\n\navaḷkkŭ\n\nഒരു\n\noru\n\nപുസ്തകമുണ്ട്\n\npustakamuṇṭŭ\n\nഅവൾക്ക് ഒരു പുസ്തകമുണ്ട്\n\navaḷkkŭ oru pustakamuṇṭŭ\n\nShe has a book\n\nഅവൾക്ക്\n\navaḷkkŭ\n\nഒരു\n\noru\n\nപുസ്തകം\n\npustakaṁ\n\nഉണ്ടായിരുന്നു\n\nuṇṭāyirunnu\n\nഅവൾക്ക് ഒരു പുസ്തകം ഉണ്ടായിരുന്നു\n\navaḷkkŭ oru pustakaṁ uṇṭāyirunnu\n\nShe had a book\n\nഅവൾക്ക്\n\navaḷkkŭ\n\nഒരു\n\noru\n\nപുസ്തകം\n\npustakaṁ\n\nഉണ്ടാകും\n\nuṇṭākuṁ\n\nഅവൾക്ക് ഒരു പുസ്തകം ഉണ്ടാകും\n\navaḷkkŭ oru pustakaṁ uṇṭākuṁ\n\nShe will have a book",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Causatives",
+          "body": "Malayalam has 3 levels of causatives, usually verb happening, 1st person causing it to happen and making someone do it. Usually the last consonant is doubled to make the 2nd level but some verbs can use -kku- for it; 3rd level suffixes -ppikku-. Example ōṭuka \"to run\", ōṭikkuka/ōṭṭuka \"to make someone run/ to drive\", ōṭippikkuka/ōṭṭikkuka \"to make someone make someone run/to make someone drive\". Another suffix for 2nd level is -ttu, eg. cāruka/cāṟttuka/cāṟttikkuka, akaluka/akaṟṟuka/akaṟṟikkuka, kāṇuka/kāṭṭuka/kāṭṭikkuka, last 2 with sandhi for -ttu. 2nd level can be made 1st by adding peṭuka after it, eg. kāṇappeṭuka \"get seen\". Not all verbs have causatives like pōkuka.",
+          "examples": [
+            "Malayalam has 3 levels of causatives, usually verb happening, 1st person causing it to happen and making someone do it. Usually the last consonant is doubled to make the 2nd level but some verbs can use -kku- for it; 3rd level suffixes -ppi"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Negation",
+          "body": "Standard negation is expressed through the use of the negative particle/suffix -ഇല്ല (-illa, literally \"no\"), regardless of tense.[9] The equative copula -ആക്, however, is negated by the negative suffix -അല്ല (-alla) in the present tense; in all other tenses -ഇല്ല is used. When these particles are suffixed to their corresponding noun phrases, sandhi (സന്ധി) rules must be obeyed.\n\nExample\n\nNotes\n\nഅവൻ\n\navaṉ\n\nസന്തുഷ്ടനല്ല\n\nsantuṣṭaṉalla\n\nഅവൻ സന്തുഷ്ടനല്ല\n\navaṉ santuṣṭaṉalla\n\nHe is not happy\n\nEquative copula negated by -അല്ല (-alla) in the present tense\n\nഅവൻ\n\navaṉ\n\nസന്തുഷ്ടനായിരുന്നില്ല\n\nsantuṣṭaṉāyirunnilla\n\nഅവൻ സന്തുഷ്ടനായിരുന്നില്ല\n\navaṉ santuṣṭaṉāyirunnilla\n\nHe was not happy\n\nEquative copula negated by -ഇല്ല (-illa) in any tense other than the present tense\n\nഅവൾക്ക്\n\navaḷkkŭ\n\nഒരു\n\noru\n\nപുസ്തകമില്ല\n\npustakamilla\n\nഅവൾക്ക് ഒരു പുസ്തകമില്ല\n\navaḷkkŭ oru pustakamilla\n\nShe does not have a book\n\nAll other negations use -ഇല്ല (-illa)\n\nഅവൾ\n\navaḷ\n\nപോകുന്നില്ല\n\npōkunnilla\n\nഅവൾ പോകുന്നില്ല\n\navaḷ pōkunnilla\n\nShe is not going\n\nഅവർ\n\navaṟ\n\nഇവിടെയില്ല\n\niviṭeyilla\n\nഅവർ ഇവിടെയില്ല\n\navaṟ iviṭeyilla\n\nThey are not here\n\nOld Malayalam -ā(y) is rare today, used mostly in the standard language, eg. paṟakkā kiḷi \"flightless bird\", paṟakkāyka \"flightlessness\", commonly paṟakkātta kiḷi / paṟakkillātta kiḷi, varāñña (<var-āy-nt-a) \"(subject) which did not come\", commonly vannillātta.[10]\n\nProhibitive\n\nDismissive/Insistent/Low \"don't\"\n\nചെയ്യല്ലേ (ceyyallē)\n\nNon-polite \"don't\"\n\nചെയ്യാൻ പാടില്ല (ceyyān pāṭilla)\n\nPolite \"please don't\"\n\nചെയ്യാതെ (ceyyāte)\n\nRecommending \"shouldn't\"\n\nചെയ്യരുത് (ceyyarutu)\n\nForbidding \"mustn't\"\n\nചെയ്യണ്ട (ceyyaṇṭa)",
+          "examples": [
+            "Standard negation is expressed through the use of the negative particle/suffix -ഇല്ല (-illa, literally \"no\"), regardless of tense.[9] The equative copula -ആക്, however, is negated by the negative suffix -അല്ല (-alla) in the present tense; i",
+            "Example",
+            "Old Malayalam -ā(y) is rare today, used mostly in the standard language, eg. paṟakkā kiḷi \"flightless bird\", paṟakkāyka \"flightlessness\", commonly paṟakkātta kiḷi / paṟakkillātta kiḷi, varāñña (<var-āy-nt-a) \"(subject) which did not come\", ",
+            "Dismissive/Insistent/Low \"don't\"",
+            "Non-polite \"don't\"",
+            "Polite \"please don't\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Others",
+      "summary": "-kāḷ and -kāṭṭi are used interchangeably as comparatives after adding the accusative case, eg. pattiṉekkāṭṭi/pattiṉekkāḷ valutŭ nūṟāṇŭ. -um can be added for intensification pattiṉekkāṭṭum valutŭ nūṟāṇŭ.",
+      "sections": [
+        {
+          "heading": "Comparatives",
+          "body": "-kāḷ and -kāṭṭi are used interchangeably as comparatives after adding the accusative case, eg. pattiṉekkāṭṭi/pattiṉekkāḷ valutŭ nūṟāṇŭ. -um can be added for intensification pattiṉekkāṭṭum valutŭ nūṟāṇŭ.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Words adopted from Sanskrit",
+      "summary": "When words are adopted from Sanskrit, their endings are usually changed to conform to Malayalam norms:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "When words are adopted from Sanskrit, their endings are usually changed to conform to Malayalam norms:",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        },
+        {
+          "heading": "Nouns",
+          "body": "Masculine Sanskrit nouns with a word stem ending in a short \"a\" take the ending \"an\" in the nominative singular. For example, Kr̥ṣṇa -> Kr̥ṣṇaṉ. The final \"n\" is dropped before masculine surnames, honorifics, or titles ending in \"an\" and beginning with a consonant other than \"n\" – e.g. Krishna Menon, Kr̥ṣṇa Kaṇiyāṉ etc., but Kr̥ṣṇan Eḻuttaccaṉ. Surnames ending with \"aṟ\" or \"aḷ\" (where these are plural forms of \"aṉ\" denoting respect) are treated similarly – Kr̥ṣṇa Potuvāḷ, Kr̥ṣṇa Cākyāṟ, but Kr̥ṣṇaṉ Nāyaṟ, Kr̥ṣṇaṉ Nambyāṟ, as are Sanskrit surnames such \"Vaṟma(ṉ)\", \"Śaṟma(ṉ)\", or \"Gupta(ṉ)\" (rare) – e.g. Kr̥ṣṇa Vaṟma, Kr̥ṣṇa Śaṟmaṉ.[citation needed] If a name is a compound, only the last element undergoes this transformation – e.g. Kr̥ṣṇa + dēva = Kr̥ṣṇadēvaṉ, not Kr̥ṣṇandēvaṉ. This is also done to personify something like śukraṉ, śvāṉaṉ etc.\n\nFeminine words ending in a long \"ā\" or \"ī\" are changed so that they now end in a short \"a\" or \"i\", for example Sītā -> Sīta and Lakṣmī -> Lakṣmi. However, the long vowel still appears in compound words, such as Sītādēvi or Lakṣmīdēvi. The long ī is generally reserved for the vocative forms of these names, although in Sanskrit the vocative actually takes a short \"i\". There are also a small number of nominative \"ī\" endings that have not been shortened – a prominent example being the word \"strī\" \"woman\".\n\nNouns that have a stem in -an and which end with a long \"ā\" in the masculine nominative singular have a \"vŭ\" added to them, for example Brahmā (stem Brahman) -> Brahmāvŭ. When the same nouns are declined in the neuter and take a short \"a\" ending in Sanskrit, Malayalam adds an additional \"m\", e.g. Brahma (neuter nominative singular of Brahman) becomes Brahmam. This is again omitted when forming compounds.[citation needed]\n\nWords whose roots end in -an but whose nominative singular ending is -a – for example, the Sanskrit root of \"Karma\" is actually \"Karman\" –are also changed. The original root is ignored and \"Karma\" (the form in Malayalam being \"Karmam\" because it ends in a short \"a\") is taken as the basic form of the noun when declining.[13] However, this does not apply to all consonant stems, as \"unchangeable\" stems such as \"manasa\" (\"mind\") and \"suhr̥ta (friend)\" are identical to the Malayalam nominative singular forms (although the regularly derived \"manam\" sometimes occurs as an alternative to \"manasa\").\n\nSanskrit words describing things or animals rather than people with a stem in short \"a\" end with an \"m\" Malayalam. For example, Rāmāyaṇa -> Rāmāyaṇam. In most cases, this is actually the  as the Sanskrit ending, which is also \"m\" (or allophonically anusvara due to Sandhi) in the neuter nominative. However, \"things and animals\" and \"people\" are not always differentiated based on whether or not they are sentient beings – for example Narasimha becomes Narasiṃham and not Narasiṃhan, whereas Ananta becomes Anantan even though both are sentient.\n\nNouns with short vowel stems other than \"a\", such as \"Viṣṇu\", \"Prajāpati\" etc. are declined with the Sanskrit stem acting as the Malayalam nominative singular (the Sanskrit nominative singular is formed by adding a visarga, e.g. Viṣṇuḥ) [citation needed]\n\nThe original Sanskrit vocative is often used in formal or poetic Malayalam, e.g. \"Harē\" (for Hari) or \"Prabhō\" (for \"Prabhu\" – \"lord\"). This is restricted to certain contexts – mainly when addressing deities or other exalted individuals, so a normal man named Hari would usually be addressed using a Malayalam vocative such as \"Harī\". The Sanskrit genitive is also occasionally found in Malayalam poetry, especially the personal pronouns \"mama\" (my/ mine) and \"tava\" (thy/ thine). Other cases are less common and generally restricted to the realm of Maṇipravāḷam.\n\nAlong with these tatsama borrowings, there are also many tadbhava words in common use. These were borrowed into Malayalam before it became distinct from Tamil. As the language did not then accommodate Sanskrit phonology as it now does, words were changed to conform to the native phonological system. For example: Kr̥ṣṇa -> Kaṇṇan, suṣira > tuḻiraṁ.[14]",
+          "examples": [
+            "Masculine Sanskrit nouns with a word stem ending in a short \"a\" take the ending \"an\" in the nominative singular. For example, Kr̥ṣṇa -> Kr̥ṣṇaṉ. The final \"n\" is dropped before masculine surnames, honorifics, or titles ending in \"an\" and be",
+            "Feminine words ending in a long \"ā\" or \"ī\" are changed so that they now end in a short \"a\" or \"i\", for example Sītā -> Sīta and Lakṣmī -> Lakṣmi. However, the long vowel still appears in compound words, such as Sītādēvi or Lakṣmīdēvi. The l",
+            "Nouns that have a stem in -an and which end with a long \"ā\" in the masculine nominative singular have a \"vŭ\" added to them, for example Brahmā (stem Brahman) -> Brahmāvŭ. When the same nouns are declined in the neuter and take a short \"a\" e",
+            "Words whose roots end in -an but whose nominative singular ending is -a – for example, the Sanskrit root of \"Karma\" is actually \"Karman\" –are also changed. The original root is ignored and \"Karma\" (the form in Malayalam being \"Karmam\" becau",
+            "Sanskrit words describing things or animals rather than people with a stem in short \"a\" end with an \"m\" Malayalam. For example, Rāmāyaṇa -> Rāmāyaṇam. In most cases, this is actually the  as the Sanskrit ending, which is also \"m\" (or alloph",
+            "Nouns with short vowel stems other than \"a\", such as \"Viṣṇu\", \"Prajāpati\" etc. are declined with the Sanskrit stem acting as the Malayalam nominative singular (the Sanskrit nominative singular is formed by adding a visarga, e.g. Viṣṇuḥ) [ci"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Malayalam_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

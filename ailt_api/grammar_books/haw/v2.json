@@ -1,0 +1,433 @@
+{
+  "title": "Grammar Book — ʻŌlelo Hawaiʻi",
+  "languageCode": "haw",
+  "languageName": "ʻŌlelo Hawaiʻi",
+  "version": 2,
+  "sources": [
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_1",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_2",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_4.5",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Four",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_One",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_One_Self_Test",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Six",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Three",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Three_Self_Test",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Two",
+    "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Two_Quiz",
+    "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Lesson 1",
+      "summary": "== Pāpāʻōlelo / Conversation ==\nIt is before school, and two students meet for the first time. They introduce themselves in Hawaiian.",
+      "sections": [
+        {
+          "heading": "Lesson 1",
+          "body": "== Pāpāʻōlelo / Conversation ==\nIt is before school, and two students meet for the first time. They introduce themselves in Hawaiian.\n\n\n== Greetings ==\n\n\n== Names ==\n\n\n=== What's your name? ===\nTo ask a name in Hawaiian, start with ʻO wai, add one of the words in the table below, and finish with inoa?. So, to ask \"What is your name?\", you should say \"ʻO wai kou inoa?\".\n\nDon't worry if this looks like a lot to learn; we'll cover it in more detail in another lesson.\nKane ikaika Pu’u wai piha o kaloha\n\n\n=== My name is... ===\nTo give someone's name in Hawaiian, start with ʻO, add the name, add one of the phrases in the table for What's your name? section, and finish with inoa. Here are some examples:",
+          "examples": [
+            "To ask a name in Hawaiian, start with ʻO wai, add one of the words in the table below, and finish with inoa?. So, to ask \"What is your name?\", you should say \"ʻO wai kou inoa?\"."
+          ],
+          "learnerTip": "== Pāpāʻōlelo / Conversation ==\nIt is before school, and two students meet for the first time. They introduce themselves in Hawaiian.",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Lesson 2",
+      "summary": "This lesson will focus on broadening your vocabulary, allowing you to say short sentences and understanding the structure of Hawaiian.",
+      "sections": [
+        {
+          "heading": "Lesson 2",
+          "body": "This lesson will focus on broadening your vocabulary, allowing you to say short sentences and understanding the structure of Hawaiian.\n\n\n== Vocabulary ==\n\n\n=== Nouns ===\nka pua -flower\nke kula -school\nka ‘ohana -family\nka lani -heaven/sky\nke kanaka -man\nke aloha -love\nka wahine -woman\nka honua -earth\nka makua -parent\nka wai -water\nke keiki -child\nka haumana -student\n\n\n=== Adjectives ===\nli‘ili‘i -little\nnui -big\nnani -pretty\npupuka -ugly\nhau‘oli -happy\nkaumaha -sad\nmāluhiluhi -tired\nma‘i -sick\n\n\n=== Verbs ===\nhele -go\n‘ai -eat\nhele mai -come\nmoe -sleep\nhana -work\nholo -run\n\n\n== Review ==\nAs you have learned in lesson 1, \"Aia\" is placed at the beginning of a sentence to show the subject's location (when or where).\n\n    ex) Aia ka pua ma ke kula.\n        (location) The flower (is) at the school.\n\n    -Notice how there is no word for \"to be\" verbs in Hawaiian; it all depends on the position of\n     a word in the sentence.\n    ex) Ka pua li‘ili‘i (the little flower) is a part of a sentence, while\n        Li‘ili‘i ka pua. (The flower is little) demonstrates a whole sentence.\n    -Notice how \"ka pua\" went from the beginning to the end.\n\nNext, let's look at, \"Nani ke keiki\".\nThis means, the girl is beautiful, but literally translates to, \"Beautiful the girl\" because the adjective is in front.\nFor future references, note that the adjective comes after the noun it describes.\n\n\n=== Ke vs. Ka ===\nIn Hawaiian, there are two ways to express the definite article (the). Ka is used most of the time, before every word not starting with k, e, a, or o.\n\n\n=== Pronouns ===\nWau or au translates as I,\n‘oe means you (singular), and ‘o ia means he, she or it.\n\n\n== Noun Announcers ==\nNoun announcers basically come before a noun in a sentence, announcing that it is coming. Every noun is preceded by a noun announcer, most of the time, it being \"ka\" or \"ke\". Along with ka and ke, other announcers include 'o, kēia (this), kēlā (that), ko'u (my), kou (your), and kona (his/her).\n\n\n== Practice Phrases ==\nTranslate into Hawaiian for practice:",
+          "examples": [
+            "As you have learned in lesson 1, \"Aia\" is placed at the beginning of a sentence to show the subject's location (when or where).",
+            "-Notice how there is no word for \"to be\" verbs in Hawaiian; it all depends on the position of",
+            "-Notice how \"ka pua\" went from the beginning to the end.",
+            "Next, let's look at, \"Nani ke keiki\".",
+            "This means, the girl is beautiful, but literally translates to, \"Beautiful the girl\" because the adjective is in front.",
+            "Noun announcers basically come before a noun in a sentence, announcing that it is coming. Every noun is preceded by a noun announcer, most of the time, it being \"ka\" or \"ke\". Along with ka and ke, other announcers include 'o, kēia (this), k"
+          ],
+          "learnerTip": "This lesson will focus on broadening your vocabulary, allowing you to say short sentences and understanding the structure of Hawaiian.",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_2"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Lesson 4.5",
+      "summary": "It seems a bit silly to give this short little topic its own page of notes, but yet most of the items on this page are review and practice for the learner.\nFirst of all, making a sentence negative, if you hadn't figured it out, inserts the words \"not\" or \"no\", as in... I do not m",
+      "sections": [
+        {
+          "heading": "Lesson 4.5",
+          "body": "It seems a bit silly to give this short little topic its own page of notes, but yet most of the items on this page are review and practice for the learner.\nFirst of all, making a sentence negative, if you hadn't figured it out, inserts the words \"not\" or \"no\", as in... I do not make my bed. or I have no money. This, in Hawaiian, is possible with the word for no, which is a'ole. This word works a lot like it does in Spanish.\nEx) No hablo a nadie.- I don't talk to anyone.\n\nNo tengo dinero.- I don't have (any) money.\nEl no quiere ir.- He doesn't want to go.\n\nWhen using this word, it is positioned at the beginning of the sentence, followed by a pronoun if there is one, and the rest of the sentence stays the same. To explain this, we will translate: I do not work at the library.\nFor starters, the negation goes first:\n\nA'ole...\nThen, the pronoun if there is one. In this case, there is: I.\n\nA'ole au...\nNext, the verb:\n\nA'ole au hana...\nAnd finally, the rest of the sentence:\n\nA'ole au hana ma ka hale waihona puke.\nNote: Hale waihona puke means library.",
+          "examples": [
+            "First of all, making a sentence negative, if you hadn't figured it out, inserts the words \"not\" or \"no\", as in... I do not make my bed. or I have no money. This, in Hawaiian, is possible with the word for no, which is a'ole. This word works"
+          ],
+          "learnerTip": "It seems a bit silly to give this short little topic its own page of notes, but yet most of the items on this page are review and practice for the learner.\nFirst of all, making a sentence negative, if",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_4.5"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Lesson Four",
+      "summary": "= Verbs =\nNo sentence in any language is complete without at least one verb. In Hawaiian, some verbs (like to be verbs) are omitted, but are still implied. In this language, the order of words is Verb + Subject + Direct Object, therefore, the verb comes first.",
+      "sections": [
+        {
+          "heading": "Lesson Four",
+          "body": "= Verbs =\nNo sentence in any language is complete without at least one verb. In Hawaiian, some verbs (like to be verbs) are omitted, but are still implied. In this language, the order of words is Verb + Subject + Direct Object, therefore, the verb comes first.\n\nEx) They dance at the school. This would be translated as \"Dance they at the school.\" (Hula lākou i ke kula.)\n\nHere are a few verbs for you to play around with and make new sentences with:\nSleep - Moe\nGo - Hele\nCome - Hele mai\nListen - Hoʻolohe\nWork - Hana\n\n\n== Practice ==\nNow, after looking at those verbs, can you translate this sentence: Ho'olohe ke kika i ke kāne.\nOf course you can! When we break it down, Hoʻolohe is to \"listen\", ke kika would be a \"tiger\" as the subject of this sentence, and what is the tiger doing? Well it's listening. If a period were there, it would be just fine: Hoʻolohe ke kika- The tiger listens. But there is an extra part there, and it says, i ke kāne. This can easily be translated as \"to the man\".\nThere now. Put it all together, and we end up with, \"The tiger listens to the man.\" Wasn't that easy!\nNow we'll try a harder one: Hele ia i ka hale me nā manu ʻōmaʻomaʻo. Can you read that?\n\nHele ia - He or she goes,\ni ka hale -  to the house,\nme nā manu ʻōmaʻomaʻo. - with the green birds.\n\nDoes breaking it down into three parts help? The only thing that you might have had trouble with was the word \"nā\". It simply means the, like ke or ka, but as a plural. That is how we can distinguish \"the green bird\" from \"the green birds\". Also keep in mind that the adjective goes after the noun it relates to.\n\n\n== Grammar ==\nNext, if you hadn't noticed, the person doing the action comes after the verb as the subject. Unlike a lot of languages like Spanish, French, Latin, Greek, etc. Hawaiian does not change the endings of its verbs to describe who is doing the action.\n\nEx. Spanish- Saltar (to jump) changes to \"Salto\" for \"I jump\" or \"Saltamos\" for \"we jump.\"\nTo say \"I sleep\", it would just be, Moe au.\n\nNote: For list of pronouns, see Lesson Two under \"Pronouns\".\n\n\n== More Practice ==\nTranslate the following into Hawaiian:\n\nThe father sleeps.\nMy father works.\nA black cat comes.\nI sleep on the water.\nYou work with the pink turtle\nToday, I go to church (ka hale pule).",
+          "examples": [
+            "Ex) They dance at the school. This would be translated as \"Dance they at the school.\" (Hula lākou i ke kula.)",
+            "Of course you can! When we break it down, Hoʻolohe is to \"listen\", ke kika would be a \"tiger\" as the subject of this sentence, and what is the tiger doing? Well it's listening. If a period were there, it would be just fine: Hoʻolohe ke kika",
+            "There now. Put it all together, and we end up with, \"The tiger listens to the man.\" Wasn't that easy!",
+            "Does breaking it down into three parts help? The only thing that you might have had trouble with was the word \"nā\". It simply means the, like ke or ka, but as a plural. That is how we can distinguish \"the green bird\" from \"the green birds\".",
+            "Ex. Spanish- Saltar (to jump) changes to \"Salto\" for \"I jump\" or \"Saltamos\" for \"we jump.\"",
+            "To say \"I sleep\", it would just be, Moe au."
+          ],
+          "learnerTip": "= Verbs =\nNo sentence in any language is complete without at least one verb. In Hawaiian, some verbs (like to be verbs) are omitted, but are still implied. In this language, the order of words is Verb",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Four"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lesson One",
+      "summary": "= Basic Grammar =\nThis section talks about the structure of Hawaiian and simple things to note when learning the language. Hawaiian is a fairly simple language to learn if one just applies themself and studies every day. The language is a beautiful array of sounds and culture, an",
+      "sections": [
+        {
+          "heading": "Lesson One",
+          "body": "= Basic Grammar =\nThis section talks about the structure of Hawaiian and simple things to note when learning the language. Hawaiian is a fairly simple language to learn if one just applies themself and studies every day. The language is a beautiful array of sounds and culture, and with a little practice on the grammar, you will be speaking in no time!\n\n\n== Letters ==\nThe Hawaiian consonants are h, k, l, m, n, p, w, and the ʻokina, which represents a glottal stop in the voice when speaking, which is the sound between vowels in the expression \"uh-oh.\"\nThe vowels are the same as in English, a, e, i, o, u, with one exception: a kahakō can be placed over any vowel to make its length increase, and is expressed as a line over a vowel.\nNote how hale (house) has a short a, compared to kāne (man).\nNotice that ʻokina has an ʻokina, and kahakō has a kahakō.\nAnother rule in Hawaiian is that there are no consonant clusters in the language. That is, consonants (including the ʻokina) are never found side by side in a word. They can also never end a word. Vowels have more freedom because they can lie next to each other. \nNote the following sounds:\n\nA makes an ah sound, as in father.\nE makes an eh sound, as in elephant.\nI makes an ee sound, as in bee.\nO makes an oh sound, as in ocean.\nU makes an oo sound, as in blue.\nAll of the consonants are pronounced the same as in English, except the w, which is usually pronounced as a \"V\" after a, i, or e. It is usually pronounced as a \"W\" at the beginning of a word, or after o, or u.\n\n\n=== Do Not Get Confused ===\nThere are some sets of vowels that can be a bit tricky to distinguish. For example, determining ao from au, or ae from ai. Study the table, and be sure to distinguish the last vowel in each diphthong.\n\n\n== Vocabulary ==\nIn each lesson, you will be given a short list of vocabulary words to learn. These will help you in future lessons and increase your knowledge about the language.\n\n\n== Nā Kaʻi ==\nA kaʻi is a lead word that helps a noun along. A noun cannot sit by itself: the noun and the \"noun announcer\" are locked together like they are married. The most common are the two, ka and ke, which mean the in Hawaiian. Ke is used before any word beginning with k, e, a, or o. An easy trick to remember this is that the letters it goes with spells out \"ke ao\" which means the cloud in Hawaiian\nAnother common pair of kaʻi are he and nā. He means a or an. Nā goes along with ka and ke, meaning the, but indicates the noun is plural. \n\nfor example:\nke kāne vs. nā kāne - the man vs. the men\nka wahine vs. nā wāhine - the woman vs. the women\nhe kāne - a man\nhe wahine - a woman\nMore kaʻi include kēia and kēlā; this and that, koʻu; my, kou; your, kona; his, her, or its. These all can occur before a noun, which has to be preceded by one of these.\nBe aware of the ʻokina in koʻu, compared to kou. Make sure to not blend the o and the u. And it does not make an ow sound, as in couch, but rather the sound of a regular o, with the u-sound emphasized at the end.\n\n\n= Conversations =\nI'm sure this is what you've been waiting for; how to say hello and have a basic conversation with someone. But first, we need to learn eight very important puzzle pieces to put together.\nThe basic greeting is formed by saying Aloha, followed by the time of day, then how many people are in the conversation, ending with addressing the person.\n\nNow to explain all of this. Aloha literally means love, but here, it is used as a normal greeting. Kakahiaka is morning, usually said from 6:00-10:00 am, as awakea is said from 10:00-2:00 and means noontime. ʻAuinalā is afternoon, from 2:00-6:00, and ahiahi is evening, from 6:00-10:00. Note that these times are approximate, and do not need to be followed exactly, but they are helpful guidelines when talking with a native speaker.\nKāua refers to the dual form, which is the speaker and the person spoken to. Kākou is the plural form, and refers to more than three people in the group (Greetings to all of us). Notice how Hawaiian finds it respectful to add oneself in the greeting, therefore more than three people indicates that the speaker of the greeting is talking to two people. When addressing the other person, start with e and say their name.\nAnd of course, any of these can be left out. It is not wrong for one to only say \"aloha\", \"aloha ahiahi\", or even \"aloha kāua\". Even the address to the other person may be left out, but it is good to know all of the greetings.\n\nOr if you are meeting someone for the first time, you could ask them their name:\n\nExplanation:\nʻO - shows the subject of a sentence when a proper noun.\n\nWai - Who\nKou - Your\nInoa - Name\n\nNote: Keep in mind that one does not answer the question, \"Pehea ʻoe?\" with how they are actually feeling. It is more appropriate to respond with \"Maikaʻi\", rather than anything else. Negative words have negative power, and are looked at by the Hawaiians as people of the mainland see profanity. \"Everyone knows such words, and may use them in some circumstances, but they are not appropriate in most circumstances.\" (-Ho‘olele Hualono HAW101 Podcast; Mokuna 2, Helu 1)\nIt is somewhat fine to find such words with close friends or in historical writings. It is inappropriate to say them in a classroom or in a formal setting.\n\nNote: Another little tidbit to know, would be the three words that always come together: Please, Thank you, and You're Welcome. ʻOluʻolu (please), Mahalo (thank you), and He mea iki (you're welcome- or literally: \"a little thing\").\n\n\n== Simple Sentence ==\nA simple Hawaiian sentence's general structure is adjective-noun announcer-noun/proper noun. This is used to say \"a noun\" is \"an adjective\", as in Maikaʻi ka pua. Literally: Good the Flower; the flower is good.\nNotice how the adjective goes to the front of the sentence, and the subject comes after it. If the subject comes first, it would make an entirely different phrase. It would not be a complete sentence, but rather, a fragment, or a part of a complete sentence. In a different sentence structure, the adjective comes after the object it describes. ex: ka pua maikaʻi: the good flower.\nCompare the two groups of words:\n\nOne must be consciously aware of this switch, and organize their sentence accordingly.\n\nSee the difference?\n\n\n= Common Pronouns =\nIn Hawaiian, pronouns are called Papani. Papani, as in English, are people, being I, You, He/She/It/One, We, You, They. I suppose the first, and most obvious, pronouns that you should learn would be, I, you\n(singular) and he/she/it. \n\n\n== Aia Sentences ==\nMost Hawaiian sentences resemble a squid, having three parts; the head - poʻo, the connector - piko, and the tentacles - ʻawe. The head represents the main idea of that sentence, the connector being the subject, and the tentacles are the rest of the sentence. An aia sentence is a location sentence in Hawaiian. It describes when or where something is. These sentences are so called because they always start with the word \"aia\". Its closest translation in English would be to be. (am, is, are, etc.)\nTo form an Aia sentence, first you must know what an \"ʻami\" is. A ʻami is a joint word that tells one of four things;\n\nHelpful Hint: Try not to mix up \"ma\" and \"me\". They look very much alike, so remember that ma means in, on or at, and me means with.\n\n\n=== Practice ===\n\nTry creating your own Aia sentences using the following pattern:\n\n\n== More Pronouns ==\nThe next pronouns that one must learn, are as follows:\n\nNote how they all end in -kou, and we and they both end in -ākou. It is important that the student make these type of connections when studying so that the information gets permanently located in their memory. Also, all of these pronouns refer to three or more people; Hawaiian has different sets of pronouns that can be used depending on the situation. We will explain those in later lessons.\n\n\n=== Practice ===\n\n\n= All that you've learned =\nGo through the list of what you were supposed to learn from this lesson, and if you cannot identify something, go back and reread about it.\n\nKe Kāne, Ka Wahine, Ke Keiki, Ka Haumāna, Ke Kumu, Ka Hoaaloha, Ka Pua, Ke One, Ke Kula, Ka ʻOhana, Ke Kaʻa, Ka Hale, Maikaʻi, Maʻi, Hauʻoli, Kaumaha, Māluhiluhi, ʻOluʻolu, Liʻiliʻi, Nui, Nani, Pupuka, Ka/Ke, the rest of the Kaʻi, Aloha: Kakahiaka/Awakea/ʻAuinalā/Ahiahi, Kāua, Kākou, ʻO wai kou inoa and how to respond, Au/ʻOe/ʻO ia, How to form an Aia sentence, kākou, ʻoukou, Lākou.\n\nMaikaʻi! You have finished lesson 1 of Hawaiian! Make sure to practice what you've learned by creating your own sentences and rereading anything you did not understand fully.",
+          "examples": [
+            "The Hawaiian consonants are h, k, l, m, n, p, w, and the ʻokina, which represents a glottal stop in the voice when speaking, which is the sound between vowels in the expression \"uh-oh.\"",
+            "All of the consonants are pronounced the same as in English, except the w, which is usually pronounced as a \"V\" after a, i, or e. It is usually pronounced as a \"W\" at the beginning of a word, or after o, or u.",
+            "A kaʻi is a lead word that helps a noun along. A noun cannot sit by itself: the noun and the \"noun announcer\" are locked together like they are married. The most common are the two, ka and ke, which mean the in Hawaiian. Ke is used before a",
+            "And of course, any of these can be left out. It is not wrong for one to only say \"aloha\", \"aloha ahiahi\", or even \"aloha kāua\". Even the address to the other person may be left out, but it is good to know all of the greetings.",
+            "Note: Keep in mind that one does not answer the question, \"Pehea ʻoe?\" with how they are actually feeling. It is more appropriate to respond with \"Maikaʻi\", rather than anything else. Negative words have negative power, and are looked at by",
+            "Note: Another little tidbit to know, would be the three words that always come together: Please, Thank you, and You're Welcome. ʻOluʻolu (please), Mahalo (thank you), and He mea iki (you're welcome- or literally: \"a little thing\")."
+          ],
+          "learnerTip": "= Basic Grammar =\nThis section talks about the structure of Hawaiian and simple things to note when learning the language. Hawaiian is a fairly simple language to learn if one just applies themself an",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_One"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Lesson One Self Test",
+      "summary": "In the sentence, \"Aloha Awakea Kākou,\" how many people are you talking to?",
+      "sections": [
+        {
+          "heading": "Lesson One Self Test",
+          "body": "Point added for a correct answer:\n\t\t  \n\t\n\t\n\t\tPoints for an incorrect answer:\n\t\t\n\t\n\t\n\t\tIgnore the questions' coefficients:\n\t\t\n\t\n\t\n\t\t\t\t\t\n\t\t\t\n\t\n\n\t\t\n\t\t\n\n\t\t\n\t\t\t\n\t\n\t\t\t1\n\n\t\tIn the sentence, \"Aloha Awakea Kākou,\" how many people are you talking to?\n\t\n\t\t\t\n\n\t\t\n\t\t\t\none person\n\ntwo or more people\n\nthree or more people\n\na child under the age of 7\n\n\t\n\n\t\n\t\t\t2\n\n\t\tIn the sentence, \"Aloha Awakea Kākou,\" what time of day is it?\n\t\n\t\t\t\n\n\t\t\n\t\t\t\nnight/evening\n\nafternoon\n\nnoontime\n\nmorning\n\n\t\n\n\t\n\t\t\t3\n\n\t\tWhat is the litteral translation of \"Aloha\"?\n\t\n\t\t\t\n\n\t\t\n\t\t\t\nFamily\n\nLove\n\nGod\n\nEarth\n\n\t\n\n\t\n\t\t\t4\n\n\t\tFlower\n\t\n\t\n\t\t\n\t\t\t\n\n\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\n\n\t\t\n\t\n\n\t\n\t\t\t5\n\n\t\tSchool\n\t\n\t\n\t\t\n\t\t\t\n\n\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\n\n\t\t\n\t\n\n\t\n\t\t\t6\n\n\t\tLittle\n\t\n\t\n\t\t\n\t\t\t\n\n\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\n\n\t\t\n\t\n\n\t\n\t\t\t7\n\n\t\tKaumaha\n\t\n\t\n\t\t\n\t\t\t\n\n\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\n\n\t\t\n\t\n\n\t\n\t\t\t8\n\n\t\tKa Wahine\n\t\n\t\n\t\t\n\t\t\t\n\n\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\n\n\t\t\n\t\n\n\t\n\t\t\t9\n\n\t\tPehea ʻoe?\n\t\n\t\n\t\t\n\t\t\t\n\n\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\n\n\t\t\n\t\n\n\t\n\t\t\t10\n\n\t\tMark all the sentences that are NOT grammatically correct:\n\t\n\t\t\t\n\n\t\t\n\t\t\t\nAia 'au ma ke ka'a.\n\nAia ke kumu ma ke kula.\n\nPupuka ke kāne.\n\nMa'i ka 'oe.\n\nAia ke keiki nani me ke wahine nani.\n\nAia ke keiki pupuka o ka 'ohana i ka hale.\n\n'O wai 'kou inoa?\n\nNui ka pua.\n\nNani au.\n\nMa'i 'o ia.",
+          "examples": [
+            "In the sentence, \"Aloha Awakea Kākou,\" how many people are you talking to?",
+            "In the sentence, \"Aloha Awakea Kākou,\" what time of day is it?",
+            "What is the litteral translation of \"Aloha\"?"
+          ],
+          "learnerTip": "In the sentence, \"Aloha Awakea Kākou,\" how many people are you talking to?",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_One_Self_Test"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Lesson Six",
+      "summary": "== Nā Helu ==\n0 ʻole\n1 ʻekahi\n2 ʻelua\n3 ʻekolu\n4 ʻehā\n5 ʻelima\n6 ʻeono\n7 ʻehiku\n8 ʻewalu\n9 ʻeiwa\n10 ʻumi\n11 ʻumikūmākahi (10 + 1)\n12 ʻumikūmālua (10 + 2)\n13 ʻumikūmākolu (10 + 3)\nYou may notice that you write the tens place number (ʻumi), then kūmā (the adding word), then the one",
+      "sections": [
+        {
+          "heading": "Lesson Six",
+          "body": "= Numbers =\n\n\n== Nā Helu ==\n0 ʻole\n1 ʻekahi\n2 ʻelua\n3 ʻekolu\n4 ʻehā\n5 ʻelima\n6 ʻeono\n7 ʻehiku\n8 ʻewalu\n9 ʻeiwa\n10 ʻumi\n11 ʻumikūmākahi (10 + 1)\n12 ʻumikūmālua (10 + 2)\n13 ʻumikūmākolu (10 + 3)\nYou may notice that you write the tens place number (ʻumi), then kūmā (the adding word), then the ones place number without the ʻe- prefix. This rule is always the same.\n14 ʻumikūmāhā\n15 ʻumikūmālima\n16 ʻumikūmāono\n17 ʻumikūmāhiku\n18 ʻumikūmāwalu\n19 ʻumikūmāiwa\n20 iwakālua\nAgain, same rule.\n21 iwakāluakūmākahi (20 + 1)\n22 iwakāluakūmālua (20 + 2)\n23 iwakāluakūmākolu (20 + 3)\nYouʻve got the hang of it...\n30 kanakolu\n40 kanahā\n50 kanalima\n60 kanaono\n70 kanahiku\n80 kanawalu\n90 kanaiwa\n100 hoʻokahi hanele (or hoʻokahi haneli)\n126 hoʻokahi hanele iwakāluakūmāono\n173 hoʻokahi hanele kanahikukūmākolu\n200 ʻelua hanele\n300 ʻekolu hanele\n\n\n= School Materials =\n\n\n== Nā 'Ikamu o Ke Kula ==\n\n\n= Occupations =",
+          "examples": [],
+          "learnerTip": "== Nā Helu ==\n0 ʻole\n1 ʻekahi\n2 ʻelua\n3 ʻekolu\n4 ʻehā\n5 ʻelima\n6 ʻeono\n7 ʻehiku\n8 ʻewalu\n9 ʻeiwa\n10 ʻumi\n11 ʻumikūmākahi (10 + 1)\n12 ʻumikūmālua (10 + 2)\n13 ʻumikūmākolu (10 + 3)\nYou may notice that y",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Six"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Lesson Three",
+      "summary": "= Introduction =\n\"He Aha Sentences\" are statements that tell what something is. For example, one could ask, \"What is this?\" or \"What is that?\" and the person spoken to would respond, \"This is an apple.\" \"That is a dog.\" or whatever.\nThis extremely simple sentence is easy to form,",
+      "sections": [
+        {
+          "heading": "Lesson Three",
+          "body": "= Introduction =\n\"He Aha Sentences\" are statements that tell what something is. For example, one could ask, \"What is this?\" or \"What is that?\" and the person spoken to would respond, \"This is an apple.\" \"That is a dog.\" or whatever.\nThis extremely simple sentence is easy to form, and very helpful. To ask the question, one says:\n\nHe aha kēia?\n\"He\" means \"A/an\"\n\"Aha\" means \"What\"\n\"kēia\" means \"this\"\nLiterally: \"A what, this?\"\nKēiā, of course, can always be substituted for kēlā (that), or any personal pronoun.\nOne would respond with:\n\nHe hale kēia. He wai kēia. He kama'a kēia.\n(This is a house. This is water. This is a shoe)\nLiterally: A house, this. Water, this. A shoe this.\n\n\n== Practice ==\nTranslate the following:\n\n\n= Vocabulary =\nThere now, you see? Not that difficult at all! Now for the new vocab for this lesson.\n\n\n== Colors ==\nIf you have time in your busy schedule, check out this link to a song on Youtube of children learning their colors. It's a little silly, but it's a good song to get stuck in your head when learning the colors!\n[Song!]\n\n\n== Animals and Family ==\n\n\n=== -Nā Holoholona a me Ke 'Ohana- ===\n\nBasic animals are always good things to know, and here are some that might come in handy. These are the common words that are most used in Hawaiian. Try to visualize the animal and place the word with your mental picture. Seeing the animal helps a lot when working on memorization.\nAlso, there are family members here. Later, we will see them in a family tree, and it will be easier to process all the information! Don't worry, it's not that hard!... until we get to siblings! (Maybe I shouldn't have told you that) But with a little practice, the language will come naturally to you. Just wait. And begin practicing those words! Try to form sentences with words you already know using adjectives and nouns. We'll learn verbs next, and then your whole world will open up, creating new and interesting phrases and thoughts. But for now, be patient and practice with these words.\n\n\n=== Reading Practice ===\nRead the following story, then answer the questions to see how much you understood:\n'O James ke keiki o ka 'ohana. 'O Maria ā me (and) 'o Paul nā makua o James. 'O Paul ka makuakāne. 'Olu'olu Paul. 'O Maria ka makuahine o James. 'O Robert ka 'anakala o James me kāna keiki 'o Leslie. 'O kēiā lā (today), ma'i 'o Robert. Kaumaha 'o Leslie.",
+          "examples": [
+            "\"He Aha Sentences\" are statements that tell what something is. For example, one could ask, \"What is this?\" or \"What is that?\" and the person spoken to would respond, \"This is an apple.\" \"That is a dog.\" or whatever.",
+            "\"He\" means \"A/an\"",
+            "\"Aha\" means \"What\"",
+            "\"kēia\" means \"this\"",
+            "Literally: \"A what, this?\""
+          ],
+          "learnerTip": "= Introduction =\n\"He Aha Sentences\" are statements that tell what something is. For example, one could ask, \"What is this?\" or \"What is that?\" and the person spoken to would respond, \"This is an apple",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Three"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Lesson Three Self Test",
+      "summary": "Point added for a correct answer:\n\t\t  \n\t\n\t\n\t\tPoints for an incorrect answer:\n\t\t\n\t\n\t\n\t\tIgnore the questions' coefficients:\n\t\t\n\t\n\t\n\t\t\t\t\t\n\t\t\t\n\t\n\n\t\t\n\t\t\n\n\t\t\n\t\t\t\n\t\n\t\t\t1\n\n\t\tHe aha kēiā? \n\t\n\t\t\t\n\n\t\t\n\t\t\t\nHe pua'a kēiā.\n\nHe pua kēiā.\n\nHe kula kēiā.\n\nHe kumu kēiā.\n\n\t\n\n\t\n\t\t\t2\n\n\t\tHe honu li'il",
+      "sections": [
+        {
+          "heading": "Lesson Three Self Test",
+          "body": "Point added for a correct answer:\n\t\t  \n\t\n\t\n\t\tPoints for an incorrect answer:\n\t\t\n\t\n\t\n\t\tIgnore the questions' coefficients:\n\t\t\n\t\n\t\n\t\t\t\t\t\n\t\t\t\n\t\n\n\t\t\n\t\t\n\n\t\t\n\t\t\t\n\t\n\t\t\t1\n\n\t\tHe aha kēiā? \n\t\n\t\t\t\n\n\t\t\n\t\t\t\nHe pua'a kēiā.\n\nHe pua kēiā.\n\nHe kula kēiā.\n\nHe kumu kēiā.\n\n\t\n\n\t\n\t\t\t2\n\n\t\tHe honu li'ili'i kēiā? \n\t\n\t\t\t\n\n\t\t\n\t\t\t\n'Ae (Yes)\n\n'A'ole (No)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Three_Self_Test"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Lesson Two",
+      "summary": "This lesson focuses mostly on pronouns, since there are many of them, and knowing when to use them can come in handy.",
+      "sections": [
+        {
+          "heading": "Lesson Two",
+          "body": "This lesson focuses mostly on pronouns, since there are many of them, and knowing when to use them can come in handy.\n\n\n= Review =\n\n\n== Pāpāʻōlelo / Conversation ==\nLet's start with a simple conversation.\nIt is before school, and two students, Ikaika and Kau’i, meet for the first time. They introduce themselves in Hawaiian.\n\nTo ask someone their name, one says, \"'O wai kou inoa?\" 'O wai means who, so literally, you are asking, \"Who is your name?\" 'O is used to mark the subject in a sentence, usually appearing before a name, wai and ia, as you may have noticed. To respond to \"'O wai kou inoa\", you would say, \"'O (your name) ko'u inoa, as demonstrated in the chart above.\n\n\n= Pronouns =\n\n\n=== Nominative ===\nThe three most important and common pronouns are Au (I), ʻOe (You), and Ia (He/She). There are four ways of how to say \"we\" in Hawaiian; the Dual and Plural forms. Those are split even further into Inclusive and Exclusing points of view.\nIn Hawaiian, there is a form known as the dual form, which is not spoken all the time in English. The dual form of a pronoun only refers to two people in the conversation, while Plural refers to three or more people.\nFor example: Kāua (We, us two) vs. Kākou (We, us all- 3+).\nNext, the pronouns split their conversation into Inclusive and Exclusive points of view. Inclusive refers to the speaker and the addressee (the person being spoken to), while Exclusive refers to the speaker and another person; not the addressee.\nFor example: Kāua (We, you and I) vs. Māua (We, me and him/her. Not you).\n\n\n=== Genitive ===\n\n\n==== Class ====\nWhen referring to the Genitive case, (showing ownership), there are two kinds: A class, and O class.\nO Class nouns are subjects that cannot be controlled by the owner, such as ka hale, house; or ka inoa, name. There are a few rules that can help you determine an O Class noun.\nIf the noun is:\n\nA mode of transportation (ex: ke kaʻa- car)\nSomething that one can sit on or wear (ex: ka lole- clothes)\nPeople of your generation or past generations (ex: ka makuakāne-father)\nA Class nouns can be controlled by the owner. Like O class nouns, there are a few rules that can help you determine which is which:\n\nFuture generations for your line. (for example, not your brothers future generations)\nColor (as in, favorite color)\nBoyfriend/Girlfriend\nSomething made by the owner\n\n\n==== Possessive ====\nKeeping the Dual, Plural, Incl., and Excl. in mind from before, the Genitive shows ownership by someone or something. By following the chart, it should be quite easy to determine what word one would use to say what they mean.\nPractice:\n\n\n=== Accusative/Dative ===\nThe Accusative Case refers to the Object of the sentence. Anyone with knowledge of basic grammar will know that the object is what the verb is happening to: the receiving action from the verb.\nAs in, The dog chases the cat. The cat is the object of the sentence, because the dog is chasing it. Cat would be in the accusative case.\nThe Dative case tells to whom something is done.\n\nJohn found the story incomplete, therefore, he added to it.\nHowever, in this sentence, although one would think that the proper words to use would be iā ia it is normally understood and therefore the \"iā ia\" is usually left off.",
+          "examples": [
+            "To ask someone their name, one says, \"'O wai kou inoa?\" 'O wai means who, so literally, you are asking, \"Who is your name?\" 'O is used to mark the subject in a sentence, usually appearing before a name, wai and ia, as you may have noticed. ",
+            "The three most important and common pronouns are Au (I), ʻOe (You), and Ia (He/She). There are four ways of how to say \"we\" in Hawaiian; the Dual and Plural forms. Those are split even further into Inclusive and Exclusing points of view.",
+            "However, in this sentence, although one would think that the proper words to use would be iā ia it is normally understood and therefore the \"iā ia\" is usually left off."
+          ],
+          "learnerTip": "This lesson focuses mostly on pronouns, since there are many of them, and knowing when to use them can come in handy.",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Two"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Lesson Two Quiz",
+      "summary": "For this quiz, the following table will help you as your \"cheat sheet\". Practice on memorizing the vocabulary, and remember, this is only a quiz.",
+      "sections": [
+        {
+          "heading": "Lesson Two Quiz",
+          "body": "For this quiz, the following table will help you as your \"cheat sheet\". Practice on memorizing the vocabulary, and remember, this is only a quiz.\n\nRemember!!! Capitalize and punctuate all sentences.\nAlso!!! When you want to write a kahakō, (the line over a vowel making it longer) just add slashes around the letter you wish to lengthen. Ex: for \"ā\", write \"/a/\". Kāne=K/a/ne. etc. \nImportant!!! Did I remind you to punctuate all sentences?",
+          "examples": [
+            "For this quiz, the following table will help you as your \"cheat sheet\". Practice on memorizing the vocabulary, and remember, this is only a quiz.",
+            "Also!!! When you want to write a kahakō, (the line over a vowel making it longer) just add slashes around the letter you wish to lengthen. Ex: for \"ā\", write \"/a/\". Kāne=K/a/ne. etc."
+          ],
+          "learnerTip": "For this quiz, the following table will help you as your \"cheat sheet\". Practice on memorizing the vocabulary, and remember, this is only a quiz.",
+          "source": "https://en.wikibooks.org/wiki/Hawaiian/Lesson_Two_Quiz"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Introduction",
+      "summary": "Grammar of the Hawaiian language\nYou can help expand this article with text translated from the corresponding article in French.  (August 2018) Click [show] for important translation instructions.\nView a machine-translated version of the French article.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Hawaiian language\nYou can help expand this article with text translated from the corresponding article in French.  (August 2018) Click [show] for important translation instructions.\nView a machine-translated version of the French article.\n\nMachine translation, like DeepL or Google Translate, is a useful starting point for translations, but translators must follow the LLM translation guideline, revise errors as necessary and confirm that the translation is accurate, rather than simply copy-pasting machine-translated text into the English Wikipedia.\n\nDo not translate text that appears unreliable or low-quality. If possible, verify the text with references provided in the foreign-language article.\n\nYou must provide copyright attribution in the edit summary accompanying your translation by providing an interlanguage link to the source of your translation. A model attribution edit summary is Content in this edit is translated from the existing French Wikipedia article at [[:fr:Grammaire de l'hawaïen]]; see its history for attribution.\n\nYou may also add the template {{Translated|fr|Grammaire de l'hawaïen}} to the talk page.\n\nFor more guidance, see Wikipedia:Translation.\n\nMain article: Hawaiian language\nThis article summarizes grammar in the Hawaiian language.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Syntax",
+      "summary": "Hawaiian is a predominantly verb–subject–object language. However, word order is flexible, and the emphatic word can be placed first in the sentence.[1]: p28   Hawaiian largely avoids subordinate clauses,[1]: p.27  and often uses a possessive construction instead.[1]: p.41  Hawai",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Hawaiian is a predominantly verb–subject–object language. However, word order is flexible, and the emphatic word can be placed first in the sentence.[1]: p28   Hawaiian largely avoids subordinate clauses,[1]: p.27  and often uses a possessive construction instead.[1]: p.41  Hawaiian, unlike English, is a pro-drop language, meaning pronouns may be omitted when the meaning is clear from context.[2]: p.108 \n\nThe typical detailed word order is given by the following,[1]: p.19  with most items optional:\n\nTense/aspect signs: i, ua, e, etc.\n\nVerb\n\nQualifying adverb: mau, wale, ole, pu, etc.\n\nPassive sign:  ʻia\n\nVerbal directives: aku, mai, etc.\n\nLocatives nei or lā, or particles ana or ai\n\nStrengthening particle: nō\n\nSubject\n\nObject or predicate noun",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Exceptions to VSO word order",
+          "body": "If the sentence has a negative mood and the subject is a pronoun, word order is subject–verb–object following the negator ʻaʻole, as in:\n\nʻaʻole\n\nnot\n\nʻo ia\n\nhe\n\ne\n\nFUTURE\n\npuka\n\ngraduate\n\nana\n\nSINGLE.EVENT\n\nʻaʻole {ʻo ia} e puka ana\n\nnot he FUTURE graduate SINGLE.EVENT\n\n\"He won't graduate\"\n\nAnother exception is when an emphatic adverbial phrase begins the sentence. In this case, a pronoun subject precedes the verb.[1]: p.29",
+          "examples": [
+            "\"He won't graduate\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Interrogatives",
+          "body": "Yes–no questions can be unmarked and expressed by intonation,[3]: p.32  or they can be marked by placing anei after the leading word of the sentence.[1]: p.23  Examples of question-word questions include:\n\nHe\n\nINDEFINITE\n\naha\n\nWhat\n\nkēia?\n\nthis?\n\nHe aha kēia?\n\nINDEFINITE What this?\n\n\"What is this?\"\n\nʻO\n\nPROPER.SUBJECT\n\nwai\n\nwho\n\nkou\n\nyour\n\ninoa?\n\nname\n\nʻO wai kou inoa?\n\nPROPER.SUBJECT who your name\n\n\"What is your name?\"",
+          "examples": [
+            "\"What is this?\"",
+            "\"What is your name?\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Nouns",
+      "summary": "As Hawaiian does not particularly discern between word types, any verb can be nominalized by preceding it with the definite article. However, some words that are used as nouns are rarely or never used as verbs.[1]: p.37  Within the noun phrase, adjectives follow the noun (e.g. ka",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "As Hawaiian does not particularly discern between word types, any verb can be nominalized by preceding it with the definite article. However, some words that are used as nouns are rarely or never used as verbs.[1]: p.37  Within the noun phrase, adjectives follow the noun (e.g. ka hale liʻiliʻi \"the house small\", \"the small house\"), while possessors precede it (e.g. kou hale \"your house\"). Numerals precede the noun in the absence of the definite article, but follow the noun if the noun is preceded by the definite article.[1]: p.31",
+          "examples": [
+            "As Hawaiian does not particularly discern between word types, any verb can be nominalized by preceding it with the definite article. However, some words that are used as nouns are rarely or never used as verbs.[1]: p.37  Within the noun phr"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Articles",
+          "body": "Every noun is preceded by an article (ka‘i). The three main ones are:\n\nke and ka – definitive singular – ke for words starting with letters k, e, a and o (usually memorised as ke ao \"the cloud\" rule); exceptions include words called nā kūʻēlula \"the rule defiers\" (e.g. ke pākaukau \"the table\", ke ʻō \"the fork\" and ke mele \"the song\"). For all other words ka is used.\n\nhe – indefinite singular\n\nnā – plural (definite or indefinite)",
+          "examples": [
+            "ke and ka – definitive singular – ke for words starting with letters k, e, a and o (usually memorised as ke ao \"the cloud\" rule); exceptions include words called nā kūʻēlula \"the rule defiers\" (e.g. ke pākaukau \"the table\", ke ʻō \"the fork\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "In noun phrases, two numbers (singular and plural) are distinguished. The singular articles ke and ka and the plural article nā are the only articles that mark number:\n\nka pu‘u \"the hill\" vs. nā pu‘u \"the hills\"\n\nIn the absence of these articles, plurality is usually indicated by inserting the pluralizing particle mau immediately before the noun:\n\nhe hale \"a house\" vs. he mau hale \"houses\"\n\nko‘u hoaaloha \"my friend\" vs. ko‘u mau hoaaloha \"my friends\"\n\nMost nouns do not change when pluralized; however, some nouns referring to people exhibit a lengthened vowel in the third syllable from the end in the plural:\n\nhe wahine \"a woman\" vs. he mau wāhine \"women\"\n\nka ‘elemakule \"the old man\" vs. nā ‘elemākule \"the old men\"\n\nia kahuna \"the aforementioned priest\" vs. ia mau kāhuna \"the aforementioned priests\"",
+          "examples": [
+            "ka pu‘u \"the hill\" vs. nā pu‘u \"the hills\"",
+            "he hale \"a house\" vs. he mau hale \"houses\"",
+            "ko‘u hoaaloha \"my friend\" vs. ko‘u mau hoaaloha \"my friends\"",
+            "he wahine \"a woman\" vs. he mau wāhine \"women\"",
+            "ka ‘elemakule \"the old man\" vs. nā ‘elemākule \"the old men\"",
+            "ia kahuna \"the aforementioned priest\" vs. ia mau kāhuna \"the aforementioned priests\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "In Hawaiian, there is no gender distinction in the third person. The word for third person (he, she, it) is ia. It is commonly preceded by ʻo as in ʻo ia and, following standard modern orthographical rules, is written as two words, but it can be seen as one when written by older speakers and in historical documents.\n\nHawaiian nouns belong to one of two genders. This gender system is not based on biological sex and is better analyzed as a distinction between alienable and inalienable possession, which is a common split in many of the world's languages. The two genders are known as the kino ʻō (o-class) and the kino ʻā (a-class). These classes are only taken into account when using the genitive case (see table of personal pronouns below).\n\nKino ʻō nouns, in general, are nouns whose creation cannot be controlled by the subject, such as inoa \"name\", puʻuwai \"heart\", and hale \"house\". Specific categories for o-class nouns include: modes of transportation (e.g. kaʻa \"car\" and lio \"horse\"), things that you can go into, sit on or wear (e.g., lumi \"room\",  noho \"chair\", ʻeke \"bag\", and lole \"clothes\"), and people in your generation (e.g., siblings, cousins) and previous generations (e.g. makuahine \"mother\").\n\nKino ʻā nouns, in general, are those whose creation can be controlled, such as waihoʻoluʻu \"color\", as in kaʻu waihoʻoluʻu punahele \"my favorite color\". Specific categories include: your boyfriend or girlfriend (ipo), spouse, friends, and future generations in your line (all of your descendants).\n\nThe change of preposition of o \"of\" (kino ʻō) to a \"of \"(kino ʻā) is especially important for prepositional and subordinate phrases[clarification needed]:\n\nka mea \"the thing\"\n\nkona mea \"his thing (nonspecific)\"\n\nkāna mea \"his thing (which he created or somehow chose)\"\n\nka mea āna i ʻike ai \"the thing that he saw\"\n\nkāna (mea) i ʻike ai \"what he saw\"\n\nkēia ʻike ʻana āna \"this thing that he saw (purposefully)\"\n\nkēia ʻike ʻana ona \"this thing that he saw (purportedly)\" where the seeing isn't much import",
+          "examples": [
+            "Kino ʻō nouns, in general, are nouns whose creation cannot be controlled by the subject, such as inoa \"name\", puʻuwai \"heart\", and hale \"house\". Specific categories for o-class nouns include: modes of transportation (e.g. kaʻa \"car\" and lio",
+            "Kino ʻā nouns, in general, are those whose creation can be controlled, such as waihoʻoluʻu \"color\", as in kaʻu waihoʻoluʻu punahele \"my favorite color\". Specific categories include: your boyfriend or girlfriend (ipo), spouse, friends, and f",
+            "The change of preposition of o \"of\" (kino ʻō) to a \"of \"(kino ʻā) is especially important for prepositional and subordinate phrases[clarification needed]:",
+            "ka mea \"the thing\"",
+            "kona mea \"his thing (nonspecific)\"",
+            "kāna mea \"his thing (which he created or somehow chose)\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Counting",
+      "summary": "Other than the usual decimal numbers, Hawaiian has a mixed base-4-base-10 counting system:[4]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Other than the usual decimal numbers, Hawaiian has a mixed base-4-base-10 counting system:[4]\n\n4: kauna = ahā kahi ('four ones')\n\n40: kaʻau = ʻumi kauna ('ten fours')\n\n400: lau = ʻumi kaʻau ('ten forties')\n\n4000: mano = ʻumi lau ('ten four-hundreds')",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Demonstrative determiners",
+      "summary": "Demonstrative determiners\nProximal\nMedial\nDistal",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Demonstrative determiners\nProximal\nMedial\nDistal\n\nSingular\n\nkēia\nkēnā\nkēlā\n\nPlural\n\nkēia mau\nkēnā mau\nkēlā mau\n\nSingular (aforementioned)\n\nua ... nei\n\nua ... lā/ala\n\nua ... lā/ala\n\nPlural (aforementioned)\n\nua mau ... nei\n\nua mau ... lā/ala\n\nua mau ... lā/ala",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Personal pronouns",
+      "summary": "Only used\nin 1st and\n2nd person\nsingular.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Personal pronouns\n\nCase\n\nNominative\n\nGenitive\n\nAccusative,\nDative\n\nalienable\n\nobligatory\n\naffectionate\n\nSingular\n(1)\n\n1st\n\nau\n\nkaʻu\n\nkoʻu\n\nkuʻu\n\niaʻu\n\n2nd\n\nʻoe\n\nkāu\n\nkou\n\nkō\n\niā ʻoe\n\n3rd\n\nia\n\nkāna\n\nkona\n\nOnly used\nin 1st and\n2nd person\nsingular.\n\niā ia\n\nDual\n(2)\n\n1st\n\nincl.\n\nkāua\n\nkā kāua\n\nko kāua\n\niā kāua\n\nexcl.\n\nmāua\n\nkā māua\n\nko māua\n\niā māua\n\n2nd\n\nʻolua\n\nkā ʻolua\n\nko ʻolua\n\niā ʻolua\n\n3rd\n\nlāua\n\nkā lāua\n\nkō lāua\n\niā lāua\n\nPlural\n(3+)\n\n1st\n\nincl.\n\nkākou\n\nkā kākou\n\nko kākou\n\niā kākou\n\nexcl.\n\nmākou\n\nkā mākou\n\nko mākou\n\niā mākou\n\n2nd\n\nʻoukou\n\nkā ʻoukou\n\nko ʻoukou\n\niā ʻoukou\n\n3rd\n\nlākou\n\nkā lākou\n\nkō lākou\n\niā lākou",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Verbs",
+      "summary": "Transitive verbs can be passivized with the particle ʻia, which follows the verb but precedes tense/aspect/mood markers. The agent, if specified, is marked with the preposition e, usually translated as \"by\" in English:",
+      "sections": [
+        {
+          "heading": "Passive Voice",
+          "body": "Transitive verbs can be passivized with the particle ʻia, which follows the verb but precedes tense/aspect/mood markers. The agent, if specified, is marked with the preposition e, usually translated as \"by\" in English:\n\nKe kūkulu ʻia lā ka hale e mākou. The house is being built by us",
+          "examples": [
+            "Transitive verbs can be passivized with the particle ʻia, which follows the verb but precedes tense/aspect/mood markers. The agent, if specified, is marked with the preposition e, usually translated as \"by\" in English:"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Equative sentences",
+          "body": "Hawaiian does not have a copula verb meaning \"to be\" nor does it have a verb meaning \"to have\". Equative sentences are used to convey this group of ideas. All equative sentences in Hawaiian are zero-tense/mood (i.e., they cannot be modified by verbal markers, particles or adverbs).\n\nPepeke ʻAike He \"A is a B\"\nPepeke ʻAike He is the name for the simple equative sentence \"A is a(n) B\". The pattern is \"He B (ʻo) A.\" ʻO marks the third person singular pronoun ia (which means \"he/she/it\") and all proper nouns.\n\nHe kaikamahine ʻo Mary. Mary is a girl.\n\nHe kaikamahine ʻo ia. She is a girl.\n\nHe Hawaiʻi kēlā kaikamahine. That girl is (a) Hawaiian.[clarification needed]\n\nHe hāumana ke keiki. The child is a student.\n\nPepeke ʻAike ʻO\nPepeke ʻAike ʻO is the name for the simple equative sentence \"A is B.\" The pattern is \" ʻO A (ʻo) B,\" where the order of the nouns is interchangeable and where ʻo invariably marks the third person singular pronoun ia and all proper nouns (regardless of where it is in the utterance).\n\nʻO Mary ʻo ia. ʻO ia ʻo Mary. She is Mary.\n\nʻO Mary nō ia. ʻO ia nō ʻo Mary. It's Mary.\n\nʻO wau ʻo Mary. ʻO Mary wau. I'm Mary.\n\nʻO ʻoe ʻo Mary. ʻO Mary ʻoe. You are Mary.\n\nʻO Mary ke kaikamahine. ʻO ke kaikamahine ʻo Mary. Mary is the girl. The girl is Mary.\n\nʻO ka haumana ke keiki. ʻO ke keiki ka haumana. The student is the child. The child is the student.\n\nPepeke Henua (Locational equative)\nPepeke Henua is the name for the simple equative sentence \"A is located (in/on/at/etc. B).\" The pattern is \"Aia (ʻo) A...\"\n\nAia ʻo Mary ma Hilo. Mary is in Hilo.\n\nAia ʻo ia maloko o ka wai. He/she/it is inside (of) the water.\n\nAia ka haumana mahea? Aia mahea ka haumana? Where is the student?\n\nPepeke ʻAike Na\nPepeke ʻAike Na is the name of the simple equative sentence \"A belongs to B.\" The pattern is \"Na (B) A.\" The singular pronouns undergo predictable changes.\n\nPronoun\n\nNominative\n\nGenitive \"for\" or \"belonging to\"\n\nFirst person singular \"I\"\n\n(w)au\n\nnaʻu\n\nSecond person singular \"You\"\n\nʻoe\n\nnāu\n\nThird person singular \"he/she/it\"\n\n(ʻo) ia\n\nnāna\n\nFirst person plural, dual inclusive \"we; you and I\"\n\nkāua\n\nna kāua\n\nPepeke ʻAike Na Examples:\n\nNaʻu ke kaʻa. The car belongs to me. That's my car.\n\nNa Mary ke keiki. The child is Mary's. It's Mary's child.\n\nNāna ka penikala. The pencil belongs to him/her/it.\n\nNāu nō au. I belong to you. I'm yours.\n\nNote:\n\nʻO kēia ke kaʻa nāu. This is the car I'm giving to you.\n\nHe makana kēlā na ke aliʻi. This is a present for the chief.",
+          "examples": [
+            "Hawaiian does not have a copula verb meaning \"to be\" nor does it have a verb meaning \"to have\". Equative sentences are used to convey this group of ideas. All equative sentences in Hawaiian are zero-tense/mood (i.e., they cannot be modified",
+            "Pepeke ʻAike He \"A is a B\"",
+            "Pepeke ʻAike He is the name for the simple equative sentence \"A is a(n) B\". The pattern is \"He B (ʻo) A.\" ʻO marks the third person singular pronoun ia (which means \"he/she/it\") and all proper nouns.",
+            "Pepeke ʻAike ʻO is the name for the simple equative sentence \"A is B.\" The pattern is \" ʻO A (ʻo) B,\" where the order of the nouns is interchangeable and where ʻo invariably marks the third person singular pronoun ia and all proper nouns (r",
+            "Pepeke Henua is the name for the simple equative sentence \"A is located (in/on/at/etc. B).\" The pattern is \"Aia (ʻo) A...\"",
+            "Pepeke ʻAike Na is the name of the simple equative sentence \"A belongs to B.\" The pattern is \"Na (B) A.\" The singular pronouns undergo predictable changes."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Other verbal particles",
+          "body": "Other post-verbal markers include[6]: pp.228–231 \n\nverb + mai: \"toward the speaker\"\n\nverb + aku: \"away from the speaker\"\n\nverb + iho: \"down\"\n\nverb + aʻe: \"up\", \"adjacent\"\n\nstative verb + iā + agent: agent marker",
+          "examples": [
+            "verb + mai: \"toward the speaker\"",
+            "verb + aku: \"away from the speaker\"",
+            "verb + iho: \"down\"",
+            "verb + aʻe: \"up\", \"adjacent\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        },
+        {
+          "heading": "Causative verb creation",
+          "body": "Causative verbs can be created from nouns and adjectives by using the prefix ho'o-, as illustrated in the following:[3]: p.24 \n\nnani \"pretty\"; hoʻonani \"to beautify\"\n\nnui \"large\"; hoʻonui \"to enlarge\"\n\nhui \"club\"; hoʻohui \"to form a club\"",
+          "examples": [
+            "nani \"pretty\"; hoʻonani \"to beautify\"",
+            "nui \"large\"; hoʻonui \"to enlarge\"",
+            "hui \"club\"; hoʻohui \"to form a club\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Reduplication",
+      "summary": "Reduplication[3]: p.23  can emphasize or otherwise alter the meaning of a word.  Examples are:",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Reduplication[3]: p.23  can emphasize or otherwise alter the meaning of a word.  Examples are:\n\nʻau \"to swim\"; ʻauʻau \"to bathe\"\n\nhaʻi \"to say\"; haʻihaʻi \"to speak back and forth\"\n\nmaʻi \"sick\"; maʻimaʻi \"chronically sick\"",
+          "examples": [
+            "ʻau \"to swim\"; ʻauʻau \"to bathe\"",
+            "haʻi \"to say\"; haʻihaʻi \"to speak back and forth\"",
+            "maʻi \"sick\"; maʻimaʻi \"chronically sick\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Hawaiian_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

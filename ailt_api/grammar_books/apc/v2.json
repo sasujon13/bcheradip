@@ -1,0 +1,447 @@
+{
+  "title": "Grammar Book — شامي",
+  "languageCode": "apc",
+  "languageName": "شامي",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "This article contains Levantine written in Arabic characters. Without proper rendering support, you may see احنا‎ and احنا‎ appearing as two different characters. If so, apply this custom style in your user settings:\n[lang=apc] { font-family: 'Segoe UI', Tahoma; }\n.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Grammar of the Levantine Arabic variety\n\nThis article contains Levantine written in Arabic characters. Without proper rendering support, you may see احنا‎ and احنا‎ appearing as two different characters. If so, apply this custom style in your user settings:\n[lang=apc] { font-family: 'Segoe UI', Tahoma; }\n.\n\nLevantine Arabic grammar is the set of rules by which Levantine Arabic creates statements, questions and commands. In many respects, it is quite similar to that of the other vernacular Arabic varieties.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Word order",
+      "summary": "Both VSO (verb before subject before object) and SVO (subject before verb before object) word orders are possible in Levantine Arabic. The verb is before the object (VO).[1] However, Classical Arabic tends to prefer VSO, whereas in Levantine SVO is more common.[2] Subject-initial",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Both VSO (verb before subject before object) and SVO (subject before verb before object) word orders are possible in Levantine Arabic. The verb is before the object (VO).[1] However, Classical Arabic tends to prefer VSO, whereas in Levantine SVO is more common.[2] Subject-initial order indicates topic-prominent sentences, while verb-initial order indicates subject-prominent sentences.[3]\n\nIn interrogative sentences, the interrogative particle comes first.[4]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Copula",
+      "summary": "There is no copula used in the present tense in Levantine. In other tenses, the verb kān (كان) is used. Its present tense form is used in the future tense.[5]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "There is no copula used in the present tense in Levantine. In other tenses, the verb kān (كان) is used. Its present tense form is used in the future tense.[5]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Definiteness",
+      "summary": "See also: Arabic definite article\nThere is no indefinite article in Levantine Arabic. Nouns (except proper nouns) are automatically indefinite by the absence of the definite article.[6]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "See also: Arabic definite article\nThere is no indefinite article in Levantine Arabic. Nouns (except proper nouns) are automatically indefinite by the absence of the definite article.[6]\n\nThe Arabic definite article ال (il) precedes the noun or adjective and has multiple pronunciations. Its vowel is dropped when the preceding word ends in a vowel. A helping vowel \"e\" is inserted if the following word begins with a consonant cluster.[7]\n\nIt assimilates with \"Sun letters\" - any consonant pronounced with the tip of the tongue. Other letters are called \"Moon letters\".[7] The letter Jeem (ج) is a special case. It is usually a Sun letter for speakers pronouncing it as [ʒ] but not for those pronouncing it as [d͡ʒ].[6][8]\n\nDefiniteness in Levantine: Examples\n\nMoon letter\n\nالبيت\nil-bēt\n\nSun letter (assimilation)\n\nالشمس\niš-šams\n\nLetter Jeem (ج)\n\nالجمعة\nil-jumʕa [ɪl.ˈd͡ʒʊm.ʕa] / ij-jumʕa [ɪʒ.ˈʒʊm.ʕa]\n\nConsonant cluster\n\nالكتاب\nle-ktāb",
+          "examples": [
+            "The Arabic definite article ال (il) precedes the noun or adjective and has multiple pronunciations. Its vowel is dropped when the preceding word ends in a vowel. A helping vowel \"e\" is inserted if the following word begins with a consonant ",
+            "It assimilates with \"Sun letters\" - any consonant pronounced with the tip of the tongue. Other letters are called \"Moon letters\".[7] The letter Jeem (ج) is a special case. It is usually a Sun letter for speakers pronouncing it as [ʒ] but no"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Nouns",
+      "summary": "There is no case marking in Levantine (contrary to Classical Arabic).[9]",
+      "sections": [
+        {
+          "heading": "Case",
+          "body": "There is no case marking in Levantine (contrary to Classical Arabic).[9]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "Nouns can be either masculine or feminine. In the singular, most feminine nouns end with Tāʼ marbūṭah (ـة). This is pronounced as –a or -e depending on the preceding consonant. Generally, -a after guttural (ح خ ع غ ق ه ء) and emphatic consonants (ر ص ض ط ظ), and -e after other consonants.[10]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Nouns in Levantine can be singular, dual or plural.[11][10]\n\nThe dual is invariably formed with suffix -ēn (ين-).[12][10] The dual is often used in a non-exact sense, especially in temporal and spatial nouns:\n\n‏جمعة‎, jumʕa, one week\n\n‏جمعتين‎, jumʕatēn, a couple of weeks (lit. 'two weeks')[9]\n\nFor nouns referring to humans, the regular (also called sound) masculine plural is formed with the suffix -īn. The regular feminine plural is formed with -āt. The masculine plural is used to refer to a group with both gender. However, there are many broken plurals (also called internal plurals),[13][10] in which the consonantal root of the singular is changed (nonconcatenative morphology). These plural patterns are shared with other varieties of Arabic and may also be applied to foreign borrowings: such as faːtuːra (plural: fwaːtiːr), from the Italian fattura, invoice.[9] The plural of loanwords may be sound or broken.[14] Several patterns of broken plurals exist and it is not possible to exactly predict them.[15]\n\nInanimate objects take feminine singular agreement in the plural, for verbs, attached pronouns, and adjectives.[16]\n\nSome foreign words that designate weights and measures such as sαnti (centimeter), šēkel (shekel), and kīlo (kilometer/kilogram) (but not mitr, meter, which behaves like other Arabic nouns) are invariable. The dual form is not used and numbers 3–10 don't lose their final vowel when followed by these nouns:\n\nšēkel: 1 shekel\n\ntnēn šēkel: 2 shekels\n\ntalāte šēkel: 3 shekels\n\nʕašara šēkel: 10 shekels[17]\n\nThe 12 most common broken plural patterns[15]\n\nPattern (Arabic)\nPattern (Latin)\nExample\nEnglish meaning\n\nـَ و ا ـِ ـ\nCawāCeC\n‏شارع‎ šāreʕ \n ‏شوارع‎ šawāreʕ\nstreet \n streets\n\nأَ ـْ ـ ا ـ\nʔaCCāC\n‏شخص‎ šaḵṣ \n ‏أشخاص‎ ʾašḵāṣ\nperson \n people\n\nـَ ـ ا ـِ ي ـ\nCaCāCīC\n‏دكان‎ dukkān \n ‏دكاكين‎ dakākīn\nconvenience store \n convenience stores\n\nـُ ـُ و ـ\nCuCūC\n‏حرف‎ ḥarf \n ‏حروف‎ ḥurūf\nletter \n letters\n\nـُ ـَ ـ\nCuCaC\n‏قصة‎ ʾuṣṣa \n ‏قصص‎ ʾuṣaṣ\nstory \n stories\n\nـِ ـَ ـ\nCiCaC\n‏فريق‎ farīq \n ‏فرق‎ firaq\nteam \n teams\n\nـُ ـَ ـ ا\nCuCaCa\n‏مدير‎ mudīr \n ‏مدرا‎ mudara\nmanager \n managers\n\nـُ ـّ ا ـ\nCuC2C2āC\n‏طالب‎ ṭāleb \n ‏طلاب‎ ṭullāb\nstudent \n students\n\nأَ ـْ ـِ ـ ة\nʔaCCiCe\n‏جهاز‎ jihāz \n ‏أجهزة‎ ʾajhize\nelectrical device \n electrical devices\n\nـُ ـُ ـ\nCuCoC\n‏مدينة‎ madīne \n ‏مدن‎ mudon\ncity \n cities\n\nـُ ـْ ـ ا ن\nCuCCān\n‏قميص‎ ʾamīṣ \n ‏قمصان‎ ʾumṣān\ndress shirt \n dress shirts\n\nأَ ـْ ـِ ـ ا ء\nʔaCCiCāʔ\n‏صديق‎ ṣadīq \n ‏أصدقاء‎ ʾaṣdiqāʾ\nfriend \n friends",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Nominal sentences",
+          "body": "Phrasal word order is head-dependent:[1]\n\nNoun-Genitive\n\nNoun-Adjective\n\nNoun-Relative clause.\n\nThe genitive relationship is formed by putting the nouns next to each other,[18] this construct is called Iḍāfah (lit. 'addition'). The first noun is always indefinite. If an indefinite noun is added to a definite noun, it results in a new definite compound noun.[19][20][21]\n\nBesides possessiveness, the Iḍāfah construct can be used to specify or define the first term.[19]\n\nPossession can also be expressed with تبع, tabaC, especially for loanwords:\n\nmy dog: kalbi or il-kalb tabaCi,\n\nthe neighbors' house: bēt il-jirᾱn or il-bēt tabaC il-jirᾱn\n\nyour radio: ir-rᾱdyo tabaCkom.[22]\n\nThere is no limit to the number of nouns that can be strung together in an Iḍāfah. However, it is rare to have three or more words, except with very common or monosyllabic nouns.[18]\n\nThe Iḍāfah construct is different from the noun-adjective structure. In an Iḍāfah construct, the two nouns might be different in terms of their definiteness: the first is indefinite, the second is usually definite. Whereas adjectives always agree with nouns in definiteness.[23][19]\n\nThe first term must be in the construct state: if it ends in the feminine marker (/-ah/, or /-ih/), it changes to (/-at/, /-it/) in pronunciation (i.e. ة pronounced as \"t\"). Whereas in a noun-adjective string, the pronunciation would remain (/-ah/, /-ih/).[19]\n\nIḍāfah and noun-adjective examples[19][23][22]\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\nNote\n\nكتاب إستاذ\nktāb ʾistāz\na book of a/the teacher\nIḍāfah of two indefinite nouns\n\nكتاب الإستاذ\nktāb il-ʾistāz\nthe book of the teacher\nIḍāfah of indefinite + definite noun\n\nكتاب الإستاذ الجديد\nktāb il-ʾistāz le-jdīd\nthe new book of the teacher OR the book of the new teacher\nThe adjective is definite, because the Iḍāfah is definite. Both meanings are possible, to avoid confusion the preposition -la can be used to split the Iḍāfah.\n\nالكتاب الجديد للإستاذ\nle-ktāb le-jdīd l-il-ʾistāz\nthe new book of the teacher\nSplit Iḍāfah\n\nالكتاب للإستاذ الجديد\nle-ktāb l-il-ʾistāz le-jdīd\nthe book of the new teacher\nSplit Iḍāfah\n\nالكتاب الجديد تبع الإستاذ\nle-ktāb le-jdīd tabaC il-ʾistāz\nthe teacher's new book\nUse of تبع, tabaC to avoid confusion.\n\nكتاب إستاذ العربي\nktāb ʾistāz il-ʕarabi\nthe book of the teacher of Arabic\nChained Iḍāfah, only the last noun takes the definite article\n\nمجلة جديدة\nmajalle jdīde\na new magazine\nNoun-adjective: ة pronounced as \"ih\"\n\nمجلة الإستاذ\nmajallet il-ʾistāz\nthe magazine of the teacher\nة pronounced as \"t\" in construct state\n\nبيت خالد\nbēt ḵālid\nKhalid's house\nWith a proper noun: possessiveness\n\nمدينة نيويورك\nmadīnet nyū-yōrk\nNew York City\nFirst noun ends with ah (pronounced as \"t\"), second is a proper noun\n\nمدينة زغيرة\nmadīne zḡīre\na small town/city\nNoun-adjective, ة pronounced as \"ah\"\n\nصحن حمص\nṣaḥen ḥummuṣ\nhummus dish",
+          "examples": [
+            "The first term must be in the construct state: if it ends in the feminine marker (/-ah/, or /-ih/), it changes to (/-at/, /-it/) in pronunciation (i.e. ة pronounced as \"t\"). Whereas in a noun-adjective string, the pronunciation would remain",
+            "Noun-adjective: ة pronounced as \"ih\"",
+            "ة pronounced as \"t\" in construct state",
+            "First noun ends with ah (pronounced as \"t\"), second is a proper noun",
+            "Noun-adjective, ة pronounced as \"ah\""
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Verbal nouns",
+          "body": "Verbal nouns (also called gerunds or masdar[24]) play an important role in Levantine. Derived from a verb root, they can be used as a noun (\"food\") or as a gerund (\"eating\").[25] Verbal nouns do not exist as infinitives, they are not part of the verbal system but of the lexicon.[3]\n\nVerbal nouns declension patterns for the ten verb forms[a][25]\n\nForm\n\nVerb pattern\n\nVerbal noun pattern\n\nExample[26]\n\nMost common\n\nVariants\n\nVerb\n\nVerbal noun\n\nForm I\nC1vC2vC3\nC1vC2C3\nMany variants\n‏‏درس‎\n daras\n (to study, to learn)\n‏درس‎\n dars\n (a lesson)\n\nForm II\nC1aC2C2aC3\ntaC1C2īC3\ntaC1C2iC3a / tiC1C2āC3\n‏قدّم‎\n qaddam\n (to present, to offer)\n‏تقديم‎\n taqdīm\n (a presentation, presenting)\n\nForm III\nC1v̄C2aC3\nmuC1v̄C2aC3a\nC1iC2v̄C3\n‏ساعد‎\n sāʕad\n (to help)\n‏مساعدة‎\n musāʕada\n (help, assistance)\n\nForm IV\nʔaC1C2aC3\n\nʔiC1C2āC3\n\n‏أقنع‎\n ʾaqnaʿ\n (to convince)\n‏إقناع‎\n ʾiqnāʿ\n (convincing)\n\nForm V\ntC1aC2C2aC3\n\ntaC1aC2C2uC3\n\n‏تجنب‎\n tjannab\n (to avoid)\n‏تجنّب‎\n tajannub\n (avoiding, avoidance)\n\nForm VI\ntC1v̄C2aC3\n\ntaC1v̄C2uC3\n\n‏تجاهل‎\n tjāhal\n (to ignore)\n‏تجاهل‎\n tajāhul\n (ignoring)\n\nForm VII\nnC1aC2aC3 (North)\n inC1aC2aC3 (South)\n\ninC1iC2v̄C3\n\n‏انبسط‎\n inbasaṭ\n (to be happy, to have fun)\n‏انبساط‎\n inbisāṭ\n (happiness)\n\nForm VIII\nC1tvC2vC3 (North)\n iC1tvC2vC3 (South)\n\niC1tiC2v̄C3\n\n‏اقترح‎\n iqtaraḥ\n (to suggest)\n‏اقتراح‎\n iqtirāḥ\n (a suggestion)\n\nForm IX\nC1C2aC3C3 (North)\n iC1C2aC3C3 (South)\n\niC1C2iC3āC3\n\n‏احمر‎\n iḥmarr\n (to blush, to turn red)\n‏احمرار‎\n iḥmirār\n (blushing, turning red)\n\nForm X\nstaC1C2aC3 (North)\n istaC1C2aC3 (South)\n\nistiC1C2āC3\n\n‏استعمل‎\n istaʕmal\n (to use)\n‏استعمال‎\n istiʕmāl\n (use, usage)",
+          "examples": [
+            "Verbal nouns (also called gerunds or masdar[24]) play an important role in Levantine. Derived from a verb root, they can be used as a noun (\"food\") or as a gerund (\"eating\").[25] Verbal nouns do not exist as infinitives, they are not part o",
+            "Example[26]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Numerals",
+      "summary": "Number one and two have a masculine and feminine form. When used with a noun, they rather follow it like an adjective than precede it for emphasis.[27] An exception are uncountable nouns.[28] When the number 2 is accompanied by a noun, the dual form is usually used: waladēn, 2 bo",
+      "sections": [
+        {
+          "heading": "Cardinal numbers",
+          "body": "Number one and two have a masculine and feminine form. When used with a noun, they rather follow it like an adjective than precede it for emphasis.[27] An exception are uncountable nouns.[28] When the number 2 is accompanied by a noun, the dual form is usually used: waladēn, 2 boys.[27]\n\nNumbers larger than 3 do not have gender but may have two forms, one used before nouns and one used independently.[29] In particular, numbers between 3 and 10 lose their final vowel before a noun.[27]\n\nNumbers from 3 to 10 are followed by plural nouns. Numbers from 11 to 99 are followed by a singular.[29][30][27]\n\nNumbers 100 and onwards follow the same rule as numbers 0–99 based on their last two digits. 100 and 101 are followed by a singular, 102 is followed by a dual (102 books: miyye u-ktābēn), 103–110 by a plural, and 111–199 is like 11–99, followed by a singular.[31]\n\nBefore a small set of nouns (e.g. ألف, ʾalf, \"thousand\") the independent form is used in construct state (ة pronounced as \"t\"). مية (miyye, \"hundred\") is always in construct state before nouns.[28]\n\nLevantine cardinal numbers[28][27][31]\n\nNumber\nGender\n\nIndependent\nFollowed by noun\nNumber of noun\n\n0 / ٠\n\n‏صفر‎ ṣifr\n—N/a\nPlural\n\n1 / ١\n\nm\n\n‏واحد‎ wāḥad\n—N/a\nSingular\n\nf\n\n‏واحدة‎‎ waḥde\n—N/a\n\n2 / ٢\n\nm\n\n‏تنين‎ tnēn\n—N/a\nDual or plural\n\nf\n\n‏تنتين‎‎ tintēn\n—N/a\n\n3 / ٣\n\n‏تلاتة‎ talāte (South)\n‏تلاتة‎ tlēte (North)\n‏تلت‎‎ talat/tlat (South)\n‏تلات‎‎ tlēt/tlat (North)\nPlural\n\n4 / ٤\n\n‏أربعة‎ ʾarbaʕa\n‏أربع‎‎ ʾarbaʕ\n\n5 / ٥\n\n‏خمسة‎ ḵamse\n‏خمس‎‎ ḵams\n\n6 / ٦\n\n‏ستة‎ sitte\n‏ست‎‎ sitt\n\n7 / ٧\n\n‏سبعة‎ sabʕa\n‏سبع‎‎ sabʕ\n\n8 / ٨\n\n‏تمانية‎ tamānye (South)\n‏تمانة‎ tmēne (North)\n‏تمن‎‎ taman/tman (South)\n‏تمن‎‎ tman/tmin (North)\n\n9 / ٩\n\n‏تسع‎ tisʕa\n‏تسع‎‎ tisʕ\n\n10 / ١٠\n\n‏عشرة‎ ʕašara\n‏عشر‎‎ ʕašr\n\n11 / ١١\n\n‏احدعش‎ (i)ḥdaʕš\n‏احدعشر‎‎ (i)ḥdaʕšar\nSingular\n\n12 / ١٢\n\n‏تنعش‎ tnaʕš\n‏تنعشر‎‎ tnaʕšar\n\n20 / ٢٠\n\n‏عشرين‎ ʕišrīn\n\n21 / ٢١\n\n‏واحد وعشرين‎ wāhad w-ʕišrīn\n\n30 / ٣٠\n\n‏تلاتين‎ talatīn (South) / tlētīn (North)\n\n100 / ١٠٠\n\n‏مية‎ miyye\n‏مية‎ mīt\n\n101 / ١٠١\n\n‏مية وواحد‎ miyye u-wāḥad\n‏مية و-‎ miyye u- + Singular noun\n\n102 / ١٠٢\n\n‏مية وتنين‎ miyye u-tnēn\n‏مية و-‎ miyye u- + Dual noun\nDual\n\n103 / ١٠٣\n\n‏مية وتلاتة‎ miyye u-talāte\n‏مية وتلت‎‎ miyye u-talat\nPlural\n\n200 / ٢٠٠\n\n‏ميتين‎ mītēn\nSingular\n\n300 / ٣٠٠\n\n‏تلتمية‎ t(a)lat-miyye\n‏تلتمية‎ t(a)lat-mīt\n\n1000 / ١٠٠٠\n\n‏ألف‎ ʾalf\n\n2000 / ٢٠٠٠\n\n‏ألفين‎ ʾalfēn\n\n3000 / ٣٠٠٠\n\n‏تلتة آلاف‎ t(a)latt‿ālāf\n\n10000 / ١٠٠٠٠\n\n‏عشرة آلاف‎ ʕašert‿ālāf\n\n11000 / ١١٠٠٠\n\n‏إحدشر ألف‎‎ ʾiḥdaʕšar ʾalf\n\n100000 / ١٠٠٠٠٠\n\n‏مية ألف‎‎ mīt ʾalf",
+          "examples": [
+            "Before a small set of nouns (e.g. ألف, ʾalf, \"thousand\") the independent form is used in construct state (ة pronounced as \"t\"). مية (miyye, \"hundred\") is always in construct state before nouns.[28]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Ordinal numbers and fractions",
+          "body": "Ordinal numbers can either precede or follow the noun. If they precede the noun the masculine form is used and the definite article is dropped.[28]\n\nOrdinal numbers above 10 do not exist, instead the cardinal numbers are used following the noun.[28]\n\nOrdinal numbers in Levantine[28]\n\nOrdinal number\n\nFraction\n\nNumber\nMasculine or\nfollowed by noun\nFeminine\nPlural\n\nNumber\nSingular\nPlural\n\n1 / ١\n\n‏أول‎ ʾawwal\n‏أولى‎‎ ʾūla\n‏أوائل‎ ʾawāʾel or ‏أولى‎ ʾuwala\n\n—N/a\n\n2 / ٢\n\n‏تاني‎ tāni\n‏تانية‎‎ tānye\n‏تانين‎ tānyīn\n\n1⁄2 / ١⁄٢\n\n‏نص‎ nuṣṣ\n‏أنصاص‎ (ʾa)nṣāṣ\n\n3 / ٣\n\n‏تالت‎ tālet\n‏تالتة‎ tālte\n‏تالتين‎ tāltīn\n\n1⁄3 / ١⁄٣\n\n‏تلت‎ tult\n‏تلات‎ tlāt\n\n4 / ٤\n\n‏رابع‎ rābeʕ\n‏رابعة‎ rābʕa\n‏رابعين‎ rābʕīn\n\n1⁄4 / ١⁄٤\n\n‏ربع‎ rubʕ\n‏رباع‎ rbāʕ\n\n5 / ٥\n\n‏خامس‎ ḵāmes\n‏خامسة‎ ḵāmse\n‏خامسين‎ ḵāmsīn\n\n1⁄5 / ١⁄٥\n\n‏خمس‎ ḵums\n‏أخماس‎ (ʾa)ḵmās\n\n6 / ٦\n\n‏سادس‎ sādes\n‏سادسة‎ sādse\n‏سادسين‎ sādsīn\n\n1⁄6 / ١⁄٦\n\n‏سدس‎ suds\n‏أسداس‎ (ʾa)sdās\n\n7 / ٧\n\n‏سابع‎ sābeʕ\n‏سابعة‎ sābʕa\n‏سابعين‎ sābʕīn\n\n1⁄7 / ١⁄٧\n\n‏سبع‎ subʕ\n‏أسباع‎ (ʾa)sbāʕ\n\n8 / ٨\n\n‏تامن ‎ tāmen\n‏تامنة‎ tāmne\n‏تامنين‎ tāmnīn\n\n1⁄8 / ١⁄٨\n\n‏تمن‎ tumn\n‏أتمان‎ (ʾa)tmān\n\n9 / ٩\n\n‏تاسع‎ tāseʕ\n‏تاسعة‎ tāsʕa\n‏تاسعين‎ tāsʕīn\n\n1⁄9 / ١⁄٩\n\n‏تسع‎ tusʕ\n‏أتساع‎ (ʾa)tsāʕ\n\n10 / ١٠\n\n‏عاشر‎ ʕāšer\n‏عاشرة‎ ʕāšra\n‏عاشرين‎ ʕāšrīn\n\n1⁄10 / ١⁄١٠\n\n‏عشر‎ ʕušr\n‏أشار‎ (ʾa)ʕšār",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Adjectives",
+      "summary": "Many adjectives have the pattern فعيل (fʕīl / CCīC or faʕīl / CaCīC) but other patterns are also possible.[20]",
+      "sections": [
+        {
+          "heading": "Form",
+          "body": "Many adjectives have the pattern فعيل (fʕīl / CCīC or faʕīl / CaCīC) but other patterns are also possible.[20]\n\nAdjectives derived from nouns by the suffix ـي (-i) are called Nisba adjectives. Their feminine form ends in ـية (-iyye) and the plural in ـيين (-iyyīn).[32]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "Adjectives typically have three form: a masculine singular, a feminine singular, and a plural which does not distinguish gender. In most adjectives the feminine is formed through addition of -a/e, sometimes dropping an unstressed short vowel.[33]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Number",
+          "body": "Nouns in dual have adjectives in plural.[20]\n\nThe plural of adjectives is either regular ending in ـين (-īn) or is an irregular \"broken\" plural. It is used with nouns referring to people. For non-human / inanimate / abstract nouns, adjectives can use either the plural or the singular feminine form regardless of the noun's gender.[33][20][34][16]",
+          "examples": [
+            "The plural of adjectives is either regular ending in ـين (-īn) or is an irregular \"broken\" plural. It is used with nouns referring to people. For non-human / inanimate / abstract nouns, adjectives can use either the plural or the singular f"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Word order",
+          "body": "Adjectives follow the noun they modify and agree with it in definiteness. Adjectives without an article after a definite noun express a clause with the invisible copula \"to be\".[35]\n\nExamples\n\nبيت كبير bēt kbīr\na big house\n\nالبيت الكبير il-bēt le-kbīr\nthe big house\n\nالبيت كبير il-bēt kbīr\nthe house is big\n\nThere is no dominant order for degree words and adjectives: Adverbs of degree like ‏كتير‎ (ktīr, \"very\") and ‏شوي‎ (šwayy, \"a little / a bit\") can either precede or follow the adjective.[1]",
+          "examples": [
+            "Adjectives follow the noun they modify and agree with it in definiteness. Adjectives without an article after a definite noun express a clause with the invisible copula \"to be\".[35]",
+            "Examples",
+            "There is no dominant order for degree words and adjectives: Adverbs of degree like ‏كتير‎ (ktīr, \"very\") and ‏شوي‎ (šwayy, \"a little / a bit\") can either precede or follow the adjective.[1]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Superlative and comparative",
+          "body": "There are no separate comparative and superlative forms but the elative is used in both cases.[33]\n\nThe elative is formed by adding a hamza at the beginning of the adjective and replace the vowels by \"a\" (pattern: أفعل ʾafʕal / aCCaC).[20] Adjective endings in ‏ي‎ (i) and ‏و‎ (u) are changed into ‏ی‎ (a). If the second and third consonant in the root are the same, they are geminated (pattern: أفلّ ʾafall / ʾaCaCC).[36]\n\nSpeakers who pronounce ‏ق‎ as hamza might pronounced the elative prefix as \"h\" in order to avoid two consecutive hamzas.[37]\n\nExamples of elative adjectives\n\nAdjective\nElative\n\nRegular\n\n‏كبير‎ kbīr\n‏أكبر‎ ʾakbar\n\n‏سهل‎ sahl\n‏أسهل‎ ʾashal\n\n‏قديم‎ ʾadīm\n‏أقدم‎ ʾaʾdam / haʾdam\n\nGemination\n\n‏جديد‎ jdīd\n‏أجدّ‎ ʾajadd\n\n‏قليل‎ ʾalīl\n‏أقلّ‎ ʾaʾall / haʾall\n\nFinal i/u\n\n‏عالي‎ ʕāli\n‏أعلى‎ ʾaʕla\n\n‏حلو‎ ḥilu\n‏أحلى‎ ʾaḥla\n\nIrregular\n\n‏منيح‎ mnīḥ / ‏كويس‎ kwayyes\n‏أحسن‎ 'aḥsan (from ‏حسن‎ ḥasan)\n\nWhen an elative modifies a noun, it precedes the noun an no definite article is used.[38]\n\nIn order to compare two things, the word ‏من‎ (min, lit. 'from') is used in the sense of \"than\" in English.[38]\n\nExamples of elative sentences\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\n\nأحسن إشي\nʾaḥsan ʾiši\nthe best thing\n\nهالإشي أحسن\nha-l-ʾiši ʾaḥsan\nthis thing is better / the best\n\nهالإشي أحسن من إشي تاني\nha-l-ʾiši ʾaḥsan min ʾiši tāni\nthis thing is better than something else\n\nNot all adjectives can form an elative, especially those that are participles or derived from nouns. In this case, ‏أكتر‎ (ʾaktar, \"more, most\") is used.[33]\n\nExamples of comparative and superlative using ‏أكتر‎ (ʾaktar, \"more, most\")\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\n\n‏مجنون‎\nmajnūn\ncrazy\n\nمجنون أكتر\nmajnūn ʾaktar\ncrazier / craziest\n\nهو مجنون أكتر منك\nhuwwe majnūn ʾaktar minnak\nhe is crazier than you\n\nأكتر واحد مجنون\nʾaktar wāḥad majnūn\nthe craziest one",
+          "examples": [
+            "The elative is formed by adding a hamza at the beginning of the adjective and replace the vowels by \"a\" (pattern: أفعل ʾafʕal / aCCaC).[20] Adjective endings in ‏ي‎ (i) and ‏و‎ (u) are changed into ‏ی‎ (a). If the second and third consonant",
+            "Speakers who pronounce ‏ق‎ as hamza might pronounced the elative prefix as \"h\" in order to avoid two consecutive hamzas.[37]",
+            "Examples of elative adjectives",
+            "In order to compare two things, the word ‏من‎ (min, lit. 'from') is used in the sense of \"than\" in English.[38]",
+            "Examples of elative sentences",
+            "Not all adjectives can form an elative, especially those that are participles or derived from nouns. In this case, ‏أكتر‎ (ʾaktar, \"more, most\") is used.[33]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Prepositions",
+      "summary": "Prepositions must precede nominals in Levantine.[4]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Prepositions must precede nominals in Levantine.[4]\n\nCommon prepositions[3]\n\nLevantine\nEnglish\n\n‏بـ‎ bi-\nwith; in, at\n\n‏فِي‎ fī\nin, at\n\n‏مَعَ‎ maʕ\nwith, along with\n\n‏مِن‎ min\nfrom; than\n\n‏لـ‎ la-\nto; for\n\n‏عـ‎ ʕa- / ‏على‎ ʕāla\non, upon; to; about\n\n‏قبل‎ ʾabl\nbefore\n\n‏بعد‎ baʕd\nafter\n\n‏قدّام‎ ʾuddām\nin front of\n\n‏ورا‎ wara\nbehind\n\n‏فوق‎ fōʾ\nabove, over\n\n‏تحت‎ taḥt\nbelow, under\n\n‏بين‎ bēn\nbetween",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Pronouns",
+      "summary": "Feminine plural forms modifying human females are found mostly in rural and Bedouin areas. They are not mentioned below.[39]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Feminine plural forms modifying human females are found mostly in rural and Bedouin areas. They are not mentioned below.[39]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Personal pronouns",
+          "body": "Levantine has eight persons, and therefore eight pronouns. Dual forms that exist in Modern Standard Arabic do not exist in Levantine, the plural is used instead. Because conjugated verbs indicate the subject with a prefix and/or a suffix, independent subject pronouns are usually not necessary and are mainly used for emphasis.[40][41]\n\nIndependent personal pronouns\n\nLevantine independent personal pronouns[41][42]\n\nSingular\n\nPlural\n\n1st person (m/f)\n\n‏أنا‎ ʾana\n\n‏احنا‎ ʾiḥna (South) / ‏نحنا‎ niḥna (North)\n\n2nd person\n\nm\n\n‏انت‎ ʾinta\n\n‏انتو‎ / ‏انتوا‎ ʾintu\n\nf\n\n‏انتي‎ ʾinti\n\n3rd person\n\nm\n\n‏هو‎ huwwe\n\n‏هم‎ humme (South) / ‏هن‎ hinne (North)\n\nf\n\n‏هي‎ hiyye\n\nDirect object and possessive pronouns\nDirect object pronouns are indicated by suffixes attached to the conjugated verb. Their form depends whether the verb ends with a consonant or a vowel. Suffixed to nouns, these pronouns express possessive.[43][41]\n\nLevantine enclitic pronouns, direct object and possessive[41]\n\nSingular\n\nPlural\n\nafter consonant\n\nafter vowel\n\n1st person\n\nafter verb\n\n‏ـني‎ -ni\n\n‏ـنا‎ -na\n\nelse\n\n‏ـِي‎ -i\n\n‏ـي‎ -y\n\n2nd person\n\nm\n\n‏ـَك‎ -ak\n\n‏ـك‎ -k\n\n‏ـكُن‎ -kun (North)\n‏ـكُم‎ -kom ‏ـكو‎ -ku (South)\n\nf\n\n‏ـِك‎ -ik\n\n‏ـكِ‎ -ki\n\n3rd person\n\nm\n\n‏و‎ -u (North)\n‏ـُه‎ -o (South)\n\n‏ـه‎ (silent)[b]\n\n‏ـُن‎ -(h/w/y)un (North)\n‏ـهُم‎ -hom (South)\n\nf\n\n‏ـا‎ -a (North)\n‏ـها‎ -ha (South)\n\n‏ـا‎ -(h/w/y)a (North)\n‏ـها‎ -ha (South)\n\nIf a pronoun is already attached on the end of a word, the second pronoun is attached to يا yā (after a vowel) / iyā- (after a consonant), for instance: بدي ياك beddi yaak (I want you (m)).[44][45]\n\nIndirect object pronouns\nIndirect object pronouns (dative) are suffixed to the conjugated verb. They are form by adding an ل (-l) and then the possessive suffix to the verb.[39] They precede object pronouns if present:\n\njāb il-jarīde la-ʔabūy: he brought the newspaper to my father,\n\njāb-ha la-ʔabūy: he brought it to my father,\n\njab-lo il-jarīde: he brought him the newspaper,\n\njab-lo yyā-ha: he brought him it.[39][45]\n\nLevantine indirect object pronoun suffixes[41]\n\nSingular\n\nPlural\n\n1st person (m/f)\n\n‏ـلي‎ -li\n\n‏ـلنا‎ -lna\n\n2nd person\n\nm\n\n‏لَك‎ -lak\n\n‏ـلكُن‎ -lkun (North)\n‏ـلكُم‎ -lkom, ‏ـلكو‎ -lku (South)\n\nf\n\n‏ـِلك‎ -lik\n\n3rd person\n\nm\n\n‏لو‎ -lu (North)\n‏لُه‎ -lo (South)\n\n‏ـلُن‎ -lun (North)\n‏ـلهُم‎ -lhom (South)\n\nf\n\n‏ـلا‎ -la (North)\n‏ـلها‎ -lha (South)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Demonstrative pronouns",
+          "body": "Demonstrative pronouns have three referential types: immediate, proximal, and distal. The distinction between proximal and distal demonstratives is of physical, temporal, or metaphorical distance. The genderless and numberless immediate demonstrative article ‏ها‎ ha is translated by \"this/the\", to designate something immediately visible or accessible.[46]\n\nLevantine demonstrative pronouns\n\nSingular\n\nPlural\n\nProximal\n(this, these)\n\nm\n\n‏هادا‎ hāda / ‏هاد‎ hād (South, Syria)\n‏هيدا‎ hayda (Lebanon)\n\n‏هدول‎ hadōl (South, Syria)\n‏هيدول‎ haydōl / ‏هودي‎ hawdi (Lebanon)\n\nf\n\n‏هادي‎ hādi / ‏هاي‎ hāy (South)\n‏هيّ‎ hayy (Syria)\n‏هيدي‎ haydi (Lebanon)\n\nDistal\n(that, those)\n\nm\n\n‏هداك‎ hadāk (South, Syria)\n‏هيداك‎ haydāk (Lebanon)\n\n‏هدولاك‎ hadōlāk (South)\n‏هدوليك‎ hadōlīk (Syria)\n‏هيدوليك‎ haydōlīk (Lebanon)\n\nf\n\n‏هديك‎ hadīk (South, Syria)\n‏هيديك‎ haydīk (Lebanon)",
+          "examples": [
+            "Demonstrative pronouns have three referential types: immediate, proximal, and distal. The distinction between proximal and distal demonstratives is of physical, temporal, or metaphorical distance. The genderless and numberless immediate dem"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Interrogative pronouns",
+          "body": "Interrogative pronouns in Levantine[46]\n\nLevantine\nEnglish\n\n‏مين‎ mīn\nwho\n\n‏لمين‎ la-mīn\nwhose\n\n‏شو‎ šū / ‏إيش‎ ʾēš (South)\nwhat\n\n‏لشو‎ la-šu\nfor what\n\n‏ليش‎ lēš / ‏ليه‎ lē (Lebanon)\nwhy\n\n‏أيّ‎ ʾayy\nwhich\n\n‏إيمتى‎ ʾēmta / ‏إمتى‎ ʾimta (Lebanon)\nwhen\n\n‏وين‎ wēn\nwhere\n\n‏لوين‎ la-wēn\nwhere to\n\n‏من وين‎ min wēn / ‏منين‎ mnēn\nwhere from\n\n‏كيف‎ kīf / ‏شلون‎ šlōn (Syria)\nhow\n\n‏قدّيش‎ ʾaddēš / ‏قدّيه‎ ʾaddē (Lebanon)\nhow much\n\n‏كم‎ kam\nhow many\n\n‏كل قدّيش‎ kull/kill ʾaddēš / ‏كم مرّة‎ kam marra\nhow often",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Relative pronouns",
+          "body": "The relative pronoun, invariable for number and gender, is ‏اللي‎ (illi).[47]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Verbs",
+      "summary": "Like Arabic verbs, most Levantine verbs are based on a triliteral root (also called radical) made of three consonants (therefore also called triconsonantal root). The set of consonants communicates the basic meaning of a verb, e.g. k-t-b 'write', q-r-’ 'read', ’-k-l 'eat'. Change",
+      "sections": [
+        {
+          "heading": "Root",
+          "body": "Like Arabic verbs, most Levantine verbs are based on a triliteral root (also called radical) made of three consonants (therefore also called triconsonantal root). The set of consonants communicates the basic meaning of a verb, e.g. k-t-b 'write', q-r-’ 'read', ’-k-l 'eat'. Changes to the vowels in between the consonants, along with prefixes or suffixes, specify grammatical functions such as tense, person and number, in addition to changes in the meaning of the verb that embody grammatical concepts such as mood (e.g. indicative, subjunctive, imperative), voice (active or passive), and functions such as causative, intensive, or reflexive.[48]\n\nQuadriliteral roots are less common, but often used to coin new vocabulary or to Arabicize foreign words.[49][50]\n\nThe base form is the third-person masculine singular of the perfect (also called past) tense.[51]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Verb forms",
+          "body": "For broader coverage of this topic, see Wiktionary:Template:ajp-conj/documentation.\nAlmost all Levantine verbs can be categorized in one of ten verb forms (also called verb measures,[52] stems,[53] patterns,[54] or types[55]). Form I, the most common one, serves as a base for the other nine forms. Each form carries a different verbal idea, relative to the meaning of its root. Technically, 10 verbs can be constructed from any given triconsonantal root. However, all of those ten forms may not be used in practice by speakers.[48] After Form I, Forms II, V, VII, and X are the most common ones.[53]\n\nSound verb forms in Levantine[52][48][53][a]\n\nForm/Measure/Stem\nTendency of meaning\nPerfect pattern\nImperfect pattern\nExample\nRoot of the example\nNote\n\nForm I\nActive or stative verb (base form)\nC1vC2vC3\n-C1vC2vC3\n‏عمل‎\n ʕimil\n (to do, to make)\n‏ع م ل‎\n ʕ-m-l\n (related to work)\n—N/a\n\nForm II\nCauses action (Causative), shows intensity (Augmentative), or may indicates continuing action\nC1aC2C2aC3\n-C1aC2C2eC3\n‏علّم‎\n ʕallam\n (to teach)\n‏ع ل م‎\n ʕ-l-m\n (related to knowledge)\nMost productive form[20]\n\nForm III\nActive in meaning or shows attempt; focus is on one-sided action\nC1v̄C2aC3\n-C1v̄C2eC3\n‏عامل‎\n ʕāmal\n (to treat)\n‏ع م ل‎\n ʕ-m-l\n (related to work)\n—N/a\n\nForm IV\nCauses action, similar to Form II\nʔaC1C2aC3\n-C1C2eC3\n‏أعلن‎\n ʔaʕlan\n (to announce)\n‏ع ل ن‎\n ʔ-l-n\n (related to publicity)\nRare, limited to borrowings from MSA\n\nForm V\nReflexive/passive/mediopassive meaning for transitive Form II verbs\ntC1aC2C2aC3\n-tC1aC2C2aC3\n‏تعلّم‎\n tʕallam\n (to learn)\n‏ع ل م‎\n ʕ-l-m\n (related to knowledge)\nUsually intransitive\n\nForm VI\nReflexive/passive meaning for Form III or active in meaning\ntC1v̄C2aC3\n-tC1v̄C2eC3\n‏تعامل‎\n tʕāmal\n (to work or deal with)\n‏ع م ل‎\n ʕ-m-l\n (related to work)\nUsually intransitive\n\nForm VII\nReflexive/passive meaning for Form I or no particular tendency of meaning\nnC1aC2aC3 (North)\n inC1aC2aC3 (South)\n-nC1ǝC2eC3\n-nC1aːC2 in medial glide roots\n‏انبسط‎\n inbasaṭ\n (to have fun, enjoy oneself)\n‏ب س ط‎\n b-s-ṭ\n (related to spreading and extending)\n—N/a\n\nForm VIII\nActive, reflexive, or passive in meaning\nC1tvC2vC3 (North)\n iC1tvC2vC3 (South)\n-C1tvC2vC3\n‏اعترف‎\n iʕtaraf\n (to confess)\n‏ع ر ف‎\n ʕ-r-f\n (related to awareness)\nNot productive[20]\n\nForm IX\nInchoative verbs from adjectives: Changing of color or physical handicap\nC1C2aC3C3 (North)\n iC1C2aC3C3 (South)\n-C1C2aC3C3\n‏اِبْيَضَّ‎\n ibyaḍḍa\n (to become white)\n‏ب ي ض‎\n b-y-ḍ\n (related to whiteness)\nVery rare, replaced by ṣār \"to become\" + adjective[56]\n\nForm X\nSought to do something or believe something to be big, close, etc. (Denominal or deadjectival)\nstaC1C2aC3 (North)\n istaC1C2aC3 (South)\n-staC1C2eC3\n‏استعمل‎\n istaʕmal\n (to use)\n‏ع م ل‎\n ʕ-m-l\n (related to work)\nOften transitive verbs[20]\n\nAldrich also defines verb forms XI (for verbs based on quadriliteral roots) and XII (for passive or intransitive version of form XI verbs).[52]\n\nIn addition to its form, each verb has a \"quality\":\n\nSound (or regular): 3 distinct radicals, neither the second nor the third is w or y,\n\nVerbs containing the radicals w or y are called weak. They can be either:\nHollow: verbs with w or y as the second radical, which can become a long a in some forms, or\n\nDefective: verbs with w or y as the third radical, treated as a vowel,\n\nGeminate (or doubled): the second and third radicals are identical, remaining together as a double consonant.[52]\n\nSome irregular verbs do not fit into any of the verb forms.[52]\n\nThe initial i in verb forms VII, VIII, IX, X drops when the preceding word ends in a vowel or at the beginning of a sentence.[7]",
+          "examples": [
+            "Example",
+            "Very rare, replaced by ṣār \"to become\" + adjective[56]",
+            "In addition to its form, each verb has a \"quality\":"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Regular verb conjugation",
+          "body": "The Levantine verb has only two tenses: past (perfect) and present (also called imperfect, b-imperfect, or bi-imperfect). The future tense is an extension of the present tense. The negative imperative is the same as the negative present with helping verb (imperfect). The grammatical person and number as well as the mood are designated by a variety of prefixes and suffixes. The following table shows the paradigm of a sound Form I verb, katab (كتب) 'to write'.[48]\n\nThe b-imperfect is usually used for the indicative mood (non-past present, habitual/general present, narrative present, planned future actions, or potential). The prefix b- is deleted in the subjunctive mood, usually after various modal verbs, auxiliary verbs, pseudo-verbs, prepositions, and particles.[20][56][57][58]\n\nIn the following table, the accented vowel is in bold.\n\nConjugation of كتب, 'to write' (sound form I verb)\n\nNorth Levantine[59]\n\nSouth Levantine[60][61]\n\n1st person\n\n2nd person\n\n3rd person\n\n1st person\n\n2nd person\n\n3rd person\n\nPast[c]\n\nMasc.\n\n‏كتبت‎‎ katabit\n\n‏كتبت‎ katabit\n\n‏كتب‎ katab\n\n‏كتبت‎‎ katabt\n\n‏كتبت‎‎ katabt\n\n‏كتب‎‎ katab\n\nFem.\n\n‏كتبتي‎‎ katabti\n\n‏كتبت‎‎ katabit\n\n‏كتبتي‎‎ katabti\n\n‏كتبت‎‎ katbat\n\nPlural\n\n‏كتبنا‎‎ katabna\n\n‏كتبتو‎‎ katabtu\n\n‏كتبو‎‎‎ katabu\n\n‏كتبنا‎‎ katabna\n\n‏كتبتو‎‎‎ katabtu\n\n‏كتبو‎‎‎ katabu\n\nPresent[d]\n\nMasc.\n\n‏بكتب‎‎ biktub\n\n‏بتكتب‎ btiktub\n\n‏بيكتب‎‎ byiktub\n\n‏بكتب‎‎ baktob\n\n‏بتكتب‎‎ btuktob\n\n‏بكتب‎‎ buktob\n\nFem.\n\n‏بتكتبي‎‎ btiktbi\n\n‏بتكتب‎‎ btiktub\n\n‏بتكتبي‎‎ btuktobi\n\n‏بتكتب‎‎ btuktob\n\nPlural\n\n‏منكتب‎‎ mniktub\n\n‏بتكتبو‎‎ btiktbu\n\n‏بيكتبو‎‎ byiktbu\n\n‏منكتب‎‎‎ mnuktob\n‏بنكتب‎‎‎ bnuktob\n[62][e]\n\n‏بتكتبو‎‎‎ btuktobu\n\n‏بكتبو‎‎‎ buktobu\n\nPresent with helping verb[f]\n\nMasc.\n\n‏اكتب‎ iktub\n\n‏تكتب‎‎ tiktub\n\n‏يكتب‎‎ yiktub\n\n‏أكتب‎‎ ʾaktob\n\n‏تكتب‎‎ tuktob\n\n‏يكتب‎‎ yuktob\n\nFem.\n\n‏تكتبي‎‎ tiktbi\n\n‏تكتب‎‎ tiktub\n\n‏تكتبي‎‎ tuktobi\n\n‏تكتب‎‎ tuktob\n\nPlural\n\n‏نكتب‎‎ niktub\n\n‏تكتبو‎‎ tiktbu\n\n‏يكتبو‎‎ yiktbu\n\n‏نكتب‎‎ nuktob\n\n‏تكتبو‎‎ tuktobu\n\n‏يكتبو‎‎ yuktobu\n\nPositive imperative[g]\n\nMasc.\n\n—N/a\n\n‏كتوب‎‎ ktūb\n\n—N/a\n\n—N/a\n\n‏أكتب‎ ʾuktob\n\n—N/a\n\nFem.\n\n‏كتبي‎‎ ktibi\n\n‏أكتب‎ ʾuktobi\n\nPlural\n\n‏كتبو‎‎ ktibu\n\n‏أكتب‎ ʾuktobu\n\nActive participle[h]\n\nMasc.\n\n‏كاتب‎ kētib\n\n‏كاتب‎ kāteb\n\nFem.\n\n‏كاتبة‎ kētbi\n\n‏كاتبة‎ kātbe\n\nPlural\n\n‏كاتبين‎ kētbīn\n\n‏كاتبين‎ kātbīn\n\nPassive participle[i]\n\nMasc.\n\n‏مكتوب‎ maktūb\n\n‏مكتوب‎ maktūb\n\nFem.\n\n‏مكتوبة‎ maktūba\n\n‏مكتوبة‎ maktūba\n\nPlural\n\n‏مكتوبين‎ maktūbīn\n\n‏مكتوبين‎ maktūbīn\n\nTable of prefixes, affixes, and suffixes added to the base form (for sound form I verbs with stressed prefixes)[63]\n\nSingular\n\nDual/Plural\n\n1st person\n\n2nd person\n\n3rd person\n\n1st person\n\n2nd person\n\n3rd person\n\nPast[c]\n\nM\n\n-it\n\n-it\n\n∅ (base form)\n\n-na\n\n-tu\n\n-u\n\nF\n\n-ti\n\n-it (North)\n-at (South)\n\nPresent[d]\n\nM\n\nbi- (North)\nba- (South)\n\nbti-\n\nbyi- (North)[42]\nbi- (South)\n\nmni-\n\nbti- -u\n\nbyi- -u (North)[42]\nbi- -u (South)\n\nF\n\nbti- -i\n\nbti-\n\nPresent with helping verb[f]\n\nM\n\ni- (North)\na- (South)\n\nti-\n\nyi-\n\nni-\n\nti- -u\n\nyi- -u\n\nF\n\nti- -i\n\nti-\n\nPositive imperative[g]\n\nM\n\n—N/a\n\n∅ (Lengthening the present tense vowel, North)\ni- (Subjunctive without initial consonant, South)\n\n—N/a\n\n—N/a\n\n-u (Stressed vowel u becomes i, North)\ni- -u (South)\n\n—N/a\n\nF\n\n-i (Stressed vowel u becomes i, North)\ni- -i (South)\n\nActive participle[h]\n\nM\n\n-ē- (North) or -ā- (South) after the first consonant\n\n-īn (added to the masculine form)\n\nF\n\n-e/i or -a (added to the masculine form)\n\nPassive participle[i]\n\nM\n\nma- and -ū- after the second consonant\n\nF\n\n-a (added to the masculine form)\n\nIn the perfect tense, the first person singular and second person masculine singular are identical. For regular verbs, the third-person feminine singular is written identically but stressed differently.[64]\n\nDepending on regions and accents, the -u can be pronounced -o and the -i can be pronounced -é.[65]\n\nIn Southern Levantine dialects, the vowel of the suffix in past tense 3rd person feminine as well as the prefix in the present tense 1st person singular is \"a\" instead of \"i\". It might be \"u\" in other persons of the present tense due to vowel harmony.[66]",
+          "examples": [
+            "In Southern Levantine dialects, the vowel of the suffix in past tense 3rd person feminine as well as the prefix in the present tense 1st person singular is \"a\" instead of \"i\". It might be \"u\" in other persons of the present tense due to vow"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Active participle",
+          "body": "The active participle, also called present participle, is grammatically an adjective derived from a verb. Depending on the context, it can express the present or present continuous (with verbs of motion, location, or mental state), the near future, or the present perfect (past action with a present result).[67] It can also serve as a noun or an adjective.[68]\n\nThe active participle can be inflected from the verb based on its verb form.[68]\n\nActive participle declension patterns for the ten verb forms[a][68]\n\nForm\n\nVerb pattern\n\nActive participle pattern\n\nExample[69][70][71][72][73][74][75][76][77][78]\n\nVerb\n\nActive participle\n\nForm I\nC1vC2vC3\nC1v̄C2vC3\n‏‏مسك‎\n masak\n (to grab, to arrest)\n‏ماسك‎\n mɑ̄sik\n (is arresting, has arrested)\n\nForm II\nC1aC2C2aC3\nmC1aC2C2eC3\n‏قدّم‎\n qaddam\n (to present, to offer)\n‏مقدّم‎\n mqaddem\n (has presented, a presenter)\n\nForm III\nC1v̄C2aC3\nmC1v̄C2iC3\n‏ساعد‎\n sāʕad\n (to help)\n‏مساعد‎\n msāʕid\n (assistant, has helped)\n\nForm IV\nʔaC1C2aC3\nmiC1C2iC3\n‏أقنع‎\n ʾaqnaʿ\n (to convince)\n‏مقنع‎\n miqniʿ\n (is convincing, has convinced)\n\nForm V\ntC1aC2C2aC3\nmitC1aC2C2eC3\n‏تجنب‎\n tjannab\n (to avoid)\n‏متجنب‎\n mitjanneb\n (is avoiding)\n\nForm VI\ntC1v̄C2aC3\nmitC1v̄C2aC3\n‏تجاهل‎\n tjāhal\n (to ignore)\n‏متجاهل‎\n mitjāhal\n (is ignoring)\n\nForm VII\nnC1aC2aC3 (North)\n inC1aC2aC3 (South)\nminC1aC2eC3\n‏انبسط‎\n inbasaṭ\n (to be happy, to have fun)\n‏منبسط‎\n minbasiṭ\n (is happy)\n\nForm VIII\nC1tvC2vC3 (North)\n iC1tvC2vC3 (South)\nminC1tvC2vC3\n‏اقترح‎\n iqtaraḥ\n (to suggest)\n‏مقترح‎\n miqtariḥ\n (has suggested)\n\nForm IX\nC1C2aC3C3 (North)\n iC1C2aC3C3 (South)\nmiC1C2aC3C3\n‏احمر‎\n iḥmarr\n (to blush, to turn red)\n‏محمر‎\n miḥmarr\n (is blushing, has turned red)\n\nForm X\nstaC1C2aC3 (North)\n istaC1C2aC3 (South)\nmistaC1C2iC3\n‏استعمل‎\n istaʕmal\n (to use)\n‏مستعمل‎\n imstaʕmil\n (user, has used)",
+          "examples": [
+            "Example[69][70][71][72][73][74][75][76][77][78]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Passive participle",
+          "body": "The passive participle, also called past participle,[24] has a similar meaning as in English (i.e. sent, written, etc.). It is mostly used as an adjective but it can sometimes be used as a noun. It is inflected from the verb based on its verb form.[79] However, in practice, passive participles are largely limited to verb forms I (CvCvC) and II (CvCCvC), becoming maCCūC for the former and mCaCCaC for the latter.[3]\n\nPassive participle declension patterns[a][79]\n\nForm\n\nVerb pattern\n\nPassive participle pattern\n\nExample\n\nVerb\n\nPassive participle\n\nForm I\nC1vC2vC3\nmaC1C2ūC3\n‏فتح‎\n fataḥ\n (to open)\n‏مفتوح‎\n maftūḥ\n (opened)\n\nForm II\nC1aC2C2aC3\nmC1aC2C2aC3\n‏رتب‎\n rattab\n (to organize, to tidy up)\n‏مرتب‎\n mrattab\n (organized, neat)\n\nForm III\nC1v̄C2aC3\nmuC1v̄C2eC3\n‏فاجأ‎\n fājaʔ\n (to surprise)\n‏مفاجِئ‎‎\n mufājaʔ\n (surprised)\n\nForm IV\nʔaC1C2aC3\nmuC1C2eC3\n‏أعطى‎\n ʔaʕṭa\n (to give)\n‏معطى‎\n muʕṭa\n (given)\n\nForm V\ntC1aC2C2aC3\n\nVery rarely used\n\nForm VI\ntC1v̄C2aC3\n\nVery rarely used\n\nForm VII\nnC1aC2aC3 (North)\n inC1aC2aC3 (South)\n\nNot used\n\nForm VIII\nC1tvC2vC3 (North)\n iC1tvC2vC3 (South)\nmuC1tvC2vC3\n‏اقترح‎\n iqtaraḥ\n (to suggest)\n‏مقترح‎\n muqtaraḥ\n (suggested)\n\nForm IX\nC1C2aC3C3 (North)\n iC1C2aC3C3 (South)\n\nNot used\n\nForm X\nstaC1C2aC3 (North)\n istaC1C2aC3 (South)\nmustaC1C2eC3\n‏استعمل‎\n istaʕmal\n (to use)\n‏مستعمل‎\n mustaʕmel\n (used)",
+          "examples": [
+            "Example"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Future",
+          "body": "There are various ways to express the future. One is by using the present tense (with b- prefix) on its own. Another one is by using ‏بد‎ (bidd-, lit. 'want').[80]\n\nThe future tense is formed with the imperfect preceded by the particle ‏رح‎ (raḥ) or by the prefixed particle ‏حـ‎ (ḥa-).[81]\n\nExpressing the future: examples\n\nWay\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\n\nPresent tense\n\nبروح معك.\nbarūḥ maʕek.\nI'll go with you.\n\nbidd- (to want)\n\nبدي أمرق لعنده بكرة.\nbiddi ʾamroʾ la-ʕindo bukra.\nI'm going to go to his house tomorrow.\n\nFuture tense\n\nرح شوفك بكرة.\nraḥ šūfak bukra.\nI'll see you tomorrow.\n\nحشوفك بكرة.\nḥa-šūfak bukra.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Present continuous",
+          "body": "The present continuous is formed with the progressive particle ‏عم‎ (ʕam) followed by the imperfect, with or without the initial b/m depending on the speaker.[82][83]\n\nExamples of the present continuous\n\nWithout b-/m- prefix\nWith b-/m- prefix\nEnglish\n\nLevantine (Arabic)\nLevantine (Latin)\nLevantine (Arabic)\nLevantine (Latin)\n\nشو عم تعمل؟\nšū ʕam tiʕmel?\n\nشو عم بتعمل؟\nšū ʕam(ma) btiʕmel?\nWhat are you doing?\n\nعم أشرب قهوة.\nʕam ʾašrab ʾahwe.\n\nعم بشرب قهوة.\nʕam bašrab ʾahwe.\nI'm drinking coffee.\n\nIt is also common to use the b- prefix only in those forms starting with a vowel (e.g. 1st person singular).[84]\n\nMixed usage (b- prefix before vowels)\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\n\nعم بعمل\nʕam baʕmel\nI'm doing\n\nعم تعمل\nʕam tiʕmel\nyou're doing / she's doing\n\nعم بعمل / عم يعمل\nʕam biʕmel / ʕam yiʕmel\nhe's doing",
+          "examples": [
+            "Examples of the present continuous"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Helping verbs",
+          "body": "After helping verbs (may also be called modal verbs, pseudo-verbs, auxiliary verbs, or prepositional phrases) the imperfect form (also called subjunctive)[f] is used, that is, the form without the initial b/m.[83]\n\nCommon components followed by the subjunctive[f][83][20][56][85]\n\nLevantine\nEnglish\n\n‏بد‎ bidd- / badd-\nto want\n\n‏ممكن‎ mumkin, ‏قدر‎ qider\ncan\n\n‏قدر‎ qider / ‏فيـ‎ fī- (North) / ḥəsen\nto be able to\n\n‏لازم‎ lazim\nmust, it is necessary to\n\n‏حب‎ ḥabb\nto like\n\n‏بلكي‎ balki / ‏بركي‎ berki\nmay\n\n‏ممنوع‎ mamnūʿ\nit's forbidden to\n\n‏مفروض‎ mafrūḍ / ‏المفروض‎ il-mafrūḍ\nshould\n\n‏صار‎ ṣār\nto start to, to got used to doing\n\n‏بلش‎ ballaš\nto begin to\n\n‏فضل‎ fiḍel / bəʾi\nto end up\n\n‏ضل‎ ḍall / ‏تم‎ tamm\nto keep doing\n\n‏رجع‎ rijeʕ\nto start doing again\n\n‏كان‎ kān\nused to doing",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Compound tenses",
+          "body": "The verb ‏كان‎ (kān) can be followed by another verb, forming compound tenses. Both verbs are conjugated with their subject.[86]\n\nCompound tenses with the example of the verb ʕimil (to do)[86][87][80]\n\nkān in the past tense\n\nkān in the present tense\n\nFollowed by\n\nLevantine\nEnglish\nLevantine\nEnglish\n\nPast tense\n\nكان عمل kān ʕimel\nhe had done\n\nبكون عمل bikūn ʕimel\nhe will have done\n\nActive participle\n\nكان عامل kān ʕāmel\nhe had done\n\nبكون عامل bikūn ʕāmel\nhe will have done\n\nSubjunctive\n\nكان يعمل kān yiʕmel\nhe used to do / he was doing\n\nبكون يعمل bikūn yiʕmel\nhe will be doing\n\nProgressive\n\nكان عم يعمل kān ʕam yiʕmel\nhe was doing\n\nبكون عم يعمل bikūn ʕam yiʕmel\nhe will be doing\n\nFuture tense\n\nكان رح يعمل kān raḥ yiʕmel\nكان حيعمل kān ḥa-yiʕmel\nhe was going to do\n\n—N/a\n\nPresent tense\n\nكان بعمل kān biʕmel\nhe would do",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Passive voice",
+          "body": "Form I verbs often correspond to an equivalent passive form VII verb, with the prefix n-. Form II and form III verbs usually correspond to an equivalent passive on forms V and VI, respectively, with the prefix t-.[52][88]\n\nExamples of passive forms\n\nActive\n\nPassive\n\nVerb form\nLevantine\nEnglish\n\nVerb form\nLevantine\nEnglish\n\nI\n‏مسك‎ masak\nto catch\n\nVII\n‏انمسك‎ inmasak\nto be caught\n\nII\n‏غيّر‎ ḡayyar\nto change\n\nV\n‏تغيّر‎ tḡayyar\nto be changed\n\nIII\n‏فاجأ‎ fājaʾ\nto surprise\n\nVI\n‏تفاجأ‎ tfājaʾ\nto be surprised\n\nWhile the verb forms V, VI and VII are common in the simple past and compound tenses, the passive participle (past participle) is preferred in the present tense.[89]\n\nExamples of the passive voice[89]\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\nVerb form\nTense\n\nالكتاب مكتوب.\nle-ktāb maktūb\nThe book is written.\nI\npassive participle\n\nالكتاب عم بنكتب.\nle-ktāb ʕam binkateb\nThe book is being written.\nVII\nprogressive\n\nالكتاب انكتب.\nle-ktāb inkatab\nThe book has been written. / The book was written.\nVII\npast tense\n\nالكتاب كان مكتوب.\nle-ktāb kān maktūb\nThe book was written.\nI\nkān + passive participle\n\nالكتاب رح ينكتب.\nle-ktāb raḥ yinkateb\nThe book will be written.\nVII\nfuture",
+          "examples": [
+            "Examples of passive forms",
+            "Examples of the passive voice[89]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "To have",
+          "body": "Levantine does not have a verb \"to have\". Instead, possession is expressed using the prepositions عند (ʕind, lit. 'at', meaning \"to possess\") and مع (maʕ, lit. 'with', meaning \"to have on oneself\"), followed by personal pronoun suffixes. The past indicator ken and the future indicator raH are used to express possession in the past or the future, respectively.[90][91]\n\nInflected forms of عند (ʕind, \"at\", \"to possess, to have\")\n\nBase form\n\n‏عند‎ ʕind\n\nPersonal-pronoun-\nincluding forms\n\nsingular\n\nplural\n\nm\n\nf\n\n1st person\n\n‏عندي‎ ʕindi\n\n‏عنّا‎ ʕinna\n\n2nd person\n\n‏عندك‎ ʕindak\n\n‏عندك‎ ʕindek\n\n‏عندكم‎ ʕindkom (South) / ‏عندكن‎ ʕindkun (North)\n\n3rd person\n\n‏عنده‎ ʕindo (South) / ‏عندو‎ ʕindu (North)\n\n‏عندها‎ ʕindha (South) / ‏عندا‎ ʕinda (North)\n\n‏عندهم‎ ʕindhom (South) / ‏عندن‎ ʕindun (North)\n\nInflected forms of مع (maʕ, \"with\", \"to have on oneself\")\n\nBase form\n\n‏مع‎ maʕ\n\nPersonal-pronoun-\nincluding forms\n\nsingular\n\nplural\n\nm\n\nf\n\n1st person\n\n‏معي‎ maʕi\n\n‏معنا‎ maʕna\n\n2nd person\n\n‏معك‎ maʕak\n\n‏معك‎ maʕek\n\n‏معكم‎ maʕkom (South) / ‏معكن‎ maʕkun (North)\n\n3rd person\n\n‏معه‎ maʕo (South) / ‏معو‎ maʕu (North)\n\n‏معها‎ maʕha (South) / ‏معا‎ maʕa (North)\n\n‏معهم‎ maʕhom (South) / ‏معن‎ maʕun (North)",
+          "examples": [
+            "Levantine does not have a verb \"to have\". Instead, possession is expressed using the prepositions عند (ʕind, lit. 'at', meaning \"to possess\") and مع (maʕ, lit. 'with', meaning \"to have on oneself\"), followed by personal pronoun suffixes. Th",
+            "Inflected forms of عند (ʕind, \"at\", \"to possess, to have\")",
+            "Inflected forms of مع (maʕ, \"with\", \"to have on oneself\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "To want",
+          "body": "Enclitic personal pronouns are suffixed directly to the pseudo-verb بدّ (North: badd- / South: bidd-) to express \"to want\".[39]\n\nExamples of bidd-\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\n\nبدها تشرب قهوة.\nbidha tišrab ʾahwe.\nShe wants to drink coffee.\n\nما بدي ياه.\nmā biddi yyā.\nI don't want it.",
+          "examples": [
+            "Enclitic personal pronouns are suffixed directly to the pseudo-verb بدّ (North: badd- / South: bidd-) to express \"to want\".[39]",
+            "Examples of bidd-"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Adverbs",
+      "summary": "Levant does not distinguish between adverbs and adjectives in adverbial function. Almost any adjective can be used as an adverb: ‏منيح‎ (mnīḥ, ‘good’) vs. نمتي منيح؟ (nimti mnīḥ, ‘Did you sleep well?’) Adverbs from MSA, showing the suffix -an, are often used, e.g. ‏أبدا‎ (ʾabadan",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Levant does not distinguish between adverbs and adjectives in adverbial function. Almost any adjective can be used as an adverb: ‏منيح‎ (mnīḥ, ‘good’) vs. نمتي منيح؟ (nimti mnīḥ, ‘Did you sleep well?’) Adverbs from MSA, showing the suffix -an, are often used, e.g. ‏أبدا‎ (ʾabadan, ‘at all’).[3] Adverbs often appear after the verb or the adjective. ‏كتير‎ (ktīr, ‘very’) can be positioned after or before the adjective.[3]\n\nAdverbs of manner can usually be formed using bi- followed by the nominal form: ‏بسرعة‎ (b-sirʿa, ‘fast, quickly’, lit. 'with speed').[57]\n\nCommon adverbs[58][57][20]\n\nLevantine\nEnglish\n\n‏إيمتى‎ ʾēmta\nwhen (interrogative)\n\n‏اليوم‎ il-yōm\ntoday\n\n‏بكرة‎ bukra\ntomorrow\n\n‏بعد بكرة‎ baʕd bukra\nthe day after tomorrow\n\n‏مبارح‎ mbāreḥ\nyesterday\n\n‏أول مبارح‎ ʾawwal mbāriḥ / ‏قبل مبارح‎ ʾabl mbāreḥ\nthe day before yesterday\n\n‏هلا‎ halla(ʾ) (common Levantine) / ‏هسا‎ hassa (Amman) / ‏هلقيت‎ halʾēt (Jerusalem)\nnow\n\n‏بكير‎ bakkīr\nearly\n\n‏بعدين‎ baʕdēn\nafterwards\n\n‏على بكرة‎ ʕala bukra\nearly in the morning\n\n‏وقتها‎ waʾt-ha\nat that time\n\n‏الصبح‎ iṣ-ṣubḥ\nin the morning or this morning\n\n‏دايما‎ dāyman / ‏على طول‎ ʕala ṭūl (Damascus)\nalways\n\n‏لسا‎ lissa / ‏بعد‎ baʕd (Beirut)\nstill / not yet\n\n‏هون‎ hōn\nhere\n\n‏هناك‎ hunāk (Amman) / ‏هونيك‎ honīk (Beirut) / ‏هنيك‎ hnīk (Damascus)\nthere\n\n‏هيك‎ hēk\nlike this\n\n‏على مهل‎ ʕala mahl / ‏شوي شوي‎ šway šway / ‏بهدوء‎ bi-hudūʾ\nslowly\n\n‏كتير‎ ktīr\nvery\n\n‏عالآخر‎ ʕa-lʾāxir\ntotally\n\n‏قوام‎ ʾawām\nquickly\n\n‏حاجة‎ ḥāje\nenough!\n\n‏بس‎ bass\nonly\n\n‏كمان‎ kamān(e)\nalso\n\n‏دغري‎ duḡri\nstraight on\n\n‏لألله‎ laʾalla\nlit. 'to God', used as an intensifier\n\n‏عادي‎ ʕādi\nlit. 'ordinary'  or 'it makes no difference'\n\n‏عشان هيك‎ ʕašān hēk\ntherefore\n\n‏مبلا‎ mbala\nit is so\n\n‏أكيد‎ ʾakīd\nassuredly\n\n‏يمكن‎ yimken / ‏بركي‎ barki\nmaybe",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Negation",
+      "summary": "Verbs and prepositional phrases can be negated by the particle ‏ما‎ mā / ma either on its own or, in South Levantine, together with the suffix ‏ـش‎ -iš at the end of the verb or prepositional phrase. In Palestinian, it is also common to negate verbs by the suffix ‏ـش‎ -iš only.[9",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "‏لا‎ lā and ‏لأ‎ laʔ mean “no.”[92]\n\nVerbs and prepositional phrases can be negated by the particle ‏ما‎ mā / ma either on its own or, in South Levantine, together with the suffix ‏ـش‎ -iš at the end of the verb or prepositional phrase. In Palestinian, it is also common to negate verbs by the suffix ‏ـش‎ -iš only.[92]\n\nExamples of negation with mā and -š\n\nWithout -š\nWith -š\nEnglish\n\nLevantine (Arabic)\nLevantine (Latin)\nLevantine (Arabic)\nLevantine (Latin)\n\nما كتب.\nmā katab.\n\nما كتبش.\nma katab-š.\nHe didn't write.\n\nما بحكي إنكليزي.\nmā baḥki ʾinglīzi.\n\nما بحكيش إنكليزي.\nma baḥkī-š ʾinglīzi.\nI don't speak English.\n\nما تنسى!\nmā tinsa!\n\nما تنساش!\nma tinsā-š!\nDon't forget!\n\nما بده ييجي عالحفلة.\nmā biddo yīji ʕa-l-ḥafle.\n\n—N/a\nHe doesn't want to come to the party.\n\n‏مش‎ miš or in Syrian Arabic ‏مو‎ mū negates adjectives (including active participles), demonstratives, and nominal phrases.[93][92]\n\nExamples of negation with miš\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\n\nأنا مش فلسطيني.\nʾana miš falasṭīni.\nI'm not Palestinian.\n\nمش عارفة.\nmiš ʕārfe.\nI (fem.) don't know.\n\nهادا مش منيح.\nhāda miš mnīḥ.\nThat's not good.\n\nThe particles ‏عم‎ (ʕam) and ‏رح‎ (raḥ) can be negated with either ‏ما‎ mā or ‏مش‎ miš.\n\nLevantine (Arabic)\nLevantine (Latin)\nEnglish\n\nما رح أروح.\nmā raḥ ʾarūḥ.\nI won't go.\n\nمش رح أروح.\nmiš raḥ ʾarūḥ.",
+          "examples": [
+            "Examples of negation with mā and -š",
+            "Examples of negation with miš"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        },
+        {
+          "heading": "Negative copula",
+          "body": "North Levantine has a negative copula formed by ‏ما‎ mā / ma and a suffixed pronoun.[92]\n\nNegative copula in Levantine[92]\n\nSingular\n\nPlural\n\n1st person (m/f)\n\n‏ماني‎ māni\n\n‏مانا‎ māna\n\n2nd person\n\nm\n\n‏مانَك‎ mānak\n\n‏مانكُن‎ mānkon\n\nf\n\n‏مانِك‎ mānek\n\n3rd person\n\nm\n\n‏مانو‎ māno\n\n‏مانلُن‎ mānon\n\nf\n\n‏مانا‎ māna",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Subordination",
+      "summary": "Relative clauses are formed with the particle yalli/illi/halli (the one who) when definite things are being described. It can be used either for people (who) or objects (that, which).[94][95][96]",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Relative clauses are formed with the particle yalli/illi/halli (the one who) when definite things are being described. It can be used either for people (who) or objects (that, which).[94][95][96]\n\nIf the noun to which the relative pronoun refers is indefinite and non specific, the relative clause is linked without any coordinating conjunction and is indistinguishable from an independent sentence.[97][95][96]\n\nExamples of relative clauses[96][58]\n\nEnglish\nLevantine (Arabic)\nLevantine (Latin)\nNote\n\nI saw the boy who was playing football.\nشفت الولد اللي كان يلعب فطبول\nšuft il-walad illi kān yilʕab faṭbōl.\nDefinite subject: use of illi\n\nI saw a girl playing football.\nشفت بنت كانت تلعب فطبول\nšuft bint kānat tilʕab faṭbōl.\nIndefinite subject: sentences connected without a pronoun\n\nIn formal speech, sentence complements can be introduced with the particle ʔǝnn (\"that\"), to which some speakers attach a personal pronoun (o or i).[97]\n\nFor circumstantial clauses, the conjunction w- introduces subordinate clauses with the sense \"while, when, with\".[98]\n\nTemporal adverbs such as baʕd (after) may be used with the \"ma\" to form a subordinate clause: baʕd ma tnaːm (\"after she goes to sleep\").[97]",
+          "examples": [
+            "Examples of relative clauses[96][58]",
+            "In formal speech, sentence complements can be introduced with the particle ʔǝnn (\"that\"), to which some speakers attach a personal pronoun (o or i).[97]",
+            "For circumstantial clauses, the conjunction w- introduces subordinate clauses with the sense \"while, when, with\".[98]",
+            "Temporal adverbs such as baʕd (after) may be used with the \"ma\" to form a subordinate clause: baʕd ma tnaːm (\"after she goes to sleep\").[97]"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Conjunctions",
+      "summary": "‏و‎ w ~ u\nand (also with temporal meaning \"then, during...\")",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Common conjunctions[20][57][58]\n\nLevantine\nEnglish\n\n‏و‎ w ~ u\nand (also with temporal meaning \"then, during...\")\n\n‏أو‎ ʾaw\nor\n\n‏يا ... يا‎ ya ... ya\neither ... or\n\n‏بس‎ bass\nbut\n\n‏لإنه‎ laʾinno / ‏حاكم‎ ḥākem / ‏لأن‎ laʾann(o) (Beirut)\nbecause\n\n‏لما‎ lamma / ‏بس‎ bass\nas soon as\n\n‏وقت‎ waʾt / ‏وقت اللي‎ waʾt illi\nwhen\n\n‏ما ... إلا‎ ma ... ʾilla\njust as soon as, hardly\n\n‏طالما‎ ṭāla ma\nas long as\n\n‏تـ‎ ta\nso that, until\n\n‏عشان‎ ʕašān\nso that\n\n‏كل ما‎ kull/kill ma\nevery time that\n\n‏على بين ما‎ (ʕa)la bēn ma\nuntil\n\n‏أحسن ما‎ ʾaḥsan ma\nrather than\n\n‏لـ‎ la / ‏حتى‎ ḥatta / ‏لحتى‎ la ḥatta / ‏منشان‎ minšān\nin order to\n\n‏لـ‎ la\nlest\n\n‏إذا‎ ʾiza / ‏لو‎ law / ‏إن‎ ʾin / ‏إذاً‎ ʾizan (Amman)\nif",
+          "examples": [
+            "and (also with temporal meaning \"then, during...\")"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Levantine_Arabic_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}

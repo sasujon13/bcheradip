@@ -1,0 +1,157 @@
+{
+  "title": "Grammar Book — ଓଡ଼ିଆ",
+  "languageCode": "or",
+  "languageName": "ଓଡ଼ିଆ",
+  "version": 2,
+  "sources": [
+    "https://en.wikipedia.org/wiki/Odia_grammar"
+  ],
+  "license": "CC BY-SA 3.0 (Wikibooks/Wikipedia contributors)",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Introduction",
+      "summary": "Odia grammar is the study of the morphological and syntactic structures, word order, case inflections, verb conjugation and other grammatical structures of Odia, an Indo-Aryan language spoken in South Asia.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Odia grammar is the study of the morphological and syntactic structures, word order, case inflections, verb conjugation and other grammatical structures of Odia, an Indo-Aryan language spoken in South Asia.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Morphology",
+      "summary": "Main articles: Morpheme and Morphology (linguistics)\nMorphology is the identification, analysis and description of the structure of morphemes and other units of meaning in the Odia language. Morphemes (called ରୁପିମ) are the smallest units of the Odia language that carry and conve",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Main articles: Morpheme and Morphology (linguistics)\nMorphology is the identification, analysis and description of the structure of morphemes and other units of meaning in the Odia language. Morphemes (called ରୁପିମ) are the smallest units of the Odia language that carry and convey a unique meaning and is grammatically appropriate. A morpheme in Odia is the most minuscule meaningful constituent which combines and synthesizes the phonemes into a meaningful expression through its (morpheme's) form & structure. Thus, in essence, the morpheme is a structural combination of phonemes in Odia. In other words, in the Odia language, the morpheme is a combination of sounds that possess and convey a meaning.  A morpheme is not necessarily a meaningful word in Odia. In Odia, every morpheme is either a base or an affix (prefix or a suffix).[1][2]",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Nouns",
+      "summary": "Singular denotes one and only one person or thing and the noun may be followed or preceded by singular specifiers or singular number markers. Plural which denotes number more than one person or thing, is formed by the addition of plural suffixes to the nouns which usually occur a",
+      "sections": [
+        {
+          "heading": "Number",
+          "body": "There are two types of numbers in Odia:\n\nsingular- ଏକବଚନ ekabacana\n\nplural- ବହୁବଚନ bahubacana\n\nSingular denotes one and only one person or thing and the noun may be followed or preceded by singular specifiers or singular number markers. Plural which denotes number more than one person or thing, is formed by the addition of plural suffixes to the nouns which usually occur as singular.\n\nThe singular number markers occur as suffix:\n\nSingular suffix\n\nSuffix\nEg.\nMeaning\n\nଟି ṭi\nକଲମଟି kalamaṭi\npen\n\nଟା ṭā\nଝିଅଟା jhiaṭā\ndaughter\n\nଟିଏ ṭie\nପିଲାଟିଏ pilāṭie\nchild\n\nThe plural number occur with nominal forms as:\n\nNo suffix- uncountable nouns\n\nEg\nMeaning\n\nଚିନି cini\nsugar\n\nବାଲି bāli\nsand\n\nPlural suffix\n\nSuffix\nEg.\nMeaning\n\nମାନେ māne\nଲୋକମାନେ lokamāne\npeople\n\nମାନ māna\nଗ୍ରନ୍ଥମାନ granthamāna\nholy books\n\nଗୁଡ଼ା guṛā (guḍā)\nଭାତଗୁଡ଼ା bhātaguḍā\nboiled rice\n\nଗୁଡ଼ାଏ guṛāe (guḍāe)\nଫଳଗୁଡ଼ାଏ phaḷaguḍāe\nfruits\n\nଗୁଡ଼ାକ guṛāka (guḍāka)\nଚାଉଳଗୁଡ଼ାକ cāuḷaguḍāka\nrice\n\nଗୁଡ଼ିଏ guṛie (guḍie)\nଫୁଲଗୁଡ଼ିଏ phulaguḍie\nflowers\n\nଗୁଡ଼ିକ guṛika (guḍika)\nନଦୀଗୁଡ଼ିକ nadīguḍika\nrivers\n\nଏ e\nପିଲେ pile\nchildren\n\nସବୁ sabu\nଗାଁସବୁ gā̃sabu\nvillages\n\nଶ୍ରେଣୀ śreṇī\nପର୍ବତଶ୍ରେଣୀ parbataśreṇī\nmountains\n\nଯାକ ẏāka (jāka)\nଘରଯାକ gharajāka\nhouses",
+          "examples": [
+            "Eg.",
+            "Eg."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        },
+        {
+          "heading": "Gender",
+          "body": "There is no grammatical gender in Odia, instead gender is lexical. Though gender plays no major role in grammatical agreement between subject and predicate but it is accounted for in nominal inflections. There are three types of gender:\n\nmasculine- ପୁଲିଙ୍ଗ puliṅga\n\nfeminine- ସ୍ତ୍ରୀଲିଙ୍ଗ striliṅga\n\ncommon- ଉଭୟଲିଙ୍ଗ ubhayaliṅga\n\nneuter- କ୍ଲୀବଲିଙ୍ଗ klibaliṅga\n\nDifferent words for gender\n\nMale\nMeaning\nFemale\nMeaning\n\nବାପା bāpā\nfather\nମା mā\nmother\n\nପୁଅ pua\nson\nଝିଅ jhia\ndaughter\n\nଭାଇ bhāi\nbrother\nଭଉଣୀ bhauṇī\nsister\n\nସ୍ୱାମୀ swāmī\nhusband\nସ୍ତ୍ରୀ strī\nwife\n\nରାଜା rājā\nking\nରାଣୀ rāṇī\nqueen\n\nଷଣ୍ଢ ṣaṇḍha\nbull\nଗାଈ gāī\ncow\n\nPrefix\n\nMale\nMeaning\nFemale\nMeaning\n\nପୁରୁଷ ଲୋକ purusha loka\nmale person\nସ୍ତ୍ରୀ ଲୋକ stri loka\nfemale person\n\nପୁଅ ପିଲା pua pilā\nmale child\nଝିଅ ପିଲା jhia pilā\nfemale child\n\nପୁରୁଷ ଯାତ୍ରୀ purusha jātri\nmale passenger\nମହିଳା ଯାତ୍ରୀ mahiḷā jātri\nfemale passenger\n\nଅଣ୍ଡିରା କୁକୁର aṇḍirā kukura\nmale dog\nମାଈ କୁକୁର māi kukura\nfemale dog\n\nଅଣ୍ଡିରା ଛେଳି aṇḍirā cheḷi\nmale goat\nମାଈ ଛେଳି māi cheḷi\nfemale goat\n\nSuffix\n\nSuffix\nMale\nMeaning\nFemale\nMeaning\n\nଆ ā\nସଭ୍ୟ sabhya\nmale member\nସଭ୍ୟା sabhyā\nfemale member\n\nଶିଷ୍ୟ śishya\nmale student\nଶିଷ୍ୟା śishyā\nfemale student\n\nଦୁଷ୍ଟ dushṭa\nnaughty(m)\nଦୁଷ୍ଟା dushṭā\nnaughty(f)\n\nଆ ā\n(morpho-phonemic\nchange- ଅ a to ଇ i)\nବାଳକ bāḷaka\nboy\nବାଳିକା bāḷikā\ngirl\n\nଗାୟକ gāyaka\nmale singer\nଗାୟିକା gāyikā\nfemale singer\n\nନାୟକ nāyaka\nactor\nନାୟିକା nāyikā\nactress\n\nଶିକ୍ଷକ śikshaka\nmale teacher\nଶିକ୍ଷିକା śikshikā\nfemale teacher\n\nଈ i\nପୁତ୍ର putra\nson\nପୁତ୍ରୀ putri\ndaughter\n\nବୁଢ଼ା buṛhā\nold man\nବୁଢ଼ୀ buṛhi\nold woman\n\nକୁମାର kumāra\nyoung boy\nକୁମାରୀ kumāri\nyoung girl\n\nସୁନ୍ଦର sundara\nhandsome(m)\nସୁନ୍ଦରୀ sundari\nbeautiful(f)\n\nଦେବ deba\ngod\nଦେବୀ debi\ngoddess\n\nଈ i\n(morpho-phonemic\nchange- ଆ ā to ଈ i)\nଟୋକା ṭokā\nboy\nଟୋକୀ  ṭoki\ngirl\n\nଛୋଟା choṭā\nlame(m)\nଛୋଟୀ choṭi\nlame(f)\n\nଈ i\n(morpho-phonemic\nchange- ଅ a to ଆ ā)\nକଣା kaṇā\nblind(m)\nକାଣୀ kāṇi\nblind(f)\n\nସଳା saḷā\nbrother-in-law\nସାଳୀ sāḷi\nsister-in-law\n\nଈ i\n(morpho-phonemic\nchange- ଆ ā to ରୀ ri)\nନେତା netā\nmale leader\nନେତ୍ରୀ netri\nfemale leader\n\nରଚୈତା racaitā\nauthor\nରଚୈତ୍ରୀ racaitri\nfemale author\n\nଣୀ ṇi\nଚୋର cora\nmale thief\nଚୋରଣୀ coraṇi\nfemale thief\n\nମୂଲିଆ muliā\nmale labourer\nମୂଲିଆଣୀ muliāṇi\nfemale labourer\n\nଣୀ ṇi\n(morpho-phonemic\nchange- ଅ a to ଆ ā)\nଠାକୁର ṭhākura\ngod\nଠାକୁରାଣୀ ṭhākurāṇi\ngoddess\n\nମାଷ୍ଟର māshṭara\nmale teacher\nମାଷ୍ଟ୍ରାଣୀ māshṭrāṇi\nfemale teacher\n\nତନ୍ତୀ tanti\nmale weaver\nତନ୍ତୀଆଣୀ tantiāṇi\nfemale weaver\n\nଡାକ୍ତର ḍāktara\nmale doctor\nଡାକ୍ତରାଣୀ ḍāktarāṇi\nfemale doctor\n\nଣୀ ṇi\n(morpho-phonemic\nchange- ଅ a to ଉ u)\nବାଘ bāgha\ntiger\nବାଘୁଣୀ bāghuṇi\ntigress\n\nଗଧ gadha\nmale donkey\nଗଧୁଣୀ gadhuṇi\nfemale donkey\n\nଣୀ ṇi\n(morpho-phonemic\nchange- ଆ ā to ଉ u)\nଚଷା cashā\nmale farmer\nଚାଷୁଣୀ cāshuṇi\nfemale farmer\n\nଣୀ ṇi\n(morpho-phonemic\nchange- ଇ i to ଉ u)\nମାଳି māḷi\nmale gardener\nମାଲୁଣୀ māluṇi\nfemale gardener\n\nଭିକାରି bhikāri\nmale beggar\nଭିକାରୁଣୀ bhikāruṇi\nfemale beggar\n\nନୀ ni\nବନ୍ଦୀ bandi\nmale prisoner\nବନ୍ଦିନୀ bandini\nfemale prisoner\n\nଧନା dhanā\nrich(m)\nଧନିନୀ dhanini\nrich(f)",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        },
+        {
+          "heading": "Case",
+          "body": "Case inflection is a common characteristic of inflectional languages and are also known as case markers or \"ବିଭକ୍ତି\" (bibhakti) in Odia. It is both syntactical and morphological in nature. The function of the case is to indicate the grammatical or semantic relationships between nouns and also between nouns and verbs in a larger syntactic structure.\nThere are 8 types of cases in Odia:\n\nCases (ବିଭକ୍ତି)\n\nCase\n\nNames of cases in Odia\nSingular\nPlural\n\nNominative\n\nକର୍ତ୍ତାକାରକ\nkarttākāraka\n∅\n-ମାନେ, -ଏ \n -māne, -e\n\nAccusative\n\nକର୍ମକାରକ\nkarmakāraka\n-କୁ\n-ku\n-ମାନଙ୍କୁ\n-mānanku\n\nDative\n\nସମ୍ପ୍ରଦାନ କାରକ\nsampradāna kāraka\n\nGenitive\n\nସମ୍ବନ୍ଧ କାରକ\nsambandha kāraka\n-ର\n-ra\n-ମାନଙ୍କର\n-mānankara\n\nLocative\n\nଅଧିକରଣ କାରକ\nadhikaraṇa kāraka\n-ରେ, -ଠାରେ\n-re, -ṭhāre\n-ମାନଙ୍କରେ, -ମାନଙ୍କଠାରେ\n-mānankare, -mānankaṭhāre\n\nInstrumental\n\nକରଣକାରକ\nkaraṇakāraka\n-ରେ, -ଦ୍ୱାରା, -ଦେଇ\n-re, -dwārā, -dera\n-ମାନଙ୍କରେ, -ମାନଙ୍କଦ୍ୱାରା\n-mānankare, -mānankadwārā\n\nAblative\n\nଅପାଦାନ କାରକ\napādāna kāraka\n-ରୁ, -ଠାରୁ\n-ru, -ṭhāru\n-ମାନଙ୍କରୁ, -ମାନଙ୍କଠାରୁ\n-mānankaru, -mānankaṭhāru\n\nVocative\n\nସମ୍ବୋଧକ କାରକ\nsambodhaka kāraka\nହେ, ରେ, ହୋ\nhe, re, ho\n\nFor Vocative case: Due to lack of synthetic inflectional morphemes, a vocative particle is used.",
+          "examples": [
+            "Case inflection is a common characteristic of inflectional languages and are also known as case markers or \"ବିଭକ୍ତି\" (bibhakti) in Odia. It is both syntactical and morphological in nature. The function of the case is to indicate the grammat"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Pronouns",
+      "summary": "Pronouns are classified both notionally and morphologically.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Pronouns are classified both notionally and morphologically.\n\nPersonal pronouns are of two types:\n\nDirect case- used for Nominative case\n\nOblique case- used with case inflections (Accusative, Instrumental, Dative, Ablative, Genitive, Locative)\n\nPersonal Pronouns\n\nPerson\nCase\nPronoun\nSingular\nPronoun\nPlural\n\n1st\nDirect\nI\nମୁଁ\nWe\nଆମେ\nଆମେମାନେ\n\nOblique\nMe, My, Mine\nମୋ-\nUs, Our, Ours\nଆମ-\nଆମମାନଙ୍କ-\n\n2nd\nDirect\nYou\nତୁ (informal)\nତୁମେ (formal)\nଆପଣ (honorific)\nYou\nତୁମେମାନେ\nଆପଣମାନେ (honorific)\n\nOblique\nYou, Your, Yours\nତୋ- (informal)\nତୁମ- (formal)\nଆପଣଙ୍କ- (honorific)\nYou, Your, Yours\nତୁମମାନଙ୍କ-\nଆପଣମାନଙ୍କ- (honorific)\n\n3rd\n(distal)\nDirect\nHe/She\nସେ\nThey\nସେମାନେ\n\nOblique\nHim/Her, His/Hers\nତା- (informal)\nତାଙ୍କ- (formal)\nThem/Their/Theirs\nସେମାନଙ୍କ-",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Adjectives",
+      "summary": "adjective(numeral)-specifier\nଦଶଟି ଫୁଲ\nten flowers",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Adjectives\n\nAdjective type\nEg.\nMeaning\n\nadjective\nଭଲ ପୁଅ\ngood boy\n\nନାଲି ଫୁଲ\nred flower\n\nadjective(numeral)-specifier\nଦଶଟି ଫୁଲ\nten flowers\n\nପାଞ୍ଚଟା ଗାଁ\nfive villages\n\nଜଣେ ଛାତ୍ର\na student\n\nଦଶ ଜଣ ଶିକ୍ଷକ\nten teachers\n\nadjective(numeral)-quantity/measure\nପାଞ୍ଚ କିଲୋ ପରିବା\n5 kg vegetables\n\nଦଶ ଲିଟର ତେଲ\n10 ltr oil\n\nadjective adjective\nଅତି ବଡ଼ ଘର\nvery big house\n\nଭାରି ସୁନ୍ଦର ପିଲା\nvery beautiful child\n\nadverb adjective\nଧୀର ମିଠା କଥା\nsoft sweet talk\n\ncompound adverb\nକାନ୍ଦ କାନ୍ଦ ମୁଁହ\ncrying face\n\nହସ ହସ ଭାବ\nsmiling appearance\n\nadverb verbal noun\nଧୀର ଚାଲି\nslow walking\n\nଚଞ୍ଚଳ ଖିଆ\nquick eating\n\nDerived Adjectives\n\nType\nAdjective type\nNoun/Verb\nEg.\nMeaning\n\nSuffix\nnoun-ā\nରୋଗ\nରୋଗା ଲୋକ\nill person\n\nଦକ୍ଷିଣ\nଦକ୍ଷିଣା ପବନ\nsouthern wind\n\nverb-ā\nଶୁଣ\nଶୁଣା କଥା\nheard matter\n\nଜାଣ\nଜଣା ଖବର\nknown news\n\nnoun verb-ā\nଚାଉଳ, ଧୋ\nଚାଉଳ ଧୁଆ ପାଣି\nrice-washed water\n\nଲୁଗା, କାଚ୍\nଲୁଗା କଚା ସାବୁନ୍\ncloth washing soap\n\nverb-i\nଗୁଣ\nଗୁଣି ଲେକ\ngood person\n\nଦାମ୍\nଦାମି ଜିନିଷ\ncostly thing",
+          "examples": [
+            "Eg.",
+            "Eg."
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Postpositions",
+      "summary": "Postpositions used with Inflections: The postpositions which occur with nominal forms and function as both morphological and syntactic markers. They are added to the nominal stems formed by noun-genitive case markers.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "Postpositions used with Inflections: The postpositions which occur with nominal forms and function as both morphological and syntactic markers. They are added to the nominal stems formed by noun-genitive case markers.\n\nPostpositions used with Inflections\n\nPostpositions\nMeaning\nPostpositions\nMeaning\n\nଉପରେ\nup\nପରି\nlike\n\nମଧ୍ୟରେ\nbetween\nଭଳି\nlike\n\nଭିତରେ\nin\nପ୍ରତି\nper head\n\nତଳେ\nunder\nଜଗୁଁ\nbecause of\n\nପାଖରେ\nnear\nହେତୁ\nbecause of\n\nବଦଳରେ\ninstead of\nନେଇ\nby\n\nନିକଟରେ\nnear\nଦ୍ଵାରା\nby\n\nଠାରୁ\nfrom\nଦ୍ୱାରା\nby\n\nସକାସେ\nfor\nପାଇଁ\nby\n\nନିମନ୍ତେ\nfor\nଠାରେ\nat\n\nପରିବର୍ତ୍ତେ\ninstead of\nରୁପେ\nlike\n\nIndeclinable Postpositions: Those which do not have inflected suffixes, function as indeclinables.\n\nPostpositions as Indeclinables\n\nPostpositions\nMeaning\nPostpositions\nMeaning\n\nଭଳି\nlike\nପରି\nlike\n\nହେଲେ\nthen\nସବୁ\nall\n\nସହିତ\nwith\nସଙ୍ଗେ\nwith\n\nନିମନ୍ତେ\nfor\nସାଥେ\nwith\n\nମଧ୍ୟ\nalso\nଅନ୍ତେ\nthen\n\nସହ\nwith\nଜାକ\nall",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Classifiers",
+      "summary": "When a noun is enumerated, it takes a group of morphemes called classifiers.",
+      "sections": [
+        {
+          "heading": "Overview",
+          "body": "When a noun is enumerated, it takes a group of morphemes called classifiers.\n\nWhen the number denotes 'one', then the structure of the phrase:\n\nclassifier-numeral noun\n\nEg- ଜଣେ ପିଲା – one child\n\nWhen the numeral is more than 'one', then the structure is:\n\nnumeral classifier noun\n\nEg- ଦୁଇ ଜଣ ପିଲା – two children\n\nClassifiers have two types-\n\nqualifiers- used for count nouns.\n\nNouns which occur with ଗୋଟା,ଗୋଟି or its variant -ଟା,-ଟି\n\nEg- ଗୋଟିଏ ପିଲା – one child, ଦୁଇଟି ପିଲା -two children\n\nଗୋଟିଏ ଘର – one house, ଦୁଇଟି ଘର – two houses\n\nOther types of count nouns of human and non human forms include-\n\nଜଣେ ପିଲା – one child\nଖଣ୍ଡେ ଲୁଗା – one piece of cloth\nଗୋଛାଏ କାଠ – one bundle of wood\nଫାଳେ କାଠ – a half piece of wood\nଗଦାଏ କାଠ – one heap of wood\nକିଲେ କାଠ – one kilo of wood\nଫୁଟେ କାଠ – one foot of wood\nବସ୍ତାଏ କାଠ – one sack of wood\nquantifiers- used for mass nouns\n\nNouns which occur with ମେଞ୍ଚା\n\nEg- ମେଞ୍ଚାଏ କାଦୁଅ – a lump of mud",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Verbs",
+      "summary": "Verbs in Odia are marked for a combination of tense/mood, aspect, person, and number. In the progressive and perfect aspects, aspect is marked on the verb (with the progressive in -u- and the perfect in -i-), while all other information is marked on the auxiliary ach/thā. The ove",
+      "sections": [
+        {
+          "heading": "Inflection",
+          "body": "Verbs in Odia are marked for a combination of tense/mood, aspect, person, and number. In the progressive and perfect aspects, aspect is marked on the verb (with the progressive in -u- and the perfect in -i-), while all other information is marked on the auxiliary ach/thā. The overall order is stem + aspect + auxiliary + tense/mood + person/number. For example, khā-u-thā-nt-ā means \"he/she would have been eating.\" \n\nOdia has 5 tenses/moods: the habitual (no suffix), the imperative (no suffix), the past (with the suffix -il-), the conditional (with the suffix -ant-), and the future (with the suffix -ib-). These 5 tenses use the auxiliary th(ā) when in the perfect or progressive aspects. There are also the Present Perfect and the Present Progressive, which use the auxiliary (a)ch. These are then followed by a personal suffix, depending on person, number, as well as the tense:\n\nPersonal Suffixes on Odia verbs by tense/mood\n\nPerson\nNumber\nTense/mood\n\nHabitual\n\nPast/conditional\n\nFuture\n\nImperative\n\nPresent Progressive/Perfect\n\n1st\nSingular\n-e\n-i\n-i\n-ẽ\n\n-i\n\nPlural inclusive\n-e\n-e\n-a\nN/A\n\n-e\n\nPlural exclusive\n\n-u\n\n-u\n\n-u\n\n-ũ\n\n-u\n\n2nd\nSingular\n-u\n-u\n-u\n-Ø\n\n-u\n\nPlural\n-a\n-a\n-a\n-a\n\n-a\n\n3rd\nSingular\n-e\n-ā\n-a\n-u\n\n-i\n\nPlural\n-anti\n-e\n-e\n-antu\n\n-anti\n\nWhen preceded by ā, the conditional suffix -ant becomes -ānt- or -nt-. Otherwise, the auxiliary thā becomes th before a vowel.\n\nNegation\nAny finite verb can be negated by adding nāhĩ afterwards. In the Present Progressive and Present Perfect, nāhĩ or the suffix n with personal agreement may replace the auxiliary, as in kar-u-n-i/kar-u-nāhĩ \"I am not doing.\" Other verbs in the Progressive or Perfect aspects may be negated by adding na- before the auxiliary, as in dekh-i-na-thi-li.",
+          "examples": [
+            "Verbs in Odia are marked for a combination of tense/mood, aspect, person, and number. In the progressive and perfect aspects, aspect is marked on the verb (with the progressive in -u- and the perfect in -i-), while all other information is ",
+            "Any finite verb can be negated by adding nāhĩ afterwards. In the Present Progressive and Present Perfect, nāhĩ or the suffix n with personal agreement may replace the auxiliary, as in kar-u-n-i/kar-u-nāhĩ \"I am not doing.\" Other verbs in th"
+          ],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        },
+        {
+          "heading": "Causatives",
+          "body": "The causative in Odia is formed by the suffic ā at the end of a stem. An ā in the root then changes to a.",
+          "examples": [],
+          "learnerTip": "",
+          "source": "https://en.wikipedia.org/wiki/Odia_grammar"
+        }
+      ]
+    }
+  ],
+  "cached": false
+}
