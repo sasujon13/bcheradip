@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Remove duplicate `location /ailt/api/` blocks (inline + snippet include).
-# Run on Linux: sudo bash ailt_api/deploy/fix-nginx-duplicate-ailt-api.sh
+# Fix broken /ailt/api/ nginx placement:
+#   - duplicate location "/ailt/api/"
+#   - location "/ailt/api/" is outside location "/api/"  (include nested wrong)
 #
-# Error this fixes:
-#   duplicate location "/ailt/api/" in /etc/nginx/snippets/ailt-api-location.conf
+# Run on Linux: sudo bash ailt_api/deploy/fix-nginx-duplicate-ailt-api.sh
 
 set -euo pipefail
 
@@ -36,51 +36,68 @@ from pathlib import Path
 path = Path(sys.argv[1])
 text = path.read_text(encoding="utf-8")
 
-# Drop inline location /ailt/api/ { ... } blocks (keep snippet include only).
+# Drop inline location /ailt/api/ { ... } blocks.
 pattern = re.compile(
     r"^[ \t]*location[ \t]+/ailt/api/[ \t]*\{.*?\n^[ \t]*\}[ \t]*\n?",
     re.MULTILINE | re.DOTALL,
 )
-new_text, n = pattern.subn("", text)
+text, n_inline = pattern.subn("", text)
 
-# Ensure exactly one include line inside server block (dedupe repeated includes).
+# Drop every existing ailt snippet include (may be nested wrongly inside /api/).
 include = "    include snippets/ailt-api-location.conf;"
-lines = new_text.splitlines()
+text, n_inc = re.subn(
+    r"^[ \t]*include[ \t]+snippets/ailt-api-location\.conf;[ \t]*\n?",
+    "",
+    text,
+    flags=re.MULTILINE,
+)
+
+lines = text.splitlines()
 out: list[str] = []
-seen_include = False
-in_server = False
+depth = 0  # global { } depth
 inserted = False
-for i, line in enumerate(lines):
-    if re.match(r"^[ \t]*server[ \t]*\{", line):
-        in_server = True
-    if in_server and re.match(r"^[ \t]*location[ \t]+/[ \t]*\{", line) and not inserted and not seen_include:
+
+
+def is_catch_all_location(line: str) -> bool:
+    # Exact "location / {" only — not /api/, /static/, etc.
+    return bool(re.match(r"^[ \t]*location[ \t]+/[ \t]*\{", line))
+
+
+for line in lines:
+    # Server top-level is depth == 1 (inside one server { }).
+    if depth == 1 and is_catch_all_location(line) and not inserted:
         out.append(include)
         inserted = True
-        seen_include = True
-    if "include snippets/ailt-api-location.conf" in line:
-        if seen_include:
-            continue
-        seen_include = True
-        out.append(include)
-        continue
     out.append(line)
-    if in_server and re.match(r"^[ \t]*\}[ \t]*$", line):
-        if not inserted and not seen_include:
-            out.insert(len(out) - 1, include)
+    depth += line.count("{") - line.count("}")
+
+if not inserted:
+    # Fallback: insert before the closing } of the first server block (depth 1 -> 0).
+    final = []
+    depth = 0
+    for line in out:
+        delta = line.count("{") - line.count("}")
+        if depth == 1 and delta < 0 and not inserted:
+            final.append(include)
             inserted = True
-            seen_include = True
-        in_server = False
+        final.append(line)
+        depth += delta
+    out = final
 
 final = "\n".join(out)
 if not final.endswith("\n"):
     final += "\n"
 path.write_text(final, encoding="utf-8")
-print(f"Removed {n} inline /ailt/api/ block(s); snippet include kept.")
+print(
+    f"Removed {n_inline} inline /ailt/api/ block(s), "
+    f"{n_inc} misplaced include(s); "
+    f"snippet include at server level: {inserted}"
+)
 PY
 
 echo "Testing nginx..."
 nginx -t
-systemctl reload nginx
-echo "OK  nginx reloaded"
+systemctl start nginx 2>/dev/null || systemctl reload nginx
+echo "OK  nginx started/reloaded"
 echo ""
 bash "${SCRIPT_DIR}/diagnose-nginx-ailt.sh"
