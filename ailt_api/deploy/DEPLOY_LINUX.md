@@ -171,7 +171,8 @@ Restart API after adding packs: `sudo systemctl restart cheradip-ailt`
 
 | Symptom | Fix |
 |---------|-----|
-| `502` on `/ailt/api/health` | `sudo systemctl status cheradip-ailt` — check `.env` DATABASE_URL |
+| `502` on `/ailt/api/health` | `sudo systemctl status cheradip-ailt` — workers crash on startup? `journalctl -u cheradip-ailt -n 40` (e.g. `hash_password` in seed.py) |
+| `duplicate location "/ailt/api/"` | `sudo bash ailt_api/deploy/fix-nginx-duplicate-ailt-api.sh` |
 | DB connection refused | MySQL running; user has `ailanguagetutor` grant |
 | SMTP auth failed | Brevo **SMTP key** as password; Login as `SMTP_USER` — [BREVO_EMAIL.md](BREVO_EMAIL.md) |
 | OTP not received | `./scripts/diagnose_smtp.sh`; verify sender in Brevo dashboard |

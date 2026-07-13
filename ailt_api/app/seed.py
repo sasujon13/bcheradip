@@ -22,6 +22,7 @@ from app.models import (
     ReferralPolicy,
     User,
 )
+from app.security import hash_password
 from app.services.ext_provider_keys import seed_ext_provider_keys
 from app.services.pack_store import sync_packs_to_db
 
