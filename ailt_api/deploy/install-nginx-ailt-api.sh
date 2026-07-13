@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Install /ailt/api/ nginx proxy on cheradip.com (Ubuntu).
-# Run on Linux server: sudo bash ailt_api/deploy/install-nginx-ailt-api.sh
+# Idempotent — safe on every deploy.
 #
+# Run: sudo bash ailt_api/deploy/install-nginx-ailt-api.sh
 # Optional: sudo NGINX_SITE_FILE=/path/to/site.conf bash ailt_api/deploy/install-nginx-ailt-api.sh
 
 set -euo pipefail
@@ -9,7 +10,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SNIPPET_SRC="${SCRIPT_DIR}/snippets/ailt-api-location.conf"
 SNIPPET_DST="/etc/nginx/snippets/ailt-api-location.conf"
-INCLUDE_LINE='    include snippets/ailt-api-location.conf;'
+NORMALIZE="${SCRIPT_DIR}/normalize_ailt_api_site.py"
 
 if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
   echo "Run with sudo: sudo bash $0"
@@ -20,18 +21,20 @@ if [[ ! -f "$SNIPPET_SRC" ]]; then
   echo "Missing $SNIPPET_SRC"
   exit 1
 fi
+if [[ ! -f "$NORMALIZE" ]]; then
+  echo "Missing $NORMALIZE"
+  exit 1
+fi
 
 discover_site_files() {
   local -a found=()
   local f real
 
-  # Explicit override
   if [[ -n "${NGINX_SITE_FILE:-}" && -f "$NGINX_SITE_FILE" ]]; then
     echo "$NGINX_SITE_FILE"
     return 0
   fi
 
-  # Search all nginx config (not only sites-enabled)
   while IFS= read -r f; do
     found+=("$f")
   done < <(
@@ -47,12 +50,11 @@ discover_site_files() {
   fi
 
   if [[ ${#found[@]} -eq 0 ]]; then
-  while IFS= read -r f; do
+    while IFS= read -r f; do
       [[ -f "$f" ]] && found+=("$f")
     done < <(ls -1 /etc/nginx/sites-enabled/* 2>/dev/null | sort -u)
   fi
 
-  # Prefer HTTPS / ssl blocks' source files
   local -a ssl_files=()
   for f in "${found[@]}"; do
     real="$(readlink -f "$f" 2>/dev/null || echo "$f")"
@@ -62,7 +64,6 @@ discover_site_files() {
   done
 
   if [[ ${#ssl_files[@]} -gt 0 ]]; then
-    # Prefer dedicated cheradip vhost over certbot's default
     for real in "${ssl_files[@]}"; do
       if [[ "$real" == *"/sites-available/cheradip" ]] || [[ "$real" == *"/sites-enabled/cheradip" ]]; then
         echo "$real"
@@ -76,48 +77,6 @@ discover_site_files() {
   for f in "${found[@]}"; do
     readlink -f "$f" 2>/dev/null || echo "$f"
   done | sort -u
-}
-
-patch_site_file() {
-  local real="$1"
-
-  if grep -q "ailt/api" "$real" 2>/dev/null; then
-    echo "OK  $real already has /ailt/api/ proxy"
-    return 0
-  fi
-  if grep -qF "include snippets/ailt-api-location.conf" "$real" 2>/dev/null; then
-    echo "OK  $real already includes ailt-api snippet"
-    return 0
-  fi
-
-  echo "Patching $real ..."
-  local backup="${real}.bak.$(date +%Y%m%d%H%M%S)"
-  cp "$real" "$backup"
-  echo "  backup: $backup"
-
-  awk -v inc="$INCLUDE_LINE" '
-    BEGIN { in_server=0; done=0 }
-    /^[[:space:]]*server[[:space:]]*\{/ { in_server=1 }
-    in_server && /location[[:space:]]+\/[[:space:]]*\{/ && !done {
-      print inc
-      done=1
-    }
-    { print }
-    in_server && /^[[:space:]]*\}/ {
-      if (!done) {
-        print inc
-        done=1
-      }
-      in_server=0
-    }
-    END {
-      if (!done) {
-        print inc
-      }
-    }
-  ' "$backup" > "${real}.tmp"
-  mv "${real}.tmp" "$real"
-  echo "  added: include snippets/ailt-api-location.conf"
 }
 
 echo "Installing snippet -> $SNIPPET_DST"
@@ -142,7 +101,14 @@ printf '  %s\n' "${SITE_FILES[@]}"
 patched=0
 for real in "${SITE_FILES[@]}"; do
   [[ -f "$real" ]] || continue
-  patch_site_file "$real"
+  # Skip unrelated files that only mention cheradip in a comment
+  if ! grep -qE "server_name.*cheradip|/var/www/cheradip|try_files" "$real" 2>/dev/null; then
+    continue
+  fi
+  backup="${real}.bak.$(date +%Y%m%d%H%M%S)"
+  cp "$real" "$backup"
+  echo "Normalizing $real (backup: $backup)"
+  python3 "$NORMALIZE" "$real"
   patched=1
 done
 
@@ -154,8 +120,12 @@ fi
 echo "Testing nginx config..."
 nginx -t
 
-echo "Reloading nginx..."
-systemctl reload nginx
+echo "Starting/reloading nginx..."
+if systemctl is-active --quiet nginx; then
+  systemctl reload nginx
+else
+  systemctl start nginx
+fi
 
 echo ""
 bash "${SCRIPT_DIR}/diagnose-nginx-ailt.sh"

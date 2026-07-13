@@ -35,14 +35,21 @@ sudo bash ailt_api/deploy/install-nginx-ailt-api.sh
 sudo NGINX_SITE_FILE=/etc/nginx/sites-available/YOURFILE bash ailt_api/deploy/install-nginx-ailt-api.sh
 ```
 
-The script:
+The script is **idempotent** (safe every deploy):
 
 1. Copies the location block to `/etc/nginx/snippets/ailt-api-location.conf`
 2. Finds the enabled site that serves `cheradip.com`
-3. Adds `include snippets/ailt-api-location.conf;` **before** `location /` if missing
-4. Runs `nginx -t` and reloads nginx
+3. Normalizes the site file (removes duplicate/nested `/ailt/api/` and misplaced includes)
+4. Places exactly one `include snippets/ailt-api-location.conf;` at **server** level, **before** `location /` (never inside `location /api/`)
+5. Runs `nginx -t` and reloads (or starts) nginx
 
 If install says **"No nginx config mentions cheradip.com"**, your vhost may use `default_server` or only `root /var/www/cheradip` without the domain name. Run `find-nginx-site.sh` (see Option A).
+
+Repair-only shortcut (same normalize logic):
+
+```bash
+sudo bash ailt_api/deploy/fix-nginx-duplicate-ailt-api.sh
+```
 
 ---
 
