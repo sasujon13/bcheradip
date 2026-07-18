@@ -9,8 +9,19 @@ from sqlalchemy.orm import Session
 from app.config import settings
 from app.database import get_db
 from app.deps import get_current_user
-from app.models import OtpCode, SessionToken, User
+from app.models import (
+    OtpCode,
+    ReferralBalance,
+    ReferralBalanceUsage,
+    ReferralEarning,
+    ReferralWithdrawal,
+    SessionToken,
+    Subscription,
+    User,
+    UserLearningActivity,
+)
 from app.schemas import (
+    AccountDeleteRequest,
     AuthLoginRequest,
     AuthLoginResponse,
     EmailChangeConfirmRequest,
@@ -366,6 +377,51 @@ def logout_all(
     _revoke_all_sessions(db, user.id)
     db.commit()
     return {"ok": True, "message": "Signed out on all devices"}
+
+
+@router.post("/account/delete")
+def delete_account(
+    body: AccountDeleteRequest,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> dict:
+    """Permanently delete the signed-in AILT user account and associated server data.
+
+    Requires the current password. Does not cancel Google Play subscriptions —
+    the client must direct the user to Play subscription management.
+    """
+    if not user.password_hash or not verify_password(body.password, user.password_hash):
+        raise HTTPException(400, "Incorrect password")
+    if (user.role or "").lower() == "admin":
+        raise HTTPException(400, "Admin accounts cannot be self-deleted; contact support")
+
+    uid = user.id
+    email = (user.email or "").strip().lower()
+
+    # Break FK order carefully (usages → withdrawals/earnings → balances → learning → sessions → user).
+    # Detach subscription user links (keep purchase rows for accounting / Play disputes).
+    for sub in db.scalars(select(Subscription).where(Subscription.user_id == uid)).all():
+        sub.user_id = None
+    for sub in db.scalars(select(Subscription).where(Subscription.buyer_user_id == uid)).all():
+        sub.buyer_user_id = None
+    for sub in db.scalars(select(Subscription).where(Subscription.referrer_user_id == uid)).all():
+        sub.referrer_user_id = None
+
+    db.execute(delete(ReferralBalanceUsage).where(ReferralBalanceUsage.user_id == uid))
+    db.execute(delete(ReferralWithdrawal).where(ReferralWithdrawal.user_id == uid))
+    db.execute(delete(ReferralEarning).where(ReferralEarning.referrer_user_id == uid))
+    db.execute(delete(ReferralBalance).where(ReferralBalance.user_id == uid))
+    db.execute(delete(UserLearningActivity).where(UserLearningActivity.user_id == uid))
+    db.execute(delete(SessionToken).where(SessionToken.user_id == uid))
+    if email:
+        db.execute(delete(OtpCode).where(OtpCode.target == email))
+
+    db.delete(user)
+    db.commit()
+    return {
+        "ok": True,
+        "message": "Account deleted. Cancel any Google Play subscription separately to stop renewals.",
+    }
 
 
 # Legacy endpoints kept for older clients — email only, no WhatsApp auth.

@@ -93,6 +93,12 @@ class EmailChangeConfirmRequest(BaseModel):
     deviceId: str | None = None
 
 
+class AccountDeleteRequest(BaseModel):
+    """Body for DELETE /auth/account — current password confirmation."""
+
+    password: str = Field(min_length=1)
+
+
 class ReferralWithdrawRequest(BaseModel):
     method: str = Field(description="paypal, bank_transfer, or mobile_wallet")
     payoutDetails: str = Field(min_length=3)
