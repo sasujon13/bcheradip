@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "ta",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "ta",
+  "preferredVoiceNameHints": [
+    "ta",
+    "ta-",
+    "ta_"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "ik",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "ik",
+  "preferredVoiceNameHints": [
+    "ik",
+    "ik-",
+    "ik_"
+  ]
+}

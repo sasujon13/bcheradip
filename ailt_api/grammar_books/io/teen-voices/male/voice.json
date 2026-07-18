@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "io",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "io",
+  "preferredVoiceNameHints": [
+    "io",
+    "io-",
+    "io_"
+  ]
+}

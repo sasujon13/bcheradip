@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "pcm",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "pcm",
+  "preferredVoiceNameHints": [
+    "pcm",
+    "pcm-",
+    "pcm_"
+  ]
+}

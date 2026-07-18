@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "languageCode": "tet",
+  "genders": [
+    "male",
+    "female"
+  ],
+  "engine": "android"
+}

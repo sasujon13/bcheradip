@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "sc",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "sc",
+  "preferredVoiceNameHints": [
+    "sc",
+    "sc-",
+    "sc_"
+  ]
+}

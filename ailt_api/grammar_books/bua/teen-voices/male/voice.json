@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "bua",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "bua",
+  "preferredVoiceNameHints": [
+    "bua",
+    "bua-",
+    "bua_"
+  ]
+}

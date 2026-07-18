@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "vi",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "vi-VN",
+  "preferredVoiceNameHints": [
+    "vi-vn",
+    "vietnamese",
+    "vi_"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "engine": "android",
+  "languageCode": "ar",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "ar-SA",
+  "preferredVoiceNameHints": [
+    "ar-sa",
+    "ar-eg",
+    "arabic",
+    "ar_"
+  ]
+}

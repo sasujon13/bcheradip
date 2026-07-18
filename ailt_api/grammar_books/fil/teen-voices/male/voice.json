@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "fil",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "fil",
+  "preferredVoiceNameHints": [
+    "fil",
+    "fil-",
+    "fil_"
+  ]
+}

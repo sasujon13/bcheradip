@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "ru",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "ru-RU",
+  "preferredVoiceNameHints": [
+    "ru-ru",
+    "russian",
+    "ru_"
+  ]
+}

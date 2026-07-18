@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "shn",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "shn",
+  "preferredVoiceNameHints": [
+    "shn",
+    "shn-",
+    "shn_"
+  ]
+}

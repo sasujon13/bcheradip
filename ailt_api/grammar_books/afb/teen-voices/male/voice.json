@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "afb",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "afb",
+  "preferredVoiceNameHints": [
+    "afb",
+    "afb-",
+    "afb_"
+  ]
+}

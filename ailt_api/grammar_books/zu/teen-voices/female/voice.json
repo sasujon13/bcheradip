@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "zu",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "zu",
+  "preferredVoiceNameHints": [
+    "zu",
+    "zu-",
+    "zu_"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "engine": "android",
+  "languageCode": "bn",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "bn-BD",
+  "preferredVoiceNameHints": [
+    "bn-bd",
+    "bn-in",
+    "bengali",
+    "bangla",
+    "bn_"
+  ]
+}

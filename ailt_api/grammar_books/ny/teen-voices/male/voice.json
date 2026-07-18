@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "ny",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "ny",
+  "preferredVoiceNameHints": [
+    "ny",
+    "ny-",
+    "ny_"
+  ]
+}

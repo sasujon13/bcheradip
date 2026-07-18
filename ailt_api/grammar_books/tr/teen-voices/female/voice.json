@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "tr",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "tr-TR",
+  "preferredVoiceNameHints": [
+    "tr-tr",
+    "turkish",
+    "tr_"
+  ]
+}

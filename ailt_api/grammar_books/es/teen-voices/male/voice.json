@@ -1,0 +1,15 @@
+{
+  "engine": "android",
+  "languageCode": "es",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "es-ES",
+  "preferredVoiceNameHints": [
+    "es-es",
+    "es-mx",
+    "spanish",
+    "es_"
+  ]
+}

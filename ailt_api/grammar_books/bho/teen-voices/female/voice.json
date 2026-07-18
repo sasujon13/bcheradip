@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "bho",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "bho",
+  "preferredVoiceNameHints": [
+    "bho",
+    "bho-",
+    "bho_"
+  ]
+}

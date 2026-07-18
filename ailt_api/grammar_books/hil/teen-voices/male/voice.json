@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "hil",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "hil",
+  "preferredVoiceNameHints": [
+    "hil",
+    "hil-",
+    "hil_"
+  ]
+}

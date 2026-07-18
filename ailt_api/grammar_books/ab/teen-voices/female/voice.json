@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "ab",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "ab",
+  "preferredVoiceNameHints": [
+    "ab",
+    "ab-",
+    "ab_"
+  ]
+}

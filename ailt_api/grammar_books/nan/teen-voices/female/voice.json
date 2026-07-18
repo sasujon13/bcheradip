@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "nan",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "nan",
+  "preferredVoiceNameHints": [
+    "nan",
+    "nan-",
+    "nan_"
+  ]
+}

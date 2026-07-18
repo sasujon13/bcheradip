@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "mni",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "mni",
+  "preferredVoiceNameHints": [
+    "mni",
+    "mni-",
+    "mni_"
+  ]
+}

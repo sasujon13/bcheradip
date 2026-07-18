@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "wa",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "wa",
+  "preferredVoiceNameHints": [
+    "wa",
+    "wa-",
+    "wa_"
+  ]
+}

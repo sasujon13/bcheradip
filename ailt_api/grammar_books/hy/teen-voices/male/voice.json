@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "hy",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "hy",
+  "preferredVoiceNameHints": [
+    "hy",
+    "hy-",
+    "hy_"
+  ]
+}

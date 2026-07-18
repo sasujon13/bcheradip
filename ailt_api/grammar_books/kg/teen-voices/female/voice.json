@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "kg",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "kg",
+  "preferredVoiceNameHints": [
+    "kg",
+    "kg-",
+    "kg_"
+  ]
+}

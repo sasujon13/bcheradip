@@ -1,0 +1,15 @@
+{
+  "engine": "android",
+  "languageCode": "zh",
+  "gender": "female",
+  "version": 1,
+  "pitch": 1.2,
+  "speechRateBias": 0.92,
+  "locale": "zh-CN",
+  "preferredVoiceNameHints": [
+    "zh-cn",
+    "cmn",
+    "chinese",
+    "zh_"
+  ]
+}

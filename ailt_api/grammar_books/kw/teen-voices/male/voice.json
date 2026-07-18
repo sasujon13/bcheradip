@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "kw",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "kw",
+  "preferredVoiceNameHints": [
+    "kw",
+    "kw-",
+    "kw_"
+  ]
+}

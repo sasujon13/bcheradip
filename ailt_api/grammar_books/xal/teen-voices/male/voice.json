@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "xal",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "xal",
+  "preferredVoiceNameHints": [
+    "xal",
+    "xal-",
+    "xal_"
+  ]
+}

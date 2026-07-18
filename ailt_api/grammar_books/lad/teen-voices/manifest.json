@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "languageCode": "lad",
+  "genders": [
+    "male",
+    "female"
+  ],
+  "engine": "android"
+}

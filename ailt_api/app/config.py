@@ -104,9 +104,9 @@ class Settings(BaseSettings):
     # wire/Payoneer) or "stripe". Bangladesh cannot use Stripe/PayPal, so Paddle
     # is the default.
     billing_provider: str = "paddle"
-    billing_success_url: str = "https://cheradip.com/ailt/billing/success"
-    billing_cancel_url: str = "https://cheradip.com/ailt/billing/cancel"
-    billing_pricing_url: str = "https://cheradip.com/ailt/pricing"
+    billing_success_url: str = "https://cheradip.com/aicodingagent/billing/success"
+    billing_cancel_url: str = "https://cheradip.com/aicodingagent/billing/cancel"
+    billing_pricing_url: str = "https://cheradip.com/aicodingagent/pricing"
     # Paddle Billing (Merchant of Record) — Cheradip coding extension
     paddle_api_key: str = ""
     paddle_webhook_secret: str = ""

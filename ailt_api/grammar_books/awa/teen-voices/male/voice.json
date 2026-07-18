@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "awa",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "awa",
+  "preferredVoiceNameHints": [
+    "awa",
+    "awa-",
+    "awa_"
+  ]
+}

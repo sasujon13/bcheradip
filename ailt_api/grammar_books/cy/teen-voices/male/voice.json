@@ -1,0 +1,14 @@
+{
+  "engine": "android",
+  "languageCode": "cy",
+  "gender": "male",
+  "version": 1,
+  "pitch": 1.1,
+  "speechRateBias": 0.92,
+  "locale": "cy",
+  "preferredVoiceNameHints": [
+    "cy",
+    "cy-",
+    "cy_"
+  ]
+}
