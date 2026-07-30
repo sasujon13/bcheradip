@@ -23,6 +23,8 @@ class User(Base):
     whatsapp_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     login_with: Mapped[str | None] = mapped_column(String(16))
     registered_device_id: Mapped[str | None] = mapped_column(String(128))
+    # Practice score JSON: {current, overall, mode{talk/listen/read}, level{easy/medium/hard}}.
+    score: Mapped[str | None] = mapped_column(Text, default=None)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     sessions: Mapped[list[SessionToken]] = relationship(back_populates="user")
@@ -458,5 +460,28 @@ class UserLearningActivity(Base):
     output_text: Mapped[str | None] = mapped_column(Text)
     tags_json: Mapped[str | None] = mapped_column(Text)
     is_saved: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at_ms: Mapped[int] = mapped_column(BigInteger)
+    updated_at_ms: Mapped[int] = mapped_column(BigInteger)
+
+
+class UserPracticeActivity(Base):
+    """Speak Practice history for Previous/Next browsing (separate from Learning journal)."""
+
+    __tablename__ = "user_practice_activities"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
+    client_id: Mapped[str] = mapped_column(String(64), index=True)
+    mode: Mapped[str] = mapped_column(String(16))
+    difficulty: Mapped[str] = mapped_column(String(16))
+    practice_of: Mapped[str] = mapped_column(String(16))
+    language_code: Mapped[str] = mapped_column(String(16))
+    output_language_code: Mapped[str | None] = mapped_column(String(16))
+    reference_text: Mapped[str | None] = mapped_column(Text)
+    spoken_text: Mapped[str | None] = mapped_column(Text)
+    correction_text: Mapped[str | None] = mapped_column(Text)
+    output_text: Mapped[str | None] = mapped_column(Text)
+    utterance_percent: Mapped[float] = mapped_column(Float, default=0.0)
+    overall_percent: Mapped[float] = mapped_column(Float, default=0.0)
     created_at_ms: Mapped[int] = mapped_column(BigInteger)
     updated_at_ms: Mapped[int] = mapped_column(BigInteger)

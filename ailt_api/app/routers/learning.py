@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import json
 import time
 
 from fastapi import APIRouter, Depends
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -13,7 +14,8 @@ from app.schemas import LearningActivityDto, LearningActivitySyncRequest, Learni
 
 router = APIRouter(prefix="/learning", tags=["learning"])
 
-MAX_UNSAVED_PER_USER = 99
+# Hard cap: never keep more than this many rows per user in user_learning_activities (remote).
+MAX_ACTIVITIES_PER_USER = 99
 
 
 def _to_dto(row: UserLearningActivity) -> LearningActivityDto:
@@ -33,17 +35,37 @@ def _to_dto(row: UserLearningActivity) -> LearningActivityDto:
     )
 
 
-def _trim_unsaved(db: Session, user_id: int) -> None:
-    unsaved = db.scalars(
-        select(UserLearningActivity)
-        .where(UserLearningActivity.user_id == user_id, UserLearningActivity.is_saved.is_(False))
-        .order_by(UserLearningActivity.created_at_ms.asc())
-    ).all()
-    overflow = len(unsaved) - MAX_UNSAVED_PER_USER
+def _trim_activities(db: Session, user_id: int) -> None:
+    """Drop oldest rows until the user has at most MAX_ACTIVITIES_PER_USER reserved."""
+    total = db.scalar(
+        select(func.count()).select_from(UserLearningActivity).where(
+            UserLearningActivity.user_id == user_id
+        )
+    ) or 0
+    overflow = int(total) - MAX_ACTIVITIES_PER_USER
     if overflow <= 0:
         return
-    for row in unsaved[:overflow]:
+    # Prefer deleting unsaved first, then oldest by created_at_ms.
+    candidates = db.scalars(
+        select(UserLearningActivity)
+        .where(UserLearningActivity.user_id == user_id)
+        .order_by(
+            UserLearningActivity.is_saved.asc(),  # False (0) before True (1)
+            UserLearningActivity.created_at_ms.asc(),
+        )
+        .limit(overflow)
+    ).all()
+    for row in candidates:
         db.delete(row)
+
+
+def _maybe_update_user_score(user: User, item: LearningActivityDto) -> None:
+    """Do not overwrite users.score from learning sync.
+
+    Practice scores are JSON on users.score, updated only via /practice/sync.
+    """
+    _ = (user, item)
+    return
 
 
 @router.post("/sync", response_model=LearningActivitySyncResponse)
@@ -90,18 +112,19 @@ def sync_learning_activities(
                     updated_at_ms=item.updated_at_ms,
                 )
             )
-    _trim_unsaved(db, user.id)
+        _maybe_update_user_score(user, item)
+
+    _trim_activities(db, user.id)
     db.commit()
+    db.refresh(user)
 
     rows = db.scalars(
         select(UserLearningActivity)
         .where(UserLearningActivity.user_id == user.id)
         .order_by(UserLearningActivity.updated_at_ms.desc())
+        .limit(MAX_ACTIVITIES_PER_USER)
     ).all()
-    saved = [r for r in rows if r.is_saved]
-    unsaved = [r for r in rows if not r.is_saved][:MAX_UNSAVED_PER_USER]
-    merged = sorted(saved + unsaved, key=lambda r: r.updated_at_ms, reverse=True)
     return LearningActivitySyncResponse(
-        activities=[_to_dto(r) for r in merged],
+        activities=[_to_dto(r) for r in rows],
         server_time_ms=now_ms,
     )

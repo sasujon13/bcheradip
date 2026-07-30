@@ -27,6 +27,7 @@ from app.routers import (
     grammar_books,
     languages,
     learning,
+    practice,
     promo,
     referral,
     subscription,
@@ -99,7 +100,8 @@ api.include_router(languages.router)
 api.include_router(grammar_books.router)
 api.include_router(admin.router)
 api.include_router(ai.router)
-api.include_router(learning.router)
+    api.include_router(learning.router)
+    api.include_router(practice.router)
 
 
 @api.get("/email/cheradip.png", include_in_schema=False)

@@ -3371,10 +3371,18 @@ class ExportQuestionsView(APIView):
             t = str((q or {}).get('type') or '').strip()
             return bool(t) and ('সৃজনশীল' in t or t == 'সৃজনশীল')
 
+        def is_mcq_type(q):
+            t = str((q or {}).get('type') or '').strip()
+            return bool(t) and ('বহুনির্বাচনি' in t or t == 'বহুনির্বাচনি')
+
+        def uses_creative_sheet(q):
+            """CQ + non-MCQ companions (জ্ঞানমূলক / অনুধাবনমূলক / …) share the CQ sheet/header."""
+            return not is_mcq_type(q)
+
         creative_questions = []
         mcq_questions = []
         for idx, q in enumerate(questions):
-            if is_creative(q):
+            if uses_creative_sheet(q):
                 creative_questions.append({'idx': idx, 'q': q})
             else:
                 mcq_questions.append({'idx': idx, 'q': q})

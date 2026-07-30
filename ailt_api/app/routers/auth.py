@@ -19,6 +19,7 @@ from app.models import (
     Subscription,
     User,
     UserLearningActivity,
+    UserPracticeActivity,
 )
 from app.schemas import (
     AccountDeleteRequest,
@@ -46,12 +47,17 @@ from app.security import (
     session_expires_at,
     verify_password,
 )
+from app.score_utils import overall_from_score
 from app.services.email_service import send_otp_email
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 PASSWORD_RE = re.compile(r"^(?=.*[A-Za-z])(?=.*\d).{8,}$")
+
+
+def _overall_score(user: User) -> float:
+    return overall_from_score(getattr(user, "score", None))
 
 
 def _issue_session(db: Session, user: User, device_id: str | None) -> str:
@@ -80,6 +86,7 @@ def _login_response(user: User, token: str | None) -> AuthLoginResponse:
         sessionToken=token,
         emailVerified=user.email_verified,
         whatsappVerified=user.whatsapp_verified,
+        score=_overall_score(user),
     )
 
 
@@ -351,6 +358,7 @@ def whoami(user: User = Depends(get_current_user)) -> dict:
         "username": user.username,
         "fullName": user.full_name,
         "role": user.role,
+        "score": _overall_score(user),
     }
 
 
@@ -412,6 +420,7 @@ def delete_account(
     db.execute(delete(ReferralEarning).where(ReferralEarning.referrer_user_id == uid))
     db.execute(delete(ReferralBalance).where(ReferralBalance.user_id == uid))
     db.execute(delete(UserLearningActivity).where(UserLearningActivity.user_id == uid))
+    db.execute(delete(UserPracticeActivity).where(UserPracticeActivity.user_id == uid))
     db.execute(delete(SessionToken).where(SessionToken.user_id == uid))
     if email:
         db.execute(delete(OtpCode).where(OtpCode.target == email))

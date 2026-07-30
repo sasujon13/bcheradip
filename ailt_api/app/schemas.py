@@ -14,6 +14,8 @@ class AuthLoginResponse(BaseModel):
     sessionToken: str | None = None
     emailVerified: bool | None = None
     whatsappVerified: bool | None = None
+    # Overall 0–100 extracted from users.score JSON (legacy float clients).
+    score: float | None = None
 
 
 class OtpRequest(BaseModel):
@@ -365,6 +367,34 @@ class LearningActivitySyncRequest(BaseModel):
 class LearningActivitySyncResponse(BaseModel):
     activities: list[LearningActivityDto] = Field(default_factory=list)
     server_time_ms: int
+
+
+class PracticeActivityDto(BaseModel):
+    client_id: str
+    mode: str
+    difficulty: str
+    practice_of: str
+    language_code: str
+    output_language_code: str | None = None
+    reference_text: str | None = None
+    spoken_text: str | None = None
+    correction_text: str | None = None
+    output_text: str | None = None
+    utterance_percent: float = 0.0
+    overall_percent: float = 0.0
+    created_at_ms: int
+    updated_at_ms: int
+
+
+class PracticeActivitySyncRequest(BaseModel):
+    activities: list[PracticeActivityDto] = Field(default_factory=list)
+
+
+class PracticeActivitySyncResponse(BaseModel):
+    activities: list[PracticeActivityDto] = Field(default_factory=list)
+    server_time_ms: int
+    # Structured practice score JSON (also stored on users.score).
+    user_score: dict = Field(default_factory=dict)
 
 
 class ExtProjectKnowledgeUpsert(BaseModel):

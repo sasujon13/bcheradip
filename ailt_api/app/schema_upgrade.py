@@ -16,6 +16,7 @@ _COLUMN_PATCHES: list[tuple[str, str, str]] = [
     ("users", "whatsapp_verified", "whatsapp_verified TINYINT(1) NOT NULL DEFAULT 0"),
     ("users", "login_with", "login_with VARCHAR(16) NULL"),
     ("users", "registered_device_id", "registered_device_id VARCHAR(128) NULL"),
+    ("users", "score", "score TEXT NULL"),
     ("promo_codes", "auto_apply", "auto_apply TINYINT(1) NOT NULL DEFAULT 0"),
     ("promo_codes", "paywall_slot", "paywall_slot INT NOT NULL DEFAULT 2"),
     ("device_trials", "guest_ai_count", "guest_ai_count INT NOT NULL DEFAULT 0"),
@@ -130,3 +131,45 @@ def upgrade_schema(engine: Engine) -> None:
         # Unlimited routing — org/provider rate limits only; failure circuit breaker stays in app code.
         if _table_exists(engine, "ai_providers") and _column_exists(engine, "ai_providers", "quota_daily_limit"):
             conn.execute(text("UPDATE ai_providers SET quota_daily_limit = NULL WHERE quota_daily_limit IS NOT NULL"))
+
+        # Practice score: DOUBLE → TEXT JSON {current,overall,mode,level}.
+        if _table_exists(engine, "users") and _column_exists(engine, "users", "score"):
+            col = conn.execute(
+                text(
+                    """
+                    SELECT DATA_TYPE AS dt
+                    FROM information_schema.COLUMNS
+                    WHERE TABLE_SCHEMA = DATABASE()
+                      AND TABLE_NAME = 'users'
+                      AND COLUMN_NAME = 'score'
+                    """
+                )
+            ).one()
+            if str(col.dt).lower() in ("double", "float", "decimal"):
+                conn.execute(text("ALTER TABLE users MODIFY COLUMN score TEXT NULL"))
+                conn.execute(
+                    text(
+                        """
+                        UPDATE users
+                        SET score = JSON_OBJECT(
+                            'overall', CAST(score AS DECIMAL(10,2)),
+                            'current', 0,
+                            'mode', JSON_OBJECT(
+                                'talk', JSON_OBJECT('success', 0, 'failure', 0),
+                                'listen', JSON_OBJECT('success', 0, 'failure', 0),
+                                'read', JSON_OBJECT('success', 0, 'failure', 0),
+                                'accuracy', CAST(score AS DECIMAL(10,2))
+                            ),
+                            'level', JSON_OBJECT(
+                                'easy', JSON_OBJECT('success', 0, 'failure', 0),
+                                'medium', JSON_OBJECT('success', 0, 'failure', 0),
+                                'hard', JSON_OBJECT('success', 0, 'failure', 0),
+                                'accuracy', CAST(score AS DECIMAL(10,2))
+                            )
+                        )
+                        WHERE score IS NOT NULL
+                          AND score NOT LIKE '{%'
+                        """
+                    )
+                )
+                logger.info("Migrated users.score DOUBLE → TEXT JSON")

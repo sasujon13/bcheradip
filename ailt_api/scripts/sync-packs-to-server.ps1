@@ -1,13 +1,19 @@
 # Incrementally sync language pack ZIPs to the Linux server.
 # Skips when remote matches local size. Uploads missing packs. Overwrites when local is larger.
+# With -CleanOldVersions (default): after sync, keep only the newest local major (e.g. v1.zip)
+# on the server and delete stale v2/v3/… for that language.
 param(
     [string]$SshHost = "163.227.144.146",
     [string]$SshUser = "sasha",
     [string]$LocalPacksDir = (Join-Path $PSScriptRoot "..\packs"),
     [string]$RemotePacksDir = "/home/sasha/apps/cheradip/bcheradip/ailt_api/packs",
     [switch]$DryRun,
-    [switch]$RestartApi
+    [switch]$RestartApi,
+    [switch]$NoCleanOldVersions
 )
+
+# Default: clean stale majors (v2/v3/…) unless -NoCleanOldVersions is set.
+$CleanOldVersions = -not $NoCleanOldVersions
 
 $ErrorActionPreference = "Stop"
 $LocalPacksDir = (Resolve-Path $LocalPacksDir).Path
@@ -26,6 +32,7 @@ function Get-LocalPackManifest {
     $manifest = [ordered]@{}
     Get-ChildItem -Path $Root -Directory | Sort-Object Name | ForEach-Object {
         $code = $_.Name
+        # Prefer a single shipping major: highest vN.zip (new app uses v1).
         $packFile = Get-ChildItem -Path $_.FullName -File -Filter "v*" -ErrorAction SilentlyContinue |
             Where-Object { $_.Extension -in ".zip", ".json" } |
             Sort-Object { Get-PackVersionSortKey $_.BaseName } -Descending |
@@ -34,6 +41,8 @@ function Get-LocalPackManifest {
             $rel = "$code/$($packFile.Name)"
             $manifest[$rel] = [pscustomobject]@{
                 RelativePath = $rel
+                Code         = $code
+                FileName     = $packFile.Name
                 LocalPath    = $packFile.FullName
                 SizeBytes    = $packFile.Length
             }
@@ -165,7 +174,60 @@ if ($toUpload.Count -eq 0) {
     }
 }
 
-if ($RestartApi -and -not $DryRun -and $toUpload.Count -gt 0) {
+# Remove stale majors (v2/v3/…) so the API only sees the shipping file (usually v1.zip).
+if ($CleanOldVersions) {
+    Write-Host ""
+    Write-Host "Cleaning stale remote pack versions (keep only local shipping file per language)..."
+    $keepByCode = @{}
+    foreach ($entry in $localManifest.Values) {
+        $keepByCode[$entry.Code] = $entry.FileName
+    }
+    $stale = @()
+    foreach ($rel in $remoteManifest.Keys) {
+        if ($rel -notmatch '^([^/]+)/(v[^/]+)$') { continue }
+        $code = $Matches[1]
+        $fileName = $Matches[2]
+        if (-not $keepByCode.ContainsKey($code)) { continue }
+        $keep = $keepByCode[$code]
+        if ($fileName -ne $keep) {
+            $stale += "$code/$fileName"
+        }
+    }
+    # Also catch local-only languages after upload (refresh remote list lightly from keep map)
+    foreach ($code in $keepByCode.Keys) {
+        $keep = $keepByCode[$code]
+        foreach ($major in 2..9) {
+            $candidate = "$code/v$major.zip"
+            if ($candidate -ne "$code/$keep" -and -not ($stale -contains $candidate)) {
+                # Will rm -f even if missing
+                $stale += $candidate
+            }
+        }
+        if ($keep -eq "v1.zip") {
+            foreach ($extra in @("v1.json", "v2.json", "v3.json", "v3.zip", "v2.zip")) {
+                if ($extra -ne $keep -and -not ($stale -contains "$code/$extra")) {
+                    $stale += "$code/$extra"
+                }
+            }
+        }
+    }
+    $stale = $stale | Select-Object -Unique | Sort-Object
+    Write-Host "Stale candidates: $($stale.Count)"
+    if ($DryRun) {
+        $stale | Select-Object -First 40 | ForEach-Object { Write-Host "  would delete $_" }
+        if ($stale.Count -gt 40) { Write-Host "  ... +$($stale.Count - 40) more" }
+    } else {
+        $deleted = 0
+        foreach ($rel in $stale) {
+            $remotePath = "$RemotePacksDir/$rel"
+            & ssh "${SshUser}@${SshHost}" "rm -f '$remotePath'"
+            if ($LASTEXITCODE -eq 0) { $deleted++ }
+        }
+        Write-Host "Deleted/attempted stale remote packs: $deleted"
+    }
+}
+
+if ($RestartApi -and -not $DryRun -and ($toUpload.Count -gt 0 -or $CleanOldVersions)) {
     Write-Host "Restarting cheradip-ailt..."
     & ssh "${SshUser}@${SshHost}" "sudo systemctl restart cheradip-ailt"
 }

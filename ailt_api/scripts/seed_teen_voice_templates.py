@@ -74,8 +74,24 @@ TEMPLATES: dict[str, dict] = {
 }
 
 
-def write_voice_json(path: Path, code: str, gender: str, locale: str, hints: list[str]) -> None:
-    pitch = 1.10 if gender == "male" else 1.20
+GENDER_HINTS: dict[str, list[str]] = {
+    "male": ["male", "iob", "david", "james", "mark", "ryan", "man"],
+    "female": ["female", "sfg", "zira", "samantha", "karen", "allison", "ava", "woman"],
+    "boy": ["male", "iob", "boy", "young", "child", "junior"],
+    "girl": ["female", "sfg", "zira", "girl", "young", "child", "samantha"],
+}
+
+GENDER_PITCH: dict[str, float] = {
+    "male": 0.88,
+    "female": 1.26,
+    "boy": 1.38,
+    "girl": 1.52,
+}
+
+
+def write_voice_json(path: Path, code: str, gender: str, locale: str, base_hints: list[str]) -> None:
+    pitch = GENDER_PITCH.get(gender, 1.1)
+    hints = list(dict.fromkeys(GENDER_HINTS.get(gender, []) + base_hints))
     path.parent.mkdir(parents=True, exist_ok=True)
     (path.parent / "model").mkdir(exist_ok=True)
     path.write_text(
@@ -84,9 +100,9 @@ def write_voice_json(path: Path, code: str, gender: str, locale: str, hints: lis
                 "engine": "android",
                 "languageCode": code,
                 "gender": gender,
-                "version": 1,
+                "version": 2,
                 "pitch": pitch,
-                "speechRateBias": 0.92,
+                "speechRateBias": 1.04 if gender in ("girl", "boy") else 0.98,
                 "locale": locale,
                 "preferredVoiceNameHints": hints,
             },
@@ -114,12 +130,13 @@ def seed(code: str, force: bool = False) -> bool:
         print(f"exists {code}")
         return True
     root.mkdir(parents=True, exist_ok=True)
+    genders = ["male", "female", "girl", "boy"]
     manifest.write_text(
         json.dumps(
             {
-                "version": 1,
+                "version": 2,
                 "languageCode": code,
-                "genders": ["male", "female"],
+                "genders": genders,
                 "engine": "android",
             },
             indent=2,
@@ -127,7 +144,7 @@ def seed(code: str, force: bool = False) -> bool:
         + "\n",
         encoding="utf-8",
     )
-    for gender in ("male", "female"):
+    for gender in genders:
         write_voice_json(
             root / gender / "voice.json",
             code,
