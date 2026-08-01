@@ -2125,14 +2125,26 @@ def _export_is_mcq_set_banner_row(q):
     return qid.startswith(_MCQ_SET_BANNER_QID_PREFIX)
 
 
+def _export_is_type_heading_row(q):
+    if not isinstance(q, dict):
+        return False
+    kind = str(q.get('answerSheetSegmentKind') or '').strip()
+    if kind == 'typeHeading':
+        return True
+    qid = str(q.get('qid') or '')
+    return qid.startswith('type-hdr-') or '-type-hdr-' in qid
+
+
 def _export_skip_question_number_label(q):
     """Match preview `previewQuestionShowsIndex` — serial only on main intro/MCQ stem rows."""
     if not isinstance(q, dict):
         return False
+    if _export_is_type_heading_row(q):
+        return True
     if q.get('answerSheetContinuation'):
         return True
     kind = str(q.get('answerSheetSegmentKind') or '').strip()
-    return kind in ('part', 'option', 'tail')
+    return kind in ('part', 'option', 'tail', 'typeHeading')
 
 
 def _export_strip_mcq_answer_key_serial_prefix(text):
@@ -3377,6 +3389,8 @@ class ExportQuestionsView(APIView):
 
         def uses_creative_sheet(q):
             """CQ + non-MCQ companions (জ্ঞানমূলক / অনুধাবনমূলক / …) share the CQ sheet/header."""
+            if _export_is_type_heading_row(q):
+                return True
             return not is_mcq_type(q)
 
         creative_questions = []
@@ -3672,6 +3686,18 @@ class ExportQuestionsView(APIView):
                 return stem_html, build_options_html(qq_row, creative_row)
 
             def append_q_item(out_list, item_idx, qq_row, creative_row, list_pos, stem_html, opts_html):
+                if _export_is_type_heading_row(qq_row):
+                    label = str(qq_row.get('question') or qq_row.get('type') or '').strip()
+                    heading_style = (
+                        'font-size: %.2fpx; line-height: 1.25; padding: 0; margin: 0 0 6px 0; font-weight: 600;'
+                    ) % q_font_cq
+                    out_list.append(
+                        '<div class="q-item q-cq q-type-heading" style="%s">'
+                        '<div class="q-content"><span class="q-type-heading-text">%s</span></div>'
+                        '</div>'
+                        % (heading_style, escape(label))
+                    )
+                    return
                 if _export_is_mcq_set_banner_row(qq_row):
                     plain = plain_question_text(qq_row)
                     banner_style = (
@@ -4891,6 +4917,12 @@ class ExportQuestionsView(APIView):
             raw_q = (q.get('question') or '').strip() or ' '
             prepared_plain = format_maybe_c_program_question_text(raw_q, emit_html=False)
             seg_kind = str(q.get('answerSheetSegmentKind') or '').strip()
+            if _export_is_type_heading_row(q):
+                label = str(q.get('question') or q.get('type') or '').strip()
+                para = doc.add_paragraph()
+                run = para.add_run(label)
+                run.bold = True
+                continue
             if _export_is_mcq_answer_key_row(q):
                 prepared_plain = _export_strip_mcq_answer_key_serial_prefix(prepared_plain)
                 doc.add_paragraph('%s। %s' % (docx_serial_bn(i), prepared_plain))
