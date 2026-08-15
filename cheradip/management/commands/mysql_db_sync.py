@@ -111,6 +111,7 @@ DEFAULT_PROJECT_SYNC_DATABASES = (
     "cheradip_job",
     "ailanguagetutor",
     "extcheradip",
+    "childcare",
 )
 DEFAULT_SYNC_DATABASES = ",".join(DEFAULT_PROJECT_SYNC_DATABASES)
 # ---------------------------------------------------------------------------

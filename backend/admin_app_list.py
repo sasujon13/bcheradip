@@ -16,6 +16,7 @@ DATABASE_SECTIONS = [
     ('hsc', 'HSC'),
     ('honours', 'Honours'),
     ('job', 'Job'),
+    ('childcare', 'Child Care'),
 ]
 
 # For backward compatibility if something passed db=all
@@ -42,7 +43,8 @@ def build_db_tabs_for_index(active_alias, use_databases_path=False, settings_act
 
 
 def _allowed_table_name(name):
-    return bool(name and re.match(r'^cheradip_[a-z0-9_]+$', name.strip().lower()))
+    n = (name or "").strip().lower()
+    return bool(n and re.match(r'^(cheradip_[a-z0-9_]+|cc_[a-z0-9_]+|django_migrations)$', n))
 
 
 def get_current_db(request, force_db=None):

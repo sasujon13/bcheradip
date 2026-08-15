@@ -14,6 +14,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 from dotenv import load_dotenv
 
 load_dotenv(os.path.join(BASE_DIR, ".env"), override=True)
+# Same Brevo SMTP credentials as AI Language Tutor when not set in project .env
+load_dotenv(os.path.join(BASE_DIR, "ailt_api", ".env"), override=False)
 
 # Always resolve keys relative to project root (manage.py directory), not cwd.
 config = AutoConfig(search_path=BASE_DIR)
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'cheradip',
+    'childcare',
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'rest_framework',
@@ -189,10 +192,23 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     },
+    'childcare': {
+        'ENGINE': 'backend.db_backend',
+        'NAME': config('DATABASE_CHILDCARE_NAME', default='childcare', cast=str),
+        'USER': config('DATABASE_USER', default='root', cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD', default='', cast=str),
+        'HOST': config('DATABASE_HOST', default='127.0.0.1', cast=str),
+        'PORT': config('DATABASE_PORT', default='3306', cast=str),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    },
 }
 
-# Route models to cheradip_job, cheradip_hsc, cheradip_honours (order: first non-None wins)
+# Route models to cheradip_job, cheradip_hsc, cheradip_honours, childcare
 DATABASE_ROUTERS = [
+    'childcare.db_routers.ChildcareRouter',
     'cheradip.db_routers.JobRouter',
     'cheradip.db_routers.HSCRouter',
     'cheradip.db_routers.HonoursRouter',
@@ -224,6 +240,18 @@ USE_TZ = True
 # Google Cloud Translation API key for translating website data to country language.
 # Set in .env as GOOGLE_TRANSLATE_API_KEY. Get from: https://console.cloud.google.com/apis/credentials
 GOOGLE_TRANSLATE_API_KEY = config('GOOGLE_TRANSLATE_API_KEY', default='', cast=str)
+
+# OTP email — same Brevo SMTP_* vars as ailt_api (AI Language Tutor)
+SMTP_ENABLED = config('SMTP_ENABLED', default=True, cast=bool)
+SMTP_HOST = config('SMTP_HOST', default='', cast=str)
+SMTP_PORT = config('SMTP_PORT', default=587, cast=int)
+SMTP_USER = config('SMTP_USER', default='', cast=str)
+SMTP_PASSWORD = config('SMTP_PASSWORD', default='', cast=str)
+SMTP_FROM = config('SMTP_FROM', default='Cheradip <noreply@cheradip.com>', cast=str)
+SMTP_USE_TLS = config('SMTP_USE_TLS', default=True, cast=bool)
+SMTP_USE_SSL = config('SMTP_USE_SSL', default=False, cast=bool)
+OTP_TTL_MINUTES = config('OTP_TTL_MINUTES', default=15, cast=int)
+CHILDCARE_SESSION_TTL_DAYS = config('CHILDCARE_SESSION_TTL_DAYS', default=30, cast=int)
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
