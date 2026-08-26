@@ -8142,6 +8142,169 @@ def _question_list_where_sql(topics, chapters, types, sources, years, col_set):
     return ' WHERE ' + ' AND '.join(clauses), params
 
 
+def _question_search_sql(search_term, col_set, pk_col):
+    """Build LIKE clauses + relevance ORDER BY for question search.
+
+    Fuzzy matching over a whitespace-joined view of question / answers / options /
+    explanations / topic / chapter / subject / pk:
+      * exact substring of the whole query (highest),
+      * the same text ignoring all whitespace ("#include < stdio.h >" also matches
+        "#include<stdio.h>"),
+      * whole word tokens of the query ("#include", "< stdio.h >"),
+      * single characters (a question containing "#" still loads, ranked last).
+
+    Best matches come first, then the primary key for a deterministic tie-break.
+    Returns (where_clause, params, order_by). `params` lists WHERE placeholders
+    first and ORDER-BY placeholders after, matching the SQL placeholder order.
+    The caller ANDs `where_clause` onto the existing filter WHERE clause.
+    """
+    q = (search_term or '').strip()
+    if not q:
+        return '', [], pk_col
+    norm_q = re.sub(r'\s+', '', q)
+    tokens = [t for t in re.split(r'\s+', q) if t]
+    single_char_tokens = {t for t in tokens if len(t) == 1}
+    # Characters inside multi-char tokens (plus the multi-char tokens' own chars)
+    # that are not already standalone single-character tokens.
+    chars = sorted({c for t in tokens for c in t} - single_char_tokens)
+
+    def _esc(s):
+        return s.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
+
+    search_fields = [
+        'question', 'answer', 'option_1', 'option_2', 'option_3', 'option_4',
+        'explanation', 'topic', 'chapter', 'subject',
+    ]
+    if 'explanation2' in col_set:
+        search_fields.append('explanation2')
+    if 'explanation3' in col_set:
+        search_fields.append('explanation3')
+    search_fields.append(pk_col)
+
+    combined = 'CONCAT_WS(\' \', ' + ', '.join('COALESCE({0}, \'\')'.format(f) for f in search_fields) + ')'
+    normalized = "REPLACE(REPLACE(REPLACE({0}, ' ', ''), '\\t', ''), '\\n', '')".format(combined)
+
+    like_raw = '%' + _esc(q) + '%'
+    like_norm = ('%' + _esc(norm_q) + '%') if norm_q and norm_q != q else None
+    like_tokens = ['%' + _esc(t) + '%' for t in tokens]
+    like_chars = ['%' + _esc(c) + '%' for c in chars]
+
+    where_conds = []
+    where_params = []
+    order_terms = []
+    order_params = []
+
+    # Exact substring of the whole query.
+    where_conds.append('{0} LIKE %s'.format(combined))
+    where_params.append(like_raw)
+    order_terms.append('({0} LIKE %s) * 10000'.format(combined))
+    order_params.append(like_raw)
+
+    # Per-field raw weight so question matches outrank answer/option/explanation matches.
+    for col, w in (
+        ('question', 200), ('answer', 150), ('option_1', 100), ('option_2', 100),
+        ('option_3', 100), ('option_4', 100), ('explanation', 60), ('topic', 60),
+        ('chapter', 50), ('subject', 40),
+    ):
+        if col in search_fields:
+            order_terms.append('({0} LIKE %s) * {1}'.format(col, w))
+            order_params.append(like_raw)
+
+    # Same text ignoring whitespace (#include < stdio.h > == #include<stdio.h>).
+    if like_norm is not None:
+        where_conds.append('{0} LIKE %s'.format(normalized))
+        where_params.append(like_norm)
+        order_terms.append('({0} LIKE %s) * 5000'.format(normalized))
+        order_params.append(like_norm)
+
+    # Whole word tokens (longer tokens weigh more).
+    for token, tl in zip(tokens, like_tokens):
+        token_weight = 5 if len(token) == 1 else min(100, len(token) * len(token))
+        where_conds.append('{0} LIKE %s'.format(combined))
+        where_params.append(tl)
+        order_terms.append('({0} LIKE %s) * {1}'.format(combined, token_weight))
+        order_params.append(tl)
+
+    # Single characters (load questions on a one-character match, ranked last).
+    for cl in like_chars:
+        where_conds.append('{0} LIKE %s'.format(combined))
+        where_params.append(cl)
+        order_terms.append('({0} LIKE %s) * 1'.format(combined))
+        order_params.append(cl)
+
+    where = ' (' + ' OR '.join(where_conds) + ')'
+    order_expr = ' + '.join(order_terms) + ', ' + pk_col
+    return where, where_params, order_params, order_expr
+
+
+def _question_search_text(q):
+    """Concatenated, searchable text of a question row (mirrors frontend searchableQuestionText)."""
+    parts = [
+        q.get('question'), q.get('answer'),
+        q.get('option_1'), q.get('option_2'), q.get('option_3'), q.get('option_4'),
+        q.get('explanation'), q.get('explanation2'), q.get('explanation3'),
+        q.get('topic'), q.get('chapter'), q.get('subject'), q.get('qid'),
+    ]
+    return ' '.join('' if v is None else str(v) for v in parts)
+
+
+def _lcs_subsequence_len(a, b):
+    """Length of the longest common subsequence (matched characters in order)."""
+    if not a or not b:
+        return 0
+    prev = [0] * (len(b) + 1)
+    for ca in a:
+        cur = [0] * (len(b) + 1)
+        for j in range(1, len(b) + 1):
+            if ca == b[j - 1]:
+                cur[j] = prev[j - 1] + 1
+            else:
+                cur[j] = prev[j] if prev[j] >= cur[j - 1] else cur[j - 1]
+        prev = cur
+    return prev[len(b)]
+
+
+def _lcs_substring_len(a, b):
+    """Length of the longest common contiguous substring."""
+    if not a or not b:
+        return 0
+    prev = [0] * (len(b) + 1)
+    best = 0
+    for ca in a:
+        cur = [0] * (len(b) + 1)
+        for j in range(1, len(b) + 1):
+            if ca == b[j - 1]:
+                v = prev[j - 1] + 1
+                cur[j] = v
+                if v > best:
+                    best = v
+        prev = cur
+    return best
+
+
+def _search_match_score(text, term):
+    """
+    Rank by number of matched characters (not by repeated matches).
+
+    Score breakdown:
+      - full contiguous match (ignoring whitespace) -> 1_000_000 + length
+      - otherwise: matched-characters-in-order (LCS) * 1000
+                   + longest contiguous run (tie-break)
+    Each character of the query is counted at most once.
+    """
+    nterm = re.sub(r'\s+', '', (term or '').lower())
+    ntext = re.sub(r'\s+', '', (text or '').lower())
+    if not nterm or not ntext:
+        return 0
+    if nterm in ntext:
+        return 1000000 + len(nterm)
+    lcs_seq = _lcs_subsequence_len(nterm, ntext)
+    if lcs_seq == 0:
+        return 0
+    lcs_str = _lcs_substring_len(nterm, ntext)
+    return lcs_seq * 1000 + lcs_str
+
+
 _SUBSOURCE_TOKEN_RE = re.compile(r"([A-Za-z0-9\-]+)'(\d{2})")
 
 
@@ -8249,7 +8412,8 @@ class QuestionListView(APIView):
     """
     GET: Paginated questions from the subject question table (default 30 per page, like NTRCA vacancy lists).
     Query params: level_tr, class_level, subject_tr; optional topic/chapter (repeatable);
-    page, page_size; optional source, year, type filters (repeatable).
+    page, page_size; optional source, year, type filters (repeatable); search (substring match
+    anywhere in question/answers/options/explanations, best matches first).
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
@@ -8258,6 +8422,7 @@ class QuestionListView(APIView):
         level_tr = (request.query_params.get('level_tr') or '').strip()
         class_level = (request.query_params.get('class_level') or '').strip()
         subject_tr = (request.query_params.get('subject_tr') or '').strip()
+        search_term = (request.query_params.get('search') or '').strip()
         if not level_tr or not class_level or not subject_tr:
             return Response({'questions': [], 'count': 0, 'page': 1, 'page_size': 30}, status=status.HTTP_200_OK)
         page, page_size, offset = _question_list_pagination(request)
@@ -8296,24 +8461,59 @@ class QuestionListView(APIView):
                 elif 'chapter_no' in col_set:
                     order_by = 'chapter_no, {}'.format(pk_col)
                 where_sql, where_params = _question_list_where_sql(topics, chapters, types, sources, years, col_set)
+                if search_term:
+                    search_where, search_where_params, search_order_params, search_order = _question_search_sql(search_term, col_set, pk_col)
+                    if search_where:
+                        where_sql = (where_sql + ' AND' if where_sql else ' WHERE') + search_where
+                        where_params = where_params + search_where_params
+                        order_by = search_order
+                        # Stash ORDER-BY params separately — COUNT only uses WHERE params
+                order_params = search_order_params if search_term and search_where else []
                 cur.execute(
                     "SELECT COUNT(*) FROM `{}`{}".format(table_name, where_sql),
                     where_params
                 )
                 row = cur.fetchone()
                 total_count = int(row[0]) if row and row[0] is not None else 0
-                cur.execute(
-                    "SELECT {} FROM `{}`{} ORDER BY {} LIMIT %s OFFSET %s".format(
-                        select_cols, table_name, where_sql, order_by
-                    ),
-                    where_params + [page_size, offset]
-                )
-                cols = [c[0] for c in cur.description]
-                for row in cur.fetchall():
-                    q = {}
-                    for k, v in zip(cols, row):
-                        q[k] = v.strip() if v is not None and isinstance(v, str) else v
-                    questions.append(q)
+                cols = None
+                if search_term and search_where:
+                    # Search: fetch a bounded candidate set (coarse SQL relevance order),
+                    # then rank precisely by number of matched characters in Python and
+                    # return the top page_size. Each query character is counted once.
+                    scan_limit = max(page_size * 5, 500)
+                    cur.execute(
+                        "SELECT {} FROM `{}`{} ORDER BY {} LIMIT %s".format(
+                            select_cols, table_name, where_sql, order_by
+                        ),
+                        where_params + order_params + [scan_limit]
+                    )
+                    cols = [c[0] for c in cur.description]
+                    candidates = []
+                    for row in cur.fetchall():
+                        q = {}
+                        for k, v in zip(cols, row):
+                            q[k] = v.strip() if v is not None and isinstance(v, str) else v
+                        candidates.append(q)
+                    candidates.sort(
+                        key=lambda r: _search_match_score(_question_search_text(r), search_term),
+                        reverse=True,
+                    )
+                    start = min(offset, len(candidates))
+                    end = min(offset + page_size, len(candidates))
+                    questions = candidates[start:end]
+                else:
+                    cur.execute(
+                        "SELECT {} FROM `{}`{} ORDER BY {} LIMIT %s OFFSET %s".format(
+                            select_cols, table_name, where_sql, order_by
+                        ),
+                        where_params + order_params + [page_size, offset]
+                    )
+                    cols = [c[0] for c in cur.description]
+                    for row in cur.fetchall():
+                        q = {}
+                        for k, v in zip(cols, row):
+                            q[k] = v.strip() if v is not None and isinstance(v, str) else v
+                        questions.append(q)
         except Exception as e:
             logger.exception('QuestionListView: %s', e)
             return Response({'questions': [], 'count': 0, 'page': page, 'page_size': page_size, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
