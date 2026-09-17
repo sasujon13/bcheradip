@@ -448,6 +448,30 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                         % (pk, level_tr, class_level, subject_tr)
                     )
                     continue
+                # Topic Update / rename: renaming a topic applies to ALL questions under it.
+                pending_status = (row_data.get('status') or '').strip().lower()
+                if pending_status in ('topic update', 'topic-update', 'rename topic', 'topic_update'):
+                    try:
+                        meta = json.loads(row_data.get('subsource') or '{}')
+                    except (TypeError, ValueError):
+                        meta = {}
+                    old_topic = str((meta.get('old_topic') or '').strip()) if isinstance(meta, dict) else ''
+                    new_topic = str(row_data.get('topic') or '').strip()
+                    if not old_topic or not new_topic:
+                        errors.append('Row %s: Topic rename is missing old/new topic.' % pk)
+                        continue
+                    now_sql_r = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+                    updated_by_r = (row_data.get('updated_by') or '').strip() or 'Cheradip'
+                    cursor.execute(
+                        "UPDATE `%s` SET topic = %%s, updated_at = %%s, updated_by = %%s WHERE topic = %%s" % target_table.replace('`', '``'),
+                        [new_topic, now_sql_r, updated_by_r, old_topic],
+                    )
+                    cursor.execute(
+                        "DELETE FROM `%s` WHERE `%s` = %%s" % (table_name.replace('`', '``'), pk_column.replace('`', '``')),
+                        [pk],
+                    )
+                    success += 1
+                    continue
                 is_update = _pending_is_update_request(row_data)
                 live_qid = _pending_live_qid(row_data)
                 if is_update and not live_qid:
