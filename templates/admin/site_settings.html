@@ -1,0 +1,161 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">
+<style>
+  nav[aria-label="Breadcrumbs"], .breadcrumbs { display: none !important; }
+  #content h1, #content-main h1, .main h1:first-child { display: none; }
+  #content-main .module ul, #content-main ul, body.dashboard #content-main ul, body.dashboard .module ul { list-style: none; padding-left: 0; }
+  #content-main .module ul li, #content-main ul li { list-style: none; }
+
+  .admin-db-tabs { display: flex; flex-wrap: nowrap; gap: 0; margin: 8px auto; border-bottom: 1px solid #ddd; list-style: none; width: max-content; max-width: 100%; box-sizing: border-box; }
+  .admin-db-tabs li { margin: 0; flex: 0 1 auto; min-width: 0; box-sizing: border-box; }
+  .admin-db-tabs a { display: block; box-sizing: border-box; padding: 10px 12px; text-align: center; text-decoration: none; color: var(--primary, #008080); font-weight: 500; border: 1px solid #ddd; border-bottom: none; margin-bottom: -1px; background: #f8f8f8; white-space: nowrap; }
+  .admin-db-tabs a:hover { background: #e8e8e8; color: var(--primary-hover, #006666); }
+  .admin-db-tabs li.active a { background: #fff; color: #333; border-bottom: 1px solid #fff; position: relative; top: 1px; }
+
+  /* Page shell */
+  #content-main { width: 100%; max-width: 100%; box-sizing: border-box; }
+  .colMS { margin-right: 0 !important; }
+  /* Django base.css forces body.dashboard #content { width: 600px }; expand it to
+     full width (same as admin index) so the settings cards run the full column. */
+  body.dashboard #content {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box;
+    container-type: inline-size;
+    container-name: admin-main;
+  }
+  body.dashboard .main { min-width: 0; }
+  body.dashboard main.content { min-width: 0; flex: 1 1 0%; }
+  /* Keep the settings cards centred within the full-width column */
+  .settings-head, .settings-group, .settings-raw details {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .settings-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px 14px;
+    margin: 6px auto 2px;
+  }
+  .settings-head h2 { margin: 0; font-size: 20px; }
+
+  /* Group cards */
+  .settings-group { border: 1px solid #ddd; border-radius: 8px; margin: 14px auto; max-width: 980px; box-sizing: border-box; background: #fff; }
+  .settings-group > h3 { margin: 0; padding: 10px 16px; border-bottom: 1px solid #e5e5e5; background: #f3f7f7; border-radius: 8px 8px 0 0; font-size: 15px; color: var(--primary, #006666); }
+  /* Form rows */
+  .settings-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 16px; padding: 10px 16px; border-bottom: 1px solid #f0f0f0; }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row-label { flex: 1 1 300px; min-width: 0; }
+  .settings-row-label .lbl { font-weight: 600; font-size: 14px; }
+  .settings-row-label p { margin: 2px 0 0; font-size: 12px; color: #666; }
+  .settings-row-control { flex: 0 1 320px; min-width: 220px; }
+  .settings-row-control input[type="text"], .settings-row-control input[type="password"], .settings-row-control input[type="number"] {
+    width: 100%; box-sizing: border-box; padding: 5px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px;
+  }
+  .settings-row-control input:focus { border-color: var(--primary, #008080); outline: none; }
+  .settings-row-control select { width: 100%; padding: 5px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; background: #fff; }
+  .clear-check { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #555; margin-top: 4px; }
+  .src-badge { display: inline-block; margin-top: 5px; font-size: 11px; border-radius: 10px; padding: 1px 8px; }
+  .src-json { background: #e0f2f1; color: #00695c; border: 1px solid #b2dfdb; }
+  .src-env { background: #fff3e0; color: #b26a00; border: 1px solid #ffe0b2; }
+  .src-default { background: #eeeeee; color: #616161; border: 1px solid #e0e0e0; }
+
+  /* Raw JSON editor */
+  .settings-raw details { margin: 16px auto; max-width: 980px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 8px; background: #fbfaf8; }
+  .settings-raw summary { cursor: pointer; padding: 10px 16px; font-weight: 600; font-size: 14px; color: #333; }
+  .settings-raw textarea { display: block; width: 100%; box-sizing: border-box; border: none; border-top: 1px solid #e5e5e5; padding: 12px 16px; font-family: Consolas, Menlo, monospace; font-size: 12px; min-height: 220px; resize: vertical; background: transparent; }
+  .settings-raw-note { padding: 4px 16px 12px; font-size: 12px; color: #777; }
+
+  /* Actions */
+  .settings-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 18px 0 6px; }
+  .settings-actions button { padding: 8px 22px; border-radius: 6px; border: 1px solid var(--primary, #008080); background: var(--primary, #008080); color: #fff; font-size: 14px; cursor: pointer; }
+  .settings-actions button:hover { background: var(--primary-hover, #006666); }
+  .settings-actions button.reset { background: #fff; color: #a33; border: 1px solid #dc3545; }
+  .settings-actions button.reset:hover { background: #fdeaea; }
+</style>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <ul class="admin-db-tabs">
+    {% for tab in db_tabs %}
+    <li class="{% if tab.active %}active{% endif %}">
+      <a href="{{ tab.url }}">{{ tab.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="settings-head">
+    <h2>Site Settings</h2>
+  </div>
+
+  <form method="post" action="" id="site-settings-form">{% csrf_token %}
+    {% for group in groups %}
+    <section class="settings-group">
+      <h3>{{ group.name }}</h3>
+      {% for item in group.items %}
+      <div class="settings-row">
+        <div class="settings-row-label">
+          <span class="lbl">{{ item.label }}</span>
+          {% if item.description %}<p>{{ item.description }}</p>{% endif %}
+        </div>
+        <div class="settings-row-control">
+          {% if item.value_type == 'bool' %}
+          <select name="setting_{{ item.key }}">
+            <option value="true" {% if item.value %}selected{% endif %}>True</option>
+            <option value="false" {% if not item.value %}selected{% endif %}>False</option>
+          </select>
+          {% elif item.value_type == 'int' %}
+          <input type="number" step="1" name="setting_{{ item.key }}" value="{{ item.value }}">
+          {% elif item.value_type == 'float' %}
+          <input type="number" step="any" name="setting_{{ item.key }}" value="{{ item.value }}">
+          {% elif item.sensitive %}
+          <input type="password" name="setting_{{ item.key }}" value="{{ item.value }}" autocomplete="off">
+          <label class="clear-check"><input type="checkbox" name="setting_{{ item.key }}_clear" value="on"> Clear this value</label>
+          {% else %}
+          <input type="text" name="setting_{{ item.key }}" value="{{ item.value }}">
+          {% endif %}
+          {% if item.source == 'json' %}
+          <span class="src-badge src-json">overridden in JSON</span>
+          {% elif item.source == 'env' %}
+          <span class="src-badge src-env">from .env / env</span>
+          {% else %}
+          <span class="src-badge src-default">default</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+    {% endfor %}
+
+    <div class="settings-raw">
+      <details>
+        <summary>Raw JSON (advanced) — edit the overlay file contents directly</summary>
+        <textarea name="raw_json" spellcheck="false">{{ raw_json }}</textarea>
+        <p class="settings-raw-note">
+          Keys you type in this editor are validated against the same allowed settings and
+          saved when you press <strong>Save</strong>. Form fields above take precedence for
+          the same keys.<br>Recognised keys:
+          {% for group in groups %}{% for item in group.items %}{{ item.key }} · {% endfor %}{% endfor %}
+        </p>
+      </details>
+    </div>
+
+    <div class="settings-actions">
+      <button type="submit" name="action" value="save">Save Settings</button>
+      <button type="submit" name="action" value="reset" class="reset">Reset JSON to .env / defaults</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+

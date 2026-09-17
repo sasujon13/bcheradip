@@ -611,6 +611,29 @@ def _settings_filter_options(conn, db_alias):
     return levels, class_levels, subjects, chapters, topics
 
 
+def _question_tables_for_db(conn):
+    """Names of subject question tables in this DB (tables having qid + question)."""
+    out = []
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() "
+                "AND table_name LIKE 'cheradip_%' ORDER BY table_name"
+            )
+            for (t,) in cur.fetchall():
+                with conn.cursor() as cur2:
+                    cur2.execute(
+                        "SELECT GROUP_CONCAT(COLUMN_NAME) FROM information_schema.columns "
+                        "WHERE table_schema = DATABASE() AND table_name = %s", [t]
+                    )
+                    colset = set((cur2.fetchone()[0] or '').split(','))
+                if 'qid' in colset and 'question' in colset:
+                    out.append(t)
+    except Exception:
+        pass
+    return out
+
+
 @staff_member_required
 def database_settings(request, db_alias):
     """Settings page: Create Exam / Add Exam with optional filters. Same tab row as database_tables."""
@@ -652,9 +675,132 @@ def database_settings(request, db_alias):
         'chapters': chapters,
         'topics': topics,
         'filters': filters,
+        'question_tables': _question_tables_for_db(conn),
     }
     request.current_app = admin.site.name
     return TemplateResponse(request, 'admin/database_settings.html', context)
+
+
+@staff_member_required
+def start_exam_job(request, db_alias):
+    """Start Create/Add Exam as a background job; returns {job_id} to poll."""
+    from cheradip.exam_jobs import start_job
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required.'}, status=405)
+    kind = (request.POST.get('kind') or request.POST.get('action') or '').strip()
+    if kind not in ('create_exam', 'add_exam'):
+        return JsonResponse({'error': 'Unknown action: %s' % kind}, status=400)
+    filters = {
+        k: request.POST.get(k, '') for k in (
+            'level_tr', 'class_level', 'group', 'subject_tr', 'chapter', 'topic',
+        )
+    }
+    job_id = start_job(kind, db_alias, filters)
+    return JsonResponse({'job_id': job_id})
+
+
+@staff_member_required
+def start_question_update(request, db_alias):
+    """Start an AI Question/Explanation update job for a subject table."""
+    from cheradip.exam_jobs import start_question_update_job
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required.'}, status=405)
+    kind = (request.POST.get('kind') or '').strip()
+    if kind not in ('question', 'explanation'):
+        return JsonResponse({'error': 'Unknown update kind: %s' % kind}, status=400)
+    table = (request.POST.get('table') or '').strip().lower()
+    if not table:
+        return JsonResponse({'error': 'No table selected.'}, status=400)
+    job_id = start_question_update_job(db_alias, table, kind)
+    return JsonResponse({'job_id': job_id})
+
+
+@staff_member_required
+def exam_job_progress(request, db_alias, job_id):
+    """JSON snapshot of a running/finished exam job (name='exam_job_progress')."""
+    from cheradip.exam_jobs import get_job, PUBLIC_FIELDS
+    job = get_job(job_id)
+    if job is None:
+        return JsonResponse({'status': 'error', 'error': 'Job not found.'}, status=404)
+    return JsonResponse({k: job.get(k) for k in PUBLIC_FIELDS if k in job})
+
+
+@staff_member_required
+def site_settings_page(request):
+    """Global JSON-based settings page at /admin/settings/ (not a database)."""
+    from backend import site_settings as admin_settings
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'reset':
+            admin_settings.reset_json()
+            admin_settings.apply_to_os_environ()
+            messages.success(request, 'Settings overrides removed. Now using .env values / defaults.')
+            return redirect('admin:site_settings')
+        if action == 'save':
+            errors = []
+            values = {}
+            raw_text = (request.POST.get('raw_json') or '').strip()
+            if raw_text:
+                try:
+                    parsed = json.loads(raw_text)
+                    if not isinstance(parsed, dict):
+                        raise ValueError('JSON must be an object')
+                    for k, v in parsed.items():
+                        item = admin_settings.KEY_INDEX.get(str(k))
+                        if item is not None:
+                            val, err = admin_settings.cast_value(item, v)
+                            if err:
+                                errors.append('%s: %s' % (item['label'], err))
+                            else:
+                                values[k] = val
+                except ValueError as e:
+                    errors.append('Raw JSON invalid: %s' % e)
+            # Form fields take precedence over the raw JSON for keys submitted.
+            for item in admin_settings.ADMIN_SETTING_DEFS:
+                key = item['key']
+                raw = request.POST.get('setting_%s' % key)
+                if raw is None:
+                    continue  # not submitted -> keep current value
+                if item.get('sensitive') and request.POST.get('setting_%s_clear' % key) == 'on':
+                    val, err = admin_settings.cast_value(item, '')
+                else:
+                    val, err = admin_settings.cast_value(item, raw)
+                if err:
+                    errors.append('%s: %s' % (item['label'], err))
+                    continue
+                values[key] = val
+            if errors:
+                for msg in errors[:12]:
+                    messages.error(request, msg)
+                if len(errors) > 12:
+                    messages.error(request, '… and %s more errors.' % (len(errors) - 12))
+            else:
+                admin_settings.save_json(values)
+                admin_settings.apply_to_os_environ()
+                admin_settings.publish_values(values)
+                messages.success(request, 'Saved %s setting(s) to %s' % (len(values), admin_settings.SETTINGS_FILE))
+                return redirect('admin:site_settings')
+
+    groups = []
+    for name, items in admin_settings.get_groups():
+        groups.append({'name': name, 'items': items})
+    context = {
+        **admin.site.each_context(request),
+        'title': 'Site Settings',
+        'subtitle': None,
+        'db_tabs': build_db_tabs_for_index(
+            active_alias='default',
+            use_databases_path=True,
+            settings_active=True,
+            settings_url='/admin/settings/',
+        ),
+        'groups': groups,
+        'raw_json': admin_settings.raw_json(),
+        'settings_file': admin_settings.SETTINGS_FILE,
+    }
+    request.current_app = admin.site.name
+    return TemplateResponse(request, 'admin/site_settings.html', context) 
 
 
 @staff_member_required
@@ -888,10 +1034,32 @@ def database_table_data(request, db_alias, table_name):
     prev_url = (table_data_url + '?' + q.urlencode()) if page_num > 1 else None
     q['p'] = page_num + 1
     next_url = (table_data_url + '?' + q.urlencode()) if page_num < num_pages else None
+    # Same navigation as the admin index (dashboard): DB tabs + well-organised grid of the
+    # tables of this database, so any table-data page still shows the related DB's tables
+    # in the same organised layout as the first screen (/admin/).
+    db_tabs = build_db_tabs_for_index(active_alias=db_alias, use_databases_path=True)
+    db_table_list = []
+    try:
+        for _app in get_app_list_by_database(request, force_db=db_alias):
+            for _m in _app.get('models', []):
+                _url = _m.get('admin_url')
+                _name = _m.get('name')
+                if not _url or not _name:
+                    continue
+                db_table_list.append({
+                    'name': _name,
+                    'url': _url,
+                    'is_current': (_name == table_name) or (_url == table_data_url),
+                })
+    except Exception:
+        db_table_list = []
+
     context = {
         **admin.site.each_context(request),
         'subtitle': '',
         'title': 'Table: %s' % table_name,
+        'db_tabs': db_tabs,
+        'db_table_list': db_table_list,
         'db_alias': db_alias,
         'db_name': db_name,
         'db_label': label,

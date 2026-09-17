@@ -17,6 +17,13 @@ load_dotenv(os.path.join(BASE_DIR, ".env"), override=True)
 # Same Brevo SMTP credentials as AI Language Tutor when not set in project .env
 load_dotenv(os.path.join(BASE_DIR, "ailt_api", ".env"), override=False)
 
+# Admin-editable JSON settings (/admin/settings/). Values saved there override
+# .env / process environment without a server restart, so every config(...)
+# read below (and the direct os.environ reads in module code) sees them.
+from backend import site_settings as _site_settings
+
+_site_settings.apply_to_os_environ()
+
 # Always resolve keys relative to project root (manage.py directory), not cwd.
 config = AutoConfig(search_path=BASE_DIR)
 
@@ -240,6 +247,22 @@ USE_TZ = True
 # Google Cloud Translation API key for translating website data to country language.
 # Set in .env as GOOGLE_TRANSLATE_API_KEY. Get from: https://console.cloud.google.com/apis/credentials
 GOOGLE_TRANSLATE_API_KEY = config('GOOGLE_TRANSLATE_API_KEY', default='', cast=str)
+
+# Exam-question AI generation (admin Settings: Create Exam / Add Exam)
+# Cloud AI = the same service the AI Language Tutor Android app uses (bcheradip/ailt_api).
+# If every Cloud AI response errors, the backend falls back to Home AI (server/v2).
+CLOUD_AI_QUESTIONS_URL = config(
+    'CLOUD_AI_QUESTIONS_URL',
+    default='https://cheradip.com/ailt/api/ai/generate-questions',
+    cast=str,
+)
+HOME_AI_QUESTIONS_URL = config(
+    'HOME_AI_QUESTIONS_URL',
+    default='https://ai.cheradip.com/ide/chat/sync',
+    cast=str,
+)
+EXAM_AI_FILL_ENABLED = config('EXAM_AI_FILL_ENABLED', default=True, cast=bool)
+AI_QUESTIONS_TIMEOUT_SECONDS = config('AI_QUESTIONS_TIMEOUT_SECONDS', default=60, cast=int)
 
 # OTP email — same Brevo SMTP_* vars as ailt_api (AI Language Tutor)
 SMTP_ENABLED = config('SMTP_ENABLED', default=True, cast=bool)

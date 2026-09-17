@@ -23,8 +23,8 @@ DATABASE_SECTIONS = [
 VALID_DB_ALIASES = {alias for alias, _ in DATABASE_SECTIONS}
 
 
-def build_db_tabs_for_index(active_alias, use_databases_path=False, settings_active=False):
-    """Build tab list for the index UI. use_databases_path: True for /admin/databases/<alias>/ URLs. settings_active: True when on Settings page."""
+def build_db_tabs_for_index(active_alias, use_databases_path=False, settings_active=False, settings_url=None):
+    """Build tab list for the index UI. use_databases_path: True for /admin/databases/<alias>/ URLs. settings_active: True when on Settings page. settings_url: optional custom Settings tab URL (e.g. the global JSON settings page /admin/settings/)."""
     tabs = []
     for alias, name in DATABASE_SECTIONS:
         if use_databases_path:
@@ -36,7 +36,7 @@ def build_db_tabs_for_index(active_alias, use_databases_path=False, settings_act
     tabs.append({
         'alias': 'settings',
         'name': 'Settings',
-        'url': f'/admin/databases/{active_alias}/settings/',
+        'url': settings_url or f'/admin/databases/{active_alias}/settings/',
         'active': settings_active,
     })
     return tabs
@@ -153,6 +153,23 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
         except Exception:
             pass
     models.sort(key=lambda x: x['name'].lower())
+    # Default (Cheradip) database: expose the global JSON settings page as a
+    # pseudo "table" so clicking "settings" on /admin/ opens /admin/settings/.
+    if current_db == 'default':
+        site_name = admin.site.name
+        try:
+            settings_url = reverse('admin:site_settings', current_app=site_name)
+        except NoReverseMatch:
+            settings_url = '/admin/settings/'
+        models.insert(0, {
+            'model': None,
+            'name': 'settings',
+            'object_name': 'settings',
+            'perms': {'add': True, 'change': True, 'view': True, 'delete': False},
+            'admin_url': settings_url,
+            'add_url': settings_url,
+            'view_only': False,
+        })
     section_name = dict(DATABASE_SECTIONS).get(current_db, current_db)
 
     app_list = [{

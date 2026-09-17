@@ -125,6 +125,40 @@
     background-position: right 8px center;
   }
   .settings-help { margin-top: 12px; color: #666; font-size: 13px; line-height: 1.5; }
+
+  /* Exam job progress overlay — circular teal ring (reuses the admin/student ring design) */
+  .exam-job-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(15, 23, 42, 0.55); display: none; align-items: center; justify-content: center; }
+  .exam-job-overlay.open { display: flex; }
+  .exam-job-card { width: 470px; max-width: calc(100vw - 32px); box-sizing: border-box; background: #fff; border-radius: 16px; padding: 26px 24px 22px; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35); }
+  .exam-ring-wrap { position: relative; width: 160px; height: 160px; margin: 0 auto 14px; }
+  .exam-ring { transform: rotate(-90deg); }
+  .exam-ring-bg { stroke: #e2e8f0; }
+  .exam-ring-fill { stroke: #008080; stroke-linecap: round; transition: stroke-dashoffset 0.25s ease; filter: drop-shadow(0 0 6px rgba(0, 128, 128, 0.45)); }
+  .exam-ring-percent { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; color: #0f766e; font-variant-numeric: tabular-nums; }
+  .exam-job-phase { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; }
+  .exam-job-current { margin: 5px 0 10px; font-size: 15px; font-weight: 600; color: #1e293b; min-height: 1.4em; }
+  .exam-job-steps { margin: 0 0 14px; font-size: 12px; color: #94a3b8; }
+  .exam-job-stats { display: flex; gap: 10px; }
+  .exam-job-stat { flex: 1 1 0; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 6px; background: #f8fafc; }
+  .exam-job-stat .num { display: block; font-size: 22px; font-weight: 800; color: #008080; font-variant-numeric: tabular-nums; }
+  .exam-job-stat .lbl { display: block; font-size: 11px; color: #64748b; margin-top: 2px; }
+  .exam-job-msg { margin-top: 14px; font-size: 14px; color: #1e293b; line-height: 1.5; }
+  .exam-job-msg.exam-job-error { color: #b91c1c; }
+
+  /* Update Question block */
+  .update-block { max-width: 980px; margin: 6px auto 0; }
+  .update-block-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .uq-label { font-weight: 700; font-size: 14px; color: #0f766e; }
+  .update-block-row select {
+    min-width: 320px; max-width: 100%; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; background: #fff;
+  }
+  .uq-btn {
+    padding: 7px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;
+    background: #fff; color: #008080; border: 2px solid #008080;
+  }
+  .uq-btn:hover { background: #f0fdfa; }
+  .uq-btn[data-kind="explanation"] { color: #0f766e; border-color: #b45309; }
+  .uq-btn[data-kind="explanation"]:hover { background: #fff7ed; }
 </style>
 {% endblock %}
 
@@ -216,10 +250,86 @@
       </span>
     </div>
   </form>
+
+  <hr style="margin: 28px 0 18px; border: none; border-top: 1px solid #ddd;">
+
+  <div class="update-block">
+    <h2 style="margin: 0 0 4px;">Update Question</h2>
+    <p style="margin: 0 0 12px; color: #666; font-size: 14px;">
+      Clean unwanted symbols / enrich content with AI (Home AI first, Cloud AI fallback).
+      Nothing is applied directly — each changed question is queued as a pending update
+      request in <strong>{{ current_db }} / cheradip_pending_question_request</strong> for
+      manual review before accept / deny.
+    </p>
+    <div class="update-block-row">
+      <label class="uq-label" for="uq-table">Table</label>
+      <select id="uq-table">
+        <option value="">— Select a question table —</option>
+        {% for t in question_tables %}
+        <option value="{{ t }}">{{ t }}</option>
+        {% endfor %}
+      </select>
+      <button type="button" class="uq-btn" id="uq-btn-question" data-kind="question">Update Question</button>
+      <button type="button" class="uq-btn" id="uq-btn-explanation" data-kind="explanation">Update Explanation</button>
+    </div>
+  </div>
+
+  <!-- Update-question job overlay -->
+  <div class="exam-job-overlay" id="update-job-overlay">
+    <div class="exam-job-card" role="dialog" aria-modal="true" aria-label="Update progress">
+      <div class="exam-ring-wrap">
+        <svg class="exam-ring" width="160" height="160" viewBox="0 0 160 160">
+          <circle class="exam-ring-bg" cx="80" cy="80" r="70" fill="none" stroke-width="12"></circle>
+          <circle class="exam-ring-fill" id="update-ring-fill" cx="80" cy="80" r="70" fill="none" stroke-width="12" stroke-dasharray="439.8" stroke-dashoffset="439.8"></circle>
+        </svg>
+        <div class="exam-ring-percent" id="update-ring-percent">0%</div>
+      </div>
+      <div class="exam-job-phase" id="update-job-phase">Preparing&hellip;</div>
+      <div class="exam-job-current" id="update-job-current">Please wait&hellip;</div>
+      <div class="exam-job-steps" id="update-job-steps"></div>
+      <div class="exam-job-stats">
+        <div class="exam-job-stat"><span class="num" id="update-pending-sent">0</span><span class="lbl">Pending updates queued</span></div>
+        <div class="exam-job-stat"><span class="num" id="update-current-qid">&mdash;</span><span class="lbl">Current qid</span></div>
+      </div>
+      <div class="exam-job-msg" id="update-job-msg"></div>
+    </div>
+  </div>
+
   <p class="settings-help">
     <strong>Create Exam:</strong> Creates or recreates exam question sets for the selected filters. Re-click to recreate.<br>
     <strong>Add Exam:</strong> Creates only missing exam sets for the selected category (does not overwrite existing).
   </p>
+
+  <!-- Exam job progress overlay -->
+  <div class="exam-job-overlay" id="exam-job-overlay">
+    <div class="exam-job-card" role="dialog" aria-modal="true" aria-label="Exam progress">
+      <div class="exam-ring-wrap">
+        <svg class="exam-ring" width="160" height="160" viewBox="0 0 160 160">
+          <circle class="exam-ring-bg" cx="80" cy="80" r="70" fill="none" stroke-width="12"></circle>
+          <circle class="exam-ring-fill" id="exam-ring-fill" cx="80" cy="80" r="70" fill="none" stroke-width="12" stroke-dasharray="439.8" stroke-dashoffset="439.8"></circle>
+        </svg>
+        <div class="exam-ring-percent" id="exam-ring-percent">0%</div>
+      </div>
+      <div class="exam-job-phase" id="exam-job-phase">Preparing&hellip;</div>
+      <div class="exam-job-current" id="exam-job-current">Please wait while the exam sets are created.</div>
+      <div class="exam-job-steps" id="exam-job-steps"></div>
+      <div class="exam-job-stats">
+        <div class="exam-job-stat">
+          <span class="num" id="exam-ai-this-run">0</span>
+          <span class="lbl">AI created this run</span>
+        </div>
+        <div class="exam-job-stat">
+          <span class="num" id="exam-ai-topic">0</span>
+          <span class="lbl">On this topic</span>
+        </div>
+        <div class="exam-job-stat">
+          <span class="num" id="exam-ai-existing">0</span>
+          <span class="lbl">AI in subject already</span>
+        </div>
+      </div>
+      <div class="exam-job-msg" id="exam-job-msg"></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -747,6 +857,186 @@
   });
 
   loadLevels();
+})();
+</script>
+
+<script>
+(function () {
+  if (!document.getElementById('settings-form')) return;
+  var RING_C = 439.8;
+  var overlay = document.getElementById('exam-job-overlay');
+  var ringFill = document.getElementById('exam-ring-fill');
+  var ringPct = document.getElementById('exam-ring-percent');
+  var phaseEl = document.getElementById('exam-job-phase');
+  var currentEl = document.getElementById('exam-job-current');
+  var stepsEl = document.getElementById('exam-job-steps');
+  var aiRunEl = document.getElementById('exam-ai-this-run');
+  var aiTopicEl = document.getElementById('exam-ai-topic');
+  var aiExistingEl = document.getElementById('exam-ai-existing');
+  var msgEl = document.getElementById('exam-job-msg');
+  var jobDb = '{{ current_db|escapejs }}';
+  var csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
+  var csrfToken = csrfInput ? csrfInput.value : '';
+  var running = false;
+
+  function setRing(p) {
+    p = Math.max(0, Math.min(100, Number(p) || 0));
+    if (ringFill) ringFill.style.strokeDashoffset = String(RING_C * (1 - p / 100));
+    if (ringPct) ringPct.textContent = Math.round(p) + '%';
+  }
+
+  function render(j) {
+    setRing(j.percent);
+    if (phaseEl) phaseEl.textContent = j.phase || '';
+    var labels = [];
+    if (j.current_subject) labels.push(j.current_subject);
+    if (j.current_chapter) labels.push('Ch. ' + j.current_chapter);
+    if (j.current_topic) labels.push(j.current_topic);
+    if (currentEl) currentEl.textContent = labels.length
+      ? ('Currently operating: ' + labels.join(' \u00b7 '))
+      : 'Please wait while the exam sets are created.';
+    if (stepsEl) stepsEl.textContent = 'Topics processed: ' + (j.topics_done || 0) + ' / ' + (j.topics_total || 0);
+    if (aiRunEl) aiRunEl.textContent = j.ai_created_total != null ? j.ai_created_total : 0;
+    if (aiTopicEl) aiTopicEl.textContent = j.ai_created_current != null ? j.ai_created_current : 0;
+    if (aiExistingEl) aiExistingEl.textContent = j.ai_existing != null ? j.ai_existing : 0;
+  }
+
+  function finish(status, text) {
+    running = false;
+    if (phaseEl) phaseEl.textContent = status === 'done' ? 'Done' : 'Error';
+    if (msgEl) {
+      msgEl.textContent = text;
+      msgEl.classList.toggle('exam-job-error', status !== 'done');
+    }
+    if (status === 'done') setTimeout(function () { window.location.reload(); }, 1600);
+  }
+
+  function poll(jobId) {
+    var url = '/admin/databases/' + encodeURIComponent(jobDb) + '/settings/job/' + encodeURIComponent(jobId) + '/';
+    var timer = setInterval(function () {
+      fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j) return;
+          if (j.status === 'done') { clearInterval(timer); setRing(100); render(j); finish('done', j.message || 'Done.'); }
+          else if (j.status === 'error') { clearInterval(timer); finish('error', (j.error || j.message || 'Exam operation failed.') + ' \u2014 reload the page and try again.'); }
+          else { render(j); }
+        })
+        .catch(function () { /* transient network hiccup: keep polling */ });
+    }, 700);
+  }
+
+  document.getElementById('settings-form').addEventListener('submit', function (ev) {
+    if (running) { ev.preventDefault(); return; }
+    var submitter = ev.submitter || document.activeElement;
+    var kind = (submitter && submitter.getAttribute && submitter.getAttribute('name') === 'action') ? submitter.value : 'create_exam';
+    if (kind !== 'add_exam') kind = 'create_exam';
+    running = true;
+    ev.preventDefault();
+    if (overlay) overlay.classList.add('open');
+    setRing(0);
+    var fd = new FormData(ev.target);
+    fd.append('kind', kind);
+    fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/start-job/', {
+      method: 'POST',
+      body: fd,
+      headers: { 'X-CSRFToken': csrfToken, 'Accept': 'application/json' },
+      credentials: 'same-origin'
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.job_id) { poll(data.job_id); }
+        else { finish('error', (data && (data.error || data.message)) || 'Failed to start the job.'); }
+      })
+      .catch(function () { finish('error', 'Network error while starting the job.'); });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var overlay = document.getElementById('update-job-overlay');
+  var tableSel = document.getElementById('uq-table');
+  var btnQ = document.getElementById('uq-btn-question');
+  var btnE = document.getElementById('uq-btn-explanation');
+  if (!tableSel || !btnQ) return;
+  var RING_C = 439.8;
+  var csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
+  var csrfToken = csrfInput ? csrfInput.value : '';
+  var jobDb = '{{ current_db|escapejs }}';
+  var running = false;
+
+  function setRing(p) {
+    p = Math.max(0, Math.min(100, Number(p) || 0));
+    var fill = document.getElementById('update-ring-fill');
+    var pct = document.getElementById('update-ring-percent');
+    if (fill) fill.style.strokeDashoffset = String(RING_C * (1 - p / 100));
+    if (pct) pct.textContent = Math.round(p) + '%';
+  }
+
+  function render(j) {
+    setRing(j.percent);
+    var phaseEl = document.getElementById('update-job-phase');
+    var curEl = document.getElementById('update-job-current');
+    var stepsEl = document.getElementById('update-job-steps');
+    var sentEl = document.getElementById('update-pending-sent');
+    var qidEl = document.getElementById('update-current-qid');
+    if (phaseEl) phaseEl.textContent = j.phase || '';
+    if (curEl) curEl.textContent = (j.current_qid ? ('qid ' + j.current_qid) : '') + (j.current_table ? (' \u00b7 ' + j.current_table) : '');
+    if (stepsEl) stepsEl.textContent = 'Processed: ' + (j.processed != null ? j.processed : 0) + ' / ' + (j.total != null ? j.total : 0);
+    if (sentEl) sentEl.textContent = j.pending_sent != null ? j.pending_sent : 0;
+    if (qidEl) qidEl.textContent = j.current_qid || '\u2014';
+  }
+
+  function finish(status, text) {
+    running = false;
+    var phaseEl = document.getElementById('update-job-phase');
+    var msg = document.getElementById('update-job-msg');
+    if (phaseEl) phaseEl.textContent = status === 'done' ? 'Done' : 'Error';
+    if (msg) { msg.textContent = text; msg.classList.toggle('exam-job-error', status !== 'done'); }
+    if (status === 'done') setTimeout(function () { window.location.reload(); }, 1600);
+  }
+
+  function poll(jobId) {
+    var url = '/admin/databases/' + encodeURIComponent(jobDb) + '/settings/job/' + encodeURIComponent(jobId) + '/';
+    var timer = setInterval(function () {
+      fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j) return;
+          if (j.status === 'done') { clearInterval(timer); setRing(100); render(j); finish('done', j.message || 'Done.'); }
+          else if (j.status === 'error') { clearInterval(timer); finish('error', (j.error || j.message || 'Update job failed.') + ' \u2014 reload and try again.'); }
+          else { render(j); }
+        })
+        .catch(function () { /* transient: keep polling */ });
+    }, 700);
+  }
+
+  function start(kind) {
+    if (running) return;
+    var table = (tableSel.value || '').trim();
+    if (!table) { alert('Please select a table first.'); return; }
+    running = true;
+    if (overlay) overlay.classList.add('open');
+    setRing(0);
+    var fd = new FormData();
+    fd.append('kind', kind);
+    fd.append('table', table);
+    fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/update-question/start/', {
+      method: 'POST', body: fd,
+      headers: { 'X-CSRFToken': csrfToken, 'Accept': 'application/json' },
+      credentials: 'same-origin'
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.job_id) { poll(data.job_id); }
+        else { finish('error', (data && (data.error || data.message)) || 'Failed to start the update job.'); }
+      })
+      .catch(function () { finish('error', 'Network error while starting the update job.'); });
+  }
+
+  btnQ.addEventListener('click', function () { start('question'); });
+  btnE.addEventListener('click', function () { start('explanation'); });
 })();
 </script>
 {% endblock %}

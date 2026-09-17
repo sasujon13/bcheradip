@@ -34,7 +34,7 @@ from io import BytesIO
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-import logging, random, string, json, requests, os, re, csv, time, zipfile, math, shutil
+import logging, random, string, json, requests, os, re, csv, time, zipfile, math, shutil, base64
 from html import escape, unescape
 from urllib import parse as urllib_parse
 from urllib.parse import quote, unquote
@@ -56,6 +56,7 @@ from .c_program_export_format import (
 from .export_question_katex import (
     EXPORT_KATEX_PDF_CSS,
     inject_katex_into_playwright_page,
+    iter_question_latex_segments,
     normalize_question_latex_source,
 )
 
@@ -74,17 +75,36 @@ except ImportError:
 try:
     from docx import Document as DocxDocument
     from docx.shared import Mm as DocxMm, Pt as DocxPt
-    from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
+    from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT, WD_BREAK, WD_LINE_SPACING
+    from docx.enum.section import WD_SECTION
+    from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
+    from docx.oxml import OxmlElement as DocxOxmlElement
+    from docx.oxml.ns import qn as docx_qn
     DOCX_AVAILABLE = True
 except ImportError:
     DOCX_AVAILABLE = False
     WD_TAB_ALIGNMENT = None
 
 try:
+    from PIL import Image as PillowImage, ImageOps as PillowImageOps
+    PILLOW_AVAILABLE = True
+except ImportError:
+    PillowImage = None
+    PillowImageOps = None
+    PILLOW_AVAILABLE = False
+
+try:
     from playwright.sync_api import sync_playwright
     PLAYWRIGHT_AVAILABLE = True
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False
+
+try:
+    import math2docx
+    MATH2DOCX_AVAILABLE = True
+except ImportError:
+    math2docx = None
+    MATH2DOCX_AVAILABLE = False
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -1682,13 +1702,13 @@ def _export_layout_section_gap_px(data):
 
 
 def _docx_apply_section_columns(section, num_cols, space_twips=210, show_sep=False):
-    """Apply N newspaper-style columns to a python-docx section (2–10). No-op if unavailable or num_cols < 2."""
-    if not DOCX_AVAILABLE or num_cols <= 1:
+    """Apply 1–10 newspaper-style columns to a python-docx section."""
+    if not DOCX_AVAILABLE:
         return
     try:
         from docx.oxml import OxmlElement
         from docx.oxml.ns import qn
-        n = max(2, min(10, int(num_cols)))
+        n = max(1, min(10, int(num_cols)))
         stw = max(20, min(1600, int(space_twips)))
         sect_pr = section._sectPr
         cols_el = sect_pr.find(qn('w:cols'))
@@ -1997,6 +2017,108 @@ def _export_media_file_exists_at_media_path(path_from_media):
     return fp.is_file()
 
 
+def _export_docx_local_media_path(src):
+    """Resolve a question image URL to a safe file beneath MEDIA_ROOT."""
+    raw = unescape(str(src or '')).strip()
+    if not raw or raw.lower().startswith('data:'):
+        return None
+    try:
+        parsed = urllib_parse.urlsplit(('https:' + raw) if raw.startswith('//') else raw)
+        path = unquote(parsed.path or raw)
+    except Exception:
+        path = unquote(raw)
+    normalized = path.replace('\\', '/')
+    media_at = normalized.lower().find('/media/')
+    if media_at < 0:
+        if normalized.lower().startswith('media/'):
+            rel = normalized[6:]
+        else:
+            return None
+    else:
+        rel = normalized[media_at + len('/media/'):]
+    rel = rel.lstrip('/')
+    if not rel or any(part in ('', '.', '..') for part in rel.split('/')):
+        return None
+    media_root = getattr(settings, 'MEDIA_ROOT', None)
+    if not media_root:
+        return None
+    try:
+        root = Path(media_root).resolve()
+        candidate = (root / rel).resolve()
+        candidate.relative_to(root)
+    except (OSError, ValueError):
+        return None
+    return candidate if candidate.is_file() else None
+
+
+def _export_docx_load_image_bytes(src, max_bytes=20 * 1024 * 1024):
+    """Load data/local/public image content for DOCX embedding; local media is preferred."""
+    raw = unescape(str(src or '')).strip()
+    if not raw or not _export_is_safe_img_src(raw):
+        return None
+    data_match = re.match(
+        r'^data:image/(png|jpeg|jpg|gif|webp|svg\+xml);base64,(.+)$',
+        raw,
+        re.I | re.S,
+    )
+    if data_match:
+        try:
+            payload = base64.b64decode(re.sub(r'\s+', '', data_match.group(2)), validate=True)
+            return payload if 0 < len(payload) <= max_bytes else None
+        except (ValueError, TypeError):
+            return None
+    local_path = _export_docx_local_media_path(raw)
+    if local_path is not None:
+        try:
+            if local_path.stat().st_size > max_bytes:
+                return None
+            return local_path.read_bytes()
+        except OSError:
+            return None
+    if raw.startswith('//'):
+        raw = 'https:' + raw
+    if not re.match(r'^https?://', raw, re.I):
+        return None
+    try:
+        response = requests.get(raw, timeout=(4, 12), stream=True)
+        response.raise_for_status()
+        content_type = str(response.headers.get('Content-Type') or '').lower()
+        if content_type and not content_type.startswith('image/'):
+            return None
+        chunks = []
+        total = 0
+        for chunk in response.iter_content(64 * 1024):
+            if not chunk:
+                continue
+            total += len(chunk)
+            if total > max_bytes:
+                return None
+            chunks.append(chunk)
+        return b''.join(chunks) or None
+    except requests.RequestException:
+        return None
+
+
+def _export_docx_prepare_raster_image(image_bytes):
+    """Return Word-compatible image bytes plus pixel dimensions; animated images use frame 1."""
+    if not image_bytes or not PILLOW_AVAILABLE:
+        return None
+    try:
+        with PillowImage.open(BytesIO(image_bytes)) as image:
+            image.seek(0)
+            image = PillowImageOps.exif_transpose(image)
+            width, height = image.size
+            if width <= 0 or height <= 0:
+                return None
+            output = BytesIO()
+            if image.mode not in ('RGB', 'RGBA'):
+                image = image.convert('RGBA' if 'transparency' in image.info else 'RGB')
+            image.save(output, format='PNG', optimize=True)
+            return output.getvalue(), int(width), int(height)
+    except Exception:
+        return None
+
+
 def _export_pick_pdf_media_img_src(host_base, path_from_media, stem_only_media_path):
     """
     Prefer compiled LaTeX SVG on disk (preview uses media/latex/…), else stem LaTeX, else raster paths.
@@ -2156,7 +2278,11 @@ def _export_strip_mcq_answer_key_serial_prefix(text):
     return stripped if stripped else s
 
 
-_ROMAN_MCQ_MARKER_RE = re.compile(r'\b(iii|ii|i)\.(?!\d)', re.I)
+_ROMAN_MCQ_MARKER_RE = re.compile(r'(?<![A-Za-z])(iii|ii|i)\.(?!\d)', re.I)
+_ROMAN_MCQ_MARKER_CANDIDATE_RE = re.compile(
+    r'(?<![A-Za-z])(iii|ii|i)(?:\.(?!\d)|(?=\s|$)(?![A-Za-z]))',
+    re.I,
+)
 _ROMAN_MCQ_ORDER = ('i', 'ii', 'iii')
 _ROMAN_MCQ_PACK_ATTEMPTS = (
     (('i', 'ii', 'iii'),),
@@ -2211,15 +2337,48 @@ def _export_mcq_option_roman_pack_max_width_px(col_w_px, opt_grid_cols, opt_col_
 
 
 def _normalize_roman_mcq_source(text):
-    s = re.sub(r'\r\n?', '\n', str(text or ''))
+    s = re.sub(r'\r\n?', '\n', _canonicalize_roman_triplet_markers(str(text or '')))
     s = _collapse_then_normalize_nicher(s)
     s = re.sub(r'\n+\s*(?=(?:iii|ii|i)\.(?!\d))', ' ', s, flags=re.I)
     return s
 
 
+def _canonicalize_roman_triplet_markers(text):
+    source = str(text or '')
+    hits = list(_ROMAN_MCQ_MARKER_CANDIDATE_RE.finditer(source))
+    for i in range(max(0, len(hits) - 2)):
+        triple = hits[i:i + 3]
+        if [m.group(1).lower() for m in triple] != ['i', 'ii', 'iii']:
+            continue
+        parts = [source[:triple[0].start()]]
+        for j, match in enumerate(triple):
+            parts.append(match.group(1) + '.')
+            end = triple[j + 1].start() if j + 1 < len(triple) else len(source)
+            parts.append(source[match.end():end])
+        return ''.join(parts)
+    return source
+
+
+def _force_roman_triplet_lines(text):
+    source = _canonicalize_roman_triplet_markers(str(text or ''))
+    hits = list(_ROMAN_MCQ_MARKER_RE.finditer(source))
+    has_triplet = any(
+        [m.group(1).lower() for m in hits[i:i + 3]] == ['i', 'ii', 'iii']
+        for i in range(max(0, len(hits) - 2))
+    )
+    if not has_triplet:
+        return source
+    return re.sub(
+        r'[ \t]*(?<![A-Za-z])(iii|ii|i)\.(?!\d)[ \t]*',
+        lambda match: '\n%s. ' % match.group(1).lower(),
+        source,
+        flags=re.I,
+    ).lstrip('\n')
+
+
 def _export_prepare_mcq_text_for_roman(text):
     """Keep line breaks for নিচের/কোনটি/সঠিক tail detection (preview does not flatten first)."""
-    s = re.sub(r'\r\n?', '\n', str(text or ''))
+    s = re.sub(r'\r\n?', '\n', _canonicalize_roman_triplet_markers(str(text or '')))
     s = re.sub(r'<br\s*/?>', '\n', s, flags=re.I)
     s = _collapse_then_normalize_nicher(s)
     s = re.sub(
@@ -2489,6 +2648,8 @@ def _partition_roman_pack_attempts(present):
 
 def _choose_roman_mcq_pack_lines(segments, max_width_px, font_px):
     present = set(mk for mk, _ in segments)
+    if {'i', 'ii', 'iii'}.issubset(present):
+        return [('i',), ('ii',), ('iii',)]
     by_marker = {
         mk: _strip_html_plain_for_measure(_compact_roman_segment_body(body, True))
         for mk, body in segments
@@ -2575,7 +2736,15 @@ def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
         re.sub(r'<br\s*/?>', '\n', t.replace('\r\n', '\n'), flags=re.I),
         host_base,
     )
-    prepared = _export_prepare_mcq_text_for_roman(t)
+    prepared = normalize_question_latex_source(_export_prepare_mcq_text_for_roman(t))
+    normalized_math = prepared
+    parsed_roman = _parse_roman_mcq_segments(prepared)
+    if not parsed_roman and re.search(
+        r'\$\$[\s\S]+?\$\$|\$(?!\$)[^$\n]+?\$|\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\]',
+        normalized_math,
+    ):
+        inner = _export_escape_html_preserve_img_br(normalized_math)
+        return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
     packed = _export_roman_mcq_pack_html(prepared, max_width_px=max_width_px, font_px=font_px)
     if packed:
         return packed
@@ -2711,6 +2880,57 @@ def _playwright_wait_for_export_rich_images(page, timeout_ms=60000):
         page.wait_for_timeout(120)
     except Exception:
         pass
+
+
+_DOCX_ALIGNED_MATH_RE = re.compile(
+    r'\\begin\{\s*(aligned|alignedat|split|gathered)\s*(?:\[[^\]]*\])?\s*\}'
+    r'(.*?)\\end\{\s*\1\s*\}',
+    re.S,
+)
+
+
+def _docx_aligned_math_lines(tex):
+    """If ``tex`` is (essentially) a ``\\begin{aligned}``-style multi-line math expression, split it
+    into a list of single-line TeX bodies (alignment ``&`` markers removed) — one per logical line —
+    and return that list; otherwise return None.
+
+    ``math2docx`` cannot import the whole ``aligned`` environment (it raises an XML well-formedness
+    error), so it currently falls back to a KaTeX image. Each individual logical line, however,
+    converts cleanly to editable Word math (OMML). Turning one multi-line expression into several
+    single-line editable formulas (with a line break between them) keeps them editable instead of
+    rasterising them to images. A genuine single-line ``aligned`` block yields a one-element list."""
+    if not tex:
+        return None
+    m = _DOCX_ALIGNED_MATH_RE.search(tex)
+    if not m:
+        return None
+    rest = _DOCX_ALIGNED_MATH_RE.sub('', tex)
+    if rest.strip():
+        return None
+    body = m.group(2)
+    lines = [ln.strip() for ln in re.split(r'\\\\', body) if ln.strip()]
+    result = []
+    for ln in lines:
+        ln = ln.replace('&', '').strip()
+        if ln:
+            result.append(ln)
+    return result or None
+
+
+def _docx_split_on_line_breaks(tex, display_mode):
+    """For a *plain* display-math segment that uses explicit ``\\\\`` line separators but no structured
+    ``\\begin{...}`` environment, split it into one single-line editable formula per row (alignment ``&``
+    markers removed). Keeps multi-line display equations editable in Word instead of rasterising them.
+    Returns a list of line formulas, or None when it should be handled as a single math unit."""
+    if not display_mode or not tex:
+        return None
+    stripped = tex.strip()
+    if '\\begin{' in stripped or '\\end{' in stripped:
+        return None
+    if not re.search(r'\\\\', stripped):
+        return None
+    lines = [ln.replace('&', '').strip() for ln in re.split(r'\\\\', stripped) if ln.strip()]
+    return lines or None
 
 
 class ExportQuestionsView(APIView):
@@ -2903,6 +3123,7 @@ class ExportQuestionsView(APIView):
                 layout_column_gap_px=layout_gap_px,
                 show_column_divider=show_col_div,
                 layout_settings=layout_settings,
+                raw_data=data,
             )
             resp = HttpResponse(buf.getvalue(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             resp['Content-Disposition'] = 'attachment; filename="%s.docx"' % filename_base.replace('"', '_')
@@ -3411,7 +3632,7 @@ class ExportQuestionsView(APIView):
         def wrap_roman_lines_html(text):
             roman_line = re.compile(r'^\s*(i|ii|iii|I|II|III)\.')
             bn_paren_line = re.compile(r'^\s*\([কখগঘ]\)')
-            lines = str(text or '').splitlines()
+            lines = normalize_question_latex_source(str(text or '')).splitlines()
             parts = []
             for line in lines:
                 stripped = line.strip()
@@ -3537,14 +3758,15 @@ class ExportQuestionsView(APIView):
                 if not any(qq.get(k) for k in ('option_1', 'option_2', 'option_3', 'option_4')):
                     return ''
                 options = []
-                for key, lab in [('option_1', '(ক)'), ('option_2', '(খ)'), ('option_3', '(গ)'), ('option_4', '(ঘ)')]:
+                for key, lab in [('option_1', 'ক'), ('option_2', 'খ'), ('option_3', 'গ'), ('option_4', 'ঘ')]:
                     ov = qq.get(key)
                     if ov:
                         txt = format_maybe_c_program_question_text(str(ov).strip(), emit_html=True)
                         if txt:
                             opt_inner = format_option_html(txt, qq, for_creative)
                             options.append(
-                                '<span class="q-opt">%s <span class="q-opt-html">%s</span></span>'
+                                '<span class="q-opt"><span class="q-opt-marker">%s</span> '
+                                '<span class="q-opt-html">%s</span></span>'
                                 % (lab, opt_inner)
                             )
                 if not options:
@@ -3635,11 +3857,20 @@ class ExportQuestionsView(APIView):
                     raw_q = _export_strip_mcq_answer_key_serial_prefix(
                         format_maybe_c_program_question_text(raw_q, emit_html=False)
                     )
-                return format_maybe_c_program_question_text(raw_q, emit_html=False)
+                    return raw_q
+                return format_maybe_c_program_question_text(raw_q, emit_html=True)
 
             def render_stem_and_options(qq_row, creative_row):
                 plain_q = plain_question_text(qq_row)
                 seg_kind = str(qq_row.get('answerSheetSegmentKind') or '').strip()
+                if _export_is_mcq_answer_key_row(qq_row):
+                    marker = str(qq_row.get('answerSheetCorrectOptionLabel') or '').strip()
+                    if marker:
+                        return (
+                            '<span class="q-text"><span class="q-answer-option-marker">%s</span></span>'
+                            % escape(marker),
+                            '',
+                        )
                 if seg_kind == 'part':
                     return render_cq_part_chunk(qq_row, plain_q), ''
                 if seg_kind == 'intro':
@@ -3655,7 +3886,34 @@ class ExportQuestionsView(APIView):
                     stem_inner = format_stem_html(plain_q, False, qq_row)
                     stem_html = wrap_mcq_stem_with_marks_if_needed(qq_row, stem_inner)
                     return stem_html, build_options_html(qq_row, False)
-                if seg_kind in ('tail', 'option'):
+                if seg_kind == 'tail':
+                    tail_kind = str(qq_row.get('answerSheetTailKind') or '').strip()
+                    if tail_kind == 'answer':
+                        label = str(qq_row.get('answerSheetAnswerLabel') or '').strip()
+                        marker = str(qq_row.get('answerSheetCorrectOptionLabel') or '').strip()
+                        answer_text = str(qq_row.get('answerSheetAnswerText') or '').strip()
+                        answer_html = format_stem_html(answer_text, creative_row, qq_row)
+                        marker_html = (
+                            '<span class="q-answer-option-marker">%s</span>' % escape(marker)
+                            if marker
+                            else ''
+                        )
+                        return (
+                            '<span class="q-text q-answer-line"><strong>%s:</strong> %s%s</span>'
+                            % (escape(label), marker_html, answer_html),
+                            '',
+                        )
+                    if tail_kind == 'explanation':
+                        label = str(qq_row.get('answerSheetExplanationLabel') or '').strip()
+                        explanation_text = str(qq_row.get('answerSheetExplanationText') or '').strip()
+                        explanation_html = format_stem_html(explanation_text, creative_row, qq_row)
+                        return (
+                            '<span class="q-text q-explanation-line"><strong>%s:</strong> %s</span>'
+                            % (escape(label), explanation_html),
+                            '',
+                        )
+                    return '<span class="q-text">%s</span>' % format_stem_html(plain_q, creative_row, qq_row), ''
+                if seg_kind == 'option':
                     return '<span class="q-text">%s</span>' % format_stem_html(plain_q, creative_row, qq_row), ''
                 struct = question_display_structure(plain_q, creative_row)
                 intro_html = format_stem_html(struct.get('intro') or '', creative_row, qq_row)
@@ -4534,6 +4792,33 @@ class ExportQuestionsView(APIView):
       color: var(--color_primary_black);
       word-spacing: var(--export-word-spacing);
     }}
+    /* Browser/PDF equivalent of word.py's BanglaOMR K/L/M/N circled glyphs. */
+    .q-opt-marker,
+    .q-answer-option-marker {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.25em;
+      height: 1.25em;
+      margin-right: 0.22em;
+      border: 0.08em solid currentColor;
+      border-radius: 50%;
+      box-sizing: border-box;
+      line-height: 1;
+      text-indent: 0;
+      vertical-align: -0.12em;
+    }}
+    .q-answer-line > strong,
+    .q-explanation-line > strong {{
+      margin-right: 0.3em;
+    }}
+    .q-explanation-line,
+    .q-explanation-line .topic-question-line {{
+      text-align: left;
+    }}
+    .q-explanation-line .topic-question-line {{
+      display: block;
+    }}
     .q-opt-html {{
       font-family: var(--q-font-stack);
       font-size: inherit;
@@ -4788,218 +5073,1060 @@ class ExportQuestionsView(APIView):
         layout_column_gap_px=14,
         show_column_divider=False,
         layout_settings=None,
+        raw_data=None,
     ):
+        d = raw_data if isinstance(raw_data, dict) else {}
+        ls = layout_settings if isinstance(layout_settings, dict) else {}
+
+        def pick(key, fallback=None):
+            if key in d and d.get(key) is not None:
+                return d.get(key)
+            return ls.get(key, fallback)
+
+        def num(value, fallback):
+            try:
+                result = float(value)
+                return result if result == result else float(fallback)
+            except (TypeError, ValueError):
+                return float(fallback)
+
+        def intval(value, fallback):
+            try:
+                return int(round(float(value)))
+            except (TypeError, ValueError):
+                return int(fallback)
+
+        def boolval(value, fallback=False):
+            if value is None:
+                return bool(fallback)
+            if isinstance(value, str):
+                return value.strip().lower() in ('1', 'true', 'yes', 'on')
+            return bool(value)
+
+        def px_to_pt(value):
+            return max(0.1, num(value, 0) * 0.75)
+
+        def clean_text(value):
+            text = str(value or '')
+            text = re.sub(r'<br\s*/?>', '\n', text, flags=re.IGNORECASE)
+            text = re.sub(r'<hr\s*/?>', '\n<hr>\n', text, flags=re.IGNORECASE)
+            text = re.sub(r'<[^>]+>', '', text)
+            return unescape(text).replace('\r\n', '\n').replace('\r', '\n').strip()
+
         doc = DocxDocument()
-        section = doc.sections[0]
-        w_mm, h_mm = float(page_w_mm), float(page_h_mm)
-        section.page_width = DocxMm(w_mm)
-        section.page_height = DocxMm(h_mm)
-        section.top_margin = DocxMm(margin_top)
-        section.right_margin = DocxMm(margin_right)
-        section.bottom_margin = DocxMm(margin_bottom)
-        section.left_margin = DocxMm(margin_left)
-        gap_px = max(1, min(100, int(layout_column_gap_px or 14)))
-        space_twips = int(round(gap_px * 15))
-        _docx_apply_section_columns(
-            section, layout_columns, space_twips=space_twips, show_sep=bool(show_column_divider)
-        )
-        # Match Playwright PDF / preview: CQ with 3 or 4 (ক)–(ঘ) blocks get Bengali marks at the right (২,৪,৪ vs ১,২,৩,৪).
-        docx_usable_width = section.page_width - section.left_margin - section.right_margin
+        normal_style = doc.styles['Normal']
+        normal_style.font.name = 'Nirmala UI'
+        normal_style.font.size = DocxPt(9)
+        normal_style._element.rPr.rFonts.set(docx_qn('w:eastAsia'), 'Nirmala UI')
+        normal_style.paragraph_format.space_before = DocxPt(0)
+        normal_style.paragraph_format.space_after = DocxPt(0)
 
-        def docx_is_creative(qq):
-            t = str((qq or {}).get('type') or '').strip()
-            return bool(t) and ('সৃজনশীল' in t or t == 'সৃজনশীল')
+        q_font_global = num(pick('previewQuestionsFontPx', 12), 12)
+        q_font = {
+            'creative': num(pick('previewQuestionsFontPxCreative', q_font_global), q_font_global),
+            'mcq': num(pick('previewQuestionsFontPxMcq', q_font_global), q_font_global),
+        }
+        q_lh_global = num(pick('previewQuestionsLineHeight', 1.4), 1.4)
+        q_line_height = {
+            'creative': max(0.8, num(pick('previewQuestionsLineHeightCreative', q_lh_global), q_lh_global)),
+            'mcq': max(0.8, num(pick('previewQuestionsLineHeightMcq', q_lh_global), q_lh_global)),
+        }
+        q_gap = {
+            'creative': max(0, num(pick('questionsGapCreative', pick('questionsGap', 0)), 0)),
+            'mcq': max(0, num(pick('questionsGap', 0), 0)),
+        }
+        q_padding = {
+            'creative': max(0, num(pick('questionsPaddingCreative', pick('questionsPadding', 2)), 2)),
+            'mcq': max(0, num(pick('questionsPaddingMcq', pick('questionsPadding', 2)), 2)),
+        }
+        header_line_height = {
+            'creative': max(0.8, num(pick('previewHeaderLineHeightCreative', pick('previewHeaderLineHeight', 1.25)), 1.25)),
+            'mcq': max(0.8, num(pick('previewHeaderLineHeightMcq', pick('previewHeaderLineHeight', 1.25)), 1.25)),
+        }
+        base_header_sizes = pick('headerLineFontSizes', [16, 18, 16, 16, 14, 14, 14, 12])
+        if not isinstance(base_header_sizes, list) or not base_header_sizes:
+            base_header_sizes = [16, 18, 16, 16, 14, 14, 14, 12]
 
-        def docx_question_display_text(raw_text):
-            s = str(raw_text or '').strip()
-            if not s:
-                return s
-            with_newlines = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', s)
-            with_newlines = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', with_newlines)
-            dotted_to_paren = (
-                with_newlines
-                .replace('ক.', '(ক)')
-                .replace('খ.', '(খ)')
-                .replace('গ.', '(গ)')
-                .replace('ঘ.', '(ঘ)')
+        def header_sizes(kind):
+            key = 'headerLineFontSizesPdfCreative' if kind == 'creative' else 'headerLineFontSizesPdfMcq'
+            raw = pick(key, None)
+            if not isinstance(raw, list) or not raw:
+                raw = base_header_sizes
+            return [max(8, min(64, num(v, 14))) for v in raw]
+
+        def is_creative(q):
+            t = str((q or {}).get('type') or '').strip()
+            return bool(t) and 'সৃজনশীল' in t
+
+        def is_mcq_type(q):
+            t = str((q or {}).get('type') or '').strip()
+            return bool(t) and 'বহুনির্বাচনি' in t
+
+        def uses_creative_sheet(q):
+            if _export_is_type_heading_row(q):
+                return True
+            return not is_mcq_type(q)
+
+        def kind_page_geometry(kind):
+            suffix = 'Creative' if kind == 'creative' else 'Mcq'
+            page_name = pick('pageSize%s' % suffix, pick('pageSize', None))
+            orientation = str(
+                pick('cqPageOrientation' if kind == 'creative' else 'mcqPageOrientation', pick('pageOrientation', ''))
+                or ''
+            ).strip().lower()
+            if page_name:
+                page_name = str(page_name).strip() or 'A4'
+                if page_name.lower() == 'custom':
+                    wi = max(2.0, min(48.0, num(
+                        pick('customPageWidthIn%s' % suffix, pick('customPageWidthIn', 8.5)), 8.5
+                    )))
+                    hi = max(2.0, min(48.0, num(
+                        pick('customPageHeightIn%s' % suffix, pick('customPageHeightIn', 11)), 11
+                    )))
+                    width_mm, height_mm = wi * 25.4, hi * 25.4
+                else:
+                    width_mm, height_mm = _export_page_size_mm(page_name)
+                if orientation in ('landscape', 'l', 'land'):
+                    width_mm, height_mm = height_mm, width_mm
+            else:
+                width_mm, height_mm = float(page_w_mm), float(page_h_mm)
+            margins = (
+                num(pick('marginTop%s' % suffix, margin_top), margin_top),
+                num(pick('marginRight%s' % suffix, margin_right), margin_right),
+                num(pick('marginBottom%s' % suffix, margin_bottom), margin_bottom),
+                num(pick('marginLeft%s' % suffix, margin_left), margin_left),
             )
-            out = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', dotted_to_paren)
-            out = re.sub(r'\n{2,}', r'\n', out)
-            return out.strip()
+            return width_mm, height_mm, margins
 
-        def docx_question_display_structure(raw_text, creative):
+        def kind_columns(kind):
+            if kind == 'creative':
+                return max(1, min(10, intval(pick('layoutColumnsCreative', layout_columns), layout_columns)))
+            return max(1, min(10, intval(pick('layoutColumns', layout_columns), layout_columns)))
+
+        def kind_gap(kind):
+            key = 'layoutColumnGapPxCreative' if kind == 'creative' else 'layoutColumnGapPxMcq'
+            return max(1, min(100, intval(pick(key, pick('layoutColumnGapPx', layout_column_gap_px)), layout_column_gap_px)))
+
+        def kind_divider(kind):
+            key = 'showColumnDividerCreative' if kind == 'creative' else 'showColumnDividerMcq'
+            return boolval(pick(key, pick('showColumnDivider', show_column_divider)), show_column_divider)
+
+        def set_run_font(run, size_pt, bold=None, name='Nirmala UI'):
+            run.font.name = name
+            run.font.size = DocxPt(size_pt)
+            if bold is not None:
+                run.bold = bool(bold)
+            r_fonts = run._element.get_or_add_rPr().get_or_add_rFonts()
+            for attr in ('w:ascii', 'w:hAnsi', 'w:eastAsia', 'w:cs'):
+                r_fonts.set(docx_qn(attr), name)
+
+        math_runtime = {
+            'playwright': None,
+            'browser': None,
+            'page': None,
+            'failed': not PLAYWRIGHT_AVAILABLE,
+            'cache': {},
+            'image_cache': {},
+        }
+
+        def close_math_runtime():
+            browser = math_runtime.get('browser')
+            playwright = math_runtime.get('playwright')
+            math_runtime['browser'] = None
+            math_runtime['page'] = None
+            math_runtime['playwright'] = None
+            try:
+                if browser is not None:
+                    browser.close()
+            finally:
+                if playwright is not None:
+                    playwright.stop()
+
+        def docx_render_page():
+            if math_runtime['failed']:
+                return None
+            if math_runtime['page'] is not None:
+                return math_runtime['page']
+            playwright = sync_playwright().start()
+            try:
+                browser = playwright.chromium.launch(**_playwright_chromium_launch_kwargs())
+                page = browser.new_page(viewport={'width': 1800, 'height': 900})
+                page.set_content(
+                    '<!doctype html><html><head><meta charset="utf-8"></head><body>'
+                    '<div id="math"></div><div id="media"><img alt="" /></div></body></html>',
+                    wait_until='load',
+                )
+                inject_katex_into_playwright_page(page)
+                page.add_style_tag(content=(
+                    'html,body{margin:0;padding:0;background:transparent;}'
+                    '#math{display:inline-block;padding:3px 5px;color:#000;font-size:16px;}'
+                    '#media{display:none;padding:0;}#media img{display:block;max-width:none;max-height:none;}'
+                    '.katex-display{margin:0;}'
+                ))
+                math_runtime.update({'playwright': playwright, 'browser': browser, 'page': page})
+                return page
+            except Exception:
+                playwright.stop()
+                raise
+
+        def render_docx_math_png(tex, display_mode):
+            key = (str(tex or ''), bool(display_mode))
+            if key in math_runtime['cache']:
+                return math_runtime['cache'][key]
+            if math_runtime['failed']:
+                return None
+            try:
+                page = docx_render_page()
+                page.evaluate(
+                    """args => {
+                        const root = document.getElementById('math');
+                        document.getElementById('media').style.display = 'none';
+                        root.style.display = 'inline-block';
+                        root.innerHTML = katex.renderToString(args.tex, {
+                            displayMode: args.displayMode,
+                            throwOnError: false,
+                            strict: 'ignore',
+                            trust: false
+                        });
+                    }""",
+                    {'tex': key[0], 'displayMode': key[1]},
+                )
+                locator = page.locator('#math')
+                box = locator.bounding_box() or {'width': 1, 'height': 1}
+                result = (locator.screenshot(type='png', omit_background=True), float(box['width']))
+                math_runtime['cache'][key] = result
+                return result
+            except Exception:
+                logger.exception('DOCX KaTeX rendering failed; using readable text fallback')
+                math_runtime['failed'] = True
+                close_math_runtime()
+                return None
+
+        def render_docx_svg_png(svg_bytes):
+            cache_key = ('svg', bytes(svg_bytes or b''))
+            if cache_key in math_runtime['image_cache']:
+                return math_runtime['image_cache'][cache_key]
+            if math_runtime['failed'] or not svg_bytes:
+                return None
+            try:
+                page = docx_render_page()
+                data_url = 'data:image/svg+xml;base64,' + base64.b64encode(svg_bytes).decode('ascii')
+                page.evaluate(
+                    """async src => {
+                        const math = document.getElementById('math');
+                        const media = document.getElementById('media');
+                        const img = media.querySelector('img');
+                        math.style.display = 'none';
+                        media.style.display = 'inline-block';
+                        img.src = src;
+                        if (img.decode) {
+                            try { await img.decode(); } catch (_) {}
+                        }
+                    }""",
+                    data_url,
+                )
+                locator = page.locator('#media img')
+                box = locator.bounding_box()
+                if not box or box['width'] <= 0 or box['height'] <= 0:
+                    return None
+                result = (
+                    locator.screenshot(type='png', omit_background=True),
+                    int(round(box['width'])),
+                    int(round(box['height'])),
+                )
+                math_runtime['image_cache'][cache_key] = result
+                return result
+            except Exception:
+                logger.exception('DOCX SVG rendering failed')
+                return None
+
+        def prepare_docx_question_image(src):
+            cache_key = str(src or '').strip()
+            if cache_key in math_runtime['image_cache']:
+                return math_runtime['image_cache'][cache_key]
+            image_bytes = _export_docx_load_image_bytes(cache_key)
+            result = _export_docx_prepare_raster_image(image_bytes)
+            if result is None and image_bytes and re.search(br'<svg\b', image_bytes[:4096], re.I):
+                result = render_docx_svg_png(image_bytes)
+            math_runtime['image_cache'][cache_key] = result
+            return result
+
+        def append_docx_question_image(paragraph, src, size_pt, caption=''):
+            prepared = prepare_docx_question_image(src)
+            if prepared is None:
+                set_run_font(paragraph.add_run('[Image unavailable]'), size_pt, bold=False)
+                return False
+            image_bytes, pixel_width, pixel_height = prepared
+            font_px = max(7, int(round(float(size_pt) / 0.75)))
+            image_cap_px = min(480, 240 + max(0, font_px - 7) * 20)
+            max_width_pt = max(24.0, float(current_column_width) / 12700.0 - 8.0)
+            column_cap_px = max_width_pt / 0.75
+            scale = min(
+                1.0,
+                float(image_cap_px) / max(1, pixel_width),
+                float(image_cap_px) / max(1, pixel_height),
+                float(column_cap_px) / max(1, pixel_width),
+            )
+            width_pt = max(8.0, pixel_width * scale * 0.75)
+            paragraph.add_run().add_picture(BytesIO(image_bytes), width=DocxPt(width_pt))
+            if caption:
+                paragraph.add_run().add_break()
+                cap_run = paragraph.add_run(caption)
+                set_run_font(cap_run, max(7.0, size_pt * 0.85), bold=False)
+                cap_run.italic = True
+            return True
+
+        def docx_plain_text_from_html(value):
+            text = re.sub(r'<[^>]+>', '', str(value or ''))
+            return unescape(text).replace('\r\n', '\n').replace('\r', '\n')
+
+        docx_rich_token_re = re.compile(
+            r'<span\b[^>]*class=["\'][^"\']*\bq-code-block\b[^"\']*["\'][^>]*>'
+            r'\s*<code>([\s\S]*?)</code>\s*</span>|'
+            r'<span\b[^>]*class=["\'][^"\']*\bq-rich-img-stack\b[^"\']*["\'][^>]*>'
+            r'\s*<img\b[^>]*>\s*<span\b[^>]*class=["\'][^"\']*\bq-rich-img-caption\b[^"\']*["\'][^>]*>'
+            r'[\s\S]*?</span>\s*</span>|<img\b[^>]*>|<br\s*/?>',
+            re.I,
+        )
+
+        def append_plain_question_math(paragraph, source, size_pt, bold=False):
+            if not source:
+                return
+            source = _force_roman_triplet_lines(source)
+            for segment_kind, segment, display_mode in iter_question_latex_segments(source):
+                if segment_kind == 'text':
+                    pieces = segment.split('\n')
+                    for piece_index, piece in enumerate(pieces):
+                        if piece:
+                            set_run_font(paragraph.add_run(piece), size_pt, bold=bold)
+                        if piece_index < len(pieces) - 1:
+                            paragraph.add_run().add_break()
+                    continue
+                if display_mode and paragraph.text:
+                    paragraph.add_run().add_break()
+                # math2docx rejects a whole \begin{aligned} style environment (XML well-formedness
+                # error), so expand it into one single-line editable formula per logical line, with a
+                # line break between lines. A single-line aligned block becomes one formula.
+                math_segment = unescape(segment)
+                aligned_lines = _docx_aligned_math_lines(math_segment) if MATH2DOCX_AVAILABLE else None
+                if aligned_lines is None:
+                    aligned_lines = (
+                        _docx_split_on_line_breaks(math_segment, display_mode) if MATH2DOCX_AVAILABLE else None
+                    )
+                math_units = aligned_lines if aligned_lines is not None else [math_segment.strip()]
+                for math_unit_index, math_unit in enumerate(math_units):
+                    if math_unit_index > 0:
+                        paragraph.add_run().add_break()
+                    omml_added = False
+                    if MATH2DOCX_AVAILABLE:
+                        children_before = list(paragraph._p)
+                        try:
+                            math2docx.add_math(paragraph, math_unit, True)
+                            omml_added = any(
+                                child.tag in (docx_qn('m:oMath'), docx_qn('m:oMathPara'))
+                                for child in list(paragraph._p)[len(children_before):]
+                            )
+                        except Exception:
+                            for child in list(paragraph._p)[len(children_before):]:
+                                paragraph._p.remove(child)
+                    if not omml_added:
+                        unit_display = display_mode if aligned_lines is None else False
+                        rendered = render_docx_math_png(math_unit, unit_display)
+                        if rendered:
+                            png, width_px = rendered
+                            max_width_pt = max(24.0, float(current_column_width) / 12700.0 - 8.0)
+                            width_pt = min(max_width_pt, max(8.0, width_px * 0.75))
+                            paragraph.add_run().add_picture(BytesIO(png), width=DocxPt(width_pt))
+                        else:
+                            set_run_font(paragraph.add_run(math_unit), size_pt, bold=bold)
+                if display_mode:
+                    paragraph.add_run().add_break()
+
+        def append_question_text(paragraph, value, size_pt, bold=False):
+            """Append prose, repaired equations, and embedded question images to Word."""
+            rich_source = _export_format_question_media_html(
+                format_maybe_c_program_question_text(str(value or ''), emit_html=True),
+                getattr(settings, 'HOST_URL', 'http://127.0.0.1:8000'),
+            )
+            cursor = 0
+            for match in docx_rich_token_re.finditer(rich_source):
+                append_plain_question_math(
+                    paragraph,
+                    docx_plain_text_from_html(rich_source[cursor:match.start()]),
+                    size_pt,
+                    bold,
+                )
+                token = match.group(0)
+                if re.match(r'<br\s*/?\s*>', token, re.I):
+                    paragraph.add_run().add_break()
+                elif re.search(r'\bq-code-block\b', token, re.I):
+                    code_match = re.search(r'<code>([\s\S]*?)</code>', token, re.I)
+                    code_text = unescape(code_match.group(1) if code_match else '')
+                    code_text = re.sub(r'<br\s*/?>', '\n', code_text, flags=re.I)
+                    code_lines = code_text.splitlines()
+                    if paragraph.text:
+                        paragraph.add_run().add_break()
+                    for line_index, line in enumerate(code_lines):
+                        set_run_font(
+                            paragraph.add_run(re.sub(r'<[^>]+>', '', line)),
+                            size_pt,
+                            bold=False,
+                            name='Consolas',
+                        )
+                        if line_index < len(code_lines) - 1:
+                            paragraph.add_run().add_break()
+                    if code_lines:
+                        paragraph.add_run().add_break()
+                else:
+                    src_match = re.search(
+                        r'\b(?:src|data-q-img-src)\s*=\s*["\']([^"\']+)["\']',
+                        token,
+                        re.I,
+                    )
+                    caption_match = re.search(
+                        r'<span\b[^>]*class=["\'][^"\']*\bq-rich-img-caption\b[^"\']*["\'][^>]*>'
+                        r'([\s\S]*?)</span>',
+                        token,
+                        re.I,
+                    )
+                    if src_match:
+                        caption = docx_plain_text_from_html(caption_match.group(1)).strip() if caption_match else ''
+                        append_docx_question_image(paragraph, src_match.group(1), size_pt, caption)
+                cursor = match.end()
+            append_plain_question_math(
+                paragraph,
+                docx_plain_text_from_html(rich_source[cursor:]),
+                size_pt,
+                bold,
+            )
+
+        def clean_text_preserve_docx_media(value):
+            """Clean structure text without discarding image tags before CQ-part splitting."""
+            rich_source = _export_format_question_media_html(
+                str(value or ''),
+                getattr(settings, 'HOST_URL', 'http://127.0.0.1:8000'),
+            )
+            media_tokens = []
+
+            def protect(match):
+                if re.match(r'<br\s*/?\s*>', match.group(0), re.I):
+                    return '\n'
+                index = len(media_tokens)
+                media_tokens.append(match.group(0))
+                return '\uFFF0DOCXMEDIA%s\uFFF1' % index
+
+            protected = docx_rich_token_re.sub(protect, rich_source)
+            result = clean_text(protected)
+            for index, token in enumerate(media_tokens):
+                result = result.replace('\uFFF0DOCXMEDIA%s\uFFF1' % index, token)
+            return result
+
+        def add_inline_runs(paragraph, value, size_pt):
+            """Preserve the small bold/italic/underline subset accepted by the PDF header."""
+            source = str(value or '')
+            tokens = re.split(r'(<\/?(?:b|strong|i|u)>)', source, flags=re.IGNORECASE)
+            bold_depth = italic_depth = underline_depth = 0
+            for token in tokens:
+                lowered = token.lower()
+                if lowered in ('<b>', '<strong>'):
+                    bold_depth += 1
+                    continue
+                if lowered in ('</b>', '</strong>'):
+                    bold_depth = max(0, bold_depth - 1)
+                    continue
+                if lowered == '<i>':
+                    italic_depth += 1
+                    continue
+                if lowered == '</i>':
+                    italic_depth = max(0, italic_depth - 1)
+                    continue
+                if lowered == '<u>':
+                    underline_depth += 1
+                    continue
+                if lowered == '</u>':
+                    underline_depth = max(0, underline_depth - 1)
+                    continue
+                text = clean_text(token)
+                if not text:
+                    continue
+                run = paragraph.add_run(text)
+                set_run_font(run, size_pt, bold=bold_depth > 0)
+                run.italic = italic_depth > 0
+                run.underline = underline_depth > 0
+
+        def format_paragraph(paragraph, kind, indent_pt=0, right_indent_pt=0, before_pt=0, after_pt=0):
+            pf = paragraph.paragraph_format
+            pf.left_indent = DocxPt(max(0, indent_pt))
+            pf.right_indent = DocxPt(max(0, right_indent_pt))
+            pf.space_before = DocxPt(max(0, before_pt))
+            pf.space_after = DocxPt(max(0, after_pt))
+            pf.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
+            pf.line_spacing = q_line_height[kind]
+            pf.keep_together = True
+            return paragraph
+
+        def set_keep_with_next(paragraph, enabled=True):
+            paragraph.paragraph_format.keep_with_next = bool(enabled)
+
+        def set_paragraph_bottom_border(paragraph):
+            p_pr = paragraph._p.get_or_add_pPr()
+            p_bdr = p_pr.find(docx_qn('w:pBdr'))
+            if p_bdr is None:
+                p_bdr = DocxOxmlElement('w:pBdr')
+                p_pr.append(p_bdr)
+            bottom = DocxOxmlElement('w:bottom')
+            bottom.set(docx_qn('w:val'), 'single')
+            bottom.set(docx_qn('w:sz'), '6')
+            bottom.set(docx_qn('w:space'), '3')
+            bottom.set(docx_qn('w:color'), '777777')
+            p_bdr.append(bottom)
+
+        def remove_table_borders(table):
+            tbl_pr = table._tbl.tblPr
+            borders = tbl_pr.find(docx_qn('w:tblBorders'))
+            if borders is None:
+                borders = DocxOxmlElement('w:tblBorders')
+                tbl_pr.append(borders)
+            for edge in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+                tag = docx_qn('w:%s' % edge)
+                el = borders.find(tag)
+                if el is None:
+                    el = DocxOxmlElement('w:%s' % edge)
+                    borders.append(el)
+                el.set(docx_qn('w:val'), 'nil')
+
+        def set_cell_margins(cell, top=0, start=35, bottom=0, end=35):
+            tc_pr = cell._tc.get_or_add_tcPr()
+            tc_mar = tc_pr.first_child_found_in('w:tcMar')
+            if tc_mar is None:
+                tc_mar = DocxOxmlElement('w:tcMar')
+                tc_pr.append(tc_mar)
+            for edge, value in (('top', top), ('start', start), ('bottom', bottom), ('end', end)):
+                node = tc_mar.find(docx_qn('w:%s' % edge))
+                if node is None:
+                    node = DocxOxmlElement('w:%s' % edge)
+                    tc_mar.append(node)
+                node.set(docx_qn('w:w'), str(int(value)))
+                node.set(docx_qn('w:type'), 'dxa')
+
+        def set_cell_box(cell):
+            tc_pr = cell._tc.get_or_add_tcPr()
+            borders = tc_pr.find(docx_qn('w:tcBorders'))
+            if borders is None:
+                borders = DocxOxmlElement('w:tcBorders')
+                tc_pr.append(borders)
+            for edge in ('top', 'left', 'bottom', 'right'):
+                el = DocxOxmlElement('w:%s' % edge)
+                el.set(docx_qn('w:val'), 'single')
+                el.set(docx_qn('w:sz'), '8')
+                el.set(docx_qn('w:color'), '000000')
+                borders.append(el)
+
+        def add_subject_code_header(line, kind, font_px):
+            line_text = clean_text(line)
+            digits = re.findall(r'[0-9০-৯]', line_text)[:3]
+            while len(digits) < 3:
+                digits.append(' ')
+            set_match = re.search(r'সেট\s*[:ঃ]\s*([কখগঘ])', line_text)
+            cols = 9 if set_match else 5
+            table = doc.add_table(rows=1, cols=cols)
+            table.alignment = WD_TABLE_ALIGNMENT.CENTER
+            table.autofit = True
+            remove_table_borders(table)
+            values = ['বিষয় কোড', ':'] + digits
+            if set_match:
+                values.extend(['সেট', ':', ' ', set_match.group(1)])
+            for ci, value in enumerate(values):
+                cell = table.cell(0, ci)
+                cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+                set_cell_margins(cell, 0, 20, 0, 20)
+                if ci in (2, 3, 4) or (set_match and ci == 8):
+                    set_cell_box(cell)
+                p = cell.paragraphs[0]
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p.paragraph_format.space_before = DocxPt(0)
+                p.paragraph_format.space_after = DocxPt(0)
+                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
+                p.paragraph_format.line_spacing = header_line_height[kind]
+                set_run_font(p.add_run(value), px_to_pt(font_px), bold=ci in (0, 5))
+
+        def add_header(header_text, kind):
+            normalized_header = re.sub(
+                r'<br\s*/?>', '\n', str(header_text or ''), flags=re.IGNORECASE
+            )
+            lines = normalized_header.replace('\r\n', '\n').replace('\r', '\n').split('\n')
+            sizes = header_sizes(kind)
+            meaningful = [line for line in lines if clean_text(line) or re.search(r'<hr\s*/?>', str(line), re.I)]
+            for i, line in enumerate(meaningful):
+                font_px = sizes[min(i, len(sizes) - 1)]
+                if re.search(r'বিষ[য়য]\s*কোড', clean_text(line)):
+                    add_subject_code_header(line, kind, font_px)
+                    continue
+                p = doc.add_paragraph()
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p.paragraph_format.space_before = DocxPt(0)
+                p.paragraph_format.space_after = DocxPt(0)
+                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
+                p.paragraph_format.line_spacing = header_line_height[kind]
+                p.paragraph_format.keep_with_next = True
+                if re.fullmatch(r'\s*<hr\s*/?>\s*', str(line), flags=re.I):
+                    set_paragraph_bottom_border(p)
+                    set_run_font(p.add_run(' '), DocxPt(1).pt)
+                else:
+                    add_inline_runs(p, line, px_to_pt(font_px))
+            if meaningful:
+                p = doc.add_paragraph()
+                p.paragraph_format.space_before = DocxPt(0)
+                p.paragraph_format.space_after = DocxPt(0)
+                p.paragraph_format.line_spacing = DocxPt(max(1.0, px_to_pt(q_padding[kind])))
+                set_run_font(p.add_run(' '), 1)
+
+        serial_by_index = pick('previewSerialByIndex', {})
+        if not isinstance(serial_by_index, dict):
+            serial_by_index = {}
+        bn_digits = str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯')
+
+        def serial_bn(item_index):
+            raw = serial_by_index.get(str(item_index), serial_by_index.get(item_index, item_index + 1))
+            try:
+                raw = int(raw)
+                if raw <= 0:
+                    raw = item_index + 1
+            except (TypeError, ValueError):
+                raw = item_index + 1
+            return str(raw).translate(bn_digits)
+
+        def question_display_text(raw_text):
+            text = clean_text_preserve_docx_media(raw_text)
+            text = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', text)
+            text = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', text)
+            for letter in ('ক', 'খ', 'গ', 'ঘ'):
+                text = text.replace('%s.' % letter, '(%s)' % letter)
+            text = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', text)
+            return re.sub(r'\n{2,}', '\n', text).strip()
+
+        def question_structure(raw_text, creative):
             if not creative:
-                return {'intro': str(raw_text or '').strip(), 'parts': []}
-            full = docx_question_display_text(raw_text)
-            if not full:
-                return {'intro': '', 'parts': []}
-            by_markers = _cq_question_structure_from_bn_markers(full)
-            if by_markers is not None:
-                return by_markers
-            lines = [ln.strip() for ln in full.split('\n') if ln.strip()]
-            if len(lines) <= 1:
-                return {'intro': full, 'parts': []}
-            return {'intro': lines[0], 'parts': lines[1:]}
+                return {'intro': clean_text_preserve_docx_media(raw_text), 'parts': []}
+            full = question_display_text(raw_text)
+            marker_structure = _cq_question_structure_from_bn_markers(full)
+            if marker_structure is not None:
+                return marker_structure
+            lines = [line.strip() for line in full.split('\n') if line.strip()]
+            return {'intro': lines[0] if lines else '', 'parts': lines[1:] if len(lines) > 1 else []}
 
-        def docx_subpart_mark_bn(part_count, idx):
-            if part_count == 3 and 0 <= idx < 3:
-                return str([2, 4, 4][idx]).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
-            if part_count == 4 and 0 <= idx < 4:
-                return str([1, 2, 3, 4][idx]).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
-            return None
+        def subpart_mark(part_count, index):
+            values = [2, 4, 4] if part_count == 3 else ([1, 2, 3, 4] if part_count == 4 else [])
+            return str(values[index]).translate(bn_digits) if 0 <= index < len(values) else None
 
-        def docx_mcq_family_mark_bn(qq):
-            t = str((qq or {}).get('type') or '').strip()
-            if 'জ্ঞানমূলক' in t:
+        def family_mark(q):
+            qtype = str((q or {}).get('type') or '')
+            if 'জ্ঞানমূলক' in qtype:
                 return '১'
-            if 'অনুধাবনমূলক' in t:
+            if 'অনুধাবনমূলক' in qtype:
                 return '২'
             return None
 
-        serial_by_index = {}
-        if isinstance(layout_settings, dict):
-            raw_serial = layout_settings.get('previewSerialByIndex')
-            if isinstance(raw_serial, dict):
-                serial_by_index = raw_serial
+        def add_body_paragraph(kind, text='', serial=None, mark=None, indent_em=0, bold=False, before_px=0):
+            pad_pt = px_to_pt(q_padding[kind])
+            font_pt = px_to_pt(q_font[kind])
+            p = doc.add_paragraph()
+            format_paragraph(
+                p,
+                kind,
+                indent_pt=pad_pt + indent_em * font_pt,
+                right_indent_pt=pad_pt,
+                before_pt=px_to_pt(before_px),
+            )
+            if mark:
+                p.paragraph_format.tab_stops.add_tab_stop(current_column_width, WD_TAB_ALIGNMENT.RIGHT)
+            if serial is not None:
+                set_run_font(p.add_run('%s। ' % serial), font_pt, bold=True)
+            append_question_text(p, text, font_pt, bold=bold)
+            if mark:
+                set_run_font(p.add_run('\t%s' % mark), font_pt, bold=True)
+            return p
 
-        def docx_serial_bn(item_index):
-            s = serial_by_index.get(str(item_index))
-            if s is None:
-                s = serial_by_index.get(item_index)
+        def set_omr_font(run, size_pt):
+            set_run_font(run, size_pt, name='BanglaOMR')
+
+        def add_omr_marker(paragraph, option_index, size_pt=None):
             try:
-                sn = int(s)
-                if sn > 0:
-                    return str(sn).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
-            except Exception:
-                pass
-            return str(item_index + 1).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+                idx = int(option_index)
+            except (TypeError, ValueError):
+                return False
+            if idx < 0 or idx > 3:
+                return False
+            marker = paragraph.add_run(('K', 'L', 'M', 'N')[idx])
+            set_omr_font(marker, size_pt or px_to_pt(q_font[current_kind]))
+            return True
 
-        if question_header:
-            p = doc.add_paragraph(question_header)
-            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        def docx_mcq_options_cols(qq):
-            explicit = (qq or {}).get('exportMcqOptionsColumns')
+        options_default = max(2, min(4, intval(pick('optionsColumns', 2), 2)))
+        options_manual = boolval(pick('optionsColumnsManualOverride', False), False)
+        options_layout = pick('previewOptionsLayoutByQid', {})
+        if not isinstance(options_layout, dict):
+            options_layout = {}
+
+        def logical_qid(q):
+            qid = str((q or {}).get('qid') or '')
+            for prefix in ('layout-seg-', 'ans-seg-'):
+                if qid.startswith(prefix):
+                    base = qid[len(prefix):]
+                    match = re.match(r'^(.*)-(\d+)$', base)
+                    return match.group(1) if match else base
+            return qid
+
+        def options_columns(q):
+            explicit = (q or {}).get('exportMcqOptionsColumns')
             if explicit is not None:
-                try:
-                    return max(2, min(4, int(explicit)))
-                except Exception:
-                    pass
-            return 2
+                return max(2, min(4, intval(explicit, 2)))
+            if options_manual:
+                return options_default
+            layout = options_layout.get(logical_qid(q))
+            if layout == '1row':
+                return 4
+            if layout in ('2row', '4row'):
+                return 2
+            return options_default
 
-        def docx_add_mcq_options(qq):
-            if docx_is_creative(qq):
+        def add_option_line(paragraph, option_index, text, kind):
+            opt_pt = px_to_pt(q_font[kind] * (13.0 / 14.0))
+            paragraph.paragraph_format.space_before = DocxPt(0)
+            paragraph.paragraph_format.space_after = DocxPt(0)
+            paragraph.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
+            paragraph.paragraph_format.line_spacing = q_line_height[kind]
+            paragraph.paragraph_format.keep_together = True
+            add_omr_marker(paragraph, option_index, opt_pt)
+            set_run_font(paragraph.add_run(' '), opt_pt)
+            append_question_text(paragraph, text, opt_pt)
+
+        def add_mcq_options(q, kind):
+            if is_creative(q):
                 return
             pairs = []
-            for key, label in [('option_1', 'A.'), ('option_2', 'B.'), ('option_3', 'C.'), ('option_4', 'D.')]:
-                opt = qq.get(key)
-                if opt:
-                    opt_plain = format_maybe_c_program_question_text(str(opt).strip(), emit_html=False)
-                    pairs.append((label, opt_plain))
+            for option_index, key in enumerate(('option_1', 'option_2', 'option_3', 'option_4')):
+                value = q.get(key)
+                if value:
+                    pairs.append((option_index, format_maybe_c_program_question_text(str(value).strip(), emit_html=False)))
             if not pairs:
                 return
-            ncol = docx_mcq_options_cols(qq)
-            if ncol >= 4 and len(pairs) <= 4:
-                tbl = doc.add_table(rows=1, cols=len(pairs))
-                for ci, (lab, txt) in enumerate(pairs):
-                    tbl.rows[0].cells[ci].text = '%s %s' % (lab, txt)
-            elif ncol == 2 and len(pairs) >= 2:
-                tbl = doc.add_table(rows=2, cols=2)
-                slots = [(0, 0), (0, 1), (1, 0), (1, 1)]
-                for i, (lab, txt) in enumerate(pairs[:4]):
-                    r, c = slots[i]
-                    tbl.rows[r].cells[c].text = '%s %s' % (lab, txt)
-            else:
-                for lab, txt in pairs:
-                    doc.add_paragraph('   %s %s' % (lab, txt), style='List Bullet')
+            ncols = min(max(2, options_columns(q)), len(pairs))
+            nrows = int(math.ceil(float(len(pairs)) / float(ncols)))
+            table = doc.add_table(rows=nrows, cols=ncols)
+            table.alignment = WD_TABLE_ALIGNMENT.LEFT
+            table.autofit = False
+            remove_table_borders(table)
+            cell_width = int(current_column_width / ncols)
+            for row in table.rows:
+                tr_pr = row._tr.get_or_add_trPr()
+                tr_pr.append(DocxOxmlElement('w:cantSplit'))
+                for cell in row.cells:
+                    cell.width = cell_width
+                    cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+                    set_cell_margins(cell, 0, 25, 0, 25)
+                    p = cell.paragraphs[0]
+                    p._element.clear_content()
+            for item_pos, (option_index, text) in enumerate(pairs):
+                row_idx, col_idx = divmod(item_pos, ncols)
+                add_option_line(table.cell(row_idx, col_idx).paragraphs[0], option_index, text, kind)
 
-        for i, q in enumerate(questions):
-            q = q if isinstance(q, dict) else {}
-            raw_q = (q.get('question') or '').strip() or ' '
-            prepared_plain = format_maybe_c_program_question_text(raw_q, emit_html=False)
+        def add_question_gap(kind):
+            gap = q_gap[kind]
+            if gap <= 0:
+                return
+            p = doc.add_paragraph()
+            p.paragraph_format.space_before = DocxPt(0)
+            p.paragraph_format.space_after = DocxPt(0)
+            p.paragraph_format.line_spacing = DocxPt(px_to_pt(gap))
+            set_run_font(p.add_run(' '), 1)
+
+        current_kind = 'mcq'
+        current_column_width = DocxMm(150)
+
+        def render_item(item, kind):
+            nonlocal current_kind
+            current_kind = kind
+            item_index = int(item.get('idx', 0))
+            q = item.get('q') if isinstance(item.get('q'), dict) else {}
+            raw_q = str(q.get('question') or '').strip() or ' '
+            prepared = format_maybe_c_program_question_text(raw_q, emit_html=False)
             seg_kind = str(q.get('answerSheetSegmentKind') or '').strip()
+            first = None
             if _export_is_type_heading_row(q):
-                label = str(q.get('question') or q.get('type') or '').strip()
-                para = doc.add_paragraph()
-                run = para.add_run(label)
-                run.bold = True
-                continue
+                first = add_body_paragraph(kind, q.get('question') or q.get('type') or '', bold=True, before_px=q_padding[kind])
+                set_keep_with_next(first)
+                add_question_gap(kind)
+                return
             if _export_is_mcq_answer_key_row(q):
-                prepared_plain = _export_strip_mcq_answer_key_serial_prefix(prepared_plain)
-                doc.add_paragraph('%s। %s' % (docx_serial_bn(i), prepared_plain))
-                continue
+                first = add_body_paragraph(kind, '', serial=serial_bn(item_index), before_px=q_padding[kind])
+                if q.get('answerSheetCorrectOptionIndex') is not None:
+                    add_omr_marker(first, q.get('answerSheetCorrectOptionIndex'))
+                else:
+                    append_question_text(first, _export_strip_mcq_answer_key_serial_prefix(prepared), px_to_pt(q_font[kind]))
+                add_question_gap(kind)
+                return
             if seg_kind == 'part':
                 try:
-                    pi = int(q.get('answerSheetPartIndex'))
-                    pc = int(q.get('answerSheetPartCount'))
+                    part_index = int(q.get('answerSheetPartIndex'))
+                    part_count = int(q.get('answerSheetPartCount'))
                 except (TypeError, ValueError):
-                    pi, pc = 0, 0
-                mk = docx_subpart_mark_bn(pc, pi)
-                if mk:
-                    para = doc.add_paragraph()
-                    para.paragraph_format.tab_stops.add_tab_stop(
-                        docx_usable_width, WD_TAB_ALIGNMENT.RIGHT
+                    part_index, part_count = 0, 0
+                add_body_paragraph(kind, prepared, mark=subpart_mark(part_count, part_index), indent_em=2)
+                return
+            if seg_kind == 'tail':
+                tail_kind = str(q.get('answerSheetTailKind') or '').strip()
+                p = add_body_paragraph(kind, '')
+                if tail_kind == 'answer':
+                    label = str(q.get('answerSheetAnswerLabel') or '').strip()
+                    set_run_font(p.add_run('%s: ' % label), px_to_pt(q_font[kind]), bold=True)
+                    if add_omr_marker(p, q.get('answerSheetCorrectOptionIndex')):
+                        set_run_font(p.add_run(' '), px_to_pt(q_font[kind]))
+                    answer = format_maybe_c_program_question_text(str(q.get('answerSheetAnswerText') or '').strip(), emit_html=False)
+                    append_question_text(p, answer, px_to_pt(q_font[kind]))
+                elif tail_kind == 'explanation':
+                    p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+                    label = str(q.get('answerSheetExplanationLabel') or '').strip()
+                    set_run_font(p.add_run('%s: ' % label), px_to_pt(q_font[kind]), bold=True)
+                    explanation = format_maybe_c_program_question_text(
+                        str(q.get('answerSheetExplanationText') or '').strip(), emit_html=False
                     )
-                    para.add_run(prepared_plain)
-                    para.add_run('\t')
-                    para.add_run(mk)
+                    append_question_text(p, explanation, px_to_pt(q_font[kind]))
                 else:
-                    doc.add_paragraph(prepared_plain)
-                continue
-            if seg_kind in ('tail', 'option'):
-                doc.add_paragraph(prepared_plain)
-                continue
-            parent_idx = q.get('answerSheetParentIndex')
-            if parent_idx is not None:
+                    append_question_text(p, prepared, px_to_pt(q_font[kind]))
+                if tail_kind == 'explanation':
+                    add_question_gap(kind)
+                return
+            if seg_kind == 'option':
+                add_body_paragraph(kind, prepared, indent_em=2)
+                return
+            parent_index = q.get('answerSheetParentIndex')
+            if parent_index is not None:
                 if q.get('answerSheetContinuation'):
-                    doc.add_paragraph(prepared_plain)
+                    add_body_paragraph(kind, prepared)
                 else:
-                    mk = docx_mcq_family_mark_bn(q) if not docx_is_creative(q) else None
-                    if mk:
-                        para = doc.add_paragraph()
-                        para.paragraph_format.tab_stops.add_tab_stop(
-                            docx_usable_width, WD_TAB_ALIGNMENT.RIGHT
-                        )
-                        para.add_run('%s। %s' % (docx_serial_bn(int(parent_idx)), prepared_plain))
-                        para.add_run('\t')
-                        para.add_run(mk)
-                    else:
-                        doc.add_paragraph('%s। %s' % (docx_serial_bn(int(parent_idx)), prepared_plain))
-                    docx_add_mcq_options(q)
-                continue
-            creative = docx_is_creative(q)
-            struct = docx_question_display_structure(prepared_plain, creative=creative)
-            if creative and struct.get('parts'):
-                intro = struct.get('intro') or ''
-                parts = struct.get('parts') or []
-                pc = len(parts)
-                doc.add_paragraph('%s. %s' % (i + 1, intro))
-                for j, part in enumerate(parts):
-                    mk = docx_subpart_mark_bn(pc, j)
-                    if mk:
-                        para = doc.add_paragraph()
-                        para.paragraph_format.tab_stops.add_tab_stop(
-                            docx_usable_width, WD_TAB_ALIGNMENT.RIGHT
-                        )
-                        para.add_run(part)
-                        para.add_run('\t')
-                        para.add_run(mk)
-                    else:
-                        doc.add_paragraph(part)
-            else:
-                mk = docx_mcq_family_mark_bn(q) if not creative else None
-                if mk:
-                    para = doc.add_paragraph()
-                    para.paragraph_format.tab_stops.add_tab_stop(
-                        docx_usable_width, WD_TAB_ALIGNMENT.RIGHT
+                    try:
+                        parent_serial = serial_bn(int(parent_index))
+                    except (TypeError, ValueError):
+                        parent_serial = serial_bn(item_index)
+                    first = add_body_paragraph(
+                        kind,
+                        prepared,
+                        serial=parent_serial,
+                        mark=family_mark(q) if not is_creative(q) else None,
+                        before_px=q_padding[kind],
                     )
-                    para.add_run('%s. %s' % (i + 1, prepared_plain))
-                    para.add_run('\t')
-                    para.add_run(mk)
+                    set_keep_with_next(first)
+                    add_mcq_options(q, kind)
+                    add_question_gap(kind)
+                return
+            creative = is_creative(q)
+            structure = question_structure(prepared, creative)
+            show_number = not _export_skip_question_number_label(q)
+            if creative and structure.get('parts'):
+                parts = structure.get('parts') or []
+                first = add_body_paragraph(
+                    kind,
+                    structure.get('intro') or '',
+                    serial=serial_bn(item_index) if show_number else None,
+                    bold=not show_number,
+                    before_px=q_padding[kind],
+                )
+                set_keep_with_next(first)
+                for part_index, part in enumerate(parts):
+                    part_p = add_body_paragraph(
+                        kind,
+                        part,
+                        mark=subpart_mark(len(parts), part_index),
+                        indent_em=2,
+                    )
+                    if part_index < len(parts) - 1:
+                        set_keep_with_next(part_p)
+            else:
+                first = add_body_paragraph(
+                    kind,
+                    prepared,
+                    serial=serial_bn(item_index) if show_number else None,
+                    mark=family_mark(q) if not creative else None,
+                    bold=not show_number,
+                    before_px=q_padding[kind],
+                )
+                if any(q.get(k) for k in ('option_1', 'option_2', 'option_3', 'option_4')):
+                    set_keep_with_next(first)
+                add_mcq_options(q, kind)
+            add_question_gap(kind)
+
+        all_items = [{'idx': i, 'q': q if isinstance(q, dict) else {}} for i, q in enumerate(questions)]
+        creative_items = [item for item in all_items if uses_creative_sheet(item['q'])]
+        mcq_items = [item for item in all_items if not uses_creative_sheet(item['q'])]
+        creative_by_idx = {item['idx']: item for item in creative_items}
+        mcq_by_idx = {item['idx']: item for item in mcq_items}
+
+        root_header = str(question_header or '').strip()
+        headers = {
+            'creative': str(pick('questionHeaderCreative', root_header) or '').strip() or root_header,
+            'mcq': str(pick('questionHeaderMcq', root_header) or '').strip() or root_header,
+        }
+
+        def header_with_set_letter(text, set_letter):
+            if set_letter not in ('ক', 'খ', 'গ', 'ঘ'):
+                return text
+            lines = str(text or '').splitlines()
+            replaced = False
+            result = []
+            for line in lines:
+                if re.search(r'বিষ[য়য]\s*কোড', line):
+                    base = re.sub(r'\s*সেট\s*[:ঃ]\s*[কখগঘ]\s*', '', line).strip()
+                    result.append('%s সেট : %s' % (base, set_letter))
+                    replaced = True
                 else:
-                    doc.add_paragraph('%s. %s' % (i + 1, prepared_plain))
-            docx_add_mcq_options(q)
+                    result.append(line)
+            if not replaced:
+                result.append('বিষয় কোডঃ সেট : %s' % set_letter)
+            return '\n'.join(result)
+
+        def balanced_columns(items, count):
+            if count <= 1:
+                return [items]
+            per_column = max(1, int(math.ceil(float(len(items)) / float(count))))
+            return [items[i * per_column:(i + 1) * per_column] for i in range(count)]
+
+        page_specs = []
+        raw_plan = pick('exportPreviewPagePlan', [])
+        if isinstance(raw_plan, list) and raw_plan:
+            for page in raw_plan:
+                if not isinstance(page, dict):
+                    continue
+                kind = str(page.get('kind') or '').strip().lower()
+                if kind not in ('creative', 'mcq'):
+                    continue
+                pool = creative_by_idx if kind == 'creative' else mcq_by_idx
+                columns = []
+                raw_columns = page.get('questionColumnIndexes')
+                if isinstance(raw_columns, list):
+                    for raw_column in raw_columns:
+                        column = []
+                        if isinstance(raw_column, list):
+                            for raw_index in raw_column:
+                                try:
+                                    found = pool.get(int(raw_index))
+                                except (TypeError, ValueError):
+                                    found = None
+                                if found is not None:
+                                    column.append(found)
+                        columns.append(column)
+                if not columns:
+                    columns = [[]]
+                if boolval(page.get('leadEmpty'), False):
+                    lead_items = []
+                    raw_lead = page.get('leadBindingIndexes')
+                    if isinstance(raw_lead, list):
+                        for raw_index in raw_lead:
+                            try:
+                                found = pool.get(int(raw_index))
+                            except (TypeError, ValueError):
+                                found = None
+                            if found is not None:
+                                lead_items.append(found)
+                    columns.insert(0, lead_items)
+                header_kind = str(page.get('headerKind') or kind).strip().lower()
+                if header_kind not in ('creative', 'mcq'):
+                    header_kind = kind
+                header_text = headers[header_kind]
+                set_letter = str(page.get('mcqSetLetter') or '').strip()
+                if header_kind == 'mcq' and set_letter:
+                    header_text = header_with_set_letter(header_text, set_letter)
+                page_specs.append({
+                    'kind': kind,
+                    'columns': columns,
+                    'header_kind': header_kind,
+                    'header_text': header_text,
+                    'header_visible': boolval(page.get('headerVisible'), True),
+                    'header_in_first_column': boolval(page.get('headerInFirstColumn'), False) or boolval(page.get('leadEmpty'), False),
+                })
+        else:
+            if creative_items:
+                page_specs.append({
+                    'kind': 'creative',
+                    'columns': balanced_columns(creative_items, kind_columns('creative')),
+                    'header_kind': 'creative',
+                    'header_text': headers['creative'],
+                    'header_visible': True,
+                    'header_in_first_column': False,
+                })
+            if mcq_items:
+                page_specs.append({
+                    'kind': 'mcq',
+                    'columns': balanced_columns(mcq_items, kind_columns('mcq')),
+                    'header_kind': 'mcq',
+                    'header_text': headers['mcq'],
+                    'header_visible': True,
+                    'header_in_first_column': False,
+                })
+        if not page_specs:
+            page_specs.append({
+                'kind': 'mcq', 'columns': [[]], 'header_kind': 'mcq', 'header_text': root_header,
+                'header_visible': True, 'header_in_first_column': False,
+            })
+
+        def configure_section(section, kind, columns_count):
+            width_mm, height_mm, margins = kind_page_geometry(kind)
+            section.page_width = DocxMm(width_mm)
+            section.page_height = DocxMm(height_mm)
+            section.top_margin = DocxMm(margins[0])
+            section.right_margin = DocxMm(margins[1])
+            section.bottom_margin = DocxMm(margins[2])
+            section.left_margin = DocxMm(margins[3])
+            gap_px = kind_gap(kind)
+            _docx_apply_section_columns(
+                section,
+                columns_count,
+                space_twips=int(round(gap_px * 15)),
+                show_sep=kind_divider(kind),
+            )
+            usable_width = section.page_width - section.left_margin - section.right_margin
+            gap_width = DocxPt(px_to_pt(gap_px))
+            return int((usable_width - gap_width * max(0, columns_count - 1)) / max(1, columns_count))
+
+        for page_index, page_spec in enumerate(page_specs):
+            kind = page_spec['kind']
+            columns = page_spec['columns'] or [[]]
+            column_count = max(1, len(columns))
+            if page_index == 0:
+                page_section = doc.sections[0]
+            else:
+                page_section = doc.add_section(WD_SECTION.NEW_PAGE)
+            header_is_spanning = page_spec['header_visible'] and not page_spec['header_in_first_column']
+            if header_is_spanning:
+                configure_section(page_section, kind, 1)
+                add_header(page_spec['header_text'], page_spec['header_kind'])
+                body_section = doc.add_section(WD_SECTION.CONTINUOUS)
+                if doc.paragraphs:
+                    break_paragraph = doc.paragraphs[-1]
+                    break_paragraph.paragraph_format.space_before = DocxPt(0)
+                    break_paragraph.paragraph_format.space_after = DocxPt(0)
+                    break_paragraph.paragraph_format.line_spacing = DocxPt(1)
+                current_column_width = configure_section(body_section, kind, column_count)
+            else:
+                current_column_width = configure_section(page_section, kind, column_count)
+                if page_spec['header_visible']:
+                    add_header(page_spec['header_text'], page_spec['header_kind'])
+            current_kind = kind
+            for column_index, column_items in enumerate(columns):
+                if column_index > 0:
+                    p = doc.add_paragraph()
+                    p.paragraph_format.space_before = DocxPt(0)
+                    p.paragraph_format.space_after = DocxPt(0)
+                    p.paragraph_format.line_spacing = DocxPt(1)
+                    break_run = p.add_run()
+                    set_run_font(break_run, 1)
+                    break_run.add_break(WD_BREAK.COLUMN)
+                for item in column_items:
+                    render_item(item, kind)
         buf = BytesIO()
-        doc.save(buf)
+        try:
+            doc.save(buf)
+        finally:
+            close_math_runtime()
         buf.seek(0)
         return buf
 
@@ -8870,4 +9997,3 @@ class PendingQuestionApproveView(APIView):
         pending.approved_qid = qid
         pending.save(update_fields=['status', 'approved_at', 'approved_qid'])
         return Response({'qid': qid, 'message': 'Question approved and added.'}, status=status.HTTP_200_OK)
-

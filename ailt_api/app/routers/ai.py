@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.config import settings
 from app.database import get_db
 from app.deps import get_ai_client_key
-from app.schemas import AiActivityMetadataRequest, AiParagraphRequest
+from app.schemas import AiActivityMetadataRequest, AiGenerateQuestionsRequest, AiParagraphRequest
 from app.services.cloud_task_intent import CloudTaskIntent, intent_from_ocr_content_type
 from app.services.llm_router import generate_with_fallback
 
@@ -114,4 +114,62 @@ async def structure_ocr(
         "structured_text": structured,
         "content_type": content_type,
         "provider_used": provider_id,
+    }
+
+
+def _parse_questions_json(raw: str | None) -> list[dict]:
+    """Parse an LLM reply into a list of question dicts (strip markdown fences / prose)."""
+    if not raw or not str(raw).strip():
+        return []
+    import json as _json
+    import re as _re
+    s = str(raw).strip()
+    if s.startswith("```"):
+        s = _re.sub(r"^```[a-zA-Z]*\s*", "", s)
+        s = _re.sub(r"\s*```$", "", s)
+    candidates = [s]
+    start, end = s.find("{"), s.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        candidates.append(s[start:end + 1])
+    start2, end2 = s.find("["), s.rfind("]")
+    if start2 != -1 and end2 != -1 and end2 > start2:
+        candidates.append(s[start2:end2 + 1])
+    for cand in candidates:
+        try:
+            data = _json.loads(cand)
+        except (TypeError, ValueError, _json.JSONDecodeError):
+            continue
+        if isinstance(data, list):
+            return [q for q in data if isinstance(q, dict)]
+        if isinstance(data, dict):
+            questions = data.get("questions") or data.get("items") or []
+            if isinstance(questions, list):
+                return [q for q in questions if isinstance(q, dict)]
+    return []
+
+
+@router.post("/generate-questions")
+async def generate_questions(
+    body: AiGenerateQuestionsRequest,
+    db: Session = Depends(get_db),
+    client_key: str | None = Depends(get_ai_client_key),
+) -> dict:
+    """Generate MCQ questions from a prompt using the Cloud LLM pool (same as Android app)."""
+    questions: list[dict] = []
+    provider_id = "local-stub"
+    if _has_any_llm_key() and body.prompt.strip():
+        max_tokens = min(max(int(body.count) * 220 + 120, 400), 4096)
+        raw, provider_id = await generate_with_fallback(
+            db,
+            body.prompt,
+            max_tokens=max_tokens,
+            client_key=client_key,
+            task_intent=CloudTaskIntent.GENERAL.value,
+        )
+        parsed = _parse_questions_json(raw)
+        questions = parsed[: body.count] if parsed else []
+    return {
+        "questions": questions,
+        "provider_used": provider_id,
+        "count": len(questions),
     }

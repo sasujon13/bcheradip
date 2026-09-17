@@ -336,6 +336,12 @@ class AiParagraphRequest(BaseModel):
     target_lang: str
 
 
+class AiGenerateQuestionsRequest(BaseModel):
+    prompt: str
+    count: int = Field(default=5, ge=1, le=30)
+    language_code: str = "en"
+
+
 class AiRoutingPolicyUpdateRequest(BaseModel):
     mode: str
     prefer_paid_when_free_exhausted: bool | None = None

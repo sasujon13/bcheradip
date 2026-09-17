@@ -862,6 +862,46 @@ def _is_bn_line_excluded_from_code(line: str) -> bool:
 def _extract_program_block(
     input_text: str,
 ) -> tuple[str, str, str] | None:
+    # OCR frequently stores Bengali prose + ``{ dense C; ...; }`` + prose on one line.
+    for open_pos, char in enumerate(input_text or ''):
+        if char != '{':
+            continue
+        depth = 0
+        quote = ''
+        escaped = False
+        for i in range(open_pos, len(input_text)):
+            ch = input_text[i]
+            if quote:
+                if escaped:
+                    escaped = False
+                elif ch == '\\':
+                    escaped = True
+                elif ch == quote:
+                    quote = ''
+                continue
+            if ch in ('"', "'"):
+                quote = ch
+                continue
+            if ch == '{':
+                depth += 1
+            elif ch == '}':
+                depth -= 1
+            if depth != 0:
+                continue
+            candidate = input_text[open_pos:i + 1]
+            c_signal = re.search(
+                r'\b(?:int|char|float|double|long|short|unsigned|void|printf|scanf|for|while|if|switch|return)\b|\+\+|--',
+                candidate,
+                re.I,
+            )
+            if candidate.count(';') >= 2 and c_signal:
+                return (
+                    input_text[:open_pos].strip(),
+                    candidate.strip(),
+                    input_text[i + 1:].strip(),
+                )
+            break
+
     lines = (input_text or '').replace('\r\n', '\n').replace('\r', '\n').split('\n')
     anchor_indexes = [i for i, line in enumerate(lines) if _is_code_anchor_line(line)]
     if not anchor_indexes:
@@ -1083,12 +1123,17 @@ def format_maybe_c_program_question_text(raw: str, *, emit_html: bool = True) ->
             re.I,
         )
     )
+    is_brace_wrapped_snippet = bool(
+        re.match(r'^\s*\{[\s\S]*\}\s*$', code_only_joined)
+        and semicolon_count >= 2
+    )
     if (
         not _has_include_anchor(code_only_joined)
         and _has_io_anchor(code_only_joined)
         and code_line_count <= 4
         and not looks_like_full_main
         and not has_multi_semicolon_control
+        and not is_brace_wrapped_snippet
     ):
         return raw if raw is not None else ''
 

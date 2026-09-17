@@ -24,9 +24,13 @@ def _admin_get_urls_with_databases():
     from django.urls import path
     urls = _original_admin_get_urls()
     custom = [
+        path('settings/', admin.site.admin_view(database_admin_views.site_settings_page), name='site_settings'),
         path('databases/', admin.site.admin_view(database_admin_views.databases_list), name='databases_list'),
         path('databases/<str:db_alias>/', admin.site.admin_view(database_admin_views.database_tables), name='database_tables'),
         path('databases/<str:db_alias>/settings/', admin.site.admin_view(database_admin_views.database_settings), name='database_settings'),
+        path('databases/<str:db_alias>/settings/start-job/', admin.site.admin_view(database_admin_views.start_exam_job), name='database_settings_start_job'),
+        path('databases/<str:db_alias>/settings/update-question/start/', admin.site.admin_view(database_admin_views.start_question_update), name='database_settings_update_start'),
+        path('databases/<str:db_alias>/settings/job/<str:job_id>/', admin.site.admin_view(database_admin_views.exam_job_progress), name='database_settings_job_progress'),
         path(
             'databases/<str:db_alias>/<str:table_name>/pending-edit/<path:pk>/json/',
             admin.site.admin_view(database_admin_views.pending_question_row_json),

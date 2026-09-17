@@ -25,6 +25,9 @@ env/
 .env.db-sync
 scripts/.env.db-sync
 
+# Admin-editable JSON settings store (edited at /admin/settings/, not committed)
+admin_site_settings.json
+
 # Django — never commit uploads or local DB
 db.sqlite3
 *.sqlite3

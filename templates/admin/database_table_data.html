@@ -339,6 +339,145 @@
   #cell-content-preview .pending-preview-body b del {
     color: #8b2942;
   }
+  /* ----- DB tabs (same as admin index dashboard) ----- */
+  .admin-db-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    margin: 8px auto;
+    border-bottom: 1px solid #ddd;
+    list-style: none;
+    width: max-content;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .admin-db-tabs li { margin: 0; flex: 0 1 auto; min-width: 0; box-sizing: border-box; }
+  .admin-db-tabs a {
+    display: block;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--primary, #008080);
+    font-weight: 500;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    margin-bottom: -1px;
+    background: #f8f8f8;
+    white-space: nowrap;
+  }
+  .admin-db-tabs a:hover { background: #e8e8e8; color: var(--primary-hover, #006666); }
+  .admin-db-tabs li.active a {
+    background: #fff;
+    color: #333;
+    border-bottom: 1px solid #fff;
+    position: relative;
+    top: 1px;
+  }
+  /* ----- Well-organised table list grid (same as admin index dashboard) ----- */
+  .admin-tables-wrapper {
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+  .admin-tables-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .admin-tables-grid li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    min-height: 1.75em;
+    align-self: start;
+  }
+  .admin-tables-grid li.current-table a {
+    font-weight: 700;
+    color: #004d4d;
+    background: rgba(0, 128, 128, 0.12);
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+  .admin-tables-grid a {
+    text-decoration: none;
+    color: var(--primary, #008080);
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: normal;
+    box-sizing: border-box;
+    line-height: 1.5;
+  }
+  .admin-tables-grid a:hover {
+    color: var(--primary-hover, #006666);
+    text-decoration: underline;
+  }
+  /* ----- Well-organised data grid (generic tables) ----- */
+  .table-data-grid-default {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .table-data-grid-default thead th {
+    background: var(--primary, #008080);
+    color: #fff;
+    padding: 7px 8px;
+    border: 1px solid var(--primary, #008080);
+    text-align: left;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .table-data-grid-default tbody td {
+    padding: 6px 8px;
+    border: 1px solid #e2e8e4;
+    vertical-align: top;
+    max-width: 300px;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  .table-data-grid-default tbody tr:nth-child(even) { background: #f7faf8; }
+  .table-data-grid-default tbody tr:hover { background: #eef7f2; }
+  /* No black dots/squares anywhere (matches the dashboard index page) */
+  #content-main .module ul,
+  #content-main ul,
+  #content-main .module ul li,
+  #content-main ul li {
+    list-style: none;
+    padding-left: 0;
+  }
+  /* Collapsible "Tables" panel header + caret */
+  .db-tables-toggle {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .db-tables-toggle:hover { color: #004d4d !important; }
+  .db-caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-right: 7px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid currentColor;
+    vertical-align: middle;
+    transition: transform .15s ease;
+  }
+  .db-tables-toggle.collapsed .db-caret { transform: rotate(-90deg); }
 </style>
 {% endblock %}
 
@@ -355,6 +494,30 @@
 <div id="content-main">
     {% if messages %}
     <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    <ul class="admin-db-tabs">
+        {% for tab in db_tabs %}
+        <li class="{% if tab.active %}active{% endif %}"><a href="{{ tab.url }}">{{ tab.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% if db_table_list %}
+    <div class="module" style="margin-bottom: 16px;">
+        <h2 class="db-tables-toggle collapsed" role="button" tabindex="0" aria-expanded="false" aria-controls="db-tables-body" style="margin-top: 0; font-size: 1.05em; color: var(--primary, #008080);">
+            <span class="db-caret" aria-hidden="true"></span>
+            {{ db_label }} &mdash; {% translate 'Tables' %} ({{ db_table_list|length }})
+        </h2>
+        <div id="db-tables-body" class="admin-tables-wrapper db-tables-body" style="display: none;">
+            <ul class="admin-tables-grid">
+                {% for t in db_table_list %}
+                <li{% if t.is_current %} class="current-table"{% endif %}>
+                    <a href="{{ t.url }}" title="{{ t.name }}">{{ t.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     {% endif %}
 
     <div class="module">
@@ -851,6 +1014,30 @@ updatePendingSelectedCount();
     window.addEventListener('resize', hidePreview);
     document.addEventListener('keydown', function(ev) {
         if (ev.key === 'Escape') hidePreview();
+    });
+})();
+</script>
+<script>
+(function () {
+    // Collapsible "Tables" panel on table-data pages (default hidden, click to open)
+    function togglePanel(header) {
+        var wrapper = header ? header.nextElementSibling : null;
+        if (!wrapper || !wrapper.classList.contains('db-tables-body')) return;
+        var isCollapsed = wrapper.style.display === 'none';
+        wrapper.style.display = isCollapsed ? '' : 'none';
+        header.classList.toggle('collapsed', !isCollapsed);
+        header.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
+    }
+    document.addEventListener('click', function (ev) {
+        var header = ev.target && ev.target.closest ? ev.target.closest('.db-tables-toggle') : null;
+        if (header) togglePanel(header);
+    });
+    document.addEventListener('keydown', function (ev) {
+        if (ev.key !== 'Enter' && ev.key !== ' ') return;
+        var header = ev.target && ev.target.closest ? ev.target.closest('.db-tables-toggle') : null;
+        if (!header) return;
+        ev.preventDefault();
+        togglePanel(header);
     });
 })();
 </script>

@@ -239,6 +239,20 @@
   .colMS {
     margin-right: 0 !important;
   }
+  /* Database section caption: dropdown caret + click to collapse/expand the table list */
+  .db-section-toggle { cursor: pointer; }
+  .db-caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-right: 7px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid currentColor;
+    vertical-align: middle;
+    transition: transform .15s ease;
+  }
+  .db-section-toggle.collapsed .db-caret { transform: rotate(-90deg); }
 </style>
 {% endblock %}
 
@@ -263,8 +277,12 @@
   {% for app in app_list %}
   <div class="app-cheradip module">
     <table style="width: 100%;">
-      <caption><a href="{{ app.app_url }}" class="section" title="{{ app.name }}">{{ app.name }}</a></caption>
-      <tbody>
+      <caption>
+        <a href="{{ app.app_url }}" class="section db-section-toggle" title="{{ app.name }}" aria-expanded="true" aria-controls="db-tables-body">
+          <span class="db-caret" aria-hidden="true"></span>{{ app.name }}
+        </a>
+      </caption>
+      <tbody class="db-tables-body">
         <tr>
           <td>
             <div class="admin-tables-wrapper">
@@ -284,4 +302,24 @@
   {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
   {% endif %}
 </div>
+  <script>
+    (function () {
+      // Database section caption: click toggles the table-list body (default visible)
+      function toggleSection(link) {
+        var table = link && link.closest ? link.closest('table') : null;
+        var tbody = table ? table.querySelector('tbody.db-tables-body') : null;
+        if (!tbody) return;
+        var isCollapsed = tbody.style.display === 'none';
+        tbody.style.display = isCollapsed ? '' : 'none';
+        link.classList.toggle('collapsed', !isCollapsed);
+        link.setAttribute('aria-expanded', isCollapsed ? 'true' : 'false');
+      }
+      document.addEventListener('click', function (ev) {
+        var link = ev.target && ev.target.closest ? ev.target.closest('.db-section-toggle') : null;
+        if (!link) return;
+        ev.preventDefault();
+        toggleSection(link);
+      });
+    })();
+  </script>
 {% endblock %}
