@@ -127,7 +127,7 @@ def start_job(kind, db_alias, filters):
     return job_id
 
 
-def start_question_update_job(db_alias, table_name, kind):
+def start_question_update_job(db_alias, table_name, kind, chapter_list=None, topic_list=None):
     """Queue AI Question/Explanation updates for a subject table in the background.
 
     Each changed row becomes a pending-question-request for manual review
@@ -169,6 +169,8 @@ def start_question_update_job(db_alias, table_name, kind):
             result = run_question_update_job(
                 db_alias, table_name, kind,
                 progress=lambda **kw: update_job(job_id, **kw),
+                chapter_list=chapter_list,
+                topic_list=topic_list,
             )
             update_job(
                 job_id,

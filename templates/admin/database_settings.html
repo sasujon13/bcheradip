@@ -144,21 +144,6 @@
   .exam-job-stat .lbl { display: block; font-size: 11px; color: #64748b; margin-top: 2px; }
   .exam-job-msg { margin-top: 14px; font-size: 14px; color: #1e293b; line-height: 1.5; }
   .exam-job-msg.exam-job-error { color: #b91c1c; }
-
-  /* Update Question block */
-  .update-block { max-width: 980px; margin: 6px auto 0; }
-  .update-block-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-  .uq-label { font-weight: 700; font-size: 14px; color: #0f766e; }
-  .update-block-row select {
-    min-width: 320px; max-width: 100%; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; background: #fff;
-  }
-  .uq-btn {
-    padding: 7px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer;
-    background: #fff; color: #008080; border: 2px solid #008080;
-  }
-  .uq-btn:hover { background: #f0fdfa; }
-  .uq-btn[data-kind="explanation"] { color: #0f766e; border-color: #b45309; }
-  .uq-btn[data-kind="explanation"]:hover { background: #fff7ed; }
 </style>
 {% endblock %}
 
@@ -247,32 +232,16 @@
       <span class="settings-actions">
         <button type="submit" name="action" value="create_exam">Create Exam</button>
         <button type="submit" name="action" value="add_exam">Add Exam</button>
+        <button type="submit" name="action" value="update_question">Update</button>
       </span>
     </div>
   </form>
 
-  <hr style="margin: 28px 0 18px; border: none; border-top: 1px solid #ddd;">
-
-  <div class="update-block">
-    <h2 style="margin: 0 0 4px;">Update Question</h2>
-    <p style="margin: 0 0 12px; color: #666; font-size: 14px;">
-      Clean unwanted symbols / enrich content with AI (Home AI first, Cloud AI fallback).
-      Nothing is applied directly — each changed question is queued as a pending update
-      request in <strong>{{ current_db }} / cheradip_pending_question_request</strong> for
-      manual review before accept / deny.
-    </p>
-    <div class="update-block-row">
-      <label class="uq-label" for="uq-table">Table</label>
-      <select id="uq-table">
-        <option value="">— Select a question table —</option>
-        {% for t in question_tables %}
-        <option value="{{ t }}">{{ t }}</option>
-        {% endfor %}
-      </select>
-      <button type="button" class="uq-btn" id="uq-btn-question" data-kind="question">Update Question</button>
-      <button type="button" class="uq-btn" id="uq-btn-explanation" data-kind="explanation">Update Explanation</button>
-    </div>
-  </div>
+  <p class="settings-help">
+    <strong>Create Exam:</strong> Creates or recreates exam question sets for the selected filters. Re-click to recreate.<br>
+    <strong>Add Exam:</strong> Creates only missing exam sets for the selected category (does not overwrite existing).<br>
+    <strong>Update:</strong> Queues AI review/correction of the whole question for the selected subject / chapters / topics as pending update requests — reviewed before accept / deny.
+  </p>
 
   <!-- Update-question job overlay -->
   <div class="exam-job-overlay" id="update-job-overlay">
@@ -294,11 +263,6 @@
       <div class="exam-job-msg" id="update-job-msg"></div>
     </div>
   </div>
-
-  <p class="settings-help">
-    <strong>Create Exam:</strong> Creates or recreates exam question sets for the selected filters. Re-click to recreate.<br>
-    <strong>Add Exam:</strong> Creates only missing exam sets for the selected category (does not overwrite existing).
-  </p>
 
   <!-- Exam job progress overlay -->
   <div class="exam-job-overlay" id="exam-job-overlay">
@@ -929,13 +893,21 @@
   document.getElementById('settings-form').addEventListener('submit', function (ev) {
     if (running) { ev.preventDefault(); return; }
     var submitter = ev.submitter || document.activeElement;
-    var kind = (submitter && submitter.getAttribute && submitter.getAttribute('name') === 'action') ? submitter.value : 'create_exam';
-    if (kind !== 'add_exam') kind = 'create_exam';
+    var rawKind = (submitter && submitter.getAttribute && submitter.getAttribute('name') === 'action') ? submitter.value : 'create_exam';
     running = true;
     ev.preventDefault();
+    var fd = new FormData(ev.target);
+    if (rawKind === 'update_question') {
+      // Queue AI review/correction of everything except the explanation
+      // (table resolved server-side from the selected filters).
+      fd.append('kind', 'question');
+      if (window.startQuestionUpdateFromForm) { window.startQuestionUpdateFromForm(fd); return; }
+      running = false;
+      return;
+    }
+    var kind = (rawKind === 'add_exam') ? 'add_exam' : 'create_exam';
     if (overlay) overlay.classList.add('open');
     setRing(0);
-    var fd = new FormData(ev.target);
     fd.append('kind', kind);
     fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/start-job/', {
       method: 'POST',
@@ -959,7 +931,7 @@
   var tableSel = document.getElementById('uq-table');
   var btnQ = document.getElementById('uq-btn-question');
   var btnE = document.getElementById('uq-btn-explanation');
-  if (!tableSel || !btnQ) return;
+  if (!overlay) return;
   var RING_C = 439.8;
   var csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
   var csrfToken = csrfInput ? csrfInput.value : '';
@@ -1014,6 +986,7 @@
 
   function start(kind) {
     if (running) return;
+    if (!tableSel) { alert('Please select a table first.'); return; }
     var table = (tableSel.value || '').trim();
     if (!table) { alert('Please select a table first.'); return; }
     running = true;
@@ -1035,8 +1008,29 @@
       .catch(function () { finish('error', 'Network error while starting the update job.'); });
   }
 
-  btnQ.addEventListener('click', function () { start('question'); });
-  btnE.addEventListener('click', function () { start('explanation'); });
+  function startFromForm(fd) {
+    if (running) return;
+    running = true;
+    if (overlay) overlay.classList.add('open');
+    setRing(0);
+    fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/update-question/start/', {
+      method: 'POST', body: fd,
+      headers: { 'X-CSRFToken': csrfToken, 'Accept': 'application/json' },
+      credentials: 'same-origin'
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.job_id) { poll(data.job_id); }
+        else { finish('error', (data && (data.error || data.message)) || 'Failed to start the update job.'); }
+      })
+      .catch(function () { finish('error', 'Network error while starting the update job.'); });
+  }
+
+  // Used by the Exam Settings "Update" button (table resolved server-side from filters)
+  window.startQuestionUpdateFromForm = startFromForm;
+
+  if (btnQ) btnQ.addEventListener('click', function () { start('question'); });
+  if (btnE) btnE.addEventListener('click', function () { start('explanation'); });
 })();
 </script>
 {% endblock %}

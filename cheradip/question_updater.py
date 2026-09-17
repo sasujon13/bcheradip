@@ -19,6 +19,9 @@ from django.db import connections
 logger = logging.getLogger(__name__)
 
 _QUESTION_FIELDS = ('question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer', 'explanation')
+# Everything else about a question (cleaned by the "Update Question" / "Update" action,
+# never by the "Update Explanation" action).
+_META_FIELDS = ('subject', 'subject_tr', 'chapter_no', 'chapter', 'topic_no', 'topic', 'type', 'level', 'subsource')
 
 
 def _norm(s):
@@ -129,31 +132,56 @@ def _build_prompt(row, kind):
         lines.append("Topic: %s %s" % (val('topic_no'), val('topic')))
     lines.append("qid: %s" % val('qid'))
     lines.append("Original JSON (do not change the meaning):")
-    for field in _QUESTION_FIELDS:
+    for field in _QUESTION_FIELDS + _META_FIELDS:
         lines.append('  "%s": %s' % (field, json.dumps(val(field), ensure_ascii=False)))
     lines.append('  "explanation2": %s' % json.dumps(val('explanation2'), ensure_ascii=False))
     lines.append('  "explanation3": %s' % json.dumps(val('explanation3'), ensure_ascii=False))
     if kind == 'question':
-        lines.append("Task: remove unwanted symbols / artifacts / OCR noise / stray punctuation from the QUESTION and "
-                     "OPTIONS only. Keep the meaning and the correct answer exactly. Do NOT modify the explanation.")
+        lines.append("Task: review and correct the ENTIRE question record INCLUDING the explanation fields "
+                     "(explanation, explanation2, explanation3). Remove unwanted symbols / artifacts / OCR noise / "
+                     "stray punctuation from the question, options, answer, the explanation, and the "
+                     "subject/chapter/topic/type/level metadata; fix spellings where clearly wrong; improve the "
+                     "explanation where needed; and ensure `answer` exactly matches the text of the correct option. "
+                     "Keep the meaning intact.")
     else:
         lines.append("Task: clean unwanted symbols from the EXPLANATION and improve it with more detail / correct "
-                     "information where needed. Keep the QUESTION and OPTIONS and ANSWER EXACTLY unchanged.")
+                     "information where needed. Keep the QUESTION, OPTIONS, ANSWER and ALL metadata EXACTLY unchanged.")
+    lines.append("IMPORTANT WORD-SPACING RULE: if any text appears as one long unbroken word, it is almost always "
+                 "missing its spaces (e.g. joined Bangla sentences like 'দীর্ঘকালবিবেচনাকরাহলেউক্তশিল্পকারখানায়ব্যয়েরক্ষেত্রেপরিবর্তনহবে'). "
+                 "Re-insert the natural spaces so it becomes understandable words and a meaningful sentence. "
+                 "Do NOT leave such long joined text as-is.")
     lines.append("Reply with ONLY valid JSON, no markdown fences, in this exact shape:")
     lines.append('{"questions":[{"question":"...","option_1":"...","option_2":"...","option_3":"...","option_4":"...",'
-                 '"answer":"...","explanation":"...","explanation2":"...","explanation3":"..."}]}')
+                 '"answer":"...","subject":"...","subject_tr":"...","chapter_no":"...","chapter":"...",'
+                 '"topic_no":"...","topic":"...","type":"...","level":"...","subsource":"...",'
+                 '"explanation":"...","explanation2":"...","explanation3":"..."}]}')
     return "\n".join(lines)
 
 
 def _cleaned_fields(item, kind):
     out = {}
     if kind == 'question':
-        for key in ('question', 'option_1', 'option_2', 'option_3', 'option_4'):
+        # the whole question record INCLUDING the explanation/2/3
+        for key in ('question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer',
+                    'explanation', 'explanation2', 'explanation3') + _META_FIELDS:
             out[key] = str(item.get(key) or '').strip()
     else:
         for key in ('explanation', 'explanation2', 'explanation3'):
             out[key] = str(item.get(key) or '').strip()
     return out
+
+
+def _answer_consistent(cleaned):
+    """`answer` must correspond to one of the cleaned options (text or A-D/1-4)."""
+    answer = _norm(cleaned.get('answer'))
+    if not answer:
+        return False
+    options = [_norm(cleaned.get(k)) for k in ('option_1', 'option_2', 'option_3', 'option_4')]
+    if answer in options:
+        return True
+    letter_map = {'A': 0, 'B': 1, 'C': 2, 'D': 3, '1': 0, '2': 1, '3': 2, '4': 3}
+    sel = letter_map.get((cleaned.get('answer') or '').strip().upper().rstrip('.'))
+    return sel is not None and sel < len(options) and bool(options[sel])
 
 
 def _clean_fields_ai(row, kind):
@@ -165,9 +193,17 @@ def _clean_fields_ai(row, kind):
 
 def _has_changes(row, cleaned, kind):
     if kind == 'question':
-        fields = ('question', 'option_1', 'option_2', 'option_3', 'option_4')
+        cleaned['subject_tr'] = (cleaned.get('subject_tr') or cleaned.get('subject')
+                                 or row.get('subject_tr') or row.get('subject') or '')
+        fields = ('question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer',
+                  'explanation', 'explanation2', 'explanation3') + _META_FIELDS
         changed = any(_norm(cleaned.get(f)) != _norm(row.get(f)) for f in fields)
-        return bool((cleaned.get('question') or '').strip()) and changed
+        if not (cleaned.get('question') or '').strip():
+            return False
+        if not _answer_consistent(cleaned):
+            # keep the original answer when the AI repositioned/rewrote options
+            cleaned['answer'] = row.get('answer')
+        return changed
     fields = ('explanation', 'explanation2', 'explanation3')
     current = _norm(' '.join(str(row.get(f) or '') for f in fields))
     updated = _norm(' '.join(str(cleaned.get(f) or '') for f in fields))
@@ -177,29 +213,33 @@ def _has_changes(row, cleaned, kind):
 def _build_payload(row, cleaned, kind, table_name):
     """Payload for a pending update request (mirrors /question page submit)."""
     qid = str(row.get('qid') or '')
+    use_meta = kind == 'question'
+    subject_tr = (cleaned.get('subject_tr') or cleaned.get('subject')
+                  or row.get('subject_tr') or row.get('subject') or '').strip()[:255] if use_meta \
+        else (str(row.get('subject_tr') or row.get('subject') or '').strip())[:255]
     return {
         'table': table_name,
         'requested_qid': qid or None,
         'qid': qid or None,
         'level_tr': (row.get('level_tr') or '')[:100],
         'class_level': (row.get('class_level') or '')[:50],
-        'subject_tr': (str(row.get('subject_tr') or row.get('subject') or '').strip())[:255],
-        'chapter_no': (row.get('chapter_no') or '')[:50],
-        'chapter': (row.get('chapter') or '')[:255],
-        'topic_no': (row.get('topic_no') or '')[:50],
-        'topic': (row.get('topic') or '')[:255],
-        'question': (cleaned.get('question') if kind == 'question' else row.get('question')) or '',
-        'option_1': (cleaned.get('option_1') if kind == 'question' else row.get('option_1')) or '',
-        'option_2': (cleaned.get('option_2') if kind == 'question' else row.get('option_2')) or '',
-        'option_3': (cleaned.get('option_3') if kind == 'question' else row.get('option_3')) or '',
-        'option_4': (cleaned.get('option_4') if kind == 'question' else row.get('option_4')) or '',
-        'answer': (row.get('answer') or '')[:500],
-        'explanation': (cleaned.get('explanation') if kind == 'explanation' else row.get('explanation')) or '',
-        'explanation2': (cleaned.get('explanation2') if kind == 'explanation' else row.get('explanation2')) or '',
-        'explanation3': (cleaned.get('explanation3') if kind == 'explanation' else row.get('explanation3')) or '',
-        'type': (row.get('type') or '')[:100],
-        'level': (row.get('level') or '')[:100],
-        'subsource': (row.get('subsource') or '')[:255],
+        'subject_tr': subject_tr,
+        'chapter_no': (cleaned.get('chapter_no') if use_meta else row.get('chapter_no') or '')[:50],
+        'chapter': (cleaned.get('chapter') if use_meta else row.get('chapter') or '')[:255],
+        'topic_no': (cleaned.get('topic_no') if use_meta else row.get('topic_no') or '')[:50],
+        'topic': (cleaned.get('topic') if use_meta else row.get('topic') or '')[:255],
+        'question': (cleaned.get('question') if use_meta else row.get('question')) or '',
+        'option_1': (cleaned.get('option_1') if use_meta else row.get('option_1')) or '',
+        'option_2': (cleaned.get('option_2') if use_meta else row.get('option_2')) or '',
+        'option_3': (cleaned.get('option_3') if use_meta else row.get('option_3')) or '',
+        'option_4': (cleaned.get('option_4') if use_meta else row.get('option_4')) or '',
+        'answer': (cleaned.get('answer') if use_meta else row.get('answer') or '')[:500],
+        'explanation': (cleaned.get('explanation') or row.get('explanation')) or '',
+        'explanation2': (cleaned.get('explanation2') or row.get('explanation2')) or '',
+        'explanation3': (cleaned.get('explanation3') or row.get('explanation3')) or '',
+        'type': (cleaned.get('type') if use_meta else row.get('type') or '')[:100],
+        'level': (cleaned.get('level') if use_meta else row.get('level') or '')[:100],
+        'subsource': (cleaned.get('subsource') if use_meta else row.get('subsource') or '')[:255],
         'status': 'Update',
         'updated_by': 'Cheradip AI',
     }
@@ -240,7 +280,7 @@ def _insert_update_request(conn, payload):
         return cur.lastrowid
 
 
-def run_question_update_job(db_alias, table_name, kind, progress=None):
+def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_list=None, topic_list=None):
     """Scan a subject question table and queue AI update requests (Update Question /
     Update Explanation) into cheradip_pending_question_request.
 
@@ -281,6 +321,11 @@ def run_question_update_job(db_alias, table_name, kind, progress=None):
             [table_name],
         )
         existing_cols = set((cur.fetchone()[0] or '').split(','))
+        if 'qid' not in existing_cols or 'question' not in existing_cols:
+            return {
+                'message': 'Table \'%s\' is not a subject question table (it has no qid/question '
+                           'columns) — question updates can only be queued for question tables.' % table_name
+            }
         wanted = [
             'qid', 'subject', 'subject_tr', 'level_tr', 'class_level',
             'chapter_no', 'chapter', 'topic_no', 'topic', 'question',
@@ -290,10 +335,19 @@ def run_question_update_job(db_alias, table_name, kind, progress=None):
         ]
         fields = [f for f in wanted if f in existing_cols]
         select_sql = ', '.join('`%s`' % f for f in fields)
+        where = "question IS NOT NULL AND TRIM(COALESCE(question, '')) != ''"
+        params = []
+        if chapter_list:
+            ph = ', '.join(['%s'] * len(chapter_list))
+            where += " AND (chapter_no IN (%s) OR chapter IN (%s))" % (ph, ph)
+            params += list(chapter_list) + list(chapter_list)
+        if topic_list:
+            ph = ', '.join(['%s'] * len(topic_list))
+            where += " AND topic IN (%s)" % ph
+            params += list(topic_list)
         cur.execute(
-            "SELECT %s FROM `%s` "
-            "WHERE question IS NOT NULL AND TRIM(COALESCE(question, '')) != '' ORDER BY qid"
-            % (select_sql, table_name.replace('`', '``'))
+            "SELECT %s FROM `%s` WHERE %s ORDER BY qid" % (select_sql, table_name.replace('`', '``'), where),
+            params,
         )
         rows = [dict(zip(fields, r)) for r in cur.fetchall()]
 

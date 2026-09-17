@@ -612,7 +612,12 @@ def _settings_filter_options(conn, db_alias):
 
 
 def _question_tables_for_db(conn):
-    """Names of subject question tables in this DB (tables having qid + question)."""
+    """Names of tables in this DB the admin can queue question updates on.
+
+    Lists every ``cheradip_*`` table (same as the main tables grid) so the
+    dropdown always loads for every database; the update job validates that a
+    table really is a subject question table (qid/question columns) before working.
+    """
     out = []
     try:
         with conn.cursor() as cur:
@@ -620,15 +625,7 @@ def _question_tables_for_db(conn):
                 "SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() "
                 "AND table_name LIKE 'cheradip_%' ORDER BY table_name"
             )
-            for (t,) in cur.fetchall():
-                with conn.cursor() as cur2:
-                    cur2.execute(
-                        "SELECT GROUP_CONCAT(COLUMN_NAME) FROM information_schema.columns "
-                        "WHERE table_schema = DATABASE() AND table_name = %s", [t]
-                    )
-                    colset = set((cur2.fetchone()[0] or '').split(','))
-                if 'qid' in colset and 'question' in colset:
-                    out.append(t)
+            out = [r[0] for r in cur.fetchall()]
     except Exception:
         pass
     return out
@@ -701,7 +698,12 @@ def start_exam_job(request, db_alias):
 
 @staff_member_required
 def start_question_update(request, db_alias):
-    """Start an AI Question/Explanation update job for a subject table."""
+    """Start an AI Question/Explanation update job.
+
+    `table` may be given explicitly, or resolved from the level/class/subject
+    filters (the exam-settings "Update" button). Optional chapter/topic narrow
+    which rows are processed.
+    """
     from cheradip.exam_jobs import start_question_update_job
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required.'}, status=405)
@@ -709,9 +711,32 @@ def start_question_update(request, db_alias):
     if kind not in ('question', 'explanation'):
         return JsonResponse({'error': 'Unknown update kind: %s' % kind}, status=400)
     table = (request.POST.get('table') or '').strip().lower()
+    level_tr = (request.POST.get('level_tr') or '').strip()
+    class_level = (request.POST.get('class_level') or '').strip()
+    subject_tr = (request.POST.get('subject_tr') or '').strip()
+    if not table:
+        if not subject_tr:
+            return JsonResponse({'error': 'No table selected and no subject filter set.'}, status=400)
+        try:
+            from cheradip.subject_question_tables import subject_question_table_name
+            table = subject_question_table_name(level_tr or None, class_level or None, subject_tr)
+        except Exception as exc:
+            return JsonResponse({'error': 'Could not resolve subject table: %s' % exc}, status=400)
     if not table:
         return JsonResponse({'error': 'No table selected.'}, status=400)
-    job_id = start_question_update_job(db_alias, table, kind)
+
+    def _parse_list(raw):
+        raw = (raw or '')
+        parts = [p.strip() for p in re.split(r'[,;]|\u241f', raw) if p and p.strip()]
+        return parts
+
+    chapter_list = _parse_list(request.POST.get('chapter'))
+    topic_list = _parse_list(request.POST.get('topic'))
+    job_id = start_question_update_job(
+        db_alias, table, kind,
+        chapter_list=chapter_list or None,
+        topic_list=topic_list or None,
+    )
     return JsonResponse({'job_id': job_id})
 
 

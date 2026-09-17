@@ -187,6 +187,24 @@ def _count_ai_rows(cur, tbl):
         return 0
 
 
+def _remove_non_mcq_rows(cur, table_name, mcq_cond):
+    """Delete question rows that are NOT MCQ (only when the table has a `type` column).
+
+    Keeps only explicit 'বহুনির্বাচনি*' rows so exam sets are built from MCQ questions only.
+    Returns the number of removed rows.
+    """
+    if not mcq_cond:
+        return 0
+    tbl = table_name.replace('`', '``')
+    try:
+        cur.execute(
+            "DELETE FROM `%s` WHERE type IS NULL OR TRIM(COALESCE(type, '')) = '' OR NOT %s" % (tbl, mcq_cond)
+        )
+        return max(0, int(cur.rowcount or 0))
+    except Exception:
+        return 0
+
+
 def _fetch_topic_rows(cursor, tbl, ch_no, topic_name):
     """Return list of dicts {qid, question, answer} for a topic (MCQ only where a type column exists)."""
     mcq = _mcq_condition(cursor, tbl)
@@ -476,12 +494,15 @@ def run_create_exam(db_alias, filters, progress=None):
     created_topic, created_chapter, created_subject = 0, 0, 0
     skipped = []
     ai_stats = {'total': 0}
+    removed_non_mcq = 0
     try:
         with conn.cursor() as cur:
             for level_tr, class_level, subject_tr, sq in scope:
                 table_name = subject_question_table_name(level_tr, class_level, subject_tr)
                 if not _table_exists(cur, table_name):
                     continue
+                # MCQ-only: remove any non-MCQ rows from the subject table first
+                removed_non_mcq += _remove_non_mcq_rows(cur, table_name, _mcq_condition(cur, table_name))
                 # Report the subject being processed + existing AI-created questions
                 _emit(progress,
                       phase='Preparing',
@@ -505,6 +526,8 @@ def run_create_exam(db_alias, filters, progress=None):
         conn.rollback()
         raise
     msg = 'Created exam sets: %d topic, %d chapter, %d subject.' % (created_topic, created_chapter, created_subject)
+    if removed_non_mcq:
+        msg += ' Removed %d non-MCQ question row(s).' % removed_non_mcq
     if skipped:
         msg += ' Skipped (could not build %d unique-question topic set(s) via Home/Cloud AI): %s' % (
             len(skipped), ', '.join(skipped))
@@ -527,6 +550,7 @@ def run_add_exam(db_alias, filters, progress=None):
     added = 0
     skipped = []
     ai_stats = {'total': 0}
+    removed_non_mcq = 0
     try:
         with conn.cursor() as cur:
             for level_tr, class_level, subject_tr, sq in scope:
@@ -550,6 +574,8 @@ def run_add_exam(db_alias, filters, progress=None):
                 existing_topic_keys = {r[0] for r in cur.fetchall()}
                 tbl = table_name.replace('`', '``')
                 mcq = _mcq_condition(cur, tbl)
+                # MCQ-only: remove any non-MCQ rows so only MCQ questions remain
+                removed_non_mcq += _remove_non_mcq_rows(cur, table_name, mcq)
                 order_sql = "ORDER BY CAST(COALESCE(NULLIF(TRIM(chapter_no), ''), '0') AS UNSIGNED), CAST(COALESCE(NULLIF(TRIM(topic_no), ''), '0') AS UNSIGNED), topic"
                 if chapter_list:
                     ph = ', '.join(['%s'] * len(chapter_list))
@@ -639,6 +665,8 @@ def run_add_exam(db_alias, filters, progress=None):
         conn.rollback()
         raise
     msg = 'Add Exam: added %d missing set(s).' % added
+    if removed_non_mcq:
+        msg += ' Removed %d non-MCQ question row(s) (MCQ-only).' % removed_non_mcq
     if skipped:
         msg += ' Skipped (could not build %d unique-question topic set(s) via Home/Cloud AI): %s' % (
             len(skipped), ', '.join(skipped))

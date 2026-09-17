@@ -156,7 +156,7 @@ def _playwright_chromium_executable_path():
             except OSError:
                 real = path
                 size = 0
-            # apt-to-snap shim under /usr/bin (~2KB) — would re-exec snap with broken stdio for Playwright.
+            # apt-to-snap shim under /usr/bin (~2KB) â€” would re-exec snap with broken stdio for Playwright.
             if path.startswith('/usr/bin/') and size and size < 4096 and '/snap/' in real:
                 continue
             return path
@@ -211,7 +211,7 @@ class CountryViewSet(viewsets.ReadOnlyModelViewSet):
     
     def get_queryset(self):
         queryset = super().get_queryset()
-        # Avoid loading datetime columns (MySQL/PyMySQL can return them as str → 'utcoffset' error)
+        # Avoid loading datetime columns (MySQL/PyMySQL can return them as str â†’ 'utcoffset' error)
         queryset = queryset.defer('created_at', 'updated_at')
 
         # Filter by featured
@@ -418,7 +418,7 @@ class LocationThanasView(APIView):
 
 
 # ==============================================================================
-# JOB DB VIEWSETS (cheradip_job – NTRCA merit/vacancy/recommend, institutes, banbeis, token)
+# JOB DB VIEWSETS (cheradip_job â€“ NTRCA merit/vacancy/recommend, institutes, banbeis, token)
 # ==============================================================================
 
 from .models import (
@@ -456,7 +456,7 @@ class _MeritViewSetMixin:
 
     @action(detail=False, url_path='total_table_count')
     def total_table_count(self, request):
-        """GET /api/merit5|6|7/total_table_count/ – total rows in table (no filters)."""
+        """GET /api/merit5|6|7/total_table_count/ â€“ total rows in table (no filters)."""
         count = self.queryset.count()
         return Response({'count': count})
 
@@ -495,7 +495,7 @@ class _VacancyViewSetMixin:
 
     @action(detail=False, url_path='total_table_count')
     def total_table_count(self, request):
-        """GET /api/vacancy5|6|7/total_table_count/ – total rows in table (no filters)."""
+        """GET /api/vacancy5|6|7/total_table_count/ â€“ total rows in table (no filters)."""
         count = self.queryset.count()
         return Response({'count': count})
 
@@ -550,7 +550,7 @@ class _RecommendViewSetMixin:
 
     @action(detail=False, url_path='unique_thanas')
     def unique_thanas(self, request):
-        """GET /api/recommend5|6|7/unique_thanas/?district=DHAKA&district=KISHOREGANJ&code=201 – thanas under selected districts (optional code)."""
+        """GET /api/recommend5|6|7/unique_thanas/?district=DHAKA&district=KISHOREGANJ&code=201 â€“ thanas under selected districts (optional code)."""
         qs = self.get_queryset()
         code = request.query_params.get('code')
         if code is not None and str(code).strip() != '':
@@ -568,7 +568,7 @@ class _RecommendViewSetMixin:
 
     @action(detail=False, url_path='total_table_count')
     def total_table_count(self, request):
-        """GET /api/recommend5|6|7/total_table_count/ – total rows in table (no filters)."""
+        """GET /api/recommend5|6|7/total_table_count/ â€“ total rows in table (no filters)."""
         count = self.queryset.count()
         return Response({'count': count})
 
@@ -620,7 +620,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        # Optional search query param ?q= – match if any of these fields contains the term
+        # Optional search query param ?q= â€“ match if any of these fields contains the term
         q = self.request.query_params.get('q')
         if q and str(q).strip():
             q = str(q).strip()
@@ -665,7 +665,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, url_path='unique_types', methods=['get'])
     def unique_types(self, request):
-        """GET /api/institutes/unique_types/ – return all unique instituteTypeName from cheradip_institutes."""
+        """GET /api/institutes/unique_types/ â€“ return all unique instituteTypeName from cheradip_institutes."""
         values = (
             Institutes.objects
             .values_list('instituteTypeName', flat=True)
@@ -678,7 +678,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, url_path='unique_divisions', methods=['get'])
     def unique_divisions(self, request):
-        """GET /api/institutes/unique_divisions/ – return all unique divisionName from cheradip_institutes."""
+        """GET /api/institutes/unique_divisions/ â€“ return all unique divisionName from cheradip_institutes."""
         values = (
             Institutes.objects
             .values_list('divisionName', flat=True)
@@ -690,7 +690,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, url_path='unique_districts', methods=['get'])
     def unique_districts(self, request):
-        """GET /api/institutes/unique_districts/?divisionName=Rangpur – unique districtName for that divisionName."""
+        """GET /api/institutes/unique_districts/?divisionName=Rangpur â€“ unique districtName for that divisionName."""
         division_names = request.query_params.getlist('divisionName')
         division_names = [d.strip() for d in division_names if d and str(d).strip()]
         qs = Institutes.objects.all()
@@ -702,7 +702,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, url_path='unique_thanas', methods=['get'])
     def unique_thanas(self, request):
-        """GET /api/institutes/unique_thanas/?districtName=Dinajpur – unique thanaName for that districtName."""
+        """GET /api/institutes/unique_thanas/?districtName=Dinajpur â€“ unique thanaName for that districtName."""
         district_names = request.query_params.getlist('districtName')
         district_names = [d.strip() for d in district_names if d and str(d).strip()]
         qs = Institutes.objects.all()
@@ -714,7 +714,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class InstituteDetailView(APIView):
-    """GET /api/institute/?eiin=XXX – return one institute (Institutes or Banbeis by EIIN) for unlock details."""
+    """GET /api/institute/?eiin=XXX â€“ return one institute (Institutes or Banbeis by EIIN) for unlock details."""
     permission_classes = [AllowAny]
 
     def get(self, request):
@@ -722,14 +722,14 @@ class InstituteDetailView(APIView):
         if not eiin:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
         eiin_str = str(eiin).strip()
-        # Try Institutes first (PK eiinNo) – routed to job DB
+        # Try Institutes first (PK eiinNo) â€“ routed to job DB
         try:
             inst = Institutes.objects.get(eiinNo=eiin_str)
             serializer = InstitutesSerializer(inst)
             return Response({'results': [serializer.data]})
         except Institutes.DoesNotExist:
             pass
-        # Fallback: Banbeis by EIIN (bigint) – routed to job DB
+        # Fallback: Banbeis by EIIN (bigint) â€“ routed to job DB
         try:
             eiin_int = int(eiin_str)
             banbeis = Banbeis.objects.filter(EIIN=eiin_int).first()
@@ -935,7 +935,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         token_val = request.query_params.get('token')
         if token_val is not None and token_val != '':
             token_val = token_val.strip()
-            # Primary: cheradip_trxmanagement — match trxid, unlock budget = received_amount
+            # Primary: cheradip_trxmanagement â€” match trxid, unlock budget = received_amount
             trx = TrxManagement.objects.filter(trxid=token_val).first()
             if trx is not None:
                 try:
@@ -1028,9 +1028,9 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
     def use_trx(self, request):
         """
         NTRCA unlock (logged-in): debit **only** ``Customer.settings['balance']`` by ``UNLOCK_DEBIT``.
-        Same source as ``GET /api/customer_settings/`` — no Trx row id, no ``TrxManagement.token`` check.
+        Same source as ``GET /api/customer_settings/`` â€” no Trx row id, no ``TrxManagement.token`` check.
 
-        Not logged in (no Bearer): legacy path — debit ``TrxManagement.token`` for row ``id`` (payment row).
+        Not logged in (no Bearer): legacy path â€” debit ``TrxManagement.token`` for row ``id`` (payment row).
         """
         debit = self.UNLOCK_DEBIT
         customer = None
@@ -1273,7 +1273,7 @@ def item_list(request):
 # Welcome bonus on new signup: stored in Customer.settings['balance'] (GET /api/customer_settings/)
 WELCOME_SIGNUP_BONUS_COINS = 5000
 
-# Question page coin unlocks — persisted on Customer.settings (synced across devices).
+# Question page coin unlocks â€” persisted on Customer.settings (synced across devices).
 UNLOCKED_QUESTION_QIDS_SETTINGS_KEY = 'unlocked_question_qids'
 
 
@@ -1293,7 +1293,7 @@ def _normalize_unlocked_question_qids(raw):
 
 def _normalize_customer_settings(raw):
     """
-    Customer.settings is a JSONField — usually a dict. Some DB/drivers may expose JSON as str.
+    Customer.settings is a JSONField â€” usually a dict. Some DB/drivers may expose JSON as str.
     Always merge PATCH updates onto a plain dict so we never wipe keys like ``balance``.
     """
     if raw is None:
@@ -1391,7 +1391,7 @@ class CustomerCreateView(APIView):
                         _append_department_to_json((tname or '').strip(), None)
                 # Reload JSON settings from DB (fresh row) before merging welcome bonus
                 user.refresh_from_db(fields=['settings'])
-                # Welcome bonus — same JSON path as Angular TrxUnlockService (settings.balance)
+                # Welcome bonus â€” same JSON path as Angular TrxUnlockService (settings.balance)
                 st = _normalize_customer_settings(getattr(user, 'settings', None))
                 try:
                     base_bal = int(st.get('balance', 0) or 0)
@@ -1577,7 +1577,7 @@ class CustomerSettingsView(APIView):
         if new_settings is not None and not isinstance(new_settings, dict):
             return Response({'error': 'settings must be a JSON object'}, status=status.HTTP_400_BAD_REQUEST)
         user = request.user
-        # Must read latest JSON from DB before merge — otherwise PATCH can replace the whole
+        # Must read latest JSON from DB before merge â€” otherwise PATCH can replace the whole
         # settings object and drop ``balance`` (e.g. after welcome ceremony clears pending flag).
         user.refresh_from_db(fields=['settings'])
         current = _normalize_customer_settings(getattr(user, 'settings', None))
@@ -1702,7 +1702,7 @@ def _export_layout_section_gap_px(data):
 
 
 def _docx_apply_section_columns(section, num_cols, space_twips=210, show_sep=False):
-    """Apply 1–10 newspaper-style columns to a python-docx section."""
+    """Apply 1â€“10 newspaper-style columns to a python-docx section."""
     if not DOCX_AVAILABLE:
         return
     try:
@@ -1782,16 +1782,16 @@ def _pdf_paint_horizontal_section_dividers(canvas, left, right, bottom_y, top_y,
 
 def _cq_question_structure_from_bn_markers(full_text):
     """
-    CQ marks ২,৪,৪ vs ১,২,৩,৪: split by (ক)(খ)(গ) or (ক)(খ)(গ)(ঘ) order in text — no reliance on newlines.
-    Returns dict with intro + parts, or None if (ক)(খ)(গ) do not appear in that order.
+    CQ marks à§¨,à§ª,à§ª vs à§§,à§¨,à§©,à§ª: split by (à¦•)(à¦–)(à¦—) or (à¦•)(à¦–)(à¦—)(à¦˜) order in text â€” no reliance on newlines.
+    Returns dict with intro + parts, or None if (à¦•)(à¦–)(à¦—) do not appear in that order.
     """
     if not full_text or not str(full_text).strip():
         return None
     s = str(full_text)
-    p_k = s.find('(ক)')
-    p_kh = s.find('(খ)')
-    p_g = s.find('(গ)')
-    p_gh = s.find('(ঘ)')
+    p_k = s.find('(à¦•)')
+    p_kh = s.find('(à¦–)')
+    p_g = s.find('(à¦—)')
+    p_gh = s.find('(à¦˜)')
     if p_k < 0 or p_kh < 0 or p_g < 0 or not (p_k < p_kh < p_g):
         return None
     intro = s[:p_k].strip()
@@ -1842,7 +1842,7 @@ _Q_CODE_BLOCK_CLOSE_RE = r'</code>\s*</span>'
 
 
 def _export_collapse_newlines_inside_q_code_html(text):
-    """Turn raw newlines inside <code>…</code> into <br /> so PDF wrap_roman splitlines does not shred programs."""
+    """Turn raw newlines inside <code>â€¦</code> into <br /> so PDF wrap_roman splitlines does not shred programs."""
     s = str(text or '')
 
     def repl(m):
@@ -1875,7 +1875,7 @@ def _export_normalize_q_code_block_html(text):
 _EXPORT_UNICODE_SPACE_RE = re.compile(
     # NBSP, EN SPACE, EM SPACE, THREE-PER-EM, FOUR-PER-EM, SIX-PER-EM, FIGURE SPACE,
     # PUNCTUATION SPACE, THIN SPACE, HAIR SPACE, NARROW NO-BREAK SPACE, MEDIUM MATH SPACE,
-    # IDEOGRAPHIC SPACE, ZERO-WIDTH NBSP (BOM) — all replaced with ASCII space so CSS
+    # IDEOGRAPHIC SPACE, ZERO-WIDTH NBSP (BOM) â€” all replaced with ASCII space so CSS
     # `white-space` can collapse runs and Chromium's justifier doesn't stretch wide glyphs.
     r'[\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000\uFEFF]'
 )
@@ -1938,7 +1938,7 @@ def _export_decode_caption_filename_fragment(raw):
 
 
 def _export_extract_media_caption_from_path(path_from_media):
-    """Optional label: .../name_(caption).ext — greedy (.*) to last ) before .ext (not [^)]*)."""
+    """Optional label: .../name_(caption).ext â€” greedy (.*) to last ) before .ext (not [^)]*)."""
     m = re.search(r'_\((.*)\)(\.[a-z0-9]+)$', path_from_media, re.I)
     if not m:
         return None
@@ -1975,7 +1975,7 @@ _EXPORT_IMAGE_EXT_FOR_LATEX_RE = re.compile(r'\.(png|jpe?g|gif|webp|svg|ico|bmp)
 
 
 def _export_build_latex_svg_path_from_media_path(path_from_media):
-    """`/media/foo/bar.png` → `/media/latex/foo/bar.svg` (same as fcheradip buildLatexSvgPathFromMediaPath)."""
+    """`/media/foo/bar.png` â†’ `/media/latex/foo/bar.svg` (same as fcheradip buildLatexSvgPathFromMediaPath)."""
     p = (path_from_media or '').strip()
     if not p.startswith('/'):
         p = '/' + p
@@ -2121,8 +2121,8 @@ def _export_docx_prepare_raster_image(image_bytes):
 
 def _export_pick_pdf_media_img_src(host_base, path_from_media, stem_only_media_path):
     """
-    Prefer compiled LaTeX SVG on disk (preview uses media/latex/…), else stem LaTeX, else raster paths.
-    Without this, PDF always used the raster URL; PNG is often empty while SVG exists → missing images in PDF.
+    Prefer compiled LaTeX SVG on disk (preview uses media/latex/â€¦), else stem LaTeX, else raster paths.
+    Without this, PDF always used the raster URL; PNG is often empty while SVG exists â†’ missing images in PDF.
     """
     hb = (host_base or getattr(settings, 'HOST_URL', None) or 'http://127.0.0.1:8000').rstrip('/')
     seen = set()
@@ -2152,12 +2152,12 @@ def _export_pick_pdf_media_img_src(host_base, path_from_media, stem_only_media_p
 def _export_format_question_media_html(text, host_base):
     """[IMG] strip + /media/... -> <img>; optional filename _(caption).ext -> stack+caption; matches Angular pipe."""
     text = str(text or '')
-    text = re.sub(r'[\[［]\s*[Ii][Mm][Gg]\s*[\]］]\s*', '', text)
+    text = re.sub(r'[\[ï¼»]\s*[Ii][Mm][Gg]\s*[\]ï¼½]\s*', '', text)
     host_base = (host_base or getattr(settings, 'HOST_URL', None) or 'http://127.0.0.1:8000').rstrip('/')
     img_alt = 'Images are loading...'
-    # Spaces allowed in filenames (e.g. _(Fig1 - … here).png); exclude only < " for HTML safety.
-    # After the extension, do not use \b: Python treats letters like ক as word chars, so paths such as
-    # ".../file.pngক)" (Bengali MCQ label immediately after .png) would not match and would stay raw text in PDF.
+    # Spaces allowed in filenames (e.g. _(Fig1 - â€¦ here).png); exclude only < " for HTML safety.
+    # After the extension, do not use \b: Python treats letters like à¦• as word chars, so paths such as
+    # ".../file.pngà¦•)" (Bengali MCQ label immediately after .png) would not match and would stay raw text in PDF.
     _ext_end = r'(?![A-Za-z0-9_])'
     path_body = r'[^<>"]+'
     ext = 'png|jpe?g|gif|webp|svg|ico|bmp|mp4|webm|mov|bin'
@@ -2258,7 +2258,7 @@ def _export_is_type_heading_row(q):
 
 
 def _export_skip_question_number_label(q):
-    """Match preview `previewQuestionShowsIndex` — serial only on main intro/MCQ stem rows."""
+    """Match preview `previewQuestionShowsIndex` â€” serial only on main intro/MCQ stem rows."""
     if not isinstance(q, dict):
         return False
     if _export_is_type_heading_row(q):
@@ -2270,11 +2270,11 @@ def _export_skip_question_number_label(q):
 
 
 def _export_strip_mcq_answer_key_serial_prefix(text):
-    """Remove leading ১। / 1. from compact MCQ answer-key stem (serial shown via `.qn` label)."""
+    """Remove leading à§§à¥¤ / 1. from compact MCQ answer-key stem (serial shown via `.qn` label)."""
     s = str(text or '').strip()
     if not s:
         return s
-    stripped = re.sub(r'^[\u09E6-\u09EF0-9]+[।\.]\s*', '', s).strip()
+    stripped = re.sub(r'^[\u09E6-\u09EF0-9]+[à¥¤\.]\s*', '', s).strip()
     return stripped if stripped else s
 
 
@@ -2319,7 +2319,7 @@ def _export_question_column_width_px(inner_w_px, layout_cols, col_gap_px):
 
 
 def _export_mcq_stem_roman_pack_max_width_px(col_w_px, font_px):
-    """Match preview wrapRomanLines stem cap (defaultMaxWidthForRomanMcqLayout 'stem' → 480px)."""
+    """Match preview wrapRomanLines stem cap (defaultMaxWidthForRomanMcqLayout 'stem' â†’ 480px)."""
     cap = 480.0
     return max(120.0, min(cap, float(col_w_px) - max(8.0, float(font_px) * 0.25)))
 
@@ -2377,7 +2377,7 @@ def _force_roman_triplet_lines(text):
 
 
 def _export_prepare_mcq_text_for_roman(text):
-    """Keep line breaks for নিচের/কোনটি/সঠিক tail detection (preview does not flatten first)."""
+    """Keep line breaks for à¦¨à¦¿à¦šà§‡à¦°/à¦•à§‹à¦¨à¦Ÿà¦¿/à¦¸à¦ à¦¿à¦• tail detection (preview does not flatten first)."""
     s = re.sub(r'\r\n?', '\n', _canonicalize_roman_triplet_markers(str(text or '')))
     s = re.sub(r'<br\s*/?>', '\n', s, flags=re.I)
     s = _collapse_then_normalize_nicher(s)
@@ -2392,10 +2392,10 @@ def _export_prepare_mcq_text_for_roman(text):
 
 _LINE_BREAK_START = re.compile(r'^(?:\s*(?:<br\s*/?>|[\r\n]+)\s*)', re.I)
 
-_POST_III_TAIL_STARTERS = ('নিচের', 'কোনটি', 'সঠিক')
-# Do not match tail keywords inside a longer Bengali word (…letters + নিচের/কোনটি/সঠিক).
+_POST_III_TAIL_STARTERS = ('à¦¨à¦¿à¦šà§‡à¦°', 'à¦•à§‹à¦¨à¦Ÿà¦¿', 'à¦¸à¦ à¦¿à¦•')
+# Do not match tail keywords inside a longer Bengali word (â€¦letters + à¦¨à¦¿à¦šà§‡à¦°/à¦•à§‹à¦¨à¦Ÿà¦¿/à¦¸à¦ à¦¿à¦•).
 _BN_LETTER_LOOKBEHIND = r'(?<![\u0980-\u09FF])'
-_POST_III_TAIL_AFTER = r'(?=[\.।\u09F4\u09F5\u09F6\s\n\r<]|$)'
+_POST_III_TAIL_AFTER = r'(?=[\.à¥¤\u09F4\u09F5\u09F6\s\n\r<]|$)'
 
 
 def _post_iii_tail_starter_pattern(word):
@@ -2722,7 +2722,7 @@ def _export_mcq_multiline_fallback_html(prepared_text):
 
 
 def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
-    """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (ক) in .q-opt."""
+    """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (à¦•) in .q-opt."""
     t = str(text or '')
     if 'q-code-block' in t.lower():
         t = _export_normalize_q_code_block_html(t)
@@ -2757,7 +2757,7 @@ def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
     return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
 
 
-# Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (font→cap + column shrink).
+# Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (fontâ†’cap + column shrink).
 _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
 <script>
 (function(){
@@ -2856,7 +2856,7 @@ def _export_strip_img_lazy_loading_attrs(fragment):
 def _playwright_wait_for_export_rich_images(page, timeout_ms=60000):
     """
     Block PDF until inline question images finish loading (or error). Without this, Playwright often
-    prints before the last image on a long sheet — especially images below the first viewport.
+    prints before the last image on a long sheet â€” especially images below the first viewport.
     """
     try:
         page.wait_for_function(
@@ -2891,7 +2891,7 @@ _DOCX_ALIGNED_MATH_RE = re.compile(
 
 def _docx_aligned_math_lines(tex):
     """If ``tex`` is (essentially) a ``\\begin{aligned}``-style multi-line math expression, split it
-    into a list of single-line TeX bodies (alignment ``&`` markers removed) — one per logical line —
+    into a list of single-line TeX bodies (alignment ``&`` markers removed) â€” one per logical line â€”
     and return that list; otherwise return None.
 
     ``math2docx`` cannot import the whole ``aligned`` environment (it raises an XML well-formedness
@@ -2975,7 +2975,7 @@ class ExportQuestionsView(APIView):
             'NotoSerif-Regular.ttf': ('Noto Serif', '400', 'normal'),
             'NotoSerif-Bold.ttf': ('Noto Serif', '700', 'normal'),
             'STIXTwoMath-Regular.otf': ('STIX Two Math', '400', 'normal'),
-            # Windows system Bengali — copy from C:\Windows\Fonts so Linux PDFs match the live preview.
+            # Windows system Bengali â€” copy from C:\Windows\Fonts so Linux PDFs match the live preview.
             'Nirmala.ttf': ('Nirmala UI', '400', 'normal'),
             'NirmalaB.ttf': ('Nirmala UI', '700', 'normal'),
             'NirmalaS.ttf': ('Nirmala UI Semilight', '350', 'normal'),
@@ -3202,7 +3202,7 @@ class ExportQuestionsView(APIView):
         # Per-environment font-size nudge (Linux snap Chromium can rasterise the same TTF a touch
         # smaller than Windows + bundled Chromium). Set EXPORT_FONT_SIZE_DELTA in .env to a *small*
         # additive px offset, e.g. `0.1`, `0.25`, `-0.1`. Defaults to `0` (no change). Applied
-        # uniformly so option/body/global stay in proportion. Keep it small — every 1px ≈ ~7%
+        # uniformly so option/body/global stay in proportion. Keep it small â€” every 1px â‰ˆ ~7%
         # at 14px body and can shift line breaks/page breaks across the whole document.
         try:
             _font_delta_px = float((os.environ.get('EXPORT_FONT_SIZE_DELTA') or '0').strip() or '0')
@@ -3216,7 +3216,7 @@ class ExportQuestionsView(APIView):
         q_lh_global = num(pick('previewQuestionsLineHeight', 1.4), 1.4)
         q_lh_cq = num(pick('previewQuestionsLineHeightCreative', q_lh_global), q_lh_global)
         q_lh_mcq = num(pick('previewQuestionsLineHeightMcq', q_lh_global), q_lh_global)
-        # PDF-only line-height nudge (preview unchanged): CQ +0.05, MCQ −0.05 (unitless lh).
+        # PDF-only line-height nudge (preview unchanged): CQ +0.05, MCQ âˆ’0.05 (unitless lh).
         q_lh_cq = q_lh_cq + 0.05
         q_lh_mcq = max(0.1, q_lh_mcq - 0.05)
         q_lh_body = max(q_lh_cq, q_lh_mcq)
@@ -3329,43 +3329,43 @@ class ExportQuestionsView(APIView):
             return out
 
         def normalize_bengali_digits(s):
-            return str(s or '').translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+            return str(s or '').translate(str.maketrans('0123456789', 'à§¦à§§à§¨à§©à§ªà§«à§¬à§­à§®à§¯'))
 
         def mcq_set_letter_from_line_or_settings(line_txt):
-            """Match preview/export line `… সেট : ক` or layout_settings.mcqSetLetter."""
+            """Match preview/export line `â€¦ à¦¸à§‡à¦Ÿ : à¦•` or layout_settings.mcqSetLetter."""
             t = str(line_txt or '')
-            m = re.search(r'সেট\s*[:ঃ]\s*([কখগঘ])', t)
+            m = re.search(r'à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*([à¦•à¦–à¦—à¦˜])', t)
             if m:
                 return m.group(1)
             v = pick('mcqSetLetter', None)
             if v is None:
                 return None
             s = str(v).strip()
-            if s in ('ক', 'খ', 'গ', 'ঘ'):
+            if s in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
                 return s
             return None
 
         def mcq_header_text_with_set_letter(header_text, set_letter):
-            """Per-page MCQ answer sheet: inject সেট : ক/খ/গ/ঘ into the বিষয় কোড header line."""
-            if set_letter not in ('ক', 'খ', 'গ', 'ঘ'):
+            """Per-page MCQ answer sheet: inject à¦¸à§‡à¦Ÿ : à¦•/à¦–/à¦—/à¦˜ into the à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡ header line."""
+            if set_letter not in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
                 return header_text
             lines = str(header_text or '').replace('\r\n', '\n').split('\n')
             out = []
             replaced = False
             for ln in lines:
-                if 'বিষয় কোড' in ln or 'বিষয় কোড' in ln:
-                    base = re.sub(r'\s*সেট\s*[:ঃ]\s*[কখগঘ]\s*', '', ln).strip()
-                    out.append('%s সেট : %s' % (base, set_letter))
+                if 'à¦¬à¦¿à¦·à¦¯à¦¼ à¦•à§‹à¦¡' in ln or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡' in ln:
+                    base = re.sub(r'\s*à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*[à¦•à¦–à¦—à¦˜]\s*', '', ln).strip()
+                    out.append('%s à¦¸à§‡à¦Ÿ : %s' % (base, set_letter))
                     replaced = True
                 else:
                     out.append(ln)
             if not replaced:
-                out.append('বিষয় কোডঃ সেট : %s' % set_letter)
+                out.append('à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡à¦ƒ à¦¸à§‡à¦Ÿ : %s' % set_letter)
             return '\n'.join(out)
 
         def render_subject_code_row(line, font_px, line_h, extra_class='', for_mcq_header=False):
             txt = str(line or '')
-            digits = re.findall(r'[0-9০-৯]', txt)
+            digits = re.findall(r'[0-9à§¦-à§¯]', txt)
             digs = [normalize_bengali_digits(d) for d in digits[:3]]
             while len(digs) < 3:
                 digs.append('&nbsp;')
@@ -3375,12 +3375,12 @@ class ExportQuestionsView(APIView):
                 return (
                     '<div class="hline hline-code-row-wrap%s" style="font-size:%.2fpx; line-height:%.3f;">'
                     '<span class="q-code-grid q-code-grid--mcq-set">'
-                    '<span class="q-code-label">বিষয় কোড</span>'
+                    '<span class="q-code-label">à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡</span>'
                     '<span class="q-code-colon">:</span>'
                     '<span class="q-code-cell">%s</span>'
                     '<span class="q-code-cell">%s</span>'
                     '<span class="q-code-cell">%s</span>'
-                    '<span class="q-code-label q-code-label--set">সেট</span>'
+                    '<span class="q-code-label q-code-label--set">à¦¸à§‡à¦Ÿ</span>'
                     '<span class="q-code-colon">:</span>'
                     '<span class="q-code-cell q-code-cell--filler"></span>'
                     '<span class="q-code-cell q-code-cell--set-letter">%s</span>'
@@ -3399,7 +3399,7 @@ class ExportQuestionsView(APIView):
             return (
                 '<div class="hline hline-code-row-wrap%s" style="font-size:%.2fpx; line-height:%.3f;">'
                 '<span class="q-code-grid">'
-                '<span class="q-code-label">বিষয় কোড</span>'
+                '<span class="q-code-label">à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡</span>'
                 '<span class="q-code-colon">:</span>'
                 '<span class="q-code-cell">%s</span>'
                 '<span class="q-code-cell">%s</span>'
@@ -3409,23 +3409,23 @@ class ExportQuestionsView(APIView):
             ) % (extra_class, font_px, line_h, digs[0], digs[1], digs[2])
 
         def _cq_header_line_is_notice(line):
-            """True for [দ্রষ্টব্য : …] rows — must not sit under the floating subject-code grid."""
+            """True for [à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯ : â€¦] rows â€” must not sit under the floating subject-code grid."""
             t = str(line or '').strip()
             if not t:
                 return False
-            if re.search(r'^\s*\[?\s*দ্রষ্টব্য', t):
+            if re.search(r'^\s*\[?\s*à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯', t):
                 return True
-            if t.startswith('[') and 'দ্রষ্টব্য' in t[:200]:
+            if t.startswith('[') and 'à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯' in t[:200]:
                 return True
             return False
 
         def compile_playwright_header_html(qh_source, cq_header=False, line_font_px=None):
             """
             Compile header text into q-header HTML.
-            The first "বিষয় কোড" line is converted to the subject-code grid and removed from flow.
-            cq_header: Creative PDF — keep দ্রষ্টব্য lines out of q-header-band so the grid aligns with
-            subject/title lines (e.g. বিষয় name), not over the notice paragraph.
-            line_font_px: optional list of font sizes (px), one per header line index — matches split
+            The first "à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡" line is converted to the subject-code grid and removed from flow.
+            cq_header: Creative PDF â€” keep à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯ lines out of q-header-band so the grid aligns with
+            subject/title lines (e.g. à¦¬à¦¿à¦·à¦¯à¦¼ name), not over the notice paragraph.
+            line_font_px: optional list of font sizes (px), one per header line index â€” matches split
             export headers from the client when line count differs from sidebar `headerLineFontSizes`.
             """
             header_lines = [ln for ln in str(qh_source or '').replace('\r\n', '\n').split('\n')]
@@ -3433,7 +3433,7 @@ class ExportQuestionsView(APIView):
             if any(s.strip() for s in header_lines):
                 code_line_index = None
                 for _ci, _ln in enumerate(header_lines):
-                    if re.search(r'বিষ[য়য]\s*কোড', str(_ln or '').strip()):
+                    if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', str(_ln or '').strip()):
                         code_line_index = _ci
                         break
                 before_hr_chunks = []
@@ -3446,8 +3446,8 @@ class ExportQuestionsView(APIView):
                 code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
 
                 def _fz_for_line_idx(i):
-                    # Client sends one px per \\n row; padding/realignment may shorten the list — never fall back to
-                    # unrelated default hfs[i] for tail rows (would make দ্রষ্টব্য notices render larger than preview).
+                    # Client sends one px per \\n row; padding/realignment may shorten the list â€” never fall back to
+                    # unrelated default hfs[i] for tail rows (would make à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯ notices render larger than preview).
                     if line_font_px is not None and len(line_font_px) > 0:
                         return line_font_px[min(i, len(line_font_px) - 1)]
                     return hfs[i] if i < len(hfs) else hfs[-1]
@@ -3455,7 +3455,7 @@ class ExportQuestionsView(APIView):
                 for i, line in enumerate(header_lines):
                     fz = _fz_for_line_idx(i)
                     line_txt = str(line or '').strip()
-                    if re.search(r'বিষ[য়য]\s*কোড', line_txt):
+                    if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', line_txt):
                         if code_row_html:
                             continue
                         code_row_source_line = line_txt
@@ -3488,12 +3488,12 @@ class ExportQuestionsView(APIView):
                         if cq_header:
                             after_raw_lines.append(line)
                 if code_row_html:
-                    # Overlay code grid on the band of lines above the বিষয় কোড row (preview-like), not a
+                    # Overlay code grid on the band of lines above the à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡ row (preview-like), not a
                     # separate full-width row. Works with or without <hr>; band = lines before code index only.
                     if cq_header:
                         if len(band_before_chunks) >= 1:
                             floating_code = render_subject_code_row(
-                                code_row_source_line or 'বিষয় কোড',
+                                code_row_source_line or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡',
                                 code_row_font_px,
                                 h_lh,
                                 extra_class=' hline-code-row-wrap--floating',
@@ -3529,7 +3529,7 @@ class ExportQuestionsView(APIView):
                                 raws.pop(0)
                             if rest and (not raws or raws[0] is not None):
                                 floating_code = render_subject_code_row(
-                                    code_row_source_line or 'বিষয় কোড',
+                                    code_row_source_line or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡',
                                     code_row_font_px,
                                     h_lh,
                                     extra_class=' hline-code-row-wrap--floating',
@@ -3562,7 +3562,7 @@ class ExportQuestionsView(APIView):
                             header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
                     elif len(before_hr_chunks) >= 1:
                         floating_code = render_subject_code_row(
-                            code_row_source_line or 'বিষয় কোড',
+                            code_row_source_line or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡',
                             code_row_font_px,
                             h_lh,
                             extra_class=' hline-code-row-wrap--floating',
@@ -3602,14 +3602,14 @@ class ExportQuestionsView(APIView):
 
         def is_creative(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and ('সৃজনশীল' in t or t == 'সৃজনশীল')
+            return bool(t) and ('à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²' in t or t == 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²')
 
         def is_mcq_type(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and ('বহুনির্বাচনি' in t or t == 'বহুনির্বাচনি')
+            return bool(t) and ('à¦¬à¦¹à§à¦¨à¦¿à¦°à§à¦¬à¦¾à¦šà¦¨à¦¿' in t or t == 'à¦¬à¦¹à§à¦¨à¦¿à¦°à§à¦¬à¦¾à¦šà¦¨à¦¿')
 
         def uses_creative_sheet(q):
-            """CQ + non-MCQ companions (জ্ঞানমূলক / অনুধাবনমূলক / …) share the CQ sheet/header."""
+            """CQ + non-MCQ companions (à¦œà§à¦žà¦¾à¦¨à¦®à§‚à¦²à¦• / à¦…à¦¨à§à¦§à¦¾à¦¬à¦¨à¦®à§‚à¦²à¦• / â€¦) share the CQ sheet/header."""
             if _export_is_type_heading_row(q):
                 return True
             return not is_mcq_type(q)
@@ -3631,7 +3631,7 @@ class ExportQuestionsView(APIView):
 
         def wrap_roman_lines_html(text):
             roman_line = re.compile(r'^\s*(i|ii|iii|I|II|III)\.')
-            bn_paren_line = re.compile(r'^\s*\([কখগঘ]\)')
+            bn_paren_line = re.compile(r'^\s*\([à¦•à¦–à¦—à¦˜]\)')
             lines = normalize_question_latex_source(str(text or '')).splitlines()
             parts = []
             for line in lines:
@@ -3659,16 +3659,16 @@ class ExportQuestionsView(APIView):
             s = str(raw_text or '').strip()
             if not s or not creative:
                 return s
-            with_newlines = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', s)
-            with_newlines = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', with_newlines)
+            with_newlines = re.sub(r'\s+(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\n\1', s)
+            with_newlines = re.sub(r'([à¥¤,])\s*(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\1\n\2', with_newlines)
             dotted_to_paren = (
                 with_newlines
-                .replace('ক.', '(ক)')
-                .replace('খ.', '(খ)')
-                .replace('গ.', '(গ)')
-                .replace('ঘ.', '(ঘ)')
+                .replace('à¦•.', '(à¦•)')
+                .replace('à¦–.', '(à¦–)')
+                .replace('à¦—.', '(à¦—)')
+                .replace('à¦˜.', '(à¦˜)')
             )
-            out = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', dotted_to_paren)
+            out = re.sub(r'\s*(\(à¦•\)|\(à¦–\)|\(à¦—\)|\(à¦˜\))', r'\n\1', dotted_to_paren)
             out = re.sub(r'\n{2,}', r'\n', out)
             return out.strip()
 
@@ -3685,7 +3685,7 @@ class ExportQuestionsView(APIView):
             return {'intro': lines[0], 'parts': lines[1:]}
 
         def to_bengali_digits(n):
-            return str(n).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
+            return str(n).translate(str.maketrans('0123456789', 'à§¦à§§à§¨à§©à§ªà§«à§¬à§­à§®à§¯'))
 
         def creative_subpart_mark_bn(part_count, idx):
             if part_count == 3 and 0 <= idx < 3:
@@ -3696,9 +3696,9 @@ class ExportQuestionsView(APIView):
 
         def mcq_family_question_mark_bn(qq_row):
             t = str((qq_row or {}).get('type') or '').strip()
-            if 'জ্ঞানমূলক' in t:
+            if 'à¦œà§à¦žà¦¾à¦¨à¦®à§‚à¦²à¦•' in t:
                 return to_bengali_digits('1')
-            if 'অনুধাবনমূলক' in t:
+            if 'à¦…à¦¨à§à¦§à¦¾à¦¬à¦¨à¦®à§‚à¦²à¦•' in t:
                 return to_bengali_digits('2')
             return None
 
@@ -3744,7 +3744,7 @@ class ExportQuestionsView(APIView):
                 return _export_wrap_mcq_line_html(text, host_base, max_width_px=mw, font_px=stem_fz)
 
             def format_option_html(txt, qq_row, creative):
-                """Match preview `wrapRomanLines:'option'` — flowing inline lines, not CQ stem block split."""
+                """Match preview `wrapRomanLines:'option'` â€” flowing inline lines, not CQ stem block split."""
                 qrow = qq_row if isinstance(qq_row, dict) else {}
                 col_w = cq_col_w_px if creative else mcq_col_w_px
                 opt_fz = q_font_cq if creative else q_font_mcq
@@ -3758,7 +3758,7 @@ class ExportQuestionsView(APIView):
                 if not any(qq.get(k) for k in ('option_1', 'option_2', 'option_3', 'option_4')):
                     return ''
                 options = []
-                for key, lab in [('option_1', 'ক'), ('option_2', 'খ'), ('option_3', 'গ'), ('option_4', 'ঘ')]:
+                for key, lab in [('option_1', 'à¦•'), ('option_2', 'à¦–'), ('option_3', 'à¦—'), ('option_4', 'à¦˜')]:
                     ov = qq.get(key)
                     if ov:
                         txt = format_maybe_c_program_question_text(str(ov).strip(), emit_html=True)
@@ -3773,7 +3773,7 @@ class ExportQuestionsView(APIView):
                     return ''
                 ncol = options_cols_for_qq(qq)
                 ocls = options_grid_class_for_cols(ncol)
-                # Grid layout from CSS classes only (same as preview — no inline column-count override).
+                # Grid layout from CSS classes only (same as preview â€” no inline column-count override).
                 return '<div class="%s">%s</div>' % (ocls, ''.join(options))
 
             def unwrap_plan_item(entry):
@@ -3882,7 +3882,7 @@ class ExportQuestionsView(APIView):
                             '</span>',
                             '',
                         )
-                    # Main-sheet MCQ: one intro row holds stem + (ক)–(ঘ) options (preview .preview-q-text).
+                    # Main-sheet MCQ: one intro row holds stem + (à¦•)â€“(à¦˜) options (preview .preview-q-text).
                     stem_inner = format_stem_html(plain_q, False, qq_row)
                     stem_html = wrap_mcq_stem_with_marks_if_needed(qq_row, stem_inner)
                     return stem_html, build_options_html(qq_row, False)
@@ -3991,7 +3991,7 @@ class ExportQuestionsView(APIView):
                 seg_kind = str(qq.get('answerSheetSegmentKind') or '').strip()
                 parent_idx = qq.get('answerSheetParentIndex')
 
-                # Merge CQ intro + (ক)–(ঘ) segments into one block (matches on-screen preview DOM).
+                # Merge CQ intro + (à¦•)â€“(à¦˜) segments into one block (matches on-screen preview DOM).
                 if creative and parent_idx is not None and seg_kind in ('intro', 'part'):
                     group = []
                     j = idx
@@ -4144,7 +4144,7 @@ class ExportQuestionsView(APIView):
                 else:
                     header_kind = content_kind
                 page_set = str(pg.get('mcqSetLetter') or '').strip()
-                if page_set in ('ক', 'খ', 'গ', 'ঘ') and header_kind == 'mcq':
+                if page_set in ('à¦•', 'à¦–', 'à¦—', 'à¦˜') and header_kind == 'mcq':
                     qh_page = mcq_header_text_with_set_letter(qh_mcq, page_set)
                     hdr_for_page = compile_playwright_header_html(
                         qh_page, cq_header=False, line_font_px=h_pdf_mcq
@@ -4314,7 +4314,7 @@ class ExportQuestionsView(APIView):
         ml = float(margin_left)
         mb = max(0.0, float(margin_bottom))
         # @page rules: omit @page default (conflicts with named pages). CQ-only uses @page mcq with CQ
-        # dimensions/margins — same engine path as MCQ-only PDF (matches preview pagination).
+        # dimensions/margins â€” same engine path as MCQ-only PDF (matches preview pagination).
         if unify_cq_as_mcq_page_model:
             cq_page_css = ''
             mcq_page_css = (
@@ -4416,7 +4416,7 @@ class ExportQuestionsView(APIView):
       -moz-column-break-inside: auto;
     }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
-    /* Header letter-spacing always normal — only word-spacing is tunable via env. */
+    /* Header letter-spacing always normal â€” only word-spacing is tunable via env. */
     .q-header, .q-header .hline {{
       letter-spacing: normal;
     }}
@@ -4483,7 +4483,7 @@ class ExportQuestionsView(APIView):
       font-weight: 700;
       text-align: center;
     }}
-    /* MCQ: second row — সেট : (letter), matches preview two-row code table. */
+    /* MCQ: second row â€” à¦¸à§‡à¦Ÿ : (letter), matches preview two-row code table. */
     .q-code-grid--mcq-set {{
       grid-template-rows: auto auto;
       row-gap: 15px;
@@ -4582,7 +4582,7 @@ class ExportQuestionsView(APIView):
       column-gap: {col_gap}px;
       {divider_css_mcq}
     }}
-    /* Keep each question on one page/column when possible — avoids straddling lines in the PDF gutter
+    /* Keep each question on one page/column when possible â€” avoids straddling lines in the PDF gutter
        (Chromium/Playwright) and duplicate-looking selectable fragments between pages. Very tall questions
        may still split when they exceed a full page (UA may ignore avoid). */
     .q-item {{
@@ -4633,7 +4633,7 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
-      /* `pre-line` (not `pre-wrap`) collapses runs of spaces to one — same as the live UI preview.
+      /* `pre-line` (not `pre-wrap`) collapses runs of spaces to one â€” same as the live UI preview.
          `pre-wrap` was preserving accidental double-spaces in Bengali source content, producing wider
          inter-word gaps in the PDF than in the on-screen preview. Line breaks (\\n) still honored. */
       white-space: pre-line;
@@ -4650,7 +4650,7 @@ class ExportQuestionsView(APIView):
       tab-size: 4;
       box-sizing: border-box;
     }}
-    /* Options only: keep inline so (ক) and text stay on one line. */
+    /* Options only: keep inline so (à¦•) and text stay on one line. */
     .q-opt-html .topic-question-line.topic-question-mcq-inline {{
       display: inline;
       margin: 0;
@@ -4710,7 +4710,7 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       clear: both;
     }}
-    /* CQ merged block: intro→(ক) via stem padding (print-safe); (ক)–(ঘ) tight except siblings. */
+    /* CQ merged block: introâ†’(à¦•) via stem padding (print-safe); (à¦•)â€“(à¦˜) tight except siblings. */
     .q-item.q-cq .q-stem-with-parts {{
       margin-bottom: 0;
       padding-bottom: var(--preview-q-stem-mb, 0.2857em);
@@ -4826,7 +4826,7 @@ class ExportQuestionsView(APIView):
       color: var(--color_primary_black);
       word-spacing: var(--export-word-spacing);
     }}
-    /* Match fcheradip question-rich-img.shared.css — no frame, transparent (PDF was gray boxed). */
+    /* Match fcheradip question-rich-img.shared.css â€” no frame, transparent (PDF was gray boxed). */
     .q-code-block {{
       display: block;
       margin: 0;
@@ -5156,11 +5156,11 @@ class ExportQuestionsView(APIView):
 
         def is_creative(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and 'সৃজনশীল' in t
+            return bool(t) and 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²' in t
 
         def is_mcq_type(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and 'বহুনির্বাচনি' in t
+            return bool(t) and 'à¦¬à¦¹à§à¦¨à¦¿à¦°à§à¦¬à¦¾à¦šà¦¨à¦¿' in t
 
         def uses_creative_sheet(q):
             if _export_is_type_heading_row(q):
@@ -5624,18 +5624,18 @@ class ExportQuestionsView(APIView):
 
         def add_subject_code_header(line, kind, font_px):
             line_text = clean_text(line)
-            digits = re.findall(r'[0-9০-৯]', line_text)[:3]
+            digits = re.findall(r'[0-9à§¦-à§¯]', line_text)[:3]
             while len(digits) < 3:
                 digits.append(' ')
-            set_match = re.search(r'সেট\s*[:ঃ]\s*([কখগঘ])', line_text)
+            set_match = re.search(r'à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*([à¦•à¦–à¦—à¦˜])', line_text)
             cols = 9 if set_match else 5
             table = doc.add_table(rows=1, cols=cols)
             table.alignment = WD_TABLE_ALIGNMENT.CENTER
             table.autofit = True
             remove_table_borders(table)
-            values = ['বিষয় কোড', ':'] + digits
+            values = ['à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡', ':'] + digits
             if set_match:
-                values.extend(['সেট', ':', ' ', set_match.group(1)])
+                values.extend(['à¦¸à§‡à¦Ÿ', ':', ' ', set_match.group(1)])
             for ci, value in enumerate(values):
                 cell = table.cell(0, ci)
                 cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
@@ -5659,7 +5659,7 @@ class ExportQuestionsView(APIView):
             meaningful = [line for line in lines if clean_text(line) or re.search(r'<hr\s*/?>', str(line), re.I)]
             for i, line in enumerate(meaningful):
                 font_px = sizes[min(i, len(sizes) - 1)]
-                if re.search(r'বিষ[য়য]\s*কোড', clean_text(line)):
+                if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', clean_text(line)):
                     add_subject_code_header(line, kind, font_px)
                     continue
                 p = doc.add_paragraph()
@@ -5684,7 +5684,7 @@ class ExportQuestionsView(APIView):
         serial_by_index = pick('previewSerialByIndex', {})
         if not isinstance(serial_by_index, dict):
             serial_by_index = {}
-        bn_digits = str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯')
+        bn_digits = str.maketrans('0123456789', 'à§¦à§§à§¨à§©à§ªà§«à§¬à§­à§®à§¯')
 
         def serial_bn(item_index):
             raw = serial_by_index.get(str(item_index), serial_by_index.get(item_index, item_index + 1))
@@ -5698,11 +5698,11 @@ class ExportQuestionsView(APIView):
 
         def question_display_text(raw_text):
             text = clean_text_preserve_docx_media(raw_text)
-            text = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', text)
-            text = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', text)
-            for letter in ('ক', 'খ', 'গ', 'ঘ'):
+            text = re.sub(r'\s+(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\n\1', text)
+            text = re.sub(r'([à¥¤,])\s*(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\1\n\2', text)
+            for letter in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
                 text = text.replace('%s.' % letter, '(%s)' % letter)
-            text = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', text)
+            text = re.sub(r'\s*(\(à¦•\)|\(à¦–\)|\(à¦—\)|\(à¦˜\))', r'\n\1', text)
             return re.sub(r'\n{2,}', '\n', text).strip()
 
         def question_structure(raw_text, creative):
@@ -5721,10 +5721,10 @@ class ExportQuestionsView(APIView):
 
         def family_mark(q):
             qtype = str((q or {}).get('type') or '')
-            if 'জ্ঞানমূলক' in qtype:
-                return '১'
-            if 'অনুধাবনমূলক' in qtype:
-                return '২'
+            if 'à¦œà§à¦žà¦¾à¦¨à¦®à§‚à¦²à¦•' in qtype:
+                return 'à§§'
+            if 'à¦…à¦¨à§à¦§à¦¾à¦¬à¦¨à¦®à§‚à¦²à¦•' in qtype:
+                return 'à§¨'
             return None
 
         def add_body_paragraph(kind, text='', serial=None, mark=None, indent_em=0, bold=False, before_px=0):
@@ -5741,7 +5741,7 @@ class ExportQuestionsView(APIView):
             if mark:
                 p.paragraph_format.tab_stops.add_tab_stop(current_column_width, WD_TAB_ALIGNMENT.RIGHT)
             if serial is not None:
-                set_run_font(p.add_run('%s। ' % serial), font_pt, bold=True)
+                set_run_font(p.add_run('%sà¥¤ ' % serial), font_pt, bold=True)
             append_question_text(p, text, font_pt, bold=bold)
             if mark:
                 set_run_font(p.add_run('\t%s' % mark), font_pt, bold=True)
@@ -5968,20 +5968,20 @@ class ExportQuestionsView(APIView):
         }
 
         def header_with_set_letter(text, set_letter):
-            if set_letter not in ('ক', 'খ', 'গ', 'ঘ'):
+            if set_letter not in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
                 return text
             lines = str(text or '').splitlines()
             replaced = False
             result = []
             for line in lines:
-                if re.search(r'বিষ[য়য]\s*কোড', line):
-                    base = re.sub(r'\s*সেট\s*[:ঃ]\s*[কখগঘ]\s*', '', line).strip()
-                    result.append('%s সেট : %s' % (base, set_letter))
+                if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', line):
+                    base = re.sub(r'\s*à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*[à¦•à¦–à¦—à¦˜]\s*', '', line).strip()
+                    result.append('%s à¦¸à§‡à¦Ÿ : %s' % (base, set_letter))
                     replaced = True
                 else:
                     result.append(line)
             if not replaced:
-                result.append('বিষয় কোডঃ সেট : %s' % set_letter)
+                result.append('à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡à¦ƒ à¦¸à§‡à¦Ÿ : %s' % set_letter)
             return '\n'.join(result)
 
         def balanced_columns(items, count):
@@ -6191,7 +6191,7 @@ def _is_question_creative_type(type_val):
     if not t:
         return False
     tl = t.lower()
-    return 'সৃজনশীল' in t or tl in ('cq', 'creative', 'সৃজনশীল প্রশ্ন')
+    return 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²' in t or tl in ('cq', 'creative', 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦² à¦ªà§à¦°à¦¶à§à¦¨')
 
 
 def _calculate_question_set_save_debit(questions):
@@ -6690,7 +6690,7 @@ def _scraper_helper_json():
 
 
 def _scraper_api_txt():
-    """Path to Desktop/Scraper/api.txt – one API URL per line (script-compatible). Do not clear on start; clear only when all tasks done."""
+    """Path to Desktop/Scraper/api.txt â€“ one API URL per line (script-compatible). Do not clear on start; clear only when all tasks done."""
     return os.path.join(_scraper_base_path(), 'api.txt')
 
 
@@ -6729,7 +6729,7 @@ def _scraper_add_api_to_file(api_url, api_base_prefix=None):
 
 
 def _scraper_clear_api_file():
-    """Remove all URLs from Desktop/Scraper/api.txt – call only after all tasks completed (script clear_api_file)."""
+    """Remove all URLs from Desktop/Scraper/api.txt â€“ call only after all tasks completed (script clear_api_file)."""
     try:
         _scraper_base_path()
         open(_scraper_api_txt(), 'w', encoding='utf-8').close()
@@ -6878,7 +6878,7 @@ def scraper_helper(request):
 
 @csrf_exempt
 def scraper_clear_api_file(request):
-    """POST: Clear Scrape/api.txt (call only after all tasks completed – same as script clear_api_file())."""
+    """POST: Clear Scrape/api.txt (call only after all tasks completed â€“ same as script clear_api_file())."""
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
     try:
@@ -6969,11 +6969,11 @@ def _scraper_parse_academic_url(url):
 
 
 def _scraper_extract_chapter_no_from_slug(chapter_slug):
-    """Extract chapter number from URL slug (e.g. অধ্যায়-০১ঃ or 1.)."""
+    """Extract chapter number from URL slug (e.g. à¦…à¦§à§à¦¯à¦¾à§Ÿ-à§¦à§§à¦ƒ or 1.)."""
     if not chapter_slug or not isinstance(chapter_slug, str):
         return ''
     s = chapter_slug.strip()
-    if 'অধ্যায়' in s:
+    if 'à¦…à¦§à§à¦¯à¦¾à§Ÿ' in s:
         parts = s.split(None, 1)
         return parts[0].strip() if parts else (s.split()[0] if s.split() else '')
     m = re.match(r'^(\d+\.)', s)
@@ -6981,11 +6981,11 @@ def _scraper_extract_chapter_no_from_slug(chapter_slug):
 
 
 def _scraper_extract_chapter_no_from_option_text(level2_text):
-    """Get ChapterNo from Level2 dropdown option text (e.g. 'অধ্যায়-০১ঃ ম্যাট্রিক্স' or '1. Text Book')."""
+    """Get ChapterNo from Level2 dropdown option text (e.g. 'à¦…à¦§à§à¦¯à¦¾à§Ÿ-à§¦à§§à¦ƒ à¦®à§à¦¯à¦¾à¦Ÿà§à¦°à¦¿à¦•à§à¦¸' or '1. Text Book')."""
     if not level2_text or not isinstance(level2_text, str):
         return ''
     s = level2_text.strip()
-    if 'অধ্যায়' in s:
+    if 'à¦…à¦§à§à¦¯à¦¾à§Ÿ' in s:
         parts = s.split(None, 1)
         return parts[0].strip() if parts else (s.split()[0] if s.split() else '')
     m = re.match(r'^(\d+\.)', s)
@@ -7598,7 +7598,7 @@ def _mantine_options(driver, combobox_index, previous_selections):
         except Exception:
             option_els = driver.find_elements(By.CSS_SELECTOR, '[role="listbox"] [role="option"]')
         opts = []
-        # Script get_all_options: open dropdown, collect option text/value, close – no selecting each option
+        # Script get_all_options: open dropdown, collect option text/value, close â€“ no selecting each option
         for opt in (option_els or []):
             try:
                 driver.execute_script('arguments[0].scrollIntoView({block: "nearest"});', opt)
@@ -8267,7 +8267,7 @@ class UniversityDepartmentsView(APIView):
         dept_name = (request.data.get('dept_name') or request.data.get('department_name') or '').strip()
         if not dept_name or len(dept_name) > 200:
             return Response(
-                {'error': 'dept_name is required and must be 1–200 characters'},
+                {'error': 'dept_name is required and must be 1â€“200 characters'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         path = _university_departments_json_path()
@@ -8321,7 +8321,7 @@ def _level_code_to_sql(level):
 
 
 class LevelsByCountryView(APIView):
-    """GET ?country_code=BD – distinct levels from cheradip_subject for signup Level dropdown. Returns level, level_tr, label."""
+    """GET ?country_code=BD â€“ distinct levels from cheradip_subject for signup Level dropdown. Returns level, level_tr, label."""
     permission_classes = [PublicAccess]
     authentication_classes = []
 
@@ -8367,7 +8367,7 @@ class LevelsByCountryView(APIView):
 
 
 class SubjectsByCountryLevelView(APIView):
-    """GET ?country_code=BD&level=PSC – subjects from cheradip_subject for Teacher signup."""
+    """GET ?country_code=BD&level=PSC â€“ subjects from cheradip_subject for Teacher signup."""
     permission_classes = [PublicAccess]
     authentication_classes = []
 
@@ -8403,12 +8403,12 @@ class SubjectsByCountryLevelView(APIView):
                         })
         except Exception as e:
             logger.exception('SubjectsByCountryLevelView: %s', e)
-            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'subjects': subjects}, status=status.HTTP_200_OK)
 
 
 class GroupsByCountryLevelView(APIView):
-    """GET ?country_code=BD&level=PSC – distinct groups from cheradip_subject.groups for Student signup."""
+    """GET ?country_code=BD&level=PSC â€“ distinct groups from cheradip_subject.groups for Student signup."""
     permission_classes = [PublicAccess]
     authentication_classes = []
 
@@ -8438,12 +8438,12 @@ class GroupsByCountryLevelView(APIView):
                             seen.add(p)
         except Exception as e:
             logger.exception('GroupsByCountryLevelView: %s', e)
-            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'groups': sorted(seen)}, status=status.HTTP_200_OK)
 
 
 class GroupsByClassView(APIView):
-    """GET ?class_code=9-10 – distinct groups from cheradip_subject for that class_level (Student signup Group dropdown)."""
+    """GET ?class_code=9-10 â€“ distinct groups from cheradip_subject for that class_level (Student signup Group dropdown)."""
     permission_classes = [PublicAccess]
     authentication_classes = []
 
@@ -8468,12 +8468,12 @@ class GroupsByClassView(APIView):
                             seen.add(p)
         except Exception as e:
             logger.exception('GroupsByClassView: %s', e)
-            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'groups': sorted(seen)}, status=status.HTTP_200_OK)
 
 
 class SubjectsForDegreeView(APIView):
-    """GET ?country_code=BD – subjects for University (Degree/Honours/Masters). Uses class_level 13-16 or honours DB if present."""
+    """GET ?country_code=BD â€“ subjects for University (Degree/Honours/Masters). Uses class_level 13-16 or honours DB if present."""
     permission_classes = [PublicAccess]
     authentication_classes = []
 
@@ -8505,12 +8505,12 @@ class SubjectsForDegreeView(APIView):
                         })
         except Exception as e:
             logger.exception('SubjectsForDegreeView: %s', e)
-            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'subjects': subjects}, status=status.HTTP_200_OK)
 
 
 class ClassesByCountryView(APIView):
-    """GET ?country_code=BD – distinct class_level from cheradip_subject for signup Class dropdown. Optional ?useHsc=1 same behaviour."""
+    """GET ?country_code=BD â€“ distinct class_level from cheradip_subject for signup Class dropdown. Optional ?useHsc=1 same behaviour."""
     permission_classes = [PublicAccess]
     authentication_classes = []
 
@@ -8602,7 +8602,7 @@ class QuestionLevelsView(APIView):
                 levels.sort(key=lambda x: (-(x['sort_order'] or 0), x['level_tr']))
         except Exception as e:
             logger.exception('QuestionLevelsView: %s', e)
-            return Response({'levels': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'levels': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'levels': levels}, status=status.HTTP_200_OK)
 
 
@@ -8638,7 +8638,7 @@ class QuestionClassesView(APIView):
                         classes.append({'value': cl, 'label': cl})
         except Exception as e:
             logger.exception('QuestionClassesView: %s', e)
-            return Response({'classes': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'classes': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'classes': classes}, status=status.HTTP_200_OK)
 
 
@@ -8651,10 +8651,10 @@ def _parse_groups_column(raw):
         if isinstance(parsed, list):
             return [str(x).strip() for x in parsed if str(x).strip()]
         if isinstance(parsed, str):
-            return [p.strip() for p in parsed.replace('，', ',').split(',') if p.strip()]
+            return [p.strip() for p in parsed.replace('ï¼Œ', ',').split(',') if p.strip()]
         return []
     except (TypeError, ValueError, json.JSONDecodeError):
-        return [p.strip() for p in raw.replace('，', ',').split(',') if p.strip()]
+        return [p.strip() for p in raw.replace('ï¼Œ', ',').split(',') if p.strip()]
 
 
 class QuestionGroupsView(APIView):
@@ -8694,7 +8694,7 @@ class QuestionGroupsView(APIView):
                             seen.add(p)
         except Exception as e:
             logger.exception('QuestionGroupsView: %s', e)
-            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'groups': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'groups': sorted(seen)}, status=status.HTTP_200_OK)
 
 
@@ -8793,7 +8793,7 @@ class QuestionSubjectsView(APIView):
                     subjects = [s for s in subjects if (s['class_level'], s['subject_tr']) in allowed]
         except Exception as e:
             logger.exception('QuestionSubjectsView: %s', e)
-            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'subjects': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'subjects': subjects}, status=status.HTTP_200_OK)
 
 
@@ -8835,7 +8835,7 @@ class ExamSetListView(APIView):
                     })
         except Exception as e:
             logger.exception('ExamSetListView: %s', e)
-            return Response({'exam_sets': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'exam_sets': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'exam_sets': exam_sets}, status=status.HTTP_200_OK)
 
 
@@ -8915,25 +8915,35 @@ class ExamSetQuestionsView(APIView):
                 qids_slice = qids[:limit]
                 placeholders = ', '.join(['%s'] * len(qids_slice))
                 tbl = table_name.replace('`', '``')
+                # Load EVERYTHING related to each question (all columns of the subject table)
                 cur.execute(
-                    "SELECT qid, question, option_1, option_2, option_3, option_4, answer FROM `" + tbl + "` WHERE qid IN (" + placeholders + ")",
-                    qids_slice
+                    "SELECT GROUP_CONCAT(COLUMN_NAME ORDER BY ORDINAL_POSITION) FROM information_schema.columns "
+                    "WHERE table_schema = DATABASE() AND table_name = %s",
+                    [table_name],
+                )
+                columns = [c for c in (cur.fetchone()[0] or '').split(',') if c]
+                if not columns:
+                    return Response({'questions': [], 'error': 'Subject table has no columns'}, status=status.HTTP_200_OK)
+                select_sql = ', '.join('`%s`' % c for c in columns)
+                cur.execute(
+                    "SELECT %s FROM `%s` WHERE qid IN (%s)" % (select_sql, tbl, placeholders),
+                    qids_slice,
                 )
                 order_map = {qid: i for i, qid in enumerate(qids_slice)}
                 rows = list(cur.fetchall() or [])
-                rows.sort(key=lambda r: order_map.get(r[0], 999))
+                rows.sort(key=lambda r: order_map.get(str(r[0]) if r[0] is not None else '', 999))
                 questions = []
                 for r in rows:
-                    questions.append({
-                        'qid': r[0],
-                        'id': r[0],
-                        'question': r[1] or '',
-                        'option_1': r[2] or '',
-                        'option_2': r[3] or '',
-                        'option_3': r[4] or '',
-                        'option_4': r[5] or '',
-                        'answer': (r[6] or '').strip() if len(r) > 6 else '',
-                    })
+                    q = dict(zip(columns, r))
+                    for key in list(q.keys()):
+                        if q[key] is None:
+                            q[key] = ''
+                    qid = str(q.get('qid') or q.get('id') or '')
+                    q['qid'] = qid
+                    q['id'] = qid
+                    if q.get('answer'):
+                        q['answer'] = str(q['answer']).strip()
+                    questions.append(q)
                 return Response({'questions': questions}, status=status.HTTP_200_OK)
         except Exception as e:
             logger.exception('ExamSetQuestionsView: %s', e)
@@ -8990,7 +9000,7 @@ class QuestionChaptersView(APIView):
                     chapters.append({'id': ch_no or name, 'name': name, 'chapter_no': ch_no or None})
         except Exception as e:
             logger.exception('QuestionChaptersView: %s', e)
-            return Response({'chapters': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'chapters': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'chapters': chapters}, status=status.HTTP_200_OK)
 
 
@@ -9101,7 +9111,7 @@ class QuestionTopicsView(APIView):
                             topics.append({'id': t, 'name': t})
         except Exception as e:
             logger.exception('QuestionTopicsView: %s', e)
-            return Response({'topics': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'topics': [], 'error': str(e)}, status=status.HTTP_200_OK)
         return Response({'topics': topics}, status=status.HTTP_200_OK)
 
 
@@ -9248,7 +9258,7 @@ def _question_list_where_sql(topics, chapters, types, sources, years, col_set):
         params.extend(topics)
     if chapters:
         ph = ', '.join(['%s'] * len(chapters))
-        # Two IN lists — bind chapter values twice (chapter_no and chapter columns).
+        # Two IN lists â€” bind chapter values twice (chapter_no and chapter columns).
         clauses.append('(chapter_no IN ({0}) OR chapter IN ({1}))'.format(ph, ph))
         params.extend(chapters)
         params.extend(chapters)
@@ -9594,7 +9604,7 @@ class QuestionListView(APIView):
                         where_sql = (where_sql + ' AND' if where_sql else ' WHERE') + search_where
                         where_params = where_params + search_where_params
                         order_by = search_order
-                        # Stash ORDER-BY params separately — COUNT only uses WHERE params
+                        # Stash ORDER-BY params separately â€” COUNT only uses WHERE params
                 order_params = search_order_params if search_term and search_where else []
                 cur.execute(
                     "SELECT COUNT(*) FROM `{}`{}".format(table_name, where_sql),
