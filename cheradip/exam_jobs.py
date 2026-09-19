@@ -36,7 +36,8 @@ def _job_path(job_id):
 
 # Completed job files are transient runtime state (progress polling only). They
 # were never being cleaned up, so tmp/exam_jobs kept growing forever. Sweep any
-# file older than EXAM_JOB_RETENTION_HOURS (default 72h) on each job start/poll.
+# file older than EXAM_JOB_RETENTION_HOURS (default 72h). Runs ONCE per job start
+# (Create Exam / Add Exam / Update button click) — NOT on every progress poll.
 def _cleanup_old_jobs():
     try:
         retention_hours = float(os.environ.get('EXAM_JOB_RETENTION_HOURS', '72') or '72')
@@ -77,7 +78,6 @@ def _write(job):
 
 
 def get_job(job_id):
-    _cleanup_old_jobs()
     return _read(job_id)
 
 
