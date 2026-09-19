@@ -34,6 +34,28 @@ def _job_path(job_id):
     return os.path.join(JOB_DIR, (job_id or '') + '.json')
 
 
+# Completed job files are transient runtime state (progress polling only). They
+# were never being cleaned up, so tmp/exam_jobs kept growing forever. Sweep any
+# file older than EXAM_JOB_RETENTION_HOURS (default 72h) on each job start/poll.
+def _cleanup_old_jobs():
+    try:
+        retention_hours = float(os.environ.get('EXAM_JOB_RETENTION_HOURS', '72') or '72')
+        cutoff = timezone.now().timestamp() - retention_hours * 3600
+        if not os.path.isdir(JOB_DIR):
+            return
+        for name in os.listdir(JOB_DIR):
+            if not name.endswith('.json'):
+                continue
+            path = os.path.join(JOB_DIR, name)
+            try:
+                if os.path.getmtime(path) < cutoff:
+                    os.remove(path)
+            except OSError:
+                pass  # racing writer / already gone — skip that file
+    except (OSError, ValueError):
+        pass  # cleanup is best-effort; never break a job start over it
+
+
 def _read(job_id):
     try:
         with open(_job_path(job_id), 'r', encoding='utf-8') as f:
@@ -55,6 +77,7 @@ def _write(job):
 
 
 def get_job(job_id):
+    _cleanup_old_jobs()
     return _read(job_id)
 
 
@@ -76,6 +99,7 @@ def start_job(kind, db_alias, filters):
 
     Returns the job id; progress can be polled via get_job().
     """
+    _cleanup_old_jobs()
     job_id = uuid.uuid4().hex
     job = {
         'id': job_id,
@@ -147,6 +171,7 @@ def start_question_update_job(db_alias, table_name, kind, chapter_list=None, top
     (nothing is applied to the subject table directly).
     Returns the job id; progress polled via get_job().
     """
+    _cleanup_old_jobs()
     job_id = uuid.uuid4().hex
     job = {
         'id': job_id,
