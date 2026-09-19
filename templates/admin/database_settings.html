@@ -104,6 +104,16 @@
     color: white;
     font-size: 14px;
   }
+  /* While one exam/update job is running, the OTHER action buttons are
+     visually disabled (greyed out) so only one job runs at a time. */
+  .settings-actions button.exam-job-disabled,
+  .settings-actions button[disabled] {
+    opacity: .55;
+    cursor: not-allowed;
+    filter: grayscale(.4);
+    border-color: #94a3b8;
+    background-color: #cbd5e1;
+  }
   .settings-filter-select {
     min-width: 120px;
     max-width: 200px;
@@ -1022,6 +1032,7 @@ function autoGrowReport(ta) {
 
   function finish(status, text) {
     running = false;
+    if (window.__examJobControl) window.__examJobControl.setRunning(false);
     if (phaseEl) phaseEl.textContent = status === 'done' ? 'Done' : 'Error';
     if (msgEl) {
       msgEl.textContent = text;
@@ -1054,18 +1065,20 @@ function autoGrowReport(ta) {
     if (running) { ev.preventDefault(); return; }
     var submitter = ev.submitter || document.activeElement;
     var rawKind = (submitter && submitter.getAttribute && submitter.getAttribute('name') === 'action') ? submitter.value : 'create_exam';
-    running = true;
     ev.preventDefault();
     var fd = new FormData(ev.target);
     if (rawKind === 'update_question') {
       // Queue AI review/correction of everything except the explanation
-      // (table resolved server-side from the selected filters).
+      // (table resolved server-side from the selected filters). The busy state
+      // for Update jobs is managed by the update-job poller below; the local
+      // `running` flag must NOT stay true here or every later submit is blocked.
       fd.append('kind', 'question');
       if (window.startQuestionUpdateFromForm) { window.startQuestionUpdateFromForm(fd); return; }
-      running = false;
       return;
     }
     var kind = (rawKind === 'add_exam') ? 'add_exam' : 'create_exam';
+    running = true;
+    if (window.__examJobControl) window.__examJobControl.setRunning(true, 'exam-job-overlay', kind);
     if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
     setRing(0);
     fd.append('kind', kind);
@@ -1104,12 +1117,42 @@ function autoGrowReport(ta) {
   };
 
   var jobMap = {};
+
+  // Visually disable the action buttons that do NOT match the running job,
+  // so only one job can run at a time. keepKey = the button that stays clickable
+  // (the job's own button — so "View Progress" still works when minimized).
+  function setActionButtons(running, keepKey) {
+    ['create_exam', 'add_exam', 'update_question'].forEach(function (key) {
+      var b = startButtons[key];
+      if (!b) return;
+      var off = running && key !== keepKey;
+      if (b.disabled !== off) {
+        b.disabled = off;
+        b.classList.toggle('exam-job-disabled', off);
+      }
+    });
+  }
+
+  var runningJob = false;
   window.__examJobControl = {
     setJob: function (overlayId, jobId) { jobMap[overlayId] = jobId; activeOverlayId = overlayId; activeJobId = jobId; },
     activeJobId: function () { return activeJobId; },
     activeOverlayId: function () { return activeOverlayId; },
     getJob: function (overlayId) { return jobMap[overlayId] || null; },
-    flagCancelRequested: function () { /* handled in pollers via status==='cancelled' */ }
+    flagCancelRequested: function () { /* handled in pollers via status==='cancelled' */ },
+    // Shared busy state: while a job runs, the other two action buttons are
+    // visually disabled. Passing false re-enables ALL three buttons.
+    setRunning: function (flag, overlayId, keepKey) {
+      runningJob = flag;
+      if (flag) {
+        if (overlayId) activeOverlayId = overlayId;
+        setActionButtons(true, keepKey || (activeOverlayId === 'update-job-overlay' ? 'update_question' : 'create_exam'));
+      } else {
+        if (overlayId) activeOverlayId = overlayId;
+        setActionButtons(false, null);
+      }
+    },
+    isRunning: function () { return runningJob; }
   };
 
   document.addEventListener('click', function (ev) {
@@ -1170,6 +1213,8 @@ function autoGrowReport(ta) {
       var el = document.getElementById(oid);
       if (el) { el.classList.remove('open', 'exam-job-minimized'); el.style.display = 'none'; }
     });
+    // Re-enable ALL three action buttons — the cancelled job is no longer busy.
+    if (window.__examJobControl) window.__examJobControl.setRunning(false);
     if (window.__examJobRestore) window.__examJobRestore(activeOverlayId || 'update-job-overlay');
     // Clear any leftover message in the progress card (report lives in the textarea only).
     var msg2c = document.getElementById('update-job-msg');
@@ -1231,6 +1276,7 @@ function autoGrowReport(ta) {
 
   function finish(status, text) {
     running = false;
+    if (window.__examJobControl) window.__examJobControl.setRunning(false);
     var phaseEl = document.getElementById('update-job-phase');
     var msg = document.getElementById('update-job-msg');
     if (phaseEl) phaseEl.textContent = status === 'done' ? 'Done' : 'Error';
@@ -1264,6 +1310,7 @@ function autoGrowReport(ta) {
     var table = (tableSel.value || '').trim();
     if (!table) { alert('Please select a table first.'); return; }
     running = true;
+    if (window.__examJobControl) window.__examJobControl.setRunning(true, 'update-job-overlay', 'update_question');
     if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
     setRing(0);
     var fd = new FormData();
@@ -1285,6 +1332,7 @@ function autoGrowReport(ta) {
   function startFromForm(fd) {
     if (running) return;
     running = true;
+    if (window.__examJobControl) window.__examJobControl.setRunning(true, 'update-job-overlay', 'update_question');
     if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
     setRing(0);
     fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/update-question/start/', {
