@@ -55,9 +55,14 @@ def _call_home_ai(prompt, max_tokens):
     if not url:
         return None
     timeout = int(getattr(settings, 'AI_QUESTIONS_TIMEOUT_SECONDS', 60) or 60)
+    # Explicit single model -> Home AI takes the FAST /chat/sync path (_chat_single).
+    # Passing model:null triggers Auto mode which runs multiple local LLMs in
+    # parallel + a CPU synthesis call and takes >100s (Cloudflare tunnel times out
+    # after ~60-100s, causing "context canceled" and all questions to fail).
+    model = (getattr(settings, 'HOME_AI_QUESTIONS_MODEL', '') or '').strip() or None
     payload = {
         'messages': [{'role': 'user', 'content': prompt}],
-        'model': None,
+        'model': model,
         'file_context': [],
         'stream': False,
         'max_tokens': max_tokens,

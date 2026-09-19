@@ -94,6 +94,15 @@ ADMIN_SETTING_DEFS = [
         'description': 'Home AI endpoint (local Ollama/OpenVINO engine) used first; Cloud AI is only used when every Home AI response errors/empty.',
     },
     {
+        'key': 'HOME_AI_QUESTIONS_MODEL',
+        'label': 'Home AI model (for question generation/update)',
+        'group': 'AI Question Generation',
+        'value_type': 'str',
+        'default': 'qwen2.5:7b-instruct-q4_K_M',
+        'sensitive': False,
+        'description': 'Explicit Ollama model sent to Home AI /ide/chat/sync. Sending a concrete model avoids Auto mode (parallel multi-LLM + CPU synthesis) which exceeds the Cloudflare tunnel timeout. Leave blank to use Auto mode.',
+    },
+    {
         'key': 'EXAM_AI_FILL_ENABLED',
         'label': 'Use AI to fill missing exam questions',
         'group': 'AI Question Generation',

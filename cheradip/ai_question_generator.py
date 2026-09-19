@@ -165,15 +165,22 @@ def _call_cloud_ai(prompt, count):
 
 
 def _call_home_ai(prompt, count):
-    """POST to the Home AI /ide/chat/sync endpoint. None on error."""
+    """POST to the Home AI /ide/chat/sync endpoint. None on error.
+
+    Sends an explicit model so Home AI uses its single-model path (fast, fits
+    inside the Cloudflare tunnel timeout). model:null triggers Auto mode which
+    fans out to multiple local LLMs + a CPU synthesis call and can take >2min,
+    which the tunnel cancels and every question then fails.
+    """
     url = (getattr(settings, "HOME_AI_QUESTIONS_URL", "") or "").strip()
     if not url:
         return None
     timeout = int(getattr(settings, "AI_QUESTIONS_TIMEOUT_SECONDS", 60) or 60)
+    model = (getattr(settings, "HOME_AI_QUESTIONS_MODEL", "") or "").strip() or None
     max_tokens = min(max(int(count) * 220 + 120, 400), 4096)
     payload = {
         "messages": [{"role": "user", "content": prompt}],
-        "model": None,
+        "model": model,
         "file_context": [],
         "stream": False,
         "max_tokens": max_tokens,

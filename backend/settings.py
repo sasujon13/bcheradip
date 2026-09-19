@@ -261,6 +261,16 @@ HOME_AI_QUESTIONS_URL = config(
     default='https://ai.cheradip.com/ide/chat/sync',
     cast=str,
 )
+# Explicit Ollama model used for question generation/update via Home AI's /ide/chat/sync.
+# Sending a concrete model skips Auto mode (parallel multi-LLM + CPU synthesis), which
+# was running >100s per request and hitting the Cloudflare tunnel timeout. If left empty,
+# the request falls back to model:null (Auto mode — slow). Use one available on the site,
+# e.g. qwen2.5:7b-instruct-q4_K_M.
+HOME_AI_QUESTIONS_MODEL = config(
+    'HOME_AI_QUESTIONS_MODEL',
+    default='qwen2.5:7b-instruct-q4_K_M',
+    cast=str,
+)
 EXAM_AI_FILL_ENABLED = config('EXAM_AI_FILL_ENABLED', default=True, cast=bool)
 AI_QUESTIONS_TIMEOUT_SECONDS = config('AI_QUESTIONS_TIMEOUT_SECONDS', default=60, cast=int)
 
