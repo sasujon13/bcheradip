@@ -191,19 +191,35 @@ def _build_prompt(row, kind):
     lines.append('  "explanation2": %s' % json.dumps(val('explanation2'), ensure_ascii=False))
     lines.append('  "explanation3": %s' % json.dumps(val('explanation3'), ensure_ascii=False))
     if kind == 'question':
-        lines.append("Task: review and correct the ENTIRE question record INCLUDING the explanation fields "
-                     "(explanation, explanation2, explanation3). Remove unwanted symbols / artifacts / OCR noise / "
-                     "stray punctuation from the question, options, answer, the explanation, and the "
-                     "subject/chapter/topic/type/level metadata; fix spellings where clearly wrong; improve the "
-                     "explanation where needed; and ensure `answer` exactly matches the text of the correct option. "
-                     "Keep the meaning intact.")
+        lines.append("Task: fix ONLY genuine errors in this question record. Work like a careful proofreader:")
+        lines.append("  1. Copy every field EXACTLY as-is unless one of the conditions below applies.")
+        lines.append("  2. Fix ONLY: a letter/word typo, a spelling mistake, stray symbols/artifacts/OCR noise, "
+                     "missing word spacing, wrong punctuation, or when the `answer` text does not exactly match "
+                     "one of the options (then align the answer text to the correct option).")
+        lines.append("  3. DO NOT rewrite, rephrase, reword, restructure, add to, or \"improve\" content that is "
+                     "already correct. Do not translate, do not reorder options, do not change numbers, "
+                     "do not change subject/chapter/topic/type/level metadata unless clearly wrong.")
+        lines.append("  4. If a field is already correct, output it byte-for-byte identical to the original.")
+        lines.append("  5. Only fields that actually require a correction should differ from the original.")
+        lines.append("  6. Review the explanation fields (explanation, explanation2, explanation3) the same way: "
+                     "fix only genuine mistakes, never rewrite a correct explanation.")
     else:
-        lines.append("Task: clean unwanted symbols from the EXPLANATION and improve it with more detail / correct "
-                     "information where needed. Keep the QUESTION, OPTIONS, ANSWER and ALL metadata EXACTLY unchanged.")
+        lines.append("Task: fix ONLY genuine errors in the EXPLANATION fields. Work like a careful proofreader:")
+        lines.append("  1. Copy explanation, explanation2, explanation3 EXACTLY as-is unless a genuine error exists.")
+        lines.append("  2. Fix ONLY: a letter/word typo, a spelling mistake, stray symbols/artifacts, missing word "
+                     "spacing, wrong punctuation, or a factual correction when clearly wrong.")
+        lines.append("  3. DO NOT rewrite, rephrase, reword, restructure, expand, or \"improve\" correct text.")
+        lines.append("  4. Keep the QUESTION, OPTIONS, ANSWER and ALL metadata EXACTLY unchanged.")
+        lines.append("  5. If an explanation is already correct, output it byte-for-byte identical to the original.")
+        lines.append("  6. Only fields that actually require a correction should differ from the original.")
     lines.append("IMPORTANT WORD-SPACING RULE: if any text appears as one long unbroken word, it is almost always "
                  "missing its spaces (e.g. joined Bangla sentences like 'দীর্ঘকালবিবেচনাকরাহলেউক্তশিল্পকারখানায়ব্যয়েরক্ষেত্রেপরিবর্তনহবে'). "
                  "Re-insert the natural spaces so it becomes understandable words and a meaningful sentence. "
                  "Do NOT leave such long joined text as-is.")
+    lines.append("IMPORTANT OUTPUT RULE: you MUST include EVERY field in the reply JSON — "
+                 "question, option_1, option_2, option_3, option_4, answer, subject, subject_tr, chapter_no, chapter, "
+                 "topic_no, topic, type, level, subsource, explanation, explanation2, explanation3. "
+                 "Fields with no correction are echoed EXACTLY as the original text.")
     lines.append("Reply with ONLY valid JSON, no markdown fences, in this exact shape:")
     lines.append('{"questions":[{"question":"...","option_1":"...","option_2":"...","option_3":"...","option_4":"...",'
                  '"answer":"...","subject":"...","subject_tr":"...","chapter_no":"...","chapter":"...",'

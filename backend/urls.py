@@ -37,6 +37,11 @@ def _admin_get_urls_with_databases():
             admin.site.admin_view(database_admin_views.pending_question_row_json),
             name='database_pending_question_row_json',
         ),
+        path(
+            'databases/<str:db_alias>/<str:table_name>/pending-edit/<path:pk>/accept-portion/',
+            admin.site.admin_view(database_admin_views.pending_portion_accept),
+            name='database_pending_portion_accept',
+        ),
         path('databases/<str:db_alias>/<str:table_name>/', admin.site.admin_view(database_admin_views.database_table_data), name='database_table_data'),
         path('databases/<str:db_alias>/<str:table_name>/edit/<path:pk>/', admin.site.admin_view(database_admin_views.database_table_data_edit), name='database_table_data_edit'),
     ]

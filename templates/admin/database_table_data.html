@@ -306,6 +306,53 @@
     color: #b71c1c !important;
     font-weight: 600;
   }
+  .pending-cell-accepts {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .pending-cell-accept-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .pending-cell-accept-toggle input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: teal;
+    margin: 0;
+  }
+  .pending-cell-accept-toggle .pending-cell-accept-lbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: teal;
+  }
+  .pending-cell-accept-toggle input[type="checkbox"]:not(:checked) ~ span.pending-cell-accept-lbl {
+    color: #b71c1c;
+  }
+  .pending-portion-accept {
+    display: inline-block;
+    cursor: pointer;
+    border-bottom: 1px dashed #0d47a1;
+    border-radius: 2px;
+    padding: 0 1px;
+    transition: background 120ms ease;
+  }
+  .pending-portion-accept:hover,
+  .pending-portion-accept.is-focused {
+    background: rgba(13, 71, 161, 0.18);
+    box-shadow: 0 0 0 1px rgba(13, 71, 161, 0.4);
+  }
+  .pending-portion-accept.is-accepted::after {
+    content: " \u2714";
+    color: teal;
+    font-weight: 700;
+  }
   #cell-content-preview {
     display: none;
     position: fixed;
@@ -327,18 +374,42 @@
     pointer-events: auto;
   }
   #cell-content-preview.is-open { display: block; }
-  #cell-content-preview .pending-preview-body del {
+  #cell-content-preview .pending-preview-body del,
+  .cell-content-popup .pending-preview-body del {
     color: #8b2942;
     text-decoration: line-through;
     font-weight: 600;
   }
-  #cell-content-preview .pending-preview-body b {
+  #cell-content-preview .pending-preview-body b,
+  .cell-content-popup .pending-preview-body b {
     font-weight: 700;
     color: #0d47a1;
   }
-  #cell-content-preview .pending-preview-body b del {
+  #cell-content-preview .pending-preview-body b del,
+  .cell-content-popup .pending-preview-body b del {
     color: #8b2942;
   }
+  .cell-content-popup {
+    display: none;
+    position: fixed;
+    z-index: 10050;
+    max-width: min(520px, 94vw);
+    max-height: min(72vh, 560px);
+    overflow: auto;
+    padding: 12px 14px;
+    margin: 0;
+    background: #fff;
+    border: 1px solid #b0bec5;
+    border-radius: 8px;
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.22);
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #1a1a1a;
+    pointer-events: auto;
+  }
+  .cell-content-popup.is-open { display: block; }
   /* ----- DB tabs (same as admin index dashboard) ----- */
   .admin-db-tabs {
     display: flex;
@@ -639,6 +710,10 @@
                         {% if show_approve %}
                         {% with raw=val|default:"" %}
                         <td class="table-data-cell-truncate{% if has_diff %} pending-cell-has-diff{% endif %}">
+                            <div class="pending-cell-accepts" data-field="{{ col }}" data-pk="{{ row_id }}">
+                            {% if has_diff and col in html_columns %}
+                            <span class="pending-cell-portion-count" data-pk="{{ row_id }}" data-field="{{ col }}" hidden></span>
+                            {% endif %}
                             {% if col in html_columns %}
                             <span class="cell-truncate-diff">{{ raw|safe }}</span>
                             <div class="cell-truncate-full" hidden data-html-preview="1"><div class="pending-preview-body">{{ raw|safe }}</div></div>
@@ -646,6 +721,7 @@
                             <span class="cell-truncate-line-plain">{{ raw|striptags|escape }}</span>
                             <span class="cell-truncate-full" hidden>{{ raw|striptags|escape }}</span>
                             {% endif %}
+                            </div>
                         </td>
                         {% endwith %}
                         {% else %}
@@ -675,12 +751,14 @@
         {% translate 'Changes (deleted / added)' as pending_msg_diff_changes %}
         {% translate 'Edit text' as pending_msg_edit_text %}
         {% translate 'Reject this edit request? The live question will not be changed.' as pending_msg_deny_confirm %}
-        <script type="application/json" id="pending-admin-config">{"rowJsonUrlTemplate":"{% url 'admin:database_pending_question_row_json' db_alias table_name 0 %}","i18n":{"loading":"{{ pending_msg_loading|escapejs }}","loadError":"{{ pending_msg_load_error|escapejs }}","diffChanges":"{{ pending_msg_diff_changes|escapejs }}","editText":"{{ pending_msg_edit_text|escapejs }}","denyConfirm":"{{ pending_msg_deny_confirm|escapejs }}"}}</script>
+        {% translate 'Click to accept this changed portion (applies immediately, persists even if the row is later denied).' as pending_msg_accept_portion %}
+        <script type="application/json" id="pending-admin-config">{"rowJsonUrlTemplate":"{% url 'admin:database_pending_question_row_json' db_alias table_name 0 %}","portionUrlTemplate":"{% url 'admin:database_pending_portion_accept' db_alias table_name 0 %}","i18n":{"loading":"{{ pending_msg_loading|escapejs }}","loadError":"{{ pending_msg_load_error|escapejs }}","diffChanges":"{{ pending_msg_diff_changes|escapejs }}","editText":"{{ pending_msg_edit_text|escapejs }}","denyConfirm":"{{ pending_msg_deny_confirm|escapejs }}","acceptPortion":"{{ pending_msg_accept_portion|escapejs }}"}}</script>
         <div id="cell-content-preview" role="tooltip" aria-hidden="true"></div>
         {% for values, row_id in row_list %}
         <form method="post" action="" id="pending-row-approve-{{ row_id }}" style="display:none" aria-hidden="true">
             {% csrf_token %}
-            <input type="hidden" name="action" value="approve">
+            <input type="hidden" name="action" value="approve_fields">
+            <input type="hidden" name="accepted_fields" class="pending-row-accepted-fields" value="">
             <input type="hidden" name="ids" value="{{ row_id }}">
         </form>
         <form method="post" action="" id="pending-row-deny-{{ row_id }}" style="display:none" aria-hidden="true">
@@ -773,6 +851,18 @@ updatePendingSelectedCount();
             }
         });
     });
+    // Row Approve applies the whole pending row (there is no per-field accept button).
+    // Accepted blue portions are applied immediately by clicking them; a later row
+    // deny keeps those immediate changes. Approve therefore submits no accepted_fields
+    // restriction (backend treats blank => accept ALL fields).
+    document.addEventListener('click', function(ev) {
+        var btn = ev.target && ev.target.closest ? ev.target.closest('form[id^="pending-row-approve-"] button[type="submit"]') : null;
+        if (!btn) return;
+        var form = btn.closest('form[id^="pending-row-approve-"]');
+        if (!form) return;
+        var hidden = form.querySelector('.pending-row-accepted-fields');
+        if (hidden) hidden.value = '';
+    }, true);
     var cfgEl = document.getElementById('pending-admin-config');
     if (!cfgEl) return;
     var cfg, i18n;
@@ -910,110 +1000,267 @@ updatePendingSelectedCount();
     function onPendingDlgDeny() {
         var id = pkInput && pkInput.value;
         if (!id) return;
-        if (!confirm(i18n.denyConfirm || 'Reject this edit request?')) return;
+        var persisting = '';
+        var map = readAcceptedPortions();
+        var row = map[String(id)];
+        if (row) {
+            var totalAccepted = 0;
+            Object.keys(row).forEach(function(f) { totalAccepted += (row[f] || []).length; });
+            if (totalAccepted > 0) {
+                persisting = ' ' + totalAccepted + ' accepted portion(s) will REMAIN updated in the live question.';
+            }
+        }
+        var msg = (i18n.denyConfirm || 'Reject this edit request? The live question will not be changed.') + persisting;
+        if (!confirm(msg)) return;
         var f = document.getElementById('pending-row-deny-' + id);
         if (f) f.submit();
     }
     document.querySelectorAll('.pending-dlg-deny').forEach(function(btnDeny) {
         btnDeny.addEventListener('click', onPendingDlgDeny);
     });
-    var preview = document.getElementById('cell-content-preview');
-    if (!preview) return;
-    var showTimer = null;
-    var hideTimer = null;
+    // ---- Click a changed portion (blue added text) to accept ONLY that portion ----
+    // Applies immediately to the live question and persists even if the pending
+    // row is denied later (backend stores accepted_portions).
+    var portionUrlTpl = cfg.portionUrlTemplate || '';
+    var acceptPortionMsg = i18n.acceptPortion || 'Accept this changed portion?';
+    var PORTIONS_STORE_KEY = 'cheradip_accept_portions';
+    function portionUrl(pk) {
+        return portionUrlTpl.replace(/pending-edit\/0\/accept-portion\//, 'pending-edit/' + encodeURIComponent(pk) + '/accept-portion/');
+    }
+    function readAcceptedPortions() {
+        try { return JSON.parse(sessionStorage.getItem(PORTIONS_STORE_KEY) || '{}'); }
+        catch (e) { return {}; }
+    }
+    function writeAcceptedPortions(map) {
+        try { sessionStorage.setItem(PORTIONS_STORE_KEY, JSON.stringify(map)); }
+        catch (e) { /* ignore */ }
+    }
+    function markPortionsAcceptedForField(pk, field) {
+        var map = readAcceptedPortions();
+        var row = map[String(pk)] || {};
+        var arr = row[field] || (row[field] = []);
+        if (arr.indexOf(field) === -1) arr.push(field);
+        writeAcceptedPortions(map);
+        refreshPortionCounter(pk, field);
+    }
+    function refreshPortionCounter(pk, field) {
+        // count accepted blue portions for this cell
+        var el = document.querySelector('.pending-cell-portion-count[data-pk="' + pk + '"][data-field="' + field + '"]');
+        if (!el) return;
+        var accepted = readAcceptedPortions();
+        var row = accepted[String(pk)] || {};
+        var acceptedSet = row[field] || [];
+        var popEl = document.querySelector('.cell-truncate-diff[data-pk="' + pk +'"]');
+        // find the diff cell wrapper for this field to count total blue portions
+        var wrap = document.querySelector('.pending-cell-accepts[data-pk="' + pk + '"][data-field="' + field + '"]');
+        if (!wrap) { el.hidden = true; return; }
+        var total = wrap.querySelectorAll('.pending-portion-acceptable').length;
+        var done = acceptedSet.length;
+        el.hidden = total === 0;
+        if (total === 0) return;
+        el.textContent = '\u2714 ' + done + '/' + total;
+        el.classList.toggle('pending-cell-portion-count-done', done === total);
+    }
+    // Build clickable blue portions: each <b style="color:blue"> inside a diff gets
+    // data-new (its own text) and data-old (the nearest preceding <del> text if any).
+    function initClickablePortions() {
+        var accepted = readAcceptedPortions();
+        document.querySelectorAll('.cell-truncate-diff b[style*="color:blue"], .pending-preview-body b[style*="color:blue"], .pending-edit-diff-preview b[style*="color:blue"]').forEach(function(b) {
+            if (b.classList.contains('pending-portion-acceptable')) return;
+            // collect adjacent leading-only text + del so the old is the deletion chunk
+            var del = b.previousElementSibling && b.previousElementSibling.tagName === 'DEL' ? b.previousElementSibling : null;
+            if (!del) {
+                // fall back: walk backward for the nearest <del> that is its pairing
+                var prev = b.previousSibling;
+                while (prev) {
+                    if (prev.nodeType === 1 && prev.tagName === 'DEL') { del = prev; break; }
+                    prev = prev.previousSibling;
+                }
+            }
+            var wrap = b.closest('.pending-cell-accepts, .pending-edit-diff-preview');
+            var pk = wrap ? wrap.getAttribute('data-pk') : null;
+            if (!pk) pk = b.closest('[data-pk]') ? b.closest('[data-pk]').getAttribute('data-pk') : '';
+            var field = wrap ? wrap.getAttribute('data-field') : '';
+            if (!field) field = b.closest('[data-field]') ? b.closest('[data-field]').getAttribute('data-field') : '';
+            b.setAttribute('data-new', (b.textContent || '').trim());
+            b.setAttribute('data-old', del ? (del.textContent || '').trim() : '');
+            b.setAttribute('data-pk', pk);
+            b.setAttribute('data-field', field);
+            b.classList.add('pending-portion-acceptable', 'pending-portion-accept');
+            // mark accepted if already stored
+            var row = accepted[String(pk)] || {};
+            if (field && row[field] && row[field].indexOf(field) !== -1 && b.getAttribute('data-new') !== '') {
+                b.classList.add('is-accepted');
+            }
+        });
+        // refresh all counters
+        document.querySelectorAll('.pending-cell-portion-count').forEach(function(el) {
+            refreshPortionCounter(el.getAttribute('data-pk'), el.getAttribute('data-field'));
+        });
+    }
+    initClickablePortions();
+    document.addEventListener('click', function(ev) {
+        var b = ev.target && ev.target.closest ? ev.target.closest('b.pending-portion-acceptable') : null;
+        if (!b) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        var pk = b.getAttribute('data-pk') || '';
+        var field = b.getAttribute('data-field') || '';
+        var oldText = b.getAttribute('data-old') || '';
+        var newText = b.getAttribute('data-new') || '';
+        if (!pk || !field || !newText) return;
+        if (b.classList.contains('is-accepted')) {
+            alert('This portion is already accepted.');
+            return;
+        }
+        if (!confirm(acceptPortionMsg)) return;
+        var csrfEl = document.querySelector('input[name="csrfmiddlewaretoken"]');
+        var csrf = csrfEl ? csrfEl.value : '';
+        var body = new URLSearchParams();
+        body.append('field', field);
+        body.append('old_text', oldText);
+        body.append('new_text', newText);
+        fetch(portionUrl(pk), {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'X-CSRFToken': csrf, 'Accept': 'application/json' },
+            body: body
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data && data.ok) {
+                b.classList.add('is-accepted');
+                b.removeAttribute('data-old');
+                b.setAttribute('data-new', '');
+                markPortionsAcceptedForField(pk, field);
+            } else {
+                alert((data && data.error) || 'Could not accept this portion.');
+            }
+        })
+        .catch(function() {
+            alert('Network error while accepting this portion.');
+        });
+    }, true);
+    // --- Multi-popup cell previews: each cell keeps its own popup open ---
+    // Each popup hides 700ms after the mouse leaves its cell (or the popup itself);
+    // re-entering within that window resets the 700ms countdown.
+    var previewTpl = document.getElementById('cell-content-preview');
+    if (!previewTpl) return;
     var lastClientX = 0;
     var lastClientY = 0;
-    function clearShow() {
-        if (showTimer) {
-            clearTimeout(showTimer);
-            showTimer = null;
-        }
+
+    function clearTdTimer(td, kind) {
+        var key = (kind === 'hide' ? '_popupHideTimer' : kind === 'show' ? '_popupShowTimer' : null);
+        if (!key) return;
+        var t = td[key];
+        if (t) { clearTimeout(t); td[key] = null; }
     }
-    function clearHide() {
-        if (hideTimer) {
-            clearTimeout(hideTimer);
-            hideTimer = null;
-        }
+
+    function makePopup(td) {
+        var el = document.createElement('div');
+        el.className = 'cell-content-popup';
+        el.setAttribute('role', 'tooltip');
+        el.setAttribute('aria-hidden', 'true');
+        el._ownerTd = td;
+        document.body.appendChild(el);
+        td._popupEl = el;
+        return el;
     }
-    function hidePreview() {
-        clearShow();
-        clearHide();
-        preview.classList.remove('is-open');
-        preview.textContent = '';
-        preview.innerHTML = '';
-        preview.setAttribute('aria-hidden', 'true');
-    }
-    function scheduleHide() {
-        clearHide();
-        hideTimer = setTimeout(hidePreview, 220);
-    }
-    function positionPreview() {
-        var w = preview.offsetWidth;
-        var h = preview.offsetHeight;
+
+    function positionPopup(el, td) {
         var pad = 10;
-        var x = lastClientX + 14;
-        var y = lastClientY + 14;
+        var r = td.getBoundingClientRect();
+        var w = el.offsetWidth, h = el.offsetHeight;
+        var x = r.left, y = r.bottom + 6;
+        if (y + h > window.innerHeight - pad) y = Math.max(pad, r.top - h - 6);
         if (x + w > window.innerWidth - pad) x = Math.max(pad, window.innerWidth - w - pad);
-        if (y + h > window.innerHeight - pad) y = Math.max(pad, lastClientY - h - 12);
         if (x < pad) x = pad;
         if (y < pad) y = pad;
-        preview.style.left = x + 'px';
-        preview.style.top = y + 'px';
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
     }
+
     function cellLineIsClamped(line) {
         if (!line) return false;
         if (line.classList.contains('cell-truncate-diff'))
             return line.scrollHeight > line.clientHeight + 1 || line.scrollWidth > line.clientWidth + 1;
         return line.scrollWidth > line.clientWidth + 1;
     }
-    function tryShowFromTd(td) {
+
+    function showPopup(td) {
+        var el = td._popupEl || makePopup(td);
         var line = td.querySelector('.cell-truncate-line-plain, .cell-truncate-diff');
         var fullEl = td.querySelector('.cell-truncate-full');
-        if (!line || !fullEl) return;
-        if (!cellLineIsClamped(line)) return;
+        if (!line || !fullEl) { el.classList.remove('is-open'); return; }
+        if (!cellLineIsClamped(line)) { el.classList.remove('is-open'); return; }
         var htmlPrev = fullEl.getAttribute('data-html-preview') === '1';
         if (htmlPrev) {
             var body = fullEl.querySelector('.pending-preview-body');
-            preview.innerHTML = '<div class="pending-preview-body">' + (body ? body.innerHTML : '') + '</div>';
-            if (!preview.textContent.trim()) return;
+            el.innerHTML = '<div class="pending-preview-body">' + (body ? body.innerHTML : '') + '</div>';
         } else {
-            var fullText = fullEl.textContent;
-            if (!fullText.trim()) return;
-            preview.textContent = fullText;
+            el.textContent = (fullEl.textContent || '');
         }
-        preview.classList.add('is-open');
-        preview.setAttribute('aria-hidden', 'false');
-        requestAnimationFrame(function() {
-            positionPreview();
+        if (!el.textContent.trim()) { el.classList.remove('is-open'); return; }
+        el.classList.add('is-open');
+        el.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(function() { positionPopup(el, td); });
+    }
+
+    function hidePopup(td) {
+        var el = td._popupEl;
+        if (!el) return;
+        el.classList.remove('is-open');
+        el.setAttribute('aria-hidden', 'true');
+    }
+
+    function scheduleHideTd(td) {
+        clearTdTimer(td, 'show');
+        clearTdTimer(td, 'hide');
+        td._popupHideTimer = setTimeout(function() {
+            td._popupHideTimer = null;
+            hidePopup(td);
+        }, 700);
+    }
+
+    function closeAllPopups() {
+        document.querySelectorAll('.cell-content-popup.is-open').forEach(function(el) {
+            el.classList.remove('is-open');
+            el.setAttribute('aria-hidden', 'true');
+            var owner = el._ownerTd;
+            if (owner) { clearTdTimer(owner, 'show'); clearTdTimer(owner, 'hide'); }
         });
     }
+
     document.querySelectorAll('.pending-question-table td.table-data-cell-truncate').forEach(function(td) {
         td.addEventListener('mouseenter', function(ev) {
             lastClientX = ev.clientX;
             lastClientY = ev.clientY;
-            clearShow();
-            clearHide();
-            showTimer = setTimeout(function() {
-                showTimer = null;
-                tryShowFromTd(td);
-            }, 380);
-        });
-        td.addEventListener('mousemove', function(ev) {
-            lastClientX = ev.clientX;
-            lastClientY = ev.clientY;
-            if (preview.classList.contains('is-open')) positionPreview();
+            // Re-entering a cell resets its 700ms countdown back to full.
+            clearTdTimer(td, 'hide');
+            clearTdTimer(td, 'show');
+            td._popupShowTimer = setTimeout(function() {
+                td._popupShowTimer = null;
+                showPopup(td);
+            }, 700);
         });
         td.addEventListener('mouseleave', function() {
-            clearShow();
-            scheduleHide();
+            clearTdTimer(td, 'show');
+            scheduleHideTd(td);
         });
     });
-    preview.addEventListener('mouseenter', clearHide);
-    preview.addEventListener('mouseleave', scheduleHide);
-    window.addEventListener('scroll', function() { clearShow(); hidePreview(); }, true);
-    window.addEventListener('resize', hidePreview);
+    // Hovering a popup keeps it open (resets its owner's 700ms countdown).
+    document.addEventListener('mouseover', function(ev) {
+        var pop = ev.target && ev.target.closest ? ev.target.closest('.cell-content-popup') : null;
+        if (pop && pop._ownerTd) clearTdTimer(pop._ownerTd, 'hide');
+    });
+    document.addEventListener('mouseout', function(ev) {
+        var pop = ev.target && ev.target.closest ? ev.target.closest('.cell-content-popup') : null;
+        if (pop && pop._ownerTd) scheduleHideTd(pop._ownerTd);
+    });
+    window.addEventListener('scroll', function() { closeAllPopups(); }, true);
+    window.addEventListener('resize', closeAllPopups);
     document.addEventListener('keydown', function(ev) {
-        if (ev.key === 'Escape') hidePreview();
+        if (ev.key === 'Escape') closeAllPopups();
     });
 })();
 </script>

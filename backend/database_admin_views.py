@@ -369,6 +369,87 @@ def _pending_live_qid(row_data):
     return (row_data.get('requested_qid') or row_data.get('qid') or '').strip()
 
 
+# Fields a reviewer can individually accept/deny (content + metadata that the
+# approve handler would otherwise write wholesale).
+_PENDING_ACCEPTABLE_FIELDS = (
+    'subject', 'chapter_no', 'chapter', 'topic_no', 'topic',
+    'question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer',
+    'explanation', 'explanation2', 'explanation3',
+    'type', 'level', 'subsource',
+)
+
+
+def _ensure_accepted_fields_column(conn):
+    """Idempotently add the `accepted_fields` column to the pending table."""
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() "
+                "AND table_name = 'cheradip_pending_question_request' AND column_name = 'accepted_fields'"
+            )
+            if cur.fetchone() is None:
+                cur.execute(
+                    "ALTER TABLE cheradip_pending_question_request "
+                    "ADD COLUMN accepted_fields TEXT NULL COMMENT 'JSON of per-field accept/deny'"
+                )
+            cur.execute(
+                "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() "
+                "AND table_name = 'cheradip_pending_question_request' AND column_name = 'accepted_portions'"
+            )
+            if cur.fetchone() is None:
+                cur.execute(
+                    "ALTER TABLE cheradip_pending_question_request "
+                    "ADD COLUMN accepted_portions TEXT NULL COMMENT 'JSON of individually accepted old->new portions'"
+                )
+        conn.commit()
+    except Exception:
+        # best-effort: older setups may lack ALTER rights; reviews just fall back to all-accepted
+        try:
+            conn.rollback()
+        except Exception:
+            pass
+
+
+def _pending_accepted_fields(row_data):
+    """Accepted-field set from the row's `accepted_fields` JSON.
+
+    None  -> reviewer accepted nothing explicitly (legacy) => treat ALL as accepted.
+    set() -> accepted nothing; approve applies zero content fields.
+    """
+    raw = row_data.get('accepted_fields')
+    if raw is None or str(raw).strip() in ('', 'null'):
+        return None
+    try:
+        data = json.loads(str(raw))
+    except (TypeError, ValueError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    return {str(k) for k, v in data.items() if v}
+
+
+def _pending_accepted_portions(row_data):
+    """Accepted-portions map from the row's `accepted_portions` JSON.
+
+    e.g. {"question": [["old","new"], ...]} — each pair has ALREADY been applied
+    to the live subject table immediately (persists even if the row is later denied).
+    """
+    raw = row_data.get('accepted_portions')
+    if raw is None or str(raw).strip() in ('', 'null'):
+        return {}
+    try:
+        data = json.loads(str(raw))
+    except (TypeError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    out = {}
+    for field, pairs in data.items():
+        if isinstance(pairs, list):
+            out[str(field)] = [tuple(map(str, p)) if isinstance(p, (list, tuple)) and len(p) >= 2 else () for p in pairs]
+    return out
+
+
 def _pending_is_update_request(row_data):
     status = (row_data.get('status') or '').strip().lower()
     live_qid = _pending_live_qid(row_data)
@@ -478,6 +559,8 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                     errors.append('Row %s: Update request is missing qid / requested_qid.' % pk)
                     continue
                 now_sql = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+                # Per-field accept/deny: None => legacy row => accept all (existing behaviour).
+                accepted = _pending_accepted_fields(row_data)
                 level_val = (row_data.get('level_tr') or row_data.get('level') or '').strip() or None
                 subsource_val = (row_data.get('subsource') or '').strip() or None
                 updated_by_val = (row_data.get('updated_by') or '').strip() or 'Cheradip'
@@ -498,18 +581,46 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                             % (pk, live_qid, target_table)
                         )
                         continue
+
+                    def field_ok(f):
+                        return accepted is None or f in accepted
+
+                    # Map pending column -> (live table column, value) for content the
+                    # reviewer can accept/deny individually.
+                    field_map = {
+                        'subject_tr': ('subject', row_data.get('subject_tr')),
+                        'subject': ('subject', row_data.get('subject_tr') or row_data.get('subject')),
+                        'chapter_no': ('chapter_no', row_data.get('chapter_no')),
+                        'chapter': ('chapter', row_data.get('chapter')),
+                        'topic_no': ('topic_no', row_data.get('topic_no')),
+                        'topic': ('topic', row_data.get('topic')),
+                        'question': ('question', question_val),
+                        'option_1': ('option_1', option_1_val),
+                        'option_2': ('option_2', option_2_val),
+                        'option_3': ('option_3', option_3_val),
+                        'option_4': ('option_4', option_4_val),
+                        'answer': ('answer', answer_val),
+                        'explanation': ('explanation', explanation_val),
+                        'explanation2': ('explanation2', explanation2_val),
+                        'explanation3': ('explanation3', explanation3_val),
+                        'type': ('type', row_data.get('type')),
+                        'level': ('level', level_val),
+                        'subsource': ('subsource', subsource_val),
+                    }
+                    set_pairs = ['updated_at = %s', 'updated_by = %s']
+                    set_vals = [now_sql, updated_by_val]
+                    for f in _PENDING_ACCEPTABLE_FIELDS:
+                        if not field_ok(f):
+                            continue
+                        item = field_map.get(f)
+                        if item:
+                            col_live, val_live = item
+                            set_pairs.append('`%s` = %%s' % col_live.replace('`', '``'))
+                            set_vals.append(val_live)
+                    set_vals.append(live_qid)
                     cursor.execute(
-                        """UPDATE `%s` SET subject=%%s, chapter_no=%%s, chapter=%%s, topic_no=%%s, topic=%%s, question=%%s,
-                           option_1=%%s, option_2=%%s, option_3=%%s, option_4=%%s, answer=%%s, explanation=%%s,
-                           explanation2=%%s, explanation3=%%s, type=%%s, level=%%s, subsource=%%s, updated_at=%%s, updated_by=%%s
-                           WHERE qid=%%s""" % tbl_esc,
-                        [
-                            row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
-                            row_data.get('topic_no'), row_data.get('topic'), question_val,
-                            option_1_val, option_2_val, option_3_val, option_4_val,
-                            answer_val, explanation_val, explanation2_val, explanation3_val,
-                            row_data.get('type'), level_val, subsource_val, now_sql, updated_by_val, live_qid,
-                        ],
+                        "UPDATE `%s` SET %s WHERE qid=%%s" % (tbl_esc, ', '.join(set_pairs)),
+                        set_vals,
                     )
                     if cursor.rowcount < 1:
                         errors.append(
@@ -544,6 +655,108 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
             except Exception as e:
                 errors.append('Row %s: %s' % (pk, str(e)))
     return success, errors
+
+
+@staff_member_required
+def pending_portion_accept(request, db_alias, table_name, pk):
+    """Accept ONE changed portion (old->new) of a pending question request.
+
+    Applies the targeted replacement to the live subject table immediately, so
+    the accepted portion stays updated even if the whole pending row is denied
+    later. Records the portion in the row's `accepted_portions` JSON.
+    """
+    if request.method != 'POST':
+        return JsonResponse({'ok': False, 'error': 'POST only.'}, status=405)
+    table_name = (table_name or '').strip().lower()
+    if db_alias != 'hsc' or table_name != 'cheradip_pending_question_request':
+        return JsonResponse({'ok': False, 'error': 'Only realtime pending-question rows are supported.'}, status=400)
+    if not _allowed_table_name(table_name):
+        return JsonResponse({'ok': False, 'error': 'Invalid table name.'}, status=400)
+    if db_alias not in connections:
+        return JsonResponse({'ok': False, 'error': 'Unknown database.'}, status=404)
+    field = (request.POST.get('field') or '').strip()
+    old_text = request.POST.get('old_text') or ''
+    # new_text arrives URL-decode-safe; store as-is
+    new_text = request.POST.get('new_text') or ''
+    if field not in _PENDING_ACCEPTABLE_FIELDS or not old_text or not new_text:
+        return JsonResponse({'ok': False, 'error': 'Missing field / old_text / new_text.'}, status=400)
+
+    conn = connections[db_alias]
+    db_name = conn.settings_dict.get('NAME', db_alias)
+    try:
+        _ensure_accepted_fields_column(conn)
+        columns = _get_table_columns(conn, table_name)
+        pk_column = _get_pk_column(columns)
+        with conn.cursor() as cursor:
+            pk_esc = pk_column.replace('`', '``')
+            cursor.execute(
+                "SELECT * FROM `%s` WHERE `%s` = %%s" % (table_name.replace('`', '``'), pk_esc),
+                [pk],
+            )
+            row = cursor.fetchone()
+            if not row:
+                return JsonResponse({'ok': False, 'error': 'Pending row not found.'}, status=404)
+            cols = [c[0] for c in cursor.description]
+            row_data = dict(zip(cols, row))
+
+            level_tr = (row_data.get('level_tr') or '').strip() or ''
+            class_level = (row_data.get('class_level') or '').strip() or ''
+            subject_tr = (row_data.get('subject_tr') or '').strip() or ''
+            stored_table = (row_data.get('table') or '').strip()
+            target_table = _resolve_subject_question_table(
+                cursor, db_name, level_tr, class_level, subject_tr, stored_table
+            )
+            if not target_table:
+                return JsonResponse({'ok': False, 'error': 'Subject table not found for row.'}, status=400)
+            live_qid = _pending_live_qid(row_data)
+            if not live_qid:
+                return JsonResponse({'ok': False, 'error': 'Update request has no qid.'}, status=400)
+            if not _qid_exists_in_table(cursor, target_table, live_qid):
+                return JsonResponse({'ok': False, 'error': 'Live question not found: %s' % live_qid}, status=404)
+
+            tbl = target_table.replace('`', '``')
+            cursor.execute("SELECT `%s` FROM `%s` WHERE qid=%%s LIMIT 1" % (field.replace('`', '``'), tbl), [live_qid])
+            live_val = None
+            cur_row = cursor.fetchone()
+            if cur_row:
+                live_val = str(cur_row[0] or '')
+
+            # The reported old_text is what the reviewer saw as the removed portion.
+            # The live field may still contain it exactly; otherwise attempt a find-replace of
+            # the whole old segment if it appears.
+            if old_text not in (live_val or ''):
+                # Maybe the diff shows a larger old context; locate a safe contiguous match.
+                # Fall back: if old_text not found, refuse rather than corrupt.
+                return JsonResponse(
+                    {'ok': False, 'error': 'Old text not found in the live field "%s".' % field},
+                    status=409,
+                )
+
+            new_live = (live_val or '').replace(old_text, new_text, 1)
+            cursor.execute(
+                "UPDATE `%s` SET `%s` = %%s, updated_at = %%s, updated_by = %%s WHERE qid=%%s" % (tbl, field.replace('`', '``')),
+                [new_live, timezone.now().strftime('%Y-%m-%d %H:%M:%S'), (row_data.get('updated_by') or 'Cheradip'), live_qid],
+            )
+
+            # Record the accepted portion on the pending row.
+            portions = _pending_accepted_portions(row_data)
+            field_parts = portions.get(field) or []
+            if [old_text, new_text] not in [list(p) for p in field_parts]:
+                field_parts.append([old_text, new_text])
+            portions[field] = field_parts
+            cursor.execute(
+                "UPDATE `%s` SET accepted_portions = %%s WHERE `%s` = %%s"
+                % (table_name.replace('`', '``'), pk_esc),
+                [json.dumps(portions, ensure_ascii=False), pk],
+            )
+        conn.commit()
+        return JsonResponse({'ok': True, 'field': field, 'old_text': old_text, 'new_text': new_text})
+    except Exception as e:
+        try:
+            conn.rollback()
+        except Exception:
+            pass
+        return JsonResponse({'ok': False, 'error': str(e)}, status=500)
 
 
 @staff_member_required
@@ -583,6 +796,7 @@ def databases_list(request):
     }
     request.current_app = admin.site.name
     return TemplateResponse(request, admin.site.index_template or 'admin/index.html', context)
+
 
 
 @staff_member_required
@@ -951,6 +1165,52 @@ def database_table_data(request, db_alias, table_name):
                             messages.warning(request, '… and %s more errors.' % (len(errs) - 10))
                 except Exception as e:
                     messages.error(request, 'Approve failed: %s' % str(e))
+            return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
+
+        if action == 'approve_fields' and db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
+            # Per-field accept/deny: store the accepted-field JSON on each pending row,
+            # then run the approval so ONLY accepted fields get written to the live table.
+            ids = request.POST.getlist('ids')
+            ids = [i.strip() for i in ids if i and str(i).strip()]
+            accepted_fields_raw = (request.POST.get('accepted_fields') or '').strip()
+            accepted_map = {}
+            if accepted_fields_raw:
+                try:
+                    accepted_map = json.loads(accepted_fields_raw)
+                except (TypeError, ValueError):
+                    accepted_map = {}
+            if not ids:
+                messages.error(request, 'Select at least one row to approve.')
+            else:
+                try:
+                    _ensure_accepted_fields_column(conn)
+                    with conn.cursor() as cur:
+                        for rid in ids:
+                            pk_esc = _get_pk_column(columns).replace('`', '``')
+                            if accepted_map:
+                                cur.execute(
+                                    "UPDATE `%s` SET accepted_fields = %%s WHERE `%s` = %%s"
+                                    % (table_name.replace('`', '``'), pk_esc),
+                                    [json.dumps(accepted_map, ensure_ascii=False), rid],
+                                )
+                            else:
+                                # no per-field selection => blank means "accept all fields"
+                                cur.execute(
+                                    "UPDATE `%s` SET accepted_fields = NULL WHERE `%s` = %%s"
+                                    % (table_name.replace('`', '``'), pk_esc),
+                                    [rid],
+                                )
+                    conn.commit()
+                    success, errs = _approve_pending_question_rows(conn, db_name, _get_pk_column(columns), ids)
+                    if success:
+                        messages.success(request, 'Approved %s row(s) with per-field selection.' % success)
+                    if errs:
+                        for msg in errs[:10]:
+                            messages.warning(request, msg)
+                        if len(errs) > 10:
+                            messages.warning(request, '… and %s more errors.' % (len(errs) - 10))
+                except Exception as e:
+                    messages.error(request, 'Per-field approve failed: %s' % str(e))
             return redirect('admin:database_table_data', db_alias=db_alias, table_name=table_name)
 
         if action == 'approve_edited' and db_alias == 'hsc' and table_name == 'cheradip_pending_question_request':
