@@ -1002,6 +1002,7 @@ function settingsReport(prefix, text) {
   try { sessionStorage.setItem('cheradip_settings_report', entry.slice(0, 20000)); } catch (e) {}
   if (ta) { ta.value = entry; autoGrowReport(ta); ta.scrollTop = 0; }
 }
+window.settingsReport = settingsReport;
 (function () {
   var ta = document.getElementById('settings-session-output');
   if (!ta) return;
