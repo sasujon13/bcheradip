@@ -126,6 +126,36 @@
   }
   .settings-help { margin-top: 12px; color: #666; font-size: 13px; line-height: 1.5; }
 
+  .settings-session-label {
+    display: block;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f766e;
+  }
+
+  .settings-session-output {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    height: 8.4em; /* target ~8 lines of text */
+    min-height: 8.4em;
+    max-height: 20em; /* grow up to ~20 rows, then scroll */
+    overflow-y: auto;
+    resize: vertical;
+    margin-top: 4px;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+    font-family: Consolas, Menlo, monospace;
+    color: #1e293b;
+    background: #f8fafc;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
   /* Exam job progress overlay — circular teal ring (reuses the admin/student ring design) */
   .exam-job-overlay { position: fixed; inset: 0; z-index: 99999; background: rgba(15, 23, 42, 0.55); display: none; align-items: center; justify-content: center; }
   .exam-job-overlay.open { display: flex; }
@@ -144,6 +174,77 @@
   .exam-job-stat .lbl { display: block; font-size: 11px; color: #64748b; margin-top: 2px; }
   .exam-job-msg { margin-top: 14px; font-size: 14px; color: #1e293b; line-height: 1.5; }
   .exam-job-msg.exam-job-error { color: #b91c1c; }
+
+  /* Overlay top-right window controls (minimize + cancel) */
+  .exam-job-controls {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    display: flex;
+    gap: 6px;
+  }
+  .exam-job-control-btn {
+    /* width: 40px; */
+    /* height: 40px; */
+    border: none;
+    background: transparent;
+    color: #008080;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .exam-job-control-btn.minimize { color: #008080; }
+  .exam-job-control-btn:hover.minimize { color: #006d6d; }
+  .exam-job-control-btn.danger {
+    color: #b91c1c;
+    font-weight: 800;
+    font-size: 18px;
+    margin-top: -4px;
+  }
+  .exam-job-control-btn.danger:hover { color: #991b1b; }
+  .exam-job-card { position: relative; width: 470px; max-width: calc(100vw - 32px); box-sizing: border-box; background: #fff; border-radius: 16px; padding: 26px 24px 22px; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35); }
+
+  /* Confirm-cancel popup centered over the progress card */
+  .exam-job-confirm-pop {
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    background: rgba(0, 0, 0, 0.35);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .exam-job-confirm-pop.open { display: flex; }
+  .exam-job-confirm-card {
+    width: 360px;
+    max-width: calc(100vw - 40px);
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 14px;
+    padding: 26px 24px 22px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  .exam-job-confirm-title { font-size: 17px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+  .exam-job-confirm-msg { font-size: 14px; color: #475569; margin-bottom: 18px; line-height: 1.5; }
+  .exam-job-confirm-actions { display: flex; justify-content: center; gap: 10px; }
+  .exam-job-confirm-actions button { padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .exam-job-cancel-yes { background: #b91c1c; color: #fff; border: none; }
+  .exam-job-cancel-yes:hover { background: #991b1b; }
+  .exam-job-cancel-no { background: #fff; color: #008080; border: 2px solid #008080; }
+  .exam-job-cancel-no:hover { background: #f0fdfa; }
+
+  /* Minimized state: the progress card is COMPLETELY hidden and the job keeps
+     running in the background. The action button flips to "View Progress" so the
+     admin can reopen the card at any time. */
+  .exam-job-overlay.exam-job-minimized {
+    display: none !important;
+  }
+  .exam-job-cancel-flag { display: none; }
 </style>
 {% endblock %}
 
@@ -243,9 +344,18 @@
     <strong>Update:</strong> Queues AI review/correction of the whole question for the selected subject / chapters / topics as pending update requests — reviewed before accept / deny.
   </p>
 
+  <label class="settings-session-label" for="settings-session-output">Session report (what happened):</label>
+  <textarea id="settings-session-output" class="settings-session-output" readonly spellcheck="false"
+    placeholder="Run Create Exam, Add Exam or Update to see a summary of what happened here."></textarea>
+
   <!-- Update-question job overlay -->
   <div class="exam-job-overlay" id="update-job-overlay">
     <div class="exam-job-card" role="dialog" aria-modal="true" aria-label="Update progress">
+      <div class="exam-job-controls">
+        <button type="button" class="exam-job-control-btn minimize" data-overlay="update-job-overlay" data-action="minimize" title="Minimize progress">&#8722;</button>
+        <button type="button" class="exam-job-control-btn danger" data-overlay="update-job-overlay" data-action="cancel" title="Cancel">&#10005;</button>
+      </div>
+      <div class="exam-job-mini-row"><span class="exam-job-mini-label">Update in progress&hellip;</span></div>
       <div class="exam-ring-wrap">
         <svg class="exam-ring" width="160" height="160" viewBox="0 0 160 160">
           <circle class="exam-ring-bg" cx="80" cy="80" r="70" fill="none" stroke-width="12"></circle>
@@ -267,6 +377,11 @@
   <!-- Exam job progress overlay -->
   <div class="exam-job-overlay" id="exam-job-overlay">
     <div class="exam-job-card" role="dialog" aria-modal="true" aria-label="Exam progress">
+      <div class="exam-job-controls">
+        <button type="button" class="exam-job-control-btn minimize" data-overlay="exam-job-overlay" data-action="minimize" title="Minimize progress">&#8722;</button>
+        <button type="button" class="exam-job-control-btn danger" data-overlay="exam-job-overlay" data-action="cancel" title="Cancel">&#10005;</button>
+      </div>
+      <div class="exam-job-mini-row"><span class="exam-job-mini-label">Exam build in progress&hellip;</span></div>
       <div class="exam-ring-wrap">
         <svg class="exam-ring" width="160" height="160" viewBox="0 0 160 160">
           <circle class="exam-ring-bg" cx="80" cy="80" r="70" fill="none" stroke-width="12"></circle>
@@ -292,6 +407,18 @@
         </div>
       </div>
       <div class="exam-job-msg" id="exam-job-msg"></div>
+    </div>
+  </div>
+
+  <!-- Confirm-cancel popup (centered) -->
+  <div class="exam-job-confirm-pop" id="exam-job-confirm-pop">
+    <div class="exam-job-confirm-card">
+      <div class="exam-job-confirm-title">Cancel progress?</div>
+      <div class="exam-job-confirm-msg">Do you really want to Cancel?</div>
+      <div class="exam-job-confirm-actions">
+        <button type="button" class="exam-job-cancel-yes" id="exam-job-cancel-yes">Yes, Cancel</button>
+        <button type="button" class="exam-job-cancel-no" id="exam-job-cancel-no">No</button>
+      </div>
     </div>
   </div>
 </div>
@@ -816,6 +943,8 @@
     syncHiddenInput('class_level_hidden', state.selectedClass);
     syncHiddenInput('group_hidden', state.selectedGroup);
     syncHiddenInput('subject_tr_hidden', state.selectedSubjectTr);
+
+
     syncHiddenInput('chapter_hidden', state.selectedChapters, TOPIC_CHAPTER_DELIM);
     syncHiddenInput('topic_hidden', state.selectedTopics, TOPIC_CHAPTER_DELIM);
   });
@@ -865,6 +994,31 @@
     if (aiExistingEl) aiExistingEl.textContent = j.ai_existing != null ? j.ai_existing : 0;
   }
 
+function settingsReport(prefix, text) {
+  var ta = document.getElementById('settings-session-output');
+  var line = '[' + new Date().toLocaleString() + '] ' + (prefix || '') + ': ' + String(text || '');
+  // Only the latest run's report (keeps the textarea tidy and scrollable).
+  var entry = line;
+  try { sessionStorage.setItem('cheradip_settings_report', entry.slice(0, 20000)); } catch (e) {}
+  if (ta) { ta.value = entry; autoGrowReport(ta); ta.scrollTop = 0; }
+}
+(function () {
+  var ta = document.getElementById('settings-session-output');
+  if (!ta) return;
+  try {
+    var saved = sessionStorage.getItem('cheradip_settings_report');
+    if (saved) ta.value = saved;
+  } catch (e) {}
+  autoGrowReport(ta);
+})();
+/* Auto-grow the report textarea up to 20 rows, then scroll. */
+function autoGrowReport(ta) {
+  if (!ta) return;
+  ta.style.height = 'auto';
+  ta.style.height = Math.min(ta.scrollHeight, 20 * 1.5 * 13) + 'px';
+}
+
+
   function finish(status, text) {
     running = false;
     if (phaseEl) phaseEl.textContent = status === 'done' ? 'Done' : 'Error';
@@ -872,10 +1026,14 @@
       msgEl.textContent = text;
       msgEl.classList.toggle('exam-job-error', status !== 'done');
     }
-    if (status === 'done') setTimeout(function () { window.location.reload(); }, 1600);
+    settingsReport('Create/Add Exam', text);
+    // Once done/cancelled, the progress box disappears; only the report remains.
+    if (overlay) { overlay.classList.remove('open', 'exam-job-minimized'); overlay.style.display = 'none'; }
+    if (window.__examJobRestore) window.__examJobRestore('exam-job-overlay');
   }
 
   function poll(jobId) {
+    if (window.__examJobControl) window.__examJobControl.setJob('exam-job-overlay', jobId);
     var url = '/admin/databases/' + encodeURIComponent(jobDb) + '/settings/job/' + encodeURIComponent(jobId) + '/';
     var timer = setInterval(function () {
       fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
@@ -883,6 +1041,7 @@
         .then(function (j) {
           if (!j) return;
           if (j.status === 'done') { clearInterval(timer); setRing(100); render(j); finish('done', j.message || 'Done.'); }
+          else if (j.status === 'cancelled') { clearInterval(timer); setRing(100); render(j); finish('done', j.message || 'Progress cancelled.'); }
           else if (j.status === 'error') { clearInterval(timer); finish('error', (j.error || j.message || 'Exam operation failed.') + ' \u2014 reload the page and try again.'); }
           else { render(j); }
         })
@@ -906,7 +1065,7 @@
       return;
     }
     var kind = (rawKind === 'add_exam') ? 'add_exam' : 'create_exam';
-    if (overlay) overlay.classList.add('open');
+    if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
     setRing(0);
     fd.append('kind', kind);
     fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/start-job/', {
@@ -925,6 +1084,115 @@
 })();
 </script>
 
+<script>
+/* ------------------------------------------------------------------ progress controls */
+(function () {
+  if (!document.getElementById('exam-job-confirm-pop')) return;
+  var activeOverlayId = null;
+  var activeJobId = null;
+  var confirmPop = document.getElementById('exam-job-confirm-pop');
+  var cancelYesBtn = document.getElementById('exam-job-cancel-yes');
+  var cancelNoBtn = document.getElementById('exam-job-cancel-no');
+  var jobDb = '{{ current_db|escapejs }}';
+  var csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
+  var csrfToken = csrfInput ? csrfInput.value : '';
+  var startButtons = {
+    create_exam: document.querySelector('button[name="action"][value="create_exam"]'),
+    add_exam: document.querySelector('button[name="action"][value="add_exam"]'),
+    update_question: document.querySelector('button[name="action"][value="update_question"]')
+  };
+
+  var jobMap = {};
+  window.__examJobControl = {
+    setJob: function (overlayId, jobId) { jobMap[overlayId] = jobId; activeOverlayId = overlayId; activeJobId = jobId; },
+    activeJobId: function () { return activeJobId; },
+    activeOverlayId: function () { return activeOverlayId; },
+    getJob: function (overlayId) { return jobMap[overlayId] || null; },
+    flagCancelRequested: function () { /* handled in pollers via status==='cancelled' */ }
+  };
+
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target && ev.target.closest ? ev.target.closest('.exam-job-control-btn') : null;
+    if (btn) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var overlayId = btn.getAttribute('data-overlay');
+      var action = btn.getAttribute('data-action');
+      var overlay = document.getElementById(overlayId);
+      if (!overlay) return;
+      if (action === 'minimize') {
+        overlay.classList.add('exam-job-minimized');
+        var btnId = overlayId === 'exam-job-overlay' ? (startButtons.create_exam || null) : (startButtons.update_question || null);
+        if (btnId) { btnId.setAttribute('data-label', btnId.textContent); btnId.textContent = 'View Progress'; }
+      } else if (action === 'cancel') {
+        activeOverlayId = overlayId;
+        activeJobId = jobMap[overlayId] || activeJobId;
+        confirmPop.classList.add('open');
+      }
+      return;
+    }
+    // "View Progress": clicking the action button while a job is minimized reopens it
+    var b = ev.target && ev.target.closest ? ev.target.closest('button[name="action"]') : null;
+    if (b && b.textContent.indexOf('View Progress') !== -1) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var ovId = b.getAttribute('value') === 'update_question' ? 'update-job-overlay' : 'exam-job-overlay';
+      var ov = document.getElementById(ovId);
+      if (ov) ov.classList.remove('exam-job-minimized');
+      var orig = b.getAttribute('data-label');
+      if (orig) { b.textContent = orig; b.removeAttribute('data-label'); }
+    }
+  });
+
+  function closeConfirm() { confirmPop.classList.remove('open'); }
+
+  cancelNoBtn.addEventListener('click', closeConfirm);
+
+  cancelYesBtn.addEventListener('click', function () {
+    closeConfirm();
+    var ov = activeOverlayId ? document.getElementById(activeOverlayId) : null;
+    var jobIdToCancel = activeJobId || (activeOverlayId ? jobMap[activeOverlayId] : null);
+    if (!jobIdToCancel) {
+      settingsReport('Cancel', 'No running job to cancel.');
+      if (window.__examJobRestore) window.__examJobRestore(activeOverlayId || 'exam-job-overlay');
+      return;
+    }
+    var url = '/admin/databases/' + encodeURIComponent(jobDb) + '/settings/job/' + encodeURIComponent(jobIdToCancel) + '/cancel/';
+    fetch(url, {
+      method: 'POST',
+      headers: { 'X-CSRFToken': csrfToken, 'Accept': 'application/json' },
+      credentials: 'same-origin'
+    }).then(function (r) { return r.json(); }).catch(function () { return {}; });
+    settingsReport('Cancel', 'Progress cancelled by admin. Some changes may already be applied.');
+    // Immediately hide ALL progress boxes (the active one AND the other), and restore buttons.
+    ['exam-job-overlay', 'update-job-overlay'].forEach(function (oid) {
+      var el = document.getElementById(oid);
+      if (el) { el.classList.remove('open', 'exam-job-minimized'); el.style.display = 'none'; }
+    });
+    if (window.__examJobRestore) window.__examJobRestore(activeOverlayId || 'update-job-overlay');
+    // Clear any leftover message in the progress card (report lives in the textarea only).
+    var msg2c = document.getElementById('update-job-msg');
+    if (msg2c) msg2c.textContent = '';
+    var msg3c = document.getElementById('exam-job-msg');
+    if (msg3c) msg3c.textContent = '';
+    // Defensive: also hide after a tick in case a poll finishes right now.
+    setTimeout(function () {
+      ['exam-job-overlay', 'update-job-overlay'].forEach(function (oid) {
+        var el = document.getElementById(oid);
+        if (el) { el.classList.remove('open', 'exam-job-minimized'); el.style.display = 'none'; }
+      });
+    }, 300);
+  });
+
+  window.__examJobRestore = function (overlayId) {
+    var overlay = document.getElementById(overlayId);
+    if (overlay) overlay.classList.remove('exam-job-minimized');
+    var kind = overlayId === 'exam-job-overlay' ? 'create_exam' : 'update_question';
+    var b = startButtons[kind];
+    if (b && b.getAttribute('data-label')) { b.textContent = b.getAttribute('data-label'); b.removeAttribute('data-label'); }
+  };
+})();
+</script>
 <script>
 (function () {
   var overlay = document.getElementById('update-job-overlay');
@@ -966,10 +1234,14 @@
     var msg = document.getElementById('update-job-msg');
     if (phaseEl) phaseEl.textContent = status === 'done' ? 'Done' : 'Error';
     if (msg) { msg.textContent = text; msg.classList.toggle('exam-job-error', status !== 'done'); }
-    if (status === 'done') setTimeout(function () { window.location.reload(); }, 1600);
+    settingsReport('Update', text);
+    // Once done/cancelled, the progress box disappears; only the report remains.
+    if (overlay) { overlay.classList.remove('open', 'exam-job-minimized'); overlay.style.display = 'none'; }
+    if (window.__examJobRestore) window.__examJobRestore('update-job-overlay');
   }
 
   function poll(jobId) {
+    if (window.__examJobControl) window.__examJobControl.setJob('update-job-overlay', jobId);
     var url = '/admin/databases/' + encodeURIComponent(jobDb) + '/settings/job/' + encodeURIComponent(jobId) + '/';
     var timer = setInterval(function () {
       fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
@@ -977,6 +1249,7 @@
         .then(function (j) {
           if (!j) return;
           if (j.status === 'done') { clearInterval(timer); setRing(100); render(j); finish('done', j.message || 'Done.'); }
+          else if (j.status === 'cancelled') { clearInterval(timer); setRing(100); render(j); finish('done', j.message || 'Progress cancelled.'); }
           else if (j.status === 'error') { clearInterval(timer); finish('error', (j.error || j.message || 'Update job failed.') + ' \u2014 reload and try again.'); }
           else { render(j); }
         })
@@ -990,7 +1263,7 @@
     var table = (tableSel.value || '').trim();
     if (!table) { alert('Please select a table first.'); return; }
     running = true;
-    if (overlay) overlay.classList.add('open');
+    if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
     setRing(0);
     var fd = new FormData();
     fd.append('kind', kind);
@@ -1011,7 +1284,7 @@
   function startFromForm(fd) {
     if (running) return;
     running = true;
-    if (overlay) overlay.classList.add('open');
+    if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
     setRing(0);
     fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/update-question/start/', {
       method: 'POST', body: fd,

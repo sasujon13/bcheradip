@@ -765,6 +765,16 @@ def start_question_update(request, db_alias):
 
 
 @staff_member_required
+def cancel_exam_job(request, db_alias, job_id):
+    """Cancel a running background exam/update job (mark it cancelled)."""
+    from cheradip.exam_jobs import set_cancelled
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required.'}, status=405)
+    ok = set_cancelled(job_id)
+    return JsonResponse({'ok': ok, 'status': 'cancelled' if ok else 'not-running'})
+
+
+@staff_member_required
 def exam_job_progress(request, db_alias, job_id):
     """JSON snapshot of a running/finished exam job (name='exam_job_progress')."""
     from cheradip.exam_jobs import get_job, PUBLIC_FIELDS

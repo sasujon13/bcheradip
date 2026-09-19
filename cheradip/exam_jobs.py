@@ -127,6 +127,19 @@ def start_job(kind, db_alias, filters):
     return job_id
 
 
+def set_cancelled(job_id):
+    """Mark a running job as cancelled if it is still running (pollers then treat
+    it as done-with-cancel). Returns True if still running and marked."""
+    job = _read(job_id)
+    if not job or job.get('status') != 'running':
+        return False
+    job['status'] = 'cancelled'
+    job['message'] = 'Progress cancelled by admin. Some changes may already be applied.'
+    job['finished_at'] = timezone.now().isoformat()
+    _write(job)
+    return True
+
+
 def start_question_update_job(db_alias, table_name, kind, chapter_list=None, topic_list=None):
     """Queue AI Question/Explanation updates for a subject table in the background.
 
