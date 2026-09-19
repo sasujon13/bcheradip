@@ -9,6 +9,8 @@ in the admin table-data page (approve performs the UPDATE by qid on the subject 
 
 AI order: Home AI first, Cloud AI fallback (same services as exam-question creation).
 """
+import base64
+import difflib
 import json
 import logging
 import re
@@ -27,6 +29,53 @@ _META_FIELDS = ('subject', 'subject_tr', 'chapter_no', 'chapter', 'topic_no', 't
 def _norm(s):
     """Light normalization for change detection (whitespace + lowercase)."""
     return re.sub(r'\s+', '', str(s or '').strip().lower())
+
+
+_CERADIP_PLAIN_PREFIX = '<!--CERADIP_PLAIN:'
+
+
+def _escape_html(s):
+    """HTML-escape text so diff markup is safe (mirrors question.component.escapeHtml)."""
+    return (str(s or '')
+            .replace('&', '&amp;')
+            .replace('<', '&lt;')
+            .replace('>', '&gt;')
+            .replace('"', '&quot;'))
+
+
+def _diff_html(old_text, new_text):
+    """Character-level diff mirroring question.component.buildPendingEditDiffHtml.
+
+    - added   -> <b style="color:blue">...</b>                  (new text)
+    - removed -> <b><del style="color:darkred">...</del></b>     (old text)
+    """
+    sm = difflib.SequenceMatcher(None, str(old_text or ''), str(new_text or ''))
+    out = []
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == 'equal':
+            out.append(_escape_html(str(old_text or '')[i1:i2]))
+            continue
+        old_chunk = str(old_text or '')[i1:i2]
+        new_chunk = str(new_text or '')[j1:j2]
+        if old_chunk:
+            out.append('<b><del style="color:darkred">%s</del></b>' % _escape_html(old_chunk))
+        if new_chunk:
+            out.append('<b style="color:blue">%s</b>' % _escape_html(new_chunk))
+    return ''.join(out)
+
+
+def _wrap_pending_field(orig, cur):
+    """Mirror question.component.pendingEditFieldValue.
+
+    Unchanged -> plain original. Changed -> '<!--CERADIP_PLAIN:<base64 utf-8>-->' + diff HTML,
+    so database_admin_views._strip_red_markup recovers the clean text on approve.
+    """
+    orig_s = str(orig or '')
+    cur_s = str(cur or '')
+    if cur_s == orig_s:
+        return orig_s
+    b64 = base64.b64encode(cur_s.encode('utf-8')).decode('ascii')
+    return '%s%s-->%s' % (_CERADIP_PLAIN_PREFIX, b64, _diff_html(orig_s, cur_s))
 
 
 def _emit(progress, **kw):
@@ -202,8 +251,13 @@ def _has_changes(row, cleaned, kind):
                                  or row.get('subject_tr') or row.get('subject') or '')
         fields = ('question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer',
                   'explanation', 'explanation2', 'explanation3') + _META_FIELDS
-        changed = any(_norm(cleaned.get(f)) != _norm(row.get(f)) for f in fields)
-        if not (cleaned.get('question') or '').strip():
+
+        def effective(field):
+            # AI value, or original when the AI dropped the field (no change).
+            return str(cleaned.get(field) or '').strip() or str(row.get(field) or '')
+
+        changed = any(_norm(effective(f)) != _norm(row.get(f)) for f in fields)
+        if not effective('question'):
             return False
         if not _answer_consistent(cleaned):
             # keep the original answer when the AI repositioned/rewrote options
@@ -216,12 +270,33 @@ def _has_changes(row, cleaned, kind):
 
 
 def _build_payload(row, cleaned, kind, table_name):
-    """Payload for a pending update request (mirrors /question page submit)."""
+    """Payload for a pending update request (mirrors /question page submit).
+
+    Content fields (question/options/answer/explanations) are wrapped with the
+    CERADIP_PLAIN base64 prefix + char-level diff HTML so the admin review page
+    shows changed portions in BOLD BLUE (new) / darkred strikethrough (old),
+    exactly like the /question page edit requests. Unchanged fields stay plain.
+    """
     qid = str(row.get('qid') or '')
     use_meta = kind == 'question'
     subject_tr = (cleaned.get('subject_tr') or cleaned.get('subject')
                   or row.get('subject_tr') or row.get('subject') or '').strip()[:255] if use_meta \
         else (str(row.get('subject_tr') or row.get('subject') or '').strip())[:255]
+
+    # AI value (or original when the AI dropped it), compared against the ORIGINAL row text.
+    def pick_content(field):
+        ai_v = str(cleaned.get(field) or '').strip()
+        return ai_v if ai_v else str(row.get(field) or '')
+
+    # Metadata: AI value, or original when the AI dropped it (preserve, never blank).
+    def pick_meta(field):
+        ai_v = str(cleaned.get(field) or '').strip()
+        return ai_v if ai_v else str(row.get(field) or '')
+
+    # chapter/topic/subsource carry visible text: diff-wrap only when changed, like /question.
+    def pick_text_meta(field):
+        return _wrap_pending_field(row.get(field), pick_meta(field))
+
     return {
         'table': table_name,
         'requested_qid': qid or None,
@@ -229,22 +304,22 @@ def _build_payload(row, cleaned, kind, table_name):
         'level_tr': (row.get('level_tr') or '')[:100],
         'class_level': (row.get('class_level') or '')[:50],
         'subject_tr': subject_tr,
-        'chapter_no': (cleaned.get('chapter_no') if use_meta else row.get('chapter_no') or '')[:50],
-        'chapter': (cleaned.get('chapter') if use_meta else row.get('chapter') or '')[:255],
-        'topic_no': (cleaned.get('topic_no') if use_meta else row.get('topic_no') or '')[:50],
-        'topic': (cleaned.get('topic') if use_meta else row.get('topic') or '')[:255],
-        'question': (cleaned.get('question') if use_meta else row.get('question')) or '',
-        'option_1': (cleaned.get('option_1') if use_meta else row.get('option_1')) or '',
-        'option_2': (cleaned.get('option_2') if use_meta else row.get('option_2')) or '',
-        'option_3': (cleaned.get('option_3') if use_meta else row.get('option_3')) or '',
-        'option_4': (cleaned.get('option_4') if use_meta else row.get('option_4')) or '',
-        'answer': (cleaned.get('answer') if use_meta else row.get('answer') or '')[:500],
-        'explanation': (cleaned.get('explanation') or row.get('explanation')) or '',
-        'explanation2': (cleaned.get('explanation2') or row.get('explanation2')) or '',
-        'explanation3': (cleaned.get('explanation3') or row.get('explanation3')) or '',
-        'type': (cleaned.get('type') if use_meta else row.get('type') or '')[:100],
-        'level': (cleaned.get('level') if use_meta else row.get('level') or '')[:100],
-        'subsource': (cleaned.get('subsource') if use_meta else row.get('subsource') or '')[:255],
+        'chapter_no': (pick_meta('chapter_no') if use_meta else row.get('chapter_no') or '')[:50],
+        'chapter': (pick_text_meta('chapter') if use_meta else row.get('chapter') or '')[:255],
+        'topic_no': (pick_meta('topic_no') if use_meta else row.get('topic_no') or '')[:50],
+        'topic': (pick_text_meta('topic') if use_meta else row.get('topic') or '')[:255],
+        'question': _wrap_pending_field(row.get('question'), pick_content('question')),
+        'option_1': _wrap_pending_field(row.get('option_1'), pick_content('option_1')),
+        'option_2': _wrap_pending_field(row.get('option_2'), pick_content('option_2')),
+        'option_3': _wrap_pending_field(row.get('option_3'), pick_content('option_3')),
+        'option_4': _wrap_pending_field(row.get('option_4'), pick_content('option_4')),
+        'answer': _wrap_pending_field(row.get('answer'), pick_content('answer')),
+        'explanation': _wrap_pending_field(row.get('explanation'), pick_content('explanation')),
+        'explanation2': _wrap_pending_field(row.get('explanation2'), pick_content('explanation2')),
+        'explanation3': _wrap_pending_field(row.get('explanation3'), pick_content('explanation3')),
+        'type': (pick_meta('type') if use_meta else row.get('type') or '')[:100],
+        'level': (pick_meta('level') if use_meta else row.get('level') or '')[:100],
+        'subsource': (pick_text_meta('subsource') if use_meta else row.get('subsource') or '')[:255],
         'status': 'Update',
         'updated_by': 'Cheradip AI',
     }

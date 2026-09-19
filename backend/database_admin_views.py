@@ -489,6 +489,7 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                 explanation_val = _strip_red_markup(row_data.get('explanation'))
                 explanation2_val = _strip_red_markup(row_data.get('explanation2'))
                 explanation3_val = _strip_red_markup(row_data.get('explanation3'))
+                answer_val = _strip_red_markup(row_data.get('answer'))
                 tbl_esc = target_table.replace('`', '``')
                 if is_update:
                     if not _qid_exists_in_table(cursor, target_table, live_qid):
@@ -506,7 +507,7 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                             row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
                             row_data.get('topic_no'), row_data.get('topic'), question_val,
                             option_1_val, option_2_val, option_3_val, option_4_val,
-                            row_data.get('answer'), explanation_val, explanation2_val, explanation3_val,
+                            answer_val, explanation_val, explanation2_val, explanation3_val,
                             row_data.get('type'), level_val, subsource_val, now_sql, updated_by_val, live_qid,
                         ],
                     )
@@ -531,7 +532,7 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
                             qid, row_data.get('subject_tr'), row_data.get('chapter_no'), row_data.get('chapter'),
                             row_data.get('topic_no'), row_data.get('topic'), question_val,
                             option_1_val, option_2_val, option_3_val, option_4_val,
-                            row_data.get('answer'), explanation_val, explanation2_val, explanation3_val,
+                            answer_val, explanation_val, explanation2_val, explanation3_val,
                             row_data.get('type'), level_val, subsource_val, now_sql, now_sql, updated_by_val,
                         ],
                     )
