@@ -344,6 +344,7 @@
         <button type="submit" name="action" value="create_exam">Create Exam</button>
         <button type="submit" name="action" value="add_exam">Add Exam</button>
         <button type="submit" name="action" value="update_question">Update</button>
+        <button type="submit" name="action" value="ai_update">AI Update</button>
       </span>
     </div>
   </form>
@@ -351,21 +352,22 @@
   <p class="settings-help">
     <strong>Create Exam:</strong> Creates or recreates exam question sets for the selected filters. Re-click to recreate.<br>
     <strong>Add Exam:</strong> Creates only missing exam sets for the selected category (does not overwrite existing).<br>
-    <strong>Update:</strong> Queues AI review/correction of the whole question for the selected subject / chapters / topics as pending update requests — reviewed before accept / deny.
+    <strong>Update:</strong> Home AI marks the <em>unwanted special characters</em> — invisible/zero-width, control, U+FFFD, emoji, letters or digits pasted from another script, dangling/doubled Bangla signs, unusual spaces, unbalanced <code>$</code> — in the question, options, answer, explanations and metadata. Only those characters are removed and each one is marked in the pending request so you can check it before accepting. Words, sentences, punctuation, every LaTeX/KaTeX/MathJax formula and every HTML tag stay as they are.<br>
+    <strong>AI Update:</strong> Sends every selected record to the Cloud AI as a Bangladesh education system item (national curriculum, Bangla medium) for word/sentence correction — spelling, grammar, joined or split words, punctuation, answer-option mismatch — and queues the result with the corrected and original words side by side. Math and HTML are never changed.
   </p>
 
   <label class="settings-session-label" for="settings-session-output">Session report (what happened):</label>
   <textarea id="settings-session-output" class="settings-session-output" readonly spellcheck="false"
     placeholder="Run Create Exam, Add Exam or Update to see a summary of what happened here."></textarea>
 
-  <!-- Update-question job overlay -->
+  <!-- Update / AI Update job overlay (both passes share it) -->
   <div class="exam-job-overlay" id="update-job-overlay">
     <div class="exam-job-card" role="dialog" aria-modal="true" aria-label="Update progress">
       <div class="exam-job-controls">
         <button type="button" class="exam-job-control-btn minimize" data-overlay="update-job-overlay" data-action="minimize" title="Minimize progress">&#8722;</button>
         <button type="button" class="exam-job-control-btn danger" data-overlay="update-job-overlay" data-action="cancel" title="Cancel">&#10005;</button>
       </div>
-      <div class="exam-job-mini-row"><span class="exam-job-mini-label">Update in progress&hellip;</span></div>
+      <div class="exam-job-mini-row"><span class="exam-job-mini-label" id="update-job-mini-label">Update in progress&hellip;</span></div>
       <div class="exam-ring-wrap">
         <svg class="exam-ring" width="160" height="160" viewBox="0 0 160 160">
           <circle class="exam-ring-bg" cx="80" cy="80" r="70" fill="none" stroke-width="12"></circle>
@@ -1067,13 +1069,16 @@ function autoGrowReport(ta) {
     var rawKind = (submitter && submitter.getAttribute && submitter.getAttribute('name') === 'action') ? submitter.value : 'create_exam';
     ev.preventDefault();
     var fd = new FormData(ev.target);
-    if (rawKind === 'update_question') {
-      // Queue AI review/correction of everything except the explanation
-      // (table resolved server-side from the selected filters). The busy state
-      // for Update jobs is managed by the update-job poller below; the local
-      // `running` flag must NOT stay true here or every later submit is blocked.
-      fd.append('kind', 'question');
-      if (window.startQuestionUpdateFromForm) { window.startQuestionUpdateFromForm(fd); return; }
+    if (rawKind === 'update_question' || rawKind === 'ai_update') {
+      // "Update" = Home AI unwanted-character pass (kind=special): it only marks/removes the
+      //   special characters found in the fields, never words or sentences.
+      // "AI Update" = Cloud AI word/sentence correction pass (kind=cloud) for Bangladesh
+      //   education system items.
+      // Both queue pending requests for manual review. The table is resolved server-side from the
+      // selected filters, and the busy state is managed by the update-job poller below — the local
+      // `running` flag must NOT stay true here or every later submit would be blocked.
+      fd.append('kind', rawKind === 'ai_update' ? 'cloud' : 'special');
+      if (window.startQuestionUpdateFromForm) { window.startQuestionUpdateFromForm(fd, rawKind); return; }
       return;
     }
     var kind = (rawKind === 'add_exam') ? 'add_exam' : 'create_exam';
@@ -1113,8 +1118,11 @@ function autoGrowReport(ta) {
   var startButtons = {
     create_exam: document.querySelector('button[name="action"][value="create_exam"]'),
     add_exam: document.querySelector('button[name="action"][value="add_exam"]'),
-    update_question: document.querySelector('button[name="action"][value="update_question"]')
+    update_question: document.querySelector('button[name="action"][value="update_question"]'),
+    ai_update: document.querySelector('button[name="action"][value="ai_update"]')
   };
+  // Which action button started the running job (both update buttons share one overlay).
+  var activeButtonKey = 'create_exam';
 
   var jobMap = {};
 
@@ -1122,7 +1130,7 @@ function autoGrowReport(ta) {
   // so only one job can run at a time. keepKey = the button that stays clickable
   // (the job's own button — so "View Progress" still works when minimized).
   function setActionButtons(running, keepKey) {
-    ['create_exam', 'add_exam', 'update_question'].forEach(function (key) {
+    ['create_exam', 'add_exam', 'update_question', 'ai_update'].forEach(function (key) {
       var b = startButtons[key];
       if (!b) return;
       var off = running && key !== keepKey;
@@ -1135,7 +1143,10 @@ function autoGrowReport(ta) {
 
   var runningJob = false;
   window.__examJobControl = {
-    setJob: function (overlayId, jobId) { jobMap[overlayId] = jobId; activeOverlayId = overlayId; activeJobId = jobId; },
+    setJob: function (overlayId, jobId, buttonKey) {
+      jobMap[overlayId] = jobId; activeOverlayId = overlayId; activeJobId = jobId;
+      if (buttonKey) activeButtonKey = buttonKey;
+    },
     activeJobId: function () { return activeJobId; },
     activeOverlayId: function () { return activeOverlayId; },
     getJob: function (overlayId) { return jobMap[overlayId] || null; },
@@ -1166,7 +1177,9 @@ function autoGrowReport(ta) {
       if (!overlay) return;
       if (action === 'minimize') {
         overlay.classList.add('exam-job-minimized');
-        var btnId = overlayId === 'exam-job-overlay' ? (startButtons.create_exam || null) : (startButtons.update_question || null);
+        var btnId = overlayId === 'exam-job-overlay'
+          ? (startButtons.create_exam || null)
+          : (startButtons[activeButtonKey] || startButtons.update_question || null);
         if (btnId) { btnId.setAttribute('data-label', btnId.textContent); btnId.textContent = 'View Progress'; }
       } else if (action === 'cancel') {
         activeOverlayId = overlayId;
@@ -1180,7 +1193,9 @@ function autoGrowReport(ta) {
     if (b && b.textContent.indexOf('View Progress') !== -1) {
       ev.preventDefault();
       ev.stopPropagation();
-      var ovId = b.getAttribute('value') === 'update_question' ? 'update-job-overlay' : 'exam-job-overlay';
+      var btnKind = b.getAttribute('value');
+      var isUpdate = (btnKind === 'update_question' || btnKind === 'ai_update');
+      var ovId = isUpdate ? 'update-job-overlay' : 'exam-job-overlay';
       var ov = document.getElementById(ovId);
       if (ov) ov.classList.remove('exam-job-minimized');
       var orig = b.getAttribute('data-label');
@@ -1213,7 +1228,7 @@ function autoGrowReport(ta) {
       var el = document.getElementById(oid);
       if (el) { el.classList.remove('open', 'exam-job-minimized'); el.style.display = 'none'; }
     });
-    // Re-enable ALL three action buttons — the cancelled job is no longer busy.
+    // Re-enable ALL action buttons — the cancelled job is no longer busy.
     if (window.__examJobControl) window.__examJobControl.setRunning(false);
     if (window.__examJobRestore) window.__examJobRestore(activeOverlayId || 'update-job-overlay');
     // Clear any leftover message in the progress card (report lives in the textarea only).
@@ -1233,8 +1248,12 @@ function autoGrowReport(ta) {
   window.__examJobRestore = function (overlayId) {
     var overlay = document.getElementById(overlayId);
     if (overlay) overlay.classList.remove('exam-job-minimized');
-    var kind = overlayId === 'exam-job-overlay' ? 'create_exam' : 'update_question';
-    var b = startButtons[kind];
+    // The update overlay is shared by "Update" and "AI Update": restore the button that started
+    // the job (both only get the "View Progress" label while it is minimized).
+    var key = overlayId === 'exam-job-overlay'
+      ? 'create_exam'
+      : (startButtons[activeButtonKey] ? activeButtonKey : 'update_question');
+    var b = startButtons[key];
     if (b && b.getAttribute('data-label')) { b.textContent = b.getAttribute('data-label'); b.removeAttribute('data-label'); }
   };
 })();
@@ -1243,14 +1262,35 @@ function autoGrowReport(ta) {
 (function () {
   var overlay = document.getElementById('update-job-overlay');
   var tableSel = document.getElementById('uq-table');
-  var btnQ = document.getElementById('uq-btn-question');
-  var btnE = document.getElementById('uq-btn-explanation');
   if (!overlay) return;
   var RING_C = 439.8;
   var csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
   var csrfToken = csrfInput ? csrfInput.value : '';
   var jobDb = '{{ current_db|escapejs }}';
   var running = false;
+
+  // The two passes the admin buttons start. `key` is the button that owns the job, `title`/`report`
+  // label the shared progress overlay and the session report.
+  var PASSES = {
+    special: { key: 'update_question', title: 'Update (special characters) in progress\u2026', report: 'Update (characters)' },
+    cloud: { key: 'ai_update', title: 'AI Update (word correction) in progress\u2026', report: 'AI Update (words)' }
+  };
+  var currentKind = 'special';
+
+  function begin(kind) {
+    currentKind = PASSES[kind] ? kind : 'special';
+    var info = PASSES[currentKind];
+    var label = document.getElementById('update-job-mini-label');
+    if (label) label.textContent = info.title;
+    var phaseEl = document.getElementById('update-job-phase');
+    if (phaseEl) phaseEl.textContent = 'Preparing\u2026';
+    var msg = document.getElementById('update-job-msg');
+    if (msg) { msg.textContent = ''; msg.classList.remove('exam-job-error'); }
+    running = true;
+    if (window.__examJobControl) window.__examJobControl.setRunning(true, 'update-job-overlay', info.key);
+    if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
+    setRing(0);
+  }
 
   function setRing(p) {
     p = Math.max(0, Math.min(100, Number(p) || 0));
@@ -1281,14 +1321,16 @@ function autoGrowReport(ta) {
     var msg = document.getElementById('update-job-msg');
     if (phaseEl) phaseEl.textContent = status === 'done' ? 'Done' : 'Error';
     if (msg) { msg.textContent = text; msg.classList.toggle('exam-job-error', status !== 'done'); }
-    settingsReport('Update', text);
+    settingsReport(PASSES[currentKind].report, text);
     // Once done/cancelled, the progress box disappears; only the report remains.
     if (overlay) { overlay.classList.remove('open', 'exam-job-minimized'); overlay.style.display = 'none'; }
     if (window.__examJobRestore) window.__examJobRestore('update-job-overlay');
   }
 
   function poll(jobId) {
-    if (window.__examJobControl) window.__examJobControl.setJob('update-job-overlay', jobId);
+    if (window.__examJobControl) {
+      window.__examJobControl.setJob('update-job-overlay', jobId, PASSES[currentKind].key);
+    }
     var url = '/admin/databases/' + encodeURIComponent(jobDb) + '/settings/job/' + encodeURIComponent(jobId) + '/';
     var timer = setInterval(function () {
       fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
@@ -1309,12 +1351,9 @@ function autoGrowReport(ta) {
     if (!tableSel) { alert('Please select a table first.'); return; }
     var table = (tableSel.value || '').trim();
     if (!table) { alert('Please select a table first.'); return; }
-    running = true;
-    if (window.__examJobControl) window.__examJobControl.setRunning(true, 'update-job-overlay', 'update_question');
-    if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
-    setRing(0);
+    begin(kind);
     var fd = new FormData();
-    fd.append('kind', kind);
+    fd.append('kind', PASSES[kind] ? kind : 'special');
     fd.append('table', table);
     fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/update-question/start/', {
       method: 'POST', body: fd,
@@ -1329,12 +1368,11 @@ function autoGrowReport(ta) {
       .catch(function () { finish('error', 'Network error while starting the update job.'); });
   }
 
-  function startFromForm(fd) {
+  function startFromForm(fd, rawKind) {
     if (running) return;
-    running = true;
-    if (window.__examJobControl) window.__examJobControl.setRunning(true, 'update-job-overlay', 'update_question');
-    if (overlay) { overlay.style.display = ''; overlay.classList.add('open'); }
-    setRing(0);
+    // rawKind is the clicked button: 'ai_update' -> Cloud AI word correction, else Home AI
+    // special-character pass (the fd already carries the matching kind=cloud/special).
+    begin(rawKind === 'ai_update' ? 'cloud' : 'special');
     fetch('/admin/databases/' + encodeURIComponent(jobDb) + '/settings/update-question/start/', {
       method: 'POST', body: fd,
       headers: { 'X-CSRFToken': csrfToken, 'Accept': 'application/json' },
@@ -1348,11 +1386,10 @@ function autoGrowReport(ta) {
       .catch(function () { finish('error', 'Network error while starting the update job.'); });
   }
 
-  // Used by the Exam Settings "Update" button (table resolved server-side from filters)
+  // Used by the Exam Settings buttons: "Update" (Home AI characters) and "AI Update" (Cloud AI
+  // word/sentence correction). The table is resolved server-side from the selected filters.
   window.startQuestionUpdateFromForm = startFromForm;
-
-  if (btnQ) btnQ.addEventListener('click', function () { start('question'); });
-  if (btnE) btnE.addEventListener('click', function () { start('explanation'); });
+  window.startQuestionUpdate = start;
 })();
 </script>
 {% endblock %}

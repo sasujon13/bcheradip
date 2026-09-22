@@ -99,7 +99,8 @@
     color: #fff;
   }
   .table-data-actions-cell .btn-row-delete:hover { background: red; color: #fff; }
-  #pending-question-dialog {
+  #pending-question-dialog,
+  #portion-confirm-dialog {
     border: none;
     border-radius: 8px;
     padding: 0;
@@ -108,13 +109,41 @@
     max-height: 92vh;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   }
+  /* Portion accept / notice popup: same design language as the pending-question
+     dialog (teal header, grey footer), just a compact card. */
+  #portion-confirm-dialog { max-width: min(94vw, 460px); }
+  #portion-confirm-dialog .pending-dialog-body {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #1a1a1a;
+  }
+  #portion-confirm-dialog .portion-dialog-msg { margin: 0 0 10px; }
+  #portion-confirm-dialog .portion-dialog-msg:last-child { margin-bottom: 0; }
+  #portion-confirm-dialog .portion-dialog-word {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    background: #e3f2fd;
+    color: #0d47a1;
+  }
+  #portion-confirm-dialog .portion-dialog-word-old {
+    background: #fdecef;
+    color: #8b2942;
+    text-decoration: line-through;
+  }
+  #portion-confirm-dialog .portion-dialog-meta {
+    font-size: 12px;
+    color: #555;
+  }
   #pending-edit-approve-form {
     display: flex;
     flex-direction: column;
     max-height: 92vh;
     margin: 0;
   }
-  #pending-question-dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+  #pending-question-dialog::backdrop,
+  #portion-confirm-dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
   .pending-dialog-header {
     display: flex;
     flex-wrap: wrap;
@@ -789,6 +818,20 @@
                 </div>
             </form>
         </dialog>
+        {# Portion accept / notice popup — styled like #pending-question-dialog (teal header, grey footer) #}
+        <dialog id="portion-confirm-dialog" aria-labelledby="portion-confirm-title">
+            <div class="pending-dialog-header">
+                <h3 id="portion-confirm-title">{% translate 'Accept this changed portion?' %}</h3>
+                <div class="pending-dialog-header-actions">
+                    <button type="button" class="btn-dlg-close" id="portion-confirm-x">{% translate 'Close' %}</button>
+                </div>
+            </div>
+            <div class="pending-dialog-body" id="portion-confirm-body"></div>
+            <div class="pending-dialog-footer">
+                <button type="button" class="btn-dlg-footer-approve" id="portion-confirm-yes">{% translate 'Accept' %}</button>
+                <button type="button" class="btn-dlg-footer-deny" id="portion-confirm-no">{% translate 'Cancel' %}</button>
+            </div>
+        </dialog>
         {% endif %}
 
         {% if num_pages > 1 %}
@@ -819,6 +862,86 @@
     if (btnAddRow) btnAddRow.addEventListener('click', showAddRow);
     if (btnImport) btnImport.addEventListener('click', showImport);
 })();
+/* ---- Styled confirm / notice dialogs -------------------------------------------
+   Same design language as the pending-question popup (teal header, grey footer),
+   so reviews never fall back to the browser's default alert/confirm boxes. */
+(function () {
+    var dlg = document.getElementById('portion-confirm-dialog');
+    var titleEl = document.getElementById('portion-confirm-title');
+    var bodyEl = document.getElementById('portion-confirm-body');
+    var yesBtn = document.getElementById('portion-confirm-yes');
+    var noBtn = document.getElementById('portion-confirm-no');
+    var xBtn = document.getElementById('portion-confirm-x');
+    var yesHandler = null;
+    var closeHandler = null;
+
+    function escapeHtml(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function closeDialog() {
+        yesHandler = null;
+        closeHandler = null;
+        if (dlg && dlg.open) dlg.close();
+    }
+
+    function openDialog(opts) {
+        if (!dlg) return false;
+        closeDialog();
+        if (titleEl) titleEl.textContent = opts.title || '';
+        if (bodyEl) bodyEl.innerHTML = opts.bodyHtml || '';
+        if (yesBtn) {
+            yesBtn.hidden = !!opts.notice;
+            yesBtn.textContent = opts.yesLabel || 'Yes';
+        }
+        if (noBtn) noBtn.textContent = opts.noLabel || 'Cancel';
+        yesHandler = opts.notice ? null : (opts.onYes || null);
+        closeHandler = opts.notice ? (opts.onYes || null) : null;
+        if (!dlg.open) dlg.showModal();
+        var focusEl = (opts.notice && noBtn) ? noBtn : yesBtn;
+        if (focusEl && focusEl.focus) focusEl.focus();
+        return true;
+    }
+
+    if (yesBtn) yesBtn.addEventListener('click', function () {
+        var fn = yesHandler; closeDialog(); if (fn) fn();
+    });
+    if (noBtn) noBtn.addEventListener('click', function () {
+        var fn = closeHandler; closeDialog(); if (fn) fn();
+    });
+    if (xBtn) xBtn.addEventListener('click', closeDialog);
+    if (dlg) dlg.addEventListener('cancel', function (ev) { ev.preventDefault(); closeDialog(); });
+
+    // opts: { title, message | bodyHtml, yesLabel, noLabel, notice, onYes }
+    window.cheradipDialog = function (opts) {
+        opts = opts || {};
+        var handled = openDialog({
+            title: opts.title || 'Please confirm',
+            bodyHtml: opts.bodyHtml ||
+                '<p class="portion-dialog-msg">' + escapeHtml(opts.message || '') + '</p>',
+            yesLabel: opts.yesLabel,
+            noLabel: opts.noLabel || (opts.notice ? 'OK' : 'Cancel'),
+            notice: !!opts.notice,
+            onYes: opts.onYes
+        });
+        if (handled) return true;
+        // No styled dialog on this page: keep the browser behaviour.
+        if (opts.notice) { window.alert(opts.message || opts.title || ''); return false; }
+        if (window.confirm(opts.message || opts.title || '')) {
+            if (opts.onYes) opts.onYes();
+            return true;
+        }
+        return false;
+    };
+    window.cheradipConfirm = function (title, message, onYes) {
+        return window.cheradipDialog({ title: title, message: message, yesLabel: 'Yes', onYes: onYes });
+    };
+    window.cheradipNotice = function (title, message) {
+        return window.cheradipDialog({ title: title, message: message, notice: true });
+    };
+})();
 var selectAll = document.getElementById('select-all');
 function updatePendingSelectedCount() {
     var el = document.getElementById('pending-selected-count');
@@ -836,19 +959,49 @@ document.querySelectorAll('#delete-form input[name="ids"]').forEach(function(cb)
 updatePendingSelectedCount();
 (function() {
     var deleteForm = document.getElementById('delete-form');
+    // Ask for confirmation with the STYLED dialog (same design as the pending-question
+    // popup) instead of the browser's default confirm(). The submitter is re-sent via
+    // requestSubmit so the "action=deny/delete" button value is never lost.
+    function confirmAndSubmit(form, submitter) {
+        var msg = submitter.dataset.confirm;
+        if (typeof window.cheradipConfirm !== 'function') {
+            if (window.confirm(msg)) resubmit(form, submitter);
+            return;
+        }
+        window.cheradipConfirm('Please confirm', msg, function () { resubmit(form, submitter); });
+    }
+    function resubmit(form, submitter) {
+        if (form.requestSubmit) {
+            form.dataset.confirmBypass = '1';
+            form.requestSubmit(submitter);
+        } else {
+            HTMLFormElement.prototype.submit.call(form);
+        }
+    }
     if (deleteForm) {
         deleteForm.addEventListener('submit', function(ev) {
             var btn = ev.submitter;
-            if (btn && btn.dataset.confirm && !confirm(btn.dataset.confirm)) {
-                ev.preventDefault();
+            if (!btn || !btn.dataset || !btn.dataset.confirm) return;
+            if (deleteForm.dataset.confirmBypass === '1') {
+                deleteForm.dataset.confirmBypass = '';
+                return;
             }
+            ev.preventDefault();
+            confirmAndSubmit(deleteForm, btn);
         });
     }
     document.querySelectorAll('.pending-row-deny-btn').forEach(function(btn) {
         btn.addEventListener('click', function(ev) {
-            if (btn.dataset.confirm && !confirm(btn.dataset.confirm)) {
-                ev.preventDefault();
+            if (!btn.dataset.confirm) return;
+            // The row-deny form carries hidden action/ids inputs, so a plain submit is fine.
+            ev.preventDefault();
+            var form = btn.form || document.getElementById(btn.getAttribute('form') || '');
+            var go = function () { if (form) HTMLFormElement.prototype.submit.call(form); };
+            if (typeof window.cheradipConfirm !== 'function') {
+                if (window.confirm(btn.dataset.confirm)) go();
+                return;
             }
+            window.cheradipConfirm('Please confirm', btn.dataset.confirm, go);
         });
     });
     // Row Approve applies the whole pending row (there is no per-field accept button).
@@ -1011,16 +1164,25 @@ updatePendingSelectedCount();
             }
         }
         var msg = (i18n.denyConfirm || 'Reject this edit request? The live question will not be changed.') + persisting;
-        if (!confirm(msg)) return;
-        var f = document.getElementById('pending-row-deny-' + id);
-        if (f) f.submit();
+        var go = function () {
+            var f = document.getElementById('pending-row-deny-' + id);
+            if (f) HTMLFormElement.prototype.submit.call(f);
+        };
+        if (typeof window.cheradipConfirm === 'function') {
+            window.cheradipConfirm('Please confirm', msg, go);
+            return;
+        }
+        if (window.confirm(msg)) go();
     }
     document.querySelectorAll('.pending-dlg-deny').forEach(function(btnDeny) {
         btnDeny.addEventListener('click', onPendingDlgDeny);
     });
-    // ---- Click a changed portion (blue added text) to accept ONLY that portion ----
-    // Applies immediately to the live question and persists even if the pending
-    // row is denied later (backend stores accepted_portions).
+    // ---- Click a changed portion to accept ONLY that portion ----
+    // The diff shows the CORRECTED WORD FIRST and the original word with its error
+    // letters right after it (blue = corrected word, dark-red struck = original), so
+    // every clickable portion is a whole real word — never a broken character fragment.
+    // Applying a portion updates the live question immediately and persists even if
+    // the pending row is denied later (backend stores accepted_portions).
     var portionUrlTpl = cfg.portionUrlTemplate || '';
     var acceptPortionMsg = i18n.acceptPortion || 'Accept this changed portion?';
     var PORTIONS_STORE_KEY = 'cheradip_accept_portions';
@@ -1035,11 +1197,11 @@ updatePendingSelectedCount();
         try { sessionStorage.setItem(PORTIONS_STORE_KEY, JSON.stringify(map)); }
         catch (e) { /* ignore */ }
     }
-    function markPortionsAcceptedForField(pk, field) {
+    function markPortionsAcceptedForField(pk, field, portionKey) {
         var map = readAcceptedPortions();
         var row = map[String(pk)] || {};
         var arr = row[field] || (row[field] = []);
-        if (arr.indexOf(field) === -1) arr.push(field);
+        if (portionKey && arr.indexOf(portionKey) === -1) arr.push(portionKey);
         writeAcceptedPortions(map);
         refreshPortionCounter(pk, field);
     }
@@ -1050,46 +1212,93 @@ updatePendingSelectedCount();
         var accepted = readAcceptedPortions();
         var row = accepted[String(pk)] || {};
         var acceptedSet = row[field] || [];
-        var popEl = document.querySelector('.cell-truncate-diff[data-pk="' + pk +'"]');
         // find the diff cell wrapper for this field to count total blue portions
         var wrap = document.querySelector('.pending-cell-accepts[data-pk="' + pk + '"][data-field="' + field + '"]');
         if (!wrap) { el.hidden = true; return; }
         var total = wrap.querySelectorAll('.pending-portion-acceptable').length;
-        var done = acceptedSet.length;
+        var done = 0;
+        wrap.querySelectorAll('.pending-portion-acceptable').forEach(function (node) {
+            if (acceptedSet.indexOf(node.getAttribute('data-portion-key')) !== -1) done++;
+        });
         el.hidden = total === 0;
         if (total === 0) return;
         el.textContent = '\u2714 ' + done + '/' + total;
         el.classList.toggle('pending-cell-portion-count-done', done === total);
     }
+    // ---- Accept / notice popups use the shared styled dialog (window.cheradipDialog,
+    //      same design as the pending-question popup — never the browser default) ----
+    function escapePortionHtml(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function portionNotice(title, message) {
+        if (typeof window.cheradipNotice === 'function') {
+            window.cheradipNotice(title, message);
+            return;
+        }
+        window.alert(message || title || '');
+    }
+
+    // ---- Portion <-> original-word pairing helpers ----
+    // The word-level diff emits the corrected word first, then the original word with
+    // its error letters, so the paired <del> comes right AFTER the blue <b>. Legacy
+    // rows (original word first) are still handled by looking backwards.
+    function portionDelInside(node) {
+        if (!node || node.nodeType !== 1) return null;
+        if (node.tagName === 'DEL') return node;
+        return node.querySelector ? node.querySelector('del') : null;
+    }
+    function findPortionOldEl(b) {
+        var found = portionDelInside(b.nextElementSibling);
+        if (found) return found;
+        return portionDelInside(b.previousElementSibling);
+    }
+    // Text right before this portion in the rendered cell — used as the insertion
+    // anchor when a correction only ADDS a word (no original word to replace).
+    function portionContextBefore(b) {
+        var parts = [];
+        var node = b.previousSibling;
+        var guard = 0;
+        while (node && guard < 40) {
+            parts.unshift(node.textContent || '');
+            if (parts.join('').length >= 60) break;
+            node = node.previousSibling;
+            guard++;
+        }
+        return parts.join('').replace(/\s+/g, ' ').trim().slice(-40);
+    }
     // Build clickable blue portions: each <b style="color:blue"> inside a diff gets
-    // data-new (its own text) and data-old (the nearest preceding <del> text if any).
+    // data-new (the corrected word) and data-old (the original word with its error
+    // letters, when one exists) so one click accepts just that single word.
     function initClickablePortions() {
         var accepted = readAcceptedPortions();
+        var keySeq = 0;
         document.querySelectorAll('.cell-truncate-diff b[style*="color:blue"], .pending-preview-body b[style*="color:blue"], .pending-edit-diff-preview b[style*="color:blue"]').forEach(function(b) {
             if (b.classList.contains('pending-portion-acceptable')) return;
-            // collect adjacent leading-only text + del so the old is the deletion chunk
-            var del = b.previousElementSibling && b.previousElementSibling.tagName === 'DEL' ? b.previousElementSibling : null;
-            if (!del) {
-                // fall back: walk backward for the nearest <del> that is its pairing
-                var prev = b.previousSibling;
-                while (prev) {
-                    if (prev.nodeType === 1 && prev.tagName === 'DEL') { del = prev; break; }
-                    prev = prev.previousSibling;
-                }
-            }
+            var del = findPortionOldEl(b);
             var wrap = b.closest('.pending-cell-accepts, .pending-edit-diff-preview');
             var pk = wrap ? wrap.getAttribute('data-pk') : null;
             if (!pk) pk = b.closest('[data-pk]') ? b.closest('[data-pk]').getAttribute('data-pk') : '';
             var field = wrap ? wrap.getAttribute('data-field') : '';
             if (!field) field = b.closest('[data-field]') ? b.closest('[data-field]').getAttribute('data-field') : '';
-            b.setAttribute('data-new', (b.textContent || '').trim());
-            b.setAttribute('data-old', del ? (del.textContent || '').trim() : '');
+            var newText = (b.textContent || '').trim();
+            var oldText = del ? (del.textContent || '').trim() : '';
+            keySeq++;
+            b.setAttribute('data-new', newText);
+            b.setAttribute('data-old', oldText);
+            // The server embeds the exact original context preceding the word (reliable);
+            // fall back to the rendered cell text for legacy rows that lack it.
+            if (!b.getAttribute('data-ctx')) b.setAttribute('data-ctx', portionContextBefore(b));
             b.setAttribute('data-pk', pk);
             b.setAttribute('data-field', field);
+            b.setAttribute('data-portion-key', field + '#' + pk + '#' + keySeq + '#' + newText);
             b.classList.add('pending-portion-acceptable', 'pending-portion-accept');
+            b.setAttribute('title', acceptPortionMsg);
             // mark accepted if already stored
             var row = accepted[String(pk)] || {};
-            if (field && row[field] && row[field].indexOf(field) !== -1 && b.getAttribute('data-new') !== '') {
+            var stored = row[field] || [];
+            if (newText && stored.indexOf(b.getAttribute('data-portion-key')) !== -1) {
                 b.classList.add('is-accepted');
             }
         });
@@ -1099,6 +1308,39 @@ updatePendingSelectedCount();
         });
     }
     initClickablePortions();
+    function applyPortion(b, pk, field, oldText, newText, contextText, onDone, onFail) {
+        var csrfEl = document.querySelector('input[name="csrfmiddlewaretoken"]');
+        var csrf = csrfEl ? csrfEl.value : '';
+        var body = new URLSearchParams();
+        body.append('field', field);
+        body.append('old_text', oldText);
+        body.append('new_text', newText);
+        if (contextText) body.append('context', contextText);
+        fetch(portionUrl(pk), {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'X-CSRFToken': csrf, 'Accept': 'application/json' },
+            body: body
+        })
+        .then(function(r) {
+            return r.json().then(function(data) {
+                return { ok: r.ok, data: data };
+            }).catch(function() {
+                return { ok: false, data: { error: 'Unexpected server response (' + r.status + ').' } };
+            });
+        })
+        .then(function(res) {
+            var data = res.data || {};
+            if (data.ok) {
+                onDone();
+            } else {
+                onFail(data.error || 'Could not accept this portion.');
+            }
+        })
+        .catch(function() {
+            onFail('Network error while accepting this portion.');
+        });
+    }
     document.addEventListener('click', function(ev) {
         var b = ev.target && ev.target.closest ? ev.target.closest('b.pending-portion-acceptable') : null;
         if (!b) return;
@@ -1108,38 +1350,43 @@ updatePendingSelectedCount();
         var field = b.getAttribute('data-field') || '';
         var oldText = b.getAttribute('data-old') || '';
         var newText = b.getAttribute('data-new') || '';
+        var ctxText = b.getAttribute('data-ctx') || '';
         if (!pk || !field || !newText) return;
         if (b.classList.contains('is-accepted')) {
-            alert('This portion is already accepted.');
+            portionNotice('Already accepted', 'This portion has already been accepted.');
             return;
         }
-        if (!confirm(acceptPortionMsg)) return;
-        var csrfEl = document.querySelector('input[name="csrfmiddlewaretoken"]');
-        var csrf = csrfEl ? csrfEl.value : '';
-        var body = new URLSearchParams();
-        body.append('field', field);
-        body.append('old_text', oldText);
-        body.append('new_text', newText);
-        fetch(portionUrl(pk), {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: { 'X-CSRFToken': csrf, 'Accept': 'application/json' },
-            body: body
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-            if (data && data.ok) {
+        var bodyHtml =
+            '<p class="portion-dialog-msg">' +
+            (oldText
+                ? 'Replace <span class="portion-dialog-word portion-dialog-word-old">' +
+                  escapePortionHtml(oldText) + '</span> with <span class="portion-dialog-word">' +
+                  escapePortionHtml(newText) + '</span>?'
+                : 'Add <span class="portion-dialog-word">' + escapePortionHtml(newText) + '</span>?') +
+            '</p>' +
+            '<p class="portion-dialog-msg portion-dialog-meta">' +
+            escapePortionHtml('Field: ' + field +
+                ' \u2014 applied to the live question immediately and kept even if this row is denied later.') +
+            '</p>';
+        var apply = function() {
+            applyPortion(b, pk, field, oldText, newText, ctxText, function() {
                 b.classList.add('is-accepted');
-                b.removeAttribute('data-old');
-                b.setAttribute('data-new', '');
-                markPortionsAcceptedForField(pk, field);
-            } else {
-                alert((data && data.error) || 'Could not accept this portion.');
-            }
-        })
-        .catch(function() {
-            alert('Network error while accepting this portion.');
-        });
+                markPortionsAcceptedForField(pk, field, b.getAttribute('data-portion-key'));
+            }, function(message) {
+                portionNotice('Could not accept this portion', message);
+            });
+        };
+        if (typeof window.cheradipDialog === 'function') {
+            window.cheradipDialog({
+                title: acceptPortionMsg,
+                bodyHtml: bodyHtml,
+                yesLabel: 'Accept',
+                noLabel: 'Cancel',
+                onYes: apply
+            });
+            return;
+        }
+        if (window.confirm(acceptPortionMsg)) apply();
     }, true);
     // --- Multi-popup cell previews: each cell keeps its own popup open ---
     // Each popup hides 700ms after the mouse leaves its cell (or the popup itself);

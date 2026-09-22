@@ -657,6 +657,51 @@ def _approve_pending_question_rows(conn, db_name, pk_column, ids):
     return success, errors
 
 
+def _portion_anchors(context_text):
+    """Candidate anchors for a portion: the reviewer's context, then shorter tails."""
+    ctx = str(context_text or '')
+    if not ctx:
+        return []
+    stripped = ctx.lstrip()
+    candidates = [ctx]
+    if stripped and stripped != ctx:
+        candidates.append(stripped)
+    for size in (24, 16, 10, 6, 3):
+        if len(ctx) > size:
+            candidates.append(ctx[-size:])
+    for size in (24, 16, 10, 6, 3):
+        if len(stripped) > size:
+            candidates.append(stripped[-size:])
+    out = []
+    for cand in candidates:
+        if cand and cand not in out:
+            out.append(cand)
+    return out
+
+
+def _find_portion_start(live_val, old_text, context_text):
+    """Start index of the portion's ORIGINAL word inside the live field.
+
+    The anchor (original text right before the word) pins down WHICH occurrence to
+    replace, so a repeated word elsewhere in the text is never touched. Returns -1
+    when the word does not occur at all.
+    """
+    for anchor in _portion_anchors(context_text):
+        idx = live_val.find(anchor + old_text)
+        if idx != -1:
+            return idx + len(anchor)
+    return live_val.find(old_text)
+
+
+def _find_insert_at(live_val, context_text):
+    """Index right after the anchor text, where an added word should be inserted."""
+    for anchor in _portion_anchors(context_text):
+        idx = live_val.find(anchor)
+        if idx != -1:
+            return idx + len(anchor)
+    return -1
+
+
 @staff_member_required
 def pending_portion_accept(request, db_alias, table_name, pk):
     """Accept ONE changed portion (old->new) of a pending question request.
@@ -678,8 +723,17 @@ def pending_portion_accept(request, db_alias, table_name, pk):
     old_text = request.POST.get('old_text') or ''
     # new_text arrives URL-decode-safe; store as-is
     new_text = request.POST.get('new_text') or ''
-    if field not in _PENDING_ACCEPTABLE_FIELDS or not old_text or not new_text:
-        return JsonResponse({'ok': False, 'error': 'Missing field / old_text / new_text.'}, status=400)
+    # Word-level review portions always carry the corrected word. The original word
+    # (old_text) is what gets replaced; `context` is the insertion anchor used only
+    # when the correction merely ADDS a word (no original word to replace).
+    context_text = (request.POST.get('context') or '').strip()
+    if field not in _PENDING_ACCEPTABLE_FIELDS or not new_text.strip():
+        return JsonResponse({'ok': False, 'error': 'Missing field / new_text.'}, status=400)
+    if not old_text.strip() and not context_text:
+        return JsonResponse(
+            {'ok': False, 'error': 'This portion has no original word and no insertion anchor.'},
+            status=400,
+        )
 
     conn = connections[db_alias]
     db_name = conn.settings_dict.get('NAME', db_alias)
@@ -716,23 +770,36 @@ def pending_portion_accept(request, db_alias, table_name, pk):
 
             tbl = target_table.replace('`', '``')
             cursor.execute("SELECT `%s` FROM `%s` WHERE qid=%%s LIMIT 1" % (field.replace('`', '``'), tbl), [live_qid])
-            live_val = None
             cur_row = cursor.fetchone()
-            if cur_row:
-                live_val = str(cur_row[0] or '')
+            live_val = str(cur_row[0]) if cur_row and cur_row[0] is not None else ''
 
-            # The reported old_text is what the reviewer saw as the removed portion.
-            # The live field may still contain it exactly; otherwise attempt a find-replace of
-            # the whole old segment if it appears.
-            if old_text not in (live_val or ''):
-                # Maybe the diff shows a larger old context; locate a safe contiguous match.
-                # Fall back: if old_text not found, refuse rather than corrupt.
-                return JsonResponse(
-                    {'ok': False, 'error': 'Old text not found in the live field "%s".' % field},
-                    status=409,
-                )
-
-            new_live = (live_val or '').replace(old_text, new_text, 1)
+            # `old_text` is the original word the reviewer saw struck through; the
+            # anchor (context) pins down WHICH occurrence in the live field to change.
+            # If the live question already changed, refuse instead of corrupting it.
+            if old_text.strip():
+                needle = old_text.strip()
+                at = _find_portion_start(live_val, old_text, context_text)
+                if at < 0 or needle not in live_val:
+                    return JsonResponse(
+                        {'ok': False,
+                         'error': 'The original word "%s" was not found in the live field "%s". '
+                                  'The live question may have changed — reload and review again.'
+                                  % (needle, field)},
+                        status=409,
+                    )
+                new_live = live_val[:at] + new_text.strip() + live_val[at + len(old_text):]
+            else:
+                # Pure addition: insert the corrected word right after the anchor text
+                # the reviewer clicked next to.
+                at = _find_insert_at(live_val, context_text)
+                if at < 0:
+                    return JsonResponse(
+                        {'ok': False,
+                         'error': 'Could not find where to insert "%s" in the live field "%s". '
+                                  'Reload and review again.' % (new_text.strip(), field)},
+                        status=409,
+                    )
+                new_live = live_val[:at] + ' ' + new_text.strip() + live_val[at:]
             cursor.execute(
                 "UPDATE `%s` SET `%s` = %%s, updated_at = %%s, updated_by = %%s WHERE qid=%%s" % (tbl, field.replace('`', '``')),
                 [new_live, timezone.now().strftime('%Y-%m-%d %H:%M:%S'), (row_data.get('updated_by') or 'Cheradip'), live_qid],
@@ -937,18 +1004,23 @@ def start_exam_job(request, db_alias):
 
 @staff_member_required
 def start_question_update(request, db_alias):
-    """Start an AI Question/Explanation update job.
+    """Start an AI update job for a subject table.
 
-    `table` may be given explicitly, or resolved from the level/class/subject
-    filters (the exam-settings "Update" button). Optional chapter/topic narrow
-    which rows are processed.
+    `kind` selects the pass: "special" (Home AI marks/removes the unwanted special characters) or
+    "cloud" (Cloud AI corrects words and sentences). The legacy names "question"/"explanation" map
+    onto the correction pass. `table` may be given explicitly, or resolved from the level/class/
+    subject filters (the exam-settings "Update" button). Optional chapter/topic narrow which rows
+    are processed.
     """
     from cheradip.exam_jobs import start_question_update_job
+    from cheradip.question_updater import normalize_kind
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required.'}, status=405)
-    kind = (request.POST.get('kind') or '').strip()
-    if kind not in ('question', 'explanation'):
-        return JsonResponse({'error': 'Unknown update kind: %s' % kind}, status=400)
+    kind = normalize_kind(request.POST.get('kind'))
+    if not kind:
+        return JsonResponse(
+            {'error': 'Unknown update kind: %s (use "special" or "cloud")'
+                      % (request.POST.get('kind') or '')}, status=400)
     table = (request.POST.get('table') or '').strip().lower()
     level_tr = (request.POST.get('level_tr') or '').strip()
     class_level = (request.POST.get('class_level') or '').strip()

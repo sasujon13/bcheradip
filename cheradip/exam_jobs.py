@@ -165,11 +165,12 @@ def set_cancelled(job_id):
 
 
 def start_question_update_job(db_alias, table_name, kind, chapter_list=None, topic_list=None):
-    """Queue AI Question/Explanation updates for a subject table in the background.
+    """Queue an AI update pass for a subject table in the background.
 
-    Each changed row becomes a pending-question-request for manual review
-    (nothing is applied to the subject table directly).
-    Returns the job id; progress polled via get_job().
+    ``kind`` is ``'special'`` (Home AI marks the unwanted special characters) or ``'cloud'``
+    (Cloud AI corrects words/sentences) — see ``cheradip.question_updater``. Each changed record
+    becomes a pending-question-request for manual review (nothing is applied to the subject table
+    directly). Returns the job id; progress polled via get_job().
     """
     _cleanup_old_jobs()
     job_id = uuid.uuid4().hex
