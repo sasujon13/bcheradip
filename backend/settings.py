@@ -286,6 +286,15 @@ HOME_AI_QUESTIONS_MODEL = config(
     default='qwen2.5:7b-instruct-q4_K_M',
     cast=str,
 )
+TUTOR_HOME_AI_URL = config(
+    'TUTOR_HOME_AI_URL',
+    default='http://127.0.0.1:8787' if DEBUG else 'https://ai.cheradip.com',
+    cast=str,
+)
+TUTOR_FAST_MODEL = config('TUTOR_FAST_MODEL', default='qwen2.5:7b-instruct-q4_K_M')
+TUTOR_REASONING_MODEL = config('TUTOR_REASONING_MODEL', default='qwen2.5:14b-instruct-q4_K_M')
+TUTOR_CODING_MODEL = config('TUTOR_CODING_MODEL', default='qwen2.5-coder:14b-instruct-q4_K_M')
+TUTOR_PLANNING_ENABLED = config('TUTOR_PLANNING_ENABLED', default=True, cast=bool)
 EXAM_AI_FILL_ENABLED = config('EXAM_AI_FILL_ENABLED', default=True, cast=bool)
 AI_QUESTIONS_TIMEOUT_SECONDS = config('AI_QUESTIONS_TIMEOUT_SECONDS', default=60, cast=int)
 

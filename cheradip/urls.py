@@ -7,6 +7,7 @@ from . import views
 from .views2 import DivisionsView, DistrictsView, ThanasView
 from .views_trxid import TrxInboundAPIView
 from .tutor_views import TutorSearchView
+from .tutor_chat import TutorProfileView, TutorModelsView, TutorChatView
 
 from .views import (
     ItemListCreateView,
@@ -142,6 +143,9 @@ urlpatterns = [
     path('question_subjects/', QuestionSubjectsView.as_view(), name='question_subjects'),
     path('question_chapters/', QuestionChaptersView.as_view(), name='question_chapters'),
     path('tutor/search/', TutorSearchView.as_view(), name='tutor_search'),
+    path('tutor/profile/', TutorProfileView.as_view(), name='tutor_profile'),
+    path('tutor/models/', TutorModelsView.as_view(), name='tutor_models'),
+    path('tutor/chat/', TutorChatView.as_view(), name='tutor_chat'),
 
     path('question_topics/', QuestionTopicsView.as_view(), name='question_topics'),
     path('question_list/', QuestionListView.as_view(), name='question_list'),
