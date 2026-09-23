@@ -7,7 +7,15 @@ from passlib.context import CryptContext
 
 from app.config import settings
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# ``bcrypt`` is the native scheme for extension accounts (``hash()`` keeps using
+# it). ``django_pbkdf2_sha256`` is listed so hashes mirrored verbatim from
+# cheradip.com's ``cheradip_customers.password`` (Django's PBKDF2 format) keep
+# verifying — see ``app/services/cheradip_account_sync.py``.
+pwd_context = CryptContext(
+    schemes=["bcrypt", "django_pbkdf2_sha256"],
+    deprecated="auto",
+)
+
 
 
 def hash_password(password: str) -> str:

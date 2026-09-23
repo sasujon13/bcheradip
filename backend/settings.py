@@ -211,6 +211,21 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     },
+    # Cheradip VS Code extension accounts (``extcheradip.ext_users``) — mirrored
+    # from cheradip_customers by cheradip/ext_account_sync.py on signup/login.
+    # Tables are created by the AILT FastAPI app (SQLAlchemy), never by Django.
+    'extcheradip': {
+        'ENGINE': 'backend.db_backend',
+        'NAME': config('DATABASE_EXT_NAME', default='extcheradip', cast=str),
+        'USER': config('DATABASE_USER', default='root', cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD', default='', cast=str),
+        'HOST': config('DATABASE_HOST', default='127.0.0.1', cast=str),
+        'PORT': config('DATABASE_PORT', default='3306', cast=str),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    },
 }
 
 # Route models to cheradip_job, cheradip_hsc, cheradip_honours, childcare

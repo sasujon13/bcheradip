@@ -37,6 +37,20 @@ Details: `ailt_api/ANDROID_CLIENT.md`
 
 - Main app: `cheradip/`
 - URLs: `backend/urls.py` → `path('api/', include('cheradip.urls'))`
-- DB aliases: `default`, `hsc`, `honours`, `job`, **`ailt`** (read-only admin view of `ailanguagetutor`)
+- DB aliases: `default`, `hsc`, `honours`, `job`, **`ailt`** (read-only admin view of `ailanguagetutor`), **`extcheradip`** (VS Code extension accounts)
 
 New AILT work belongs in **`ailt_api/`**, not inside `cheradip/` views unless explicitly integrating with the main site.
+
+## Shared accounts (Cheradip site ⇄ VS Code extension)
+
+The website (`cheradip_customers`) and the extension (`extcheradip.ext_users`) keep **one account per user, with the same credentials**, and sync runs automatically — no user prompt, no re-registration:
+
+| Direction | Code | Trigger |
+|-----------|------|---------|
+| site → extension | `cheradip/ext_account_sync.py` (`sync_customer_to_ext`) | signup, login, password change/reset, profile update |
+| extension → site | `ailt_api/app/services/cheradip_account_sync.py` (`ensure_cheradip_account`) | `/ext/auth` signup, login, password/change, recovery/reset |
+
+Password formats stay native to each system: the extension stores **bcrypt** (passlib), the website stores Django **`pbkdf2_sha256`**. Whenever the plaintext is known the target hash is re-derived; otherwise a `pbkdf2_sha256$…` hash is copied verbatim (passlib's context in `ailt_api/app/security.py` lists `django_pbkdf2_sha256` for exactly that). Mirroring is best-effort: it is wrapped in try/except on both sides and can never break sign-in.
+
+- Env: `DATABASE_EXT_NAME` (Django, default `extcheradip`), `CHERADIP_DATABASE_URL` (FastAPI, default `root@127.0.0.1/cheradip_cheradip`)
+- Login is country-agnostic: `CustomerRetrieveView` falls back to a plain `authenticate()` when the country-scoped lookup misses (usernames are globally unique)

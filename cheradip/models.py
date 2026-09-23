@@ -429,6 +429,49 @@ class PendingQuestion(models.Model):
 
 
 # ==============================================================================
+# AI TUTOR (topic search index over the subject question tables)
+# ==============================================================================
+
+class TutorTopicIndex(models.Model):
+    """
+    One row per distinct (chapter, topic) found in a subject question table.
+
+    The question bank is spread over 250+ tables (cheradip_{level}_{class}_{subject})
+    inside the cheradip_hsc / cheradip_honours databases and holds hundreds of MB,
+    so scanning it per user question is far too slow for the AI Tutor chatbox.
+    `cheradip.tutor_search.build_index()` distils every table into this small
+    index, which answers topic lookups and related-topic suggestions instantly.
+    Lives in the default database (cheradip_cheradip).
+    """
+    fingerprint = models.CharField(max_length=64, unique=True, help_text='sha1 of db_alias|table|chapter|topic')
+    db_alias = models.CharField(max_length=32, help_text="Django db alias holding table_name, e.g. 'hsc'")
+    table_name = models.CharField(max_length=96)
+    level_tr = models.CharField(max_length=100, blank=True)
+    class_level = models.CharField(max_length=50, blank=True)
+    subject_tr = models.CharField(max_length=255, blank=True)
+    subject_name = models.CharField(max_length=255, blank=True, help_text='Display name (Bangla aware)')
+    chapter_no = models.CharField(max_length=50, blank=True)
+    chapter = models.CharField(max_length=255, blank=True)
+    topic_no = models.CharField(max_length=50, blank=True)
+    topic = models.CharField(max_length=255, blank=True, db_index=True)
+    question_count = models.PositiveIntegerField(default=0)
+    built_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'cheradip_tutor_topic_index'
+        ordering = ['-question_count', 'topic']
+        indexes = [
+            models.Index(fields=['chapter']),
+            models.Index(fields=['subject_tr']),
+            models.Index(fields=['db_alias', 'table_name', 'chapter']),
+            models.Index(fields=['-question_count']),
+        ]
+
+    def __str__(self):
+        return f"{self.subject_tr or self.table_name} / {self.chapter or '-'} / {self.topic or '-'}"
+
+
+# ==============================================================================
 # NOTIFICATION & JSON DATA
 # ==============================================================================
 

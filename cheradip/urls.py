@@ -6,6 +6,8 @@ from rest_framework.routers import DefaultRouter
 from . import views
 from .views2 import DivisionsView, DistrictsView, ThanasView
 from .views_trxid import TrxInboundAPIView
+from .tutor_views import TutorSearchView
+
 from .views import (
     ItemListCreateView,
     CustomerCreateView,
@@ -139,6 +141,8 @@ urlpatterns = [
     path('question_groups/', QuestionGroupsView.as_view(), name='question_groups'),
     path('question_subjects/', QuestionSubjectsView.as_view(), name='question_subjects'),
     path('question_chapters/', QuestionChaptersView.as_view(), name='question_chapters'),
+    path('tutor/search/', TutorSearchView.as_view(), name='tutor_search'),
+
     path('question_topics/', QuestionTopicsView.as_view(), name='question_topics'),
     path('question_list/', QuestionListView.as_view(), name='question_list'),
     path('question_filter_options/', QuestionFilterOptionsView.as_view(), name='question_filter_options'),

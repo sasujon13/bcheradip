@@ -28,6 +28,7 @@ from .serializers import (
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import BaseAuthentication
 from .permissions import IsSuperUserOrStaff, PublicAccess
+from .ext_account_sync import sync_customer_to_ext
 from .location import Bangladesh
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from io import BytesIO
@@ -1406,6 +1407,9 @@ class CustomerCreateView(APIView):
                 user.save(update_fields=['settings'])
                 token = self.generate_unique_key()
                 CustomerToken.objects.create(key=token, customer=user)
+            # Mirror the brand-new account into the VS Code extension database so
+            # the same credentials work there without a second signup.
+            sync_customer_to_ext(user, raw_password=user_data['password'])
             return Response(
                 {
                     'authToken': token,
@@ -1497,6 +1501,11 @@ class CustomerRetrieveView(APIView):
                     user = None
             else:
                 user = authenticate(request, username=username, password=password)
+            if user is None:
+                # Usernames are globally unique, so a login is never scoped to one
+                # country: retry country-agnostically. Older/mirrored accounts can
+                # carry a country_code that differs from the country selector.
+                user = authenticate(request, username=username, password=password)
         except (ProgrammingError, OperationalError):
             user = None
         if user is not None:
@@ -1514,6 +1523,9 @@ class CustomerRetrieveView(APIView):
             token = self.generate_unique_key()
             CustomerToken.objects.filter(customer=user).delete()
             CustomerToken.objects.create(key=token, customer=user)
+            # Keep the VS Code extension account in step (created here when the
+            # extension account is missing, e.g. for pre-existing customers).
+            sync_customer_to_ext(user, raw_password=password)
             return Response({
                 'authToken': token,
                 'acctype': acctype,
@@ -6397,6 +6409,8 @@ class CustomerUpdateView(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         serializer.save()
+        # Profile edits (name, email, active state) also refresh the ext account.
+        sync_customer_to_ext(user)
         token = self.generate_unique_key()
         CustomerToken.objects.filter(customer=user).delete()
         CustomerToken.objects.create(key=token, customer=user)
@@ -6417,6 +6431,11 @@ class CustomerResetView(APIView):
             serializer = CustomerSerializer(user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
+                sync_customer_to_ext(
+                    user,
+                    raw_password=request.data.get('password'),
+                    sync_password=True,
+                )
                 return Response({'message': 'Password reset successfully'}, status=status.HTTP_200_OK)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -7965,6 +7984,10 @@ class PasswordUpdateView(APIView):
                 # Set new hashed password
                 user.set_password(newpassword)
                 user.save()
+                # Same password on the VS Code extension side (no extra prompt).
+                sync_customer_to_ext(
+                    user, raw_password=newpassword, sync_password=True
+                )
                 token = self.generate_unique_key()
                 CustomerToken.objects.filter(customer=user).delete()
                 CustomerToken.objects.create(key=token, customer=user)
@@ -8139,6 +8162,10 @@ class ResetPasswordWithCodeView(APIView):
         if save_email:
             customer.email = save_email
         customer.save()
+        # Mirror the recovered password onto the extension account too.
+        sync_customer_to_ext(
+            customer, raw_password=new_password, sync_password=True
+        )
         return Response({'message': 'Password reset successfully'}, status=status.HTTP_200_OK)
 
 

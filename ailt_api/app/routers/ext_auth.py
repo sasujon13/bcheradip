@@ -35,6 +35,7 @@ from app.security import (
     session_expires_at,
     verify_password,
 )
+from app.services.cheradip_account_sync import ensure_cheradip_account
 from app.services.email_service import send_otp_email
 
 router = APIRouter(prefix="/ext/auth", tags=["ext-auth"])
@@ -109,6 +110,8 @@ def signup(body: ExtSignupRequest, db: Session = Depends(get_ext_db)) -> ExtAuth
     token = _issue_session(db, user, body.deviceId)
     merge_device_on_login(db, body.deviceId, user)
     db.commit()
+    # Mirror into cheradip.com so the same credentials work on the website.
+    ensure_cheradip_account(user, raw_password=body.password)
     return _auth_response(user, token)
 
 
@@ -126,6 +129,9 @@ def login(body: ExtLoginRequest, db: Session = Depends(get_ext_db)) -> ExtAuthRe
         token = _issue_session(db, user, body.deviceId)
         merge_device_on_login(db, body.deviceId, user)
         db.commit()
+        # Keep the cheradip.com account in step (created here if the website
+        # account is missing, e.g. for accounts made before this sync existed).
+        ensure_cheradip_account(user, raw_password=body.password)
         return _auth_response(user, token)
     except HTTPException:
         raise
@@ -185,6 +191,8 @@ def password_change(
     _revoke_all_sessions(db, user.id)
     new_token = _issue_session(db, user, body.deviceId)
     db.commit()
+    # Same new password on cheradip.com (no user prompt, no second change).
+    ensure_cheradip_account(user, raw_password=body.newPassword, sync_password=True)
     return {"ok": True, "message": "Password updated", "sessionToken": new_token}
 
 
@@ -223,4 +231,6 @@ def recovery_reset(body: ExtRecoveryResetRequest, db: Session = Depends(get_ext_
     # A reset invalidates every existing session.
     _revoke_all_sessions(db, user.id)
     db.commit()
+    # Mirror the recovered password onto cheradip.com as well.
+    ensure_cheradip_account(user, raw_password=body.newPassword, sync_password=True)
     return {"ok": True, "message": "Password reset successfully"}

@@ -21,6 +21,12 @@ class Settings(BaseSettings):
     database_url: str = "mysql+pymysql://root:@127.0.0.1:3306/ailanguagetutor?charset=utf8mb4"
     # Separate database for the Cheradip VS Code extension (users, billing, credits, payments)
     ext_database_url: str = "mysql+pymysql://root:@127.0.0.1:3306/extcheradip?charset=utf8mb4"
+    # cheradip.com (Django) database — same MySQL server, used so an account created
+    # in the extension is mirrored into ``cheradip_customers`` (and stays in sync).
+    # Read-only outside ``app/services/cheradip_account_sync.py``.
+    cheradip_database_url: str = (
+        "mysql+pymysql://root:@127.0.0.1:3306/cheradip_cheradip?charset=utf8mb4"
+    )
     admin_seed_email: str = "sashafik.me@gmail.com"
     admin_seed_whatsapp: str = "+8801722710298"
     admin_seed_password: str = ""
