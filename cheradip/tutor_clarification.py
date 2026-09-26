@@ -4,6 +4,7 @@ import requests
 from django.conf import settings
 from .tutor_routing import FAST
 from .tutor_stream import unusable
+from .tutor_inference import complete
 
 
 def clarification(payload, scope, base_url):
@@ -12,7 +13,9 @@ def clarification(payload, scope, base_url):
     policy = (
         'You are an intent classifier for an educational tutor. Return ONLY a JSON object. '
         'If the latest request is clear enough to answer, return {"clarify":false}. '
-        'A clear factual question, greeting, lesson title, or request for a general overview needs no clarification. '
+        'A clear factual question, greeting, or explicit request for a general overview needs no clarification. '
+        'An unidentified short title such as My Sister can mean a family member or a literary work: '
+        'ask for the intended work/textbook/author rather than guessing a literary identity. '
         'If it has multiple materially different meanings or the learner says they cannot decide what they mean, '
         'return {"clarify":true,"question":"one short question","options":["specific interpretation A",'
         '"specific interpretation B"],"others":[],"multi":false}. Supply 2-5 meaningful choices. '
@@ -24,11 +27,9 @@ def clarification(payload, scope, base_url):
     )
     model = payload['model'] if payload['model'] != 'auto' else getattr(settings, 'TUTOR_FAST_MODEL', FAST)
     try:
-        response = requests.post(base_url + '/ide/chat/sync', json={
+        raw = complete({
             'model': model, 'messages': [{'role': 'system', 'content': policy}] + [m for m in payload['messages'] if m['role'] != 'system'][-4:],
-            'file_context': [], 'max_tokens': 384, 'stream': False}, timeout=(3, 30))
-        response.raise_for_status()
-        raw = response.json().get('content', '')
+            'file_context': [], 'max_tokens': 384, 'stream': False}, base_url, timeout=30)
         if not isinstance(raw, str) or unusable(raw):
             return None
         start, end = raw.find('{'), raw.rfind('}')

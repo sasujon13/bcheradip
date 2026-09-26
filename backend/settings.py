@@ -292,6 +292,7 @@ TUTOR_HOME_AI_URL = config(
     cast=str,
 )
 TUTOR_FAST_MODEL = config('TUTOR_FAST_MODEL', default='qwen2.5:7b-instruct-q4_K_M')
+TUTOR_OLLAMA_URL = config('TUTOR_OLLAMA_URL', default='http://127.0.0.1:11434' if DEBUG else '')
 TUTOR_REASONING_MODEL = config('TUTOR_REASONING_MODEL', default='qwen2.5:14b-instruct-q4_K_M')
 TUTOR_CODING_MODEL = config('TUTOR_CODING_MODEL', default='qwen2.5-coder:14b-instruct-q4_K_M')
 TUTOR_PLANNING_ENABLED = config('TUTOR_PLANNING_ENABLED', default=True, cast=bool)

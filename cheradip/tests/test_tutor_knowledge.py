@@ -24,8 +24,8 @@ class KnowledgeTests(SimpleTestCase):
         rows = [{'_source': SOURCE, 'qid': str(i), 'question': 'Question ' + str(i), 'answer': 'A',
                  'option_1': 'Correct option', 'explanation': 'Reason', 'explanation2': 'More detail', 'explanation3': 'Example'} for i in range(20)]
         result = knowledge.render_records(rows + rows)
-        self.assertEqual(result['count'], 8)
-        self.assertLessEqual(len(result['text']), 16016)
+        self.assertEqual(result['count'], 20)
+        self.assertEqual(len(result['blocks']), 20)
         self.assertIn('option_1: Correct option', result['text'])
         self.assertIn('explanation3: Example', result['text'])
 

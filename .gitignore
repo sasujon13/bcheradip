@@ -54,3 +54,4 @@ ailt_api/packs/
 # Language pack ZIPs — deploy to server directly, not via GitHub
 ailt_api/packs/
 tmp/
+.tutor-cache/

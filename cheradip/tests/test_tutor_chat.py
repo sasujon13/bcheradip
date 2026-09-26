@@ -8,6 +8,7 @@ from rest_framework.test import APIRequestFactory
 from cheradip.tutor_chat import TutorChatView, TutorModelsView, TutorProfileView, profile_levels, validated_chat
 
 
+@override_settings(TUTOR_OLLAMA_URL='')
 class TutorChatTests(SimpleTestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
@@ -18,13 +19,15 @@ class TutorChatTests(SimpleTestCase):
         self.routing = routing.start(); self.addCleanup(routing.stop)
         clarification = patch('cheradip.tutor_chat.clarification', return_value=None)
         self.clarification = clarification.start(); self.addCleanup(clarification.stop)
+        web = patch('cheradip.tutor_chat.tutor_web.search', return_value={'text': '', 'sources': [], 'status': 'Unavailable'})
+        web.start(); self.addCleanup(web.stop)
 
     def test_clarification_returns_card_without_retrieval_or_answer_generation(self):
         self.clarification.return_value = '```cheradip-ask\n{"question":"Which?","options":["A","B"]}\n```'
         response = TutorChatView.as_view()(self.factory.post('/api/tutor/chat/', {
             'messages': [{'role': 'user', 'content': 'unclear request'}]}, format='json'))
         self.assertIn(b'cheradip-ask', b''.join(response.streaming_content))
-        self.knowledge.assert_not_called()
+        self.knowledge.assert_called_once()
         self.routing.assert_not_called()
 
     def test_guest_sees_only_ssc_and_hsc(self):
@@ -155,8 +158,10 @@ class TutorChatTests(SimpleTestCase):
         post.side_effect = requests.ConnectionError('offline')
         request = self.factory.post('/', {'messages': [{'role': 'user', 'content': 'Hello'}]}, format='json')
         response = TutorChatView.as_view()(request)
-        self.assertEqual(response.status_code, 503)
-        self.assertIn('error', response.data)
+        self.assertEqual(response.status_code, 200)
+        body = b''.join(response.streaming_content)
+        self.assertIn(b'cheradip-ask', body)
+        self.assertNotIn(b'Unable to complete', body)
 
     @patch('cheradip.tutor_chat.requests.get')
     def test_models_are_loaded_from_home_ai(self, get):

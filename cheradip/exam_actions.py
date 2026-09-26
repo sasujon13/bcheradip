@@ -163,7 +163,10 @@ def _mcq_condition(cursor, tbl):
             [tbl],
         )
         if cursor.fetchone()[0]:
-            return "type LIKE '%বহুনির্বাচনি%'"
+            # MySQL interpolates %s parameters after this fragment is composed.
+            # Escape LIKE wildcards for that pass; without params, doubled
+            # wildcards have the same SQL matching behavior as a single %.
+            return "type LIKE '%%বহুনির্বাচনি%%'"
     except Exception:
         pass
     return ''

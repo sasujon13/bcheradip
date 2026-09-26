@@ -1,9 +1,10 @@
 import json
 from unittest.mock import patch
-from django.test import SimpleTestCase
+from django.test import SimpleTestCase, override_settings
 from cheradip.tutor_clarification import clarification
 
 
+@override_settings(TUTOR_OLLAMA_URL='')
 class ClarificationTests(SimpleTestCase):
     def setUp(self):
         self.payload = {'model': 'auto', 'messages': [

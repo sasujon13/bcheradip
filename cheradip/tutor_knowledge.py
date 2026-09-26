@@ -126,13 +126,15 @@ def question_rows(source, query_terms, exact_topic=True):
         return []
     pk = 'qid' if 'qid' in columns else 'id' if 'id' in columns else 'question'
     with connections[alias].cursor() as cursor:
+        suffix = '' if exact_topic and source.get('topic') else ' LIMIT 60'
         cursor.execute('SELECT ' + ', '.join('`' + f + '`' for f in selected) + ' FROM `' + table + '` WHERE ' +
-                       ' AND '.join(clauses) + ' ORDER BY `' + pk + '` LIMIT %s', params + [60])
+                       ' AND '.join(clauses) + ' ORDER BY `' + pk + '`' + suffix, params)
         records = [dict(zip(selected, row)) for row in cursor.fetchall()]
-    records.sort(key=lambda row: sum(5 if word in plain(row.get('question')).casefold() else
-                                    1 if word in plain(row.get('explanation')).casefold() else 0
-                                    for word in query_terms), reverse=True)
-    return [{**row, '_source': source} for row in records[:6]]
+    if not exact_topic:
+        records.sort(key=lambda row: sum(5 if word in plain(row.get('question')).casefold() else
+                                        1 if word in plain(row.get('explanation')).casefold() else 0
+                                        for word in query_terms), reverse=True)
+    return [{**row, '_source': source} for row in records]
 
 
 def fallback_source(scope):
@@ -152,7 +154,6 @@ def fallback_source(scope):
 
 def render_records(records):
     blocks, sources, seen = [], [], set()
-    remaining = 16000
     for row in records:
         source = row['_source']
         identity = (source['db_alias'], source['table_name'], str(row.get('qid', row.get('id', ''))))
@@ -164,29 +165,30 @@ def render_records(records):
         ref = 'Q' + str(len(blocks) + 1)
         lines = [f'[{ref}] {source.get("subject_tr", "")} / {plain(row.get("chapter"))} / {plain(row.get("topic"))}']
         for field in ('question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer', 'explanation', 'explanation2', 'explanation3'):
-            value = plain(row.get(field), 1700 if field.startswith('explanation') else 1200)
+            value = plain(row.get(field), len(str(row.get(field) or '')) + 1)
             if value and not unusable(value):
                 lines.append(field + ': ' + value)
         block = '\n'.join(lines)
-        if len(block) > remaining:
-            continue
-        blocks.append(block); remaining -= len(block)
+        blocks.append(block)
         sources.append({'reference': ref, 'qid': identity[2], 'subject': source.get('subject_tr', ''),
                         'chapter': plain(row.get('chapter')), 'topic': plain(row.get('topic'))})
-        if len(blocks) >= 8:
-            break
-    return {'text': '\n\n'.join(blocks), 'sources': sources, 'count': len(blocks)}
+    return {'text': '\n\n'.join(blocks), 'blocks': blocks, 'sources': sources, 'count': len(blocks)}
 
 
 def retrieve(query, scope):
-    key = 'tutor:knowledge:v1:' + hashlib.sha256(json.dumps([query, scope], sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+    key = 'tutor:knowledge:v2:' + hashlib.sha256(json.dumps([query, scope], sort_keys=True, ensure_ascii=False).encode()).hexdigest()
     cached = cache.get(key)
     if cached is not None:
         return {**cached, 'cached': True}
     words = terms(query)
     records = []
     try:
-        for match in topic_candidates(scope, words):
+        matches = topic_candidates(scope, words)
+        title = re.sub(r'^(?:Discuss Details on\s+|বিস্তারিত আলোচনা করুন:\s*)', '', query, flags=re.I).strip()
+        exact = [m for m in matches if m.topic.strip().casefold() == title.casefold()]
+        if exact:
+            matches = exact
+        for match in matches:
             source = {field: getattr(match, field) for field in ('db_alias', 'table_name', 'level_tr', 'class_level', 'subject_tr', 'chapter', 'chapter_no', 'topic')}
             records.extend(question_rows(source, words))
         if not records:
