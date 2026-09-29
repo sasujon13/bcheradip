@@ -5696,7 +5696,9 @@ class ExportQuestionsView(APIView):
         serial_by_index = pick('previewSerialByIndex', {})
         if not isinstance(serial_by_index, dict):
             serial_by_index = {}
-        bn_digits = str.maketrans('0123456789', 'à§¦à§§à§¨à§©à§ªà§«à§¬à§­à§®à§¯')
+        # Build Bengali digits from code points so this source remains stable even
+        # when a Windows console/editor opens the file with the wrong code page.
+        bn_digits = str.maketrans('0123456789', ''.join(chr(0x09E6 + i) for i in range(10)))
 
         def serial_bn(item_index):
             raw = serial_by_index.get(str(item_index), serial_by_index.get(item_index, item_index + 1))
@@ -8824,6 +8826,33 @@ class QuestionSubjectsView(APIView):
         return Response({'subjects': subjects}, status=status.HTTP_200_OK)
 
 
+def _exam_set_columns(cursor):
+    cursor.execute(
+        "SELECT COLUMN_NAME FROM information_schema.columns WHERE table_schema = DATABASE() "
+        "AND table_name = 'cheradip_exam_set'"
+    )
+    return {str(row[0]) for row in (cursor.fetchall() or [])}
+
+
+def _exam_set_metadata_select(columns):
+    return [
+        "COALESCE(NULLIF(exam_mode, ''), 'regular')" if 'exam_mode' in columns else "'regular'",
+        "COALESCE(exam_variant, '')" if 'exam_variant' in columns else "''",
+        "COALESCE(duration_minutes, 20)" if 'duration_minutes' in columns else "20",
+        ("CASE WHEN JSON_VALID(qids_json) THEN JSON_LENGTH(qids_json) "
+         "ELSE COALESCE(question_count, 30) END") if 'question_count' in columns else
+        "CASE WHEN JSON_VALID(qids_json) THEN JSON_LENGTH(qids_json) ELSE 30 END",
+        "available_from" if 'available_from' in columns else "NULL",
+        "available_until" if 'available_until' in columns else "NULL",
+    ]
+
+
+def _exam_set_iso(value):
+    if value is None:
+        return None
+    return value.isoformat() if hasattr(value, 'isoformat') else str(value)
+
+
 class ExamSetListView(APIView):
     """
     GET: List exam sets from cheradip_exam_set (hsc) for regularexam page.
@@ -8845,10 +8874,14 @@ class ExamSetListView(APIView):
                 )
                 if not cur.fetchone():
                     return Response({'exam_sets': []}, status=status.HTTP_200_OK)
+                metadata = _exam_set_metadata_select(_exam_set_columns(cur))
                 sql = (
-                    "SELECT id, exam_type, set_key, name_label, level_tr, class_level, subject_tr FROM cheradip_exam_set WHERE db_alias = 'hsc' "
-                    "ORDER BY exam_type, set_key "
+                    "SELECT id, exam_type, set_key, name_label, level_tr, class_level, subject_tr, %s "
+                    "FROM cheradip_exam_set WHERE db_alias = 'hsc' ORDER BY exam_mode, exam_type, set_key "
+                    % ', '.join(metadata)
                 )
+                if metadata[0] == "'regular'":
+                    sql = sql.replace('ORDER BY exam_mode,', 'ORDER BY')
                 cur.execute(sql)
                 for row in cur.fetchall() or []:
                     exam_sets.append({
@@ -8859,6 +8892,12 @@ class ExamSetListView(APIView):
                         'level_tr': row[4] or '',
                         'class_level': row[5] or '',
                         'subject_tr': row[6] or '',
+                        'exam_mode': row[7] or 'regular',
+                        'exam_variant': row[8] or '',
+                        'duration_minutes': int(row[9] or 20),
+                        'question_count': int(row[10] or 30),
+                        'available_from': _exam_set_iso(row[11]),
+                        'available_until': _exam_set_iso(row[12]),
                     })
         except Exception as e:
             logger.exception('ExamSetListView: %s', e)
@@ -8879,8 +8918,10 @@ class ExamSetDetailView(APIView):
         conn = connections['hsc']
         try:
             with conn.cursor() as cur:
+                metadata = _exam_set_metadata_select(_exam_set_columns(cur))
                 cur.execute(
-                    "SELECT id, exam_type, set_key, name_label, level_tr, class_level, subject_tr, qids_json FROM cheradip_exam_set WHERE id = %s AND db_alias = 'hsc'",
+                    "SELECT id, exam_type, set_key, name_label, level_tr, class_level, subject_tr, qids_json, %s "
+                    "FROM cheradip_exam_set WHERE id = %%s AND db_alias = 'hsc'" % ', '.join(metadata),
                     [pk]
                 )
                 row = cur.fetchone()
@@ -8896,6 +8937,12 @@ class ExamSetDetailView(APIView):
                     'class_level': row[5] or '',
                     'subject_tr': row[6] or '',
                     'qids_json': qids_json or '',
+                    'exam_mode': row[8] or 'regular',
+                    'exam_variant': row[9] or '',
+                    'duration_minutes': int(row[10] or 20),
+                    'question_count': int(row[11] or 30),
+                    'available_from': _exam_set_iso(row[12]),
+                    'available_until': _exam_set_iso(row[13]),
                 }, status=status.HTTP_200_OK)
         except Exception as e:
             logger.exception('ExamSetDetailView: %s', e)
@@ -8938,7 +8985,7 @@ class ExamSetQuestionsView(APIView):
                 )
                 if not cur.fetchone():
                     return Response({'questions': [], 'error': 'Subject table not found'}, status=status.HTTP_200_OK)
-                limit = min(30, len(qids))
+                limit = min(100, len(qids))
                 qids_slice = qids[:limit]
                 placeholders = ', '.join(['%s'] * len(qids_slice))
                 tbl = table_name.replace('`', '``')

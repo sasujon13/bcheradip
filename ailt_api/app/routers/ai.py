@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import get_db
+from app.models import AiProvider
 from app.deps import get_ai_client_key
 from app.schemas import AiActivityMetadataRequest, AiGenerateQuestionsRequest, AiParagraphRequest
 from app.services.cloud_task_intent import CloudTaskIntent, intent_from_ocr_content_type
@@ -11,8 +13,8 @@ from app.services.llm_router import generate_with_fallback
 router = APIRouter(prefix="/ai", tags=["ai"])
 
 
-def _has_any_llm_key() -> bool:
-    return bool(
+def _has_any_llm_key(db: Session) -> bool:
+    env_configured = bool(
         settings.gemini_api_key
         or settings.openai_api_key
         or settings.groq_api_key
@@ -20,6 +22,9 @@ def _has_any_llm_key() -> bool:
         or settings.mistral_api_key
         or settings.openrouter_api_key
     )
+    if env_configured:
+        return True
+    return any(bool((row.api_key or '').strip()) for row in db.scalars(select(AiProvider)).all())
 
 
 @router.post("/activity-metadata")
@@ -32,7 +37,7 @@ async def activity_metadata(
     summary = body.text[:200]
     provider_id = "local-stub"
 
-    if _has_any_llm_key():
+    if _has_any_llm_key(db):
         prompt = (
             "Generate a short activity title (max 8 words) and one-line summary for a language learning journal.\n"
             f"Text:\n{body.text[:1500]}\n"
@@ -69,7 +74,7 @@ async def explain_paragraph(
     )
     provider_id = "local-stub"
 
-    if _has_any_llm_key():
+    if _has_any_llm_key(db):
         prompt = body.paragraph.strip()
         if not prompt.lower().startswith("you are"):
             prompt = (
@@ -102,7 +107,7 @@ async def structure_ocr(
     structured = raw_text
     provider_id = "local-stub"
 
-    if _has_any_llm_key():
+    if _has_any_llm_key(db):
         llm_text, provider_id = await generate_with_fallback(
             db, prompt, max_tokens=2048, client_key=client_key,
             task_intent=intent_from_ocr_content_type(content_type).value,
@@ -157,7 +162,7 @@ async def generate_questions(
     """Generate MCQ questions from a prompt using the Cloud LLM pool (same as Android app)."""
     questions: list[dict] = []
     provider_id = "local-stub"
-    if _has_any_llm_key() and body.prompt.strip():
+    if _has_any_llm_key(db) and body.prompt.strip():
         max_tokens = min(max(int(body.count) * 220 + 120, 400), 4096)
         raw, provider_id = await generate_with_fallback(
             db,

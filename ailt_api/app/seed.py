@@ -190,11 +190,24 @@ def _seed_ai_providers(db: Session) -> None:
                 prefer_paid_when_free_exhausted=bool(routing.get("prefer_paid_when_free_exhausted", True)),
             )
         )
-    existing_ids = {
-        p.id for p in db.scalars(select(AiProvider)).all()
+    existing = {p.id: p for p in db.scalars(select(AiProvider)).all()}
+    env_keys = {
+        'gemini': settings.gemini_api_key, 'openai': settings.openai_api_key,
+        'openai_paid': settings.openai_api_key, 'groq': settings.groq_api_key,
+        'claude': settings.anthropic_api_key, 'claude_paid': settings.anthropic_api_key,
+        'mistral': settings.mistral_api_key, 'openrouter': settings.openrouter_api_key,
+        'openrouter_paid': settings.openrouter_api_key,
     }
     for p in data.get("providers", []):
-        if p["id"] in existing_ids:
+        env_key = (env_keys.get(p['id']) or '').strip()
+        if p["id"] in existing:
+            row = existing[p['id']]
+            row.display_name = p['display_name']
+            row.tier = p.get('tier', 'free')
+            row.enabled = bool(p.get('enabled', True))
+            row.quota_daily_limit = p.get('daily_quota')
+            if env_key and not (row.api_key or '').strip():
+                row.api_key = env_key
             continue
         db.add(
             AiProvider(
@@ -202,7 +215,8 @@ def _seed_ai_providers(db: Session) -> None:
                 display_name=p["display_name"],
                 tier=p.get("tier", "free"),
                 enabled=bool(p.get("enabled", True)),
-                quota_daily_limit=None,
+                quota_daily_limit=p.get('daily_quota'),
+                api_key=env_key or None,
             )
         )
 

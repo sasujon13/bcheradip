@@ -43,7 +43,10 @@ def ensure_daily_quota_reset(db: Session) -> None:
 
 
 def _is_eligible(provider: AiProvider) -> bool:
-    return provider.enabled and provider.health != "exhausted" and provider.health != "disabled"
+    within_quota = (provider.quota_daily_limit is None or
+                    int(provider.requests_today or 0) < int(provider.quota_daily_limit))
+    return (provider.enabled and within_quota and provider.health != "exhausted"
+            and provider.health != "disabled")
 
 
 def routing_pool(db: Session) -> list[AiProvider]:
@@ -105,7 +108,7 @@ async def generate_with_fallback(
     task_intent: str | None = None,
 ) -> tuple[str | None, str]:
     """Try eligible providers; prefer last successful provider for this client when still healthy."""
-    candidates = [p for p in routing_pool(db) if provider_has_key(p.id)]
+    candidates = [p for p in routing_pool(db) if provider_has_key(p.id, p.api_key)]
     sticky_id = get_sticky_provider(client_key)
     ordered = _order_candidates(candidates, sticky_id)
     if not ordered:
@@ -120,6 +123,7 @@ async def generate_with_fallback(
                 prompt,
                 max_tokens=max_tokens,
                 task_intent=task_intent,
+                api_key=provider.api_key,
             )
             if text and text.strip():
                 provider_id = _record_success(db, provider)

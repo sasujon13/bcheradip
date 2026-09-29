@@ -82,7 +82,7 @@ ADMIN_SETTING_DEFS = [
         'value_type': 'str',
         'default': 'https://cheradip.com/ailt/api/ai/generate-questions',
         'sensitive': False,
-        'description': 'Cloud AI endpoint (the ailt_api service, same one the AI Language Tutor Android app uses) called to create exam questions when a topic lacks enough questions.',
+        'description': 'Primary AI endpoint for creating and updating questions and explanations. Home AI is used only when Cloud AI fails or returns no valid result.',
     },
     {
         'key': 'HOME_AI_QUESTIONS_URL',
@@ -91,7 +91,7 @@ ADMIN_SETTING_DEFS = [
         'value_type': 'str',
         'default': 'https://ai.cheradip.com/ide/chat/sync',
         'sensitive': False,
-        'description': 'Home AI endpoint (local Ollama/OpenVINO engine) used first; Cloud AI is only used when every Home AI response errors/empty.',
+        'description': 'Fallback AI endpoint (local Ollama/OpenVINO engine). Outside /tutor it is called only after Cloud AI fails or returns no valid result.',
     },
     {
         'key': 'HOME_AI_QUESTIONS_MODEL',
@@ -109,7 +109,7 @@ ADMIN_SETTING_DEFS = [
         'value_type': 'bool',
         'default': True,
         'sensitive': False,
-        'description': 'When a topic has fewer than sq unique questions, ask Home AI/Cloud AI to create the missing ones. Turn off to always skip short topics.',
+        'description': 'When a topic has too few unique questions, ask Cloud AI first and Home AI only as fallback. Turn off to always skip short topics.',
     },
     {
         'key': 'AI_QUESTIONS_TIMEOUT_SECONDS',

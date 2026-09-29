@@ -415,6 +415,7 @@ class AiProvider(Base):
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True)
     display_name: Mapped[str] = mapped_column(String(128))
+    api_key: Mapped[str | None] = mapped_column(Text)
     tier: Mapped[str] = mapped_column(String(16), default="free")
     health: Mapped[str] = mapped_column(String(16), default="healthy")
     enabled: Mapped[bool] = mapped_column(Boolean, default=True)

@@ -54,3 +54,22 @@ class StreamTests(SimpleTestCase):
         upstream = Mock(); upstream.iter_content.return_value = [b'data: [DONE]\n\n']
         with self.assertRaises(UnusableReply):
             list(checked_chunks(upstream))
+
+    def test_english_dominant_answer_is_rejected_for_bengali_request(self):
+        answer = ('This answer incorrectly continues in English. It explains the author, historical setting, '
+                  'central theme, imagery, language, cultural background, important quotations, and conclusion '
+                  'without using the Bengali language requested by the learner. Every heading and explanatory '
+                  'paragraph remains in English even though the original lesson title was written in Bengali.')
+        upstream = Mock()
+        upstream.iter_content.return_value = [('data: ' + json.dumps({'content': answer}) + '\n\n').encode()]
+        with self.assertRaisesRegex(UnusableReply, 'wrong language'):
+            list(checked_chunks(upstream, expected_language='Bengali'))
+
+    def test_bengali_answer_may_contain_limited_english_terms(self):
+        answer = ('বঙ্গবাণী কবিতায় মাতৃভাষার প্রতি গভীর ভালোবাসা প্রকাশ করা হয়েছে। কবি বাংলা ভাষার '
+                  'মর্যাদা রক্ষার প্রয়োজনীয়তা তুলে ধরেছেন। মাতৃভাষাকে অবহেলা করলে জাতির নিজস্ব পরিচয় দুর্বল '
+                  'হয়ে যায়। তাই কবিতাটি পাঠককে নিজের ভাষা ও সংস্কৃতির প্রতি শ্রদ্ধাশীল হতে শেখায়। এখানে '
+                  'language এবং culture শব্দ দুটি প্রয়োজনীয় পরিভাষা হিসেবে ব্যবহৃত হয়েছে।')
+        upstream = Mock()
+        upstream.iter_content.return_value = [('data: ' + json.dumps({'content': answer}, ensure_ascii=False) + '\n\n').encode()]
+        self.assertEqual(''.join(checked_chunks(upstream, expected_language='Bengali')), answer)

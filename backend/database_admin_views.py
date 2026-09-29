@@ -955,13 +955,24 @@ def database_settings(request, db_alias):
     }
     if request.method == 'POST':
         action = request.POST.get('action')
-        if action in ('create_exam', 'add_exam'):
+        if action in (
+            'create_exam', 'add_exam', 'create_live_exam', 'add_live_exam',
+            'create_practice_exam', 'add_practice_exam',
+        ):
             try:
-                from cheradip.exam_actions import run_create_exam, run_add_exam
-                if action == 'create_exam':
-                    result = run_create_exam(db_alias, filters)
-                else:
-                    result = run_add_exam(db_alias, filters)
+                from cheradip.exam_actions import (
+                    run_add_exam, run_add_live_exam, run_add_practice_exam,
+                    run_create_exam, run_create_live_exam, run_create_practice_exam,
+                )
+                actions = {
+                    'create_exam': run_create_exam,
+                    'add_exam': run_add_exam,
+                    'create_live_exam': run_create_live_exam,
+                    'add_live_exam': run_add_live_exam,
+                    'create_practice_exam': run_create_practice_exam,
+                    'add_practice_exam': run_add_practice_exam,
+                }
+                result = actions[action](db_alias, filters)
                 messages.success(request, result.get('message', 'Done.'))
             except Exception as e:
                 messages.error(request, 'Action failed: %s' % str(e))
@@ -991,7 +1002,10 @@ def start_exam_job(request, db_alias):
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required.'}, status=405)
     kind = (request.POST.get('kind') or request.POST.get('action') or '').strip()
-    if kind not in ('create_exam', 'add_exam'):
+    if kind not in (
+        'create_exam', 'add_exam', 'create_live_exam', 'add_live_exam',
+        'create_practice_exam', 'add_practice_exam',
+    ):
         return JsonResponse({'error': 'Unknown action: %s' % kind}, status=400)
     filters = {
         k: request.POST.get(k, '') for k in (
@@ -1006,10 +1020,10 @@ def start_exam_job(request, db_alias):
 def start_question_update(request, db_alias):
     """Start an AI update job for a subject table.
 
-    `kind` selects the pass: "special" (Home AI marks/removes the unwanted special characters) or
-    "cloud" (Cloud AI corrects words and sentences). The legacy names "question"/"explanation" map
-    onto the correction pass. `table` may be given explicitly, or resolved from the level/class/
-    subject filters (the exam-settings "Update" button). Optional chapter/topic narrow which rows
+    `kind` selects the special-character, full correction, add-explanation or update-explanation
+    pass. Cloud AI is preferred and Home AI is the fallback. The legacy names
+    "question"/"explanation" map onto the correction pass. `table` may be given explicitly, or
+    resolved from the level/class/subject filters. Optional chapter/topic filters narrow which rows
     are processed.
     """
     from cheradip.exam_jobs import start_question_update_job
@@ -1019,7 +1033,7 @@ def start_question_update(request, db_alias):
     kind = normalize_kind(request.POST.get('kind'))
     if not kind:
         return JsonResponse(
-            {'error': 'Unknown update kind: %s (use "special" or "cloud")'
+            {'error': 'Unknown update kind: %s'
                       % (request.POST.get('kind') or '')}, status=400)
     table = (request.POST.get('table') or '').strip().lower()
     level_tr = (request.POST.get('level_tr') or '').strip()

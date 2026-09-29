@@ -109,6 +109,15 @@ class TutorChatTests(SimpleTestCase):
         self.assertIn('answer only the latest request', policy.lower())
         self.assertIn('selected curriculum title is a real lesson topic', policy)
 
+    def test_follow_up_policy_uses_previous_exchange_and_selected_topic(self):
+        result = validated_chat({'messages': [
+            {'role': 'user', 'content': 'বিস্তারিত আলোচনা করুন: বঙ্গবাণী'},
+            {'role': 'assistant', 'content': 'এটি একটি বাংলা কবিতা।'},
+            {'role': 'user', 'content': 'কবি কে এবং কেন?'}]})
+        policy = result['messages'][0]['content']
+        self.assertIn('immediately preceding question and Tutor answer', policy)
+        self.assertIn('keep the selected subject, chapter and topic', policy)
+
     @patch('cheradip.tutor_chat.tutor_routing.available_models', return_value=['broken-model', 'qwen2.5:14b-instruct-q4_K_M'])
     @patch('cheradip.tutor_chat.requests.post')
     def test_unreadable_stream_retries_another_model_without_publishing_symbols(self, post, available):
@@ -168,3 +177,39 @@ class TutorChatTests(SimpleTestCase):
         get.return_value.json.return_value = {'models': [{'id': 'live-model'}]}
         response = TutorModelsView.as_view()(self.factory.get('/'))
         self.assertEqual(response.data['models'][0]['id'], 'live-model')
+        self.assertIn('openai', response.data['providers'])
+
+    @patch('cheradip.tutor_chat.requests.get')
+    def test_direct_provider_catalog_remains_available_when_home_ai_is_offline(self, get):
+        import requests
+        get.side_effect = requests.ConnectionError('offline')
+        response = TutorModelsView.as_view()(self.factory.get('/'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('openai', response.data['providers'])
+        self.assertIn('warning', response.data)
+
+    def test_direct_provider_requires_its_api_key(self):
+        request = self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'Hello'}],
+            'provider_config': {'provider': 'openai', 'api_key': ''},
+        }, format='json')
+        response = TutorChatView.as_view()(request)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('OpenAI API key', response.data['error'])
+
+    @patch('cheradip.tutor_providers.requests.post')
+    def test_direct_openai_key_drives_the_tutor_without_home_ai(self, post):
+        upstream = Mock()
+        upstream.json.return_value = {'choices': [{'message': {'content': 'Direct provider answer'}}]}
+        post.return_value = upstream
+        request = self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'Hello'}],
+            'model': 'gpt-4.1-mini',
+            'provider_config': {'provider': 'openai', 'api_key': 'sk-browser-test'},
+        }, format='json')
+        response = TutorChatView.as_view()(request)
+        body = b''.join(response.streaming_content)
+        self.assertIn(b'Direct provider answer', body)
+        self.assertEqual(post.call_args.args[0], 'https://api.openai.com/v1/chat/completions')
+        self.assertEqual(post.call_args.kwargs['headers']['Authorization'], 'Bearer sk-browser-test')
+        self.assertNotIn(b'sk-browser-test', body)

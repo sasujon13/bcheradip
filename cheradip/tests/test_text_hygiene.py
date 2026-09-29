@@ -455,13 +455,71 @@ class UpdaterWiringTests(SimpleTestCase):
         self.assertIn('word spacing', prompt)
 
     def test_normalize_kind_maps_the_legacy_names(self):
-        from cheradip.question_updater import KIND_CLOUD, KIND_SPECIAL, normalize_kind
+        from cheradip.question_updater import (
+            KIND_CLOUD, KIND_EXPLANATION_ADD, KIND_EXPLANATION_UPDATE, KIND_SPECIAL,
+            normalize_kind,
+        )
         self.assertEqual(normalize_kind('special'), KIND_SPECIAL)
         self.assertEqual(normalize_kind('CLOUD'), KIND_CLOUD)
         self.assertEqual(normalize_kind('question'), KIND_CLOUD)      # legacy button value
         self.assertEqual(normalize_kind('explanation'), KIND_CLOUD)
+        self.assertEqual(normalize_kind('add_explanation'), KIND_EXPLANATION_ADD)
+        self.assertEqual(normalize_kind('update_explanations'), KIND_EXPLANATION_UPDATE)
         self.assertEqual(normalize_kind('nonsense'), '')
         self.assertEqual(normalize_kind(None), '')
+
+    def test_explanation_prompt_contains_selected_context_and_requires_new_text(self):
+        from cheradip.question_updater import _build_explanation_prompt
+        row = {
+            'subject': 'পদার্থবিজ্ঞান', 'chapter': 'তাপগতিবিদ্যা', 'topic': 'রেফ্রিজারেটর',
+            'question': 'COP কত?', 'option_1': '2', 'option_2': '3', 'answer': '2',
+            'explanation': 'পুরোনো ব্যাখ্যা', 'qid': '15',
+        }
+        prompt = _build_explanation_prompt(row, update_existing=True)
+        self.assertIn('পদার্থবিজ্ঞান', prompt)
+        self.assertIn('তাপগতিবিদ্যা', prompt)
+        self.assertIn('রেফ্রিজারেটর', prompt)
+        self.assertIn('COP কত?', prompt)
+        self.assertIn('পুরোনো ব্যাখ্যা', prompt)
+        self.assertIn('genuinely new', prompt)
+        self.assertIn('{"questions":[{"explanation":"..."}]}', prompt)
+
+    def test_explanation_update_rejects_an_unchanged_reply(self):
+        from cheradip import question_updater as qu
+        row = {'question': 'কেন?', 'answer': 'কারণ', 'explanation': 'একই ব্যাখ্যা'}
+        with mock.patch.object(
+                qu, '_ask_correction', return_value=({'explanation': ' একই  ব্যাখ্যা '}, 'cloud')):
+            cleaned, provider = qu._clean_explanation_ai(row, update_existing=True)
+        self.assertIsNone(cleaned)
+        self.assertEqual(provider, 'cloud')
+
+    def test_explanation_add_accepts_a_related_valid_reply(self):
+        from cheradip import question_updater as qu
+        row = {'question': 'কেন?', 'answer': 'কারণ', 'explanation': ''}
+        with mock.patch.object(
+                qu, '_ask_correction', return_value=({'explanation': 'কারণটি তাই সঠিক।'}, 'cloud')):
+            cleaned, provider = qu._clean_explanation_ai(row)
+        self.assertEqual(cleaned, {'explanation': 'কারণটি তাই সঠিক।'})
+        self.assertEqual(provider, 'cloud')
+
+    def test_special_check_uses_cloud_before_home(self):
+        from cheradip import question_updater as qu
+        cloud_reply = {'questions': [{'remove': {'question': [1]}}]}
+        with mock.patch.object(qu, '_cloud_ai_reply', return_value=cloud_reply) as cloud, \
+             mock.patch.object(qu, '_home_ai_reply') as home:
+            reply, provider = qu._ask_special('prompt')
+        cloud.assert_called_once_with('prompt', max_tokens=800)
+        home.assert_not_called()
+        self.assertEqual(reply, {'remove': {'question': [1]}})
+        self.assertEqual(provider, 'cloud')
+
+    def test_special_check_falls_back_to_home(self):
+        from cheradip import question_updater as qu
+        with mock.patch.object(qu, '_cloud_ai_reply', return_value=None), \
+             mock.patch.object(qu, '_home_ai_reply', return_value={'remove': {}}) as home:
+            _reply, provider = qu._ask_special('prompt')
+        home.assert_called_once_with('prompt', max_tokens=800)
+        self.assertEqual(provider, 'home-ai')
 
     def test_confirm_removals_maps_answer_numbers_to_characters(self):
         from cheradip import question_updater as qu

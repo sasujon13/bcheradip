@@ -2,6 +2,7 @@
 import json
 import requests
 from django.conf import settings
+from . import tutor_providers
 
 
 def ollama_url():
@@ -18,7 +19,9 @@ def chat_body(payload, stream):
                         'num_predict': payload.get('max_tokens', 1800)}}
 
 
-def complete(payload, base_url, timeout=90):
+def complete(payload, base_url, timeout=90, provider_config=None):
+    if provider_config and provider_config.get('provider') != 'cheradip':
+        return tutor_providers.complete(payload, provider_config, timeout=timeout)
     local = ollama_url()
     response = requests.post(local + '/api/chat' if local else base_url + '/ide/chat/sync',
         json=chat_body(payload, False) if local else {**payload, 'stream': False}, timeout=(5, timeout))
@@ -46,7 +49,10 @@ class OllamaStream:
         self.response.close()
 
 
-def open_stream(payload, base_url):
+def open_stream(payload, base_url, provider_config=None):
+    if provider_config and provider_config.get('provider') != 'cheradip':
+        return tutor_providers.BufferedSSEStream(
+            tutor_providers.complete(payload, provider_config, timeout=180))
     local = ollama_url()
     response = requests.post(local + '/api/chat' if local else base_url + '/ide/chat',
         json=chat_body(payload, True) if local else payload,

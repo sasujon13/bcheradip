@@ -7,13 +7,13 @@ Queues edit requests ("Update" / "AI Update") for existing questions by insertin
 or deny each row in the admin table-data page (approve performs the UPDATE by qid on the subject
 table).
 
-Two passes, two buttons:
+Four passes, four buttons:
 
-``special`` ("Update" — Home AI): unwanted *special characters* only.
+``special`` ("Update" — Cloud AI, then Home AI): unwanted *special characters* only.
     The whitelist-aware scanner (``cheradip.text_hygiene``) lists every code point that cannot
     belong to a Bangla/English question — invisible/zero-width, control, U+FFFD, private-use or
     unassigned, emoji, letters/digits pasted from another script that imitate Bangla/English,
-    doubled or stranded Bangla signs, unusual spaces, unbalanced ``$``. Home AI confirms which of
+    doubled or stranded Bangla signs, unusual spaces, unbalanced ``$``. The AI confirms which of
     them are unwanted in this context, and only those characters are taken out — each one is
     marked in the pending request so the admin sees exactly what is removed before approving.
     Words, sentences, spelling, spacing, punctuation, every ``$…$``/``$$…$$``/``\\(…\\)``/
@@ -27,8 +27,15 @@ Two passes, two buttons:
     damaged falls back to the original text — and the corrected fields become a pending request
     with the word-level diff the /question page shows.
 
-Progress is reported by ``cheradip.exam_jobs`` as ``question_update_special`` /
-``question_update_cloud``.
+``explanation_add`` ("Add Explanation" — Cloud AI, then Home AI):
+    Only questions whose explanation is blank are processed.  The generated explanation is tied
+    to the selected subject/chapter/topic and the question's options and answer.
+
+``explanation_update`` ("Update Explanations" — Cloud AI, then Home AI):
+    Only questions that already have an explanation are processed.  A genuinely new, corrected
+    explanation is requested; unchanged replies are ignored.
+
+Progress is reported by ``cheradip.exam_jobs`` under the selected update kind.
 """
 import base64
 import difflib
@@ -44,20 +51,34 @@ from cheradip import text_hygiene
 
 logger = logging.getLogger(__name__)
 
-#: The two update passes behind the admin buttons (see the module docstring).
-KIND_SPECIAL = 'special'      # Home AI: unwanted special characters only
+#: The update passes behind the admin buttons (see the module docstring).
+KIND_SPECIAL = 'special'      # Cloud AI then Home AI: unwanted special characters only
 KIND_CLOUD = 'cloud'          # Cloud AI: word/sentence correction
+KIND_EXPLANATION_ADD = 'explanation_add'
+KIND_EXPLANATION_UPDATE = 'explanation_update'
 #: Legacy kind names of the old single "Update" action — they behave like the correction pass.
-KIND_ALIASES = {'question': KIND_CLOUD, 'explanation': KIND_CLOUD}
+KIND_ALIASES = {
+    'question': KIND_CLOUD,
+    'explanation': KIND_CLOUD,
+    'add_explanation': KIND_EXPLANATION_ADD,
+    'update_explanation': KIND_EXPLANATION_UPDATE,
+    'update_explanations': KIND_EXPLANATION_UPDATE,
+}
 #: Human labels for the job message.
-KIND_LABELS = {KIND_SPECIAL: 'Special-character check', KIND_CLOUD: 'AI correction'}
+KIND_LABELS = {
+    KIND_SPECIAL: 'Special-character check',
+    KIND_CLOUD: 'AI correction',
+    KIND_EXPLANATION_ADD: 'Add Explanation',
+    KIND_EXPLANATION_UPDATE: 'Update Explanations',
+}
 
 
 def normalize_kind(kind):
     """Map a posted/legacy update kind onto a supported pass (``''`` when unknown)."""
     value = (kind or '').strip().lower()
     value = KIND_ALIASES.get(value, value)
-    return value if value in (KIND_SPECIAL, KIND_CLOUD) else ''
+    supported = (KIND_SPECIAL, KIND_CLOUD, KIND_EXPLANATION_ADD, KIND_EXPLANATION_UPDATE)
+    return value if value in supported else ''
 
 
 _QUESTION_FIELDS = ('question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer', 'explanation')
@@ -288,19 +309,30 @@ def _cloud_ai_reply(prompt, max_tokens):
 
 
 def _ask_special(prompt):
-    """Home AI answers the unwanted-character check (no Cloud AI — this is a local check).
+    """Ask Cloud AI first, then Home AI, to answer the unwanted-character check.
 
-    Returns ``(reply, provider)``; the reply is the parsed Home AI answer (a dict/list) or ``None``
-    when the Home AI is unreachable or answered with something that is not JSON.
+    Returns ``(reply, provider)``; the reply is a parsed dict/list or ``None`` when both providers
+    are unavailable or answer with unusable data.
     """
     try:
-        reply = _home_ai_reply(prompt, max_tokens=800)
+        reply = _cloud_ai_reply(prompt, max_tokens=800)
+        item = _first_item(reply) if isinstance(reply, dict) else None
+        if isinstance(item, dict) and 'remove' in item:
+            return item, 'cloud'
+        if isinstance(reply, dict) and 'remove' in reply:
+            return reply, 'cloud'
     except Exception as exc:  # noqa: BLE001
-        logger.warning('Home AI special-character check failed: %s', exc)
-        return None, None
-    if reply is None:
-        return None, None
-    return reply, 'home-ai'
+        logger.warning('Cloud AI special-character check failed: %s', exc)
+    try:
+        reply = _home_ai_reply(prompt, max_tokens=800)
+        item = _first_item(reply) if isinstance(reply, dict) else None
+        if isinstance(item, dict) and 'remove' in item:
+            return item, 'home-ai'
+        if reply is not None:
+            return reply, 'home-ai'
+    except Exception as exc:  # noqa: BLE001
+        logger.warning('Home AI special-character fallback failed: %s', exc)
+    return None, None
 
 
 def _ask_correction(prompt, max_tokens=2500):
@@ -341,7 +373,7 @@ def _row_header(row):
 
 
 def _build_special_prompt(row, findings, limit=60):
-    """Concise Home AI prompt for the unwanted-character pass (characters only, no rewriting).
+    """Concise AI prompt for the unwanted-character pass (characters only, no rewriting).
 
     ``findings`` is the :func:`cheradip.text_hygiene.scan_row` map of the code points to judge.
     Returns ``(prompt, candidates)``; the candidates are ``cheradip.text_hygiene.flatten_candidates``
@@ -351,7 +383,13 @@ def _build_special_prompt(row, findings, limit=60):
              'unwanted special characters. Record: %s.' % _row_header(row)]
     lines.append(text_hygiene.PROMPT_RULE)
     block, candidates = text_hygiene.build_prompt_block(row, findings, limit)
-    lines.extend(block)
+    lines.extend(line for line in block if line != text_hygiene.ANSWER_RULE)
+    # The shared Cloud endpoint transports model output through its `questions` list, so wrap the
+    # character answer as one list item. _ask_special also accepts the legacy bare `remove` shape
+    # from Home AI.
+    lines.append('For transport, reply with ONLY this JSON shape: '
+                 '{"questions":[{"remove":{"<field>":[<numbers>]}}]}. Use '
+                 '{"questions":[{"remove":{}}]} when none should be removed.')
     return '\n'.join(lines), candidates
 
 
@@ -401,6 +439,45 @@ def _build_correction_prompt(row):
     return '\n'.join(lines)
 
 
+def _build_explanation_prompt(row, update_existing=False):
+    """Build a context-rich prompt for adding or replacing one explanation."""
+    def val(key):
+        return str(row.get(key) or '')
+
+    action = 'replace the existing explanation with a genuinely new explanation' if update_existing \
+        else 'write the missing explanation'
+    lines = [
+        'You are an expert teacher for the Bangladesh education system (national curriculum, '
+        'Bangla medium).',
+        'Record: %s.' % _row_header(row),
+        'Task: %s for this exact question.' % action,
+        'The explanation MUST be factually correct and specifically related to the selected '
+        'subject, chapter, topic, question, options and answer. Do not return generic or unrelated '
+        'teaching text.',
+        'Explain why the supplied answer is correct. For an MCQ, also clarify the decisive idea '
+        'that distinguishes it from the other options when useful.',
+        'Keep every mathematical formula valid. Preserve LaTeX/KaTeX/MathJax delimiters and HTML '
+        'when used; do not expose broken formula commands.',
+        'Use the natural language of the question unless the subject is English/ইংরেজি, where '
+        'English may be used.',
+        'Question context JSON:',
+    ]
+    context_fields = (
+        'subject', 'subject_tr', 'level_tr', 'class_level', 'chapter_no', 'chapter',
+        'topic_no', 'topic', 'type', 'question', 'option_1', 'option_2', 'option_3',
+        'option_4', 'answer',
+    )
+    context = {field: val(field) for field in context_fields}
+    if update_existing:
+        context['existing_explanation'] = val('explanation')
+        lines.append('Do not echo or lightly copy the existing explanation. Produce a new, clearer '
+                     'explanation while preserving the correct meaning and answer.')
+    lines.append(json.dumps(context, ensure_ascii=False))
+    lines.append('Reply with ONLY valid JSON, no markdown fences, in this exact shape:')
+    lines.append('{"questions":[{"explanation":"..."}]}')
+    return '\n'.join(lines)
+
+
 
 def _cleaned_fields(item):
     """Every text field of the AI reply, stripped (a field it omitted becomes '')."""
@@ -431,6 +508,24 @@ def _clean_fields_ai(row):
     return _cleaned_fields(item), provider
 
 
+def _clean_explanation_ai(row, update_existing=False):
+    """Return a safe new explanation and provider, or ``(None, provider)`` if unusable."""
+    item, provider = _ask_correction(
+        _build_explanation_prompt(row, update_existing=update_existing), max_tokens=3000)
+    if not item:
+        return None, provider
+    explanation = str(item.get('explanation') or '').strip()
+    if not explanation:
+        return None, provider
+    if update_existing and _norm(explanation) == _norm(row.get('explanation')):
+        return None, provider
+    cleaned = {'explanation': explanation}
+    _notes, stats = _sanitize_fields(row, cleaned, ('explanation',))
+    if stats['reverted'] or _norm(cleaned.get('explanation')) == _norm(row.get('explanation')):
+        return None, provider
+    return cleaned, provider
+
+
 def _sanitize_fields(row, cleaned, fields):
     """Post-check the Cloud AI reply for unwanted characters and for damaged formulas.
 
@@ -444,7 +539,7 @@ def _sanitize_fields(row, cleaned, fields):
     return notes, stats
 
 
-# ------------------------------------------------- Home AI: special chars ---
+# --------------------------------------------- AI-assisted special characters ---
 def _marker_badge(item):
     """Visible badge for one character the request takes out, e.g. ``⟦U+200B⟧``.
 
@@ -532,7 +627,7 @@ def _as_number(value):
 
 
 def _answer_numbers(reply):
-    """Candidate numbers of a Home AI answer, as ``[(number, field), …]`` (``field`` may be '').
+    """Candidate numbers of an AI answer, as ``[(number, field), …]`` (``field`` may be '').
 
     Accepts the documented ``{"remove": {"question": [1, 3]}}`` plus the shapes a small local model
     may answer with instead: a bare number list (``[1, 3]``) and ``[{"field": …, "number": …}]``.
@@ -561,11 +656,11 @@ def _answer_numbers(reply):
 
 
 def _confirm_removals(row, findings):
-    """Ask Home AI which suspicious code points are unwanted in this record.
+    """Ask Cloud AI, then Home AI, which suspicious code points are unwanted in this record.
 
     Returns ``(confirmed, provider)``; ``confirmed`` maps a field to the findings the AI listed
     (its numbers are 1-based positions in the numbered candidate list). Returns ``(None, None)``
-    when Home AI is unreachable or the answer is unusable, so the caller reports the record as
+    when both providers are unreachable or the answer is unusable, so the caller reports the record as
     unverified instead of guessing.
     """
     prompt, candidates = _build_special_prompt(row, findings)
@@ -586,7 +681,7 @@ def _confirm_removals(row, findings):
 
 
 def _special_clean(row, fields):
-    """Home AI pass for one record: only the unwanted characters are taken out.
+    """AI pass for one record: only the unwanted characters are taken out.
 
     Returns ``(cleaned, removals, provider, stats)``:
 
@@ -621,7 +716,7 @@ def _special_clean(row, fields):
     if ask:
         confirmed, provider = _confirm_removals(row, ask)
         if confirmed is None:
-            # Home AI unreachable: the definitely-broken code points may still be taken out.
+            # Both AIs unreachable: the definitely-broken code points may still be taken out.
             confirmed = {}
             stats['unverified'] = True
     stats['ai'] = sum(len(items) for items in confirmed.values())
@@ -660,20 +755,20 @@ def _codes_label(counter, limit=5):
 
 
 def _special_summary(stats):
-    """Job-message fragment of the Home AI character pass ('' when nothing was found)."""
+    """Job-message fragment of the AI character pass ('' when nothing was found)."""
     if not stats.get('findings'):
         return ''
     msg = (' Unwanted characters: %d code point(s) in %d field(s) of %d record(s)'
            % (stats['findings'], stats['fields'], stats['rows']))
     if stats.get('codes'):
         msg += ' — %s' % _codes_label(stats['codes'])
-    msg += '. %d taken out and marked in the pending request(s); %d kept by Home AI as correct here.' % (
+    msg += '. %d taken out and marked in the pending request(s); %d kept by AI as correct here.' % (
         stats['removed'], stats['kept'])
     if stats.get('check'):
         msg += (' %d suspicious math delimiter(s) need a manual check — a stray $ is reported, never '
                 'removed.' % stats['check'])
     if stats.get('unverified'):
-        msg += ' %d record(s) could not be checked (Home AI unreachable) — rescan them later.' % (
+        msg += ' %d record(s) could not be checked (Cloud and Home AI unreachable) — rescan them later.' % (
             stats['unverified'])
     for qid, field, detail in list(stats.get('samples') or [])[:3]:
         msg += ' e.g. qid %s %s: %s;' % (qid, field, detail)
@@ -816,17 +911,17 @@ def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_l
     """Scan a subject question table and queue pending update requests into
     cheradip_pending_question_request.
 
-    ``kind`` is :data:`KIND_SPECIAL` (Home AI marks the unwanted special characters in the
-    question, options, answer, explanations and metadata) or :data:`KIND_CLOUD` (the Cloud AI
-    proofreader corrects words and sentences). Nothing is written to the subject table directly — a
-    human reviews and approves (or denies) each pending row in the admin table-data page, exactly
-    like updates submitted from the public /question page.
+    ``kind`` selects the character check, full correction, missing-explanation generation or
+    existing-explanation replacement pass. Cloud AI is tried first and Home AI is the fallback.
+    Nothing is written to the subject table directly — a human reviews and approves (or denies)
+    each pending row in the admin table-data page, exactly like updates submitted from the public
+    /question page.
     """
     if db_alias not in connections:
         return {'message': 'Database not configured.'}
     kind = normalize_kind(kind)
     if not kind:
-        return {'message': 'Unknown update kind — use "special" (characters) or "cloud" (words).'}
+        return {'message': 'Unknown update kind.'}
     table_name = ((table_name or '').strip().lower()).replace('`', '')
     if not table_name:
         return {'message': 'No table selected.'}
@@ -860,6 +955,8 @@ def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_l
                 'message': 'Table \'%s\' is not a subject question table (it has no qid/question '
                            'columns) — question updates can only be queued for question tables.' % table_name
             }
+        if kind in (KIND_EXPLANATION_ADD, KIND_EXPLANATION_UPDATE) and 'explanation' not in existing_cols:
+            return {'message': 'Table \'%s\' has no explanation column.' % table_name}
         wanted = [
             'qid', 'subject', 'subject_tr', 'level_tr', 'class_level',
             'chapter_no', 'chapter', 'topic_no', 'topic', 'question',
@@ -871,6 +968,10 @@ def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_l
         select_sql = ', '.join('`%s`' % f for f in fields)
         where = "question IS NOT NULL AND TRIM(COALESCE(question, '')) != ''"
         params = []
+        if kind == KIND_EXPLANATION_ADD:
+            where += " AND (explanation IS NULL OR TRIM(COALESCE(explanation, '')) = '')"
+        elif kind == KIND_EXPLANATION_UPDATE:
+            where += " AND explanation IS NOT NULL AND TRIM(COALESCE(explanation, '')) != ''"
         if chapter_list:
             ph = ', '.join(['%s'] * len(chapter_list))
             where += " AND (chapter_no IN (%s) OR chapter IN (%s))" % (ph, ph)
@@ -895,11 +996,17 @@ def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_l
     failed = 0
     reverted = 0
     used = []
-    # Home AI character-pass counters (see _special_summary).
+    # AI character-pass counters (see _special_summary).
     char_stats = {'findings': 0, 'fields': 0, 'sure': 0, 'ai': 0, 'removed': 0, 'kept': 0,
                   'check': 0, 'unverified': 0, 'rows': 0, 'codes': Counter(), 'samples': []}
-    phase = ('Home AI checking characters' if kind == KIND_SPECIAL
-             else 'Cloud AI correcting words')
+    if kind == KIND_SPECIAL:
+        phase = 'Cloud AI checking characters'
+    elif kind == KIND_CLOUD:
+        phase = 'Cloud AI correcting words'
+    elif kind == KIND_EXPLANATION_ADD:
+        phase = 'Cloud AI adding explanations'
+    else:
+        phase = 'Cloud AI updating explanations'
     for idx, row in enumerate(rows):
         qid = str(row.get('qid') or '')
         _emit(progress, phase=phase, current_qid=qid, current_table=table_name,
@@ -919,7 +1026,7 @@ def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_l
                         field, detail = row_stats['sample']
                         char_stats['samples'].append((qid, field, detail))
                 if not cleaned:
-                    # Nothing to review for this record: either no character at all, or Home AI
+                    # Nothing to review for this record: either no character at all, or the AI
                     # judged every candidate correct in this context.
                     if row_stats['findings']:
                         kept_rows += 1
@@ -928,6 +1035,20 @@ def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_l
                     continue
                 _insert_update_request(
                     conn, _build_payload(row, cleaned, kind, table_name, removals=removals))
+                pending_sent += 1
+                if provider:
+                    used.append(provider)
+                continue
+            if kind in (KIND_EXPLANATION_ADD, KIND_EXPLANATION_UPDATE):
+                cleaned, provider = _clean_explanation_ai(
+                    row, update_existing=(kind == KIND_EXPLANATION_UPDATE))
+                if not cleaned:
+                    if provider:
+                        unchanged += 1
+                    else:
+                        failed += 1
+                    continue
+                _insert_update_request(conn, _build_payload(row, cleaned, kind, table_name))
                 pending_sent += 1
                 if provider:
                     used.append(provider)
@@ -958,14 +1079,19 @@ def run_question_update_job(db_alias, table_name, kind, progress=None, chapter_l
         if clean_rows:
             msg += ' %d record(s) were already free of unwanted characters.' % clean_rows
         if kept_rows:
-            msg += (' %d record(s) kept their suspicious characters (Home AI judged them correct '
+            msg += (' %d record(s) kept their suspicious characters (AI judged them correct '
                     'here).' % kept_rows)
     elif unchanged:
-        msg += ' %d record(s) already correct/unchanged.' % unchanged
+        if kind == KIND_EXPLANATION_UPDATE:
+            msg += ' %d record(s) did not receive a genuinely new valid explanation.' % unchanged
+        elif kind == KIND_EXPLANATION_ADD:
+            msg += ' %d record(s) did not receive a valid explanation.' % unchanged
+        else:
+            msg += ' %d record(s) already correct/unchanged.' % unchanged
     if failed:
         msg += ' %d record(s) could not be processed (AI unavailable or invalid reply).' % failed
     if reverted:
-        msg += ' %d field(s) were put back because the Cloud AI reply damaged a formula.' % reverted
+        msg += ' %d field(s) were put back because the AI reply damaged a formula.' % reverted
     if kind == KIND_SPECIAL:
         msg += _special_summary(char_stats)
     else:

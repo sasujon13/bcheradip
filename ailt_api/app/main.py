@@ -100,8 +100,8 @@ api.include_router(languages.router)
 api.include_router(grammar_books.router)
 api.include_router(admin.router)
 api.include_router(ai.router)
-    api.include_router(learning.router)
-    api.include_router(practice.router)
+api.include_router(learning.router)
+api.include_router(practice.router)
 
 
 @api.get("/email/cheradip.png", include_in_schema=False)
@@ -115,9 +115,13 @@ def email_logo_png() -> FileResponse:
 @api.get("/health")
 def health() -> dict:
     db_ok = False
+    database_keys = False
     try:
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
+            database_keys = bool(conn.execute(text(
+                "SELECT COUNT(*) FROM ai_providers WHERE api_key IS NOT NULL AND TRIM(api_key) != ''"
+            )).scalar())
             db_ok = True
     except Exception:
         pass
@@ -135,7 +139,7 @@ def health() -> dict:
         "ext_database": "extcheradip" if ext_db_ok else "unavailable",
         "language_packs_available": len(list_available_codes()),
         "grammar_books_available": len(list_grammar_codes()),
-        "llm_keys_configured": bool(
+        "llm_keys_configured": database_keys or bool(
             settings.gemini_api_key
             or settings.openai_api_key
             or settings.groq_api_key

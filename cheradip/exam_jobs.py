@@ -95,7 +95,7 @@ def update_job(job_id, **fields):
 
 
 def start_job(kind, db_alias, filters):
-    """Start `kind` ('create_exam' | 'add_exam') in a background thread.
+    """Start a regular, live, or practice exam-generation job.
 
     Returns the job id; progress can be polled via get_job().
     """
@@ -123,14 +123,24 @@ def start_job(kind, db_alias, filters):
     }
     _write(job)
 
-    from cheradip.exam_actions import run_create_exam, run_add_exam
+    from cheradip.exam_actions import (
+        run_add_exam, run_add_live_exam, run_add_practice_exam,
+        run_create_exam, run_create_live_exam, run_create_practice_exam,
+    )
 
     def _run():
         try:
-            if kind == 'create_exam':
-                result = run_create_exam(db_alias, filters, progress=lambda **kw: update_job(job_id, **kw))
-            else:
-                result = run_add_exam(db_alias, filters, progress=lambda **kw: update_job(job_id, **kw))
+            actions = {
+                'create_exam': run_create_exam,
+                'add_exam': run_add_exam,
+                'create_live_exam': run_create_live_exam,
+                'add_live_exam': run_add_live_exam,
+                'create_practice_exam': run_create_practice_exam,
+                'add_practice_exam': run_add_practice_exam,
+            }
+            result = actions[kind](
+                db_alias, filters, progress=lambda **kw: update_job(job_id, **kw)
+            )
             update_job(
                 job_id,
                 status='done',
@@ -167,10 +177,11 @@ def set_cancelled(job_id):
 def start_question_update_job(db_alias, table_name, kind, chapter_list=None, topic_list=None):
     """Queue an AI update pass for a subject table in the background.
 
-    ``kind`` is ``'special'`` (Home AI marks the unwanted special characters) or ``'cloud'``
-    (Cloud AI corrects words/sentences) — see ``cheradip.question_updater``. Each changed record
-    becomes a pending-question-request for manual review (nothing is applied to the subject table
-    directly). Returns the job id; progress polled via get_job().
+    ``kind`` selects the special-character, full correction, add-explanation or
+    update-explanation pass — see ``cheradip.question_updater``. Cloud AI is preferred and Home AI
+    is the fallback. Each changed record becomes a pending-question-request for manual review
+    (nothing is applied to the subject table directly). Returns the job id; progress is polled via
+    get_job().
     """
     _cleanup_old_jobs()
     job_id = uuid.uuid4().hex

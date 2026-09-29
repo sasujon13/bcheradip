@@ -159,6 +159,7 @@ def ai_providers(db: Session = Depends(get_db)) -> dict:
                 "last_error": p.last_error,
                 "last_used_at": p.last_used_at_ms,
                 "enabled": p.enabled,
+                "key_configured": bool((p.api_key or '').strip()),
             }
         )
     summary = f"{mode}: {len([x for x in providers if x.enabled])} providers configured."

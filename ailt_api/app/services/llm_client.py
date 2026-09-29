@@ -18,20 +18,26 @@ class LlmHttpError(RuntimeError):
         super().__init__(message)
 
 
-def provider_has_key(provider_id: str) -> bool:
+def _provider_key(provider_id: str, database_key: str | None = None) -> str:
+    if database_key and database_key.strip():
+        return database_key.strip()
     if provider_id == "gemini":
-        return bool(settings.gemini_api_key)
+        return settings.gemini_api_key
     if provider_id in ("openai", "openai_paid"):
-        return bool(settings.openai_api_key)
+        return settings.openai_api_key
     if provider_id == "groq":
-        return bool(settings.groq_api_key)
+        return settings.groq_api_key
     if provider_id in ("claude", "claude_paid"):
-        return bool(settings.anthropic_api_key)
+        return settings.anthropic_api_key
     if provider_id == "mistral":
-        return bool(settings.mistral_api_key)
+        return settings.mistral_api_key
     if provider_id in ("openrouter", "openrouter_paid"):
-        return bool(settings.openrouter_api_key)
-    return False
+        return settings.openrouter_api_key
+    return ""
+
+
+def provider_has_key(provider_id: str, database_key: str | None = None) -> bool:
+    return bool(_provider_key(provider_id, database_key))
 
 
 def _format_http_error(resp: httpx.Response) -> str:
@@ -66,30 +72,26 @@ async def generate_text(
     max_tokens: int = 512,
     *,
     task_intent: str | None = None,
+    api_key: str | None = None,
 ) -> str | None:
     model = resolve_provider_model(provider_id, task_intent)
-    if provider_id == "gemini" and settings.gemini_api_key:
-        return await _gemini(prompt, max_tokens, model=model)
-    if provider_id == "openai" and settings.openai_api_key:
-        return await _openai(prompt, max_tokens, model=model)
-    if provider_id == "openai_paid" and settings.openai_api_key:
-        return await _openai(prompt, max_tokens, model=model)
-    if provider_id == "groq" and settings.groq_api_key:
-        return await _groq(prompt, max_tokens, model=model)
-    if provider_id == "claude" and settings.anthropic_api_key:
-        return await _anthropic(prompt, max_tokens, model=model)
-    if provider_id == "claude_paid" and settings.anthropic_api_key:
-        return await _anthropic(prompt, max_tokens, model=model)
-    if provider_id == "mistral" and settings.mistral_api_key:
-        return await _mistral(prompt, max_tokens, model=model)
-    if provider_id == "openrouter" and settings.openrouter_api_key:
-        return await _openrouter(prompt, max_tokens, model=model)
-    if provider_id == "openrouter_paid" and settings.openrouter_api_key:
-        return await _openrouter(prompt, max_tokens, model=model)
+    key = _provider_key(provider_id, api_key)
+    if provider_id == "gemini" and key:
+        return await _gemini(prompt, max_tokens, model=model, api_key=key)
+    if provider_id in ("openai", "openai_paid") and key:
+        return await _openai(prompt, max_tokens, model=model, api_key=key)
+    if provider_id == "groq" and key:
+        return await _groq(prompt, max_tokens, model=model, api_key=key)
+    if provider_id in ("claude", "claude_paid") and key:
+        return await _anthropic(prompt, max_tokens, model=model, api_key=key)
+    if provider_id == "mistral" and key:
+        return await _mistral(prompt, max_tokens, model=model, api_key=key)
+    if provider_id in ("openrouter", "openrouter_paid") and key:
+        return await _openrouter(prompt, max_tokens, model=model, api_key=key)
     return None
 
 
-async def _gemini(prompt: str, max_tokens: int, *, model: str) -> str:
+async def _gemini(prompt: str, max_tokens: int, *, model: str, api_key: str) -> str:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
     body = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -101,7 +103,7 @@ async def _gemini(prompt: str, max_tokens: int, *, model: str) -> str:
             url,
             headers={
                 "Content-Type": "application/json",
-                "X-goog-api-key": settings.gemini_api_key,
+                "X-goog-api-key": api_key,
             },
             body=body,
         )
@@ -109,13 +111,13 @@ async def _gemini(prompt: str, max_tokens: int, *, model: str) -> str:
         return parts[0].get("text", "").strip()
 
 
-async def _openai(prompt: str, max_tokens: int, model: str = "gpt-4o-mini") -> str:
+async def _openai(prompt: str, max_tokens: int, model: str = "gpt-4o-mini", api_key: str = "") -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         data = await _post_json(
             client,
             "https://api.openai.com/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {settings.openai_api_key}",
+                "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             },
             body={
@@ -127,13 +129,13 @@ async def _openai(prompt: str, max_tokens: int, model: str = "gpt-4o-mini") -> s
         return data["choices"][0]["message"]["content"].strip()
 
 
-async def _groq(prompt: str, max_tokens: int, *, model: str) -> str:
+async def _groq(prompt: str, max_tokens: int, *, model: str, api_key: str) -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         data = await _post_json(
             client,
             "https://api.groq.com/openai/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {settings.groq_api_key}",
+                "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             },
             body={
@@ -145,13 +147,13 @@ async def _groq(prompt: str, max_tokens: int, *, model: str) -> str:
         return data["choices"][0]["message"]["content"].strip()
 
 
-async def _anthropic(prompt: str, max_tokens: int, model: str) -> str:
+async def _anthropic(prompt: str, max_tokens: int, model: str, api_key: str) -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         data = await _post_json(
             client,
             "https://api.anthropic.com/v1/messages",
             headers={
-                "x-api-key": settings.anthropic_api_key,
+                "x-api-key": api_key,
                 "anthropic-version": "2023-06-01",
                 "Content-Type": "application/json",
             },
@@ -164,13 +166,13 @@ async def _anthropic(prompt: str, max_tokens: int, model: str) -> str:
         return data["content"][0]["text"].strip()
 
 
-async def _mistral(prompt: str, max_tokens: int, model: str) -> str:
+async def _mistral(prompt: str, max_tokens: int, model: str, api_key: str) -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         data = await _post_json(
             client,
             "https://api.mistral.ai/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {settings.mistral_api_key}",
+                "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             },
             body={
@@ -182,13 +184,13 @@ async def _mistral(prompt: str, max_tokens: int, model: str) -> str:
         return data["choices"][0]["message"]["content"].strip()
 
 
-async def _openrouter(prompt: str, max_tokens: int, model: str) -> str:
+async def _openrouter(prompt: str, max_tokens: int, model: str, api_key: str) -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         data = await _post_json(
             client,
             "https://openrouter.ai/api/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {settings.openrouter_api_key}",
+                "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
                 "HTTP-Referer": settings.public_base_url,
                 "X-Title": "AI Language Tutor",

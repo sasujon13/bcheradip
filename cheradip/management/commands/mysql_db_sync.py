@@ -59,6 +59,8 @@ root (optional: ``pip install python-dotenv``).
 - ``SSH_TUNNEL`` / ``SSH_HOST`` — when MySQL is only on the Linux server (not public), forward via SSH.
   ``SSH_USER``, ``SSH_PASSWORD`` (or key), ``SSH_PORT`` (22), ``SSH_LOCAL_PORT`` (13306),
   ``SSH_REMOTE_MYSQL_HOST`` (127.0.0.1), ``SSH_REMOTE_MYSQL_PORT`` (3306).
+  Set ``SSH_TUNNEL_BACKEND=plink`` for legacy SSH servers no longer supported by Paramiko 5.
+  PuTTY must already trust the server host key, or set ``SSH_HOST_KEY`` to its verified fingerprint.
   Requires ``pip install sshtunnel``. **Do not use ``cheradip.com``** for SSH/MySQL — that hostname is Cloudflare.
 - ``SYNC_DATABASES`` — comma-separated allow list. Leave unset to use ``DEFAULT_SYNC_DATABASES`` in code
   (``cheradip_cheradip``, ``cheradip_hsc``, ``cheradip_honours``, ``cheradip_job``, ``ailanguagetutor``).
@@ -79,6 +81,7 @@ import argparse
 import os
 import socket
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -96,7 +99,7 @@ from django.core.management.base import BaseCommand, CommandError
 DEFAULT_SYNC_REMOTE_HOST = "cheradip.com"
 DEFAULT_SYNC_REMOTE_PORT = "3306"
 DEFAULT_SYNC_REMOTE_USER = "sasha"
-DEFAULT_SYNC_REMOTE_PASSWORD = "Sa@2271029867890"
+DEFAULT_SYNC_REMOTE_PASSWORD = ""
 
 DEFAULT_SYNC_LOCAL_HOST = "127.0.0.1"
 DEFAULT_SYNC_LOCAL_PORT = "3306"
@@ -255,6 +258,74 @@ def _ensure_paramiko_sshtunnel_compat() -> None:
         paramiko.DSSKey = paramiko.RSAKey  # type: ignore[attr-defined]
 
 
+@contextmanager
+def _plink_mysql_tunnel(ssh_host: str, ssh_port: int, ssh_user: str,
+                        ssh_password: str | None, ssh_pkey: str | None,
+                        local_port: int, remote_mysql_host: str, remote_mysql_port: int):
+    """Use PuTTY Plink for servers whose SSH algorithms Paramiko removed."""
+    plink = env("PLINK_PATH") or shutil.which("plink")
+    if not plink:
+        raise MySQLSyncError(
+            "SSH_TUNNEL_BACKEND=plink but plink was not found. Install PuTTY or set PLINK_PATH."
+        )
+    args = [plink, "-ssh", "-batch", "-N", "-noagent", "-noshare",
+            "-P", str(ssh_port), "-l", ssh_user,
+            "-L", f"127.0.0.1:{local_port}:{remote_mysql_host}:{remote_mysql_port}"]
+    if env_bool("SSH_TUNNEL_DEBUG", False):
+        args.insert(1, "-v")
+    host_key = env("SSH_HOST_KEY")
+    if host_key:
+        args.extend(["-hostkey", host_key])
+    password_file = None
+    if ssh_pkey:
+        args.extend(["-i", ssh_pkey])
+    elif ssh_password:
+        fd, password_file = tempfile.mkstemp(prefix="cheradip_ssh_", suffix=".txt")
+        try:
+            os.chmod(password_file, stat.S_IREAD | stat.S_IWRITE)
+            with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+                handle.write(ssh_password)
+        except Exception:
+            try:
+                os.close(fd)
+            except OSError:
+                pass
+            Path(password_file).unlink(missing_ok=True)
+            raise
+        args.extend(["-pwfile", password_file])
+    args.append(ssh_host)
+    creationflags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+    process = subprocess.Popen(args, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                               stderr=subprocess.PIPE, text=True, creationflags=creationflags)
+    try:
+        deadline = time.monotonic() + 15
+        while time.monotonic() < deadline:
+            if process.poll() is not None:
+                detail = (process.stderr.read() if process.stderr else "").strip()
+                raise MySQLSyncError("Plink SSH tunnel failed: " + (detail or "unknown error"))
+            try:
+                with socket.create_connection(("127.0.0.1", local_port), timeout=.4):
+                    break
+            except OSError:
+                time.sleep(.2)
+        else:
+            raise MySQLSyncError("Timed out waiting for the Plink SSH tunnel to open.")
+        if password_file:
+            Path(password_file).unlink(missing_ok=True)
+            password_file = None
+        yield "127.0.0.1", str(local_port)
+    finally:
+        if process.poll() is None:
+            process.terminate()
+            try:
+                process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait(timeout=5)
+        if password_file:
+            Path(password_file).unlink(missing_ok=True)
+
+
 def _warn_if_cloudflare_hostname(host: str) -> None:
     if host.strip().lower() in _CLOUDFLARE_HOSTNAMES:
         print(
@@ -286,6 +357,17 @@ def _ssh_mysql_tunnel(mysql_remote_host: str, mysql_remote_port: str):
     local_port = env_int("SSH_LOCAL_PORT", 13306)
     remote_mysql_host = env("SSH_REMOTE_MYSQL_HOST", "127.0.0.1") or "127.0.0.1"
     remote_mysql_port = env_int("SSH_REMOTE_MYSQL_PORT", int(mysql_remote_port or "3306"))
+    ssh_pkey = env("SSH_PRIVATE_KEY")
+
+    if (env("SSH_TUNNEL_BACKEND", "paramiko") or "paramiko").strip().lower() == "plink":
+        print(
+            f"SSH tunnel (Plink): {ssh_user}@{ssh_host}:{ssh_port} "
+            f"-> 127.0.0.1:{local_port} -> {remote_mysql_host}:{remote_mysql_port}"
+        )
+        with _plink_mysql_tunnel(ssh_host, ssh_port, ssh_user, ssh_password, ssh_pkey,
+                                 local_port, remote_mysql_host, remote_mysql_port) as endpoint:
+            yield endpoint
+        return
 
     try:
         _ensure_paramiko_sshtunnel_compat()
@@ -310,13 +392,12 @@ def _ssh_mysql_tunnel(mysql_remote_host: str, mysql_remote_port: str):
     }
     if ssh_password:
         tunnel_kwargs["ssh_password"] = ssh_password
-    ssh_pkey = env("SSH_PRIVATE_KEY")
     if ssh_pkey:
         tunnel_kwargs["ssh_pkey"] = ssh_pkey
 
     print(
         f"SSH tunnel: {ssh_user}@{ssh_host}:{ssh_port} "
-        f"→ 127.0.0.1:{local_port} → {remote_mysql_host}:{remote_mysql_port}"
+        f"-> 127.0.0.1:{local_port} -> {remote_mysql_host}:{remote_mysql_port}"
     )
     tunnel = SSHTunnelForwarder(**tunnel_kwargs)
     try:

@@ -12,7 +12,19 @@ from app.services.llm_router import (
     _order_candidates,
     _record_success,
     ensure_daily_quota_reset,
+    _is_eligible,
 )
+from app.services.llm_client import provider_has_key
+
+
+def test_database_provider_key_takes_precedence_over_environment():
+    assert provider_has_key('openai', 'database-test-key') is True
+
+
+def test_provider_is_not_eligible_after_its_configured_daily_quota():
+    provider = SimpleNamespace(enabled=True, health='healthy', quota_daily_limit=10,
+                               requests_today=10)
+    assert _is_eligible(provider) is False
 
 
 def test_mark_failure_429_counts_toward_exhausted():

@@ -7,7 +7,7 @@ from .tutor_stream import unusable
 from .tutor_inference import complete
 
 
-def clarification(payload, scope, base_url):
+def clarification(payload, scope, base_url, provider_config=None):
     if scope.get('selected_topic'):
         return None
     policy = (
@@ -29,7 +29,8 @@ def clarification(payload, scope, base_url):
     try:
         raw = complete({
             'model': model, 'messages': [{'role': 'system', 'content': policy}] + [m for m in payload['messages'] if m['role'] != 'system'][-4:],
-            'file_context': [], 'max_tokens': 384, 'stream': False}, base_url, timeout=30)
+            'file_context': [], 'max_tokens': 384, 'stream': False}, base_url, timeout=30,
+            provider_config=provider_config)
         if not isinstance(raw, str) or unusable(raw):
             return None
         start, end = raw.find('{'), raw.rfind('}')

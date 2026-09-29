@@ -249,7 +249,7 @@ def generate_questions_from_ai(
     sample_questions=None,
     existing_questions=None,
 ):
-    """Create validated, unique MCQ questions — Home AI first, Cloud AI fallback.
+    """Create validated, unique MCQ questions — Cloud AI first, Home AI fallback.
 
     Returns (questions, provider) where provider is one of
     'home-ai', 'cloud', 'none' (both Home AI and Cloud AI failed/absent).
@@ -268,36 +268,34 @@ def generate_questions_from_ai(
         sample_questions=sample_questions,
     )
 
-    questions = None
-    provider = "none"
-    # Home AI first (local PC), Cloud AI as fallback
+    def validated_questions(raw_questions):
+        valid = []
+        for raw in raw_questions or []:
+            question = validate_question(raw)
+            if question:
+                valid.append(question)
+            if len(valid) >= count * 3:  # headroom for dedup
+                break
+        return _dedupe_questions(valid, existing_questions)
+
+    # Cloud AI first, Home AI as fallback.
+    try:
+        cloud = _call_cloud_ai(prompt, count)
+        validated = validated_questions(cloud)
+        if validated:
+            return validated, "cloud"
+    except requests.RequestException as exc:
+        logger.warning("Cloud AI question generation failed: %s", exc)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("Cloud AI question generation error: %s", exc)
+
     try:
         home = _call_home_ai(prompt, count)
-        if home:
-            questions = home
-            provider = "home-ai"
+        validated = validated_questions(home)
+        if validated:
+            return validated, "home-ai"
     except requests.RequestException as exc:
-        logger.warning("Home AI question generation failed: %s", exc)
-    except Exception as exc:  # noqa: BLE001
-        logger.warning("Home AI question generation error: %s", exc)
-
-    if not questions:
-        try:
-            cloud = _call_cloud_ai(prompt, count)
-            if cloud:
-                questions = cloud
-                provider = "cloud"
-        except requests.RequestException as exc:
-            logger.warning("Cloud AI question generation failed: %s", exc)
-        except Exception as exc:  # noqa: BLE001 - any cloud failure must fall back
-            logger.warning("Cloud AI question generation error: %s", exc)
-
-    validated = []
-    for raw in questions or []:
-        q = validate_question(raw)
-        if q:
-            validated.append(q)
-        if len(validated) >= count * 3:  # headroom for dedup
-            break
-    validated = _dedupe_questions(validated, existing_questions)
-    return validated, provider
+        logger.warning("Home AI question generation fallback failed: %s", exc)
+    except Exception as exc:  # noqa: BLE001 - any fallback failure returns no questions
+        logger.warning("Home AI question generation fallback error: %s", exc)
+    return [], "none"

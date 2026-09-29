@@ -7,6 +7,7 @@ Created exams are listed at /student/regularexam.
 import json
 import logging
 import random
+from datetime import timedelta
 
 from django.conf import settings
 from django.db import connections
@@ -16,6 +17,32 @@ from .ai_question_generator import generate_questions_from_ai
 from .subject_question_tables import next_qid_for_chapter_topic, subject_question_table_name
 
 logger = logging.getLogger(__name__)
+
+
+EXAM_SET_EXTRA_COLUMNS = {
+    'exam_mode': "VARCHAR(16) NOT NULL DEFAULT 'regular'",
+    'exam_variant': "VARCHAR(32) NULL",
+    'duration_minutes': "INT NOT NULL DEFAULT 20",
+    'question_count': "INT NOT NULL DEFAULT 30",
+    'available_from': "DATETIME(6) NULL",
+    'available_until': "DATETIME(6) NULL",
+}
+
+
+def _ensure_exam_set_schema(cursor):
+    """Upgrade older raw exam-set tables without requiring a Django model migration."""
+    for column, definition in EXAM_SET_EXTRA_COLUMNS.items():
+        cursor.execute(
+            "SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() "
+            "AND table_name = 'cheradip_exam_set' AND column_name = %s",
+            [column],
+        )
+        if not cursor.fetchone():
+            cursor.execute("ALTER TABLE cheradip_exam_set ADD COLUMN %s %s" % (column, definition))
+    cursor.execute(
+        "UPDATE cheradip_exam_set SET exam_mode = 'regular' "
+        "WHERE exam_mode IS NULL OR TRIM(exam_mode) = ''"
+    )
 
 
 # Question tables and exam_set live in hsc (or honours); use hsc when db_alias is default/hsc
@@ -246,7 +273,7 @@ def _ai_fill_topic_qids(cursor, alias, table_name, level_tr, class_level, subjec
 
     Questions and answers are kept unique — both among the topic's existing rows
     and among the AI-generated ones. When the topic cannot supply `sq` unique
-    questions (even after asking Home AI first, then Cloud AI), this returns None so
+    questions (even after asking Cloud AI first, then Home AI), this returns None so
     the caller SKIPS the set, rather than placing duplicate questions/answers.
     """
     tbl = table_name.replace('`', '``')
@@ -480,6 +507,322 @@ def _create_subject_sets(cursor, table_name, level_tr, class_level, subject_tr, 
     return count
 
 
+def _selected_question_qids(cursor, table_name, chapter_list=None, topic_list=None):
+    """Return unique MCQ ids from the selected curriculum scope in random order."""
+    tbl = table_name.replace('`', '``')
+    conditions = []
+    params = []
+    mcq = _mcq_condition(cursor, tbl)
+    if mcq:
+        conditions.append(mcq)
+    if chapter_list:
+        placeholders = ', '.join(['%s'] * len(chapter_list))
+        conditions.append("(chapter_no IN (%s) OR chapter IN (%s))" % (placeholders, placeholders))
+        params.extend(chapter_list)
+        params.extend(chapter_list)
+    if topic_list:
+        placeholders = ', '.join(['%s'] * len(topic_list))
+        conditions.append("(topic_no IN (%s) OR topic IN (%s))" % (placeholders, placeholders))
+        params.extend(topic_list)
+        params.extend(topic_list)
+    where = (' WHERE ' + ' AND '.join(conditions)) if conditions else ''
+    cursor.execute("SELECT qid FROM `%s`%s ORDER BY RAND()" % (tbl, where), params or None)
+    seen = set()
+    qids = []
+    for row in cursor.fetchall() or []:
+        qid = row[0]
+        key = str(qid)
+        if qid is not None and key not in seen:
+            seen.add(key)
+            qids.append(qid)
+    return qids
+
+
+def _selected_question_rows(cursor, table_name, chapter_list=None, topic_list=None):
+    """Load and deduplicate the selected MCQ pool by both question and answer."""
+    tbl = table_name.replace('`', '``')
+    conditions = ["question IS NOT NULL", "TRIM(COALESCE(question, '')) != ''"]
+    params = []
+    mcq = _mcq_condition(cursor, tbl)
+    if mcq:
+        conditions.append(mcq)
+    if chapter_list:
+        placeholders = ', '.join(['%s'] * len(chapter_list))
+        conditions.append("(chapter_no IN (%s) OR chapter IN (%s))" % (placeholders, placeholders))
+        params.extend(chapter_list)
+        params.extend(chapter_list)
+    if topic_list:
+        placeholders = ', '.join(['%s'] * len(topic_list))
+        conditions.append("(topic_no IN (%s) OR topic IN (%s))" % (placeholders, placeholders))
+        params.extend(topic_list)
+        params.extend(topic_list)
+    cursor.execute(
+        "SELECT qid, question, answer, chapter_no, chapter, topic_no, topic FROM `%s` "
+        "WHERE %s ORDER BY RAND()" % (tbl, ' AND '.join(conditions)),
+        params or None,
+    )
+    rows = [
+        {
+            'qid': row[0], 'question': row[1], 'answer': row[2],
+            'chapter_no': row[3], 'chapter': row[4],
+            'topic_no': row[5], 'topic': row[6],
+        }
+        for row in (cursor.fetchall() or [])
+    ]
+    return _dedupe_rows(rows)
+
+
+def _fill_practice_question_qids(cursor, alias, table_name, level_tr, class_level,
+                                  subject_tr, chapter_list, topic_list, target=100):
+    """Return up to ``target`` unique MCQs, persisting validated AI questions when needed."""
+    rows = _selected_question_rows(cursor, table_name, chapter_list, topic_list)
+    random.shuffle(rows)
+    if len(rows) >= target:
+        return [row['qid'] for row in rows[:target]], 0
+    if not getattr(settings, 'EXAM_AI_FILL_ENABLED', True):
+        return [row['qid'] for row in rows], 0
+
+    first = rows[0] if rows else {}
+    ch_no = first.get('chapter_no') or (chapter_list[0] if chapter_list else '0')
+    chapter = first.get('chapter') or (chapter_list[0] if chapter_list else 'AI Practice')
+    topic_no = first.get('topic_no') or (topic_list[0] if topic_list else '0')
+    topic = first.get('topic') or (topic_list[0] if topic_list else 'AI Practice')
+    tbl = table_name.replace('`', '``')
+    created = 0
+    # Smaller batches produce more reliable structured JSON than one 100-question response.
+    while len(rows) < target:
+        missing = target - len(rows)
+        batch_size = min(10, missing)
+        try:
+            questions, _provider = generate_questions_from_ai(
+                subject_tr=subject_tr,
+                level_tr=level_tr,
+                class_level=class_level,
+                chapter_no=ch_no,
+                chapter=chapter,
+                topic_no=topic_no,
+                topic=topic,
+                count=batch_size,
+                sample_questions=[row.get('question') for row in rows[:8]],
+                existing_questions=[
+                    {'question': row.get('question'), 'answer': row.get('answer')}
+                    for row in rows
+                ],
+            )
+        except Exception as exc:
+            logger.warning('Practice AI fill failed for %s / %s: %s', subject_tr, topic, exc)
+            break
+        if not questions:
+            break
+        inserted_this_batch = 0
+        now = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
+        for question in questions:
+            qid = next_qid_for_chapter_topic(
+                table_name, str(ch_no or '0'), str(topic_no or '0'), using=alias
+            )
+            cursor.execute(
+                "INSERT INTO `%s` (qid, subject, chapter_no, chapter, topic_no, topic, question, option_1, "
+                "option_2, option_3, option_4, answer, explanation, explanation2, explanation3, type, level, "
+                "subsource, created_at, updated_at, updated_by) "
+                "VALUES (%%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s, %%s)" % tbl,
+                [
+                    qid, subject_tr, ch_no or None, chapter or None, topic_no or None, topic or None,
+                    question['question'], question.get('option_1') or '', question.get('option_2') or '',
+                    question.get('option_3') or '', question.get('option_4') or '', question['answer'],
+                    question.get('explanation') or '', question.get('explanation2') or None,
+                    question.get('explanation3') or None, 'বহুনির্বাচনি প্রশ্ন', level_tr or None, None,
+                    now, now, 'Cheradip AI',
+                ],
+            )
+            rows.append({
+                'qid': qid,
+                'question': question['question'],
+                'answer': question['answer'],
+                'chapter_no': ch_no, 'chapter': chapter,
+                'topic_no': topic_no, 'topic': topic,
+            })
+            created += 1
+            inserted_this_batch += 1
+            if len(rows) >= target:
+                break
+        if inserted_this_batch == 0:
+            break
+    random.shuffle(rows)
+    return [row['qid'] for row in rows[:target]], created
+
+
+def _scope_exam_type(chapter_list, topic_list):
+    if topic_list:
+        return 'topic'
+    if chapter_list:
+        return 'chapter'
+    return 'subject'
+
+
+def _run_live_exam(db_alias, filters, progress=None, replace=False):
+    """Create live papers, optionally replacing all previous live papers in scope."""
+    alias = _exam_db_alias(db_alias)
+    if alias not in connections:
+        return {'message': 'Database not configured.'}
+    conn = connections[alias]
+    scope = _get_subject_scope(conn, filters)
+    if not scope:
+        return {'message': 'No subjects found for the selected filters.'}
+    chapter_list = _parse_topic_chapter_list(filters.get('chapter'))
+    topic_list = _parse_topic_chapter_list(filters.get('topic'))
+    created = skipped = existing = 0
+    now = timezone.now()
+    try:
+        with conn.cursor() as cur:
+            _ensure_exam_set_schema(cur)
+            for index, (level_tr, class_level, subject_tr, sq) in enumerate(scope):
+                table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+                if not _table_exists(cur, table_name):
+                    skipped += 1
+                    continue
+                _emit(progress, phase='Live exam', current_subject=subject_tr,
+                      current_chapter='', current_topic='', percent=int(index * 100 / len(scope)))
+                exam_type = _scope_exam_type(chapter_list, topic_list)
+                if not replace:
+                    cur.execute(
+                        "SELECT COUNT(*) FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s "
+                        "AND class_level = %s AND subject_tr = %s AND exam_mode = 'live' "
+                        "AND exam_type = %s AND (available_until IS NULL OR available_until >= %s)",
+                        [alias, level_tr, class_level, subject_tr, exam_type, now],
+                    )
+                    if int(cur.fetchone()[0] or 0) > 0:
+                        existing += 1
+                        continue
+                qids = _selected_question_qids(cur, table_name, chapter_list, topic_list)
+                target = max(1, min(int(sq or 30), 50))
+                if len(qids) < target:
+                    skipped += 1
+                    continue
+                duration = max(20, target)
+                available_until = now + timedelta(minutes=duration + 15)
+                if replace:
+                    cur.execute(
+                        "DELETE FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s "
+                        "AND class_level = %s AND subject_tr = %s AND exam_mode = 'live'",
+                        [alias, level_tr, class_level, subject_tr],
+                    )
+                stamp = now.strftime('%Y%m%d%H%M%S')
+                name = "Live Exam - %s (%d Questions)" % (subject_tr, target)
+                cur.execute(
+                    "INSERT INTO cheradip_exam_set "
+                    "(db_alias, level_tr, class_level, subject_tr, exam_type, exam_mode, exam_variant, "
+                    "set_key, name_label, qids_json, duration_minutes, question_count, available_from, "
+                    "available_until, created_at) VALUES (%s, %s, %s, %s, %s, 'live', 'timed', %s, %s, %s, %s, %s, %s, %s, %s)",
+                    [alias, level_tr, class_level, subject_tr, exam_type,
+                     'live-' + exam_type + '-' + stamp, name, json.dumps(qids[:target]), duration, target,
+                     now, available_until, now],
+                )
+                created += 1
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    action = 'Create Live Exam' if replace else 'Add Live Exam'
+    return {'message': '%s: created %d fresh timed paper(s); kept %d subject(s) with an active live paper; skipped %d subject(s) without enough unique MCQs.' % (action, created, existing, skipped)}
+
+
+def run_create_live_exam(db_alias, filters, progress=None):
+    """Replace each selected subject's live paper with one fresh timed mixed paper."""
+    return _run_live_exam(db_alias, filters, progress=progress, replace=True)
+
+
+def run_add_live_exam(db_alias, filters, progress=None):
+    """Add a live paper only where no active live paper already exists."""
+    return _run_live_exam(db_alias, filters, progress=progress, replace=False)
+
+
+def _run_practice_exam(db_alias, filters, progress=None, replace=False):
+    """Create practice tiers, optionally replacing existing tiers in scope."""
+    alias = _exam_db_alias(db_alias)
+    if alias not in connections:
+        return {'message': 'Database not configured.'}
+    conn = connections[alias]
+    scope = _get_subject_scope(conn, filters)
+    if not scope:
+        return {'message': 'No subjects found for the selected filters.'}
+    chapter_list = _parse_topic_chapter_list(filters.get('chapter'))
+    topic_list = _parse_topic_chapter_list(filters.get('topic'))
+    tiers = (('short', 'Short', 25, 20), ('middle', 'Middle', 50, 40), ('hard', 'Hard', 100, 80))
+    created = skipped = ai_created = existing = 0
+    now = timezone.now()
+    try:
+        with conn.cursor() as cur:
+            _ensure_exam_set_schema(cur)
+            for index, (level_tr, class_level, subject_tr, _sq) in enumerate(scope):
+                table_name = subject_question_table_name(level_tr, class_level, subject_tr)
+                if not _table_exists(cur, table_name):
+                    skipped += len(tiers)
+                    continue
+                _emit(progress, phase='Practice exams', current_subject=subject_tr,
+                      current_chapter='', current_topic='', percent=int(index * 100 / len(scope)))
+                exam_type = _scope_exam_type(chapter_list, topic_list)
+                if replace:
+                    missing_tiers = list(tiers)
+                else:
+                    cur.execute(
+                        "SELECT exam_variant FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s "
+                        "AND class_level = %s AND subject_tr = %s AND exam_mode = 'practice' AND exam_type = %s",
+                        [alias, level_tr, class_level, subject_tr, exam_type],
+                    )
+                    existing_variants = {str(row[0] or '').strip() for row in (cur.fetchall() or [])}
+                    missing_tiers = [tier for tier in tiers if tier[0] not in existing_variants]
+                    existing += len(tiers) - len(missing_tiers)
+                    if not missing_tiers:
+                        continue
+                target = max(tier[2] for tier in missing_tiers)
+                qids, generated = _fill_practice_question_qids(
+                    cur, alias, table_name, level_tr, class_level, subject_tr,
+                    chapter_list, topic_list, target=target,
+                )
+                ai_created += generated
+                _emit(progress, phase='Practice exams', current_subject=subject_tr,
+                      current_chapter='', current_topic='', ai_created_total=ai_created,
+                      ai_created_current=generated,
+                      percent=min(95, int((index + 1) * 100 / len(scope))))
+                if replace:
+                    cur.execute(
+                        "DELETE FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s "
+                        "AND class_level = %s AND subject_tr = %s AND exam_mode = 'practice'",
+                        [alias, level_tr, class_level, subject_tr],
+                    )
+                for variant, label, count, duration in missing_tiers:
+                    if len(qids) < count:
+                        skipped += 1
+                        continue
+                    chosen = random.sample(qids, count)
+                    name = "%s Practice Exam - %s (%d Questions)" % (label, subject_tr, count)
+                    cur.execute(
+                        "INSERT INTO cheradip_exam_set "
+                        "(db_alias, level_tr, class_level, subject_tr, exam_type, exam_mode, exam_variant, "
+                        "set_key, name_label, qids_json, duration_minutes, question_count, created_at) "
+                        "VALUES (%s, %s, %s, %s, %s, 'practice', %s, %s, %s, %s, %s, %s, %s)",
+                        [alias, level_tr, class_level, subject_tr, exam_type, variant,
+                         'practice-' + exam_type + '-' + variant, name, json.dumps(chosen), duration, count, now],
+                    )
+                    created += 1
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    action = 'Create Practice Exam' if replace else 'Add Practice Exam'
+    return {'message': '%s: created %d Short/Middle/Hard paper(s), kept %d existing tier(s), and added %d AI-created MCQ(s); skipped %d tier(s) because enough valid unique MCQs could not be produced.' % (action, created, existing, ai_created, skipped)}
+
+
+def run_create_practice_exam(db_alias, filters, progress=None):
+    """Replace selected practice tiers with fresh Short/Middle/Hard papers."""
+    return _run_practice_exam(db_alias, filters, progress=progress, replace=True)
+
+
+def run_add_practice_exam(db_alias, filters, progress=None):
+    """Add only missing Short/Middle/Hard practice tiers."""
+    return _run_practice_exam(db_alias, filters, progress=progress, replace=False)
+
+
 def run_create_exam(db_alias, filters, progress=None):
     """
     Create or recreate exam question sets for the given filters.
@@ -500,6 +843,7 @@ def run_create_exam(db_alias, filters, progress=None):
     removed_non_mcq = 0
     try:
         with conn.cursor() as cur:
+            _ensure_exam_set_schema(cur)
             for level_tr, class_level, subject_tr, sq in scope:
                 table_name = subject_question_table_name(level_tr, class_level, subject_tr)
                 if not _table_exists(cur, table_name):
@@ -518,7 +862,7 @@ def run_create_exam(db_alias, filters, progress=None):
                       percent=0)
                 # Delete existing exam sets for this subject (recreate)
                 cur.execute(
-                    "DELETE FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s",
+                    "DELETE FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s AND exam_mode = 'regular'",
                     [alias, level_tr, class_level, subject_tr]
                 )
                 created_topic += _create_topic_sets(cur, table_name, level_tr, class_level, subject_tr, sq, alias, chapter_list, topic_list, skipped=skipped, progress=progress, ai_stats=ai_stats)
@@ -556,6 +900,7 @@ def run_add_exam(db_alias, filters, progress=None):
     removed_non_mcq = 0
     try:
         with conn.cursor() as cur:
+            _ensure_exam_set_schema(cur)
             for level_tr, class_level, subject_tr, sq in scope:
                 table_name = subject_question_table_name(level_tr, class_level, subject_tr)
                 if not _table_exists(cur, table_name):
@@ -571,7 +916,7 @@ def run_add_exam(db_alias, filters, progress=None):
                       percent=0)
                 # Topic: only add sets for topics that don't have an exam_set row
                 cur.execute(
-                    "SELECT set_key FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s AND exam_type = 'topic'",
+                    "SELECT set_key FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s AND exam_mode = 'regular' AND exam_type = 'topic'",
                     [alias, level_tr, class_level, subject_tr]
                 )
                 existing_topic_keys = {r[0] for r in cur.fetchall()}
@@ -651,14 +996,14 @@ def run_add_exam(db_alias, filters, progress=None):
                           percent=min(95, int((idx + 1) * 100 / topics_total)) if topics_total else 95)
                 # Chapter: check existing chapter set count; add if missing
                 cur.execute(
-                    "SELECT COUNT(*) FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s AND exam_type = 'chapter'",
+                    "SELECT COUNT(*) FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s AND exam_mode = 'regular' AND exam_type = 'chapter'",
                     [alias, level_tr, class_level, subject_tr]
                 )
                 if cur.fetchone()[0] == 0:
                     added += _create_chapter_sets(cur, table_name, level_tr, class_level, subject_tr, sq, alias, chapter_list, progress=progress, ai_stats=ai_stats)
                 # Subject: same
                 cur.execute(
-                    "SELECT COUNT(*) FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s AND exam_type = 'subject'",
+                    "SELECT COUNT(*) FROM cheradip_exam_set WHERE db_alias = %s AND level_tr = %s AND class_level = %s AND subject_tr = %s AND exam_mode = 'regular' AND exam_type = 'subject'",
                     [alias, level_tr, class_level, subject_tr]
                 )
                 if cur.fetchone()[0] == 0:

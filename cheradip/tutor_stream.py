@@ -26,10 +26,21 @@ def unusable(text):
     return len(compact) >= 32 and not any(c.isalnum() for c in compact) and len(set(compact)) <= 3
 
 
-def checked_chunks(upstream):
+def wrong_language(text, expected_language):
+    """Reject a clearly English-dominant answer when Bengali was requested."""
+    if expected_language != 'Bengali':
+        return False
+    prose = re.sub(r'```[\s\S]*?(?:```|$)|https?://\S+', '', text)
+    bengali = len(re.findall(r'[\u0980-\u09ff]', prose))
+    latin = len(re.findall(r'[A-Za-z]', prose))
+    return latin >= 80 and bengali < max(20, int(latin * .35))
+
+
+def checked_chunks(upstream, expected_language=''):
     """Hold back a small tail, including split SSE frames and split UTF-8 tokens."""
     decoder = codecs.getincrementaldecoder('utf-8')()
     buffer, full, sent = '', '', 0
+    language_checked = expected_language != 'Bengali'
     def lines(chunk, final=False):
         nonlocal buffer
         buffer += decoder.decode(chunk, final=final)
@@ -46,10 +57,10 @@ def checked_chunks(upstream):
             return
         data = json.loads(value)
         if data.get('error'):
-            raise ValueError('Home AI interrupted the response.')
+            raise ValueError('The AI provider interrupted the response.')
         content = data.get('content', '')
         if not isinstance(content, str):
-            raise ValueError('Invalid Home AI response.')
+            raise ValueError('Invalid AI provider response.')
         full += content
         if unusable(full):
             raise UnusableReply('Model returned repeated or unreadable symbols.')
@@ -77,6 +88,12 @@ def checked_chunks(upstream):
                 continue
             if len(full.lstrip()) < len('```cheradip-ask'):
                 continue
+        if not language_checked and (len(full) >= 500 or len(re.findall(r'[A-Za-z\u0980-\u09ff]', full)) >= 220):
+            if wrong_language(full, expected_language):
+                raise UnusableReply('Model answered in the wrong language.')
+            language_checked = True
+        if not language_checked:
+            continue
         safe_end = max(sent, len(full) - 64)
         if safe_end > sent:
             yield full[sent:safe_end]; sent = safe_end
@@ -84,6 +101,8 @@ def checked_chunks(upstream):
         consume(line)
     if not full.strip():
         raise UnusableReply('Model returned an empty response.')
+    if not language_checked and wrong_language(full, expected_language):
+        raise UnusableReply('Model answered in the wrong language.')
     if full.lstrip().startswith('```cheradip-ask'):
         raise UnusableReply('Incomplete clarification options.')
     if sent < len(full):

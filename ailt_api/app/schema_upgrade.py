@@ -33,6 +33,7 @@ _COLUMN_PATCHES: list[tuple[str, str, str]] = [
     ("referral_balances", "pending_usd", "pending_usd DOUBLE NOT NULL DEFAULT 0"),
     ("referral_balances", "available_usd", "available_usd DOUBLE NOT NULL DEFAULT 0"),
     ("ai_providers", "consecutive_failures", "consecutive_failures INT NOT NULL DEFAULT 0"),
+    ("ai_providers", "api_key", "api_key TEXT NULL"),
     ("ai_routing_policy", "quota_reset_day_utc", "quota_reset_day_utc VARCHAR(10) NULL"),
     # Extension billing (extcheradip DB) — line-edit metering added after first deploy.
     ("usage_records", "line_edits", "line_edits BIGINT NOT NULL DEFAULT 0"),
@@ -127,10 +128,6 @@ def upgrade_schema(engine: Engine) -> None:
                     text("CREATE INDEX ix_subscriptions_purchase_token ON subscriptions (purchase_token(191))")
                 )
                 logger.info("Added index subscriptions.purchase_token")
-
-        # Unlimited routing — org/provider rate limits only; failure circuit breaker stays in app code.
-        if _table_exists(engine, "ai_providers") and _column_exists(engine, "ai_providers", "quota_daily_limit"):
-            conn.execute(text("UPDATE ai_providers SET quota_daily_limit = NULL WHERE quota_daily_limit IS NOT NULL"))
 
         # Practice score: DOUBLE → TEXT JSON {current,overall,mode,level}.
         if _table_exists(engine, "users") and _column_exists(engine, "users", "score"):

@@ -1,4 +1,4 @@
-"""Browser adapter for the extension's Home AI API; never proxies arbitrary URLs."""
+"""Browser tutor API with Home AI and allow-listed direct cloud providers."""
 import json
 import re
 import requests
@@ -15,6 +15,11 @@ from . import tutor_knowledge, tutor_routing
 from .tutor_stream import checked_chunks, unusable, UnusableReply
 from .tutor_clarification import clarification
 from .tutor_inference import open_stream, ollama_url
+from .tutor_providers import default_model, provider_catalog
+from .tutor_key_store import (
+    customer_from_request, customer_tutor_settings, key_status, resolve_provider_config,
+    save_customer_tutor_settings,
+)
 from .tutor_reference_digest import digest
 from . import tutor_web
 
@@ -69,14 +74,54 @@ def home_url():
 
 class TutorModelsView(TutorBrowserView):
     def get(self, request):
+        base = {'providers': provider_catalog()}
         try:
             response = requests.get(home_url() + '/ide/models', timeout=(5, 20))
             response.raise_for_status()
             data = response.json()
             data['tutor'] = {'home_ai_url': home_url(), 'structured_local_chat': bool(ollama_url())}
+            data.update(base)
             return Response(data)
         except (requests.RequestException, ValueError):
-            return Response({'error': 'Home AI is unavailable. Please try again.'}, status=503)
+            return Response({**base, 'models': [{'id': 'auto', 'label': 'Auto'}],
+                             'default_model': 'auto',
+                             'warning': 'Home AI is unavailable; direct cloud providers remain available.'})
+
+
+class TutorSettingsView(TutorBrowserView):
+    """Persist tutor provider choices and encrypted personal keys in Customer.settings JSON."""
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        try:
+            customer = customer_from_request(request)
+        except ValueError as error:
+            return Response({'error': str(error)}, status=401)
+        if customer is None:
+            return Response({'signed_in': False, 'provider': 'cheradip', 'model': 'auto',
+                             'key_status': key_status(None)})
+        saved = customer_tutor_settings(customer)
+        return Response({'signed_in': True, 'provider': saved['provider'], 'model': saved['model'],
+                         'key_status': key_status(customer)})
+
+    def post(self, request):
+        try:
+            customer = customer_from_request(request)
+        except ValueError as error:
+            return Response({'error': str(error)}, status=401)
+        if customer is None:
+            return Response({'error': 'Sign in to save tutor API keys to your account.'}, status=401)
+        api_keys = request.data.get('api_keys', {})
+        if not isinstance(api_keys, dict):
+            return Response({'error': 'api_keys must be an object.'}, status=400)
+        try:
+            saved = save_customer_tutor_settings(
+                customer, provider=request.data.get('provider'), model=request.data.get('model'),
+                api_keys=api_keys)
+        except ValueError as error:
+            return Response({'error': str(error)}, status=400)
+        return Response({'saved': True, 'provider': saved['provider'], 'model': saved['model'],
+                         'key_status': key_status(customer)})
 
 
 def validated_chat(data):
@@ -115,6 +160,9 @@ def validated_chat(data):
                    'language. If the user '
                    'explicitly requests a different output or translation language, follow that request. '
                    'Answer only the latest request; earlier turns provide context, not a list of questions to answer again. '
+                   'When the latest message is a follow-up, answer it using the immediately preceding question and Tutor '
+                   'answer. Resolve words such as this, that, it, why, how, আরও, এটি, ওটা and কেন from that exchange, and '
+                   'keep the selected subject, chapter and topic unless the learner clearly changes the topic. '
                    'A selected curriculum title is a real lesson topic: use its subject/chapter and reference context, '
                    'rather than denying that a poem, story or lesson exists. For a clear topic provide a discussion. '
                    'If the intent is genuinely ambiguous, ask ONE concise question with concrete interpretations '
@@ -160,9 +208,15 @@ class TutorChatView(TutorBrowserView):
         try:
             payload = validated_chat(request.data)
             scope = tutor_knowledge.clean_scope(request.data.get('learning_context'))
+            provider_config = resolve_provider_config(request, request.data.get('provider_config'))
         except (ValueError, AttributeError) as error:
             return Response({'error': str(error)}, status=400)
+        direct_provider = provider_config['provider'] != 'cheradip'
+        if direct_provider and payload['model'] == 'auto':
+            payload['model'] = default_model(provider_config['provider'])
         query = next((m['content'] for m in reversed(payload['messages']) if m['role'] == 'user'), '')
+        expected_language = ('Bengali' if re.search(r'[\u0980-\u09ff]', query) or
+                             query.startswith('বিস্তারিত আলোচনা করুন:') else '')
         preferences = request.data.get('preferences') if isinstance(request.data.get('preferences'), dict) else {}
         previous = payload['messages'][-2] if len(payload['messages']) > 2 else {}
         clarified = previous.get('role') == 'assistant' and '```cheradip-ask' in previous.get('content', '')
@@ -170,7 +224,8 @@ class TutorChatView(TutorBrowserView):
                      if clarified and not scope.get('subject_tr') else tutor_knowledge.retrieve(query, scope))
         title = re.sub(r'^(?:Discuss Details on\s+|বিস্তারিত আলোচনা করুন:\s*)', '', query, flags=re.I).strip().casefold()
         known_title = any(source.get('topic', '').strip().casefold() == title for source in knowledge['sources'])
-        card = clarification(payload, scope, home_url()) if preferences.get('promptReadyEnabled', True) and not known_title else None
+        card = clarification(payload, scope, home_url(), provider_config=provider_config) \
+            if preferences.get('promptReadyEnabled', True) and not known_title else None
         if card:
             response = StreamingHttpResponse([
                 ('data: ' + json.dumps({'content': card}) + '\n\n').encode(), b'data: [DONE]\n\n'
@@ -202,9 +257,12 @@ class TutorChatView(TutorBrowserView):
         rules = preferences.get('userRules', '')
         if isinstance(rules, str) and rules.strip():
             payload['messages'][0]['content'] += '\nLearner preferences: ' + rules[:3000]
-        if payload['model'] == 'auto' and ollama_url():
+        if not direct_provider and payload['model'] == 'auto' and ollama_url():
             payload['model'] = getattr(settings, 'TUTOR_REASONING_MODEL', tutor_routing.REASONING)
-        routing = tutor_routing.route(payload, query, home_url())
+        routing = (tutor_routing.route(payload, query, home_url()) if not direct_provider else {
+            'answer_model': payload['model'], 'planner_model': '', 'task': 'direct', 'planned': False,
+            'provider': provider_config['provider'],
+        })
 
         def chunks():
             current = None
@@ -213,7 +271,10 @@ class TutorChatView(TutorBrowserView):
             try:
                 yield event({'status': 'Reading ' + str(knowledge['count']) + ' saved questions and explanations'})
                 if knowledge['text']:
-                    review = digest(knowledge, getattr(settings, 'TUTOR_FAST_MODEL', tutor_routing.FAST), home_url())
+                    review_model = payload['model'] if direct_provider else getattr(
+                        settings, 'TUTOR_FAST_MODEL', tutor_routing.FAST)
+                    review = digest(knowledge, review_model, home_url(), provider_config=provider_config,
+                                    response_language=expected_language or 'English')
                     while True:
                         try:
                             yield event(next(review))
@@ -250,17 +311,27 @@ class TutorChatView(TutorBrowserView):
                 yield ('data: ' + json.dumps({'tutor': {'reference_count': knowledge['count'],
                     'retrieval_cached': knowledge['cached'], 'references': knowledge['sources'],
                     'web_sources': web['sources'], 'retrieval_unavailable': knowledge.get('unavailable', False), **routing}}) + '\n\n').encode()
-                current = open_stream(payload, home_url())
+                current = open_stream(payload, home_url(), provider_config=provider_config)
                 for attempt in range(2):
                     try:
-                        for text in checked_chunks(current):
+                        for text in checked_chunks(current, expected_language=expected_language):
                             yield ('data: ' + json.dumps({'content': text}) + '\n\n').encode()
                         yield b'data: [DONE]\n\n'
                         break
-                    except UnusableReply:
+                    except UnusableReply as error:
                         if attempt:
                             raise
                         current.close()
+                        if 'wrong language' in str(error).lower():
+                            payload['messages'][0]['content'] += (
+                                '\nRETRY REQUIREMENT: The previous draft used the wrong language. Write the entire '
+                                'answer in Bengali script now. Do not use English sentences or English headings. '
+                                'English is allowed only for unavoidable technical terms, code and proper names.')
+                            yield event({'reset': True, 'status': 'Retrying the answer in Bengali'})
+                            current = open_stream(payload, home_url(), provider_config=provider_config)
+                            continue
+                        if direct_provider:
+                            raise
                         try:
                             available = tutor_routing.available_models(home_url())
                         except (requests.RequestException, ValueError):
@@ -272,7 +343,7 @@ class TutorChatView(TutorBrowserView):
                         payload['model'] = fallback
                         yield ('data: ' + json.dumps({'reset': True, 'status': 'Retrying an unreadable reply with another model',
                                                      'tutor': {**routing, 'answer_model': fallback, 'reference_count': knowledge['count'], 'references': knowledge['sources'], 'web_sources': web['sources']}}) + '\n\n').encode()
-                        current = open_stream(payload, home_url())
+                        current = open_stream(payload, home_url(), provider_config=provider_config)
             except (requests.RequestException, ValueError):
                 yield b'data: {"reset": true}\n\n'
                 recovery = {'question': 'এই উত্তরটি নির্ভরযোগ্যভাবে তৈরি করা যায়নি। ছোট ধাপে কোন অংশটি আগে বুঝতে চান?',

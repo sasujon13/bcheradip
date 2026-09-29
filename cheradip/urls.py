@@ -7,7 +7,14 @@ from . import views
 from .views2 import DivisionsView, DistrictsView, ThanasView
 from .views_trxid import TrxInboundAPIView
 from .tutor_views import TutorSearchView
-from .tutor_chat import TutorProfileView, TutorModelsView, TutorChatView
+from .tutor_chat import TutorProfileView, TutorModelsView, TutorChatView, TutorSettingsView
+from .student_views import (
+    StudentExamResultsView,
+    StudentStatsView,
+    StudentReportView,
+    StudentReportExportView,
+    StudentLeaderboardView,
+)
 
 from .views import (
     ItemListCreateView,
@@ -145,7 +152,13 @@ urlpatterns = [
     path('tutor/search/', TutorSearchView.as_view(), name='tutor_search'),
     path('tutor/profile/', TutorProfileView.as_view(), name='tutor_profile'),
     path('tutor/models/', TutorModelsView.as_view(), name='tutor_models'),
+    path('tutor/settings/', TutorSettingsView.as_view(), name='tutor_settings'),
     path('tutor/chat/', TutorChatView.as_view(), name='tutor_chat'),
+    path('student/exam-results/', StudentExamResultsView.as_view(), name='student_exam_results'),
+    path('student/stats/', StudentStatsView.as_view(), name='student_stats'),
+    path('student/reports/', StudentReportView.as_view(), name='student_reports'),
+    path('student/reports/export/', StudentReportExportView.as_view(), name='student_reports_export'),
+    path('student/leaderboard/', StudentLeaderboardView.as_view(), name='student_leaderboard'),
 
     path('question_topics/', QuestionTopicsView.as_view(), name='question_topics'),
     path('question_list/', QuestionListView.as_view(), name='question_list'),

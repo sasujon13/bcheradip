@@ -106,11 +106,17 @@ CREATE TABLE IF NOT EXISTS cheradip_exam_set (
     class_level VARCHAR(50) NULL,
     subject_tr VARCHAR(255) NULL,
     exam_type VARCHAR(32) NOT NULL,
+    exam_mode VARCHAR(16) NOT NULL DEFAULT 'regular',
+    exam_variant VARCHAR(32) NULL,
     set_key VARCHAR(128) NOT NULL,
     name_label VARCHAR(255) NULL,
     qids_json LONGTEXT NULL,
+    duration_minutes INT NOT NULL DEFAULT 20,
+    question_count INT NOT NULL DEFAULT 30,
+    available_from DATETIME(6) NULL,
+    available_until DATETIME(6) NULL,
     created_at DATETIME(6) NULL,
-    INDEX (db_alias, level_tr, class_level, subject_tr, exam_type),
+    INDEX (db_alias, exam_mode, level_tr, class_level, subject_tr, exam_type),
     INDEX (set_key)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 """
@@ -138,6 +144,21 @@ def _ensure_hsc_base_tables(cursor, db_name, dry_run):
     cursor.execute(CREATE_PENDING_SUBJECT_REQUEST)
     cursor.execute(CREATE_PENDING_QUESTION_REQUEST)
     cursor.execute(CREATE_CHERADIP_EXAM_SET)
+    for col, definition in (
+        ('exam_mode', "VARCHAR(16) NOT NULL DEFAULT 'regular'"),
+        ('exam_variant', 'VARCHAR(32) NULL'),
+        ('duration_minutes', 'INT NOT NULL DEFAULT 20'),
+        ('question_count', 'INT NOT NULL DEFAULT 30'),
+        ('available_from', 'DATETIME(6) NULL'),
+        ('available_until', 'DATETIME(6) NULL'),
+    ):
+        cursor.execute(
+            "SELECT 1 FROM information_schema.columns WHERE table_schema = %s "
+            "AND table_name = 'cheradip_exam_set' AND column_name = %s",
+            [db_name, col],
+        )
+        if not cursor.fetchone():
+            cursor.execute("ALTER TABLE cheradip_exam_set ADD COLUMN %s %s" % (col, definition))
     # Add sq to cheradip_subject if missing (default 30)
     cursor.execute(
         "SELECT 1 FROM information_schema.columns WHERE table_schema = %s AND table_name = 'cheradip_subject' AND column_name = 'sq'",
