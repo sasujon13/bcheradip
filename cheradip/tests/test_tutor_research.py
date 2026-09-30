@@ -1,17 +1,17 @@
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from django.test import SimpleTestCase
 from django.core.cache import cache
 from cheradip.tutor_reference_digest import digest
 from cheradip.tutor_inference import chat_body
-from cheradip.tutor_web import public_url, search, unsafe_result
+from cheradip.tutor_web import public_education_context, public_url, search, unsafe_result
 
 
 class ResearchTests(SimpleTestCase):
     @patch('cheradip.tutor_reference_digest.complete', return_value='Reviewed source facts.')
     @patch('cheradip.tutor_reference_digest.cache', cache)
-    def test_all_records_are_reviewed_and_digest_is_cached(self, complete):
+    def test_only_three_records_are_reviewed_and_digest_is_cached(self, complete):
         cache.clear()
-        blocks = [f'[Q{i}] ' + 'An explanation with details. ' * 30 for i in range(97)]
+        blocks = [f'[Q{i}] ' + 'An explanation with details. ' * 100 for i in range(97)]
         knowledge = {'text': '\n\n'.join(blocks), 'blocks': blocks, 'count': 97}
         def consume():
             generator = digest(knowledge, 'test', 'http://home')
@@ -22,8 +22,9 @@ class ResearchTests(SimpleTestCase):
                     return result.value
         result = consume()
         reviewed = '\n'.join(call.args[0]['messages'][-1]['content'] for call in complete.call_args_list)
-        for i in range(97):
+        for i in range(3):
             self.assertIn(f'[Q{i}] ', reviewed)
+        self.assertNotIn('[Q3] ', reviewed)
         count = complete.call_count
         self.assertEqual(consume(), result)
         self.assertEqual(complete.call_count, count)
@@ -41,8 +42,8 @@ class ResearchTests(SimpleTestCase):
     @patch('cheradip.tutor_reference_digest.cache', cache)
     def test_bengali_request_creates_bengali_reference_notes(self, complete):
         cache.clear()
-        block = '[Q1] বাংলা পাঠের তথ্য। ' * 300
-        generator = digest({'text': block, 'blocks': [block], 'count': 1}, 'test', 'http://home',
+        blocks = ['[Q1] বাংলা পাঠের তথ্য। ' * 300, '[Q2] বাংলা পাঠের ব্যাখ্যা। ' * 300]
+        generator = digest({'text': '\n\n'.join(blocks), 'blocks': blocks, 'count': 2}, 'test', 'http://home',
                            response_language='Bengali')
         while True:
             try:
@@ -83,4 +84,33 @@ class ResearchTests(SimpleTestCase):
         self.assertEqual(result['sources'], [])
         self.assertEqual(result['text'], '')
         article.assert_not_called()
+
+    @patch('cheradip.tutor_web.requests.get')
+    def test_public_education_context_uses_wikimedia_api_text_without_urls(self, get):
+        cache.clear()
+        response = Mock()
+        response.json.return_value = {'query': {'pages': [{
+            'title': 'সালোকসংশ্লেষণ',
+            'extract': 'সালোকসংশ্লেষণ প্রক্রিয়ায় সবুজ উদ্ভিদ সূর্যালোক ব্যবহার করে খাদ্য তৈরি করে।',
+        }]}}
+        get.return_value = response
+        text = public_education_context('সালোকসংশ্লেষণ', 'জীববিজ্ঞান', bengali=True)
+        self.assertIn('সবুজ উদ্ভিদ', text)
+        self.assertNotIn('http', text)
+        self.assertEqual(get.call_args.args[0], 'https://bn.wikipedia.org/w/api.php')
+        self.assertEqual(get.call_args.kwargs['params']['generator'], 'search')
+
+    @patch('cheradip.tutor_web.requests.get')
+    def test_literary_topic_prioritizes_wikisource_and_full_title(self, get):
+        cache.clear()
+        response = Mock()
+        response.json.return_value = {'query': {'pages': [{
+            'title': 'সঞ্চয়িতা/জুতা-আবিষ্কার',
+            'extract': 'রবীন্দ্রনাথ ঠাকুরের জুতা-আবিষ্কার কবিতায় হবু রাজা ও গোবুরায়ের কাহিনি আছে।',
+        }]}}
+        get.return_value = response
+        text = public_education_context('জুতা আবিষ্কার', 'বাংলা কবিতা', bengali=True)
+        self.assertIn('রবীন্দ্রনাথ ঠাকুর', text)
+        self.assertEqual(get.call_args.args[0], 'https://bn.wikisource.org/w/api.php')
+        self.assertEqual(get.call_args.kwargs['params']['gsrsearch'], 'জুতা আবিষ্কার')
 

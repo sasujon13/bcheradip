@@ -5,6 +5,7 @@ provider database, are used in memory, and are never logged by this module. Prov
 here so a browser cannot turn the tutor into an arbitrary URL proxy.
 """
 import json
+import re
 
 import requests
 
@@ -19,8 +20,8 @@ PROVIDERS = {
         'models': ['claude-sonnet-4-20250514', 'claude-3-5-haiku-latest'],
     },
     'google': {
-        'label': 'Google Gemini', 'model': 'gemini-2.5-flash',
-        'models': ['gemini-2.5-flash', 'gemini-2.5-pro'],
+        'label': 'Google Gemini', 'model': 'gemini-3.8-flash',
+        'models': ['gemini-3.8-flash', 'gemini-flash-latest'],
     },
     'groq': {
         'label': 'Groq', 'model': 'llama-3.3-70b-versatile',
@@ -37,6 +38,10 @@ PROVIDERS = {
     'openrouter': {
         'label': 'OpenRouter', 'model': 'openrouter/auto',
         'models': ['openrouter/auto'],
+    },
+    'brave': {
+        'label': 'Brave Search AI', 'model': 'brave',
+        'models': ['brave', 'brave-pro'],
     },
 }
 
@@ -113,20 +118,61 @@ def _anthropic(api_key, payload, timeout):
                    if item.get('type') == 'text')
 
 
-def _google(api_key, payload, timeout):
+def clean_public_answer(text):
+    """Remove provider-added citations while preserving the educational answer."""
+    clean = str(text or '').strip()
+    clean = re.sub(r'\[([^\]]+)\]\(https?://[^)]+\)',
+                   lambda match: '' if re.fullmatch(r'(?i)(?:source|reference|citation|link|\d+)',
+                                                     match.group(1).strip()) else match.group(1), clean)
+    clean = re.sub(r'【\s*\d+(?:\s*[-,]\s*\d+)*\s*†[^】]*】', '', clean)
+    clean = re.sub(r'(?<!\w)\[\d+(?:\s*[-,]\s*\d+)*\]', '', clean)
+    clean = re.sub(r'https?://\S+', '', clean)
+    clean = re.sub(r'(?is)```cheradip-ask\s*.*?```', '', clean)
+    clean = re.split(r'(?im)^\s*(?:#{1,6}\s*)?(?:sources?|references?|citations?|তথ্যসূত্র|সূত্র)\s*:?.*$', clean, maxsplit=1)[0]
+    clean = re.sub(r'[ \t]+\n', '\n', clean)
+    clean = re.sub(r' {2,}', ' ', clean)
+    clean = re.sub(r'\s+([.,;:!?।])', r'\1', clean)
+    clean = re.sub(r'\n{3,}', '\n\n', clean)
+    return clean.strip()
+
+
+def _brave(api_key, payload, timeout):
+    question = next((item['content'] for item in reversed(_messages(payload))
+                     if item['role'] == 'user'), '')
+    response = requests.post('https://api.search.brave.com/res/v1/chat/completions', headers={
+        'X-Subscription-Token': api_key, 'Content-Type': 'application/json',
+        'Accept': 'application/json'}, json={
+            'model': payload['model'] if payload['model'] in ('brave', 'brave-pro') else 'brave',
+            'messages': [{'role': 'user', 'content': question}], 'stream': False,
+            'max_completion_tokens': payload.get('max_tokens', 1800),
+        }, timeout=(5, timeout))
+    response.raise_for_status()
+    data = response.json()
+    return clean_public_answer(data.get('choices', [{}])[0].get('message', {}).get('content'))
+
+
+def _google(api_key, payload, timeout, use_google_search=False):
     messages = _messages(payload)
     system = '\n\n'.join(item['content'] for item in messages if item['role'] == 'system')
     contents = [{'role': 'model' if item['role'] == 'assistant' else 'user',
                  'parts': [{'text': item['content']}]} for item in messages if item['role'] != 'system']
     url = 'https://generativelanguage.googleapis.com/v1beta/models/' + payload['model'] + ':generateContent'
-    response = requests.post(url, headers={'x-goog-api-key': api_key, 'Content-Type': 'application/json'}, json={
+    request_body = {
         'systemInstruction': {'parts': [{'text': system}]}, 'contents': contents,
         'generationConfig': {'temperature': 0.2, 'maxOutputTokens': payload.get('max_tokens', 1800)},
-    }, timeout=(5, timeout))
+    }
+    if use_google_search:
+        request_body['tools'] = [{'google_search': {}}]
+        request_body['systemInstruction']['parts'].append({'text': (
+            'Use Google Search when it helps answer accurately. Return only the clean answer for the learner. '
+            'Do not add a Sources, References, Citations, or Web results section and do not print URLs. '
+            'The application handles grounding metadata separately.')})
+    response = requests.post(url, headers={'x-goog-api-key': api_key, 'Content-Type': 'application/json'},
+                             json=request_body, timeout=(5, timeout))
     response.raise_for_status()
     candidates = response.json().get('candidates', [])
     parts = candidates[0].get('content', {}).get('parts', []) if candidates else []
-    return ''.join(str(item.get('text') or '') for item in parts)
+    return clean_public_answer(''.join(str(item.get('text') or '') for item in parts))
 
 
 def complete(payload, provider_config, timeout=90):
@@ -138,8 +184,11 @@ def complete(payload, provider_config, timeout=90):
         body['model'] = default_model(provider)
     if provider == 'anthropic':
         text = _anthropic(provider_config['api_key'], body, timeout)
+    elif provider == 'brave':
+        text = _brave(provider_config['api_key'], body, timeout)
     elif provider == 'google':
-        text = _google(provider_config['api_key'], body, timeout)
+        text = _google(provider_config['api_key'], body, timeout,
+                       use_google_search=bool(provider_config.get('google_search')))
     else:
         text = _openai_compatible(provider, provider_config['api_key'], body, timeout)
     if not text.strip():

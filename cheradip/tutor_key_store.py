@@ -19,6 +19,7 @@ _DB_IDS = {
     'mistral': ('mistral',),
     'deepseek': ('deepseek',),
     'openrouter': ('openrouter', 'openrouter_paid'),
+    'brave': ('brave',),
 }
 _PREFIX = 'fernet:v1:'
 

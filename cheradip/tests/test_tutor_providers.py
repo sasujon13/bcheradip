@@ -37,6 +37,50 @@ class TutorProviderTests(SimpleTestCase):
         self.assertNotIn('google-test-key', post.call_args.args[0])
         self.assertEqual(post.call_args.kwargs['headers']['x-goog-api-key'], 'google-test-key')
 
+    @patch('cheradip.tutor_providers.requests.post')
+    def test_google_search_grounding_returns_text_without_reference_metadata(self, post):
+        response = Mock()
+        response.json.return_value = {
+            'candidates': [{
+                'content': {'parts': [{'text': 'Clean grounded answer'}]},
+                'groundingMetadata': {
+                    'webSearchQueries': ['test query'],
+                    'groundingChunks': [{'web': {'uri': 'https://example.com', 'title': 'Example'}}],
+                    'searchEntryPoint': {'renderedContent': '<a href="https://google.com">Search</a>'},
+                },
+            }],
+        }
+        post.return_value = response
+        text = tutor_providers.complete({
+            'model': 'gemini-3.8-flash',
+            'messages': [{'role': 'system', 'content': 'Teach.'},
+                         {'role': 'user', 'content': 'Explain.'}],
+            'file_context': [],
+        }, {'provider': 'google', 'api_key': 'google-test-key', 'google_search': True})
+        self.assertEqual(text, 'Clean grounded answer')
+        request_body = post.call_args.kwargs['json']
+        self.assertEqual(request_body['tools'], [{'google_search': {}}])
+        self.assertIn('Do not add a Sources', str(request_body['systemInstruction']))
+        self.assertNotIn('example.com', text)
+        self.assertNotIn('searchEntryPoint', text)
+
+    @patch('cheradip.tutor_providers.requests.post')
+    def test_brave_answer_removes_links_and_reference_section(self, post):
+        response = Mock()
+        response.json.return_value = {'choices': [{'message': {'content': (
+            'Photosynthesis makes food in plants [source](https://example.com).\n\n'
+            'Sources:\nhttps://example.com')}}]}
+        post.return_value = response
+        text = tutor_providers.complete({
+            'model': 'brave', 'messages': [{'role': 'user', 'content': 'Explain photosynthesis.'}],
+            'file_context': [],
+        }, {'provider': 'brave', 'api_key': 'brave-test-key'})
+        self.assertEqual(text, 'Photosynthesis makes food in plants.')
+        self.assertEqual(post.call_args.args[0], 'https://api.search.brave.com/res/v1/chat/completions')
+        self.assertEqual(post.call_args.kwargs['headers']['X-Subscription-Token'], 'brave-test-key')
+        self.assertEqual(post.call_args.kwargs['json']['messages'], [
+            {'role': 'user', 'content': 'Explain photosynthesis.'}])
+
 
 class CustomerTutorKeyTests(TestCase):
     def setUp(self):
@@ -63,6 +107,14 @@ class CustomerTutorKeyTests(TestCase):
         resolved = tutor_key_store.resolve_provider_config(
             self.request, {'provider': 'openai', 'api_key': ''})
         self.assertEqual(resolved['api_key'], 'shared-test-key')
+        shared.assert_called_once_with('openai')
+
+    @patch('cheradip.tutor_key_store.database_provider_key', return_value='anonymous-shared-key')
+    def test_guest_uses_shared_database_key_without_login(self, shared):
+        request = APIRequestFactory().post('/', {}, format='json')
+        resolved = tutor_key_store.resolve_provider_config(
+            request, {'provider': 'openai', 'api_key': ''})
+        self.assertEqual(resolved, {'provider': 'openai', 'api_key': 'anonymous-shared-key'})
         shared.assert_called_once_with('openai')
 
     @patch('cheradip.tutor_key_store.database_provider_key', return_value='')

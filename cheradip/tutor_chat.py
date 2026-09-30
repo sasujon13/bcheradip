@@ -1,5 +1,6 @@
 """Browser tutor API with Home AI and allow-listed direct cloud providers."""
 import json
+import random
 import re
 import requests
 from django.conf import settings
@@ -15,9 +16,9 @@ from . import tutor_knowledge, tutor_routing
 from .tutor_stream import checked_chunks, unusable, UnusableReply
 from .tutor_clarification import clarification
 from .tutor_inference import open_stream, ollama_url
-from .tutor_providers import default_model, provider_catalog
+from .tutor_providers import clean_public_answer, default_model, provider_catalog
 from .tutor_key_store import (
-    customer_from_request, customer_tutor_settings, key_status, resolve_provider_config,
+    customer_from_request, customer_tutor_settings, database_provider_key, key_status, resolve_provider_config,
     save_customer_tutor_settings,
 )
 from .tutor_reference_digest import digest
@@ -72,9 +73,86 @@ def home_url():
     return settings.TUTOR_HOME_AI_URL.rstrip('/')
 
 
+def subject_response_instruction(scope):
+    """Return the answer-format policy implied by the selected subject."""
+    subject = ' '.join(filter(None, [scope.get('subject_name'), scope.get('subject_tr')]))
+    if re.search(r'english|ইংরেজি', subject, re.I):
+        return (
+            'ENGLISH SUBJECT RESPONSE FORMAT: Teach the selected English material through Bengali. '
+            'Include (1) important English words with clear Bengali meanings, (2) an easy Bengali-script '
+            'pronunciation for every English sentence that is supplied in the question or available passage, '
+            'and (3) the complete Bengali meaning of the entire supplied or available passage. Keep each '
+            'original English sentence beside its pronunciation and meaning so the learner can follow it. '
+            'Do not invent missing passage sentences. If no passage text is available, explain the requested '
+            'topic and clearly ask the learner to provide the passage before offering sentence-by-sentence '
+            'pronunciation or a complete translation.'
+        )
+    return (
+        'NON-ENGLISH SUBJECT RESPONSE FORMAT: Answer primarily in the learner\'s language, but use the '
+        'standard English word where an English technical term, name, symbol, command, or short term makes '
+        'the concept easier to understand. Briefly explain an unfamiliar English term in the learner\'s '
+        'language. Do not replace an otherwise clear explanation with unnecessary English sentences.'
+    )
+
+
+def curriculum_web_prompt(query, scope):
+    """Build the explicit curriculum-aware prompt sent to Web cloud AI."""
+    subject = scope.get('subject_name') or scope.get('subject_tr')
+    selection = '\n'.join(filter(None, [
+        'Level: ' + scope['level_tr'] if scope.get('level_tr') else '',
+        'Class: ' + scope['class_level'] if scope.get('class_level') else '',
+        'Subject: ' + subject if subject else '',
+        'Chapter: ' + scope['chapter'] if scope.get('chapter') else '',
+        'Topic: ' + scope['topic'] if scope.get('topic') else '',
+    ]))
+    context = ('Current curriculum selection:\n' + selection if selection else
+               'No curriculum topic is currently selected.')
+    return (
+        "Act as an accurate tutor. Reply in the same language as the learner's question.\n\n" +
+        context + '\n\n'
+        "Silently decide whether the learner's question is related to the selected level, subject, chapter, "
+        "or topic. If related, use that selection as the learning context and answer at the appropriate level. "
+        "If it is not related, answer the question normally without mentioning a mismatch and without showing "
+        "any warning.\n\nDo not invent authors, quotations, textbook facts, or references. If a factual "
+        "detail is uncertain, say so briefly instead of guessing.\n\n" +
+        subject_response_instruction(scope) + "\n\nLearner question:\n" + query
+    )
+
+
+def cloud_provider_candidates(request):
+    """Prefer this customer's saved keys, then fall back to shared keys."""
+    customer = customer_from_request(request)
+    personal = customer_tutor_settings(customer)['api_keys']
+    candidates = []
+    for provider in provider_catalog():
+        api_key = personal.get(provider) or database_provider_key(provider)
+        if api_key:
+            candidates.append({'provider': provider, 'api_key': api_key,
+                               'model': default_model(provider)})
+    random.SystemRandom().shuffle(candidates)
+    return candidates
+
+
+def answer_conflicts_with_scope(answer, scope):
+    """Reject an obvious lesson-genre change before it reaches a learner."""
+    chapter = str(scope.get('chapter') or '').casefold()
+    sample = str(answer or '')[:1200].casefold()
+    if not sample:
+        return True
+    if ('কবিতা' in chapter or 'poem' in chapter) and re.search(r'গল্প(?:টি|ের)?|\bstory\b', sample):
+        return not re.search(r'গল্প\s+নয়|গল্প\s+নয়|not\s+a\s+story', sample)
+    if ('উপন্যাস' in chapter or 'novel' in chapter) and re.search(r'কবিতা(?:টি|র)?|\bpoem\b', sample):
+        return not re.search(r'কবিতা\s+নয়|কবিতা\s+নয়|not\s+a\s+poem', sample)
+    return False
+
+
 class TutorModelsView(TutorBrowserView):
     def get(self, request):
-        base = {'providers': provider_catalog()}
+        shared = key_status(None)
+        base = {
+            'providers': provider_catalog(),
+            'shared_providers': [provider for provider, state in shared.items() if state.get('shared')],
+        }
         try:
             response = requests.get(home_url() + '/ide/models', timeout=(5, 20))
             response.raise_for_status()
@@ -205,27 +283,59 @@ class TutorChatView(TutorBrowserView):
     throttle_classes = [TutorChatThrottle]
 
     def post(self, request):
+        preferences = request.data.get('preferences') if isinstance(request.data.get('preferences'), dict) else {}
+        # Cloud now owns the Brave-first search flow. Migrate all older browser
+        # mode values into Cloud so only Cloud and Cheradip remain.
+        cloud_mode = preferences.get('accessMode') in ('cloud', 'web', 'search', 'compare', 'free')
+        search_mode = cloud_mode
+        shared_mode = cloud_mode
+        preferred_provider = ''
+        preferred_model = ''
         try:
             payload = validated_chat(request.data)
             scope = tutor_knowledge.clean_scope(request.data.get('learning_context'))
-            provider_config = resolve_provider_config(request, request.data.get('provider_config'))
+            payload['messages'][0]['content'] += '\n' + subject_response_instruction(scope)
+            if search_mode:
+                incoming = request.data.get('provider_config')
+                incoming = incoming if isinstance(incoming, dict) else {}
+                requested_provider = str(incoming.get('provider') or '').strip().lower()
+                catalog = provider_catalog()
+                if requested_provider in catalog:
+                    preferred_provider = requested_provider
+                    requested_model = str(payload.get('model') or '')
+                    preferred_model = (requested_model if requested_model in catalog[requested_provider]['models']
+                                       else catalog[requested_provider]['default_model'])
+                provider_config = {'provider': 'brave', 'api_key': ''}
+            else:
+                provider_config = ({'provider': 'cloud', 'api_key': ''} if cloud_mode else
+                                   resolve_provider_config(request, request.data.get('provider_config')))
         except (ValueError, AttributeError) as error:
             return Response({'error': str(error)}, status=400)
-        direct_provider = provider_config['provider'] != 'cheradip'
+        direct_provider = not shared_mode and provider_config['provider'] != 'cheradip'
         if direct_provider and payload['model'] == 'auto':
             payload['model'] = default_model(provider_config['provider'])
         query = next((m['content'] for m in reversed(payload['messages']) if m['role'] == 'user'), '')
         expected_language = ('Bengali' if re.search(r'[\u0980-\u09ff]', query) or
                              query.startswith('বিস্তারিত আলোচনা করুন:') else '')
-        preferences = request.data.get('preferences') if isinstance(request.data.get('preferences'), dict) else {}
         previous = payload['messages'][-2] if len(payload['messages']) > 2 else {}
         clarified = previous.get('role') == 'assistant' and '```cheradip-ask' in previous.get('content', '')
-        knowledge = (dict(text='', sources=[], count=0, cached=False)
-                     if clarified and not scope.get('subject_tr') else tutor_knowledge.retrieve(query, scope))
+        # Cloud mode answers through shared providers and must not
+        # retrieve, summarize, or attach saved question-bank explanations.
+        knowledge = (dict(text='', blocks=[], sources=[], count=0, cached=False)
+                     if shared_mode or (clarified and not scope.get('subject_tr'))
+                     else tutor_knowledge.retrieve(query, scope))
+        knowledge = tutor_knowledge.limit_references(knowledge)
+        if shared_mode:
+            # Keep the visible chat message natural, but send the selected cloud
+            # AI an explicit curriculum-aware version of the latest question.
+            for message in reversed(payload['messages']):
+                if message['role'] == 'user':
+                    message['content'] = curriculum_web_prompt(query, scope)
+                    break
         title = re.sub(r'^(?:Discuss Details on\s+|বিস্তারিত আলোচনা করুন:\s*)', '', query, flags=re.I).strip().casefold()
         known_title = any(source.get('topic', '').strip().casefold() == title for source in knowledge['sources'])
         card = clarification(payload, scope, home_url(), provider_config=provider_config) \
-            if preferences.get('promptReadyEnabled', True) and not known_title else None
+            if not shared_mode and preferences.get('promptReadyEnabled', True) and not known_title else None
         if card:
             response = StreamingHttpResponse([
                 ('data: ' + json.dumps({'content': card}) + '\n\n').encode(), b'data: [DONE]\n\n'
@@ -259,7 +369,9 @@ class TutorChatView(TutorBrowserView):
             payload['messages'][0]['content'] += '\nLearner preferences: ' + rules[:3000]
         if not direct_provider and payload['model'] == 'auto' and ollama_url():
             payload['model'] = getattr(settings, 'TUTOR_REASONING_MODEL', tutor_routing.REASONING)
-        routing = (tutor_routing.route(payload, query, home_url()) if not direct_provider else {
+        routing = ({'answer_model': preferred_model or default_model('brave') if search_mode else 'auto', 'planner_model': '',
+                    'task': 'brave-search' if search_mode else 'cloud-auto', 'planned': False,
+                    'provider': preferred_provider or 'brave' if search_mode else 'cloud'} if shared_mode else tutor_routing.route(payload, query, home_url()) if not direct_provider else {
             'answer_model': payload['model'], 'planner_model': '', 'task': 'direct', 'planned': False,
             'provider': provider_config['provider'],
         })
@@ -269,8 +381,8 @@ class TutorChatView(TutorBrowserView):
             def event(data):
                 return ('data: ' + json.dumps(data) + '\n\n').encode()
             try:
-                yield event({'status': 'Reading ' + str(knowledge['count']) + ' saved questions and explanations'})
                 if knowledge['text']:
+                    yield event({'status': 'Reading up to ' + str(knowledge['count']) + ' relevant saved explanations'})
                     review_model = payload['model'] if direct_provider else getattr(
                         settings, 'TUTOR_FAST_MODEL', tutor_routing.FAST)
                     review = digest(knowledge, review_model, home_url(), provider_config=provider_config,
@@ -283,7 +395,7 @@ class TutorChatView(TutorBrowserView):
                             break
                     payload['messages'][0]['content'] += (
                         '\nIdentify the lesson, genre and author from the references before interpreting a short title. '
-                        'The notes review all matching published questions, not a random sample. Check errors in stored answers. '
+                        'The notes review up to three relevant published explanations as a bounded sample. Check errors in stored answers. '
                         'Answer the chosen topic sequentially with definitions, examples and distinctions. '
                         'Never fabricate authors, quotations or facts unsupported by evidence.')
                     if re.search(r'ডেটা.?টাইপ|data.?type|কী.?ও[য়য়]ার্ড', query, re.I):
@@ -295,22 +407,157 @@ class TutorChatView(TutorBrowserView):
                         line = next((line for line in block.splitlines() if line.startswith('explanation: ') and re.search(r'হলো|বলতে|বোঝা|সংরক্ষিত|নামকরণ', line)), '')
                         if line and line[:350] not in excerpts:
                             excerpts.append(line[:350])
-                        if len(excerpts) == 4:
+                        if len(excerpts) == tutor_knowledge.MAX_REFERENCE_EXPLANATIONS:
                             break
                     if excerpts:
                         payload['file_context'].append({'path': 'Original Bengali explanations (reference excerpts)', 'language': 'text', 'content': '\n'.join(excerpts)})
                 web = {'sources': [], 'text': ''}
-                if preferences.get('webSearch', True) and knowledge['sources']:
-                    source = knowledge['sources'][0]
-                    yield event({'status': 'Looking up web references for the resolved lesson'})
-                    web = tutor_web.search(source.get('topic', ''), source.get('subject', '') + ' ' + source.get('chapter', ''))
+                if preferences.get('webSearch', True) and not search_mode and (knowledge['sources'] or cloud_mode):
+                    source = knowledge['sources'][0] if knowledge['sources'] else {}
+                    search_title = source.get('topic', '') or query
+                    search_subject = (source.get('subject', '') + ' ' + source.get('chapter', '')).strip()
+                    if not search_subject:
+                        search_subject = ' '.join(filter(None, [scope.get('subject_tr'), scope.get('chapter'), scope.get('topic')]))
+                    yield event({'status': 'Looking up safe public web references'})
+                    web = tutor_web.search(search_title, search_subject)
                     yield event({'status': web['status']})
                     if web['text']:
                         payload['file_context'].append({'path': 'Public web references', 'language': 'text', 'content': web['text']})
                         payload['messages'][0]['content'] += '\nWeb results may be unrelated: use only results matching the lesson identity. Cite actual supporting URLs; search excerpts are not full articles.'
-                yield ('data: ' + json.dumps({'tutor': {'reference_count': knowledge['count'],
-                    'retrieval_cached': knowledge['cached'], 'references': knowledge['sources'],
-                    'web_sources': web['sources'], 'retrieval_unavailable': knowledge.get('unavailable', False), **routing}}) + '\n\n').encode()
+                tutor_info = {'reference_count': knowledge['count'], 'retrieval_cached': knowledge['cached'],
+                              'references': knowledge['sources'], 'web_sources': web['sources'],
+                              'retrieval_unavailable': knowledge.get('unavailable', False), **routing}
+                if search_mode:
+                    def answer_with(config, model, request_payload=payload):
+                        upstream = None
+                        try:
+                            candidate_payload = {**request_payload, 'model': model}
+                            upstream = open_stream(candidate_payload, home_url(), provider_config=config)
+                            return clean_public_answer(''.join(
+                                checked_chunks(upstream, expected_language=expected_language)))
+                        finally:
+                            if upstream is not None:
+                                upstream.close()
+
+                    attempted = set()
+
+                    # A manual Cloud choice gets the first attempt, using its
+                    # selected model and the customer's saved key when present.
+                    if preferred_provider:
+                        attempted.add(preferred_provider)
+                        yield event({'status': 'Trying your selected Cloud provider first'})
+                        try:
+                            preferred = resolve_provider_config(
+                                request, {'provider': preferred_provider, 'api_key': ''})
+                            answer = answer_with(preferred, preferred_model)
+                            if answer and not answer_conflicts_with_scope(answer, scope):
+                                label = provider_catalog()[preferred_provider]['label']
+                                yield event({'status': 'Answered with your selected Cloud provider', 'tutor': {
+                                    **tutor_info, 'provider': preferred_provider,
+                                    'answer_model': preferred_model, 'provider_label': label,
+                                    'references': [], 'web_sources': []}})
+                                yield event({'content': answer})
+                                yield b'data: [DONE]\n\n'
+                                return
+                        except (requests.RequestException, ValueError, UnusableReply):
+                            pass
+
+                    # Brave Answers is the official search-answer API and does
+                    # not require scraping a consumer search page.
+                    if 'brave' not in attempted:
+                        attempted.add('brave')
+                        yield event({'status': 'Searching with Brave and preparing a clean answer'})
+                        try:
+                            brave = resolve_provider_config(request, {'provider': 'brave', 'api_key': ''})
+                            answer = answer_with(brave, default_model('brave'))
+                            if answer:
+                                yield event({'status': 'Answered with Brave Search AI', 'tutor': {
+                                    **tutor_info, 'provider': 'brave', 'answer_model': default_model('brave'),
+                                    'provider_label': 'Brave Search AI', 'references': [], 'web_sources': []}})
+                                yield event({'content': answer})
+                                yield b'data: [DONE]\n\n'
+                                return
+                        except (requests.RequestException, ValueError, UnusableReply):
+                            pass
+
+                    # 2. Keyless public-source fallback. Wikimedia APIs return
+                    # bounded educational text; a configured model synthesizes it.
+                    yield event({'status': 'Checking public educational sources'})
+                    public_text = tutor_web.public_education_context(
+                        query, ' '.join(filter(None, [scope.get('subject_name') or scope.get('subject_tr'),
+                                                     scope.get('chapter'), scope.get('topic')])),
+                        bengali=expected_language == 'Bengali')
+                    fallback_payload = {**payload, 'file_context': list(payload['file_context'])}
+                    if public_text:
+                        fallback_payload['file_context'].append({
+                            'path': 'Public educational source text', 'language': 'text', 'content': public_text})
+                        fallback_payload['messages'][0]['content'] += (
+                            '\nThe selected curriculum identity below is authoritative:\n'
+                            'Subject: ' + str(scope.get('subject_name') or scope.get('subject_tr') or '') + '\n'
+                            'Chapter/genre: ' + str(scope.get('chapter') or '') + '\n'
+                            'Topic: ' + str(scope.get('topic') or title) + '\n'
+                            'Use the supplied public educational text only as factual grounding. Preserve the '
+                            'declared genre: if the chapter says poem, call it a poem, never a story. Derive '
+                            'people, roles, events, themes and conclusions from explicit source wording; do not '
+                            'guess them from the title. Return one clean learner-facing answer. Do not mention '
+                            'sources, references, URLs, search providers, or retrieval. Do not invent missing '
+                            'textbook facts. If the text does not support a detail, omit it.')
+
+                    # 3. Try each configured Cloud API normally (including the
+                    # ordinary Gemini API), then Home AI as the final fallback.
+                    for candidate in cloud_provider_candidates(request):
+                        if candidate['provider'] in attempted:
+                            continue
+                        try:
+                            answer = answer_with(candidate, candidate['model'], fallback_payload)
+                            if answer and not answer_conflicts_with_scope(answer, scope):
+                                label = provider_catalog().get(candidate['provider'], {}).get(
+                                    'label', candidate['provider'].title())
+                                yield event({'status': 'Prepared a clean educational answer', 'tutor': {
+                                    **tutor_info, 'provider': candidate['provider'],
+                                    'answer_model': candidate['model'], 'provider_label': label,
+                                    'references': [], 'web_sources': []}})
+                                yield event({'content': answer})
+                                yield b'data: [DONE]\n\n'
+                                return
+                        except (requests.RequestException, ValueError, UnusableReply):
+                            continue
+                    try:
+                        home_model = (getattr(settings, 'TUTOR_REASONING_MODEL', tutor_routing.REASONING)
+                                      if ollama_url() else 'auto')
+                        answer = answer_with({'provider': 'cheradip', 'api_key': ''},
+                                             home_model, fallback_payload)
+                        if answer and answer_conflicts_with_scope(answer, scope) and public_text:
+                            retry_payload = {
+                                **fallback_payload,
+                                'messages': [dict(message) for message in fallback_payload['messages']],
+                            }
+                            retry_payload['messages'].append({'role': 'user', 'content': (
+                                'Rewrite the answer because the draft changed the declared lesson genre. '
+                                'Follow the authoritative chapter and source text exactly. Do not call a poem a '
+                                'story, do not invent character occupations or events, and omit every claim not '
+                                'supported by the supplied text. Reply only with the corrected learner-facing answer.'
+                            )})
+                            answer = answer_with({'provider': 'cheradip', 'api_key': ''},
+                                                 home_model, retry_payload)
+                        if answer and not answer_conflicts_with_scope(answer, scope):
+                            yield event({'status': 'Prepared a clean educational answer', 'tutor': {
+                                **tutor_info, 'provider': 'cheradip', 'answer_model': home_model,
+                                'provider_label': 'Cheradip Home AI', 'references': [], 'web_sources': []}})
+                            yield event({'content': answer})
+                            yield b'data: [DONE]\n\n'
+                            return
+                    except (requests.RequestException, ValueError, UnusableReply):
+                        pass
+                    yield b'data: {"reset": true}\n\n'
+                    unavailable = ('সব Search AI quota শেষ হয়েছে এবং বিকল্প শিক্ষামূলক উত্তরও তৈরি করা যায়নি। '
+                                   'পরে আবার চেষ্টা করুন।' if expected_language else
+                                   'All Search AI quotas are exhausted and no educational fallback answer '
+                                   'could be prepared. Please try again later.')
+                    yield event({'content': unavailable})
+                    yield b'data: [DONE]\n\n'
+                    return
+                yield event({'tutor': tutor_info})
                 current = open_stream(payload, home_url(), provider_config=provider_config)
                 for attempt in range(2):
                     try:
@@ -344,7 +591,7 @@ class TutorChatView(TutorBrowserView):
                         yield ('data: ' + json.dumps({'reset': True, 'status': 'Retrying an unreadable reply with another model',
                                                      'tutor': {**routing, 'answer_model': fallback, 'reference_count': knowledge['count'], 'references': knowledge['sources'], 'web_sources': web['sources']}}) + '\n\n').encode()
                         current = open_stream(payload, home_url(), provider_config=provider_config)
-            except (requests.RequestException, ValueError):
+            except (requests.RequestException, ValueError) as error:
                 yield b'data: {"reset": true}\n\n'
                 recovery = {'question': 'এই উত্তরটি নির্ভরযোগ্যভাবে তৈরি করা যায়নি। ছোট ধাপে কোন অংশটি আগে বুঝতে চান?',
                             'options': ['বিষয়টির সংজ্ঞা ও মূল ধারণা', 'সহজ উদাহরণ দিয়ে ব্যাখ্যা', 'সম্পর্কিত প্রশ্ন ও উত্তরের ব্যাখ্যা'],

@@ -161,3 +161,66 @@ def search(title, subject=''):
     result = {'text': '\n\n'.join(blocks), 'sources': sources, 'status': 'Web references loaded' if sources else 'Web search unavailable; using stored references'}
     cache.set(key, result, 900 if sources else 30)
     return result
+
+
+def public_education_context(title, subject='', bengali=False):
+    """Retrieve bounded text from Wikimedia APIs without scraping search pages."""
+    if not title:
+        return ''
+    query = re.sub(r'^(?:Discuss Details on\s+|বিস্তারিত আলোচনা করুন:\s*)', '', title, flags=re.I).strip()
+    if not query:
+        return ''
+    cache_key = 'tutor:public-education:v3:' + hashlib.sha256(
+        (query + '|' + subject + '|' + str(bengali)).encode()).hexdigest()
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+    literary = bool(re.search(r'কবিতা|গল্প|উপন্যাস|নাটক|সাহিত্য|poem|poetry|story|novel|literature', subject, re.I))
+    hosts = (['bn.wikisource.org', 'bn.wikipedia.org', 'en.wikipedia.org'] if bengali and literary else
+             ['bn.wikipedia.org', 'bn.wikisource.org', 'en.wikipedia.org'] if bengali else
+             ['en.wikipedia.org'])
+    query_words = [word.casefold() for word in re.findall(r'[\w\u0980-\u09ff]+', query) if len(word) > 1]
+    mediawiki_query = query
+    blocks = []
+    for host in hosts:
+        try:
+            response = requests.get('https://' + host + '/w/api.php', params={
+                'action': 'query', 'generator': 'search', 'gsrsearch': mediawiki_query,
+                'gsrlimit': 3, 'prop': 'extracts', 'explaintext': 1, 'exintro': 1,
+                'exchars': 1800, 'format': 'json', 'formatversion': 2, 'utf8': 1,
+            }, headers={'User-Agent': 'CheradipTutor/1.0 educational-reference'}, timeout=(3, 10))
+            response.raise_for_status()
+            pages = response.json().get('query', {}).get('pages', [])
+        except (requests.RequestException, ValueError, AttributeError):
+            continue
+        for page in pages:
+            page_title = str(page.get('title') or '').strip()
+            extract = str(page.get('extract') or '').strip()
+            normalized_title = re.sub(r'[-_–—/()\[\]:]+', ' ', page_title.casefold())
+            if literary and len(query_words) > 1 and not all(word in normalized_title for word in query_words):
+                continue
+            if not extract and host.endswith('wikisource.org'):
+                try:
+                    parsed = requests.get('https://' + host + '/w/api.php', params={
+                        'action': 'parse', 'page': page_title, 'prop': 'text',
+                        'format': 'json', 'formatversion': 2, 'utf8': 1,
+                    }, headers={'User-Agent': 'CheradipTutor/1.0 educational-reference'},
+                        timeout=(3, 10))
+                    parsed.raise_for_status()
+                    html = str(parsed.json().get('parse', {}).get('text') or '')
+                    parser = TextOnly(); parser.feed(html)
+                    extract = ' '.join(parser.parts)[:5000]
+                except (requests.RequestException, ValueError, AttributeError):
+                    extract = ''
+            if not extract or unsafe_result(title=page_title, content=extract):
+                continue
+            if not relevant_result(query, subject, page_title, extract):
+                continue
+            blocks.append(page_title + '\n' + extract[:1800])
+            if len(blocks) == 3:
+                break
+        if blocks:
+            break
+    text = '\n\n'.join(blocks)[:5000]
+    cache.set(cache_key, text, 1800 if text else 60)
+    return text

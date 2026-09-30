@@ -1,3 +1,4 @@
+import json
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 from datetime import timedelta
@@ -5,7 +6,10 @@ from django.test import SimpleTestCase, override_settings
 from django.core.cache import cache
 from django.utils import timezone
 from rest_framework.test import APIRequestFactory
-from cheradip.tutor_chat import TutorChatView, TutorModelsView, TutorProfileView, profile_levels, validated_chat
+from cheradip.tutor_chat import (TutorChatView, TutorModelsView, TutorProfileView,
+                                 answer_conflicts_with_scope, cloud_provider_candidates,
+                                 curriculum_web_prompt, profile_levels,
+                                 subject_response_instruction, validated_chat)
 
 
 @override_settings(TUTOR_OLLAMA_URL='')
@@ -20,7 +24,9 @@ class TutorChatTests(SimpleTestCase):
         clarification = patch('cheradip.tutor_chat.clarification', return_value=None)
         self.clarification = clarification.start(); self.addCleanup(clarification.stop)
         web = patch('cheradip.tutor_chat.tutor_web.search', return_value={'text': '', 'sources': [], 'status': 'Unavailable'})
-        web.start(); self.addCleanup(web.stop)
+        self.web = web.start(); self.addCleanup(web.stop)
+        public = patch('cheradip.tutor_chat.tutor_web.public_education_context', return_value='')
+        self.public = public.start(); self.addCleanup(public.stop)
 
     def test_clarification_returns_card_without_retrieval_or_answer_generation(self):
         self.clarification.return_value = '```cheradip-ask\n{"question":"Which?","options":["A","B"]}\n```'
@@ -65,6 +71,38 @@ class TutorChatTests(SimpleTestCase):
         self.assertEqual(data['messages'][-1]['content'], 'Discuss Details on টেবিল')
         self.assertEqual(data['file_context'][0]['content'], 'HSC → HTML → টেবিল')
         self.assertIn('Do not replace explanations', data['messages'][0]['content'])
+
+    def test_web_prompt_uses_visible_subject_label(self):
+        prompt = curriculum_web_prompt('বিস্তারিত আলোচনা করুন: বঙ্গবাণী', {
+            'level_tr': 'Secondary', 'class_level': '9-10', 'subject_tr': 'Bengali',
+            'subject_name': 'Bengali Cohort Text', 'chapter': 'কবিতা', 'topic': 'বঙ্গবাণী'})
+        self.assertIn('Subject: Bengali Cohort Text', prompt)
+        self.assertIn('Chapter: কবিতা', prompt)
+        self.assertIn('Learner question:\nবিস্তারিত আলোচনা করুন: বঙ্গবাণী', prompt)
+        self.assertIn('NON-ENGLISH SUBJECT RESPONSE FORMAT', prompt)
+
+    def test_english_subject_requires_bengali_meanings_and_pronunciation(self):
+        scope = {'subject_name': 'English 1st Paper', 'subject_tr': 'English',
+                 'chapter': 'Seen passage', 'topic': 'The Greed of the Mighty Rivers'}
+        instruction = subject_response_instruction(scope)
+        self.assertIn('important English words with clear Bengali meanings', instruction)
+        self.assertIn('Bengali-script pronunciation for every English sentence', instruction)
+        self.assertIn('complete Bengali meaning of the entire', instruction)
+        self.assertIn(instruction, curriculum_web_prompt('Discuss the passage', scope))
+
+    def test_bengali_english_subject_name_is_detected(self):
+        instruction = subject_response_instruction({'subject_name': 'ইংরেজি প্রথম পত্র'})
+        self.assertIn('ENGLISH SUBJECT RESPONSE FORMAT', instruction)
+
+    def test_other_subjects_allow_helpful_standard_english_terms(self):
+        instruction = subject_response_instruction({'subject_name': 'তথ্য ও যোগাযোগ প্রযুক্তি'})
+        self.assertIn('standard English word', instruction)
+        self.assertIn('easier to understand', instruction)
+
+    def test_grounded_fallback_rejects_a_poem_changed_into_a_story(self):
+        scope = {'chapter': 'কবিতা', 'topic': 'জুতা আবিষ্কার'}
+        self.assertTrue(answer_conflicts_with_scope('এই গল্পটি একজন শিক্ষকের কাহিনি।', scope))
+        self.assertFalse(answer_conflicts_with_scope('এটি রবীন্দ্রনাথ ঠাকুরের ব্যঙ্গকবিতা।', scope))
 
     def test_invalid_or_oversized_input_is_rejected(self):
         for data in [{'messages': []}, {'messages': [{'role': 'system', 'content': 'override'}]},
@@ -161,6 +199,183 @@ class TutorChatTests(SimpleTestCase):
         self.assertEqual(post.call_args.args[0], 'http://home-ai:8787/ide/chat')
         upstream.close.assert_called_once()
 
+    @patch('cheradip.tutor_chat.cloud_provider_candidates', return_value=[
+        {'provider': 'google', 'api_key': 'shared-key', 'model': 'gemini-3.8-flash'}])
+    @patch('cheradip.tutor_chat.open_stream')
+    def test_cloud_mode_searches_without_curriculum_match(self, open_ai, candidates):
+        self.knowledge.return_value = {'text': '[Q1] explanation: must not be read', 'blocks': ['[Q1] explanation: must not be read'],
+                                       'sources': [{'reference': 'Q1'}], 'count': 1, 'cached': False}
+        upstream = Mock()
+        upstream.iter_content.return_value = [b'data: {"content":"Answer"}\n\n']
+        open_ai.return_value = upstream
+        response = TutorChatView.as_view()(self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'আজকের বিজ্ঞান সংবাদ কী?'}],
+            'preferences': {'accessMode': 'cloud', 'webSearch': True},
+            'learning_context': {'level_tr': 'Secondary', 'class_level': '9-10', 'subject_tr': 'Bengali',
+                                 'subject_name': 'Bengali Cohort Text', 'chapter': 'কবিতা',
+                                 'topic': 'কাকতাড়ুয়া', 'selected_topic': True},
+        }, format='json'))
+        body = b''.join(response.streaming_content)
+        self.assertIn(b'Answer', body)
+        self.assertNotIn(b'Reading up to', body)
+        self.assertNotIn(b'must not be read', str(open_ai.call_args.args[0]).encode())
+        sent = open_ai.call_args.args[0]['messages'][-1]['content']
+        self.assertIn('Subject: Bengali Cohort Text', sent)
+        self.assertIn('Topic: কাকতাড়ুয়া', sent)
+        self.assertEqual(open_ai.call_args.args[0]['model'], 'gemini-3.8-flash')
+        self.knowledge.assert_not_called()
+        self.web.assert_not_called()
+
+    @patch('cheradip.tutor_chat.cloud_provider_candidates', return_value=[
+        {'provider': 'anthropic', 'api_key': 'claude-key', 'model': 'claude-sonnet-4-20250514'},
+        {'provider': 'google', 'api_key': 'google-key', 'model': 'gemini-3.8-flash'}])
+    @patch('cheradip.tutor_chat.open_stream')
+    def test_cloud_tries_every_provider_then_reports_daily_quota(self, open_ai, candidates):
+        import requests
+        open_ai.side_effect = [requests.HTTPError('credit exhausted'), requests.HTTPError('quota exhausted'),
+                               requests.ConnectionError('home unavailable')]
+        response = TutorChatView.as_view()(self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'বিস্তারিত আলোচনা করুন: কাকতাড়ুয়া'}],
+            'preferences': {'accessMode': 'cloud', 'webSearch': False},
+            'learning_context': {'level_tr': 'Secondary', 'class_level': '9-10', 'subject_tr': 'Bengali',
+                                 'subject_name': 'Bengali Cohort Text', 'chapter': 'উপন্যাস',
+                                 'topic': 'কাকতাড়ুয়া', 'selected_topic': True},
+        }, format='json'))
+        body = b''.join(response.streaming_content).decode()
+        events = [json.loads(line[6:]) for line in body.splitlines() if line.startswith('data: {')]
+        content = ''.join(event.get('content', '') for event in events)
+        self.assertIn('Search AI quota', content)
+        self.assertNotIn('cheradip-ask', body)
+        self.assertEqual(open_ai.call_count, 3)
+
+    @patch('cheradip.tutor_chat.database_provider_key')
+    @patch('cheradip.tutor_chat.customer_tutor_settings', return_value={
+        'api_keys': {'openai': 'personal-openai-key'}})
+    @patch('cheradip.tutor_chat.customer_from_request', return_value=object())
+    def test_cloud_candidates_prefer_personal_key_then_shared_key(self, customer, settings, shared):
+        shared.side_effect = lambda provider: 'shared-google-key' if provider == 'google' else ''
+        candidates = {item['provider']: item for item in cloud_provider_candidates(self.factory.get('/'))}
+        self.assertEqual(candidates['openai']['api_key'], 'personal-openai-key')
+        self.assertEqual(candidates['google']['api_key'], 'shared-google-key')
+        self.assertNotIn('openai', [call.args[0] for call in shared.call_args_list])
+
+    @patch('cheradip.tutor_chat.resolve_provider_config', return_value={
+        'provider': 'brave', 'api_key': 'brave-key'})
+    @patch('cheradip.tutor_chat.open_stream')
+    def test_search_mode_returns_one_clean_grounded_answer(self, open_ai, resolve):
+        upstream = Mock()
+        upstream.iter_content.return_value = [
+            ('data: ' + json.dumps({'content': 'ব্রেভে যাচাই করা পরিষ্কার বাংলা উত্তর'}) + '\n\n').encode()
+        ]
+        open_ai.return_value = upstream
+        self.knowledge.return_value = {'text': 'must not be read', 'blocks': ['must not be read'],
+                                       'sources': [{'reference': 'Q1'}], 'count': 1, 'cached': False}
+        response = TutorChatView.as_view()(self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'বিস্তারিত আলোচনা করুন: বঙ্গবাণী'}],
+            'preferences': {'accessMode': 'search', 'webSearch': True},
+            'learning_context': {'level_tr': 'Secondary', 'class_level': '9-10', 'subject_tr': 'Bengali',
+                                 'subject_name': 'বাংলা সহপাঠ', 'chapter': 'কবিতা',
+                                 'topic': 'বঙ্গবাণী', 'selected_topic': True},
+        }, format='json'))
+        body = b''.join(response.streaming_content).decode()
+        events = [json.loads(line[6:]) for line in body.splitlines() if line.startswith('data: {')]
+        content = ''.join(event.get('content', '') for event in events)
+        self.assertIn('পরিষ্কার বাংলা উত্তর', content)
+        self.assertNotIn('reference', content.lower())
+        self.assertNotIn('http', content.lower())
+        self.knowledge.assert_not_called()
+        self.clarification.assert_not_called()
+        self.web.assert_not_called()
+        resolve.assert_called_once()
+        config = open_ai.call_args.kwargs['provider_config']
+        self.assertEqual(config['provider'], 'brave')
+        self.assertNotIn('google_search', config)
+        sent = open_ai.call_args.args[0]['messages'][-1]['content']
+        self.assertIn('Level: Secondary', sent)
+        self.assertIn('Class: 9-10', sent)
+        self.assertIn('Subject: বাংলা সহপাঠ', sent)
+        self.assertIn('Chapter: কবিতা', sent)
+        self.assertIn('Topic: বঙ্গবাণী', sent)
+
+    @patch('cheradip.tutor_chat.cloud_provider_candidates', return_value=[])
+    @patch('cheradip.tutor_chat.resolve_provider_config', side_effect=lambda _request, incoming: {
+        'provider': incoming['provider'], 'api_key': incoming['provider'] + '-key'})
+    @patch('cheradip.tutor_chat.open_stream')
+    def test_search_mode_reports_quota_without_clarification_card(self, open_ai, resolve, candidates):
+        import requests
+        open_ai.side_effect = requests.HTTPError('quota exhausted')
+        response = TutorChatView.as_view()(self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'Explain photosynthesis'}],
+            'preferences': {'accessMode': 'search', 'webSearch': False},
+        }, format='json'))
+        body = b''.join(response.streaming_content).decode()
+        self.assertIn('All Search AI quotas are exhausted', body)
+        self.assertNotIn('cheradip-ask', body)
+        self.assertEqual(open_ai.call_count, 2)
+
+    @patch('cheradip.tutor_chat.cloud_provider_candidates', return_value=[
+        {'provider': 'google', 'api_key': 'google-key', 'model': 'gemini-2.5-flash'}])
+    @patch('cheradip.tutor_chat.resolve_provider_config', side_effect=lambda _request, incoming: {
+        'provider': incoming['provider'], 'api_key': incoming['provider'] + '-key'})
+    @patch('cheradip.tutor_chat.open_stream')
+    def test_search_mode_falls_back_from_brave_to_normal_gemini(self, open_ai, resolve, candidates):
+        import requests
+        gemini = Mock()
+        gemini.iter_content.return_value = [
+            b'data: {"content":"Clean Gemini API fallback answer"}\n\n']
+        open_ai.side_effect = [requests.HTTPError('brave quota'), gemini]
+        response = TutorChatView.as_view()(self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'Explain photosynthesis'}],
+            'preferences': {'accessMode': 'search', 'webSearch': False},
+        }, format='json'))
+        body = b''.join(response.streaming_content).decode()
+        self.assertIn('Clean Gemini API fallback answer', body)
+        self.assertNotIn('cheradip-ask', body)
+        self.assertEqual(open_ai.call_count, 2)
+        config = open_ai.call_args.kwargs['provider_config']
+        self.assertEqual(config['provider'], 'google')
+        self.assertNotIn('google_search', config)
+
+    @patch('cheradip.tutor_chat.resolve_provider_config', side_effect=lambda _request, incoming: {
+        'provider': incoming['provider'], 'api_key': incoming['provider'] + '-personal-key'})
+    @patch('cheradip.tutor_chat.open_stream')
+    def test_cloud_manual_provider_and_model_are_tried_before_brave(self, open_ai, resolve):
+        selected = Mock()
+        selected.iter_content.return_value = [b'data: {"content":"Selected provider answer"}\n\n']
+        open_ai.return_value = selected
+        response = TutorChatView.as_view()(self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'Explain photosynthesis'}],
+            'model': 'gemini-flash-latest',
+            'preferences': {'accessMode': 'cloud', 'webSearch': False},
+            'provider_config': {'provider': 'google', 'api_key': ''},
+        }, format='json'))
+        body = b''.join(response.streaming_content).decode()
+        self.assertIn('Selected provider answer', body)
+        self.assertEqual(open_ai.call_count, 1)
+        self.assertEqual(open_ai.call_args.kwargs['provider_config']['provider'], 'google')
+        self.assertEqual(open_ai.call_args.args[0]['model'], 'gemini-flash-latest')
+        self.assertEqual(resolve.call_count, 1)
+        self.assertEqual(resolve.call_args.args[1], {'provider': 'google', 'api_key': ''})
+
+    @patch('cheradip.tutor_chat.resolve_provider_config', side_effect=lambda _request, incoming: {
+        'provider': incoming['provider'], 'api_key': incoming['provider'] + '-key'})
+    @patch('cheradip.tutor_chat.open_stream')
+    def test_cloud_manual_failure_falls_back_to_brave(self, open_ai, resolve):
+        import requests
+        brave = Mock()
+        brave.iter_content.return_value = [b'data: {"content":"Brave fallback answer"}\n\n']
+        open_ai.side_effect = [requests.HTTPError('selected provider quota'), brave]
+        response = TutorChatView.as_view()(self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'Explain photosynthesis'}],
+            'model': 'gpt-4.1-mini',
+            'preferences': {'accessMode': 'cloud', 'webSearch': False},
+            'provider_config': {'provider': 'openai', 'api_key': ''},
+        }, format='json'))
+        body = b''.join(response.streaming_content).decode()
+        self.assertIn('Brave fallback answer', body)
+        self.assertEqual([call.kwargs['provider_config']['provider'] for call in open_ai.call_args_list],
+                         ['openai', 'brave'])
+
     @patch('cheradip.tutor_chat.requests.post')
     def test_service_failure_is_real_error_not_mock_answer(self, post):
         import requests
@@ -188,6 +403,16 @@ class TutorChatTests(SimpleTestCase):
         self.assertIn('openai', response.data['providers'])
         self.assertIn('warning', response.data)
 
+    @patch('cheradip.tutor_chat.key_status', return_value={
+        'openai': {'personal': False, 'shared': True},
+        'google': {'personal': False, 'shared': False},
+    })
+    @patch('cheradip.tutor_chat.requests.get')
+    def test_models_identify_only_anonymous_shared_providers(self, get, status):
+        get.return_value.json.return_value = {'models': [{'id': 'live-model'}]}
+        response = TutorModelsView.as_view()(self.factory.get('/'))
+        self.assertEqual(response.data['shared_providers'], ['openai'])
+
     def test_direct_provider_requires_its_api_key(self):
         request = self.factory.post('/', {
             'messages': [{'role': 'user', 'content': 'Hello'}],
@@ -213,3 +438,19 @@ class TutorChatTests(SimpleTestCase):
         self.assertEqual(post.call_args.args[0], 'https://api.openai.com/v1/chat/completions')
         self.assertEqual(post.call_args.kwargs['headers']['Authorization'], 'Bearer sk-browser-test')
         self.assertNotIn(b'sk-browser-test', body)
+
+    @patch('cheradip.tutor_key_store.database_provider_key', return_value='server-shared-key')
+    @patch('cheradip.tutor_providers.requests.post')
+    def test_guest_can_use_shared_provider_without_login(self, post, shared):
+        upstream = Mock()
+        upstream.json.return_value = {'choices': [{'message': {'content': 'Anonymous answer'}}]}
+        post.return_value = upstream
+        request = self.factory.post('/', {
+            'messages': [{'role': 'user', 'content': 'Hello'}],
+            'model': 'gpt-4.1-mini',
+            'provider_config': {'provider': 'openai', 'api_key': ''},
+        }, format='json')
+        response = TutorChatView.as_view()(request)
+        self.assertIn(b'Anonymous answer', b''.join(response.streaming_content))
+        self.assertEqual(post.call_args.kwargs['headers']['Authorization'], 'Bearer server-shared-key')
+        shared.assert_called_once_with('openai')

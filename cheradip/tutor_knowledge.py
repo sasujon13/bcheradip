@@ -12,6 +12,7 @@ from .subject_question_tables import subject_question_table_name
 from .tutor_stream import unusable
 
 logger = logging.getLogger(__name__)
+MAX_REFERENCE_EXPLANATIONS = 3
 FIELDS = ('qid', 'id', 'chapter', 'chapter_no', 'topic', 'question', 'option_1',
           'option_2', 'option_3', 'option_4', 'answer', 'explanation', 'explanation2', 'explanation3')
 STOP = set(('discuss details on explain describe what why how the a an is are of to in and for '
@@ -55,7 +56,7 @@ def clean_scope(value):
     if not isinstance(value, dict):
         raise ValueError('Invalid learning context.')
     result = {}
-    for field in ('level_tr', 'class_level', 'subject_tr', 'chapter', 'chapter_no', 'topic'):
+    for field in ('level_tr', 'class_level', 'subject_tr', 'subject_name', 'chapter', 'chapter_no', 'topic'):
         item = value.get(field, '')
         if not isinstance(item, str) or len(item) > 255:
             raise ValueError('Invalid learning context.')
@@ -152,7 +153,7 @@ def fallback_source(scope):
     return None
 
 
-def render_records(records):
+def render_records(records, limit=MAX_REFERENCE_EXPLANATIONS):
     blocks, sources, seen = [], [], set()
     for row in records:
         source = row['_source']
@@ -172,14 +173,28 @@ def render_records(records):
         blocks.append(block)
         sources.append({'reference': ref, 'qid': identity[2], 'subject': source.get('subject_tr', ''),
                         'chapter': plain(row.get('chapter')), 'topic': plain(row.get('topic'))})
+        if len(blocks) >= limit:
+            break
     return {'text': '\n\n'.join(blocks), 'blocks': blocks, 'sources': sources, 'count': len(blocks)}
 
 
+def limit_references(knowledge, limit=MAX_REFERENCE_EXPLANATIONS):
+    """Defensively bound cached or caller-provided tutor references."""
+    blocks = knowledge.get('blocks')
+    if not isinstance(blocks, list):
+        return knowledge
+    blocks = blocks[:limit]
+    sources = knowledge.get('sources')
+    sources = sources[:len(blocks)] if isinstance(sources, list) else []
+    return {**knowledge, 'text': '\n\n'.join(blocks), 'blocks': blocks,
+            'sources': sources, 'count': len(blocks)}
+
+
 def retrieve(query, scope):
-    key = 'tutor:knowledge:v2:' + hashlib.sha256(json.dumps([query, scope], sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+    key = 'tutor:knowledge:v3:' + hashlib.sha256(json.dumps([query, scope], sort_keys=True, ensure_ascii=False).encode()).hexdigest()
     cached = cache.get(key)
     if cached is not None:
-        return {**cached, 'cached': True}
+        return {**limit_references(cached), 'cached': True}
     words = terms(query)
     records = []
     try:

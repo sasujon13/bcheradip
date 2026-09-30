@@ -20,14 +20,22 @@ class KnowledgeTests(SimpleTestCase):
         self.assertEqual(knowledge.plain('#include <stdio.h>'), '#include <stdio.h>')
         self.assertEqual(knowledge.plain('{"blocks":[{"text":"বাংলা explanation"}]}'), 'বাংলা explanation')
 
-    def test_reference_budget_options_and_all_explanations(self):
+    def test_reference_budget_is_limited_to_three_explanations(self):
         rows = [{'_source': SOURCE, 'qid': str(i), 'question': 'Question ' + str(i), 'answer': 'A',
                  'option_1': 'Correct option', 'explanation': 'Reason', 'explanation2': 'More detail', 'explanation3': 'Example'} for i in range(20)]
         result = knowledge.render_records(rows + rows)
-        self.assertEqual(result['count'], 20)
-        self.assertEqual(len(result['blocks']), 20)
+        self.assertEqual(result['count'], 3)
+        self.assertEqual(len(result['blocks']), 3)
         self.assertIn('option_1: Correct option', result['text'])
         self.assertIn('explanation3: Example', result['text'])
+        self.assertNotIn('Question 3', result['text'])
+
+    def test_old_cached_reference_payload_is_defensively_limited(self):
+        result = knowledge.limit_references({'text': 'old', 'blocks': ['one', 'two', 'three', 'four'],
+                                             'sources': [{'reference': str(i)} for i in range(4)], 'count': 4})
+        self.assertEqual(result['blocks'], ['one', 'two', 'three'])
+        self.assertEqual(result['count'], 3)
+        self.assertEqual(len(result['sources']), 3)
 
     def test_empty_and_unanswered_questions_are_not_evidence(self):
         self.assertEqual(knowledge.render_records([{'_source': SOURCE, 'qid': '1', 'question': 'No answer'}])['count'], 0)
@@ -69,6 +77,8 @@ class KnowledgeTests(SimpleTestCase):
         self.assertNotIn('আলোচনা', knowledge.terms('বিস্তারিত আলোচনা করুন: টেবিল'))
         with self.assertRaises(ValueError):
             knowledge.clean_scope({'topic': ['not a string']})
+        self.assertEqual(knowledge.clean_scope({'subject_tr': 'Bengali', 'subject_name': 'Bengali Cohort Text'})['subject_name'],
+                         'Bengali Cohort Text')
 
 
 class RoutingTests(SimpleTestCase):
