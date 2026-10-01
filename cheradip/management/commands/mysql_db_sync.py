@@ -115,6 +115,7 @@ DEFAULT_PROJECT_SYNC_DATABASES = (
     "ailanguagetutor",
     "extcheradip",
     "childcare",
+    "ecommerce",
 )
 DEFAULT_SYNC_DATABASES = ",".join(DEFAULT_PROJECT_SYNC_DATABASES)
 # ---------------------------------------------------------------------------

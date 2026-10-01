@@ -228,6 +228,22 @@
     text-decoration: none;
     outline: none;
   }
+  .table-update-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.45rem;
+    height: 1.45rem;
+    margin-left: .4rem;
+    padding: 0 .35rem;
+    border-radius: 999px;
+    background: var(--primary, #008080);
+    color: #fff;
+    font-size: .72rem;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+  }
   .admin-tables-grid a:hover {
     color: var(--primary-hover, #006666);
   }
@@ -288,7 +304,7 @@
             <div class="admin-tables-wrapper">
               <ul class="admin-tables-grid">
                 {% for model in app.models %}
-                <li><a href="{{ model.admin_url }}">{{ model.name }}</a></li>
+                <li><a href="{{ model.admin_url }}">{{ model.name }}{% if model.update_count %}<span class="table-update-badge" title="Recent updates or items needing attention">{{ model.update_count }}</span>{% endif %}</a></li>
                 {% endfor %}
               </ul>
             </div>

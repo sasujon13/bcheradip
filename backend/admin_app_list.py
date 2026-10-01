@@ -17,6 +17,7 @@ DATABASE_SECTIONS = [
     ('honours', 'Honours'),
     ('job', 'Job'),
     ('childcare', 'Child Care'),
+    ('ecommerce', 'eCommerce'),
 ]
 
 # For backward compatibility if something passed db=all
@@ -44,7 +45,37 @@ def build_db_tabs_for_index(active_alias, use_databases_path=False, settings_act
 
 def _allowed_table_name(name):
     n = (name or "").strip().lower()
-    return bool(n and re.match(r'^(cheradip_[a-z0-9_]+|cc_[a-z0-9_]+|django_migrations)$', n))
+    return bool(n and re.match(r'^(cheradip_[a-z0-9_]+|cc_[a-z0-9_]+|ecommerce_[a-z0-9_]+|django_migrations)$', n))
+
+
+def _table_notification_count(conn, table_name):
+    """Return a compact activity/action count for the circle beside an admin table."""
+    safe_table = table_name.replace('`', '``')
+    try:
+        with conn.cursor() as cursor:
+            columns = {column.name for column in conn.introspection.get_table_description(cursor, table_name)}
+            special_filters = {
+                'cheradip_pending_question_request': ("`status` IN ('pending','new')", 'status'),
+                'ecommerce_order': ("`status` IN ('pending','confirmed','processing')", 'status'),
+                'ecommerce_payment': ("`status` = 'pending'", 'status'),
+                'ecommerce_notification': ("`is_read` = 0", 'is_read'),
+                'ecommerce_product_variant': ("`is_active` = 1 AND `stock` <= `low_stock_threshold`", 'stock'),
+                'ecommerce_review': ("`is_approved` = 0", 'is_approved'),
+                'ecommerce_import_job': ("`status` IN ('processing','failed')", 'status'),
+            }
+            special = special_filters.get(table_name)
+            if special and special[1] in columns:
+                cursor.execute(f"SELECT COUNT(*) FROM `{safe_table}` WHERE {special[0]}")
+                return int(cursor.fetchone()[0] or 0)
+            timestamp = next((name for name in ('updated_at', 'modified_at', 'created_at') if name in columns), None)
+            if timestamp:
+                cursor.execute(
+                    f"SELECT COUNT(*) FROM `{safe_table}` WHERE `{timestamp}` >= DATE_SUB(NOW(), INTERVAL 7 DAY)"
+                )
+                return int(cursor.fetchone()[0] or 0)
+    except Exception:
+        return 0
+    return 0
 
 
 def get_current_db(request, force_db=None):
@@ -90,6 +121,7 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
             'perms': perms,
             'admin_url': None,
             'add_url': None,
+            'update_count': 0,
         }
         if perms.get('change') or perms.get('view'):
             model_dict['view_only'] = not perms.get('change')
@@ -123,6 +155,11 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
         except Exception:
             pass
     models = [m for m in models if m.get('model') is None or (hasattr(m['model'], '_meta') and m['model']._meta.db_table in existing_tables)]
+    if current_db in connections:
+        for model_dict in models:
+            model = model_dict.get('model')
+            if model is not None and hasattr(model, '_meta'):
+                model_dict['update_count'] = _table_notification_count(connections[current_db], model._meta.db_table)
     shown_tables = set()
     for m in models:
         mod = m.get('model')
@@ -149,6 +186,7 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
                     'admin_url': table_data_url,
                     'add_url': table_data_url,
                     'view_only': False,
+                    'update_count': _table_notification_count(conn, table),
                 })
         except Exception:
             pass
@@ -169,6 +207,7 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
             'admin_url': settings_url,
             'add_url': settings_url,
             'view_only': False,
+            'update_count': 0,
         })
     section_name = dict(DATABASE_SECTIONS).get(current_db, current_db)
 

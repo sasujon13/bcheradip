@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cheradip',
     'childcare',
+    'ecommerce',
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'rest_framework',
@@ -242,10 +243,25 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     },
+    'ecommerce': {
+        'ENGINE': 'backend.db_backend',
+        'NAME': config('DATABASE_ECOMMERCE_NAME', default='ecommerce', cast=str),
+        'USER': config('DATABASE_USER', default='root', cast=str),
+        'PASSWORD': config('DATABASE_PASSWORD', default='', cast=str),
+        'HOST': config('DATABASE_HOST', default='127.0.0.1', cast=str),
+        'PORT': config('DATABASE_PORT', default='3306', cast=str),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+        # Commerce is physically independent; its test database must not depend on default.
+        'TEST': {'DEPENDENCIES': []},
+    },
 }
 
 # Route models to cheradip_job, cheradip_hsc, cheradip_honours, childcare
 DATABASE_ROUTERS = [
+    'ecommerce.db_router.EcommerceRouter',
     'childcare.db_routers.ChildcareRouter',
     'cheradip.db_routers.JobRouter',
     'cheradip.db_routers.HSCRouter',

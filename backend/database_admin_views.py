@@ -29,13 +29,15 @@ DATABASE_MENU = [
     ('hsc', 'HSC'),
     ('honours', 'Honours'),
     ('job', 'Job'),
+    ('childcare', 'Child Care'),
+    ('ecommerce', 'eCommerce'),
 ]
 
 # Allowed table names (cheradip_* only)
 def _allowed_table_name(name):
     if not name or not isinstance(name, str):
         return False
-    return bool(re.match(r'^cheradip_[a-z0-9_]+$', name.strip().lower()))
+    return bool(re.match(r'^(cheradip_|cc_|ecommerce_)[a-z0-9_]+$', name.strip().lower()))
 
 
 def _get_table_columns(conn, table_name):

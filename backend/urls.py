@@ -89,6 +89,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('cheradip.urls')),
     path('api/childcare/', include('childcare.urls')),
+    path('api/ecommerce/', include('ecommerce.urls')),
 ]
 
 # /static/ must be registered BEFORE the root catch-all (cheradip.urls); otherwise every
