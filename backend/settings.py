@@ -38,7 +38,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)  # Default True for local devel
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1,cheradip.com,www.cheradip.com',
+    default='localhost,127.0.0.1,cheradip.com,www.cheradip.com,ai.cheradip.com,tutor.cheradip.com,agent.cheradip.com,ailt.cheradip.com,ecommerce.cheradip.com',
     cast=Csv(),
 )
 
@@ -47,14 +47,14 @@ HOST_URL = config('HOST_URL', default='http://127.0.0.1:8000', cast=str)
 
 CORS_ALLOWED_ORIGINS = config(
     'CORS_ALLOWED_ORIGINS',
-    default='https://cheradip.com,https://www.cheradip.com,http://localhost:4200,http://127.0.0.1:4200',
+    default='https://cheradip.com,https://www.cheradip.com,https://ai.cheradip.com,https://tutor.cheradip.com,https://agent.cheradip.com,https://ailt.cheradip.com,https://ecommerce.cheradip.com,http://localhost:4200,http://127.0.0.1:4200',
     cast=Csv()
 )
 
 # Required for cross-origin POST from Angular (Origin: http://localhost:4200).
 CSRF_TRUSTED_ORIGINS = config(
     'CSRF_TRUSTED_ORIGINS',
-    default='http://localhost:4200,http://127.0.0.1:4200,https://cheradip.com,https://www.cheradip.com',
+    default='http://localhost:4200,http://127.0.0.1:4200,https://cheradip.com,https://www.cheradip.com,https://ai.cheradip.com,https://tutor.cheradip.com,https://agent.cheradip.com,https://ailt.cheradip.com,https://ecommerce.cheradip.com',
     cast=Csv(),
 )
 
@@ -86,7 +86,7 @@ MIDDLEWARE = [
 ]
 
 # CORS Configuration - More secure (default True for local development)
-CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL', default=True, cast=bool)  # True for local dev, False for production
+CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL', default=DEBUG, cast=bool)
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 CORS_ALLOWED_HEADERS = ['Content-Type', 'Authorization', 'X-CSRFToken', 'X-Language']
@@ -101,6 +101,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
+    'DEFAULT_THROTTLE_RATES': {
+        'auth_login': '10/minute',
+        'auth_otp': '3/minute',
+        'auth_verify': '10/minute',
+        'password_check': '10/minute',
+        'tutor_chat': '30/minute',
+    },
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,  # Adjust this number based on your needs
     'DEFAULT_FILTER_BACKENDS': [
@@ -116,6 +123,15 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
     ],
 }
+
+# Production HTTPS/cookie hardening. The proxy must forward X-Forwarded-Proto.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=not DEBUG, cast=bool)
+SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=not DEBUG, cast=bool)
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=not DEBUG, cast=bool)
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=31536000 if not DEBUG else 0, cast=int)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=not DEBUG, cast=bool)
+SECURE_HSTS_PRELOAD = config('SECURE_HSTS_PRELOAD', default=not DEBUG, cast=bool)
 
 TEMPLATES = [
     {

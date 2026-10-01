@@ -9,17 +9,20 @@ the signed-in student without introducing a second exam database.
 from collections import defaultdict
 from datetime import date, timedelta
 from io import BytesIO
+import json
+import re
 
-from django.db import transaction
+from django.db import connections, transaction
 from django.http import HttpResponse
 from django.utils import timezone
-from django.utils.dateparse import parse_datetime
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Customer
+from .exam_attempts import consume_attempt
+from .subject_question_tables import subject_question_table_name
 from .views import (
     BearerTokenAuthentication,
     REPORTLAB_AVAILABLE,
@@ -186,17 +189,128 @@ def _ranked_customers(period='all-time', level='', subject='', group=''):
     return ranked
 
 
-def _normalized_result(payload):
-        """Validate and normalize one browser/server exam result."""
-        total = max(0, _integer(payload.get('total')))
-        correct = max(0, min(total, _integer(payload.get('correct'))))
-        score = max(0, min(100, round(_number(payload.get('score')))))
+OPTION_KEYS = ('ক', 'খ', 'গ', 'ঘ')
+
+
+def _plain_answer(value):
+    return re.sub(r'\s+', '', str(value or '')).lower()
+
+
+def _answer_key(answer, options):
+    value = str(answer or '').strip()
+    normalized = _plain_answer(value)
+    direct = {
+        'ক': 'ক', 'খ': 'খ', 'গ': 'গ', 'ঘ': 'ঘ',
+        'a': 'ক', 'b': 'খ', 'c': 'গ', 'd': 'ঘ',
+        '1': 'ক', '2': 'খ', '3': 'গ', '4': 'ঘ',
+        'option_1': 'ক', 'option_2': 'খ', 'option_3': 'গ', 'option_4': 'ঘ',
+    }
+    marker = re.sub(r'[:).\-]+$', '', normalized)
+    if marker in direct:
+        return direct[marker]
+    for index, option in enumerate(options):
+        option_normalized = _plain_answer(option)
+        if option_normalized and (normalized == option_normalized or normalized.startswith(option_normalized)):
+            return OPTION_KEYS[index]
+    return ''
+
+
+def _score_exam_submission(set_id, submitted_answers):
+    """Load the authoritative exam rows and calculate the score on the server."""
+    if 'hsc' not in connections:
+        raise ValueError('Exam database is not configured')
+    answers = submitted_answers if isinstance(submitted_answers, dict) else {}
+    conn = connections['hsc']
+    with conn.cursor() as cursor:
+        cursor.execute(
+            "SELECT qids_json, level_tr, class_level, subject_tr, name_label, set_key, exam_type, "
+            "exam_mode, exam_variant FROM cheradip_exam_set WHERE id = %s AND db_alias = 'hsc'",
+            [set_id],
+        )
+        exam = cursor.fetchone()
+        if not exam:
+            raise ValueError('Exam set not found')
+        try:
+            qids = [str(value) for value in json.loads(exam[0] or '[]') if str(value)]
+        except (TypeError, ValueError, json.JSONDecodeError):
+            qids = []
+        if not qids:
+            raise ValueError('Exam set has no questions')
+        table_name = subject_question_table_name(exam[1] or '', exam[2] or '', exam[3] or '')
+        safe_table = table_name.replace('`', '``')
+        cursor.execute(
+            "SELECT COLUMN_NAME FROM information_schema.columns "
+            "WHERE table_schema = DATABASE() AND table_name = %s",
+            [table_name],
+        )
+        columns = {str(row[0]).lower() for row in (cursor.fetchall() or [])}
+        required = {'qid', 'option_1', 'option_2', 'option_3', 'option_4', 'answer'}
+        if not required.issubset(columns):
+            raise ValueError('Exam question table is missing required columns')
+        explanation_fields = [
+            ("`explanation`" if 'explanation' in columns else "NULL") + " AS explanation",
+            ("`explanation2`" if 'explanation2' in columns else "NULL") + " AS explanation2",
+            ("`explanation3`" if 'explanation3' in columns else "NULL") + " AS explanation3",
+        ]
+        placeholders = ', '.join(['%s'] * len(qids))
+        cursor.execute(
+            "SELECT qid, option_1, option_2, option_3, option_4, answer, %s "
+            "FROM `%s` WHERE qid IN (%s)" % (', '.join(explanation_fields), safe_table, placeholders),
+            qids,
+        )
+        rows = cursor.fetchall() or []
+    by_qid = {str(row[0]): row for row in rows}
+    grading = {}
+    correct = 0
+    for qid in qids:
+        row = by_qid.get(qid)
+        if not row:
+            continue
+        key = _answer_key(row[5], row[1:5])
+        user_key = str(answers.get(qid) or '').strip()
+        if key and secrets_compare(user_key, key):
+            correct += 1
+        grading[qid] = {
+            'answer': row[5] or '',
+            'correctOption': key,
+            'explanation': row[6] or '',
+            'explanation2': row[7] or '',
+            'explanation3': row[8] or '',
+        }
+    total = len(qids)
+    score = round(correct * 100 / total) if total else 0
+    return {
+        'total': total,
+        'correct': correct,
+        'score': score,
+        'grading': grading,
+        'setName': exam[4] or '',
+        'setKey': exam[5] or '',
+        'examType': exam[6] or '',
+        'examMode': exam[7] or 'regular',
+        'examVariant': exam[8] or '',
+        'levelTr': exam[1] or '',
+        'classLevel': exam[2] or '',
+        'subjectTr': exam[3] or '',
+    }
+
+
+def secrets_compare(left, right):
+    """Constant-time comparison for the short normalized answer markers."""
+    import secrets
+    return secrets.compare_digest(str(left), str(right))
+
+
+def _normalized_result(payload, authoritative=None, completed_at=None):
+        """Validate and normalize one server-scored exam result."""
+        authoritative = authoritative or {}
+        total = max(0, _integer(authoritative.get('total')))
+        correct = max(0, min(total, _integer(authoritative.get('correct'))))
+        score = max(0, min(100, round(_number(authoritative.get('score')))))
         set_id = _integer(payload.get('setId'))
         if set_id <= 0 or total <= 0:
-            raise ValueError('setId and a positive total are required')
-        attempted_at = parse_datetime(str(payload.get('at') or '')) or timezone.now()
-        if timezone.is_naive(attempted_at):
-            attempted_at = timezone.make_aware(attempted_at, timezone.get_current_timezone())
+            raise ValueError('setId and a positive authoritative total are required')
+        attempted_at = completed_at or timezone.now()
         attempt_id = str(payload.get('attemptId') or '').strip()[:80]
         if not attempt_id:
             attempt_id = 'legacy:%s:%s:%s:%s:%s' % (
@@ -205,18 +319,18 @@ def _normalized_result(payload):
         return {
             'attemptId': attempt_id,
             'setId': set_id,
-            'setName': str(payload.get('setName') or '')[:255],
+            'setName': str(authoritative.get('setName') or '')[:255],
             'score': score,
             'correct': correct,
             'total': total,
-            'subjectTr': str(payload.get('subjectTr') or '')[:255],
-            'levelTr': str(payload.get('levelTr') or '')[:100],
-            'classLevel': str(payload.get('classLevel') or '')[:50],
-            'setKey': str(payload.get('setKey') or '')[:100],
-            'examType': str(payload.get('examType') or '')[:50],
-            'examMode': str(payload.get('examMode') or 'regular')[:20],
-            'examVariant': str(payload.get('examVariant') or '')[:32],
-            'completed': payload.get('completed', True) is not False,
+            'subjectTr': str(authoritative.get('subjectTr') or '')[:255],
+            'levelTr': str(authoritative.get('levelTr') or '')[:100],
+            'classLevel': str(authoritative.get('classLevel') or '')[:50],
+            'setKey': str(authoritative.get('setKey') or '')[:100],
+            'examType': str(authoritative.get('examType') or '')[:50],
+            'examMode': str(authoritative.get('examMode') or 'regular')[:20],
+            'examVariant': str(authoritative.get('examVariant') or '')[:32],
+            'completed': True,
             'at': attempted_at.isoformat(),
         }
 
@@ -230,39 +344,49 @@ class StudentExamResultsView(APIView):
 
     def post(self, request):
         payload = request.data if isinstance(request.data, dict) else {}
-        submitted = payload.get('results') if isinstance(payload.get('results'), list) else [payload]
-        if len(submitted) > MAX_RESULTS:
-            return Response({'error': 'Too many results in one request'}, status=status.HTTP_400_BAD_REQUEST)
+        if isinstance(payload.get('results'), list):
+            return Response(
+                {'error': 'Legacy bulk score uploads are no longer accepted; each exam must be server-scored.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        attempt_id = str(payload.get('attemptId') or '').strip()
+        set_id = _integer(payload.get('setId'))
+        if not attempt_id:
+            return Response({'error': 'A server-issued attemptId is required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
-            normalized = [_normalized_result(item) for item in submitted if isinstance(item, dict)]
+            authoritative = _score_exam_submission(set_id, payload.get('answers'))
+            with transaction.atomic():
+                customer = Customer.objects.select_for_update().get(pk=request.user.pk)
+                data = _settings(customer.settings).copy()
+                rows = _results(customer)
+                existing = next(
+                    (row for row in rows if str(row.get('attemptId') or '') == attempt_id),
+                    None,
+                )
+                if existing:
+                    return Response({
+                        'saved': True,
+                        'duplicate': True,
+                        'added': 0,
+                        'result': existing,
+                        'results': [existing],
+                        'grading': authoritative.get('grading', {}),
+                    })
+                data, _attempt, completed_at = consume_attempt(data, set_id, attempt_id)
+                normalized = [_normalized_result(payload, authoritative, completed_at)]
+                added = normalized
+                data[RESULTS_KEY] = (added + rows)[:MAX_RESULTS]
+                data[ACTIVITY_KEY] = _activity(customer)
+                customer.settings = data
+                customer.save(update_fields=['settings'])
         except ValueError as error:
             return Response({'error': str(error)}, status=status.HTTP_400_BAD_REQUEST)
-        if not normalized:
-            return Response({'saved': True, 'added': 0, 'results': []})
-
-        with transaction.atomic():
-            customer = Customer.objects.select_for_update().get(pk=request.user.pk)
-            data = _settings(customer.settings).copy()
-            rows = _results(customer)
-            known_ids = {str(row.get('attemptId') or '') for row in rows}
-            added = [row for row in normalized if row['attemptId'] not in known_ids]
-            if not added:
-                return Response({
-                    'saved': True,
-                    'duplicate': True,
-                    'added': 0,
-                    'result': normalized[0] if len(normalized) == 1 else None,
-                    'results': normalized,
-                })
-            data[RESULTS_KEY] = (added + rows)[:MAX_RESULTS]
-            data[ACTIVITY_KEY] = _activity(customer)
-            customer.settings = data
-            customer.save(update_fields=['settings'])
         return Response({
             'saved': True,
             'added': len(added),
             'result': normalized[0] if len(normalized) == 1 else None,
             'results': normalized,
+            'grading': authoritative.get('grading', {}),
         }, status=status.HTTP_201_CREATED)
 
 

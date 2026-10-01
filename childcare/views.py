@@ -2,9 +2,12 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.db import transaction
+from django.db.models import Max, Sum
 from django.utils import timezone
 
 from childcare import auth_utils, models
+from cheradip.throttles import LoginRateThrottle, OtpRateThrottle, VerificationRateThrottle
 from childcare.serializers import (
     ChildProfileSerializer,
     FriendCharacterSerializer,
@@ -113,6 +116,7 @@ class RegisterChildView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [OtpRateThrottle]
 
     def post(self, request):
         email = auth_utils.normalize_email(request.data.get("email", ""))
@@ -152,34 +156,36 @@ class RegisterChildView(APIView):
         if mobile and models.ParentAccount.objects.using("childcare").filter(mobile_number=mobile).exists():
             return Response({"detail": "Mobile already registered"}, status=status.HTTP_409_CONFLICT)
 
-        parent = models.ParentAccount.objects.using("childcare").create(
-            email=email,
-            username=username,
-            password_hash=auth_utils.hash_password(password),
-            full_name=parent_name or child_name,
-            mobile_number=mobile,
-            email_verified=False,
-            is_verified=False,
-            registered_device_id=device_id,
-            role="user",
-        )
-        child = models.ChildProfile.objects.using("childcare").create(
-            parent=parent,
-            full_name=child_name,
-            birth_day=int(day),
-            birth_month=int(month),
-            birth_year=int(year),
-            address=address,
-        )
-
         try:
-            auth_utils.store_and_send_otp(email=email, channel=models.OtpCode.CHANNEL_REGISTER, purpose="Verification")
+            with transaction.atomic(using="childcare"):
+                parent = models.ParentAccount.objects.using("childcare").create(
+                    email=email,
+                    username=username,
+                    password_hash=auth_utils.hash_password(password),
+                    full_name=parent_name or child_name,
+                    mobile_number=mobile,
+                    email_verified=False,
+                    is_verified=False,
+                    registered_device_id=device_id,
+                    role="user",
+                )
+                child = models.ChildProfile.objects.using("childcare").create(
+                    parent=parent,
+                    full_name=child_name,
+                    birth_day=int(day),
+                    birth_month=int(month),
+                    birth_year=int(year),
+                    address=address,
+                )
+                auth_utils.store_and_send_otp(
+                    email=email,
+                    channel=models.OtpCode.CHANNEL_REGISTER,
+                    purpose="Verification",
+                )
         except Exception as exc:
             return Response(
                 {
                     "detail": str(exc),
-                    "parent_id": parent.id,
-                    "child": ChildProfileSerializer(child).data,
                     "next": "verify_otp",
                     "email": email,
                     "otpSent": False,
@@ -206,6 +212,7 @@ class LoginView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request):
         username = str(request.data.get("username", "") or request.data.get("email", "")).strip()
@@ -253,6 +260,7 @@ class SendOtpView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [OtpRateThrottle]
 
     def post(self, request):
         email = auth_utils.normalize_email(request.data.get("email", "") or request.data.get("target", ""))
@@ -285,6 +293,7 @@ class VerifyOtpView(APIView):
 
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [VerificationRateThrottle]
 
     def post(self, request):
         email = auth_utils.normalize_email(request.data.get("email", "") or request.data.get("target", ""))
@@ -333,7 +342,6 @@ class MeView(APIView):
     def get(self, request):
         token = (
             request.headers.get("X-Session-Token")
-            or request.query_params.get("sessionToken")
             or ""
         ).strip()
         if not token:
@@ -362,7 +370,6 @@ class MeView(APIView):
 def _session_from_request(request):
     token = (
         request.headers.get("X-Session-Token")
-        or request.query_params.get("sessionToken")
         or (request.data.get("sessionToken") if hasattr(request, "data") else None)
         or ""
     )
@@ -389,7 +396,7 @@ def _session_from_request(request):
 
 
 class SyncScoresView(APIView):
-    """Upsert learner scoreboard from the Android app (tutor E/B/A lanes)."""
+    """Refresh the scoreboard from server-owned progress and contest rows."""
 
     authentication_classes = []
     permission_classes = []
@@ -400,19 +407,41 @@ class SyncScoresView(APIView):
             return err
         parent = session.parent
         child = auth_utils.primary_child(parent)
-        total = int(request.data.get("totalPoints") or 0)
-        modules = request.data.get("modules") or {}
-        contest_week = str(request.data.get("contestWeek") or "")[:32]
-        contest_score = int(request.data.get("contestScore") or 0)
+        if not child:
+            return Response({"detail": "Child profile not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        progress_rows = (
+            models.Progress.objects.using("childcare")
+            .filter(child=child)
+            .values("module__key")
+            .annotate(points=Sum("score"))
+        )
+        modules = {str(item["module__key"]): max(0, int(item["points"] or 0)) for item in progress_rows}
+        progress_total = sum(modules.values())
+        game_total = sum(
+            max(0, int(item["best"] or 0))
+            for item in models.GameScore.objects.using("childcare")
+            .filter(child=child)
+            .values("game_key")
+            .annotate(best=Max("score"))
+        )
+        contest_score = int(
+            models.ContestEntry.objects.using("childcare")
+            .filter(child=child)
+            .aggregate(points=Sum("score"))["points"]
+            or 0
+        )
+        total = progress_total + game_total + max(0, contest_score)
+        contest_week = timezone.localdate().strftime("%G-W%V")
 
         row, _created = models.LearnerScore.objects.using("childcare").update_or_create(
             parent=parent,
             defaults={
                 "child": child,
-                "total_points": max(0, total),
+                "total_points": total,
                 "contest_week": contest_week,
                 "contest_score": max(0, contest_score),
-                "scores_json": modules if isinstance(modules, dict) else {},
+                "scores_json": modules,
             },
         )
         return Response(

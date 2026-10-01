@@ -94,14 +94,20 @@ class Settings(BaseSettings):
     packs_dir: Path = _AILT_ROOT / "packs"
     grammar_books_dir: Path = _AILT_ROOT / "grammar_books"
     public_base_url: str = "https://cheradip.com/ailt/api"
+    cors_allowed_origins: str = (
+        "https://cheradip.com,https://www.cheradip.com,https://ai.cheradip.com,"
+        "https://tutor.cheradip.com,https://agent.cheradip.com,https://ailt.cheradip.com,"
+        "http://localhost:4200,http://127.0.0.1:4200"
+    )
     # Google Play Billing (AI Language Tutor Android app). Server-side purchase
     # verification via the Play Developer API (androidpublisher). Provide a
     # service-account key with "View financial data" access to the app.
     # google_play_service_account_json: either inline JSON or a path to the .json.
-    # When blank, /billing/verify falls back to DEV mode (trusts the client) —
-    # never leave blank in production.
+    # Verification fails closed when credentials are absent. The explicit
+    # escape hatch below is only for isolated local billing tests.
     google_play_package_name: str = "com.cheradip.ailanguagetutor"
     google_play_service_account_json: str = ""
+    allow_unverified_play_purchases: bool = False
     # Optional shared secret to authenticate Play Real-Time Developer
     # Notifications (RTDN) push calls (?token=... on the webhook URL).
     google_play_rtdn_token: str = ""
@@ -152,6 +158,7 @@ class Settings(BaseSettings):
         "smtp_enabled",
         "smtp_use_tls",
         "smtp_use_ssl",
+        "allow_unverified_play_purchases",
         "translate_api_responses",
         mode="before",
     )

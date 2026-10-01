@@ -33,6 +33,7 @@ class SignupInitRequest(BaseModel):
     username: str = Field(min_length=3, max_length=64)
     password: str = Field(min_length=8)
     deviceId: str | None = None
+    verificationCode: str | None = None
 
 
 class SignupInitResponse(BaseModel):
@@ -41,6 +42,7 @@ class SignupInitResponse(BaseModel):
     email: str = ""
     role: str = "user"
     sessionToken: str | None = None
+    requiresOtp: bool = True
 
 
 class RecoverySendRequest(BaseModel):

@@ -77,10 +77,10 @@ app = FastAPI(title="Cheradip AILT API", version="1.0.0", lifespan=lifespan)
 app.add_middleware(TranslateResponseMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[origin.strip() for origin in settings.cors_allowed_origins.split(",") if origin.strip()],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "Accept", "X-Language"],
 )
 
 api = FastAPI()

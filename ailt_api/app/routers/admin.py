@@ -26,7 +26,11 @@ from app.services.llm_router import FAILURE_EXHAUST_THRESHOLD
 from app.services.earnings_report import build_earnings_report
 from app.services.referral_earnings import mature_pending_earnings
 
-router = APIRouter(prefix="/admin", tags=["admin"])
+router = APIRouter(
+    prefix="/admin",
+    tags=["admin"],
+    dependencies=[Depends(require_admin)],
+)
 
 
 def _report_settings(db: Session) -> AdminReportSettings:

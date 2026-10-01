@@ -48,11 +48,16 @@ def verify_purchase(
     db: Session = Depends(get_db),
     buyer: User | None = Depends(get_optional_user),
 ) -> BillingVerifyResponse:
-    # Verify the purchase token with Google Play (source of truth). When Play
-    # credentials are not configured we fall back to DEV mode (trust client) —
-    # never leave that on in production.
+    # Google Play is the source of truth. Missing credentials fail closed unless
+    # an operator explicitly enables the local-only test escape hatch.
     verification: play_gateway.PlayVerification | None = None
-    if play_gateway.enabled():
+    play_enabled = play_gateway.enabled()
+    if not play_enabled and not settings.allow_unverified_play_purchases:
+        raise HTTPException(
+            503,
+            "Google Play purchase verification is not configured on this server.",
+        )
+    if play_enabled:
         verification = play_gateway.verify_subscription(body.productId, body.purchaseToken)
         if verification is None:
             raise HTTPException(502, "Could not verify purchase with Google Play. Try again.")
@@ -84,10 +89,9 @@ def verify_purchase(
         product_id = verification.product_id or body.productId
         tier = _tier_from_product(product_id)
         expires = verification.expiry_ms or _fallback_expiry(product_id)
-    else:
-        # DEV fallback: no Play credentials configured.
+    elif settings.allow_unverified_play_purchases:
         logger.warning(
-            "Play verification disabled — trusting client purchase token (DEV only)."
+            "ALLOW_UNVERIFIED_PLAY_PURCHASES is enabled; trusting a client token for local testing."
         )
         product_id = body.productId
         tier = _tier_from_product(product_id)

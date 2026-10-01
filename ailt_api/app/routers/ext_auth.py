@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import re
 
-from fastapi import APIRouter, Depends, Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from sqlalchemy import delete, select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
@@ -37,6 +37,7 @@ from app.security import (
 )
 from app.services.cheradip_account_sync import ensure_cheradip_account
 from app.services.email_service import send_otp_email
+from app.rate_limit import enforce_rate_limit
 
 router = APIRouter(prefix="/ext/auth", tags=["ext-auth"])
 
@@ -86,7 +87,8 @@ def _find_user(db: Session, username: str) -> ExtUser | None:
 
 
 @router.post("/signup", response_model=ExtAuthResponse)
-def signup(body: ExtSignupRequest, db: Session = Depends(get_ext_db)) -> ExtAuthResponse:
+def signup(body: ExtSignupRequest, request: Request, db: Session = Depends(get_ext_db)) -> ExtAuthResponse:
+    enforce_rate_limit(request, "ext-signup", limit=4, window_seconds=300, identity=body.email)
     email = body.email.strip().lower()
     username = body.username.strip()
     if not EMAIL_RE.match(email):
@@ -116,7 +118,8 @@ def signup(body: ExtSignupRequest, db: Session = Depends(get_ext_db)) -> ExtAuth
 
 
 @router.post("/login", response_model=ExtAuthResponse)
-def login(body: ExtLoginRequest, db: Session = Depends(get_ext_db)) -> ExtAuthResponse:
+def login(body: ExtLoginRequest, request: Request, db: Session = Depends(get_ext_db)) -> ExtAuthResponse:
+    enforce_rate_limit(request, "ext-login", limit=10, window_seconds=60, identity=body.username)
     try:
         user = _find_user(db, body.username)
         if not user:
@@ -197,7 +200,8 @@ def password_change(
 
 
 @router.post("/recovery/send")
-def recovery_send(body: ExtRecoverySendRequest, db: Session = Depends(get_ext_db)) -> dict:
+def recovery_send(body: ExtRecoverySendRequest, request: Request, db: Session = Depends(get_ext_db)) -> dict:
+    enforce_rate_limit(request, "ext-recovery-send", limit=3, window_seconds=300, identity=body.email)
     email = body.email.strip().lower()
     user = db.scalar(select(ExtUser).where(ExtUser.email == email))
     if not user or not user.email:
@@ -210,7 +214,8 @@ def recovery_send(body: ExtRecoverySendRequest, db: Session = Depends(get_ext_db
 
 
 @router.post("/recovery/reset")
-def recovery_reset(body: ExtRecoveryResetRequest, db: Session = Depends(get_ext_db)) -> dict:
+def recovery_reset(body: ExtRecoveryResetRequest, request: Request, db: Session = Depends(get_ext_db)) -> dict:
+    enforce_rate_limit(request, "ext-recovery-reset", limit=8, window_seconds=300, identity=body.email)
     email = body.email.strip().lower()
     user = db.scalar(select(ExtUser).where(ExtUser.email == email))
     if not user:

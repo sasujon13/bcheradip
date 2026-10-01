@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, status, viewsets, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from .models import (
     Item,
     Customer,
@@ -28,6 +28,7 @@ from .serializers import (
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import BaseAuthentication
 from .permissions import IsSuperUserOrStaff, PublicAccess
+from .throttles import LoginRateThrottle, OtpRateThrottle, PasswordCheckRateThrottle, VerificationRateThrottle
 from .ext_account_sync import sync_customer_to_ext
 from .location import Bangladesh
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
@@ -35,18 +36,21 @@ from io import BytesIO
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-import logging, random, string, json, requests, os, re, csv, time, zipfile, math, shutil, base64
+import logging, random, string, json, requests, os, re, csv, time, zipfile, math, shutil, base64, secrets, socket, ipaddress
+from functools import wraps
 from html import escape, unescape
 from urllib import parse as urllib_parse
 from urllib.parse import quote, unquote
 from pathlib import Path
 from decimal import Decimal, InvalidOperation
+from datetime import timedelta
 from rest_framework.decorators import action
 from django.conf import settings
 from django.db import connections, transaction
 from django.db.models import Q
 from django.db.models.expressions import RawSQL
 from django.db.utils import ProgrammingError, OperationalError
+from django.utils import timezone
 
 from .subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
 from .c_program_export_format import (
@@ -109,6 +113,76 @@ except ImportError:
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+
+CUSTOMER_TOKEN_LIFETIME_DAYS = 30
+
+
+def _issue_customer_token(customer):
+    """Replace a customer's session token with a CSPRNG token that expires."""
+    token = secrets.token_urlsafe(30)[:40]
+    CustomerToken.objects.filter(customer=customer).delete()
+    CustomerToken.objects.create(
+        key=token,
+        customer=customer,
+        expires_at=timezone.now() + timedelta(days=CUSTOMER_TOKEN_LIFETIME_DAYS),
+    )
+    return token
+
+
+class BearerTokenAuthentication(BaseAuthentication):
+    """Authenticate an active customer using a non-expired Bearer token."""
+
+    def authenticate(self, request):
+        auth = request.META.get('HTTP_AUTHORIZATION')
+        if not auth or not auth.startswith('Bearer '):
+            return None
+        token = auth[7:].strip()
+        if not token:
+            return None
+        try:
+            ct = CustomerToken.objects.select_related('customer').get(key=token)
+        except CustomerToken.DoesNotExist:
+            return None
+        if ct.expires_at and ct.expires_at <= timezone.now():
+            ct.delete()
+            return None
+        if not getattr(ct.customer, 'is_active', True):
+            return None
+        return (ct.customer, token)
+
+
+def scraper_staff_required(view_func):
+    """Protect legacy Django scraper views with the same Bearer session as the SPA."""
+    @wraps(view_func)
+    def wrapped(request, *args, **kwargs):
+        authenticated = BearerTokenAuthentication().authenticate(request)
+        user = authenticated[0] if authenticated else None
+        if not user or not (getattr(user, 'is_staff', False) or getattr(user, 'is_superuser', False)):
+            return JsonResponse({'error': 'Staff authentication is required.'}, status=403)
+        request.user = user
+        return view_func(request, *args, **kwargs)
+    return wrapped
+
+
+def _scraper_validate_remote_url(value):
+    """Reject non-HTTP and private/local targets before server-side fetch or browser navigation."""
+    raw = str(value or '').strip()
+    parsed = urllib_parse.urlparse(raw)
+    if parsed.scheme not in {'http', 'https'} or not parsed.hostname:
+        raise ValueError('Only absolute HTTP/HTTPS URLs are allowed.')
+    hostname = parsed.hostname.lower().rstrip('.')
+    if hostname == 'localhost' or hostname.endswith('.local'):
+        raise ValueError('Local network URLs are not allowed.')
+    try:
+        addresses = {item[4][0] for item in socket.getaddrinfo(hostname, parsed.port or 443)}
+    except socket.gaierror as exc:
+        raise ValueError('The URL host could not be resolved.') from exc
+    for address in addresses:
+        ip = ipaddress.ip_address(address)
+        if not ip.is_global:
+            raise ValueError('Private, loopback, link-local and reserved addresses are not allowed.')
+    return raw
 
 
 def _playwright_chromium_executable_path():
@@ -917,10 +991,8 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
     QUESTION_UNLOCK_DEBIT_CQ = 50
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
-    permission_classes = [AllowAny]
-    # Bearer is parsed manually in actions; disable SessionAuthentication so SPA POSTs
-    # (unlock_questions, use_trx, update_status) are not blocked by missing CSRF token.
-    authentication_classes = []
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BearerTokenAuthentication]
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -930,7 +1002,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 qs = qs.filter(Token=int(token_val))
             except (ValueError, TypeError):
                 qs = qs.none()
-        return qs
+        return qs.none()
 
     def list(self, request, *args, **kwargs):
         token_val = request.query_params.get('token')
@@ -963,7 +1035,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 'success': False,
                 'counter': 0,
             })
-        return super().list(request, *args, **kwargs)
+        return Response({'detail': 'A transaction ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['post'], url_path='update_status')
     def update_status(self, request, pk=None):
@@ -981,36 +1053,38 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
             inc = int(Decimal(str(trx.received_amount)) * 100)
         except (TypeError, ValueError, ArithmeticError, InvalidOperation):
             inc = 0
-        customer = None
-        auth = request.META.get('HTTP_AUTHORIZATION')
-        if auth and auth.startswith('Bearer '):
-            key = auth[7:].strip()
-            if key:
-                try:
-                    customer = CustomerToken.objects.select_related('customer').get(key=key).customer
-                except CustomerToken.DoesNotExist:
-                    customer = None
+        customer = request.user
+        supplied_trxid = str(request.data.get('trxid') or '').strip()
+        if not supplied_trxid or not secrets.compare_digest(supplied_trxid, str(trx.trxid or '')):
+            return Response(
+                {'success': False, 'detail': 'Transaction ID does not match.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         trx_locked = None
         try:
             with transaction.atomic():
                 trx_locked = TrxManagement.objects.select_for_update().filter(pk=trx.pk).first()
                 if not trx_locked:
                     return Response({'success': False, 'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+                if trx_locked.status != 0:
+                    return Response(
+                        {'success': False, 'detail': 'This transaction has already been activated.'},
+                        status=status.HTTP_409_CONFLICT,
+                    )
                 trx_locked.token = (trx_locked.token or 0) + inc
                 trx_locked.status = 1
                 trx_locked.save(update_fields=['token', 'status'])
                 remaining_for_client = trx_locked.token
-                if customer is not None:
-                    customer.refresh_from_db(fields=['settings'])
-                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                    try:
-                        base = int(st.get('balance', 0) or 0)
-                    except (TypeError, ValueError):
-                        base = 0
-                    st = {**st, 'balance': base + inc}
-                    customer.settings = st
-                    customer.save(update_fields=['settings'])
-                    remaining_for_client = int(st.get('balance', 0) or 0)
+                customer.refresh_from_db(fields=['settings'])
+                st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                try:
+                    base = int(st.get('balance', 0) or 0)
+                except (TypeError, ValueError):
+                    base = 0
+                st = {**st, 'balance': base + inc}
+                customer.settings = st
+                customer.save(update_fields=['settings'])
+                remaining_for_client = int(st.get('balance', 0) or 0)
         except Exception:
             logger.exception('token update_status failed')
             return Response(
@@ -1031,88 +1105,27 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         NTRCA unlock (logged-in): debit **only** ``Customer.settings['balance']`` by ``UNLOCK_DEBIT``.
         Same source as ``GET /api/customer_settings/`` â€” no Trx row id, no ``TrxManagement.token`` check.
 
-        Not logged in (no Bearer): legacy path â€” debit ``TrxManagement.token`` for row ``id`` (payment row).
+        Authentication is mandatory; legacy anonymous transaction-row debits are not accepted.
         """
         debit = self.UNLOCK_DEBIT
-        customer = None
-        auth = request.META.get('HTTP_AUTHORIZATION')
-        if auth and auth.startswith('Bearer '):
-            key = auth[7:].strip()
-            if key:
-                try:
-                    customer = CustomerToken.objects.select_related('customer').get(key=key).customer
-                except CustomerToken.DoesNotExist:
-                    customer = None
-
-        if customer is not None:
-            try:
-                with transaction.atomic():
-                    customer.refresh_from_db(fields=['settings'])
-                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                    try:
-                        b = int(st.get('balance', 0) or 0)
-                    except (TypeError, ValueError):
-                        b = 0
-                    if b < debit:
-                        return Response(
-                            {
-                                'success': False,
-                                'remaining': b,
-                                'detail': 'Insufficient coins for unlock',
-                            },
-                            status=status.HTTP_400_BAD_REQUEST,
-                        )
-                    st = {**st, 'balance': max(0, b - debit)}
-                    customer.settings = st
-                    customer.save(update_fields=['settings'])
-                    remaining_for_client = int(st.get('balance', 0) or 0)
-                return Response({'success': True, 'remaining': remaining_for_client})
-            except Exception:
-                logger.exception('use_trx (balance-only) failed')
-                return Response(
-                    {'success': False, 'remaining': 0},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                )
-
-        raw_id = request.data.get('id') or request.data.get('trx_id')
-        if raw_id is None:
-            return Response(
-                {'success': False, 'remaining': 0},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        try:
-            pk = int(raw_id)
-        except (TypeError, ValueError):
-            return Response(
-                {'success': False, 'remaining': 0},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        customer = request.user
         try:
             with transaction.atomic():
-                trx = (
-                    TrxManagement.objects.select_for_update()
-                    .filter(pk=pk)
-                    .first()
-                )
-                if not trx:
+                customer.refresh_from_db(fields=['settings'])
+                st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                try:
+                    balance = int(st.get('balance', 0) or 0)
+                except (TypeError, ValueError):
+                    balance = 0
+                if balance < debit:
                     return Response(
-                        {'success': False, 'remaining': 0},
-                        status=status.HTTP_404_NOT_FOUND,
-                    )
-                if trx.status != 1:
-                    return Response(
-                        {
-                            'success': False,
-                            'remaining': max(0, trx.token),
-                            'detail': 'TrxID not activated',
-                        },
+                        {'success': False, 'remaining': balance, 'detail': 'Insufficient coins for unlock'},
                         status=status.HTTP_400_BAD_REQUEST,
                     )
-                if trx.token < debit:
-                    return Response({'success': False, 'remaining': max(0, trx.token)})
-                trx.token = trx.token - debit
-                trx.save(update_fields=['token'])
-                remaining_for_client = trx.token
+                st = {**st, 'balance': balance - debit}
+                customer.settings = st
+                customer.save(update_fields=['settings'])
+                remaining_for_client = balance - debit
         except Exception:
             logger.exception('use_trx failed')
             return Response(
@@ -1405,8 +1418,7 @@ class CustomerCreateView(APIView):
                 }
                 user.settings = st
                 user.save(update_fields=['settings'])
-                token = self.generate_unique_key()
-                CustomerToken.objects.create(key=token, customer=user)
+                token = _issue_customer_token(user)
             # Mirror the brand-new account into the VS Code extension database so
             # the same credentials work there without a second signup.
             sync_customer_to_ext(user, raw_password=user_data['password'])
@@ -1424,25 +1436,20 @@ class CustomerCreateView(APIView):
                 err_msg = str(e)
             return Response({'detail': err_msg}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def generate_unique_key(self):
-        length = 40
-        characters = string.ascii_letters + string.digits
-        return ''.join(random.choice(characters) for _ in range(length))
-
-
 class SignupProfileView(APIView):
     """
     GET /api/signup_profile/?username=xxx&acctype=Teacher|Student|JobSeeker
     Returns profile data from Customer table. Password is never returned.
     """
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BearerTokenAuthentication]
 
     def get(self, request):
         username = request.query_params.get('username')
         acctype = (request.query_params.get('acctype') or '').strip()
-        if not username:
-            return Response({'detail': 'username is required'}, status=status.HTTP_400_BAD_REQUEST)
+        if username and username != request.user.username:
+            return Response({'detail': 'You may only view your own profile.'}, status=status.HTTP_403_FORBIDDEN)
+        username = request.user.username
         try:
             q = Customer.objects.filter(username=username)
             if acctype and acctype in ('Teacher', 'Student', 'JobSeeker'):
@@ -1481,6 +1488,7 @@ class CustomerRetrieveView(APIView):
     """Login: authenticate against Customer only. Optional country_code filter on username lookup."""
     permission_classes = [AllowAny]
     authentication_classes = []
+    throttle_classes = [LoginRateThrottle]
 
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
@@ -1520,9 +1528,7 @@ class CustomerRetrieveView(APIView):
             village = getattr(user, 'village', None)
             settings_dict = _normalize_customer_settings(getattr(user, 'settings', None))
             show_welcome_coins = bool(settings_dict.get('welcome_coins_ceremony_pending'))
-            token = self.generate_unique_key()
-            CustomerToken.objects.filter(customer=user).delete()
-            CustomerToken.objects.create(key=token, customer=user)
+            token = _issue_customer_token(user)
             # Keep the VS Code extension account in step (created here when the
             # extension account is missing, e.g. for pre-existing customers).
             sync_customer_to_ext(user, raw_password=password)
@@ -1543,11 +1549,6 @@ class CustomerRetrieveView(APIView):
 
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-    def generate_unique_key(self):
-        length = 40
-        characters = string.ascii_letters + string.digits
-        return ''.join(random.choice(characters) for _ in range(length))
-
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             customer_data = {
@@ -1557,22 +1558,6 @@ class CustomerRetrieveView(APIView):
             return Response(customer_data, status=status.HTTP_200_OK)
         return Response({'error': 'Not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
 
-
-
-class BearerTokenAuthentication(BaseAuthentication):
-    """Authenticate by Authorization: Bearer <token>; look up CustomerToken and set request.user."""
-    def authenticate(self, request):
-        auth = request.META.get('HTTP_AUTHORIZATION')
-        if not auth or not auth.startswith('Bearer '):
-            return None
-        token = auth[7:].strip()
-        if not token:
-            return None
-        try:
-            ct = CustomerToken.objects.select_related('customer').get(key=token)
-            return (ct.customer, token)
-        except CustomerToken.DoesNotExist:
-            return None
 
 
 class CustomerSettingsView(APIView):
@@ -6401,33 +6386,33 @@ class CreatedQuestionSetDetailView(APIView):
 
 
 class CustomerUpdateView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
         password = request.data.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is None:
+        user = request.user
+        if not password or not user.check_password(password):
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-        serializer = CustomerUpdateSerializer(user, data=request.data, partial=True)
+        update_data = request.data.copy()
+        update_data.pop('username', None)
+        update_data.pop('password', None)
+        serializer = CustomerUpdateSerializer(user, data=update_data, partial=True)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         serializer.save()
         # Profile edits (name, email, active state) also refresh the ext account.
         sync_customer_to_ext(user)
-        token = self.generate_unique_key()
-        CustomerToken.objects.filter(customer=user).delete()
-        CustomerToken.objects.create(key=token, customer=user)
+        token = _issue_customer_token(user)
         return Response({'authToken': token, 'token': token}, status=status.HTTP_200_OK)
 
-    def generate_unique_key(self):
-        length = 40
-        characters = string.ascii_letters + string.digits
-        return ''.join(random.choice(characters) for _ in range(length))
-
 class CustomerResetView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
         password = request.data.get('password')
-        user = authenticate(request, username=username, password=password)
+        user = request.user if request.user.check_password(password or '') else None
 
         if user is not None:
             serializer = CustomerSerializer(user, data=request.data, partial=True)
@@ -6473,56 +6458,50 @@ class MobileNumberExistsView(APIView):
 
 
 class PasswordExistsView(APIView):
-    """Check username+password in Customer table. Optional country_code filter."""
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    """Verify the signed-in customer's current password without placing it in a URL."""
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BearerTokenAuthentication]
+    throttle_classes = [PasswordCheckRateThrottle]
 
-    def get(self, request, *args, **kwargs):
-        username = request.query_params.get('username')
-        password = request.query_params.get('password')
-        country_code = (request.query_params.get('countryCode') or request.query_params.get('country_code') or '').strip().upper() or None
-
-        if not username or not password:
+    def post(self, request, *args, **kwargs):
+        password = request.data.get('password')
+        if not password:
             return Response({'exists': False}, status=status.HTTP_200_OK)
-        q = Q(username=username)
-        if country_code:
-            q &= Q(country_code=country_code)
-        try:
-            customer = Customer.objects.filter(q).first()
-            if customer and customer.check_password(password):
-                return Response({'exists': True}, status=status.HTTP_200_OK)
-        except (ProgrammingError, OperationalError):
-            pass
-        return Response({'exists': False}, status=status.HTTP_200_OK)
+        return Response({'exists': request.user.check_password(password)}, status=status.HTTP_200_OK)
     
 
-@csrf_exempt
+@api_view(['POST'])
+@authentication_classes([BearerTokenAuthentication])
+@permission_classes([IsAuthenticated])
 def save_json_data(request):
-    """Store JSON payload in JsonData; optionally link/update Transaction by trxid+paidFrom."""
-    if request.method != 'POST':
-        return JsonResponse({'message': 'Invalid request method'}, status=405)
+    """Store a signed-in customer's order payload without trusting identity fields."""
     try:
-        body = json.loads(request.body.decode('utf-8'))
+        body = dict(request.data) if isinstance(request.data, dict) else {}
+        if len(json.dumps(body, ensure_ascii=False).encode('utf-8')) > 256 * 1024:
+            return Response({'error': 'Payload is too large'}, status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
         trxid = body.pop('trxid', None)
         paidFrom = body.pop('paidFrom', None)
-        username = body.get('username', None)
-        transaction = None
+        username = request.user.username
+        body['username'] = username
+        payment = None
         if trxid and paidFrom:
             try:
-                transaction = Transaction.objects.get(trxid=trxid, paidFrom=paidFrom)
+                payment = Transaction.objects.get(trxid=trxid, paidFrom=paidFrom)
             except Transaction.DoesNotExist:
                 pass
-        if transaction and username and transaction.username != username:
-            transaction.username = username
-            transaction.save(update_fields=['username'])
+        if payment and payment.username and payment.username != username:
+            return Response({'error': 'This payment belongs to another account'}, status=status.HTTP_403_FORBIDDEN)
+        if payment and not payment.username:
+            payment.username = username
+            payment.save(update_fields=['username'])
         JsonData.objects.create(
             data=body,
             data_type='order_submission',
             description=username or trxid or 'save_json_data',
         )
-        return JsonResponse({'message': 'Data saved successfully'}, status=200)
+        return Response({'message': 'Data saved successfully'}, status=status.HTTP_200_OK)
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @csrf_exempt
@@ -6543,6 +6522,7 @@ def run_scraper(request):
 
         if not base_url:
             return JsonResponse({'error': 'base_url is required'}, status=400)
+        base_url = _scraper_validate_remote_url(base_url)
 
         # Normalize params: ensure page_param is not in params yet for first request
         req_params = dict(params) if isinstance(params, dict) else {}
@@ -6558,7 +6538,7 @@ def run_scraper(request):
         page = 1
         while True:
             req_params[page_param] = page
-            resp = requests.get(base_url, headers=headers, params=req_params, timeout=30)
+            resp = requests.get(base_url, headers=headers, params=req_params, timeout=30, allow_redirects=False)
             if resp.status_code != 200:
                 return JsonResponse({
                     'error': f'HTTP {resp.status_code} at page {page}',
@@ -6607,6 +6587,7 @@ def run_scraper_page(request):
 
         if not base_url:
             return JsonResponse({'error': 'base_url is required'}, status=400)
+        base_url = _scraper_validate_remote_url(base_url)
 
         req_params = dict(params) if isinstance(params, dict) else {}
         if not isinstance(params, dict):
@@ -6621,7 +6602,7 @@ def run_scraper_page(request):
         if page_number > 1:
             time.sleep(delay_seconds)
 
-        resp = requests.get(base_url, headers=headers, params=req_params, timeout=30)
+        resp = requests.get(base_url, headers=headers, params=req_params, timeout=30, allow_redirects=False)
         if resp.status_code != 200:
             return JsonResponse({'error': f'HTTP {resp.status_code}', 'data': None, 'has_more': False})
 
@@ -6765,9 +6746,9 @@ def _normalize_library_for_response(lib):
         return lib
     # (camelCase_key, snake_case_alias_or_same)
     key_map = [
-        ('loginUrl', 'login_url'), ('username',), ('password',), ('groups',),
+        ('loginUrl', 'login_url'), ('username',), ('groups',),
         ('apiBaseUrl', 'api_base_url'), ('apiUrlTemplate', 'api_url_template'),
-        ('bearerToken', 'bearer_token'), ('questionPerPage', 'question_per_page'),
+        ('questionPerPage', 'question_per_page'),
     ]
     out = {}
     for names in key_map:
@@ -6790,6 +6771,28 @@ def _normalize_library_for_response(lib):
     return out
 
 
+def _scraper_without_secrets(data):
+    """Remove credentials recursively before helper data is stored or returned."""
+    secret_keys = {'password', 'bearertoken', 'bearer_token', 'authorization', 'api_key', 'apikey'}
+    if isinstance(data, dict):
+        return {
+            key: _scraper_without_secrets(value)
+            for key, value in data.items()
+            if str(key).replace('-', '_').lower() not in secret_keys
+        }
+    if isinstance(data, list):
+        return [_scraper_without_secrets(value) for value in data]
+    return data
+
+
+def _write_scraper_helper(data):
+    path = _scraper_helper_json()
+    tmp_path = path + '.tmp'
+    with open(tmp_path, 'w', encoding='utf-8') as handle:
+        json.dump(_scraper_without_secrets(data), handle, ensure_ascii=False, indent=2)
+    os.replace(tmp_path, path)
+
+
 def _default_libraries():
     """Default library entries per site (daricomma, other). HSC group includes the 4 chapter URLs."""
     _HSC_CHAPTER_URLS = [
@@ -6801,22 +6804,18 @@ def _default_libraries():
     _base = {
         'loginUrl': '',
         'username': '',
-        'password': '',
         'groups': [{'name': 'Default', 'urls': []}],
         'apiBaseUrl': '',
         'apiUrlTemplate': '',
-        'bearerToken': '',
         'questionPerPage': 200,
     }
     return {
         'daricomma': {
             'loginUrl': 'https://www.daricomma.com/sign-in',
             'username': '',
-            'password': '',
             'groups': [{'name': 'HSC', 'urls': _HSC_CHAPTER_URLS}],
             'apiBaseUrl': 'https://api.daricomma.com/v2/question/',
             'apiUrlTemplate': 'https://api.daricomma.com/v2/question/7e93e529-3405-40ad-b003-895dacf21e9f',
-            'bearerToken': '',
             'questionPerPage': 200,
         },
         'chorcha': {**_base},
@@ -6835,6 +6834,10 @@ def scraper_helper(request):
             defaults = _default_libraries()
             with open(_scraper_helper_json(), 'r', encoding='utf-8') as f:
                 data = json.load(f)
+            clean_data = _scraper_without_secrets(data)
+            if clean_data != data:
+                _write_scraper_helper(clean_data)
+            data = clean_data
             # Migrate old format { groups } to new format
             if 'libraries' not in data:
                 groups = data.get('groups') if isinstance(data.get('groups'), list) else []
@@ -6866,7 +6869,7 @@ def scraper_helper(request):
                 first = libs['daricomma']['groups'][0]
                 if isinstance(first, dict) and first.get('name') == 'HSC' and not (first.get('urls') or []):
                     first['urls'] = list(defaults['daricomma']['groups'][0]['urls'])
-            # Normalize each library to camelCase so frontend always gets loginUrl, apiBaseUrl, bearerToken, apiUrlTemplate
+            # Normalize non-secret settings only. Passwords and bearer tokens stay in browser memory.
             libs = {k: _normalize_library_for_response(v) for k, v in libs.items()}
             return JsonResponse({'lastSite': last_site, 'libraries': libs})
         except FileNotFoundError:
@@ -6886,8 +6889,7 @@ def scraper_helper(request):
                 if key not in libraries or not isinstance(libraries[key], dict):
                     libraries[key] = defaults[key]
             _scraper_base_path()
-            with open(_scraper_helper_json(), 'w', encoding='utf-8') as f:
-                json.dump({'lastSite': last_site, 'libraries': libraries}, f, ensure_ascii=False, indent=2)
+            _write_scraper_helper({'lastSite': last_site, 'libraries': libraries})
             return JsonResponse({'ok': True})
         except (json.JSONDecodeError, TypeError) as e:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
@@ -6956,11 +6958,12 @@ def scraper_root_post(request):
 
 def _scraper_safe_request(url, headers=None, params=None, max_retry=5, timeout=30):
     """Fetch URL with retries (matches script safe_request)."""
+    url = _scraper_validate_remote_url(url)
     headers = headers or {}
     params = params or {}
     for attempt in range(max_retry):
         try:
-            resp = requests.get(url, headers=headers, params=params, timeout=timeout)
+            resp = requests.get(url, headers=headers, params=params, timeout=timeout, allow_redirects=False)
             if resp.status_code == 200:
                 return resp
             _scraper_progress('API error {}, retrying...'.format(resp.status_code))
@@ -7039,6 +7042,7 @@ def scraper_fetch_and_save(request):
         session_id = (body.get('session_id') or '').strip()
         if not group or not base_url:
             return JsonResponse({'error': 'group and base_url are required'}, status=400)
+        base_url = _scraper_validate_remote_url(base_url)
     except (json.JSONDecodeError, TypeError):
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     if session_id and session_id in _scraper_aborted_sessions:
@@ -7404,6 +7408,7 @@ def scraper_load_website(request):
         headless = bool(body.get('headless'))
         if not url:
             return JsonResponse({'error': 'url is required'}, status=400)
+        url = _scraper_validate_remote_url(url)
     except (json.JSONDecodeError, TypeError):
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     _scraper_progress('Opening browser (headless={})...'.format(headless))
@@ -7442,6 +7447,7 @@ def scraper_navigate(request):
         url = (body.get('url') or '').strip()
         if not session_id or not url:
             return JsonResponse({'error': 'session_id and url are required'}, status=400)
+        url = _scraper_validate_remote_url(url)
     except (json.JSONDecodeError, TypeError):
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     driver = _scraper_sessions.get(session_id)
@@ -7481,6 +7487,10 @@ def scraper_daricomma_login(request):
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     if not session_id or not login_url:
         return JsonResponse({'error': 'session_id and login_url are required'}, status=400)
+    try:
+        login_url = _scraper_validate_remote_url(login_url)
+    except ValueError as exc:
+        return JsonResponse({'error': str(exc)}, status=400)
     driver = _scraper_sessions.get(session_id)
     if not driver:
         return JsonResponse({'error': 'Session not found.'}, status=400)
@@ -7864,6 +7874,10 @@ def scraper_discover_dropdowns(request):
     url = (request.GET.get('url') or '').strip()
     if not url:
         return JsonResponse({'error': 'url is required'}, status=400)
+    try:
+        url = _scraper_validate_remote_url(url)
+    except ValueError as exc:
+        return JsonResponse({'error': str(exc), 'groups': []}, status=400)
     driver = _get_selenium_driver()
     if not driver:
         return JsonResponse({
@@ -7922,6 +7936,7 @@ def scraper_dynamic_dropdown(request):
         selections = body.get('selections') or []
         if not url:
             return JsonResponse({'error': 'url is required'}, status=400)
+        url = _scraper_validate_remote_url(url)
     except (json.JSONDecodeError, TypeError) as e:
         return JsonResponse({'error': str(e)}, status=400)
     driver = _get_selenium_driver()
@@ -7967,85 +7982,45 @@ def scraper_dynamic_dropdown(request):
 
 
 class PasswordUpdateView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [PasswordCheckRateThrottle]
+
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
         password = request.data.get('password')
         newpassword = request.data.get('newpassword')
-        
-        try:
-            user = Customer.objects.get(username=username)
-            
-            # Verify old password
-            if user.password.startswith('pbkdf2_') or user.password.startswith('argon2'):
-                password_valid = user.check_password(password)
-            else:
-                # Legacy: compare plain text
-                password_valid = (user.password == password)
-            
-            if password_valid:
-                # Set new hashed password
-                user.set_password(newpassword)
-                user.save()
-                # Same password on the VS Code extension side (no extra prompt).
-                sync_customer_to_ext(
-                    user, raw_password=newpassword, sync_password=True
-                )
-                token = self.generate_unique_key()
-                CustomerToken.objects.filter(customer=user).delete()
-                CustomerToken.objects.create(key=token, customer=user)
-                return Response({'authToken': token, 'message': 'Password updated successfully'}, status=status.HTTP_200_OK)
-            else:
-                return Response({'error': 'Invalid current password'}, status=status.HTTP_401_UNAUTHORIZED)
-        except Customer.DoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-
-    def generate_unique_key(self):
-        length = 40
-        characters = string.ascii_letters + string.digits
-        key = ''.join(random.choice(characters) for _ in range(length))
-        return key 
+        user = request.user
+        if not newpassword:
+            return Response({'error': 'New password is required'}, status=status.HTTP_400_BAD_REQUEST)
+        if not user.check_password(password or ''):
+            return Response({'error': 'Invalid current password'}, status=status.HTTP_401_UNAUTHORIZED)
+        user.set_password(newpassword)
+        user.save(update_fields=['password'])
+        sync_customer_to_ext(user, raw_password=newpassword, sync_password=True)
+        token = _issue_customer_token(user)
+        return Response({'authToken': token, 'message': 'Password updated successfully'}, status=status.HTTP_200_OK)
 
 
 
 class MobileUpdateView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [PasswordCheckRateThrottle]
+
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
         newusername = request.data.get('newusername')
         password = request.data.get('password')
-        
-        try:
-            user = Customer.objects.get(username=username)
-            
-            # Verify password
-            if user.password.startswith('pbkdf2_') or user.password.startswith('argon2'):
-                password_valid = user.check_password(password)
-            else:
-                # Legacy: compare plain text
-                password_valid = (user.password == password)
-            
-            if password_valid:
-                # Check if new username already exists
-                if Customer.objects.filter(username=newusername).exclude(pk=user.pk).exists():
-                    return Response({'error': 'Mobile number already exists'}, status=status.HTTP_400_BAD_REQUEST)
-                
-                user.username = newusername
-                user.save()
-                token = self.generate_unique_key()
-                CustomerToken.objects.filter(customer=user).delete()
-                CustomerToken.objects.create(key=token, customer=user)
-                return Response({'authToken': token, 'message': 'Mobile number updated successfully'}, status=status.HTTP_200_OK)
-            else:
-                return Response({'error': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
-        except Customer.DoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-
-    def generate_unique_key(self):
-        length = 40
-        characters = string.ascii_letters + string.digits
-        key = ''.join(random.choice(characters) for _ in range(length))
-        return key 
+        user = request.user
+        if not newusername:
+            return Response({'error': 'New mobile number is required'}, status=status.HTTP_400_BAD_REQUEST)
+        if not user.check_password(password or ''):
+            return Response({'error': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
+        if Customer.objects.filter(username=newusername).exclude(pk=user.pk).exists():
+            return Response({'error': 'Mobile number already exists'}, status=status.HTTP_400_BAD_REQUEST)
+        user.username = newusername
+        user.save(update_fields=['username'])
+        token = _issue_customer_token(user)
+        return Response({'authToken': token, 'message': 'Mobile number updated successfully'}, status=status.HTTP_200_OK)
 
 
 # ==============================================================================
@@ -8054,7 +8029,9 @@ class MobileUpdateView(APIView):
 
 class SendVerificationCodeView(APIView):
     """Send verification code via Telegram/Email/WhatsApp"""
-    permission_classes = [PublicAccess]
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    throttle_classes = [OtpRateThrottle]
 
     def post(self, request):
         username = request.data.get('username')
@@ -8086,7 +8063,9 @@ class SendVerificationCodeView(APIView):
 
 class VerifyCodeView(APIView):
     """Verify the verification code"""
-    permission_classes = [PublicAccess]
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    throttle_classes = [VerificationRateThrottle]
 
     def post(self, request):
         username = request.data.get('username')
@@ -8106,8 +8085,9 @@ class VerifyCodeView(APIView):
 
 class SendPasswordResetCodeView(APIView):
     """Send password reset code via Email (primary) or WhatsApp (fallback)"""
-    permission_classes = [PublicAccess]
+    permission_classes = [AllowAny]
     authentication_classes = []
+    throttle_classes = [OtpRateThrottle]
 
     def post(self, request):
         username = request.data.get('username')
@@ -8143,7 +8123,9 @@ class SendPasswordResetCodeView(APIView):
 
 class ResetPasswordWithCodeView(APIView):
     """Reset password using verification code"""
-    permission_classes = [PublicAccess]
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    throttle_classes = [VerificationRateThrottle]
 
     def post(self, request):
         username = request.data.get('username')
@@ -8168,23 +8150,22 @@ class ResetPasswordWithCodeView(APIView):
         sync_customer_to_ext(
             customer, raw_password=new_password, sync_password=True
         )
-        return Response({'message': 'Password reset successfully'}, status=status.HTTP_200_OK)
+        token = _issue_customer_token(customer)
+        return Response({'message': 'Password reset successfully', 'authToken': token}, status=status.HTTP_200_OK)
 
 
 class UpdateEmailView(APIView):
     """Allow user to add/update their email"""
-    permission_classes = [PublicAccess]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BearerTokenAuthentication]
+    throttle_classes = [PasswordCheckRateThrottle]
 
     def post(self, request):
-        username = request.data.get('username')
         password = request.data.get('password')
         email = request.data.get('email')
-        if not username or not password or not email:
-            return Response({'error': 'Phone number, password, and email are required'}, status=status.HTTP_400_BAD_REQUEST)
-        try:
-            customer = Customer.objects.get(username=username)
-        except Customer.DoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        if not password or not email:
+            return Response({'error': 'Password and email are required'}, status=status.HTTP_400_BAD_REQUEST)
+        customer = request.user
         if not customer.check_password(password):
             return Response({'error': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
         if Customer.objects.filter(email=email).exclude(pk=customer.pk).exists():
@@ -8196,18 +8177,16 @@ class UpdateEmailView(APIView):
 
 class UpdateWhatsAppApiKeyView(APIView):
     """Allow user to save their CallMeBot API key for free WhatsApp notifications"""
-    permission_classes = [PublicAccess]
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BearerTokenAuthentication]
+    throttle_classes = [PasswordCheckRateThrottle]
 
     def post(self, request):
-        username = request.data.get('username')
         password = request.data.get('password')
         whatsapp_apikey = request.data.get('whatsapp_apikey')
-        if not username or not password or not whatsapp_apikey:
-            return Response({'error': 'Phone number, password, and WhatsApp API key are required'}, status=status.HTTP_400_BAD_REQUEST)
-        try:
-            customer = Customer.objects.get(username=username)
-        except Customer.DoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        if not password or not whatsapp_apikey:
+            return Response({'error': 'Password and WhatsApp API key are required'}, status=status.HTTP_400_BAD_REQUEST)
+        customer = request.user
         if not customer.check_password(password):
             return Response({'error': 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
         if hasattr(customer, 'whatsapp_apikey'):
@@ -8218,7 +8197,8 @@ class UpdateWhatsAppApiKeyView(APIView):
 
 class GenerateDefaultPasswordView(APIView):
     """Generate default password preview (for frontend display)"""
-    permission_classes = [PublicAccess]
+    permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self, request):
         full_name = request.data.get('fullName', '')
@@ -8952,10 +8932,10 @@ class ExamSetDetailView(APIView):
 class ExamSetQuestionsView(APIView):
     """
     GET: Questions for an exam set (by id). Reads qids_json from cheradip_exam_set, fetches from subject table.
-    Returns up to 30 questions with qid, question, option_1..4, answer for client-side exam session.
+    Returns question stems/options only. Correct answers are released by the server-scored submit API.
     """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BearerTokenAuthentication]
 
     def get(self, request, pk):
         import json
@@ -8964,14 +8944,21 @@ class ExamSetQuestionsView(APIView):
         conn = connections['hsc']
         try:
             with conn.cursor() as cur:
+                exam_set_columns = _exam_set_columns(cur)
+                duration_select = (
+                    "COALESCE(duration_minutes, 20)"
+                    if 'duration_minutes' in exam_set_columns else "20"
+                )
                 cur.execute(
-                    "SELECT qids_json, level_tr, class_level, subject_tr FROM cheradip_exam_set WHERE id = %s AND db_alias = 'hsc'",
+                    ("SELECT qids_json, level_tr, class_level, subject_tr, %s "
+                     "FROM cheradip_exam_set WHERE id = %%s AND db_alias = 'hsc'") % duration_select,
                     [pk]
                 )
                 row = cur.fetchone()
                 if not row:
                     return Response({'questions': [], 'error': 'Exam set not found'}, status=status.HTTP_404_NOT_FOUND)
                 qids_json, level_tr, class_level, subject_tr = row[0], row[1] or '', row[2] or '', row[3] or ''
+                duration_seconds = max(60, int(row[4] or 20) * 60)
                 try:
                     qids = json.loads(qids_json) if qids_json else []
                 except Exception:
@@ -9007,18 +8994,34 @@ class ExamSetQuestionsView(APIView):
                 rows = list(cur.fetchall() or [])
                 rows.sort(key=lambda r: order_map.get(str(r[0]) if r[0] is not None else '', 999))
                 questions = []
+                public_fields = {
+                    'qid', 'id', 'subject', 'chapter_no', 'chapter', 'topic_no', 'topic',
+                    'question', 'option_1', 'option_2', 'option_3', 'option_4', 'type',
+                    'level', 'subsource', 'image', 'question_image', 'question_image_url',
+                }
                 for r in rows:
-                    q = dict(zip(columns, r))
+                    q = {key: value for key, value in zip(columns, r) if key in public_fields}
                     for key in list(q.keys()):
                         if q[key] is None:
                             q[key] = ''
                     qid = str(q.get('qid') or q.get('id') or '')
                     q['qid'] = qid
                     q['id'] = qid
-                    if q.get('answer'):
-                        q['answer'] = str(q['answer']).strip()
                     questions.append(q)
-                return Response({'questions': questions}, status=status.HTTP_200_OK)
+                from .exam_attempts import issue_or_resume
+                with transaction.atomic():
+                    customer = Customer.objects.select_for_update().get(pk=request.user.pk)
+                    customer.settings, attempt = issue_or_resume(
+                        customer.settings, pk, duration_seconds,
+                    )
+                    customer.save(update_fields=['settings'])
+                return Response({
+                    'questions': questions,
+                    'attemptId': attempt['attemptId'],
+                    'startedAt': attempt['startedAt'],
+                    'expiresAt': attempt['expiresAt'],
+                    'durationSeconds': duration_seconds,
+                }, status=status.HTTP_200_OK)
         except Exception as e:
             logger.exception('ExamSetQuestionsView: %s', e)
             return Response({'questions': [], 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -10029,8 +10032,8 @@ class PendingQuestionApproveView(APIView):
     (chapter_no_topic_no_0001, ...) at the last position under that topic, then marks the PendingQuestion as approved.
     Body: id (required). Optional: approved_by for logging.
     """
-    permission_classes = [PublicAccess]
-    authentication_classes = []
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsSuperUserOrStaff]
 
     def post(self, request):
         pk = request.data.get('id') or request.query_params.get('id')

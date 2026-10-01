@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from fastapi import APIRouter, Depends, Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
@@ -48,6 +48,7 @@ from app.security import (
     verify_password,
 )
 from app.score_utils import overall_from_score
+from app.rate_limit import enforce_rate_limit
 from app.services.email_service import send_otp_email
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -152,7 +153,8 @@ def _assert_email_available(db: Session, email: str, exclude_user_id: int | None
 
 
 @router.post("/login", response_model=AuthLoginResponse)
-def login(body: AuthLoginRequest, db: Session = Depends(get_db)) -> AuthLoginResponse:
+def login(body: AuthLoginRequest, request: Request, db: Session = Depends(get_db)) -> AuthLoginResponse:
+    enforce_rate_limit(request, "login", limit=10, window_seconds=60, identity=body.username)
     username = body.username.strip()
     if "@" in username:
         username = username.lower()
@@ -171,7 +173,8 @@ def login(body: AuthLoginRequest, db: Session = Depends(get_db)) -> AuthLoginRes
 
 
 @router.post("/signup/init", response_model=SignupInitResponse)
-def signup_init(body: SignupInitRequest, db: Session = Depends(get_db)) -> SignupInitResponse:
+def signup_init(body: SignupInitRequest, request: Request, db: Session = Depends(get_db)) -> SignupInitResponse:
+    enforce_rate_limit(request, "signup", limit=4, window_seconds=300, identity=body.email)
     email = body.email.strip().lower()
     username = body.username.strip()
     if not EMAIL_RE.match(email):
@@ -191,7 +194,7 @@ def signup_init(body: SignupInitRequest, db: Session = Depends(get_db)) -> Signu
             full_name=body.fullName.strip(),
             password_hash=hash_password(body.password),
             role="user",
-            email_verified=True,
+            email_verified=False,
             whatsapp_verified=False,
             login_with="email",
             registered_device_id=body.deviceId.strip() if body.deviceId else None,
@@ -205,12 +208,25 @@ def signup_init(body: SignupInitRequest, db: Session = Depends(get_db)) -> Signu
         user.full_name = body.fullName.strip()
         user.username = username
         user.password_hash = hash_password(body.password)
-        user.email_verified = True
+        user.email_verified = False
         user.login_with = "email"
         if body.deviceId:
             user.registered_device_id = body.deviceId.strip()
-        message = "Account updated successfully"
+        message = "Account details updated"
 
+    if not body.verificationCode:
+        _send_email_otp(db, email, "signup_email", "Account verification")
+        db.commit()
+        return SignupInitResponse(
+            message="Verification code sent to your email",
+            email=user.email or email,
+            role=user.role,
+            sessionToken=None,
+            requiresOtp=True,
+        )
+
+    _verify_otp_code(db, email, "signup_email", body.verificationCode)
+    user.email_verified = True
     token = _issue_session(db, user, body.deviceId)
     db.commit()
     return SignupInitResponse(
@@ -218,19 +234,16 @@ def signup_init(body: SignupInitRequest, db: Session = Depends(get_db)) -> Signu
         email=user.email or email,
         role=user.role,
         sessionToken=token,
+        requiresOtp=False,
     )
 
 
 @router.post("/recovery/send", response_model=RecoverySendResponse)
-def recovery_send(body: RecoverySendRequest, db: Session = Depends(get_db)) -> RecoverySendResponse:
+def recovery_send(body: RecoverySendRequest, request: Request, db: Session = Depends(get_db)) -> RecoverySendResponse:
+    enforce_rate_limit(request, "recovery-send", limit=3, window_seconds=300, identity=body.username)
     user = _find_user_by_username(db, body.username)
     if not user or not user.email:
         raise HTTPException(404, "Account not found")
-    if _is_trusted_device(user, body.deviceId):
-        return RecoverySendResponse(
-            message="Same device as registration — no email code required",
-            requiresOtp=False,
-        )
     _send_email_otp(db, user.email, "recovery_email", "Password reset")
     db.commit()
     return RecoverySendResponse(
@@ -240,16 +253,15 @@ def recovery_send(body: RecoverySendRequest, db: Session = Depends(get_db)) -> R
 
 
 @router.post("/recovery/reset")
-def recovery_reset(body: RecoveryResetRequest, db: Session = Depends(get_db)) -> dict:
+def recovery_reset(body: RecoveryResetRequest, request: Request, db: Session = Depends(get_db)) -> dict:
+    enforce_rate_limit(request, "recovery-reset", limit=8, window_seconds=300, identity=body.username)
     user = _find_user_by_username(db, body.username)
     if not user or not user.email:
         raise HTTPException(404, "Account not found")
     _validate_password(body.newPassword)
-    trusted = _is_trusted_device(user, body.deviceId)
-    if not trusted:
-        if not body.otp:
-            raise HTTPException(400, "Verification code required")
-        _verify_otp_code(db, user.email, "recovery_email", body.otp)
+    if not body.otp:
+        raise HTTPException(400, "Verification code required")
+    _verify_otp_code(db, user.email, "recovery_email", body.otp)
     user.password_hash = hash_password(body.newPassword)
     # Security: a password reset invalidates every existing session everywhere.
     _revoke_all_sessions(db, user.id)
@@ -435,7 +447,8 @@ def delete_account(
 
 # Legacy endpoints kept for older clients — email only, no WhatsApp auth.
 @router.post("/register")
-def register(body: OtpRequest, db: Session = Depends(get_db)) -> dict:
+def register(body: OtpRequest, request: Request, db: Session = Depends(get_db)) -> dict:
+    enforce_rate_limit(request, "register", limit=4, window_seconds=300, identity=body.target)
     target = body.target.strip().lower()
     if "@" not in target:
         raise HTTPException(400, "Email address required")
@@ -445,7 +458,8 @@ def register(body: OtpRequest, db: Session = Depends(get_db)) -> dict:
 
 
 @router.post("/verify-email", response_model=AuthLoginResponse)
-def verify_email(body: OtpVerifyRequest, db: Session = Depends(get_db)) -> AuthLoginResponse:
+def verify_email(body: OtpVerifyRequest, request: Request, db: Session = Depends(get_db)) -> AuthLoginResponse:
+    enforce_rate_limit(request, "verify-email", limit=8, window_seconds=300, identity=body.target)
     email = body.target.strip().lower()
     _verify_otp_code(db, email, "email", body.code)
     user = db.scalar(select(User).where(User.email == email))
