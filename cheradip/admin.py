@@ -20,6 +20,7 @@ from .models import (
     PackagePlan,
     PackageSubscription,
     MembershipProgress,
+    ReferralCommission,
 )
 
 
@@ -244,6 +245,13 @@ class MembershipProgressAdmin(admin.ModelAdmin):
     list_filter = ('account_type', 'badge', 'maintenance_met')
     search_fields = ('customer__username', 'customer__fullName')
     readonly_fields = ('evaluated_at',)
+
+
+@admin.register(ReferralCommission)
+class ReferralCommissionAdmin(admin.ModelAdmin):
+    list_display = ('referrer', 'referred_customer', 'subscription', 'gross_amount', 'reference_value_percent', 'commission_coins', 'created_at')
+    search_fields = ('referrer__username', 'referred_customer__username')
+    readonly_fields = ('created_at',)
 
 
 @admin.register(Transaction)

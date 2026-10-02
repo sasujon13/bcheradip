@@ -3,10 +3,12 @@ from datetime import timedelta
 from django.test import TestCase
 from django.utils import timezone
 from rest_framework.test import APIClient
+from unittest.mock import patch
 
 from cheradip.membership import refresh_membership
-from cheradip.models import Customer, CustomerToken, CreatedQuestionSet, PackagePlan, PackageSubscription
+from cheradip.models import Customer, CustomerToken, CreatedQuestionSet, PackagePlan, PackageSubscription, ReferralCommission
 from cheradip.package_service import activate_plan, current_subscription, process_subscription_renewal, subsource_allowed
+from cheradip.serializers import CustomerSignupSerializer
 
 
 class MembershipRulesTests(TestCase):
@@ -14,6 +16,14 @@ class MembershipRulesTests(TestCase):
         return Customer.objects.create_user(
             username=username, password='test-password', fullName='Test User',
             acctype=acctype, settings=settings or {},
+        )
+
+    def grant_paid_plan(self, customer, code='starter-academic'):
+        now = timezone.now()
+        plan = PackagePlan.objects.get(code=code)
+        return PackageSubscription.objects.create(
+            customer=customer, plan=plan, status='active', plan_price=plan.price,
+            payable_amount=plan.price, starts_at=now - timedelta(seconds=1), ends_at=now + timedelta(days=30),
         )
 
     def test_student_gold_requires_exams_pass_rate_and_recent_activity(self):
@@ -25,6 +35,7 @@ class MembershipRulesTests(TestCase):
             'membership_exam_lifetime_count': 100,
             'membership_exam_passed_count': 50,
         })
+        self.grant_paid_plan(user)
         progress = refresh_membership(user, now=now)
         self.assertEqual(progress.badge, 'Gold')
         self.assertEqual(progress.discount_percent, 10)
@@ -35,11 +46,14 @@ class MembershipRulesTests(TestCase):
         user.save(update_fields=['settings'])
         progress = refresh_membership(user, now=now)
         self.assertEqual(progress.badge, 'Star')
+        self.assertEqual(progress.metric_count, 0)
+        self.assertEqual(progress.raw_metric_count, 100)
         self.assertFalse(progress.maintenance_met)
 
     def test_teacher_counts_unique_questions(self):
         now = timezone.now()
         teacher = self.customer('teacher-1', acctype='Teacher')
+        self.grant_paid_plan(teacher)
         questions = [{'qid': f'q-{index}', 'question': f'Question {index}'} for index in range(100)]
         CreatedQuestionSet.objects.create(customer=teacher, name='Set', questions=questions + questions[:5])
         progress = refresh_membership(teacher, now=now)
@@ -47,8 +61,32 @@ class MembershipRulesTests(TestCase):
         self.assertEqual(progress.badge, 'Gold')
         self.assertEqual(progress.discount_percent, 10)
 
+    def test_inactive_platinum_drops_one_stage_then_next_question_advances(self):
+        now = timezone.now()
+        teacher = self.customer('teacher-plat', acctype='Teacher')
+        self.grant_paid_plan(teacher, 'basic-academic')
+        old_set = CreatedQuestionSet.objects.create(
+            customer=teacher, name='Old set',
+            questions=[{'qid': f'old-{index}', 'question': f'Question {index}'} for index in range(300)],
+        )
+        CreatedQuestionSet.objects.filter(pk=old_set.pk).update(created_at=now - timedelta(days=91))
+        progress = refresh_membership(teacher, now=now)
+        self.assertEqual(progress.badge, 'Gold+')
+        self.assertEqual(progress.base, 'Q > 199')
+        self.assertEqual(progress.raw_metric_count, 300)
+        self.assertEqual(progress.metric_count, 200)
+
+        CreatedQuestionSet.objects.create(
+            customer=teacher, name='New question', questions=[{'qid': 'new-300', 'question': 'Next question'}],
+        )
+        progress = refresh_membership(teacher, now=now + timedelta(seconds=1))
+        self.assertEqual(progress.raw_metric_count, 301)
+        self.assertEqual(progress.metric_count, 201)
+        self.assertEqual(progress.badge, 'Gold+')
+
     def test_job_seeker_uses_unique_question_metric(self):
         user = self.customer('job-user', acctype='JobSeeker')
+        self.grant_paid_plan(user)
         CreatedQuestionSet.objects.create(customer=user, name='Set', questions=[
             {'qid': f'j-{index}', 'question': f'Question {index}'} for index in range(100)
         ])
@@ -62,7 +100,7 @@ class PackageApiTests(TestCase):
     def setUp(self):
         self.user = Customer.objects.create_user(
             username='package-user', password='test-password', fullName='Package User', acctype='Student',
-            settings={'balance': 500},
+            settings={'balance': 50000},
         )
         token = CustomerToken.objects.create(key='package-token', customer=self.user)
         self.client = APIClient()
@@ -76,14 +114,14 @@ class PackageApiTests(TestCase):
         paid = self.client.post('/api/packages/subscribe/', {'planCode': 'starter-academic'}, format='json', secure=True)
         self.assertEqual(paid.status_code, 201)
         self.assertEqual(paid.data['status'], 'active')
-        self.assertEqual(paid.data['remainingBalance'], 350)
+        self.assertEqual(paid.data['remainingBalance'], 35000)
         self.assertEqual(PackageSubscription.objects.filter(customer=self.user).count(), 2)
 
     def test_insufficient_wallet_balance_does_not_create_subscription(self):
         response = self.client.post('/api/packages/subscribe/', {'planCode': 'advanced-3-combined'}, format='json', secure=True)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data['code'], 'insufficient_balance')
-        self.assertEqual(response.data['remaining'], 500)
+        self.assertEqual(response.data['remaining'], 50000)
         self.assertFalse(PackageSubscription.objects.filter(customer=self.user).exists())
 
     def test_list_returns_seeded_matrix_and_progress(self):
@@ -143,7 +181,7 @@ class PackageApiTests(TestCase):
         self.assertEqual(old.status, 'expired')
         self.assertNotEqual(renewed.id, old.id)
         self.assertEqual(renewed.status, 'active')
-        self.assertEqual(self.user.settings['balance'], 350)
+        self.assertEqual(self.user.settings['balance'], 35000)
         self.assertEqual(PackageSubscription.objects.filter(customer=self.user).count(), 2)
 
     def test_question_track_classification(self):
@@ -182,5 +220,73 @@ class PackageApiTests(TestCase):
         self.assertTrue(response.data['package_access'])
         self.assertEqual(response.data['debited'], 0)
         self.user.refresh_from_db()
-        self.assertEqual(self.user.settings['balance'], 500)
+        self.assertEqual(self.user.settings['balance'], 50000)
         self.assertNotIn('unlocked_question_qids', self.user.settings)
+
+    def test_coin_unlock_is_remembered_and_never_charged_twice(self):
+        payload = {'items': [{'qid': 'paid-01', 'is_cq': False}]}
+        first = self.client.post('/api/token/unlock_questions/', payload, format='json', secure=True)
+        self.assertEqual(first.status_code, 200)
+        self.assertEqual(first.data['debited'], 10)
+        self.assertEqual(first.data['remaining'], 49990)
+        second = self.client.post('/api/token/unlock_questions/', payload, format='json', secure=True)
+        self.assertEqual(second.status_code, 200)
+        self.assertEqual(second.data['debited'], 0)
+        self.assertEqual(second.data['remaining'], 49990)
+        self.user.refresh_from_db()
+        self.assertIn('paid-01', self.user.settings['unlocked_question_qids'])
+
+    def test_referral_commission_uses_referrers_rv_and_coin_conversion(self):
+        referrer = Customer.objects.create_user(
+            username='referrer', password='test-password', fullName='Referrer',
+            acctype='Student', settings={'balance': 0},
+        )
+        plan = PackagePlan.objects.get(code='starter-academic')
+        now = timezone.now()
+        PackageSubscription.objects.create(
+            customer=referrer, plan=plan, status='active', plan_price=plan.price,
+            payable_amount=plan.price, starts_at=now, ends_at=now + timedelta(days=30),
+        )
+        self.user.referred_by = referrer
+        self.user.save(update_fields=['referred_by'])
+        activate_plan(self.user, plan)
+        referrer.refresh_from_db()
+        commission = ReferralCommission.objects.get(referrer=referrer)
+        self.assertEqual(commission.reference_value_percent, 20)
+        self.assertEqual(commission.commission_coins, 3000)
+        self.assertEqual(referrer.settings['balance'], 3000)
+
+
+class ReferralSignupTests(TestCase):
+    def setUp(self):
+        self.referrer = Customer.objects.create_user(
+            username='01700000001', password='test-password', fullName='Referrer', acctype='Teacher'
+        )
+
+    def payload(self, username='01700000002', reference='01700000001'):
+        return {'acctype': 'Student', 'fullName': 'New User', 'username': username,
+                'password': 'Pass@123', 'reference': reference}
+
+    def test_valid_reference_is_saved(self):
+        serializer = CustomerSignupSerializer(data=self.payload())
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.referred_by_id, self.referrer.id)
+
+    def test_self_reference_is_rejected(self):
+        serializer = CustomerSignupSerializer(data=self.payload('01700000003', '01700000003'))
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('reference', serializer.errors)
+
+    def test_unknown_reference_is_rejected(self):
+        serializer = CustomerSignupSerializer(data=self.payload(reference='01799999999'))
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('reference', serializer.errors)
+
+    @patch('cheradip.views.sync_customer_to_ext')
+    def test_signup_endpoint_passes_reference_to_serializer(self, sync_mock):
+        response = APIClient().post('/api/signup/', self.payload(), format='json', secure=True)
+        self.assertEqual(response.status_code, 200, response.data)
+        user = Customer.objects.get(username='01700000002')
+        self.assertEqual(user.referred_by_id, self.referrer.id)
+        sync_mock.assert_called_once()

@@ -3,7 +3,6 @@ from calendar import monthrange
 from datetime import timedelta
 from decimal import Decimal, ROUND_HALF_UP
 
-from django.db.models import Q
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
@@ -40,14 +39,14 @@ def add_months(value, months):
     return value.replace(year=year, month=month, day=min(value.day, monthrange(year, month)[1]))
 
 
-def _active_paid_subscription(customer, now=None):
+def _active_plan(customer, now=None):
     now = now or timezone.now()
-    return PackageSubscription.objects.filter(
+    row = PackageSubscription.objects.filter(
         customer=customer,
         status__in=['active', 'grace'],
-        plan__price__gt=0,
         starts_at__lte=now,
-    ).filter(Q(ends_at__isnull=True) | Q(ends_at__gt=now) | Q(grace_ends_at__gte=now)).exists()
+    ).select_related('plan').order_by('-starts_at', '-id').first()
+    return row.plan if row else None
 
 
 def _question_key(question):
@@ -99,12 +98,14 @@ def public_rules(account_type):
     if account_type in {'Teacher', 'JobSeeker'}:
         rules = TEACHER_RULES
         return [
+            {'base': 'Free', 'badge': 'None', 'cqRate': None, 'mcqRate': None, 'discountPercent': 0, 'referenceValuePercent': 0},
             {'base': 'New', 'badge': 'Star', 'cqRate': 1.50 if account_type == 'Teacher' else None, 'mcqRate': .25 if account_type == 'Teacher' else None, 'discountPercent': 0, 'referenceValuePercent': 20},
             {'base': 'Premium', 'badge': 'Silver', 'cqRate': 1.50 if account_type == 'Teacher' else None, 'mcqRate': .25 if account_type == 'Teacher' else None, 'discountPercent': 0, 'referenceValuePercent': 25},
             *[{'base': f"Q > {rule['target'] - 1}", 'badge': rule['badge'], 'cqRate': float(rule['cq_rate']) if account_type == 'Teacher' else None, 'mcqRate': float(rule['mcq_rate']) if account_type == 'Teacher' else None, 'discountPercent': rule['discount'], 'referenceValuePercent': rule['rv']} for rule in rules],
         ]
     rules = STUDENT_RULES
     return [
+        {'base': 'Free', 'badge': 'None', 'passingRate': None, 'discountPercent': 0, 'referenceValuePercent': 0},
         {'base': 'New', 'badge': 'Star', 'passingRate': None, 'discountPercent': 0, 'referenceValuePercent': 20},
         {'base': 'Premium', 'badge': 'Silver', 'passingRate': None, 'discountPercent': 0, 'referenceValuePercent': 25},
         *[{'base': f"E > {rule['target'] - 1}", 'badge': rule['badge'], 'passingRate': rule['passing_rate'], 'discountPercent': rule['discount'], 'referenceValuePercent': rule['rv']} for rule in rules],
@@ -114,15 +115,23 @@ def public_rules(account_type):
 def refresh_membership(customer, now=None):
     now = now or timezone.now()
     account_type = customer.acctype if customer.acctype in {'Teacher', 'Student', 'JobSeeker'} else 'Student'
-    paid = _active_paid_subscription(customer, now)
+    plan = _active_plan(customer, now)
+    paid = bool(plan and plan.price > 0)
+    starter = bool(paid and (plan.sort_order == 1 or plan.name.casefold() == 'starter'))
     if account_type in {'Teacher', 'JobSeeker'}:
-        metric_count, recent_count, passing_rate = _teacher_metrics(customer, now)
+        raw_metric_count, recent_count, passing_rate = _teacher_metrics(customer, now)
         rules = TEACHER_RULES
         metric_name = 'questions_created'
     else:
-        metric_count, recent_count, passing_rate = _exam_metrics(customer, now)
+        raw_metric_count, recent_count, passing_rate = _exam_metrics(customer, now)
         rules = STUDENT_RULES
         metric_name = 'exams_attended'
+
+    previous = MembershipProgress.objects.filter(customer=customer).first()
+    raw_metric_count = max(raw_metric_count, previous.raw_metric_count if previous else 0)
+    metric_offset = min(previous.metric_offset if previous else 0, raw_metric_count)
+    penalty_active = bool(previous and previous.maintenance_penalty_active)
+    metric_count = max(0, raw_metric_count - metric_offset)
 
     matched = None
     for rule in rules:
@@ -130,16 +139,33 @@ def refresh_membership(customer, now=None):
         if metric_count >= rule['target'] and rate_ok:
             matched = rule
     maintenance_met = matched is None or recent_count >= MAINTENANCE_TARGET
-    effective = matched if maintenance_met else None
+    if paid and matched and not maintenance_met and not penalty_active:
+        matched_index = rules.index(matched)
+        previous_target = rules[matched_index - 1]['target'] if matched_index > 0 else 0
+        metric_offset += max(0, metric_count - previous_target)
+        metric_count = previous_target
+        penalty_active = True
+        matched = None
+        for rule in rules:
+            rate_ok = account_type != 'Student' or passing_rate >= Decimal(str(rule['passing_rate']))
+            if metric_count >= rule['target'] and rate_ok:
+                matched = rule
+    elif recent_count >= MAINTENANCE_TARGET:
+        penalty_active = False
+
+    effective = matched if paid else None
     if effective:
         badge, discount, rv = effective['badge'], effective['discount'], effective['rv']
         base = f"{'E' if account_type == 'Student' else 'Q'} > {effective['target'] - 1}"
+    elif starter:
+        badge, discount, rv = 'Star', 0, 20
+        base = 'New'
     elif paid:
         badge, discount, rv = 'Silver', 0, 25
         base = 'Premium'
     else:
-        badge, discount, rv = 'Star', 0, 20
-        base = 'New'
+        badge, discount, rv = 'None', 0, 0
+        base = 'Free'
     cq_rate = Decimal(effective.get('cq_rate', '1.50')) if account_type == 'Teacher' and effective else (Decimal('1.50') if account_type == 'Teacher' else None)
     mcq_rate = Decimal(effective.get('mcq_rate', '0.25')) if account_type == 'Teacher' and effective else (Decimal('0.25') if account_type == 'Teacher' else None)
     next_rule = next((rule for rule in rules if metric_count < rule['target'] or (account_type == 'Student' and passing_rate < Decimal(str(rule['passing_rate'])))), None)
@@ -149,6 +175,8 @@ def refresh_membership(customer, now=None):
         'badge': badge,
         'metric_name': metric_name,
         'metric_count': metric_count,
+        'raw_metric_count': raw_metric_count,
+        'metric_offset': metric_offset,
         'recent_metric_count': recent_count,
         'passing_rate': passing_rate,
         'discount_percent': discount,
@@ -156,6 +184,7 @@ def refresh_membership(customer, now=None):
         'cq_rate': cq_rate,
         'mcq_rate': mcq_rate,
         'maintenance_met': maintenance_met,
+        'maintenance_penalty_active': penalty_active,
         'next_badge': next_rule['badge'] if next_rule else '',
         'next_metric_target': next_rule['target'] if next_rule else None,
     })

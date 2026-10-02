@@ -1,13 +1,13 @@
 """Single source of truth for package state, renewal, and question entitlement."""
 from datetime import timedelta
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.db import transaction
 from django.db.models import Q
 from django.utils import timezone
 
 from .membership import add_months, discounted_price, refresh_membership
-from .models import Customer, PackagePlan, PackageSubscription
+from .models import Customer, PackagePlan, PackageSubscription, ReferralCommission
 
 
 ACADEMIC_PREFIXES = ("BB'", "CB'", "ChB'", "DB'", "DiB'", "JB'", "MB'", "RB'", "SB'", "MSB'")
@@ -29,6 +29,35 @@ def _set_wallet(customer, amount):
     settings['balance'] = max(0, int(amount))
     customer.settings = settings
     customer.save(update_fields=['settings'])
+
+
+def _taka_to_coins(amount):
+    return int((Decimal(amount) * Decimal('100')).quantize(Decimal('1'), rounding=ROUND_HALF_UP))
+
+
+def _credit_referrer(subscription):
+    """Credit referral once; RV is a percentage and one Taka equals 100 coins."""
+    customer = subscription.customer
+    if not customer.referred_by_id or subscription.payable_amount <= 0:
+        return None
+    if ReferralCommission.objects.filter(subscription=subscription).exists():
+        return None
+    referrer = Customer.objects.select_for_update().get(pk=customer.referred_by_id)
+    progress = refresh_membership(referrer)
+    rv = int(progress.reference_value_percent or 0)
+    if rv <= 0:
+        return None
+    commission_taka = Decimal(subscription.payable_amount) * Decimal(rv) / Decimal('100')
+    coins = _taka_to_coins(commission_taka)
+    if coins <= 0:
+        return None
+    row = ReferralCommission.objects.create(
+        referrer=referrer, referred_customer=customer, subscription=subscription,
+        gross_amount=subscription.payable_amount,
+        reference_value_percent=rv, commission_coins=coins,
+    )
+    _set_wallet(referrer, _wallet(referrer) + coins)
+    return row
 
 
 def current_subscription(customer, now=None, process_renewal=True):
@@ -81,20 +110,23 @@ def process_subscription_renewal(subscription, now=None):
         return subscription
     progress = refresh_membership(subscription.customer, now)
     charge = discounted_price(subscription.plan.price, progress.discount_percent)
+    charge_coins = _taka_to_coins(charge)
     balance = _wallet(subscription.customer)
     subscription.last_renewal_attempt_at = now
-    if Decimal(balance) >= charge:
-        _set_wallet(subscription.customer, balance - int(charge))
+    if balance >= charge_coins:
+        _set_wallet(subscription.customer, balance - charge_coins)
         subscription.status = 'expired'
         subscription.auto_renew = False
         subscription.save(update_fields=['status', 'auto_renew', 'last_renewal_attempt_at', 'updated_at'])
         renewal_end = add_months(now, subscription.plan.duration_months)
-        return PackageSubscription.objects.create(
+        successor = PackageSubscription.objects.create(
             customer=subscription.customer, plan=subscription.plan, status='active',
             plan_price=subscription.plan.price, badge_discount_percent=progress.discount_percent,
             payable_amount=charge, payment_reference=f'auto-renewal:{subscription.id}',
             starts_at=now, ends_at=renewal_end, next_renewal_at=renewal_end, auto_renew=True,
         )
+        _credit_referrer(successor)
+        return successor
     else:
         subscription.status = 'grace'
         subscription.renewal_failed_attempts += 1
@@ -135,13 +167,15 @@ def activate_plan(customer, plan, payment_reference=''):
                 f'{current.ends_at.date().isoformat() if current.ends_at else "the renewal date"}.'
             )
         is_upgrade = bool(current and plan.sort_order > current.plan.sort_order)
-        payable = discounted_price(plan.price, progress.discount_percent) if (not current or is_upgrade) else Decimal('0')
+        # Badge discounts apply to the next renewal, not to a fresh activation.
+        payable = Decimal(plan.price) if (not current or is_upgrade) else Decimal('0')
+        payable_coins = _taka_to_coins(payable)
         balance = _wallet(customer)
-        if payable > balance:
-            raise ValueError(f'insufficient:{payable}:{balance}')
-        if payable:
-            _set_wallet(customer, balance - int(payable))
-            balance -= int(payable)
+        if payable_coins > balance:
+            raise ValueError(f'insufficient:{payable}:{payable_coins}:{balance}')
+        if payable_coins:
+            _set_wallet(customer, balance - payable_coins)
+            balance -= payable_coins
         if current:
             current.status = 'superseded'
             current.auto_renew = False
@@ -154,6 +188,7 @@ def activate_plan(customer, plan, payment_reference=''):
             payment_reference=str(payment_reference or '')[:80], starts_at=now, ends_at=ends,
             next_renewal_at=ends, auto_renew=plan.price > 0,
         )
+        _credit_referrer(row)
         refresh_membership(customer, now)
         kind = 'upgraded' if is_upgrade else ('changed without charge' if current else 'activated')
         return row, balance, True, f'Package {kind} successfully.'

@@ -109,6 +109,7 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
     teacher_department_name = serializers.CharField(required=False, allow_blank=True, allow_null=True, max_length=200)
     gender = serializers.CharField(required=False, allow_blank=True, max_length=10)
     email = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
+    reference = serializers.CharField(write_only=True, required=False, allow_blank=True, max_length=15)
 
     class Meta:
         model = Customer
@@ -116,7 +117,7 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
             'acctype', 'fullName', 'username', 'password', 'country_code', 'date_of_birth',
             'class_name', 'group', 'department',
             'teacher_level', 'teacher_subject_code', 'teacher_department_code', 'teacher_department_name',
-            'gender', 'email',
+            'gender', 'email', 'reference',
             'division', 'district', 'thana', 'union', 'village',
         ]
         extra_kwargs = {
@@ -127,8 +128,20 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
             'village': {'required': False, 'allow_blank': True, 'default': ''},
         }
 
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        reference = str(attrs.get('reference') or '').strip()
+        username = str(attrs.get('username') or '').strip()
+        if reference and reference == username:
+            raise serializers.ValidationError({'reference': 'You cannot use your own mobile number as a reference.'})
+        if reference and not Customer.objects.filter(username=reference).exists():
+            raise serializers.ValidationError({'reference': 'This reference mobile number was not found.'})
+        attrs['reference'] = reference
+        return attrs
+
     def create(self, validated_data):
         password = validated_data.pop('password')
+        reference = validated_data.pop('reference', '')
         for key in ('division', 'district', 'thana', 'union', 'village'):
             if validated_data.get(key) is None:
                 validated_data[key] = ''
@@ -138,6 +151,8 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
         validated_data['acctype'] = acctype
         validated_data['group'] = validated_data.get('group') or ('Science' if acctype == 'Student' else '')
         validated_data['gender'] = validated_data.get('gender') or ''
+        if reference:
+            validated_data['referred_by'] = Customer.objects.get(username=reference)
         user = Customer.objects.create(**validated_data)
         user.set_password(password)
         user.save()

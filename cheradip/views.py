@@ -1416,6 +1416,7 @@ class CustomerCreateView(APIView):
             'teacher_department_name': self._get(raw, 'teacher_department_name'),
             'gender': self._get(raw, 'gender', 'Male'),
             'email': self._get(raw, 'email'),
+            'reference': self._get(raw, 'reference', ''),
         }
         serializer = CustomerSignupSerializer(data=user_data)
         if not serializer.is_valid():

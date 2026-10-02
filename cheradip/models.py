@@ -314,6 +314,10 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     whatsapp_apikey = models.CharField(max_length=255, blank=True, null=True)
     settings = models.JSONField(blank=True, null=True, default=dict, help_text='User preferences as JSON, e.g. export_format: both|pdf|docx')
     profile_image = models.ImageField(upload_to='profiles/%Y/%m/', blank=True, null=True)
+    referred_by = models.ForeignKey(
+        'self', on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='referred_customers',
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -449,6 +453,8 @@ class MembershipProgress(models.Model):
     badge = models.CharField(max_length=20, default='Star')
     metric_name = models.CharField(max_length=32, default='exams_attended')
     metric_count = models.PositiveIntegerField(default=0)
+    raw_metric_count = models.PositiveIntegerField(default=0)
+    metric_offset = models.PositiveIntegerField(default=0)
     recent_metric_count = models.PositiveIntegerField(default=0)
     passing_rate = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     discount_percent = models.PositiveSmallIntegerField(default=0)
@@ -456,6 +462,7 @@ class MembershipProgress(models.Model):
     cq_rate = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     mcq_rate = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     maintenance_met = models.BooleanField(default=True)
+    maintenance_penalty_active = models.BooleanField(default=False)
     next_badge = models.CharField(max_length=20, blank=True)
     next_metric_target = models.PositiveIntegerField(null=True, blank=True)
     evaluated_at = models.DateTimeField(auto_now=True)
@@ -466,6 +473,25 @@ class MembershipProgress(models.Model):
 
     def __str__(self):
         return f'{self.customer.username}: {self.badge}'
+
+
+class ReferralCommission(models.Model):
+    """One idempotent referral earning for a paid activation or renewal."""
+
+    referrer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='referral_commissions')
+    referred_customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='generated_referral_commissions')
+    subscription = models.OneToOneField(PackageSubscription, on_delete=models.CASCADE, related_name='referral_commission')
+    gross_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    reference_value_percent = models.PositiveSmallIntegerField(default=0)
+    commission_coins = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'cheradip_referral_commissions'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.referrer.username}: {self.commission_coins} coins'
 
 
 class CreatedQuestionSet(models.Model):
