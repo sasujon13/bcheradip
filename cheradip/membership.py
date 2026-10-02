@@ -17,14 +17,17 @@ STUDENT_RULES = [
     {'badge': 'Platinum+', 'target': 400, 'passing_rate': 90, 'discount': 40, 'rv': 30},
     {'badge': 'Titanium', 'target': 500, 'passing_rate': 95, 'discount': 50, 'rv': 30},
 ]
-# Kept separate so Job Seeker thresholds can be changed without changing students.
-JOB_SEEKER_RULES = [dict(rule) for rule in STUDENT_RULES]
 TEACHER_RULES = [
     {'badge': 'Gold', 'target': 100, 'discount': 10, 'rv': 30, 'cq_rate': '1.40', 'mcq_rate': '0.23'},
     {'badge': 'Gold+', 'target': 200, 'discount': 20, 'rv': 35, 'cq_rate': '1.30', 'mcq_rate': '0.21'},
     {'badge': 'Platinum', 'target': 300, 'discount': 30, 'rv': 40, 'cq_rate': '1.20', 'mcq_rate': '0.19'},
     {'badge': 'Platinum+', 'target': 400, 'discount': 40, 'rv': 45, 'cq_rate': '1.10', 'mcq_rate': '0.17'},
     {'badge': 'Titanium', 'target': 500, 'discount': 50, 'rv': 50, 'cq_rate': '1.00', 'mcq_rate': '0.15'},
+]
+# Job seekers use the same lifetime unique-question thresholds as teachers.
+JOB_SEEKER_RULES = [
+    {key: value for key, value in rule.items() if key not in {'cq_rate', 'mcq_rate'}}
+    for rule in TEACHER_RULES
 ]
 MAINTENANCE_TARGET = 50
 MAINTENANCE_DAYS = 90
@@ -41,10 +44,10 @@ def _active_paid_subscription(customer, now=None):
     now = now or timezone.now()
     return PackageSubscription.objects.filter(
         customer=customer,
-        status='active',
+        status__in=['active', 'grace'],
         plan__price__gt=0,
         starts_at__lte=now,
-    ).filter(Q(ends_at__isnull=True) | Q(ends_at__gt=now)).exists()
+    ).filter(Q(ends_at__isnull=True) | Q(ends_at__gt=now) | Q(grace_ends_at__gte=now)).exists()
 
 
 def _question_key(question):
@@ -93,13 +96,14 @@ def _exam_metrics(customer, now):
 
 
 def public_rules(account_type):
-    if account_type == 'Teacher':
+    if account_type in {'Teacher', 'JobSeeker'}:
+        rules = TEACHER_RULES
         return [
-            {'base': 'New', 'badge': 'Star', 'cqRate': 1.50, 'mcqRate': .25, 'discountPercent': 0, 'referenceValuePercent': 20},
-            {'base': 'Premium', 'badge': 'Silver', 'cqRate': 1.50, 'mcqRate': .25, 'discountPercent': 0, 'referenceValuePercent': 25},
-            *[{'base': f"Q > {rule['target'] - 1}", 'badge': rule['badge'], 'cqRate': float(rule['cq_rate']), 'mcqRate': float(rule['mcq_rate']), 'discountPercent': rule['discount'], 'referenceValuePercent': rule['rv']} for rule in TEACHER_RULES],
+            {'base': 'New', 'badge': 'Star', 'cqRate': 1.50 if account_type == 'Teacher' else None, 'mcqRate': .25 if account_type == 'Teacher' else None, 'discountPercent': 0, 'referenceValuePercent': 20},
+            {'base': 'Premium', 'badge': 'Silver', 'cqRate': 1.50 if account_type == 'Teacher' else None, 'mcqRate': .25 if account_type == 'Teacher' else None, 'discountPercent': 0, 'referenceValuePercent': 25},
+            *[{'base': f"Q > {rule['target'] - 1}", 'badge': rule['badge'], 'cqRate': float(rule['cq_rate']) if account_type == 'Teacher' else None, 'mcqRate': float(rule['mcq_rate']) if account_type == 'Teacher' else None, 'discountPercent': rule['discount'], 'referenceValuePercent': rule['rv']} for rule in rules],
         ]
-    rules = JOB_SEEKER_RULES if account_type == 'JobSeeker' else STUDENT_RULES
+    rules = STUDENT_RULES
     return [
         {'base': 'New', 'badge': 'Star', 'passingRate': None, 'discountPercent': 0, 'referenceValuePercent': 20},
         {'base': 'Premium', 'badge': 'Silver', 'passingRate': None, 'discountPercent': 0, 'referenceValuePercent': 25},
@@ -111,33 +115,37 @@ def refresh_membership(customer, now=None):
     now = now or timezone.now()
     account_type = customer.acctype if customer.acctype in {'Teacher', 'Student', 'JobSeeker'} else 'Student'
     paid = _active_paid_subscription(customer, now)
-    if account_type == 'Teacher':
+    if account_type in {'Teacher', 'JobSeeker'}:
         metric_count, recent_count, passing_rate = _teacher_metrics(customer, now)
         rules = TEACHER_RULES
         metric_name = 'questions_created'
     else:
         metric_count, recent_count, passing_rate = _exam_metrics(customer, now)
-        rules = JOB_SEEKER_RULES if account_type == 'JobSeeker' else STUDENT_RULES
+        rules = STUDENT_RULES
         metric_name = 'exams_attended'
 
     matched = None
     for rule in rules:
-        rate_ok = account_type == 'Teacher' or passing_rate >= Decimal(str(rule['passing_rate']))
+        rate_ok = account_type != 'Student' or passing_rate >= Decimal(str(rule['passing_rate']))
         if metric_count >= rule['target'] and rate_ok:
             matched = rule
     maintenance_met = matched is None or recent_count >= MAINTENANCE_TARGET
     effective = matched if maintenance_met else None
     if effective:
         badge, discount, rv = effective['badge'], effective['discount'], effective['rv']
+        base = f"{'E' if account_type == 'Student' else 'Q'} > {effective['target'] - 1}"
     elif paid:
         badge, discount, rv = 'Silver', 0, 25
+        base = 'Premium'
     else:
         badge, discount, rv = 'Star', 0, 20
+        base = 'New'
     cq_rate = Decimal(effective.get('cq_rate', '1.50')) if account_type == 'Teacher' and effective else (Decimal('1.50') if account_type == 'Teacher' else None)
     mcq_rate = Decimal(effective.get('mcq_rate', '0.25')) if account_type == 'Teacher' and effective else (Decimal('0.25') if account_type == 'Teacher' else None)
-    next_rule = next((rule for rule in rules if metric_count < rule['target'] or (account_type != 'Teacher' and passing_rate < Decimal(str(rule['passing_rate'])))), None)
+    next_rule = next((rule for rule in rules if metric_count < rule['target'] or (account_type == 'Student' and passing_rate < Decimal(str(rule['passing_rate'])))), None)
     progress, _ = MembershipProgress.objects.update_or_create(customer=customer, defaults={
         'account_type': account_type,
+        'base': base,
         'badge': badge,
         'metric_name': metric_name,
         'metric_count': metric_count,

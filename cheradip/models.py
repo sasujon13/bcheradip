@@ -313,6 +313,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     phone_alternate = models.CharField(max_length=11, blank=True, null=True)
     whatsapp_apikey = models.CharField(max_length=255, blank=True, null=True)
     settings = models.JSONField(blank=True, null=True, default=dict, help_text='User preferences as JSON, e.g. export_format: both|pdf|docx')
+    profile_image = models.ImageField(upload_to='profiles/%Y/%m/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -405,6 +406,8 @@ class PackageSubscription(models.Model):
         ('active', 'Active'),
         ('expired', 'Expired'),
         ('cancelled', 'Cancelled'),
+        ('superseded', 'Superseded'),
+        ('grace', 'Payment grace period'),
     ]
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='package_subscriptions')
@@ -416,6 +419,15 @@ class PackageSubscription(models.Model):
     payment_reference = models.CharField(max_length=80, blank=True, db_index=True)
     starts_at = models.DateTimeField(null=True, blank=True)
     ends_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    auto_renew = models.BooleanField(default=True)
+    next_renewal_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    last_renewal_attempt_at = models.DateTimeField(null=True, blank=True)
+    renewal_failed_attempts = models.PositiveSmallIntegerField(default=0)
+    grace_started_at = models.DateTimeField(null=True, blank=True)
+    grace_ends_at = models.DateTimeField(null=True, blank=True)
+    last_warning_at = models.DateTimeField(null=True, blank=True)
+    renewal_failure_reason = models.CharField(max_length=255, blank=True)
+    superseded_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -433,6 +445,7 @@ class MembershipProgress(models.Model):
 
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='membership_progress')
     account_type = models.CharField(max_length=12)
+    base = models.CharField(max_length=20, default='New')
     badge = models.CharField(max_length=20, default='Star')
     metric_name = models.CharField(max_length=32, default='exams_attended')
     metric_count = models.PositiveIntegerField(default=0)

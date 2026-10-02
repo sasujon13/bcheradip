@@ -26,6 +26,7 @@ from .serializers import (
     CountryListSerializer,
 )
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.authentication import BaseAuthentication
 from .permissions import IsSuperUserOrStaff, PublicAccess
 from .throttles import LoginRateThrottle, OtpRateThrottle, PasswordCheckRateThrottle, VerificationRateThrottle
@@ -64,6 +65,11 @@ from .export_question_katex import (
     iter_question_latex_segments,
     normalize_question_latex_source,
 )
+from .package_service import current_subscription, entitlement_sql, question_track_for_user
+
+
+def _student_authoring_blocked(user):
+    return bool(getattr(user, 'is_authenticated', False) and getattr(user, 'acctype', '') == 'Student' and current_subscription(user))
 
 try:
     from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
@@ -1199,6 +1205,25 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 }
             )
 
+        # An active Student package is temporary question access, not a coin
+        # purchase. Do not debit the wallet and do not persist these qids as
+        # purchased: they must lock again when package access expires.
+        package = current_subscription(customer)
+        if getattr(customer, 'acctype', '') == 'Student' and package:
+            customer.refresh_from_db(fields=['settings'])
+            st = _normalize_customer_settings(getattr(customer, 'settings', None))
+            try:
+                remaining = int(st.get('balance', 0) or 0)
+            except (TypeError, ValueError):
+                remaining = 0
+            return Response({
+                'success': True,
+                'remaining': remaining,
+                'debited': 0,
+                'unlocked_qids': [qid for qid, _ in requested],
+                'package_access': True,
+            })
+
         try:
             with transaction.atomic():
                 customer.refresh_from_db(fields=['settings'])
@@ -1478,10 +1503,56 @@ class SignupProfileView(APIView):
                 'union': obj.union,
                 'village': obj.village,
                 'date_joined': obj.date_joined.isoformat() if obj.date_joined else None,
+                'profile_image_url': request.build_absolute_uri('/manage' + obj.profile_image.url) if obj.profile_image else None,
             }
             return Response(data, status=status.HTTP_200_OK)
         except Customer.DoesNotExist:
             return Response({'detail': 'Profile not found for this username and account type.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ProfilePictureView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BearerTokenAuthentication]
+    parser_classes = [MultiPartParser, FormParser]
+    MAX_BYTES = 5 * 1024 * 1024
+    ALLOWED_TYPES = {'image/jpeg', 'image/png', 'image/webp'}
+
+    def _payload(self, request):
+        url = request.build_absolute_uri('/manage' + request.user.profile_image.url) if request.user.profile_image else None
+        return {'profileImageUrl': url}
+
+    def get(self, request):
+        return Response(self._payload(request))
+
+    def post(self, request):
+        upload = request.FILES.get('image')
+        if not upload:
+            return Response({'error': 'Choose an image to upload.'}, status=status.HTTP_400_BAD_REQUEST)
+        if upload.size > self.MAX_BYTES:
+            return Response({'error': 'Image must be 5 MB or smaller.'}, status=status.HTTP_400_BAD_REQUEST)
+        if (upload.content_type or '').lower() not in self.ALLOWED_TYPES:
+            return Response({'error': 'Use a JPG, PNG, or WebP image.'}, status=status.HTTP_400_BAD_REQUEST)
+        if not PILLOW_AVAILABLE:
+            return Response({'error': 'Image validation is unavailable.'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        try:
+            image = PillowImage.open(upload)
+            image.verify()
+            upload.seek(0)
+        except Exception:
+            return Response({'error': 'The selected file is not a valid image.'}, status=status.HTTP_400_BAD_REQUEST)
+        old_name = request.user.profile_image.name if request.user.profile_image else ''
+        request.user.profile_image = upload
+        request.user.save(update_fields=['profile_image'])
+        if old_name and old_name != request.user.profile_image.name:
+            request.user.profile_image.storage.delete(old_name)
+        return Response(self._payload(request))
+
+    def delete(self, request):
+        if request.user.profile_image:
+            request.user.profile_image.delete(save=False)
+            request.user.profile_image = None
+            request.user.save(update_fields=['profile_image'])
+        return Response({'profileImageUrl': None})
 
 
 class CustomerRetrieveView(APIView):
@@ -6259,6 +6330,8 @@ class CreatedQuestionSetListCreateView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        if _student_authoring_blocked(request.user):
+            return Response({'error': 'Your active student package uses Study mode; question authoring is unavailable.'}, status=status.HTTP_403_FORBIDDEN)
         name = (request.data.get('name') or '').strip() or 'questions'
         name = name[:200]
         question_header = (request.data.get('question_header') or '')[:255]
@@ -8996,9 +9069,12 @@ class ExamSetQuestionsView(APIView):
                 if not columns:
                     return Response({'questions': [], 'error': 'Subject table has no columns'}, status=status.HTTP_200_OK)
                 select_sql = ', '.join('`%s`' % c for c in columns)
+                track = question_track_for_user(request.user)
+                access_sql, access_params = entitlement_sql(track, '`subsource`') if 'subsource' in columns else ('', [])
+                access_clause = (' AND ' + access_sql) if access_sql else ''
                 cur.execute(
-                    "SELECT %s FROM `%s` WHERE qid IN (%s)" % (select_sql, tbl, placeholders),
-                    qids_slice,
+                    "SELECT %s FROM `%s` WHERE qid IN (%s)%s" % (select_sql, tbl, placeholders, access_clause),
+                    qids_slice + access_params,
                 )
                 order_map = {qid: i for i, qid in enumerate(qids_slice)}
                 rows = list(cur.fetchall() or [])
@@ -9568,7 +9644,7 @@ class QuestionFilterOptionsView(APIView):
     Returns sources (institute codes), years (2-digit), types.
     """
     permission_classes = [PublicAccess]
-    authentication_classes = []
+    authentication_classes = [BearerTokenAuthentication]
 
     def get(self, request):
         level_tr = (request.query_params.get('level_tr') or '').strip()
@@ -9602,6 +9678,11 @@ class QuestionFilterOptionsView(APIView):
                 )
                 col_set = {r[0] for r in cur.fetchall()}
                 where_sql, where_params = _question_list_where_sql(topics, chapters, [], [], [], col_set)
+                track = question_track_for_user(request.user)
+                access_sql, access_params = entitlement_sql(track)
+                if access_sql and 'subsource' in col_set:
+                    where_sql = (where_sql + ' AND ' if where_sql else ' WHERE ') + access_sql
+                    where_params += access_params
                 if 'subsource' in col_set:
                     sub_where = (
                         where_sql + " AND subsource IS NOT NULL AND TRIM(COALESCE(subsource, '')) != ''"
@@ -9640,7 +9721,7 @@ class QuestionListView(APIView):
     anywhere in question/answers/options/explanations, best matches first).
     """
     permission_classes = [PublicAccess]
-    authentication_classes = []
+    authentication_classes = [BearerTokenAuthentication]
 
     def get(self, request):
         level_tr = (request.query_params.get('level_tr') or '').strip()
@@ -9685,6 +9766,11 @@ class QuestionListView(APIView):
                 elif 'chapter_no' in col_set:
                     order_by = 'chapter_no, {}'.format(pk_col)
                 where_sql, where_params = _question_list_where_sql(topics, chapters, types, sources, years, col_set)
+                track = question_track_for_user(request.user)
+                access_sql, access_params = entitlement_sql(track)
+                if access_sql and 'subsource' in col_set:
+                    where_sql = (where_sql + ' AND ' if where_sql else ' WHERE ') + access_sql
+                    where_params += access_params
                 if search_term:
                     search_where, search_where_params, search_order_params, search_order = _question_search_sql(search_term, col_set, pk_col)
                     if search_where:
@@ -10004,6 +10090,8 @@ class PendingQuestionSubmitView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        if _student_authoring_blocked(request.user):
+            return Response({'error': 'Your active student package uses Study mode; question authoring is unavailable.'}, status=status.HTTP_403_FORBIDDEN)
         data = request.data or {}
         required = ['subject_tr', 'chapter', 'topic', 'question']
         for k in required:

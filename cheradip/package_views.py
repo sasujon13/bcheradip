@@ -1,18 +1,18 @@
-from django.db import transaction
-from django.utils import timezone
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from .membership import add_months, discounted_price, public_rules, refresh_membership
-from .models import Customer, PackagePlan, PackageSubscription
+from .membership import discounted_price, public_rules, refresh_membership
+from .models import PackagePlan, PackageSubscription
+from .package_service import activate_plan, current_subscription, subscription_payload
 from .views import BearerTokenAuthentication
 
 
 def _progress_payload(progress):
     return {
         'accountType': progress.account_type,
+        'base': progress.base,
         'badge': progress.badge,
         'metricName': progress.metric_name,
         'metricCount': progress.metric_count,
@@ -57,11 +57,13 @@ class PackageListView(APIView):
                 'startsAt': row.starts_at.isoformat() if row.starts_at else None,
                 'endsAt': row.ends_at.isoformat() if row.ends_at else None,
             } for row in PackageSubscription.objects.filter(customer=request.user).select_related('plan')[:20]]
+        active = current_subscription(request.user) if progress else None
         return Response({
             'plans': plans,
             'rules': public_rules(account_type if account_type in {'Student', 'Teacher', 'JobSeeker'} else 'Student'),
             'maintenance': {'target': 50, 'days': 90},
             'progress': _progress_payload(progress) if progress else None,
+            'activeSubscription': subscription_payload(active),
             'subscriptions': subscriptions,
         })
 
@@ -76,55 +78,48 @@ class PackageSubscribeView(APIView):
             plan = PackagePlan.objects.get(code=code, is_active=True)
         except PackagePlan.DoesNotExist:
             return Response({'error': 'Package plan was not found.'}, status=status.HTTP_404_NOT_FOUND)
-        with transaction.atomic():
-            customer = Customer.objects.select_for_update().get(pk=request.user.pk)
-            progress = refresh_membership(customer)
-            payable = discounted_price(plan.price, progress.discount_percent)
-            now = timezone.now()
-            existing = PackageSubscription.objects.filter(
-                customer=customer,
-                plan=plan,
-                status__in=['pending', 'active'],
-            ).order_by('-created_at').first()
-            if existing and existing.status == 'active' and (not existing.ends_at or existing.ends_at > now):
+        try:
+            subscription, remaining, created, message = activate_plan(
+                request.user, plan, request.data.get('paymentReference')
+            )
+        except ValueError as exc:
+            if str(exc).startswith('insufficient:'):
+                _, required, balance = str(exc).split(':', 2)
                 return Response({
-                    'id': existing.id, 'status': existing.status, 'planCode': plan.code,
-                    'payableAmount': float(existing.payable_amount),
-                    'message': 'This package is already active.',
-                    'remainingBalance': int((customer.settings or {}).get('balance', 0) or 0),
-                    'progress': _progress_payload(progress),
-                })
-            customer_settings = customer.settings.copy() if isinstance(customer.settings, dict) else {}
-            try:
-                balance = int(customer_settings.get('balance', 0) or 0)
-            except (TypeError, ValueError):
-                balance = 0
-            if payable > balance:
-                return Response({
-                    'error': 'Insufficient wallet balance.',
-                    'code': 'insufficient_balance',
-                    'required': float(payable),
-                    'remaining': balance,
-                    'shortfall': float(payable - balance),
+                    'error': 'Insufficient wallet balance. Please recharge and try again.',
+                    'code': 'insufficient_balance', 'required': float(required),
+                    'remaining': int(balance), 'shortfall': float(required) - int(balance),
                 }, status=status.HTTP_400_BAD_REQUEST)
-            remaining = balance - int(payable)
-            customer_settings['balance'] = remaining
-            customer.settings = customer_settings
-            customer.save(update_fields=['settings'])
-            subscription = existing if existing and existing.status == 'pending' else PackageSubscription(customer=customer, plan=plan)
-            subscription.status = 'active'
-            subscription.plan_price = plan.price
-            subscription.badge_discount_percent = progress.discount_percent
-            subscription.payable_amount = payable
-            subscription.payment_reference = str(request.data.get('paymentReference') or '').strip()[:80]
-            subscription.starts_at = now
-            subscription.ends_at = add_months(now, plan.duration_months)
-            subscription.save()
-            progress = refresh_membership(customer)
+            raise
+        progress = refresh_membership(request.user)
         return Response({
             'id': subscription.id, 'status': subscription.status, 'planCode': plan.code,
             'payableAmount': float(subscription.payable_amount),
             'remainingBalance': remaining,
-            'message': 'Package activated successfully.',
+            'message': message,
             'progress': _progress_payload(progress),
-        }, status=status.HTTP_201_CREATED)
+            'activeSubscription': subscription_payload(subscription),
+        }, status=status.HTTP_201_CREATED if created else status.HTTP_200_OK)
+
+
+class PackageStatusView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        progress = refresh_membership(request.user)
+        active = current_subscription(request.user)
+        active_payload = subscription_payload(active, mark_warning=True)
+        next_target = progress.next_metric_target
+        completed = progress.metric_count
+        remaining = max(0, (next_target or completed) - completed)
+        return Response({
+            'active': bool(active), 'activeSubscription': active_payload,
+            'progress': _progress_payload(progress), 'base': progress.base,
+            'badge': progress.badge, 'metricName': progress.metric_name,
+            'completedTasks': completed, 'remainingTasks': remaining,
+            'nextBase': (f"{'E' if progress.account_type == 'Student' else 'Q'} > {next_target - 1}" if next_target else None),
+            'passingRate': float(progress.passing_rate),
+            'questionTrack': active.plan.track if active and progress.account_type == 'Student' else None,
+            'profileImageUrl': request.build_absolute_uri(request.user.profile_image.url) if request.user.profile_image else None,
+        })

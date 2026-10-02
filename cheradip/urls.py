@@ -15,13 +15,14 @@ from .student_views import (
     StudentReportExportView,
     StudentLeaderboardView,
 )
-from .package_views import PackageListView, PackageSubscribeView
+from .package_views import PackageListView, PackageSubscribeView, PackageStatusView
 
 from .views import (
     ItemListCreateView,
     CustomerCreateView,
     CustomerRetrieveView,
     SignupProfileView,
+    ProfilePictureView,
     MobileNumberExistsView,
     NotificationViewSet,
     PasswordExistsView,
@@ -110,6 +111,7 @@ urlpatterns = [
     path('item/', ItemListCreateView.as_view(), name='item'),
     path('signup/', CustomerCreateView.as_view(), name='signup'),
     path('signup_profile/', SignupProfileView.as_view(), name='signup_profile'),
+    path('profile_picture/', ProfilePictureView.as_view(), name='profile_picture'),
     path('login/', CustomerRetrieveView.as_view(), name='login'),
     path('profile_update/', CustomerUpdateView.as_view(), name='profile_update'),
     path('customer_settings/', CustomerSettingsView.as_view(), name='customer_settings'),
@@ -181,6 +183,7 @@ urlpatterns = [
     path('student/leaderboard/', StudentLeaderboardView.as_view(), name='student_leaderboard'),
     path('packages/', PackageListView.as_view(), name='packages'),
     path('packages/subscribe/', PackageSubscribeView.as_view(), name='package_subscribe'),
+    path('packages/status/', PackageStatusView.as_view(), name='package_status'),
 
     path('question_topics/', QuestionTopicsView.as_view(), name='question_topics'),
     path('question_list/', QuestionListView.as_view(), name='question_list'),
