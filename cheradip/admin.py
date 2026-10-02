@@ -17,6 +17,9 @@ from .models import (
     Notification,
     JsonData,
     TrxManagement,
+    PackagePlan,
+    PackageSubscription,
+    MembershipProgress,
 )
 
 
@@ -200,6 +203,47 @@ class CustomerTokenAdmin(BulkImportCsvJsonMixin, admin.ModelAdmin):
     search_fields = ('key', 'customer__username', 'customer__fullName')
     list_filter = ('created', 'expires_at')
     readonly_fields = ('key', 'created')
+
+
+@admin.register(PackagePlan)
+class PackagePlanAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'track', 'duration_months', 'price', 'list_price', 'is_active', 'sort_order')
+    list_filter = ('track', 'is_active')
+    search_fields = ('code', 'name')
+    ordering = ('sort_order', 'track')
+
+
+@admin.action(description='Confirm payment and activate selected subscriptions')
+def activate_subscriptions(modeladmin, request, queryset):
+    from django.utils import timezone
+    from .membership import add_months, refresh_membership
+    activated = 0
+    for subscription in queryset.select_related('plan', 'customer'):
+        now = timezone.now()
+        subscription.status = 'active'
+        subscription.starts_at = now
+        subscription.ends_at = add_months(now, subscription.plan.duration_months)
+        subscription.save(update_fields=['status', 'starts_at', 'ends_at', 'updated_at'])
+        refresh_membership(subscription.customer)
+        activated += 1
+    modeladmin.message_user(request, f'{activated} subscription(s) activated.')
+
+
+@admin.register(PackageSubscription)
+class PackageSubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('customer', 'plan', 'status', 'payable_amount', 'badge_discount_percent', 'payment_reference', 'starts_at', 'ends_at')
+    list_filter = ('status', 'plan__track', 'created_at')
+    search_fields = ('customer__username', 'customer__fullName', 'plan__code', 'payment_reference')
+    actions = (activate_subscriptions,)
+    readonly_fields = ('plan_price', 'badge_discount_percent', 'payable_amount', 'created_at', 'updated_at')
+
+
+@admin.register(MembershipProgress)
+class MembershipProgressAdmin(admin.ModelAdmin):
+    list_display = ('customer', 'account_type', 'badge', 'metric_count', 'recent_metric_count', 'passing_rate', 'discount_percent', 'maintenance_met', 'evaluated_at')
+    list_filter = ('account_type', 'badge', 'maintenance_met')
+    search_fields = ('customer__username', 'customer__fullName')
+    readonly_fields = ('evaluated_at',)
 
 
 @admin.register(Transaction)

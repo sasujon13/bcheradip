@@ -15,6 +15,7 @@ from .student_views import (
     StudentReportExportView,
     StudentLeaderboardView,
 )
+from .package_views import PackageListView, PackageSubscribeView
 
 from .views import (
     ItemListCreateView,
@@ -178,6 +179,8 @@ urlpatterns = [
     path('student/reports/', StudentReportView.as_view(), name='student_reports'),
     path('student/reports/export/', StudentReportExportView.as_view(), name='student_reports_export'),
     path('student/leaderboard/', StudentLeaderboardView.as_view(), name='student_leaderboard'),
+    path('packages/', PackageListView.as_view(), name='packages'),
+    path('packages/subscribe/', PackageSubscribeView.as_view(), name='package_subscribe'),
 
     path('question_topics/', QuestionTopicsView.as_view(), name='question_topics'),
     path('question_list/', QuestionListView.as_view(), name='question_list'),

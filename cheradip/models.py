@@ -366,6 +366,95 @@ class CustomerToken(models.Model):
         return f"Token for {self.customer.username}"
 
 
+class PackagePlan(models.Model):
+    """Purchasable education package from the public package matrix."""
+
+    TRACK_CHOICES = [
+        ('academic', 'Academic'),
+        ('admission', 'Admission'),
+        ('combined', 'Combined'),
+    ]
+
+    code = models.CharField(max_length=40, unique=True, db_index=True)
+    name = models.CharField(max_length=40)
+    duration_months = models.PositiveSmallIntegerField(default=1)
+    track = models.CharField(max_length=20, choices=TRACK_CHOICES)
+    list_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    currency = models.CharField(max_length=3, default='BDT')
+    is_active = models.BooleanField(default=True)
+    sort_order = models.PositiveSmallIntegerField(default=0)
+    features = models.JSONField(default=list, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_package_plans'
+        ordering = ['sort_order', 'duration_months', 'track']
+        indexes = [models.Index(fields=['is_active', 'sort_order'])]
+
+    def __str__(self):
+        return f'{self.name} - {self.get_track_display()}'
+
+
+class PackageSubscription(models.Model):
+    """Package purchase/activation history with the earned badge discount frozen in."""
+
+    STATUS_CHOICES = [
+        ('pending', 'Pending payment'),
+        ('active', 'Active'),
+        ('expired', 'Expired'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='package_subscriptions')
+    plan = models.ForeignKey(PackagePlan, on_delete=models.PROTECT, related_name='subscriptions')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', db_index=True)
+    plan_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    badge_discount_percent = models.PositiveSmallIntegerField(default=0)
+    payable_amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    payment_reference = models.CharField(max_length=80, blank=True, db_index=True)
+    starts_at = models.DateTimeField(null=True, blank=True)
+    ends_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_package_subscriptions'
+        ordering = ['-created_at']
+        indexes = [models.Index(fields=['customer', 'status', 'ends_at'])]
+
+    def __str__(self):
+        return f'{self.customer.username}: {self.plan.code} ({self.status})'
+
+
+class MembershipProgress(models.Model):
+    """Server-calculated package badge and benefits for one account."""
+
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='membership_progress')
+    account_type = models.CharField(max_length=12)
+    badge = models.CharField(max_length=20, default='Star')
+    metric_name = models.CharField(max_length=32, default='exams_attended')
+    metric_count = models.PositiveIntegerField(default=0)
+    recent_metric_count = models.PositiveIntegerField(default=0)
+    passing_rate = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    discount_percent = models.PositiveSmallIntegerField(default=0)
+    reference_value_percent = models.PositiveSmallIntegerField(default=20)
+    cq_rate = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    mcq_rate = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    maintenance_met = models.BooleanField(default=True)
+    next_badge = models.CharField(max_length=20, blank=True)
+    next_metric_target = models.PositiveIntegerField(null=True, blank=True)
+    evaluated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_membership_progress'
+        verbose_name_plural = 'Membership progress'
+
+    def __str__(self):
+        return f'{self.customer.username}: {self.badge}'
+
+
 class CreatedQuestionSet(models.Model):
     """Saved question set: name + counter (e.g. Subject_Chapter_1_2), question header, and questions JSON. User can rename."""
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='created_question_sets', db_index=True)

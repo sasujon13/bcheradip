@@ -21,6 +21,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Customer
+from .membership import refresh_membership
 from .exam_attempts import consume_attempt
 from .subject_question_tables import subject_question_table_name
 from .views import (
@@ -32,7 +33,7 @@ from .views import (
 
 RESULTS_KEY = 'student_exam_results'
 ACTIVITY_KEY = 'student_activity_dates'
-MAX_RESULTS = 250
+MAX_RESULTS = 2000
 
 
 def _settings(value):
@@ -375,10 +376,20 @@ class StudentExamResultsView(APIView):
                 data, _attempt, completed_at = consume_attempt(data, set_id, attempt_id)
                 normalized = [_normalized_result(payload, authoritative, completed_at)]
                 added = normalized
+                historical_total = max(int(data.get('membership_exam_lifetime_count') or 0), len(rows))
+                historical_passed = max(
+                    int(data.get('membership_exam_passed_count') or 0),
+                    sum(1 for row in rows if isinstance(row, dict) and _number(row.get('score')) >= 40),
+                )
+                data['membership_exam_lifetime_count'] = historical_total + 1
+                data['membership_exam_passed_count'] = historical_passed + (
+                    1 if _number(normalized[0].get('score')) >= 40 else 0
+                )
                 data[RESULTS_KEY] = (added + rows)[:MAX_RESULTS]
                 data[ACTIVITY_KEY] = _activity(customer)
                 customer.settings = data
                 customer.save(update_fields=['settings'])
+                refresh_membership(customer)
         except ValueError as error:
             return Response({'error': str(error)}, status=status.HTTP_400_BAD_REQUEST)
         return Response({

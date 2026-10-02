@@ -6321,6 +6321,11 @@ class CreatedQuestionSetListCreateView(APIView):
             except (TypeError, ValueError):
                 remaining_for_client = 0
         created_at = obj.created_at.isoformat() if getattr(obj, 'created_at', None) else None
+        try:
+            from .membership import refresh_membership
+            refresh_membership(customer)
+        except Exception:
+            logger.exception('Membership refresh after question-set create failed')
         return Response({
             'id': obj.id,
             'name': obj.name,
@@ -6382,6 +6387,11 @@ class CreatedQuestionSetDetailView(APIView):
         if not obj:
             return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
         obj.delete()
+        try:
+            from .membership import refresh_membership
+            refresh_membership(request.user)
+        except Exception:
+            logger.exception('Membership refresh after question-set delete failed')
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
