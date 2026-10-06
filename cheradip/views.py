@@ -1504,7 +1504,7 @@ class SignupProfileView(APIView):
                 'union': obj.union,
                 'village': obj.village,
                 'date_joined': obj.date_joined.isoformat() if obj.date_joined else None,
-                'profile_image_url': request.build_absolute_uri('/manage' + obj.profile_image.url) if obj.profile_image else None,
+                'profile_image_url': '/manage' + obj.profile_image.url if obj.profile_image else None,
             }
             return Response(data, status=status.HTTP_200_OK)
         except Customer.DoesNotExist:
@@ -1519,7 +1519,10 @@ class ProfilePictureView(APIView):
     ALLOWED_TYPES = {'image/jpeg', 'image/png', 'image/webp'}
 
     def _payload(self, request):
-        url = request.build_absolute_uri('/manage' + request.user.profile_image.url) if request.user.profile_image else None
+        # Keep media URLs relative to the public app origin. Building an absolute URL from a
+        # proxied request can expose the internal Django host (for example 127.0.0.1:8000),
+        # which the browser cannot load from the Angular app or production subdomains.
+        url = '/manage' + request.user.profile_image.url if request.user.profile_image else None
         return {'profileImageUrl': url}
 
     def get(self, request):

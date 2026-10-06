@@ -126,7 +126,9 @@ class PackageStatusView(APIView):
             'nextBase': (f"{'E' if progress.account_type == 'Student' else 'Q'} > {next_target - 1}" if next_target else None),
             'passingRate': float(progress.passing_rate),
             'questionTrack': active.plan.track if active and progress.account_type == 'Student' else None,
-            'profileImageUrl': request.build_absolute_uri(request.user.profile_image.url) if request.user.profile_image else None,
+            # Use the same public, browser-safe media path as the upload endpoint. Avoid
+            # leaking an internal proxy host through request.build_absolute_uri().
+            'profileImageUrl': '/manage' + request.user.profile_image.url if request.user.profile_image else None,
         })
 
 
