@@ -208,8 +208,8 @@ class CustomerTokenAdmin(BulkImportCsvJsonMixin, admin.ModelAdmin):
 
 @admin.register(PackagePlan)
 class PackagePlanAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name', 'track', 'duration_months', 'price', 'list_price', 'is_active', 'sort_order')
-    list_filter = ('track', 'is_active')
+    list_display = ('code', 'audience', 'name', 'track', 'duration_months', 'price', 'list_price', 'is_active', 'sort_order')
+    list_filter = ('audience', 'track', 'is_active')
     search_fields = ('code', 'name')
     ordering = ('sort_order', 'track')
 
@@ -233,7 +233,7 @@ def activate_subscriptions(modeladmin, request, queryset):
 @admin.register(PackageSubscription)
 class PackageSubscriptionAdmin(admin.ModelAdmin):
     list_display = ('customer', 'plan', 'status', 'payable_amount', 'badge_discount_percent', 'payment_reference', 'starts_at', 'ends_at')
-    list_filter = ('status', 'plan__track', 'created_at')
+    list_filter = ('status', 'plan__audience', 'plan__track', 'created_at')
     search_fields = ('customer__username', 'customer__fullName', 'plan__code', 'payment_reference')
     actions = (activate_subscriptions,)
     readonly_fields = ('plan_price', 'badge_discount_percent', 'payable_amount', 'created_at', 'updated_at')
@@ -241,8 +241,8 @@ class PackageSubscriptionAdmin(admin.ModelAdmin):
 
 @admin.register(MembershipProgress)
 class MembershipProgressAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'account_type', 'badge', 'metric_count', 'recent_metric_count', 'passing_rate', 'discount_percent', 'maintenance_met', 'evaluated_at')
-    list_filter = ('account_type', 'badge', 'maintenance_met')
+    list_display = ('customer', 'audience', 'account_type', 'badge', 'metric_count', 'recent_metric_count', 'passing_rate', 'discount_percent', 'maintenance_met', 'evaluated_at')
+    list_filter = ('audience', 'account_type', 'badge', 'maintenance_met')
     search_fields = ('customer__username', 'customer__fullName')
     readonly_fields = ('evaluated_at',)
 

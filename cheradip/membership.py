@@ -39,13 +39,14 @@ def add_months(value, months):
     return value.replace(year=year, month=month, day=min(value.day, monthrange(year, month)[1]))
 
 
-def _active_plan(customer, now=None):
+def _active_plan(customer, audience, now=None):
     now = now or timezone.now()
     row = PackageSubscription.objects.filter(
         customer=customer,
+        plan__audience=audience,
         status__in=['active', 'grace'],
         starts_at__lte=now,
-    ).select_related('plan').order_by('-starts_at', '-id').first()
+    ).select_related('plan').order_by('-plan__sort_order', '-starts_at', '-id').first()
     return row.plan if row else None
 
 
@@ -112,10 +113,14 @@ def public_rules(account_type):
     ]
 
 
-def refresh_membership(customer, now=None):
+def refresh_membership(customer, now=None, audience=None):
     now = now or timezone.now()
-    account_type = customer.acctype if customer.acctype in {'Teacher', 'Student', 'JobSeeker'} else 'Student'
-    plan = _active_plan(customer, now)
+    audience = audience or ('student' if customer.acctype == 'Student' else 'teacher')
+    account_type = (
+        'Student' if audience == 'student'
+        else (customer.acctype if customer.acctype in {'Teacher', 'JobSeeker'} else 'Teacher')
+    )
+    plan = _active_plan(customer, audience, now)
     paid = bool(plan and plan.price > 0)
     starter = bool(paid and (plan.sort_order == 1 or plan.name.casefold() == 'starter'))
     if account_type in {'Teacher', 'JobSeeker'}:
@@ -127,7 +132,7 @@ def refresh_membership(customer, now=None):
         rules = STUDENT_RULES
         metric_name = 'exams_attended'
 
-    previous = MembershipProgress.objects.filter(customer=customer).first()
+    previous = MembershipProgress.objects.filter(customer=customer, audience=audience).first()
     raw_metric_count = max(raw_metric_count, previous.raw_metric_count if previous else 0)
     metric_offset = min(previous.metric_offset if previous else 0, raw_metric_count)
     penalty_active = bool(previous and previous.maintenance_penalty_active)
@@ -169,7 +174,7 @@ def refresh_membership(customer, now=None):
     cq_rate = Decimal(effective.get('cq_rate', '1.50')) if account_type == 'Teacher' and effective else (Decimal('1.50') if account_type == 'Teacher' else None)
     mcq_rate = Decimal(effective.get('mcq_rate', '0.25')) if account_type == 'Teacher' and effective else (Decimal('0.25') if account_type == 'Teacher' else None)
     next_rule = next((rule for rule in rules if metric_count < rule['target'] or (account_type == 'Student' and passing_rate < Decimal(str(rule['passing_rate'])))), None)
-    progress, _ = MembershipProgress.objects.update_or_create(customer=customer, defaults={
+    progress, _ = MembershipProgress.objects.update_or_create(customer=customer, audience=audience, defaults={
         'account_type': account_type,
         'base': base,
         'badge': badge,

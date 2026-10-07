@@ -65,11 +65,14 @@ from .export_question_katex import (
     iter_question_latex_segments,
     normalize_question_latex_source,
 )
-from .package_service import current_subscription, entitlement_sql, question_track_for_user
+from .package_service import (
+    TeacherQuestionLimitReached,
+    current_subscription,
+    entitlement_sql,
+    question_track_for_user,
+    reserve_teacher_question_allowance,
+)
 
-
-def _student_authoring_blocked(user):
-    return bool(getattr(user, 'is_authenticated', False) and getattr(user, 'acctype', '') == 'Student' and current_subscription(user))
 
 try:
     from reportlab.lib.pagesizes import A4, A3, A5, letter, legal
@@ -1124,6 +1127,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 except (TypeError, ValueError):
                     balance = 0
                 if balance < debit:
+                    transaction.set_rollback(True)
                     return Response(
                         {'success': False, 'remaining': balance, 'detail': 'Insufficient coins for unlock'},
                         status=status.HTTP_400_BAD_REQUEST,
@@ -1208,7 +1212,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         # An active Student package is temporary question access, not a coin
         # purchase. Do not debit the wallet and do not persist these qids as
         # purchased: they must lock again when package access expires.
-        package = current_subscription(customer)
+        package = current_subscription(customer, audience='student')
         if getattr(customer, 'acctype', '') == 'Student' and package:
             customer.refresh_from_db(fields=['settings'])
             st = _normalize_customer_settings(getattr(customer, 'settings', None))
@@ -6265,7 +6269,7 @@ def _is_question_creative_type(type_val):
     if not t:
         return False
     tl = t.lower()
-    return 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²' in t or tl in ('cq', 'creative', 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦² à¦ªà§à¦°à¦¶à§à¦¨')
+    return 'সৃজনশীল' in t or tl in ('cq', 'creative', 'creative question')
 
 
 def _calculate_question_set_save_debit(questions):
@@ -6281,6 +6285,34 @@ def _calculate_question_set_save_debit(questions):
         else:
             total += QUESTION_SAVE_DEBIT_OTHER
     return total
+
+
+class QuestionCreationInsufficientCoins(ValueError):
+    def __init__(self, required, remaining):
+        self.required = int(required)
+        self.remaining = int(remaining)
+        super().__init__(f'{self.required}:{self.remaining}')
+
+
+def _consume_question_creation_access(customer, questions):
+    """Use Teacher-package units first, then debit coins for uncovered rows.
+
+    Must run inside ``transaction.atomic()`` with a locked Customer row. Raising
+    for insufficient balance rolls back any package-unit reservation as well.
+    """
+    chargeable_questions = reserve_teacher_question_allowance(customer, questions)
+    debit = _calculate_question_set_save_debit(chargeable_questions)
+    st = _normalize_customer_settings(getattr(customer, 'settings', None))
+    try:
+        balance = int(st.get('balance', 0) or 0)
+    except (TypeError, ValueError):
+        balance = 0
+    if balance < debit:
+        raise QuestionCreationInsufficientCoins(debit, balance)
+    if debit:
+        customer.settings = {**st, 'balance': max(0, balance - debit)}
+        customer.save(update_fields=['settings'])
+    return debit, max(0, balance - debit)
 
 
 def _create_question_set_row(customer, name, question_header, questions, layout_settings):
@@ -6334,8 +6366,6 @@ class CreatedQuestionSetListCreateView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        if _student_authoring_blocked(request.user):
-            return Response({'error': 'Your active student package uses Study mode; question authoring is unavailable.'}, status=status.HTTP_403_FORBIDDEN)
         name = (request.data.get('name') or '').strip() or 'questions'
         name = name[:200]
         question_header = (request.data.get('question_header') or '')[:255]
@@ -6345,62 +6375,46 @@ class CreatedQuestionSetListCreateView(APIView):
         layout_settings = request.data.get('layout_settings')
         if not isinstance(layout_settings, dict):
             layout_settings = {}
-        debit = _calculate_question_set_save_debit(questions)
         customer = request.user
         remaining_for_client = None
-        if debit > 0:
-            try:
-                with transaction.atomic():
-                    customer.refresh_from_db(fields=['settings'])
-                    st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                    try:
-                        b = int(st.get('balance', 0) or 0)
-                    except (TypeError, ValueError):
-                        b = 0
-                    if b < debit:
-                        return Response(
-                            {
-                                'error': 'Insufficient coins for save',
-                                'detail': f'Insufficient coins. Need {debit}, you have {b}.',
-                                'required': debit,
-                                'remaining': b,
-                            },
-                            status=status.HTTP_400_BAD_REQUEST,
-                        )
-                    st = {**st, 'balance': max(0, b - debit)}
-                    customer.settings = st
-                    customer.save(update_fields=['settings'])
-                    remaining_for_client = int(st.get('balance', 0) or 0)
-                    obj = _create_question_set_row(
-                        customer, name, question_header, questions, layout_settings
-                    )
-            except Exception as e:
-                logger.exception('CreatedQuestionSet create failed: %s', e)
-                return Response(
-                    {'error': 'Could not save. Run migrations: python manage.py migrate'},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                )
-        else:
-            try:
+        try:
+            with transaction.atomic():
+                customer = Customer.objects.select_for_update().get(pk=request.user.pk)
+                debit, remaining_for_client = _consume_question_creation_access(customer, questions)
                 obj = _create_question_set_row(
                     customer, name, question_header, questions, layout_settings
                 )
-            except Exception as e:
-                logger.exception('CreatedQuestionSet create failed: %s', e)
-                return Response(
-                    {'error': 'Could not save. Run migrations: python manage.py migrate'},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                )
-            try:
-                customer.refresh_from_db(fields=['settings'])
-                st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                remaining_for_client = int(st.get('balance', 0) or 0)
-            except (TypeError, ValueError):
-                remaining_for_client = 0
+        except QuestionCreationInsufficientCoins as exc:
+            return Response(
+                {
+                    'error': 'Insufficient coins for save',
+                    'detail': f'Insufficient coins. Need {exc.required}, you have {exc.remaining}.',
+                    'required': exc.required,
+                    'remaining': exc.remaining,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except TeacherQuestionLimitReached as exc:
+            return Response({
+                'error': (
+                    f'Your {exc.track.title()} package question limit has been reached. '
+                    'Please repay or activate another package to create more questions.'
+                ),
+                'code': 'package_question_limit_reached',
+                'track': exc.track,
+                'requiredQuestionSets': exc.required,
+                'remainingQuestionSets': exc.remaining,
+            }, status=status.HTTP_402_PAYMENT_REQUIRED)
+        except Exception as e:
+            logger.exception('CreatedQuestionSet create failed: %s', e)
+            return Response(
+                {'error': 'Could not save. Run migrations: python manage.py migrate'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
         created_at = obj.created_at.isoformat() if getattr(obj, 'created_at', None) else None
         try:
             from .membership import refresh_membership
-            refresh_membership(customer)
+            refresh_membership(customer, audience='teacher')
         except Exception:
             logger.exception('Membership refresh after question-set create failed')
         return Response({
@@ -10094,35 +10108,57 @@ class PendingQuestionSubmitView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        if _student_authoring_blocked(request.user):
-            return Response({'error': 'Your active student package uses Study mode; question authoring is unavailable.'}, status=status.HTTP_403_FORBIDDEN)
         data = request.data or {}
         required = ['subject_tr', 'chapter', 'topic', 'question']
         for k in required:
             if not (data.get(k) or '').strip():
                 return Response({'error': f'Missing or empty: {k}'}, status=status.HTTP_400_BAD_REQUEST)
         try:
-            obj = PendingQuestion.objects.create(
-                level_tr=(data.get('level_tr') or '').strip(),
-                class_level=(data.get('class_level') or '').strip(),
-                subject_tr=(data.get('subject_tr') or '').strip(),
-                chapter_no=(data.get('chapter_no') or '').strip(),
-                chapter=(data.get('chapter') or '').strip(),
-                topic_no=(data.get('topic_no') or '').strip(),
-                topic=(data.get('topic') or '').strip(),
-                question=(data.get('question') or '').strip(),
-                option_1=(data.get('option_1') or '').strip()[:500],
-                option_2=(data.get('option_2') or '').strip()[:500],
-                option_3=(data.get('option_3') or '').strip()[:500],
-                option_4=(data.get('option_4') or '').strip()[:500],
-                answer=(data.get('answer') or '').strip()[:500],
-                explanation=(data.get('explanation') or '')[:50000],
-                explanation2=(data.get('explanation2') or '')[:50000],
-                explanation3=(data.get('explanation3') or '')[:50000],
-                type=(data.get('type') or '').strip()[:100],
-                status=PendingQuestion.STATUS_PENDING,
-            )
-            return Response({'id': obj.id, 'status': obj.status, 'message': 'Question submitted for approval.'}, status=status.HTTP_201_CREATED)
+            with transaction.atomic():
+                customer = Customer.objects.select_for_update().get(pk=request.user.pk)
+                billable_row = {
+                    'type': data.get('type'),
+                    'subsource': data.get('subsource') or data.get('source') or '',
+                }
+                debit, remaining = _consume_question_creation_access(customer, [billable_row])
+                obj = PendingQuestion.objects.create(
+                    level_tr=(data.get('level_tr') or '').strip(),
+                    class_level=(data.get('class_level') or '').strip(),
+                    subject_tr=(data.get('subject_tr') or '').strip(),
+                    chapter_no=(data.get('chapter_no') or '').strip(),
+                    chapter=(data.get('chapter') or '').strip(),
+                    topic_no=(data.get('topic_no') or '').strip(),
+                    topic=(data.get('topic') or '').strip(),
+                    question=(data.get('question') or '').strip(),
+                    option_1=(data.get('option_1') or '').strip()[:500],
+                    option_2=(data.get('option_2') or '').strip()[:500],
+                    option_3=(data.get('option_3') or '').strip()[:500],
+                    option_4=(data.get('option_4') or '').strip()[:500],
+                    answer=(data.get('answer') or '').strip()[:500],
+                    explanation=(data.get('explanation') or '')[:50000],
+                    explanation2=(data.get('explanation2') or '')[:50000],
+                    explanation3=(data.get('explanation3') or '')[:50000],
+                    type=(data.get('type') or '').strip()[:100],
+                    status=PendingQuestion.STATUS_PENDING,
+                )
+            return Response({
+                'id': obj.id, 'status': obj.status,
+                'message': 'Question submitted for approval.',
+                'debited': debit, 'remaining': remaining,
+            }, status=status.HTTP_201_CREATED)
+        except QuestionCreationInsufficientCoins as exc:
+            return Response({
+                'error': 'Insufficient coins for question creation.',
+                'required': exc.required, 'remaining': exc.remaining,
+            }, status=status.HTTP_400_BAD_REQUEST)
+        except TeacherQuestionLimitReached as exc:
+            return Response({
+                'error': f'Your {exc.track.title()} Teacher package creation limit has been reached.',
+                'code': 'package_question_limit_reached',
+                'track': exc.track,
+                'requiredQuestionSets': exc.required,
+                'remainingQuestionSets': exc.remaining,
+            }, status=status.HTTP_402_PAYMENT_REQUIRED)
         except Exception as e:
             logger.exception('PendingQuestionSubmitView: %s', e)
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -43,7 +43,7 @@ def _credit_referrer(subscription):
     if ReferralCommission.objects.filter(subscription=subscription).exists():
         return None
     referrer = Customer.objects.select_for_update().get(pk=customer.referred_by_id)
-    progress = refresh_membership(referrer)
+    progress = refresh_membership(referrer, audience=subscription.plan.audience)
     rv = int(progress.reference_value_percent or 0)
     if rv <= 0:
         return None
@@ -60,23 +60,49 @@ def _credit_referrer(subscription):
     return row
 
 
-def current_subscription(customer, now=None, process_renewal=True):
-    now = now or timezone.now()
-    row = PackageSubscription.objects.filter(
-        customer=customer, status__in=['active', 'grace'], starts_at__lte=now,
-    ).select_related('plan').order_by('-starts_at', '-id').first()
-    if row and process_renewal:
-        row = process_subscription_renewal(row, now)
-    if not row:
-        return None
+def _subscription_has_access(row, now):
     if row.status == 'active' and (
         row.ends_at is None or row.ends_at > now or
-        (row.plan.price <= 0 and row.ends_at + GRACE_PERIOD >= now)
+        (row.plan.price <= 0 and row.ends_at and row.ends_at + GRACE_PERIOD >= now)
     ):
-        return row
-    if row.status == 'grace' and row.grace_ends_at and row.grace_ends_at >= now:
-        return row
-    return None
+        return True
+    return bool(row.status == 'grace' and row.grace_ends_at and row.grace_ends_at >= now)
+
+
+def active_subscriptions(customer, now=None, process_renewal=True, audience=None):
+    """Return every active track; Combined and individual tracks may coexist."""
+    now = now or timezone.now()
+    query = PackageSubscription.objects.filter(
+        customer=customer, status__in=['active', 'grace'], starts_at__lte=now,
+    )
+    if audience:
+        query = query.filter(plan__audience=audience)
+    rows = list(query.select_related('plan').order_by('-starts_at', '-id'))
+    active = []
+    seen = set()
+    for row in rows:
+        if process_renewal:
+            row = process_subscription_renewal(row, now)
+        if row.pk not in seen and _subscription_has_access(row, now):
+            seen.add(row.pk)
+            active.append(row)
+    active.sort(
+        key=lambda row: (
+            row.plan.track == 'combined', row.plan.sort_order,
+            row.starts_at or now, row.id,
+        ),
+        reverse=True,
+    )
+    return active
+
+
+def current_subscription(customer, now=None, process_renewal=True, track=None, audience=None):
+    rows = active_subscriptions(
+        customer, now=now, process_renewal=process_renewal, audience=audience,
+    )
+    if track:
+        return next((row for row in rows if row.plan.track == track), None)
+    return rows[0] if rows else None
 
 
 @transaction.atomic
@@ -104,11 +130,30 @@ def process_subscription_renewal(subscription, now=None):
             subscription.status = 'expired'
             subscription.save(update_fields=['status', 'updated_at'])
         return subscription
-    if not subscription.auto_renew or not due or due > now:
+    if not due or due > now:
+        return subscription
+    # A Combined package already includes both individual tracks. Keep their paid
+    # periods accessible until they end, but never charge them again underneath it.
+    if subscription.plan.track in {'academic', 'admission'}:
+        combined = PackageSubscription.objects.filter(
+            customer=subscription.customer,
+            plan__audience=subscription.plan.audience,
+            plan__track='combined',
+            status__in=['active', 'grace'],
+            starts_at__lte=now,
+        ).exclude(pk=subscription.pk).select_related('plan').order_by('-starts_at', '-id').first()
+        if combined and _subscription_has_access(combined, now):
+            subscription.status = 'expired'
+            subscription.auto_renew = False
+            subscription.save(update_fields=['status', 'auto_renew', 'updated_at'])
+            return subscription
+    if not subscription.auto_renew:
+        subscription.status = 'expired'
+        subscription.save(update_fields=['status', 'updated_at'])
         return subscription
     if subscription.last_renewal_attempt_at and now - subscription.last_renewal_attempt_at < RETRY_INTERVAL:
         return subscription
-    progress = refresh_membership(subscription.customer, now)
+    progress = refresh_membership(subscription.customer, now, audience=subscription.plan.audience)
     charge = discounted_price(subscription.plan.price, progress.discount_percent)
     charge_coins = _taka_to_coins(charge)
     balance = _wallet(subscription.customer)
@@ -124,6 +169,7 @@ def process_subscription_renewal(subscription, now=None):
             plan_price=subscription.plan.price, badge_discount_percent=progress.discount_percent,
             payable_amount=charge, payment_reference=f'auto-renewal:{subscription.id}',
             starts_at=now, ends_at=renewal_end, next_renewal_at=renewal_end, auto_renew=True,
+            question_limit_snapshot=subscription.plan.question_limit, questions_used=0,
         )
         _credit_referrer(successor)
         return successor
@@ -159,16 +205,30 @@ def activate_plan(customer, plan, payment_reference=''):
     now = timezone.now()
     with transaction.atomic():
         customer = Customer.objects.select_for_update().get(pk=customer.pk)
-        current = current_subscription(customer, now)
-        progress = refresh_membership(customer, now)
-        if current and current.plan_id == plan.id:
-            return current, _wallet(customer), False, (
-                f'Already activated. Renewal will be charged after the current activation period ends on '
-                f'{current.ends_at.date().isoformat() if current.ends_at else "the renewal date"}.'
+        current = current_subscription(customer, now, track=plan.track, audience=plan.audience)
+        combined = current_subscription(customer, now, track='combined', audience=plan.audience)
+        progress = refresh_membership(customer, now, audience=plan.audience)
+        if plan.track in {'academic', 'admission'} and combined:
+            return combined, _wallet(customer), False, (
+                f'{plan.get_track_display()} is already included in your active Combined package. '
+                'No additional payment was charged.'
             )
+        if current and current.plan_id == plan.id:
+            quota_exhausted = bool(
+                plan.audience == 'teacher' and
+                current.question_limit_snapshot > 0 and
+                current.questions_used >= current.question_limit_snapshot
+            )
+            if not quota_exhausted:
+                return current, _wallet(customer), False, (
+                    f'Already activated. Renewal will be charged after the current activation period ends on '
+                    f'{current.ends_at.date().isoformat() if current.ends_at else "the renewal date"}.'
+                )
+        else:
+            quota_exhausted = False
         is_upgrade = bool(current and plan.sort_order > current.plan.sort_order)
         # Badge discounts apply to the next renewal, not to a fresh activation.
-        payable = Decimal(plan.price) if (not current or is_upgrade) else Decimal('0')
+        payable = Decimal(plan.price) if (not current or is_upgrade or quota_exhausted) else Decimal('0')
         payable_coins = _taka_to_coins(payable)
         balance = _wallet(customer)
         if payable_coins > balance:
@@ -187,9 +247,18 @@ def activate_plan(customer, plan, payment_reference=''):
             badge_discount_percent=progress.discount_percent, payable_amount=payable,
             payment_reference=str(payment_reference or '')[:80], starts_at=now, ends_at=ends,
             next_renewal_at=ends, auto_renew=plan.price > 0,
+            question_limit_snapshot=plan.question_limit, questions_used=0,
         )
+        if plan.track == 'combined':
+            # Preserve already-paid Academic/Admission access, but Combined owns their
+            # next renewal so users are not charged for covered packages.
+            PackageSubscription.objects.filter(
+                customer=customer, plan__audience=plan.audience,
+                plan__track__in=['academic', 'admission'],
+                status__in=['active', 'grace'],
+            ).update(auto_renew=False)
         _credit_referrer(row)
-        refresh_membership(customer, now)
+        refresh_membership(customer, now, audience=plan.audience)
         kind = 'upgraded' if is_upgrade else ('changed without charge' if current else 'activated')
         return row, balance, True, f'Package {kind} successfully.'
 
@@ -202,7 +271,8 @@ def subscription_payload(row, now=None, mark_warning=False):
         access_ends = row.ends_at + GRACE_PERIOD
     return {
         'id': row.id, 'planCode': row.plan.code, 'planName': row.plan.name,
-        'track': row.plan.track, 'status': row.status, 'autoRenew': row.auto_renew,
+        'audience': row.plan.audience, 'track': row.plan.track,
+        'status': row.status, 'autoRenew': row.auto_renew,
         'payableAmount': float(row.payable_amount),
         'startsAt': row.starts_at.isoformat() if row.starts_at else None,
         'endsAt': row.ends_at.isoformat() if row.ends_at else None,
@@ -210,6 +280,10 @@ def subscription_payload(row, now=None, mark_warning=False):
         'graceEndsAt': row.grace_ends_at.isoformat() if row.grace_ends_at else None,
         'accessEndsAt': access_ends.isoformat() if access_ends else None,
         'renewalFailedAttempts': row.renewal_failed_attempts,
+        'questionLimit': row.question_limit_snapshot,
+        'questionsUsed': row.questions_used,
+        'questionsRemaining': max(0, row.question_limit_snapshot - row.questions_used),
+        'quotaExhausted': bool(row.question_limit_snapshot and row.questions_used >= row.question_limit_snapshot),
         'warning': warning_payload(row, now, mark_warning),
     }
 
@@ -217,8 +291,75 @@ def subscription_payload(row, now=None, mark_warning=False):
 def question_track_for_user(user):
     if not getattr(user, 'is_authenticated', False) or getattr(user, 'acctype', '') != 'Student':
         return None
-    row = current_subscription(user)
-    return row.plan.track if row else None
+    tracks = {row.plan.track for row in active_subscriptions(user, audience='student')}
+    if 'combined' in tracks or {'academic', 'admission'}.issubset(tracks):
+        return 'combined'
+    return next(iter(tracks), None)
+
+
+class TeacherQuestionLimitReached(ValueError):
+    def __init__(self, track, required, remaining):
+        self.track = track
+        self.required = required
+        self.remaining = remaining
+        super().__init__(f'{track}:{required}:{remaining}')
+
+
+def reserve_teacher_question_allowance(customer, questions, now=None):
+    """Reserve Teacher-package creation units and return rows charged by coins.
+
+    A saved MCQ batch costs one package unit regardless of how many MCQs or shuffled
+    export sets it contains. A CQ batch also costs one unit; a mixed MCQ+CQ save costs
+    two. Combined owns both tracks. This entitlement is account-type neutral so a
+    Student can buy a Teacher package and author questions under the same rules.
+    """
+    if not isinstance(questions, list):
+        return questions
+    now = now or timezone.now()
+    active_ids = [row.id for row in active_subscriptions(customer, now=now, audience='teacher')]
+    rows = list(PackageSubscription.objects.select_for_update().filter(
+        id__in=active_ids,
+    ).select_related('plan').order_by('-plan__sort_order', '-starts_at', '-id'))
+    combined = next((row for row in rows if row.plan.track == 'combined'), None)
+    if combined:
+        required = len({_question_creation_kind(question) for question in questions})
+        remaining = max(0, combined.question_limit_snapshot - combined.questions_used)
+        if required > remaining:
+            raise TeacherQuestionLimitReached('combined', required, remaining)
+        combined.questions_used += required
+        combined.save(update_fields=['questions_used', 'updated_at'])
+        return []
+
+    by_track = {'academic': [], 'admission': []}
+    for question in questions:
+        subsource = question.get('subsource') if isinstance(question, dict) else ''
+        track = 'academic' if subsource_allowed('academic', subsource) else 'admission'
+        by_track[track].append(question)
+
+    uncovered = []
+    for track, track_questions in by_track.items():
+        if not track_questions:
+            continue
+        row = next((item for item in rows if item.plan.track == track), None)
+        if not row:
+            uncovered.extend(track_questions)
+            continue
+        required = len({_question_creation_kind(question) for question in track_questions})
+        remaining = max(0, row.question_limit_snapshot - row.questions_used)
+        if required > remaining:
+            raise TeacherQuestionLimitReached(track, required, remaining)
+        row.questions_used += required
+        row.save(update_fields=['questions_used', 'updated_at'])
+    return uncovered
+
+
+def _question_creation_kind(question):
+    """Return the billable batch kind for one persisted question row."""
+    value = question.get('type') if isinstance(question, dict) else ''
+    text = str(value or '').strip().casefold()
+    if text == 'cq' or 'creative' in text or 'সৃজনশীল' in text:
+        return 'cq'
+    return 'mcq'
 
 
 def subsource_allowed(track, value):

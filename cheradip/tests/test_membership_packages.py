@@ -7,7 +7,13 @@ from unittest.mock import patch
 
 from cheradip.membership import refresh_membership
 from cheradip.models import Customer, CustomerToken, CreatedQuestionSet, PackagePlan, PackageSubscription, ReferralCommission
-from cheradip.package_service import activate_plan, current_subscription, process_subscription_renewal, subsource_allowed
+from cheradip.package_service import (
+    activate_plan,
+    current_subscription,
+    process_subscription_renewal,
+    question_track_for_user,
+    subsource_allowed,
+)
 from cheradip.serializers import CustomerSignupSerializer
 
 
@@ -20,6 +26,8 @@ class MembershipRulesTests(TestCase):
 
     def grant_paid_plan(self, customer, code='starter-academic'):
         now = timezone.now()
+        if customer.acctype in {'Teacher', 'JobSeeker'} and not code.startswith('teacher-'):
+            code = f'teacher-{code}'
         plan = PackagePlan.objects.get(code=code)
         return PackageSubscription.objects.create(
             customer=customer, plan=plan, status='active', plan_price=plan.price,
@@ -127,7 +135,9 @@ class PackageApiTests(TestCase):
     def test_list_returns_seeded_matrix_and_progress(self):
         response = self.client.get('/api/packages/', secure=True)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data['plans']), 24)
+        self.assertEqual(len(response.data['plans']), 48)
+        self.assertEqual(sum(plan['audience'] == 'student' for plan in response.data['plans']), 24)
+        self.assertEqual(sum(plan['audience'] == 'teacher' for plan in response.data['plans']), 24)
         self.assertEqual(response.data['progress']['accountType'], 'Student')
         self.assertTrue(PackagePlan.objects.filter(code='advanced-3-combined', price=3240).exists())
 
@@ -148,6 +158,246 @@ class PackageApiTests(TestCase):
         self.assertEqual(lower_balance, charged_balance)
         first.refresh_from_db()
         self.assertEqual(first.status, 'superseded')
+
+    def test_academic_and_admission_remain_active_together(self):
+        academic = PackagePlan.objects.get(code='starter-academic')
+        admission = PackagePlan.objects.get(code='starter-admission')
+        first, _, _, _ = activate_plan(self.user, academic)
+        second, balance, _, _ = activate_plan(self.user, admission)
+        first.refresh_from_db()
+        second.refresh_from_db()
+        self.assertEqual(first.status, 'active')
+        self.assertEqual(second.status, 'active')
+        self.assertEqual(balance, 20000)
+        self.assertEqual(question_track_for_user(self.user), 'combined')
+
+    def test_combined_stops_individual_auto_renew_without_ending_paid_access(self):
+        self.user.settings = {'balance': 100000}
+        self.user.save(update_fields=['settings'])
+        academic, _, _, _ = activate_plan(self.user, PackagePlan.objects.get(code='starter-academic'))
+        admission, _, _, _ = activate_plan(self.user, PackagePlan.objects.get(code='starter-admission'))
+        combined, balance, created, _ = activate_plan(self.user, PackagePlan.objects.get(code='starter-combined'))
+        academic.refresh_from_db()
+        admission.refresh_from_db()
+        self.assertTrue(created)
+        self.assertEqual(combined.status, 'active')
+        self.assertEqual(academic.status, 'active')
+        self.assertEqual(admission.status, 'active')
+        self.assertFalse(academic.auto_renew)
+        self.assertFalse(admission.auto_renew)
+        self.assertEqual(balance, 47500)
+
+        covered, same_balance, created, message = activate_plan(
+            self.user, PackagePlan.objects.get(code='basic-academic')
+        )
+        self.assertFalse(created)
+        self.assertEqual(covered.id, combined.id)
+        self.assertEqual(same_balance, balance)
+        self.assertIn('included', message)
+
+    def test_teacher_package_quota_requires_repayment_after_limit(self):
+        teacher = Customer.objects.create_user(
+            username='teacher-quota', password='test-password', fullName='Teacher',
+            acctype='Teacher', settings={'balance': 50000},
+        )
+        token = CustomerToken.objects.create(key='teacher-quota-token', customer=teacher)
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.key}')
+        plan = PackagePlan.objects.get(code='teacher-starter-academic')
+        first, _, _, _ = activate_plan(teacher, plan)
+        self.assertEqual(first.question_limit_snapshot, 20)
+        first.questions_used = 19
+        first.save(update_fields=['questions_used'])
+
+        questions = [
+            {'qid': f'academic-{index}', 'question': f'Question {index}', 'subsource': "CB'25"}
+            for index in range(20)
+        ]
+        saved = client.post('/api/created_question_sets/', {
+            'name': 'Quota set', 'questions': questions,
+        }, format='json', secure=True)
+        self.assertEqual(saved.status_code, 201)
+        self.assertEqual(saved.data['debited'], 0)
+        first.refresh_from_db()
+        # One MCQ batch consumes one creation unit, not twenty question rows.
+        self.assertEqual(first.questions_used, 20)
+
+        blocked = client.post('/api/created_question_sets/', {
+            'name': 'Over quota',
+            'questions': [{'qid': 'academic-21', 'question': 'Question 21', 'subsource': "CB'25"}],
+        }, format='json', secure=True)
+        self.assertEqual(blocked.status_code, 402)
+        self.assertEqual(blocked.data['code'], 'package_question_limit_reached')
+
+        replacement, balance, created, _ = activate_plan(teacher, plan)
+        self.assertTrue(created)
+        self.assertNotEqual(replacement.id, first.id)
+        self.assertEqual(replacement.questions_used, 0)
+        self.assertEqual(balance, 20000)
+
+    def test_student_can_activate_teacher_package_separately(self):
+        response = self.client.post(
+            '/api/packages/subscribe/', {'planCode': 'teacher-starter-academic'},
+            format='json', secure=True,
+        )
+        self.assertEqual(response.status_code, 201)
+        row = PackageSubscription.objects.get(customer=self.user)
+        self.assertEqual(row.plan.audience, 'teacher')
+        self.assertEqual(response.data['remainingBalance'], 35000)
+        status_response = self.client.get('/api/packages/status/', secure=True)
+        self.assertFalse(status_response.data['active'])
+        self.assertEqual(status_response.data['teacherProgress']['badge'], 'Star')
+
+        saved = self.client.post('/api/created_question_sets/', {
+            'name': 'Student teacher entitlement',
+            'questions': [
+                {'qid': f'student-author-{index}', 'question': f'MCQ {index}',
+                 'type': 'MCQ', 'subsource': "CB'25"}
+                for index in range(12)
+            ],
+        }, format='json', secure=True)
+        self.assertEqual(saved.status_code, 201)
+        self.assertEqual(saved.data['debited'], 0)
+        row.refresh_from_db()
+        self.assertEqual(row.questions_used, 1)
+
+    def test_student_without_teacher_package_uses_coins_even_with_student_package(self):
+        activate_plan(self.user, PackagePlan.objects.get(code='free-academic'))
+        saved = self.client.post('/api/created_question_sets/', {
+            'name': 'Student coin authoring',
+            'questions': [
+                {'qid': 'student-mcq', 'question': 'MCQ', 'type': 'MCQ', 'subsource': "CB'25"},
+                {'qid': 'student-cq', 'question': 'CQ', 'type': 'সৃজনশীল', 'subsource': "CB'25"},
+            ],
+        }, format='json', secure=True)
+        self.assertEqual(saved.status_code, 201)
+        self.assertEqual(saved.data['debited'], 125)
+        self.assertEqual(saved.data['remaining'], 49875)
+
+    def test_mixed_mcq_and_cq_use_two_teacher_package_units(self):
+        teacher = Customer.objects.create_user(
+            username='teacher-mixed', password='test-password', fullName='Teacher Mixed',
+            acctype='Teacher', settings={'balance': 50000},
+        )
+        token = CustomerToken.objects.create(key='teacher-mixed-token', customer=teacher)
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.key}')
+        row, _, _, _ = activate_plan(teacher, PackagePlan.objects.get(code='teacher-starter-combined'))
+        questions = [
+            *[{'qid': f'mixed-m-{index}', 'question': 'MCQ', 'type': 'MCQ', 'subsource': "CB'25"}
+              for index in range(10)],
+            *[{'qid': f'mixed-c-{index}', 'question': 'CQ', 'type': 'সৃজনশীল', 'subsource': "DU'25"}
+              for index in range(3)],
+        ]
+        saved = client.post('/api/created_question_sets/', {
+            'name': 'Mixed batch', 'questions': questions,
+        }, format='json', secure=True)
+        self.assertEqual(saved.status_code, 201)
+        self.assertEqual(saved.data['debited'], 0)
+        row.refresh_from_db()
+        self.assertEqual(row.questions_used, 2)
+
+    def test_failed_coin_fallback_rolls_back_reserved_package_units(self):
+        self.user.settings = {'balance': 15000}
+        self.user.save(update_fields=['settings'])
+        row, _, _, _ = activate_plan(
+            self.user, PackagePlan.objects.get(code='teacher-starter-academic')
+        )
+        self.user.settings = {'balance': 0}
+        self.user.save(update_fields=['settings'])
+        response = self.client.post('/api/created_question_sets/', {
+            'name': 'Mixed tracks without coins',
+            'questions': [
+                {'qid': 'covered-academic', 'question': 'Academic', 'type': 'MCQ', 'subsource': "CB'25"},
+                {'qid': 'uncovered-admission', 'question': 'Admission', 'type': 'MCQ', 'subsource': "DU'25"},
+            ],
+        }, format='json', secure=True)
+        self.assertEqual(response.status_code, 400)
+        row.refresh_from_db()
+        self.assertEqual(row.questions_used, 0)
+        self.assertFalse(CreatedQuestionSet.objects.filter(customer=self.user).exists())
+
+    def test_pending_question_creation_also_uses_coin_guard(self):
+        response = self.client.post('/api/pending_questions/submit/', {
+            'level_tr': 'Higher Secondary', 'class_level': '11-12',
+            'subject_tr': 'Physics 1st Paper', 'chapter': 'Chapter', 'topic': 'Topic',
+            'question': 'A new MCQ', 'type': 'MCQ', 'subsource': "CB'25",
+        }, format='json', secure=True)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data['debited'], 25)
+        self.assertEqual(response.data['remaining'], 49975)
+
+    def test_teacher_package_renewal_uses_teacher_badge_discount_for_student(self):
+        row, _, _, _ = activate_plan(
+            self.user, PackagePlan.objects.get(code='teacher-starter-academic')
+        )
+        CreatedQuestionSet.objects.create(
+            customer=self.user, name='Teacher badge work',
+            questions=[{'qid': f'teacher-badge-{index}', 'question': 'Question'} for index in range(100)],
+        )
+        teacher_progress = refresh_membership(self.user, audience='teacher')
+        student_progress = refresh_membership(self.user, audience='student')
+        self.assertEqual(teacher_progress.badge, 'Gold')
+        self.assertEqual(teacher_progress.discount_percent, 10)
+        self.assertEqual(student_progress.badge, 'None')
+        now = timezone.now()
+        PackageSubscription.objects.filter(pk=row.pk).update(
+            starts_at=now - timedelta(days=40),
+            ends_at=now - timedelta(seconds=1),
+            next_renewal_at=now - timedelta(seconds=1),
+        )
+        row.refresh_from_db()
+        renewed = process_subscription_renewal(row, now)
+        self.user.refresh_from_db()
+        self.assertEqual(float(renewed.payable_amount), 135)
+        self.assertEqual(renewed.badge_discount_percent, 10)
+        self.assertEqual(self.user.settings['balance'], 21500)
+
+    def test_teacher_can_buy_student_and_teacher_packages_independently(self):
+        teacher = Customer.objects.create_user(
+            username='teacher-dual', password='test-password', fullName='Teacher Dual',
+            acctype='Teacher', settings={'balance': 60000},
+        )
+        student_plan = PackagePlan.objects.get(code='starter-academic')
+        teacher_plan = PackagePlan.objects.get(code='teacher-starter-academic')
+        student_subscription, first_balance, created, _ = activate_plan(teacher, student_plan)
+        self.assertTrue(created)
+        self.assertEqual(refresh_membership(teacher, audience='student').badge, 'Star')
+        self.assertEqual(refresh_membership(teacher, audience='teacher').badge, 'None')
+        teacher_subscription, second_balance, created, _ = activate_plan(teacher, teacher_plan)
+        self.assertTrue(created)
+        self.assertEqual(first_balance, 45000)
+        self.assertEqual(second_balance, 30000)
+        self.assertNotEqual(student_subscription.id, teacher_subscription.id)
+        self.assertEqual(current_subscription(teacher, audience='student').id, student_subscription.id)
+        self.assertEqual(current_subscription(teacher, audience='teacher').id, teacher_subscription.id)
+        self.assertEqual(refresh_membership(teacher, audience='teacher').badge, 'Star')
+
+    def test_job_seeker_can_activate_both_package_audiences(self):
+        user = Customer.objects.create_user(
+            username='job-dual', password='test-password', fullName='Job Dual',
+            acctype='JobSeeker', settings={'balance': 60000},
+        )
+        student, _, created_student, _ = activate_plan(user, PackagePlan.objects.get(code='starter-admission'))
+        teacher, balance, created_teacher, _ = activate_plan(
+            user, PackagePlan.objects.get(code='teacher-starter-admission')
+        )
+        self.assertTrue(created_student)
+        self.assertTrue(created_teacher)
+        self.assertEqual(student.plan.audience, 'student')
+        self.assertEqual(teacher.plan.audience, 'teacher')
+        self.assertEqual(balance, 30000)
+
+    def test_student_package_does_not_grant_teacher_question_quota(self):
+        teacher = Customer.objects.create_user(
+            username='teacher-st-only', password='test-password', fullName='Teacher Student Only',
+            acctype='Teacher', settings={'balance': 50000},
+        )
+        subscription, _, _, _ = activate_plan(teacher, PackagePlan.objects.get(code='starter-academic'))
+        self.assertEqual(subscription.question_limit_snapshot, 0)
+        from cheradip.package_service import reserve_teacher_question_allowance
+        questions = [{'qid': 'teacher-no-quota', 'question': 'Question', 'subsource': "CB'25"}]
+        self.assertEqual(reserve_teacher_question_allowance(teacher, questions), questions)
 
     def test_failed_renewal_enters_grace_without_duplicate_charge(self):
         plan = PackagePlan.objects.get(code='starter-academic')
@@ -256,6 +506,31 @@ class PackageApiTests(TestCase):
         self.assertEqual(commission.commission_coins, 3000)
         self.assertEqual(referrer.settings['balance'], 3000)
 
+    def test_teacher_package_referral_uses_referrers_teacher_badge(self):
+        referrer = Customer.objects.create_user(
+            username='ref-teacher', password='test-password', fullName='Teacher Referrer',
+            acctype='Student', settings={'balance': 0},
+        )
+        plan = PackagePlan.objects.get(code='teacher-starter-academic')
+        now = timezone.now()
+        PackageSubscription.objects.create(
+            customer=referrer, plan=plan, status='active', plan_price=plan.price,
+            payable_amount=plan.price, starts_at=now, ends_at=now + timedelta(days=30),
+        )
+        CreatedQuestionSet.objects.create(
+            customer=referrer, name='Teacher badge questions',
+            questions=[{'qid': f'ref-teacher-{index}', 'question': 'Question'} for index in range(100)],
+        )
+        self.assertEqual(refresh_membership(referrer, audience='teacher').reference_value_percent, 30)
+        self.user.referred_by = referrer
+        self.user.save(update_fields=['referred_by'])
+        activate_plan(self.user, plan)
+        commission = ReferralCommission.objects.get(referrer=referrer)
+        referrer.refresh_from_db()
+        self.assertEqual(commission.reference_value_percent, 30)
+        self.assertEqual(commission.commission_coins, 4500)
+        self.assertEqual(referrer.settings['balance'], 4500)
+
 
 class ReferralSignupTests(TestCase):
     def setUp(self):
@@ -282,6 +557,18 @@ class ReferralSignupTests(TestCase):
         serializer = CustomerSignupSerializer(data=self.payload(reference='01799999999'))
         self.assertFalse(serializer.is_valid())
         self.assertIn('reference', serializer.errors)
+
+    def test_referral_summary_preserves_country_code_plus_sign(self):
+        user = Customer.objects.create_user(
+            username='+880170000001', password='test-password', fullName='Country Code', acctype='Teacher'
+        )
+        token = CustomerToken.objects.create(key='country-code-token', customer=user)
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.key}')
+        response = client.get('/api/referrals/summary/', secure=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['reference'], '+880170000001')
+        self.assertEqual(response.data['referencePath'], '/auth?reference=%2B880170000001')
 
     @patch('cheradip.views.sync_customer_to_ext')
     def test_signup_endpoint_passes_reference_to_serializer(self, sync_mock):

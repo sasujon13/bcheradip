@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.db.models import Sum
+from urllib.parse import quote
 
 from .membership import discounted_price, public_rules, refresh_membership
 from .models import PackagePlan, PackageSubscription, ReferralCommission
-from .package_service import activate_plan, current_subscription, subscription_payload
+from .package_service import active_subscriptions, activate_plan, current_subscription, subscription_payload
 from .views import BearerTokenAuthentication
 
 
@@ -37,21 +38,32 @@ class PackageListView(APIView):
     def get(self, request):
         account_type = request.query_params.get('account_type') or 'Student'
         progress = None
+        student_progress = None
+        teacher_progress = None
         active = None
+        active_rows = []
         discount = 0
         if getattr(request.user, 'is_authenticated', False):
-            active = current_subscription(request.user)
+            active_rows = active_subscriptions(request.user)
+            primary_audience = 'student' if request.user.acctype == 'Student' else 'teacher'
+            active = next((row for row in active_rows if row.plan.audience == primary_audience), None)
             progress = refresh_membership(request.user)
+            student_progress = refresh_membership(request.user, audience='student')
+            teacher_progress = refresh_membership(request.user, audience='teacher')
             account_type = progress.account_type
             discount = progress.discount_percent
         plans = []
         for plan in PackagePlan.objects.filter(is_active=True):
-            renewal = discounted_price(plan.price, discount)
+            audience_progress = teacher_progress if plan.audience == 'teacher' else student_progress
+            plan_discount = audience_progress.discount_percent if audience_progress else discount
+            renewal = discounted_price(plan.price, plan_discount)
             plans.append({
                 'code': plan.code, 'name': plan.name, 'durationMonths': plan.duration_months,
-                'track': plan.track, 'listPrice': float(plan.list_price), 'price': float(plan.price),
-                'discountPercent': discount, 'payableAmount': float(plan.price),
+                'audience': plan.audience, 'track': plan.track,
+                'listPrice': float(plan.list_price), 'price': float(plan.price),
+                'discountPercent': plan_discount, 'payableAmount': float(plan.price),
                 'renewalAmount': float(renewal), 'currency': plan.currency,
+                'questionLimit': plan.question_limit,
                 'features': plan.features if isinstance(plan.features, list) else [],
             })
         subscriptions = []
@@ -67,7 +79,10 @@ class PackageListView(APIView):
             'rules': public_rules(account_type if account_type in {'Student', 'Teacher', 'JobSeeker'} else 'Student'),
             'maintenance': {'target': 50, 'days': 90},
             'progress': _progress_payload(progress) if progress else None,
+            'studentProgress': _progress_payload(student_progress) if student_progress else None,
+            'teacherProgress': _progress_payload(teacher_progress) if teacher_progress else None,
             'activeSubscription': subscription_payload(active),
+            'activeSubscriptions': [subscription_payload(row) for row in active_rows],
             'subscriptions': subscriptions,
         })
 
@@ -96,7 +111,7 @@ class PackageSubscribeView(APIView):
                     'shortfallCoins': max(0, int(required_coins) - int(balance)),
                 }, status=status.HTTP_400_BAD_REQUEST)
             raise
-        progress = refresh_membership(request.user)
+        progress = refresh_membership(request.user, audience=plan.audience)
         return Response({
             'id': subscription.id, 'status': subscription.status, 'planCode': plan.code,
             'payableAmount': float(subscription.payable_amount),
@@ -112,20 +127,37 @@ class PackageStatusView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        active = current_subscription(request.user)
+        active_rows = active_subscriptions(request.user)
+        primary_audience = 'student' if request.user.acctype == 'Student' else 'teacher'
+        active = next((row for row in active_rows if row.plan.audience == primary_audience), None)
         progress = refresh_membership(request.user)
-        active_payload = subscription_payload(active, mark_warning=True)
+        student_progress = refresh_membership(request.user, audience='student')
+        teacher_progress = refresh_membership(request.user, audience='teacher')
+        active_payloads = [subscription_payload(row, mark_warning=True) for row in active_rows]
+        active_payload = next((payload for payload in active_payloads if active and payload['id'] == active.id), None)
+        warnings = [payload['warning'] for payload in active_payloads if payload.get('warning')]
         next_target = progress.next_metric_target
         completed = progress.metric_count
         remaining = max(0, (next_target or completed) - completed)
         return Response({
             'active': bool(active), 'activeSubscription': active_payload,
+            'activeSubscriptions': active_payloads,
+            'warnings': warnings,
             'progress': _progress_payload(progress), 'base': progress.base,
+            'studentProgress': _progress_payload(student_progress),
+            'teacherProgress': _progress_payload(teacher_progress) if teacher_progress else None,
             'badge': progress.badge, 'metricName': progress.metric_name,
             'completedTasks': completed, 'remainingTasks': remaining,
             'nextBase': (f"{'E' if progress.account_type == 'Student' else 'Q'} > {next_target - 1}" if next_target else None),
             'passingRate': float(progress.passing_rate),
-            'questionTrack': active.plan.track if active and progress.account_type == 'Student' else None,
+            'questionTrack': (
+                'combined' if progress.account_type == 'Student' and (
+                    any(row.plan.audience == 'student' and row.plan.track == 'combined' for row in active_rows) or
+                    {'academic', 'admission'}.issubset({
+                        row.plan.track for row in active_rows if row.plan.audience == 'student'
+                    })
+                ) else next((row.plan.track for row in active_rows if row.plan.audience == 'student'), None)
+            ),
             # Use the same public, browser-safe media path as the upload endpoint. Avoid
             # leaking an internal proxy host through request.build_absolute_uri().
             'profileImageUrl': '/manage' + request.user.profile_image.url if request.user.profile_image else None,
@@ -143,7 +175,9 @@ class ReferralSummaryView(APIView):
         total = earnings.aggregate(total=Sum('commission_coins'))['total'] or 0
         return Response({
             'reference': request.user.username,
-            'referencePath': f'/auth?reference={request.user.username}',
+            # Username is the stored reference. Quote it so leading country-code
+            # plus signs and other valid characters survive the query string exactly.
+            'referencePath': f'/auth?reference={quote(request.user.username, safe="")}',
             'referenceValuePercent': progress.reference_value_percent,
             'referredUsers': request.user.referred_customers.count(),
             'totalCommissionCoins': int(total),

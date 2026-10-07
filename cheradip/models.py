@@ -379,13 +379,19 @@ class PackagePlan(models.Model):
         ('admission', 'Admission'),
         ('combined', 'Combined'),
     ]
+    AUDIENCE_CHOICES = [
+        ('student', 'Student'),
+        ('teacher', 'Teacher'),
+    ]
 
     code = models.CharField(max_length=40, unique=True, db_index=True)
     name = models.CharField(max_length=40)
     duration_months = models.PositiveSmallIntegerField(default=1)
     track = models.CharField(max_length=20, choices=TRACK_CHOICES)
+    audience = models.CharField(max_length=12, choices=AUDIENCE_CHOICES, default='student', db_index=True)
     list_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    question_limit = models.PositiveIntegerField(default=0)
     currency = models.CharField(max_length=3, default='BDT')
     is_active = models.BooleanField(default=True)
     sort_order = models.PositiveSmallIntegerField(default=0)
@@ -396,10 +402,16 @@ class PackagePlan(models.Model):
     class Meta:
         db_table = 'cheradip_package_plans'
         ordering = ['sort_order', 'duration_months', 'track']
-        indexes = [models.Index(fields=['is_active', 'sort_order'])]
+        indexes = [
+            models.Index(fields=['is_active', 'sort_order']),
+            models.Index(
+                fields=['audience', 'is_active', 'sort_order'],
+                name='cheradip_pa_audienc_b722d4_idx',
+            ),
+        ]
 
     def __str__(self):
-        return f'{self.name} - {self.get_track_display()}'
+        return f'{self.get_audience_display()} - {self.name} - {self.get_track_display()}'
 
 
 class PackageSubscription(models.Model):
@@ -420,6 +432,8 @@ class PackageSubscription(models.Model):
     plan_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     badge_discount_percent = models.PositiveSmallIntegerField(default=0)
     payable_amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    question_limit_snapshot = models.PositiveIntegerField(default=0)
+    questions_used = models.PositiveIntegerField(default=0)
     payment_reference = models.CharField(max_length=80, blank=True, db_index=True)
     starts_at = models.DateTimeField(null=True, blank=True)
     ends_at = models.DateTimeField(null=True, blank=True, db_index=True)
@@ -445,9 +459,10 @@ class PackageSubscription(models.Model):
 
 
 class MembershipProgress(models.Model):
-    """Server-calculated package badge and benefits for one account."""
+    """Server-calculated badge and benefits for one account and package audience."""
 
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='membership_progress')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='membership_progresses')
+    audience = models.CharField(max_length=12, choices=PackagePlan.AUDIENCE_CHOICES, default='student')
     account_type = models.CharField(max_length=12)
     base = models.CharField(max_length=20, default='New')
     badge = models.CharField(max_length=20, default='Star')
@@ -469,6 +484,9 @@ class MembershipProgress(models.Model):
 
     class Meta:
         db_table = 'cheradip_membership_progress'
+        constraints = [
+            models.UniqueConstraint(fields=['customer', 'audience'], name='unique_membership_progress_audience'),
+        ]
         verbose_name_plural = 'Membership progress'
 
     def __str__(self):
