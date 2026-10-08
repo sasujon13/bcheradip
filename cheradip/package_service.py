@@ -7,13 +7,16 @@ from django.db.models import Q
 from django.utils import timezone
 
 from .membership import add_months, discounted_price, refresh_membership
-from .models import Customer, PackagePlan, PackageSubscription, ReferralCommission
+from .models import Customer, PackagePlan, PackageSubscription, ReferralCommission, RewardsWallet
 
 
 ACADEMIC_PREFIXES = ("BB'", "CB'", "ChB'", "DB'", "DiB'", "JB'", "MB'", "RB'", "SB'", "MSB'")
 WARNING_INTERVAL = timedelta(hours=3)
 RETRY_INTERVAL = timedelta(days=1)
 GRACE_PERIOD = timedelta(days=7)
+DEFAULT_FREE_DURATION_MONTHS = {'student': 1, 'teacher': 36}
+DEFAULT_FREE_TRACKS = ('academic', 'admission')
+DEFAULT_FREE_AUDIENCES = ('student', 'teacher')
 
 
 def _wallet(customer):
@@ -47,7 +50,9 @@ def _credit_referrer(subscription):
     rv = int(progress.reference_value_percent or 0)
     if rv <= 0:
         return None
-    commission_taka = Decimal(subscription.payable_amount) * Decimal(rv) / Decimal('100')
+    commission_taka = (
+        Decimal(subscription.payable_amount) * Decimal(rv) / Decimal('100')
+    ).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
     coins = _taka_to_coins(commission_taka)
     if coins <= 0:
         return None
@@ -57,6 +62,10 @@ def _credit_referrer(subscription):
         reference_value_percent=rv, commission_coins=coins,
     )
     _set_wallet(referrer, _wallet(referrer) + coins)
+    rewards, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=referrer)
+    rewards.available_taka += commission_taka
+    rewards.lifetime_earned_taka += commission_taka
+    rewards.save(update_fields=['available_taka', 'lifetime_earned_taka', 'updated_at'])
     return row
 
 
@@ -69,9 +78,54 @@ def _subscription_has_access(row, now):
     return bool(row.status == 'grace' and row.grace_ends_at and row.grace_ends_at >= now)
 
 
+def ensure_default_free_packages(customer, now=None):
+    """Provision each account's one-time Student and Teacher free access.
+
+    Academic and Admission are stored separately so a later paid upgrade of either
+    track is not blocked by a free Combined subscription. Together they provide the
+    same full question access. Student Free lasts one month (plus the shared seven-day
+    grace); Teacher Free remains 36 months. Subscription history prevents either
+    one-time grant from being recreated after it expires.
+    """
+    if not customer or not getattr(customer, 'pk', None):
+        return []
+    now = now or timezone.now()
+    created = []
+    with transaction.atomic():
+        locked_customer = Customer.objects.select_for_update().get(pk=customer.pk)
+        for audience in DEFAULT_FREE_AUDIENCES:
+            prefix = 'teacher-' if audience == 'teacher' else ''
+            for track in DEFAULT_FREE_TRACKS:
+                payment_reference = f'default-free:{audience}:{track}'
+                if PackageSubscription.objects.filter(
+                    customer=locked_customer,
+                    plan__audience=audience,
+                    plan__track=track,
+                ).filter(
+                    Q(payment_reference=payment_reference) | Q(plan__name='Free'),
+                ).exists():
+                    continue
+                plan = PackagePlan.objects.filter(
+                    code=f'{prefix}free-{track}', is_active=True,
+                ).first()
+                if not plan:
+                    continue
+                ends = add_months(now, DEFAULT_FREE_DURATION_MONTHS[audience])
+                created.append(PackageSubscription.objects.create(
+                    customer=locked_customer, plan=plan, status='active',
+                    plan_price=0, badge_discount_percent=0, payable_amount=0,
+                    payment_reference=payment_reference,
+                    starts_at=now, ends_at=ends, next_renewal_at=ends,
+                    auto_renew=False, question_limit_snapshot=plan.question_limit,
+                    questions_used=0,
+                ))
+    return created
+
+
 def active_subscriptions(customer, now=None, process_renewal=True, audience=None):
     """Return every active track; Combined and individual tracks may coexist."""
     now = now or timezone.now()
+    ensure_default_free_packages(customer, now)
     query = PackageSubscription.objects.filter(
         customer=customer, status__in=['active', 'grace'], starts_at__lte=now,
     )
@@ -236,6 +290,15 @@ def activate_plan(customer, plan, payment_reference=''):
         if payable_coins:
             _set_wallet(customer, balance - payable_coins)
             balance -= payable_coins
+        if plan.name != 'Free':
+            # A paid plan replaces the introductory Free access for this audience.
+            # Student and Teacher package families remain independent.
+            PackageSubscription.objects.filter(
+                customer=customer,
+                plan__audience=plan.audience,
+                plan__name='Free',
+                status__in=['active', 'grace'],
+            ).update(status='superseded', auto_renew=False, superseded_at=now)
         if current:
             current.status = 'superseded'
             current.auto_renew = False

@@ -2,11 +2,17 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from django.db import transaction
 from django.db.models import Sum
+from django.utils import timezone
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from urllib.parse import quote
 
 from .membership import discounted_price, public_rules, refresh_membership
-from .models import PackagePlan, PackageSubscription, ReferralCommission
+from .models import (
+    PackagePlan, PackageSubscription, ReferralCommission,
+    RewardsWallet, WithdrawalRequest,
+)
 from .package_service import active_subscriptions, activate_plan, current_subscription, subscription_payload
 from .views import BearerTokenAuthentication
 
@@ -28,6 +34,39 @@ def _progress_payload(progress):
         'maintenanceMet': progress.maintenance_met,
         'nextBadge': progress.next_badge or None,
         'nextMetricTarget': progress.next_metric_target,
+    }
+
+
+def _rewards_wallet_payload(customer):
+    wallet, _ = RewardsWallet.objects.get_or_create(customer=customer)
+    settings = customer.settings if isinstance(customer.settings, dict) else {}
+    try:
+        coins = max(0, int(settings.get('balance', 0) or 0))
+    except (TypeError, ValueError):
+        coins = 0
+    return {
+        'name': 'Cheradip Rewards Wallet',
+        'coinBalance': coins,
+        'availableTaka': float(wallet.available_taka),
+        'lifetimeEarnedTaka': float(wallet.lifetime_earned_taka),
+        'lifetimeWithdrawnTaka': float(wallet.lifetime_withdrawn_taka),
+        'minimumWithdrawalTaka': 100,
+    }
+
+
+def _withdrawal_payload(row):
+    return {
+        'id': row.id,
+        'method': row.method,
+        'methodLabel': row.get_method_display(),
+        'accountName': row.account_name,
+        'accountNumber': row.account_number,
+        'amountTaka': float(row.amount_taka),
+        'status': row.status,
+        'statusLabel': row.get_status_display(),
+        'adminNote': row.admin_note,
+        'requestedAt': row.requested_at.isoformat(),
+        'processedAt': row.processed_at.isoformat() if row.processed_at else None,
     }
 
 
@@ -161,6 +200,7 @@ class PackageStatusView(APIView):
             # Use the same public, browser-safe media path as the upload endpoint. Avoid
             # leaking an internal proxy host through request.build_absolute_uri().
             'profileImageUrl': '/manage' + request.user.profile_image.url if request.user.profile_image else None,
+            'wallet': _rewards_wallet_payload(request.user),
         })
 
 
@@ -181,6 +221,7 @@ class ReferralSummaryView(APIView):
             'referenceValuePercent': progress.reference_value_percent,
             'referredUsers': request.user.referred_customers.count(),
             'totalCommissionCoins': int(total),
+            'wallet': _rewards_wallet_payload(request.user),
             'earnings': [{
                 'id': row.id,
                 'customer': row.referred_customer.fullName,
@@ -191,4 +232,85 @@ class ReferralSummaryView(APIView):
                 'commissionCoins': row.commission_coins,
                 'createdAt': row.created_at.isoformat(),
             } for row in earnings[:50]],
+        })
+
+
+class RewardsWalletView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        requests = WithdrawalRequest.objects.filter(customer=request.user)[:30]
+        return Response({
+            'wallet': _rewards_wallet_payload(request.user),
+            'methods': [
+                {'value': value, 'label': label}
+                for value, label in WithdrawalRequest.METHOD_CHOICES
+            ],
+            'withdrawals': [_withdrawal_payload(row) for row in requests],
+        })
+
+    def post(self, request):
+        method = str(request.data.get('method') or '').strip().lower()
+        allowed_methods = dict(WithdrawalRequest.METHOD_CHOICES)
+        if method not in allowed_methods:
+            return Response({'error': 'Select a valid withdrawal method.'}, status=status.HTTP_400_BAD_REQUEST)
+        account_number = str(request.data.get('accountNumber') or '').strip()
+        account_name = str(request.data.get('accountName') or '').strip()
+        if len(account_number) < 6 or len(account_number) > 64:
+            return Response({'error': 'Enter a valid account number.'}, status=status.HTTP_400_BAD_REQUEST)
+        if method in {'dbbl', 'sonali'} and not account_name:
+            return Response({'error': 'Account holder name is required for bank withdrawals.'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            amount = Decimal(str(request.data.get('amountTaka') or '')).quantize(
+                Decimal('0.01'), rounding=ROUND_HALF_UP,
+            )
+        except (InvalidOperation, TypeError, ValueError):
+            return Response({'error': 'Enter a valid withdrawal amount.'}, status=status.HTTP_400_BAD_REQUEST)
+        if amount < Decimal('100.00'):
+            return Response({'error': 'Minimum withdrawal amount is Tk 100.'}, status=status.HTTP_400_BAD_REQUEST)
+        with transaction.atomic():
+            wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=request.user)
+            if amount > wallet.available_taka:
+                return Response({
+                    'error': 'Requested amount exceeds your available reference balance.',
+                    'availableTaka': float(wallet.available_taka),
+                }, status=status.HTTP_400_BAD_REQUEST)
+            before = wallet.available_taka
+            wallet.available_taka -= amount
+            wallet.save(update_fields=['available_taka', 'updated_at'])
+            row = WithdrawalRequest.objects.create(
+                customer=request.user, method=method, account_name=account_name,
+                account_number=account_number, amount_taka=amount,
+                balance_before_taka=before, balance_after_taka=wallet.available_taka,
+            )
+        return Response({
+            'message': 'Withdrawal request submitted for manual payment and approval.',
+            'withdrawal': _withdrawal_payload(row),
+            'wallet': _rewards_wallet_payload(request.user),
+        }, status=status.HTTP_201_CREATED)
+
+
+class WithdrawalCancelView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        with transaction.atomic():
+            try:
+                row = WithdrawalRequest.objects.select_for_update().get(pk=pk, customer=request.user)
+            except WithdrawalRequest.DoesNotExist:
+                return Response({'error': 'Withdrawal request was not found.'}, status=status.HTTP_404_NOT_FOUND)
+            if row.status != 'pending':
+                return Response({'error': 'Only pending withdrawal requests can be cancelled.'}, status=status.HTTP_400_BAD_REQUEST)
+            wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=request.user)
+            wallet.available_taka += row.amount_taka
+            wallet.save(update_fields=['available_taka', 'updated_at'])
+            row.status = 'cancelled'
+            row.processed_at = timezone.now()
+            row.save(update_fields=['status', 'processed_at'])
+        return Response({
+            'message': 'Withdrawal request cancelled and the amount returned to your rewards wallet.',
+            'withdrawal': _withdrawal_payload(row),
+            'wallet': _rewards_wallet_payload(request.user),
         })

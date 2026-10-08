@@ -56,6 +56,7 @@ def _table_notification_count(conn, table_name):
             columns = {column.name for column in conn.introspection.get_table_description(cursor, table_name)}
             special_filters = {
                 'cheradip_pending_question_request': ("`status` IN ('pending','new')", 'status'),
+                'cheradip_withdrawal_requests': ("`status` IN ('pending','processing')", 'status'),
                 'ecommerce_order': ("`status` IN ('pending','confirmed','processing')", 'status'),
                 'ecommerce_payment': ("`status` = 'pending'", 'status'),
                 'ecommerce_notification': ("`is_read` = 0", 'is_read'),

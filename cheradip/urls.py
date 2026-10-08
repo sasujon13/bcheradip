@@ -15,7 +15,10 @@ from .student_views import (
     StudentReportExportView,
     StudentLeaderboardView,
 )
-from .package_views import PackageListView, PackageSubscribeView, PackageStatusView, ReferralSummaryView
+from .package_views import (
+    PackageListView, PackageSubscribeView, PackageStatusView, ReferralSummaryView,
+    RewardsWalletView, WithdrawalCancelView,
+)
 
 from .views import (
     ItemListCreateView,
@@ -185,6 +188,8 @@ urlpatterns = [
     path('packages/subscribe/', PackageSubscribeView.as_view(), name='package_subscribe'),
     path('packages/status/', PackageStatusView.as_view(), name='package_status'),
     path('referrals/summary/', ReferralSummaryView.as_view(), name='referral_summary'),
+    path('wallet/', RewardsWalletView.as_view(), name='rewards_wallet'),
+    path('wallet/withdrawals/<int:pk>/cancel/', WithdrawalCancelView.as_view(), name='withdrawal_cancel'),
 
     path('question_topics/', QuestionTopicsView.as_view(), name='question_topics'),
     path('question_list/', QuestionListView.as_view(), name='question_list'),

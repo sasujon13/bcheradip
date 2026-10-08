@@ -3,6 +3,8 @@ Admin for cheradip default-DB models only.
 Tables: Country, Location, Item, Transaction, OrderDetail, Customer, CustomerToken, Notification, JsonData.
 """
 from django.contrib import admin
+from django.db import transaction
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.urls import path, reverse
 from django.contrib.admin.views.decorators import staff_member_required
@@ -21,6 +23,8 @@ from .models import (
     PackageSubscription,
     MembershipProgress,
     ReferralCommission,
+    RewardsWallet,
+    WithdrawalRequest,
 )
 
 
@@ -252,6 +256,85 @@ class ReferralCommissionAdmin(admin.ModelAdmin):
     list_display = ('referrer', 'referred_customer', 'subscription', 'gross_amount', 'reference_value_percent', 'commission_coins', 'created_at')
     search_fields = ('referrer__username', 'referred_customer__username')
     readonly_fields = ('created_at',)
+
+
+@admin.register(RewardsWallet)
+class RewardsWalletAdmin(admin.ModelAdmin):
+    list_display = ('customer', 'available_taka', 'lifetime_earned_taka', 'lifetime_withdrawn_taka', 'updated_at')
+    search_fields = ('customer__username', 'customer__fullName')
+    readonly_fields = ('customer', 'available_taka', 'lifetime_earned_taka', 'lifetime_withdrawn_taka', 'updated_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.action(description='Mark selected withdrawals as processing before sending payment')
+def process_withdrawals(modeladmin, request, queryset):
+    processing = queryset.filter(status='pending').update(status='processing')
+    modeladmin.message_user(
+        request,
+        f'{processing} withdrawal request(s) marked processing. Send payment, then approve.',
+    )
+
+
+@admin.action(description='Mark selected processing withdrawals paid and approved')
+def approve_withdrawals(modeladmin, request, queryset):
+    approved = 0
+    with transaction.atomic():
+        rows = WithdrawalRequest.objects.select_for_update().filter(pk__in=queryset.values('pk'))
+        for row in rows.select_related('customer'):
+            if row.status != 'processing':
+                continue
+            wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=row.customer)
+            wallet.lifetime_withdrawn_taka += row.amount_taka
+            wallet.save(update_fields=['lifetime_withdrawn_taka', 'updated_at'])
+            row.status = 'approved'
+            row.processed_at = timezone.now()
+            row.processed_by = request.user
+            row.save(update_fields=['status', 'processed_at', 'processed_by'])
+            approved += 1
+    modeladmin.message_user(request, f'{approved} withdrawal request(s) marked paid and approved.')
+
+
+@admin.action(description='Reject selected withdrawals and refund rewards balance')
+def reject_withdrawals(modeladmin, request, queryset):
+    rejected = 0
+    with transaction.atomic():
+        rows = WithdrawalRequest.objects.select_for_update().filter(pk__in=queryset.values('pk'))
+        for row in rows.select_related('customer'):
+            if row.status not in {'pending', 'processing'}:
+                continue
+            wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=row.customer)
+            wallet.available_taka += row.amount_taka
+            wallet.save(update_fields=['available_taka', 'updated_at'])
+            row.status = 'rejected'
+            row.processed_at = timezone.now()
+            row.processed_by = request.user
+            row.save(update_fields=['status', 'processed_at', 'processed_by'])
+            rejected += 1
+    modeladmin.message_user(request, f'{rejected} withdrawal request(s) rejected and refunded.')
+
+
+@admin.register(WithdrawalRequest)
+class WithdrawalRequestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer', 'method', 'account_number', 'amount_taka', 'status', 'requested_at', 'processed_at')
+    list_filter = ('status', 'method', 'requested_at')
+    search_fields = ('customer__username', 'customer__fullName', 'account_number', 'account_name')
+    readonly_fields = (
+        'customer', 'method', 'account_name', 'account_number', 'amount_taka',
+        'balance_before_taka', 'balance_after_taka', 'status', 'requested_at',
+        'processed_at', 'processed_by',
+    )
+    actions = (process_withdrawals, approve_withdrawals, reject_withdrawals)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Transaction)

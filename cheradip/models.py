@@ -512,6 +512,64 @@ class ReferralCommission(models.Model):
         return f'{self.referrer.username}: {self.commission_coins} coins'
 
 
+class RewardsWallet(models.Model):
+    """Withdrawable referral earnings, kept separately from spendable coins."""
+
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='rewards_wallet')
+    available_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)])
+    lifetime_earned_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)])
+    lifetime_withdrawn_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)])
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_rewards_wallet'
+
+    def __str__(self):
+        return f'{self.customer.username}: Tk {self.available_taka}'
+
+
+class WithdrawalRequest(models.Model):
+    """Manual payout request from a customer's Cheradip Rewards Wallet."""
+
+    METHOD_CHOICES = [
+        ('bkash', 'bKash'),
+        ('nagad', 'Nagad'),
+        ('dbbl', 'DBBL / Rocket'),
+        ('sonali', 'Sonali Bank'),
+    ]
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('processing', 'Processing / payment started'),
+        ('approved', 'Approved / Paid'),
+        ('rejected', 'Rejected'),
+        ('cancelled', 'Cancelled by user'),
+    ]
+
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='withdrawal_requests')
+    method = models.CharField(max_length=16, choices=METHOD_CHOICES)
+    account_name = models.CharField(max_length=100, blank=True)
+    account_number = models.CharField(max_length=64)
+    amount_taka = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(100)])
+    balance_before_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    balance_after_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    status = models.CharField(max_length=16, choices=STATUS_CHOICES, default='pending', db_index=True)
+    admin_note = models.TextField(blank=True)
+    requested_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    processed_at = models.DateTimeField(null=True, blank=True)
+    processed_by = models.ForeignKey(
+        Customer, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='processed_withdrawal_requests',
+    )
+
+    class Meta:
+        db_table = 'cheradip_withdrawal_requests'
+        ordering = ['-requested_at']
+        indexes = [models.Index(fields=['customer', 'status', 'requested_at'])]
+
+    def __str__(self):
+        return f'{self.customer.username}: Tk {self.amount_taka} ({self.status})'
+
+
 class CreatedQuestionSet(models.Model):
     """Saved question set: name + counter (e.g. Subject_Chapter_1_2), question header, and questions JSON. User can rename."""
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='created_question_sets', db_index=True)

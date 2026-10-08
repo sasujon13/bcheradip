@@ -1,13 +1,18 @@
 from datetime import timedelta
 
 from django.test import TestCase
+from django.db import connection
 from django.utils import timezone
 from rest_framework.test import APIClient
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from cheradip.membership import refresh_membership
-from cheradip.models import Customer, CustomerToken, CreatedQuestionSet, PackagePlan, PackageSubscription, ReferralCommission
+from cheradip.models import (
+    Customer, CustomerToken, CreatedQuestionSet, PackagePlan, PackageSubscription,
+    ReferralCommission, RewardsWallet, WithdrawalRequest,
+)
 from cheradip.package_service import (
+    active_subscriptions,
     activate_plan,
     current_subscription,
     process_subscription_renewal,
@@ -15,6 +20,8 @@ from cheradip.package_service import (
     subsource_allowed,
 )
 from cheradip.serializers import CustomerSignupSerializer
+from backend.admin_app_list import _table_notification_count
+from cheradip.admin import approve_withdrawals, process_withdrawals, reject_withdrawals
 
 
 class MembershipRulesTests(TestCase):
@@ -114,16 +121,31 @@ class PackageApiTests(TestCase):
         self.client = APIClient()
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.key}')
 
+    def expire_default_packages(self, audience):
+        active_subscriptions(self.user)
+        PackageSubscription.objects.filter(
+            customer=self.user,
+            payment_reference__startswith=f'default-free:{audience}:',
+        ).update(status='expired')
+
     def test_free_and_affordable_paid_plans_activate_from_wallet(self):
         free = self.client.post('/api/packages/subscribe/', {'planCode': 'free-academic'}, format='json', secure=True)
-        self.assertEqual(free.status_code, 201)
+        self.assertEqual(free.status_code, 200)
         self.assertEqual(free.data['status'], 'active')
 
         paid = self.client.post('/api/packages/subscribe/', {'planCode': 'starter-academic'}, format='json', secure=True)
         self.assertEqual(paid.status_code, 201)
         self.assertEqual(paid.data['status'], 'active')
         self.assertEqual(paid.data['remainingBalance'], 35000)
-        self.assertEqual(PackageSubscription.objects.filter(customer=self.user).count(), 2)
+        self.assertEqual(PackageSubscription.objects.filter(customer=self.user).count(), 5)
+        self.assertFalse(PackageSubscription.objects.filter(
+            customer=self.user, plan__audience='student', plan__name='Free',
+            status__in=['active', 'grace'],
+        ).exists())
+        self.assertEqual(PackageSubscription.objects.filter(
+            customer=self.user, plan__audience='teacher', plan__name='Free',
+            status='active',
+        ).count(), 2)
 
     def test_insufficient_wallet_balance_does_not_create_subscription(self):
         response = self.client.post('/api/packages/subscribe/', {'planCode': 'advanced-3-combined'}, format='json', secure=True)
@@ -140,6 +162,9 @@ class PackageApiTests(TestCase):
         self.assertEqual(sum(plan['audience'] == 'teacher' for plan in response.data['plans']), 24)
         self.assertEqual(response.data['progress']['accountType'], 'Student')
         self.assertTrue(PackagePlan.objects.filter(code='advanced-3-combined', price=3240).exists())
+        self.assertEqual(PackagePlan.objects.get(code='free-academic').duration_months, 1)
+        self.assertEqual(PackagePlan.objects.get(code='teacher-free-academic').duration_months, 36)
+        self.assertEqual(len(response.data['activeSubscriptions']), 4)
 
     def test_same_plan_is_not_charged_and_downgrade_is_free(self):
         starter = PackagePlan.objects.get(code='starter-academic')
@@ -241,11 +266,19 @@ class PackageApiTests(TestCase):
             format='json', secure=True,
         )
         self.assertEqual(response.status_code, 201)
-        row = PackageSubscription.objects.get(customer=self.user)
+        row = PackageSubscription.objects.get(customer=self.user, plan__code='teacher-starter-academic')
         self.assertEqual(row.plan.audience, 'teacher')
         self.assertEqual(response.data['remainingBalance'], 35000)
+        self.assertFalse(PackageSubscription.objects.filter(
+            customer=self.user, plan__audience='teacher', plan__name='Free',
+            status__in=['active', 'grace'],
+        ).exists())
+        self.assertEqual(PackageSubscription.objects.filter(
+            customer=self.user, plan__audience='student', plan__name='Free',
+            status='active',
+        ).count(), 2)
         status_response = self.client.get('/api/packages/status/', secure=True)
-        self.assertFalse(status_response.data['active'])
+        self.assertTrue(status_response.data['active'])
         self.assertEqual(status_response.data['teacherProgress']['badge'], 'Star')
 
         saved = self.client.post('/api/created_question_sets/', {
@@ -261,7 +294,7 @@ class PackageApiTests(TestCase):
         row.refresh_from_db()
         self.assertEqual(row.questions_used, 1)
 
-    def test_student_without_teacher_package_uses_coins_even_with_student_package(self):
+    def test_student_receives_default_teacher_packages_without_coin_charge(self):
         activate_plan(self.user, PackagePlan.objects.get(code='free-academic'))
         saved = self.client.post('/api/created_question_sets/', {
             'name': 'Student coin authoring',
@@ -271,8 +304,8 @@ class PackageApiTests(TestCase):
             ],
         }, format='json', secure=True)
         self.assertEqual(saved.status_code, 201)
-        self.assertEqual(saved.data['debited'], 125)
-        self.assertEqual(saved.data['remaining'], 49875)
+        self.assertEqual(saved.data['debited'], 0)
+        self.assertEqual(saved.data['remaining'], 50000)
 
     def test_mixed_mcq_and_cq_use_two_teacher_package_units(self):
         teacher = Customer.objects.create_user(
@@ -303,6 +336,9 @@ class PackageApiTests(TestCase):
         row, _, _, _ = activate_plan(
             self.user, PackagePlan.objects.get(code='teacher-starter-academic')
         )
+        PackageSubscription.objects.filter(
+            customer=self.user, plan__code='teacher-free-admission', status='active',
+        ).update(status='expired')
         self.user.settings = {'balance': 0}
         self.user.save(update_fields=['settings'])
         response = self.client.post('/api/created_question_sets/', {
@@ -318,6 +354,7 @@ class PackageApiTests(TestCase):
         self.assertFalse(CreatedQuestionSet.objects.filter(customer=self.user).exists())
 
     def test_pending_question_creation_also_uses_coin_guard(self):
+        self.expire_default_packages('teacher')
         response = self.client.post('/api/pending_questions/submit/', {
             'level_tr': 'Higher Secondary', 'class_level': '11-12',
             'subject_tr': 'Physics 1st Paper', 'chapter': 'Chapter', 'topic': 'Topic',
@@ -388,7 +425,7 @@ class PackageApiTests(TestCase):
         self.assertEqual(teacher.plan.audience, 'teacher')
         self.assertEqual(balance, 30000)
 
-    def test_student_package_does_not_grant_teacher_question_quota(self):
+    def test_default_teacher_package_grants_teacher_question_quota(self):
         teacher = Customer.objects.create_user(
             username='teacher-st-only', password='test-password', fullName='Teacher Student Only',
             acctype='Teacher', settings={'balance': 50000},
@@ -397,7 +434,7 @@ class PackageApiTests(TestCase):
         self.assertEqual(subscription.question_limit_snapshot, 0)
         from cheradip.package_service import reserve_teacher_question_allowance
         questions = [{'qid': 'teacher-no-quota', 'question': 'Question', 'subsource': "CB'25"}]
-        self.assertEqual(reserve_teacher_question_allowance(teacher, questions), questions)
+        self.assertEqual(reserve_teacher_question_allowance(teacher, questions), [])
 
     def test_failed_renewal_enters_grace_without_duplicate_charge(self):
         plan = PackagePlan.objects.get(code='starter-academic')
@@ -441,19 +478,22 @@ class PackageApiTests(TestCase):
         self.assertTrue(subsource_allowed('admission', "DU'24"))
         self.assertFalse(subsource_allowed('admission', "CB'23"))
 
-    def test_free_student_access_lasts_one_month_plus_seven_days(self):
-        plan = PackagePlan.objects.get(code='free-academic')
+    def test_default_student_free_access_lasts_one_month_plus_seven_days(self):
         now = timezone.now()
-        row = PackageSubscription.objects.create(
-            customer=self.user, plan=plan, status='active', plan_price=0,
-            payable_amount=0, starts_at=now - timedelta(days=36),
-            ends_at=now - timedelta(days=6), next_renewal_at=now - timedelta(days=6),
-            auto_renew=False,
-        )
-        self.assertEqual(current_subscription(self.user, now).id, row.id)
-        self.assertIsNone(current_subscription(self.user, now + timedelta(days=2)))
-        row.refresh_from_db()
-        self.assertEqual(row.status, 'expired')
+        rows = active_subscriptions(self.user, now=now)
+        self.assertEqual(len(rows), 4)
+        academic = next(row for row in rows if row.plan.code == 'free-academic')
+        teacher_academic = next(row for row in rows if row.plan.code == 'teacher-free-academic')
+        self.assertEqual(academic.plan.duration_months, 1)
+        self.assertEqual(teacher_academic.plan.duration_months, 36)
+        self.assertIsNotNone(current_subscription(
+            self.user, academic.ends_at + timedelta(days=6),
+            audience='student', track='academic',
+        ))
+        self.assertIsNone(current_subscription(
+            self.user, academic.ends_at + timedelta(days=8),
+            audience='student', track='academic',
+        ))
 
     def test_active_student_package_unlock_is_temporary_and_free(self):
         plan = PackagePlan.objects.get(code='free-academic')
@@ -474,6 +514,7 @@ class PackageApiTests(TestCase):
         self.assertNotIn('unlocked_question_qids', self.user.settings)
 
     def test_coin_unlock_is_remembered_and_never_charged_twice(self):
+        self.expire_default_packages('student')
         payload = {'items': [{'qid': 'paid-01', 'is_cq': False}]}
         first = self.client.post('/api/token/unlock_questions/', payload, format='json', secure=True)
         self.assertEqual(first.status_code, 200)
@@ -505,6 +546,9 @@ class PackageApiTests(TestCase):
         self.assertEqual(commission.reference_value_percent, 20)
         self.assertEqual(commission.commission_coins, 3000)
         self.assertEqual(referrer.settings['balance'], 3000)
+        rewards = RewardsWallet.objects.get(customer=referrer)
+        self.assertEqual(float(rewards.available_taka), 30.0)
+        self.assertEqual(float(rewards.lifetime_earned_taka), 30.0)
 
     def test_teacher_package_referral_uses_referrers_teacher_badge(self):
         referrer = Customer.objects.create_user(
@@ -530,6 +574,82 @@ class PackageApiTests(TestCase):
         self.assertEqual(commission.reference_value_percent, 30)
         self.assertEqual(commission.commission_coins, 4500)
         self.assertEqual(referrer.settings['balance'], 4500)
+
+    def test_withdrawal_reserves_only_reference_balance_and_can_be_cancelled(self):
+        RewardsWallet.objects.create(
+            customer=self.user, available_taka=150, lifetime_earned_taka=150,
+        )
+        below_minimum = self.client.post('/api/wallet/', {
+            'method': 'bkash', 'accountNumber': '01700000000', 'amountTaka': 99,
+        }, format='json', secure=True)
+        self.assertEqual(below_minimum.status_code, 400)
+
+        created = self.client.post('/api/wallet/', {
+            'method': 'bkash', 'accountNumber': '01700000000', 'amountTaka': 120,
+        }, format='json', secure=True)
+        self.assertEqual(created.status_code, 201, created.data)
+        self.assertEqual(created.data['wallet']['availableTaka'], 30.0)
+        request_id = created.data['withdrawal']['id']
+        self.assertEqual(_table_notification_count(connection, 'cheradip_withdrawal_requests'), 1)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings['balance'], 50000)
+
+        too_large = self.client.post('/api/wallet/', {
+            'method': 'nagad', 'accountNumber': '01700000000', 'amountTaka': 100,
+        }, format='json', secure=True)
+        self.assertEqual(too_large.status_code, 400)
+
+        cancelled = self.client.post(
+            f'/api/wallet/withdrawals/{request_id}/cancel/', {}, format='json', secure=True,
+        )
+        self.assertEqual(cancelled.status_code, 200)
+        self.assertEqual(cancelled.data['wallet']['availableTaka'], 150.0)
+        self.assertEqual(WithdrawalRequest.objects.get(pk=request_id).status, 'cancelled')
+        self.assertEqual(_table_notification_count(connection, 'cheradip_withdrawal_requests'), 0)
+
+    def test_wallet_endpoint_returns_coins_reference_balance_and_methods(self):
+        RewardsWallet.objects.create(customer=self.user, available_taka=120.50, lifetime_earned_taka=120.50)
+        response = self.client.get('/api/wallet/', secure=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['wallet']['coinBalance'], 50000)
+        self.assertEqual(response.data['wallet']['availableTaka'], 120.5)
+        self.assertEqual(response.data['wallet']['minimumWithdrawalTaka'], 100)
+        self.assertEqual({row['value'] for row in response.data['methods']}, {'bkash', 'nagad', 'dbbl', 'sonali'})
+
+    def test_admin_approval_records_paid_amount_and_rejection_refunds(self):
+        admin_user = Customer.objects.create_superuser(
+            username='wallet-admin', password='test-password', fullName='Wallet Admin',
+        )
+        wallet = RewardsWallet.objects.create(
+            customer=self.user, available_taka=50, lifetime_earned_taka=250,
+        )
+        approved = WithdrawalRequest.objects.create(
+            customer=self.user, method='bkash', account_number='01700000000',
+            amount_taka=100, balance_before_taka=250, balance_after_taka=150,
+        )
+        rejected = WithdrawalRequest.objects.create(
+            customer=self.user, method='nagad', account_number='01700000000',
+            amount_taka=100, balance_before_taka=150, balance_after_taka=50,
+        )
+        request = Mock(user=admin_user)
+        modeladmin = Mock()
+
+        process_withdrawals(modeladmin, request, WithdrawalRequest.objects.filter(pk=approved.pk))
+        approved.refresh_from_db()
+        self.assertEqual(approved.status, 'processing')
+
+        approve_withdrawals(modeladmin, request, WithdrawalRequest.objects.filter(pk=approved.pk))
+        approved.refresh_from_db()
+        wallet.refresh_from_db()
+        self.assertEqual(approved.status, 'approved')
+        self.assertEqual(approved.processed_by_id, admin_user.id)
+        self.assertEqual(float(wallet.lifetime_withdrawn_taka), 100.0)
+
+        reject_withdrawals(modeladmin, request, WithdrawalRequest.objects.filter(pk=rejected.pk))
+        rejected.refresh_from_db()
+        wallet.refresh_from_db()
+        self.assertEqual(rejected.status, 'rejected')
+        self.assertEqual(float(wallet.available_taka), 150.0)
 
 
 class ReferralSignupTests(TestCase):
