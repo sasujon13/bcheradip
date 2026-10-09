@@ -1,10 +1,11 @@
 from rest_framework import serializers
 
 from .models import (
-    Brand, Cart, CartItem, Category, CommerceNotification, InventoryMovement,
+    Book, BookAsset, BookBuildJob, Brand, Cart, CartItem, Category, CommerceNotification, InventoryMovement,
     Order, OrderItem, OrderStatusHistory, Payment, Product, ProductImage,
     ProductVariant, Review, Shipment,
 )
+from .book_catalog import book_variant_ids
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -66,6 +67,86 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     def get_approved_reviews(self, obj):
         return ReviewSerializer(obj.reviews.filter(is_approved=True), many=True).data
+
+
+class BookAssetSerializer(serializers.ModelSerializer):
+    file_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BookAsset
+        fields = '__all__'
+        read_only_fields = ('file_size', 'created_at', 'updated_at')
+
+    def get_file_url(self, obj):
+        if not obj.file:
+            return obj.external_url
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.file.url) if request else obj.file.url
+
+
+class BookSerializer(serializers.ModelSerializer):
+    assets = serializers.SerializerMethodField()
+    available_formats = serializers.SerializerMethodField()
+    book_type_label = serializers.CharField(source='get_book_type_display', read_only=True)
+    audience_label = serializers.CharField(source='get_audience_display', read_only=True)
+    source_type_label = serializers.CharField(source='get_source_type_display', read_only=True)
+    cover_image_url = serializers.SerializerMethodField()
+    wide_cover_image_url = serializers.SerializerMethodField()
+    digital_variant_id = serializers.SerializerMethodField()
+    hard_copy_variant_id = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Book
+        fields = '__all__'
+        read_only_fields = ('product', 'created_by', 'created_at', 'updated_at')
+
+    def _file_url(self, field):
+        if not field:
+            return ''
+        request = self.context.get('request')
+        return request.build_absolute_uri(field.url) if request else field.url
+
+    def get_cover_image_url(self, obj):
+        return self._file_url(obj.cover_image)
+
+    def get_wide_cover_image_url(self, obj):
+        return self._file_url(obj.wide_cover_image)
+
+    def get_digital_variant_id(self, obj):
+        if hasattr(obj, 'storefront_digital_variant_id'):
+            return obj.storefront_digital_variant_id
+        return book_variant_ids(obj)['digital_variant_id']
+
+    def get_hard_copy_variant_id(self, obj):
+        if hasattr(obj, 'storefront_hard_copy_variant_id'):
+            return obj.storefront_hard_copy_variant_id
+        return book_variant_ids(obj)['hard_copy_variant_id']
+
+    def get_assets(self, obj):
+        request = self.context.get('request')
+        user = getattr(request, 'user', None)
+        is_admin = user and user.is_authenticated and (user.is_staff or user.is_superuser)
+        if not is_admin and hasattr(obj, 'storefront_public_assets'):
+            assets = obj.storefront_public_assets
+        else:
+            assets = obj.assets.all()
+            if not is_admin:
+                assets = assets.filter(asset_type__in=('sample', 'video'))
+        return BookAssetSerializer(assets, many=True, context=self.context).data
+
+    def get_available_formats(self, obj):
+        if hasattr(obj, 'storefront_ebook_assets'):
+            return list(dict.fromkeys(asset.file_format for asset in obj.storefront_ebook_assets))
+        return list(obj.assets.filter(asset_type='ebook').values_list('file_format', flat=True).distinct())
+
+
+class BookBuildJobSerializer(serializers.ModelSerializer):
+    book_title = serializers.CharField(source='book.title', read_only=True)
+
+    class Meta:
+        model = BookBuildJob
+        fields = '__all__'
+        read_only_fields = ('created_by', 'created_at', 'updated_at')
 
 
 class CartItemSerializer(serializers.ModelSerializer):

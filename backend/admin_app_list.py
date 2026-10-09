@@ -63,6 +63,8 @@ def _table_notification_count(conn, table_name):
                 'ecommerce_product_variant': ("`is_active` = 1 AND `stock` <= `low_stock_threshold`", 'stock'),
                 'ecommerce_review': ("`is_approved` = 0", 'is_approved'),
                 'ecommerce_import_job': ("`status` IN ('processing','failed')", 'status'),
+                'ecommerce_book': ("`status` IN ('draft','review')", 'status'),
+                'ecommerce_book_build_job': ("`status` IN ('queued','building','failed')", 'status'),
             }
             special = special_filters.get(table_name)
             if special and special[1] in columns:

@@ -1369,7 +1369,7 @@ class CustomerCreateView(APIView):
 
     @staticmethod
     def _normalize_acctype(value):
-        """Normalize acctype to model choice: Student, Teacher, JobSeeker."""
+        """Normalize acctype to model choice: Student, Teacher, JobSeeker, Others."""
         if not value or not str(value).strip():
             return 'Student'
         v = str(value).strip()
@@ -1405,7 +1405,7 @@ class CustomerCreateView(APIView):
         country_code = self._get(raw, 'country_code') or self._get(raw, 'countryCode') or 'US'
         date_of_birth = self._date_to_iso(self._get(raw, 'date_of_birth'))
         user_data = {
-            'acctype': acctype,  # Student | Teacher | JobSeeker
+            'acctype': acctype,  # Student | Teacher | JobSeeker | Others
             'fullName': self._get(raw, 'fullName', ''),
             'username': self._get(raw, 'username', ''),
             'password': self._get(raw, 'password', ''),
@@ -1468,7 +1468,7 @@ class CustomerCreateView(APIView):
 
 class SignupProfileView(APIView):
     """
-    GET /api/signup_profile/?username=xxx&acctype=Teacher|Student|JobSeeker
+    GET /api/signup_profile/?username=xxx&acctype=Teacher|Student|JobSeeker|Others
     Returns profile data from Customer table. Password is never returned.
     """
     permission_classes = [IsAuthenticated]
@@ -1482,7 +1482,7 @@ class SignupProfileView(APIView):
         username = request.user.username
         try:
             q = Customer.objects.filter(username=username)
-            if acctype and acctype in ('Teacher', 'Student', 'JobSeeker'):
+            if acctype and acctype in ('Teacher', 'Student', 'JobSeeker', 'Others'):
                 q = q.filter(acctype=acctype)
             obj = q.first()
             if not obj:

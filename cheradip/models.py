@@ -288,6 +288,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         ('Teacher', 'Teacher'),
         ('Student', 'Student'),
         ('JobSeeker', 'Job Seeker'),
+        ('Others', 'Others'),
     ]
 
     acctype = models.CharField(max_length=12, choices=TYPE_CHOICES, default="Student")

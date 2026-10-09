@@ -1,9 +1,9 @@
 from decimal import Decimal
 
 from django.db import transaction
-from django.db.models import Count, DecimalField, F, OuterRef, Q, Subquery, Sum
+from django.db.models import Count, DecimalField, F, OuterRef, Prefetch, Q, Subquery, Sum
 from django.db.models.functions import Coalesce
-from django.http import HttpResponse
+from django.http import FileResponse, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from rest_framework import status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
@@ -12,14 +12,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .csv_import import import_products, sample_csv_text
+from .book_catalog import sync_book_catalog
+from .book_builder import build_book_asset
 from .models import (
-    Brand, Cart, CartItem, Category, CommerceNotification, Coupon, ImportJob,
+    Book, BookAsset, BookBuildJob, Brand, Cart, CartItem, Category, CommerceNotification, Coupon, ImportJob,
     InventoryMovement, Order, OrderItem, OrderStatusHistory, Payment, Product,
     ProductImage, ProductVariant, Review, Shipment,
 )
 from .permissions import IsCommerceAdmin
 from .serializers import (
-    BrandSerializer, CartSerializer, CategorySerializer, InventoryMovementSerializer,
+    BookAssetSerializer, BookBuildJobSerializer, BookSerializer, BrandSerializer, CartSerializer, CategorySerializer, InventoryMovementSerializer,
     NotificationSerializer, OrderSerializer, PaymentSerializer, ProductDetailSerializer,
     ProductListSerializer, ReviewSerializer,
 )
@@ -90,6 +92,115 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         if ordering in {'price', '-price', 'name', '-name', 'created_at', '-created_at'}:
             qs = qs.order_by(ordering)
         return qs
+
+
+class BookViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = BookSerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'slug'
+
+    def get_queryset(self):
+        digital_variant = ProductVariant.objects.using('ecommerce').filter(
+            product_id=OuterRef('product_id'), sku__endswith='-DIGITAL', is_active=True,
+        )
+        hard_copy_variant = ProductVariant.objects.using('ecommerce').filter(
+            product_id=OuterRef('product_id'), sku__endswith='-HARDCOPY', is_active=True,
+        )
+        qs = Book.objects.using('ecommerce').filter(status='published').annotate(
+            storefront_digital_variant_id=Subquery(digital_variant.values('id')[:1]),
+            storefront_hard_copy_variant_id=Subquery(hard_copy_variant.values('id')[:1]),
+        ).prefetch_related(
+            Prefetch(
+                'assets',
+                queryset=BookAsset.objects.using('ecommerce').filter(asset_type__in=('sample', 'video')),
+                to_attr='storefront_public_assets',
+            ),
+            Prefetch(
+                'assets',
+                queryset=BookAsset.objects.using('ecommerce').filter(asset_type='ebook'),
+                to_attr='storefront_ebook_assets',
+            ),
+        )
+        params = self.request.query_params
+        if params.get('book_type'):
+            qs = qs.filter(book_type=params['book_type'])
+        if params.get('audience'):
+            qs = qs.filter(audience=params['audience'])
+        if params.get('language'):
+            qs = qs.filter(language__iexact=params['language'])
+        copy_type = params.get('copy_type', '').lower()
+        if copy_type in {'hard', 'both'}:
+            qs = qs.filter(hard_copy_available=True)
+        if copy_type in {'soft', 'both'}:
+            qs = qs.filter(
+                product__variants__sku__endswith='-DIGITAL',
+                product__variants__is_active=True,
+            )
+        if params.get('hard_copy') in {'1', 'true', 'yes'}:
+            qs = qs.filter(hard_copy_available=True)
+        if params.get('search'):
+            search = params['search'].strip()
+            qs = qs.filter(
+                Q(title__icontains=search) | Q(title_bn__icontains=search) |
+                Q(author__icontains=search) | Q(isbn__icontains=search) |
+                Q(tags__icontains=search) | Q(description__icontains=search)
+            )
+        ordering = params.get('ordering', '-featured')
+        allowed = {'title', '-title', 'digital_price', '-digital_price', 'created_at', '-created_at', '-featured'}
+        return qs.order_by(ordering if ordering in allowed else '-featured', '-created_at').distinct()
+
+
+def _paid_order(request):
+    order_number = (request.query_params.get('order_number') or '').strip()
+    tracking_token = (request.query_params.get('tracking_token') or '').strip()
+    if not order_number or not tracking_token:
+        return None
+    return Order.objects.using('ecommerce').prefetch_related('items').filter(
+        number=order_number, tracking_token=tracking_token, payment_status='paid'
+    ).first()
+
+
+class DigitalLibraryView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        order = _paid_order(request)
+        if not order:
+            return Response({'detail': 'A paid order and valid tracking token are required.'}, status=status.HTTP_403_FORBIDDEN)
+        product_ids = list(order.items.values_list('product_id', flat=True))
+        books = Book.objects.using('ecommerce').filter(product_id__in=product_ids).prefetch_related('assets')
+        return Response([
+            {
+                'title': book.title, 'title_bn': book.title_bn, 'slug': book.slug,
+                'formats': list(book.assets.filter(asset_type='ebook').values_list('file_format', flat=True)),
+                'download_url': (
+                    f'/api/ecommerce/digital-library/{book.slug}/download/'
+                    f'?order_number={order.number}&tracking_token={order.tracking_token}'
+                ),
+            }
+            for book in books if book.assets.filter(asset_type='ebook', is_downloadable=True).exists()
+        ])
+
+
+class DigitalBookDownloadView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, slug):
+        order = _paid_order(request)
+        if not order:
+            return Response({'detail': 'A paid order and valid tracking token are required.'}, status=status.HTTP_403_FORBIDDEN)
+        product_ids = order.items.values_list('product_id', flat=True)
+        book = Book.objects.using('ecommerce').filter(slug=slug, product_id__in=product_ids).first()
+        if not book:
+            return Response({'detail': 'This book is not included in the paid order.'}, status=status.HTTP_404_NOT_FOUND)
+        asset = book.assets.filter(asset_type='ebook', is_downloadable=True).order_by('-is_primary', 'sort_order', 'id').first()
+        if not asset:
+            return Response({'detail': 'The ebook file is not available yet.'}, status=status.HTTP_404_NOT_FOUND)
+        if asset.file:
+            return FileResponse(asset.file.open('rb'), as_attachment=True, filename=asset.file.name.rsplit('/', 1)[-1])
+        if asset.external_url:
+            return HttpResponseRedirect(asset.external_url)
+        return Response({'detail': 'The ebook file is not available yet.'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class CartView(APIView):
@@ -277,6 +388,9 @@ class AdminDashboardView(APIView):
         return Response({
             'products': Product.objects.using('ecommerce').count(),
             'active_products': Product.objects.using('ecommerce').filter(status='active').count(),
+            'books': Book.objects.using('ecommerce').count(),
+            'published_books': Book.objects.using('ecommerce').filter(status='published').count(),
+            'queued_book_builds': BookBuildJob.objects.using('ecommerce').filter(status__in=['queued', 'building']).count(),
             'orders': orders.count(),
             'pending_orders': orders.filter(status='pending').count(),
             'pending_payments': Payment.objects.using('ecommerce').filter(status='pending').count(),
@@ -305,6 +419,81 @@ class AdminProductViewSet(viewsets.ModelViewSet):
         product.status = 'archived'
         product.save(using='ecommerce', update_fields=['status', 'updated_at'])
         return Response(ProductDetailSerializer(product).data)
+
+
+class AdminBookViewSet(viewsets.ModelViewSet):
+    serializer_class = BookSerializer
+    permission_classes = [IsCommerceAdmin]
+    lookup_field = 'slug'
+
+    def get_queryset(self):
+        return Book.objects.using('ecommerce').prefetch_related('assets', 'build_jobs').all()
+
+    def perform_create(self, serializer):
+        book = serializer.save(created_by=_user_id(self.request))
+        sync_book_catalog(book)
+
+    def perform_update(self, serializer):
+        book = serializer.save()
+        sync_book_catalog(book)
+
+    @action(detail=True, methods=['post'])
+    def build(self, request, slug=None):
+        book = self.get_object()
+        source_config = request.data.get('source_config') or book.source_config or {}
+        output_format = request.data.get('output_format', 'pdf')
+        if output_format not in {choice[0] for choice in BookBuildJob.OUTPUT_FORMATS}:
+            return Response({'detail': 'Unsupported output format.'}, status=status.HTTP_400_BAD_REQUEST)
+        book.source_config = source_config
+        if request.data.get('source_type') in {choice[0] for choice in Book.SOURCE_TYPES}:
+            book.source_type = request.data['source_type']
+        book.save(using='ecommerce', update_fields=['source_config', 'source_type', 'updated_at'])
+        job = BookBuildJob.objects.using('ecommerce').create(
+            book=book, output_format=output_format, source_config=source_config,
+            created_by=_user_id(request),
+            message='Queued for manuscript generation from the selected question or exam sets.',
+        )
+        CommerceNotification.objects.using('ecommerce').create(
+            kind='system', title=f'Book build started: {book.title}',
+            message=f'{output_format.upper()} from {book.get_source_type_display()}',
+            link=f'/admin/ecommerce/bookbuildjob/{job.pk}/change/', admin_only=True,
+        )
+        try:
+            build_book_asset(job)
+        except Exception as exc:
+            return Response(
+                {'detail': str(exc), 'job': BookBuildJobSerializer(job).data},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        sync_book_catalog(book, notify=False)
+        return Response(BookBuildJobSerializer(job).data, status=status.HTTP_201_CREATED)
+
+
+class AdminBookAssetViewSet(viewsets.ModelViewSet):
+    serializer_class = BookAssetSerializer
+    permission_classes = [IsCommerceAdmin]
+
+    def get_queryset(self):
+        qs = BookAsset.objects.using('ecommerce').select_related('book')
+        return qs.filter(book_id=self.request.query_params['book']) if self.request.query_params.get('book') else qs
+
+    def perform_create(self, serializer):
+        asset = serializer.save()
+        sync_book_catalog(asset.book, notify=False)
+        CommerceNotification.objects.using('ecommerce').create(
+            kind='system', title=f'Book file added: {asset.book.title}',
+            message=f'{asset.get_asset_type_display()} · {asset.get_file_format_display()}',
+            link=f'/admin/ecommerce/book/{asset.book_id}/change/', admin_only=True,
+        )
+
+
+class AdminBookBuildJobViewSet(viewsets.ModelViewSet):
+    serializer_class = BookBuildJobSerializer
+    permission_classes = [IsCommerceAdmin]
+    http_method_names = ['get', 'patch', 'head', 'options']
+
+    def get_queryset(self):
+        return BookBuildJob.objects.using('ecommerce').select_related('book', 'result_asset')
 
 
 class AdminOrderViewSet(viewsets.ModelViewSet):

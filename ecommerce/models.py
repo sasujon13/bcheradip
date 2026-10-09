@@ -237,7 +237,7 @@ class OrderItem(TimeStampedModel):
 
 
 class Payment(TimeStampedModel):
-    METHODS = [('cod', 'Cash on delivery'), ('bkash', 'bKash'), ('nagad', 'Nagad'), ('bank', 'Bank transfer'), ('card', 'Card'), ('other', 'Other')]
+    METHODS = [('wallet', 'Cheradip Wallet'), ('cod', 'Cash on delivery'), ('bkash', 'bKash'), ('nagad', 'Nagad'), ('bank', 'Bank transfer'), ('card', 'Card'), ('other', 'Other')]
     STATUS_CHOICES = [('pending', 'Pending'), ('confirmed', 'Confirmed'), ('failed', 'Failed'), ('refunded', 'Refunded')]
     order = models.ForeignKey(Order, related_name='payments', on_delete=models.CASCADE)
     method = models.CharField(max_length=20, choices=METHODS)
@@ -324,4 +324,128 @@ class ImportJob(TimeStampedModel):
     class Meta:
         db_table = 'ecommerce_import_job'
         ordering = ('-created_at',)
+
+
+class Book(TimeStampedModel):
+    BOOK_TYPES = [
+        ('test_paper', 'Test Paper'), ('job_solution', 'Job Solution'),
+        ('admission_guide', 'Admission Guide'), ('academic_guide', 'Academic Guide'),
+        ('teacher_guide', 'Teacher Guide'), ('textbook', 'Textbook'),
+        ('grammar', 'Grammar'), ('story', 'Story / Fiction'),
+        ('literature', 'Literature'), ('writer_book', "Writer's Book"),
+        ('reference', 'Reference'), ('creative', 'Creative / Essay'), ('other', 'Other'),
+    ]
+    AUDIENCES = [
+        ('student', 'Students'), ('job_seeker', 'Job Seekers'),
+        ('teacher', 'Teachers'), ('children', 'Children'), ('general', 'General Readers'),
+    ]
+    SOURCE_TYPES = [
+        ('question_sets', 'Created from question sets'),
+        ('exam_sets', 'Created from exam sets'),
+        ('uploaded', 'Uploaded publication'), ('manual', 'Written manually'),
+    ]
+    STATUS_CHOICES = [('draft', 'Draft'), ('review', 'In review'), ('published', 'Published'), ('archived', 'Archived')]
+
+    product = models.OneToOneField(Product, null=True, blank=True, related_name='book_record', on_delete=models.SET_NULL)
+    title = models.CharField(max_length=255)
+    title_bn = models.CharField(max_length=255, blank=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    subtitle = models.CharField(max_length=500, blank=True)
+    description = models.TextField(blank=True)
+    author = models.CharField(max_length=255, blank=True)
+    editor = models.CharField(max_length=255, blank=True)
+    publisher = models.CharField(max_length=255, default='Cheradip')
+    isbn = models.CharField(max_length=32, blank=True, db_index=True)
+    language = models.CharField(max_length=80, default='Bangla', db_index=True)
+    edition = models.CharField(max_length=100, blank=True)
+    publication_year = models.PositiveSmallIntegerField(null=True, blank=True)
+    page_count = models.PositiveIntegerField(default=0)
+    book_type = models.CharField(max_length=40, choices=BOOK_TYPES, default='other', db_index=True)
+    audience = models.CharField(max_length=30, choices=AUDIENCES, default='student', db_index=True)
+    source_type = models.CharField(max_length=30, choices=SOURCE_TYPES, default='uploaded')
+    source_config = models.JSONField(default=dict, blank=True, help_text='Question/exam set IDs, curriculum filters, section order and generation options.')
+    cover_image = models.FileField(upload_to='ebooks/covers/', blank=True)
+    wide_cover_image = models.FileField(upload_to='ebooks/covers/wide/', blank=True)
+    cover_design = models.JSONField(default=dict, blank=True, help_text='Smart cover colours, title placement and logo settings.')
+    preview_text = models.TextField(blank=True)
+    video_url = models.URLField(max_length=1000, blank=True)
+    digital_price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    compare_at_price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    hard_copy_available = models.BooleanField(default=False, db_index=True)
+    hard_copy_price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    hard_copy_quantity = models.PositiveIntegerField(default=0)
+    weight_grams = models.PositiveIntegerField(default=0)
+    featured = models.BooleanField(default=False, db_index=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft', db_index=True)
+    tags = models.CharField(max_length=1000, blank=True)
+    created_by = models.BigIntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'ecommerce_book'
+        ordering = ('-featured', '-created_at')
+        indexes = [models.Index(fields=['status', 'book_type']), models.Index(fields=['audience', 'language'])]
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title) or f'book-{uuid.uuid4().hex[:12]}'
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+
+class BookAsset(TimeStampedModel):
+    ASSET_TYPES = [
+        ('ebook', 'eBook'), ('sample', 'Sample'), ('video', 'Video'),
+        ('audio', 'Audio'), ('worksheet', 'Worksheet'), ('supplement', 'Supplement'),
+    ]
+    FORMATS = [
+        ('pdf', 'PDF'), ('doc', 'DOC'), ('docx', 'DOCX'), ('html', 'HTML'),
+        ('epub', 'EPUB'), ('txt', 'Text'), ('mp4', 'MP4'), ('webm', 'WebM'),
+        ('mp3', 'MP3'), ('url', 'External URL'), ('other', 'Other'),
+    ]
+
+    book = models.ForeignKey(Book, related_name='assets', on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    asset_type = models.CharField(max_length=20, choices=ASSET_TYPES, default='ebook')
+    file_format = models.CharField(max_length=20, choices=FORMATS, default='pdf')
+    file = models.FileField(upload_to='ebooks/files/', blank=True)
+    external_url = models.URLField(max_length=1000, blank=True)
+    file_size = models.PositiveBigIntegerField(default=0)
+    is_primary = models.BooleanField(default=False)
+    is_downloadable = models.BooleanField(default=True)
+    sort_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        db_table = 'ecommerce_book_asset'
+        ordering = ('sort_order', 'id')
+
+    def save(self, *args, **kwargs):
+        if self.file and not self.file_size:
+            self.file_size = getattr(self.file, 'size', 0) or 0
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.book.title} - {self.title}'
+
+
+class BookBuildJob(TimeStampedModel):
+    OUTPUT_FORMATS = [('pdf', 'PDF'), ('docx', 'DOCX'), ('html', 'HTML'), ('epub', 'EPUB')]
+    STATUS_CHOICES = [('queued', 'Queued'), ('building', 'Building'), ('completed', 'Completed'), ('failed', 'Failed')]
+
+    book = models.ForeignKey(Book, related_name='build_jobs', on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='queued', db_index=True)
+    output_format = models.CharField(max_length=12, choices=OUTPUT_FORMATS, default='pdf')
+    source_config = models.JSONField(default=dict, blank=True)
+    progress = models.PositiveSmallIntegerField(default=0)
+    message = models.TextField(blank=True)
+    result_asset = models.ForeignKey(BookAsset, null=True, blank=True, related_name='build_results', on_delete=models.SET_NULL)
+    created_by = models.BigIntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'ecommerce_book_build_job'
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f'{self.book.title} - {self.output_format} - {self.status}'
 

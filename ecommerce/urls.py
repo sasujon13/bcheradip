@@ -2,9 +2,10 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from .views import (
+    AdminBookAssetViewSet, AdminBookBuildJobViewSet, AdminBookViewSet,
     AdminCsvImportView, AdminDashboardView, AdminInventoryView, AdminOrderViewSet,
     AdminPaymentViewSet, AdminProductViewSet, BrandViewSet, CartView, CategoryViewSet,
-    CheckoutView, NotificationView, OrderViewSet, PaymentCreateView, ProductViewSet,
+    BookViewSet, CheckoutView, DigitalBookDownloadView, DigitalLibraryView, NotificationView, OrderViewSet, PaymentCreateView, ProductViewSet,
     ReviewCreateView, sample_csv,
 )
 
@@ -12,10 +13,14 @@ router = DefaultRouter()
 router.register('categories', CategoryViewSet, basename='ecommerce-category')
 router.register('brands', BrandViewSet, basename='ecommerce-brand')
 router.register('products', ProductViewSet, basename='ecommerce-product')
+router.register('books', BookViewSet, basename='ecommerce-book')
 router.register('orders', OrderViewSet, basename='ecommerce-order')
 
 admin_router = DefaultRouter()
 admin_router.register('products', AdminProductViewSet, basename='ecommerce-admin-product')
+admin_router.register('books', AdminBookViewSet, basename='ecommerce-admin-book')
+admin_router.register('book-assets', AdminBookAssetViewSet, basename='ecommerce-admin-book-asset')
+admin_router.register('book-builds', AdminBookBuildJobViewSet, basename='ecommerce-admin-book-build')
 admin_router.register('orders', AdminOrderViewSet, basename='ecommerce-admin-order')
 admin_router.register('payments', AdminPaymentViewSet, basename='ecommerce-admin-payment')
 
@@ -24,6 +29,8 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='ecommerce-cart-new'),
     path('cart/<str:token>/', CartView.as_view(), name='ecommerce-cart'),
     path('checkout/', CheckoutView.as_view(), name='ecommerce-checkout'),
+    path('digital-library/', DigitalLibraryView.as_view(), name='ecommerce-digital-library'),
+    path('digital-library/<slug:slug>/download/', DigitalBookDownloadView.as_view(), name='ecommerce-digital-book-download'),
     path('orders/<str:order_number>/payments/', PaymentCreateView.as_view(), name='ecommerce-payment-create'),
     path('products/<int:product_id>/reviews/', ReviewCreateView.as_view(), name='ecommerce-review-create'),
     path('notifications/', NotificationView.as_view(), name='ecommerce-notifications'),
