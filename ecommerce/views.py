@@ -1,4 +1,5 @@
-from decimal import Decimal
+from contextlib import nullcontext
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.db import transaction
 from django.db.models import Count, DecimalField, F, OuterRef, Prefetch, Q, Subquery, Sum
@@ -10,6 +11,10 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from cheradip.models import Customer, MembershipProgress, PackageSubscription, RewardsWallet
+from cheradip.views import BearerTokenAuthentication
+from cheradip.wallet_service import deduct_wallet_coins
 
 from .csv_import import import_products, sample_csv_text
 from .book_catalog import sync_book_catalog
@@ -30,6 +35,25 @@ from .serializers import (
 def _user_id(request):
     user = getattr(request, 'user', None)
     return user.pk if user and user.is_authenticated else None
+
+
+COINS_PER_TAKA = Decimal('100')
+
+
+def _wallet_coins(customer):
+    settings = customer.settings if isinstance(customer.settings, dict) else {}
+    try:
+        return max(0, int(settings.get('balance', 0) or 0))
+    except (TypeError, ValueError):
+        return 0
+
+
+def _taka_to_coins(amount):
+    return int((Decimal(amount) * COINS_PER_TAKA).quantize(Decimal('1'), rounding=ROUND_HALF_UP))
+
+
+def _coins_to_taka(coins):
+    return (Decimal(max(0, int(coins))) / COINS_PER_TAKA).quantize(Decimal('0.01'))
 
 
 def _product_queryset(include_inactive=False):
@@ -156,7 +180,8 @@ def _paid_order(request):
     if not order_number or not tracking_token:
         return None
     return Order.objects.using('ecommerce').prefetch_related('items').filter(
-        number=order_number, tracking_token=tracking_token, payment_status='paid'
+        number=order_number, tracking_token=tracking_token,
+        payment_status='paid', status='completed',
     ).first()
 
 
@@ -204,6 +229,7 @@ class DigitalBookDownloadView(APIView):
 
 
 class CartView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
     permission_classes = [AllowAny]
 
     def _cart(self, token):
@@ -213,12 +239,18 @@ class CartView(APIView):
         cart = self._cart(token) if token else None
         if cart is None:
             cart = Cart.objects.using('ecommerce').create(customer_id=_user_id(request))
+        elif _user_id(request) and not cart.customer_id:
+            cart.customer_id = _user_id(request)
+            cart.save(using='ecommerce', update_fields=['customer_id', 'updated_at'])
         return Response(CartSerializer(cart).data)
 
     def post(self, request, token=None):
         cart = self._cart(token) if token else None
         if cart is None:
             cart = Cart.objects.using('ecommerce').create(customer_id=_user_id(request), email=request.data.get('email', ''))
+        elif _user_id(request) and not cart.customer_id:
+            cart.customer_id = _user_id(request)
+            cart.save(using='ecommerce', update_fields=['customer_id', 'updated_at'])
         variant = ProductVariant.objects.using('ecommerce').select_related('product').filter(pk=request.data.get('variant_id'), is_active=True, product__status='active').first()
         if not variant:
             return Response({'detail': 'Product variant not found.'}, status=status.HTTP_404_NOT_FOUND)
@@ -246,6 +278,7 @@ class CartView(APIView):
 
 
 class CheckoutView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -260,74 +293,137 @@ class CheckoutView(APIView):
         if missing:
             return Response({'detail': 'Missing fields: ' + ', '.join(missing)}, status=status.HTTP_400_BAD_REQUEST)
 
-        with transaction.atomic(using='ecommerce'):
-            subtotal = Decimal('0')
-            locked = []
-            for cart_item in cart.items.all():
-                variant = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=cart_item.variant_id)
-                if not variant.allow_backorder and cart_item.quantity > variant.stock:
-                    return Response({'detail': f'Insufficient stock for {variant.sku}.'}, status=status.HTTP_409_CONFLICT)
-                subtotal += variant.price * cart_item.quantity
-                locked.append((cart_item, variant))
+        payment_method = (request.data.get('payment_method') or 'cod').strip().lower()
+        if payment_method == 'wallet' and not getattr(request.user, 'is_authenticated', False):
+            return Response({'detail': 'Please sign in to pay with your Cheradip Wallet.'}, status=status.HTTP_401_UNAUTHORIZED)
 
-            # Shipping is always priced by the server. Never trust a client-supplied total.
-            requires_shipping = any(variant.requires_shipping for _, variant in locked)
-            shipping_total = Decimal('0') if not requires_shipping or subtotal >= Decimal('3000') else Decimal('80')
-            discount_total = Decimal('0')
-            coupon_code = (request.data.get('coupon_code') or '').strip().upper()
-            if coupon_code:
-                now = timezone.now()
-                coupon = Coupon.objects.using('ecommerce').select_for_update().filter(code__iexact=coupon_code, is_active=True).first()
-                if coupon and (not coupon.starts_at or coupon.starts_at <= now) and (not coupon.ends_at or coupon.ends_at >= now) and subtotal >= coupon.minimum_order and (coupon.usage_limit is None or coupon.used_count < coupon.usage_limit):
-                    if coupon.discount_type == 'percent':
-                        discount_total = subtotal * coupon.value / Decimal('100')
-                    elif coupon.discount_type == 'fixed':
-                        discount_total = min(subtotal, coupon.value)
-                    elif coupon.discount_type == 'shipping':
-                        shipping_total = Decimal('0')
+        wallet_transaction = transaction.atomic(using='default') if payment_method == 'wallet' else nullcontext()
+        with wallet_transaction:
+            with transaction.atomic(using='ecommerce'):
+                subtotal = Decimal('0')
+                locked = []
+                for cart_item in cart.items.all():
+                    variant = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=cart_item.variant_id)
+                    if not variant.allow_backorder and cart_item.quantity > variant.stock:
+                        return Response({'detail': f'Insufficient stock for {variant.sku}.'}, status=status.HTTP_409_CONFLICT)
+                    subtotal += variant.price * cart_item.quantity
+                    locked.append((cart_item, variant))
+
+                # Shipping and discounts are always calculated by the server.
+                requires_shipping = any(variant.requires_shipping for _, variant in locked)
+                shipping_total = Decimal('0') if not requires_shipping or subtotal >= Decimal('3000') else Decimal('80')
+                discount_total = Decimal('0')
+                coupon = None
+                coupon_code = (request.data.get('coupon_code') or '').strip().upper()
+                if coupon_code:
+                    now = timezone.now()
+                    coupon = Coupon.objects.using('ecommerce').select_for_update().filter(code__iexact=coupon_code, is_active=True).first()
+                    if coupon and (not coupon.starts_at or coupon.starts_at <= now) and (not coupon.ends_at or coupon.ends_at >= now) and subtotal >= coupon.minimum_order and (coupon.usage_limit is None or coupon.used_count < coupon.usage_limit):
+                        if coupon.discount_type == 'percent':
+                            discount_total = subtotal * coupon.value / Decimal('100')
+                        elif coupon.discount_type == 'fixed':
+                            discount_total = min(subtotal, coupon.value)
+                        elif coupon.discount_type == 'shipping':
+                            shipping_total = Decimal('0')
+                    else:
+                        coupon = None
+
+                grand_total = subtotal - discount_total + shipping_total
+                wallet_balance_taka = None
+                reference_balance_taka = None
+                reference_used_taka = Decimal('0')
+                if payment_method == 'wallet':
+                    customer = Customer.objects.select_for_update().get(pk=request.user.pk)
+                    balance_coins = _wallet_coins(customer)
+                    required_coins = _taka_to_coins(grand_total)
+                    if balance_coins < required_coins:
+                        return Response({
+                            'detail': 'Insufficient Cheradip Wallet balance. Please recharge and try again.',
+                            'requiredTaka': float(grand_total),
+                            'availableTaka': float(_coins_to_taka(balance_coins)),
+                            'shortfallTaka': float(_coins_to_taka(required_coins - balance_coins)),
+                        }, status=status.HTTP_402_PAYMENT_REQUIRED)
+                    wallet_result = deduct_wallet_coins(customer, required_coins)
+                    wallet_balance_taka = wallet_result['remaining_taka']
+                    reference_used_taka = wallet_result['reference_used_taka']
+                    reference_balance_taka = wallet_result['reference_balance_taka']
+
+                if coupon:
                     coupon.used_count += 1
                     coupon.save(using='ecommerce', update_fields=['used_count', 'updated_at'])
 
-            order = Order.objects.using('ecommerce').create(
-                customer_id=_user_id(request), customer_name=request.data['customer_name'],
-                email=request.data['email'], phone=request.data['phone'],
-                shipping_address=request.data['shipping_address'],
-                billing_address=request.data.get('billing_address') or request.data['shipping_address'],
-                subtotal=subtotal, discount_total=discount_total, shipping_total=shipping_total,
-                grand_total=subtotal - discount_total + shipping_total,
-                coupon_code=coupon_code, customer_note=request.data.get('customer_note', ''),
-            )
-            for cart_item, variant in locked:
-                image = variant.images.first() or variant.product.images.first()
-                OrderItem.objects.using('ecommerce').create(
-                    order=order, product_id=variant.product_id, variant_id=variant.id,
-                    product_name=variant.product.name, variant_title=variant.title, sku=variant.sku,
-                    image_url=image.url if image else '', quantity=cart_item.quantity,
-                    unit_price=variant.price, line_total=variant.price * cart_item.quantity,
+                paid_with_wallet = payment_method == 'wallet'
+                order = Order.objects.using('ecommerce').create(
+                    customer_id=_user_id(request), customer_name=request.data['customer_name'],
+                    email=request.data['email'], phone=request.data['phone'],
+                    shipping_address=request.data['shipping_address'],
+                    billing_address=request.data.get('billing_address') or request.data['shipping_address'],
+                    # Products and eBooks always await manual administrative fulfilment,
+                    # even when their payment has already been received.
+                    status='pending',
+                    payment_status='paid' if paid_with_wallet else 'unpaid',
+                    confirmed_at=None,
+                    subtotal=subtotal, discount_total=discount_total, shipping_total=shipping_total,
+                    grand_total=grand_total, coupon_code=coupon_code,
+                    customer_note=request.data.get('customer_note', ''),
                 )
-                variant.stock -= cart_item.quantity
-                variant.save(using='ecommerce', update_fields=['stock', 'updated_at'])
-                InventoryMovement.objects.using('ecommerce').create(
-                    variant=variant, quantity=-cart_item.quantity, reason='sale', reference=order.number,
+                for cart_item, variant in locked:
+                    image = variant.images.first() or variant.product.images.first()
+                    OrderItem.objects.using('ecommerce').create(
+                        order=order, product_id=variant.product_id, variant_id=variant.id,
+                        product_name=variant.product.name, variant_title=variant.title, sku=variant.sku,
+                        image_url=image.url if image else '', quantity=cart_item.quantity,
+                        unit_price=variant.price, line_total=variant.price * cart_item.quantity,
+                    )
+                    variant.stock -= cart_item.quantity
+                    variant.save(using='ecommerce', update_fields=['stock', 'updated_at'])
+                    InventoryMovement.objects.using('ecommerce').create(
+                        variant=variant, quantity=-cart_item.quantity, reason='sale', reference=order.number,
+                        actor_id=_user_id(request),
+                    )
+                    if variant.stock <= variant.low_stock_threshold:
+                        CommerceNotification.objects.using('ecommerce').create(
+                            kind='inventory', title='Low stock', message=f'{variant.sku} has {variant.stock} item(s) left.',
+                            link='/admin/ecommerce/productvariant/', admin_only=True,
+                        )
+                if paid_with_wallet:
+                    payment_note = 'Paid automatically from Cheradip Wallet.'
+                    if reference_used_taka:
+                        payment_note += f' Reference balance used first: Tk {reference_used_taka:.2f}.'
+                    Payment.objects.using('ecommerce').create(
+                        order=order, method='wallet', amount=grand_total,
+                        transaction_id=f'WALLET-{order.number}', status='confirmed',
+                        confirmed_by=request.user.pk, confirmed_at=timezone.now(),
+                        note=payment_note,
+                    )
+                OrderStatusHistory.objects.using('ecommerce').create(
+                    order=order, status='pending',
+                    note=(
+                        'Payment received; waiting for admin to mark the order completed.'
+                        if paid_with_wallet else 'Order placed; waiting for payment and admin approval.'
+                    ),
                     actor_id=_user_id(request),
                 )
-                if variant.stock <= variant.low_stock_threshold:
-                    CommerceNotification.objects.using('ecommerce').create(
-                        kind='inventory', title='Low stock', message=f'{variant.sku} has {variant.stock} item(s) left.',
-                        link='/ecommerce?admin=inventory', admin_only=True,
-                    )
-            OrderStatusHistory.objects.using('ecommerce').create(order=order, status='pending', note='Order placed', actor_id=_user_id(request))
-            CommerceNotification.objects.using('ecommerce').create(
-                kind='order', title=f'New order {order.number}', message=f'Order total: {order.grand_total} {order.currency}',
-                link=f'/ecommerce?admin=orders&order={order.number}', admin_only=True,
-            )
-            cart.checked_out = True
-            cart.save(using='ecommerce', update_fields=['checked_out', 'updated_at'])
-        return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
+                CommerceNotification.objects.using('ecommerce').create(
+                    kind='order', title=f'New order {order.number}', message=f'Order total: {order.grand_total} {order.currency}',
+                    link=f'/admin/ecommerce/order/{order.pk}/change/', admin_only=True,
+                )
+                cart.checked_out = True
+                if _user_id(request) and not cart.customer_id:
+                    cart.customer_id = _user_id(request)
+                cart.save(using='ecommerce', update_fields=['checked_out', 'customer_id', 'updated_at'])
+
+        payload = OrderSerializer(order).data
+        if wallet_balance_taka is not None:
+            payload['walletBalanceTaka'] = float(wallet_balance_taka)
+            payload['referenceBalanceTaka'] = float(reference_balance_taka or Decimal('0'))
+            payload['referenceUsedTaka'] = float(reference_used_taka)
+        return Response(payload, status=status.HTTP_201_CREATED)
 
 
 class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = OrderSerializer
+    authentication_classes = [BearerTokenAuthentication]
     permission_classes = [AllowAny]
     lookup_field = 'number'
 
@@ -342,7 +438,140 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
         return qs.none()
 
 
+class AccountHistoryView(APIView):
+    """Meaningful purchases only: packages and commerce orders, never small coin deductions."""
+
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        customer = request.user
+        coin_balance = _wallet_coins(customer)
+        rewards_wallet, _ = RewardsWallet.objects.get_or_create(customer=customer)
+        primary_audience = 'student' if customer.acctype == 'Student' else 'teacher'
+        progress = MembershipProgress.objects.filter(
+            customer=customer, audience=primary_audience,
+        ).first()
+        package_rows = PackageSubscription.objects.filter(
+            customer=customer,
+        ).select_related('plan').order_by('-created_at')[:100]
+        order_rows = Order.objects.using('ecommerce').filter(
+            customer_id=customer.pk,
+        ).prefetch_related('items', 'payments').order_by('-created_at')[:100]
+
+        packages = [{
+            'id': row.pk,
+            'orderNumber': row.order_number,
+            'orderStatus': row.get_order_status_display(),
+            'planCode': row.plan.code,
+            'title': f'{row.plan.name} · {row.plan.get_track_display()}',
+            'audience': row.plan.get_audience_display(),
+            'status': row.get_status_display(),
+            'amountTaka': float(row.payable_amount),
+            'startsAt': row.starts_at.isoformat() if row.starts_at else None,
+            'endsAt': row.ends_at.isoformat() if row.ends_at else None,
+            'createdAt': row.created_at.isoformat(),
+        } for row in package_rows]
+
+        orders = []
+        for row in order_rows:
+            payment = next(iter(row.payments.all()), None)
+            orders.append({
+                'number': row.number,
+                'status': row.get_status_display(),
+                'paymentStatus': row.get_payment_status_display(),
+                'paymentMethod': payment.get_method_display() if payment else 'Cash on delivery',
+                'totalTaka': float(row.grand_total),
+                'createdAt': row.created_at.isoformat(),
+                'items': [{
+                    'name': item.product_name,
+                    'variant': item.variant_title,
+                    'quantity': item.quantity,
+                    'lineTotalTaka': float(item.line_total),
+                    'isBook': item.sku.startswith('BOOK-'),
+                } for item in row.items.all()],
+            })
+
+        return Response({
+            'profile': {
+                'fullName': customer.fullName,
+                'accountType': customer.get_acctype_display(),
+                'badge': progress.badge if progress else 'None',
+                'profileImageUrl': '/manage' + customer.profile_image.url if customer.profile_image else None,
+            },
+            'wallet': {
+                'coinBalance': coin_balance,
+                'balanceTaka': float(_coins_to_taka(coin_balance)),
+                'referenceBalanceTaka': float(rewards_wallet.available_taka),
+            },
+            'packages': packages,
+            'orders': orders,
+        })
+
+
+class OrderTrackingView(APIView):
+    """Track a package, product, or book order through one customer-facing ID."""
+
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [AllowAny]
+
+    def get(self, request, order_number):
+        normalized = str(order_number or '').strip()
+        user = getattr(request, 'user', None)
+        if user and user.is_authenticated:
+            package = PackageSubscription.objects.filter(
+                order_number__iexact=normalized,
+                customer=user,
+            ).select_related('plan').first()
+            if package:
+                return Response({
+                    'kind': 'package',
+                    'number': package.order_number,
+                    'status': package.order_status,
+                    'status_label': package.get_order_status_display(),
+                    'payment_status': 'paid',
+                    'payment_status_label': 'Paid',
+                    'title': f'{package.plan.name} · {package.plan.get_track_display()}',
+                    'grand_total': str(package.payable_amount),
+                    'created_at': package.created_at.isoformat(),
+                    'history': [{
+                        'status': package.get_order_status_display(),
+                        'note': 'Cheradip package activated successfully using the wallet.',
+                        'created_at': package.created_at.isoformat(),
+                    }],
+                    'items': [{
+                        'product_name': f'{package.plan.name} package',
+                        'variant_title': package.plan.get_track_display(),
+                        'quantity': 1,
+                        'line_total': str(package.payable_amount),
+                    }],
+                })
+
+        commerce = Order.objects.using('ecommerce').prefetch_related(
+            'items', 'payments', 'shipments', 'history',
+        ).filter(number__iexact=normalized).first()
+        if not commerce:
+            return Response({'detail': 'Order ID was not found.'}, status=status.HTTP_404_NOT_FOUND)
+        owns_order = bool(user and user.is_authenticated and (
+            user.is_staff or user.is_superuser or commerce.customer_id == user.pk
+        ))
+        tracking_token = (request.query_params.get('tracking_token') or '').strip()
+        if not owns_order and tracking_token != commerce.tracking_token:
+            return Response(
+                {'detail': 'Sign in to the purchasing account or provide the private tracking token.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        payload = OrderSerializer(commerce).data
+        payload.update({
+            'kind': 'commerce',
+            'status_label': commerce.get_status_display(),
+            'payment_status_label': commerce.get_payment_status_display(),
+        })
+        return Response(payload)
+
+
 class PaymentCreateView(APIView):
+    authentication_classes = [BearerTokenAuthentication]
     permission_classes = [AllowAny]
 
     def post(self, request, order_number):
@@ -354,6 +583,8 @@ class PaymentCreateView(APIView):
         if not ((user_id and (getattr(request.user, 'is_staff', False) or order.customer_id == user_id)) or token == order.tracking_token):
             return Response({'detail': 'Order access denied.'}, status=status.HTTP_403_FORBIDDEN)
         # The payable amount is authoritative on the order; clients cannot lower it.
+        if request.data.get('method') == 'wallet':
+            return Response({'detail': 'Wallet payments must be completed during checkout.'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = PaymentSerializer(data={**request.data, 'order': order.id, 'amount': order.grand_total})
         serializer.is_valid(raise_exception=True)
         payment = serializer.save()
@@ -362,7 +593,7 @@ class PaymentCreateView(APIView):
         CommerceNotification.objects.using('ecommerce').create(
             kind='payment', title=f'Payment submitted for {order.number}',
             message=f'{payment.method}: {payment.amount} {order.currency}',
-            link=f'/ecommerce?admin=payments&order={order.number}', admin_only=True,
+            link=f'/admin/ecommerce/payment/{payment.pk}/change/', admin_only=True,
         )
         return Response(PaymentSerializer(payment).data, status=status.HTTP_201_CREATED)
 
@@ -520,7 +751,7 @@ class AdminOrderViewSet(viewsets.ModelViewSet):
             order.admin_note = request.data.get('admin_note', order.admin_note)
             if new_status == 'confirmed' and not order.confirmed_at:
                 order.confirmed_at = timezone.now()
-            if new_status in {'shipped', 'delivered'} and not order.fulfilled_at:
+            if new_status in {'shipped', 'delivered', 'completed'} and not order.fulfilled_at:
                 order.fulfilled_at = timezone.now()
             order.save(using='ecommerce')
             if new_status != old_status:
@@ -538,7 +769,7 @@ class AdminOrderViewSet(viewsets.ModelViewSet):
                             )
                 CommerceNotification.objects.using('ecommerce').create(
                     kind='order', title=f'Order {order.number}: {new_status}',
-                    message=request.data.get('note', ''), link=f'/ecommerce/orders/{order.number}', customer_id=order.customer_id,
+                    message=request.data.get('note', ''), link=f'/history?order={order.number}', customer_id=order.customer_id,
                 )
         return Response(OrderSerializer(order).data)
 

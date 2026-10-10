@@ -5,7 +5,7 @@ from .views import (
     AdminBookAssetViewSet, AdminBookBuildJobViewSet, AdminBookViewSet,
     AdminCsvImportView, AdminDashboardView, AdminInventoryView, AdminOrderViewSet,
     AdminPaymentViewSet, AdminProductViewSet, BrandViewSet, CartView, CategoryViewSet,
-    BookViewSet, CheckoutView, DigitalBookDownloadView, DigitalLibraryView, NotificationView, OrderViewSet, PaymentCreateView, ProductViewSet,
+    AccountHistoryView, BookViewSet, CheckoutView, DigitalBookDownloadView, DigitalLibraryView, NotificationView, OrderTrackingView, OrderViewSet, PaymentCreateView, ProductViewSet,
     ReviewCreateView, sample_csv,
 )
 
@@ -29,6 +29,8 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='ecommerce-cart-new'),
     path('cart/<str:token>/', CartView.as_view(), name='ecommerce-cart'),
     path('checkout/', CheckoutView.as_view(), name='ecommerce-checkout'),
+    path('account/history/', AccountHistoryView.as_view(), name='ecommerce-account-history'),
+    path('track/<str:order_number>/', OrderTrackingView.as_view(), name='ecommerce-order-tracking'),
     path('digital-library/', DigitalLibraryView.as_view(), name='ecommerce-digital-library'),
     path('digital-library/<slug:slug>/download/', DigitalBookDownloadView.as_view(), name='ecommerce-digital-book-download'),
     path('orders/<str:order_number>/payments/', PaymentCreateView.as_view(), name='ecommerce-payment-create'),

@@ -1,4 +1,5 @@
 import datetime as dt
+import secrets
 
 from django.contrib.auth.models import Group as AuthGroup, Permission
 from django.db import models
@@ -426,9 +427,16 @@ class PackageSubscription(models.Model):
         ('superseded', 'Superseded'),
         ('grace', 'Payment grace period'),
     ]
+    ORDER_STATUS_CHOICES = [
+        ('completed', 'Order Completed'),
+        ('cancelled', 'Order Cancelled'),
+        ('refunded', 'Order Refunded'),
+    ]
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='package_subscriptions')
     plan = models.ForeignKey(PackagePlan, on_delete=models.PROTECT, related_name='subscriptions')
+    order_number = models.CharField(max_length=32, unique=True, blank=True, db_index=True)
+    order_status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='completed', db_index=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', db_index=True)
     plan_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     badge_discount_percent = models.PositiveSmallIntegerField(default=0)
@@ -457,6 +465,11 @@ class PackageSubscription(models.Model):
 
     def __str__(self):
         return f'{self.customer.username}: {self.plan.code} ({self.status})'
+
+    def save(self, *args, **kwargs):
+        if not self.order_number:
+            self.order_number = f'PKG-{timezone.now():%y%m%d}-{secrets.token_hex(3).upper()}'
+        super().save(*args, **kwargs)
 
 
 class MembershipProgress(models.Model):

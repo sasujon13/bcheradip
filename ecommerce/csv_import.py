@@ -186,7 +186,7 @@ def import_products(file_obj, user_id=None):
     CommerceNotification.objects.using('ecommerce').create(
         kind='import', title='Product CSV import completed',
         message=f'{created_count} created, {updated_count} updated, {len(errors)} failed.',
-        link='/ecommerce?admin=imports', admin_only=True,
+        link=f'/admin/ecommerce/importjob/{job.pk}/change/', admin_only=True,
     )
     return job
 

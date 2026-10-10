@@ -108,7 +108,9 @@ class PackageListView(APIView):
         subscriptions = []
         if progress:
             subscriptions = [{
-                'id': row.id, 'planCode': row.plan.code, 'status': row.status,
+                'id': row.id, 'orderNumber': row.order_number,
+                'orderStatus': row.order_status, 'orderStatusLabel': row.get_order_status_display(),
+                'planCode': row.plan.code, 'status': row.status,
                 'payableAmount': float(row.payable_amount),
                 'startsAt': row.starts_at.isoformat() if row.starts_at else None,
                 'endsAt': row.ends_at.isoformat() if row.ends_at else None,
@@ -152,7 +154,10 @@ class PackageSubscribeView(APIView):
             raise
         progress = refresh_membership(request.user, audience=plan.audience)
         return Response({
-            'id': subscription.id, 'status': subscription.status, 'planCode': plan.code,
+            'id': subscription.id, 'orderNumber': subscription.order_number,
+            'orderStatus': subscription.order_status,
+            'orderStatusLabel': subscription.get_order_status_display(),
+            'status': subscription.status, 'planCode': plan.code,
             'payableAmount': float(subscription.payable_amount),
             'remainingBalance': remaining,
             'message': message,

@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from .membership import add_months, discounted_price, refresh_membership
 from .models import Customer, PackagePlan, PackageSubscription, ReferralCommission, RewardsWallet
+from .wallet_service import deduct_wallet_coins
 
 
 ACADEMIC_PREFIXES = ("BB'", "CB'", "ChB'", "DB'", "DiB'", "JB'", "MB'", "RB'", "SB'", "MSB'")
@@ -160,6 +161,7 @@ def current_subscription(customer, now=None, process_renewal=True, track=None, a
 
 
 @transaction.atomic
+@transaction.atomic
 def process_subscription_renewal(subscription, now=None):
     """Lazily renew at most once per day; safe to call on every active request."""
     now = now or timezone.now()
@@ -210,10 +212,13 @@ def process_subscription_renewal(subscription, now=None):
     progress = refresh_membership(subscription.customer, now, audience=subscription.plan.audience)
     charge = discounted_price(subscription.plan.price, progress.discount_percent)
     charge_coins = _taka_to_coins(charge)
-    balance = _wallet(subscription.customer)
+    customer = Customer.objects.select_for_update().get(pk=subscription.customer_id)
+    subscription.customer = customer
+    balance = _wallet(customer)
     subscription.last_renewal_attempt_at = now
     if balance >= charge_coins:
-        _set_wallet(subscription.customer, balance - charge_coins)
+        wallet_result = deduct_wallet_coins(customer, charge_coins)
+        balance = wallet_result['remaining_coins']
         subscription.status = 'expired'
         subscription.auto_renew = False
         subscription.save(update_fields=['status', 'auto_renew', 'last_renewal_attempt_at', 'updated_at'])
@@ -288,8 +293,8 @@ def activate_plan(customer, plan, payment_reference=''):
         if payable_coins > balance:
             raise ValueError(f'insufficient:{payable}:{payable_coins}:{balance}')
         if payable_coins:
-            _set_wallet(customer, balance - payable_coins)
-            balance -= payable_coins
+            wallet_result = deduct_wallet_coins(customer, payable_coins)
+            balance = wallet_result['remaining_coins']
         if plan.name != 'Free':
             # A paid plan replaces the introductory Free access for this audience.
             # Student and Teacher package families remain independent.
@@ -333,7 +338,9 @@ def subscription_payload(row, now=None, mark_warning=False):
     if row.plan.price <= 0 and row.ends_at:
         access_ends = row.ends_at + GRACE_PERIOD
     return {
-        'id': row.id, 'planCode': row.plan.code, 'planName': row.plan.name,
+        'id': row.id, 'orderNumber': row.order_number,
+        'orderStatus': row.order_status, 'orderStatusLabel': row.get_order_status_display(),
+        'planCode': row.plan.code, 'planName': row.plan.name,
         'audience': row.plan.audience, 'track': row.plan.track,
         'status': row.status, 'autoRenew': row.auto_renew,
         'payableAmount': float(row.payable_amount),

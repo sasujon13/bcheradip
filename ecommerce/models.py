@@ -180,7 +180,7 @@ class Coupon(TimeStampedModel):
 class Order(TimeStampedModel):
     STATUS_CHOICES = [
         ('pending', 'Pending'), ('confirmed', 'Confirmed'), ('processing', 'Processing'),
-        ('shipped', 'Shipped'), ('delivered', 'Delivered'), ('cancelled', 'Cancelled'),
+        ('shipped', 'Shipped'), ('delivered', 'Delivered'), ('completed', 'Order Completed'), ('cancelled', 'Cancelled'),
         ('returned', 'Returned'), ('refunded', 'Refunded'),
     ]
     PAYMENT_STATUS = [('unpaid', 'Unpaid'), ('pending', 'Pending'), ('paid', 'Paid'), ('failed', 'Failed'), ('refunded', 'Refunded')]

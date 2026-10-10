@@ -72,6 +72,7 @@ from .package_service import (
     question_track_for_user,
     reserve_teacher_question_allowance,
 )
+from .wallet_service import deduct_wallet_coins
 
 
 try:
@@ -141,6 +142,10 @@ def _issue_customer_token(customer):
 
 class BearerTokenAuthentication(BaseAuthentication):
     """Authenticate an active customer using a non-expired Bearer token."""
+
+    def authenticate_header(self, request):
+        """Tell DRF that failed customer authentication is a 401 Bearer challenge."""
+        return 'Bearer'
 
     def authenticate(self, request):
         auth = request.META.get('HTTP_AUTHORIZATION')
@@ -1120,7 +1125,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         customer = request.user
         try:
             with transaction.atomic():
-                customer.refresh_from_db(fields=['settings'])
+                customer = Customer.objects.select_for_update().get(pk=customer.pk)
                 st = _normalize_customer_settings(getattr(customer, 'settings', None))
                 try:
                     balance = int(st.get('balance', 0) or 0)
@@ -1132,10 +1137,8 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                         {'success': False, 'remaining': balance, 'detail': 'Insufficient coins for unlock'},
                         status=status.HTTP_400_BAD_REQUEST,
                     )
-                st = {**st, 'balance': balance - debit}
-                customer.settings = st
-                customer.save(update_fields=['settings'])
-                remaining_for_client = balance - debit
+                wallet_result = deduct_wallet_coins(customer, debit)
+                remaining_for_client = wallet_result['remaining_coins']
         except Exception:
             logger.exception('use_trx failed')
             return Response(
@@ -1230,7 +1233,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
 
         try:
             with transaction.atomic():
-                customer.refresh_from_db(fields=['settings'])
+                customer = Customer.objects.select_for_update().get(pk=customer.pk)
                 st = _normalize_customer_settings(getattr(customer, 'settings', None))
                 already = set(
                     _normalize_unlocked_question_qids(
@@ -1261,14 +1264,16 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                         status=status.HTTP_400_BAD_REQUEST,
                     )
                 merged_unlocked = sorted(already | {qid for qid, _ in requested})
+                remaining_for_client = b
+                if debit > 0:
+                    wallet_result = deduct_wallet_coins(customer, debit)
+                    remaining_for_client = wallet_result['remaining_coins']
                 st = {
-                    **st,
-                    'balance': max(0, b - debit) if debit > 0 else b,
+                    **_normalize_customer_settings(getattr(customer, 'settings', None)),
                     UNLOCKED_QUESTION_QIDS_SETTINGS_KEY: merged_unlocked,
                 }
                 customer.settings = st
                 customer.save(update_fields=['settings'])
-                remaining_for_client = int(st.get('balance', 0) or 0)
             return Response(
                 {
                     'success': True,
@@ -6310,9 +6315,9 @@ def _consume_question_creation_access(customer, questions):
     if balance < debit:
         raise QuestionCreationInsufficientCoins(debit, balance)
     if debit:
-        customer.settings = {**st, 'balance': max(0, balance - debit)}
-        customer.save(update_fields=['settings'])
-    return debit, max(0, balance - debit)
+        wallet_result = deduct_wallet_coins(customer, debit)
+        return debit, wallet_result['remaining_coins']
+    return debit, balance
 
 
 def _create_question_set_row(customer, name, question_header, questions, layout_settings):

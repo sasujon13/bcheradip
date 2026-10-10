@@ -147,6 +147,26 @@ class PackageApiTests(TestCase):
             status='active',
         ).count(), 2)
 
+    def test_paid_plan_consumes_reference_portion_before_other_wallet_value(self):
+        RewardsWallet.objects.create(
+            customer=self.user,
+            available_taka='80.00',
+            lifetime_earned_taka='80.00',
+        )
+
+        response = self.client.post(
+            '/api/packages/subscribe/',
+            {'planCode': 'starter-academic'},
+            format='json',
+            secure=True,
+        )
+
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(response.data['remainingBalance'], 35000)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings['balance'], 35000)
+        self.assertEqual(RewardsWallet.objects.get(customer=self.user).available_taka, 0)
+
     def test_insufficient_wallet_balance_does_not_create_subscription(self):
         response = self.client.post('/api/packages/subscribe/', {'planCode': 'advanced-3-combined'}, format='json', secure=True)
         self.assertEqual(response.status_code, 400)
@@ -677,6 +697,13 @@ class ReferralSignupTests(TestCase):
         serializer = CustomerSignupSerializer(data=self.payload(reference='01799999999'))
         self.assertFalse(serializer.is_valid())
         self.assertIn('reference', serializer.errors)
+
+    def test_others_account_type_uses_the_shared_customer_table(self):
+        serializer = CustomerSignupSerializer(data=self.payload('01700000004'))
+        serializer.initial_data['acctype'] = 'Others'
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.acctype, 'Others')
 
     def test_referral_summary_preserves_country_code_plus_sign(self):
         user = Customer.objects.create_user(
