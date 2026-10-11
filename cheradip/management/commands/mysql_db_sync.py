@@ -3,18 +3,18 @@ MySQL/MariaDB sync between local and remote (``mysqldump`` | ``mysql``).
 
 **What ``--l2r`` / ``--r2l`` do**
 
-- **``--l2r`` (local → remote):** Discovers databases on **local** (respecting
-  ``SYNC_DATABASES`` / ``EXCLUDE_DATABASES``), then for each database runs
-  ``mysqldump`` on local and streams the result into ``mysql`` on **remote**.
-  That dump includes **all tables**, views (if any), **all row data**, plus
-  routines, triggers, and events (see dump flags below).
+- **``--l2r`` (local → remote):** Compares every base table and record in each
+  selected local database using PyMySQL. Creates missing remote tables and
+  inserts missing records only. Existing records, tables, views, triggers,
+  routines, and events are never replaced. Missing databases are skipped with
+  Linux database-creation commands; create them on the server and rerun.
 
 - **``--r2l`` (remote → local):** Same flow with **remote** as the source and
   **local** as the destination.
 
 **Databases on the destination**
 
-Before each restore, the command runs
+For ``--r2l`` only, before each restore, the command runs
 ``CREATE DATABASE IF NOT EXISTS`` on the destination so a missing database
 is created. The dump uses ``--no-create-db`` so the pipe does not rely on a
 bare ``CREATE DATABASE`` statement from ``mysqldump``.
@@ -29,8 +29,13 @@ each ``CREATE TABLE`` and then the inserts. So:
   from the source — the destination table becomes a **full copy** of the source,
   not a row-by-row “only if missing” merge.
 
-If you need merge / incremental behaviour, use replication, ``pt-table-sync``,
-or application-level tools; this command is a **full snapshot** per database.
+The above replacement rules apply to ``--r2l`` only. ``--l2r`` is insert-only:
+primary/unique keys identify existing records even when their values differ.
+Tables without usable unique keys use exact full-row comparison. Schema
+differences are reported for manual migration; existing tables are not altered.
+Duplicate-key conflicts are skipped, other insert errors fail that table.
+Foreign keys remain enforced during inserts. Run while source writes are paused
+for a consistent copy across related tables. Dry-run performs comparisons only.
 
 **Django**
 
@@ -51,11 +56,11 @@ root (optional: ``pip install python-dotenv``).
 - ``REMOTE_HOST``, ``REMOTE_PORT``, ``REMOTE_USER``, ``REMOTE_PASSWORD`` — fall back to in-file defaults
 - ``LOCAL_HOST`` (default ``127.0.0.1``), ``LOCAL_PORT``, ``LOCAL_USER``, ``LOCAL_PASSWORD``
 - ``SYNC_DIRECTION``: ``local-to-remote`` or ``remote-to-local`` (module CLI only; manage uses ``--l2r`` / ``--r2l``)
-- ``WATCH``, ``WATCH_INTERVAL_SECONDS`` — periodic full re-sync (snapshot, not replication)
+- ``WATCH``, ``WATCH_INTERVAL_SECONDS`` — repeat the selected sync operation
 - ``MYSQLDUMP_PATH``, ``MYSQL_PATH`` — overrides if clients not on ``PATH``
 - ``MYSQL_SYNC_USE_TEMPFILE`` — ``1``/``true`` = dump to a temp file then import (default **on** on
   Windows; avoids broken-pipe ``errno 22``/``32`` when the remote server stops reading). ``0`` = pipe mode.
-- ``MYSQL_SYNC_SKIP_REMOTE_ACCESS_CHECK`` — ``1`` = do not pre-check remote ``USE`` for ``--l2r`` (default off).
+- ``MYSQL_SYNC_SKIP_REMOTE_ACCESS_CHECK`` — legacy option; ``--l2r`` now always checks each remote database.
 - ``SSH_TUNNEL`` / ``SSH_HOST`` — when MySQL is only on the Linux server (not public), forward via SSH.
   ``SSH_USER``, ``SSH_PASSWORD`` (or key), ``SSH_PORT`` (22), ``SSH_LOCAL_PORT`` (13306),
   ``SSH_REMOTE_MYSQL_HOST`` (127.0.0.1), ``SSH_REMOTE_MYSQL_PORT`` (3306).
@@ -63,7 +68,7 @@ root (optional: ``pip install python-dotenv``).
   PuTTY must already trust the server host key, or set ``SSH_HOST_KEY`` to its verified fingerprint.
   Requires ``pip install sshtunnel``. **Do not use ``cheradip.com``** for SSH/MySQL — that hostname is Cloudflare.
 - ``SYNC_DATABASES`` — comma-separated allow list. Leave unset to use ``DEFAULT_SYNC_DATABASES`` in code
-  (``cheradip_cheradip``, ``cheradip_hsc``, ``cheradip_honours``, ``cheradip_job``, ``ailanguagetutor``).
+  (the eight project databases in ``DEFAULT_PROJECT_SYNC_DATABASES``).
   Set ``SYNC_DATABASES=*`` or ``SYNC_DATABASES=`` (empty) to sync **every** non-excluded database on the source.
   Use a narrower list when the remote user may only access specific schemas (avoids 1044 on ``CREATE DATABASE``).
 - ``EXCLUDE_DATABASES`` — extra names to skip
@@ -78,9 +83,14 @@ cannot be created on a normal server with ``CREATE DATABASE`` — they are omitt
 from __future__ import annotations
 
 import argparse
+import hashlib
 import os
+import pickle
+import re
+import shlex
 import socket
 import shutil
+import sqlite3
 import stat
 import subprocess
 import sys
@@ -150,6 +160,10 @@ def _is_syncable_database_name(name: str) -> bool:
 
 class MySQLSyncError(Exception):
     """User-facing sync failure (config, mysqldump, or mysql restore)."""
+
+
+class MissingRemoteDatabase(MySQLSyncError):
+    """Remote database needs to be created by the server administrator."""
 
 
 def load_dotenv(search_dirs: list[Path]) -> None:
@@ -545,6 +559,276 @@ def _use_tempfile_for_sync() -> bool:
     return env_bool("MYSQL_SYNC_USE_TEMPFILE", sys.platform == "win32")
 
 
+def print_remote_database_instructions(db: str, remote_user: str) -> None:
+    ident = _quote_db_ident(db)
+    sql = f"CREATE DATABASE IF NOT EXISTS {ident} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+    print(f"    [MISSING DATABASE] {db}: run these commands on your remote Linux server:")
+    print("      sudo mysql -e " + shlex.quote(sql))
+    print("      sudo mysql -e " + shlex.quote(f"SHOW CREATE DATABASE {ident};"))
+    print(f"    Then grant the existing MySQL account {remote_user!r} access to this database")
+    print("    if needed, using its actual account Host value, and rerun --l2r.")
+    print("    No remote database was created or replaced by this command.")
+
+
+def _open_sync_connection(host, port, user, password, db):
+    import pymysql
+
+    return pymysql.connect(
+        host=host, port=int(port), user=user, password=password or '',
+        database=db, charset='utf8mb4', autocommit=False,
+        connect_timeout=30, read_timeout=600, write_timeout=600,
+    )
+
+
+def _table_metadata(connection, table):
+    """Get insertable columns and ordered primary/unique index columns."""
+    with connection.cursor() as cursor:
+        cursor.execute(f"SHOW FULL COLUMNS FROM {_quote_db_ident(table)}")
+        fields = cursor.fetchall()
+        # FULL COLUMNS: Field, Type, Collation, Null, Key, Default, Extra, ...
+        columns = [row for row in fields if not re.search(
+            r'\b(?:VIRTUAL|STORED) GENERATED\b', str(row[6]), re.I,
+        )]
+        cursor.execute(f"SHOW INDEX FROM {_quote_db_ident(table)}")
+        indexes = {}
+        expression_indexes = set()
+        for row in cursor.fetchall():
+            if row[1] == 0:
+                if row[4]:
+                    indexes.setdefault(row[2], []).append((row[3], row[4]))
+                else:
+                    expression_indexes.add(row[2])
+        keys = [tuple(column for _, column in sorted(indexes[name]))
+                for name in sorted(indexes, key=lambda name: (name != 'PRIMARY', name))
+                if name not in expression_indexes]
+    return columns, keys
+
+
+def _row_identity(row, column_names, keys):
+    """Use the first complete unique key; NULL keys need full-row comparison."""
+    positions = {name: index for index, name in enumerate(column_names)}
+    for key in keys:
+        if not all(name in positions for name in key):
+            continue
+        values = tuple(row[positions[name]] for name in key)
+        if all(value is not None for value in values):
+            return ('key', key, values)
+    return ('row', tuple(row))
+
+
+def _identity_digest(identity):
+    return hashlib.sha256(pickle.dumps(identity, protocol=4)).digest()
+
+
+def _ordered_sync_tables(connection, db, tables):
+    """Load parents before children; cycles are reported by enforced foreign keys."""
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT TABLE_NAME, REFERENCED_TABLE_NAME FROM information_schema.KEY_COLUMN_USAGE "
+            "WHERE TABLE_SCHEMA=%s AND REFERENCED_TABLE_SCHEMA=%s "
+            "AND REFERENCED_TABLE_NAME IS NOT NULL", (db, db),
+        )
+        dependencies = {table: set() for table in tables}
+        for table, parent in cursor.fetchall():
+            if table in dependencies and parent in dependencies and parent != table:
+                dependencies[table].add(parent)
+    ordered = []
+    pending = set(tables)
+    while pending:
+        ready = sorted(table for table in pending if not dependencies[table] & pending)
+        if not ready:
+            print("    [WARN] Cyclic foreign keys: " + ', '.join(sorted(pending)) +
+                  '. Inserts remain constrained; unresolved dependencies will be reported.')
+            ordered.extend(sorted(pending))
+            break
+        ordered.extend(ready)
+        pending.difference_update(ready)
+    return ordered
+
+
+def _copy_missing_rows(source, destination, table, *, dry=False, destination_exists=True):
+    """Stream all records; disk-backed identity index bounds memory for large tables."""
+    import pymysql
+
+    source_fields, keys = _table_metadata(source, table)
+    names = [field[0] for field in source_fields]
+    if not names:
+        raise MySQLSyncError(f'{table}: no insertable columns were found.')
+    if destination_exists:
+        destination_fields, _ = _table_metadata(destination, table)
+        remote_fields = {field[0]: field for field in destination_fields}
+        missing = set(names) - set(remote_fields)
+        # Integer display widths vary between MySQL and MariaDB, not storage types.
+        def normalized_type(value):
+            return re.sub(r'\b(tinyint|smallint|mediumint|int|bigint)\(\d+\)',
+                          r'\1', str(value).lower())
+        changed = [field[0] for field in source_fields if field[0] in remote_fields and (
+            normalized_type(field[1]) != normalized_type(remote_fields[field[0]][1])
+            or field[2] != remote_fields[field[0]][2]
+        )]
+        if missing or changed:
+            raise MySQLSyncError(
+                f'{table}: schema mismatch; missing remote columns={sorted(missing)}, '
+                f'incompatible types/collations={changed}. Apply the required remote '
+                'schema migration and rerun; the existing table was not altered.'
+            )
+    columns = ', '.join(_quote_db_ident(name) for name in names)
+    select_sql = f'SELECT {columns} FROM {_quote_db_ident(table)}'
+    insert_sql = (f'INSERT INTO {_quote_db_ident(table)} ({columns}) VALUES (' +
+                  ', '.join(['%s'] * len(names)) + ')')
+    scanned = remote_count = inserted = existing = conflicts = 0
+    with tempfile.TemporaryDirectory(prefix='cheradip_sync_compare_') as directory:
+        index = sqlite3.connect(str(Path(directory) / 'identities.sqlite3'))
+        try:
+            index.execute('CREATE TABLE identities (digest BLOB PRIMARY KEY) WITHOUT ROWID')
+            if destination_exists:
+                with destination.cursor(pymysql.cursors.SSCursor) as cursor:
+                    cursor.execute(select_sql)
+                    while True:
+                        rows = cursor.fetchmany(1000)
+                        if not rows:
+                            break
+                        remote_count += len(rows)
+                        index.executemany('INSERT OR IGNORE INTO identities VALUES (?)', [
+                            (_identity_digest(_row_identity(row, names, keys)),) for row in rows
+                        ])
+                index.commit()
+            with source.cursor(pymysql.cursors.SSCursor) as reader, destination.cursor() as writer:
+                reader.execute(select_sql)
+                while True:
+                    rows = reader.fetchmany(500)
+                    if not rows:
+                        break
+                    candidates = []
+                    for row in rows:
+                        scanned += 1
+                        digest = _identity_digest(_row_identity(row, names, keys))
+                        if index.execute('SELECT 1 FROM identities WHERE digest=?', (digest,)).fetchone():
+                            existing += 1
+                            continue
+                        candidates.append(row)
+                        # Also prevent identical keyless local rows being sent twice in a batch.
+                        index.execute('INSERT OR IGNORE INTO identities VALUES (?)', (digest,))
+                    if candidates and not dry:
+                        writer.execute('SAVEPOINT sync_insert_batch')
+                        try:
+                            writer.executemany(insert_sql, candidates)
+                            inserted += len(candidates)
+                        except pymysql.IntegrityError as error:
+                            # A conflicting row must not prevent other missing rows in this batch.
+                            writer.execute('ROLLBACK TO SAVEPOINT sync_insert_batch')
+                            if error.args[0] != 1062:
+                                raise
+                            for row in candidates:
+                                try:
+                                    writer.execute(insert_sql, row)
+                                    inserted += 1
+                                except pymysql.IntegrityError as conflict:
+                                    if conflict.args[0] != 1062:
+                                        raise
+                                    conflicts += 1
+                        writer.execute('RELEASE SAVEPOINT sync_insert_batch')
+                        destination.commit()
+                    elif dry:
+                        inserted += len(candidates)
+                    index.commit()
+                    if scanned % 10000 == 0:
+                        print(f'      {table}: {scanned:,} scanned, {inserted:,} missing records processed')
+            if not dry:
+                destination.commit()
+        except Exception:
+            destination.rollback()
+            raise
+        finally:
+            index.close()
+    print(f'      {table}: local={scanned:,}, remote scanned={remote_count:,}, '
+          f'{"would insert" if dry else "inserted"}={inserted:,}, '
+          f'existing unchanged={existing:,}, duplicate-key conflicts skipped={conflicts:,}')
+
+
+def sync_missing_to_remote(*, source_host, source_port, source_user, source_password,
+                           dest_host, dest_port, dest_user, dest_password, db, dry, **unused):
+    """Insert-only local → remote path, completely separate from snapshot restore."""
+    import pymysql
+
+    try:
+        destination = _open_sync_connection(dest_host, dest_port, dest_user, dest_password, db)
+    except pymysql.MySQLError as error:
+        if error.args[0] == 1049:
+            print_remote_database_instructions(db, dest_user)
+            raise MissingRemoteDatabase(f'{db}: missing on remote; create it using the commands above.') from error
+        raise MySQLSyncError(f'{db}: remote connection/access failed: {error}') from error
+    try:
+        source = _open_sync_connection(source_host, source_port, source_user, source_password, db)
+        try:
+            with source.cursor() as cursor:
+                cursor.execute('SHOW FULL TABLES')
+                objects = cursor.fetchall()
+                tables = sorted(row[0] for row in objects if row[1] == 'BASE TABLE')
+                views = [row[0] for row in objects if row[1] != 'BASE TABLE']
+            with destination.cursor() as cursor:
+                cursor.execute('SHOW FULL TABLES')
+                remote_objects = dict(cursor.fetchall())
+                cursor.execute('SET SESSION FOREIGN_KEY_CHECKS=1')
+                # Strict inserts prevent silent data conversion in permissive servers.
+                cursor.execute("SET SESSION sql_mode=CONCAT_WS(',', @@sql_mode, 'STRICT_ALL_TABLES', 'NO_AUTO_VALUE_ON_ZERO')")
+            print(f'    Comparing all {len(tables)} local tables; {len(remote_objects)} remote objects.')
+            if views:
+                print('    Views are not data tables and are preserved: ' + ', '.join(views))
+            failed = []
+            created = set()
+            # Create the missing structure first so inter-table references can resolve.
+            for table in tables:
+                if table in remote_objects:
+                    continue
+                print(f'    {"[DRY_RUN] Would create" if dry else "Creating"} missing table: {db}.{table}')
+                if dry:
+                    continue
+                try:
+                    with source.cursor() as reader, destination.cursor() as writer:
+                        reader.execute(f'SHOW CREATE TABLE {_quote_db_ident(table)}')
+                        ddl = reader.fetchone()[1]
+                        writer.execute('SET SESSION FOREIGN_KEY_CHECKS=0')
+                        try:
+                            writer.execute(ddl)
+                        finally:
+                            writer.execute('SET SESSION FOREIGN_KEY_CHECKS=1')
+                    destination.commit()
+                    created.add(table)
+                    remote_objects[table] = 'BASE TABLE'
+                except pymysql.MySQLError as error:
+                    failed.append(table)
+                    print(f'    [FAIL] {table}: could not create table: {error}')
+            for number, table in enumerate(_ordered_sync_tables(source, db, tables), 1):
+                print(f'    [{number}/{len(tables)} tables] Comparing {db}.{table}')
+                if table in failed:
+                    continue
+                if table in remote_objects and remote_objects[table] != 'BASE TABLE':
+                    failed.append(table)
+                    print(f'    [FAIL] {table}: remote object is a view; left unchanged.')
+                    continue
+                try:
+                    _copy_missing_rows(source, destination, table, dry=dry,
+                                       destination_exists=table in remote_objects)
+                except (MySQLSyncError, pymysql.MySQLError) as error:
+                    failed.append(table)
+                    print(f'    [FAIL] {table}: {error}')
+                    if _is_network_error_message(str(error)):
+                        raise MySQLSyncError(str(error)) from error
+            remote_only = sorted(set(remote_objects) - set(tables) - set(views))
+            if remote_only:
+                print('    Remote-only objects retained: ' + ', '.join(remote_only))
+            print(f'    Missing tables created={len(created)}; table failures={len(failed)}.')
+            if failed:
+                raise MySQLSyncError(f'{db}: incomplete comparison/import for tables: ' + ', '.join(failed))
+        finally:
+            source.close()
+    except pymysql.MySQLError as error:
+        raise MySQLSyncError(f'{db}: comparison/import failed: {error}') from error
+    finally:
+        destination.close()
+
+
 def _is_network_error_message(msg: str) -> bool:
     """
     Heuristic: detect transient connectivity/DNS/timeouts from mysql/mysqldump errors.
@@ -791,7 +1075,8 @@ def run_one_pass(
             try:
                 if retry_count > 0:
                     print(f"    [RETRY] Attempt {retry_count + 1}/{max_retries + 1} for {db}")
-                sync_one_database(
+                sync_function = sync_missing_to_remote if direction == 'local-to-remote' else sync_one_database
+                sync_function(
                     mysqldump=mysqldump,
                     mysql=mysql,
                     source_host=src_h,
@@ -807,6 +1092,10 @@ def run_one_pass(
                 )
                 ok += 1
                 print(f"    [OK] Finished [{idx}/{n}] {db}")
+                break
+            except MissingRemoteDatabase as error:
+                failed += 1
+                print(f"    [SKIPPED] {error}")
                 break
             except MySQLSyncError as e:
                 err = str(e)
@@ -876,7 +1165,7 @@ def run_sync(
 
     mysqldump = find_client("mysqldump", env("MYSQLDUMP_PATH"))
     mysql = find_client("mysql", env("MYSQL_PATH"))
-    if not mysqldump or not mysql:
+    if not mysql or (direction == 'remote-to-local' and not mysqldump):
         print(
             "ERROR: mysqldump and/or mysql not found. Set MYSQLDUMP_PATH / MYSQL_PATH\n"
             "  (e.g. C:\\xampp\\mysql\\bin\\mysqldump.exe)."
@@ -897,7 +1186,7 @@ def run_sync(
                 local_port=local_port,
                 local_user=local_user,
                 local_password=local_password,
-                mysqldump=mysqldump,
+                mysqldump=mysqldump or '',
                 mysql=mysql,
                 dry=dry,
                 only=only,
@@ -945,7 +1234,10 @@ def _run_sync_connected(
     print(f"Local:  {local_user}@{local_host}:{local_port}")
     print(f"Remote: {remote_user}@{remote_host}:{remote_port}")
     print(f"Using:  mysqldump={mysqldump}\n        mysql={mysql}")
-    if _use_tempfile_for_sync():
+    if direction == 'local-to-remote':
+        print('Mode: compare every table and record; create missing tables; insert missing rows only.')
+        print('Missing remote databases need manual creation. Existing remote data is never overwritten.')
+    elif _use_tempfile_for_sync():
         print("Dump mode: temp file (default on Windows; MYSQL_SYNC_USE_TEMPFILE=0 for pipe)")
     else:
         print("Dump mode: pipe (mysqldump | mysql)")
@@ -963,35 +1255,6 @@ def _run_sync_connected(
     if not to_sync:
         print("No databases to sync (check SYNC_DATABASES / excludes).")
         return 0
-
-    if (
-        direction == "local-to-remote"
-        and not dry
-        and not env_bool("MYSQL_SYNC_SKIP_REMOTE_ACCESS_CHECK", False)
-    ):
-        kept: list[str] = []
-        skipped_remote: list[str] = []
-        for db in to_sync:
-            if remote_mysql_can_use_database(
-                mysql, remote_host, remote_port, remote_user, remote_password, db
-            ):
-                kept.append(db)
-            else:
-                skipped_remote.append(db)
-        if skipped_remote:
-            print(
-                "\nPre-flight (remote): skipping databases this user cannot USE "
-                "(would fail with ERROR 1044 after a large dump):\n  "
-                + ", ".join(skipped_remote)
-            )
-            print(
-                "  Ask the host to GRANT privileges on those schemas to "
-                f"'{remote_user}', or list only allowed DBs in SYNC_DATABASES.\n"
-            )
-        to_sync = kept
-        if not to_sync:
-            print("Nothing to push: no local database names are writable on the remote for this user.")
-            return 0
 
     print(f"Databases to sync ({len(to_sync)}):", ", ".join(to_sync))
     print("---")
@@ -1027,12 +1290,13 @@ def _run_sync_connected(
                 break
             print(f"Next pass in {interval}s … (Ctrl+C to stop)\n")
             time.sleep(interval)
+            to_sync = resolve_databases(mysql, list_host, list_port, list_user, list_pw, only, extra_exclude)
     except KeyboardInterrupt:
         print("\nStopped by user (Ctrl+C).")
         return 0
 
     print("\nDone.")
-    return 0
+    return 1 if failed else 0
 
 
 def _dotenv_dirs_for_cli() -> list[Path]:
@@ -1084,9 +1348,9 @@ def main_cli() -> None:
 
 class Command(BaseCommand):
     help = (
-        "Full snapshot copy of MySQL/MariaDB databases (all tables + data) via mysqldump | mysql. "
-        "--l2r: discover DBs on local, push to remote. --r2l: discover on remote, pull to local. "
-        "Destination DBs are created if missing; existing destination tables are replaced from source."
+        "--l2r: compare local/remote tables and rows, create missing tables and insert missing rows only; "
+        "print Linux creation commands for missing remote databases. "
+        "--r2l: full snapshot restore; existing local tables are replaced from remote."
     )
 
     def add_arguments(self, parser):
@@ -1094,7 +1358,7 @@ class Command(BaseCommand):
         direction.add_argument(
             "--l2r",
             action="store_true",
-            help="Local → remote: dump local, restore on remote.",
+            help="Local → remote: create missing tables and insert only missing rows (no updates/deletes).",
         )
         direction.add_argument(
             "--r2l",
@@ -1104,7 +1368,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "--watch",
             action="store_true",
-            help="Repeat full sync every --interval seconds until Ctrl+C.",
+            help="Repeat the selected sync operation every --interval seconds until Ctrl+C.",
         )
         parser.add_argument(
             "--interval",
