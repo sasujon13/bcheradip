@@ -154,7 +154,7 @@ class WalletCommerceTests(TransactionTestCase):
         )
         self.assertEqual(response.status_code, 201, response.data)
         self.assertEqual(response.data['payment_status'], 'paid')
-        self.assertEqual(response.data['status'], 'confirmed')
+        self.assertEqual(response.data['status'], 'pending')
         self.assertEqual(response.data['walletBalanceTaka'], 380.0)
         self.assertEqual(response.data['referenceUsedTaka'], 50.0)
         self.assertEqual(response.data['referenceBalanceTaka'], 0.0)
@@ -164,6 +164,12 @@ class WalletCommerceTests(TransactionTestCase):
         payment = Payment.objects.using('ecommerce').get(order_id=response.data['id'])
         self.assertEqual((payment.method, payment.status), ('wallet', 'confirmed'))
         self.assertIn('Reference balance used first: Tk 50.00', payment.note)
+
+        tracking = self.client.get(f"/api/ecommerce/track/{response.data['number']}/")
+        self.assertEqual(tracking.status_code, 200, tracking.data)
+        self.assertEqual(tracking.data['kind'], 'commerce')
+        self.assertEqual(tracking.data['status_label'], 'Pending')
+        self.assertEqual(tracking.data['payment_status_label'], 'Paid')
 
     def test_reference_portion_is_spent_before_remaining_main_wallet_value(self):
         self.user.settings = {'balance': 171300}
@@ -322,6 +328,11 @@ class BookStorefrontTests(TransactionTestCase):
         })
         self.assertEqual(denied.status_code, 403)
         Order.objects.using('ecommerce').filter(number=checkout['number']).update(payment_status='paid')
+        still_pending = self.client.get('/api/ecommerce/digital-library/', {
+            'order_number': checkout['number'], 'tracking_token': checkout['tracking_token'],
+        })
+        self.assertEqual(still_pending.status_code, 403)
+        Order.objects.using('ecommerce').filter(number=checkout['number']).update(status='completed')
         allowed = self.client.get('/api/ecommerce/digital-library/', {
             'order_number': checkout['number'], 'tracking_token': checkout['tracking_token'],
         })

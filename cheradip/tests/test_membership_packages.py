@@ -136,6 +136,8 @@ class PackageApiTests(TestCase):
         paid = self.client.post('/api/packages/subscribe/', {'planCode': 'starter-academic'}, format='json', secure=True)
         self.assertEqual(paid.status_code, 201)
         self.assertEqual(paid.data['status'], 'active')
+        self.assertTrue(paid.data['orderNumber'].startswith('PKG-'))
+        self.assertEqual(paid.data['orderStatusLabel'], 'Order Completed')
         self.assertEqual(paid.data['remainingBalance'], 35000)
         self.assertEqual(PackageSubscription.objects.filter(customer=self.user).count(), 5)
         self.assertFalse(PackageSubscription.objects.filter(
@@ -146,6 +148,15 @@ class PackageApiTests(TestCase):
             customer=self.user, plan__audience='teacher', plan__name='Free',
             status='active',
         ).count(), 2)
+
+        tracked = self.client.get(
+            f"/api/ecommerce/track/{paid.data['orderNumber']}/",
+            secure=True,
+        )
+        self.assertEqual(tracked.status_code, 200, tracked.data)
+        self.assertEqual(tracked.data['kind'], 'package')
+        self.assertEqual(tracked.data['status_label'], 'Order Completed')
+        self.assertEqual(tracked.data['payment_status_label'], 'Paid')
 
     def test_paid_plan_consumes_reference_portion_before_other_wallet_value(self):
         RewardsWallet.objects.create(

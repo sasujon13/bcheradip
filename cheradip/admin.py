@@ -236,11 +236,11 @@ def activate_subscriptions(modeladmin, request, queryset):
 
 @admin.register(PackageSubscription)
 class PackageSubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'plan', 'status', 'payable_amount', 'badge_discount_percent', 'payment_reference', 'starts_at', 'ends_at')
-    list_filter = ('status', 'plan__audience', 'plan__track', 'created_at')
-    search_fields = ('customer__username', 'customer__fullName', 'plan__code', 'payment_reference')
+    list_display = ('order_number', 'customer', 'plan', 'order_status', 'status', 'payable_amount', 'badge_discount_percent', 'payment_reference', 'starts_at', 'ends_at')
+    list_filter = ('order_status', 'status', 'plan__audience', 'plan__track', 'created_at')
+    search_fields = ('order_number', 'customer__username', 'customer__fullName', 'plan__code', 'payment_reference')
     actions = (activate_subscriptions,)
-    readonly_fields = ('plan_price', 'badge_discount_percent', 'payable_amount', 'created_at', 'updated_at')
+    readonly_fields = ('order_number', 'plan_price', 'badge_discount_percent', 'payable_amount', 'created_at', 'updated_at')
 
 
 @admin.register(MembershipProgress)

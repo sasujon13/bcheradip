@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils import timezone
 
 from .models import (
     Book, BookAsset, BookBuildJob, Brand, Cart, CartItem, Category, CommerceNotification, Coupon, ImportJob,
@@ -11,13 +12,49 @@ from .book_builder import build_book_asset
 
 for model in (
     Category, Brand, Product, ProductVariant, ProductImage, InventoryMovement,
-    Cart, CartItem, Coupon, Order, OrderItem, Payment, Shipment,
+    Cart, CartItem, Coupon, OrderItem, Payment, Shipment,
     OrderStatusHistory, Review, CommerceNotification, ImportJob,
 ):
     try:
         admin.site.register(model)
     except admin.sites.AlreadyRegistered:
         pass
+
+
+@admin.action(description='Mark selected orders as Order Completed')
+def complete_orders(modeladmin, request, queryset):
+    completed = 0
+    for order in queryset.exclude(status='completed'):
+        order.status = 'completed'
+        order.fulfilled_at = order.fulfilled_at or timezone.now()
+        order.save(using='ecommerce', update_fields=['status', 'fulfilled_at', 'updated_at'])
+        OrderStatusHistory.objects.using('ecommerce').create(
+            order=order,
+            status='completed',
+            note='Order completed manually by administration.',
+            actor_id=request.user.pk,
+        )
+        CommerceNotification.objects.using('ecommerce').create(
+            kind='order',
+            title=f'Order {order.number}: completed',
+            message='Your order has been completed.',
+            link=f'/history?order={order.number}',
+            customer_id=order.customer_id,
+        )
+        completed += 1
+    modeladmin.message_user(request, f'{completed} order(s) marked as completed.')
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'number', 'customer_name', 'grand_total', 'payment_status', 'status',
+        'created_at', 'fulfilled_at',
+    )
+    list_filter = ('status', 'payment_status', 'created_at')
+    search_fields = ('number', 'customer_name', 'email', 'phone')
+    readonly_fields = ('number', 'tracking_token', 'created_at', 'updated_at')
+    actions = (complete_orders,)
 
 
 class BookAssetInline(admin.TabularInline):
