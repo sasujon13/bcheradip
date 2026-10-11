@@ -749,6 +749,8 @@ class AdminOrderViewSet(viewsets.ModelViewSet):
         with transaction.atomic(using='ecommerce'):
             order.status = new_status
             order.admin_note = request.data.get('admin_note', order.admin_note)
+            if new_status == 'completed':
+                order.payment_status = 'paid'
             if new_status == 'confirmed' and not order.confirmed_at:
                 order.confirmed_at = timezone.now()
             if new_status in {'shipped', 'delivered', 'completed'} and not order.fulfilled_at:

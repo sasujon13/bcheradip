@@ -30,7 +30,7 @@ class EcommerceConfigurationTests(SimpleTestCase):
 
 
 class StorefrontFlowTests(TransactionTestCase):
-    databases = {'ecommerce'}
+    databases = {'default', 'ecommerce'}
     reset_sequences = True
 
     def setUp(self):
@@ -64,6 +64,8 @@ class StorefrontFlowTests(TransactionTestCase):
         order = checkout_response.json()
         self.assertEqual(order['shipping_total'], '80.00')
         self.assertEqual(order['grand_total'], '2480.00')
+        self.assertEqual(order['status'], 'pending')
+        self.assertEqual(order['payment_status'], 'unpaid')
 
         tracking_response = self.client.get(
             f"/api/ecommerce/orders/{order['number']}/",
@@ -86,6 +88,9 @@ class StorefrontFlowTests(TransactionTestCase):
         )
         self.assertEqual(payment_response.status_code, 201)
         self.assertEqual(payment_response.json()['amount'], '2480.00')
+        placed_order = Order.objects.using('ecommerce').get(number=order['number'])
+        self.assertEqual(placed_order.status, 'pending')
+        self.assertEqual(placed_order.payment_status, 'pending')
         self.assertEqual(Order.objects.using('ecommerce').count(), 1)
         self.variant.refresh_from_db(using='ecommerce')
         self.assertEqual(self.variant.stock, 3)
@@ -191,6 +196,28 @@ class WalletCommerceTests(TransactionTestCase):
         self.user.refresh_from_db()
         self.assertEqual(self.user.settings['balance'], 91300)
         self.assertEqual(RewardsWallet.objects.get(customer=self.user).available_taka, 0)
+
+    def test_admin_completion_changes_pending_order_to_order_completed(self):
+        response = self.client.post(
+            '/api/ecommerce/checkout/', self.checkout_payload(self.cart()['token']), format='json',
+        )
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(response.data['status'], 'pending')
+        self.user.is_staff = True
+        self.user.save(update_fields=['is_staff'])
+        self.client.force_authenticate(user=self.user)
+
+        completed = self.client.patch(
+            f"/api/ecommerce/admin/orders/{response.data['number']}/",
+            {'status': 'completed', 'note': 'Checked and fulfilled.'},
+            format='json',
+        )
+
+        self.assertEqual(completed.status_code, 200, completed.data)
+        self.assertEqual(completed.data['status'], 'completed')
+        self.assertEqual(completed.data['payment_status'], 'paid')
+        tracked = self.client.get(f"/api/ecommerce/track/{response.data['number']}/")
+        self.assertEqual(tracked.data['status_label'], 'Order Completed')
 
     def test_wallet_checkout_requires_login_and_preserves_stock(self):
         guest = APIClient()

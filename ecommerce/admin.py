@@ -26,8 +26,9 @@ def complete_orders(modeladmin, request, queryset):
     completed = 0
     for order in queryset.exclude(status='completed'):
         order.status = 'completed'
+        order.payment_status = 'paid'
         order.fulfilled_at = order.fulfilled_at or timezone.now()
-        order.save(using='ecommerce', update_fields=['status', 'fulfilled_at', 'updated_at'])
+        order.save(using='ecommerce', update_fields=['status', 'payment_status', 'fulfilled_at', 'updated_at'])
         OrderStatusHistory.objects.using('ecommerce').create(
             order=order,
             status='completed',
