@@ -4,6 +4,8 @@ import tempfile
 
 from django.test import SimpleTestCase, TransactionTestCase, override_settings
 from rest_framework.test import APIClient
+from rest_framework.request import Request
+from rest_framework.test import APIRequestFactory
 
 from cheradip.models import Customer, CustomerToken, PackagePlan, PackageSubscription, RewardsWallet
 
@@ -12,9 +14,28 @@ from .db_router import EcommerceRouter
 from .book_builder import build_book_asset
 from .book_catalog import sync_book_catalog
 from .models import Book, BookAsset, BookBuildJob, Category, Order, Payment, Product, ProductVariant
+from .views import StorefrontProductPagination
 
 
 class EcommerceConfigurationTests(SimpleTestCase):
+    def test_storefront_batches_have_no_gaps_and_support_old_pages(self):
+        factory = APIRequestFactory()
+        catalog = list(range(65))
+        for offset, limit in [(0, 24), (24, 12), (36, 12), (48, 12), (60, 12)]:
+            paginator = StorefrontProductPagination()
+            request = Request(factory.get('/api/ecommerce/products/', {'limit': limit, 'offset': offset}))
+            self.assertEqual(paginator.paginate_queryset(catalog, request), catalog[offset:offset + limit])
+            self.assertEqual(paginator.count, 65)
+        paginator = StorefrontProductPagination()
+        request = Request(factory.get('/api/ecommerce/products/', {'page': 2}))
+        self.assertEqual(paginator.paginate_queryset(list(range(250)), request), list(range(100, 200)))
+
+    def test_storefront_batch_size_is_bounded(self):
+        paginator = StorefrontProductPagination()
+        factory = APIRequestFactory()
+        request = Request(factory.get('/api/ecommerce/products/', {'limit': 100000}))
+        self.assertEqual(len(paginator.paginate_queryset(list(range(250)), request)), 100)
+
     def test_router_keeps_commerce_in_its_own_database(self):
         router = EcommerceRouter()
         self.assertEqual(router.db_for_read(Product), 'ecommerce')

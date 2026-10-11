@@ -9,6 +9,7 @@ from django.utils import timezone
 from rest_framework import status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -89,9 +90,26 @@ class BrandViewSet(viewsets.ReadOnlyModelViewSet):
         return Brand.objects.using('ecommerce').filter(is_active=True)
 
 
+class StorefrontProductPagination(LimitOffsetPagination):
+    default_limit = 100
+    max_limit = 100
+
+    def get_offset(self, request):
+        # Preserve older clients using page numbers; new storefront uses offsets.
+        if 'offset' not in request.query_params and 'page' in request.query_params:
+            try:
+                return (max(1, int(request.query_params['page'])) - 1) * self.get_limit(request)
+            except (ValueError, TypeError):
+                return 0
+        return super().get_offset(request)
+
+
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     lookup_field = 'slug'
+    pagination_class = StorefrontProductPagination
+    # Filtering below includes the stable ID tie-breaker required across batches.
+    filter_backends = []
 
     def get_serializer_class(self):
         return ProductDetailSerializer if self.action == 'retrieve' else ProductListSerializer
@@ -114,7 +132,9 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.filter(price__lte=params['max_price'])
         ordering = params.get('ordering')
         if ordering in {'price', '-price', 'name', '-name', 'created_at', '-created_at'}:
-            qs = qs.order_by(ordering)
+            qs = qs.order_by(ordering, 'pk')
+        else:
+            qs = qs.order_by('-featured', '-created_at', 'pk')
         return qs
 
 
