@@ -675,8 +675,8 @@
         <h2 class="table-data-header">
             <span>{{ total }} {% translate 'Rows' %} <a href="{{ tables_url }}" style="font-size: 0.85em; font-weight: normal;">&larr; Back to tables</a></span>
             <span class="header-actions">
-                <button type="button" id="btn-add-row">{% translate 'Add Row' %}</button>
-                <button type="button" id="btn-import">{% translate 'Import (CSV/JSON)' %}</button>
+                <button type="button" id="btn-add-row" {% if raw_read_only %}disabled title="Use the registered administration form for changes."{% endif %}>{% translate 'Add Row' %}</button>
+                <button type="button" id="btn-import" {% if raw_read_only %}disabled title="This table is read only here."{% endif %}>{% translate 'Import (CSV/JSON)' %}</button>
             </span>
         </h2>
 
@@ -715,7 +715,7 @@
             <button type="submit" name="action" value="approve" class="btn-approve">{% translate 'Approve Selected' %}</button>
             <button type="submit" name="action" value="deny" class="btn-delete" data-confirm="{% translate 'Reject selected edit requests? Live questions in subject tables will not be changed.' %}">{% translate 'Deny Selected' %}</button>
             {% else %}
-            <button type="submit" name="action" value="delete" class="btn-delete" data-confirm="{% translate 'Delete selected rows?' %}">{% translate 'Delete Selected' %}</button>
+            <button type="submit" name="action" value="delete" class="btn-delete" {% if raw_read_only %}disabled{% endif %} data-confirm="{% translate 'Delete selected rows?' %}">{% translate 'Delete Selected' %}</button>
             {% endif %}
             </div>
             <div style="overflow-x: auto;">
@@ -764,7 +764,7 @@
                             <button type="submit" form="pending-row-deny-{{ row_id }}" class="btn-row-delete pending-row-deny-btn" data-confirm="{% translate 'Reject this edit request? The live question will not be changed.' %}" title="{% translate 'Deny' %}">X</button>
                         </td>
                         {% else %}
-                        <td><a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a></td>
+                        <td>{% if raw_read_only %}<span title="Use registered administration forms/actions to change this record.">Read only</span>{% else %}<a href="{% url 'admin:database_table_data_edit' db_alias table_name row_id %}">Edit</a>{% endif %}</td>
                         {% endif %}
                     </tr>
                     {% empty %}

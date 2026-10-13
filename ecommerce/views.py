@@ -1,5 +1,5 @@
 from contextlib import nullcontext
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
 from django.db import transaction
 from django.db.models import Count, DecimalField, F, OuterRef, Prefetch, Q, Subquery, Sum
@@ -12,8 +12,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.exceptions import ValidationError
 
-from cheradip.models import Customer, MembershipProgress, PackageSubscription, RewardsWallet
+from cheradip.models import Customer, MembershipProgress, PackageSubscription, RewardsWallet, WalletOperation
+from .order_service import settle_wallet_order, change_order, change_payment
 from cheradip.views import BearerTokenAuthentication
 from cheradip.wallet_service import deduct_wallet_coins
 
@@ -126,10 +128,25 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.filter(brand__slug=params['brand'])
         if params.get('featured') in {'1', 'true'}:
             qs = qs.filter(featured=True)
-        if params.get('min_price'):
-            qs = qs.filter(price__gte=params['min_price'])
-        if params.get('max_price'):
-            qs = qs.filter(price__lte=params['max_price'])
+        def price_param(name):
+            raw = params.get(name)
+            if raw in (None, ''):
+                return None
+            try:
+                value = Decimal(raw)
+            except (InvalidOperation, TypeError, ValueError):
+                raise ValidationError({name: 'Enter a valid price.'})
+            if not value.is_finite() or value < 0 or value > Decimal('999999999999'):
+                raise ValidationError({name: 'Enter a finite, non-negative price.'})
+            return value
+
+        minimum, maximum = price_param('min_price'), price_param('max_price')
+        if minimum is not None and maximum is not None and minimum > maximum:
+            raise ValidationError({'max_price': 'Maximum price must be at least the minimum price.'})
+        if minimum is not None:
+            qs = qs.filter(price__gte=minimum)
+        if maximum is not None:
+            qs = qs.filter(price__lte=maximum)
         ordering = params.get('ordering')
         if ordering in {'price', '-price', 'name', '-name', 'created_at', '-created_at'}:
             qs = qs.order_by(ordering, 'pk')
@@ -153,6 +170,7 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         qs = Book.objects.using('ecommerce').filter(status='published').annotate(
             storefront_digital_variant_id=Subquery(digital_variant.values('id')[:1]),
             storefront_hard_copy_variant_id=Subquery(hard_copy_variant.values('id')[:1]),
+            storefront_hard_copy_stock=Subquery(hard_copy_variant.values('stock')[:1]),
         ).prefetch_related(
             Prefetch(
                 'assets',
@@ -197,22 +215,31 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
 def _paid_order(request):
     order_number = (request.query_params.get('order_number') or '').strip()
     tracking_token = (request.query_params.get('tracking_token') or '').strip()
-    if not order_number or not tracking_token:
+    if not order_number:
         return None
-    return Order.objects.using('ecommerce').prefetch_related('items').filter(
-        number=order_number, tracking_token=tracking_token,
+    qs = Order.objects.using('ecommerce').prefetch_related('items').filter(
+        number=order_number,
         payment_status='paid', status='completed',
-    ).first()
+    )
+    customer_id = _user_id(request)
+    if customer_id:
+        qs = qs.filter(customer_id=customer_id)
+    elif tracking_token:
+        qs = qs.filter(tracking_token=tracking_token)
+    else:
+        return None
+    return qs.first()
 
 
 class DigitalLibraryView(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = [BearerTokenAuthentication]
 
     def get(self, request):
         order = _paid_order(request)
         if not order:
             return Response({'detail': 'A paid order and valid tracking token are required.'}, status=status.HTTP_403_FORBIDDEN)
-        product_ids = list(order.items.values_list('product_id', flat=True))
+        product_ids = list(order.items.filter(sku__endswith='-DIGITAL').values_list('product_id', flat=True))
         books = Book.objects.using('ecommerce').filter(product_id__in=product_ids).prefetch_related('assets')
         return Response([
             {
@@ -227,14 +254,27 @@ class DigitalLibraryView(APIView):
         ])
 
 
+class PublicBookAssetView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        asset = BookAsset.objects.using('ecommerce').filter(
+            pk=pk, asset_type__in=['sample', 'video'], book__status='published',
+        ).first()
+        if not asset or not asset.file:
+            return Response({'detail': 'File not found.'}, status=404)
+        return FileResponse(asset.file.open('rb'), as_attachment=True)
+
+
 class DigitalBookDownloadView(APIView):
     permission_classes = [AllowAny]
+    authentication_classes = [BearerTokenAuthentication]
 
     def get(self, request, slug):
         order = _paid_order(request)
         if not order:
             return Response({'detail': 'A paid order and valid tracking token are required.'}, status=status.HTTP_403_FORBIDDEN)
-        product_ids = order.items.values_list('product_id', flat=True)
+        product_ids = order.items.filter(sku__endswith='-DIGITAL').values_list('product_id', flat=True)
         book = Book.objects.using('ecommerce').filter(slug=slug, product_id__in=product_ids).first()
         if not book:
             return Response({'detail': 'This book is not included in the paid order.'}, status=status.HTTP_404_NOT_FOUND)
@@ -252,11 +292,12 @@ class CartView(APIView):
     authentication_classes = [BearerTokenAuthentication]
     permission_classes = [AllowAny]
 
-    def _cart(self, token):
-        return Cart.objects.using('ecommerce').prefetch_related('items__variant__product__images').filter(token=token, checked_out=False).first()
+    def _cart(self, token, request):
+        cart = Cart.objects.using('ecommerce').prefetch_related('items__variant__product__images').filter(token=token, checked_out=False).first()
+        return cart if cart and (not cart.customer_id or cart.customer_id == _user_id(request)) else None
 
     def get(self, request, token=None):
-        cart = self._cart(token) if token else None
+        cart = self._cart(token, request) if token else None
         if cart is None:
             cart = Cart.objects.using('ecommerce').create(customer_id=_user_id(request))
         elif _user_id(request) and not cart.customer_id:
@@ -265,7 +306,7 @@ class CartView(APIView):
         return Response(CartSerializer(cart).data)
 
     def post(self, request, token=None):
-        cart = self._cart(token) if token else None
+        cart = self._cart(token, request) if token else None
         if cart is None:
             cart = Cart.objects.using('ecommerce').create(customer_id=_user_id(request), email=request.data.get('email', ''))
         elif _user_id(request) and not cart.customer_id:
@@ -274,25 +315,43 @@ class CartView(APIView):
         variant = ProductVariant.objects.using('ecommerce').select_related('product').filter(pk=request.data.get('variant_id'), is_active=True, product__status='active').first()
         if not variant:
             return Response({'detail': 'Product variant not found.'}, status=status.HTTP_404_NOT_FOUND)
-        quantity = max(1, int(request.data.get('quantity', 1)))
-        if not variant.allow_backorder and quantity > variant.stock:
-            return Response({'detail': 'Requested quantity is not available.'}, status=status.HTTP_400_BAD_REQUEST)
-        item, created = CartItem.objects.using('ecommerce').get_or_create(cart=cart, variant=variant, defaults={'quantity': quantity})
-        if not created:
-            item.quantity = quantity
-            item.save(using='ecommerce')
+        try:
+            quantity = int(request.data.get('quantity', 1))
+        except (TypeError, ValueError):
+            return Response({'detail': 'Enter a positive whole-number quantity.'}, status=400)
+        if not 1 <= quantity <= 10000:
+            return Response({'detail': 'Enter a quantity between 1 and 10000.'}, status=400)
+        with transaction.atomic(using='ecommerce'):
+            Cart.objects.using('ecommerce').select_for_update().get(pk=cart.pk)
+            if Cart.objects.using('ecommerce').filter(pk=cart.pk, checked_out=True).exists():
+                return Response({'detail': 'This cart has already been checked out.'}, status=409)
+            item = CartItem.objects.using('ecommerce').filter(cart=cart, variant=variant).first()
+            # Old clients use an explicit set operation for quantity controls;
+            # ordinary Add to cart requests increment the existing quantity.
+            target = quantity if request.data.get('operation') == 'set' else quantity + (item.quantity if item else 0)
+            if not variant.allow_backorder and target > variant.stock:
+                return Response({'detail': 'Requested quantity is not available.'}, status=400)
+            if item:
+                item.quantity = target
+                item.save(using='ecommerce')
+            else:
+                CartItem.objects.using('ecommerce').create(cart=cart, variant=variant, quantity=target)
         cart._prefetched_objects_cache = {}
         return Response(CartSerializer(cart).data)
 
     def delete(self, request, token=None):
-        cart = self._cart(token)
+        cart = self._cart(token, request)
         if not cart:
             return Response(status=status.HTTP_204_NO_CONTENT)
-        item_id = request.query_params.get('item_id')
-        if item_id:
-            cart.items.filter(pk=item_id).delete()
-        else:
-            cart.items.all().delete()
+        with transaction.atomic(using='ecommerce'):
+            cart = Cart.objects.using('ecommerce').select_for_update().get(pk=cart.pk)
+            if cart.checked_out:
+                return Response({'detail': 'This cart has already been checked out.'}, status=409)
+            item_id = request.query_params.get('item_id')
+            if item_id:
+                cart.items.filter(pk=item_id).delete()
+            else:
+                cart.items.all().delete()
         cart._prefetched_objects_cache = {}
         return Response(CartSerializer(cart).data)
 
@@ -302,11 +361,21 @@ class CheckoutView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        checkout_token = str(request.data.get('cart_token') or '').strip()
+        if not checkout_token:
+            return Response({'detail': 'Cart token is required.'}, status=400)
+        existing = Order.objects.using('ecommerce').filter(checkout_token=checkout_token).first()
+        if existing:
+            if existing.customer_id != _user_id(request):
+                return Response({'detail': 'This order belongs to another account.'}, status=403)
+            return Response(OrderSerializer(existing).data)
         cart = Cart.objects.using('ecommerce').prefetch_related('items__variant__product__images').filter(
             token=request.data.get('cart_token'), checked_out=False
         ).first()
         if not cart or not cart.items.exists():
             return Response({'detail': 'Cart is empty or unavailable.'}, status=status.HTTP_400_BAD_REQUEST)
+        if cart.customer_id and cart.customer_id != _user_id(request):
+            return Response({'detail': 'This cart belongs to another account.'}, status=403)
 
         required = ['customer_name', 'email', 'phone', 'shipping_address']
         missing = [field for field in required if not request.data.get(field)]
@@ -320,10 +389,20 @@ class CheckoutView(APIView):
         wallet_transaction = transaction.atomic(using='default') if payment_method == 'wallet' else nullcontext()
         with wallet_transaction:
             with transaction.atomic(using='ecommerce'):
+                cart = Cart.objects.using('ecommerce').select_for_update().get(pk=cart.pk)
+                if cart.checked_out:
+                    existing = Order.objects.using('ecommerce').get(checkout_token=cart.token)
+                    if existing.customer_id != _user_id(request):
+                        return Response({'detail': 'This order belongs to another account.'}, status=403)
+                    return Response(OrderSerializer(existing).data)
                 subtotal = Decimal('0')
                 locked = []
                 for cart_item in cart.items.all():
                     variant = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=cart_item.variant_id)
+                    if not variant.is_active or variant.product.status != 'active':
+                        return Response({'detail': f'{variant.sku} is no longer available.'}, status=409)
+                    if not variant.price.is_finite() or variant.price < 0:
+                        return Response({'detail': f'{variant.sku} has an invalid price.'}, status=409)
                     if not variant.allow_backorder and cart_item.quantity > variant.stock:
                         return Response({'detail': f'Insufficient stock for {variant.sku}.'}, status=status.HTTP_409_CONFLICT)
                     subtotal += variant.price * cart_item.quantity
@@ -340,9 +419,9 @@ class CheckoutView(APIView):
                     coupon = Coupon.objects.using('ecommerce').select_for_update().filter(code__iexact=coupon_code, is_active=True).first()
                     if coupon and (not coupon.starts_at or coupon.starts_at <= now) and (not coupon.ends_at or coupon.ends_at >= now) and subtotal >= coupon.minimum_order and (coupon.usage_limit is None or coupon.used_count < coupon.usage_limit):
                         if coupon.discount_type == 'percent':
-                            discount_total = subtotal * coupon.value / Decimal('100')
+                            discount_total = subtotal * min(Decimal('100'), max(Decimal('0'), coupon.value)) / Decimal('100')
                         elif coupon.discount_type == 'fixed':
-                            discount_total = min(subtotal, coupon.value)
+                            discount_total = min(subtotal, max(Decimal('0'), coupon.value))
                         elif coupon.discount_type == 'shipping':
                             shipping_total = Decimal('0')
                     else:
@@ -374,6 +453,7 @@ class CheckoutView(APIView):
 
                 paid_with_wallet = payment_method == 'wallet'
                 order = Order.objects.using('ecommerce').create(
+                    checkout_token=cart.token,
                     customer_id=_user_id(request), customer_name=request.data['customer_name'],
                     email=request.data['email'], phone=request.data['phone'],
                     shipping_address=request.data['shipping_address'],
@@ -381,7 +461,7 @@ class CheckoutView(APIView):
                     # Products and eBooks always await manual administrative fulfilment,
                     # even when their payment has already been received.
                     status='pending',
-                    payment_status='paid' if paid_with_wallet else 'unpaid',
+                    payment_status='pending' if paid_with_wallet else 'unpaid',
                     confirmed_at=None,
                     subtotal=subtotal, discount_total=discount_total, shipping_total=shipping_total,
                     grand_total=grand_total, coupon_code=coupon_code,
@@ -407,13 +487,17 @@ class CheckoutView(APIView):
                             link='/admin/ecommerce/productvariant/', admin_only=True,
                         )
                 if paid_with_wallet:
+                    WalletOperation.objects.create(
+                        operation_key=f'commerce:debit:{order.number}', customer=customer,
+                        coins=-required_coins, reference_taka=reference_used_taka,
+                    )
+                    transaction.on_commit(lambda: settle_wallet_order(order.pk), using='default', robust=True)
                     payment_note = 'Paid automatically from Cheradip Wallet.'
                     if reference_used_taka:
                         payment_note += f' Reference balance used first: Tk {reference_used_taka:.2f}.'
                     Payment.objects.using('ecommerce').create(
                         order=order, method='wallet', amount=grand_total,
-                        transaction_id=f'WALLET-{order.number}', status='confirmed',
-                        confirmed_by=request.user.pk, confirmed_at=timezone.now(),
+                        transaction_id=f'WALLET-{order.number}', status='pending',
                         note=payment_note,
                     )
                 OrderStatusHistory.objects.using('ecommerce').create(
@@ -433,6 +517,7 @@ class CheckoutView(APIView):
                     cart.customer_id = _user_id(request)
                 cart.save(using='ecommerce', update_fields=['checked_out', 'customer_id', 'updated_at'])
 
+        order.refresh_from_db(using='ecommerce')
         payload = OrderSerializer(order).data
         if wallet_balance_taka is not None:
             payload['walletBalanceTaka'] = float(wallet_balance_taka)
@@ -466,18 +551,27 @@ class AccountHistoryView(APIView):
 
     def get(self, request):
         customer = request.user
+        try:
+            package_offset = max(0, int(request.query_params.get('package_offset', 0)))
+            order_offset = max(0, int(request.query_params.get('order_offset', 0)))
+        except (TypeError, ValueError):
+            return Response({'detail': 'History offsets must be whole numbers.'}, status=400)
+        limit = 50
         coin_balance = _wallet_coins(customer)
         rewards_wallet, _ = RewardsWallet.objects.get_or_create(customer=customer)
         primary_audience = 'student' if customer.acctype == 'Student' else 'teacher'
         progress = MembershipProgress.objects.filter(
             customer=customer, audience=primary_audience,
         ).first()
-        package_rows = PackageSubscription.objects.filter(
+        package_query = PackageSubscription.objects.filter(
             customer=customer,
-        ).select_related('plan').order_by('-created_at')[:100]
-        order_rows = Order.objects.using('ecommerce').filter(
+        ).select_related('plan').order_by('-created_at', '-id')
+        order_query = Order.objects.using('ecommerce').filter(
             customer_id=customer.pk,
-        ).prefetch_related('items', 'payments').order_by('-created_at')[:100]
+        ).prefetch_related('items', 'payments').order_by('-created_at', '-id')
+        package_total, order_total = package_query.count(), order_query.count()
+        package_rows = package_query[package_offset:package_offset + limit]
+        order_rows = order_query[order_offset:order_offset + limit]
 
         packages = [{
             'id': row.pk,
@@ -526,6 +620,9 @@ class AccountHistoryView(APIView):
             },
             'packages': packages,
             'orders': orders,
+            'packageTotal': package_total,
+            'orderTotal': order_total,
+            'pageSize': limit,
         })
 
 
@@ -594,20 +691,26 @@ class PaymentCreateView(APIView):
     authentication_classes = [BearerTokenAuthentication]
     permission_classes = [AllowAny]
 
+    @transaction.atomic(using='ecommerce')
     def post(self, request, order_number):
-        order = Order.objects.using('ecommerce').filter(number=order_number).first()
+        order = Order.objects.using('ecommerce').select_for_update().filter(number=order_number).first()
         if not order:
             return Response({'detail': 'Order not found.'}, status=status.HTTP_404_NOT_FOUND)
         token = request.data.get('tracking_token')
         user_id = _user_id(request)
         if not ((user_id and (getattr(request.user, 'is_staff', False) or order.customer_id == user_id)) or token == order.tracking_token):
             return Response({'detail': 'Order access denied.'}, status=status.HTTP_403_FORBIDDEN)
+        if order.payment_status in {'paid', 'refunded'} or order.status in {'cancelled', 'completed', 'refunded'}:
+            return Response({'detail': 'This order does not accept another payment submission.'}, status=409)
         # The payable amount is authoritative on the order; clients cannot lower it.
         if request.data.get('method') == 'wallet':
             return Response({'detail': 'Wallet payments must be completed during checkout.'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = PaymentSerializer(data={**request.data, 'order': order.id, 'amount': order.grand_total})
         serializer.is_valid(raise_exception=True)
-        payment = serializer.save()
+        duplicate = order.payments.filter(method=serializer.validated_data['method'], transaction_id=serializer.validated_data.get('transaction_id', ''), status='pending').first()
+        if duplicate:
+            return Response(PaymentSerializer(duplicate).data)
+        payment = serializer.save(status='pending')
         order.payment_status = 'pending' if payment.method != 'cod' else 'unpaid'
         order.save(using='ecommerce', update_fields=['payment_status', 'updated_at'])
         CommerceNotification.objects.using('ecommerce').create(
@@ -632,6 +735,7 @@ class ReviewCreateView(APIView):
 
 class AdminDashboardView(APIView):
     permission_classes = [IsCommerceAdmin]
+    permission_model = Order
 
     def get(self, request):
         orders = Order.objects.using('ecommerce')
@@ -660,6 +764,7 @@ class AdminDashboardView(APIView):
 class AdminProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductDetailSerializer
     permission_classes = [IsCommerceAdmin]
+    permission_model = Product
 
     def get_queryset(self):
         return _product_queryset(include_inactive=True).prefetch_related('variants', 'images')
@@ -675,6 +780,7 @@ class AdminProductViewSet(viewsets.ModelViewSet):
 class AdminBookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     permission_classes = [IsCommerceAdmin]
+    permission_model = Book
     lookup_field = 'slug'
 
     def get_queryset(self):
@@ -723,6 +829,7 @@ class AdminBookViewSet(viewsets.ModelViewSet):
 class AdminBookAssetViewSet(viewsets.ModelViewSet):
     serializer_class = BookAssetSerializer
     permission_classes = [IsCommerceAdmin]
+    permission_model = BookAsset
 
     def get_queryset(self):
         qs = BookAsset.objects.using('ecommerce').select_related('book')
@@ -741,6 +848,7 @@ class AdminBookAssetViewSet(viewsets.ModelViewSet):
 class AdminBookBuildJobViewSet(viewsets.ModelViewSet):
     serializer_class = BookBuildJobSerializer
     permission_classes = [IsCommerceAdmin]
+    permission_model = BookBuildJob
     http_method_names = ['get', 'patch', 'head', 'options']
 
     def get_queryset(self):
@@ -750,6 +858,7 @@ class AdminBookBuildJobViewSet(viewsets.ModelViewSet):
 class AdminOrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [IsCommerceAdmin]
+    permission_model = Order
     lookup_field = 'number'
     http_method_names = ['get', 'patch', 'head', 'options']
 
@@ -761,44 +870,21 @@ class AdminOrderViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         order = self.get_object()
-        old_status = order.status
-        new_status = request.data.get('status', old_status)
+        new_status = request.data.get('status', order.status)
         allowed = {choice[0] for choice in Order.STATUS_CHOICES}
         if new_status not in allowed:
             return Response({'detail': 'Invalid order status.'}, status=status.HTTP_400_BAD_REQUEST)
-        with transaction.atomic(using='ecommerce'):
-            order.status = new_status
-            order.admin_note = request.data.get('admin_note', order.admin_note)
-            if new_status == 'completed':
-                order.payment_status = 'paid'
-            if new_status == 'confirmed' and not order.confirmed_at:
-                order.confirmed_at = timezone.now()
-            if new_status in {'shipped', 'delivered', 'completed'} and not order.fulfilled_at:
-                order.fulfilled_at = timezone.now()
-            order.save(using='ecommerce')
-            if new_status != old_status:
-                OrderStatusHistory.objects.using('ecommerce').create(
-                    order=order, status=new_status, note=request.data.get('note', ''), actor_id=request.user.pk,
-                )
-                if new_status == 'cancelled':
-                    for item in order.items.all():
-                        variant = ProductVariant.objects.using('ecommerce').select_for_update().filter(pk=item.variant_id).first()
-                        if variant:
-                            variant.stock += item.quantity
-                            variant.save(using='ecommerce', update_fields=['stock', 'updated_at'])
-                            InventoryMovement.objects.using('ecommerce').create(
-                                variant=variant, quantity=item.quantity, reason='cancel', reference=order.number, actor_id=request.user.pk,
-                            )
-                CommerceNotification.objects.using('ecommerce').create(
-                    kind='order', title=f'Order {order.number}: {new_status}',
-                    message=request.data.get('note', ''), link=f'/history?order={order.number}', customer_id=order.customer_id,
-                )
+        try:
+            order = change_order(order.pk, new_status, request.user.pk, request.data.get('note', ''), request.data.get('admin_note'))
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=409)
         return Response(OrderSerializer(order).data)
 
 
 class AdminPaymentViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
     permission_classes = [IsCommerceAdmin]
+    permission_model = Payment
     http_method_names = ['get', 'patch', 'head', 'options']
 
     def get_queryset(self):
@@ -809,20 +895,17 @@ class AdminPaymentViewSet(viewsets.ModelViewSet):
         new_status = request.data.get('status', payment.status)
         if new_status not in {choice[0] for choice in Payment.STATUS_CHOICES}:
             return Response({'detail': 'Invalid payment status.'}, status=status.HTTP_400_BAD_REQUEST)
-        payment.status = new_status
-        payment.note = request.data.get('note', payment.note)
-        if new_status == 'confirmed':
-            payment.confirmed_by = request.user.pk
-            payment.confirmed_at = timezone.now()
-        payment.save(using='ecommerce')
-        order = payment.order
-        order.payment_status = {'confirmed': 'paid', 'failed': 'failed', 'refunded': 'refunded'}.get(new_status, 'pending')
-        order.save(using='ecommerce', update_fields=['payment_status', 'updated_at'])
+        try:
+            payment = change_payment(payment.pk, new_status, request.user.pk, request.data.get('note', payment.note))
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=409)
         return Response(PaymentSerializer(payment).data)
 
 
 class AdminInventoryView(APIView):
     permission_classes = [IsCommerceAdmin]
+    permission_model = InventoryMovement
+    permission_requirements = {'POST': ((InventoryMovement, 'add'), (ProductVariant, 'change'))}
 
     def get(self, request):
         qs = InventoryMovement.objects.using('ecommerce').select_related('variant').all()[:500]
@@ -846,6 +929,8 @@ class AdminInventoryView(APIView):
 
 class AdminCsvImportView(APIView):
     permission_classes = [IsCommerceAdmin]
+    permission_model = Product
+    permission_requirements = {'POST': ((Product, 'add'), (Product, 'change'))}
 
     def post(self, request):
         uploaded = request.FILES.get('file')

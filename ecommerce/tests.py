@@ -1,6 +1,7 @@
 import csv
 import io
 import tempfile
+from decimal import Decimal
 
 from django.test import SimpleTestCase, TransactionTestCase, override_settings
 from rest_framework.test import APIClient
@@ -225,7 +226,8 @@ class WalletCommerceTests(TransactionTestCase):
         self.assertEqual(response.status_code, 201, response.data)
         self.assertEqual(response.data['status'], 'pending')
         self.user.is_staff = True
-        self.user.save(update_fields=['is_staff'])
+        self.user.is_superuser = True
+        self.user.save(update_fields=['is_staff', 'is_superuser'])
         self.client.force_authenticate(user=self.user)
 
         completed = self.client.patch(
@@ -249,6 +251,44 @@ class WalletCommerceTests(TransactionTestCase):
         self.assertEqual(response.status_code, 401)
         self.variant.refresh_from_db(using='ecommerce')
         self.assertEqual(self.variant.stock, 5)
+
+    def test_repeated_checkout_is_idempotent(self):
+        payload = self.checkout_payload(self.cart()['token'])
+        first = self.client.post('/api/ecommerce/checkout/', payload, format='json')
+        second = self.client.post('/api/ecommerce/checkout/', payload, format='json')
+        self.assertEqual((first.status_code, second.status_code), (201, 200))
+        self.assertEqual(first.data['number'], second.data['number'])
+        self.assertEqual(Order.objects.using('ecommerce').count(), 1)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings['balance'], 38000)
+
+    def test_cancel_refunds_once_and_cannot_reopen_or_restock_twice(self):
+        RewardsWallet.objects.create(customer=self.user, available_taka='50.00')
+        order = self.client.post('/api/ecommerce/checkout/', self.checkout_payload(self.cart()['token']), format='json').data
+        self.user.is_staff = True; self.user.is_superuser = True
+        self.user.save(update_fields=['is_staff', 'is_superuser'])
+        self.client.force_authenticate(self.user)
+        url = f'/api/ecommerce/admin/orders/{order["number"]}/'
+        self.assertEqual(self.client.patch(url, {'status': 'cancelled'}, format='json').status_code, 200)
+        self.assertEqual(self.client.patch(url, {'status': 'cancelled'}, format='json').status_code, 200)
+        self.assertEqual(self.client.patch(url, {'status': 'confirmed'}, format='json').status_code, 409)
+        self.user.refresh_from_db(); self.variant.refresh_from_db(using='ecommerce')
+        self.assertEqual((self.user.settings['balance'], self.variant.stock), (50000, 5))
+        self.assertEqual(RewardsWallet.objects.get(customer=self.user).available_taka, 50)
+
+    def test_paid_order_rejects_customer_payment_resubmission(self):
+        order = self.client.post('/api/ecommerce/checkout/', self.checkout_payload(self.cart()['token']), format='json').data
+        response = self.client.post(f'/api/ecommerce/orders/{order["number"]}/payments/', {'method': 'bkash', 'status': 'confirmed'}, format='json')
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(Order.objects.using('ecommerce').get(pk=order['id']).payment_status, 'paid')
+
+    def test_add_cart_increments_but_quantity_control_sets(self):
+        token = self.cart()['token']
+        url = f'/api/ecommerce/cart/{token}/'
+        added = self.client.post(url, {'variant_id': self.variant.pk, 'quantity': 1}, format='json')
+        self.assertEqual(added.data['items'][0]['quantity'], 2)
+        updated = self.client.post(url, {'variant_id': self.variant.pk, 'quantity': 3, 'operation': 'set'}, format='json')
+        self.assertEqual(updated.data['items'][0]['quantity'], 3)
 
     def test_insufficient_wallet_does_not_create_order_or_deduct(self):
         self.user.settings = {'balance': 1000}
@@ -290,6 +330,45 @@ class WalletCommerceTests(TransactionTestCase):
         response = guest.get('/api/ecommerce/account/history/')
         self.assertEqual(response.status_code, 401)
 
+    def test_archived_product_cannot_be_checked_out_from_old_cart(self):
+        token = self.cart()['token']
+        self.variant.product.status = 'archived'
+        self.variant.product.save(using='ecommerce', update_fields=['status'])
+        response = self.client.post('/api/ecommerce/checkout/', self.checkout_payload(token), format='json')
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(Order.objects.using('ecommerce').count(), 0)
+
+    def test_another_account_cannot_use_cart_or_replay_checkout(self):
+        token = self.cart()['token']
+        second = Customer.objects.create_user(
+            username='01722222222', password='password', fullName='Second Buyer',
+            acctype='Others', settings={'balance': 50000},
+        )
+        second_token = CustomerToken.objects.create(key='other-buyer-token', customer=second)
+        other = APIClient()
+        other.credentials(HTTP_AUTHORIZATION=f'Bearer {second_token.key}', HTTP_X_FORWARDED_PROTO='https')
+        self.assertNotEqual(other.get(f'/api/ecommerce/cart/{token}/').data['token'], token)
+        self.assertEqual(other.post('/api/ecommerce/checkout/', self.checkout_payload(token), format='json').status_code, 403)
+        self.assertEqual(self.client.post('/api/ecommerce/checkout/', self.checkout_payload(token), format='json').status_code, 201)
+        self.assertEqual(other.post('/api/ecommerce/checkout/', self.checkout_payload(token), format='json').status_code, 403)
+
+    def test_recovered_refund_cannot_complete_paid_order_again(self):
+        from cheradip.models import WalletOperation
+        from .order_service import change_order, refund_wallet
+        response = self.client.post('/api/ecommerce/checkout/', self.checkout_payload(self.cart()['token']), format='json')
+        order = Order.objects.using('ecommerce').get(number=response.data['number'])
+        self.assertTrue(WalletOperation.objects.filter(operation_key=f'commerce:debit:{order.number}').exists())
+        refund_wallet(order)  # Simulate a committed refund before the commerce acknowledgement.
+        with self.assertRaisesRegex(ValueError, 'refunded'):
+            change_order(order.pk, 'completed')
+        order.refresh_from_db(using='ecommerce')
+        self.assertNotEqual(order.status, 'completed')
+
+    def test_invalid_price_filters_are_client_errors(self):
+        for parameter in ('min_price=abc', 'max_price=NaN', 'min_price=-1', 'min_price=100&max_price=1'):
+            response = self.client.get('/api/ecommerce/products/?' + parameter)
+            self.assertEqual(response.status_code, 400, parameter)
+
 
 class BookStorefrontTests(TransactionTestCase):
     databases = {'default', 'ecommerce'}
@@ -315,6 +394,24 @@ class BookStorefrontTests(TransactionTestCase):
         self.assertEqual(len(books), 1)
         self.assertIsNotNone(books[0]['digital_variant_id'])
         self.assertIsNotNone(books[0]['hard_copy_variant_id'])
+
+    def test_metadata_edit_does_not_reset_sold_inventory(self):
+        variant = ProductVariant.objects.using('ecommerce').get(sku=f'BOOK-{self.book.pk:06d}-HARDCOPY')
+        variant.stock = 3; variant.save(using='ecommerce')
+        self.book.title = 'Updated title'; self.book.save(using='ecommerce')
+        sync_book_catalog(self.book, notify=False)
+        variant.refresh_from_db(using='ecommerce')
+        self.assertEqual(variant.stock, 3)
+        response = self.client.get(f'/api/ecommerce/books/{self.book.slug}/')
+        self.assertEqual(response.data['hard_copy_quantity'], 3)
+
+    def test_hard_copy_does_not_grant_digital_download(self):
+        from .models import OrderItem
+        order = Order.objects.using('ecommerce').create(customer_name='Reader', email='reader@example.com', phone='01700000000', status='completed', payment_status='paid')
+        OrderItem.objects.using('ecommerce').create(order=order, product_id=self.book.product_id, variant_id=1, product_name=self.book.title, sku=f'BOOK-{self.book.pk:06d}-HARDCOPY', quantity=1, unit_price=350, line_total=350)
+        query = {'order_number': order.number, 'tracking_token': order.tracking_token}
+        self.assertEqual(self.client.get('/api/ecommerce/digital-library/', query).data, [])
+        self.assertEqual(self.client.get(f'/api/ecommerce/digital-library/{self.book.slug}/download/', query).status_code, 404)
 
     def test_copy_type_filters_hard_soft_and_both_books(self):
         soft_book = Book.objects.using('ecommerce').create(
@@ -350,7 +447,7 @@ class BookStorefrontTests(TransactionTestCase):
         self.assertEqual(response.json()['available_formats'], ['pdf'])
 
     def test_book_builder_creates_html_asset(self):
-        with tempfile.TemporaryDirectory() as media_root, override_settings(MEDIA_ROOT=media_root):
+        with tempfile.TemporaryDirectory() as media_root, tempfile.TemporaryDirectory() as private_root, override_settings(MEDIA_ROOT=media_root, PRIVATE_EBOOK_ROOT=private_root):
             job = BookBuildJob.objects.using('ecommerce').create(
                 book=self.book, output_format='html', source_config=self.book.source_config,
             )
@@ -386,4 +483,65 @@ class BookStorefrontTests(TransactionTestCase):
         })
         self.assertEqual(allowed.status_code, 200)
         self.assertEqual(allowed.json()[0]['slug'], self.book.slug)
+
+    def test_signed_in_buyer_can_reopen_completed_digital_library_without_tracking_token(self):
+        from .models import OrderItem
+        buyer = Customer.objects.create_user(username='01733333333', password='password', fullName='Reader', acctype='Others')
+        token = CustomerToken.objects.create(key='digital-owner-token', customer=buyer)
+        BookAsset.objects.using('ecommerce').create(
+            book=self.book, title='Guide', asset_type='ebook', file_format='pdf',
+            external_url='https://example.com/guide.pdf', is_downloadable=True,
+        )
+        variant = ProductVariant.objects.using('ecommerce').get(sku=f'BOOK-{self.book.pk:06d}-DIGITAL')
+        order = Order.objects.using('ecommerce').create(
+            customer_id=buyer.pk, customer_name='Reader', email='reader@example.com',
+            phone='01733333333', status='completed', payment_status='paid',
+        )
+        OrderItem.objects.using('ecommerce').create(
+            order=order, product_id=self.book.product_id, variant_id=variant.pk,
+            product_name=self.book.title, sku=variant.sku, quantity=1, unit_price=120, line_total=120,
+        )
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.key}', HTTP_X_FORWARDED_PROTO='https')
+        response = self.client.get('/api/ecommerce/digital-library/', {'order_number': order.number})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data[0]['slug'], self.book.slug)
+
+
+class CsvAuditTests(TransactionTestCase):
+    databases = {'default', 'ecommerce'}
+
+    def _csv(self, rows):
+        from .csv_import import CSV_COLUMNS
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=CSV_COLUMNS)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow(row)
+        output.seek(0)
+        return output
+
+    def test_blank_update_preserves_price_and_stock(self):
+        from .csv_import import import_products
+        category = Category.objects.using('ecommerce').create(name='Accessories', slug='accessories')
+        product = Product.objects.using('ecommerce').create(name='Old', slug='audit-item', category=category)
+        variant = ProductVariant.objects.using('ecommerce').create(product=product, sku='AUDIT-SKU', price='12.00', stock=4)
+        job = import_products(self._csv([{'Handle': 'audit-item', 'Title': 'Updated', 'SKU': 'AUDIT-SKU'}]))
+        variant.refresh_from_db(using='ecommerce')
+        self.assertEqual(job.failed_count, 0)
+        self.assertEqual((variant.price, variant.stock), (Decimal('12.00'), 4))
+
+    def test_failed_row_does_not_report_a_created_product(self):
+        from .csv_import import import_products
+        job = import_products(self._csv([{'Handle': 'bad-item', 'Title': 'Bad', 'SKU': ''}]))
+        self.assertEqual((job.created_count, job.failed_count, job.status), (0, 1, 'failed'))
+        self.assertFalse(Product.objects.using('ecommerce').filter(slug='bad-item').exists())
+
+    def test_negative_price_is_rejected(self):
+        from .csv_import import import_products
+        job = import_products(self._csv([{
+            'Handle': 'negative-item', 'Title': 'Negative', 'SKU': 'NEG-1',
+            'Price': '-10', 'Inventory Quantity': '3',
+        }]))
+        self.assertEqual(job.failed_count, 1)
+        self.assertFalse(Product.objects.using('ecommerce').filter(slug='negative-item').exists())
 

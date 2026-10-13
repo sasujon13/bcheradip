@@ -4,10 +4,10 @@ import hashlib
 
 from cryptography.fernet import Fernet, InvalidToken
 from django.conf import settings
-from django.db import connections
+from django.db import connections, transaction
 from django.utils import timezone
 
-from .models import CustomerToken
+from .models import CustomerToken, Customer
 from .tutor_providers import PROVIDERS, validate_provider_config
 
 
@@ -75,11 +75,12 @@ def customer_tutor_settings(customer):
     }
 
 
+@transaction.atomic
 def save_customer_tutor_settings(customer, provider=None, model=None, api_keys=None):
     if customer is None:
         return customer_tutor_settings(None)
-    customer.refresh_from_db(fields=['settings'])
-    root = _settings(customer)
+    locked = Customer.objects.select_for_update().get(pk=customer.pk)
+    root = dict(_settings(locked))
     current = root.get('tutor_ai') if isinstance(root.get('tutor_ai'), dict) else {}
     stored = current.get('api_keys') if isinstance(current.get('api_keys'), dict) else {}
     stored = dict(stored)
@@ -97,8 +98,9 @@ def save_customer_tutor_settings(customer, provider=None, model=None, api_keys=N
         'api_keys': stored,
     }
     root['tutor_ai'] = current
+    locked.settings = root
+    locked.save(update_fields=['settings'])
     customer.settings = root
-    customer.save(update_fields=['settings'])
     return customer_tutor_settings(customer)
 
 

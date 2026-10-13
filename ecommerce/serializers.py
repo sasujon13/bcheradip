@@ -78,10 +78,20 @@ class BookAssetSerializer(serializers.ModelSerializer):
         read_only_fields = ('file_size', 'created_at', 'updated_at')
 
     def get_file_url(self, obj):
+        if obj.asset_type == 'ebook':
+            return ''
         if not obj.file:
             return obj.external_url
         request = self.context.get('request')
-        return request.build_absolute_uri(obj.file.url) if request else obj.file.url
+        url = f'/api/ecommerce/book-assets/{obj.pk}/download/'
+        return request.build_absolute_uri(url) if request else url
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['file'] = self.get_file_url(instance)
+        if instance.asset_type == 'ebook':
+            data['external_url'] = ''
+        return data
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -100,11 +110,21 @@ class BookSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('product', 'created_by', 'created_at', 'updated_at')
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if hasattr(instance, 'storefront_hard_copy_stock'):
+            data['hard_copy_quantity'] = instance.storefront_hard_copy_stock or 0
+        elif instance.product_id:
+            stock = ProductVariant.objects.using('ecommerce').filter(product_id=instance.product_id, sku__endswith='-HARDCOPY').values_list('stock', flat=True).first()
+            data['hard_copy_quantity'] = stock or 0
+        return data
+
     def _file_url(self, field):
         if not field:
             return ''
-        request = self.context.get('request')
-        return request.build_absolute_uri(field.url) if request else field.url
+        # Uploaded public media is exposed by the existing /manage/media/ route.
+        # A relative URL remains valid through the Angular proxy and production host.
+        return field.url.replace('/media/', '/manage/media/', 1)
 
     def get_cover_image_url(self, obj):
         return self._file_url(obj.cover_image)
@@ -191,7 +211,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
-        read_only_fields = ('confirmed_by', 'confirmed_at', 'created_at', 'updated_at')
+        read_only_fields = ('status', 'confirmed_by', 'confirmed_at', 'created_at', 'updated_at')
 
 
 class ShipmentSerializer(serializers.ModelSerializer):

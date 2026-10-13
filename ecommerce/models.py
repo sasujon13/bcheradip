@@ -3,6 +3,7 @@ import uuid
 
 from django.db import models
 from django.utils import timezone
+from .private_storage import ebook_storage
 from django.utils.text import slugify
 
 
@@ -187,6 +188,7 @@ class Order(TimeStampedModel):
 
     number = models.CharField(max_length=32, unique=True, db_index=True)
     tracking_token = models.CharField(max_length=64, unique=True, default=generate_token)
+    checkout_token = models.CharField(max_length=80, unique=True, null=True, blank=True, editable=False)
     customer_id = models.BigIntegerField(null=True, blank=True, db_index=True)
     customer_name = models.CharField(max_length=200)
     email = models.EmailField()
@@ -409,7 +411,7 @@ class BookAsset(TimeStampedModel):
     title = models.CharField(max_length=255)
     asset_type = models.CharField(max_length=20, choices=ASSET_TYPES, default='ebook')
     file_format = models.CharField(max_length=20, choices=FORMATS, default='pdf')
-    file = models.FileField(upload_to='ebooks/files/', blank=True)
+    file = models.FileField(upload_to='ebooks/files/', storage=ebook_storage, blank=True)
     external_url = models.URLField(max_length=1000, blank=True)
     file_size = models.PositiveBigIntegerField(default=0)
     is_primary = models.BooleanField(default=False)

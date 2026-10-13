@@ -1,0 +1,13 @@
+# Staff-run institute directory update
+
+Open `/scrape` while signed in as staff or administrator, then choose **Institutes**. The same link appears on the Django administration home page. Regular users cannot see the menu item or call its import API.
+
+The importer reads the public [Banbeis institute directory](https://institute-search.ieims.banbeis.gov.bd/) and each EIIN's public detail. It uses the exact public institute contact fields (mobile, alternate mobile, email) to update `cheradip_job.cheradip_institutes`. Existing fields missing from the source response are retained. New EIINs are inserted. It does not touch question scraping.
+
+Optionally, each EIIN is cross-checked against the public institute-name selector on the [EMIS portal](https://emis.gov.bd/EMIS/portalone). EMIS names are stored separately in `InstituteSourceSnapshot` and used only if a Banbeis name is missing. The two sources can disagree; the updater does **not** silently replace a Banbeis name with a different EMIS name. It does not collect employee lists, employee phone numbers, or protected EMIS records. If EMIS is unavailable, the Banbeis update continues and the run reports an EMIS warning.
+
+Preview checks at most three records without saving. Run processes 1–25 institutes per page and up to 100 pages per click; the default is ten institutes per page. The UI shows the local count, last completed page, progress, record outcomes, and errors. Staff can stop after the current page. A page with failed Banbeis records is not checkpointed; retry that page after checking the source. Reimporting a page updates by EIIN instead of duplicating rows. Switching to the Questions tab does not interrupt an institute run, but leaving or closing the page stops scheduling additional pages after the current request. A server restart may interrupt the current request; revisit the status before resuming.
+
+`InstituteScrapePage` is the completed-page checkpoint in the main database. `InstituteSourceSnapshot` keeps the public source payload and timestamps for review. The existing institute table remains in the separate `job` database. The updater writes each database idempotently; a retry repairs an interrupted run between the two databases. Apply migration `0028_institute_scraper` to the main database before enabling the new UI in production. No automated production-wide scrape or remote import is started by deployment.
+
+The public `/institutes` response includes institutional phone/email again, including older records already stored locally. Only legacy extended BANBEIS fields remain gated by EIIN entitlement. If a contact is still blank, inspect its Banbeis public detail and rerun the page containing that EIIN; do not substitute a personal EMIS employee contact.

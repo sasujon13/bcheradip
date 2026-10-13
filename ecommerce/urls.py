@@ -6,7 +6,7 @@ from .views import (
     AdminCsvImportView, AdminDashboardView, AdminInventoryView, AdminOrderViewSet,
     AdminPaymentViewSet, AdminProductViewSet, BrandViewSet, CartView, CategoryViewSet,
     AccountHistoryView, BookViewSet, CheckoutView, DigitalBookDownloadView, DigitalLibraryView, NotificationView, OrderTrackingView, OrderViewSet, PaymentCreateView, ProductViewSet,
-    ReviewCreateView, sample_csv,
+    ReviewCreateView, PublicBookAssetView, sample_csv,
 )
 
 router = DefaultRouter()
@@ -32,6 +32,7 @@ urlpatterns = [
     path('account/history/', AccountHistoryView.as_view(), name='ecommerce-account-history'),
     path('track/<str:order_number>/', OrderTrackingView.as_view(), name='ecommerce-order-tracking'),
     path('digital-library/', DigitalLibraryView.as_view(), name='ecommerce-digital-library'),
+    path('book-assets/<int:pk>/download/', PublicBookAssetView.as_view(), name='ecommerce-public-book-asset'),
     path('digital-library/<slug:slug>/download/', DigitalBookDownloadView.as_view(), name='ecommerce-digital-book-download'),
     path('orders/<str:order_number>/payments/', PaymentCreateView.as_view(), name='ecommerce-payment-create'),
     path('products/<int:product_id>/reviews/', ReviewCreateView.as_view(), name='ecommerce-review-create'),

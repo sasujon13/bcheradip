@@ -307,6 +307,17 @@ class Recommend7Serializer(serializers.ModelSerializer):
 
 
 class BanbeisSerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get('request')
+        user = getattr(request, 'user', None)
+        settings = getattr(user, 'settings', None) if user and user.is_authenticated else None
+        paid = settings.get('unlocked_ntrca_eiins_v2', []) if isinstance(settings, dict) else []
+        if str(instance.EIIN) not in {str(value) for value in paid}:
+            for field in ('Contact', 'PreStats', 'Record', 'Record2', 'Linked', 'MPO'):
+                data[field] = None
+        return data
+
     class Meta:
         model = Banbeis
         fields = '__all__'

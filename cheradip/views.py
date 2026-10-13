@@ -150,7 +150,11 @@ class BearerTokenAuthentication(BaseAuthentication):
     def authenticate(self, request):
         auth = request.META.get('HTTP_AUTHORIZATION')
         if not auth or not auth.startswith('Bearer '):
-            return None
+            from .sso import COOKIE, trusted_request
+            token = request.COOKIES.get(COOKIE)
+            if not token or not trusted_request(request):
+                return None
+            auth = 'Bearer ' + token
         token = auth[7:].strip()
         if not token:
             return None
@@ -167,15 +171,23 @@ class BearerTokenAuthentication(BaseAuthentication):
 
 
 def scraper_staff_required(view_func):
-    """Protect legacy Django scraper views with the same Bearer session as the SPA."""
+    """Allow staff Bearer tokens or a CSRF-checked Django admin session."""
     @wraps(view_func)
     def wrapped(request, *args, **kwargs):
         authenticated = BearerTokenAuthentication().authenticate(request)
-        user = authenticated[0] if authenticated else None
+        user = authenticated[0] if authenticated else request.user
         if not user or not (getattr(user, 'is_staff', False) or getattr(user, 'is_superuser', False)):
             return JsonResponse({'error': 'Staff authentication is required.'}, status=403)
+        if not authenticated and request.method not in ('GET', 'HEAD', 'OPTIONS', 'TRACE'):
+            from django.middleware.csrf import CsrfViewMiddleware
+            rejection = CsrfViewMiddleware(lambda req: None).process_view(request, lambda req: None, (), {})
+            if rejection is not None:
+                return rejection
         request.user = user
         return view_func(request, *args, **kwargs)
+    # Bearer requests are authenticated independently; session requests are
+    # checked explicitly above because several legacy scraper views are exempt.
+    wrapped.csrf_exempt = True
     return wrapped
 
 
@@ -682,6 +694,7 @@ class BanbeisViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BanbeisSerializer
     pagination_class = JobListPagination
     permission_classes = [AllowAny]
+    authentication_classes = [BearerTokenAuthentication]
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -696,15 +709,16 @@ class BanbeisViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Institutes.objects.all()
+    queryset = Institutes.objects.all().order_by('eiinNo')
     serializer_class = InstitutesSerializer
     pagination_class = JobListPagination
     permission_classes = [AllowAny]
+    authentication_classes = [BearerTokenAuthentication]
     filter_backends = [filters.SearchFilter]
     search_fields = [
         'instituteName', 'instituteNameBn', 'eiinNo', 'districtName', 'thanaName',
-        'mobile', 'mobileAlternate', 'divisionName', 'divisionNameBn', 'districtNameBn',
-        'thanaNameBn', 'instituteTypeName', 'instituteTypeNameBn', 'mouzaName', 'mouzaNameBn', 'email'
+        'divisionName', 'divisionNameBn', 'districtNameBn',
+        'thanaNameBn', 'instituteTypeName', 'instituteTypeNameBn', 'mouzaName', 'mouzaNameBn'
     ]
 
     def get_queryset(self):
@@ -715,8 +729,6 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
             q = str(q).strip()
             q_any = (
                 Q(eiinNo__icontains=q) |
-                Q(mobile__icontains=q) |
-                Q(mobileAlternate__icontains=q) |
                 Q(instituteName__icontains=q) |
                 Q(instituteNameBn__icontains=q) |
                 Q(divisionName__icontains=q) |
@@ -728,8 +740,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
                 Q(instituteTypeName__icontains=q) |
                 Q(instituteTypeNameBn__icontains=q) |
                 Q(mouzaName__icontains=q) |
-                Q(mouzaNameBn__icontains=q) |
-                Q(email__icontains=q)
+                Q(mouzaNameBn__icontains=q)
             )
             if q.isdigit():
                 q_any = q_any | Q(id=int(q)) | Q(year=int(q))
@@ -805,6 +816,7 @@ class InstitutesViewSet(viewsets.ReadOnlyModelViewSet):
 class InstituteDetailView(APIView):
     """GET /api/institute/?eiin=XXX â€“ return one institute (Institutes or Banbeis by EIIN) for unlock details."""
     permission_classes = [AllowAny]
+    authentication_classes = [BearerTokenAuthentication]
 
     def get(self, request):
         eiin = request.query_params.get('eiin')
@@ -814,7 +826,7 @@ class InstituteDetailView(APIView):
         # Try Institutes first (PK eiinNo) â€“ routed to job DB
         try:
             inst = Institutes.objects.get(eiinNo=eiin_str)
-            serializer = InstitutesSerializer(inst)
+            serializer = InstitutesSerializer(inst, context={'request': request})
             return Response({'results': [serializer.data]})
         except Institutes.DoesNotExist:
             pass
@@ -823,7 +835,7 @@ class InstituteDetailView(APIView):
             eiin_int = int(eiin_str)
             banbeis = Banbeis.objects.filter(EIIN=eiin_int).first()
             if banbeis:
-                serializer = BanbeisSerializer(banbeis)
+                serializer = BanbeisSerializer(banbeis, context={'request': request})
                 return Response({'results': [serializer.data]})
         except (ValueError, TypeError):
             pass
@@ -1023,13 +1035,15 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         if token_val is not None and token_val != '':
             token_val = token_val.strip()
             # Primary: cheradip_trxmanagement â€” match trxid, unlock budget = received_amount
-            trx = TrxManagement.objects.filter(trxid=token_val).first()
+            from .models import TrxIdentity
+            identity = TrxIdentity.objects.select_related('transaction').filter(trxid=token_val).first()
+            trx = identity.transaction if identity else TrxManagement.objects.filter(trxid=token_val).order_by('-status', 'id').first()
             if trx is not None:
                 try:
-                    counter_int = int(trx.received_amount)
+                    counter_int = int(trx.received_amount) if Decimal(str(trx.received_amount)).is_finite() else 0
                 except (TypeError, ValueError):
                     counter_int = 0
-                status_ok = trx.status == 0
+                status_ok = trx.status == 0 and trx.verified and trx.currency.upper() == 'BDT'
                 success = bool(status_ok and counter_int > 0)
                 row = {
                     'id': trx.id,
@@ -1063,10 +1077,6 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         trx = TrxManagement.objects.filter(pk=pk).first()
         if not trx:
             return Response({'success': False, 'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
-        try:
-            inc = int(Decimal(str(trx.received_amount)) * 100)
-        except (TypeError, ValueError, ArithmeticError, InvalidOperation):
-            inc = 0
         customer = request.user
         supplied_trxid = str(request.data.get('trxid') or '').strip()
         if not supplied_trxid or not secrets.compare_digest(supplied_trxid, str(trx.trxid or '')):
@@ -1085,11 +1095,34 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                         {'success': False, 'detail': 'This transaction has already been activated.'},
                         status=status.HTTP_409_CONFLICT,
                     )
+                if not trx_locked.verified:
+                    return Response({'success': False, 'detail': 'Payment is awaiting verification.'}, status=409)
+                amount = Decimal('0')
+                try:
+                    amount = Decimal(str(trx_locked.received_amount))
+                    inc = int(amount * 100)
+                except (TypeError, ValueError, ArithmeticError, InvalidOperation):
+                    inc = 0
+                if not amount.is_finite() or amount <= 0 or amount > Decimal('1000000') or inc <= 0 or trx_locked.currency.upper() != 'BDT':
+                    return Response({'success': False, 'detail': 'Invalid payment amount or currency.'}, status=400)
+                from .models import TrxIdentity, WalletOperation
+                identity = TrxIdentity.objects.select_for_update().filter(trxid=trx_locked.trxid).first()
+                if identity is None:
+                    canonical = TrxManagement.objects.filter(trxid=trx_locked.trxid).order_by('-status', 'id').first()
+                    if canonical.pk != trx_locked.pk:
+                        return Response({'success': False, 'detail': 'Duplicate transaction ID.'}, status=409)
+                    identity, _ = TrxIdentity.objects.get_or_create(
+                        trxid=trx_locked.trxid, defaults={'transaction': trx_locked},
+                    )
+                if identity.transaction_id != trx_locked.pk or WalletOperation.objects.filter(
+                    operation_key=f'recharge:{trx_locked.trxid}'
+                ).exists():
+                    return Response({'success': False, 'detail': 'Transaction ID already used.'}, status=409)
                 trx_locked.token = (trx_locked.token or 0) + inc
                 trx_locked.status = 1
                 trx_locked.save(update_fields=['token', 'status'])
                 remaining_for_client = trx_locked.token
-                customer.refresh_from_db(fields=['settings'])
+                customer = Customer.objects.select_for_update().get(pk=customer.pk)
                 st = _normalize_customer_settings(getattr(customer, 'settings', None))
                 try:
                     base = int(st.get('balance', 0) or 0)
@@ -1098,6 +1131,9 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 st = {**st, 'balance': base + inc}
                 customer.settings = st
                 customer.save(update_fields=['settings'])
+                WalletOperation.objects.create(
+                    operation_key=f'recharge:{trx_locked.trxid}', customer=customer, coins=inc,
+                )
                 remaining_for_client = int(st.get('balance', 0) or 0)
         except Exception:
             logger.exception('token update_status failed')
@@ -1122,11 +1158,20 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         Authentication is mandatory; legacy anonymous transaction-row debits are not accepted.
         """
         debit = self.UNLOCK_DEBIT
+        eiin = str(request.data.get('eiin') or '').strip()
+        if not eiin or len(eiin) > 15 or not eiin.isdigit():
+            return Response({'success': False, 'detail': 'A valid EIIN is required.'}, status=400)
+        if not (Institutes.objects.filter(eiinNo=eiin).exists() or Banbeis.objects.filter(EIIN=int(eiin)).exists()):
+            return Response({'success': False, 'detail': 'Institute not found.'}, status=404)
         customer = request.user
         try:
             with transaction.atomic():
                 customer = Customer.objects.select_for_update().get(pk=customer.pk)
                 st = _normalize_customer_settings(getattr(customer, 'settings', None))
+                stored_paid = st.get('unlocked_ntrca_eiins_v2', [])
+                paid = {str(value) for value in stored_paid} if isinstance(stored_paid, list) else set()
+                if eiin in paid:
+                    return Response({'success': True, 'remaining': int(st.get('balance', 0) or 0), 'alreadyUnlocked': True})
                 try:
                     balance = int(st.get('balance', 0) or 0)
                 except (TypeError, ValueError):
@@ -1139,6 +1184,10 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                     )
                 wallet_result = deduct_wallet_coins(customer, debit)
                 remaining_for_client = wallet_result['remaining_coins']
+                fresh = _normalize_customer_settings(customer.settings)
+                fresh['unlocked_ntrca_eiins_v2'] = sorted(paid | {eiin})
+                customer.settings = fresh
+                customer.save(update_fields=['settings'])
         except Exception:
             logger.exception('use_trx failed')
             return Response(
@@ -1149,145 +1198,18 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(detail=False, methods=['post'], url_path='unlock_questions')
     def unlock_questions(self, request):
-        """
-        Question page unlock: debit ``customer.settings.balance`` per item.
-        MCQ (``is_cq`` false) = QUESTION_UNLOCK_DEBIT_MCQ; CQ = QUESTION_UNLOCK_DEBIT_CQ.
-        Body: ``{ "items": [ { "qid": "01_1_0006", "is_cq": false }, ... ] }`` (max 30).
-        """
-        auth = request.META.get('HTTP_AUTHORIZATION')
-        if not (auth and auth.startswith('Bearer ')):
-            return Response(
-                {'success': False, 'remaining': 0, 'detail': 'Login required'},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-        key = auth[7:].strip()
+        from .question_access import unlock_items
+        authenticated = BearerTokenAuthentication().authenticate(request)
+        if not authenticated:
+            return Response({'success': False, 'detail': 'Login required', 'remaining': 0}, status=401)
+        items = request.data.get('items')
+        if not isinstance(items, list) or not 1 <= len(items) <= 30:
+            return Response({'success': False, 'detail': 'Supply 1 to 30 questions.', 'remaining': 0}, status=400)
         try:
-            customer = CustomerToken.objects.select_related('customer').get(key=key).customer
-        except CustomerToken.DoesNotExist:
-            return Response(
-                {'success': False, 'remaining': 0, 'detail': 'Login required'},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-
-        raw_items = request.data.get('items')
-        if not isinstance(raw_items, list) or len(raw_items) == 0:
-            return Response(
-                {'success': False, 'remaining': 0, 'detail': 'No questions to unlock'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        if len(raw_items) > 30:
-            return Response(
-                {'success': False, 'remaining': 0, 'detail': 'At most 30 questions per request'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        requested = []
-        seen_qids = set()
-        for it in raw_items:
-            if not isinstance(it, dict):
-                continue
-            qid = (it.get('qid') or '').strip()
-            if not qid or qid in seen_qids:
-                continue
-            seen_qids.add(qid)
-            requested.append((qid, bool(it.get('is_cq'))))
-
-        if not requested:
-            try:
-                customer.refresh_from_db(fields=['settings'])
-                st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                remaining = int(st.get('balance', 0) or 0)
-                unlocked = _normalize_unlocked_question_qids(
-                    st.get(UNLOCKED_QUESTION_QIDS_SETTINGS_KEY)
-                )
-            except (TypeError, ValueError):
-                remaining = 0
-                unlocked = []
-            return Response(
-                {
-                    'success': True,
-                    'remaining': remaining,
-                    'debited': 0,
-                    'unlocked_qids': unlocked,
-                }
-            )
-
-        # An active Student package is temporary question access, not a coin
-        # purchase. Do not debit the wallet and do not persist these qids as
-        # purchased: they must lock again when package access expires.
-        package = current_subscription(customer, audience='student')
-        if getattr(customer, 'acctype', '') == 'Student' and package:
-            customer.refresh_from_db(fields=['settings'])
-            st = _normalize_customer_settings(getattr(customer, 'settings', None))
-            try:
-                remaining = int(st.get('balance', 0) or 0)
-            except (TypeError, ValueError):
-                remaining = 0
-            return Response({
-                'success': True,
-                'remaining': remaining,
-                'debited': 0,
-                'unlocked_qids': [qid for qid, _ in requested],
-                'package_access': True,
-            })
-
-        try:
-            with transaction.atomic():
-                customer = Customer.objects.select_for_update().get(pk=customer.pk)
-                st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                already = set(
-                    _normalize_unlocked_question_qids(
-                        st.get(UNLOCKED_QUESTION_QIDS_SETTINGS_KEY)
-                    )
-                )
-                debit = 0
-                for qid, is_cq in requested:
-                    if qid in already:
-                        continue
-                    debit += (
-                        self.QUESTION_UNLOCK_DEBIT_CQ
-                        if is_cq
-                        else self.QUESTION_UNLOCK_DEBIT_MCQ
-                    )
-                try:
-                    b = int(st.get('balance', 0) or 0)
-                except (TypeError, ValueError):
-                    b = 0
-                if debit > 0 and b < debit:
-                    return Response(
-                        {
-                            'success': False,
-                            'remaining': b,
-                            'detail': 'Insufficient coins for unlock',
-                            'debited': 0,
-                        },
-                        status=status.HTTP_400_BAD_REQUEST,
-                    )
-                merged_unlocked = sorted(already | {qid for qid, _ in requested})
-                remaining_for_client = b
-                if debit > 0:
-                    wallet_result = deduct_wallet_coins(customer, debit)
-                    remaining_for_client = wallet_result['remaining_coins']
-                st = {
-                    **_normalize_customer_settings(getattr(customer, 'settings', None)),
-                    UNLOCKED_QUESTION_QIDS_SETTINGS_KEY: merged_unlocked,
-                }
-                customer.settings = st
-                customer.save(update_fields=['settings'])
-            return Response(
-                {
-                    'success': True,
-                    'remaining': remaining_for_client,
-                    'debited': debit,
-                    'unlocked_qids': merged_unlocked,
-                }
-            )
-        except Exception:
-            logger.exception('unlock_questions failed')
-            return Response(
-                {'success': False, 'remaining': 0, 'detail': 'Unlock failed'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
+            payload, code = unlock_items(authenticated[0], items)
+            return Response(payload, status=code)
+        except ValueError as exc:
+            return Response({'success': False, 'detail': str(exc), 'remaining': 0}, status=400)
 
 
 class ItemListCreateView(generics.ListCreateAPIView):
@@ -1651,22 +1573,31 @@ class CustomerSettingsView(APIView):
 
     def get(self, request):
         settings_dict = _normalize_customer_settings(getattr(request.user, 'settings', None))
+        settings_dict.pop('student_exam_attempts', None)
+        settings_dict.pop('tutor_ai', None)
         return Response({'settings': settings_dict}, status=status.HTTP_200_OK)
 
+    @transaction.atomic
     def post(self, request):
         new_settings = request.data.get('settings')
         if new_settings is not None and not isinstance(new_settings, dict):
             return Response({'error': 'settings must be a JSON object'}, status=status.HTTP_400_BAD_REQUEST)
-        user = request.user
+        user = Customer.objects.select_for_update().get(pk=request.user.pk)
         # Must read latest JSON from DB before merge â€” otherwise PATCH can replace the whole
         # settings object and drop ``balance`` (e.g. after welcome ceremony clears pending flag).
         user.refresh_from_db(fields=['settings'])
         current = _normalize_customer_settings(getattr(user, 'settings', None))
         if new_settings is not None:
+            # Balances, entitlements, results and provider credentials are server-owned.
+            # Legacy clients may re-submit unlock lists; ignore them rather than grant access.
+            new_settings = {key: value for key, value in new_settings.items()
+                            if key != 'balance' and key != 'tutor_ai' and not key.startswith(
+                                ('unlocked_', 'legacy_question_unlock_', 'student_exam_', 'membership_', 'wallet_', 'package_'))}
             current = {**current, **new_settings}
             user.settings = current
             user.save(update_fields=['settings'])
-        return Response({'settings': current}, status=status.HTTP_200_OK)
+        public = {key: value for key, value in current.items() if key not in {'student_exam_attempts', 'tutor_ai'}}
+        return Response({'settings': public}, status=status.HTTP_200_OK)
 
 
 # Bengali-capable font for PDF (reportlab). Try Windows Vrinda, Nirmala UI, or project fonts.
@@ -8183,7 +8114,7 @@ class VerifyCodeView(APIView):
         except Customer.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
         from .verification_service import verify_code
-        result = verify_code(customer, code)
+        result = verify_code(customer, code, purpose='verification')
         if result['success']:
             return Response({'message': result['message'], 'verified': True}, status=status.HTTP_200_OK)
         return Response({'error': result['message'], 'verified': False}, status=status.HTTP_400_BAD_REQUEST)
@@ -8245,12 +8176,13 @@ class ResetPasswordWithCodeView(APIView):
         except Customer.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
         from .verification_service import verify_code
-        result = verify_code(customer, code)
+        result = verify_code(customer, code, purpose='password_reset')
         if not result['success']:
             return Response({'error': result['message']}, status=status.HTTP_400_BAD_REQUEST)
         customer.set_password(new_password)
-        if save_email:
-            customer.email = save_email
+        # A recovery request cannot silently replace the account's contact.
+        if save_email and customer.email and str(save_email).strip().casefold() != str(customer.email).strip().casefold():
+            return Response({'error': 'Update the email after signing in.'}, status=status.HTTP_400_BAD_REQUEST)
         customer.save()
         # Mirror the recovered password onto the extension account too.
         sync_customer_to_ext(
@@ -9055,9 +8987,13 @@ class ExamSetQuestionsView(APIView):
                     "COALESCE(duration_minutes, 20)"
                     if 'duration_minutes' in exam_set_columns else "20"
                 )
+                extra_select = ', '.join(
+                    '`%s`' % name if name in exam_set_columns else 'NULL'
+                    for name in ('available_from', 'available_until', 'name_label', 'set_key', 'exam_type', 'exam_mode', 'exam_variant')
+                )
                 cur.execute(
-                    ("SELECT qids_json, level_tr, class_level, subject_tr, %s "
-                     "FROM cheradip_exam_set WHERE id = %%s AND db_alias = 'hsc'") % duration_select,
+                    ("SELECT qids_json, level_tr, class_level, subject_tr, %s, %s "
+                     "FROM cheradip_exam_set WHERE id = %%s AND db_alias = 'hsc'") % (duration_select, extra_select),
                     [pk]
                 )
                 row = cur.fetchone()
@@ -9065,6 +9001,17 @@ class ExamSetQuestionsView(APIView):
                     return Response({'questions': [], 'error': 'Exam set not found'}, status=status.HTTP_404_NOT_FOUND)
                 qids_json, level_tr, class_level, subject_tr = row[0], row[1] or '', row[2] or '', row[3] or ''
                 duration_seconds = max(60, int(row[4] or 20) * 60)
+                now = timezone.now()
+                for index, before in ((5, True), (6, False)):
+                    boundary = row[index]
+                    if boundary:
+                        if isinstance(boundary, str):
+                            from django.utils.dateparse import parse_datetime
+                            boundary = parse_datetime(boundary)
+                        if boundary and timezone.is_naive(boundary):
+                            boundary = timezone.make_aware(boundary)
+                        if boundary and ((before and now < boundary) or (not before and now >= boundary)):
+                            return Response({'questions': [], 'error': 'This exam is outside its availability window.'}, status=403)
                 try:
                     qids = json.loads(qids_json) if qids_json else []
                 except Exception:
@@ -9092,23 +9039,25 @@ class ExamSetQuestionsView(APIView):
                 if not columns:
                     return Response({'questions': [], 'error': 'Subject table has no columns'}, status=status.HTTP_200_OK)
                 select_sql = ', '.join('`%s`' % c for c in columns)
-                track = question_track_for_user(request.user)
-                access_sql, access_params = entitlement_sql(track, '`subsource`') if 'subsource' in columns else ('', [])
+                # Attending exams is free; Study-package source filters do not apply here.
+                access_sql, access_params = '', []
                 access_clause = (' AND ' + access_sql) if access_sql else ''
                 cur.execute(
                     "SELECT %s FROM `%s` WHERE qid IN (%s)%s" % (select_sql, tbl, placeholders, access_clause),
                     qids_slice + access_params,
                 )
-                order_map = {qid: i for i, qid in enumerate(qids_slice)}
+                order_map = {str(qid): i for i, qid in enumerate(qids_slice)}
                 rows = list(cur.fetchall() or [])
                 rows.sort(key=lambda r: order_map.get(str(r[0]) if r[0] is not None else '', 999))
                 questions = []
+                snapshot_questions = []
                 public_fields = {
                     'qid', 'id', 'subject', 'chapter_no', 'chapter', 'topic_no', 'topic',
                     'question', 'option_1', 'option_2', 'option_3', 'option_4', 'type',
                     'level', 'subsource', 'image', 'question_image', 'question_image_url',
                 }
                 for r in rows:
+                    snapshot_questions.append({key: value for key, value in zip(columns, r) if key in public_fields | {'answer', 'explanation', 'explanation2', 'explanation3'}})
                     q = {key: value for key, value in zip(columns, r) if key in public_fields}
                     for key in list(q.keys()):
                         if q[key] is None:
@@ -9122,7 +9071,14 @@ class ExamSetQuestionsView(APIView):
                     customer = Customer.objects.select_for_update().get(pk=request.user.pk)
                     customer.settings, attempt = issue_or_resume(
                         customer.settings, pk, duration_seconds,
+                        snapshot={'questions': snapshot_questions, 'metadata': {
+                            'setName': row[7] or '', 'setKey': row[8] or '', 'examType': row[9] or '',
+                            'examMode': row[10] or 'regular', 'examVariant': row[11] or '',
+                            'levelTr': level_tr, 'classLevel': class_level, 'subjectTr': subject_tr,
+                        }},
                     )
+                    if attempt.get('snapshot'):
+                        questions = [{key: value for key, value in q.items() if key in public_fields} for q in attempt['snapshot']['questions']]
                     customer.save(update_fields=['settings'])
                 return Response({
                     'questions': questions,
@@ -9851,6 +9807,8 @@ class QuestionListView(APIView):
             logger.exception('QuestionListView: %s', e)
             return Response({'questions': [], 'count': 0, 'page': page, 'page_size': page_size, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         revision = _subject_question_table_revision(conn, table_name)
+        from .question_access import protect_questions
+        questions = protect_questions(request.user, db_alias, table_name, questions)
         return Response({
             'questions': questions,
             'count': total_count,

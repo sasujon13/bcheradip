@@ -112,8 +112,13 @@ def ensure_default_free_packages(customer, now=None):
                 if not plan:
                     continue
                 ends = add_months(now, DEFAULT_FREE_DURATION_MONTHS[audience])
+                paid_active = PackageSubscription.objects.filter(
+                    customer=locked_customer, plan__audience=audience, plan__price__gt=0,
+                    status__in=['active', 'grace'],
+                ).exists()
                 created.append(PackageSubscription.objects.create(
-                    customer=locked_customer, plan=plan, status='active',
+                    customer=locked_customer, plan=plan, status='superseded' if paid_active else 'active',
+                    superseded_at=now if paid_active else None,
                     plan_price=0, badge_discount_percent=0, payable_amount=0,
                     payment_reference=payment_reference,
                     starts_at=now, ends_at=ends, next_renewal_at=ends,
@@ -161,10 +166,11 @@ def current_subscription(customer, now=None, process_renewal=True, track=None, a
 
 
 @transaction.atomic
-@transaction.atomic
 def process_subscription_renewal(subscription, now=None):
     """Lazily renew at most once per day; safe to call on every active request."""
     now = now or timezone.now()
+    # All package and wallet operations acquire the account lock first.
+    Customer.objects.select_for_update().get(pk=subscription.customer_id)
     subscription = PackageSubscription.objects.select_for_update().select_related('customer', 'plan').get(pk=subscription.pk)
     successor = PackageSubscription.objects.filter(
         customer=subscription.customer,
@@ -209,7 +215,9 @@ def process_subscription_renewal(subscription, now=None):
         return subscription
     if subscription.last_renewal_attempt_at and now - subscription.last_renewal_attempt_at < RETRY_INTERVAL:
         return subscription
-    progress = refresh_membership(subscription.customer, now, audience=subscription.plan.audience)
+    # The renewal discount was earned during the expiring paid period.
+    badge_time = min(now, subscription.ends_at - timedelta(microseconds=1)) if subscription.ends_at else now
+    progress = refresh_membership(subscription.customer, badge_time, audience=subscription.plan.audience)
     charge = discounted_price(subscription.plan.price, progress.discount_percent)
     charge_coins = _taka_to_coins(charge)
     customer = Customer.objects.select_for_update().get(pk=subscription.customer_id)
@@ -272,19 +280,21 @@ def activate_plan(customer, plan, payment_reference=''):
                 f'{plan.get_track_display()} is already included in your active Combined package. '
                 'No additional payment was charged.'
             )
+        quota_exhausted = bool(
+            current and plan.audience == 'teacher' and
+            current.question_limit_snapshot > 0 and
+            current.questions_used >= current.question_limit_snapshot
+        )
         if current and current.plan_id == plan.id:
-            quota_exhausted = bool(
-                plan.audience == 'teacher' and
-                current.question_limit_snapshot > 0 and
-                current.questions_used >= current.question_limit_snapshot
-            )
             if not quota_exhausted:
                 return current, _wallet(customer), False, (
                     f'Already activated. Renewal will be charged after the current activation period ends on '
                     f'{current.ends_at.date().isoformat() if current.ends_at else "the renewal date"}.'
                 )
-        else:
-            quota_exhausted = False
+        if plan.name == 'Free' and (quota_exhausted or PackageSubscription.objects.filter(
+            customer=customer, plan__audience=plan.audience, plan__name='Free',
+        ).exists()):
+            raise ValueError('The introductory Free allowance is available once only. Use Coins or activate a paid package.')
         is_upgrade = bool(current and plan.sort_order > current.plan.sort_order)
         # Badge discounts apply to the next renewal, not to a fresh activation.
         payable = Decimal(plan.price) if (not current or is_upgrade or quota_exhausted) else Decimal('0')
@@ -315,7 +325,8 @@ def activate_plan(customer, plan, payment_reference=''):
             badge_discount_percent=progress.discount_percent, payable_amount=payable,
             payment_reference=str(payment_reference or '')[:80], starts_at=now, ends_at=ends,
             next_renewal_at=ends, auto_renew=plan.price > 0,
-            question_limit_snapshot=plan.question_limit, questions_used=0,
+            question_limit_snapshot=plan.question_limit,
+            questions_used=(current.questions_used if current and not payable_coins else 0),
         )
         if plan.track == 'combined':
             # Preserve already-paid Academic/Admission access, but Combined owns their
@@ -359,7 +370,7 @@ def subscription_payload(row, now=None, mark_warning=False):
 
 
 def question_track_for_user(user):
-    if not getattr(user, 'is_authenticated', False) or getattr(user, 'acctype', '') != 'Student':
+    if not getattr(user, 'is_authenticated', False):
         return None
     tracks = {row.plan.track for row in active_subscriptions(user, audience='student')}
     if 'combined' in tracks or {'academic', 'admission'}.issubset(tracks):

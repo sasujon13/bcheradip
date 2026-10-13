@@ -373,6 +373,18 @@ class CustomerToken(models.Model):
         return f"Token for {self.customer.username}"
 
 
+class VerificationChallenge(models.Model):
+    """One-time, purpose-bound code sent to a contact already owned by a customer."""
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='verification_challenges')
+    purpose = models.CharField(max_length=24)
+    code_hash = models.CharField(max_length=128)
+    expires_at = models.DateTimeField()
+    attempts = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['customer', 'purpose'], name='customer_verification_purpose_unique')]
+
+
 class PackagePlan(models.Model):
     """Purchasable education package from the public package matrix."""
 
@@ -542,6 +554,63 @@ class RewardsWallet(models.Model):
         return f'{self.customer.username}: Tk {self.available_taka}'
 
 
+class AdminTableEvent(models.Model):
+    database_alias = models.CharField(max_length=32, db_index=True)
+    table_name = models.CharField(max_length=128, db_index=True)
+    row_key = models.CharField(max_length=160, blank=True)
+    action = models.CharField(max_length=16)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'cheradip_admin_table_event'
+        indexes = [models.Index(fields=['database_alias', 'table_name', 'id'])]
+
+
+class AdminTableFingerprint(models.Model):
+    database_alias = models.CharField(max_length=32)
+    table_name = models.CharField(max_length=128)
+    digest = models.CharField(max_length=64)
+    last_event_id = models.PositiveBigIntegerField(default=0)
+
+    class Meta:
+        db_table = 'cheradip_admin_table_fingerprint'
+        constraints = [models.UniqueConstraint(fields=['database_alias', 'table_name'], name='admin_table_fingerprint_scope')]
+
+
+class AdminTableReview(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    database_alias = models.CharField(max_length=32)
+    table_name = models.CharField(max_length=128)
+    last_event_id = models.PositiveBigIntegerField(default=0)
+
+    class Meta:
+        db_table = 'cheradip_admin_table_review'
+        constraints = [models.UniqueConstraint(fields=['customer', 'database_alias', 'table_name'], name='admin_table_review_owner')]
+
+
+class StudentExamRecord(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='exam_records')
+    attempt_id = models.CharField(max_length=160, unique=True)
+    payload = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'cheradip_student_exam_record'
+        ordering = ['-created_at', '-id']
+
+
+class WalletOperation(models.Model):
+    """Idempotent money ledger; committed on the same database as the wallet."""
+    operation_key = models.CharField(max_length=160, unique=True)
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    coins = models.BigIntegerField()
+    reference_taka = models.DecimalField(max_digits=14, decimal_places=2, default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'cheradip_wallet_operation'
+
+
 class WithdrawalRequest(models.Model):
     """Manual payout request from a customer's Cheradip Rewards Wallet."""
 
@@ -566,6 +635,7 @@ class WithdrawalRequest(models.Model):
     amount_taka = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(100)])
     balance_before_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     balance_after_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    reserved_coins = models.PositiveBigIntegerField(default=0, editable=False)
     status = models.CharField(max_length=16, choices=STATUS_CHOICES, default='pending', db_index=True)
     admin_note = models.TextField(blank=True)
     requested_at = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -918,6 +988,56 @@ class Institutes(models.Model):
         managed = False
 
 
+class InstituteSourceSnapshot(models.Model):
+    """Public directory evidence kept separately from the legacy institute table."""
+    eiin = models.CharField(max_length=15, primary_key=True)
+    banbeis = models.JSONField(default=dict, blank=True)
+    emis = models.JSONField(default=dict, blank=True)
+    last_banbeis_sync_at = models.DateTimeField(null=True, blank=True)
+    last_emis_sync_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['eiin']
+
+
+class InstituteTeacher(models.Model):
+    """Selected public EMIS teacher-directory fields, keyed by EIIN and source row."""
+    eiin = models.CharField(max_length=15, db_index=True)
+    source_row_id = models.CharField(max_length=64)
+    name = models.CharField(max_length=255)
+    name_bn = models.CharField(max_length=255, blank=True, default='')
+    designation = models.CharField(max_length=255, blank=True, default='')
+    subject = models.CharField(max_length=255, blank=True, default='')
+    mobile = models.CharField(max_length=32, blank=True, default='')
+    email = models.EmailField(max_length=254, blank=True, default='')
+    position = models.PositiveSmallIntegerField(default=0)
+    listed = models.BooleanField(default=True)
+    last_seen_at = models.DateTimeField()
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['eiin', 'source_row_id'], name='unique_emis_teacher_per_eiin')]
+        ordering = ['eiin', 'position', 'id']
+
+
+class InstituteScrapePage(models.Model):
+    """Completed page checkpoint; failed pages are not marked complete."""
+    page = models.PositiveIntegerField()
+    size = models.PositiveSmallIntegerField()
+    source = models.CharField(max_length=32, default='banbeis')
+    created = models.PositiveSmallIntegerField(default=0)
+    updated = models.PositiveSmallIntegerField(default=0)
+    unchanged = models.PositiveSmallIntegerField(default=0)
+    failed = models.PositiveSmallIntegerField(default=0)
+    source_total = models.PositiveIntegerField(default=0)
+    processed_by = models.ForeignKey('Customer', null=True, on_delete=models.SET_NULL)
+    processed_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['source', 'page', 'size'], name='unique_institute_scrape_page')]
+        ordering = ['-processed_at']
+
+
 class Token(models.Model):
     """NTRCA token – table cheradip_tokens. Status: 0=unused, 1=used."""
     id = models.AutoField(primary_key=True)
@@ -945,6 +1065,7 @@ class TrxManagement(models.Model):
     transaction_date = models.CharField(max_length=32)
     transaction_time = models.CharField(max_length=16)
     confidence = models.DecimalField(max_digits=7, decimal_places=5)
+    verified = models.BooleanField(default=False, help_text='Trusted payment source or manually checked receipt.')
     status = models.IntegerField(default=0)
     token = models.IntegerField(default=0)
 
@@ -954,3 +1075,9 @@ class TrxManagement(models.Model):
 
     def __str__(self):
         return f"{self.trxid} ({self.media})"
+
+
+class TrxIdentity(models.Model):
+    """Canonical payment ID: duplicate imported rows can never credit twice."""
+    trxid = models.CharField(max_length=128, unique=True)
+    transaction = models.ForeignKey(TrxManagement, on_delete=models.PROTECT, related_name='identity')

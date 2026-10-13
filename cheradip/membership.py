@@ -41,13 +41,21 @@ def add_months(value, months):
 
 def _active_plan(customer, audience, now=None):
     now = now or timezone.now()
-    row = PackageSubscription.objects.filter(
+    rows = PackageSubscription.objects.filter(
         customer=customer,
         plan__audience=audience,
         status__in=['active', 'grace'],
         starts_at__lte=now,
-    ).select_related('plan').order_by('-plan__sort_order', '-starts_at', '-id').first()
-    return row.plan if row else None
+    ).select_related('plan').order_by('-plan__sort_order', '-starts_at', '-id')
+    for row in rows:
+        if row.status == 'grace' and row.grace_ends_at and row.grace_ends_at >= now:
+            return row.plan
+        if row.status == 'active' and (
+            row.ends_at is None or row.ends_at > now or
+            (row.plan.price <= 0 and row.ends_at + timedelta(days=7) >= now)
+        ):
+            return row.plan
+    return None
 
 
 def _question_key(question):
@@ -74,7 +82,8 @@ def _teacher_metrics(customer, now):
 
 def _exam_metrics(customer, now):
     settings = customer.settings if isinstance(customer.settings, dict) else {}
-    rows = settings.get('student_exam_results') if isinstance(settings.get('student_exam_results'), list) else []
+    from .student_views import _results
+    rows = _results(customer)
     stored_total = int(settings.get('membership_exam_lifetime_count') or 0)
     stored_passed = int(settings.get('membership_exam_passed_count') or 0)
     total = max(stored_total, len(rows))

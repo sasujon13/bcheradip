@@ -20,7 +20,7 @@ def _aware(value):
     return parsed
 
 
-def issue_or_resume(settings, set_id, duration_seconds):
+def issue_or_resume(settings, set_id, duration_seconds, snapshot=None):
     now = timezone.now()
     data = dict(settings) if isinstance(settings, dict) else {}
     attempts = [row for row in data.get(ATTEMPTS_KEY, []) if isinstance(row, dict)]
@@ -41,8 +41,29 @@ def issue_or_resume(settings, set_id, duration_seconds):
             'expiresAt': (now + timedelta(seconds=duration_seconds)).isoformat(),
         }
         active.insert(0, resumed)
+        if snapshot is not None:
+            resumed['snapshot'] = snapshot
     data[ATTEMPTS_KEY] = active[:MAX_ACTIVE_ATTEMPTS]
     return data, resumed
+
+
+def score_snapshot(snapshot, submitted_answers):
+    """Grade precisely the questions and answer keys issued for this attempt."""
+    from .student_views import _answer_key, secrets_compare
+    questions = snapshot.get('questions') or []
+    if not questions:
+        raise ValueError('Please start a new attempt; this older attempt has no frozen questions.')
+    answers = submitted_answers if isinstance(submitted_answers, dict) else {}
+    grading, correct = {}, 0
+    for row in questions:
+        qid = str(row['qid'])
+        key = _answer_key(row.get('answer'), [row.get(f'option_{i}') for i in range(1, 5)])
+        if key and secrets_compare(str(answers.get(qid) or '').strip(), key):
+            correct += 1
+        grading[qid] = {name: row.get(name) or '' for name in ('answer', 'explanation', 'explanation2', 'explanation3')}
+        grading[qid]['correctOption'] = key
+    return {**snapshot.get('metadata', {}), 'total': len(questions), 'correct': correct,
+            'score': round(correct * 100 / len(questions)), 'grading': grading}
 
 
 def consume_attempt(settings, set_id, attempt_id):

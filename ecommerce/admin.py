@@ -8,12 +8,14 @@ from .models import (
 )
 from .book_catalog import sync_book_catalog
 from .book_builder import build_book_asset
+from .order_service import change_order, change_payment
+from .admin_forms import OrderAdminForm, PaymentAdminForm
 
 
 for model in (
-    Category, Brand, Product, ProductVariant, ProductImage, InventoryMovement,
-    Cart, CartItem, Coupon, OrderItem, Payment, Shipment,
-    OrderStatusHistory, Review, CommerceNotification, ImportJob,
+    Category, Brand, Product, ProductVariant, ProductImage,
+    Cart, CartItem, Coupon, Shipment,
+    Review, CommerceNotification, ImportJob,
 ):
     try:
         admin.site.register(model)
@@ -21,41 +23,73 @@ for model in (
         pass
 
 
+class ImmutableCommerceRecordAdmin(admin.ModelAdmin):
+    def get_readonly_fields(self, request, obj=None):
+        return tuple(field.name for field in self.model._meta.fields)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+for immutable_model in (InventoryMovement, OrderItem, OrderStatusHistory):
+    admin.site.register(immutable_model, ImmutableCommerceRecordAdmin)
+
+
 @admin.action(description='Mark selected orders as Order Completed')
 def complete_orders(modeladmin, request, queryset):
     completed = 0
     for order in queryset.exclude(status='completed'):
-        order.status = 'completed'
-        order.payment_status = 'paid'
-        order.fulfilled_at = order.fulfilled_at or timezone.now()
-        order.save(using='ecommerce', update_fields=['status', 'payment_status', 'fulfilled_at', 'updated_at'])
-        OrderStatusHistory.objects.using('ecommerce').create(
-            order=order,
-            status='completed',
-            note='Order completed manually by administration.',
-            actor_id=request.user.pk,
-        )
-        CommerceNotification.objects.using('ecommerce').create(
-            kind='order',
-            title=f'Order {order.number}: completed',
-            message='Your order has been completed.',
-            link=f'/history?order={order.number}',
-            customer_id=order.customer_id,
-        )
-        completed += 1
+        try:
+            change_order(order.pk, 'completed', request.user.pk, 'Order completed manually by administration.')
+            completed += 1
+        except ValueError as exc:
+            modeladmin.message_user(request, f'{order.number}: {exc}', level='error')
     modeladmin.message_user(request, f'{completed} order(s) marked as completed.')
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    form = OrderAdminForm
     list_display = (
         'number', 'customer_name', 'grand_total', 'payment_status', 'status',
         'created_at', 'fulfilled_at',
     )
     list_filter = ('status', 'payment_status', 'created_at')
     search_fields = ('number', 'customer_name', 'email', 'phone')
-    readonly_fields = ('number', 'tracking_token', 'created_at', 'updated_at')
+    readonly_fields = ('number', 'tracking_token', 'checkout_token', 'payment_status', 'created_at', 'updated_at')
     actions = (complete_orders,)
+
+    def get_readonly_fields(self, request, obj=None):
+        return tuple(field.name for field in self.model._meta.fields if field.name not in {'status', 'admin_note'})
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def save_model(self, request, obj, form, change):
+        # Route the form through the very same state machine as the API.
+        change_order(obj.pk, obj.status, request.user.pk, 'Updated by administration.', obj.admin_note)
+
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    form = PaymentAdminForm
+    list_display = ('order', 'method', 'amount', 'status', 'created_at')
+    readonly_fields = ('order', 'method', 'amount', 'transaction_id', 'proof_url', 'payer_phone', 'confirmed_by', 'confirmed_at', 'created_at', 'updated_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def save_model(self, request, obj, form, change):
+        change_payment(obj.pk, obj.status, request.user.pk, obj.note)
 
 
 class BookAssetInline(admin.TabularInline):

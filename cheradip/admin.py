@@ -2,7 +2,7 @@
 Admin for cheradip default-DB models only.
 Tables: Country, Location, Item, Transaction, OrderDetail, Customer, CustomerToken, Notification, JsonData.
 """
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db import transaction
 from django.utils import timezone
 from django.shortcuts import render, redirect
@@ -25,6 +25,9 @@ from .models import (
     ReferralCommission,
     RewardsWallet,
     WithdrawalRequest,
+    InstituteSourceSnapshot,
+    InstituteTeacher,
+    InstituteScrapePage,
 )
 
 
@@ -201,6 +204,12 @@ class CustomerAdmin(BulkImportCsvJsonMixin, admin.ModelAdmin):
     list_filter = ('acctype', 'group', 'gender', 'is_active', 'date_joined')
     readonly_fields = ('date_joined', 'last_login', 'updated_at')
 
+    def get_readonly_fields(self, request, obj=None):
+        fields = super().get_readonly_fields(request, obj)
+        if request.user.is_superuser:
+            return fields
+        return (*fields, 'settings', 'password', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+
 
 @admin.register(CustomerToken)
 class CustomerTokenAdmin(BulkImportCsvJsonMixin, admin.ModelAdmin):
@@ -218,19 +227,17 @@ class PackagePlanAdmin(admin.ModelAdmin):
     ordering = ('sort_order', 'track')
 
 
-@admin.action(description='Confirm payment and activate selected subscriptions')
+@admin.action(description='Activate selected plans using normal wallet/payment rules')
 def activate_subscriptions(modeladmin, request, queryset):
-    from django.utils import timezone
-    from .membership import add_months, refresh_membership
+    from .package_service import activate_plan
     activated = 0
     for subscription in queryset.select_related('plan', 'customer'):
-        now = timezone.now()
-        subscription.status = 'active'
-        subscription.starts_at = now
-        subscription.ends_at = add_months(now, subscription.plan.duration_months)
-        subscription.save(update_fields=['status', 'starts_at', 'ends_at', 'updated_at'])
-        refresh_membership(subscription.customer)
-        activated += 1
+        try:
+            _, _, created, message = activate_plan(subscription.customer, subscription.plan, subscription.payment_reference)
+            activated += int(created)
+            modeladmin.message_user(request, message)
+        except ValueError as exc:
+            modeladmin.message_user(request, str(exc), level=messages.ERROR)
     modeladmin.message_user(request, f'{activated} subscription(s) activated.')
 
 
@@ -242,6 +249,15 @@ class PackageSubscriptionAdmin(admin.ModelAdmin):
     actions = (activate_subscriptions,)
     readonly_fields = ('order_number', 'plan_price', 'badge_discount_percent', 'payable_amount', 'created_at', 'updated_at')
 
+    def get_readonly_fields(self, request, obj=None):
+        return tuple(field.name for field in self.model._meta.fields)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(MembershipProgress)
 class MembershipProgressAdmin(admin.ModelAdmin):
@@ -250,12 +266,30 @@ class MembershipProgressAdmin(admin.ModelAdmin):
     search_fields = ('customer__username', 'customer__fullName')
     readonly_fields = ('evaluated_at',)
 
+    def get_readonly_fields(self, request, obj=None):
+        return tuple(field.name for field in self.model._meta.fields)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(ReferralCommission)
 class ReferralCommissionAdmin(admin.ModelAdmin):
     list_display = ('referrer', 'referred_customer', 'subscription', 'gross_amount', 'reference_value_percent', 'commission_coins', 'created_at')
     search_fields = ('referrer__username', 'referred_customer__username')
     readonly_fields = ('created_at',)
+
+    def get_readonly_fields(self, request, obj=None):
+        return tuple(field.name for field in self.model._meta.fields)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(RewardsWallet)
@@ -288,6 +322,9 @@ def approve_withdrawals(modeladmin, request, queryset):
         for row in rows.select_related('customer'):
             if row.status != 'processing':
                 continue
+            if not row.reserved_coins:
+                modeladmin.message_user(request, f'Withdrawal {row.pk} predates wallet reservation. Reconcile it manually before approval.', level=messages.WARNING)
+                continue
             wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=row.customer)
             wallet.lifetime_withdrawn_taka += row.amount_taka
             wallet.save(update_fields=['lifetime_withdrawn_taka', 'updated_at'])
@@ -307,9 +344,14 @@ def reject_withdrawals(modeladmin, request, queryset):
         for row in rows.select_related('customer'):
             if row.status not in {'pending', 'processing'}:
                 continue
+            customer = Customer.objects.select_for_update().get(pk=row.customer_id)
             wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=row.customer)
             wallet.available_taka += row.amount_taka
             wallet.save(update_fields=['available_taka', 'updated_at'])
+            if row.reserved_coins:
+                from .wallet_service import wallet_coins
+                customer.settings = {**(customer.settings or {}), 'balance': wallet_coins(customer) + row.reserved_coins}
+                customer.save(update_fields=['settings'])
             row.status = 'rejected'
             row.processed_at = timezone.now()
             row.processed_by = request.user
@@ -363,11 +405,68 @@ class TrxManagementAdmin(admin.ModelAdmin):
         'transaction_date',
         'transaction_time',
         'confidence',
+        'verified',
         'status',
         'token',
     )
     search_fields = ('trxid', 'sender_contact', 'media')
-    list_filter = ('media', 'currency', 'status')
+    list_filter = ('media', 'currency', 'status', 'verified')
+
+
+@admin.register(InstituteSourceSnapshot)
+class InstituteSourceSnapshotAdmin(admin.ModelAdmin):
+    list_display = ('eiin', 'last_banbeis_sync_at', 'last_emis_sync_at')
+    search_fields = ('eiin',)
+    readonly_fields = ('eiin', 'banbeis', 'emis', 'last_banbeis_sync_at', 'last_emis_sync_at', 'updated_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(InstituteTeacher)
+class InstituteTeacherAdmin(admin.ModelAdmin):
+    list_display = ('eiin', 'name', 'name_bn', 'designation', 'subject', 'listed', 'last_seen_at')
+    list_filter = ('listed', 'last_seen_at')
+    search_fields = ('eiin', 'name', 'name_bn', 'subject')
+    readonly_fields = ('eiin', 'source_row_id', 'name', 'name_bn', 'designation', 'subject',
+                       'mobile', 'email', 'position', 'listed', 'last_seen_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(InstituteScrapePage)
+class InstituteScrapePageAdmin(admin.ModelAdmin):
+    list_display = ('page', 'size', 'created', 'updated', 'unchanged', 'failed', 'processed_by', 'processed_at')
+    list_filter = ('size', 'processed_at')
+    readonly_fields = ('page', 'size', 'source', 'created', 'updated', 'unchanged', 'failed', 'source_total', 'processed_by', 'processed_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 # Re-register Item, OrderDetail, JsonData with bulk import mixin

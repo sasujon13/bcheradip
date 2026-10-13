@@ -88,7 +88,7 @@ class SecurityRegressionTests(TestCase):
             media='Nagad', received_amount=Decimal('5.00'), currency='BDT',
             sender_contact='01700000000', trxid='TX-ONE-TIME',
             transaction_date='2026-10-01', transaction_time='10:00',
-            confidence=Decimal('1.00000'), status=0, token=0,
+            confidence=Decimal('1.00000'), status=0, token=0, verified=True,
         )
         view = TokenViewSet.as_view({'post': 'update_status'})
         wrong = view(self.auth('post', '/', {'trxid': 'WRONG'}), pk=trx.pk)

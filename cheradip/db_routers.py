@@ -72,7 +72,7 @@ class JobRouter:
         # Defer to HSCRouter / HonoursRouter for hsc and honours
         if db in ('hsc', 'honours'):
             return None
-        return True
+        return None
 
 
 class HSCRouter:
@@ -100,7 +100,7 @@ class HSCRouter:
             return db == 'hsc'
         if db == 'hsc':
             return False
-        return True
+        return None
 
 
 class HonoursRouter:
@@ -131,4 +131,4 @@ class HonoursRouter:
         # Defer to HSCRouter for hsc (so only cheradip subject/pendingsubjectrequesthsc migrate there)
         if db == 'hsc':
             return None
-        return True
+        return db == 'default' if db not in ('job', 'hsc', 'ailt', 'extcheradip', 'ecommerce', 'childcare') else False

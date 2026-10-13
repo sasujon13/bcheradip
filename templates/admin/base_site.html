@@ -19,3 +19,8 @@
   <a href="{% url 'admin:index' %}">{{ site_header }}</a>
 </div>
 {% endblock %}
+
+{% block userlinks %}
+<a href="{% url 'admin:operations_manual' %}" class="admin-manual-link" aria-label="Open the administrative user manual">Admin manual</a> /
+{{ block.super }}
+{% endblock %}

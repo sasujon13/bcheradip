@@ -15,14 +15,15 @@ import re
 from django.db import connections, transaction
 from django.http import HttpResponse
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Customer
+from .models import Customer, StudentExamRecord
 from .membership import refresh_membership
-from .exam_attempts import consume_attempt
+from .exam_attempts import consume_attempt, score_snapshot
 from .subject_question_tables import subject_question_table_name
 from .views import (
     BearerTokenAuthentication,
@@ -42,7 +43,10 @@ def _settings(value):
 
 def _results(customer):
     value = _settings(customer.settings).get(RESULTS_KEY, [])
-    return [item for item in value if isinstance(item, dict)] if isinstance(value, list) else []
+    legacy = [item for item in value if isinstance(item, dict)] if isinstance(value, list) else []
+    records = [row.payload for row in customer.exam_records.all()]
+    ids = {row.get('attemptId') for row in records}
+    return records + [row for row in legacy if not row.get('attemptId') or row.get('attemptId') not in ids]
 
 
 def _completed_results(customer):
@@ -177,7 +181,7 @@ def _ranked_customers(period='all-time', level='', subject='', group=''):
     }
     wanted_group = group_aliases.get(group, group)
     ranked = []
-    for customer in Customer.objects.only('id', 'username', 'fullName', 'group', 'settings'):
+    for customer in Customer.objects.only('id', 'username', 'fullName', 'group', 'settings').prefetch_related('exam_records'):
         if wanted_group and str(customer.group or '') != wanted_group:
             continue
         rows = _filtered_results(customer, period, level, subject)
@@ -206,12 +210,17 @@ def _answer_key(answer, options):
         '1': 'ক', '2': 'খ', '3': 'গ', '4': 'ঘ',
         'option_1': 'ক', 'option_2': 'খ', 'option_3': 'গ', 'option_4': 'ঘ',
     }
+    # Numeric answers are often the option *text* (for example, "2"), not
+    # option number two. Match exact displayed content before markers.
+    exact = [index for index, option in enumerate(options) if normalized and normalized == _plain_answer(option)]
+    if len(exact) == 1:
+        return OPTION_KEYS[exact[0]]
     marker = re.sub(r'[:).\-]+$', '', normalized)
     if marker in direct:
         return direct[marker]
     for index, option in enumerate(options):
         option_normalized = _plain_answer(option)
-        if option_normalized and (normalized == option_normalized or normalized.startswith(option_normalized)):
+        if option_normalized and normalized == option_normalized:
             return OPTION_KEYS[index]
     return ''
 
@@ -299,7 +308,7 @@ def _score_exam_submission(set_id, submitted_answers):
 def secrets_compare(left, right):
     """Constant-time comparison for the short normalized answer markers."""
     import secrets
-    return secrets.compare_digest(str(left), str(right))
+    return secrets.compare_digest(str(left).encode('utf-8'), str(right).encode('utf-8'))
 
 
 def _normalized_result(payload, authoritative=None, completed_at=None):
@@ -341,7 +350,13 @@ class StudentExamResultsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({'results': _results(request.user)})
+        rows = _results(request.user)
+        if 'page' in request.query_params:
+            from rest_framework.pagination import PageNumberPagination
+            paginator = PageNumberPagination()
+            paginator.page_size = 50
+            return paginator.get_paginated_response(paginator.paginate_queryset(rows, request, view=self))
+        return Response({'results': rows})
 
     def post(self, request):
         payload = request.data if isinstance(request.data, dict) else {}
@@ -355,7 +370,6 @@ class StudentExamResultsView(APIView):
         if not attempt_id:
             return Response({'error': 'A server-issued attemptId is required'}, status=status.HTTP_400_BAD_REQUEST)
         try:
-            authoritative = _score_exam_submission(set_id, payload.get('answers'))
             with transaction.atomic():
                 customer = Customer.objects.select_for_update().get(pk=request.user.pk)
                 data = _settings(customer.settings).copy()
@@ -371,10 +385,12 @@ class StudentExamResultsView(APIView):
                         'added': 0,
                         'result': existing,
                         'results': [existing],
-                        'grading': authoritative.get('grading', {}),
+                        'grading': existing.get('grading', {}),
                     })
                 data, _attempt, completed_at = consume_attempt(data, set_id, attempt_id)
+                authoritative = score_snapshot(_attempt.get('snapshot') or {}, payload.get('answers'))
                 normalized = [_normalized_result(payload, authoritative, completed_at)]
+                normalized[0]['grading'] = authoritative.get('grading', {})
                 added = normalized
                 historical_total = max(int(data.get('membership_exam_lifetime_count') or 0), len(rows))
                 historical_passed = max(
@@ -385,7 +401,7 @@ class StudentExamResultsView(APIView):
                 data['membership_exam_passed_count'] = historical_passed + (
                     1 if _number(normalized[0].get('score')) >= 40 else 0
                 )
-                data[RESULTS_KEY] = (added + rows)[:MAX_RESULTS]
+                StudentExamRecord.objects.create(customer=customer, attempt_id=attempt_id, payload=normalized[0])
                 data[ACTIVITY_KEY] = _activity(customer)
                 customer.settings = data
                 customer.save(update_fields=['settings'])

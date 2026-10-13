@@ -66,9 +66,7 @@ def sync_book_catalog(book: Book, notify: bool = True) -> Product:
                 'option1_name': 'Format', 'option1_value': 'Digital',
             },
         )
-        ProductVariant.objects.using('ecommerce').update_or_create(
-            sku=f'BOOK-{book.pk:06d}-HARDCOPY',
-            defaults={
+        hard_defaults = {
                 'product': product, 'title': 'Printed hard copy',
                 'price': book.hard_copy_price if book.hard_copy_price is not None else book.digital_price,
                 'compare_at_price': book.compare_at_price, 'stock': book.hard_copy_quantity,
@@ -76,12 +74,21 @@ def sync_book_catalog(book: Book, notify: bool = True) -> Product:
                 'allow_backorder': False,
                 'is_active': book.status == 'published' and book.hard_copy_available,
                 'option1_name': 'Format', 'option1_value': 'Hard copy',
-            },
+            }
+        hard_variant, created = ProductVariant.objects.using('ecommerce').get_or_create(
+            sku=f'BOOK-{book.pk:06d}-HARDCOPY', defaults=hard_defaults,
         )
+        if not created:
+            # Inventory belongs to ProductVariant after initial catalog creation.
+            # Editing a title or price must never restore already sold copies.
+            for key, value in hard_defaults.items():
+                if key != 'stock':
+                    setattr(hard_variant, key, value)
+            hard_variant.save(using='ecommerce')
         if book.cover_image:
             ProductImage.objects.using('ecommerce').update_or_create(
                 product=product, position=0,
-                defaults={'url': book.cover_image.url, 'alt_text': f'{book.title} cover'},
+                defaults={'url': book.cover_image.url.replace('/media/', '/manage/media/', 1), 'alt_text': f'{book.title} cover'},
             )
         if notify:
             CommerceNotification.objects.using('ecommerce').create(

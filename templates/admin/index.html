@@ -282,6 +282,8 @@
 
 {% block content %}
 <div id="content-main">
+  <p class="admin-manual-entry"><a href="{% url 'admin:operations_manual' %}">📖 Administrative user manual</a> — accounts, packages, payments, orders, questions, database activity, and troubleshooting.</p>
+  <p class="admin-manual-entry"><a href="{{ scraper_frontend_url }}">↻ Scraping workspace</a> — switch between question scraping and staff-run institute updates from Banbeis and EMIS.</p>
   <ul class="admin-db-tabs">
     {% for tab in db_tabs %}
     <li class="{% if tab.active %}active{% endif %}">

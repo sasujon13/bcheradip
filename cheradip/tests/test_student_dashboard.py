@@ -22,7 +22,7 @@ class StudentDashboardApiTests(TestCase):
             acctype='Student', group='Science', settings={},
         )
         self.token = CustomerToken.objects.create(key='student-test-token', customer=self.customer)
-        self.scorer = patch('cheradip.student_views._score_exam_submission', side_effect=self.score_exam)
+        self.scorer = patch('cheradip.student_views.score_snapshot', side_effect=lambda snapshot, answers: self.score_exam(snapshot['setId'], answers))
         self.scorer.start()
         self.addCleanup(self.scorer.stop)
 
@@ -47,6 +47,7 @@ class StudentDashboardApiTests(TestCase):
                 settings[ATTEMPTS_KEY] = [{
                     'attemptId': str(data['attemptId']),
                     'setId': int(data.get('setId') or 0),
+                    'snapshot': {'setId': int(data.get('setId') or 0)},
                     'startedAt': timezone.now().isoformat(),
                     'expiresAt': (timezone.now() + timedelta(minutes=20)).isoformat(),
                 }]
@@ -94,7 +95,7 @@ class StudentDashboardApiTests(TestCase):
         duplicate = view(self.request('post', '/', data))
         self.assertEqual(duplicate.status_code, 200)
         self.customer.refresh_from_db()
-        self.assertEqual(len(self.customer.settings['student_exam_results']), 1)
+        self.assertEqual(self.customer.exam_records.count(), 1)
 
     def test_legacy_bulk_scores_are_rejected(self):
         results = []

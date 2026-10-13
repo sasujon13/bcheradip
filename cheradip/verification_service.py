@@ -24,13 +24,15 @@ Setup Instructions:
    No server configuration needed - it's completely free!
 """
 
-import random
+import secrets
 import string
 import logging
 from datetime import timedelta
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.hashers import check_password, make_password
+from django.db import transaction
 from decouple import config
 import requests
 
@@ -45,7 +47,7 @@ class VerificationService:
     
     def generate_code(self, length=6):
         """Generate a random numeric verification code"""
-        return ''.join(random.choices(string.digits, k=length))
+        return ''.join(str(secrets.randbelow(10)) for _ in range(length))
     
     def send_verification(self, user, code, purpose='verification'):
         """
@@ -231,20 +233,22 @@ def send_verification_code(customer, purpose='verification'):
     Returns:
         dict: Result with success status and message
     """
+    from .models import VerificationChallenge
     code = verification_service.generate_code()
-    
-    # Save code to customer record
-    customer.verification_code = code
-    customer.verification_code_expires = timezone.now() + timedelta(minutes=10)
-    customer.save(update_fields=['verification_code', 'verification_code_expires'])
+    VerificationChallenge.objects.update_or_create(
+        customer=customer, purpose=purpose,
+        defaults={'code_hash': make_password(code), 'expires_at': timezone.now() + timedelta(minutes=10), 'attempts': 0},
+    )
     
     # Send via Email (primary) or WhatsApp (fallback)
     result = verification_service.send_verification(customer, code, purpose)
+    if not result['success']:
+        VerificationChallenge.objects.filter(customer=customer, purpose=purpose).delete()
     
     return result
 
 
-def verify_code(customer, code):
+def verify_code(customer, code, purpose='verification'):
     """
     Verify the code entered by user
     
@@ -255,27 +259,25 @@ def verify_code(customer, code):
     Returns:
         dict: {'success': bool, 'message': str}
     """
-    if not customer.verification_code:
-        return {'success': False, 'message': 'No verification code found. Please request a new code.'}
-    
-    if customer.verification_code_expires and timezone.now() > customer.verification_code_expires:
-        return {'success': False, 'message': 'Code expired. Please request a new code.'}
-    
-    if customer.verification_code != code:
-        return {'success': False, 'message': 'Invalid code. Please try again.'}
-    
-    # Code is valid
-    customer.whatsapp_verified = True
-    customer.verification_code = None
-    customer.verification_code_expires = None
-    customer.save(update_fields=['whatsapp_verified', 'verification_code', 'verification_code_expires'])
-    
-    return {'success': True, 'message': 'Verified successfully!'}
+    from .models import VerificationChallenge
+    with transaction.atomic():
+        challenge = VerificationChallenge.objects.select_for_update().filter(customer=customer, purpose=purpose).first()
+        if not challenge:
+            return {'success': False, 'message': 'No verification code found. Please request a new code.'}
+        if timezone.now() > challenge.expires_at or challenge.attempts >= 5:
+            challenge.delete()
+            return {'success': False, 'message': 'Code expired. Please request a new code.'}
+        if not check_password(str(code), challenge.code_hash):
+            challenge.attempts += 1
+            challenge.save(update_fields=['attempts'])
+            return {'success': False, 'message': 'Invalid code. Please try again.'}
+        challenge.delete()
+        return {'success': True, 'message': 'Verified successfully!'}
 
 
 def send_verification_to_email(customer, email, purpose='password_reset'):
     """
-    Send verification to a specific email (for users adding email during password reset)
+    Send verification only to the email already saved on this account.
     
     Args:
         customer: Customer model instance
@@ -285,21 +287,6 @@ def send_verification_to_email(customer, email, purpose='password_reset'):
     Returns:
         dict: Result
     """
-    code = verification_service.generate_code()
-    
-    # Temporarily set email for sending
-    original_email = customer.email
-    customer.email = email
-    
-    # Save code
-    customer.verification_code = code
-    customer.verification_code_expires = timezone.now() + timedelta(minutes=10)
-    customer.save(update_fields=['verification_code', 'verification_code_expires'])
-    
-    # Send
-    result = verification_service._send_via_email(customer, code, purpose)
-    
-    # Restore original email (don't save yet - only save after verification)
-    customer.email = original_email
-    
-    return result
+    if not customer.email or str(customer.email).strip().casefold() != str(email).strip().casefold():
+        return {'success': False, 'message': 'Use the email already saved on this account.', 'method': 'email'}
+    return send_verification_code(customer, purpose=purpose)

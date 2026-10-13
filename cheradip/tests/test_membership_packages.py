@@ -25,6 +25,10 @@ from cheradip.admin import approve_withdrawals, process_withdrawals, reject_with
 
 
 class MembershipRulesTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        from .package_fixtures import seed_test_plans
+        seed_test_plans()
     def customer(self, username, acctype='Student', settings=None):
         return Customer.objects.create_user(
             username=username, password='test-password', fullName='Test User',
@@ -112,6 +116,10 @@ class MembershipRulesTests(TestCase):
 
 
 class PackageApiTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        from .package_fixtures import seed_test_plans
+        seed_test_plans()
     def setUp(self):
         self.user = Customer.objects.create_user(
             username='package-user', password='test-password', fullName='Package User', acctype='Student',
@@ -527,6 +535,8 @@ class PackageApiTests(TestCase):
         ))
 
     def test_active_student_package_unlock_is_temporary_and_free(self):
+        loader = patch('cheradip.question_access.load_unlock_item', return_value=('hsc', 'physics', {'qid': '01_01_0001', 'type': 'MCQ', 'subsource': ''}))
+        loader.start(); self.addCleanup(loader.stop)
         plan = PackagePlan.objects.get(code='free-academic')
         now = timezone.now()
         PackageSubscription.objects.create(
@@ -545,6 +555,8 @@ class PackageApiTests(TestCase):
         self.assertNotIn('unlocked_question_qids', self.user.settings)
 
     def test_coin_unlock_is_remembered_and_never_charged_twice(self):
+        loader = patch('cheradip.question_access.load_unlock_item', return_value=('hsc', 'physics', {'qid': 'paid-01', 'type': 'MCQ', 'subsource': ''}))
+        loader.start(); self.addCleanup(loader.stop)
         self.expire_default_packages('student')
         payload = {'items': [{'qid': 'paid-01', 'is_cq': False}]}
         first = self.client.post('/api/token/unlock_questions/', payload, format='json', secure=True)
@@ -556,7 +568,8 @@ class PackageApiTests(TestCase):
         self.assertEqual(second.data['debited'], 0)
         self.assertEqual(second.data['remaining'], 49990)
         self.user.refresh_from_db()
-        self.assertIn('paid-01', self.user.settings['unlocked_question_qids'])
+        from cheradip.question_access import question_key
+        self.assertIn(question_key('hsc', 'physics', 'paid-01'), self.user.settings['unlocked_question_keys'])
 
     def test_referral_commission_uses_referrers_rv_and_coin_conversion(self):
         referrer = Customer.objects.create_user(
@@ -606,7 +619,7 @@ class PackageApiTests(TestCase):
         self.assertEqual(commission.commission_coins, 4500)
         self.assertEqual(referrer.settings['balance'], 4500)
 
-    def test_withdrawal_reserves_only_reference_balance_and_can_be_cancelled(self):
+    def test_withdrawal_reserves_reference_and_main_balance_and_can_be_cancelled(self):
         RewardsWallet.objects.create(
             customer=self.user, available_taka=150, lifetime_earned_taka=150,
         )
@@ -623,7 +636,7 @@ class PackageApiTests(TestCase):
         request_id = created.data['withdrawal']['id']
         self.assertEqual(_table_notification_count(connection, 'cheradip_withdrawal_requests'), 1)
         self.user.refresh_from_db()
-        self.assertEqual(self.user.settings['balance'], 50000)
+        self.assertEqual(self.user.settings['balance'], 38000)
 
         too_large = self.client.post('/api/wallet/', {
             'method': 'nagad', 'accountNumber': '01700000000', 'amountTaka': 100,
@@ -657,10 +670,12 @@ class PackageApiTests(TestCase):
         approved = WithdrawalRequest.objects.create(
             customer=self.user, method='bkash', account_number='01700000000',
             amount_taka=100, balance_before_taka=250, balance_after_taka=150,
+            reserved_coins=10000,
         )
         rejected = WithdrawalRequest.objects.create(
             customer=self.user, method='nagad', account_number='01700000000',
             amount_taka=100, balance_before_taka=150, balance_after_taka=50,
+            reserved_coins=10000,
         )
         request = Mock(user=admin_user)
         modeladmin = Mock()

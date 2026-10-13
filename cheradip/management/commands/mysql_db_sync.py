@@ -9,8 +9,9 @@ MySQL/MariaDB sync between local and remote (``mysqldump`` | ``mysql``).
   routines, and events are never replaced. Missing databases are skipped with
   Linux database-creation commands; create them on the server and rerun.
 
-- **``--r2l`` (remote → local):** Same flow with **remote** as the source and
-  **local** as the destination.
+- **``--r2l`` (remote → local):** DESTRUCTIVE snapshot restore. Existing local
+  tables are dropped and recreated from the remote dump. Back up local changes
+  first; this direction is NOT an insert-only missing-record merge.
 
 **Databases on the destination**
 

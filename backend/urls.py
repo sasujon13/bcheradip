@@ -20,10 +20,26 @@ _original_get_app_list = admin.site.get_app_list
 _original_index = admin.site.index
 
 
+def _admin_operations_manual(request):
+    context = {**admin.site.each_context(request), 'title': 'Cheradip administration manual',
+               'scraper_frontend_url': _scraper_frontend_url(request)}
+    request.current_app = admin.site.name
+    return TemplateResponse(request, 'admin/operations_manual.html', context)
+
+
+def _scraper_frontend_url(request):
+    """The development Django server and Angular server use different ports."""
+    hostname = request.get_host().split(':')[0]
+    if settings.DEBUG and hostname in {'localhost', '127.0.0.1'}:
+        return f'http://{hostname}:4200/scrape'
+    return '/scrape'
+
+
 def _admin_get_urls_with_databases():
     from django.urls import path
     urls = _original_admin_get_urls()
     custom = [
+        path('manual/', admin.site.admin_view(_admin_operations_manual), name='operations_manual'),
         path('settings/', admin.site.admin_view(database_admin_views.site_settings_page), name='site_settings'),
         path('databases/', admin.site.admin_view(database_admin_views.databases_list), name='databases_list'),
         path('databases/<str:db_alias>/', admin.site.admin_view(database_admin_views.database_tables), name='database_tables'),
@@ -65,6 +81,7 @@ def _admin_index(request, extra_context=None):
         'db_tabs': db_tabs,
         'current_db': current_db,
         'table_links_only': True,
+        'scraper_frontend_url': _scraper_frontend_url(request),
         **(extra_context or {}),
     }
     request.current_app = admin.site.name

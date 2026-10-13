@@ -26,9 +26,12 @@ def _bool(value, default=False):
 
 def _decimal(value, default='0'):
     try:
-        return Decimal(str(value).strip() or default)
+        parsed = Decimal(str(value).strip() or default)
     except (InvalidOperation, ValueError):
         raise ValueError(f'Invalid number: {value!r}')
+    if not parsed.is_finite() or parsed < 0 or parsed > Decimal('999999999999'):
+        raise ValueError(f'Price must be finite and non-negative: {value!r}')
+    return parsed
 
 
 def _int(value, default=0):
@@ -91,7 +94,6 @@ def import_products(file_obj, user_id=None):
         raise ValueError('Missing required CSV columns: ' + ', '.join(missing))
 
     job = ImportJob.objects.using('ecommerce').create(filename=getattr(file_obj, 'name', 'products.csv'), created_by=user_id)
-    current_products = {}
     errors = []
     created_count = updated_count = 0
 
@@ -107,7 +109,10 @@ def import_products(file_obj, user_id=None):
                     handle = slugify(title)
                 if not handle:
                     raise ValueError('Handle or Title is required.')
-                product = current_products.get(handle) or Product.objects.using('ecommerce').filter(slug=handle).first()
+                sku = (row.get('SKU') or '').strip()
+                if not sku:
+                    raise ValueError('SKU is required.')
+                product = Product.objects.using('ecommerce').filter(slug=handle).first()
                 created = product is None
                 if created:
                     if not title:
@@ -131,7 +136,6 @@ def import_products(file_obj, user_id=None):
                         seo_title=row.get('SEO Title', '').strip(), seo_description=row.get('SEO Description', '').strip(),
                         source_url=row.get('Source URL', '').strip(), is_sample=_bool(row.get('Sample Product')),
                     )
-                    created_count += 1
                 else:
                     if title:
                         product.name = title
@@ -140,27 +144,30 @@ def import_products(file_obj, user_id=None):
                         product.status = (row.get('Status', '').strip() or product.status).lower()
                         product.featured = _bool(row.get('Featured'), product.featured)
                         product.save(using='ecommerce')
-                    updated_count += 1
-                current_products[handle] = product
 
-                sku = row.get('SKU', '').strip()
-                if not sku:
-                    raise ValueError('SKU is required.')
-                stock = _int(row.get('Inventory Quantity'))
+                previous_variant = ProductVariant.objects.using('ecommerce').filter(sku=sku).first()
+                price_text = (row.get('Price') or '').strip()
+                stock_text = (row.get('Inventory Quantity') or '').strip()
+                if not previous_variant and not price_text:
+                    raise ValueError('Price is required for a new SKU.')
+                if not previous_variant and not stock_text:
+                    raise ValueError('Inventory Quantity is required for a new SKU.')
+                stock = _int(stock_text) if stock_text else previous_variant.stock
+                if stock < 0:
+                    raise ValueError('Inventory Quantity cannot be negative.')
                 defaults = {
                     'product': product,
                     'title': ' / '.join(filter(None, [row.get('Option1 Value', '').strip(), row.get('Option2 Value', '').strip(), row.get('Option3 Value', '').strip()])) or 'Default',
                     'barcode': row.get('Barcode', '').strip(), 'option1_name': row.get('Option1 Name', '').strip(),
                     'option1_value': row.get('Option1 Value', '').strip(), 'option2_name': row.get('Option2 Name', '').strip(),
                     'option2_value': row.get('Option2 Value', '').strip(), 'option3_name': row.get('Option3 Name', '').strip(),
-                    'option3_value': row.get('Option3 Value', '').strip(), 'price': _decimal(row.get('Price')),
-                    'compare_at_price': _decimal(row.get('Compare At Price')) if row.get('Compare At Price', '').strip() else None,
-                    'cost_price': _decimal(row.get('Cost Per Item')) if row.get('Cost Per Item', '').strip() else None,
+                    'option3_value': row.get('Option3 Value', '').strip(), 'price': _decimal(price_text) if price_text else previous_variant.price,
+                    'compare_at_price': _decimal(row.get('Compare At Price')) if row.get('Compare At Price', '').strip() else (previous_variant.compare_at_price if previous_variant else None),
+                    'cost_price': _decimal(row.get('Cost Per Item')) if row.get('Cost Per Item', '').strip() else (previous_variant.cost_price if previous_variant else None),
                     'stock': stock, 'low_stock_threshold': max(0, _int(row.get('Low Stock Threshold'), 5)),
                     'weight_grams': max(0, _int(row.get('Weight Grams'))),
                     'requires_shipping': _bool(row.get('Requires Shipping'), True), 'is_active': True,
                 }
-                previous_variant = ProductVariant.objects.using('ecommerce').filter(sku=sku).only('stock').first()
                 previous_stock = previous_variant.stock if previous_variant else 0
                 variant, variant_created = ProductVariant.objects.using('ecommerce').update_or_create(sku=sku, defaults=defaults)
                 stock_delta = stock - previous_stock
@@ -174,6 +181,10 @@ def import_products(file_obj, user_id=None):
                         product=product, variant=variant, url=image_url,
                         defaults={'alt_text': row.get('Image Alt Text', '').strip() or product.name},
                     )
+            if created:
+                created_count += 1
+            else:
+                updated_count += 1
         except Exception as exc:
             errors.append({'line': line_number, 'error': str(exc)[:500]})
 

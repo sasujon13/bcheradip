@@ -10,6 +10,9 @@ import json
 import re
 
 from django.contrib import admin
+from django.apps import apps
+from django.core.exceptions import PermissionDenied
+from django.db import router
 from django.utils.dateparse import parse_datetime
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
@@ -31,13 +34,41 @@ DATABASE_MENU = [
     ('job', 'Job'),
     ('childcare', 'Child Care'),
     ('ecommerce', 'eCommerce'),
+    ('ailt', 'AI Language Tutor (read only)'),
+    ('extcheradip', 'AI Agent (read only)'),
 ]
 
 # Allowed table names (cheradip_* only)
 def _allowed_table_name(name):
     if not name or not isinstance(name, str):
         return False
-    return bool(re.match(r'^(cheradip_|cc_|ecommerce_)[a-z0-9_]+$', name.strip().lower()))
+    return bool(re.fullmatch(r'[a-z][a-z0-9_]*', name.strip().lower()))
+
+
+def _table_access(request, db_alias, table_name, edit=False):
+    """Raw tables may not bypass model permissions or money-domain operations."""
+    if db_alias not in dict(DATABASE_MENU):
+        raise PermissionDenied
+    if db_alias in {'ailt', 'extcheradip'}:
+        if edit or request.method != 'GET' or not request.user.is_superuser:
+            raise PermissionDenied('These service databases are read only.')
+        return
+    model = next((m for m in apps.get_models() if m._meta.db_table == table_name), None)
+    if model:
+        if (router.db_for_read(model) or 'default') != db_alias:
+            raise PermissionDenied('This model belongs to a different database.')
+        action = 'change' if edit else request.POST.get('action', 'change') if request.method == 'POST' else 'view'
+        action = {'import': 'add', 'bulk_import': 'add', 'deny': 'delete'}.get(action, action)
+        action = action if action in {'view', 'add', 'change', 'delete'} else 'change'
+        permission = f'{model._meta.app_label}.{action}_{model._meta.model_name}'
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
+        protected = table_name.startswith(('ecommerce_', 'cheradip_admin_', 'cheradip_student_exam_', 'cheradip_wallet_', 'cheradip_rewards_', 'cheradip_withdrawal_', 'cheradip_package', 'cheradip_referral', 'cheradip_membership')) or model._meta.model_name in {'customer', 'customertoken', 'transaction', 'trxmanagement'}
+        if protected and (edit or request.method == 'POST'):
+            raise PermissionDenied('Use the registered administration form/actions for this table. Raw writes are disabled to protect balances and order state.')
+    elif not request.user.is_superuser:
+        # Dynamic subject tables have no individual Django model permission.
+        raise PermissionDenied('Unregistered tables require superuser access.')
 
 
 def _get_table_columns(conn, table_name):
@@ -155,6 +186,10 @@ def _get_table_rows(conn, table_name, limit, offset, order_by_column, where_clau
         cursor.execute(sql, params)
         columns = [row[0] for row in cursor.description]
         rows = [dict(zip(columns, row)) for row in cursor.fetchall()]
+        for row in rows:
+            for key in row:
+                if any(word in key.lower() for word in ('password', 'api_key', 'secret', 'token')) or (table_name == 'cheradip_customertoken' and key == 'key'):
+                    row[key] = '[protected]'
         return columns, rows
 
 
@@ -192,6 +227,8 @@ def _insert_row(conn, table_name, columns, data):
             "INSERT INTO `%s` (%s) VALUES (%s)" % (table_name.replace('`', '``'), col_list, placeholders),
             [data[c] for c in cols]
         )
+    from .table_activity import record_table_event
+    record_table_event(conn.alias, table_name, 'created')
     return True
 
 
@@ -206,7 +243,11 @@ def _delete_rows(conn, table_name, pk_column, ids):
             "DELETE FROM `%s` WHERE `%s` IN (%s)" % (table_name.replace('`', '``'), pk_esc, placeholders),
             ids
         )
-        return cursor.rowcount
+        count = cursor.rowcount
+    if count:
+        from .table_activity import record_table_event
+        record_table_event(conn.alias, table_name, 'deleted')
+    return count
 
 
 def _deny_pending_question_rows(conn, pk_column, ids):
@@ -229,6 +270,8 @@ def _update_row(conn, table_name, columns, pk_column, pk_value, data):
             "UPDATE `%s` SET %s WHERE `%s` = %%s" % (table_name.replace('`', '``'), set_clause, pk_esc),
             [data[c] for c in cols] + [pk_value]
         )
+    from .table_activity import record_table_event
+    record_table_event(conn.alias, table_name, 'updated', pk_value)
     return True
 
 
@@ -305,6 +348,7 @@ def pending_question_row_json(request, db_alias, table_name, pk):
         return HttpResponseBadRequest('Invalid table name.')
     if db_alias not in connections:
         return HttpResponseNotFound('Unknown database alias.')
+    _table_access(request, db_alias, table_name)
     conn = connections[db_alias]
     db_name = conn.settings_dict.get('NAME', db_alias)
     columns = _get_table_columns(conn, table_name)
@@ -721,6 +765,7 @@ def pending_portion_accept(request, db_alias, table_name, pk):
         return JsonResponse({'ok': False, 'error': 'Invalid table name.'}, status=400)
     if db_alias not in connections:
         return JsonResponse({'ok': False, 'error': 'Unknown database.'}, status=404)
+    _table_access(request, db_alias, table_name, edit=True)
     field = (request.POST.get('field') or '').strip()
     old_text = request.POST.get('old_text') or ''
     # new_text arrives URL-decode-safe; store as-is
@@ -944,6 +989,8 @@ def database_settings(request, db_alias):
     """Settings page: Create Exam / Add Exam with optional filters. Same tab row as database_tables."""
     if db_alias not in connections:
         return HttpResponseNotFound('Unknown database alias: %s' % db_alias)
+    if request.method == 'POST' and (not request.user.is_superuser or db_alias not in {'hsc', 'honours', 'job'}):
+        raise PermissionDenied('Content jobs require superuser access to an education database.')
     conn = connections[db_alias]
     db_tabs = build_db_tabs_for_index(active_alias=db_alias, use_databases_path=True, settings_active=True)
     levels, class_levels, subjects, chapters, topics = _settings_filter_options(conn, db_alias)
@@ -1001,6 +1048,8 @@ def database_settings(request, db_alias):
 def start_exam_job(request, db_alias):
     """Start Create/Add Exam as a background job; returns {job_id} to poll."""
     from cheradip.exam_jobs import start_job
+    if not request.user.is_superuser or db_alias not in {'hsc', 'honours', 'job'}:
+        raise PermissionDenied('Content jobs require superuser access to an education database.')
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required.'}, status=405)
     kind = (request.POST.get('kind') or request.POST.get('action') or '').strip()
@@ -1030,6 +1079,8 @@ def start_question_update(request, db_alias):
     """
     from cheradip.exam_jobs import start_question_update_job
     from cheradip.question_updater import normalize_kind
+    if not request.user.is_superuser or db_alias not in {'hsc', 'honours', 'job'}:
+        raise PermissionDenied('Content jobs require superuser access to an education database.')
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required.'}, status=405)
     kind = normalize_kind(request.POST.get('kind'))
@@ -1071,6 +1122,8 @@ def start_question_update(request, db_alias):
 def cancel_exam_job(request, db_alias, job_id):
     """Cancel a running background exam/update job (mark it cancelled)."""
     from cheradip.exam_jobs import set_cancelled
+    if not request.user.is_superuser:
+        raise PermissionDenied
     if request.method != 'POST':
         return JsonResponse({'error': 'POST required.'}, status=405)
     ok = set_cancelled(job_id)
@@ -1081,6 +1134,8 @@ def cancel_exam_job(request, db_alias, job_id):
 def exam_job_progress(request, db_alias, job_id):
     """JSON snapshot of a running/finished exam job (name='exam_job_progress')."""
     from cheradip.exam_jobs import get_job, PUBLIC_FIELDS
+    if not request.user.is_superuser:
+        raise PermissionDenied
     job = get_job(job_id)
     if job is None:
         return JsonResponse({'status': 'error', 'error': 'Job not found.'}, status=404)
@@ -1091,6 +1146,8 @@ def exam_job_progress(request, db_alias, job_id):
 def site_settings_page(request):
     """Global JSON-based settings page at /admin/settings/ (not a database)."""
     from backend import site_settings as admin_settings
+    if not request.user.is_superuser:
+        raise PermissionDenied('Server settings and provider secrets require superuser access.')
 
     if request.method == 'POST':
         action = request.POST.get('action')
@@ -1173,6 +1230,15 @@ def database_table_data(request, db_alias, table_name):
     table_name = table_name.strip().lower()
     if not _allowed_table_name(table_name):
         return HttpResponseBadRequest('Invalid table name.')
+    _table_access(request, db_alias, table_name)
+    raw_read_only = False
+    try:
+        _table_access(request, db_alias, table_name, edit=True)
+    except PermissionDenied:
+        raw_read_only = True
+    if request.method == 'GET':
+        from .table_activity import acknowledge
+        acknowledge(request, db_alias, table_name)
     conn = connections[db_alias]
     db_name = conn.settings_dict.get('NAME', db_alias)
     label = dict(DATABASE_MENU).get(db_alias, db_alias)
@@ -1485,6 +1551,7 @@ def database_table_data(request, db_alias, table_name):
         'tables_url': tables_url,
         'page_size': PAGE_SIZE,
         'show_approve': show_approve,
+        'raw_read_only': raw_read_only,
         'show_pending_filters': show_approve and filter_options is not None,
         'filter_options': filter_options,
         'filter_subject_tr': filter_subject_tr,
@@ -1567,6 +1634,7 @@ def database_table_data_edit(request, db_alias, table_name, pk):
     table_name = table_name.strip().lower()
     if not _allowed_table_name(table_name):
         return HttpResponseBadRequest('Invalid table name.')
+    _table_access(request, db_alias, table_name, edit=True)
     conn = connections[db_alias]
     db_name = conn.settings_dict.get('NAME', db_alias)
     label = dict(DATABASE_MENU).get(db_alias, db_alias)

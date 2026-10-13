@@ -11,7 +11,7 @@ from urllib.parse import quote
 from .membership import discounted_price, public_rules, refresh_membership
 from .models import (
     PackagePlan, PackageSubscription, ReferralCommission,
-    RewardsWallet, WithdrawalRequest,
+    RewardsWallet, WithdrawalRequest, Customer,
 )
 from .package_service import active_subscriptions, activate_plan, current_subscription, subscription_payload
 from .views import BearerTokenAuthentication
@@ -151,7 +151,7 @@ class PackageSubscribeView(APIView):
                     'requiredCoins': int(required_coins), 'remaining': int(balance),
                     'shortfallCoins': max(0, int(required_coins) - int(balance)),
                 }, status=status.HTTP_400_BAD_REQUEST)
-            raise
+            return Response({'error': str(exc)}, status=status.HTTP_400_BAD_REQUEST)
         progress = refresh_membership(request.user, audience=plan.audience)
         return Response({
             'id': subscription.id, 'orderNumber': subscription.order_number,
@@ -272,22 +272,33 @@ class RewardsWalletView(APIView):
             )
         except (InvalidOperation, TypeError, ValueError):
             return Response({'error': 'Enter a valid withdrawal amount.'}, status=status.HTTP_400_BAD_REQUEST)
-        if amount < Decimal('100.00'):
+        if not amount.is_finite() or amount < Decimal('100.00'):
             return Response({'error': 'Minimum withdrawal amount is Tk 100.'}, status=status.HTTP_400_BAD_REQUEST)
         with transaction.atomic():
-            wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=request.user)
+            customer = Customer.objects.select_for_update().get(pk=request.user.pk)
+            wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=customer)
             if amount > wallet.available_taka:
                 return Response({
                     'error': 'Requested amount exceeds your available reference balance.',
                     'availableTaka': float(wallet.available_taka),
                 }, status=status.HTTP_400_BAD_REQUEST)
             before = wallet.available_taka
+            from .wallet_service import wallet_coins
+            reserved_coins = int(amount * 100)
+            if reserved_coins > wallet_coins(customer):
+                return Response({'error': 'Insufficient main wallet balance for this withdrawal.'}, status=400)
+            data = dict(customer.settings or {})
+            data['balance'] = wallet_coins(customer) - reserved_coins
+            customer.settings = data
+            customer.save(update_fields=['settings'])
+            request.user.settings = data
             wallet.available_taka -= amount
             wallet.save(update_fields=['available_taka', 'updated_at'])
             row = WithdrawalRequest.objects.create(
                 customer=request.user, method=method, account_name=account_name,
                 account_number=account_number, amount_taka=amount,
                 balance_before_taka=before, balance_after_taka=wallet.available_taka,
+                reserved_coins=reserved_coins,
             )
         return Response({
             'message': 'Withdrawal request submitted for manual payment and approval.',
@@ -308,9 +319,15 @@ class WithdrawalCancelView(APIView):
                 return Response({'error': 'Withdrawal request was not found.'}, status=status.HTTP_404_NOT_FOUND)
             if row.status != 'pending':
                 return Response({'error': 'Only pending withdrawal requests can be cancelled.'}, status=status.HTTP_400_BAD_REQUEST)
+            customer = Customer.objects.select_for_update().get(pk=request.user.pk)
             wallet, _ = RewardsWallet.objects.select_for_update().get_or_create(customer=request.user)
             wallet.available_taka += row.amount_taka
             wallet.save(update_fields=['available_taka', 'updated_at'])
+            if row.reserved_coins:
+                from .wallet_service import wallet_coins
+                customer.settings = {**(customer.settings or {}), 'balance': wallet_coins(customer) + row.reserved_coins}
+                customer.save(update_fields=['settings'])
+                request.user.settings = customer.settings
             row.status = 'cancelled'
             row.processed_at = timezone.now()
             row.save(update_fields=['status', 'processed_at'])

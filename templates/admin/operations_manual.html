@@ -1,0 +1,83 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<style>
+.operations-manual{max-width:1100px;margin:auto;line-height:1.55;color:#234}
+.operations-manual nav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
+.operations-manual nav a,.operations-manual .manual-action{display:inline-block;padding:7px 12px;border-radius:7px;background:#e7f5f4;color:#075f5e;text-decoration:none;font-weight:600}
+.operations-manual section{background:var(--body-bg,#fff);border:1px solid #d9e8e6;border-radius:10px;padding:18px 22px;margin:16px 0}
+.operations-manual h2{margin-top:0;color:#08716e}.operations-manual h3{color:#245b59}
+.operations-manual li{margin:6px 0}.operations-manual code{overflow-wrap:anywhere}
+.operations-manual .manual-warning{border-left:4px solid #b78b24;padding-left:12px}
+@media(max-width:640px){.operations-manual section{padding:14px}.operations-manual nav a{flex:1 1 auto;text-align:center}}
+</style>
+<main class="operations-manual">
+  <p>Use this guide for day-to-day administration of Cheradip. Each database tab shows its own tables. Your account permissions control which records and actions are available. Changes to customer balances, orders, and paid rights need a clear audit trail.</p>
+  <nav aria-label="Manual chapters">
+    <a href="#accounts">Accounts</a><a href="#packages">Packages</a><a href="#wallet">Wallet &amp; recharge</a>
+    <a href="#commerce">Marketplace &amp; books</a><a href="#education">Questions &amp; exams</a>
+    <a href="#ntrca">Institutes</a><a href="#scraping">Scraping</a><a href="#activity">Database activity</a><a href="#operations">Operations</a>
+  </nav>
+
+  <section id="accounts"><h2>Accounts and permissions</h2>
+    <p>Customers can be Students, Teachers, Job Seekers, or Others. Their website profile, Wallet, purchase history, and referral balance belong to the same customer account. Student and Teacher package families are separate purchases; any account type may use a purchased Teacher allowance. Exams are free to attend.</p>
+    <p><a class="manual-action" href="/admin/cheradip/customer/">Open customers</a> Staff permissions should be assigned by model and action. Staff status by itself does not grant marketplace write access; only a superuser or a staff account with the corresponding add, change, delete, or view permission may use an administration API. Grant the least access needed for the job.</p>
+    <p>Password recovery codes go only to an existing saved contact. Codes expire after ten minutes, are limited to five attempts, and are valid only for their stated purpose. A user can change a saved email after signing in and confirming the current password. Do not ask a customer to send a password or verification code to staff.</p>
+  </section>
+
+  <section id="packages"><h2>Packages, renewal, and badges</h2>
+    <p>Student and Teacher plans have independent Academic, Admission, and Combined tracks. Combined covers both tracks in its own package family. Each customer receives the applicable introductory Free period once. Student Free lasts one month plus seven days of grace; Teacher Free lasts 36 months. A paid package replaces Free in that family.</p>
+    <p>Higher plans charge on activation. A lower plan may be selected without another charge while an allowance remains. When the Teacher question allowance is exhausted, another allowance needs a paid activation. Same-plan selection before expiry shows the existing renewal date. Automatic paid renewal checks the Wallet when due; insufficient funds start a seven-day grace period with limited warnings, then the package is cancelled.</p>
+    <p>Teacher question creation counts the stored question sets according to the package rules. Badge progress considers recent activity as well as lifetime totals; discounts apply to the next renewal and referral value uses the current eligible badge. Check the customer's package and progress records before correcting a reported allowance. Historical rows are kept for order tracking.</p>
+    <p><a class="manual-action" href="/admin/cheradip/packageplan/">Package plans</a> <a class="manual-action" href="/admin/cheradip/packagesubscription/">Subscriptions</a></p>
+  </section>
+
+  <section id="wallet"><h2>Wallet, recharge, referral, and withdrawals</h2>
+    <p>100 Coins equal Tk 1. The main Wallet contains all spendable Coins. The reference balance is the still-withdrawable part earned through referrals. A purchase uses reference value first and reduces both that part and the main Wallet; the same value cannot also be withdrawn. Withdrawal requests reserve their amount immediately. Staff approve only after sending the payout manually and confirming the recipient and amount; rejection releases the reservation once.</p>
+    <p>Transaction ID intake requires the private <code>TRX_INGEST_SECRET</code> configured on the backend and sent by the trusted intake device in <code>X-Cheradip-Ingest-Key</code>. It accepts BDT and bounded positive amounts. Imported historical transaction rows start unverified and cannot credit a Wallet until staff check them. Inspect a receipt against the payment provider's official record, then mark the transaction verified. Duplicate transaction IDs can credit at most once. Never put the intake secret in browser code or a public manual.</p>
+    <p><a class="manual-action" href="/admin/cheradip/trxmanagement/">Transaction IDs</a> <a class="manual-action" href="/admin/cheradip/withdrawalrequest/">Withdrawals</a> <a class="manual-action" href="/admin/cheradip/walletoperation/">Wallet ledger</a></p>
+    <p class="manual-warning">Do not edit a customer's balance JSON, a ledger entry, or a paid order directly to fix a discrepancy. Check the transaction, order, reference balance, and ledger together. Use the supported payment/order actions or a reviewed reconciliation procedure.</p>
+  </section>
+
+  <section id="commerce"><h2>Marketplace, products, books, and orders</h2>
+    <p>Manage categories, products, variants, prices, stock, images, books, and book files in the eCommerce database tab. A product must be active, its variant active, and stock available at checkout. Cart contents are tied to the purchasing account once claimed. A completed checkout has one order ID. Product and book orders remain pending for staff fulfilment even if a Wallet payment has been received. Package orders are completed automatically after successful Wallet payment.</p>
+    <p>CSV import supports the downloadable sample from the marketplace administration API. Include Handle, Title, Product Category, SKU and Price headers. Every new SKU needs Price and Inventory Quantity. On an existing SKU, a blank Price or Quantity leaves the current value unchanged; negative or nonfinite prices are rejected. Review the import's row errors and created/updated counts before publishing products. The saved variant stock is authoritative after sales.</p>
+    <p>For a book, upload a cover and its public sample separately from the paid manuscript. eBook files are stored privately and become downloadable only for a completed, paid order containing the digital variant. A hard-copy purchase does not grant digital access. The customer sees orders under Purchase History and can track an order by its ID.</p>
+    <p>Confirm payments and change order status through the order/payment controls. Cancelling or refunding a Wallet order credits it once and restores eligible stock once. A refunded payment cannot subsequently complete the same order. If a settlement was interrupted, run the reconciliation report first; do not confirm by editing raw rows.</p>
+    <p><a class="manual-action" href="/admin/ecommerce/product/">Products</a> <a class="manual-action" href="/admin/ecommerce/book/">Books</a> <a class="manual-action" href="/admin/ecommerce/order/">Orders</a> <a class="manual-action" href="/admin/ecommerce/payment/">Payments</a></p>
+  </section>
+
+  <section id="education"><h2>Questions, exams, exports, and AI tools</h2>
+    <p>The education database tabs contain subjects and question tables. Question creation, explanation updates, exam generation, and review jobs are managed from each database's Settings page. The selected level, class, subject, chapter, and topic determine the scope. Review AI-generated content and its source question before approval. Published question lists do not send locked answers or explanations to visitors; the server provides the solution after a valid entitlement or Coin unlock.</p>
+    <p>MCQ exam grading uses the exact saved option text when an answer is ambiguous, especially for numeric choices, before interpreting a marker. Each new exam attempt freezes its question and answer snapshot. Availability dates are checked on the server. Exam attendance is free; reports and ranks use the saved result. Historical grading changes must be reviewed separately before changing old results or badge calculations.</p>
+    <p>PDF and Word exports preserve question formatting, images, and answer/explanation labels. The website Tutor can use curriculum context and configured AI providers; user-owned keys remain tied to that user. The AILT mobile service is a separate FastAPI application under <code>/ailt/api/</code>.</p>
+  </section>
+
+  <section id="ntrca"><h2>Institutes and paid EIIN details</h2>
+    <p>Institute names, locations, and institutional mobile/email fields are public on the `/institutes` directory. The public Banbeis EIIN detail page provides these contact fields. The new EMIS teacher directory displays names, designations, and subjects; personal teacher phone/email are shown only after the same account-specific EIIN unlock (or to staff). Extended legacy BANBEIS data remains behind that unlock. The unlock endpoint checks that the EIIN exists, deducts the configured Coins and stores the entitlement together. Reopening an already unlocked EIIN is free. The old browser-only list cannot grant access or be merged into a different account. Do not put individual EMIS teacher contacts in the institutional contact fields.</p>
+    <p>Older locally saved EIIN lists cannot prove a payment. If a customer reports a previous paid unlock, check their transaction and support record and restore only verified entitlements through the controlled administration process. Never copy a browser list directly into the server-owned entitlement field.</p>
+  </section>
+
+  <section id="scraping"><h2>Question and institute scraping</h2>
+    <p><a class="manual-action" href="{{ scraper_frontend_url }}">Open scraping workspace</a> The link is shown only to staff or administrators. The workspace has separate Questions and Institutes tabs. Its backend endpoints also check staff access; a normal customer cannot run an import by typing the URL.</p>
+    <p>On the Institutes tab, enter a six-digit EIIN to preview or update one institute directly, or preview a directory page first. For batch updates, choose a start page, 1–25 records per page, and 1–100 pages for this run. Run imports one page at a time and can be stopped after the current page. Only completed batch pages are saved as checkpoints; one-EIIN updates do not change the batch position. A failed page is not checkpointed: review the error and retry the same page. Existing EIINs are updated, not duplicated, and fields absent from a source response are preserved.</p>
+    <p>Banbeis supplies the public institute detail, institutional contacts, post office, and ward. The EMIS portal supplies a separate public teacher roster matched by EIIN and institute name. EMIS names are saved separately for review and fill only an otherwise missing institute name; they do not silently replace a Banbeis name. Valid teacher rosters are updated by source row ID; empty or mismatched rosters leave saved teachers unchanged. Only names, designation, subject, and contact details are retained. If EMIS is unavailable, Banbeis updates continue and the run reports the missing enrichment. The public Banbeis annual-survey link was unavailable during implementation, so student statistics and other survey fields are preserved, not guessed or erased.</p>
+    <p><a class="manual-action" href="/admin/cheradip/institutesourcesnapshot/">Source records</a> <a class="manual-action" href="/admin/cheradip/instituteteacher/">Teacher directory</a> <a class="manual-action" href="/admin/cheradip/institutescrapepage/">Page checkpoints</a> The source portal can change its format or limit access. Stop and review the output when many rows fail; do not repeatedly hammer the portal.</p>
+  </section>
+
+  <section id="activity"><h2>Database tabs, review markers, and notifications</h2>
+    <p>Each database tab shows its own tables. Circled counts indicate observed changes or pending work. Visiting a table acknowledges ordinary change events for that staff user; pending orders, payments, withdrawals, and question reviews remain marked until resolved. The raw table editor checks both the owning database and model permissions; credential fields are masked.</p>
+    <p>Direct SQL, imports, and separate services do not emit Django model events. Run <code>python manage.py scan_admin_table_changes</code> during off-peak maintenance to compare table fingerprints. The first run establishes a baseline, and later runs report changed tables. External AILT and Agent tables are read-only here. A change marker indicates a detected difference, not an exact count of edited rows.</p>
+  </section>
+
+  <section id="operations"><h2>Deployment, sync, and troubleshooting</h2>
+    <ol>
+      <li>Back up the primary, education, and eCommerce databases and media before release. Apply pending migrations to their owning database, then deploy matching backend and frontend versions.</li>
+      <li>Check <code>python manage.py check --deploy</code>. Verify sign-in, public question lists, institute search, package access, checkout, order tracking, and the admin page using a test account.</li>
+      <li>Use <code>python manage.py protect_ebook_files</code> to report old public files. Review the report before <code>--apply</code>. Keep the private eBook directory outside public media and back it up separately.</li>
+      <li>Use <code>python manage.py reconcile_commerce_wallets</code> as a read-only report first. After reviewing committed ledger entries and affected orders, <code>--apply</code> only acknowledges already committed debit/refund operations.</li>
+      <li><code>mysql_db_sync --l2r</code> copies missing records but does not alter existing remote schemas. Apply migrations to add columns; read the command's remote database creation instructions if a database is missing. The reverse snapshot operation needs a separate backup and deliberate authorization.</li>
+    </ol>
+    <p>When something appears wrong, note the page, customer/order/EIIN ID, time, expected result, and actual result. Check the relevant database tab, status history, and ledger before changing any record. Contact support or a superuser for permission or payout disputes.</p>
+  </section>
+</main>
+{% endblock %}

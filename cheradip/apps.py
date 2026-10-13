@@ -22,4 +22,6 @@ class CheradipConfig(AppConfig):
     name = 'cheradip'
 
     def ready(self):
+        from backend.table_activity import connect_activity_signals
+        connect_activity_signals()
         post_migrate.connect(_ensure_subject_question_tables, sender=self)

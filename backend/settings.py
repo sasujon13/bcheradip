@@ -81,6 +81,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'cheradip.sso.SharedSessionMiddleware',
+    'backend.table_activity.AdminActivityMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'backend.translation_middleware.TranslateResponseMiddleware',
@@ -126,6 +128,8 @@ REST_FRAMEWORK = {
 }
 
 # Production HTTPS/cookie hardening. The proxy must forward X-Forwarded-Proto.
+PRIVATE_EBOOK_ROOT = config('PRIVATE_EBOOK_ROOT', default=os.path.join(BASE_DIR, 'private_ebooks'))
+TRX_INGEST_SECRET = config('TRX_INGEST_SECRET', default='')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=not DEBUG, cast=bool)
 SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=not DEBUG, cast=bool)

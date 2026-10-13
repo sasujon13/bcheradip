@@ -1,4 +1,5 @@
 from django.views.static import serve
+from .sso import session_bridge
 from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from django.conf import settings
@@ -6,6 +7,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 from .views2 import DivisionsView, DistrictsView, ThanasView
 from .views_trxid import TrxInboundAPIView
+from .institute_scraper_views import InstituteScrapeAccessView, InstituteScrapePageView, InstituteScrapeStatusView, InstituteTeacherDirectoryView
 from .tutor_views import TutorSearchView
 from .tutor_chat import TutorProfileView, TutorModelsView, TutorChatView, TutorSettingsView
 from .student_views import (
@@ -118,6 +120,7 @@ urlpatterns = [
     path('login/', CustomerRetrieveView.as_view(), name='login'),
     path('profile_update/', CustomerUpdateView.as_view(), name='profile_update'),
     path('customer_settings/', CustomerSettingsView.as_view(), name='customer_settings'),
+    path('session/', session_bridge, name='shared-session'),
     path('export_questions/', ExportQuestionsView.as_view(), name='export_questions'),
     path('export_questions_bulk/', ExportQuestionsBulkView.as_view(), name='export_questions_bulk'),
     path('created_question_sets/', CreatedQuestionSetListCreateView.as_view(), name='created_question_sets_list'),
@@ -130,6 +133,10 @@ urlpatterns = [
     path('save_json_data/', views.save_json_data, name='save_json_data'),
     path('run_scraper/', views.scraper_staff_required(views.run_scraper), name='run_scraper'),
     path('run_scraper_page/', views.scraper_staff_required(views.run_scraper_page), name='run_scraper_page'),
+    path('scraper/institutes/access/', InstituteScrapeAccessView.as_view(), name='institute_scrape_access'),
+    path('scraper/institutes/status/', InstituteScrapeStatusView.as_view(), name='institute_scrape_status'),
+    path('scraper/institutes/page/', InstituteScrapePageView.as_view(), name='institute_scrape_page'),
+    path('institutes/<str:eiin>/teachers/', InstituteTeacherDirectoryView.as_view(), name='institute_teachers'),
     path('scraper/fetch_and_save/', views.scraper_staff_required(views.scraper_fetch_and_save), name='scraper_fetch_and_save'),
     path('scraper/file_exists/', views.scraper_staff_required(views.scraper_file_exists), name='scraper_file_exists'),
     path('scraper/save_subject/', views.scraper_staff_required(views.scraper_save_subject), name='scraper_save_subject'),

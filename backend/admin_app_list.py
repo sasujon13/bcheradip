@@ -18,6 +18,8 @@ DATABASE_SECTIONS = [
     ('job', 'Job'),
     ('childcare', 'Child Care'),
     ('ecommerce', 'eCommerce'),
+    ('ailt', 'AI Language Tutor'),
+    ('extcheradip', 'AI Agent'),
 ]
 
 # For backward compatibility if something passed db=all
@@ -45,10 +47,10 @@ def build_db_tabs_for_index(active_alias, use_databases_path=False, settings_act
 
 def _allowed_table_name(name):
     n = (name or "").strip().lower()
-    return bool(n and re.match(r'^(cheradip_[a-z0-9_]+|cc_[a-z0-9_]+|ecommerce_[a-z0-9_]+|django_migrations)$', n))
+    return bool(n and re.fullmatch(r'[a-z][a-z0-9_]*', n))
 
 
-def _table_notification_count(conn, table_name):
+def _table_notification_count(conn, table_name, request=None):
     """Return a compact activity/action count for the circle beside an admin table."""
     safe_table = table_name.replace('`', '``')
     try:
@@ -70,12 +72,8 @@ def _table_notification_count(conn, table_name):
             if special and special[1] in columns:
                 cursor.execute(f"SELECT COUNT(*) FROM `{safe_table}` WHERE {special[0]}")
                 return int(cursor.fetchone()[0] or 0)
-            timestamp = next((name for name in ('updated_at', 'modified_at', 'created_at') if name in columns), None)
-            if timestamp:
-                cursor.execute(
-                    f"SELECT COUNT(*) FROM `{safe_table}` WHERE `{timestamp}` >= DATE_SUB(NOW(), INTERVAL 7 DAY)"
-                )
-                return int(cursor.fetchone()[0] or 0)
+            from .table_activity import unread_count
+            return unread_count(request, conn.alias, table_name)
     except Exception:
         return 0
     return 0
@@ -98,6 +96,9 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
     """
     site = admin.site
     current_db = get_current_db(request, force_db=force_db)
+    if request.user.is_superuser:
+        from .table_activity import refresh_external_markers
+        refresh_external_markers(current_db)
     if current_db == 'all':
         current_db = 'default'
     # Bucket: db_alias -> list of model_dict
@@ -162,7 +163,7 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
         for model_dict in models:
             model = model_dict.get('model')
             if model is not None and hasattr(model, '_meta'):
-                model_dict['update_count'] = _table_notification_count(connections[current_db], model._meta.db_table)
+                model_dict['update_count'] = _table_notification_count(connections[current_db], model._meta.db_table, request)
     shown_tables = set()
     for m in models:
         mod = m.get('model')
@@ -172,6 +173,8 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
     if current_db in connections and existing_tables:
         try:
             for table in sorted(existing_tables):
+                if not request.user.is_superuser:
+                    continue
                 if not _allowed_table_name(table):
                     continue
                 if table in shown_tables:
@@ -185,11 +188,11 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
                     'model': None,
                     'name': table,
                     'object_name': table,
-                    'perms': {'add': True, 'change': True, 'view': True, 'delete': True},
+                    'perms': {'add': current_db not in {'ailt', 'extcheradip'}, 'change': current_db not in {'ailt', 'extcheradip'}, 'view': True, 'delete': current_db not in {'ailt', 'extcheradip'}},
                     'admin_url': table_data_url,
-                    'add_url': table_data_url,
-                    'view_only': False,
-                    'update_count': _table_notification_count(conn, table),
+                    'add_url': table_data_url if current_db not in {'ailt', 'extcheradip'} else None,
+                    'view_only': current_db in {'ailt', 'extcheradip'},
+                    'update_count': _table_notification_count(conn, table, request),
                 })
         except Exception:
             pass
