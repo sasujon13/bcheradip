@@ -7,7 +7,12 @@ from rest_framework.routers import DefaultRouter
 from . import views
 from .views2 import DivisionsView, DistrictsView, ThanasView
 from .views_trxid import TrxInboundAPIView
-from .institute_scraper_views import InstituteScrapeAccessView, InstituteScrapePageView, InstituteScrapeStatusView, InstituteTeacherDirectoryView
+from .institute_scraper_views import (
+    InstituteAutomaticLogView, InstituteAutomaticStartView, InstituteAutomaticStatusView,
+    InstituteAutomaticStepView, InstituteScrapeAccessView, InstituteScrapePageView,
+    InstituteScrapeStatusView, InstituteTeacherDirectoryView, InstituteNtrcaRecordsView,
+    PublicInstitutePageDetailsView, PublicInstituteRefreshView,
+)
 from .tutor_views import TutorSearchView
 from .tutor_chat import TutorProfileView, TutorModelsView, TutorChatView, TutorSettingsView
 from .student_views import (
@@ -136,7 +141,14 @@ urlpatterns = [
     path('scraper/institutes/access/', InstituteScrapeAccessView.as_view(), name='institute_scrape_access'),
     path('scraper/institutes/status/', InstituteScrapeStatusView.as_view(), name='institute_scrape_status'),
     path('scraper/institutes/page/', InstituteScrapePageView.as_view(), name='institute_scrape_page'),
+    path('scraper/institutes/automatic/status/', InstituteAutomaticStatusView.as_view(), name='institute_automatic_status'),
+    path('scraper/institutes/automatic/start/', InstituteAutomaticStartView.as_view(), name='institute_automatic_start'),
+    path('scraper/institutes/automatic/step/', InstituteAutomaticStepView.as_view(), name='institute_automatic_step'),
+    path('scraper/institutes/automatic/logs/<str:kind>/', InstituteAutomaticLogView.as_view(), name='institute_automatic_log'),
     path('institutes/<str:eiin>/teachers/', InstituteTeacherDirectoryView.as_view(), name='institute_teachers'),
+    path('institutes/<str:eiin>/page-details/', PublicInstitutePageDetailsView.as_view(), name='institute_page_details'),
+    path('institutes/<str:eiin>/refresh/', PublicInstituteRefreshView.as_view(), name='institute_public_refresh'),
+    path('institutes/<str:eiin>/ntrca-records/', InstituteNtrcaRecordsView.as_view(), name='institute_ntrca_records'),
     path('scraper/fetch_and_save/', views.scraper_staff_required(views.scraper_fetch_and_save), name='scraper_fetch_and_save'),
     path('scraper/file_exists/', views.scraper_staff_required(views.scraper_file_exists), name='scraper_file_exists'),
     path('scraper/save_subject/', views.scraper_staff_required(views.scraper_save_subject), name='scraper_save_subject'),

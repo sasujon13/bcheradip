@@ -1,5 +1,6 @@
 import datetime as dt
 import secrets
+import uuid
 
 from django.contrib.auth.models import Group as AuthGroup, Permission
 from django.db import models
@@ -1002,13 +1003,20 @@ class InstituteSourceSnapshot(models.Model):
 
 
 class InstituteTeacher(models.Model):
-    """Selected public EMIS teacher-directory fields, keyed by EIIN and source row."""
+    """Public EMIS staff-directory fields, keyed by EIIN and source row."""
     eiin = models.CharField(max_length=15, db_index=True)
     source_row_id = models.CharField(max_length=64)
     name = models.CharField(max_length=255)
     name_bn = models.CharField(max_length=255, blank=True, default='')
     designation = models.CharField(max_length=255, blank=True, default='')
     subject = models.CharField(max_length=255, blank=True, default='')
+    pds_id = models.CharField(max_length=64, blank=True, default='')
+    index_no = models.CharField(max_length=64, blank=True, default='')
+    district_name = models.CharField(max_length=255, blank=True, default='')
+    bcs_batch = models.CharField(max_length=64, blank=True, default='')
+    photo_url = models.CharField(max_length=500, blank=True, default='')
+    joining_date = models.DateField(null=True, blank=True)
+    present_joining_date = models.DateField(null=True, blank=True)
     mobile = models.CharField(max_length=32, blank=True, default='')
     email = models.EmailField(max_length=254, blank=True, default='')
     position = models.PositiveSmallIntegerField(default=0)
@@ -1018,6 +1026,65 @@ class InstituteTeacher(models.Model):
     class Meta:
         constraints = [models.UniqueConstraint(fields=['eiin', 'source_row_id'], name='unique_emis_teacher_per_eiin')]
         ordering = ['eiin', 'position', 'id']
+
+
+class InstituteUpdateRun(models.Model):
+    """One staff-initiated pass through EIINs already listed in Cheradip."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cursor = models.CharField(max_length=15, blank=True, default='')
+    total = models.PositiveIntegerField(default=0)
+    status = models.CharField(max_length=16, default='running')
+    locked_until = models.DateTimeField(null=True, blank=True)
+    started_at = models.DateTimeField(auto_now_add=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
+    schedule_month = models.CharField(max_length=7, null=True, blank=True, unique=True)
+    retry_round = models.PositiveSmallIntegerField(default=0)
+    retry_cursor = models.CharField(max_length=15, blank=True, default='')
+
+    class Meta:
+        ordering = ['-started_at']
+
+
+class InstituteUpdateAttempt(models.Model):
+    run = models.ForeignKey(InstituteUpdateRun, on_delete=models.CASCADE, related_name='attempts')
+    eiin = models.CharField(max_length=15)
+    status = models.CharField(max_length=16)  # completed or failed
+    outcome = models.CharField(max_length=32, blank=True, default='')
+    detail = models.CharField(max_length=255, blank=True, default='')
+    attempts = models.PositiveSmallIntegerField(default=1)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['run', 'eiin'], name='unique_institute_update_attempt')]
+        indexes = [models.Index(fields=['run', 'status'], name='institute_run_status_idx')]
+        ordering = ['eiin']
+
+
+class InstituteRefreshRequest(models.Model):
+    """A bounded, deduplicated source refresh requested by a public detail visit."""
+    eiin = models.CharField(max_length=6, primary_key=True)
+    status = models.CharField(max_length=16, default='queued')
+    requested_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    completed_at = models.DateTimeField(null=True, blank=True)
+    locked_until = models.DateTimeField(null=True, blank=True)
+    outcome = models.CharField(max_length=32, blank=True, default='')
+    detail = models.CharField(max_length=255, blank=True, default='')
+
+    class Meta:
+        ordering = ['requested_at']
+
+
+class InstituteRefreshEvent(models.Model):
+    """Audit trail for each public-triggered source check within the retention window."""
+    eiin = models.CharField(max_length=6, db_index=True)
+    status = models.CharField(max_length=16)
+    outcome = models.CharField(max_length=32, blank=True, default='')
+    detail = models.CharField(max_length=255, blank=True, default='')
+    checked_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ['-checked_at']
 
 
 class InstituteScrapePage(models.Model):

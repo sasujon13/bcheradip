@@ -1,10 +1,12 @@
 from unittest.mock import patch
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from django.db import connections
 from django.test import TransactionTestCase, override_settings
 from rest_framework.test import APIClient
 
-from cheradip.models import Banbeis, Customer, InstituteSourceSnapshot, InstituteTeacher, Institutes
+from cheradip.models import Banbeis, Customer, InstituteSourceSnapshot, InstituteTeacher, InstituteUpdateRun, Institutes
 from cheradip.institute_scraper import InstituteSourceError, fetch_emis_teachers, sync_emis_teachers
 from cheradip.serializers import InstitutesSerializer
 
@@ -188,3 +190,86 @@ class InstituteScraperTests(TransactionTestCase):
                                       {'page': 2, 'size': 10, 'mode': 'apply', 'enrichEmis': True}, format='json')
         self.assertEqual(result.status_code, 200)
         self.assertEqual((result.data['created'], result.data['emisSkipped']), (1, 1))
+
+    def test_automatic_database_order_logs_and_retry_failed_file(self):
+        with TemporaryDirectory() as directory, override_settings(INSTITUTE_UPDATE_LOG_ROOT=directory):
+            for eiin in ('100003', '100001', '100002'):
+                Institutes.objects.create(eiinNo=eiin, instituteName=f'School {eiin}')
+            Institutes.objects.create(eiinNo='000000', instituteName='Placeholder')
+            self.client.force_authenticate(self.staff)
+            start = self.client.post('/api/scraper/institutes/automatic/start/', {'mode': 'all'}, format='json')
+            self.assertEqual(start.status_code, 200)
+            self.assertEqual(start.data['run']['total'], 3)
+            run_id = start.data['run']['runId']
+            seen = []
+
+            def source_result(**kwargs):
+                eiin = kwargs['eiin']
+                seen.append(eiin)
+                if eiin == '100002':
+                    return {'failed': 1, 'records': [{'eiin': eiin, 'status': 'failed',
+                                                      'detail': 'Banbeis unavailable'}]}
+                return {'failed': 0, 'records': [{'eiin': eiin, 'status': 'unchanged',
+                                                  'emisWarning': 'EMIS unavailable' if eiin == '100003' else ''}]}
+
+            with patch('cheradip.institute_update_runs.process_institute_page', side_effect=source_result):
+                step = self.client.post('/api/scraper/institutes/automatic/step/',
+                                        {'mode': 'all', 'runId': run_id}, format='json')
+            self.assertEqual(step.status_code, 200)
+            self.assertEqual(seen, ['100001', '100002', '100003'])
+            self.assertFalse(step.data['hasMore'])
+            self.assertEqual((step.data['run']['completed'], step.data['run']['failed']), (2, 1))
+            run = InstituteUpdateRun.objects.get(pk=run_id)
+            completed = (Path(directory) / str(run.pk) / 'completed.txt').read_text(encoding='utf-8')
+            failed = (Path(directory) / str(run.pk) / 'failed.txt').read_text(encoding='utf-8')
+            self.assertIn('100001\tunchanged', completed)
+            self.assertIn('100003\tunchanged', completed)
+            self.assertNotIn('100003', failed)  # An EMIS warning is not a failed EIIN.
+            self.assertIn('100002\tBanbeis unavailable', failed)
+
+            retry = self.client.post('/api/scraper/institutes/automatic/start/', {'mode': 'failed'}, format='json')
+            self.assertEqual(retry.data['selected'], 1)
+            with patch('cheradip.institute_update_runs.process_institute_page',
+                       return_value={'failed': 0, 'records': [{'eiin': '100002', 'status': 'updated'}]}):
+                retried = self.client.post('/api/scraper/institutes/automatic/step/',
+                                           {'mode': 'failed', 'runId': run_id}, format='json')
+            self.assertEqual(retried.status_code, 200)
+            self.assertEqual((retried.data['run']['completed'], retried.data['run']['failed']), (3, 0))
+            self.assertEqual(len((Path(directory) / str(run.pk) / 'failed.txt').read_text(encoding='utf-8').splitlines()), 1)
+            self.assertIn('100002\tupdated', (Path(directory) / str(run.pk) / 'completed.txt').read_text(encoding='utf-8'))
+            download = self.client.get('/api/scraper/institutes/automatic/logs/completed/')
+            self.assertEqual(download.status_code, 200)
+            self.assertIn(b'100002\tupdated', b''.join(download.streaming_content))
+
+    def test_automatic_update_requires_staff(self):
+        self.client.force_authenticate(self.customer)
+        self.assertEqual(self.client.get('/api/scraper/institutes/automatic/status/').status_code, 403)
+        self.assertEqual(self.client.post('/api/scraper/institutes/automatic/start/',
+                                          {'mode': 'all'}, format='json').status_code, 403)
+        self.assertEqual(self.client.get('/api/scraper/institutes/automatic/logs/failed/').status_code, 403)
+
+    def test_automatic_update_resumes_from_saved_database_cursor(self):
+        with TemporaryDirectory() as directory, override_settings(INSTITUTE_UPDATE_LOG_ROOT=directory):
+            for eiin in ('100001', '100002', '100003', '100004'):
+                Institutes.objects.create(eiinNo=eiin, instituteName=eiin)
+            self.client.force_authenticate(self.staff)
+            start = self.client.post('/api/scraper/institutes/automatic/start/', {'mode': 'all'}, format='json')
+            run_id = start.data['run']['runId']
+            seen = []
+
+            def source_result(**kwargs):
+                seen.append(kwargs['eiin'])
+                return {'failed': 0, 'records': [{'eiin': kwargs['eiin'], 'status': 'unchanged'}]}
+
+            with patch('cheradip.institute_update_runs.process_institute_page', side_effect=source_result):
+                first = self.client.post('/api/scraper/institutes/automatic/step/',
+                                         {'mode': 'all', 'runId': run_id}, format='json')
+                resumed = self.client.post('/api/scraper/institutes/automatic/start/',
+                                           {'mode': 'all'}, format='json')
+                second = self.client.post('/api/scraper/institutes/automatic/step/',
+                                          {'mode': 'all', 'runId': run_id}, format='json')
+            self.assertTrue(first.data['hasMore'])
+            self.assertEqual(resumed.data['run']['runId'], run_id)
+            self.assertEqual(seen, ['100001', '100002', '100003', '100004'])
+            self.assertFalse(second.data['hasMore'])
+            self.assertEqual(second.data['run']['status'], 'complete')

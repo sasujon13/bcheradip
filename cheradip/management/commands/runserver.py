@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import atexit
 import os
+import threading
 from pathlib import Path
 
 from django.conf import settings
 from django.core.management.commands.runserver import Command as RunserverCommand
 
 from .watch_latex_svg import CommandError, start_latex_svg_observer
+from cheradip.institute_refresh import run_worker_loop
 
 
 class Command(RunserverCommand):
@@ -17,6 +19,7 @@ class Command(RunserverCommand):
     )
 
     watcher_observer = None
+    institute_worker = None
 
     def add_arguments(self, parser) -> None:
         super().add_arguments(parser)
@@ -36,10 +39,36 @@ class Command(RunserverCommand):
             action="store_true",
             help="Disable the automatic .tex -> .svg watcher for this runserver session.",
         )
+        parser.add_argument(
+            '--skip-institute-updates', action='store_true',
+            help='Disable the local background institute updater for this runserver session.',
+        )
 
     def inner_run(self, *args, **options):
         self._maybe_start_latex_watcher(options)
+        self._maybe_start_institute_worker(options)
         return super().inner_run(*args, **options)
+
+    def _maybe_start_institute_worker(self, options) -> None:
+        if options.get('skip_institute_updates'):
+            return
+        if options.get('use_reloader', True) and os.environ.get('RUN_MAIN') != 'true':
+            return
+        if self.__class__.institute_worker is not None:
+            return
+        stop = threading.Event()
+        worker = threading.Thread(
+            target=run_worker_loop, kwargs={'stop_event': stop, 'poll_seconds': 5},
+            name='cheradip-institute-updates', daemon=True,
+        )
+        self.__class__.institute_worker = worker
+        worker.start()
+
+        def _stop_worker() -> None:
+            stop.set()
+            worker.join(timeout=2)
+
+        atexit.register(_stop_worker)
 
     def _maybe_start_latex_watcher(self, options) -> None:
         if options.get("skip_latex_watch"):

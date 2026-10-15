@@ -1152,11 +1152,12 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=['post'], url_path='use_trx')
     def use_trx(self, request):
         """
-        NTRCA unlock (logged-in): debit **only** ``Customer.settings['balance']`` by ``UNLOCK_DEBIT``.
-        Same source as ``GET /api/customer_settings/`` â€” no Trx row id, no ``TrxManagement.token`` check.
-
-        Authentication is mandatory; legacy anonymous transaction-row debits are not accepted.
+        Unlock an EIIN under an active paid package or buy 24 months with Coins.
         """
+        from .unlock_entitlements import (
+            INSTITUTE_EXPIRIES, INSTITUTE_KEYS, PACKAGE_INSTITUTES,
+            active_coin_unlocks, grant_coin_unlock, has_active_paid_package,
+        )
         debit = self.UNLOCK_DEBIT
         eiin = str(request.data.get('eiin') or '').strip()
         if not eiin or len(eiin) > 15 or not eiin.isdigit():
@@ -1164,14 +1165,25 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
         if not (Institutes.objects.filter(eiinNo=eiin).exists() or Banbeis.objects.filter(EIIN=int(eiin)).exists()):
             return Response({'success': False, 'detail': 'Institute not found.'}, status=404)
         customer = request.user
+        paid_plan = has_active_paid_package(customer)
         try:
             with transaction.atomic():
                 customer = Customer.objects.select_for_update().get(pk=customer.pk)
                 st = _normalize_customer_settings(getattr(customer, 'settings', None))
-                stored_paid = st.get('unlocked_ntrca_eiins_v2', [])
-                paid = {str(value) for value in stored_paid} if isinstance(stored_paid, list) else set()
-                if eiin in paid:
+                coin_unlocked = active_coin_unlocks(st, INSTITUTE_KEYS, INSTITUTE_EXPIRIES)
+                if eiin in coin_unlocked:
+                    customer.settings = st
+                    customer.save(update_fields=['settings'])
                     return Response({'success': True, 'remaining': int(st.get('balance', 0) or 0), 'alreadyUnlocked': True})
+                if paid_plan:
+                    saved_package_eiins = st.get(PACKAGE_INSTITUTES)
+                    package_eiins = {str(value) for value in saved_package_eiins} if isinstance(saved_package_eiins, list) else set()
+                    package_eiins.add(eiin)
+                    st[PACKAGE_INSTITUTES] = sorted(package_eiins)
+                    customer.settings = st
+                    customer.save(update_fields=['settings'])
+                    return Response({'success': True, 'remaining': int(st.get('balance', 0) or 0),
+                                     'packageAccess': True, 'debited': 0})
                 try:
                     balance = int(st.get('balance', 0) or 0)
                 except (TypeError, ValueError):
@@ -1185,7 +1197,7 @@ class TokenViewSet(viewsets.ReadOnlyModelViewSet):
                 wallet_result = deduct_wallet_coins(customer, debit)
                 remaining_for_client = wallet_result['remaining_coins']
                 fresh = _normalize_customer_settings(customer.settings)
-                fresh['unlocked_ntrca_eiins_v2'] = sorted(paid | {eiin})
+                grant_coin_unlock(fresh, INSTITUTE_KEYS, INSTITUTE_EXPIRIES, eiin)
                 customer.settings = fresh
                 customer.save(update_fields=['settings'])
         except Exception:
@@ -1571,11 +1583,19 @@ class CustomerSettingsView(APIView):
     authentication_classes = [BearerTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @staticmethod
+    def _public_settings(user, request=None):
+        from .unlock_entitlements import PACKAGE_INSTITUTES, effective_institute_eiins
+        effective_eiins = effective_institute_eiins(user, request)
+        public = _normalize_customer_settings(user.settings)
+        public['unlocked_ntrca_eiins_v2'] = sorted(effective_eiins)
+        public.pop(PACKAGE_INSTITUTES, None)
+        public.pop('student_exam_attempts', None)
+        public.pop('tutor_ai', None)
+        return public
+
     def get(self, request):
-        settings_dict = _normalize_customer_settings(getattr(request.user, 'settings', None))
-        settings_dict.pop('student_exam_attempts', None)
-        settings_dict.pop('tutor_ai', None)
-        return Response({'settings': settings_dict}, status=status.HTTP_200_OK)
+        return Response({'settings': self._public_settings(request.user, request)}, status=status.HTTP_200_OK)
 
     @transaction.atomic
     def post(self, request):
@@ -1596,8 +1616,7 @@ class CustomerSettingsView(APIView):
             current = {**current, **new_settings}
             user.settings = current
             user.save(update_fields=['settings'])
-        public = {key: value for key, value in current.items() if key not in {'student_exam_attempts', 'tutor_ai'}}
-        return Response({'settings': public}, status=status.HTTP_200_OK)
+        return Response({'settings': self._public_settings(user, request)}, status=status.HTTP_200_OK)
 
 
 # Bengali-capable font for PDF (reportlab). Try Windows Vrinda, Nirmala UI, or project fonts.

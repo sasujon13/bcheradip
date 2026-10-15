@@ -129,7 +129,7 @@ class RemainingAuditAccountTests(TransactionTestCase):
         with override_settings(DEBUG=False):
             self.assertContains(self.client.get('/admin/manual/'), 'href="/scrape"')
         self.client.logout()
-        self.assertEqual(self.client.get('/admin/manual/').status_code, 302)
+        self.assertEqual(self.client.get('/admin/manual/', HTTP_X_FORWARDED_PROTO='https').status_code, 302)
 
     def test_exhausted_teacher_allowance_cannot_be_refreshed_by_free_downgrade(self):
         from cheradip.package_service import activate_plan

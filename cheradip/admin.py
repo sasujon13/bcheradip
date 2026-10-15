@@ -27,6 +27,10 @@ from .models import (
     WithdrawalRequest,
     InstituteSourceSnapshot,
     InstituteTeacher,
+    InstituteUpdateRun,
+    InstituteUpdateAttempt,
+    InstituteRefreshRequest,
+    InstituteRefreshEvent,
     InstituteScrapePage,
 )
 
@@ -434,14 +438,89 @@ class InstituteSourceSnapshotAdmin(admin.ModelAdmin):
 
 @admin.register(InstituteTeacher)
 class InstituteTeacherAdmin(admin.ModelAdmin):
-    list_display = ('eiin', 'name', 'name_bn', 'designation', 'subject', 'listed', 'last_seen_at')
+    list_display = ('eiin', 'name', 'name_bn', 'designation', 'subject', 'joining_date', 'listed', 'last_seen_at')
     list_filter = ('listed', 'last_seen_at')
     search_fields = ('eiin', 'name', 'name_bn', 'subject')
     readonly_fields = ('eiin', 'source_row_id', 'name', 'name_bn', 'designation', 'subject',
-                       'mobile', 'email', 'position', 'listed', 'last_seen_at')
+                       'pds_id', 'index_no', 'district_name', 'bcs_batch',
+                       'joining_date', 'present_joining_date', 'photo_url', 'mobile', 'email',
+                       'position', 'listed', 'last_seen_at')
 
     def has_add_permission(self, request):
         return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(InstituteUpdateRun)
+class InstituteUpdateRunAdmin(admin.ModelAdmin):
+    list_display = ('id', 'status', 'total', 'cursor', 'started_at', 'completed_at')
+    readonly_fields = ('id', 'status', 'total', 'cursor', 'locked_until', 'started_at', 'completed_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(InstituteUpdateAttempt)
+class InstituteUpdateAttemptAdmin(admin.ModelAdmin):
+    list_display = ('eiin', 'run', 'status', 'outcome', 'attempts', 'updated_at')
+    list_filter = ('status', 'outcome', 'updated_at')
+    search_fields = ('eiin', 'detail')
+    readonly_fields = ('run', 'eiin', 'status', 'outcome', 'detail', 'attempts', 'updated_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(InstituteRefreshRequest)
+class InstituteRefreshRequestAdmin(admin.ModelAdmin):
+    list_display = ('eiin', 'status', 'outcome', 'requested_at', 'completed_at')
+    list_filter = ('status', 'completed_at')
+    search_fields = ('eiin',)
+    readonly_fields = ('eiin', 'status', 'requested_at', 'started_at', 'completed_at',
+                       'locked_until', 'outcome', 'detail')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(InstituteRefreshEvent)
+class InstituteRefreshEventAdmin(admin.ModelAdmin):
+    list_display = ('eiin', 'status', 'outcome', 'checked_at')
+    list_filter = ('status', 'outcome', 'checked_at')
+    search_fields = ('eiin', 'detail')
+    readonly_fields = ('eiin', 'status', 'outcome', 'detail', 'checked_at')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
 
     def has_change_permission(self, request, obj=None):
         return False

@@ -1,11 +1,12 @@
 """Staff-run, resumable import of public institute-directory records.
 
 The fixed Banbeis and EMIS hosts are deliberate: no browser-supplied URL is fetched.
-EMIS supplies a public teacher directory; only fields used on the institute page are retained.
+EMIS supplies a public staff directory; only fields used on the institute page are retained.
 """
 
 import re
 import time
+from datetime import datetime
 
 import requests
 from django.db import transaction
@@ -19,6 +20,10 @@ EMIS_DIRECTORY = 'https://emis.gov.bd/EMIS/Portal/GetInstitute'
 EMIS_TEACHERS = 'https://emis.gov.bd/EMIS/Portal/GetTeacherDetails'
 SOURCE_HEADERS = {'User-Agent': 'Cheradip institute directory updater (staff-operated; contact: cheradip.com)', 'Accept': 'application/json'}
 _EIIN = re.compile(r'^\d{6}$')
+_EMIS_PHOTO = re.compile(
+    r'''src=['"](/EMIS/upload/HRM/(?:EmpCollRegisImage|UserImage)/(?:[A-Za-z0-9_-]+/)+[A-Za-z0-9_-]+\.(?:jpg|jpeg|png))['"]''',
+    re.IGNORECASE,
+)
 
 
 class InstituteSourceError(Exception):
@@ -86,7 +91,8 @@ def fetch_emis_teachers(session, eiin, directory):
         raise InstituteSourceError(f'EMIS institute identifier did not match EIIN {eiin}.')
     response = session.post(
         EMIS_TEACHERS,
-        data={'instituteId': directory['Id'], 'EIIN': eiin, 'isTeacher': 1},
+        # 0 returns the complete public staff roster; 1 omits support staff.
+        data={'instituteId': directory['Id'], 'EIIN': eiin, 'isTeacher': 0},
         headers={**SOURCE_HEADERS, 'Referer': 'https://emis.gov.bd/EMIS/portalone'}, timeout=30,
     )
     response.raise_for_status()
@@ -117,6 +123,13 @@ def fetch_emis_teachers(session, eiin, directory):
             'source_row_id': source_id, 'name': name or name_bn, 'name_bn': name_bn,
             'designation': _clean(row.get('DesignationNameBn'), 255) or '',
             'subject': _clean(row.get('SubjectName'), 255) or '',
+            'pds_id': _clean(row.get('EmpId'), 64) or '',
+            'index_no': _clean(row.get('IndexNo'), 64) or '',
+            'district_name': _clean(row.get('DistrictName'), 255) or '',
+            'bcs_batch': _clean(row.get('BCSBatchBn') or row.get('BCSBatchEn'), 64) or '',
+            'photo_url': _emis_photo_url(row.get('Image')),
+            'joining_date': _parse_emis_date(row.get('JoiningDate')),
+            'present_joining_date': _parse_emis_date(row.get('PresentJoiningDate')),
             'mobile': _clean(row.get('MobileNo'), 32) or '',
             'email': _clean(row.get('Email'), 254) or '', 'position': index,
         })
@@ -167,9 +180,29 @@ def _clean(value, limit):
     if value is None:
         return None
     text = str(value).strip()
-    if not text or '*' in text:  # Never persist masked telephone numbers from list results.
+    if not text or text.lower() in {'null', 'none', '-', 'n/a'} or '*' in text:
         return None
     return text[:limit]
+
+
+def _parse_emis_date(value):
+    raw = _clean(value, 40)
+    if not raw:
+        return None
+    raw = raw.strip("'\" ")
+    for pattern in ('%d-%b-%Y', '%d-%B-%Y', '%Y-%m-%d', '%d/%m/%Y', '%d-%m-%Y'):
+        try:
+            return datetime.strptime(raw, pattern).date()
+        except ValueError:
+            continue
+    return None
+
+
+def _emis_photo_url(value):
+    if not isinstance(value, str) or len(value) > 2000:
+        return ''
+    match = _EMIS_PHOTO.search(value)
+    return f'https://emis.gov.bd{match.group(1)}' if match else ''
 
 
 def _fields_from_detail(detail, emis):

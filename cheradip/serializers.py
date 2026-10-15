@@ -311,9 +311,11 @@ class BanbeisSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         request = self.context.get('request')
         user = getattr(request, 'user', None)
-        settings = getattr(user, 'settings', None) if user and user.is_authenticated else None
-        paid = settings.get('unlocked_ntrca_eiins_v2', []) if isinstance(settings, dict) else []
-        if str(instance.EIIN) not in {str(value) for value in paid}:
+        from .unlock_entitlements import effective_institute_eiins
+        unlocked = bool(self.context.get('public_detail') or getattr(user, 'is_staff', False) or
+                        str(instance.EIIN) in effective_institute_eiins(user, request))
+        data['detailsUnlocked'] = unlocked
+        if not unlocked:
             for field in ('Contact', 'PreStats', 'Record', 'Record2', 'Linked', 'MPO'):
                 data[field] = None
         return data

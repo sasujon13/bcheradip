@@ -4,7 +4,7 @@ from io import StringIO
 import os
 from pathlib import Path
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 from uuid import uuid4
 
 from django.test import SimpleTestCase
@@ -66,21 +66,27 @@ class MySQLInsertOnlySyncTests(SimpleTestCase):
                 )
         self.assertNotIsInstance(result.exception, sync.MissingRemoteDatabase)
 
-    def test_direction_selects_insert_only_for_l2r_and_snapshot_for_r2l(self):
+    def test_direction_selects_schema_only_for_l2r_and_snapshot_for_r2l(self):
         kwargs = dict(mysqldump='dump', mysql='mysql', local_host='local', local_port='3306',
                       local_user='root', local_password='', remote_host='remote', remote_port='3306',
                       remote_user='sasha', remote_password='', to_sync=['example'], dry=True)
-        with patch.object(sync, 'sync_missing_to_remote') as incremental, patch.object(sync, 'sync_one_database') as snapshot, redirect_stdout(StringIO()):
+        with patch.object(sync, 'sync_schema_to_remote') as schema_only, patch.object(sync, 'sync_data_to_remote') as with_data, patch.object(sync, 'sync_one_database') as snapshot, redirect_stdout(StringIO()):
             self.assertEqual(sync.run_one_pass(direction='local-to-remote', **kwargs), (1, 0))
-            incremental.assert_called_once()
+            schema_only.assert_called_once()
+            with_data.assert_not_called()
             snapshot.assert_not_called()
-            incremental.reset_mock()
+            schema_only.reset_mock()
+            self.assertEqual(sync.run_one_pass(direction='local-to-remote-data', **kwargs), (1, 0))
+            with_data.assert_called_once()
+            schema_only.assert_not_called()
+            with_data.reset_mock()
             self.assertEqual(sync.run_one_pass(direction='remote-to-local', **kwargs), (1, 0))
-            incremental.assert_not_called()
+            schema_only.assert_not_called()
+            with_data.assert_not_called()
             snapshot.assert_called_once()
 
     def test_missing_database_is_not_retried(self):
-        with patch.object(sync, 'sync_missing_to_remote', side_effect=sync.MissingRemoteDatabase('create database')) as incremental, redirect_stdout(StringIO()):
+        with patch.object(sync, 'sync_schema_to_remote', side_effect=sync.MissingRemoteDatabase('create database')) as incremental, redirect_stdout(StringIO()):
             result = sync.run_one_pass(
                 direction='local-to-remote', mysqldump='', mysql='mysql', local_host='local',
                 local_port='3306', local_user='root', local_password='', remote_host='remote',
@@ -88,6 +94,38 @@ class MySQLInsertOnlySyncTests(SimpleTestCase):
             )
         self.assertEqual(result, (0, 1))
         incremental.assert_called_once()
+
+
+class MySQLSchemaOnlySyncTests(SimpleTestCase):
+    def test_existing_tables_are_checked_without_copying_rows(self):
+        source = MagicMock()
+        destination = MagicMock()
+        source_cursor = source.cursor.return_value.__enter__.return_value
+        remote_cursor = destination.cursor.return_value.__enter__.return_value
+        source_cursor.fetchall.return_value = [('questions', 'BASE TABLE')]
+        remote_cursor.fetchall.return_value = [('questions', 'BASE TABLE')]
+        with patch.object(sync, '_open_sync_connection', side_effect=[source, destination]), redirect_stdout(StringIO()):
+            sync.sync_schema_to_remote(
+                source_host='local', source_port='3306', source_user='root', source_password='',
+                dest_host='remote', dest_port='3306', dest_user='sasha', dest_password='',
+                db='cheradip_cheradip', dry=False, mysql='mysql',
+            )
+        self.assertEqual(source_cursor.execute.call_args.args[0], 'SHOW FULL TABLES')
+        self.assertEqual(remote_cursor.execute.call_args.args[0], 'SHOW FULL TABLES')
+        destination.commit.assert_not_called()
+
+    def test_missing_database_dry_run_does_not_attempt_create(self):
+        import pymysql
+        source = MagicMock()
+        source_cursor = source.cursor.return_value.__enter__.return_value
+        source_cursor.fetchall.return_value = [('questions', 'BASE TABLE')]
+        with patch.object(sync, '_open_sync_connection', side_effect=[source, pymysql.OperationalError(1049, 'Unknown database')]), patch.object(sync, 'ensure_destination_database') as create, redirect_stdout(StringIO()):
+            sync.sync_schema_to_remote(
+                source_host='local', source_port='3306', source_user='root', source_password='',
+                dest_host='remote', dest_port='3306', dest_user='sasha', dest_password='',
+                db='ecommerce', dry=True, mysql='mysql',
+            )
+        create.assert_not_called()
 
 
 @unittest.skipUnless(os.environ.get('MYSQL_SYNC_TEST_INTEGRATION') == '1',
@@ -140,6 +178,75 @@ class MySQLInsertOnlyIntegrationTests(SimpleTestCase):
                 db=self.source_db, dry=dry,
             )
         return output.getvalue()
+
+    def test_schema_only_creates_table_without_copying_rows(self):
+        import pymysql
+        self.sql(self.source_db, 'CREATE TABLE products (id INT PRIMARY KEY, name VARCHAR(80))')
+        self.sql(self.source_db, "INSERT INTO products VALUES (1,'Local product')")
+
+        def connect(host, port, user, password, db):
+            options = {**self.options, 'autocommit': False}
+            database = self.source_db if host == 'test-source' else self.destination_db
+            return pymysql.connect(database=database, **options)
+
+        with patch.object(sync, '_open_sync_connection', side_effect=connect), redirect_stdout(StringIO()):
+            sync.sync_schema_to_remote(
+                source_host='test-source', source_port='3306', source_user='root', source_password='',
+                dest_host='test-destination', dest_port='3306', dest_user='root', dest_password='',
+                db=self.source_db, dry=False, mysql='mysql',
+            )
+        self.assertEqual(self.sql(self.destination_db, 'SELECT COUNT(*) FROM products'), ((0,),))
+
+    def test_l2rd_updates_matching_rows_inserts_new_and_keeps_remote_only(self):
+        import pymysql
+        ddl = 'CREATE TABLE accounts (id INT PRIMARY KEY, note VARCHAR(80))'
+        for name in (self.source_db, self.destination_db):
+            self.sql(name, ddl)
+        self.sql(self.source_db, "INSERT INTO accounts VALUES (1,'Local edit'),(2,'New local')")
+        self.sql(self.destination_db, "INSERT INTO accounts VALUES (1,'Remote edit'),(99,'Remote only')")
+
+        def connect(host, port, user, password, db):
+            options = {**self.options, 'autocommit': False}
+            database = self.source_db if host == 'test-source' else self.destination_db
+            return pymysql.connect(database=database, **options)
+
+        def run(dry):
+            with patch.object(sync, '_open_sync_connection', side_effect=connect), redirect_stdout(StringIO()):
+                sync.sync_data_to_remote(
+                    source_host='test-source', source_port='3306', source_user='root', source_password='',
+                    dest_host='test-destination', dest_port='3306', dest_user='root', dest_password='',
+                    db=self.source_db, dry=dry, mysql='mysql',
+                )
+
+        run(True)
+        self.assertEqual(self.sql(self.destination_db, 'SELECT note FROM accounts WHERE id=1'),
+                         (('Remote edit',),))
+        run(False)
+        self.assertEqual(self.sql(self.destination_db, 'SELECT id,note FROM accounts ORDER BY id'),
+                         ((1, 'Local edit'), (2, 'New local'), (99, 'Remote only')))
+        run(False)
+        self.assertEqual(self.sql(self.destination_db, 'SELECT COUNT(*) FROM accounts'), ((3,),))
+
+    def test_l2rd_preserves_duplicate_keyless_rows(self):
+        import pymysql
+        for name in (self.source_db, self.destination_db):
+            self.sql(name, 'CREATE TABLE unkeyed (value VARCHAR(20))')
+        self.sql(self.source_db, "INSERT INTO unkeyed VALUES ('same'),('same'),('new')")
+        self.sql(self.destination_db, "INSERT INTO unkeyed VALUES ('same')")
+
+        def connect(host, port, user, password, db):
+            options = {**self.options, 'autocommit': False}
+            database = self.source_db if host == 'test-source' else self.destination_db
+            return pymysql.connect(database=database, **options)
+
+        with patch.object(sync, '_open_sync_connection', side_effect=connect), redirect_stdout(StringIO()):
+            sync.sync_data_to_remote(
+                source_host='test-source', source_port='3306', source_user='root', source_password='',
+                dest_host='test-destination', dest_port='3306', dest_user='root', dest_password='',
+                db=self.source_db, dry=False, mysql='mysql',
+            )
+        self.assertEqual(self.sql(self.destination_db, 'SELECT value, COUNT(*) FROM unkeyed GROUP BY value ORDER BY value'),
+                         (('new', 1), ('same', 2)))
 
     def test_remote_edits_and_remote_only_rows_survive_repeated_passes(self):
         ddl = 'CREATE TABLE accounts (id INT PRIMARY KEY, email VARCHAR(80) UNIQUE, note TEXT)'

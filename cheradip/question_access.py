@@ -5,6 +5,7 @@ from django.db import connections, transaction
 from .models import Customer
 from .package_service import active_subscriptions, subsource_allowed
 from .subject_question_tables import subject_question_table_name
+from .unlock_entitlements import QUESTION_EXPIRIES, active_coin_unlocks, grant_coin_unlock
 from .wallet_service import deduct_wallet_coins, wallet_coins
 
 KEYS = 'unlocked_question_keys'
@@ -17,11 +18,16 @@ def question_key(db, table, qid):
 
 
 def package_covers(packages, question):
-    return any(subsource_allowed(row.plan.track, question.get('subsource')) for row in packages)
+    return any(
+        getattr(row.plan, 'price', 0) > 0 or
+        (getattr(row.plan, 'audience', 'student') == 'student' and
+         subsource_allowed(row.plan.track, question.get('subsource')))
+        for row in packages
+    )
 
 
 def bind_legacy(settings, db, table, questions):
-    keys = set(settings.get(KEYS) or [])
+    keys = active_coin_unlocks(settings, KEYS, QUESTION_EXPIRIES)
     claims = dict(settings.get(CLAIMS) or {})
     legacy = {str(qid) for qid in settings.get('unlocked_question_qids', [])}
     for q in questions:
@@ -29,13 +35,13 @@ def bind_legacy(settings, db, table, questions):
         key = question_key(db, table, qid)
         if qid in legacy and qid not in claims:
             claims[qid] = key
-            keys.add(key)
+            keys = grant_coin_unlock(settings, KEYS, QUESTION_EXPIRIES, key)
     settings[KEYS], settings[CLAIMS] = sorted(keys), claims
     return keys
 
 
 def protect_questions(user, db, table, questions):
-    packages = active_subscriptions(user, audience='student') if getattr(user, 'is_authenticated', False) else []
+    packages = active_subscriptions(user) if getattr(user, 'is_authenticated', False) else []
     keys = set()
     if getattr(user, 'is_authenticated', False):
         with transaction.atomic():
@@ -87,11 +93,11 @@ def unlock_items(customer, items):
     loaded = [load_unlock_item(item) for item in items if isinstance(item, dict)]
     if not loaded:
         raise ValueError('No questions to unlock.')
-    packages = active_subscriptions(customer, audience='student')
+    packages = active_subscriptions(customer)
     with transaction.atomic():
         customer = Customer.objects.select_for_update().get(pk=customer.pk)
         data = dict(customer.settings or {})
-        keys = set(data.get(KEYS) or [])
+        keys = active_coin_unlocks(data, KEYS, QUESTION_EXPIRIES)
         result, chargeable = [], {}
         for db, table, q in loaded:
             keys.update(bind_legacy(data, db, table, [q]))
@@ -108,7 +114,8 @@ def unlock_items(customer, items):
         if debit:
             deduct_wallet_coins(customer, debit)
         data['balance'] = wallet_coins(customer)
-        keys.update(chargeable)
+        for key in chargeable:
+            keys = grant_coin_unlock(data, KEYS, QUESTION_EXPIRIES, key)
         data[KEYS] = sorted(keys)
         customer.settings = data
         customer.save(update_fields=['settings'])
