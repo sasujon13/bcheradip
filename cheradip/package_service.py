@@ -402,11 +402,9 @@ def reserve_teacher_question_allowance(customer, questions, now=None):
         id__in=active_ids,
     ).select_related('plan').order_by('-plan__sort_order', '-starts_at', '-id'))
     combined = next((row for row in rows if row.plan.track == 'combined'), None)
-    if combined:
-        required = len({_question_creation_kind(question) for question in questions})
-        remaining = max(0, combined.question_limit_snapshot - combined.questions_used)
-        if required > remaining:
-            raise TeacherQuestionLimitReached('combined', required, remaining)
+    combined_remaining = max(0, combined.question_limit_snapshot - combined.questions_used) if combined else 0
+    required = len({_question_creation_kind(question) for question in questions})
+    if combined and required <= combined_remaining:
         combined.questions_used += required
         combined.save(update_fields=['questions_used', 'updated_at'])
         return []
@@ -418,6 +416,7 @@ def reserve_teacher_question_allowance(customer, questions, now=None):
         by_track[track].append(question)
 
     uncovered = []
+    reservations = []
     for track, track_questions in by_track.items():
         if not track_questions:
             continue
@@ -428,8 +427,20 @@ def reserve_teacher_question_allowance(customer, questions, now=None):
         required = len({_question_creation_kind(question) for question in track_questions})
         remaining = max(0, row.question_limit_snapshot - row.questions_used)
         if required > remaining:
+            if combined:
+                uncovered.extend(track_questions)
+                continue
             raise TeacherQuestionLimitReached(track, required, remaining)
-        row.questions_used += required
+        reservations.append((row, required))
+
+    if combined and uncovered:
+        combined_required = len({_question_creation_kind(question) for question in uncovered})
+        if combined_required > combined_remaining:
+            raise TeacherQuestionLimitReached('combined', combined_required, combined_remaining)
+        reservations.append((combined, combined_required))
+        uncovered = []
+    for row, amount in reservations:
+        row.questions_used += amount
         row.save(update_fields=['questions_used', 'updated_at'])
     return uncovered
 

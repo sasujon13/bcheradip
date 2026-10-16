@@ -333,6 +333,48 @@ class PackageApiTests(TestCase):
         row.refresh_from_db()
         self.assertEqual(row.questions_used, 1)
 
+    def test_student_can_use_specific_teacher_allowance_after_combined_is_exhausted(self):
+        academic, _, _, _ = activate_plan(
+            self.user, PackagePlan.objects.get(code='teacher-starter-academic')
+        )
+        combined, _, _, _ = activate_plan(
+            self.user, PackagePlan.objects.get(code='teacher-starter-combined')
+        )
+        combined.questions_used = combined.question_limit_snapshot
+        combined.save(update_fields=['questions_used'])
+
+        saved = self.client.post('/api/created_question_sets/', {
+            'name': 'Academic still covered',
+            'questions': [{'qid': 'still-covered', 'question': 'MCQ', 'type': 'MCQ', 'subsource': "CB'25"}],
+        }, format='json', secure=True)
+        self.assertEqual(saved.status_code, 201, saved.data)
+        self.assertEqual(saved.data['debited'], 0)
+        academic.refresh_from_db()
+        self.assertEqual(academic.questions_used, 1)
+
+        blocked = self.client.post('/api/created_question_sets/', {
+            'name': 'Admission exhausted',
+            'questions': [{'qid': 'not-covered', 'question': 'MCQ', 'type': 'MCQ', 'subsource': "DU'25"}],
+        }, format='json', secure=True)
+        self.assertEqual(blocked.status_code, 402)
+        self.assertEqual(blocked.data['code'], 'package_question_limit_reached')
+
+    def test_student_without_teacher_allowance_gets_exact_coin_shortfall(self):
+        self.expire_default_packages('teacher')
+        self.user.settings = {'balance': 10}
+        self.user.save(update_fields=['settings'])
+        blocked = self.client.post('/api/created_question_sets/', {
+            'name': 'Coin authoring',
+            'questions': [{'qid': 'needs-coins', 'question': 'MCQ', 'type': 'MCQ', 'subsource': "CB'25"}],
+        }, format='json', secure=True)
+        self.assertEqual(blocked.status_code, 400)
+        self.assertEqual(blocked.data['code'], 'insufficient_balance')
+        self.assertEqual(blocked.data['required'], 25)
+        self.assertEqual(blocked.data['remaining'], 10)
+        self.assertTrue(blocked.data['packageNotIncluded'])
+        self.assertIn('Student Package', blocked.data['packageMessage'])
+        self.assertFalse(CreatedQuestionSet.objects.filter(customer=self.user).exists())
+
     def test_student_receives_default_teacher_packages_without_coin_charge(self):
         activate_plan(self.user, PackagePlan.objects.get(code='free-academic'))
         saved = self.client.post('/api/created_question_sets/', {
@@ -388,6 +430,8 @@ class PackageApiTests(TestCase):
             ],
         }, format='json', secure=True)
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data['code'], 'insufficient_balance')
+        self.assertTrue(response.data['packageNotIncluded'])
         row.refresh_from_db()
         self.assertEqual(row.questions_used, 0)
         self.assertFalse(CreatedQuestionSet.objects.filter(customer=self.user).exists())
@@ -402,6 +446,22 @@ class PackageApiTests(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['debited'], 25)
         self.assertEqual(response.data['remaining'], 49975)
+
+    def test_student_new_question_form_uses_active_teacher_package(self):
+        row, _, _, _ = activate_plan(
+            self.user, PackagePlan.objects.get(code='teacher-starter-academic')
+        )
+        self.user.settings = {'balance': 0}
+        self.user.save(update_fields=['settings'])
+        response = self.client.post('/api/pending_questions/submit/', {
+            'level_tr': 'Higher Secondary', 'class_level': '11-12',
+            'subject_tr': 'Physics 1st Paper', 'chapter': 'Chapter', 'topic': 'Topic',
+            'question': 'Student authoring through the form', 'type': 'MCQ', 'subsource': "CB'25",
+        }, format='json', secure=True)
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(response.data['debited'], 0)
+        row.refresh_from_db()
+        self.assertEqual(row.questions_used, 1)
 
     def test_teacher_package_renewal_uses_teacher_badge_discount_for_student(self):
         row, _, _, _ = activate_plan(

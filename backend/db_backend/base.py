@@ -58,11 +58,15 @@ from django.db.backends.mysql import base, features
 
 
 class DatabaseFeatures(features.DatabaseFeatures):
-    """Override features to disable RETURNING for MariaDB 10.4"""
+    """Match the existing cross-version MariaDB schema."""
     
     # Disable RETURNING clause - not supported in MariaDB 10.4
     can_return_columns_from_insert = False
     can_return_rows_from_bulk_insert = False
+    # InstituteUpdateRun and its FK were created as CHAR(32). Newer MariaDB
+    # versions advertise a native UUID type, but writing UUID objects to those
+    # legacy columns produces a 36-character value and breaks update runs.
+    has_native_uuid_field = False
 
 
 class DatabaseWrapper(base.DatabaseWrapper):

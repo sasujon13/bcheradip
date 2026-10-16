@@ -67,6 +67,7 @@ from .export_question_katex import (
 )
 from .package_service import (
     TeacherQuestionLimitReached,
+    active_subscriptions,
     current_subscription,
     entitlement_sql,
     question_track_for_user,
@@ -6243,9 +6244,11 @@ def _calculate_question_set_save_debit(questions):
 
 
 class QuestionCreationInsufficientCoins(ValueError):
-    def __init__(self, required, remaining):
+    def __init__(self, required, remaining, package_message=''):
         self.required = int(required)
         self.remaining = int(remaining)
+        self.package_message = package_message
+        self.package_not_included = bool(package_message)
         super().__init__(f'{self.required}:{self.remaining}')
 
 
@@ -6263,7 +6266,14 @@ def _consume_question_creation_access(customer, questions):
     except (TypeError, ValueError):
         balance = 0
     if balance < debit:
-        raise QuestionCreationInsufficientCoins(debit, balance)
+        active_audiences = {row.plan.audience for row in active_subscriptions(customer)}
+        if 'teacher' in active_audiences:
+            package_message = 'Your Teacher Package does not cover all selected questions.'
+        elif 'student' in active_audiences:
+            package_message = 'Your Student Package does not include question creation; activate a Teacher Package or use Coins.'
+        else:
+            package_message = ''
+        raise QuestionCreationInsufficientCoins(debit, balance, package_message)
     if debit:
         wallet_result = deduct_wallet_coins(customer, debit)
         return debit, wallet_result['remaining_coins']
@@ -6340,10 +6350,14 @@ class CreatedQuestionSetListCreateView(APIView):
                     customer, name, question_header, questions, layout_settings
                 )
         except QuestionCreationInsufficientCoins as exc:
+            note = f'{exc.package_message} ' if exc.package_message else ''
             return Response(
                 {
                     'error': 'Insufficient coins for save',
-                    'detail': f'Insufficient coins. Need {exc.required}, you have {exc.remaining}.',
+                    'code': 'insufficient_balance',
+                    'detail': f'{note}Insufficient coins. Need {exc.required}, you have {exc.remaining}.',
+                    'packageNotIncluded': exc.package_not_included,
+                    'packageMessage': exc.package_message,
                     'required': exc.required,
                     'remaining': exc.remaining,
                 },
@@ -10131,6 +10145,13 @@ class PendingQuestionSubmitView(APIView):
         except QuestionCreationInsufficientCoins as exc:
             return Response({
                 'error': 'Insufficient coins for question creation.',
+                'code': 'insufficient_balance',
+                'packageNotIncluded': exc.package_not_included,
+                'packageMessage': exc.package_message,
+                'detail': (
+                    (f'{exc.package_message} ' if exc.package_message else '') +
+                    f'Insufficient coins. Need {exc.required}, you have {exc.remaining}.'
+                ),
                 'required': exc.required, 'remaining': exc.remaining,
             }, status=status.HTTP_400_BAD_REQUEST)
         except TeacherQuestionLimitReached as exc:

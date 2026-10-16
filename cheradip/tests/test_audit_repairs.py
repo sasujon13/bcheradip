@@ -74,7 +74,7 @@ class AuditAccountTests(TransactionTestCase):
 
     def test_withdrawal_reserves_main_coins_and_cancel_restores_once(self):
         RewardsWallet.objects.create(customer=self.user, available_taka='500.00')
-        response = self.client.post('/api/wallet/rewards/', {'method': 'bkash', 'accountNumber': '01700000000', 'amountTaka': 500}, format='json')
+        response = self.client.post('/api/wallet/rewards/', {'method': 'bkash', 'accountNumber': '01700000000', 'amountTaka': 500}, format='json', secure=True)
         # Exercise the view directly if the public wallet URL differs.
         if response.status_code == 404:
             from cheradip.package_views import RewardsWalletView
@@ -97,7 +97,7 @@ class AuditAccountTests(TransactionTestCase):
         self.assertEqual(WithdrawalCancelView.as_view()(request, pk=row.pk).status_code, 400)
 
     def test_settings_cannot_grant_coins_or_answers(self):
-        response = self.client.post('/api/customer_settings/', {'settings': {'balance': 9999999, 'unlocked_question_keys': ['fake'], 'export_format': 'docx'}}, format='json')
+        response = self.client.post('/api/customer_settings/', {'settings': {'balance': 9999999, 'unlocked_question_keys': ['fake'], 'export_format': 'docx'}}, format='json', secure=True)
         self.assertEqual(response.status_code, 200)
         self.user.refresh_from_db()
         self.assertEqual(self.user.settings['balance'], 100000)

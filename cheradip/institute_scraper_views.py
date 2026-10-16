@@ -71,12 +71,35 @@ def _staff_sort_key(row):
         rank = 1
     elif any(word in label for word in ('অধ্যক্ষ', 'প্রধান শিক্ষক', 'প্রধানশিক্ষক', 'principal', 'headmaster')):
         rank = 0
-    elif any(word in label for word in ('প্রভাষক', 'শিক্ষক', 'lecturer', 'teacher', 'ইন্সট্রাক্টর', 'instructor')):
-        rank = 2
-    else:
+    elif any(word in label for word in ('সহযোগী অধ্যাপক', 'associate professor')):
         rank = 3
-    return (rank, label, row.joining_date or row.present_joining_date or date.max,
-            (row.name_bn or row.name).casefold(), row.position)
+    elif any(word in label for word in ('অধ্যাপক', 'professor')) and not any(
+            word in label for word in ('সহকারী অধ্যাপক', 'assistant professor')):
+        rank = 2
+    elif (any(word in label for word in ('সহকারী অধ্যাপক', 'assistant professor')) or
+          re.search(r'(?<![a-z])a\.?p\.?(?![a-z])', label)):
+        rank = 4
+    elif any(word in label for word in ('প্রভাষক', 'lecturer')):
+        rank = 5
+    elif any(word in label for word in ('প্রদর্শক', 'demonstrator')):
+        rank = 6
+    elif any(word in label for word in (
+            'ল্যাব এসিস্টেন্ট', 'ল্যাব অ্যাসিস্ট্যান্ট', 'ল্যাব সহকারী',
+            'ল্যাবরেটরি সহকারী', 'lab assistant', 'laboratory assistant', 'lab asst')):
+        rank = 7
+    elif any(word in label for word in ('শিক্ষক', 'teacher', 'ইন্সট্রাক্টর', 'instructor')):
+        rank = 8
+    else:
+        rank = 9
+    # Keep distinct designations together, while grouping their language variants.
+    designation_group = {
+        4: 'assistant professor', 5: 'lecturer', 6: 'demonstrator', 7: 'lab assistant',
+    }.get(rank, label)
+    index_match = re.search(r'\d+', str(getattr(row, 'index_no', '') or ''))
+    index_number = int(index_match.group()) if index_match else 0
+    return (rank, designation_group, index_match is None, index_number,
+            row.joining_date or row.present_joining_date or date.max,
+            label, (row.name_bn or row.name).casefold(), row.position)
 
 
 class PublicInstitutePageDetailsView(APIView):

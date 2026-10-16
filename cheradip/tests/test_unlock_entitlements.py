@@ -135,3 +135,49 @@ class TimedCoinUnlockTests(SimpleTestCase):
             SimpleNamespace(designation='সহকারী শিক্ষক', joining_date=date(2010, 1, 1), present_joining_date=None, name='A', name_bn='', position=1),
         ]
         self.assertEqual([row.name for row in sorted(rows, key=_staff_sort_key)], ['Head', 'A', 'B'])
+
+    def test_assistant_professors_precede_lecturers_and_numeric_index_orders_peers(self):
+        from datetime import date
+        rows = [
+            SimpleNamespace(designation='Lecturer', index_no='N100', joining_date=date(2000, 1, 1), present_joining_date=None, name='Lecturer', name_bn='', position=0),
+            SimpleNamespace(designation='Assistant Professor', index_no='N1100117', joining_date=date(2020, 1, 1), present_joining_date=None, name='Senior AP', name_bn='', position=1),
+            SimpleNamespace(designation='Assistant Professor', index_no='N1100118', joining_date=date(2010, 1, 1), present_joining_date=None, name='Junior AP', name_bn='', position=2),
+            SimpleNamespace(designation='সহকারী অধ্যাপক', index_no='N200', joining_date=None, present_joining_date=None, name='Bangla AP', name_bn='', position=3),
+            SimpleNamespace(designation='AP', index_no='N300', joining_date=None, present_joining_date=None, name='Abbreviated AP', name_bn='', position=4),
+            SimpleNamespace(designation='প্রভাষক', index_no='N1', joining_date=None, present_joining_date=None, name='Bangla Lecturer', name_bn='', position=5),
+        ]
+        ordered = sorted(rows, key=_staff_sort_key)
+        self.assertEqual([row.name for row in ordered[:4]],
+                         ['Bangla AP', 'Abbreviated AP', 'Senior AP', 'Junior AP'])
+        self.assertEqual({row.name for row in ordered[4:]}, {'Lecturer', 'Bangla Lecturer'})
+
+    def test_staff_without_index_falls_back_to_joining_date(self):
+        from datetime import date
+        rows = [
+            SimpleNamespace(designation='Lecturer', index_no='', joining_date=date(2020, 1, 1), present_joining_date=None, name='Later', name_bn='', position=0),
+            SimpleNamespace(designation='Lecturer', index_no=None, joining_date=date(2010, 1, 1), present_joining_date=None, name='Earlier', name_bn='', position=1),
+            SimpleNamespace(designation='Lecturer', index_no='N10', joining_date=None, present_joining_date=None, name='Indexed', name_bn='', position=2),
+        ]
+        self.assertEqual([row.name for row in sorted(rows, key=_staff_sort_key)],
+                         ['Indexed', 'Earlier', 'Later'])
+
+    def test_demonstrators_and_lab_assistants_follow_lecturers_in_both_languages(self):
+        def staff(name, designation, index_no):
+            return SimpleNamespace(name=name, name_bn='', designation=designation,
+                                   index_no=index_no, joining_date=None,
+                                   present_joining_date=None, position=0)
+
+        rows = [
+            staff('Teacher', 'Assistant Teacher', 'N1'),
+            staff('Bangla demonstrator', 'প্রদর্শক', 'N11'),
+            staff('English lecturer', 'Lecturer', 'N99'),
+            staff('English demonstrator', 'Demonstrator', 'N10'),
+            staff('Bangla lecturer', 'প্রভাষক', 'N100'),
+            staff('Bangla lab assistant', 'ল্যাব এসিস্টেন্ট', 'N12'),
+            staff('English lab assistant', 'Lab Assistant', 'N11'),
+        ]
+        self.assertEqual([row.name for row in sorted(rows, key=_staff_sort_key)], [
+            'English lecturer', 'Bangla lecturer',
+            'English demonstrator', 'Bangla demonstrator',
+            'English lab assistant', 'Bangla lab assistant', 'Teacher',
+        ])

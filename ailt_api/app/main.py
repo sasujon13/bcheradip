@@ -52,17 +52,30 @@ _LOCAL_POSTFIX_MSG = (
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     try:
-        with engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-        init_database()
-        logger.info("Database ready: ailanguagetutor")
-        try:
-            with ext_engine.connect() as conn:
-                conn.execute(text("SELECT 1"))
-            init_ext_database()
-            logger.info("Database ready: extcheradip (extension)")
-        except Exception as ext_err:
-            logger.error("Extension database (extcheradip) init failed: %s", ext_err)
+        # Uvicorn workers start together. Serialize seeding/schema checks so
+        # two workers do not update the same user row at the same time.
+        with engine.connect() as startup_lock:
+            acquired = startup_lock.scalar(
+                text("SELECT GET_LOCK(:lock_name, 60)"),
+                {"lock_name": "cheradip_ailt_startup"},
+            )
+            if acquired != 1:
+                raise RuntimeError("Could not acquire AILT startup database lock")
+            try:
+                init_database()
+                logger.info("Database ready: ailanguagetutor")
+                try:
+                    with ext_engine.connect() as conn:
+                        conn.execute(text("SELECT 1"))
+                    init_ext_database()
+                    logger.info("Database ready: extcheradip (extension)")
+                except Exception as ext_err:
+                    logger.error("Extension database (extcheradip) init failed: %s", ext_err)
+            finally:
+                startup_lock.execute(
+                    text("SELECT RELEASE_LOCK(:lock_name)"),
+                    {"lock_name": "cheradip_ailt_startup"},
+                )
         if settings.smtp_enabled and settings.uses_local_postfix_direct():
             logger.error(_LOCAL_POSTFIX_MSG)
         elif settings.smtp_enabled:
