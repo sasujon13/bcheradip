@@ -54,6 +54,8 @@ from django.db.utils import ProgrammingError, OperationalError
 from django.utils import timezone
 
 from .subject_question_tables import subject_question_table_name, next_qid_for_chapter_topic
+from .saved_question_edit import recover_saved_question_edit
+from .question_export_layout import apply_export_layout_snapshot, embed_question_document_fonts, mcq_left_first_page_plan
 from .c_program_export_format import (
     format_maybe_c_program_question_text,
     normalize_existing_q_code_blocks,
@@ -1814,16 +1816,16 @@ def _pdf_paint_horizontal_section_dividers(canvas, left, right, bottom_y, top_y,
 
 def _cq_question_structure_from_bn_markers(full_text):
     """
-    CQ marks à§¨,à§ª,à§ª vs à§§,à§¨,à§©,à§ª: split by (à¦•)(à¦–)(à¦—) or (à¦•)(à¦–)(à¦—)(à¦˜) order in text â€” no reliance on newlines.
-    Returns dict with intro + parts, or None if (à¦•)(à¦–)(à¦—) do not appear in that order.
+    CQ marks ২,৪,৪ vs ১,২,৩,৪: split by (ক)(খ)(গ) or (ক)(খ)(গ)(ঘ) order in text — no reliance on newlines.
+    Returns dict with intro + parts, or None if (ক)(খ)(গ) do not appear in that order.
     """
     if not full_text or not str(full_text).strip():
         return None
     s = str(full_text)
-    p_k = s.find('(à¦•)')
-    p_kh = s.find('(à¦–)')
-    p_g = s.find('(à¦—)')
-    p_gh = s.find('(à¦˜)')
+    p_k = s.find('(ক)')
+    p_kh = s.find('(খ)')
+    p_g = s.find('(গ)')
+    p_gh = s.find('(ঘ)')
     if p_k < 0 or p_kh < 0 or p_g < 0 or not (p_k < p_kh < p_g):
         return None
     intro = s[:p_k].strip()
@@ -1874,7 +1876,7 @@ _Q_CODE_BLOCK_CLOSE_RE = r'</code>\s*</span>'
 
 
 def _export_collapse_newlines_inside_q_code_html(text):
-    """Turn raw newlines inside <code>â€¦</code> into <br /> so PDF wrap_roman splitlines does not shred programs."""
+    """Turn raw newlines inside <code>…</code> into <br /> so PDF wrap_roman splitlines does not shred programs."""
     s = str(text or '')
 
     def repl(m):
@@ -1907,7 +1909,7 @@ def _export_normalize_q_code_block_html(text):
 _EXPORT_UNICODE_SPACE_RE = re.compile(
     # NBSP, EN SPACE, EM SPACE, THREE-PER-EM, FOUR-PER-EM, SIX-PER-EM, FIGURE SPACE,
     # PUNCTUATION SPACE, THIN SPACE, HAIR SPACE, NARROW NO-BREAK SPACE, MEDIUM MATH SPACE,
-    # IDEOGRAPHIC SPACE, ZERO-WIDTH NBSP (BOM) â€” all replaced with ASCII space so CSS
+    # IDEOGRAPHIC SPACE, ZERO-WIDTH NBSP (BOM) — all replaced with ASCII space so CSS
     # `white-space` can collapse runs and Chromium's justifier doesn't stretch wide glyphs.
     r'[\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000\uFEFF]'
 )
@@ -1970,7 +1972,7 @@ def _export_decode_caption_filename_fragment(raw):
 
 
 def _export_extract_media_caption_from_path(path_from_media):
-    """Optional label: .../name_(caption).ext â€” greedy (.*) to last ) before .ext (not [^)]*)."""
+    """Optional label: .../name_(caption).ext — greedy (.*) to last ) before .ext (not [^)]*)."""
     m = re.search(r'_\((.*)\)(\.[a-z0-9]+)$', path_from_media, re.I)
     if not m:
         return None
@@ -2007,7 +2009,7 @@ _EXPORT_IMAGE_EXT_FOR_LATEX_RE = re.compile(r'\.(png|jpe?g|gif|webp|svg|ico|bmp)
 
 
 def _export_build_latex_svg_path_from_media_path(path_from_media):
-    """`/media/foo/bar.png` â†’ `/media/latex/foo/bar.svg` (same as fcheradip buildLatexSvgPathFromMediaPath)."""
+    """`/media/foo/bar.png` → `/media/latex/foo/bar.svg` (same as fcheradip buildLatexSvgPathFromMediaPath)."""
     p = (path_from_media or '').strip()
     if not p.startswith('/'):
         p = '/' + p
@@ -2153,8 +2155,8 @@ def _export_docx_prepare_raster_image(image_bytes):
 
 def _export_pick_pdf_media_img_src(host_base, path_from_media, stem_only_media_path):
     """
-    Prefer compiled LaTeX SVG on disk (preview uses media/latex/â€¦), else stem LaTeX, else raster paths.
-    Without this, PDF always used the raster URL; PNG is often empty while SVG exists â†’ missing images in PDF.
+    Prefer compiled LaTeX SVG on disk (preview uses media/latex/…), else stem LaTeX, else raster paths.
+    Without this, PDF always used the raster URL; PNG is often empty while SVG exists → missing images in PDF.
     """
     hb = (host_base or getattr(settings, 'HOST_URL', None) or 'http://127.0.0.1:8000').rstrip('/')
     seen = set()
@@ -2186,10 +2188,10 @@ def _export_format_question_media_html(text, host_base):
     text = str(text or '')
     text = re.sub(r'[\[ï¼»]\s*[Ii][Mm][Gg]\s*[\]ï¼½]\s*', '', text)
     host_base = (host_base or getattr(settings, 'HOST_URL', None) or 'http://127.0.0.1:8000').rstrip('/')
-    img_alt = 'Images are loading...'
-    # Spaces allowed in filenames (e.g. _(Fig1 - â€¦ here).png); exclude only < " for HTML safety.
-    # After the extension, do not use \b: Python treats letters like à¦• as word chars, so paths such as
-    # ".../file.pngà¦•)" (Bengali MCQ label immediately after .png) would not match and would stay raw text in PDF.
+    img_alt = 'Question image'
+    # Spaces allowed in filenames (e.g. _(Fig1 - … here).png); exclude only < " for HTML safety.
+    # After the extension, do not use \b: Python treats letters like ক as word chars, so paths such as
+    # ".../file.pngক)" (Bengali MCQ label immediately after .png) would not match and would stay raw text in PDF.
     _ext_end = r'(?![A-Za-z0-9_])'
     path_body = r'[^<>"]+'
     ext = 'png|jpe?g|gif|webp|svg|ico|bmp|mp4|webm|mov|bin'
@@ -2290,7 +2292,7 @@ def _export_is_type_heading_row(q):
 
 
 def _export_skip_question_number_label(q):
-    """Match preview `previewQuestionShowsIndex` â€” serial only on main intro/MCQ stem rows."""
+    """Match preview `previewQuestionShowsIndex` — serial only on main intro/MCQ stem rows."""
     if not isinstance(q, dict):
         return False
     if _export_is_type_heading_row(q):
@@ -2302,11 +2304,11 @@ def _export_skip_question_number_label(q):
 
 
 def _export_strip_mcq_answer_key_serial_prefix(text):
-    """Remove leading à§§à¥¤ / 1. from compact MCQ answer-key stem (serial shown via `.qn` label)."""
+    """Remove leading ১। / 1. from compact MCQ answer-key stem (serial shown via `.qn` label)."""
     s = str(text or '').strip()
     if not s:
         return s
-    stripped = re.sub(r'^[\u09E6-\u09EF0-9]+[à¥¤\.]\s*', '', s).strip()
+    stripped = re.sub(r'^[\u09E6-\u09EF0-9]+[।\.]\s*', '', s).strip()
     return stripped if stripped else s
 
 
@@ -2351,7 +2353,7 @@ def _export_question_column_width_px(inner_w_px, layout_cols, col_gap_px):
 
 
 def _export_mcq_stem_roman_pack_max_width_px(col_w_px, font_px):
-    """Match preview wrapRomanLines stem cap (defaultMaxWidthForRomanMcqLayout 'stem' â†’ 480px)."""
+    """Match preview wrapRomanLines stem cap (defaultMaxWidthForRomanMcqLayout 'stem' → 480px)."""
     cap = 480.0
     return max(120.0, min(cap, float(col_w_px) - max(8.0, float(font_px) * 0.25)))
 
@@ -2409,7 +2411,7 @@ def _force_roman_triplet_lines(text):
 
 
 def _export_prepare_mcq_text_for_roman(text):
-    """Keep line breaks for à¦¨à¦¿à¦šà§‡à¦°/à¦•à§‹à¦¨à¦Ÿà¦¿/à¦¸à¦ à¦¿à¦• tail detection (preview does not flatten first)."""
+    """Keep line breaks for নিচের/কোনটি/সঠিক tail detection (preview does not flatten first)."""
     s = re.sub(r'\r\n?', '\n', _canonicalize_roman_triplet_markers(str(text or '')))
     s = re.sub(r'<br\s*/?>', '\n', s, flags=re.I)
     s = _collapse_then_normalize_nicher(s)
@@ -2424,10 +2426,10 @@ def _export_prepare_mcq_text_for_roman(text):
 
 _LINE_BREAK_START = re.compile(r'^(?:\s*(?:<br\s*/?>|[\r\n]+)\s*)', re.I)
 
-_POST_III_TAIL_STARTERS = ('à¦¨à¦¿à¦šà§‡à¦°', 'à¦•à§‹à¦¨à¦Ÿà¦¿', 'à¦¸à¦ à¦¿à¦•')
-# Do not match tail keywords inside a longer Bengali word (â€¦letters + à¦¨à¦¿à¦šà§‡à¦°/à¦•à§‹à¦¨à¦Ÿà¦¿/à¦¸à¦ à¦¿à¦•).
+_POST_III_TAIL_STARTERS = ('নিচের', 'কোনটি', 'সঠিক')
+# Do not match tail keywords inside a longer Bengali word (…letters + নিচের/কোনটি/সঠিক).
 _BN_LETTER_LOOKBEHIND = r'(?<![\u0980-\u09FF])'
-_POST_III_TAIL_AFTER = r'(?=[\.à¥¤\u09F4\u09F5\u09F6\s\n\r<]|$)'
+_POST_III_TAIL_AFTER = r'(?=[\.।\u09F4\u09F5\u09F6\s\n\r<]|$)'
 
 
 def _post_iii_tail_starter_pattern(word):
@@ -2754,7 +2756,7 @@ def _export_mcq_multiline_fallback_html(prepared_text):
 
 
 def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
-    """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (à¦•) in .q-opt."""
+    """Single flowing line for MCQ (no wrap_roman splitlines). Use inline span so it does not drop below (ক) in .q-opt."""
     t = str(text or '')
     if 'q-code-block' in t.lower():
         t = _export_normalize_q_code_block_html(t)
@@ -2789,11 +2791,10 @@ def _export_wrap_mcq_line_html(text, host_base, max_width_px=260, font_px=13):
     return '<span class="topic-question-line topic-question-mcq-inline">%s</span>' % inner
 
 
-# Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (fontâ†’cap + column shrink).
+# Injected before </body> in Playwright PDF HTML; matches fcheradip question-rich-img.sizing.ts (font→cap + column shrink).
 _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
 <script>
 (function(){
-  var EXPORT_PDF_RICH_IMG_SCALE=0.9;
   function maxFromFont(px){
     var n=parseFloat(px);
     if(!isFinite(n)||n<=0)return 240;
@@ -2801,15 +2802,22 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     var raw=240+(f-7)*20;
     return Math.min(480,raw);
   }
+  function widthCap(img,maxCap){
+    var selectors=['.q-text','.q-opt-html','.q-subpart','.q-content','.q-col'];
+    for(var i=0;i<selectors.length;i++){
+      var root=img.closest(selectors[i]);
+      if(!root)continue;
+      var cs=getComputedStyle(root);
+      var width=root.clientWidth-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0);
+      if(width>0)return Math.min(maxCap,width);
+    }
+    return maxCap;
+  }
   function apply(img){
     var maxCap=maxFromFont(getComputedStyle(img).fontSize);
-    var MAX=Math.round(maxCap*EXPORT_PDF_RICH_IMG_SCALE);
+    var cap=widthCap(img,maxCap);
     var w=img.naturalWidth,h=img.naturalHeight;
     if(!w||!h){
-      img.style.maxWidth='min('+MAX+'px, 100%)';
-      img.style.maxHeight=MAX+'px';
-      img.style.objectFit='contain';
-      img.style.objectPosition='left center';
       return;
     }
     img.style.removeProperty('width');
@@ -2819,16 +2827,18 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
     if(w<=maxCap&&h<=maxCap){
       img.style.width='auto';
       img.style.height='auto';
-      img.style.maxWidth='min('+MAX+'px, 100%)';
-      img.style.maxHeight=MAX+'px';
+      img.style.maxWidth=cap+'px';
+      img.style.maxHeight=maxCap+'px';
       img.style.objectFit='contain';
       img.style.objectPosition='left center';
       return;
     }
-    var sc=Math.min(MAX/w,MAX/h);
-    img.style.width=Math.round(w*sc)+'px';
-    img.style.height=Math.round(h*sc)+'px';
-    img.style.maxWidth='min('+MAX+'px, 100%)';
+    var sc=Math.min(maxCap/w,maxCap/h);
+    var nw=Math.round(w*sc),nh=Math.round(h*sc);
+    if(nw>cap){nh=Math.round(nh*cap/nw);nw=cap;}
+    img.style.width=nw+'px';
+    img.style.height=nh+'px';
+    img.style.maxWidth=cap+'px';
     img.style.objectFit='contain';
     img.style.objectPosition='left center';
   }
@@ -2848,12 +2858,25 @@ _EXPORT_Q_RICH_IMG_PDF_SCRIPT = r"""
       decPending();
       return;
     }
-    function done(){apply(img);img.setAttribute('data-rich-sized','1');decPending();}
-    function sched(){setTimeout(done,0);}
-    if(img.complete&&img.naturalWidth>0){done();}
+    var settled=false;
+    function done(){
+      if(settled)return;
+      settled=true;
+      apply(img);
+      img.setAttribute('data-rich-sized','1');
+      decPending();
+    }
+    function failed(){
+      if(settled)return;
+      settled=true;
+      img.setAttribute('data-rich-load-error','1');
+      decPending();
+    }
+    function sched(){setTimeout(function(){img.naturalWidth>0?done():failed();},0);}
+    if(img.complete){img.naturalWidth>0?done():failed();}
     else{
       img.addEventListener('load',sched,{once:true});
-      img.addEventListener('error',function(){img.setAttribute('data-rich-sized','1');decPending();},{once:true});
+      img.addEventListener('error',failed,{once:true});
       if(img.complete){sched();}
     }
   }
@@ -2885,33 +2908,36 @@ def _export_strip_img_lazy_loading_attrs(fragment):
     return s
 
 
+class ExportQuestionImageError(ValueError):
+    """A referenced question image cannot be included in a complete export."""
+
+
 def _playwright_wait_for_export_rich_images(page, timeout_ms=60000):
     """
-    Block PDF until inline question images finish loading (or error). Without this, Playwright often
-    prints before the last image on a long sheet â€” especially images below the first viewport.
+    Block PDF until inline question images finish loading. Without this, Playwright often
+    prints before the last image on a long sheet — especially images below the first viewport.
     """
     try:
         page.wait_for_function(
-            """() => {
-              if (window.__exportPdfRichImagesDone === true) return true;
-              const imgs = Array.from(
-                document.querySelectorAll('img.q-rich-img, img.question-inline-img')
-              );
-              if (!imgs.length) return true;
-              return imgs.every(
-                (img) =>
-                  img.getAttribute('data-rich-sized') === '1' ||
-                  (img.complete && img.naturalWidth > 0)
-              );
-            }""",
+            'window.__exportPdfRichImagesDone === true',
             timeout=timeout_ms,
         )
-    except Exception:
-        pass
-    try:
-        page.wait_for_timeout(120)
-    except Exception:
-        pass
+    except Exception as exc:
+        raise ExportQuestionImageError(
+            'Question images did not finish loading before export. Check the image links and try again.'
+        ) from exc
+    failed = page.evaluate(
+        """() => Array.from(document.querySelectorAll('img.q-rich-img, img.question-inline-img'))
+          .filter(img => !img.complete || img.naturalWidth <= 0 ||
+            img.getAttribute('data-rich-sized') !== '1' ||
+            img.getAttribute('data-rich-load-error') === '1')
+          .length"""
+    )
+    if failed:
+        raise ExportQuestionImageError(
+            f'{failed} question image(s) could not be loaded. Check the image links and try again.'
+        )
+    page.wait_for_timeout(120)
 
 
 _DOCX_ALIGNED_MATH_RE = re.compile(
@@ -2923,7 +2949,7 @@ _DOCX_ALIGNED_MATH_RE = re.compile(
 
 def _docx_aligned_math_lines(tex):
     """If ``tex`` is (essentially) a ``\\begin{aligned}``-style multi-line math expression, split it
-    into a list of single-line TeX bodies (alignment ``&`` markers removed) â€” one per logical line â€”
+    into a list of single-line TeX bodies (alignment ``&`` markers removed) — one per logical line —
     and return that list; otherwise return None.
 
     ``math2docx`` cannot import the whole ``aligned`` environment (it raises an XML well-formedness
@@ -2972,8 +2998,9 @@ class ExportQuestionsView(APIView):
 
     def _playwright_local_font_face_css(self):
         """
-        Build @font-face rules from local font files so Playwright PDF output is
-        stable across Windows machines.
+        Embed bundled fonts in the print document. Playwright's about:blank page
+        cannot reliably load file:// URLs, especially on Linux; a silent fallback
+        changes line wrapping and can add or clip pages.
         """
         base_dir = Path(getattr(settings, 'BASE_DIR', os.getcwd()))
         candidates = [
@@ -3007,7 +3034,7 @@ class ExportQuestionsView(APIView):
             'NotoSerif-Regular.ttf': ('Noto Serif', '400', 'normal'),
             'NotoSerif-Bold.ttf': ('Noto Serif', '700', 'normal'),
             'STIXTwoMath-Regular.otf': ('STIX Two Math', '400', 'normal'),
-            # Windows system Bengali â€” copy from C:\Windows\Fonts so Linux PDFs match the live preview.
+            # Windows system Bengali — copy from C:\Windows\Fonts so Linux PDFs match the live preview.
             'Nirmala.ttf': ('Nirmala UI', '400', 'normal'),
             'NirmalaB.ttf': ('Nirmala UI', '700', 'normal'),
             'NirmalaS.ttf': ('Nirmala UI Semilight', '350', 'normal'),
@@ -3024,10 +3051,12 @@ class ExportQuestionsView(APIView):
             family, weight, style = spec
             ext = fp.suffix.lower()
             fmt = 'opentype' if ext == '.otf' else 'truetype'
+            mime = 'otf' if ext == '.otf' else 'ttf'
+            encoded = base64.b64encode(fp.read_bytes()).decode('ascii')
             rules.append(
                 "@font-face { "
                 f"font-family: '{family}'; "
-                f"src: url('{fp.resolve().as_uri()}') format('{fmt}'); "
+                f"src: url('data:font/{mime};base64,{encoded}') format('{fmt}'); "
                 f"font-weight: {weight}; "
                 f"font-style: {style}; "
                 "font-display: swap; "
@@ -3037,6 +3066,7 @@ class ExportQuestionsView(APIView):
 
     def post(self, request):
         data = request.data
+        data = apply_export_layout_snapshot(data)
         questions = data.get('questions') or []
         if not isinstance(questions, list) or len(questions) == 0:
             return Response({'error': 'questions list is required and must be non-empty'}, status=status.HTTP_400_BAD_REQUEST)
@@ -3044,10 +3074,11 @@ class ExportQuestionsView(APIView):
         if fmt not in ('pdf', 'docx'):
             return Response({'error': 'format must be pdf or docx'}, status=status.HTTP_400_BAD_REQUEST)
         question_header = (data.get('questionHeader') or '').strip()
-        margin_top = float(data.get('marginTop') or 25.4)
-        margin_right = float(data.get('marginRight') or 25.4)
-        margin_bottom = float(data.get('marginBottom') or 25.4)
-        margin_left = float(data.get('marginLeft') or 25.4)
+        # Zero is a valid user-selected margin; `or 25.4` silently replaced it.
+        margin_top = float(25.4 if data.get('marginTop') is None else data['marginTop'])
+        margin_right = float(25.4 if data.get('marginRight') is None else data['marginRight'])
+        margin_bottom = float(25.4 if data.get('marginBottom') is None else data['marginBottom'])
+        margin_left = float(25.4 if data.get('marginLeft') is None else data['marginLeft'])
         filename_base = (data.get('filename') or 'questions').strip() or 'questions'
         filename_base = re.sub(r'[^\w\-_.\s]', '_', filename_base)[:120]
         layout_columns = max(1, min(10, int(data.get('layoutColumns') or data.get('layout_columns') or 1)))
@@ -3084,8 +3115,6 @@ class ExportQuestionsView(APIView):
         )
 
         if fmt == 'pdf':
-            # Bottom margin bypass for PDF only (see _build_pdf_playwright @page margins).
-            pdf_margin_bottom = 0.0
             buf = None
             if PLAYWRIGHT_AVAILABLE:
                 try:
@@ -3094,7 +3123,7 @@ class ExportQuestionsView(APIView):
                         question_header=question_header,
                         margin_top=margin_top,
                         margin_right=margin_right,
-                        margin_bottom=pdf_margin_bottom,
+                        margin_bottom=margin_bottom,
                         margin_left=margin_left,
                         page_w_mm=w_mm,
                         page_h_mm=h_mm,
@@ -3106,6 +3135,8 @@ class ExportQuestionsView(APIView):
                         raw_data=data,
                         layout_settings=layout_settings,
                     )
+                except ExportQuestionImageError as exc:
+                    return Response({'error': str(exc)}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
                 except Exception:
                     logger.exception('Playwright PDF render failed')
                     if wants_preview_style_pdf:
@@ -3132,7 +3163,7 @@ class ExportQuestionsView(APIView):
                 if not REPORTLAB_AVAILABLE:
                     return Response({'error': 'PDF generation not available (reportlab/playwright not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
                 buf = self._build_pdf(
-                    questions, question_header, margin_top, margin_right, pdf_margin_bottom, margin_left,
+                    questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
                     page_w_mm=w_mm,
                     page_h_mm=h_mm,
                     layout_columns=layout_columns,
@@ -3147,16 +3178,19 @@ class ExportQuestionsView(APIView):
         else:
             if not DOCX_AVAILABLE:
                 return Response({'error': 'DOCX generation not available (python-docx not installed)'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-            buf = self._build_docx(
-                questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
-                page_w_mm=w_mm,
-                page_h_mm=h_mm,
-                layout_columns=layout_columns,
-                layout_column_gap_px=layout_gap_px,
-                show_column_divider=show_col_div,
-                layout_settings=layout_settings,
-                raw_data=data,
-            )
+            try:
+                buf = self._build_docx(
+                    questions, question_header, margin_top, margin_right, margin_bottom, margin_left,
+                    page_w_mm=w_mm,
+                    page_h_mm=h_mm,
+                    layout_columns=layout_columns,
+                    layout_column_gap_px=layout_gap_px,
+                    show_column_divider=show_col_div,
+                    layout_settings=layout_settings,
+                    raw_data=data,
+                )
+            except ExportQuestionImageError as exc:
+                return Response({'error': str(exc)}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
             resp = HttpResponse(buf.getvalue(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             resp['Content-Disposition'] = 'attachment; filename="%s.docx"' % filename_base.replace('"', '_')
             return resp
@@ -3181,7 +3215,7 @@ class ExportQuestionsView(APIView):
     ):
         if not PLAYWRIGHT_AVAILABLE:
             return None
-        d = raw_data if isinstance(raw_data, dict) else {}
+        d = apply_export_layout_snapshot(raw_data, layout_settings)
         ls = layout_settings if isinstance(layout_settings, dict) else {}
 
         def num(v, fallback):
@@ -3204,11 +3238,12 @@ class ExportQuestionsView(APIView):
                 return d.get(key)
             return ls.get(key, fallback)
 
-        def page_mm_for_orientation(orientation_name):
-            page_name = str(pick('pageSize', 'A4') or 'A4').strip() or 'A4'
+        def page_mm_for_orientation(kind, orientation_name):
+            suffix = 'Creative' if kind == 'creative' else 'Mcq'
+            page_name = str(pick('pageSize%s' % suffix, pick('pageSize', 'A4')) or 'A4').strip() or 'A4'
             if page_name.lower() == 'custom':
-                wi = num(pick('customPageWidthIn', 8.5), 8.5)
-                hi = num(pick('customPageHeightIn', 11), 11)
+                wi = num(pick('customPageWidthIn%s' % suffix, pick('customPageWidthIn', 8.5)), 8.5)
+                hi = num(pick('customPageHeightIn%s' % suffix, pick('customPageHeightIn', 11)), 11)
                 wi = max(2.0, min(48.0, wi))
                 hi = max(2.0, min(48.0, hi))
                 base_w = wi * 25.4
@@ -3222,8 +3257,21 @@ class ExportQuestionsView(APIView):
 
         cq_orient = str(pick('cqPageOrientation', pick('pageOrientation', 'portrait')) or 'portrait').strip().lower()
         mcq_orient = str(pick('mcqPageOrientation', pick('pageOrientation', 'portrait')) or 'portrait').strip().lower()
-        cq_w_mm, cq_h_mm = page_mm_for_orientation(cq_orient)
-        mcq_w_mm, mcq_h_mm = page_mm_for_orientation(mcq_orient)
+        cq_w_mm, cq_h_mm = page_mm_for_orientation('creative', cq_orient)
+        mcq_w_mm, mcq_h_mm = page_mm_for_orientation('mcq', mcq_orient)
+
+        def page_margins_for(kind):
+            suffix = 'Creative' if kind == 'creative' else 'Mcq'
+            return tuple(
+                max(0.0, num(pick('margin%s%s' % (side, suffix), fallback), fallback))
+                for side, fallback in (
+                    ('Top', margin_top), ('Right', margin_right),
+                    ('Bottom', margin_bottom), ('Left', margin_left),
+                )
+            )
+
+        cq_margins = page_margins_for('creative')
+        mcq_margins = page_margins_for('mcq')
 
         q_font_global = num(pick('previewQuestionsFontPx', 8), 8)
         q_font_cq = num(pick('previewQuestionsFontPxCreative', q_font_global), q_font_global)
@@ -3234,13 +3282,13 @@ class ExportQuestionsView(APIView):
         # Per-environment font-size nudge (Linux snap Chromium can rasterise the same TTF a touch
         # smaller than Windows + bundled Chromium). Set EXPORT_FONT_SIZE_DELTA in .env to a *small*
         # additive px offset, e.g. `0.1`, `0.25`, `-0.1`. Defaults to `0` (no change). Applied
-        # uniformly so option/body/global stay in proportion. Keep it small â€” every 1px â‰ˆ ~7%
+        # uniformly so option/body/global stay in proportion. Keep it small — every 1px ≈ ~7%
         # at 14px body and can shift line breaks/page breaks across the whole document.
         try:
             _font_delta_px = float((os.environ.get('EXPORT_FONT_SIZE_DELTA') or '0').strip() or '0')
         except (TypeError, ValueError):
             _font_delta_px = 0.0
-        if _font_delta_px:
+        if _font_delta_px and pick('exportLayoutVersion', 0) != 1:
             q_font_global = q_font_global + _font_delta_px
             q_font_cq = q_font_cq + _font_delta_px
             q_font_mcq = q_font_mcq + _font_delta_px
@@ -3248,12 +3296,13 @@ class ExportQuestionsView(APIView):
         q_lh_global = num(pick('previewQuestionsLineHeight', 1.4), 1.4)
         q_lh_cq = num(pick('previewQuestionsLineHeightCreative', q_lh_global), q_lh_global)
         q_lh_mcq = num(pick('previewQuestionsLineHeightMcq', q_lh_global), q_lh_global)
-        # PDF-only line-height nudge (preview unchanged): CQ +0.05, MCQ âˆ’0.05 (unitless lh).
-        q_lh_cq = q_lh_cq + 0.05
-        q_lh_mcq = max(0.1, q_lh_mcq - 0.05)
         q_lh_body = max(q_lh_cq, q_lh_mcq)
         h_lh = num(pick('previewHeaderLineHeight', 1.25), 1.25)
-        q_pad = max(2, num(pick('questionsPadding', 2), 2))
+        q_pad = max(0, num(pick('questionsPadding', 2), 2))
+        q_pad_by_kind = {
+            'creative': max(0, num(pick('questionsPaddingCreative', q_pad), q_pad)),
+            'mcq': max(0, num(pick('questionsPaddingMcq', q_pad), q_pad)),
+        }
         q_gap_mcq = max(0, num(pick('questionsGap', 0), 0))
         q_gap_cq = max(0, num(pick('questionsGapCreative', 0), 0))
         # Keep rounding parity with frontend Math.round (Python round uses banker's rounding).
@@ -3361,43 +3410,43 @@ class ExportQuestionsView(APIView):
             return out
 
         def normalize_bengali_digits(s):
-            return str(s or '').translate(str.maketrans('0123456789', 'à§¦à§§à§¨à§©à§ªà§«à§¬à§­à§®à§¯'))
+            return str(s or '').translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
 
         def mcq_set_letter_from_line_or_settings(line_txt):
-            """Match preview/export line `â€¦ à¦¸à§‡à¦Ÿ : à¦•` or layout_settings.mcqSetLetter."""
+            """Match preview/export line `… সেট : ক` or layout_settings.mcqSetLetter."""
             t = str(line_txt or '')
-            m = re.search(r'à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*([à¦•à¦–à¦—à¦˜])', t)
+            m = re.search(r'সেট\s*[:ঃ]\s*([কখগঘ])', t)
             if m:
                 return m.group(1)
             v = pick('mcqSetLetter', None)
             if v is None:
                 return None
             s = str(v).strip()
-            if s in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
+            if s in ('ক', 'খ', 'গ', 'ঘ'):
                 return s
             return None
 
         def mcq_header_text_with_set_letter(header_text, set_letter):
-            """Per-page MCQ answer sheet: inject à¦¸à§‡à¦Ÿ : à¦•/à¦–/à¦—/à¦˜ into the à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡ header line."""
-            if set_letter not in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
+            """Per-page MCQ answer sheet: inject সেট : ক/খ/গ/ঘ into the বিষয় কোড header line."""
+            if set_letter not in ('ক', 'খ', 'গ', 'ঘ'):
                 return header_text
             lines = str(header_text or '').replace('\r\n', '\n').split('\n')
             out = []
             replaced = False
             for ln in lines:
-                if 'à¦¬à¦¿à¦·à¦¯à¦¼ à¦•à§‹à¦¡' in ln or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡' in ln:
-                    base = re.sub(r'\s*à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*[à¦•à¦–à¦—à¦˜]\s*', '', ln).strip()
-                    out.append('%s à¦¸à§‡à¦Ÿ : %s' % (base, set_letter))
+                if 'বিষয় কোড' in ln or 'বিষয় কোড' in ln:
+                    base = re.sub(r'\s*সেট\s*[:ঃ]\s*[কখগঘ]\s*', '', ln).strip()
+                    out.append('%s সেট : %s' % (base, set_letter))
                     replaced = True
                 else:
                     out.append(ln)
             if not replaced:
-                out.append('à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡à¦ƒ à¦¸à§‡à¦Ÿ : %s' % set_letter)
+                out.append('বিষয় কোডঃ সেট : %s' % set_letter)
             return '\n'.join(out)
 
         def render_subject_code_row(line, font_px, line_h, extra_class='', for_mcq_header=False):
             txt = str(line or '')
-            digits = re.findall(r'[0-9à§¦-à§¯]', txt)
+            digits = re.findall(r'[0-9০-৯]', txt)
             digs = [normalize_bengali_digits(d) for d in digits[:3]]
             while len(digs) < 3:
                 digs.append('&nbsp;')
@@ -3407,12 +3456,12 @@ class ExportQuestionsView(APIView):
                 return (
                     '<div class="hline hline-code-row-wrap%s" style="font-size:%.2fpx; line-height:%.3f;">'
                     '<span class="q-code-grid q-code-grid--mcq-set">'
-                    '<span class="q-code-label">à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡</span>'
+                    '<span class="q-code-label">বিষয় কোড</span>'
                     '<span class="q-code-colon">:</span>'
                     '<span class="q-code-cell">%s</span>'
                     '<span class="q-code-cell">%s</span>'
                     '<span class="q-code-cell">%s</span>'
-                    '<span class="q-code-label q-code-label--set">à¦¸à§‡à¦Ÿ</span>'
+                    '<span class="q-code-label q-code-label--set">সেট</span>'
                     '<span class="q-code-colon">:</span>'
                     '<span class="q-code-cell q-code-cell--filler"></span>'
                     '<span class="q-code-cell q-code-cell--set-letter">%s</span>'
@@ -3431,7 +3480,7 @@ class ExportQuestionsView(APIView):
             return (
                 '<div class="hline hline-code-row-wrap%s" style="font-size:%.2fpx; line-height:%.3f;">'
                 '<span class="q-code-grid">'
-                '<span class="q-code-label">à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡</span>'
+                '<span class="q-code-label">বিষয় কোড</span>'
                 '<span class="q-code-colon">:</span>'
                 '<span class="q-code-cell">%s</span>'
                 '<span class="q-code-cell">%s</span>'
@@ -3441,31 +3490,33 @@ class ExportQuestionsView(APIView):
             ) % (extra_class, font_px, line_h, digs[0], digs[1], digs[2])
 
         def _cq_header_line_is_notice(line):
-            """True for [à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯ : â€¦] rows â€” must not sit under the floating subject-code grid."""
+            """True for [দ্রষ্টব্য : …] rows — must not sit under the floating subject-code grid."""
             t = str(line or '').strip()
             if not t:
                 return False
-            if re.search(r'^\s*\[?\s*à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯', t):
+            if re.search(r'^\s*\[?\s*দ্রষ্টব্য', t):
                 return True
-            if t.startswith('[') and 'à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯' in t[:200]:
+            if t.startswith('[') and 'দ্রষ্টব্য' in t[:200]:
                 return True
             return False
 
         def compile_playwright_header_html(qh_source, cq_header=False, line_font_px=None):
             """
             Compile header text into q-header HTML.
-            The first "à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡" line is converted to the subject-code grid and removed from flow.
-            cq_header: Creative PDF â€” keep à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯ lines out of q-header-band so the grid aligns with
-            subject/title lines (e.g. à¦¬à¦¿à¦·à¦¯à¦¼ name), not over the notice paragraph.
-            line_font_px: optional list of font sizes (px), one per header line index â€” matches split
+            The first "বিষয় কোড" line is converted to the subject-code grid and removed from flow.
+            cq_header: Creative PDF — keep দ্রষ্টব্য lines out of q-header-band so the grid aligns with
+            subject/title lines (e.g. বিষয় name), not over the notice paragraph.
+            line_font_px: optional list of font sizes (px), one per header line index — matches split
             export headers from the client when line count differs from sidebar `headerLineFontSizes`.
             """
+            h_lh = num(pick('previewHeaderLineHeightCreative' if cq_header else 'previewHeaderLineHeightMcq',
+                            pick('previewHeaderLineHeight', 1.25)), 1.25)
             header_lines = [ln for ln in str(qh_source or '').replace('\r\n', '\n').split('\n')]
             header_html = ''
             if any(s.strip() for s in header_lines):
                 code_line_index = None
                 for _ci, _ln in enumerate(header_lines):
-                    if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', str(_ln or '').strip()):
+                    if re.search(r'বিষ[য়য]\s*কোড', str(_ln or '').strip()):
                         code_line_index = _ci
                         break
                 before_hr_chunks = []
@@ -3478,8 +3529,8 @@ class ExportQuestionsView(APIView):
                 code_row_font_px = hfs[5] if len(hfs) > 5 else hfs[-1]
 
                 def _fz_for_line_idx(i):
-                    # Client sends one px per \\n row; padding/realignment may shorten the list â€” never fall back to
-                    # unrelated default hfs[i] for tail rows (would make à¦¦à§à¦°à¦·à§à¦Ÿà¦¬à§à¦¯ notices render larger than preview).
+                    # Client sends one px per \\n row; padding/realignment may shorten the list — never fall back to
+                    # unrelated default hfs[i] for tail rows (would make দ্রষ্টব্য notices render larger than preview).
                     if line_font_px is not None and len(line_font_px) > 0:
                         return line_font_px[min(i, len(line_font_px) - 1)]
                     return hfs[i] if i < len(hfs) else hfs[-1]
@@ -3487,7 +3538,7 @@ class ExportQuestionsView(APIView):
                 for i, line in enumerate(header_lines):
                     fz = _fz_for_line_idx(i)
                     line_txt = str(line or '').strip()
-                    if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', line_txt):
+                    if re.search(r'বিষ[য়য]\s*কোড', line_txt):
                         if code_row_html:
                             continue
                         code_row_source_line = line_txt
@@ -3520,12 +3571,12 @@ class ExportQuestionsView(APIView):
                         if cq_header:
                             after_raw_lines.append(line)
                 if code_row_html:
-                    # Overlay code grid on the band of lines above the à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡ row (preview-like), not a
+                    # Overlay code grid on the band of lines above the বিষয় কোড row (preview-like), not a
                     # separate full-width row. Works with or without <hr>; band = lines before code index only.
                     if cq_header:
                         if len(band_before_chunks) >= 1:
                             floating_code = render_subject_code_row(
-                                code_row_source_line or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡',
+                                code_row_source_line or 'বিষয় কোড',
                                 code_row_font_px,
                                 h_lh,
                                 extra_class=' hline-code-row-wrap--floating',
@@ -3561,7 +3612,7 @@ class ExportQuestionsView(APIView):
                                 raws.pop(0)
                             if rest and (not raws or raws[0] is not None):
                                 floating_code = render_subject_code_row(
-                                    code_row_source_line or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡',
+                                    code_row_source_line or 'বিষয় কোড',
                                     code_row_font_px,
                                     h_lh,
                                     extra_class=' hline-code-row-wrap--floating',
@@ -3594,7 +3645,7 @@ class ExportQuestionsView(APIView):
                             header_html = '<div class="q-header">%s</div>' % ''.join(all_chunks)
                     elif len(before_hr_chunks) >= 1:
                         floating_code = render_subject_code_row(
-                            code_row_source_line or 'à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡',
+                            code_row_source_line or 'বিষয় কোড',
                             code_row_font_px,
                             h_lh,
                             extra_class=' hline-code-row-wrap--floating',
@@ -3634,14 +3685,14 @@ class ExportQuestionsView(APIView):
 
         def is_creative(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and ('à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²' in t or t == 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²')
+            return bool(t) and ('সৃজনশীল' in t or t == 'সৃজনশীল')
 
         def is_mcq_type(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and ('à¦¬à¦¹à§à¦¨à¦¿à¦°à§à¦¬à¦¾à¦šà¦¨à¦¿' in t or t == 'à¦¬à¦¹à§à¦¨à¦¿à¦°à§à¦¬à¦¾à¦šà¦¨à¦¿')
+            return bool(t) and ('বহুনির্বাচনি' in t or t == 'বহুনির্বাচনি')
 
         def uses_creative_sheet(q):
-            """CQ + non-MCQ companions (à¦œà§à¦žà¦¾à¦¨à¦®à§‚à¦²à¦• / à¦…à¦¨à§à¦§à¦¾à¦¬à¦¨à¦®à§‚à¦²à¦• / â€¦) share the CQ sheet/header."""
+            """CQ + non-MCQ companions (জ্ঞানমূলক / অনুধাবনমূলক / …) share the CQ sheet/header."""
             if _export_is_type_heading_row(q):
                 return True
             return not is_mcq_type(q)
@@ -3663,7 +3714,7 @@ class ExportQuestionsView(APIView):
 
         def wrap_roman_lines_html(text):
             roman_line = re.compile(r'^\s*(i|ii|iii|I|II|III)\.')
-            bn_paren_line = re.compile(r'^\s*\([à¦•à¦–à¦—à¦˜]\)')
+            bn_paren_line = re.compile(r'^\s*\([কখগঘ]\)')
             lines = normalize_question_latex_source(str(text or '')).splitlines()
             parts = []
             for line in lines:
@@ -3691,16 +3742,16 @@ class ExportQuestionsView(APIView):
             s = str(raw_text or '').strip()
             if not s or not creative:
                 return s
-            with_newlines = re.sub(r'\s+(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\n\1', s)
-            with_newlines = re.sub(r'([à¥¤,])\s*(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\1\n\2', with_newlines)
+            with_newlines = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', s)
+            with_newlines = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', with_newlines)
             dotted_to_paren = (
                 with_newlines
-                .replace('à¦•.', '(à¦•)')
-                .replace('à¦–.', '(à¦–)')
-                .replace('à¦—.', '(à¦—)')
-                .replace('à¦˜.', '(à¦˜)')
+                .replace('ক.', '(ক)')
+                .replace('খ.', '(খ)')
+                .replace('গ.', '(গ)')
+                .replace('ঘ.', '(ঘ)')
             )
-            out = re.sub(r'\s*(\(à¦•\)|\(à¦–\)|\(à¦—\)|\(à¦˜\))', r'\n\1', dotted_to_paren)
+            out = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', dotted_to_paren)
             out = re.sub(r'\n{2,}', r'\n', out)
             return out.strip()
 
@@ -3717,7 +3768,7 @@ class ExportQuestionsView(APIView):
             return {'intro': lines[0], 'parts': lines[1:]}
 
         def to_bengali_digits(n):
-            return str(n).translate(str.maketrans('0123456789', 'à§¦à§§à§¨à§©à§ªà§«à§¬à§­à§®à§¯'))
+            return str(n).translate(str.maketrans('0123456789', '০১২৩৪৫৬৭৮৯'))
 
         def creative_subpart_mark_bn(part_count, idx):
             if part_count == 3 and 0 <= idx < 3:
@@ -3728,9 +3779,9 @@ class ExportQuestionsView(APIView):
 
         def mcq_family_question_mark_bn(qq_row):
             t = str((qq_row or {}).get('type') or '').strip()
-            if 'à¦œà§à¦žà¦¾à¦¨à¦®à§‚à¦²à¦•' in t:
+            if 'জ্ঞানমূলক' in t:
                 return to_bengali_digits('1')
-            if 'à¦…à¦¨à§à¦§à¦¾à¦¬à¦¨à¦®à§‚à¦²à¦•' in t:
+            if 'অনুধাবনমূলক' in t:
                 return to_bengali_digits('2')
             return None
 
@@ -3770,16 +3821,18 @@ class ExportQuestionsView(APIView):
                             _export_format_question_media_html(text, host_base)
                         )
                     )
-                col_w = cq_col_w_px if for_creative else mcq_col_w_px
-                stem_fz = q_font_cq if for_creative else q_font_mcq
+                cq_sheet = 'বহুনির্বাচনি' not in str((qq_row or {}).get('type') or '')
+                col_w = cq_col_w_px if cq_sheet else mcq_col_w_px
+                stem_fz = q_font_cq if cq_sheet else q_font_mcq
                 mw = _export_mcq_stem_roman_pack_max_width_px(col_w, stem_fz)
                 return _export_wrap_mcq_line_html(text, host_base, max_width_px=mw, font_px=stem_fz)
 
             def format_option_html(txt, qq_row, creative):
-                """Match preview `wrapRomanLines:'option'` â€” flowing inline lines, not CQ stem block split."""
+                """Match preview `wrapRomanLines:'option'` — flowing inline lines, not CQ stem block split."""
                 qrow = qq_row if isinstance(qq_row, dict) else {}
+                creative = 'বহুনির্বাচনি' not in str(qrow.get('type') or '')
                 col_w = cq_col_w_px if creative else mcq_col_w_px
-                opt_fz = q_font_cq if creative else q_font_mcq
+                opt_fz = max(8.0, jround((q_font_cq if creative else q_font_mcq) * 13.0 / 14.0))
                 ocols = options_cols_for_qq(qrow)
                 ogrid = 4 if ocols >= 4 else 2
                 opt_col_gap = max(10, jround((21 * (q_font_cq if creative else q_font_mcq)) / 14.0))
@@ -3790,7 +3843,7 @@ class ExportQuestionsView(APIView):
                 if not any(qq.get(k) for k in ('option_1', 'option_2', 'option_3', 'option_4')):
                     return ''
                 options = []
-                for key, lab in [('option_1', 'à¦•'), ('option_2', 'à¦–'), ('option_3', 'à¦—'), ('option_4', 'à¦˜')]:
+                for key, lab in [('option_1', 'ক'), ('option_2', 'খ'), ('option_3', 'গ'), ('option_4', 'ঘ')]:
                     ov = qq.get(key)
                     if ov:
                         txt = format_maybe_c_program_question_text(str(ov).strip(), emit_html=True)
@@ -3805,7 +3858,7 @@ class ExportQuestionsView(APIView):
                     return ''
                 ncol = options_cols_for_qq(qq)
                 ocls = options_grid_class_for_cols(ncol)
-                # Grid layout from CSS classes only (same as preview â€” no inline column-count override).
+                # Grid layout from CSS classes only (same as preview — no inline column-count override).
                 return '<div class="%s">%s</div>' % (ocls, ''.join(options))
 
             def unwrap_plan_item(entry):
@@ -3825,14 +3878,17 @@ class ExportQuestionsView(APIView):
                 return q_gap_cq if creative_row else q_gap_mcq
 
             def block_style_for_rows(first_qq, last_qq, creative_row):
+                # Companion question types share CQ paper and typography, not the MCQ settings.
+                creative_row = 'বহুনির্বাচনি' not in str(first_qq.get('type') or '')
                 if creative_row:
                     fz, q_lh = q_font_cq, q_lh_cq
                 else:
                     fz, q_lh = q_font_mcq, q_lh_mcq
-                q_pad_top = 0 if first_qq.get('answerSheetContinuation') else q_pad
-                q_pad_bottom = q_pad
+                padding = q_pad_by_kind['creative' if creative_row else 'mcq']
+                q_pad_top = 0 if first_qq.get('answerSheetContinuation') else padding
+                q_pad_bottom = padding
                 q_gap_mb = block_margin_bottom_px(last_qq, creative_row)
-                opt_body_fz = max(1.0, fz * 13.0 / 14.0)
+                opt_body_fz = max(8.0, float(jround(fz * 13.0 / 14.0)))
                 return (
                     'font-size: %.2fpx; '
                     '--preview-q-opt-font-size: %.2fpx; '
@@ -3914,7 +3970,7 @@ class ExportQuestionsView(APIView):
                             '</span>',
                             '',
                         )
-                    # Main-sheet MCQ: one intro row holds stem + (à¦•)â€“(à¦˜) options (preview .preview-q-text).
+                    # Main-sheet MCQ: one intro row holds stem + (ক)–(ঘ) options (preview .preview-q-text).
                     stem_inner = format_stem_html(plain_q, False, qq_row)
                     stem_html = wrap_mcq_stem_with_marks_if_needed(qq_row, stem_inner)
                     return stem_html, build_options_html(qq_row, False)
@@ -4023,7 +4079,7 @@ class ExportQuestionsView(APIView):
                 seg_kind = str(qq.get('answerSheetSegmentKind') or '').strip()
                 parent_idx = qq.get('answerSheetParentIndex')
 
-                # Merge CQ intro + (à¦•)â€“(à¦˜) segments into one block (matches on-screen preview DOM).
+                # Merge CQ intro + (ক)–(ঘ) segments into one block (matches on-screen preview DOM).
                 if creative and parent_idx is not None and seg_kind in ('intro', 'part'):
                     group = []
                     j = idx
@@ -4125,24 +4181,19 @@ class ExportQuestionsView(APIView):
             lead_empty_first_page
             and first_section_kind == 'cq'
             and cols_cq > 1
-            and cq_orient in ('landscape', 'l', 'land')
         )
-        lead_empty_mcq = bool(lead_empty_first_page and cols_mcq > 1 and mcq_orient in ('landscape', 'l', 'land'))
-        if first_section_kind != 'mcq':
-            lead_empty_mcq = False
+        lead_empty_mcq = False  # MCQ is always left-first, never a folded CQ booklet.
         cq_render_cols = (cols_cq - 1) if lead_empty_cq else cols_cq
         mcq_render_cols = (cols_mcq - 1) if lead_empty_mcq else cols_mcq
 
-        _ml_mm = float(margin_left)
-        _mr_mm = float(margin_right)
-        cq_inner_w_px = _export_inner_content_width_px(cq_w_mm, _ml_mm, _mr_mm)
-        mcq_inner_w_px = _export_inner_content_width_px(mcq_w_mm, _ml_mm, _mr_mm)
+        cq_inner_w_px = _export_inner_content_width_px(cq_w_mm, cq_margins[3], cq_margins[1])
+        mcq_inner_w_px = _export_inner_content_width_px(mcq_w_mm, mcq_margins[3], mcq_margins[1])
         cq_col_w_px = _export_question_column_width_px(cq_inner_w_px, cq_render_cols, col_gap)
         mcq_col_w_px = _export_question_column_width_px(mcq_inner_w_px, mcq_render_cols, col_gap)
 
         creative_by_idx = {int(it.get('idx')): it for it in creative_questions if isinstance(it, dict) and it.get('idx') is not None}
         mcq_by_idx = {int(it.get('idx')): it for it in mcq_questions if isinstance(it, dict) and it.get('idx') is not None}
-        plan_raw = pick('exportPreviewPagePlan', [])
+        plan_raw = mcq_left_first_page_plan(pick('exportPreviewPagePlan', []))
         use_plan = isinstance(plan_raw, list) and len(plan_raw) > 0 and page_sections <= 1
         plan_kinds = set()
         if use_plan:
@@ -4176,7 +4227,7 @@ class ExportQuestionsView(APIView):
                 else:
                     header_kind = content_kind
                 page_set = str(pg.get('mcqSetLetter') or '').strip()
-                if page_set in ('à¦•', 'à¦–', 'à¦—', 'à¦˜') and header_kind == 'mcq':
+                if page_set in ('ক', 'খ', 'গ', 'ঘ') and header_kind == 'mcq':
                     qh_page = mcq_header_text_with_set_letter(qh_mcq, page_set)
                     hdr_for_page = compile_playwright_header_html(
                         qh_page, cq_header=False, line_font_px=h_pdf_mcq
@@ -4341,12 +4392,8 @@ class ExportQuestionsView(APIView):
                 '    * {{ word-spacing: var(--export-word-spacing) !important; }}\n'
             )
 
-        mt = float(margin_top)
-        mr = float(margin_right)
-        ml = float(margin_left)
-        mb = max(0.0, float(margin_bottom))
         # @page rules: omit @page default (conflicts with named pages). CQ-only uses @page mcq with CQ
-        # dimensions/margins â€” same engine path as MCQ-only PDF (matches preview pagination).
+        # dimensions/margins — same engine path as MCQ-only PDF (matches preview pagination).
         if unify_cq_as_mcq_page_model:
             cq_page_css = ''
             mcq_page_css = (
@@ -4354,7 +4401,7 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(cq_w_mm), float(cq_h_mm), mt, mr, mb, ml)
+                % (float(cq_w_mm), float(cq_h_mm), *cq_margins)
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
         elif has_creative and has_mcq:
@@ -4363,14 +4410,14 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(cq_w_mm), float(cq_h_mm), mt, mr, mb, ml)
+                % (float(cq_w_mm), float(cq_h_mm), *cq_margins)
             )
             mcq_page_css = (
                 '    @page mcq {\n'
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb, ml)
+                % (float(mcq_w_mm), float(mcq_h_mm), *mcq_margins)
             )
             # CQ sections use .paper-mcq like MCQ; .sheet-cq selects @page cq (avoids .paper-cq / dual page models).
             paper_page_rule_css = (
@@ -4384,7 +4431,7 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb, ml)
+                % (float(mcq_w_mm), float(mcq_h_mm), *mcq_margins)
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
         else:
@@ -4394,7 +4441,7 @@ class ExportQuestionsView(APIView):
                 '      size: %.3fmm %.3fmm;\n'
                 '      margin: %.3fmm %.3fmm %.3fmm %.3fmm;\n'
                 '    }\n'
-                % (float(mcq_w_mm), float(mcq_h_mm), mt, mr, mb, ml)
+                % (float(mcq_w_mm), float(mcq_h_mm), *mcq_margins)
             )
             paper_page_rule_css = '    .paper-mcq { page: mcq; }\n'
 
@@ -4431,14 +4478,6 @@ class ExportQuestionsView(APIView):
     {paper_page_rule_css}
     {word_spacing_css_rules}
     .paper-break {{ break-before: page; }}
-    html.export-with-page-plan section.paper {{
-      break-after: page;
-      page-break-after: always;
-    }}
-    html.export-with-page-plan section.paper:last-of-type {{
-      break-after: auto;
-      page-break-after: auto;
-    }}
     /* Preview already paginated into <section> pages; avoid forcing whole .q-item to next sheet. */
     html.export-with-page-plan .q-item,
     html.export-with-page-plan .q-content {{
@@ -4448,7 +4487,7 @@ class ExportQuestionsView(APIView):
       -moz-column-break-inside: auto;
     }}
     .q-header {{ margin: 0 0 8px 0; text-align: center; }}
-    /* Header letter-spacing always normal â€” only word-spacing is tunable via env. */
+    /* Header letter-spacing always normal — only word-spacing is tunable via env. */
     .q-header, .q-header .hline {{
       letter-spacing: normal;
     }}
@@ -4515,7 +4554,7 @@ class ExportQuestionsView(APIView):
       font-weight: 700;
       text-align: center;
     }}
-    /* MCQ: second row â€” à¦¸à§‡à¦Ÿ : (letter), matches preview two-row code table. */
+    /* MCQ: second row — সেট : (letter), matches preview two-row code table. */
     .q-code-grid--mcq-set {{
       grid-template-rows: auto auto;
       row-gap: 15px;
@@ -4614,7 +4653,7 @@ class ExportQuestionsView(APIView):
       column-gap: {col_gap}px;
       {divider_css_mcq}
     }}
-    /* Keep each question on one page/column when possible â€” avoids straddling lines in the PDF gutter
+    /* Keep each question on one page/column when possible — avoids straddling lines in the PDF gutter
        (Chromium/Playwright) and duplicate-looking selectable fragments between pages. Very tall questions
        may still split when they exceed a full page (UA may ignore avoid). */
     .q-item {{
@@ -4665,7 +4704,7 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       margin: 0;
       line-height: var(--preview-question-lh, 1.4);
-      /* `pre-line` (not `pre-wrap`) collapses runs of spaces to one â€” same as the live UI preview.
+      /* `pre-line` (not `pre-wrap`) collapses runs of spaces to one — same as the live UI preview.
          `pre-wrap` was preserving accidental double-spaces in Bengali source content, producing wider
          inter-word gaps in the PDF than in the on-screen preview. Line breaks (\\n) still honored. */
       white-space: pre-line;
@@ -4682,7 +4721,7 @@ class ExportQuestionsView(APIView):
       tab-size: 4;
       box-sizing: border-box;
     }}
-    /* Options only: keep inline so (à¦•) and text stay on one line. */
+    /* Options only: keep inline so (ক) and text stay on one line. */
     .q-opt-html .topic-question-line.topic-question-mcq-inline {{
       display: inline;
       margin: 0;
@@ -4742,7 +4781,7 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       clear: both;
     }}
-    /* CQ merged block: introâ†’(à¦•) via stem padding (print-safe); (à¦•)â€“(à¦˜) tight except siblings. */
+    /* CQ merged block: intro→(ক) via stem padding (print-safe); (ক)–(ঘ) tight except siblings. */
     .q-item.q-cq .q-stem-with-parts {{
       margin-bottom: 0;
       padding-bottom: var(--preview-q-stem-mb, 0.2857em);
@@ -4819,7 +4858,7 @@ class ExportQuestionsView(APIView):
       box-sizing: border-box;
       text-align: left;
       font-family: var(--q-font-stack);
-      font-size: calc(13 / 14 * 1em);
+      font-size: var(--preview-q-opt-font-size, max(8px, calc(13 / 14 * 1em)));
       line-height: var(--preview-question-lh, 1.4);
       color: var(--color_primary_black);
       word-spacing: var(--export-word-spacing);
@@ -4858,7 +4897,7 @@ class ExportQuestionsView(APIView):
       color: var(--color_primary_black);
       word-spacing: var(--export-word-spacing);
     }}
-    /* Match fcheradip question-rich-img.shared.css â€” no frame, transparent (PDF was gray boxed). */
+    /* Match fcheradip question-rich-img.shared.css — no frame, transparent (PDF was gray boxed). */
     .q-code-block {{
       display: block;
       margin: 0;
@@ -4941,6 +4980,7 @@ class ExportQuestionsView(APIView):
                 except Exception:
                     pass
                 _playwright_wait_for_export_rich_images(page, timeout_ms=60000)
+                page.evaluate('() => document.fonts.ready')
                 pdf_bytes = page.pdf(
                     print_background=True,
                     prefer_css_page_size=True,
@@ -5107,7 +5147,7 @@ class ExportQuestionsView(APIView):
         layout_settings=None,
         raw_data=None,
     ):
-        d = raw_data if isinstance(raw_data, dict) else {}
+        d = apply_export_layout_snapshot(raw_data, layout_settings)
         ls = layout_settings if isinstance(layout_settings, dict) else {}
 
         def pick(key, fallback=None):
@@ -5147,11 +5187,21 @@ class ExportQuestionsView(APIView):
 
         doc = DocxDocument()
         normal_style = doc.styles['Normal']
-        normal_style.font.name = 'Nirmala UI'
+        normal_style.font.name = 'Roboto'
         normal_style.font.size = DocxPt(9)
-        normal_style._element.rPr.rFonts.set(docx_qn('w:eastAsia'), 'Nirmala UI')
+        normal_style._element.rPr.rFonts.set(docx_qn('w:eastAsia'), 'Noto Sans Bengali')
+        normal_style._element.rPr.rFonts.set(docx_qn('w:cs'), 'Noto Sans Bengali')
+        size_cs = DocxOxmlElement('w:szCs')
+        size_cs.set(docx_qn('w:val'), '18')
+        normal_style._element.rPr.append(size_cs)
         normal_style.paragraph_format.space_before = DocxPt(0)
         normal_style.paragraph_format.space_after = DocxPt(0)
+        compatibility = doc.settings.element.find(docx_qn('w:compat'))
+        if compatibility is None:
+            compatibility = DocxOxmlElement('w:compat')
+            doc.settings.element.append(compatibility)
+        if compatibility.find(docx_qn('w:noColumnBalance')) is None:
+            compatibility.append(DocxOxmlElement('w:noColumnBalance'))
 
         q_font_global = num(pick('previewQuestionsFontPx', 12), 12)
         q_font = {
@@ -5188,11 +5238,11 @@ class ExportQuestionsView(APIView):
 
         def is_creative(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and 'à¦¸à§ƒà¦œà¦¨à¦¶à§€à¦²' in t
+            return bool(t) and 'সৃজনশীল' in t
 
         def is_mcq_type(q):
             t = str((q or {}).get('type') or '').strip()
-            return bool(t) and 'à¦¬à¦¹à§à¦¨à¦¿à¦°à§à¦¬à¦¾à¦šà¦¨à¦¿' in t
+            return bool(t) and 'বহুনির্বাচনি' in t
 
         def uses_creative_sheet(q):
             if _export_is_type_heading_row(q):
@@ -5243,14 +5293,25 @@ class ExportQuestionsView(APIView):
             key = 'showColumnDividerCreative' if kind == 'creative' else 'showColumnDividerMcq'
             return boolval(pick(key, pick('showColumnDivider', show_column_divider)), show_column_divider)
 
-        def set_run_font(run, size_pt, bold=None, name='Nirmala UI'):
+        def set_run_font(run, size_pt, bold=None, name='Roboto'):
             run.font.name = name
-            run.font.size = DocxPt(size_pt)
+            # Word stores font sizes in half-points. Round once, identically for
+            # Latin and complex-script text instead of leaving Bengali at a default size.
+            size_half_points = max(1, int(math.floor(float(size_pt) * 2 + 0.5)))
+            run.font.size = DocxPt(size_half_points / 2)
             if bold is not None:
                 run.bold = bool(bold)
             r_fonts = run._element.get_or_add_rPr().get_or_add_rFonts()
             for attr in ('w:ascii', 'w:hAnsi', 'w:eastAsia', 'w:cs'):
-                r_fonts.set(docx_qn(attr), name)
+                r_fonts.set(docx_qn(attr), 'Noto Sans Bengali' if name == 'Roboto' and attr in ('w:cs', 'w:eastAsia') else name)
+            r_pr = run._element.get_or_add_rPr()
+            cs_size = r_pr.find(docx_qn('w:szCs'))
+            if cs_size is None:
+                cs_size = DocxOxmlElement('w:szCs')
+                r_pr.append(cs_size)
+            cs_size.set(docx_qn('w:val'), str(size_half_points))
+            if bold is not None:
+                run.font.cs_bold = bool(bold)
 
         math_runtime = {
             'playwright': None,
@@ -5386,8 +5447,9 @@ class ExportQuestionsView(APIView):
         def append_docx_question_image(paragraph, src, size_pt, caption=''):
             prepared = prepare_docx_question_image(src)
             if prepared is None:
-                set_run_font(paragraph.add_run('[Image unavailable]'), size_pt, bold=False)
-                return False
+                raise ExportQuestionImageError(
+                    'A question image could not be embedded in Word. Check the image link and try again.'
+                )
             image_bytes, pixel_width, pixel_height = prepared
             font_px = max(7, int(round(float(size_pt) / 0.75)))
             image_cap_px = min(480, 240 + max(0, font_px - 7) * 20)
@@ -5458,6 +5520,25 @@ class ExportQuestionsView(APIView):
                                 child.tag in (docx_qn('m:oMath'), docx_qn('m:oMathPara'))
                                 for child in list(paragraph._p)[len(children_before):]
                             )
+                            # Native equations otherwise inherit Normal's font size,
+                            # not the surrounding fitted question/option run size.
+                            half_points = str(max(1, int(math.floor(float(size_pt) * 2 + 0.5))))
+                            for math_node in list(paragraph._p)[len(children_before):]:
+                                for math_run in math_node.iter(docx_qn('m:r')):
+                                    properties = math_run.find(docx_qn('w:rPr'))
+                                    if properties is None:
+                                        properties = DocxOxmlElement('w:rPr')
+                                        text_node = math_run.find(docx_qn('m:t'))
+                                        if text_node is None:
+                                            math_run.append(properties)
+                                        else:
+                                            math_run.insert(list(math_run).index(text_node), properties)
+                                    for size_tag in ('w:sz', 'w:szCs'):
+                                        size_node = properties.find(docx_qn(size_tag))
+                                        if size_node is None:
+                                            size_node = DocxOxmlElement(size_tag)
+                                            properties.append(size_node)
+                                        size_node.set(docx_qn('w:val'), half_points)
                         except Exception:
                             for child in list(paragraph._p)[len(children_before):]:
                                 paragraph._p.remove(child)
@@ -5592,8 +5673,9 @@ class ExportQuestionsView(APIView):
             pf.right_indent = DocxPt(max(0, right_indent_pt))
             pf.space_before = DocxPt(max(0, before_pt))
             pf.space_after = DocxPt(max(0, after_pt))
-            pf.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
-            pf.line_spacing = q_line_height[kind]
+            pf.line_spacing = DocxPt(px_to_pt(q_font[kind] * q_line_height[kind]))
+            pf.line_spacing_rule = WD_LINE_SPACING.AT_LEAST
+            pf.widow_control = False
             pf.keep_together = True
             return paragraph
 
@@ -5656,18 +5738,18 @@ class ExportQuestionsView(APIView):
 
         def add_subject_code_header(line, kind, font_px):
             line_text = clean_text(line)
-            digits = re.findall(r'[0-9à§¦-à§¯]', line_text)[:3]
+            digits = re.findall(r'[0-9০-৯]', line_text)[:3]
             while len(digits) < 3:
                 digits.append(' ')
-            set_match = re.search(r'à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*([à¦•à¦–à¦—à¦˜])', line_text)
+            set_match = re.search(r'সেট\s*[:ঃ]\s*([কখগঘ])', line_text)
             cols = 9 if set_match else 5
             table = doc.add_table(rows=1, cols=cols)
             table.alignment = WD_TABLE_ALIGNMENT.CENTER
             table.autofit = True
             remove_table_borders(table)
-            values = ['à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡', ':'] + digits
+            values = ['বিষয় কোড', ':'] + digits
             if set_match:
-                values.extend(['à¦¸à§‡à¦Ÿ', ':', ' ', set_match.group(1)])
+                values.extend(['সেট', ':', ' ', set_match.group(1)])
             for ci, value in enumerate(values):
                 cell = table.cell(0, ci)
                 cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
@@ -5678,8 +5760,8 @@ class ExportQuestionsView(APIView):
                 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 p.paragraph_format.space_before = DocxPt(0)
                 p.paragraph_format.space_after = DocxPt(0)
-                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
-                p.paragraph_format.line_spacing = header_line_height[kind]
+                p.paragraph_format.line_spacing = DocxPt(px_to_pt(font_px * header_line_height[kind]))
+                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.AT_LEAST
                 set_run_font(p.add_run(value), px_to_pt(font_px), bold=ci in (0, 5))
 
         def add_header(header_text, kind):
@@ -5691,15 +5773,15 @@ class ExportQuestionsView(APIView):
             meaningful = [line for line in lines if clean_text(line) or re.search(r'<hr\s*/?>', str(line), re.I)]
             for i, line in enumerate(meaningful):
                 font_px = sizes[min(i, len(sizes) - 1)]
-                if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', clean_text(line)):
+                if re.search(r'বিষ[য়য]\s*কোড', clean_text(line)):
                     add_subject_code_header(line, kind, font_px)
                     continue
                 p = doc.add_paragraph()
                 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 p.paragraph_format.space_before = DocxPt(0)
                 p.paragraph_format.space_after = DocxPt(0)
-                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
-                p.paragraph_format.line_spacing = header_line_height[kind]
+                p.paragraph_format.line_spacing = DocxPt(px_to_pt(font_px * header_line_height[kind]))
+                p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.AT_LEAST
                 p.paragraph_format.keep_with_next = True
                 if re.fullmatch(r'\s*<hr\s*/?>\s*', str(line), flags=re.I):
                     set_paragraph_bottom_border(p)
@@ -5732,11 +5814,11 @@ class ExportQuestionsView(APIView):
 
         def question_display_text(raw_text):
             text = clean_text_preserve_docx_media(raw_text)
-            text = re.sub(r'\s+(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\n\1', text)
-            text = re.sub(r'([à¥¤,])\s*(à¦•\.|à¦–\.|à¦—\.|à¦˜\.)', r'\1\n\2', text)
-            for letter in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
+            text = re.sub(r'\s+(ক\.|খ\.|গ\.|ঘ\.)', r'\n\1', text)
+            text = re.sub(r'([।,])\s*(ক\.|খ\.|গ\.|ঘ\.)', r'\1\n\2', text)
+            for letter in ('ক', 'খ', 'গ', 'ঘ'):
                 text = text.replace('%s.' % letter, '(%s)' % letter)
-            text = re.sub(r'\s*(\(à¦•\)|\(à¦–\)|\(à¦—\)|\(à¦˜\))', r'\n\1', text)
+            text = re.sub(r'\s*(\(ক\)|\(খ\)|\(গ\)|\(ঘ\))', r'\n\1', text)
             return re.sub(r'\n{2,}', '\n', text).strip()
 
         def question_structure(raw_text, creative):
@@ -5755,27 +5837,26 @@ class ExportQuestionsView(APIView):
 
         def family_mark(q):
             qtype = str((q or {}).get('type') or '')
-            if 'à¦œà§à¦žà¦¾à¦¨à¦®à§‚à¦²à¦•' in qtype:
-                return 'à§§'
-            if 'à¦…à¦¨à§à¦§à¦¾à¦¬à¦¨à¦®à§‚à¦²à¦•' in qtype:
-                return 'à§¨'
+            if 'জ্ঞানমূলক' in qtype:
+                return '১'
+            if 'অনুধাবনমূলক' in qtype:
+                return '২'
             return None
 
         def add_body_paragraph(kind, text='', serial=None, mark=None, indent_em=0, bold=False, before_px=0):
-            pad_pt = px_to_pt(q_padding[kind])
             font_pt = px_to_pt(q_font[kind])
             p = doc.add_paragraph()
             format_paragraph(
                 p,
                 kind,
-                indent_pt=pad_pt + indent_em * font_pt,
-                right_indent_pt=pad_pt,
+                indent_pt=indent_em * font_pt,
+                right_indent_pt=px_to_pt(max(1, math.floor(q_font[kind] * 2 / 14 + 0.5))),
                 before_pt=px_to_pt(before_px),
             )
             if mark:
                 p.paragraph_format.tab_stops.add_tab_stop(current_column_width, WD_TAB_ALIGNMENT.RIGHT)
             if serial is not None:
-                set_run_font(p.add_run('%sà¥¤ ' % serial), font_pt, bold=True)
+                set_run_font(p.add_run('%s। ' % serial), font_pt, bold=True)
             append_question_text(p, text, font_pt, bold=bold)
             if mark:
                 set_run_font(p.add_run('\t%s' % mark), font_pt, bold=True)
@@ -5824,11 +5905,11 @@ class ExportQuestionsView(APIView):
             return options_default
 
         def add_option_line(paragraph, option_index, text, kind):
-            opt_pt = px_to_pt(q_font[kind] * (13.0 / 14.0))
+            opt_pt = px_to_pt(max(8.0, math.floor(q_font[kind] * 13.0 / 14.0 + 0.5)))
             paragraph.paragraph_format.space_before = DocxPt(0)
             paragraph.paragraph_format.space_after = DocxPt(0)
-            paragraph.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
-            paragraph.paragraph_format.line_spacing = q_line_height[kind]
+            paragraph.paragraph_format.line_spacing = DocxPt(opt_pt * q_line_height[kind])
+            paragraph.paragraph_format.line_spacing_rule = WD_LINE_SPACING.AT_LEAST
             paragraph.paragraph_format.keep_together = True
             add_omr_marker(paragraph, option_index, opt_pt)
             set_run_font(paragraph.add_run(' '), opt_pt)
@@ -5865,13 +5946,17 @@ class ExportQuestionsView(APIView):
                 add_option_line(table.cell(row_idx, col_idx).paragraphs[0], option_index, text, kind)
 
         def add_question_gap(kind):
-            gap = q_gap[kind]
+            # CSS has independent top/bottom block padding plus the question gap.
+            # Word has no paragraph padding: retain the bottom half as a fixed
+            # whitespace line instead of misusing it as horizontal indentation.
+            gap = q_gap[kind] + q_padding[kind]
             if gap <= 0:
                 return
             p = doc.add_paragraph()
             p.paragraph_format.space_before = DocxPt(0)
             p.paragraph_format.space_after = DocxPt(0)
             p.paragraph_format.line_spacing = DocxPt(px_to_pt(gap))
+            p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.EXACTLY
             set_run_font(p.add_run(' '), 1)
 
         current_kind = 'mcq'
@@ -5905,7 +5990,10 @@ class ExportQuestionsView(APIView):
                     part_count = int(q.get('answerSheetPartCount'))
                 except (TypeError, ValueError):
                     part_index, part_count = 0, 0
-                add_body_paragraph(kind, prepared, mark=subpart_mark(part_count, part_index), indent_em=2)
+                add_body_paragraph(kind, prepared, mark=subpart_mark(part_count, part_index), indent_em=2,
+                                   before_px=max(0, math.floor(q_font[kind] * 2 / 14 + 0.5)))
+                if part_count > 0 and part_index == part_count - 1:
+                    add_question_gap(kind)
                 return
             if seg_kind == 'tail':
                 tail_kind = str(q.get('answerSheetTailKind') or '').strip()
@@ -5951,7 +6039,8 @@ class ExportQuestionsView(APIView):
                     )
                     set_keep_with_next(first)
                     add_mcq_options(q, kind)
-                    add_question_gap(kind)
+                    if seg_kind != 'intro':
+                        add_question_gap(kind)
                 return
             creative = is_creative(q)
             structure = question_structure(prepared, creative)
@@ -6002,20 +6091,20 @@ class ExportQuestionsView(APIView):
         }
 
         def header_with_set_letter(text, set_letter):
-            if set_letter not in ('à¦•', 'à¦–', 'à¦—', 'à¦˜'):
+            if set_letter not in ('ক', 'খ', 'গ', 'ঘ'):
                 return text
             lines = str(text or '').splitlines()
             replaced = False
             result = []
             for line in lines:
-                if re.search(r'à¦¬à¦¿à¦·[à§Ÿà¦¯]\s*à¦•à§‹à¦¡', line):
-                    base = re.sub(r'\s*à¦¸à§‡à¦Ÿ\s*[:à¦ƒ]\s*[à¦•à¦–à¦—à¦˜]\s*', '', line).strip()
-                    result.append('%s à¦¸à§‡à¦Ÿ : %s' % (base, set_letter))
+                if re.search(r'বিষ[য়য]\s*কোড', line):
+                    base = re.sub(r'\s*সেট\s*[:ঃ]\s*[কখগঘ]\s*', '', line).strip()
+                    result.append('%s সেট : %s' % (base, set_letter))
                     replaced = True
                 else:
                     result.append(line)
             if not replaced:
-                result.append('à¦¬à¦¿à¦·à§Ÿ à¦•à§‹à¦¡à¦ƒ à¦¸à§‡à¦Ÿ : %s' % set_letter)
+                result.append('বিষয় কোডঃ সেট : %s' % set_letter)
             return '\n'.join(result)
 
         def balanced_columns(items, count):
@@ -6025,7 +6114,7 @@ class ExportQuestionsView(APIView):
             return [items[i * per_column:(i + 1) * per_column] for i in range(count)]
 
         page_specs = []
-        raw_plan = pick('exportPreviewPagePlan', [])
+        raw_plan = mcq_left_first_page_plan(pick('exportPreviewPagePlan', []))
         if isinstance(raw_plan, list) and raw_plan:
             for page in raw_plan:
                 if not isinstance(page, dict):
@@ -6076,6 +6165,7 @@ class ExportQuestionsView(APIView):
                     'header_text': header_text,
                     'header_visible': boolval(page.get('headerVisible'), True),
                     'header_in_first_column': boolval(page.get('headerInFirstColumn'), False) or boolval(page.get('leadEmpty'), False),
+                    'header_column_index': 1 if boolval(page.get('leadEmpty'), False) else 0,
                 })
         else:
             if creative_items:
@@ -6142,8 +6232,6 @@ class ExportQuestionsView(APIView):
                 current_column_width = configure_section(body_section, kind, column_count)
             else:
                 current_column_width = configure_section(page_section, kind, column_count)
-                if page_spec['header_visible']:
-                    add_header(page_spec['header_text'], page_spec['header_kind'])
             current_kind = kind
             for column_index, column_items in enumerate(columns):
                 if column_index > 0:
@@ -6154,10 +6242,21 @@ class ExportQuestionsView(APIView):
                     break_run = p.add_run()
                     set_run_font(break_run, 1)
                     break_run.add_break(WD_BREAK.COLUMN)
+                if (
+                    not header_is_spanning
+                    and page_spec['header_visible']
+                    and column_index == page_spec.get('header_column_index', 0)
+                ):
+                    add_header(page_spec['header_text'], page_spec['header_kind'])
                 for item in column_items:
                     render_item(item, kind)
+                # Never let Word's keep-with-next chain pull the ending paragraph
+                # across the explicit column/page break supplied by the preview.
+                if doc.paragraphs:
+                    doc.paragraphs[-1].paragraph_format.keep_with_next = False
         buf = BytesIO()
         try:
+            embed_question_document_fonts(doc, getattr(settings, 'BASE_DIR', os.getcwd()))
             doc.save(buf)
         finally:
             close_math_runtime()
@@ -6417,11 +6516,21 @@ class CreatedQuestionSetDetailView(APIView):
         ls = getattr(obj, 'layout_settings', None)
         if not isinstance(ls, dict):
             ls = {}
+        questions = obj.questions
+        if request.query_params.get('for_edit') == '1':
+            try:
+                questions, ls = recover_saved_question_edit(obj, _question_chain_db_alias(request))
+            except ValueError as error:
+                return Response({'error': str(error), 'code': 'saved_question_data_unavailable'}, status=status.HTTP_409_CONFLICT)
+            except Exception:
+                logger.exception('Saved question recovery failed for set %s', pk)
+                return Response({'error': 'The saved questions could not be loaded from their source. Please try again.',
+                                 'code': 'saved_question_source_unavailable'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
         return Response({
             'id': obj.id,
             'name': obj.name,
             'question_header': obj.question_header,
-            'questions': obj.questions,
+            'questions': questions,
             'counter': obj.counter,
             'file_name_base': '%s_%s' % (obj.name.replace(' ', '_'), obj.counter),
             'created_at': obj.created_at.isoformat() if obj.created_at else None,

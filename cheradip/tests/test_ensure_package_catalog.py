@@ -23,6 +23,8 @@ class EnsurePackageCatalogTests(TestCase):
         self.assertEqual(PackagePlan.objects.count(), 48)
 
     def test_conflicting_existing_plan_is_not_overwritten(self):
+        # Migrations seed the catalog; start this one-plan conflict scenario cleanly.
+        PackagePlan.objects.all().delete()
         defaults = dict(expected_plans())['starter-academic']
         PackagePlan.objects.create(code='starter-academic', **{**defaults, 'price': 999})
         with self.assertRaises(CommandError):

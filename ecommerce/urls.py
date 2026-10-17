@@ -6,7 +6,7 @@ from .views import (
     AdminCsvImportView, AdminDashboardView, AdminInventoryView, AdminOrderViewSet,
     AdminPaymentViewSet, AdminProductViewSet, BrandViewSet, CartView, CategoryViewSet,
     AccountHistoryView, BookViewSet, CheckoutView, DigitalBookDownloadView, DigitalLibraryView, NotificationView, OrderTrackingView, OrderViewSet, PaymentCreateView, ProductViewSet,
-    ReviewCreateView, PublicBookAssetView, sample_csv,
+    ReviewCreateView, PublicBookAssetView, CartSummaryView, sample_csv,
 )
 
 router = DefaultRouter()
@@ -27,6 +27,7 @@ admin_router.register('payments', AdminPaymentViewSet, basename='ecommerce-admin
 urlpatterns = [
     path('', include(router.urls)),
     path('cart/', CartView.as_view(), name='ecommerce-cart-new'),
+    path('cart/summary/', CartSummaryView.as_view(), name='ecommerce-cart-summary'),
     path('cart/<str:token>/', CartView.as_view(), name='ecommerce-cart'),
     path('checkout/', CheckoutView.as_view(), name='ecommerce-checkout'),
     path('account/history/', AccountHistoryView.as_view(), name='ecommerce-account-history'),

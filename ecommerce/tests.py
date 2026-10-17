@@ -14,7 +14,7 @@ from .csv_import import CSV_COLUMNS, sample_csv_text
 from .db_router import EcommerceRouter
 from .book_builder import build_book_asset
 from .book_catalog import sync_book_catalog
-from .models import Book, BookAsset, BookBuildJob, Category, Order, Payment, Product, ProductVariant
+from .models import Book, BookAsset, BookBuildJob, Cart, Category, Order, Payment, Product, ProductVariant
 from .views import StorefrontProductPagination
 
 
@@ -163,6 +163,27 @@ class WalletCommerceTests(TransactionTestCase):
         }, format='json')
         self.assertEqual(response.status_code, 200)
         return response.json()
+
+    def test_cart_summary_restores_saved_items_without_creating_empty_carts(self):
+        cart = self.cart()
+        before = Cart.objects.using('ecommerce').count()
+        for _ in range(2):
+            summary = self.client.get('/api/ecommerce/cart/summary/').json()
+            self.assertEqual(summary['token'], cart['token'])
+            self.assertEqual(summary['count'], 1)
+        self.assertEqual(Cart.objects.using('ecommerce').count(), before)
+        restored = self.client.get('/api/ecommerce/cart/').json()
+        self.assertEqual(restored['token'], cart['token'])
+        self.assertEqual(Cart.objects.using('ecommerce').count(), before)
+
+    def test_cart_summary_does_not_expose_a_customers_items_to_guests(self):
+        cart = self.cart()
+        guest = APIClient()
+        guest.credentials(HTTP_X_FORWARDED_PROTO='https')
+        before = Cart.objects.using('ecommerce').count()
+        summary = guest.get('/api/ecommerce/cart/summary/', {'token': cart['token']}).json()
+        self.assertEqual(summary, {'token': None, 'count': 0})
+        self.assertEqual(Cart.objects.using('ecommerce').count(), before)
 
     def checkout_payload(self, token):
         return {

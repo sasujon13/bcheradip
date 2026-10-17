@@ -288,6 +288,31 @@ class DigitalBookDownloadView(APIView):
         return Response({'detail': 'The ebook file is not available yet.'}, status=status.HTTP_404_NOT_FOUND)
 
 
+def _saved_account_cart(request):
+    customer_id = _user_id(request)
+    if not customer_id:
+        return None
+    carts = Cart.objects.using('ecommerce').filter(customer_id=customer_id, checked_out=False)
+    # Earlier page visits may have left empty carts; prefer the user's latest
+    # actual shopping records instead of masking them with an empty cart.
+    return (carts.filter(items__isnull=False).distinct().order_by('-updated_at', '-pk').first()
+            or carts.order_by('-updated_at', '-pk').first())
+
+
+class CartSummaryView(APIView):
+    """Read-only header badge; never create a cart just to display its count."""
+    authentication_classes = [BearerTokenAuthentication]
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        token = request.query_params.get('token')
+        cart = CartView()._cart(token, request) if token else _saved_account_cart(request)
+        if cart is None and token:
+            cart = _saved_account_cart(request)
+        count = cart.items.aggregate(total=Sum('quantity'))['total'] if cart else 0
+        return Response({'token': str(cart.token) if cart else None, 'count': count or 0})
+
+
 class CartView(APIView):
     authentication_classes = [BearerTokenAuthentication]
     permission_classes = [AllowAny]
@@ -297,7 +322,7 @@ class CartView(APIView):
         return cart if cart and (not cart.customer_id or cart.customer_id == _user_id(request)) else None
 
     def get(self, request, token=None):
-        cart = self._cart(token, request) if token else None
+        cart = self._cart(token, request) if token else _saved_account_cart(request)
         if cart is None:
             cart = Cart.objects.using('ecommerce').create(customer_id=_user_id(request))
         elif _user_id(request) and not cart.customer_id:
