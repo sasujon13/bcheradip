@@ -6,6 +6,9 @@ from django.db import transaction
 from django.utils.text import slugify
 
 from .models import Brand, Category, CommerceNotification, ImportJob, InventoryMovement, Product, ProductImage, ProductVariant
+from .pricing import calculate_price, normalize_costs
+from .delivery_rates import listing_defaults
+from .models import DeliverySettings
 
 
 CSV_COLUMNS = [
@@ -14,7 +17,10 @@ CSV_COLUMNS = [
     'Option2 Name', 'Option2 Value', 'Option3 Name', 'Option3 Value', 'Price',
     'Compare At Price', 'Cost Per Item', 'Inventory Quantity', 'Low Stock Threshold',
     'Weight Grams', 'Requires Shipping', 'Image URL', 'Image Alt Text', 'Featured',
-    'SEO Title', 'SEO Description', 'Source URL', 'Sample Product',
+    'SEO Title', 'SEO Description', 'Source URL', 'Sample Product', 'Expected Inventory Quantity',
+    'Dhaka Delivery Charge', 'Outside Dhaka Delivery Charge', 'COD Percent',
+    'Supplier Max Delivery', 'Customer Delivery Budget', 'Ads Cost', 'Packaging Cost',
+    'Return Allowance', 'Other Costs', 'Apply Calculated Price', 'Use Default Costs',
 ]
 
 
@@ -58,6 +64,8 @@ def sample_csv_text():
             'Image Alt Text': 'Sample cotton T-shirt', 'Featured': 'TRUE',
             'SEO Title': 'Sample Cotton T-Shirt', 'SEO Description': 'CSV import example product.',
             'Source URL': 'https://dummyjson.com/docs/products', 'Sample Product': 'TRUE',
+            'Dhaka Delivery Charge': 'DEFAULT', 'Outside Dhaka Delivery Charge': 'DEFAULT', 'COD Percent': 'DEFAULT',
+            'Apply Calculated Price': 'FALSE', 'Use Default Costs': 'TRUE',
         },
         {
             'Handle': 'sample-cotton-tshirt', 'Title': '', 'Vendor': '', 'Product Category': '',
@@ -145,14 +153,53 @@ def import_products(file_obj, user_id=None):
                         product.featured = _bool(row.get('Featured'), product.featured)
                         product.save(using='ecommerce')
 
-                previous_variant = ProductVariant.objects.using('ecommerce').filter(sku=sku).first()
+                # Blank columns preserve overrides; DEFAULT restores inheritance.
+                charge_fields = {'Dhaka Delivery Charge': 'delivery_dhaka_charge',
+                                 'Outside Dhaka Delivery Charge': 'delivery_outside_dhaka_charge', 'COD Percent': 'cod_percent'}
+                updated_charges = []
+                for column, field in charge_fields.items():
+                    raw_charge = (row.get(column) or '').strip()
+                    if not raw_charge:
+                        continue
+                    amount = None if raw_charge.lower() == 'default' else _decimal(raw_charge)
+                    if amount is not None and (amount > (Decimal('100') if field == 'cod_percent' else Decimal('99999999.99')) or amount.as_tuple().exponent < -2):
+                        raise ValueError(f'{column} must be non-negative with at most two decimal places (COD maximum 100%).')
+                    setattr(product, field, amount)
+                    updated_charges.append(field)
+                if updated_charges:
+                    product.save(using='ecommerce', update_fields=updated_charges + ['updated_at'])
+
+                previous_variant = ProductVariant.objects.using('ecommerce').select_for_update().filter(sku=sku).first()
+                if previous_variant and previous_variant.product_id != product.pk:
+                    raise ValueError('This SKU belongs to a different product. Use its existing Handle or a new SKU.')
                 price_text = (row.get('Price') or '').strip()
                 stock_text = (row.get('Inventory Quantity') or '').strip()
-                if not previous_variant and not price_text:
+                source_cost = _decimal(row.get('Cost Per Item')) if row.get('Cost Per Item', '').strip() else (previous_variant.cost_price if previous_variant else None)
+                pricing_inputs = dict(previous_variant.pricing_inputs) if previous_variant else {}
+                weight = _int(row.get('Weight Grams')) if row.get('Weight Grams','').strip() else previous_variant.weight_grams if previous_variant else 0
+                if weight < 0: raise ValueError('Weight Grams cannot be negative.')
+                pricing_columns = {'Supplier Max Delivery': 'supplier_delivery_max', 'Customer Delivery Budget': 'customer_delivery_charge',
+                    'Ads Cost': 'ads_cost', 'Packaging Cost': 'packaging_cost', 'Return Allowance': 'returns_allowance', 'Other Costs': 'other_costs'}
+                for column, key in pricing_columns.items():
+                    raw_cost = (row.get(column) or '').strip()
+                    if raw_cost:
+                        pricing_inputs[key] = raw_cost
+                inherit = _bool(row.get('Use Default Costs')) or not pricing_inputs
+                if _bool(row.get('Use Default Costs')) and any((row.get(column) or '').strip() for column in pricing_columns):
+                    raise ValueError('Use Default Costs cannot be combined with manual cost columns. Leave them empty or disable defaults.')
+                if inherit: pricing_inputs = {}
+                if pricing_inputs:
+                    pricing_inputs = normalize_costs(pricing_inputs)
+                suggested = calculate_price(source_cost, listing_defaults(DeliverySettings.current(),weight)[0] if inherit else pricing_inputs) if _bool(row.get('Apply Calculated Price')) else None
+                if not previous_variant and not price_text and not suggested:
                     raise ValueError('Price is required for a new SKU.')
                 if not previous_variant and not stock_text:
                     raise ValueError('Inventory Quantity is required for a new SKU.')
                 stock = _int(stock_text) if stock_text else previous_variant.stock
+                if previous_variant and stock_text and stock != previous_variant.stock:
+                    expected = (row.get('Expected Inventory Quantity') or '').strip()
+                    if not expected or _int(expected) != previous_variant.stock:
+                        raise ValueError('Stock changed or was not confirmed. Set Expected Inventory Quantity to the current stock, or leave Inventory Quantity empty to preserve stock.')
                 if stock < 0:
                     raise ValueError('Inventory Quantity cannot be negative.')
                 defaults = {
@@ -161,11 +208,11 @@ def import_products(file_obj, user_id=None):
                     'barcode': row.get('Barcode', '').strip(), 'option1_name': row.get('Option1 Name', '').strip(),
                     'option1_value': row.get('Option1 Value', '').strip(), 'option2_name': row.get('Option2 Name', '').strip(),
                     'option2_value': row.get('Option2 Value', '').strip(), 'option3_name': row.get('Option3 Name', '').strip(),
-                    'option3_value': row.get('Option3 Value', '').strip(), 'price': _decimal(price_text) if price_text else previous_variant.price,
+                    'option3_value': row.get('Option3 Value', '').strip(), 'price': Decimal(suggested['suggested_price']) if suggested else _decimal(price_text) if price_text else previous_variant.price,
                     'compare_at_price': _decimal(row.get('Compare At Price')) if row.get('Compare At Price', '').strip() else (previous_variant.compare_at_price if previous_variant else None),
-                    'cost_price': _decimal(row.get('Cost Per Item')) if row.get('Cost Per Item', '').strip() else (previous_variant.cost_price if previous_variant else None),
+                    'cost_price': source_cost, 'pricing_inputs': pricing_inputs,
                     'stock': stock, 'low_stock_threshold': max(0, _int(row.get('Low Stock Threshold'), 5)),
-                    'weight_grams': max(0, _int(row.get('Weight Grams'))),
+                    'weight_grams': weight,
                     'requires_shipping': _bool(row.get('Requires Shipping'), True), 'is_active': True,
                 }
                 previous_stock = previous_variant.stock if previous_variant else 0

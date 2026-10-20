@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from cheradip.models import Customer, RewardsWallet, WalletOperation
 from cheradip.wallet_service import wallet_coins
-from .models import Order, Payment, ProductVariant, InventoryMovement, OrderStatusHistory, CommerceNotification
+from .models import Order, Payment, ProductVariant, InventoryMovement, OrderStatusHistory, CommerceNotification, Shipment
 
 
 TRANSITIONS = {
@@ -19,6 +19,33 @@ TRANSITIONS = {
     'returned': {'refunded'},
     'cancelled': set(), 'refunded': set(),
 }
+
+
+@transaction.atomic(using='ecommerce')
+def save_shipment(instance, data, actor_id=None):
+    """A shipment may advance fulfilment, but never silently approve or complete an order."""
+    from rest_framework.exceptions import ValidationError
+    order = data.get('order') or instance.order
+    order = Order.objects.using('ecommerce').select_for_update().get(pk=order.pk)
+    target = data.get('status', instance.status if instance else 'preparing')
+    if target not in {'preparing', 'shipped', 'delivered', 'returned'}:
+        raise ValidationError({'status': 'Select a supported shipment status.'})
+    previous_status = Shipment.objects.using('ecommerce').filter(pk=instance.pk).values_list('status', flat=True).first() if instance else None
+    status_changed = not instance or ('status' in data and target != previous_status)
+    if status_changed and target != 'preparing' and target != order.status:
+        try:
+            change_order(order.pk, target, actor_id, 'Shipment status updated by staff.')
+        except ValueError as exc:
+            raise ValidationError({'status': str(exc)})
+    shipment = instance or Shipment(order=order)
+    for key, value in data.items():
+        setattr(shipment, key, value)
+    if target in {'shipped', 'delivered'} and not shipment.shipped_at:
+        shipment.shipped_at = timezone.now()
+    if target == 'delivered' and not shipment.delivered_at:
+        shipment.delivered_at = timezone.now()
+    shipment.save(using='ecommerce')
+    return shipment
 
 
 def settle_wallet_order(order_id):

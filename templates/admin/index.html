@@ -105,152 +105,7 @@
     text-align: center;
     box-sizing: border-box;
   }
-  #content-main .app-cheradip.module tbody {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2px 1rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  @supports (container-type: inline-size) {
-    @container admin-main (min-width: 520px) {
-      #content-main .app-cheradip.module tbody {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-    @container admin-main (min-width: 900px) {
-      #content-main .app-cheradip.module tbody {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-    }
-    @container admin-main (min-width: 1040px) {
-      #content-main .app-cheradip.module tbody {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-      }
-    }
-  }
-  @supports not (container-type: inline-size) {
-    #content-main .app-cheradip.module tbody {
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (min-width: 900px) {
-      #content-main .app-cheradip.module tbody {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-    }
-    @media (min-width: 1040px) {
-      #content-main .app-cheradip.module tbody {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-      }
-    }
-    @media (max-width: 520px) {
-      #content-main .app-cheradip.module tbody {
-        grid-template-columns: 1fr;
-      }
-    }
-  }
-  /* Each model row stays a table row inside its grid cell */
-  #content-main .app-cheradip.module tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    box-sizing: border-box;
-  }
-  #content-main .app-cheradip.module tbody tr:only-child {
-    grid-column: 1 / -1;
-  }
-  #content-main .app-cheradip.module tbody tr th,
-  #content-main .app-cheradip.module tbody tr td {
-    text-align: center;
-  }
-  /* DB table list (/admin/databases/.../): fixed-min grid + single-line links with ellipsis */
-  #content-main .admin-tables-wrapper {
-    width: 100%;
-    max-width: 100%;
-    text-align: left;
-    box-sizing: border-box;
-    overflow: visible;
-  }
-  .admin-tables-grid {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .admin-tables-grid li {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
-    min-height: 1.75em;
-    align-self: start;
-  }
-  .admin-tables-grid li:hover,
-  .admin-tables-grid li:focus-within {
-    overflow: visible;
-    z-index: 40;
-  }
-  .admin-tables-grid a {
-    text-decoration: none;
-    color: var(--primary, #008080);
-    display: block;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-break: normal;
-    box-sizing: border-box;
-    line-height: 1.5;
-  }
-  .admin-tables-grid a:hover,
-  .admin-tables-grid a:focus-visible {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    max-width: none;
-    width: max-content;
-    min-width: 100%;
-    overflow: visible;
-    white-space: nowrap;
-    text-overflow: clip;
-    background: var(--body-bg, #fff);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-    padding: 4px 8px;
-    margin: -4px -8px;
-    border-radius: 4px;
-    text-decoration: none;
-    outline: none;
-  }
-  .table-update-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.45rem;
-    height: 1.45rem;
-    margin-left: .4rem;
-    padding: 0 .35rem;
-    border-radius: 999px;
-    background: var(--primary, #008080);
-    color: #fff;
-    font-size: .72rem;
-    font-weight: 700;
-    line-height: 1;
-    vertical-align: middle;
-  }
-  .admin-tables-grid a:hover {
-    color: var(--primary-hover, #006666);
-  }
-  .admin-tables-grid a:focus-visible {
-    color: var(--primary, #008080);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(0, 128, 128, 0.45);
-  }
+  /* Table catalogs use the shared responsive stylesheet. */
   /* Remove sidebar margin on all viewport sizes */
   .colMS {
     margin-right: 0 !important;
@@ -283,6 +138,8 @@
 {% block content %}
 <div id="content-main">
   <p class="admin-manual-entry"><a href="{% url 'admin:operations_manual' %}">📖 Administrative user manual</a> — accounts, packages, payments, orders, questions, database activity, and troubleshooting.</p>
+  {% if user.is_superuser %}<p class="admin-manual-entry"><a href="{% url 'admin:cheradip_customer_changelist' %}">👥 Users &amp; customers</a> · <a href="{% url 'admin:auth_group_changelist' %}">User groups</a> · <a href="{% url 'admin:auth_permission_changelist' %}">User permissions</a> — create accounts, assign roles and permission groups, or change a customer's individual permissions. All accounts share the same Customer table.</p>{% endif %}
+  {% if commerce_frontend_url %}<p class="admin-manual-entry"><a href="{{ commerce_frontend_url }}">▣ Marketplace Business Manager</a> — product uploads, CSV imports, inventory, orders, payments, and business tools. Your website staff permissions apply.</p>{% endif %}
   <p class="admin-manual-entry"><a href="{{ scraper_frontend_url }}">↻ Scraping workspace</a> — switch between question scraping and staff-run institute updates from Banbeis and EMIS.</p>
   <ul class="admin-db-tabs">
     {% for tab in db_tabs %}
@@ -306,7 +163,7 @@
             <div class="admin-tables-wrapper">
               <ul class="admin-tables-grid">
                 {% for model in app.models %}
-                <li><a href="{{ model.admin_url }}">{{ model.name }}{% if model.update_count %}<span class="table-update-badge" title="Recent updates or items needing attention">{{ model.update_count }}</span>{% endif %}</a></li>
+                <li><a href="{{ model.admin_url }}" title="{{ model.name }}">{{ model.name }}{% if model.update_count %}<span class="table-update-badge" title="Recent updates or items needing attention">{{ model.update_count }}</span>{% endif %}</a></li>
                 {% endfor %}
               </ul>
             </div>

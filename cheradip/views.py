@@ -489,11 +489,12 @@ class LocationDistrictsView(APIView):
     def get(self, request):
         country_code = (request.query_params.get('country_code') or '').strip().upper()
         division = (request.query_params.get('division') or '').strip()
-        if not country_code or not division:
+        if not country_code:
             return Response([], status=status.HTTP_200_OK)
-        qs = Location.objects.filter(
-            country_id=country_code, division=division
-        ).exclude(district__isnull=True).exclude(district='').values_list(
+        qs = Location.objects.filter(country_id=country_code)
+        if division:
+            qs = qs.filter(division=division)
+        qs = qs.exclude(district__isnull=True).exclude(district='').values_list(
             'district', flat=True
         ).distinct().order_by('district')
         return Response(list(qs))
@@ -511,11 +512,12 @@ class LocationThanasView(APIView):
         country_code = (request.query_params.get('country_code') or '').strip().upper()
         division = (request.query_params.get('division') or '').strip()
         district = (request.query_params.get('district') or '').strip()
-        if not country_code or not division or not district:
+        if not country_code or not district:
             return Response([], status=status.HTTP_200_OK)
-        qs = Location.objects.filter(
-            country_id=country_code, division=division, district=district
-        ).exclude(thana__isnull=True).exclude(thana='').values_list(
+        qs = Location.objects.filter(country_id=country_code, district=district)
+        if division:
+            qs = qs.filter(division=division)
+        qs = qs.exclude(thana__isnull=True).exclude(thana='').values_list(
             'thana', flat=True
         ).distinct().order_by('thana')
         return Response(list(qs))
@@ -1822,6 +1824,8 @@ def _cq_question_structure_from_bn_markers(full_text):
     if not full_text or not str(full_text).strip():
         return None
     s = str(full_text)
+    s = re.sub(r'\(\s*([কখগঘ])\s*\)', r'(\1)', s)
+    s = re.sub(r'(^|[\s।:;?!>])([কখগঘ])\s*\)', r'\1(\2)', s)
     p_k = s.find('(ক)')
     p_kh = s.find('(খ)')
     p_g = s.find('(গ)')
@@ -2212,7 +2216,9 @@ def _export_format_question_media_html(text, host_base):
         leading = ''
         slash = full.find('/media/')
         if slash >= 0:
-            leading = full[:slash]
+            # Absolute media links replace the complete URL, not just /media/.
+            # Keeping the origin here prints stray https://.../manage beside images.
+            leading = '' if re.match(r'^https?://', full, re.I) else full[:slash]
             path_from_media = full[slash:]
         else:
             bare = re.search(r'\bmedia/', full, re.I)
@@ -3874,7 +3880,20 @@ class ExportQuestionsView(APIView):
                 return item_idx, qq_row
 
             def block_margin_bottom_px(_qq_row, creative_row):
-                """Inter-question gap on the outer .q-item (matches preview questionsGap / questionsGapCreative)."""
+                """Match each preview segment, not a reassembled whole CQ."""
+                if is_creative(_qq_row):
+                    kind = str(_qq_row.get('answerSheetSegmentKind') or '').strip()
+                    if kind == 'intro':
+                        return 0
+                    if kind == 'part':
+                        pi = intval(_qq_row.get('answerSheetPartIndex'), 0)
+                        pc = intval(_qq_row.get('answerSheetPartCount'), 0)
+                        if pc > 0 and pi < pc - 1:
+                            return max(0, jround(2 * q_font_cq / 14.0))
+                        return q_gap_cq
+                if _qq_row.get('answerSheetContinuation'):
+                    padding = q_pad_by_kind['creative' if creative_row else 'mcq']
+                    return max(1, jround(padding / 2.0))
                 return q_gap_cq if creative_row else q_gap_mcq
 
             def block_style_for_rows(first_qq, last_qq, creative_row):
@@ -3887,6 +3906,15 @@ class ExportQuestionsView(APIView):
                 padding = q_pad_by_kind['creative' if creative_row else 'mcq']
                 q_pad_top = 0 if first_qq.get('answerSheetContinuation') else padding
                 q_pad_bottom = padding
+                if is_creative(first_qq):
+                    seg = str(first_qq.get('answerSheetSegmentKind') or '').strip()
+                    if seg == 'intro':
+                        q_pad_top, q_pad_bottom = padding, 0
+                    elif seg == 'part':
+                        pi = intval(first_qq.get('answerSheetPartIndex'), 0)
+                        pc = intval(first_qq.get('answerSheetPartCount'), 0)
+                        q_pad_top = 0
+                        q_pad_bottom = padding if pc <= 0 or pi >= pc - 1 else 0
                 q_gap_mb = block_margin_bottom_px(last_qq, creative_row)
                 opt_body_fz = max(8.0, float(jround(fz * 13.0 / 14.0)))
                 return (
@@ -3967,7 +3995,7 @@ class ExportQuestionsView(APIView):
                         return (
                             '<span class="q-stem-with-parts">'
                             '<span class="q-text q-intro">%s</span>'
-                            '</span>',
+                            '</span>' % intro_html,
                             '',
                         )
                     # Main-sheet MCQ: one intro row holds stem + (ক)–(ঘ) options (preview .preview-q-text).
@@ -4076,67 +4104,9 @@ class ExportQuestionsView(APIView):
             while idx < len(items):
                 item_idx, qq = unwrap_plan_item(items[idx])
                 creative = is_creative(qq)
-                seg_kind = str(qq.get('answerSheetSegmentKind') or '').strip()
-                parent_idx = qq.get('answerSheetParentIndex')
-
-                # Merge CQ intro + (ক)–(ঘ) segments into one block (matches on-screen preview DOM).
-                if creative and parent_idx is not None and seg_kind in ('intro', 'part'):
-                    group = []
-                    j = idx
-                    while j < len(items):
-                        ii, qqj = unwrap_plan_item(items[j])
-                        if not is_creative(qqj):
-                            break
-                        if qqj.get('answerSheetParentIndex') != parent_idx:
-                            break
-                        sk = str(qqj.get('answerSheetSegmentKind') or '').strip()
-                        if sk not in ('intro', 'part'):
-                            break
-                        group.append((ii, qqj))
-                        j += 1
-                    first_qq = group[0][1]
-                    last_qq = group[-1][1]
-                    intro_html = ''
-                    part_chunks = []
-                    for _, gqq in group:
-                        gplain = plain_question_text(gqq)
-                        gkind = str(gqq.get('answerSheetSegmentKind') or '').strip()
-                        if gkind == 'intro':
-                            intro_html = format_stem_html(gplain, True, gqq)
-                        elif gkind == 'part':
-                            part_chunks.append(render_cq_part_chunk(gqq, gplain))
-                    if part_chunks:
-                        if intro_html:
-                            stem_html = (
-                                '<span class="q-stem-with-parts">'
-                                '<span class="q-text q-intro">%s</span>'
-                                '</span>%s'
-                            ) % (intro_html, ''.join(part_chunks))
-                        else:
-                            stem_html = ''.join(part_chunks)
-                    else:
-                        stem_html = (
-                            '<span class="q-text q-intro">%s</span>' % intro_html
-                            if intro_html
-                            else ''
-                        )
-                    qcls = 'q-item q-cq'
-                    style = block_style_for_rows(first_qq, last_qq, True)
-                    skip_qn_label = _export_skip_question_number_label(first_qq)
-                    if skip_qn_label:
-                        qn_html = ''
-                    else:
-                        qn_html = '<strong class="qn">%s\u0964</strong>' % item_serial(
-                            group[0][0], start_num + idx
-                        )
-                    out.append(
-                        '<div class="%s" style="%s"><div class="q-content"><label class="q-label">'
-                        '%s%s</label></div></div>'
-                        % (qcls, style, qn_html, stem_html if stem_html else '&nbsp;')
-                    )
-                    idx = j
-                    continue
-
+                # The saved column/page plan indexes individual stems and CQ parts.
+                # Render one item per index just like preview; merging changes both
+                # spacing and height, and can clip the last part at the page bottom.
                 stem_html, opts_html = render_stem_and_options(qq, creative)
                 append_q_item(out, item_idx, qq, creative, idx, stem_html, opts_html)
                 idx += 1
@@ -6037,7 +6007,7 @@ class ExportQuestionsView(APIView):
                         mark=family_mark(q) if not is_creative(q) else None,
                         before_px=q_padding[kind],
                     )
-                    set_keep_with_next(first)
+                    set_keep_with_next(first, not is_creative(q))
                     add_mcq_options(q, kind)
                     if seg_kind != 'intro':
                         add_question_gap(kind)
@@ -6054,7 +6024,7 @@ class ExportQuestionsView(APIView):
                     bold=not show_number,
                     before_px=q_padding[kind],
                 )
-                set_keep_with_next(first)
+                set_keep_with_next(first, False)
                 for part_index, part in enumerate(parts):
                     part_p = add_body_paragraph(
                         kind,
@@ -6062,8 +6032,7 @@ class ExportQuestionsView(APIView):
                         mark=subpart_mark(len(parts), part_index),
                         indent_em=2,
                     )
-                    if part_index < len(parts) - 1:
-                        set_keep_with_next(part_p)
+                    set_keep_with_next(part_p, False)
             else:
                 first = add_body_paragraph(
                     kind,

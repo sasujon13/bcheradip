@@ -2,8 +2,10 @@ import secrets
 import uuid
 
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from .private_storage import ebook_storage
+from .cost_defaults import initial_cost_defaults, initial_courier_profiles
 from django.utils.text import slugify
 
 
@@ -70,6 +72,12 @@ class Product(TimeStampedModel):
     seo_description = models.CharField(max_length=500, blank=True)
     source_url = models.URLField(max_length=1000, blank=True)
     is_sample = models.BooleanField(default=False, db_index=True)
+    delivery_dhaka_charge = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(0)], help_text='Blank: inherit the central Dhaka delivery charge. Zero: free delivery.')
+    delivery_outside_dhaka_charge = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(0)], help_text='Blank: inherit the central outside-Dhaka delivery charge. Zero: free delivery.')
+    cod_percent = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)], help_text='Blank: inherit the central COD percentage. Zero: no COD surcharge.')
 
     class Meta:
         db_table = 'ecommerce_product'
@@ -100,6 +108,8 @@ class ProductVariant(TimeStampedModel):
     price = models.DecimalField(max_digits=14, decimal_places=2)
     compare_at_price = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)
     cost_price = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)
+    pricing_inputs = models.JSONField(default=dict, blank=True,
+        help_text='Private listing-cost calculator inputs. Saving costs never automatically changes the selling price.')
     currency = models.CharField(max_length=3, default='BDT')
     stock = models.IntegerField(default=0)
     low_stock_threshold = models.PositiveIntegerField(default=5)
@@ -178,12 +188,43 @@ class Coupon(TimeStampedModel):
         db_table = 'ecommerce_coupon'
 
 
+class DeliverySettings(TimeStampedModel):
+    """One authoritative shop policy, shared by checkout, quotes and staff tools."""
+    dhaka_charge = models.DecimalField(max_digits=10, decimal_places=2, default=80)
+    outside_dhaka_charge = models.DecimalField(max_digits=10, decimal_places=2, default=120)
+    cod_percent = models.DecimalField(max_digits=5, decimal_places=2, default=1,
+        validators=[MinValueValidator(0), MaxValueValidator(100)], help_text='Cash-on-delivery percentage inherited by products without an override.')
+    unpaid_reservation_hours = models.PositiveIntegerField(default=24)
+    return_policy = models.TextField(default='Inspect eligible physical products at delivery. Contact support for return approval; delivery charges and product-specific exclusions may apply.')
+    support_phone = models.CharField(max_length=40, blank=True)
+    cost_defaults = models.JSONField(default=initial_cost_defaults, blank=True,
+        help_text='Private per-item planning allowances; editable estimates, not guaranteed market averages.')
+    courier_profiles = models.JSONField(default=initial_courier_profiles,
+        help_text='Reviewed standard weight tariffs assuming Dhaka-metro pickup. Update negotiated rates here. Sundarban item-specific tariffs are not mixed into these ranges.')
+
+    class Meta:
+        db_table = 'ecommerce_delivery_settings'
+        verbose_name_plural = 'Delivery & store settings'
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def current(cls):
+        return cls.objects.using('ecommerce').filter(pk=1).first() or cls(pk=1)
+
+    def __str__(self):
+        return 'Courier charges & store policy'
+
+
 class Order(TimeStampedModel):
     STATUS_CHOICES = [
         ('pending', 'Pending'), ('confirmed', 'Confirmed'), ('processing', 'Processing'),
         ('shipped', 'Shipped'), ('delivered', 'Delivered'), ('completed', 'Order Completed'), ('cancelled', 'Cancelled'),
         ('returned', 'Returned'), ('refunded', 'Refunded'),
     ]
+    delivery_quote = models.JSONField(default=dict, blank=True)
     PAYMENT_STATUS = [('unpaid', 'Unpaid'), ('pending', 'Pending'), ('paid', 'Paid'), ('failed', 'Failed'), ('refunded', 'Refunded')]
 
     number = models.CharField(max_length=32, unique=True, db_index=True)
@@ -201,6 +242,7 @@ class Order(TimeStampedModel):
     subtotal = models.DecimalField(max_digits=14, decimal_places=2, default=0)
     discount_total = models.DecimalField(max_digits=14, decimal_places=2, default=0)
     shipping_total = models.DecimalField(max_digits=14, decimal_places=2, default=0)
+    cod_total = models.DecimalField(max_digits=14, decimal_places=2, default=0)
     tax_total = models.DecimalField(max_digits=14, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=14, decimal_places=2, default=0)
     coupon_code = models.CharField(max_length=80, blank=True)
@@ -208,6 +250,10 @@ class Order(TimeStampedModel):
     admin_note = models.TextField(blank=True)
     confirmed_at = models.DateTimeField(null=True, blank=True)
     fulfilled_at = models.DateTimeField(null=True, blank=True)
+    reservation_expires_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    receipt_sent_at = models.DateTimeField(null=True, blank=True)
+    receipt_attempts = models.PositiveSmallIntegerField(default=0)
+    receipt_pending = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'ecommerce_order'

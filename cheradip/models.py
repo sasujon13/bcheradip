@@ -7,7 +7,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, URLValidator
 
 # ==============================================================================
 # FIELDS (DB drivers may return datetime as str; ensure we always have datetime)
@@ -1148,3 +1148,41 @@ class TrxIdentity(models.Model):
     """Canonical payment ID: duplicate imported rows can never credit twice."""
     trxid = models.CharField(max_length=128, unique=True)
     transaction = models.ForeignKey(TrxManagement, on_delete=models.PROTECT, related_name='identity')
+
+
+class LiveClass(models.Model):
+    title = models.CharField(max_length=255)
+    subject = models.CharField(max_length=255, blank=True)
+    level = models.CharField(max_length=100, blank=True)
+    topic = models.CharField(max_length=255, blank=True)
+    teacher_name = models.CharField(max_length=150, blank=True)
+    description = models.TextField(blank=True)
+    starts_at = models.DateTimeField(help_text='Enter Bangladesh time (Asia/Dhaka).')
+    ends_at = models.DateTimeField(help_text='Enter Bangladesh time (Asia/Dhaka).')
+    join_url = models.URLField(max_length=1000, blank=True, validators=[URLValidator(schemes=['http', 'https'])],
+                               help_text='A meeting or livestream joining link. Required before publishing.')
+    status = models.CharField(max_length=12, default='scheduled', choices=[
+        ('scheduled', 'Scheduled'), ('live', 'Live'), ('completed', 'Completed'), ('cancelled', 'Cancelled'),
+    ])
+    is_published = models.BooleanField(default=False)
+    created_by = models.ForeignKey(Customer, null=True, blank=True, on_delete=models.SET_NULL, related_name='scheduled_live_classes')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'cheradip_live_class'
+        ordering = ('starts_at', 'id')
+        verbose_name_plural = 'Live classes'
+
+    def __str__(self):
+        return self.title
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        errors = {}
+        if self.starts_at and self.ends_at and self.ends_at <= self.starts_at:
+            errors['ends_at'] = 'The class must end after it starts.'
+        if self.is_published and not self.join_url:
+            errors['join_url'] = 'Add a joining link before publishing this class.'
+        if errors:
+            raise ValidationError(errors)

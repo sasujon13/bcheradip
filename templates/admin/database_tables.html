@@ -23,10 +23,10 @@
     <p class="errornote">{{ error }}</p>
     {% endif %}
     {% if table_list %}
-    <ul class="table-list" style="list-style: none; padding-left: 0; column-count: 2; column-gap: 2em;">
+    <ul class="table-list">
         {% for table in table_list %}
-        <li style="margin: 0.35em 0; break-inside: avoid;">
-            <a href="{% url 'admin:database_table_data' db_alias table %}"><code>{{ table }}</code></a>
+        <li>
+            <a href="{% url 'admin:database_table_data' db_alias table %}" title="{{ table }}"><code>{{ table }}</code></a>
         </li>
         {% endfor %}
     </ul>

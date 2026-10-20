@@ -14,6 +14,7 @@ from .institute_scraper_views import (
     PublicInstitutePageDetailsView, PublicInstituteRefreshView,
 )
 from .tutor_views import TutorSearchView
+from .live_class_views import LiveClassScheduleView
 from .tutor_chat import TutorProfileView, TutorModelsView, TutorChatView, TutorSettingsView
 from .student_views import (
     StudentExamResultsView,
@@ -113,6 +114,7 @@ router.register(r'banbeis', BanbeisViewSet, basename='banbeis')
 router.register(r'token', TokenViewSet, basename='token')
 
 urlpatterns = [
+    path('live-classes/', LiveClassScheduleView.as_view(), name='live_class_schedule'),
     path(
         'trxid/',
         TrxInboundAPIView.as_view(),

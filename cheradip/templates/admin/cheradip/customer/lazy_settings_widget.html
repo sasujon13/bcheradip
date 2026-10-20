@@ -1,0 +1,10 @@
+<div class="lazy-settings" data-lazy-settings>
+  <button type="button" class="button lazy-settings-toggle" aria-expanded="{{ widget.loaded|yesno:'true,false' }}" aria-controls="{{ widget.attrs.id }}">{% if widget.loaded %}Hide Settings{% else %}Load Settings{% endif %}</button>
+  <span class="lazy-settings-status" role="status" aria-live="polite"></span>
+  <input type="hidden" name="{{ widget.name }}_loaded" value="{{ widget.loaded|yesno:'1,0' }}" data-settings-loaded>
+  <input type="hidden" name="{{ widget.name }}_revision" value="{{ widget.revision }}" data-settings-revision>
+  <div class="lazy-settings-editor"{% if not widget.loaded %} hidden{% endif %}>
+    <textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}{% if not widget.loaded %} disabled{% endif %}>{% if widget.loaded and widget.value != None %}{{ widget.value }}{% endif %}</textarea>
+  </div>
+  <noscript>JavaScript is needed to load Settings. Other profile fields can still be saved without changing Settings.</noscript>
+</div>

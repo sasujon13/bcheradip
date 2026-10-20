@@ -1,0 +1,8 @@
+{% extends "admin/change_form.html" %}
+{% block object-tools-items %}
+  {% if user.is_superuser %}
+    <li><a href="{% url 'admin:auth_group_changelist' %}">User groups</a></li>
+    <li><a href="{% url 'admin:auth_permission_changelist' %}">User permissions</a></li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

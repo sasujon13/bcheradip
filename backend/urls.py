@@ -22,7 +22,8 @@ _original_index = admin.site.index
 
 def _admin_operations_manual(request):
     context = {**admin.site.each_context(request), 'title': 'Cheradip administration manual',
-               'scraper_frontend_url': _scraper_frontend_url(request)}
+               'scraper_frontend_url': _scraper_frontend_url(request),
+               'commerce_frontend_url': _commerce_frontend_url(request)}
     request.current_app = admin.site.name
     return TemplateResponse(request, 'admin/operations_manual.html', context)
 
@@ -33,6 +34,13 @@ def _scraper_frontend_url(request):
     if settings.DEBUG and hostname in {'localhost', '127.0.0.1'}:
         return f'http://{hostname}:4200/scrape'
     return '/scrape'
+
+
+def _commerce_frontend_url(request):
+    hostname = request.get_host().split(':')[0]
+    if settings.DEBUG and hostname in {'localhost', '127.0.0.1'}:
+        return 'http://localhost:4200/ecommerce/manage'
+    return '/ecommerce/manage'
 
 
 def _admin_get_urls_with_databases():
@@ -82,6 +90,7 @@ def _admin_index(request, extra_context=None):
         'current_db': current_db,
         'table_links_only': True,
         'scraper_frontend_url': _scraper_frontend_url(request),
+        'commerce_frontend_url': _commerce_frontend_url(request),
         **(extra_context or {}),
     }
     request.current_app = admin.site.name

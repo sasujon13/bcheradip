@@ -1,0 +1,12 @@
+{% extends "admin/cheradip/change_list.html" %}
+{% block object-tools-items %}
+  {% if user.is_superuser %}
+    <li><a href="{% url 'admin:auth_group_changelist' %}">User groups</a></li>
+    <li><a href="{% url 'admin:auth_permission_changelist' %}">User permissions</a></li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}
+{% block search %}
+  <p>All customers, staff, and administrators use this same account table. Open a user or select Permissions to manage their access. Profile categories (Student, Teacher, Job Seeker, Others) are not administration roles.</p>
+  {{ block.super }}
+{% endblock %}

@@ -474,57 +474,7 @@
     position: relative;
     top: 1px;
   }
-  /* ----- Well-organised table list grid (same as admin index dashboard) ----- */
-  .admin-tables-wrapper {
-    width: 100%;
-    max-width: 100%;
-    text-align: left;
-    box-sizing: border-box;
-    overflow: visible;
-  }
-  .admin-tables-grid {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .admin-tables-grid li {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
-    min-height: 1.75em;
-    align-self: start;
-  }
-  .admin-tables-grid li.current-table a {
-    font-weight: 700;
-    color: #004d4d;
-    background: rgba(0, 128, 128, 0.12);
-    border-radius: 4px;
-    padding: 0 4px;
-  }
-  .admin-tables-grid a {
-    text-decoration: none;
-    color: var(--primary, #008080);
-    display: block;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    word-break: normal;
-    box-sizing: border-box;
-    line-height: 1.5;
-  }
-  .admin-tables-grid a:hover {
-    color: var(--primary-hover, #006666);
-    text-decoration: underline;
-  }
+  /* Table catalogs use the shared responsive stylesheet. */
   /* ----- Well-organised data grid (generic tables) ----- */
   .table-data-grid-default {
     width: 100%;

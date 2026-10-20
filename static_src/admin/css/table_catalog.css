@@ -1,0 +1,143 @@
+/* Shared database/model catalogs. Record-data tables are deliberately excluded. */
+#content-main .app-cheradip.module table,
+#nav-sidebar .app-cheradip.module table,
+#content-main .app-cheradip.module caption,
+#nav-sidebar .app-cheradip.module caption {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.admin-tables-wrapper { width: 100%; min-width: 0; text-align: start; }
+#content-main .app-cheradip.module tbody:not(.table-catalog) { display: block; }
+#content-main .app-cheradip.module tbody:not(.table-catalog) > tr { display: block; }
+#content-main .app-cheradip.module tbody:not(.table-catalog) > tr > td:only-child {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.table-catalog,
+#content-main .admin-tables-grid,
+#content-main .table-list {
+  display: grid;
+  /* The longest name sets the minimum; share leftover width equally. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--table-catalog-column-width, 20rem)), 1fr));
+  gap: 4px 12px;
+  align-content: start;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  max-height: var(--table-catalog-height, 65dvh);
+  overflow: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: start;
+}
+.table-catalog > tr,
+#content-main .admin-tables-grid > li,
+#content-main .table-list > li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  border-inline-start: 2px solid var(--hairline-color, #ddd);
+  background: var(--darkened-bg, #f8f8f8);
+}
+.table-catalog > tr > th { flex: 1 1 auto; min-width: 0; text-align: start; }
+.table-catalog > tr > td { flex: 0 0 auto; width: auto; }
+.table-catalog > tr > th,
+.table-catalog > tr > td { padding: 8px 6px; white-space: nowrap; }
+.table-catalog > tr > th > a,
+#content-main .admin-tables-grid a,
+#content-main .table-list a {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+#content-main .admin-tables-grid a,
+#content-main .table-list a { width: 100%; padding: 7px 8px; line-height: 1.5; }
+.table-catalog > tr:hover,
+#content-main .admin-tables-grid > li:hover,
+#content-main .table-list > li:hover { border-inline-start-color: var(--primary, #008080); }
+.table-catalog a:focus-visible { outline: 2px solid var(--primary, #008080); outline-offset: -2px; }
+#content-main .admin-tables-grid li.current-table a {
+  font-weight: 700;
+  background: rgba(0, 128, 128, .12);
+}
+.table-update-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  margin-inline-start: .4rem;
+  padding: 0 .35rem;
+  border-radius: 999px;
+  background: var(--primary, #008080);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+}
+/* Measure complete entries, including badges and Add/Change actions. */
+.table-catalog.table-catalog-measure {
+  position: fixed !important;
+  inset: 0 auto auto -100000px !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: max-content !important;
+  max-width: none !important;
+  max-height: none !important;
+  overflow: visible !important;
+  scrollbar-gutter: auto !important;
+  grid-template-columns: max-content !important;
+}
+.table-catalog-measure > tr,
+#content-main .table-catalog-measure > li { width: max-content; max-width: none; }
+.table-catalog-measure a { max-width: none !important; }
+/* Preserve the sidebar's existing icon-only Add action. */
+#nav-sidebar .app-cheradip.module a.addlink {
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  display: inline-block;
+  padding: 8px;
+}
+@media (min-width: 1100px) {
+  .main { --admin-tables-sidebar-width: clamp(275px, 39vw, 48rem); }
+  #nav-sidebar {
+    flex-basis: var(--admin-tables-sidebar-width);
+    left: calc(-1 * var(--admin-tables-sidebar-width) - 1px);
+    margin-left: calc(-1 * var(--admin-tables-sidebar-width) - 1px);
+  }
+  .main.shifted > #nav-sidebar { margin-left: 0; }
+  .main > #nav-sidebar + .content { max-width: 100%; min-width: 0; }
+  .main.shifted > #nav-sidebar + .content {
+    max-width: calc(100% - var(--admin-tables-sidebar-width) - 1px);
+  }
+  [dir="rtl"] #nav-sidebar {
+    left: 0;
+    margin-left: 0;
+    right: calc(-1 * var(--admin-tables-sidebar-width) - 1px);
+    margin-right: calc(-1 * var(--admin-tables-sidebar-width) - 1px);
+  }
+  [dir="rtl"] .main.shifted > #nav-sidebar { margin-right: 0; }
+}
+@media print {
+  .table-catalog, #content-main .admin-tables-grid, #content-main .table-list {
+    max-height: none; overflow: visible;
+  }
+}

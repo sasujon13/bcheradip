@@ -42,13 +42,19 @@ def session_bridge(request):
         if auth:
             CustomerToken.objects.filter(key=auth[1]).delete()
         response = JsonResponse({'loggedIn': False})
-        response.delete_cookie(COOKIE, domain='.cheradip.com', samesite='Lax')
+        # An old tab may still hold A's token while the shared cookie belongs to B.
+        # Revoke the explicit account, never silently log out the other account.
+        if not auth or request.COOKIES.get(COOKIE) in (None, auth[1]):
+            response.delete_cookie(COOKIE, domain='.cheradip.com', samesite='Lax')
         return response
     if request.method != 'GET' or not trusted_request(request):
         return JsonResponse({'error': 'Method or origin not allowed.'}, status=403)
+    cookie_only = request.GET.get('cookie_only') == '1'
+    if cookie_only:
+        request.META.pop('HTTP_AUTHORIZATION', None)
     auth = BearerTokenAuthentication().authenticate(request)
     if not auth:
-        return JsonResponse({'loggedIn': False})
+        return JsonResponse({'loggedIn': False, 'sharedSessionPresent': bool(request.COOKIES.get(COOKIE))})
     user, token = auth
     return JsonResponse({'loggedIn': True, 'authToken': token, 'username': user.username,
                          'fullName': user.fullName, 'acctype': user.acctype})

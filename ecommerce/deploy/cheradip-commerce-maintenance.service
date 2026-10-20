@@ -1,0 +1,16 @@
+[Unit]
+Description=Cheradip commerce reservations, receipts and wallet reconciliation
+After=network-online.target cheradip.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=sasha
+Group=sasha
+WorkingDirectory=/home/sasha/apps/cheradip/bcheradip
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/home/sasha/apps/cheradip/bcheradip/venv/bin/python manage.py commerce_maintenance --limit 200
+TimeoutStartSec=240
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077

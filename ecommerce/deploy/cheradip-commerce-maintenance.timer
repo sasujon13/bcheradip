@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Cheradip commerce maintenance every five minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=5min
+RandomizedDelaySec=20
+Persistent=true
+Unit=cheradip-commerce-maintenance.service
+
+[Install]
+WantedBy=timers.target

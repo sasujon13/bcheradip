@@ -3,11 +3,18 @@ Admin for cheradip default-DB models only.
 Tables: Country, Location, Item, Transaction, OrderDetail, Customer, CustomerToken, Notification, JsonData.
 """
 from django.contrib import admin, messages
+from django.contrib.auth.admin import UserAdmin
+from django.core.exceptions import PermissionDenied
+from django.utils.html import format_html
 from django.db import transaction
 from django.utils import timezone
 from django.shortcuts import render, redirect
+from django.http import JsonResponse, Http404
+from django.views.decorators.http import require_GET
+from django.utils.decorators import method_decorator
 from django.urls import path, reverse
 from django.contrib.admin.views.decorators import staff_member_required
+from .admin_access import CustomerCreationForm, CustomerChangeForm, CustomerPasswordChangeForm, settings_revision
 from .models import (
     Country,
     Location,
@@ -18,6 +25,7 @@ from .models import (
     CustomerToken,
     Notification,
     JsonData,
+    LiveClass,
     TrxManagement,
     PackagePlan,
     PackageSubscription,
@@ -84,6 +92,11 @@ def import_csv_json_view_for_model(model):
 
     @staff_member_required
     def view(request):
+        # Customer uploads must not let ordinary staff import is_superuser,
+        # is_staff, settings or password values through the generic importer.
+        if model is Customer and not request.user.is_superuser:
+            from django.core.exceptions import PermissionDenied
+            raise PermissionDenied('Only an administrator can import customer accounts.')
         changelist_url = reverse('admin:%s_%s_changelist' % (model._meta.app_label, model._meta.model_name))
         table_name = model._meta.db_table
         table_structure = _get_table_structure(table_name)
@@ -202,17 +215,175 @@ admin.site.register(JsonData)
 
 
 @admin.register(Customer)
-class CustomerAdmin(BulkImportCsvJsonMixin, admin.ModelAdmin):
-    list_display = ('username', 'fullName', 'acctype', 'group', 'email', 'is_active', 'date_joined')
+class CustomerAdmin(BulkImportCsvJsonMixin, UserAdmin):
+    form = CustomerChangeForm
+    add_form = CustomerCreationForm
+    change_password_form = CustomerPasswordChangeForm
+    change_list_template = 'admin/cheradip/customer/change_list.html'
+    change_form_template = 'admin/cheradip/customer/change_form.html'
+    ordering = ('-date_joined',)
+    list_display = ('username', 'fullName', 'account_role', 'acctype', 'email', 'is_active', 'is_staff', 'is_superuser', 'permission_link', 'date_joined')
     search_fields = ('username', 'fullName', 'email', 'division', 'district')
-    list_filter = ('acctype', 'group', 'gender', 'is_active', 'date_joined')
-    readonly_fields = ('date_joined', 'last_login', 'updated_at')
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'acctype', 'group', 'gender', 'date_joined')
+    readonly_fields = ('account_role', 'date_joined', 'last_login', 'updated_at')
+    filter_horizontal = ('groups', 'user_permissions')
+    autocomplete_fields = ('referred_by',)
+    add_fieldsets = (
+        ('Create user / customer', {'classes': ('wide',), 'fields': (
+            'username', 'fullName', 'acctype', 'email', 'usable_password', 'password1', 'password2',
+        )}),
+        ('Administration & marketplace access', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+    )
+    fieldsets = (
+        ('Account', {'fields': ('username', 'fullName', 'acctype', 'email', 'profile_image')}),
+        ('Administration & marketplace access', {
+            'description': 'Customers and administrators use the same Customer account. An existing administrator can grant Staff access for the backend and marketplace Manage menu. Grant specific eCommerce permissions below, or select Administrator for full access. Staff cannot grant themselves or others administrator access. Sign in to the website with this same account; website and Django logins on different hosts do not share a browser session.',
+            'fields': ('account_role', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+        ('Education & personal details', {'classes': ('collapse',), 'fields': (
+            'group', 'gender', 'country_code', 'date_of_birth', 'class_name', 'department',
+            'teacher_level', 'teacher_subject_code', 'teacher_department_code', 'teacher_department_name',
+        )}),
+        ('Address & contact', {'classes': ('collapse',), 'fields': (
+            'division', 'district', 'thana', 'union', 'village', 'phone_alternate',
+        )}),
+        ('Account settings & security', {'classes': ('collapse',), 'fields': (
+            'password', 'whatsapp_apikey', 'settings_editor', 'referred_by', 'date_joined', 'last_login', 'updated_at',
+        )}),
+    )
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).defer('settings')
+
+    def get_urls(self):
+        return [path('<path:object_id>/settings-json/', self.admin_site.admin_view(self.settings_json),
+                     name='cheradip_customer_settings_json'), *super().get_urls()]
+
+    @method_decorator(require_GET)
+    def settings_json(self, request, object_id):
+        if not request.user.is_superuser:
+            raise PermissionDenied('Settings are administrator-managed.')
+        obj = self.get_object(request, object_id)
+        if obj is None:
+            raise Http404
+        if not self.has_view_permission(request, obj):
+            raise PermissionDenied
+        value = obj.settings
+        response = JsonResponse({'settings': value, 'revision': settings_revision(value)})
+        response['Cache-Control'] = 'no-store, private'
+        response['X-Content-Type-Options'] = 'nosniff'
+        return response
+
+    @admin.display(description='Settings')
+    def settings_editor(self, obj):
+        return 'Settings are administrator-managed and load only when opened by an administrator.'
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'referred_by':
+            kwargs['queryset'] = Customer.objects.defer('settings')
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    @admin.display(description='Access role')
+    def account_role(self, obj):
+        return 'Administrator' if obj.is_superuser else 'Staff' if obj.is_staff else 'Customer'
+
+    @admin.display(description='Permissions')
+    def permission_link(self, obj):
+        return format_html('<a href="{}">Permissions</a>', reverse('admin:cheradip_customer_change', args=[obj.pk]))
+
+    @admin.display(description='Password')
+    def password_status(self, obj):
+        return 'Password is set (administrator-managed)' if obj and obj.has_usable_password() else 'Password sign-in disabled'
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super().get_fieldsets(request, obj)
+        if request.user.is_superuser or obj is None:
+            return fieldsets
+        return tuple((title, {**options, 'fields': tuple('password_status' if field == 'password' else field for field in options['fields'])})
+                     for title, options in fieldsets)
+
+    def has_change_permission(self, request, obj=None):
+        if obj and (obj.is_staff or obj.is_superuser) and not request.user.is_superuser:
+            return False
+        return super().has_change_permission(request, obj)
+
+    def has_delete_permission(self, request, obj=None):
+        if obj and (obj.is_staff or obj.is_superuser) and not request.user.is_superuser:
+            return False
+        return super().has_delete_permission(request, obj)
+
+    def delete_queryset(self, request, queryset):
+        if not request.user.is_superuser and queryset.filter(is_staff=True).exists():
+            raise PermissionDenied('Only an administrator can delete staff accounts.')
+        if not request.user.is_superuser and queryset.filter(is_superuser=True).exists():
+            raise PermissionDenied('Only an administrator can delete administrator accounts.')
+        super().delete_queryset(request, queryset)
+
+    def user_change_password(self, request, id, form_url=''):
+        if not request.user.is_superuser:
+            raise PermissionDenied('Only an administrator can reset account passwords here.')
+        return super().user_change_password(request, id, form_url)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if obj and 'settings_editor' in form.base_fields:
+            form.base_fields['settings_editor'].widget.attrs['data-settings-url'] = reverse(
+                'admin:cheradip_customer_settings_json', args=[obj.pk])
+        labels = {
+            'is_staff': ('Staff access', 'Allows this account to sign in to Django administration and see Manage in the marketplace. Specific model permissions are still required.'),
+            'is_superuser': ('Administrator — full access', 'Grants every permission, including assigning administrator access to other users. Select only for a trusted site administrator. Staff access is enabled automatically.'),
+            'groups': ('Permission groups', 'Assign existing groups for shared staff permissions. This is separate from the education group (Science, Business Studies, Humanities).'),
+            'user_permissions': ('Individual permissions', 'For marketplace product management select the required eCommerce product, variant, image, category and brand permissions. Orders, payments and other tools have separate permissions.'),
+        }
+        for name, (label, help_text) in labels.items():
+            if name in form.base_fields:
+                form.base_fields[name].label = label
+                form.base_fields[name].help_text = help_text
+        return form
+
+    def save_model(self, request, obj, form, change):
+        if request.user.is_superuser and getattr(form, 'settings_changed', False):
+            obj.settings = form.cleaned_data['settings_editor']
+        if request.user.is_superuser and obj.is_superuser:
+            obj.is_staff = True
+        super().save_model(request, obj, form, change)
 
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
         if request.user.is_superuser:
             return fields
-        return (*fields, 'settings', 'password', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+        return (*fields, 'settings', 'settings_editor', 'password', 'password_status', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+
+
+@admin.register(LiveClass)
+class LiveClassAdmin(admin.ModelAdmin):
+    list_display = ('title', 'subject', 'teacher_name', 'bangladesh_start', 'status', 'is_published')
+    list_filter = ('status', 'is_published', 'level')
+    search_fields = ('title', 'subject', 'topic', 'teacher_name')
+    readonly_fields = ('created_by', 'created_at', 'updated_at')
+    fieldsets = (
+        ('Class details', {'fields': ('title', 'subject', 'level', 'topic', 'teacher_name', 'description')}),
+        ('Schedule & joining', {'description': 'All class times are Bangladesh time (Asia/Dhaka). Published upcoming classes appear in Live Class and dashboard Quick Actions.',
+                                'fields': ('starts_at', 'ends_at', 'join_url', 'status', 'is_published')}),
+        ('Audit', {'classes': ('collapse',), 'fields': ('created_by', 'created_at', 'updated_at')}),
+    )
+
+    @admin.display(description='Start (Bangladesh time)', ordering='starts_at')
+    def bangladesh_start(self, obj):
+        from zoneinfo import ZoneInfo
+        return timezone.localtime(obj.starts_at, ZoneInfo('Asia/Dhaka')).strftime('%d-%b %I:%M %p')
+
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        with timezone.override('Asia/Dhaka'):
+            response = super().changeform_view(request, object_id, form_url, extra_context)
+            if hasattr(response, 'render'):
+                response.render()
+            return response
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.created_by = request.user
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(CustomerToken)

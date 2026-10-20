@@ -85,7 +85,8 @@ class StorefrontFlowTests(TransactionTestCase):
         self.assertEqual(checkout_response.status_code, 201)
         order = checkout_response.json()
         self.assertEqual(order['shipping_total'], '80.00')
-        self.assertEqual(order['grand_total'], '2480.00')
+        self.assertEqual(order['cod_total'], '24.00')
+        self.assertEqual(order['grand_total'], '2504.00')
         self.assertEqual(order['status'], 'pending')
         self.assertEqual(order['payment_status'], 'unpaid')
 
@@ -109,7 +110,7 @@ class StorefrontFlowTests(TransactionTestCase):
             format='json',
         )
         self.assertEqual(payment_response.status_code, 201)
-        self.assertEqual(payment_response.json()['amount'], '2480.00')
+        self.assertEqual(payment_response.json()['amount'], '2504.00')
         placed_order = Order.objects.using('ecommerce').get(number=order['number'])
         self.assertEqual(placed_order.status, 'pending')
         self.assertEqual(placed_order.payment_status, 'pending')
@@ -117,7 +118,7 @@ class StorefrontFlowTests(TransactionTestCase):
         self.variant.refresh_from_db(using='ecommerce')
         self.assertEqual(self.variant.stock, 3)
 
-    def test_free_shipping_threshold_is_applied(self):
+    def test_dhaka_delivery_charge_applies_even_above_old_free_shipping_threshold(self):
         self.variant.price = '3100.00'
         self.variant.save(using='ecommerce', update_fields=['price'])
         cart = self.client.post('/api/ecommerce/cart/', {
@@ -130,7 +131,7 @@ class StorefrontFlowTests(TransactionTestCase):
             'shipping_total': '999999.00',
         }, format='json')
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json()['shipping_total'], '0.00')
+        self.assertEqual(response.json()['shipping_total'], '80.00')
 
 
 class WalletCommerceTests(TransactionTestCase):

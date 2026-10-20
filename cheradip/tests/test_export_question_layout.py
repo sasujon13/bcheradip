@@ -11,10 +11,61 @@ from pathlib import Path
 from django.conf import settings as django_settings
 
 from cheradip.views import ExportQuestionsView
+from cheradip.views import _cq_question_structure_from_bn_markers
 from cheradip.question_export_layout import apply_export_layout_snapshot, mcq_left_first_page_plan
 
 
 class QuestionExportLayoutTests(SimpleTestCase):
+    def test_cq_imported_marker_spacing_still_produces_four_parts(self):
+        structure = _cq_question_structure_from_bn_markers('Stem। ক) A (খ) B ( গ) C ( ঘ ) D')
+        self.assertEqual(structure['intro'], 'Stem।')
+        self.assertEqual(structure['parts'], ['(ক) A', '(খ) B', '(গ) C', '(ঘ) D'])
+
+    def test_cq_stem_and_four_parts_keep_preview_blocks_and_column_break(self):
+        rows = [{
+            'qid': f'layout-cq-{i}', 'type': 'সৃজনশীল প্রশ্ন',
+            'question': text, 'answerSheetParentIndex': 0,
+            'answerSheetSegmentKind': 'intro' if i == 0 else 'part',
+            'answerSheetContinuation': i > 0,
+            **({'answerSheetPartIndex': i - 1, 'answerSheetPartCount': 4} if i else {}),
+        } for i, text in enumerate(['CQ stem', '(ক) Part A', '(খ) Part B', '(গ) Part C', '(ঘ) Part D'])]
+        layout = {
+            'exportLayoutVersion': 1, 'layoutColumns': 2,
+            'previewQuestionsFontPxCreative': 12, 'questionsPaddingCreative': 3,
+            'questionsGapCreative': 8,
+            'exportPreviewPagePlan': [{'kind': 'creative', 'questionColumnIndexes': [[0, 1, 2], [3, 4]]}],
+        }
+        with (
+            patch('cheradip.views.sync_playwright') as playwright,
+            patch('cheradip.views.inject_katex_into_playwright_page'),
+            patch('cheradip.views._playwright_wait_for_export_rich_images'),
+        ):
+            page = playwright.return_value.__enter__.return_value.chromium.launch.return_value.new_page.return_value
+            page.pdf.return_value = b'%PDF-cq-segments'
+            ExportQuestionsView()._build_pdf_playwright(
+                rows, 'Header', 12, 12, 12, 12, 210, 297, raw_data=layout, layout_settings=layout,
+            )
+            html = page.set_content.call_args.args[0]
+        self.assertEqual(html.count('class="q-item q-cq"'), 5)
+        self.assertIn('CQ stem', html)
+        self.assertNotIn('>%s</span>', html)
+        self.assertIn('padding-top: 3.00px; padding-bottom: 0.00px', html)
+        self.assertIn('padding-top: 0.00px; padding-bottom: 0.00px', html)
+        self.assertIn('padding-top: 0.00px; padding-bottom: 3.00px', html)
+        self.assertEqual(html.count('class="q-subpart-marks"'), 4)
+        # The plan may break between B and C; neither exporter may rejoin them.
+        result = ExportQuestionsView()._build_docx(
+            rows, 'Header', 12, 12, 12, 12, 210, 297, raw_data=layout, layout_settings=layout,
+        )
+        document = Document(result)
+        body = [p for p in document.paragraphs if 'CQ stem' in p.text or 'Part ' in p.text]
+        self.assertEqual(len(body), 5)
+        self.assertTrue(all(not p.paragraph_format.keep_with_next for p in body))
+        texts = [p.text for p in document.paragraphs]
+        b = next(i for i, text in enumerate(texts) if 'Part B' in text)
+        c = next(i for i, text in enumerate(texts) if 'Part C' in text)
+        self.assertTrue(any('w:type="column"' in p._p.xml for p in document.paragraphs[b:c + 1]))
+
     def test_docx_binding_column_keeps_ending_content_left_and_header_before_first_question_right(self):
         questions = [
             {'qid': 'first', 'type': 'সৃজনশীল প্রশ্ন', 'question': 'First question'},

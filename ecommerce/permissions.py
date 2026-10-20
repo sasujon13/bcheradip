@@ -1,6 +1,15 @@
 from rest_framework.permissions import BasePermission
 
 
+def can_read_order(user):
+    return bool(user and user.is_authenticated and user.is_active and user.is_staff and
+                (user.is_superuser or user.has_perm('ecommerce.view_order')))
+
+
+def can_submit_payment(user):
+    return bool(can_read_order(user) and (user.is_superuser or user.has_perm('ecommerce.add_payment')))
+
+
 class IsCommerceAdmin(BasePermission):
     message = 'Commerce administrator access is required.'
 

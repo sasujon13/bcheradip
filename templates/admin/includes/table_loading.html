@@ -1,0 +1,13 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'admin/css/table_loading.css' %}?v=20261019a">
+<script src="{% static 'admin/js/table_loading.js' %}?v=20261019a" defer></script>
+<div id="admin-table-loading" class="admin-table-loading" hidden>
+  <div class="admin-table-loader" role="progressbar" aria-label="Loading Tables…" aria-valuetext="Loading Tables…">
+    <span class="admin-table-loader__glow" aria-hidden="true"></span>
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <circle class="admin-table-loader__track" cx="50" cy="50" r="45" />
+      <circle class="admin-table-loader__arc" cx="50" cy="50" r="45" />
+    </svg>
+    <span class="admin-table-loader__message" role="status">Loading<br>Tables…</span>
+  </div>
+</div>

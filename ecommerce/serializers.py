@@ -6,6 +6,7 @@ from .models import (
     ProductVariant, Review, Shipment,
 )
 from .book_catalog import book_variant_ids
+from .pricing import normalize_costs
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -29,6 +30,12 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
 
 class ProductVariantSerializer(serializers.ModelSerializer):
+    def validate_pricing_inputs(self, value):
+        try:
+            return {} if value == {} else normalize_costs(value)
+        except ValueError as exc:
+            raise serializers.ValidationError(str(exc))
+
     class Meta:
         model = ProductVariant
         fields = '__all__'
@@ -67,6 +74,32 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     def get_approved_reviews(self, obj):
         return ReviewSerializer(obj.reviews.filter(is_approved=True), many=True).data
+
+
+class StorefrontVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductVariant
+        fields = ('id', 'title', 'sku', 'price', 'compare_at_price', 'stock', 'is_active',
+                  'option1_name', 'option1_value', 'option2_name', 'option2_value',
+                  'option3_name', 'option3_value', 'requires_shipping', 'allow_backorder')
+
+
+class StorefrontProductSerializer(ProductDetailSerializer):
+    variants = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'slug', 'description', 'short_description', 'category_name',
+                  'brand_name', 'variants', 'images', 'approved_reviews', 'attributes', 'tags',
+                  'delivery_dhaka_charge', 'delivery_outside_dhaka_charge', 'cod_percent')
+
+    def get_variants(self, obj):
+        return StorefrontVariantSerializer(obj.variants.filter(is_active=True), many=True).data
+
+    def get_approved_reviews(self, obj):
+        return [{'id': row.pk, 'customer_name': row.customer_name, 'rating': row.rating,
+                 'title': row.title, 'body': row.body, 'created_at': row.created_at}
+                for row in obj.reviews.filter(is_approved=True)]
 
 
 class BookAssetSerializer(serializers.ModelSerializer):
@@ -214,6 +247,12 @@ class PaymentSerializer(serializers.ModelSerializer):
         read_only_fields = ('status', 'confirmed_by', 'confirmed_at', 'created_at', 'updated_at')
 
 
+class CustomerPaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ('id', 'method', 'amount', 'transaction_id', 'status', 'created_at')
+
+
 class ShipmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shipment
@@ -235,6 +274,32 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+
+class CustomerOrderSerializer(OrderSerializer):
+    """Never disclose internal notes, actor IDs or checkout credentials to customers."""
+    payments = serializers.SerializerMethodField()
+    shipments = serializers.SerializerMethodField()
+    history = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Order
+        fields = ('id', 'number', 'tracking_token', 'customer_name', 'email', 'phone', 'shipping_address',
+                  'billing_address', 'status', 'payment_status', 'currency', 'subtotal',
+                  'discount_total', 'shipping_total', 'cod_total', 'tax_total', 'grand_total', 'coupon_code', 'delivery_quote',
+                  'customer_note', 'created_at', 'updated_at', 'items', 'payments', 'shipments',
+                  'history', 'reservation_expires_at')
+
+    def get_payments(self, obj):
+        return [{'id': p.pk, 'method': p.method, 'amount': p.amount, 'status': p.status,
+                 'transaction_id': p.transaction_id, 'created_at': p.created_at} for p in obj.payments.all()]
+
+    def get_shipments(self, obj):
+        return [{'carrier': s.carrier, 'tracking_number': s.tracking_number, 'tracking_url': s.tracking_url,
+                 'status': s.status, 'shipped_at': s.shipped_at, 'delivered_at': s.delivered_at} for s in obj.shipments.all()]
+
+    def get_history(self, obj):
+        return [{'status': h.status, 'note': h.note, 'created_at': h.created_at} for h in obj.history.all()]
 
 
 class ReviewSerializer(serializers.ModelSerializer):

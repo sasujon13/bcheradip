@@ -1,0 +1,17 @@
+{% extends "admin/login.html" %}
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  .login #container {
+    background: var(--body-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 16em !important;
+    max-width: 48em !important;
+    margin: 100px auto;
+    height: auto;
+    width: 100%;
+  }
+</style>
+{% endblock %}

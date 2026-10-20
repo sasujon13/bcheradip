@@ -63,7 +63,7 @@ def _table_access(request, db_alias, table_name, edit=False):
         permission = f'{model._meta.app_label}.{action}_{model._meta.model_name}'
         if not request.user.has_perm(permission):
             raise PermissionDenied
-        protected = table_name.startswith(('ecommerce_', 'cheradip_admin_', 'cheradip_student_exam_', 'cheradip_wallet_', 'cheradip_rewards_', 'cheradip_withdrawal_', 'cheradip_package', 'cheradip_referral', 'cheradip_membership')) or model._meta.model_name in {'customer', 'customertoken', 'transaction', 'trxmanagement'}
+        protected = table_name.startswith(('ecommerce_', 'cheradip_admin_', 'cheradip_student_exam_', 'cheradip_wallet_', 'cheradip_rewards_', 'cheradip_withdrawal_', 'cheradip_package', 'cheradip_referral', 'cheradip_membership')) or model._meta.model_name in {'customer', 'customertoken', 'transaction', 'trxmanagement', 'group', 'permission'}
         if protected and (edit or request.method == 'POST'):
             raise PermissionDenied('Use the registered administration form/actions for this table. Raw writes are disabled to protect balances and order state.')
     elif not request.user.is_superuser:

@@ -11,6 +11,19 @@ from django.db import connections, router
 
 
 SAFE_ADDITIONS = {
+    ('ecommerce', 'ecommerce', 'deliverysettings', 'cost_defaults'),
+    ('ecommerce', 'ecommerce', 'deliverysettings', 'courier_profiles'),
+    ('ecommerce', 'ecommerce', 'order', 'delivery_quote'),
+    ('ecommerce', 'ecommerce', 'productvariant', 'pricing_inputs'),
+    ('ecommerce', 'ecommerce', 'product', 'delivery_dhaka_charge'),
+    ('ecommerce', 'ecommerce', 'product', 'delivery_outside_dhaka_charge'),
+    ('ecommerce', 'ecommerce', 'product', 'cod_percent'),
+    ('ecommerce', 'ecommerce', 'deliverysettings', 'cod_percent'),
+    ('ecommerce', 'ecommerce', 'order', 'cod_total'),
+    ('ecommerce', 'ecommerce', 'order', 'reservation_expires_at'),
+    ('ecommerce', 'ecommerce', 'order', 'receipt_attempts'),
+    ('ecommerce', 'ecommerce', 'order', 'receipt_sent_at'),
+    ('ecommerce', 'ecommerce', 'order', 'receipt_pending'),
     ("default", "cheradip", "customer", "profile_image"),
     ("default", "cheradip", "customer", "referred_by"),
     ("default", "cheradip", "trxmanagement", "verified"),

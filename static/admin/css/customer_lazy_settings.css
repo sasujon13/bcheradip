@@ -1,0 +1,6 @@
+.lazy-settings { min-width: 0; max-width: 100%; }
+.lazy-settings [hidden] { display: none !important; }
+.lazy-settings-toggle { margin-block-end: 8px; cursor: pointer; }
+.lazy-settings-toggle:disabled { opacity: .6; cursor: wait; }
+.lazy-settings-status { margin-inline: 8px; }
+.lazy-settings textarea { width: min(100%, 900px); box-sizing: border-box; min-height: 280px; font-family: monospace; }

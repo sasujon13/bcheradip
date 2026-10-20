@@ -105,7 +105,8 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
     db_models = {db_alias: [] for db_alias, _ in DATABASE_SECTIONS}
 
     for model, model_admin in site._registry.items():
-        if app_label is not None and model._meta.app_label != app_label:
+        shared_access_model = current_db == 'default' and model._meta.label_lower in {'auth.group', 'auth.permission'}
+        if app_label is not None and model._meta.app_label != app_label and not (app_label == 'cheradip' and shared_access_model):
             continue
         if not model_admin.has_module_permission(request):
             continue
@@ -127,6 +128,8 @@ def get_app_list_by_database(request, app_label=None, force_db=None):
             'add_url': None,
             'update_count': 0,
         }
+        access_names = {'cheradip.customer': 'Users & customers', 'auth.group': 'User groups', 'auth.permission': 'User permissions'}
+        model_dict['name'] = access_names.get(model._meta.label_lower, model_dict['name'])
         if perms.get('change') or perms.get('view'):
             model_dict['view_only'] = not perms.get('change')
         try:

@@ -1,26 +1,73 @@
 from django.contrib import admin
 from django.utils import timezone
+from django.utils.html import format_html
 
 from .models import (
     Book, BookAsset, BookBuildJob, Brand, Cart, CartItem, Category, CommerceNotification, Coupon, ImportJob,
     InventoryMovement, Order, OrderItem, OrderStatusHistory, Payment, Product,
-    ProductImage, ProductVariant, Review, Shipment,
+    ProductImage, ProductVariant, Review, Shipment, DeliverySettings,
 )
 from .book_catalog import sync_book_catalog
 from .book_builder import build_book_asset
 from .order_service import change_order, change_payment
-from .admin_forms import OrderAdminForm, PaymentAdminForm
+from .admin_forms import OrderAdminForm, PaymentAdminForm, DeliverySettingsAdminForm, ShipmentAdminForm, ProductVariantAdminForm
+from .pricing import calculate_price
+from .delivery_rates import listing_defaults
 
 
 for model in (
-    Category, Brand, Product, ProductVariant, ProductImage,
-    Cart, CartItem, Coupon, Shipment,
+    Category, Brand, Product, ProductImage,
+    Cart, CartItem, Coupon,
     Review, CommerceNotification, ImportJob,
 ):
     try:
         admin.site.register(model)
     except admin.sites.AlreadyRegistered:
         pass
+
+
+@admin.register(ProductVariant)
+class ProductVariantAdmin(admin.ModelAdmin):
+    form = ProductVariantAdminForm
+    readonly_fields = ('pricing_summary',)
+
+    @admin.display(description='Saved-cost price estimate')
+    def pricing_summary(self, obj):
+        if not obj or obj.cost_price is None:
+            return 'Enter the source cost and calculator fields. Price changes only if the apply checkbox is selected.'
+        try:
+            result = calculate_price(obj.cost_price, obj.pricing_inputs or listing_defaults(DeliverySettings.current(),obj.weight_grams)[0])
+        except ValueError as exc:
+            return str(exc)
+        return format_html('Costs: Tk {} · Delivery subsidy: Tk {} · Markup: {}% · Profit estimate: Tk {} · Suggested: Tk {}. Existing price is unchanged unless explicitly applied.',
+            result['total_cost'], result['delivery_subsidy'], result['markup_percent'], result['profit_amount'], result['suggested_price'])
+
+
+@admin.register(DeliverySettings)
+class DeliverySettingsAdmin(admin.ModelAdmin):
+    form = DeliverySettingsAdminForm
+    fields = ('dhaka_charge', 'outside_dhaka_charge', 'cod_percent', 'cost_defaults', 'courier_profiles', 'unpaid_reservation_hours', 'support_phone', 'return_policy')
+
+    def has_add_permission(self, request):
+        return not DeliverySettings.objects.using('ecommerce').exists() and super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(Shipment)
+class ShipmentAdmin(admin.ModelAdmin):
+    form = ShipmentAdminForm
+    list_display = ('order', 'carrier', 'tracking_number', 'status', 'delivered_at')
+
+    def save_model(self, request, obj, form, change):
+        from django.core.exceptions import PermissionDenied
+        from .order_service import save_shipment
+        if obj.status != 'preparing' and (not change or 'status' in form.changed_data) and not request.user.has_perm('ecommerce.change_order'):
+            raise PermissionDenied('Permission to change orders is required for fulfilment updates.')
+        saved = save_shipment(obj if change else None,
+            {field: getattr(obj, field) for field in ('order', 'carrier', 'tracking_number', 'tracking_url', 'status', 'shipped_at', 'delivered_at')}, request.user.pk)
+        obj.pk = saved.pk
 
 
 class ImmutableCommerceRecordAdmin(admin.ModelAdmin):

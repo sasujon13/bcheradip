@@ -1,4 +1,5 @@
 import base64
+import re
 from io import BytesIO
 from unittest import skipUnless
 from unittest.mock import Mock, patch
@@ -11,11 +12,24 @@ from cheradip.views import (
     ExportQuestionsView,
     PLAYWRIGHT_AVAILABLE,
     _EXPORT_Q_RICH_IMG_PDF_SCRIPT,
+    _export_format_question_media_html,
     _playwright_wait_for_export_rich_images,
 )
 
 
 class ExportQuestionImageReadinessTests(SimpleTestCase):
+    def test_absolute_media_url_does_not_leave_domain_text_beside_image(self):
+        with patch('cheradip.views._export_media_file_exists_at_media_path', return_value=False):
+            html = _export_format_question_media_html(
+                'Before https://cheradip.com/manage/media/example.png After', 'https://cheradip.com'
+            )
+        self.assertIn('<img ', html)
+        self.assertIn('Before ', html)
+        self.assertIn(' After', html)
+        outside_tags = re.sub(r'<[^>]*>', '', html)
+        self.assertNotIn('https://', outside_tags)
+        self.assertNotIn('/manage', outside_tags)
+
     def test_pdf_wait_rejects_failed_images(self):
         page = Mock()
         page.evaluate.return_value = 2

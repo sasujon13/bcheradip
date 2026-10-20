@@ -1,7 +1,88 @@
 from django import forms
 from cheradip.models import WalletOperation
-from .models import Order, Payment
+from .models import Order, Payment, Shipment, DeliverySettings, ProductVariant
 from .order_service import TRANSITIONS
+from .pricing import COST_FIELDS, calculate_price, normalize_costs, normalize_default_costs
+from .delivery_rates import listing_defaults, normalize_profiles
+
+
+class ProductVariantAdminForm(forms.ModelForm):
+    use_default_costs = forms.BooleanField(required=False, initial=True,
+        label='Use central cost defaults and weight-derived courier budget', help_text='Only sourcing cost stays product-specific. Uncheck for manual per-item costs.')
+    supplier_delivery_max = forms.DecimalField(min_value=0, max_digits=14, decimal_places=2, required=False, label='Maximum supplier delivery (Tk)')
+    customer_delivery_charge = forms.DecimalField(min_value=0, max_digits=14, decimal_places=2, required=False, label='Customer delivery budget (Tk)')
+    ads_cost = forms.DecimalField(min_value=0, max_digits=14, decimal_places=2, required=False, label='Ads cost per item (Tk)')
+    packaging_cost = forms.DecimalField(min_value=0, max_digits=14, decimal_places=2, required=False, label='Packaging per item (Tk)')
+    returns_allowance = forms.DecimalField(min_value=0, max_digits=14, decimal_places=2, required=False, label='Return / failed delivery allowance (Tk)')
+    other_costs = forms.DecimalField(min_value=0, max_digits=14, decimal_places=2, required=False, label='Other costs per item (Tk)')
+    apply_suggested_price = forms.BooleanField(required=False, label='Apply calculated selling price when saving',
+        help_text='Opt-in only. All-cost markup: 20% through Tk100; 19% through Tk200; decrease one point per Tk100 to 10% above Tk1000.')
+
+    class Meta:
+        model = ProductVariant
+        exclude = ('pricing_inputs',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['price'].required = False
+        policy = DeliverySettings.current()
+        saved_costs = self.instance.pricing_inputs if isinstance(self.instance.pricing_inputs, dict) else {}
+        try: defaults, _ = listing_defaults(policy, self.instance.weight_grams)
+        except ValueError: defaults = {key:0 for key in COST_FIELDS}
+        self.initial['use_default_costs'] = not saved_costs
+        for key in COST_FIELDS:
+            self.initial[key] = saved_costs.get(key, defaults[key])
+
+    def clean(self):
+        data = super().clean()
+        if any(key in self.errors for key in COST_FIELDS):
+            return data
+        try:
+            use_defaults = data.get('use_default_costs')
+            costs = listing_defaults(DeliverySettings.current(),data.get('weight_grams',0))[0] if use_defaults else normalize_costs({key: data.get(key) if data.get(key) is not None else 0 for key in COST_FIELDS})
+            if data.get('apply_suggested_price'):
+                data['price'] = calculate_price(data.get('cost_price'), costs)['suggested_price']
+            elif data.get('price') is None:
+                self.add_error('price', 'Enter a selling price or select Apply calculated selling price.')
+            self.instance.pricing_inputs = {} if use_defaults else costs
+        except ValueError as exc:
+            raise forms.ValidationError(str(exc))
+        return data
+
+
+class DeliverySettingsAdminForm(forms.ModelForm):
+    def clean_cost_defaults(self):
+        try: return normalize_default_costs(self.cleaned_data['cost_defaults'])
+        except ValueError as exc: raise forms.ValidationError(str(exc))
+
+    def clean_courier_profiles(self):
+        try: return normalize_profiles(self.cleaned_data['courier_profiles'])
+        except ValueError as exc: raise forms.ValidationError(str(exc))
+    dhaka_charge = forms.DecimalField(min_value=0, max_digits=10, decimal_places=2)
+    outside_dhaka_charge = forms.DecimalField(min_value=0, max_digits=10, decimal_places=2)
+    cod_percent = forms.DecimalField(min_value=0, max_value=100, max_digits=5, decimal_places=2, label='Default COD charge (%)')
+    unpaid_reservation_hours = forms.IntegerField(min_value=1, max_value=720)
+
+    class Meta:
+        model = DeliverySettings
+        fields = '__all__'
+
+
+class ShipmentAdminForm(forms.ModelForm):
+    status = forms.ChoiceField(choices=[(s, s.title()) for s in ('preparing', 'shipped', 'delivered', 'returned')])
+
+    class Meta:
+        model = Shipment
+        fields = '__all__'
+
+    def clean(self):
+        data = super().clean()
+        order, status = data.get('order'), data.get('status')
+        if self.instance.pk and order and self.instance.order_id != order.pk:
+            self.add_error('order', 'A shipment cannot be moved to a different order.')
+        if order and status and status != 'preparing' and status != order.status and status not in TRANSITIONS.get(order.status, set()):
+            self.add_error('status', f'Cannot change a {order.status} order to {status}. Update the order through an allowed transition first.')
+        return data
 
 
 class OrderAdminForm(forms.ModelForm):

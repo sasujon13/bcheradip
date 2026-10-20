@@ -150,7 +150,7 @@
     outline-color: var(--header-on-primary-hover) !important;
   }
   .module h2, .module caption, .inline-group h2 {
-    background: var(--primary) !important;
+    /* background: var(--primary) !important; */
     color: var(--header-on-primary) !important;
     padding: 7px;
   }
@@ -196,69 +196,6 @@
   #nav-sidebar .module caption {
     padding-left: 8px;
   }
-  /* Nav sidebar (#nav-sidebar): Cheradip app list — same full-width + grid idea as main content (index.html).
-     Sidebar is ~275px; use two columns max (four is impractical here). */
-  #nav-sidebar .app-cheradip.module {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    container-type: inline-size;
-    container-name: nav-sidebar-cheradip;
-  }
-  #nav-sidebar .app-cheradip.module table {
-    width: 100% !important;
-    max-width: 100%;
-    display: block;
-    box-sizing: border-box;
-  }
-  #nav-sidebar .app-cheradip.module caption {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  #nav-sidebar .app-cheradip.module tbody {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 2px 0.35rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  #nav-sidebar .app-cheradip.module tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    box-sizing: border-box;
-  }
-  #nav-sidebar .app-cheradip.module tbody tr:only-child {
-    grid-column: 1 / -1;
-  }
-  /* nav_sidebar.css sets th { width: 100% } — override for Cheradip sidebar rows */
-  #nav-sidebar .app-cheradip.module tbody tr th {
-    width: inherit;
-    max-width: 85%;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-  #nav-sidebar .app-cheradip.module tbody tr td {
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
-  /* Hide the translated "Add" text only; link target unchanged. */
-  #nav-sidebar .app-cheradip.module tbody tr td a.addlink {
-    font-size: 0 !important;
-    line-height: 0 !important;
-    color: transparent !important;
-    display: inline-block;
-    padding: 0.5rem 0.5rem;
-    vertical-align: middle;
-  }
-  @supports (container-type: inline-size) {
-    @container nav-sidebar-cheradip (max-width: 200px) {
-      #nav-sidebar .app-cheradip.module tbody {
-        grid-template-columns: 1fr;
-      }
-    }
-  }
   /* Keep Django .colMS margin for changelist sidebar; dashboard full-width is in index.html only. */
 </style>
 {% endblock %}
@@ -267,6 +204,8 @@
 {% block responsive %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static "admin/css/responsive.css" %}">
+<link rel="stylesheet" href="{% static "admin/css/table_catalog.css" %}?v=20261019d">
+<script src="{% static 'admin/js/table_catalog.js' %}?v=20261019c" defer></script>
     {% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
     <style>
       .branding-logo-img { height: 2.8em !important; max-height: 40px !important; }
@@ -460,6 +399,7 @@
 <!-- END Container -->
 
 {% block extrabody %}
+{% include 'admin/includes/table_loading.html' %}
 {# Changelist filter dropdowns: sync load at end of body so #changelist-filter exists; inline hide if admin_changelist_filters.css is missing. #}
 <style>
   #changelist-filter.admin-filter-dd-ready details[data-filter-title] {
