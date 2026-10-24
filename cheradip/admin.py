@@ -222,7 +222,11 @@ class CustomerAdmin(BulkImportCsvJsonMixin, UserAdmin):
     change_list_template = 'admin/cheradip/customer/change_list.html'
     change_form_template = 'admin/cheradip/customer/change_form.html'
     ordering = ('-date_joined',)
-    list_display = ('username', 'fullName', 'account_role', 'acctype', 'email', 'is_active', 'is_staff', 'is_superuser', 'permission_link', 'date_joined')
+    list_display = ('display_mobile', 'fullName', 'account_role', 'acctype', 'email', 'is_active', 'is_staff', 'is_superuser', 'permission_link', 'date_joined')
+    @admin.display(description='Mobile / username',ordering='username')
+    def display_mobile(self,obj):
+        from ecommerce.phone_display import local_contact
+        return local_contact(obj.username,obj.country_code or 'BD')
     search_fields = ('username', 'fullName', 'email', 'division', 'district')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'acctype', 'group', 'gender', 'date_joined')
     readonly_fields = ('account_role', 'date_joined', 'last_login', 'updated_at')

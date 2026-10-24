@@ -1,6 +1,6 @@
 """Validated, authoritative checkout quotes. No stock or wallet writes here."""
 import re
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_HALF_UP, ROUND_CEILING
 from .delivery_rates import delivery_zone, weight_range
 
 from django.utils import timezone
@@ -57,6 +57,10 @@ class CheckoutInputSerializer(serializers.Serializer):
             raise serializers.ValidationError({'shipping_address': 'Enter the street/village delivery address.'})
         if data['payment_method'] not in {'cod', 'wallet'} and not data['transaction_id'].strip():
             raise serializers.ValidationError({'transaction_id': 'Provide the payment transaction/reference number for manual verification.'})
+        from .phone_display import local_contact
+        country=data['shipping_address'].get('country_code','BD')
+        data['phone']=local_contact(data['phone'],country)
+        data['phone_alternate']=local_contact(data.get('phone_alternate',''),country)
         return data
 
 
@@ -86,6 +90,14 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
     if lines is None:
         shipping = effective(None, delivery_field, default_delivery, Decimal('99999999.99')) if requires_shipping else Decimal('0')
     else:
+        from .supplier_delivery import split_supplier_delivery
+        all_lines = lines
+        try:
+            lines, supplier_shipments = split_supplier_delivery(lines, dhaka)
+        except ValueError as exc:
+            raise serializers.ValidationError({'shipping_address': str(exc)})
+        direct = sum((Decimal(s['charged']) for s in supplier_shipments), Decimal('0'))
+        details['supplier_shipments'] = supplier_shipments
         # Explicit fixed product fees remain exceptions. Ordinary parcels use
         # total weight * quantity, not the median of product-level fees.
         fees = {}; normal = []
@@ -114,6 +126,14 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
         low, high = (min(candidates), max(candidates)) if candidates else (Decimal('0'),Decimal('0'))
         shipping = ((low+high)/2).quantize(Decimal('.01'),rounding=ROUND_HALF_UP)
         details.update(minimum=str(low), maximum=str(high))
+        shipping += direct
+        # Do not present an ordinary courier estimate as a confirmed expense.
+        if not any(v.requires_shipping for v,q in lines):
+            details['supplier_cost'] = str(direct)
+        details['weight_grams'] += sum(s['weight_grams'] for s in supplier_shipments)
+        lines = all_lines  # COD applies to every product, not just ordinary parcels.
+    if not requires_shipping:
+        details['supplier_cost'] = '0.00'
     details['charged'] = str(shipping)
     discount = Decimal('0')
     coupon = None
@@ -128,6 +148,15 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
             raise serializers.ValidationError({'coupon_code': 'This coupon is invalid, expired, exhausted, or its minimum order has not been reached.'})
         if coupon.discount_type == 'percent':
             discount = subtotal * min(Decimal('100'), max(Decimal('0'), coupon.value)) / 100
+            if coupon.value == Decimal('10') and lines is not None and sum(
+                    (v.price * quantity for v, quantity in lines), Decimal('0')) == subtotal:
+                from .pricing import reserved_ten_percent_discount
+                # Only owner-configured, unchanged reserve prices get whole-taka
+                # per-unit rounding. An ordinary/manual-price line stays at 10%.
+                for variant, quantity in lines:
+                    reserved_discount = reserved_ten_percent_discount(variant)
+                    if reserved_discount is not None:
+                        discount += (reserved_discount - variant.price / 10) * quantity
         elif coupon.discount_type == 'fixed':
             discount = min(subtotal, max(Decimal('0'), coupon.value))
         elif coupon.discount_type == 'shipping':
@@ -143,8 +172,11 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
             cod = sum((v.price * quantity * net_ratio * effective(v.product, 'cod_percent', policy.cod_percent, Decimal('100')) / 100
                        for v, quantity in lines), Decimal('0'))
         cod = cod.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
-    total = (subtotal - discount + shipping + cod).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+    exact_total = (subtotal - discount + shipping + cod).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+    total=exact_total.to_integral_value(rounding=ROUND_CEILING).quantize(Decimal('.01'))
+    adjustment=total-exact_total
+    details['rounding_adjustment']=str(adjustment)
     if total > Decimal('999999999999.99'):
         raise serializers.ValidationError('The order total exceeds the supported amount. Please split the order.')
     return {'subtotal': subtotal, 'shipping_total': shipping, 'discount_total': discount,
-            'cod_total': cod, 'grand_total': total, 'coupon_code': code, 'delivery_details': details}, coupon
+            'cod_total': cod, 'grand_total': total, 'rounding_adjustment':adjustment,'coupon_code': code, 'delivery_details': details}, coupon

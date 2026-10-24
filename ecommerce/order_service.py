@@ -98,6 +98,13 @@ def change_order(order_id, new_status, actor_id=None, note='', admin_note=None):
     old_status = order.status
     if new_status != old_status and new_status not in TRANSITIONS.get(old_status, set()):
         raise ValueError(f'Cannot change a {old_status} order to {new_status}.')
+    if old_status=='pending' and new_status in {'confirmed','processing','shipped','delivered','completed'}:
+        from .supplier_pilot import require_order_checks
+        require_order_checks(order)
+        from .supplier_confirmation import confirm, pending
+        if pending(order):
+            confirm(order,actor_id)
+            note = (note+' Supplier stock, requested quantity and delivery confirmed by staff.').strip()
     wallet = order.payments.filter(method='wallet').exists()
     if new_status == 'completed' and order.payment_status == 'refunded':
         raise ValueError('A refunded payment cannot complete an order.')
@@ -111,6 +118,11 @@ def change_order(order_id, new_status, actor_id=None, note='', admin_note=None):
         refund_wallet(order)
         order.payment_status = 'refunded'
         order.payments.filter(method='wallet').update(status='refunded')
+    elif new_status == 'refunded':
+        # Non-wallet refunds must also reverse reporting; previously a refunded
+        # order remained paid and continued inflating the sales card.
+        order.payment_status = 'refunded'
+        order.payments.filter(status='confirmed').update(status='refunded')
     elif new_status == 'completed':
         order.payment_status = 'paid'
         order.payments.filter(status='pending').update(status='confirmed', confirmed_by=actor_id, confirmed_at=timezone.now())
@@ -123,6 +135,10 @@ def change_order(order_id, new_status, actor_id=None, note='', admin_note=None):
                 continue
             variant = ProductVariant.objects.using('ecommerce').select_for_update().filter(pk=item.variant_id).first()
             if variant:
+                from .manual_catalogue import is_manual
+                if is_manual(variant.product) and not InventoryMovement.objects.using('ecommerce').filter(
+                    variant=variant, reference=order.number, reason='sale').exists():
+                    continue  # No local inventory was reserved for this supplier request.
                 variant.stock += item.quantity
                 variant.save(using='ecommerce', update_fields=['stock', 'updated_at'])
                 InventoryMovement.objects.using('ecommerce').create(
@@ -157,6 +173,9 @@ def change_payment(payment_id, new_status, actor_id=None, note=''):
         raise ValueError('Invalid payment status transition.')
     if new_status == 'confirmed' and order.status in {'cancelled', 'refunded'}:
         raise ValueError('A cancelled or refunded order cannot receive a payment confirmation.')
+    from .supplier_confirmation import pending as stock_pending
+    if new_status == 'confirmed' and stock_pending(order):
+        raise ValueError('Confirm supplier stock and delivery on the order before confirming any payment.')
     if payment.method == 'wallet' and new_status == 'confirmed':
         if not settle_wallet_order(order.pk):
             raise ValueError('No committed wallet debit exists. Reconcile this order first.')

@@ -1,0 +1,34 @@
+/* Solid administration actions must override the global teal anchor colours. */
+#container :is(a.button, a.deletelink, a.cancel-link, a.closelink, .object-tools a,
+  .submit-row input, input[type="submit"], input[type="button"],
+  .btn-delete, .btn-approve, .btn-row-delete, .btn-row-approve,
+  .btn-dlg-approve, .btn-dlg-deny, .btn-dlg-close,
+  .btn-dlg-footer-approve, .btn-dlg-footer-deny,
+  .admin-filter-dd-actions button:not(.admin-filter-dd-clear)),
+#container :is(a.button, a.deletelink, a.cancel-link, a.closelink, .object-tools a,
+  .submit-row input, input[type="submit"], input[type="button"],
+  .btn-delete, .btn-approve, .btn-row-delete, .btn-row-approve,
+  .btn-dlg-approve, .btn-dlg-deny, .btn-dlg-close,
+  .btn-dlg-footer-approve, .btn-dlg-footer-deny,
+  .admin-filter-dd-actions button:not(.admin-filter-dd-clear)):is(:hover, :focus, :visited) {
+  color: #fff !important;
+}
+#content .table-data-header .header-actions button {
+  color: #fff !important;
+  background: var(--primary, #008080);
+  border: 1px solid var(--primary, #008080);
+  border-radius: 4px;
+}
+#content .table-data-header .header-actions button:is(:hover, :focus-visible) {
+  color: #fff !important;
+  background: var(--primary-hover, #006666);
+}
+#container a:is(.button, .deletelink, .cancel-link, .closelink) > :is(span, code, strong, small) { color: inherit !important; }
+#container .breadcrumbs a,
+#container .breadcrumbs a:is(:link, :visited, :hover, :focus-visible) { color: #fff !important; }
+[data-theme="dark"] #content-main :is(.table-list, .admin-tables-grid) a,
+[data-theme="dark"] #content-main :is(.table-list, .admin-tables-grid) a:hover { color: #fff !important; }
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] #content-main :is(.table-list, .admin-tables-grid) a,
+  [data-theme="auto"] #content-main :is(.table-list, .admin-tables-grid) a:hover { color: #fff !important; }
+}

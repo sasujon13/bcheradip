@@ -18,6 +18,7 @@ from rest_framework.views import APIView
 
 from .models import (Brand, Category, CommerceNotification, Coupon, ImportJob, InventoryMovement,
                      Order, Payment, Product, ProductImage, ProductVariant, Review, Shipment, Book, DeliverySettings)
+from .models import Supplier
 from .permissions import IsCommerceAdmin
 from .pricing import calculate_price
 from .delivery_rates import listing_defaults
@@ -30,6 +31,7 @@ from .views import (AdminOrderViewSet, AdminPaymentViewSet, AdminProductViewSet,
 MODELS = {model._meta.model_name: model for model in (
     Product, ProductVariant, ProductImage, Category, Brand, Order, Payment, InventoryMovement,
     Shipment, Coupon, Review, CommerceNotification, ImportJob, Book, DeliverySettings,
+    Supplier,
 )}
 
 
@@ -75,7 +77,8 @@ class PricingPreviewView(CommerceAdminAuthMixin, APIView):
         grams = serializers.IntegerField(min_value=0,max_value=1000000).run_validation(request.data.get('weight_grams',0))
         try:
             costs, estimated = listing_defaults(DeliverySettings.current(), grams) if use_defaults else (request.data.get('costs',{}), False)
-            result = calculate_price(request.data.get('source_cost'), costs)
+            config=DeliverySettings.current()
+            result = calculate_price(request.data.get('source_cost'), costs, subsidy_enabled=config.delivery_subsidy_enabled,rules=config.pricing_rules)
             result.update(use_defaults=use_defaults, weight_grams=grams or (1000 if use_defaults else 0), estimated_weight=estimated)
         except ValueError as exc:
             raise ValidationError({'detail': str(exc)})
@@ -100,6 +103,7 @@ class ManagedProductSerializer(ProductDetailSerializer):
     images = ManagedImageSerializer(many=True, required=False)
 
     def validate(self, data):
+        data = super().validate(data)
         user = self.context['request'].user
         if self.instance is None and not data.get('variants'):
             raise ValidationError({'variants': 'Add at least one priced variant.'})

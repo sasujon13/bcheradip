@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db import transaction
 from django.utils import timezone
 from django.utils.html import format_html
 
@@ -13,10 +14,11 @@ from .order_service import change_order, change_payment
 from .admin_forms import OrderAdminForm, PaymentAdminForm, DeliverySettingsAdminForm, ShipmentAdminForm, ProductVariantAdminForm
 from .pricing import calculate_price
 from .delivery_rates import listing_defaults
+from . import supplier_admin  # noqa: F401 - register private sourcing tools
 
 
 for model in (
-    Category, Brand, Product, ProductImage,
+    Category, Brand, ProductImage,
     Cart, CartItem, Coupon,
     Review, CommerceNotification, ImportJob,
 ):
@@ -24,6 +26,32 @@ for model in (
         admin.site.register(model)
     except admin.sites.AlreadyRegistered:
         pass
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'status', 'is_sample', 'updated_at')
+    search_fields = ('name', 'slug', 'variants__sku')
+    list_filter = ('status', 'is_sample')
+
+    def get_deleted_objects(self, objs, request):
+        from .models import OrderItem
+        deleted, counts, permissions, protected = super().get_deleted_objects(objs, request)
+        if OrderItem.objects.using('ecommerce').filter(product_id__in=[obj.pk for obj in objs]).exists():
+            protected.append('Existing order history. Archive these products instead of deleting them.')
+        return deleted, counts, permissions, protected
+
+    def delete_queryset(self, request, queryset):
+        from django.core.exceptions import PermissionDenied
+        from .models import OrderItem
+        with transaction.atomic(using='ecommerce'):
+            ids = list(queryset.select_for_update().values_list('pk', flat=True))
+            if OrderItem.objects.using('ecommerce').filter(product_id__in=ids).exists():
+                raise PermissionDenied('Products with order history must be archived, not deleted.')
+            queryset.delete()
+
+    def delete_model(self, request, obj):
+        self.delete_queryset(request, Product.objects.using('ecommerce').filter(pk=obj.pk))
 
 
 @admin.register(ProductVariant)
@@ -36,7 +64,7 @@ class ProductVariantAdmin(admin.ModelAdmin):
         if not obj or obj.cost_price is None:
             return 'Enter the source cost and calculator fields. Price changes only if the apply checkbox is selected.'
         try:
-            result = calculate_price(obj.cost_price, obj.pricing_inputs or listing_defaults(DeliverySettings.current(),obj.weight_grams)[0])
+            result = calculate_price(obj.cost_price, obj.pricing_inputs or listing_defaults(DeliverySettings.current(),obj.weight_grams)[0], subsidy_enabled=DeliverySettings.current().delivery_subsidy_enabled,rules=DeliverySettings.current().pricing_rules)
         except ValueError as exc:
             return str(exc)
         return format_html('Costs: Tk {} · Delivery subsidy: Tk {} · Markup: {}% · Profit estimate: Tk {} · Suggested: Tk {}. Existing price is unchanged unless explicitly applied.',
@@ -46,7 +74,14 @@ class ProductVariantAdmin(admin.ModelAdmin):
 @admin.register(DeliverySettings)
 class DeliverySettingsAdmin(admin.ModelAdmin):
     form = DeliverySettingsAdminForm
-    fields = ('dhaka_charge', 'outside_dhaka_charge', 'cod_percent', 'cost_defaults', 'courier_profiles', 'unpaid_reservation_hours', 'support_phone', 'return_policy')
+    fields = ('dhaka_charge', 'outside_dhaka_charge', 'cod_percent', 'delivery_subsidy_enabled', 'cost_defaults', 'pricing_rules', 'courier_profiles', 'unpaid_reservation_hours', 'support_phone', 'return_policy')
+
+    def save_model(self,request,obj,form,change):
+        super().save_model(request,obj,form,change)
+        if 'pricing_rules' in form.changed_data:
+            from .supplier_service import audit
+            audit('central_pricing_rules_saved',request.user.pk,rules=obj.pricing_rules,
+                  existing_orders_unchanged=True,source='django_admin')
 
     def has_add_permission(self, request):
         return not DeliverySettings.objects.using('ecommerce').exists() and super().has_add_permission(request)

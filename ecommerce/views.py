@@ -7,6 +7,8 @@ from django.db.models import Case, Count, DecimalField, F, IntegerField, OuterRe
 from django.db.models.functions import Coalesce
 from django.http import FileResponse, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 from rest_framework import status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -18,6 +20,7 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 
 from cheradip.models import Customer, MembershipProgress, PackageSubscription, RewardsWallet, WalletOperation
 from .order_service import settle_wallet_order, change_order, change_payment
+from .order_reporting import capture_costs
 from cheradip.views import BearerTokenAuthentication
 from cheradip.wallet_service import deduct_wallet_coins
 
@@ -66,24 +69,34 @@ def _coins_to_taka(coins):
 def _product_queryset(include_inactive=False):
     first_variant = ProductVariant.objects.using('ecommerce').filter(product_id=OuterRef('pk'), is_active=True).order_by(Case(When(stock__gt=0, then=0), default=1, output_field=IntegerField()), 'id')
     first_image = ProductImage.objects.using('ecommerce').filter(product_id=OuterRef('pk')).order_by('position', 'id')
+    from .supplier_media import source_image_url_condition
+    first_image = first_image.filter(Q(product__supplier_offer__source_product__isnull=True) | (
+        Q(source_media__product_id=F('product__supplier_offer__source_product_id'),
+          source_media__last_run_id=F('product__supplier_offer__source_product__last_run_id'),
+          source_media__metadata__verified_image=True) & source_image_url_condition()))
     qs = Product.objects.using('ecommerce').select_related('category', 'brand').annotate(
         price=Subquery(first_variant.values('price')[:1], output_field=DecimalField(max_digits=14, decimal_places=2)),
         compare_at_price=Subquery(first_variant.values('compare_at_price')[:1], output_field=DecimalField(max_digits=14, decimal_places=2)),
         stock=Coalesce(Sum('variants__stock', filter=Q(variants__is_active=True)), 0),
         image_url=Subquery(first_image.values('url')[:1]),
         default_variant_id=Subquery(first_variant.values('id')[:1]),
+        allow_backorder=Subquery(first_variant.values('allow_backorder')[:1]),
     )
-    return qs if include_inactive else qs.filter(status='active')
+    if include_inactive: return qs
+    from .supplier_pilot import public_product_ids
+    return qs.filter(status='active').filter(Q(supplier_offer__isnull=True)|Q(pk__in=public_product_ids()))
 
 
+@method_decorator(never_cache, name='dispatch')
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
     pagination_class = None
 
     def get_queryset(self):
+        from .supplier_pilot import public_product_ids
         return Category.objects.using('ecommerce').filter(is_active=True).annotate(
-            product_count=Count('products', filter=Q(products__status='active'), distinct=True)
+            product_count=Count('products', filter=Q(products__status='active') & (Q(products__supplier_offer__isnull=True)|Q(products__pk__in=public_product_ids())), distinct=True)
         )
 
 
@@ -110,6 +123,7 @@ class StorefrontProductPagination(LimitOffsetPagination):
         return super().get_offset(request)
 
 
+@method_decorator(never_cache, name='dispatch')
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     lookup_field = 'slug'
@@ -131,7 +145,8 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         if params.get('brand'):
             qs = qs.filter(brand__slug=params['brand'])
         if params.get('in_stock') == 'true':
-            qs = qs.filter(stock__gt=0)
+            from .supplier_confirmation import MARKER
+            qs = qs.filter(Q(stock__gt=0)|Q(allow_backorder=True,**{'attributes__'+MARKER:True}))
         if params.get('featured') in {'1', 'true'}:
             qs = qs.filter(featured=True)
         def price_param(name):
@@ -157,7 +172,10 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         if ordering in {'price', '-price', 'name', '-name', 'created_at', '-created_at'}:
             qs = qs.order_by(ordering, 'pk')
         else:
-            qs = qs.order_by('-featured', '-created_at', 'pk')
+            # Put usable photographed listings first; incomplete catalogue
+            # identities remain visible further down, never masquerading as free.
+            qs = qs.order_by('-featured', Case(When(price__isnull=True, then=1), default=0, output_field=IntegerField()),
+                Case(When(image_url__isnull=True, then=1), default=0, output_field=IntegerField()), '-created_at', 'pk')
         return qs
 
 
@@ -343,6 +361,9 @@ class CartView(APIView):
         variant = ProductVariant.objects.using('ecommerce').select_related('product').filter(pk=request.data.get('variant_id'), is_active=True, product__status='active').first()
         if not variant:
             return Response({'detail': 'Product variant not found.'}, status=status.HTTP_404_NOT_FOUND)
+        from .supplier_guards import is_supplier_staging, MESSAGE
+        if is_supplier_staging(variant.product_id):
+            return Response({'detail': MESSAGE}, status=409)
         try:
             quantity = int(request.data.get('quantity', 1))
         except (TypeError, ValueError):
@@ -428,6 +449,9 @@ class CheckoutView(APIView):
                     variant = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=cart_item.variant_id)
                     if not variant.is_active or variant.product.status != 'active':
                         return Response({'detail': f'{variant.sku} is no longer available.'}, status=409)
+                    from .supplier_guards import is_supplier_staging, MESSAGE
+                    if is_supplier_staging(variant.product_id):
+                        return Response({'detail': MESSAGE}, status=409)
                     if not variant.price.is_finite() or variant.price < 0:
                         return Response({'detail': f'{variant.sku} has an invalid price.'}, status=409)
                     if not variant.allow_backorder and cart_item.quantity > variant.stock:
@@ -436,10 +460,20 @@ class CheckoutView(APIView):
                     locked.append((cart_item, variant))
 
                 # Shipping and discounts are always calculated by the server.
+                from .supplier_confirmation import checkout_policy, quantity_unspecified as needs_stock_confirmation
+                try:
+                    confirmation=checkout_policy([(variant,item.quantity) for item,variant in locked],payment_method)
+                except ValueError as exc:
+                    return Response({'detail':str(exc)},status=409)
                 requires_shipping = any(variant.requires_shipping for _, variant in locked)
                 totals, coupon = quote_totals(subtotal, requires_shipping, data['shipping_address'], data['coupon_code'], lock=True,
                                             lines=[(variant, item.quantity) for item, variant in locked], payment_method=payment_method)
                 shipping_total, discount_total, grand_total = (totals[k] for k in ('shipping_total', 'discount_total', 'grand_total'))
+                from .supplier_pilot import validate_checkout
+                try:
+                    validate_checkout([(variant,item.quantity) for item,variant in locked],totals,lock=True)
+                except ValueError as exc:
+                    return Response({'detail':str(exc)},status=409)
                 coupon_code = totals['coupon_code']
                 if 'quoted_total' in data and data['quoted_total'] != grand_total:
                     return Response({'detail': 'Your total has changed. Review the updated quote before ordering.', **totals}, status=409)
@@ -467,6 +501,7 @@ class CheckoutView(APIView):
                     coupon.save(using='ecommerce', update_fields=['used_count', 'updated_at'])
 
                 paid_with_wallet = payment_method == 'wallet'
+                initial_status='confirmed' if confirmation['auto_confirmed'] else 'pending'
                 order = Order.objects.using('ecommerce').create(
                     checkout_token=cart.token,
                     customer_id=_user_id(request), customer_name=data['customer_name'],
@@ -475,30 +510,35 @@ class CheckoutView(APIView):
                     billing_address=data.get('billing_address') or data['shipping_address'],
                     reservation_expires_at=None if paid_with_wallet else timezone.now() + timedelta(hours=DeliverySettings.current().unpaid_reservation_hours),
                     receipt_pending=True,
-                    # Products and eBooks always await manual administrative fulfilment,
-                    # even when their payment has already been received.
-                    status='pending',
+                    # Confirmation accepts the order, not payment or fulfilment.
+                    # Completion/delivery remain administrative operations.
+                    status=initial_status,
                     payment_status='pending' if paid_with_wallet else 'unpaid',
-                    confirmed_at=None,
+                    confirmed_at=timezone.now() if initial_status=='confirmed' else None,
                     subtotal=subtotal, discount_total=discount_total, shipping_total=shipping_total, cod_total=totals['cod_total'], delivery_quote=totals['delivery_details'],
                     grand_total=grand_total, coupon_code=coupon_code,
+                    cost_snapshot={**capture_costs(locked, totals['delivery_details']), 'stock_confirmation':confirmation},
                     customer_note=data['customer_note'],
                 )
                 for cart_item, variant in locked:
-                    image = variant.images.first() or variant.product.images.first()
+                    from .serializers import public_product_images
+                    images=public_product_images(variant.product).filter(Q(variant_id=None)|Q(variant_id=variant.pk))
+                    image = images.filter(variant_id=variant.pk).first() or images.first()
                     OrderItem.objects.using('ecommerce').create(
                         order=order, product_id=variant.product_id, variant_id=variant.id,
                         product_name=variant.product.name, variant_title=variant.title, sku=variant.sku,
                         image_url=image.url if image else '', quantity=cart_item.quantity,
                         unit_price=variant.price, line_total=variant.price * cart_item.quantity,
                     )
-                    variant.stock -= cart_item.quantity
-                    variant.save(using='ecommerce', update_fields=['stock', 'updated_at'])
-                    InventoryMovement.objects.using('ecommerce').create(
-                        variant=variant, quantity=-cart_item.quantity, reason='sale', reference=order.number,
-                        actor_id=_user_id(request),
-                    )
-                    if variant.stock <= variant.low_stock_threshold:
+                    from .manual_catalogue import is_manual
+                    if not (is_manual(variant.product) and variant.allow_backorder):
+                        variant.stock -= cart_item.quantity
+                        variant.save(using='ecommerce', update_fields=['stock', 'updated_at'])
+                        InventoryMovement.objects.using('ecommerce').create(
+                            variant=variant, quantity=-cart_item.quantity, reason='sale', reference=order.number,
+                            actor_id=_user_id(request),
+                        )
+                    if not needs_stock_confirmation(variant) and variant.stock <= variant.low_stock_threshold:
                         CommerceNotification.objects.using('ecommerce').create(
                             kind='inventory', title='Low stock', message=f'{variant.sku} has {variant.stock} item(s) left.',
                             link='/admin/ecommerce/productvariant/', admin_only=True,
@@ -525,10 +565,10 @@ class CheckoutView(APIView):
                     order.payment_status = 'pending'
                     order.save(using='ecommerce', update_fields=['payment_status', 'updated_at'])
                 OrderStatusHistory.objects.using('ecommerce').create(
-                    order=order, status='pending',
+                    order=order, status=initial_status,
                     note=(
                         'Payment received; waiting for admin to mark the order completed.'
-                        if paid_with_wallet else 'Order placed; waiting for payment and admin approval.'
+                        if paid_with_wallet else confirmation['notice'] if confirmation['quantity_unspecified'] else 'Order placed; waiting for payment and admin approval.'
                     ),
                     actor_id=_user_id(request),
                 )
@@ -729,6 +769,9 @@ class PaymentCreateView(APIView):
             return Response({'detail': 'Order access denied.'}, status=status.HTTP_403_FORBIDDEN)
         if order.payment_status in {'paid', 'refunded'} or order.status in {'cancelled', 'completed', 'refunded'}:
             return Response({'detail': 'This order does not accept another payment submission.'}, status=409)
+        from .supplier_confirmation import pending as stock_pending
+        if stock_pending(order):
+            return Response({'detail':'Please wait for staff to confirm supplier stock and delivery before submitting payment.'},status=409)
         # The payable amount is authoritative on the order; clients cannot lower it.
         if request.data.get('method') == 'wallet':
             return Response({'detail': 'Wallet payments must be completed during checkout.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -790,6 +833,10 @@ class AdminDashboardView(CommerceAdminAuthMixin, APIView):
     def get(self, request):
         orders = Order.objects.using('ecommerce')
         variants = ProductVariant.objects.using('ecommerce')
+        from .order_reporting import order_contribution
+        contribution = order_contribution(orders)
+        from .settlements import receivables
+        statement_access = request.user.has_perm('ecommerce.view_suppliersettlemententry')
         return Response({
             'products': Product.objects.using('ecommerce').count(),
             'active_products': Product.objects.using('ecommerce').filter(status='active').count(),
@@ -800,13 +847,10 @@ class AdminDashboardView(CommerceAdminAuthMixin, APIView):
             'pending_orders': orders.filter(status='pending').count(),
             'pending_payments': Payment.objects.using('ecommerce').filter(status='pending').count(),
             'low_stock': variants.filter(stock__lte=F('low_stock_threshold'), is_active=True).count(),
-            'revenue': orders.filter(payment_status='paid').aggregate(
-                total=Coalesce(
-                    Sum('grand_total'),
-                    Decimal('0'),
-                    output_field=DecimalField(max_digits=14, decimal_places=2),
-                )
-            )['total'],
+            # Keep the legacy key, but remove refunded orders from paid value.
+            'revenue': contribution['gross'] - contribution['refunds'],
+            'contribution': contribution,
+            'supplier_receivables': receivables() if statement_access else None,
             'unread_notifications': CommerceNotification.objects.using('ecommerce').filter(admin_only=True, is_read=False).count(),
         })
 
@@ -818,6 +862,17 @@ class AdminProductViewSet(CommerceAdminAuthMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         return _product_queryset(include_inactive=True).prefetch_related('variants', 'images')
+
+    @transaction.atomic(using='ecommerce')
+    def perform_destroy(self, instance):
+        from django.db.models.deletion import ProtectedError
+        Product.objects.using('ecommerce').select_for_update().get(pk=instance.pk)
+        if OrderItem.objects.using('ecommerce').filter(product_id=instance.pk).exists():
+            raise ValidationError('This product has order history. Archive it; only separately verified test history may be purged.')
+        try:
+            instance.delete(using='ecommerce')
+        except ProtectedError:
+            raise ValidationError('This product is referenced by supplier or book records. Remove those links safely or archive it.')
 
     @action(detail=True, methods=['post'])
     def archive(self, request, pk=None):

@@ -6,3 +6,4 @@ DATABASES = {alias: {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}
 MIGRATION_MODULES = {'cheradip': None, 'ecommerce': None, 'childcare': None}
 SECURE_SSL_REDIRECT = False
 PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
+COMMERCE_SUPPLIER_KEY_FILE = ''  # Never read a real supplier encryption key during tests.

@@ -1,10 +1,10 @@
 """Reviewed 2026-10-20 planning presets, not live booking/advertising quotes."""
 
 def initial_cost_defaults():
-    # Median of three published Meta/ecommerce CPA range midpoints: 235, 275, 625.
+    # Owner-approved low planning allowance, not a market CPA or paid-sale guarantee.
     # Packaging: sample material-unit prices 3.90, 11, 26.63 -> median 11.
     # Returns: 20% failures / 80% successes * Tk195 failed-parcel example.
-    return {'ads_cost': '275.00', 'packaging_cost': '11.00',
+    return {'ads_cost': '20.00', 'packaging_cost': '11.00',
             'returns_allowance': '48.75', 'other_costs': '0.00'}
 
 
@@ -34,7 +34,7 @@ RESEARCH_NOTES = {
     'reviewed_on': '2026-10-20',
     'courier_origin': 'Dhaka metro pickup; regular small-parcel home delivery. Indicative published base fares, not negotiated, tax-inclusive or live booking quotes.',
     'excluded': 'Sundarban publishes item-specific prices and destination surcharges; not comparable to generic weight tariffs. The outside range includes eCourier metro and Thana/Union alternatives as an estimate, not a coverage promise. Bulky/fragile services, volumetric pricing and exact coverage require manual review.',
-    'ads': 'Tk275 is the median of three published Meta/ecommerce CPA range midpoints (235,275,625), not an audited all-social-media/national average. One sold item per acquired order is assumed. Replace with your actual spend per delivered sale; organic sales may use zero.',
+    'ads': 'Tk20 per item is the owner-approved planning allowance, not a verified Bangladesh minimum or guaranteed acquisition cost. Replace it with measured advertising spend per delivered sold item. Campaign budget is not the same as cost per acquired sale.',
     'packaging': 'Tk11 is a small illustrative material-cost median (bag 3.90, small carton 11, narrow carton 26.63); not a standard all-product packaging cost. Fragile/large items need overrides.',
     'returns': 'Tk48.75 planning reserve = 20% / 80% * Tk195 failed-parcel cost from Pathao example; not a measured Cheradip return rate and excludes damage/lost stock.',
     'sources': [

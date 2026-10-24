@@ -111,7 +111,8 @@ class ProductChargeTests(TransactionTestCase):
         self.variant.price = Decimal('0.50'); self.variant.save(using='ecommerce')
         quote = self.quote(self.payload(self.cart()))
         self.assertEqual(Decimal(quote['cod_total']), Decimal('0.01'))
-        self.assertEqual(Decimal(quote['grand_total']), Decimal('80.51'))
+        self.assertEqual(Decimal(quote['grand_total']), Decimal('81.00'))
+        self.assertEqual(Decimal(quote['rounding_adjustment']),Decimal('0.49'))
 
     def test_csv_can_set_preserve_and_reset_product_charge_overrides(self):
         self.user.is_staff = self.user.is_superuser = True; self.user.save()

@@ -1,0 +1,20 @@
+[Unit]
+Description=Cheradip private sourcing jobs and Dhaka nightly refresh checks
+After=network-online.target cheradip.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sasha
+Group=sasha
+WorkingDirectory=/home/sasha/apps/cheradip/bcheradip
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/home/sasha/apps/cheradip/bcheradip/venv/bin/python manage.py supplier_worker --scheduler
+Restart=on-failure
+RestartSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

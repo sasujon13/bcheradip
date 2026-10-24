@@ -29,9 +29,9 @@ class WeightMathTests(SimpleTestCase):
         self.assertEqual(delivery_zone({'district':'Gazipur'}),'suburbs')
         self.assertEqual(delivery_zone({'district':'Dhaka','thana':'Dhanmondi'}),'dhaka')
         costs,estimated=listing_defaults(DeliverySettings(),0)
-        self.assertTrue(estimated); self.assertEqual(costs['ads_cost'],'275.00')
+        self.assertTrue(estimated); self.assertEqual(costs['ads_cost'],'20.00')
         self.assertEqual(costs['supplier_delivery_max'],'160.00'); self.assertEqual(costs['customer_delivery_charge'],'75.00')
-        self.assertEqual(calculate_price(500,costs)['suggested_price'],'1020.92')
+        self.assertEqual(calculate_price(500,costs)['suggested_price'],'666.71')
 
     def test_rate_profiles_reject_malformed_or_dangerous_values(self):
         for mutation in ('negative','descending','bad_max','bad_url','bad_rule'):
@@ -98,9 +98,9 @@ class WeightIntegrationTests(TransactionTestCase):
         self.assertNotIn('cost_defaults',public); self.assertNotIn('courier_profiles',public)
         self.assertEqual(public['delivery_calculation'],'weight_range_midpoint')
         defaults=self.client.get('/api/ecommerce/admin/pricing/preview/').json()
-        self.assertEqual(defaults['costs']['ads_cost'],'275.00')
+        self.assertEqual(defaults['costs']['ads_cost'],'20.00')
         preview=self.client.post('/api/ecommerce/admin/pricing/preview/',{'source_cost':500,'use_defaults':True,'weight_grams':1000},format='json')
-        self.assertEqual(preview.data['suggested_price'],'1020.92')
+        self.assertEqual(preview.data['suggested_price'],'666.71')
         self.variant.refresh_from_db(using='ecommerce'); self.assertEqual(self.variant.price,1000)
         costs=initial_cost_defaults(); costs['ads_cost']='0'
         changed=self.client.patch('/api/ecommerce/admin/delivery-settings/',{'cost_defaults':costs},format='json')
@@ -118,7 +118,7 @@ class WeightIntegrationTests(TransactionTestCase):
             'use_default_costs':True,'apply_suggested_price':True}
         form=ProductVariantAdminForm(data=data,instance=self.variant)
         self.assertTrue(form.is_valid(),form.errors); saved=form.save()
-        self.assertEqual(saved.pricing_inputs,{}); self.assertEqual(Decimal(saved.price),Decimal('1020.92'))
+        self.assertEqual(saved.pricing_inputs,{}); self.assertEqual(Decimal(saved.price),Decimal('666.71'))
         row={'Handle':self.product.slug,'Title':'Product','SKU':self.variant.sku,'Cost Per Item':'500',
              'Use Default Costs':'TRUE','Apply Calculated Price':'TRUE'}
         response=self.client.post('/api/ecommerce/admin/import/products/',{'file':self.csv_file(row)})

@@ -41,7 +41,7 @@ class ProductVariantAdminForm(forms.ModelForm):
             use_defaults = data.get('use_default_costs')
             costs = listing_defaults(DeliverySettings.current(),data.get('weight_grams',0))[0] if use_defaults else normalize_costs({key: data.get(key) if data.get(key) is not None else 0 for key in COST_FIELDS})
             if data.get('apply_suggested_price'):
-                data['price'] = calculate_price(data.get('cost_price'), costs)['suggested_price']
+                data['price'] = calculate_price(data.get('cost_price'), costs, subsidy_enabled=DeliverySettings.current().delivery_subsidy_enabled,rules=DeliverySettings.current().pricing_rules)['suggested_price']
             elif data.get('price') is None:
                 self.add_error('price', 'Enter a selling price or select Apply calculated selling price.')
             self.instance.pricing_inputs = {} if use_defaults else costs
@@ -51,6 +51,10 @@ class ProductVariantAdminForm(forms.ModelForm):
 
 
 class DeliverySettingsAdminForm(forms.ModelForm):
+    def clean_pricing_rules(self):
+        from .pricing import normalize_pricing_rules
+        try:return normalize_pricing_rules(self.cleaned_data['pricing_rules'])
+        except ValueError as exc:raise forms.ValidationError(str(exc))
     def clean_cost_defaults(self):
         try: return normalize_default_costs(self.cleaned_data['cost_defaults'])
         except ValueError as exc: raise forms.ValidationError(str(exc))
@@ -97,6 +101,10 @@ class OrderAdminForm(forms.ModelForm):
         current = Order.objects.using('ecommerce').get(pk=self.instance.pk)
         if value != current.status and value not in TRANSITIONS.get(current.status, set()):
             raise forms.ValidationError(f'Cannot change a {current.status} order to {value}.')
+        if current.status=='pending' and value in {'confirmed','processing','shipped','delivered','completed'}:
+            from .supplier_pilot import require_order_checks
+            try: require_order_checks(current)
+            except ValueError as exc: raise forms.ValidationError(str(exc))
         if value == 'completed':
             if current.payment_status == 'refunded':
                 raise forms.ValidationError('This payment has been refunded.')
@@ -121,6 +129,9 @@ class PaymentAdminForm(forms.ModelForm):
             raise forms.ValidationError('Invalid payment status transition.')
         if value == 'confirmed' and current.order.status in {'cancelled', 'refunded'}:
             raise forms.ValidationError('This order is cancelled or refunded.')
+        from .supplier_confirmation import pending as stock_pending
+        if value == 'confirmed' and stock_pending(current.order):
+            raise forms.ValidationError('Confirm supplier stock and delivery on the order first.')
         if value in {'confirmed', 'refunded'} and current.method == 'wallet' and not WalletOperation.objects.filter(operation_key=f'commerce:debit:{current.order.number}').exists():
             raise forms.ValidationError('Reconcile the historical wallet payment first.')
         return value

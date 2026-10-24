@@ -11,7 +11,13 @@ from django.db import connections, router
 
 
 SAFE_ADDITIONS = {
+    ('ecommerce', 'ecommerce', 'productimage', 'source_media'),
+    ('ecommerce', 'ecommerce', 'supplieroffer', 'source_product'),
+    ('ecommerce', 'ecommerce', 'product', 'supplier_delivery_rates'),
+    ('ecommerce', 'ecommerce', 'deliverysettings', 'delivery_subsidy_enabled'),
+    ('ecommerce', 'ecommerce', 'order', 'cost_snapshot'),
     ('ecommerce', 'ecommerce', 'deliverysettings', 'cost_defaults'),
+    ('ecommerce', 'ecommerce', 'deliverysettings', 'pricing_rules'),
     ('ecommerce', 'ecommerce', 'deliverysettings', 'courier_profiles'),
     ('ecommerce', 'ecommerce', 'order', 'delivery_quote'),
     ('ecommerce', 'ecommerce', 'productvariant', 'pricing_inputs'),
@@ -41,6 +47,11 @@ SAFE_ADDITIONS = {
     ("childcare", "childcare", "otpcode", "used"),
 }
 
+# Deployment normally creates absent tables through l2r. These new staging
+# tables are also safe to create directly, in dependency order, without copying
+# business rows or pretending that older migrations have been applied.
+SAFE_SOURCE_TABLES = ('supplierrecollectionrun', 'suppliersourceproduct', 'suppliersourcemedia', 'supplierrecollectionitem')
+
 
 class Command(BaseCommand):
     help = "Verify that deployed database tables contain the model's columns."
@@ -54,6 +65,17 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         missing = []
         tables_by_alias = {}
+        if options['apply_safe']:
+            connection = connections['ecommerce']
+            with connection.cursor() as cursor:
+                existing = set(connection.introspection.table_names(cursor))
+            for name in SAFE_SOURCE_TABLES:
+                model = apps.get_model('ecommerce', name)
+                if model._meta.db_table not in existing:
+                    self.stdout.write(f'Creating reviewed source-staging table ecommerce:{model._meta.db_table}')
+                    with connection.schema_editor() as editor:
+                        editor.create_model(model)
+                    existing.add(model._meta.db_table)
         for model in apps.get_models():
             meta = model._meta
             if not meta.managed or meta.proxy:

@@ -190,7 +190,7 @@ def import_products(file_obj, user_id=None):
                 if inherit: pricing_inputs = {}
                 if pricing_inputs:
                     pricing_inputs = normalize_costs(pricing_inputs)
-                suggested = calculate_price(source_cost, listing_defaults(DeliverySettings.current(),weight)[0] if inherit else pricing_inputs) if _bool(row.get('Apply Calculated Price')) else None
+                suggested = calculate_price(source_cost, listing_defaults(DeliverySettings.current(),weight)[0] if inherit else pricing_inputs, subsidy_enabled=DeliverySettings.current().delivery_subsidy_enabled,rules=DeliverySettings.current().pricing_rules) if _bool(row.get('Apply Calculated Price')) else None
                 if not previous_variant and not price_text and not suggested:
                     raise ValueError('Price is required for a new SKU.')
                 if not previous_variant and not stock_text:

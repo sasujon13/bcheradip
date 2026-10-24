@@ -6,6 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from .private_storage import ebook_storage
 from .cost_defaults import initial_cost_defaults, initial_courier_profiles
+from .pricing import default_pricing_rules
 from django.utils.text import slugify
 
 
@@ -72,6 +73,8 @@ class Product(TimeStampedModel):
     seo_description = models.CharField(max_length=500, blank=True)
     source_url = models.URLField(max_length=1000, blank=True)
     is_sample = models.BooleanField(default=False, db_index=True)
+    supplier_delivery_rates = models.JSONField(default=dict, blank=True,
+        help_text='Verified supplier delivery tariff: dhaka/outside lists of {up_to_grams, charge}. Charged directly, without a midpoint or subsidy. Optional shipment_group permits confirmed consolidation only.')
     delivery_dhaka_charge = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
         validators=[MinValueValidator(0)], help_text='Blank: inherit the central Dhaka delivery charge. Zero: free delivery.')
     delivery_outside_dhaka_charge = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
@@ -85,10 +88,22 @@ class Product(TimeStampedModel):
         indexes = [models.Index(fields=['status', 'category']), models.Index(fields=['slug'])]
 
     def save(self, *args, **kwargs):
+        from .supplier_guards import check_publication
+        check_publication(self)
         if not self.slug:
             base = slugify(self.name) or uuid.uuid4().hex[:12]
             self.slug = base
         super().save(*args, **kwargs)
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        from .supplier_guards import check_publication
+        from .supplier_delivery import validate_rates
+        try:
+            check_publication(self)
+            validate_rates(self.supplier_delivery_rates)
+        except ValueError as exc:
+            raise ValidationError({'status': str(exc)})
 
     def __str__(self):
         return self.name
@@ -132,6 +147,8 @@ class ProductImage(TimeStampedModel):
     url = models.URLField(max_length=1000)
     alt_text = models.CharField(max_length=255, blank=True)
     position = models.PositiveIntegerField(default=0)
+    source_media = models.ForeignKey('SupplierSourceMedia', null=True, blank=True, on_delete=models.PROTECT,
+        related_name='listing_images', help_text='Original supplier media provenance; blank for staff-managed images.')
 
     class Meta:
         db_table = 'ecommerce_product_image'
@@ -194,11 +211,15 @@ class DeliverySettings(TimeStampedModel):
     outside_dhaka_charge = models.DecimalField(max_digits=10, decimal_places=2, default=120)
     cod_percent = models.DecimalField(max_digits=5, decimal_places=2, default=1,
         validators=[MinValueValidator(0), MaxValueValidator(100)], help_text='Cash-on-delivery percentage inherited by products without an override.')
+    delivery_subsidy_enabled = models.BooleanField(default=False,
+        help_text='Opt in to adding a supplier/customer delivery shortfall to new listing-price suggestions. Existing order prices never change.')
     unpaid_reservation_hours = models.PositiveIntegerField(default=24)
     return_policy = models.TextField(default='Inspect eligible physical products at delivery. Contact support for return approval; delivery charges and product-specific exclusions may apply.')
     support_phone = models.CharField(max_length=40, blank=True)
     cost_defaults = models.JSONField(default=initial_cost_defaults, blank=True,
         help_text='Private per-item planning allowances; editable estimates, not guaranteed market averages.')
+    pricing_rules = models.JSONField(default=default_pricing_rules,
+        help_text='Central all-cost markup bands and automatic sale-discount percentage. Apply existing supplier prices explicitly in Manage.')
     courier_profiles = models.JSONField(default=initial_courier_profiles,
         help_text='Reviewed standard weight tariffs assuming Dhaka-metro pickup. Update negotiated rates here. Sundarban item-specific tariffs are not mixed into these ranges.')
 
@@ -225,6 +246,7 @@ class Order(TimeStampedModel):
         ('returned', 'Returned'), ('refunded', 'Refunded'),
     ]
     delivery_quote = models.JSONField(default=dict, blank=True)
+    cost_snapshot = models.JSONField(default=dict, blank=True, editable=False)
     PAYMENT_STATUS = [('unpaid', 'Unpaid'), ('pending', 'Pending'), ('paid', 'Paid'), ('failed', 'Failed'), ('refunded', 'Refunded')]
 
     number = models.CharField(max_length=32, unique=True, db_index=True)
@@ -496,4 +518,12 @@ class BookBuildJob(TimeStampedModel):
 
     def __str__(self):
         return f'{self.book.title} - {self.output_format} - {self.status}'
+
+
+# Register private sourcing models without expanding this existing commerce module.
+from .supplier_models import (Supplier, SupplierPolicy, SupplierOffer, SupplierEvidence,
+                              SupplierDecision, SupplierJob, SupplierAudit, SupplierSettlementEntry,
+                              SupplierResearchBatch, SupplierResearchItem, SupplierPilotCheck)  # noqa: E402,F401
+from .supplier_source_models import (SupplierRecollectionRun, SupplierSourceProduct,
+                                    SupplierSourceMedia, SupplierRecollectionItem)  # noqa: E402,F401
 

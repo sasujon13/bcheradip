@@ -2,13 +2,21 @@ from decimal import Decimal
 from unittest.mock import patch
 from django.test import SimpleTestCase, TransactionTestCase
 from . import test_checkout_hardening as fixtures
-from .pricing import calculate_price, normalize_costs
-from .models import Product, ProductVariant, Order, DeliverySettings
+from .pricing import calculate_price, normalize_costs, retail_prices
+from .models import Product, ProductVariant, Order, DeliverySettings, Coupon
 from .checkout_rules import quote_totals
 from .admin_forms import ProductVariantAdminForm
 
 
 class PricingMathTests(SimpleTestCase):
+    def test_whole_taka_discount_reserve_is_calculated_after_markup(self):
+        pair = retail_prices('729.60')
+        self.assertEqual(pair['base_price'], '729.60')
+        self.assertEqual(pair['sale_price'], '730')
+        self.assertEqual(pair['regular_price'], '812')
+        self.assertGreaterEqual(Decimal(pair['regular_price']) * Decimal('.90'), Decimal(pair['sale_price']))
+        self.assertEqual(retail_prices('900')['regular_price'], '1000')
+        with self.assertRaises(ValueError): retail_prices('NaN')
     def test_all_whole_cost_tiers_and_boundaries(self):
         for cost, rate in [('0','20'),('10','20'),('99.99','20'),('100','20'),('100.01','19'),
                            ('200','19'),('200.01','18'),('300','18'),('400','17'),('500','16'),
@@ -18,7 +26,7 @@ class PricingMathTests(SimpleTestCase):
 
     def test_subsidy_and_all_costs_are_marked_up_not_just_source_price(self):
         result = calculate_price(500, {'supplier_delivery_max': 150, 'customer_delivery_charge': 80,
-            'ads_cost': 30, 'packaging_cost': 10, 'returns_allowance': 20, 'other_costs': 10})
+            'ads_cost': 30, 'packaging_cost': 10, 'returns_allowance': 20, 'other_costs': 10}, subsidy_enabled=True)
         self.assertEqual(result['total_cost'], '640.00')
         self.assertEqual(result['delivery_subsidy'], '70.00')
         self.assertEqual(result['markup_percent'], '14')
@@ -26,6 +34,7 @@ class PricingMathTests(SimpleTestCase):
         self.assertEqual(result['suggested_price'], '729.60')
 
     def test_subsidy_never_negative_and_half_up_rounding(self):
+        self.assertEqual(calculate_price(100, {'supplier_delivery_max': 200})['delivery_subsidy'], '0.00')
         self.assertEqual(calculate_price('0.05', {'customer_delivery_charge': 80})['suggested_price'], '0.06')
         self.assertEqual(calculate_price(100, {'supplier_delivery_max': 50, 'customer_delivery_charge': 80})['delivery_subsidy'], '0.00')
 
@@ -58,6 +67,27 @@ class PricingIntegrationTests(TransactionTestCase):
 
     def staff(self):
         self.user.is_staff = True; self.user.is_superuser = True; self.user.save()
+
+    def test_reserved_ten_percent_coupon_returns_rounded_target_for_each_unit(self):
+        pair = retail_prices('729.60')
+        pair.update(mode='reserve', applied_price='812')
+        self.product.attributes={'_retail_pricing':{str(self.variant.pk):pair}}
+        self.product.save(using='ecommerce')
+        self.variant.price=Decimal('812'); self.variant.compare_at_price=None; self.variant.requires_shipping=False
+        self.variant.save(using='ecommerce'); self.variant.product=self.product
+        Coupon.objects.using('ecommerce').create(code='TEN', discount_type='percent', value=10)
+        totals,_=quote_totals(2436,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
+        self.assertEqual(totals['discount_total'],Decimal('246'))
+        self.assertEqual(totals['grand_total'],Decimal('2190'))
+        # A later staff edit, another percentage or unmarked product never uses
+        # the old target or a bigger discount.
+        self.variant.price=Decimal('900')
+        totals,_=quote_totals(2700,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
+        self.assertEqual(totals['discount_total'],Decimal('270'))
+        self.variant.price=Decimal('812')
+        Coupon.objects.using('ecommerce').filter(code='TEN').update(value=5)
+        totals,_=quote_totals(2436,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
+        self.assertEqual(totals['discount_total'],Decimal('121.80'))
 
     def test_preview_is_private_read_only_and_does_not_change_prices(self):
         body = {'source_cost': 500, 'costs': {'ads_cost': 100}}

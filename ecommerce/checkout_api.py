@@ -15,6 +15,10 @@ from .pricing import normalize_default_costs
 
 
 class DeliverySettingsSerializer(serializers.ModelSerializer):
+    def validate_pricing_rules(self,value):
+        from .pricing import normalize_pricing_rules
+        try:return normalize_pricing_rules(value)
+        except ValueError as exc:raise serializers.ValidationError(str(exc))
     def validate_cost_defaults(self, value):
         try: return normalize_default_costs(value)
         except ValueError as exc: raise serializers.ValidationError(str(exc))
@@ -29,7 +33,7 @@ class DeliverySettingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeliverySettings
-        fields = ('id', 'dhaka_charge', 'outside_dhaka_charge', 'cod_percent', 'unpaid_reservation_hours', 'return_policy', 'support_phone', 'cost_defaults', 'courier_profiles')
+        fields = ('id', 'dhaka_charge', 'outside_dhaka_charge', 'cod_percent', 'delivery_subsidy_enabled', 'unpaid_reservation_hours', 'return_policy', 'support_phone', 'cost_defaults', 'courier_profiles','pricing_rules')
         read_only_fields = ('id',)
 
 
@@ -41,6 +45,8 @@ class StorePolicyView(APIView):
         data = DeliverySettingsSerializer(DeliverySettings.current()).data
         data.pop('unpaid_reservation_hours', None)
         data.pop('cost_defaults', None); data.pop('courier_profiles', None)
+        data.pop('delivery_subsidy_enabled', None)
+        data.pop('pricing_rules',None)
         data['delivery_calculation'] = 'weight_range_midpoint'
         return Response(data)
 
@@ -53,9 +59,17 @@ class DeliverySettingsView(CommerceAdminAuthMixin, APIView):
         return Response(DeliverySettingsSerializer(DeliverySettings.current()).data)
 
     def patch(self, request):
-        serializer = DeliverySettingsSerializer(DeliverySettings.current(), data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        from django.db import transaction
+        with transaction.atomic(using='ecommerce'):
+            DeliverySettings.objects.using('ecommerce').get_or_create(pk=1)
+            config=DeliverySettings.objects.using('ecommerce').select_for_update().get(pk=1)
+            serializer = DeliverySettingsSerializer(config, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            if 'pricing_rules' in serializer.validated_data:
+                from .supplier_service import policy,audit
+                current=policy();current.revision+=1;current.save(using='ecommerce',update_fields=['revision','updated_at'])
+                audit('central_pricing_rules_saved',request.user.pk,rules=config.pricing_rules,existing_orders_unchanged=True)
         return Response(serializer.data)
 
 
@@ -65,8 +79,9 @@ class CheckoutProfileView(APIView):
 
     def get(self, request):
         user = request.user
+        from .phone_display import local_contact
         return Response({'customer_name': user.fullName, 'email': user.email or '',
-            'phone': user.username, 'phone_alternate': user.phone_alternate or '',
+            'phone': local_contact(user.username,user.country_code or 'BD'), 'phone_alternate': local_contact(user.phone_alternate,user.country_code or 'BD'),
             'country_code': user.country_code or 'BD', 'division': user.division,
             'district': user.district, 'thana': user.thana, 'zone': user.union, 'address': user.village})
 
@@ -86,12 +101,27 @@ class CheckoutQuoteView(APIView):
         items = list(cart.items.select_related('variant__product'))
         if not items:
             return Response({'detail': 'Your cart is empty.'}, status=400)
+        from .supplier_guards import is_supplier_staging, MESSAGE
+        if any(is_supplier_staging(item.variant.product_id) for item in items):
+            return Response({'detail': MESSAGE}, status=409)
         if any(not i.variant.is_active or i.variant.product.status != 'active' or
                (not i.variant.allow_backorder and i.quantity > i.variant.stock) for i in items):
             return Response({'detail': 'A cart item is unavailable or has insufficient stock.'}, status=409)
         subtotal = sum((i.variant.price * i.quantity for i in items), Decimal('0'))
         method = serializers.ChoiceField(choices=Payment.METHODS).run_validation(request.data.get('payment_method', 'cod'))
+        from .supplier_confirmation import checkout_policy
+        try:
+            confirmation=checkout_policy([(i.variant,i.quantity) for i in items],method)
+        except ValueError as exc:
+            return Response({'detail':str(exc)},status=409)
         totals, _ = quote_totals(subtotal, any(i.variant.requires_shipping for i in items),
                                  address.validated_data, str(request.data.get('coupon_code') or ''),
                                  lines=[(i.variant, i.quantity) for i in items], payment_method=method)
+        from .supplier_pilot import validate_checkout
+        try:
+            validate_checkout([(i.variant,i.quantity) for i in items],totals)
+        except ValueError as exc:
+            return Response({'detail':str(exc)},status=409)
+        totals.update(stock_confirmation_required=confirmation['required'],confirmation_notice=confirmation['notice'],
+                      quantity_unspecified=confirmation['quantity_unspecified'],order_auto_confirmed=confirmation['auto_confirmed'])
         return Response(totals)

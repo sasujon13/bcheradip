@@ -1,6 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from .checkout_api import CheckoutProfileView, CheckoutQuoteView, StorePolicyView, DeliverySettingsView
+from .supplier_research_api import SupplierResearchView
+from .supplier_catalogue import CatalogueModeView
+from .pricing_management import RepriceSupplierListingsView
 
 from .views import (
     AdminBookAssetViewSet, AdminBookBuildJobViewSet, AdminBookViewSet,
@@ -23,6 +26,10 @@ router.register('books', BookViewSet, basename='ecommerce-book')
 router.register('orders', OrderViewSet, basename='ecommerce-order')
 
 admin_router = DefaultRouter()
+from .supplier_api import SupplierViewSet, OfferViewSet, JobViewSet, ImportSelectionView, SupplierWorkspaceView
+admin_router.register('suppliers', SupplierViewSet, basename='commerce-supplier')
+admin_router.register('supplier-offers', OfferViewSet, basename='commerce-supplier-offer')
+admin_router.register('supplier-jobs', JobViewSet, basename='commerce-supplier-job')
 admin_router.register('products', ManagedProductViewSet, basename='ecommerce-admin-product')
 admin_router.register('categories', CategoryManageViewSet, basename='ecommerce-admin-category')
 admin_router.register('variants', VariantManageViewSet, basename='ecommerce-admin-variant')
@@ -39,11 +46,16 @@ admin_router.register('orders', ManagedOrderViewSet, basename='ecommerce-admin-o
 admin_router.register('payments', ManagedPaymentViewSet, basename='ecommerce-admin-payment')
 
 urlpatterns = [
+    path('admin/supplier-catalogue-mode/', CatalogueModeView.as_view()),
+    path('admin/supplier-research/', SupplierResearchView.as_view()),
+    path('admin/supplier-workspace/', SupplierWorkspaceView.as_view()),
+    path('admin/supplier-import/', ImportSelectionView.as_view()),
     path('admin/pricing/preview/', PricingPreviewView.as_view()),
     path('store-policy/', StorePolicyView.as_view()),
     path('checkout/profile/', CheckoutProfileView.as_view()),
     path('checkout/quote/', CheckoutQuoteView.as_view()),
     path('admin/delivery-settings/', DeliverySettingsView.as_view()),
+    path('admin/pricing/reprice/', RepriceSupplierListingsView.as_view()),
     path('', include(router.urls)),
     path('cart/', CartView.as_view(), name='ecommerce-cart-new'),
     path('cart/summary/', CartSummaryView.as_view(), name='ecommerce-cart-summary'),

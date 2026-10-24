@@ -9,6 +9,18 @@ from .book_catalog import book_variant_ids
 from .pricing import normalize_costs
 
 
+def public_product_images(product):
+    """Never let a historical logo/related-product image outrank verified source media."""
+    from .models import SupplierOffer
+    source = SupplierOffer.objects.using('ecommerce').filter(imported_product_id=product.pk).values_list('source_product_id', 'source_product__last_run_id').first()
+    images = product.images.all()
+    if source and source[0]:
+        from .supplier_media import source_image_url_condition
+        images = images.filter(source_media__product_id=source[0], source_media__last_run_id=source[1],
+            source_media__metadata__verified_image=True).filter(source_image_url_condition())
+    return images
+
+
 class CategorySerializer(serializers.ModelSerializer):
     product_count = serializers.IntegerField(read_only=True, default=0)
 
@@ -43,6 +55,14 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
 
 class ProductListSerializer(serializers.ModelSerializer):
+    stock_confirmation_required = serializers.SerializerMethodField()
+    quantity_unspecified = serializers.BooleanField(source='attributes._stock_confirmation_required',read_only=True,default=False)
+    def get_stock_confirmation_required(self,obj):return False
+    discount_percent = serializers.SerializerMethodField()
+
+    def get_discount_percent(self,obj):
+        from decimal import Decimal
+        return int((obj.compare_at_price-obj.price)*100/obj.compare_at_price) if obj.price is not None and obj.compare_at_price and obj.compare_at_price>obj.price else 0
     category_name = serializers.CharField(source='category.name', read_only=True)
     brand_name = serializers.CharField(source='brand.name', read_only=True)
     price = serializers.DecimalField(max_digits=14, decimal_places=2, read_only=True)
@@ -50,6 +70,7 @@ class ProductListSerializer(serializers.ModelSerializer):
     stock = serializers.IntegerField(read_only=True)
     image_url = serializers.CharField(read_only=True)
     default_variant_id = serializers.IntegerField(read_only=True)
+    allow_backorder = serializers.BooleanField(read_only=True, default=False)
 
     class Meta:
         model = Product
@@ -57,11 +78,33 @@ class ProductListSerializer(serializers.ModelSerializer):
             'id', 'name', 'slug', 'short_description', 'category_id', 'category_name',
             'brand_id', 'brand_name', 'status', 'featured', 'tags', 'price',
             'compare_at_price', 'stock', 'image_url', 'is_sample', 'source_url',
-            'default_variant_id',
+            'default_variant_id', 'allow_backorder', 'stock_confirmation_required','quantity_unspecified','discount_percent',
         )
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
+    supplier_reference = serializers.SerializerMethodField()
+
+    def get_supplier_reference(self, obj):
+        from .models import SupplierOffer
+        return SupplierOffer.objects.using('ecommerce').filter(imported_product=obj).values_list('url', flat=True).first() or ''
+
+    def validate_supplier_delivery_rates(self, value):
+        from .supplier_delivery import validate_rates
+        try:
+            return validate_rates(value)
+        except ValueError as exc:
+            raise serializers.ValidationError(str(exc))
+
+    def validate(self, data):
+        from .supplier_guards import check_publication
+        if self.instance:
+            try:
+                check_publication(self.instance, data.get('status', self.instance.status))
+            except ValueError as exc:
+                raise serializers.ValidationError({'status': str(exc)})
+        return data
+
     category_name = serializers.CharField(source='category.name', read_only=True)
     brand_name = serializers.CharField(source='brand.name', read_only=True)
     variants = ProductVariantSerializer(many=True, read_only=True)
@@ -77,24 +120,57 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 
 class StorefrontVariantSerializer(serializers.ModelSerializer):
+    stock_confirmation_required = serializers.SerializerMethodField()
+    quantity_unspecified = serializers.SerializerMethodField()
+    def get_quantity_unspecified(self,obj):
+        from .supplier_confirmation import quantity_unspecified
+        return quantity_unspecified(obj)
+    discount_percent = serializers.SerializerMethodField()
+
+    def get_stock_confirmation_required(self,obj):
+        from .supplier_confirmation import required
+        return required(obj)
+
+    def get_discount_percent(self,obj):
+        return int((obj.compare_at_price-obj.price)*100/obj.compare_at_price) if obj.compare_at_price and obj.compare_at_price>obj.price else 0
     class Meta:
         model = ProductVariant
         fields = ('id', 'title', 'sku', 'price', 'compare_at_price', 'stock', 'is_active',
                   'option1_name', 'option1_value', 'option2_name', 'option2_value',
-                  'option3_name', 'option3_value', 'requires_shipping', 'allow_backorder')
+                  'option3_name', 'option3_value', 'requires_shipping', 'allow_backorder','stock_confirmation_required','quantity_unspecified','discount_percent')
 
 
 class StorefrontProductSerializer(ProductDetailSerializer):
+    stock_confirmation_required = serializers.SerializerMethodField()
+    quantity_unspecified = serializers.BooleanField(source='attributes._stock_confirmation_required',read_only=True,default=False)
+    def get_stock_confirmation_required(self,obj):return False
+    attributes = serializers.SerializerMethodField()
     variants = serializers.SerializerMethodField()
+    images = serializers.SerializerMethodField()
+    fulfilment_mode = serializers.SerializerMethodField()
+
+    def get_attributes(self, obj):
+        return {k: v for k, v in (obj.attributes or {}).items()
+                if not k.startswith('_') and k not in
+                ('manual_supplier_catalogue', 'supplier_publication_ready', 'source_stock_hold')}
+
+    def get_fulfilment_mode(self,obj):
+        from .manual_catalogue import is_manual
+        if is_manual(obj): return 'manual_supplier_catalogue'
+        from .models import SupplierOffer
+        return 'staff_confirmed_supplier_pilot' if SupplierOffer.objects.using('ecommerce').filter(imported_product_id=obj.pk).exists() else 'standard'
 
     class Meta:
         model = Product
         fields = ('id', 'name', 'slug', 'description', 'short_description', 'category_name',
                   'brand_name', 'variants', 'images', 'approved_reviews', 'attributes', 'tags',
-                  'delivery_dhaka_charge', 'delivery_outside_dhaka_charge', 'cod_percent')
+                  'delivery_dhaka_charge', 'delivery_outside_dhaka_charge', 'cod_percent', 'fulfilment_mode','stock_confirmation_required','quantity_unspecified')
 
     def get_variants(self, obj):
         return StorefrontVariantSerializer(obj.variants.filter(is_active=True), many=True).data
+
+    def get_images(self, obj):
+        return ProductImageSerializer(public_product_images(obj), many=True).data
 
     def get_approved_reviews(self, obj):
         return [{'id': row.pk, 'customer_name': row.customer_name, 'rating': row.rating,
@@ -203,6 +279,16 @@ class BookBuildJobSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
+    stock_confirmation_required = serializers.SerializerMethodField()
+    quantity_unspecified = serializers.SerializerMethodField()
+
+    def get_quantity_unspecified(self,obj):
+        from .supplier_confirmation import quantity_unspecified
+        return quantity_unspecified(obj.variant)
+
+    def get_stock_confirmation_required(self,obj):
+        from .supplier_confirmation import required
+        return required(obj.variant)
     product_name = serializers.CharField(source='variant.product.name', read_only=True)
     variant_title = serializers.CharField(source='variant.title', read_only=True)
     sku = serializers.CharField(source='variant.sku', read_only=True)
@@ -212,10 +298,12 @@ class CartItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartItem
-        fields = ('id', 'variant_id', 'quantity', 'product_name', 'variant_title', 'sku', 'unit_price', 'image_url', 'line_total')
+        fields = ('id', 'variant_id', 'quantity', 'product_name', 'variant_title', 'sku', 'unit_price', 'image_url', 'line_total','stock_confirmation_required','quantity_unspecified')
 
     def get_image_url(self, obj):
-        image = obj.variant.images.first() or obj.variant.product.images.first()
+        from django.db.models import Q
+        images = public_product_images(obj.variant.product).filter(Q(variant_id=None)|Q(variant_id=obj.variant_id))
+        image = images.filter(variant_id=obj.variant_id).first() or images.first()
         return image.url if image else ''
 
     def get_line_total(self, obj):
@@ -238,6 +326,14 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = '__all__'
+
+
+class AdminOrderItemSerializer(OrderItemSerializer):
+    supplier_reference = serializers.SerializerMethodField()
+
+    def get_supplier_reference(self, obj):
+        from .models import SupplierOffer
+        return SupplierOffer.objects.using('ecommerce').filter(imported_product_id=obj.product_id).values_list('url', flat=True).first() or ''
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -266,7 +362,17 @@ class OrderStatusHistorySerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True, read_only=True)
+    def to_representation(self,instance):
+        data=super().to_representation(instance)
+        from .phone_display import local_contact
+        if 'phone' in data:data['phone']=local_contact(data['phone'],(instance.shipping_address or {}).get('country_code','BD'))
+        return data
+    stock_confirmation_pending = serializers.SerializerMethodField()
+
+    def get_stock_confirmation_pending(self,obj):
+        from .supplier_confirmation import pending
+        return pending(obj)
+    items = AdminOrderItemSerializer(many=True, read_only=True)
     payments = PaymentSerializer(many=True, read_only=True)
     shipments = ShipmentSerializer(many=True, read_only=True)
     history = OrderStatusHistorySerializer(many=True, read_only=True)
@@ -279,6 +385,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class CustomerOrderSerializer(OrderSerializer):
     """Never disclose internal notes, actor IDs or checkout credentials to customers."""
     payments = serializers.SerializerMethodField()
+    items = OrderItemSerializer(many=True, read_only=True)
     shipments = serializers.SerializerMethodField()
     history = serializers.SerializerMethodField()
 
@@ -288,7 +395,7 @@ class CustomerOrderSerializer(OrderSerializer):
                   'billing_address', 'status', 'payment_status', 'currency', 'subtotal',
                   'discount_total', 'shipping_total', 'cod_total', 'tax_total', 'grand_total', 'coupon_code', 'delivery_quote',
                   'customer_note', 'created_at', 'updated_at', 'items', 'payments', 'shipments',
-                  'history', 'reservation_expires_at')
+                  'history', 'reservation_expires_at','stock_confirmation_pending')
 
     def get_payments(self, obj):
         return [{'id': p.pk, 'method': p.method, 'amount': p.amount, 'status': p.status,
