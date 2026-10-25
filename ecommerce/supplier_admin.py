@@ -46,10 +46,20 @@ class SourcingRecordAdmin(admin.ModelAdmin):
         return False
 
 
+class SourceCategoryReviewFilter(admin.SimpleListFilter):
+    title = 'Category review'
+    parameter_name = 'category_review'
+    def lookups(self, request, model_admin): return [('pending', 'Needs category review'), ('assigned', 'Category assigned')]
+    def queryset(self, request, queryset):
+        if self.value() == 'pending': return queryset.filter(extra___cheradip_catalog__status='needs_review')
+        if self.value() == 'assigned': return queryset.filter(extra___cheradip_catalog__status='assigned')
+        return queryset
+
+
 @admin.register(SupplierSourceProduct)
 class SupplierSourceProductAdmin(SourcingRecordAdmin):
     list_display = ('title', 'supplier', 'external_id', 'sku', 'observed_at')
-    list_filter = ('supplier',)
+    list_filter = ('supplier', SourceCategoryReviewFilter)
     search_fields = ('title', 'external_id', 'sku')
     list_select_related = ('supplier',)
 

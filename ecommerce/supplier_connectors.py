@@ -24,7 +24,7 @@ class ConnectorError(ValueError):
     pass
 
 
-def collect_uddoog_stock(supplier, continue_check=lambda: True):
+def collect_uddoog_stock(supplier, continue_check=lambda: True, offer_ids=None):
     """Refresh tracked exact simple products only; never discover/import content."""
     from urllib.parse import urlencode
     from copy import deepcopy
@@ -44,6 +44,8 @@ def collect_uddoog_stock(supplier, continue_check=lambda: True):
     client = SourceClient('uddoog', credentials['username'], credentials['password'])
     tracked = {}
     for offer in SupplierOffer.objects.using('ecommerce').filter(supplier=supplier, source_product__isnull=False).select_related('source_product'):
+        if offer_ids is not None and offer.pk not in offer_ids:
+            continue
         if offer.source_product.variants or offer.variant_id:
             continue
         tracked.setdefault(offer.external_id, []).append(offer)
@@ -74,7 +76,7 @@ def collect_uddoog_stock(supplier, continue_check=lambda: True):
                         'source_price':str(price),'currency':'BDT','quantity':qty,
                         'availability':'in_stock' if qty > 0 and product.get('status') == 'active' else 'out_of_stock',
                         'single_unit':True,'observed_at':timezone.now().isoformat()})
-            if len(seen) >= data['total']:
+            if (offer_ids is not None and set(tracked).issubset(seen)) or len(seen) >= data['total']:
                 break
             if not data['items']:
                 raise ConnectorError('Source pagination ended early; no partial feed committed.')
@@ -89,7 +91,7 @@ def collect_uddoog_stock(supplier, continue_check=lambda: True):
                   'content_downloads':0,'imports':0,'supplier_orders':0}
 
 
-def collect_resellkori_stock(supplier, continue_check=lambda: True):
+def collect_resellkori_stock(supplier, continue_check=lambda: True, offer_ids=None):
     """Revisit saved simple-product URLs, extract only current reseller cost/stock.
 
     No catalogue discovery, descriptions, images or local content are updated.
@@ -119,6 +121,8 @@ def collect_resellkori_stock(supplier, continue_check=lambda: True):
         client.login()
         offers=SupplierOffer.objects.using('ecommerce').filter(supplier=supplier,
             source_product__isnull=False,imported_product__isnull=False).select_related('source_product')
+        if offer_ids is not None:
+            offers = offers.filter(pk__in=offer_ids)
         for offer in offers.iterator():
             if not continue_check():
                 raise ConnectorError('Update cancelled; no partial source timestamps fabricated.')
@@ -153,7 +157,7 @@ def collect_resellkori_stock(supplier, continue_check=lambda: True):
     return rows,{'tracked_source_products':len(rows),'returned_rows':len(rows),'content_writes':0,'imports':0,'supplier_orders':0}
 
 
-def collect_dropshipping_stock(supplier, continue_check=lambda: True):
+def collect_dropshipping_stock(supplier, continue_check=lambda: True, offer_ids=None):
     """Read labelled reseller costs and own-page exact stock for tracked IDs only."""
     from copy import deepcopy
     from urllib.parse import urlencode
@@ -174,7 +178,7 @@ def collect_dropshipping_stock(supplier, continue_check=lambda: True):
     client=SourceClient('dropshipping',credentials['username'],credentials['password'])
     tracked={o.source_product.external_id:o for o in SupplierOffer.objects.using('ecommerce').filter(
         supplier=supplier,source_product__isnull=False,imported_product__isnull=False).select_related('source_product')
-        if not o.variant_id and not o.source_product.variants}
+        if (offer_ids is None or o.pk in offer_ids) and not o.variant_id and not o.source_product.variants}
     rows=[];seen=set()
     try:
         if not continue_check(): raise ConnectorError('Update cancelled before sign-in.')
@@ -201,10 +205,10 @@ def collect_dropshipping_stock(supplier, continue_check=lambda: True):
                     'source_price':str(price),'currency':'BDT','quantity':quantity,
                     'availability':'in_stock' if quantity>0 and product.get('status')==1 else 'out_of_stock',
                     'single_unit':True,'observed_at':timezone.now().isoformat()})
-            if page>=data['last_page']: break
+            if (offer_ids is not None and set(tracked).issubset(seen)) or page>=data['last_page']: break
             if len(seen)==before: raise ConnectorError('Source pagination stopped early.')
         else: raise ConnectorError('Source page bound reached.')
-        if len(seen)!=data['total']: raise ConnectorError('Source count mismatch; partial feed not committed.')
+        if offer_ids is None and len(seen)!=data['total']: raise ConnectorError('Source count mismatch; partial feed not committed.')
     except (SourceError,KeyError,TypeError,ValueError,InvalidOperation):
         raise ConnectorError('Supplier price/stock refresh failed; no stock or check timestamps fabricated.') from None
     finally:
@@ -212,7 +216,7 @@ def collect_dropshipping_stock(supplier, continue_check=lambda: True):
     return rows,{'tracked_source_products':len(tracked),'returned_rows':len(rows),'content_writes':0,'imports':0,'supplier_orders':0}
 
 
-def collect_labelled_stock(supplier, continue_check=lambda: True):
+def collect_labelled_stock(supplier, continue_check=lambda: True, offer_ids=None):
     from copy import deepcopy
     from .supplier_label_stock import SITES, read_stock, remember_stock, missing_stock
     from .supplier_source_clients import SourceClient, SourceError
@@ -232,6 +236,8 @@ def collect_labelled_stock(supplier, continue_check=lambda: True):
         client.login()
         offers=SupplierOffer.objects.using('ecommerce').filter(supplier=supplier,
             source_product__isnull=False,imported_product__isnull=False).select_related('source_product','imported_product')
+        if offer_ids is not None:
+            offers = offers.filter(pk__in=offer_ids)
         for offer in offers.iterator():
             if not continue_check():raise ConnectorError('Cancelled; remaining checks were not performed.')
             source=offer.source_product
@@ -258,15 +264,15 @@ def collect_labelled_stock(supplier, continue_check=lambda: True):
     return rows,{'returned_rows':len(rows),'content_writes':0,'imports':0,'supplier_orders':0}
 
 
-def collect(supplier, continue_check=lambda: True):
+def collect(supplier, continue_check=lambda: True, offer_ids=None):
     if supplier.connector == 'labelled_stock':
-        return collect_labelled_stock(supplier, continue_check)
+        return collect_labelled_stock(supplier, continue_check, offer_ids)
     if supplier.connector == 'uddoog':
-        return collect_uddoog_stock(supplier, continue_check)
+        return collect_uddoog_stock(supplier, continue_check, offer_ids)
     if supplier.connector == 'resellkori':
-        return collect_resellkori_stock(supplier, continue_check)
+        return collect_resellkori_stock(supplier, continue_check, offer_ids)
     if supplier.connector == 'dropshipping_bd':
-        return collect_dropshipping_stock(supplier, continue_check)
+        return collect_dropshipping_stock(supplier, continue_check, offer_ids)
     if supplier.connector != 'business_koro':
         raise ConnectorError('No verified read-only API connector is available for this supplier.')
     expires = getattr(supplier, 'credential_expires_at', None)

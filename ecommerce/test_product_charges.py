@@ -39,14 +39,14 @@ class ProductChargeTests(TransactionTestCase):
         data['shipping_address']['district'] = 'Cumilla'
         self.assertEqual(Decimal(self.quote(data)['shipping_total']), 175)
 
-    def test_mixed_cart_delivery_uses_median_once_even_for_multiple_quantities(self):
+    def test_mixed_cart_charges_product_fee_and_area_default_for_separate_vendors(self):
         v = self.second_product(delivery=150)
         cart = self.cart()
         self.client.post(f"/api/ecommerce/cart/{cart['token']}/", {'variant_id': v.pk, 'quantity': 3}, format='json')
         quote = self.quote(self.payload(cart))
-        self.assertEqual(Decimal(quote['shipping_total']), 115)
+        self.assertEqual(Decimal(quote['shipping_total']), 230)
         self.assertEqual(Decimal(quote['cod_total']), 70)
-        self.assertEqual(Decimal(quote['grand_total']), 7185)
+        self.assertEqual(Decimal(quote['grand_total']), 7300)
 
     def test_discount_is_prorated_before_different_product_cod_rates(self):
         self.product.cod_percent = 2; self.product.save(using='ecommerce')
@@ -58,7 +58,7 @@ class ProductChargeTests(TransactionTestCase):
         quote = self.quote(data)
         self.assertEqual(Decimal(quote['discount_total']), 300)
         self.assertEqual(Decimal(quote['cod_total']), 36)  # 900*2% + 1800*1%, excludes delivery
-        self.assertEqual(Decimal(quote['grand_total']), 2851)
+        self.assertEqual(Decimal(quote['grand_total']), 2966)
 
     def test_zero_waives_charges_while_null_restores_inheritance(self):
         self.product.delivery_dhaka_charge = 0; self.product.cod_percent = 0; self.product.save(using='ecommerce')

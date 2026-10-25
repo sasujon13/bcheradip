@@ -32,7 +32,11 @@ def eligible_offers(mode=None):
 
 
 def purchasable_offers(mode=None):
-    """Keep All waives market screening, never source-photo/price/stock verification."""
+    """Use last known supplier availability without hiding a listing at 24 hours.
+
+    Observation age is reported separately and triggers a background refresh.
+    A positive old observation is not presented as a new supplier confirmation.
+    """
     now = timezone.now()
     from .supplier_confirmation import MARKER
     from .supplier_media import source_image_url_condition
@@ -50,7 +54,7 @@ def purchasable_offers(mode=None):
         imported_product__attributes__supplier_publication_ready=True,
         supplier__terms_confirmed=True, excluded_reason='', source_price__gt=0, currency='BDT',
         single_unit=True, availability='in_stock',
-        observed_at__gte=now-timedelta(hours=24), observed_at__lte=now,
+        observed_at__isnull=False, observed_at__lte=now,
         source_product__observed_at__lte=now,
         source_product__quality__missing=[],
     ).exclude(Q(observed_at__lte=F('source_product__observed_at')) & (
@@ -97,9 +101,13 @@ def import_offer(offer_id):
         return 'missing_title'
     if offer.imported_product_id:
         return 'existing'
-    category_name = str((offer.identity or {}).get('category') or 'Supplier collection')[:160]
-    category, _ = Category.objects.using(DB).get_or_create(
-        slug=(slugify(category_name, allow_unicode=True)[:160] or 'supplier-collection'), defaults={'name': category_name})
+    from .catalog_structure import classify, ensure_category
+    source = offer.source_product
+    category_plan = classify(offer.title, source.categories if source else [(offer.identity or {}).get('category', '')], source.description if source else '')
+    if category_plan['path']:
+        category = ensure_category(tuple(category_plan['path']))
+    else:
+        category, _ = Category.objects.using(DB).get_or_create(slug='catalog-review', defaults={'name': 'Pending classification', 'is_active': False})
     from django.utils.html import strip_tags
     from html import unescape
     source = offer.source_product
@@ -108,7 +116,7 @@ def import_offer(offer_id):
         slug=f'supplier-{offer.supplier_id}-{offer.pk}', category=category, status='draft',
         description=preferred_description(source) if source else '',
         short_description=str((offer.identity or {}).get('short_description') or '')[:500],
-        attributes={MARKER: True})
+        attributes={MARKER: True, '_catalog': category_plan})
     offer.imported_product = product
     offer.save(using=DB, update_fields=['imported_product', 'updated_at'])
     priced = offer.source_price is not None and offer.source_price > 0 and offer.currency == 'BDT'

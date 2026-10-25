@@ -479,7 +479,7 @@ def prepare_live_job(job_id, token):
         SupplierJob.objects.using(DB).filter(pk=job.pk, status__in=('queued', 'running')).update(
             status='running', activity='Reading supplier product identities; total is not known yet')
         try:
-            rows, stats = collect(job.supplier, allowed)
+            rows, stats = collect(job.supplier, allowed, set(job.payload['offer_ids']) if 'offer_ids' in job.payload else None)
             if job.action == 'update':
                 tracked_offers = job.supplier.offers.all()
                 if 'offer_ids' in job.payload:
@@ -534,8 +534,12 @@ def finish(job, status, message):
             'Authorised browser catalogue collected; unattended API refresh not configured' if job.runner == 'browser' else
             'Documented read-only API processed; publication and supplier orders remain disabled' if job.supplier.connector in LIVE else
             'Authorised snapshot processed; live API not configured')
-    CommerceNotification.objects.using(DB).create(admin_only=True, title=f'Supplier job: {status}',
-        message=f'{job.supplier.name}: {job.action} — {job.processed}/{job.total}. {message}',
+    next_step = ('Review failed rows and retry the supplier check.' if status in ('failed', 'completed_with_errors') else
+                 'Review source price and availability changes before confirming customer orders.' if job.action == 'update' else
+                 'Review the job report in Suppliers.')
+    CommerceNotification.objects.using(DB).create(admin_only=True, kind='inventory' if job.action == 'update' else 'system',
+        title=f'Supplier {job.action}: {status.replace("_", " ")}',
+        message=f'{job.supplier.name}: {job.processed}/{job.total} source rows. {message} Next: {next_step}',
         link='/ecommerce/manage?section=suppliers')
     audit('job_' + status, job.actor_id, job.supplier, job_id=str(job.pk), counts=job.counts)
 
@@ -565,8 +569,8 @@ def nightly():
                 continue
             supplier.health = 'Needs fresh snapshot — live price/quantity connector not configured'
             supplier.save(using=DB, update_fields=['health'])
-            CommerceNotification.objects.using(DB).create(admin_only=True, title='Supplier refresh needs connection',
-                message=f'{supplier.name}: source checks pending for {target}; no live connector. Upload an authorised price/quantity snapshot. Cached timestamps have NOT been refreshed.',
+            CommerceNotification.objects.using(DB).create(admin_only=True, kind='inventory', title='Supplier refresh needs connection',
+                message=f'{supplier.name}: source checks pending for {target}; no live connector. Next: upload an authorised price/quantity snapshot. Cached timestamps have NOT been refreshed.',
                 link='/ecommerce/manage?section=suppliers')
             count += 1
         return count

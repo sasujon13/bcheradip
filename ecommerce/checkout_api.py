@@ -101,11 +101,18 @@ class CheckoutQuoteView(APIView):
         items = list(cart.items.select_related('variant__product'))
         if not items:
             return Response({'detail': 'Your cart is empty.'}, status=400)
+        from .product_content import validate_variant_options
+        try:
+            for item in items: validate_variant_options(item.variant, item.requested_size)
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=409)
         from .supplier_guards import is_supplier_staging, MESSAGE
         if any(is_supplier_staging(item.variant.product_id) for item in items):
             return Response({'detail': MESSAGE}, status=409)
+        quantities = {}
+        for item in items: quantities[item.variant_id] = quantities.get(item.variant_id, 0) + item.quantity
         if any(not i.variant.is_active or i.variant.product.status != 'active' or
-               (not i.variant.allow_backorder and i.quantity > i.variant.stock) for i in items):
+               (not i.variant.allow_backorder and quantities[i.variant_id] > i.variant.stock) for i in items):
             return Response({'detail': 'A cart item is unavailable or has insufficient stock.'}, status=409)
         subtotal = sum((i.variant.price * i.quantity for i in items), Decimal('0'))
         method = serializers.ChoiceField(choices=Payment.METHODS).run_validation(request.data.get('payment_method', 'cod'))

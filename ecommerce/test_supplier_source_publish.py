@@ -25,7 +25,7 @@ class SourcePublicationTests(TestCase):
         DeliverySettings.objects.create(cost_defaults={'ads_cost':'20','packaging_cost':'0','returns_allowance':'0','other_costs':'0'})
         self.run=SupplierRecollectionRun.objects.create(supplier=self.supplier,mode='full',status='running')
         self.record={'external_id':'P1','title':'Original product','url':'https://www.businesskoro.com/dashboard/products/original',
-            'description':'<p>Original complete description</p>', 'prices':{'baseCost':{'amount':'100.00'},'packagingCost':{'amount':'5.00'}},
+            'description':'<p>Original complete description</p>', 'categories':[{'name':"Men's Clothing"}], 'prices':{'baseCost':{'amount':'100.00'},'packagingCost':{'amount':'5.00'}},
             'stock':{'quantity':999}, 'variants':[{'id':'real-red-l','color':{'name':'Red'},'size':{'name':'L'},'stockQuantity':3}],
             'media':[{'url':'https://cdn.businesskoro.com/products/original.jpg','role':'main'}],
             'raw_data':{'product':{'status':'ACTIVE'}}}
@@ -55,6 +55,66 @@ class SourcePublicationTests(TestCase):
         self.assertIn('/supplier_products/',cart.data['items'][0]['image_url'])
         from .models import Order
         self.assertFalse(Order.objects.exists())
+
+    def test_old_positive_check_stays_visible_and_requests_staff_refresh(self):
+        self.assertEqual(publish_source(self.source.pk), {'published': 1})
+        offer = SupplierOffer.objects.get()
+        old = timezone.now() - timedelta(days=2)
+        offer.observed_at = old
+        offer.save(update_fields=['observed_at', 'updated_at'])
+        self.source.observed_at = old
+        self.source.save(update_fields=['observed_at', 'updated_at'])
+        client = APIClient()
+        listing = client.get('/api/ecommerce/products/').data
+        self.assertEqual(listing['count'], 1)
+        slug = offer.imported_product.slug
+        refresh = client.post(f'/api/ecommerce/products/{slug}/source-refresh/', {}, format='json')
+        self.assertEqual(refresh.status_code, 200, refresh.data)
+        self.assertTrue(refresh.data['stale'])
+        self.assertEqual(refresh.data['state'], 'staff_check_needed')
+        from .models import CommerceNotification
+        self.assertEqual(CommerceNotification.objects.filter(title='Supplier stock check needs attention').count(), 1)
+        client.post(f'/api/ecommerce/products/{slug}/source-refresh/', {}, format='json')
+        self.assertEqual(CommerceNotification.objects.filter(title='Supplier stock check needs attention').count(), 1)
+
+    def test_only_source_held_stale_listings_are_restored(self):
+        self.assertEqual(publish_source(self.source.pk), {'published': 1})
+        offer = SupplierOffer.objects.get()
+        product = offer.imported_product
+        offer.observed_at = timezone.now() - timedelta(days=2)
+        offer.save(update_fields=['observed_at', 'updated_at'])
+        product.status = 'archived'
+        product.attributes = {**product.attributes, 'source_stock_hold': True}
+        product.save(update_fields=['status', 'attributes', 'updated_at'])
+        call_command('restore_stale_source_listings')
+        product.refresh_from_db()
+        self.assertEqual(product.status, 'active')
+        self.assertFalse(product.attributes['source_stock_hold'])
+        product.status = 'archived'
+        product.save(update_fields=['status', 'updated_at'])
+        call_command('restore_stale_source_listings')
+        product.refresh_from_db()
+        self.assertEqual(product.status, 'archived')
+
+    def test_product_detail_queues_one_scoped_background_check(self):
+        self.assertEqual(publish_source(self.source.pk), {'published': 1})
+        offer = SupplierOffer.objects.get()
+        offer.observed_at = timezone.now() - timedelta(days=2)
+        offer.save(update_fields=['observed_at', 'updated_at'])
+        self.supplier.connector = 'business_koro'
+        self.supplier.credentials_ciphertext = 'encrypted-test-placeholder'
+        self.supplier.save(update_fields=['connector', 'credentials_ciphertext', 'updated_at'])
+        url = f'/api/ecommerce/products/{offer.imported_product.slug}/source-refresh/'
+        client = APIClient()
+        first = client.post(url, {}, format='json')
+        self.assertEqual(first.status_code, 202, first.data)
+        self.assertEqual(first.data['state'], 'queued')
+        from .models import SupplierJob
+        job = SupplierJob.objects.get()
+        self.assertEqual(job.payload['offer_ids'], [offer.pk])
+        second = client.post(url, {}, format='json')
+        self.assertEqual(second.data['state'], 'checking')
+        self.assertEqual(SupplierJob.objects.count(), 1)
 
     def confirmation_product(self):
         supplier=Supplier.objects.create(pk=1,name='ShopBase test',website='https://shopbasebd.com',enabled=True,terms_confirmed=True)
@@ -265,11 +325,11 @@ class SourcePublicationTests(TestCase):
         self.source.prices={'wholesale':{'amount':'100'},'minimum_selling_price':{'amount':'250'}}
         self.source.stock={'status':'in_stock','quantity':None};self.source.save()
         publish_source(self.source.pk);variant=ProductVariant.objects.get()
-        self.assertEqual(variant.cost_price,Decimal('100'));self.assertEqual(variant.price,Decimal('250'))
+        self.assertEqual(variant.cost_price,Decimal('100'));self.assertEqual(variant.price,Decimal('252'))
         product=variant.product;rule=product.attributes['_retail_pricing'][str(variant.pk)]
         rule.update(base_price='150',sale_price='150',regular_price='167',applied_price='150')
         product.status='archived';product.save();variant.price=Decimal('150');variant.save()
-        publish_source(self.source.pk);variant.refresh_from_db();self.assertEqual(variant.price,Decimal('250'))
+        publish_source(self.source.pk);variant.refresh_from_db();self.assertEqual(variant.price,Decimal('252'))
         variant.price=Decimal('175');variant.save()  # An explicit staff change stays held, not overwritten.
         publish_source(self.source.pk);variant.refresh_from_db();self.assertEqual(variant.price,Decimal('175'))
         self.assertEqual(APIClient().get('/api/ecommerce/products/').data['count'],0)
@@ -338,6 +398,35 @@ class SourcePublicationTests(TestCase):
         self.assertNotIn('supplier_publication_ready', detail['attributes'])
         self.assertFalse(__import__('ecommerce.models',fromlist=['Order']).Order.objects.exists())
 
+    def test_reference_rounding_migration_applies_discount_after_rounding(self):
+        publish_source(self.source.pk)
+        variant=ProductVariant.objects.get();product=variant.product
+        variant.price=Decimal('830');variant.compare_at_price=Decimal('920')
+        variant.save(update_fields=['price','compare_at_price'])
+        rules={**product.attributes.get('_retail_pricing',{}),str(variant.pk):{
+            'base_price':'829.14','sale_price':'830','regular_price':'920','discount_percent':'10',
+            'rounding':'nearest_ten_remainder_4_rounds_up','version':2,'mode':'sale','applied_price':'830'}}
+        product.attributes={**product.attributes,'_retail_pricing':rules};product.save(update_fields=['attributes'])
+
+        call_command('migrate_supplier_reference_rounding',stdout=StringIO())
+        variant.refresh_from_db();self.assertEqual(variant.compare_at_price,Decimal('920'))
+        self.assertEqual(variant.price,Decimal('830'))
+        call_command('migrate_supplier_reference_rounding',apply=True,stdout=StringIO())
+        variant.refresh_from_db();product.refresh_from_db()
+        self.assertEqual(variant.compare_at_price,Decimal('920'))
+        self.assertEqual(variant.price,Decimal('828'))
+        self.assertEqual(product.attributes['_retail_pricing'][str(variant.pk)]['version'],3)
+        self.assertEqual(product.attributes['_retail_pricing'][str(variant.pk)]['applied_price'],'828')
+        call_command('migrate_supplier_reference_rounding',apply=True,stdout=StringIO())
+        variant.refresh_from_db();self.assertEqual(variant.price,Decimal('828'))
+
+        # An intervening manual price change must not be discounted a second time.
+        product.attributes['_retail_pricing'][str(variant.pk)]['version']=2
+        product.save(update_fields=['attributes'])
+        variant.price=Decimal('835');variant.save(update_fields=['price'])
+        call_command('migrate_supplier_reference_rounding',apply=True,stdout=StringIO())
+        variant.refresh_from_db();self.assertEqual(variant.price,Decimal('835'))
+
     def test_old_imported_draft_gets_owner_rounding_once_before_republication(self):
         publish_source(self.source.pk)
         product=Product.objects.get();variant=product.variants.get()
@@ -345,11 +434,11 @@ class SourcePublicationTests(TestCase):
         variant.price=Decimal('729.60');variant.save()
         publish_source(self.source.pk)
         variant.refresh_from_db();product.refresh_from_db()
-        self.assertEqual(variant.price,Decimal('730'))
-        self.assertEqual(variant.compare_at_price,Decimal('812'))
+        self.assertEqual(variant.price,Decimal('729'))
+        self.assertEqual(variant.compare_at_price,Decimal('810'))
         self.assertEqual(product.attributes['_retail_pricing'][str(variant.pk)]['base_price'],'729.60')
         publish_source(self.source.pk);variant.refresh_from_db()
-        self.assertEqual(variant.price,Decimal('730'))
+        self.assertEqual(variant.price,Decimal('729'))
 
     def test_simple_reseller_product_uses_reseller_cost_never_retail_or_aggregate_options(self):
         supplier=Supplier.objects.create(pk=8,name='Reseller test',website='https://resellkori.com',enabled=True,terms_confirmed=True)

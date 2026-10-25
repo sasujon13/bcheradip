@@ -28,11 +28,48 @@ for model in (
         pass
 
 
+class CatalogReviewFilter(admin.SimpleListFilter):
+    title = 'Catalog review'
+    parameter_name = 'catalog_review'
+    def lookups(self, request, model_admin):
+        return [('category', 'Category needs review'), ('variants', 'Size/options need verification'), ('conflicts', 'Specification conflicts')]
+    def queryset(self, request, queryset):
+        if self.value() == 'category': return queryset.filter(attributes___catalog__status='needs_review')
+        if self.value() == 'variants': return queryset.filter(attributes___catalog__variant_review=True)
+        if self.value() == 'conflicts': return queryset.exclude(attributes___catalog__conflicts={}).filter(attributes___catalog__conflicts__isnull=False)
+        return queryset
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'is_sample', 'updated_at')
     search_fields = ('name', 'slug', 'variants__sku')
-    list_filter = ('status', 'is_sample')
+    list_filter = ('status', 'is_sample', CatalogReviewFilter)
+    actions = ('confirm_category', 'recheck_options')
+
+    @admin.action(description='Recheck size/option mappings after supplier verification', permissions=['change'])
+    def recheck_options(self, request, queryset):
+        from .product_content import source_for, variant_family, option_review
+        from django.db import transaction
+        for pk in queryset.values_list('pk', flat=True):
+            with transaction.atomic(using='ecommerce'):
+                row=Product.objects.using('ecommerce').select_for_update().get(pk=pk)
+                source=source_for(row)
+                review=bool(source and option_review(source,variant_family(row)))
+                row.attributes={**row.attributes,'_catalog':{**row.attributes.get('_catalog',{}),'variant_review':review}}
+                row.save(using='ecommerce',update_fields=['attributes','updated_at'])
+
+    @admin.action(description='Confirm current categories and preserve these assignments', permissions=['change'])
+    def confirm_category(self, request, queryset):
+        from django.db import transaction
+        for pk in queryset.values_list('pk', flat=True):
+            with transaction.atomic(using='ecommerce'):
+                row = Product.objects.using('ecommerce').select_for_update().get(pk=pk)
+                from .catalog_structure import GENERIC, clean
+                if not row.category.is_active or GENERIC.fullmatch(clean(row.category.name)): continue
+                meta = row.attributes.get('_catalog', {})
+                row.attributes = {**row.attributes, '_catalog': {**meta, 'manual_category': True, 'status': 'assigned'}}
+                row.save(using='ecommerce', update_fields=['attributes','updated_at'])
 
     def get_deleted_objects(self, objs, request):
         from .models import OrderItem

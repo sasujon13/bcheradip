@@ -183,10 +183,11 @@ class CartItem(TimeStampedModel):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     variant = models.ForeignKey(ProductVariant, related_name='cart_items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    requested_size = models.CharField(max_length=40, blank=True, default='')
 
     class Meta:
         db_table = 'ecommerce_cart_item'
-        constraints = [models.UniqueConstraint(fields=['cart', 'variant'], name='ecommerce_cart_variant_unique')]
+        constraints = [models.UniqueConstraint(fields=['cart', 'variant', 'requested_size'], name='ecommerce_cart_variant_size_unique')]
 
 
 class Coupon(TimeStampedModel):

@@ -12,9 +12,11 @@ class PricingMathTests(SimpleTestCase):
     def test_whole_taka_discount_reserve_is_calculated_after_markup(self):
         pair = retail_prices('729.60')
         self.assertEqual(pair['base_price'], '729.60')
-        self.assertEqual(pair['sale_price'], '730')
-        self.assertEqual(pair['regular_price'], '812')
-        self.assertGreaterEqual(Decimal(pair['regular_price']) * Decimal('.90'), Decimal(pair['sale_price']))
+        self.assertEqual(pair['sale_price'], '729')
+        self.assertEqual(pair['regular_price'], '810')
+        self.assertGreaterEqual(Decimal(pair['regular_price']), Decimal(pair['sale_price']))
+        for amount, expected in [('54','60'),('55','60'),('56','60'),('57','70'),('58','70'),('62','70'),('63','70')]:
+            self.assertEqual(retail_prices(amount)['regular_price'], expected)
         self.assertEqual(retail_prices('900')['regular_price'], '1000')
         with self.assertRaises(ValueError): retail_prices('NaN')
     def test_all_whole_cost_tiers_and_boundaries(self):
@@ -46,15 +48,15 @@ class PricingMathTests(SimpleTestCase):
             with self.assertRaises(ValueError): normalize_costs(costs)
         with self.assertRaises(ValueError): calculate_price('999999999999.99', {})
 
-    def test_median_deduplicates_variants_and_ignores_quantities_and_digital_lines(self):
+    def test_product_fees_are_once_per_product_and_ignore_quantities_and_digital_lines(self):
         products = [Product(pk=n, delivery_dhaka_charge=fee) for n, fee in [(1,0),(2,80),(3,200)]]
         variants = [ProductVariant(product=p, price=Decimal('10'), requires_shipping=True) for p in products]
         digital = ProductVariant(product=Product(pk=4, delivery_dhaka_charge=900), price=Decimal('10'), requires_shipping=False)
         with patch('ecommerce.checkout_rules.DeliverySettings.current', return_value=DeliverySettings()):
             result, _ = quote_totals(Decimal('100'), True, {'district':'Dhaka'}, lines=[(variants[0],1),(variants[1],50),(variants[2],1),(variants[2],1),(digital,1)])
-            self.assertEqual(result['shipping_total'], 100)
+            self.assertEqual(result['shipping_total'], 280)
             even, _ = quote_totals(20, True, {'district':'Dhaka'}, lines=[(variants[0],1),(variants[1],1)])
-            self.assertEqual(even['shipping_total'], 40)
+            self.assertEqual(even['shipping_total'], 80)
             digital_only, _ = quote_totals(10, False, {}, lines=[(digital,1)])
             self.assertEqual(digital_only['shipping_total'], 0)
 
@@ -70,24 +72,26 @@ class PricingIntegrationTests(TransactionTestCase):
 
     def test_reserved_ten_percent_coupon_returns_rounded_target_for_each_unit(self):
         pair = retail_prices('729.60')
-        pair.update(mode='reserve', applied_price='812')
+        pair.update(mode='reserve', applied_price=pair['regular_price'])
         self.product.attributes={'_retail_pricing':{str(self.variant.pk):pair}}
         self.product.save(using='ecommerce')
-        self.variant.price=Decimal('812'); self.variant.compare_at_price=None; self.variant.requires_shipping=False
+        reserved=Decimal(pair['regular_price'])
+        self.variant.price=reserved; self.variant.compare_at_price=None; self.variant.requires_shipping=False
         self.variant.save(using='ecommerce'); self.variant.product=self.product
         Coupon.objects.using('ecommerce').create(code='TEN', discount_type='percent', value=10)
-        totals,_=quote_totals(2436,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
-        self.assertEqual(totals['discount_total'],Decimal('246'))
-        self.assertEqual(totals['grand_total'],Decimal('2190'))
+        subtotal=reserved*3
+        totals,_=quote_totals(subtotal,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
+        self.assertEqual(totals['discount_total'],Decimal('243'))
+        self.assertEqual(totals['grand_total'],Decimal('2187'))
         # A later staff edit, another percentage or unmarked product never uses
         # the old target or a bigger discount.
         self.variant.price=Decimal('900')
         totals,_=quote_totals(2700,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
         self.assertEqual(totals['discount_total'],Decimal('270'))
-        self.variant.price=Decimal('812')
+        self.variant.price=reserved
         Coupon.objects.using('ecommerce').filter(code='TEN').update(value=5)
-        totals,_=quote_totals(2436,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
-        self.assertEqual(totals['discount_total'],Decimal('121.80'))
+        totals,_=quote_totals(subtotal,False,{},'TEN',lines=[(self.variant,3)],payment_method='wallet')
+        self.assertEqual(totals['discount_total'],Decimal('121.50'))
 
     def test_preview_is_private_read_only_and_does_not_change_prices(self):
         body = {'source_cost': 500, 'costs': {'ads_cost': 100}}
@@ -147,19 +151,19 @@ class PricingIntegrationTests(TransactionTestCase):
         denied=self.client.patch(f'/api/ecommerce/admin/products/{self.product.pk}/', {'name':'Changed'}, format='json')
         self.assertIn(denied.status_code,(401,403))
 
-    def test_median_quote_matches_checkout_and_stored_order(self):
+    def test_vendor_delivery_fees_match_checkout_and_stored_order(self):
         second=Product.objects.using('ecommerce').create(name='Second',slug='second',category=self.category,status='active',delivery_dhaka_charge=150)
         v=ProductVariant.objects.using('ecommerce').create(product=second,sku='SECOND',price=200,stock=4,requires_shipping=True)
         cart=fixtures.CheckoutHardeningTests.cart(self)
         self.client.post(f"/api/ecommerce/cart/{cart['token']}/", {'variant_id':v.pk,'quantity':2},format='json')
         data=fixtures.CheckoutHardeningTests.payload(self,cart)
         quote=self.client.post('/api/ecommerce/checkout/quote/',data,format='json')
-        self.assertEqual(Decimal(quote.data['shipping_total']),115)
+        self.assertEqual(Decimal(quote.data['shipping_total']),230)
         data['quoted_total']=str(quote.data['grand_total'])
         order=self.client.post('/api/ecommerce/checkout/',data,format='json')
         self.assertEqual(order.status_code,201,order.data)
-        self.assertEqual(Decimal(order.data['shipping_total']),115)
-        self.assertEqual(Decimal(order.data['grand_total']),1529)
+        self.assertEqual(Decimal(order.data['shipping_total']),230)
+        self.assertEqual(Decimal(order.data['grand_total']),1644)
 
     def test_django_admin_form_keeps_manual_price_unless_apply_is_checked(self):
         for apply, expected in [(False, Decimal('1000')), (True, Decimal('690'))]:

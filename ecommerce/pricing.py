@@ -21,41 +21,60 @@ def normalize_pricing_rules(value):
     return {k:str(v) for k,v in result.items()}
 
 
-def retail_prices(calculated_price, rules=None):
-    """Round once, after costs/markup; reserve 10% without compounding reruns.
+def round_reference_price_to_ten(value):
+    """Round a reference price to whole Tk, then nearest ten (0-3 down, 4-9 up)."""
+    whole = money(value, 'Reference price').to_integral_value(rounding=ROUND_HALF_UP)
+    remainder = whole % Decimal('10')
+    return whole - remainder if remainder <= 3 else whole + (Decimal('10') - remainder)
 
-    Whole-taka regular prices cannot always yield an exact whole-taka price at
-    precisely 10% off. The explicit sale price preserves the rounded target;
-    its saving can exceed 10% by less than one taka.
+
+def discounted_reference_price(reference_price, discount_percent):
+    """Apply the discount to the rounded reference, then round payable Tk up."""
+    reference = money(reference_price, 'Reference price')
+    discount = money(discount_percent, 'Sale discount')
+    if discount >= 100:
+        raise ValueError('Sale discount must be less than 100%.')
+    return (reference * (1 - discount / 100)).to_integral_value(rounding=ROUND_CEILING)
+
+
+def retail_prices(calculated_price, rules=None):
+    """Reserve a reference price, apply the configured discount, then round up.
+
+    The reference increase is expressed to two decimal places (11.11% for
+    the default 10% discount), rounded up to whole Tk, then rounded to
+    the nearest ten (remainders 0–3 down, 4–9 up). The final discounted taka
+    amount is rounded upward, so it can differ slightly from the unrounded
+    calculated target.
     """
     original = money(calculated_price, 'Calculated selling price')
-    sale = original.to_integral_value(rounding=ROUND_CEILING)
     config=normalize_pricing_rules(rules or default_pricing_rules())
     discount=Decimal(config['discount_percent'])
-    regular = (sale / (1-discount/100)).to_integral_value(rounding=ROUND_CEILING)
+    increase = (discount * 100 / (100 - discount)).quantize(CENT, rounding=ROUND_HALF_UP)
+    regular = (original * (1 + increase / 100)).to_integral_value(rounding=ROUND_CEILING)
+    regular = round_reference_price_to_ten(regular)
+    regular = max(regular, original).to_integral_value(rounding=ROUND_CEILING)
+    sale = discounted_reference_price(regular, discount)
     if regular > MAX_MONEY:
         raise ValueError('The discount-reserved price exceeds the supported amount.')
     return {'base_price': str(original), 'sale_price': format(sale, 'f'), 'regular_price': format(regular, 'f'),
-            'discount_percent': str(discount), 'rounding': 'ceiling_after_calculation', 'version': 1}
+            'discount_percent': str(discount), 'reference_increase_percent': str(increase),
+            'rounding': 'nearest_ten_remainder_4_rounds_up', 'version': 3}
 
 
 def reserved_ten_percent_discount(variant):
-    """Customer-friendly whole-taka discount for an unchanged reserved price.
-
-    R = ceil(B / .9); R - ceil(R * .1) = B for integer B. Round each
-    eligible unit, not the cart: quantities must retain the same target price.
-    Manual prices, other coupon percentages and ordinary products are untouched.
-    """
+    """Customer-friendly discount for an unchanged reserved reference price."""
     rule = (variant.product.attributes or {}).get('_retail_pricing', {}).get(str(variant.pk), {})
     try:
-        if rule.get('mode') != 'reserve' or rule.get('version') != 1:
+        version = rule.get('version')
+        if rule.get('mode') != 'reserve' or version not in (1, 2, 3):
             return None
-        pair = retail_prices(rule['base_price'])
-        regular = Decimal(pair['regular_price'])
-        if (variant.price != regular or Decimal(rule['applied_price']) != regular or
-                Decimal(rule['sale_price']) != Decimal(pair['sale_price']) or variant.compare_at_price):
+        discount=Decimal(rule.get('discount_percent','10'))
+        regular=money(rule['applied_price'],'Reserved reference price')
+        sale=discounted_reference_price(regular,discount)
+        if (variant.price != regular or variant.compare_at_price or
+                money(rule['sale_price'],'Reserved sale price') != sale):
             return None
-        return regular - Decimal(pair['sale_price'])
+        return regular - sale
     except (KeyError, TypeError, ValueError, InvalidOperation):
         return None
 

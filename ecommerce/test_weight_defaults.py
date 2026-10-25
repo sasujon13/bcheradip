@@ -77,6 +77,13 @@ class WeightIntegrationTests(TransactionTestCase):
         self.assertTrue(quote.data['delivery_details']['estimated_weight'])
         self.assertEqual(Decimal(quote.data['shipping_total']),80)
 
+    def test_weight_outside_configured_courier_bands_uses_area_default_quote(self):
+        self.variant.weight_grams=20001; self.variant.save(using='ecommerce')
+        response=self.client.post('/api/ecommerce/checkout/quote/',self.payload(self.cart()),format='json')
+        self.assertEqual(response.status_code,200,response.data)
+        self.assertEqual(response.data['delivery_details']['fallback'],'no_courier_rate_for_weight')
+        self.assertEqual(Decimal(response.data['shipping_total']),80)
+
     def test_checkout_uses_area_and_weight_together(self):
         cart=self.cart()
         for grams, metro, outside in [(500,70,135),(1000,75,145),(2000,100,175)]:

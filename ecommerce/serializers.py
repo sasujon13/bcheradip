@@ -55,12 +55,23 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
 
 class ProductListSerializer(serializers.ModelSerializer):
+    purchasable = serializers.SerializerMethodField()
+
+    def get_purchasable(self, obj):
+        return not (obj.attributes or {}).get('_catalog', {}).get('variant_review', False)
     stock_confirmation_required = serializers.SerializerMethodField()
     quantity_unspecified = serializers.BooleanField(source='attributes._stock_confirmation_required',read_only=True,default=False)
     def get_stock_confirmation_required(self,obj):return False
     discount_percent = serializers.SerializerMethodField()
 
     def get_discount_percent(self,obj):
+        rule=(obj.attributes or {}).get('_retail_pricing',{}).get(str(getattr(obj,'default_variant_id',None)),{})
+        if isinstance(rule,dict) and rule.get('mode') in {'sale','reserve'}:
+            try:
+                from decimal import Decimal
+                return int(Decimal(str(rule.get('discount_percent','10'))))
+            except Exception:
+                pass
         from decimal import Decimal
         return int((obj.compare_at_price-obj.price)*100/obj.compare_at_price) if obj.price is not None and obj.compare_at_price and obj.compare_at_price>obj.price else 0
     category_name = serializers.CharField(source='category.name', read_only=True)
@@ -77,8 +88,8 @@ class ProductListSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'slug', 'short_description', 'category_id', 'category_name',
             'brand_id', 'brand_name', 'status', 'featured', 'tags', 'price',
-            'compare_at_price', 'stock', 'image_url', 'is_sample', 'source_url',
-            'default_variant_id', 'allow_backorder', 'stock_confirmation_required','quantity_unspecified','discount_percent',
+            'compare_at_price', 'stock', 'image_url', 'is_sample',
+            'default_variant_id', 'allow_backorder', 'stock_confirmation_required','quantity_unspecified','discount_percent','purchasable',
         )
 
 
@@ -120,6 +131,10 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 
 class StorefrontVariantSerializer(serializers.ModelSerializer):
+    purchasable = serializers.SerializerMethodField()
+
+    def get_purchasable(self, obj):
+        return not (obj.product.attributes or {}).get('_catalog', {}).get('variant_review', False)
     stock_confirmation_required = serializers.SerializerMethodField()
     quantity_unspecified = serializers.SerializerMethodField()
     def get_quantity_unspecified(self,obj):
@@ -132,15 +147,40 @@ class StorefrontVariantSerializer(serializers.ModelSerializer):
         return required(obj)
 
     def get_discount_percent(self,obj):
+        rule=(obj.product.attributes or {}).get('_retail_pricing',{}).get(str(obj.pk),{})
+        if isinstance(rule,dict) and rule.get('mode') in {'sale','reserve'}:
+            try:
+                from decimal import Decimal
+                return int(Decimal(str(rule.get('discount_percent','10'))))
+            except Exception:
+                pass
         return int((obj.compare_at_price-obj.price)*100/obj.compare_at_price) if obj.compare_at_price and obj.compare_at_price>obj.price else 0
     class Meta:
         model = ProductVariant
         fields = ('id', 'title', 'sku', 'price', 'compare_at_price', 'stock', 'is_active',
                   'option1_name', 'option1_value', 'option2_name', 'option2_value',
-                  'option3_name', 'option3_value', 'requires_shipping', 'allow_backorder','stock_confirmation_required','quantity_unspecified','discount_percent')
+                  'option3_name', 'option3_value', 'requires_shipping', 'allow_backorder','stock_confirmation_required','quantity_unspecified','discount_percent','purchasable')
 
 
 class StorefrontProductSerializer(ProductDetailSerializer):
+    description_sizes = serializers.SerializerMethodField()
+
+    def get_description_sizes(self, obj): return self._presentation(obj)['description_sizes']
+    specifications = serializers.SerializerMethodField()
+    description_html = serializers.SerializerMethodField()
+    features_html = serializers.SerializerMethodField()
+    purchasable = serializers.SerializerMethodField()
+    option_notice = serializers.SerializerMethodField()
+
+    def _presentation(self, obj):
+        from .product_content import presentation
+        return presentation(obj)
+
+    def get_specifications(self, obj): return self._presentation(obj)['specifications']
+    def get_description_html(self, obj): return self._presentation(obj)['description_html']
+    def get_features_html(self, obj): return self._presentation(obj)['features_html']
+    def get_purchasable(self, obj): return self._presentation(obj)['purchasable']
+    def get_option_notice(self, obj): return self._presentation(obj)['option_notice']
     stock_confirmation_required = serializers.SerializerMethodField()
     quantity_unspecified = serializers.BooleanField(source='attributes._stock_confirmation_required',read_only=True,default=False)
     def get_stock_confirmation_required(self,obj):return False
@@ -150,9 +190,8 @@ class StorefrontProductSerializer(ProductDetailSerializer):
     fulfilment_mode = serializers.SerializerMethodField()
 
     def get_attributes(self, obj):
-        return {k: v for k, v in (obj.attributes or {}).items()
-                if not k.startswith('_') and k not in
-                ('manual_supplier_catalogue', 'supplier_publication_ready', 'source_stock_hold')}
+        # Public properties are a curated view, never a dump of procurement JSON.
+        return {row['feature']: row['value'] for row in self._presentation(obj)['specifications']}
 
     def get_fulfilment_mode(self,obj):
         from .manual_catalogue import is_manual
@@ -164,13 +203,39 @@ class StorefrontProductSerializer(ProductDetailSerializer):
         model = Product
         fields = ('id', 'name', 'slug', 'description', 'short_description', 'category_name',
                   'brand_name', 'variants', 'images', 'approved_reviews', 'attributes', 'tags',
-                  'delivery_dhaka_charge', 'delivery_outside_dhaka_charge', 'cod_percent', 'fulfilment_mode','stock_confirmation_required','quantity_unspecified')
+                  'delivery_dhaka_charge', 'delivery_outside_dhaka_charge', 'cod_percent', 'fulfilment_mode','stock_confirmation_required','quantity_unspecified',
+                  'specifications','description_html','features_html','purchasable','option_notice','description_sizes')
 
     def get_variants(self, obj):
-        return StorefrontVariantSerializer(obj.variants.filter(is_active=True), many=True).data
+        from .product_content import variant_family
+        return StorefrontVariantSerializer(variant_family(obj), many=True).data
 
     def get_images(self, obj):
-        return ProductImageSerializer(public_product_images(obj), many=True).data
+        from .product_content import variant_family, source_for
+        source = source_for(obj)
+        family = variant_family(obj)
+        if not source or len({v.product_id for v in family}) <= 1:
+            return ProductImageSerializer(public_product_images(obj), many=True).data
+        result, seen = [], set()
+        source_rows = []
+        try:
+            from .supplier_source_publish import source_variants
+            source_rows = source_variants(source)
+        except ValueError:
+            pass
+        for variant in family:
+            spec = {getattr(variant, f'option{n}_name').casefold(): getattr(variant, f'option{n}_value')
+                    for n in (1,2,3) if getattr(variant, f'option{n}_name')}
+            source_id = next((r['id'] for r in source_rows if r['spec'] == spec), '')
+            for image in public_product_images(variant.product).select_related('source_media'):
+                media_variant = image.source_media.variant_id if image.source_media_id else ''
+                if media_variant and media_variant != source_id: continue
+                mapped = variant.id if media_variant else None
+                key = (image.url, mapped)
+                if key in seen: continue
+                seen.add(key)
+                result.append({**ProductImageSerializer(image).data, 'variant_id': mapped})
+        return result
 
     def get_approved_reviews(self, obj):
         return [{'id': row.pk, 'customer_name': row.customer_name, 'rating': row.rating,
@@ -279,6 +344,18 @@ class BookBuildJobSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
+    description_sizes = serializers.SerializerMethodField()
+
+    def get_description_sizes(self, obj):
+        from .product_content import description_sizes
+        return description_sizes(obj.variant.product)
+    product_id = serializers.IntegerField(source='variant.product_id', read_only=True)
+    product_slug = serializers.CharField(source='variant.product.slug', read_only=True)
+    available_variants = serializers.SerializerMethodField()
+
+    def get_available_variants(self, obj):
+        from .product_content import variant_family
+        return StorefrontVariantSerializer(variant_family(obj.variant.product), many=True).data
     stock_confirmation_required = serializers.SerializerMethodField()
     quantity_unspecified = serializers.SerializerMethodField()
 
@@ -298,7 +375,8 @@ class CartItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartItem
-        fields = ('id', 'variant_id', 'quantity', 'product_name', 'variant_title', 'sku', 'unit_price', 'image_url', 'line_total','stock_confirmation_required','quantity_unspecified')
+        fields = ('id', 'variant_id', 'quantity', 'product_name', 'variant_title', 'sku', 'unit_price', 'image_url', 'line_total','stock_confirmation_required','quantity_unspecified',
+                  'product_id','product_slug','available_variants','requested_size','description_sizes')
 
     def get_image_url(self, obj):
         from django.db.models import Q

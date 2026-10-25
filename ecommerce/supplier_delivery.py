@@ -29,30 +29,58 @@ def validate_rates(value):
     return result
 
 
-def split_supplier_delivery(lines, dhaka):
-    """Return ordinary lines, verified shipment charges and their customer-visible breakdown."""
+def vendor_shipment_key(product):
+    """Stable shipment grouping for products sold by the same supplier vendor."""
+    from .models import SupplierOffer
+    if product._state.adding:
+        # In-memory quote math and unsaved fixture objects have no supplier
+        # identity to look up; keep those fees distinct by product.
+        return ('product', product.pk if product.pk is not None else id(product))
+    origin = SupplierOffer.objects.using('ecommerce').filter(
+        imported_product_id=product.pk
+    ).values_list('supplier_id', 'vendor_id', 'warehouse_id').first()
+    if origin and origin[1] and origin[1] != 'not-provided':
+        return ('vendor', *origin)
+    # Without a verified vendor identity, keep the fee separate rather than
+    # accidentally undercharging unrelated supplier products.
+    return ('product', product.pk if product.pk is not None else id(product))
+
+
+def split_supplier_delivery(lines, dhaka, fallback_charge):
+    """Return ordinary lines and one verified supplier charge per vendor shipment.
+
+    Fixed product/vendor fees are charged once per vendor shipment. Weight
+    tariffs use the combined weight of selected quantities; products from the
+    same vendor still produce one shipment charge.
+    """
     groups, ordinary = {}, []
     for variant, quantity in lines:
         if not variant.requires_shipping or not variant.product.supplier_delivery_rates:
             ordinary.append((variant, quantity))
             continue
         rates = validate_rates(variant.product.supplier_delivery_rates)
-        key = rates.get('shipment_group') or f'product:{variant.product_id}'
-        # Identical human group labels cannot combine different supplier/vendor origins.
-        from .models import SupplierOffer
-        origin=SupplierOffer.objects.using('ecommerce').filter(imported_product_id=variant.product_id).values_list('supplier_id','vendor_id','warehouse_id').first()
-        if origin: key=(origin,key)
-        group = groups.setdefault(key, {'rates': rates, 'weight': 0})
-        if group['rates'] != rates:
-            raise ValueError('Consolidated supplier delivery schedules conflict. Ask staff to verify the shipment.')
-        if not variant.weight_grams:
-            raise ValueError('A supplier shipping quote requires the actual product weight. Contact support.')
-        group['weight'] += variant.weight_grams * quantity
+        key = (('confirmed-shipment', rates['shipment_group']) if rates.get('shipment_group')
+               else vendor_shipment_key(variant.product))
+        group = groups.setdefault(key, {'products': {}})
+        product = group['products'].setdefault(variant.product_id, {
+            'rates': rates, 'weight': 0, 'estimated_weight': False,
+        })
+        product['weight'] += (variant.weight_grams or 0) * quantity
+        product['estimated_weight'] = product['estimated_weight'] or not bool(variant.weight_grams)
     shipments = []
     for group in groups.values():
-        amount = next((b['charge'] for b in group['rates'].get('dhaka' if dhaka else 'outside', [])
-                       if group['weight'] <= b['up_to_grams']), None)
-        if amount is None:
-            raise ValueError('Supplier delivery is not confirmed for this area or parcel weight. Contact support.')
-        shipments.append({'weight_grams': group['weight'], 'charged': amount, 'basis': 'supplier_confirmed_tariff'})
+        charges = []
+        unknown_weight = any(product['estimated_weight'] for product in group['products'].values())
+        if not unknown_weight:
+            total_weight=sum(product['weight'] for product in group['products'].values())
+            for product in group['products'].values():
+                bands=product['rates'].get('dhaka' if dhaka else 'outside', [])
+                amount=next((band['charge'] for band in bands if total_weight<=band['up_to_grams']),None)
+                if amount is None:
+                    raise ValueError('Supplier delivery is not confirmed for this area or parcel weight. Contact support.')
+                charges.append(money(amount,'Supplier delivery'))
+        shipments.append({'weight_grams': sum(p['weight'] for p in group['products'].values()),
+                          'charged': str(money(fallback_charge, 'Fallback delivery') if unknown_weight else max(charges)),
+                          'basis': 'fallback_unknown_weight' if unknown_weight else 'supplier_confirmed_vendor_tariff',
+                          'estimated_weight': unknown_weight})
     return ordinary, shipments

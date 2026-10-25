@@ -93,23 +93,37 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
         from .supplier_delivery import split_supplier_delivery
         all_lines = lines
         try:
-            lines, supplier_shipments = split_supplier_delivery(lines, dhaka)
+            lines, supplier_shipments = split_supplier_delivery(
+                lines, dhaka, effective(None, delivery_field, default_delivery, Decimal('99999999.99')))
         except ValueError as exc:
             raise serializers.ValidationError({'shipping_address': str(exc)})
         direct = sum((Decimal(s['charged']) for s in supplier_shipments), Decimal('0'))
         details['supplier_shipments'] = supplier_shipments
-        # Explicit fixed product fees remain exceptions. Ordinary parcels use
-        # total weight * quantity, not the median of product-level fees.
-        fees = {}; normal = []
+        # A product-specific fee is charged once per supplier/vendor shipment,
+        # regardless of line quantity. When several selected products share a
+        # vendor, charge that vendor's highest applicable product fee once.
+        fees = {}; product_fee_vendor_keys = set(); normal = []
         for variant, _ in lines:
             if variant.requires_shipping:
-                key = variant.product.pk if variant.product.pk is not None else id(variant.product)
                 if getattr(variant.product, delivery_field) is not None:
-                    fees[key] = effective(variant.product, delivery_field, default_delivery, Decimal('99999999.99'))
-        normal = [(v,q) for v,q in lines if v.requires_shipping and getattr(v.product,delivery_field) is None]
-        details['weight_grams'] = sum(v.weight_grams*q for v,q in lines if v.requires_shipping)
+                    from .supplier_delivery import vendor_shipment_key
+                    key = vendor_shipment_key(variant.product)
+                    product_fee_vendor_keys.add(key)
+                    fee = effective(variant.product, delivery_field, default_delivery, Decimal('99999999.99'))
+                    fees[key] = max(fees.get(key, Decimal('0')), fee)
+        for variant, _ in lines:
+            if variant.requires_shipping and getattr(variant.product, delivery_field) is None:
+                from .supplier_delivery import vendor_shipment_key
+                key = vendor_shipment_key(variant.product)
+                if key in product_fee_vendor_keys:
+                    fees[key] = max(fees[key], effective(None, delivery_field, default_delivery, Decimal('99999999.99')))
+        normal = [(v,q) for v,q in lines if v.requires_shipping and
+                  getattr(v.product,delivery_field) is None and
+                  (vendor_shipment_key(v.product) not in product_fee_vendor_keys)]
+        details['weight_grams'] = sum((v.weight_grams or 0)*q for v,q in lines if v.requires_shipping)
         details['estimated_weight'] = any(not v.weight_grams for v,q in lines if v.requires_shipping)
-        candidates = list(fees.values())
+        product_fee_total = sum(fees.values(), Decimal('0'))
+        candidates = []
         if normal:
             if any(not v.weight_grams for v,q in normal):
                 # Preserve existing flat fees when a weight is unknown; never
@@ -120,17 +134,27 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
                 try:
                     rated = weight_range(policy, sum(v.weight_grams*q for v,q in normal), details['zone'])
                 except ValueError as exc:
-                    raise serializers.ValidationError({'shipping_address': str(exc)})
-                candidates += [Decimal(rated['minimum']), Decimal(rated['maximum'])]
-                details['rates'] = rated['rates']
+                    if str(exc) != 'This parcel needs a manual courier quote. Contact support before ordering.':
+                        raise serializers.ValidationError({'shipping_address': str(exc)})
+                    # A known parcel can exceed every configured courier band.
+                    # Use the existing area default as a clearly labelled
+                    # provisional quote instead of making checkout totals fail.
+                    candidates.append(effective(None, delivery_field, default_delivery, Decimal('99999999.99')))
+                    details['fallback'] = 'no_courier_rate_for_weight'
+                else:
+                    candidates += [Decimal(rated['minimum']), Decimal(rated['maximum'])]
+                    details['rates'] = rated['rates']
         low, high = (min(candidates), max(candidates)) if candidates else (Decimal('0'),Decimal('0'))
-        shipping = ((low+high)/2).quantize(Decimal('.01'),rounding=ROUND_HALF_UP)
-        details.update(minimum=str(low), maximum=str(high))
-        shipping += direct
+        ordinary_shipping = ((low+high)/2).quantize(Decimal('.01'),rounding=ROUND_HALF_UP)
+        shipping = product_fee_total + ordinary_shipping + direct
+        details.update(minimum=str(low + product_fee_total + direct), maximum=str(high + product_fee_total + direct))
+        details['product_fee_total'] = str(product_fee_total)
+        details['supplier_vendor_fee_total'] = str(direct)
         # Do not present an ordinary courier estimate as a confirmed expense.
         if not any(v.requires_shipping for v,q in lines):
             details['supplier_cost'] = str(direct)
         details['weight_grams'] += sum(s['weight_grams'] for s in supplier_shipments)
+        details['estimated_weight'] = details['estimated_weight'] or any(s.get('estimated_weight') for s in supplier_shipments)
         lines = all_lines  # COD applies to every product, not just ordinary parcels.
     if not requires_shipping:
         details['supplier_cost'] = '0.00'

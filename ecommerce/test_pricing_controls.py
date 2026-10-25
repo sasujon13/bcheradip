@@ -22,15 +22,39 @@ class PricingAndPhoneRulesTests(SimpleTestCase):
             self.assertEqual(calculate_price(cost,{})['markup_percent'],rate)
         rules={**default_pricing_rules(),'start_percent':'25','minimum_percent':'15','step_percent':'2','discount_percent':'15'}
         self.assertEqual(calculate_price('200',{},rules=rules)['markup_percent'],'23')
-        self.assertEqual(retail_prices('123.01',rules)['sale_price'],'124')
+        self.assertEqual(retail_prices('123.01',rules)['sale_price'],'128')
         self.assertEqual(retail_prices('900')['regular_price'],'1000')
-        pair=retail_prices('123.01');self.assertEqual(pair['sale_price'],'124')
-        self.assertGreaterEqual((Decimal(pair['regular_price'])-124)/Decimal(pair['regular_price']),Decimal('.10'))
+        pair=retail_prices('123.01');self.assertEqual(pair['sale_price'],'126')
+        self.assertEqual((Decimal(pair['regular_price'])-126)/Decimal(pair['regular_price']),Decimal('.10'))
 
     def test_invalid_percentage_settings_are_rejected(self):
         for changes in [{'discount_percent':'100'},{'band_size':'0'},{'minimum_percent':'21'},
                         {'step_percent':True},{'start_percent':'NaN'}]:
             with self.assertRaises(ValueError):normalize_pricing_rules({**default_pricing_rules(),**changes})
+
+    def test_sale_badge_uses_fixed_configured_discount_after_display_rounding(self):
+        from types import SimpleNamespace
+        from .serializers import ProductListSerializer, StorefrontVariantSerializer
+        product=SimpleNamespace(attributes={'_retail_pricing':{'5':{'mode':'sale','discount_percent':'10.00'}}},
+            default_variant_id=5,price=Decimal('63'),compare_at_price=Decimal('70'))
+        self.assertEqual(ProductListSerializer().get_discount_percent(product),10)
+        variant=SimpleNamespace(product=product,pk=5,price=Decimal('63'),compare_at_price=Decimal('70'))
+        self.assertEqual(StorefrontVariantSerializer().get_discount_percent(variant),10)
+
+    def test_reference_prices_round_to_nearest_ten_after_whole_taka(self):
+        from .pricing import round_reference_price_to_ten
+        for old, expected in [('1263','1260'),('1117','1120'),('923','920'),
+                              ('1260','1260'),('1264','1270'),('60.49','60'),('63.00','60'),('63.50','70'),('64.00','70')]:
+            self.assertEqual(round_reference_price_to_ten(old),Decimal(expected))
+
+    def test_ten_percent_is_applied_after_eleven_point_eleven_increase_and_ten_rounding(self):
+        for base, reference, sale in [('1136.30','1260','1134'),('1005','1120','1008'),
+                                      ('829.14','920','828'),('11369.71','12630','11367')]:
+            pair=retail_prices(base)
+            self.assertEqual(pair['reference_increase_percent'],'11.11')
+            self.assertEqual(pair['regular_price'],reference)
+            self.assertEqual(pair['sale_price'],sale)
+            self.assertEqual(Decimal(sale),Decimal(reference)*Decimal('.90'))
 
 
 class CentralPricingApiTests(TestCase):
@@ -65,11 +89,11 @@ class CentralPricingApiTests(TestCase):
         path='/api/ecommerce/admin/pricing/reprice/'
         preview=client.post(path,{},format='json');self.assertEqual(preview.status_code,200,preview.data)
         self.assertEqual(preview.data['counts']['changed'],1)
-        variant.refresh_from_db();self.assertEqual(variant.price,Decimal('143'))
+        variant.refresh_from_db();self.assertEqual(variant.price,Decimal('144'))
         self.assertEqual(client.post(path,{'apply':True},format='json').status_code,409)
         payload={'apply':True,'policy_signature':preview.data['policy_signature'],'upper_bound':preview.data['upper_bound']}
         applied=client.post(path,payload,format='json');self.assertEqual(applied.status_code,200,applied.data)
-        variant.refresh_from_db();self.assertEqual(variant.price,Decimal('155'));self.assertEqual(variant.compare_at_price,Decimal('173'))
+        variant.refresh_from_db();self.assertEqual(variant.price,Decimal('153'));self.assertEqual(variant.compare_at_price,Decimal('170'))
         repeat=client.post(path,payload,format='json');self.assertEqual(repeat.data['counts']['unchanged'],1)
         variant.price=Decimal('166');variant.save()
         preserved=client.post(path,payload,format='json');self.assertEqual(preserved.data['counts']['manual_prices_preserved'],1)

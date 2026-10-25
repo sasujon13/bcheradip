@@ -373,6 +373,12 @@ class NotificationManageViewSet(StaffRecordViewSet):
     http_method_names = ['get', 'patch', 'head', 'options']
     search_fields = ['title', 'message']
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.query_params.get('unread') == 'true':
+            return qs.filter(is_read=False)
+        return qs
+
 
 class ManagedOrderViewSet(AdminOrderViewSet):
     pagination_class = StorefrontProductPagination

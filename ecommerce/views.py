@@ -3,13 +3,13 @@ from datetime import timedelta
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
 from django.db import transaction
-from django.db.models import Case, Count, DecimalField, F, IntegerField, OuterRef, Prefetch, Q, Subquery, Sum, When
+from django.db.models import Case, Count, DecimalField, F, IntegerField, Max, OuterRef, Prefetch, Q, Subquery, Sum, When
 from django.db.models.functions import Coalesce
 from django.http import FileResponse, HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-from rest_framework import status, viewsets
+from rest_framework import serializers, status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
@@ -66,8 +66,11 @@ def _coins_to_taka(coins):
     return (Decimal(max(0, int(coins))) / COINS_PER_TAKA).quantize(Decimal('0.01'))
 
 
-def _product_queryset(include_inactive=False):
+def _product_queryset(include_inactive=False, public_ids=None):
     first_variant = ProductVariant.objects.using('ecommerce').filter(product_id=OuterRef('pk'), is_active=True).order_by(Case(When(stock__gt=0, then=0), default=1, output_field=IntegerField()), 'id')
+    stock_total = ProductVariant.objects.using('ecommerce').filter(
+        product_id=OuterRef('pk'), is_active=True,
+    ).values('product_id').annotate(total=Sum('stock')).values('total')[:1]
     first_image = ProductImage.objects.using('ecommerce').filter(product_id=OuterRef('pk')).order_by('position', 'id')
     from .supplier_media import source_image_url_condition
     first_image = first_image.filter(Q(product__supplier_offer__source_product__isnull=True) | (
@@ -77,14 +80,19 @@ def _product_queryset(include_inactive=False):
     qs = Product.objects.using('ecommerce').select_related('category', 'brand').annotate(
         price=Subquery(first_variant.values('price')[:1], output_field=DecimalField(max_digits=14, decimal_places=2)),
         compare_at_price=Subquery(first_variant.values('compare_at_price')[:1], output_field=DecimalField(max_digits=14, decimal_places=2)),
-        stock=Coalesce(Sum('variants__stock', filter=Q(variants__is_active=True)), 0),
+        # Keep stock aggregation correlated per product instead of joining every
+        # variant into the outer product query. The join forced GROUP BY work on
+        # every listing/count request, even though only a small page is returned.
+        stock=Coalesce(Subquery(stock_total), 0),
         image_url=Subquery(first_image.values('url')[:1]),
         default_variant_id=Subquery(first_variant.values('id')[:1]),
         allow_backorder=Subquery(first_variant.values('allow_backorder')[:1]),
     )
     if include_inactive: return qs
     from .supplier_pilot import public_product_ids
-    return qs.filter(status='active').filter(Q(supplier_offer__isnull=True)|Q(pk__in=public_product_ids()))
+    qs=qs.filter(status='active')
+    allowed=public_product_ids() if public_ids is None else public_ids
+    return qs.filter(Q(supplier_offer__isnull=True)|Q(pk__in=allowed))
 
 
 @method_decorator(never_cache, name='dispatch')
@@ -92,6 +100,17 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
     pagination_class = None
+
+    def list(self, request, *args, **kwargs):
+        categories = list(self.get_queryset())
+        by_id = {c.pk: c for c in categories}
+        direct = {c.pk: c.product_count for c in categories}
+        for category in categories:
+            parent = category.parent_id; visited = {category.pk}
+            while parent in by_id and parent not in visited:
+                visited.add(parent); by_id[parent].product_count += direct[category.pk]
+                parent = by_id[parent].parent_id
+        return Response(self.get_serializer([c for c in categories if c.product_count > 0], many=True).data)
 
     def get_queryset(self):
         from .supplier_pilot import public_product_ids
@@ -113,6 +132,31 @@ class StorefrontProductPagination(LimitOffsetPagination):
     default_limit = 100
     max_limit = 100
 
+    def get_count(self, queryset):
+        # Paginate/count only product IDs. The storefront list queryset also
+        # carries price, image and stock annotations for returned rows; those
+        # annotations should not inflate the total-count query.
+        request=getattr(self,'request',None)
+        if (request and getattr(queryset,'model',None) is Product and
+                not (set(request.query_params.keys())-{'limit','offset','page','ordering'})):
+            # The initial storefront load is normally unfiltered. Count regular
+            # inventory and approved supplier listings separately so this does
+            # not count through the annotated/ordered display query.
+            from django.db.models import Exists, OuterRef
+            from .models import SupplierOffer
+            from .supplier_pilot import public_product_ids
+            offers=SupplierOffer.objects.using('ecommerce').filter(imported_product_id=OuterRef('pk'))
+            ordinary=Product.objects.using('ecommerce').filter(status='active').annotate(
+                _has_supplier_offer=Exists(offers),
+            ).filter(_has_supplier_offer=False).count()
+            released=Product.objects.using('ecommerce').filter(
+                status='active',pk__in=public_product_ids(),
+            ).count()
+            return ordinary+released
+        if hasattr(queryset, 'order_by') and hasattr(queryset, 'values'):
+            return queryset.order_by().values('pk').count()
+        return super().get_count(queryset)
+
     def get_offset(self, request):
         # Preserve older clients using page numbers; new storefront uses offsets.
         if 'offset' not in request.query_params and 'page' in request.query_params:
@@ -131,17 +175,131 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     # Filtering below includes the stable ID tie-breaker required across batches.
     filter_backends = []
 
+    @action(detail=False, methods=['get'], url_path='price-range')
+    def price_range(self, request):
+        # Use the complete public catalog, not a loaded batch or an already
+        # price-filtered result. Supplier costs and drafts never set this bound.
+        maximum = _product_queryset().aggregate(maximum=Max('price'))['maximum']
+        return Response({'min_price': '0.00', 'max_price': str(maximum or Decimal('0.00'))})
+
+    @action(detail=True, methods=['get', 'post'], url_path='source-refresh', throttle_classes=[CommerceThrottle])
+    def source_refresh(self, request, slug=None):
+        """Return cached source state immediately; queue a bounded read-only check.
+
+        A public detail view never performs a supplier network call in the
+        request thread. The existing worker owns the supplier session and
+        deduplicates checks; unsupported connectors require staff attention.
+        """
+        from .models import SupplierAudit, SupplierJob, SupplierOffer
+        from .supplier_connectors import LIVE
+        from .supplier_service import ACTIVE, audit, queue_job
+        product = self.get_object()
+        offer = SupplierOffer.objects.using('ecommerce').select_related('supplier').filter(imported_product_id=product.pk).first()
+        if not offer:
+            return Response({'state': 'not_applicable'})
+        now = timezone.now()
+        last_check = offer.observed_at
+        stale = not last_check or last_check < now - timedelta(hours=24)
+        active = SupplierJob.objects.using('ecommerce').filter(supplier_id=offer.supplier_id, status__in=ACTIVE).order_by('-created_at').first()
+        data = {'state': 'checking' if active else 'cached', 'last_checked_at': last_check,
+                'stale': stale, 'availability': offer.availability,
+                'job_id': str(active.pk) if active else None}
+        requested_job = request.query_params.get('job_id')
+        if requested_job:
+            try:
+                import uuid
+                job = SupplierJob.objects.using('ecommerce').filter(pk=uuid.UUID(requested_job), supplier_id=offer.supplier_id).first()
+            except ValueError:
+                job = None
+            if job:
+                data['job_status'] = job.status
+                data['job_activity'] = job.activity if job.status in ('completed', 'completed_with_errors', 'failed') else ''
+        if request.method == 'GET':
+            return Response(data)
+        supplier = offer.supplier
+        if not supplier.enabled or not supplier.terms_confirmed or supplier.connector not in LIVE or not supplier.credentials_ciphertext:
+            data['state'] = 'staff_check_needed'
+            if not CommerceNotification.objects.using('ecommerce').filter(
+                    admin_only=True, kind='inventory', title='Supplier stock check needs attention',
+                    message__startswith=f'{supplier.name}:', created_at__gte=now-timedelta(days=1)).exists():
+                CommerceNotification.objects.using('ecommerce').create(
+                    admin_only=True, kind='inventory', title='Supplier stock check needs attention',
+                    message=f'{supplier.name}: live source access is unavailable. Check the tracked product at its supplier and update its stock/price snapshot.',
+                    link='/ecommerce/manage?section=suppliers')
+            return Response(data)
+        if active:
+            return Response(data)
+        if last_check and last_check >= now - timedelta(minutes=10):
+            data['state'] = 'recently_checked'
+            return Response(data)
+        if SupplierAudit.objects.using('ecommerce').filter(
+                offer_id=offer.pk, action='public_product_refresh_requested',
+                created_at__gte=now-timedelta(minutes=10)).exists():
+            data['state'] = 'recently_requested'
+            return Response(data)
+        try:
+            job = queue_job(supplier.pk, 'update', offer_ids=[offer.pk])
+        except ValueError:
+            data['state'] = 'checking' if SupplierJob.objects.using('ecommerce').filter(
+                supplier_id=supplier.pk, status__in=ACTIVE).exists() else 'staff_check_needed'
+            return Response(data)
+        audit('public_product_refresh_requested', supplier=supplier, offer=offer, job_id=str(job.pk))
+        data.update(state='queued', job_id=str(job.pk))
+        return Response(data, status=202)
+
     def get_serializer_class(self):
         return StorefrontProductSerializer if self.action == 'retrieve' else ProductListSerializer
 
+    def list(self, request, *args, **kwargs):
+        # Public product cards are identical for all visitors. Reuse a brief
+        # shared response cache for repeat reloads; detail/checkout endpoints
+        # still perform live stock, price and supplier-release checks.
+        import sys
+        if 'test' not in sys.argv:
+            import hashlib
+            from .supplier_pilot import _catalogue_cache
+            cache_key='ecommerce:storefront-page:v1:'+hashlib.sha256(
+                f'{request.get_host()}{request.get_full_path()}'.encode('utf-8')).hexdigest()
+            cache=_catalogue_cache()
+            try:
+                cached=cache.get(cache_key)
+            except Exception:
+                cached=None
+            if cached is not None:
+                return Response(cached)
+            response=super().list(request,*args,**kwargs)
+            if response.status_code==200:
+                try:
+                    cache.set(cache_key,response.data,15)
+                except Exception:
+                    pass
+            return response
+        return super().list(request,*args,**kwargs)
+
     def get_queryset(self):
-        qs = _product_queryset()
+        public_ids=None
+        if self.action in ('retrieve', 'source_refresh'):
+            slug=self.kwargs.get(self.lookup_field)
+            product_id=Product.objects.using('ecommerce').filter(slug=slug,status='active').values_list('pk',flat=True).first()
+            if product_id is not None:
+                from .supplier_pilot import public_product_ids_for
+                public_ids=public_product_ids_for(product_id)
+            else:
+                public_ids=[]
+        qs = _product_queryset(public_ids=public_ids)
         params = self.request.query_params
         search = (params.get('search') or '').strip()
         if search:
             qs = qs.filter(Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search) | Q(brand__name__icontains=search) | Q(variants__sku__icontains=search)).distinct()
         if params.get('category'):
-            qs = qs.filter(Q(category__slug=params['category']) | Q(category__parent__slug=params['category']))
+            slug = params['category']
+            categories = list(Category.objects.using('ecommerce').values_list('id','slug','parent_id'))
+            ids = {pk for pk, name, _ in categories if name == slug}
+            while True:
+                expanded = ids | {pk for pk, _, parent in categories if parent in ids}
+                if expanded == ids: break
+                ids = expanded
+            qs = qs.filter(Q(category_id__in=ids) | Q(attributes___catalog_legacy_categories__icontains='"'+slug+'"')).distinct()
         if params.get('brand'):
             qs = qs.filter(brand__slug=params['brand'])
         if params.get('in_stock') == 'true':
@@ -361,6 +519,12 @@ class CartView(APIView):
         variant = ProductVariant.objects.using('ecommerce').select_related('product').filter(pk=request.data.get('variant_id'), is_active=True, product__status='active').first()
         if not variant:
             return Response({'detail': 'Product variant not found.'}, status=status.HTTP_404_NOT_FOUND)
+        from .product_content import validate_variant_options
+        requested_size = serializers.CharField(max_length=40, allow_blank=True).run_validation(request.data.get('requested_size', ''))
+        try:
+            validate_variant_options(variant, requested_size)
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=409)
         from .supplier_guards import is_supplier_staging, MESSAGE
         if is_supplier_staging(variant.product_id):
             return Response({'detail': MESSAGE}, status=409)
@@ -374,18 +538,54 @@ class CartView(APIView):
             Cart.objects.using('ecommerce').select_for_update().get(pk=cart.pk)
             if Cart.objects.using('ecommerce').filter(pk=cart.pk, checked_out=True).exists():
                 return Response({'detail': 'This cart has already been checked out.'}, status=409)
-            item = CartItem.objects.using('ecommerce').filter(cart=cart, variant=variant).first()
+            item = CartItem.objects.using('ecommerce').filter(cart=cart, variant=variant, requested_size=requested_size).first()
             # Old clients use an explicit set operation for quantity controls;
             # ordinary Add to cart requests increment the existing quantity.
             target = quantity if request.data.get('operation') == 'set' else quantity + (item.quantity if item else 0)
-            if not variant.allow_backorder and target > variant.stock:
+            other_quantity = sum(cart.items.filter(variant=variant).exclude(pk=item.pk if item else None).values_list('quantity', flat=True))
+            if not variant.allow_backorder and target + other_quantity > variant.stock:
                 return Response({'detail': 'Requested quantity is not available.'}, status=400)
             if item:
                 item.quantity = target
                 item.save(using='ecommerce')
             else:
-                CartItem.objects.using('ecommerce').create(cart=cart, variant=variant, quantity=target)
+                CartItem.objects.using('ecommerce').create(cart=cart, variant=variant, quantity=target, requested_size=requested_size)
         cart._prefetched_objects_cache = {}
+        return Response(CartSerializer(cart).data)
+
+    def patch(self, request, token=None):
+        from .product_content import variant_family, validate_variant_options
+        cart = self._cart(token, request)
+        if not cart:
+            return Response({'detail': 'Cart is unavailable for this account.'}, status=404)
+        with transaction.atomic(using='ecommerce'):
+            cart = Cart.objects.using('ecommerce').select_for_update().get(pk=cart.pk)
+            if cart.checked_out:
+                return Response({'detail': 'This cart has already been checked out.'}, status=409)
+            item = cart.items.select_related('variant__product').filter(pk=request.data.get('item_id')).first()
+            if not item:
+                return Response({'detail': 'Cart item not found.'}, status=404)
+            target_id = serializers.IntegerField(min_value=1).run_validation(request.data.get('variant_id'))
+            family_ids = {v.pk for v in variant_family(item.variant.product)}
+            if target_id not in family_ids:
+                return Response({'detail': 'Choose an available option of this product.'}, status=400)
+            target = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=target_id)
+            requested_size = serializers.CharField(max_length=40, allow_blank=True).run_validation(request.data.get('requested_size', item.requested_size))
+            try:
+                validate_variant_options(target, requested_size)
+            except ValueError as exc:
+                return Response({'detail': str(exc)}, status=409)
+            other = cart.items.filter(variant_id=target_id, requested_size=requested_size).exclude(pk=item.pk).first()
+            quantity = item.quantity + (other.quantity if other else 0)
+            shared_quantity = sum(cart.items.filter(variant_id=target_id).exclude(pk=item.pk).values_list('quantity',flat=True))
+            if not target.allow_backorder and item.quantity + shared_quantity > target.stock:
+                return Response({'detail': 'Requested quantity is not available for that option.'}, status=400)
+            if other:
+                other.quantity = quantity; other.save(using='ecommerce', update_fields=['quantity','updated_at'])
+                item.delete(using='ecommerce')
+            else:
+                item.variant = target; item.requested_size = requested_size
+                item.save(using='ecommerce', update_fields=['variant','requested_size','updated_at'])
         return Response(CartSerializer(cart).data)
 
     def delete(self, request, token=None):
@@ -445,8 +645,13 @@ class CheckoutView(APIView):
                     return Response(CustomerOrderSerializer(existing).data)
                 subtotal = Decimal('0')
                 locked = []
+                shared_variants = {}
+                requested_totals = {}
                 for cart_item in cart.items.all():
-                    variant = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=cart_item.variant_id)
+                    if cart_item.variant_id not in shared_variants:
+                        shared_variants[cart_item.variant_id] = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=cart_item.variant_id)
+                    variant = shared_variants[cart_item.variant_id]
+                    requested_totals[variant.pk] = requested_totals.get(variant.pk, 0) + cart_item.quantity
                     if not variant.is_active or variant.product.status != 'active':
                         return Response({'detail': f'{variant.sku} is no longer available.'}, status=409)
                     from .supplier_guards import is_supplier_staging, MESSAGE
@@ -454,7 +659,12 @@ class CheckoutView(APIView):
                         return Response({'detail': MESSAGE}, status=409)
                     if not variant.price.is_finite() or variant.price < 0:
                         return Response({'detail': f'{variant.sku} has an invalid price.'}, status=409)
-                    if not variant.allow_backorder and cart_item.quantity > variant.stock:
+                    from .product_content import validate_variant_options
+                    try:
+                        validate_variant_options(variant, cart_item.requested_size)
+                    except ValueError as exc:
+                        return Response({'detail': str(exc)}, status=409)
+                    if not variant.allow_backorder and requested_totals[variant.pk] > variant.stock:
                         return Response({'detail': f'Insufficient stock for {variant.sku}.'}, status=status.HTTP_409_CONFLICT)
                     subtotal += variant.price * cart_item.quantity
                     locked.append((cart_item, variant))
@@ -526,7 +736,7 @@ class CheckoutView(APIView):
                     image = images.filter(variant_id=variant.pk).first() or images.first()
                     OrderItem.objects.using('ecommerce').create(
                         order=order, product_id=variant.product_id, variant_id=variant.id,
-                        product_name=variant.product.name, variant_title=variant.title, sku=variant.sku,
+                        product_name=variant.product.name, variant_title=(variant.title + ' · Size: ' + cart_item.requested_size) if cart_item.requested_size else variant.title, sku=variant.sku,
                         image_url=image.url if image else '', quantity=cart_item.quantity,
                         unit_price=variant.price, line_total=variant.price * cart_item.quantity,
                     )

@@ -8,9 +8,11 @@ Only a short, reviewed list of additive fields can be repaired automatically.
 from django.apps import apps
 from django.core.management.base import BaseCommand, CommandError
 from django.db import connections, router
+from django.db.models import UniqueConstraint
 
 
 SAFE_ADDITIONS = {
+    ('ecommerce', 'ecommerce', 'cartitem', 'requested_size'),
     ('ecommerce', 'ecommerce', 'productimage', 'source_media'),
     ('ecommerce', 'ecommerce', 'supplieroffer', 'source_product'),
     ('ecommerce', 'ecommerce', 'product', 'supplier_delivery_rates'),
@@ -107,6 +109,22 @@ class Command(BaseCommand):
                 self.stdout.write(f"Adding reviewed column {alias}:{description}")
                 with connections[alias].schema_editor() as editor:
                     editor.add_field(model, field)
+            # Reviewed cart-key expansion: preserve existing rows (empty size),
+            # while allowing two requested sizes of the same supplier variant.
+            # Remote installs predate migration history, so inspect actual keys
+            # rather than faking unrelated migrations or touching order records.
+            cart_item = apps.get_model('ecommerce', 'CartItem')
+            conn = connections['ecommerce']
+            if cart_item._meta.db_table in tables_by_alias.get('ecommerce', set()):
+                with conn.cursor() as cursor:
+                    keys = conn.introspection.get_constraints(cursor, cart_item._meta.db_table)
+                wanted = next(c for c in cart_item._meta.constraints if c.name == 'ecommerce_cart_variant_size_unique')
+                if not any(k.get('unique') and k.get('columns') == ['cart_id','variant_id','requested_size'] for k in keys.values()):
+                    with conn.schema_editor() as editor: editor.add_constraint(cart_item, wanted)
+                for name, key in keys.items():
+                    if key.get('unique') and key.get('columns') == ['cart_id','variant_id']:
+                        with conn.schema_editor() as editor:
+                            editor.remove_constraint(cart_item, UniqueConstraint(fields=['cart','variant'], name=name))
             if missing:
                 # Recheck from the database, including the new columns and indexes.
                 options["apply_safe"] = False

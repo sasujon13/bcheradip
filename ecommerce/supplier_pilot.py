@@ -1,16 +1,36 @@
 """Expiring, individually verified manual fulfilment. Never submits supplier orders."""
 import hashlib
 import json
+import os
+import tempfile
+from pathlib import Path
 from datetime import timedelta
 from decimal import Decimal
 from django.db import transaction
+from django.db.models import Count, Max, Q
 from django.utils import timezone
-from .models import Product, SupplierOffer, SupplierPilotCheck
+from .models import DeliverySettings, Product, SupplierOffer, SupplierPilotCheck
 from .supplier_service import assert_current, audit, costs_for, MONEY_COSTS
 from .supplier_delivery import validate_rates
 
 CHECKS = ('price', 'variant', 'stock', 'delivery', 'margin', 'content')
 MESSAGE = 'This supplier product needs a current staff pilot verification. Automatic supplier purchasing is OFF.'
+_public_ids_cache = None
+
+
+def _catalogue_cache():
+    """Use a cache shared by Gunicorn workers for the short-lived public ID set."""
+    global _public_ids_cache
+    import sys
+    if 'test' in sys.argv:
+        from django.core.cache import cache
+        return cache
+    if _public_ids_cache is None:
+        from django.core.cache.backends.filebased import FileBasedCache
+        cache_dir = os.environ.get('ECOMMERCE_PUBLIC_CACHE_DIR') or os.path.join(
+            tempfile.gettempdir(), 'cheradip-ecommerce-public-cache')
+        _public_ids_cache = FileBasedCache(cache_dir, {'OPTIONS': {'MAX_ENTRIES': 32, 'CULL_FREQUENCY': 2}})
+    return _public_ids_cache
 
 
 def digest(value):
@@ -125,6 +145,35 @@ def current_release(product):
 
 
 def public_product_ids(*,include_inactive=False,include_manual=True):
+    return _public_product_ids(include_inactive=include_inactive, include_manual=include_manual)
+
+
+def _public_product_ids(*,include_inactive=False,include_manual=True):
+    """Return currently releasable catalogue IDs, amortizing storefront checks briefly.
+
+    Checkout always runs the uncached release/stock checks. This short cache only
+    avoids repeating expensive public-list eligibility fingerprints on every
+    storefront reload; detail requests can use the single-product helper below.
+    """
+    # A compact database revision invalidates the shared short cache as soon as
+    # a listing, offer, release, supplier, or catalogue mode changes.
+    from .models import Supplier, SupplierPolicy
+    product_state=Product.objects.using('ecommerce').aggregate(Max('updated_at'), active_count=Count('pk',filter=Q(status='active')))
+    revision=(
+        product_state['updated_at__max'], product_state['active_count'],
+        SupplierOffer.objects.using('ecommerce').aggregate(Max('updated_at'))['updated_at__max'],
+        SupplierPilotCheck.objects.using('ecommerce').aggregate(Max('updated_at'))['updated_at__max'],
+        Supplier.objects.using('ecommerce').aggregate(Max('updated_at'))['updated_at__max'],
+        SupplierPolicy.objects.using('ecommerce').filter(pk=1).values_list('catalogue_mode',flat=True).first(),
+    )
+    # Python's built-in hash is randomized per process. Use a deterministic key
+    # so every worker shares the same FileBasedCache entry.
+    revision_key=hashlib.sha256(json.dumps(revision, sort_keys=True, default=str).encode()).hexdigest()
+    cache_key=f'ecommerce:public-product-ids:v6:{int(include_inactive)}:{int(include_manual)}:{revision_key}'
+    cache=_catalogue_cache()
+    cached=cache.get(cache_key)
+    if cached is not None:
+        return list(cached)
     ids=SupplierPilotCheck.objects.using('ecommerce').filter(order__isnull=True,revoked_at__isnull=True,expires_at__gt=timezone.now()).values_list('product_id',flat=True).distinct()
     valid=[]
     products=Product.objects.using('ecommerce').filter(pk__in=ids,variants__is_active=True,variants__stock__gt=0).distinct()
@@ -133,10 +182,28 @@ def public_product_ids(*,include_inactive=False,include_manual=True):
         try: current_release(product)
         except (ValueError,SupplierOffer.DoesNotExist): continue
         valid.append(product.pk)
-    if not include_manual:
-        return valid
+    if include_manual:
+        from .manual_catalogue import public_ids
+        valid=list(set(valid) | set(public_ids()))
+    cache.set(cache_key,tuple(valid),15)
+    return valid
+
+
+def public_product_ids_for(product_id):
+    """Check only one supplier product when serving its details URL."""
     from .manual_catalogue import public_ids
-    return list(set(valid) | set(public_ids()))
+    from .models import SupplierOffer
+    if not SupplierOffer.objects.using('ecommerce').filter(imported_product_id=product_id).exists():
+        return [product_id]
+    try:
+        product=Product.objects.using('ecommerce').get(pk=product_id,status='active')
+    except Product.DoesNotExist:
+        return []
+    try:
+        current_release(product)
+        return [product_id]
+    except (ValueError,SupplierOffer.DoesNotExist):
+        return [product_id] if public_ids().filter(imported_product_id=product_id).exists() else []
 
 
 def validate_checkout(lines,totals,*,lock=False):
@@ -175,7 +242,9 @@ def _order_shipping(order):
     if len(variants)!=len({i.variant_id for i in rows}): raise ValueError('An order variant is missing. Resolve manually.')
     district=re.sub(r'[\s._-]+','',str(order.shipping_address.get('district','')).casefold())
     if not district or order.shipping_address.get('country_code','BD').upper()!='BD': raise ValueError('Verify the supported delivery destination.')
-    _,shipments=split_supplier_delivery([(variants[i.variant_id],i.quantity) for i in rows],district in {'dhaka','dhakadistrict','ঢাকা','ঢাকাজেলা'})
+    policy=DeliverySettings.current()
+    fallback=policy.dhaka_charge if district in {'dhaka','dhakadistrict','ঢাকা','ঢাকাজেলা'} else policy.outside_dhaka_charge
+    _,shipments=split_supplier_delivery([(variants[i.variant_id],i.quantity) for i in rows],district in {'dhaka','dhakadistrict','ঢাকা','ঢাকাজেলা'},fallback)
     if order.shipping_total<sum((Decimal(s['charged']) for s in shipments),Decimal('0')):
         raise ValueError('Current supplier shipment costs exceed accepted delivery recovery. Resolve manually; do not reprice the accepted order.')
 

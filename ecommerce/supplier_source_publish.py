@@ -349,6 +349,15 @@ def apply_variant(source_id, row, media_ids):
     updates = {'attributes': {**product.attributes, 'manual_supplier_catalogue': True,
         CONFIRMATION_MARKER: bool(row.get('confirmation_required')),
         'supplier_publication_ready': variant.price > floor and variant.price >= minimum}}
+    from .catalog_structure import classify, ensure_category
+    from .product_content import option_review
+    category_plan = classify(source.title, source.categories, source.description)
+    previous_catalog = product.attributes.get('_catalog', {})
+    if previous_catalog.get('manual_category'):
+        category_plan = {**previous_catalog, 'status': 'assigned'}
+    elif category_plan['path']:
+        updates['category'] = ensure_category(tuple(category_plan['path']))
+    updates['attributes']['_catalog'] = {**category_plan, 'variant_review': option_review(source, [variant])}
     if retail_rule:
         updates['attributes']['_retail_pricing'] = {
             **product.attributes.get('_retail_pricing', {}), str(variant.pk): retail_rule}
@@ -362,7 +371,7 @@ def apply_variant(source_id, row, media_ids):
         ProductImage.objects.using(DB).filter(pk=listing_image.pk).update(source_media=image, position=n)
     # Never delete historical/manual photos. Public serializers select current,
     # provenanced source media only, so old wrong images cannot be the thumbnail.
-    orderable = variant.price > floor and purchasable_offers().filter(pk=offer.pk).exists()
+    orderable = category_plan['status'] == 'assigned' and variant.price > floor and purchasable_offers().filter(pk=offer.pk).exists()
     Product.objects.using(DB).filter(pk=product.pk).update(status='active' if orderable else 'archived')
     audit('fresh_supplier_variant_applied', supplier=source.supplier, offer=offer, source_product_id=source.pk,
           source_variant_id=row['id'], source_run=str(source.last_run_id), quantity=row['quantity'],
