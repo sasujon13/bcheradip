@@ -14,6 +14,12 @@ from django.test import override_settings
 
 
 class SourceValidationTests(SimpleTestCase):
+    def test_long_original_supplier_code_is_preserved_instead_of_stopping_catalogue(self):
+        original='vendor-original-code-'*80
+        record={'external_id':'long-code','title':'Product','url':'https://supplier.example/product',
+                'sku':original,'description':'Original complete description','media':[{'url':'https://supplier.example/image.jpg'}]}
+        self.assertEqual(validate_record(record)[0]['sku'],original)
+
     def test_placeholder_description_is_not_fabricated_content_and_short_description_can_supply_real_details(self):
         from .supplier_recollection import preferred_description
         from types import SimpleNamespace
@@ -160,6 +166,15 @@ class SourceStorageTests(TestCase):
         self.run = SupplierRecollectionRun.objects.create(supplier=self.supplier, mode='inspect', status='running')
         self.record = {'external_id': 'P1', 'title': 'Original title', 'url': 'https://supplier.example/p1',
                        'description': '<p>Original full content</p>', 'media': [{'url': 'https://supplier.example/own.jpg', 'role': 'main'}]}
+
+    def test_failed_detail_request_does_not_mark_a_seen_product_missing(self):
+        from .supplier_recollection import save_failure
+        from .management.commands.recollect_supplier_catalogue import missing_sources
+        save_record(self.run.pk,self.record)
+        save_record(self.run.pk,{**self.record,'external_id':'P2','url':'https://supplier.example/p2'})
+        next_run=SupplierRecollectionRun.objects.create(supplier=self.supplier,mode='full',status='running')
+        save_failure(next_run.pk,{'external_id':'P1','url':self.record['url'],'_error':'Detail page timed out'})
+        self.assertEqual(list(missing_sources(self.supplier,next_run).values_list('external_id',flat=True)),['P2'])
 
     def test_resume_is_idempotent_and_new_run_refreshes_original_data_without_losing_media_history(self):
         self.assertEqual(save_record(self.run.pk, self.record), 'complete')

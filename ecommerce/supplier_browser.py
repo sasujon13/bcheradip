@@ -360,28 +360,43 @@ class BrowserCollector:
     def click_next_button(self):
         for attempt in range(3):
             self.check()
+            if self.site=='business_koro':self.dismiss_business_koro_prompts()
             try:
                 buttons = [e for e in self.driver.find_elements(By.XPATH,"//button[normalize-space()='Next']")
                            if e.is_displayed() and e.is_enabled()]
                 if not buttons:
                     return False
+                self.driver.execute_script('arguments[0].scrollIntoView({block:"center"})',buttons[0])
                 buttons[0].click()
                 return True
             except StaleElementReferenceException:
                 continue
         raise CollectionStopped('Supplier pagination changed repeatedly during navigation; retry from the saved identities.')
 
+    def dismiss_business_koro_prompts(self):
+        # Non-binding app/notification prompts can cover the Next button.
+        # Dismiss normally, without enabling notifications or forcing clicks.
+        for button in self.driver.find_elements(By.TAG_NAME,'button'):
+            try:
+                if button.is_displayed() and button.text.strip() in ('পরে','বন্ধ করুন','Later','Close'):
+                    button.click()
+            except StaleElementReferenceException:continue
+
     def business_koro(self):
         self.goto(self.origin + self.start)
+        self.dismiss_business_koro_prompts()
         previous = None
         while True:
             WebDriverWait(self.driver, 25).until(lambda d: self.dom("return /Showing\\s+\\d+\\s+to\\s+\\d+\\s+of\\s+\\d+\\s+products/.test(document.body.innerText) && document.querySelectorAll('a.group h3').length > 0"))
+            counter=re.search(r'Showing\s+\d+\s+to\s+\d+\s+of\s+(\d+)\s+products',self.driver.find_element(By.TAG_NAME,'body').text)
+            if counter:self.counts['browser_reported_total']=int(counter.group(1))
             signature = self.dom("return [...document.querySelectorAll('a.group h3')].map(h=>h.textContent.trim()).join('|')")
             if signature == previous:
                 raise CollectionStopped('Catalogue page repeated; completion is not claimed.')
             items = self.dom("""return [...document.querySelectorAll('a.group')].filter(a=>a.querySelector('h3')).map(a=>{
               const buying=[...a.querySelectorAll('span')].find(s=>['আপনার পাইকারি মূল্য','Your wholesale price'].includes(s.textContent.trim()));
               return {url:a.href,title:a.querySelector('h3').textContent.trim(),
+                image:a.querySelector('img')?.currentSrc||a.querySelector('img')?.src||null,
                 price:buying?.parentElement?.querySelector('span:last-child')?.textContent?.trim()||null,
                 price_label:buying?.textContent.trim()||null,access_required:new URL(a.href).pathname==='/dashboard/membership',
                 stock_text:a.querySelector('.relative span')?.textContent.trim()||null};});""")
@@ -389,6 +404,8 @@ class BrowserCollector:
             previous = signature
             if not self.click_next_button(): break
             WebDriverWait(self.driver, 25).until(lambda d: self.dom("return [...document.querySelectorAll('a.group h3')].map(h=>h.textContent.trim()).join('|')", ) != signature)
+        if self.counts.get('browser_reported_total')!=len(self.seen):
+            self.warnings.append(f'Browser counter reports {self.counts.get("browser_reported_total")} products; {len(self.seen)} distinct visible cards were observed. Hidden/missing cards were not invented.')
 
     def shopbase(self):
         self.goto(self.origin + self.start)

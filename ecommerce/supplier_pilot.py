@@ -155,6 +155,16 @@ def _public_product_ids(*,include_inactive=False,include_manual=True):
     avoids repeating expensive public-list eligibility fingerprints on every
     storefront reload; detail requests can use the single-product helper below.
     """
+    # The list endpoint already caches public responses for fifteen seconds.
+    # Share that same brief snapshot across batch/filter requests during bulk
+    # updates instead of invalidating it on every single imported image/offer.
+    # Details and checkout use uncached single-product eligibility checks.
+    import sys
+    cache=_catalogue_cache()
+    burst_key=f'ecommerce:public-product-ids:burst:v7:{int(include_inactive)}:{int(include_manual)}'
+    if 'test' not in sys.argv:
+        cached=cache.get(burst_key)
+        if cached is not None:return list(cached)
     # A compact database revision invalidates the shared short cache as soon as
     # a listing, offer, release, supplier, or catalogue mode changes.
     from .models import Supplier, SupplierPolicy
@@ -170,9 +180,9 @@ def _public_product_ids(*,include_inactive=False,include_manual=True):
     # so every worker shares the same FileBasedCache entry.
     revision_key=hashlib.sha256(json.dumps(revision, sort_keys=True, default=str).encode()).hexdigest()
     cache_key=f'ecommerce:public-product-ids:v6:{int(include_inactive)}:{int(include_manual)}:{revision_key}'
-    cache=_catalogue_cache()
     cached=cache.get(cache_key)
     if cached is not None:
+        if 'test' not in sys.argv:cache.set(burst_key,tuple(cached),15)
         return list(cached)
     ids=SupplierPilotCheck.objects.using('ecommerce').filter(order__isnull=True,revoked_at__isnull=True,expires_at__gt=timezone.now()).values_list('product_id',flat=True).distinct()
     valid=[]
@@ -183,9 +193,10 @@ def _public_product_ids(*,include_inactive=False,include_manual=True):
         except (ValueError,SupplierOffer.DoesNotExist): continue
         valid.append(product.pk)
     if include_manual:
-        from .manual_catalogue import public_ids
-        valid=list(set(valid) | set(public_ids()))
+        from .manual_catalogue import public_ids, price_preview_ids
+        valid=list(set(valid) | set(public_ids()) | set(price_preview_ids()))
     cache.set(cache_key,tuple(valid),15)
+    if 'test' not in sys.argv:cache.set(burst_key,tuple(valid),15)
     return valid
 
 
@@ -203,7 +214,8 @@ def public_product_ids_for(product_id):
         current_release(product)
         return [product_id]
     except (ValueError,SupplierOffer.DoesNotExist):
-        return [product_id] if public_ids().filter(imported_product_id=product_id).exists() else []
+        from .manual_catalogue import price_preview_ids
+        return [product_id] if (public_ids().filter(imported_product_id=product_id).exists() or price_preview_ids().filter(pk=product_id).exists()) else []
 
 
 def validate_checkout(lines,totals,*,lock=False):

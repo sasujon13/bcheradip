@@ -140,8 +140,6 @@ def validate_record(record):
         source_key=source_key(external, vendor, warehouse), url=reference_url(record.get('url')), title=title,
         sku=str(record.get('sku') or ''), description=description, short_description=short,
         quality={'missing': missing, 'rejected_media': rejected, 'mapping_version': MAPPING_VERSION})
-    if len(data['sku']) > 500:
-        raise ValueError('Original SKU exceeds storage limit; review without truncation.')
     for name, default in [('categories', []), ('specifications', {}), ('features', []), ('prices', {}),
                           ('stock', {}), ('variants', []), ('shipping', {}), ('extra', {}), ('raw_data', {})]:
         data[name] = product_data(record.get(name, default))
@@ -164,6 +162,10 @@ def save_record(run_id, record):
     retrying_failure = item.status == 'failed'
     existing=SupplierSourceProduct.objects.using(DB).select_for_update().filter(
         supplier_id=run.supplier_id,source_key=data['source_key']).first()
+    if existing is None:
+        aliases=list(SupplierSourceProduct.objects.using(DB).select_for_update().filter(
+            supplier_id=run.supplier_id,url=data['url'],extra__identity_origin='browser_url')[:2])
+        if len(aliases)==1:existing=aliases[0]
     conflict=bool(existing and existing.sku and data['sku'] and existing.sku.strip()!=data['sku'].strip())
     if conflict:
         product,created=existing,False
@@ -173,6 +175,16 @@ def save_record(run_id, record):
         product.quality={**product.quality,'missing':list(dict.fromkeys([*product.quality.get('missing',[]),'identity_review']))}
         product.last_run=run;product.save(using=DB,update_fields=['extra','quality','last_run','updated_at'])
         data['quality']=product.quality
+    elif existing and existing.extra.get('browser_preferred'):
+        # An API refresh may enrich private evidence, but must not replace the
+        # browser-visible description, gallery, price or availability with a
+        # different hidden catalogue. Preserve the complete follow-up payload.
+        product,created=existing,False
+        product.extra={**product.extra,'latest_structured_observation':{
+            'observed_at':now.isoformat(),'run_id':str(run.pk),'product':data,'media':images}}
+        product.save(using=DB,update_fields=['extra','updated_at'])
+        data['quality']=product.quality
+        images=[]
     else:
         product, created = SupplierSourceProduct.objects.using(DB).update_or_create(supplier_id=run.supplier_id,
             source_key=data['source_key'], defaults={**data, 'last_run': run, 'observed_at': now})
@@ -224,7 +236,7 @@ def save_failure(run_id, record):
 
 
 @transaction.atomic(using=DB)
-def apply_missing_content(source_product_id):
+def apply_missing_content(source_product_id, only_unlinked=False):
     """Exact source references only. Fill missing content; never replace edited text, prices or orders."""
     from django.db.models import Q
     from .models import SupplierOffer, Product, ProductImage
@@ -236,10 +248,18 @@ def apply_missing_content(source_product_id):
     # matching additionally supports old slug-derived IDs without title-only merging.
     offers = SupplierOffer.objects.using(DB).select_for_update().filter(supplier_id=source.supplier_id).filter(
         Q(external_id=source.external_id) | Q(url=source.url)).exclude(state='excluded')
+    if only_unlinked:
+        offers = offers.filter(source_product__isnull=True)
     changes = {'linked_offers': 0, 'images_added': 0, 'descriptions_added': 0}
     for offer in offers:
+        if offer.source_product_id and offer.source_product_id != source.pk:
+            continue
+        if (offer.url != source.url and SupplierSourceProduct.objects.using(DB).filter(
+                supplier_id=source.supplier_id, external_id=source.external_id).exclude(pk=source.pk).exists()):
+            continue
         offer.source_product = source
-        update_fields = ['source_product', 'updated_at']
+        offer.url = source.url
+        update_fields = ['source_product', 'url', 'updated_at']
         if images:
             offer.preview_images = list(dict.fromkeys(m.original_url for m in images))
             update_fields.append('preview_images')
@@ -258,7 +278,7 @@ def apply_missing_content(source_product_id):
                 description = node.text_content().strip()
             except (ValueError, TypeError):
                 description = source.description
-            Product.objects.using(DB).filter(pk=product.pk, description=product.description).update(description=description)
+            Product.objects.using(DB).filter(pk=product.pk, description=product.description).update(description=description, updated_at=timezone.now())
             changes['descriptions_added'] += 1
         existing = set(ProductImage.objects.using(DB).filter(product_id=product.pk).values_list('url', flat=True))
         position = (ProductImage.objects.using(DB).filter(product_id=product.pk).order_by('-position').values_list('position', flat=True).first() or 0) + 1
@@ -270,4 +290,6 @@ def apply_missing_content(source_product_id):
             existing.add(image.original_url)
             position += 1
             changes['images_added'] += 1
+    from .supplier_source_repair import restore_observations
+    changes['observations_restored'] = restore_observations(source.pk)
     return changes

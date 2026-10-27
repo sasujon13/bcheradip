@@ -41,19 +41,43 @@ def category_names(categories):
 
 # Most specific product types precede broad supplier department fallbacks.
 RULES = [
-    ('Home & Living/Clocks', r'clock|এলাম|দেয়াল.*ঘড়ি'),
+    ('Beauty & Personal Care/Grooming', r'\bKemei\s+(?:Kemei\s+)?KM-026\b'),
+    ('Electronics/Camera Accessories', r'chest\s+strap\s+mount|action\s+camera\s+accessor'),
+    ('Electronics/Tracking Devices', r'\bMiTag\b|bluetooth\s+tracker'),
+    ('Electronics/Phone Cases & Accessories', r'phone\s+waterproof\s+box|waterproof\s+phone\s+(?:box|holder)'),
+    ('Electronics/Mobile Gaming Accessories', r'(?:magnetic\s+)?phone\s+cooler\s+fan|semiconductor\s+mobile\s+cooler'),
+    ('Electronics/Audio & Headphones', r'\bneckband\b'),
+    ('Electronics/Power Banks & Chargers', r'চার্জ\s+সেপারেটর'),
+    ('Kitchen & Appliances/Kitchen & Dining', r'electric\s+(?:grape\s+)?peeler|grape\s+peeler'),
+    ('Food & Health/Health & Wellness', r'\bmassage\s+gun\b'),
+    ('Kids & Toys/Children’s Clothing', r'(?:baby|kids?|children|বেবি|বাচ্চাদের).*(?:hoodie|sweatshirt|jacket|হুডি|জ্যাকেট)'),
+    ('Clothing/Matching Sets', r't[ -]?shirt\s+(?:and|&)\s+(?:short\s+)?(?:trouser|pant)s?\s+set|\bskirt\s+set\b'),
+    ('Electronics/Audio & Headphones', r'bluetooth\s+spea'),
+    ('Electronics/Doorbells & Entry', r'calling\s+bell|door\s*bell|ডোরবেল'),
+    ('Sports & Outdoors/Outdoor Gear', r'\bumbrella\b|ছাতা'),
+    ('Shoes & Bags/Bags & Wallets', r'\bbackpa'),
+    ('Books & Stationery/Stationery & Crafts', r'price\s+tag\s+labe'),
+    ('Tools & Garden/Tools & Gardening', r'\bDT8(?:30|32)\b|\bmultimeter\b'),
+    ('Home & Living/Lighting', r'\b(?:table|desk)\s+lamp\b|smart\s+table\s+lamp'),
+    ('Electronics/Audio & Headphones', r'bluetooth\s+speaker|smart\s+light\s+bluetooth\s+speaker'),
+    ('Tools & Garden/Tools & Gardening', r'soldering\s+flux|digital\s+multimeter'),
+    ('Shoes & Bags/Bags & Wallets', r'\bbackpack\b'),
+    ('Books & Stationery/Stationery & Crafts', r'price\s+tag\s+label'),
+    ('Home & Living/Cleaning & Laundry', r'\bdry\s+iron\b'),
+    ('Home & Living/Clocks', r'\bclocks?\b|দেয়াল.*ঘড়ি'),
     ('Home & Living/Decor & Gifts', r'crystal\s*ball|photo\s*alb[ul]m|polaroid.*all?bum'),
     ('Home & Living/Storage & Organization', r'organiz|storage\s*box|hanger|rack|shelf'),
     ('Home & Living/Cleaning & Laundry', r'car\s*wash|vacuum|broom|duster'),
     ('Home & Living/Soft Furnishings', r'curtain|mosquito\s*net|carpet|rug\b|পর্দা|মশারি'),
     ('Home & Living/Personal Accessories', r'lighter|লাইটার|combination\s*lock'),
     ('Shoes & Bags/Bags & Wallets', r'card\s*holder'),
+    ('Shoes & Bags/Shoe Care', r'shoe\s*(?:cleaner|cleaning|polish|brush)|জুতা.*(?:পরিষ্কার|পলিশ)'),
     ('Electronics/Batteries & Power Supplies', r'\bbattery\b|batteries|solar\s*charge|power\s*strip|voltage\s*protector|extension\s*socket|\bups\b'),
     ('Electronics/Audio & Headphones', r'headset|\bairpods?\b'),
     ('Electronics/Cameras & Security', r'gimbal|quadrapod|\bairtag\b'),
     ('Electronics/Computers & Accessories', r'\bhub\b|usb.*adapter|card\s*reader'),
     ('Electronics/Power Banks & Chargers', r'gan.*adapter|pd.*charge|travel\s*adapter'),
-    ('Electronics/Smart Watches', r'smart\s*ring'),
+    ('Electronics/Smart Rings', r'smart\s*ring'),
     ('Kitchen & Appliances/Cooking Appliances', r'kettle|feather\s*plucker'),
     ('Kitchen & Appliances/Kitchen & Dining', r'egg\s*(box|storage|organizer)'),
     ('Tools & Garden/Tools & Gardening', r'wrench|adhesive\s*tape|sewing\s*machine|fertili[sz]er|screwdriver|self.defense'),
@@ -64,7 +88,12 @@ RULES = [
     ('Pet Supplies/Pet Care', r'fish\s*medicine|aquarium'),
     ('Home & Living/Bedding', r'comforter|duvet|bed\s*sheet|bedding|blanket|pillow|quilt|কম্ফর্টার|বেডশীট|বেডশিট|ব্লাঙ্কেট|কাথা|কাঁথা|বালিশ'),
     ('Electronics/Storage & Memory', r'micro\s*sd|memory\s*card|flash\s*drive|\bssd\b|\bhdd\b|মেমোরি'),
-    ('Electronics/TV & Streaming', r'\btv\s*box|streamer|smart\s*tv|television|projector|টিভি|প্রজেক্টর'),
+    ('Home & Living/TV Covers', r'tv\s*cover|television\s*cover'),
+    ('Toys & Games/Drawing & Projection Toys', r'drawing\s*projector|drawing.*table|projector\s*torch|torch.*projector'),
+    ('Home & Living/Projection Night Lights', r'night\s*(?:light|lamp).*projector|(?:star|galaxy|planet).*projector|projector.*night\s*(?:light|lamp)'),
+    ('Electronics/TV Streaming Boxes', r'\btv\s*(?:box|stick)|streamer|টিভি বক্স'),
+    ('Electronics/Projectors', r'projector|প্রজেক্টর'),
+    ('Electronics/Televisions', r'smart\s*tv|television|টিভি'),
     ('Electronics/Cameras & Security', r'\bcctv\b|security\s*camera|wifi\s*camera|camera|ক্যামেরা|সিসিটিভি'),
     ('Electronics/Networking', r'router|\bonu\b|modem|রাউটার'),
     ('Electronics/Audio & Headphones', r'earbud|earphone|headphone|neckband|speaker|microphone|\btws\b|হেডফোন|মাইক্রোফোন|নেকব্যান্ড|স্পিকার'),
@@ -88,7 +117,7 @@ RULES = [
     ('Clothing/Modest Wear', r'abaya|hijab|burqa|niqab|বোরকা|বোরখা|বোর্?কা|হিজাব|নিকাব'),
     ('Clothing/Nightwear & Underwear', r'night\s*wear|nightwear|underwear|inner\s*garment|\bbra\b|\bpanty\b|নাইটি|ইনার'),
     ('Kids & Toys/Children’s Clothing', r'baby.*(dress|shirt|cloth|pant|winter)|kids?.*(dress|shirt|cloth|pant|winter)|কিডস.*প্যান্ট|বেবি.*(কামিজ|শার্ট|বোরখা)|গার্লস.*সেট|বয়েজ.*সেট|পরী\s*ড্রেস'),
-    ('Clothing/Tops/Hoodies & Sweatshirts', r'hoodie|sweatshirt|হুডি|সুইটশার্ট'),
+    ('Clothing/Tops/Hoodies & Sweatshirts', r'hoodie|sweatshirt|sweetshirt|হুডি|সুইটশার্ট'),
     ('Clothing/Outerwear', r'jacket|sweater|overcoat|blazer|shacket|জ্যাকেট|সুয়েটার|সোয়েটার|ওভারকোট|শ্যাকেট'),
     ('Clothing/Tops/Polo Shirts', r'polo|পলো'),
     ('Clothing/Tops/T-Shirts', r't[ -]?shirt|টিশার্ট|টি.?শার্ট'),
@@ -99,7 +128,7 @@ RULES = [
     ('Shoes & Bags/Bags & Wallets', r'bag|wallet|purse|luggage|ব্যাগ|মানিব্যাগ'),
     ('Jewelry & Watches/Watches', r'\bwatch(es)?\b|ঘড়ি|ঘড়ি'),
     ('Jewelry & Watches/Jewelry & Accessories', r'jewel|necklace|pendant|earring|bracelet|sunglass|chain|জুয়েলারি|চেইন|ক্লিপ|ব্যান্ড'),
-    ('Home & Living/Clocks', r'clock|এলাম|দেয়াল.*ঘড়ি'),
+    ('Home & Living/Clocks', r'\bclocks?\b|দেয়াল.*ঘড়ি'),
     ('Home & Living/Lighting', r'light|lamp|লাইট'),
     ('Home & Living/Furniture', r'furniture|chair|sofa|desk|আসবাব'),
     ('Home & Living/Decor & Gifts', r'decor|showpiece|gift|গৃহ\s*সজ্জা|ঘর\s*সাজানো|সাজ\s*সজ্জা|গিফট'),
@@ -150,11 +179,19 @@ def classify(title, categories=(), description=''):
 
 
 def category_slug(path):
+    from .category_normalization import canonical_path
+    path = canonical_path(path)
     return slugify(' '.join(path))[:180]
 
 
 def ensure_category(path):
     from .models import Category
+    from .category_normalization import canonical_path
+    path = canonical_path(path)
+    # Compatibility for old importers: never recreate an intermediate third
+    # level. The reviewed normalizer replaces legacy broad labels separately.
+    if len(path) > 2:
+        path = (path[0], path[-1])
     parent = None
     for i, name in enumerate(path):
         parent, _ = Category.objects.using('ecommerce').update_or_create(slug=category_slug(path[:i+1]), defaults={

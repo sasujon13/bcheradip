@@ -13,6 +13,7 @@ from django.db.models import UniqueConstraint
 
 SAFE_ADDITIONS = {
     ('ecommerce', 'ecommerce', 'cartitem', 'requested_size'),
+    ('ecommerce', 'ecommerce', 'cartitem', 'requested_color'),
     ('ecommerce', 'ecommerce', 'productimage', 'source_media'),
     ('ecommerce', 'ecommerce', 'supplieroffer', 'source_product'),
     ('ecommerce', 'ecommerce', 'product', 'supplier_delivery_rates'),
@@ -71,6 +72,12 @@ class Command(BaseCommand):
             connection = connections['ecommerce']
             with connection.cursor() as cursor:
                 existing = set(connection.introspection.table_names(cursor))
+            membership = apps.get_model('ecommerce', 'Product').secondary_categories.through
+            if membership._meta.db_table not in existing:
+                self.stdout.write('Creating additive product secondary-category membership table')
+                with connection.schema_editor() as editor:
+                    editor.create_model(membership)
+                existing.add(membership._meta.db_table)
             for name in SAFE_SOURCE_TABLES:
                 model = apps.get_model('ecommerce', name)
                 if model._meta.db_table not in existing:
@@ -118,13 +125,14 @@ class Command(BaseCommand):
             if cart_item._meta.db_table in tables_by_alias.get('ecommerce', set()):
                 with conn.cursor() as cursor:
                     keys = conn.introspection.get_constraints(cursor, cart_item._meta.db_table)
-                wanted = next(c for c in cart_item._meta.constraints if c.name == 'ecommerce_cart_variant_size_unique')
-                if not any(k.get('unique') and k.get('columns') == ['cart_id','variant_id','requested_size'] for k in keys.values()):
+                wanted = next(c for c in cart_item._meta.constraints if c.name == 'ecommerce_cart_variant_choices_unique')
+                if not any(k.get('unique') and k.get('columns') == ['cart_id','variant_id','requested_size','requested_color'] for k in keys.values()):
                     with conn.schema_editor() as editor: editor.add_constraint(cart_item, wanted)
                 for name, key in keys.items():
-                    if key.get('unique') and key.get('columns') == ['cart_id','variant_id']:
+                    if key.get('unique') and key.get('columns') in (['cart_id','variant_id'], ['cart_id','variant_id','requested_size']):
+                        fields = ['cart','variant'] if len(key['columns']) == 2 else ['cart','variant','requested_size']
                         with conn.schema_editor() as editor:
-                            editor.remove_constraint(cart_item, UniqueConstraint(fields=['cart','variant'], name=name))
+                            editor.remove_constraint(cart_item, UniqueConstraint(fields=fields, name=name))
             if missing:
                 # Recheck from the database, including the new columns and indexes.
                 options["apply_safe"] = False

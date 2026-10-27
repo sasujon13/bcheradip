@@ -107,7 +107,7 @@ class CatalogueTests(TransactionTestCase):
         variant.refresh_from_db(); self.assertEqual(variant.stock,20)
         self.assertTrue(InventoryMovement.objects.using('ecommerce').filter(variant=variant,reason='sale').exists())
 
-    def test_photo_provenance_unconfirmed_stock_and_stale_checks_hide_public_products(self):
+    def test_photo_provenance_and_unconfirmed_stock_hide_but_stale_positive_check_remains_visible(self):
         from .supplier_service import run_jobs
         from .models import ProductImage
         from django.utils import timezone
@@ -119,7 +119,7 @@ class CatalogueTests(TransactionTestCase):
         variant = offer.imported_product.variants.get()
         self.assertEqual(self.client.post('/api/ecommerce/cart/', {'variant_id':variant.pk, 'quantity':1}, format='json').status_code,409)
         offer.availability='in_stock'; offer.observed_at=timezone.now()-timedelta(hours=25); offer.save()
-        self.assertEqual(self.client.get('/api/ecommerce/products/').data['count'], 0)
+        self.assertEqual(self.client.get('/api/ecommerce/products/').data['count'], 1)
         offer.observed_at=timezone.now(); offer.save()
         ProductImage.objects.filter(product=offer.imported_product).update(source_media=None,url='https://supplier.example/logo.png')
         self.assertEqual(self.client.get('/api/ecommerce/products/').data['count'], 0)

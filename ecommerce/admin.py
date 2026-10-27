@@ -11,7 +11,7 @@ from .models import (
 from .book_catalog import sync_book_catalog
 from .book_builder import build_book_asset
 from .order_service import change_order, change_payment
-from .admin_forms import OrderAdminForm, PaymentAdminForm, DeliverySettingsAdminForm, ShipmentAdminForm, ProductVariantAdminForm
+from .admin_forms import OrderAdminForm, PaymentAdminForm, DeliverySettingsAdminForm, ShipmentAdminForm, ProductVariantAdminForm, ProductAdminForm
 from .pricing import calculate_price
 from .delivery_rates import listing_defaults
 from . import supplier_admin  # noqa: F401 - register private sourcing tools
@@ -42,10 +42,22 @@ class CatalogReviewFilter(admin.SimpleListFilter):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    form = ProductAdminForm
+    filter_horizontal = ('secondary_categories',)
+    readonly_fields = ('color_review',)
     list_display = ('name', 'status', 'is_sample', 'updated_at')
     search_fields = ('name', 'slug', 'variants__sku')
     list_filter = ('status', 'is_sample', CatalogReviewFilter)
     actions = ('confirm_category', 'recheck_options')
+
+    @admin.display(description='Supplier color interpretation')
+    def color_review(self, obj):
+        if not obj or not obj.pk: return 'No supplier product linked yet.'
+        from .product_content import color_interpretation
+        policy = color_interpretation(obj)
+        if policy['needs_review']:
+            return f"Review needed: {policy['original']} is displayed as one mixed design ({policy['label']}). Confirm mixed or separate below. This does not archive the listing."
+        return policy['label'] or 'No ambiguous supplier color detected.'
 
     @admin.action(description='Recheck size/option mappings after supplier verification', permissions=['change'])
     def recheck_options(self, request, queryset):

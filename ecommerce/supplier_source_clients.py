@@ -83,6 +83,10 @@ class SourceClient:
                 if response.status_code != 200:
                     status = response.status_code
                     response.close()
+                    if method == 'GET' and status in (500,502,503,504) and network_retries < 2:
+                        network_retries += 1
+                        time.sleep(2 ** network_retries)
+                        continue
                     raise SourceError(f'Source HTTP {status}; no timestamp or stock confirmation invented.')
                 body = bytearray()
                 for chunk in response.iter_content(65536):
@@ -111,7 +115,16 @@ class SourceClient:
             self.coverage['access_gaps'].append('Explicit public-only collection: buying prices and gated account data are not verified.')
             return
         if self.site == 'selfshop':
-            self.coverage['access_gaps'].append('Public product data only; account-specific buying price must not be assumed.')
+            if not self.username or not self.password:
+                raise SourceError('Normal SelfShop account sign-in is required; public collection must be explicitly selected.')
+            # The supplier's own login form posts the Phone Number field as
+            # email, then uses the returned bearer token for product details.
+            result = self.request('https://api-v1.selfshop.com.bd/api/login', method='POST',
+                json_data={'email':self.username,'password':self.password}).json()
+            if not result.get('status') or not isinstance(result.get('token'),str):
+                raise SourceError('Normal SelfShop sign-in was not accepted.')
+            self.tokens['api-v1.selfshop.com.bd'] = result['token']
+            self.coverage['account_authenticated'] = True
             return
         if not self.username or not self.password:
             raise SourceError('Normal supplier login is required. Supply one-run credentials privately.')
@@ -276,7 +289,11 @@ class SourceClient:
                     if str(p['id']) in self.skip_ids:
                         continue
                     endpoint = 'https://api-v1.selfshop.com.bd/api/product-details/' + p['ProductSlug']
-                    yield self.detail_record(p['id'], endpoint, lambda: parse.selfshop(self.request(endpoint).json()), vendor_id=str(p.get('vendor_id') or ''), warehouse_id=str(p.get('warehouse_id') or ''))
+                    def read_selfshop():
+                        result = parse.selfshop(self.request(endpoint).json())
+                        result['extra']['account_authenticated'] = bool(self.coverage.get('account_authenticated'))
+                        return result
+                    yield self.detail_record(p['id'], endpoint, read_selfshop, vendor_id=str(p.get('vendor_id') or ''), warehouse_id=str(p.get('warehouse_id') or ''))
                 if not isinstance(products.get('current_page'), int) or not isinstance(products.get('last_page'), int):
                     raise SourceError('SelfShop pagination metadata is missing; completion cannot be confirmed.')
                 if products['current_page'] == products['last_page']:

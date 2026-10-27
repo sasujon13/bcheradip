@@ -386,6 +386,7 @@ AUTH_USER_MODEL = 'cheradip.Customer'
 # Separate key for private commerce credentials; never reuse tutor/customer key material.
 COMMERCE_SUPPLIER_KEY = os.environ.get('COMMERCE_SUPPLIER_KEY', '')
 COMMERCE_SUPPLIER_KEY_FILE = os.environ.get('COMMERCE_SUPPLIER_KEY_FILE', os.path.join(BASE_DIR, 'private_suppliers', 'fernet.key'))
+SUPPLIER_BROWSER_VISIBLE_INTAKE = True
 
 AUTHENTICATION_BACKENDS = [
     'cheradip.backends.CustomBackend',

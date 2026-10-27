@@ -244,6 +244,10 @@ class CategoryManageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate_parent(self, parent):
+        if parent and parent.parent_id:
+            raise ValidationError('Only two levels are allowed: Department > Product type.')
+        if parent and self.instance and self.instance.children.exists():
+            raise ValidationError('Move existing children before turning this department into a product type.')
         original = parent
         seen = {self.instance.pk} if self.instance else set()
         while parent:

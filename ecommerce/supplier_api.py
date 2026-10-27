@@ -142,8 +142,10 @@ class SupplierSerializer(serializers.ModelSerializer):
     def get_capabilities(self, obj):
         from .supplier_connectors import LIVE
         from .supplier_browser import site_for_supplier
-        return {'snapshot_collection': True, 'live_api': obj.connector in LIVE, 'automatic_orders': False,
-                'preferred_collection': 'browser' if obj.connector in ('business_koro','labelled_stock') else 'api' if obj.connector in LIVE else 'browser',
+        from .supplier_source_clients import SUPPLIER_IDS
+        return {'full_collection': obj.pk in SUPPLIER_IDS.values(),
+                'snapshot_collection': True, 'live_api': obj.connector in LIVE, 'automatic_orders': False,
+                'preferred_collection': 'browser',
                 'browser_collection': bool(site_for_supplier(obj)),
                 'credential_status': 'expired' if obj.credential_expires_at and obj.credential_expires_at <= timezone.now() else
                     ('stored_unverified' if obj.credentials_ciphertext else 'not_set'),
@@ -173,7 +175,7 @@ class SupplierSerializer(serializers.ModelSerializer):
 
 
 class EvidenceSerializer(serializers.ModelSerializer):
-    match_confidence = serializers.DecimalField(max_digits=5, decimal_places=2, min_value=0, max_value=100, allow_null=True, required=False)
+    match_confidence = serializers.DecimalField(max_digits=5, decimal_places=2, min_value=0, max_value=100)
     class Meta:
         model = SupplierEvidence
         fields = ('id', 'offer', 'seller', 'marketplace', 'url', 'price', 'delivery', 'observed_at', 'exact_match', 'match_confidence', 'available', 'note', 'match_key')
@@ -298,6 +300,46 @@ class SupplierViewSet(CommerceAdminAuthMixin, viewsets.ModelViewSet):
             return Response({'detail': str(exc)}, status=409)
         return Response({'id': str(job.pk), 'status': 'queued',
                          'detail': 'Read-only browser collection queued. Login is used for this run only; it is not saved.'}, status=202)
+
+    @action(detail=True, methods=['post'], url_path='full-collection')
+    def full_collection(self, request, pk=None):
+        require(request.user, 'collect_supplier')
+        supplier = self.get_object()
+        from .supplier_source_clients import SUPPLIER_IDS
+        site = next((site for site, pk in SUPPLIER_IDS.items() if pk == supplier.pk), None)
+        if not site or not supplier.enabled or not supplier.terms_confirmed:
+            raise ValidationError(supplier.health or 'Enable authorised supplier access first.')
+        if not supplier.credentials_ciphertext and site != 'selfshop':
+            raise ValidationError('Save supplier sign-in credentials before collecting full details.')
+        if supplier.recollections.filter(status__in=('running', 'queued', 'cancel_requested')).exists():
+            raise ValidationError('Full collection is already running for this supplier.')
+        if supplier.jobs.filter(status__in=ACTIVE).exists():
+            raise ValidationError('A supplier job is already running. Wait or cancel it before starting browser collection.')
+        import subprocess
+        import sys
+        from pathlib import Path
+        from django.conf import settings
+        # The per-supplier file lock also closes the race between two staff clicks.
+        root = Path(settings.BASE_DIR) / 'private_suppliers' / 'recollection'
+        root.mkdir(parents=True, exist_ok=True, mode=0o700)
+        stream = (root / (site + '-workspace.log')).open('ab')
+        try:
+            subprocess.Popen([sys.executable, str(Path(settings.BASE_DIR) / 'manage.py'),
+                'collect_supplier_full', '--supplier', site,'--actor-id',str(request.user.pk)], cwd=settings.BASE_DIR,
+                stdout=stream, stderr=stream, stdin=subprocess.DEVNULL,
+                creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+        finally:
+            stream.close()
+        audit('full_source_collection_requested', request.user.pk, supplier)
+        return Response({'status': 'queued', 'detail': 'Browser-visible catalogue verification started; buying prices and orderable stock are read from the account website. Unclear products remain for review.'}, status=202)
+
+    @action(detail=True, methods=['post'], url_path='cancel-full-collection')
+    def cancel_full_collection(self, request, pk=None):
+        require(request.user, 'collect_supplier')
+        supplier = self.get_object()
+        count = supplier.recollections.filter(status__in=('running', 'queued')).update(status='cancel_requested',updated_at=timezone.now())
+        count += supplier.jobs.filter(runner='browser',action='collect',status__in=('running','queued')).update(status='cancel_requested',updated_at=timezone.now())
+        return Response({'cancel_requested': count})
 
 
 class OfferViewSet(CommerceAdminAuthMixin, viewsets.ReadOnlyModelViewSet):
@@ -526,7 +568,25 @@ class SupplierWorkspaceView(CommerceAdminAuthMixin, APIView):
     def get(self, request):
         config = policy()
         from .supplier_connectors import LIVE
+        from pathlib import Path
+        from django.conf import settings
+        sync = None
+        try:
+            path = Path(settings.BASE_DIR)/'private_suppliers'/'catalog_sync'/'status.json'
+            if path.stat().st_size < 4096:
+                sync = json.loads(path.read_text(encoding='utf-8'))
+                import re
+                token=sync.get('run','')
+                if sync.get('status')=='running' and re.fullmatch(r'\d{8}T\d{6}Z-[a-f0-9]{6}',token):
+                    for progress in (path.parent/token).glob('*.import-progress.json'):
+                        if progress.stat().st_size>4096:continue
+                        value=json.loads(progress.read_text(encoding='utf-8'))
+                        if value.get('updated_at','')>=sync.get('updated_at',''):
+                            sync={**sync,'activity':f"Applying catalog changes: {int(value.get('records',0)):,} records checked on this server",
+                                  'updated_at':value['updated_at']}
+        except (OSError, ValueError): pass
         return Response({'timezone': 'Asia/Dhaka', 'nightly_time': '23:59', 'evidence_days': config.evidence_days,
+            'catalog_sync':sync,
             'retention_days': config.retention_days, 'last_nightly_date': config.last_nightly_date,
             'auto_place_orders': False, 'live_connectors': list(LIVE), 'market_search_connected': False,
             'catalogue_mode':config.catalogue_mode,'catalogue_revision':config.catalogue_revision,

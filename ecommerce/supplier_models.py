@@ -58,7 +58,7 @@ class SupplierPolicy(TimeStampedModel):
 
 class SupplierOffer(TimeStampedModel):
     STATES = [(x, x.replace('_', ' ').title()) for x in
-              ('collected', 'needs_data', 'needs_review', 'ready', 'reduced_margin', 'blacklist', 'zero_margin', 'excluded')]
+              ('collected', 'needs_data', 'needs_review', 'ready', 'reduced_margin', 'blacklist', 'zero_margin', 'excluded', 'unique')]
     supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT, related_name='offers')
     external_id = models.CharField(max_length=120)
     variant_id = models.CharField(max_length=120, blank=True)

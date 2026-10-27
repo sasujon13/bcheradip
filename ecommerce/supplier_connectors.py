@@ -46,7 +46,7 @@ def collect_uddoog_stock(supplier, continue_check=lambda: True, offer_ids=None):
     for offer in SupplierOffer.objects.using('ecommerce').filter(supplier=supplier, source_product__isnull=False).select_related('source_product'):
         if offer_ids is not None and offer.pk not in offer_ids:
             continue
-        if offer.source_product.variants or offer.variant_id:
+        if offer.source_product.variants or (offer.variant_id and not re.fullmatch(r'catalogue-type-\d+',offer.variant_id)):
             continue
         tracked.setdefault(offer.external_id, []).append(offer)
     rows, seen = [], set()
@@ -143,12 +143,13 @@ def collect_resellkori_stock(supplier, continue_check=lambda: True, offer_ids=No
             if 'outofstock' in own.get('class','').split():
                 quantity=0
             cost=Decimal(data['prices'].get('reseller',{}).get('amount') or '0')
-            if isinstance(quantity,bool) or not isinstance(quantity,int) or quantity < 0 or not cost.is_finite() or cost <= 0:
+            confirmation=quantity is None and 'instock' in own.get('class','').split()
+            if (not confirmation and (isinstance(quantity,bool) or not isinstance(quantity,int) or quantity < 0)) or not cost.is_finite() or cost <= 0:
                 continue
             rows.append({'external_id':offer.external_id,'variant_id':offer.variant_id,
                 'vendor_id':offer.vendor_id,'warehouse_id':offer.warehouse_id,'title':offer.title,
                 'url':offer.url,'identity':deepcopy(offer.identity),'source_price':str(cost),'currency':'BDT',
-                'quantity':quantity,'availability':'in_stock' if quantity else 'out_of_stock',
+                'quantity':quantity,'availability':'in_stock' if quantity or confirmation else 'out_of_stock',
                 'single_unit':True,'observed_at':timezone.now().isoformat()})
     except (SourceError,KeyError,TypeError,ValueError,InvalidOperation):
         raise ConnectorError('Supplier refresh failed. No stock or timestamps fabricated; retry through normal access.') from None
@@ -178,7 +179,7 @@ def collect_dropshipping_stock(supplier, continue_check=lambda: True, offer_ids=
     client=SourceClient('dropshipping',credentials['username'],credentials['password'])
     tracked={o.source_product.external_id:o for o in SupplierOffer.objects.using('ecommerce').filter(
         supplier=supplier,source_product__isnull=False,imported_product__isnull=False).select_related('source_product')
-        if (offer_ids is None or o.pk in offer_ids) and not o.variant_id and not o.source_product.variants}
+        if (offer_ids is None or o.pk in offer_ids) and (not o.variant_id or re.fullmatch(r'catalogue-type-\d+',o.variant_id)) and not o.source_product.variants}
     rows=[];seen=set()
     try:
         if not continue_check(): raise ConnectorError('Update cancelled before sign-in.')

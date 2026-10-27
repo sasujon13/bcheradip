@@ -10,6 +10,7 @@ import hashlib
 import io
 import json
 import logging
+import re
 from urllib.parse import urlsplit
 
 import requests
@@ -37,6 +38,7 @@ IMAGE_HOSTS = {2: {'cdn.businesskoro.com'}, 3: {'dropshop.com.bd'},
                8: {'resellkori.com', 'www.resellkori.com'},
                9: {'dropshipping.com.bd', 'www.dropshipping.com.bd'}}
 IMAGE_HOSTS.update({1:{'shopbasebd.com'},6:{'dropbazarbd.com'},7:{'www.dropifybd.com','dropifybd.com'}})
+IMAGE_HOSTS[4] = {'media.selfshop.com.bd'}
 
 
 def verify_photo(media):
@@ -47,9 +49,21 @@ def verify_photo(media):
     if urlsplit(media.original_url).hostname not in IMAGE_HOSTS.get(media.product.supplier_id, set()):
         raise ValueError('This supplier image host still requires a reviewed download adapter.')
     name = (media.metadata or {}).get('cached_name')
-    if (name and name.startswith('supplier_products/') and media.metadata.get('verified_image') and
-            media.metadata.get('verified_run_id')==str(media.last_run_id) and default_storage.exists(name)):
-        return media
+    if (name and re.fullmatch(r'supplier_products/[a-f0-9]{64}\.(?:jpg|png|webp|gif|avif)',name) and
+            media.metadata.get('verified_image') and default_storage.exists(name)):
+        # Recollection carries this proof forward only for the SAME original
+        # supplier URL and variant. Reuse its actual verified bytes; a new
+        # stock/content run need not download an unchanged gallery again.
+        with default_storage.open(name,'rb') as cached:
+            valid=hashlib.file_digest(cached,'sha256').hexdigest()==media.metadata.get('sha256')==name.rsplit('/',1)[-1].split('.',1)[0]
+        if valid:
+            if media.metadata.get('reference_confirmed_run_id')!=str(media.last_run_id):
+                media.metadata={**media.metadata,'reference_confirmed_run_id':str(media.last_run_id),
+                    'reference_confirmed_at':media.last_seen_at.isoformat()}
+                # Keep the real byte-verification date; reconfirming a URL is
+                # not a claim that the image was downloaded again today.
+                media.save(using=DB,update_fields=['metadata','updated_at'])
+            return media
     with requests.Session() as session:
         session.trust_env = False
         try:
@@ -86,6 +100,11 @@ def norm(value):
 
 
 def stock_observed_at(source):
+    browser=(source.extra or {}).get('browser_verification') or {}
+    if browser.get('state') in ('verified','unavailable'):
+        from django.utils.dateparse import parse_datetime
+        checked=parse_datetime(browser.get('checked_at') or '')
+        if checked:return checked
     from django.utils.dateparse import parse_datetime
     value=source.extra.get('price_stock_checked_at') if source.supplier_id in (1,6,7) else None
     checked=parse_datetime(value) if isinstance(value,str) else None
@@ -93,6 +112,36 @@ def stock_observed_at(source):
 
 
 def source_variants(source):
+    proof=(source.extra or {}).get('browser_verification') or {}
+    if (source.extra or {}).get('browser_preferred'):
+        if proof.get('state')!='verified':
+            raise ValueError('Browser buying-price/orderability verification is unavailable or needs review.')
+        cost=Decimal(str(proof.get('buying_price') or '0'))
+        if not cost.is_finite() or cost<=0:raise ValueError('No positive browser-labelled buying price.')
+        if proof.get('visible_variants'):
+            rows=[]
+            for item in proof['visible_variants']:
+                spec=item['spec'];quantity=item.get('quantity')
+                legacy='spec-'+hashlib.sha256(json.dumps(spec,sort_keys=True).encode()).hexdigest()[:32]
+                rows.append({'id':item['id'],'legacy_id':legacy,'spec':spec,'quantity':quantity,
+                    'cost':Decimal(str(item['buying_price'])),'confirmation_required':quantity is None})
+            return rows
+        if source.variants or source.extra.get('variant_inputs'):
+            rows=_structured_source_variants(source)
+            if any(row['cost']!=cost for row in rows):
+                raise ValueError('Browser parent price differs from structured variant costs; exact option review required.')
+            return rows
+        quantity=proof.get('quantity') if proof.get('quantity_verified') else None
+        return [{'id':'','legacy_id':'','spec':{},'quantity':quantity,'cost':cost,'confirmation_required':quantity is None}]
+    return _structured_source_variants(source)
+
+
+def source_allows_unknown_quantity(source):
+    return source.supplier_id in (1,6,7,8,9) or bool((source.extra or {}).get('browser_preferred') and
+        ((source.extra or {}).get('browser_verification') or {}).get('state')=='verified')
+
+
+def _structured_source_variants(source):
     if source.supplier_id in (1,6,7):
         if source.variants or source.extra.get('variant_inputs'):
             raise ValueError('Source options need exact variant mapping before release; quantity confirmation does not select an unknown option.')
@@ -126,12 +175,13 @@ def source_variants(source):
                 raise ValueError('An active account-labelled dropshipper price and exact positive stock are required.')
             cost = source.prices.get('sale_price', {}).get('amount')
         quantity = source.stock.get('quantity')
-        if isinstance(quantity, bool) or not isinstance(quantity, int) or not 0 <= quantity <= 100000000:
+        confirmation=quantity is None and source.supplier_id in (8,9)
+        if not confirmation and (isinstance(quantity, bool) or not isinstance(quantity, int) or not 0 <= quantity <= 100000000):
             raise ValueError('A confirmed numeric quantity is required; stock labels are not invented quantities.')
         cost = Decimal(cost or '0')
         if not cost.is_finite() or cost <= 0:
             raise ValueError('Confirmed account buying price is missing.')
-        return [{'id': '', 'legacy_id': '', 'spec': {}, 'quantity': quantity, 'cost': cost}]
+        return [{'id': '', 'legacy_id': '', 'spec': {}, 'quantity': quantity, 'cost': cost,'confirmation_required':confirmation}]
     if source.supplier_id != 2:
         raise ValueError('Buying price and exact variant stock are not yet verified for this supplier adapter.')
     raw = source.raw_data.get('product') or {}
@@ -173,10 +223,10 @@ def trusted_stock_identity(offer, row):
         # Legacy cards used the public URL suffix, not the internal API ID.
         # The account connector checks that API ID against the source's own
         # page, then returns the saved offer identity without changing history.
-        return bool(not source.variants and not offer.variant_id and row['external_id']==offer.external_id and
+        return bool(not source.variants and (not offer.variant_id or re.fullmatch(r'catalogue-type-\d+',offer.variant_id)) and row['external_id']==offer.external_id and
                     row['url']==source.url and row['identity']==offer.identity and norm(row['title'])==norm(offer.title))
     if offer.supplier_id in (3, 8):
-        return bool(not source.variants and not offer.variant_id and
+        return bool(not source.variants and (not offer.variant_id or re.fullmatch(r'catalogue-type-\d+',offer.variant_id)) and
                     row['external_id'] == source.external_id and row['identity'] == offer.identity and
                     norm(row['title']) == norm(offer.title))
     if offer.supplier_id != 2:
@@ -205,7 +255,7 @@ def refresh_listing_stock(offer):
     reserved = OrderItem.objects.using(DB).filter(variant_id=variant.pk,
         order__status__in=('pending', 'confirmed', 'processing')).aggregate(n=Sum('quantity'))['n'] or 0
     stock_known = offer.availability == 'in_stock' and offer.quantity is not None and offer.quantity > 0
-    confirmation = offer.availability == 'in_stock' and offer.quantity is None and offer.supplier_id in (1,6,7)
+    confirmation = offer.availability == 'in_stock' and offer.quantity is None and source_allows_unknown_quantity(offer.source_product)
     variant.stock = max(0, offer.quantity-reserved) if stock_known else 0
     variant.cost_price, variant.allow_backorder = offer.source_price, confirmation
     variant.save(using=DB, update_fields=['stock', 'cost_price', 'allow_backorder', 'updated_at'])
@@ -217,14 +267,14 @@ def refresh_listing_stock(offer):
     ready = bool(source_cost > 0 and variant.price > floor and variant.price >= minimum)
     was_source_hold = bool(product.attributes.get('source_stock_hold'))
     attributes = {**product.attributes, 'supplier_publication_ready': ready, CONFIRMATION_MARKER:confirmation}
-    Product.objects.using(DB).filter(pk=product.pk).update(attributes=attributes)
+    Product.objects.using(DB).filter(pk=product.pk).update(attributes=attributes,updated_at=timezone.now())
     orderable = purchasable_offers().filter(pk=offer.pk).exists()
     if not orderable and (product.status == 'active' or was_source_hold):
         attributes['source_stock_hold'] = True
-        Product.objects.using(DB).filter(pk=product.pk).update(status='archived', attributes=attributes)
+        Product.objects.using(DB).filter(pk=product.pk).update(status='archived', attributes=attributes,updated_at=timezone.now())
     elif orderable and was_source_hold:
         attributes['source_stock_hold'] = False
-        Product.objects.using(DB).filter(pk=product.pk).update(status='active', attributes=attributes)
+        Product.objects.using(DB).filter(pk=product.pk).update(status='active', attributes=attributes,updated_at=timezone.now())
     # A staff archive without this source-hold marker is never restored.
     audit('verified_listing_stock_refreshed', supplier=offer.supplier, offer=offer,
           available_after_local_reservations=variant.stock, selling_price_preserved=True,
@@ -239,8 +289,8 @@ def apply_variant(source_id, row, media_ids):
     if not images or source.quality.get('missing'):
         raise ValueError('Complete original content and verified original photos are required.')
     if (not source.supplier.enabled or not source.supplier.terms_confirmed or
-            not timezone.now()-timedelta(hours=24) <= stock_observed_at(source) <= timezone.now()):
-        raise ValueError('Current authorised source observation is required.')
+            stock_observed_at(source) > timezone.now()):
+        raise ValueError('An authorised source observation without a future timestamp is required.')
     parent = SupplierOffer.objects.using(DB).select_for_update().filter(supplier_id=source.supplier_id).filter(
         Q(external_id=source.external_id) | Q(url=source.url))
     if parent.filter(state='excluded').exists() or parent.exclude(excluded_reason='').exists() or RESTRICTED.search(source.title):
@@ -250,6 +300,14 @@ def apply_variant(source_id, row, media_ids):
     if not exact:
         exact = [o for o in candidates if row['spec'] and all(
             norm((o.identity.get('specifications') or {}).get(k)) == norm(v) for k, v in row['spec'].items())]
+    # The old lightweight browser collector used catalogue-type-N to remember
+    # navigation groups. Those are not supplier variant IDs. Reuse their shop
+    # listing when the full source confirms a simple product instead of making
+    # a second product for the same supplier identity.
+    import re
+    legacy = [o for o in candidates if re.fullmatch(r'catalogue-type-\d+', o.variant_id or '')]
+    if not exact and not row['id'] and not row['spec'] and not source.variants and legacy:
+        exact = [sorted(legacy, key=lambda o: (not bool(o.imported_product_id), o.pk))[0]]
     if len(exact) > 1:
         raise ValueError('More than one historical offer matches this exact source variant; review required.')
     if exact:
@@ -267,7 +325,7 @@ def apply_variant(source_id, row, media_ids):
         if offer.source_price is None or offer.source_price <= 0 or offer.currency != 'BDT':
             raise ValueError('Newer supplier price is unconfirmed; older content cannot replace it.')
         quantity = offer.quantity if offer.availability == 'in_stock' else 0
-        confirmation = bool(quantity is None and offer.availability=='in_stock' and source.supplier_id in (1,6,7))
+        confirmation = bool(quantity is None and offer.availability=='in_stock' and source_allows_unknown_quantity(source))
         if not confirmation and (isinstance(quantity,bool) or not isinstance(quantity,int) or quantity < 0):
             raise ValueError('Newer supplier quantity is unconfirmed; older content cannot replace it.')
         row = {**row, 'cost': offer.source_price, 'quantity': quantity, 'confirmation_required':confirmation}
@@ -291,6 +349,20 @@ def apply_variant(source_id, row, media_ids):
         import_offer(offer.pk)
         offer.refresh_from_db(using=DB)
     product = Product.objects.using(DB).select_for_update().get(pk=offer.imported_product_id)
+    if (getattr(settings,'SUPPLIER_BROWSER_VISIBLE_INTAKE',False) and
+        (new_listing or product.status!='active') and
+        (source.extra.get('browser_verification') or {}).get('state')!='verified'):
+        raise ValueError('New publication requires browser-visible buying-price and orderability verification.')
+    if not source.variants and not row['id'] and not row['spec']:
+        for duplicate in legacy:
+            if duplicate.pk == offer.pk:
+                continue
+            duplicate.source_product = source
+            duplicate.save(using=DB, update_fields=['source_product', 'updated_at'])
+            if duplicate.imported_product_id:
+                old = Product.objects.using(DB).select_for_update().get(pk=duplicate.imported_product_id)
+                attrs = {**old.attributes, '_catalog_duplicate_of_slug': product.slug}
+                Product.objects.using(DB).filter(pk=old.pk).update(status='archived', attributes=attrs, updated_at=timezone.now())
     variants = list(product.variants.select_for_update())
     if len(variants) > 1:
         raise ValueError('Historical listing contains multiple variants for one offer; no stock overwritten.')
@@ -346,18 +418,22 @@ def apply_variant(source_id, row, media_ids):
         setattr(variant, f'option{n}_value', value)
     variant.save(using=DB)
     floor = row['cost'] + sum((costs[k] for k in ('ads_cost', 'packaging_cost', 'returns_allowance', 'other_costs', 'fees', 'taxes')), Decimal('0'))
-    updates = {'attributes': {**product.attributes, 'manual_supplier_catalogue': True,
+    updates = {'attributes': {**product.attributes, 'manual_supplier_catalogue': True, '_catalog_price_preview':False,
         CONFIRMATION_MARKER: bool(row.get('confirmation_required')),
         'supplier_publication_ready': variant.price > floor and variant.price >= minimum}}
-    from .catalog_structure import classify, ensure_category
+    from .catalog_structure import ensure_category
     from .product_content import option_review
-    category_plan = classify(source.title, source.categories, source.description)
+    from .taxonomy_proposal import normalized_classification
     previous_catalog = product.attributes.get('_catalog', {})
+    preserve_category = bool(not new_listing and product.category_id and product.category.slug not in
+                             ('catalog-review','uncategorized','all-products','large-products','extra-large-products'))
+    category_plan = ({**previous_catalog, 'path':previous_catalog.get('path',[]), 'status':'assigned'}
+                     if preserve_category else normalized_classification(source.title, source.categories, source.description))
     if previous_catalog.get('manual_category'):
         category_plan = {**previous_catalog, 'status': 'assigned'}
-    elif category_plan['path']:
+    elif not preserve_category and category_plan['path']:
         updates['category'] = ensure_category(tuple(category_plan['path']))
-    updates['attributes']['_catalog'] = {**category_plan, 'variant_review': option_review(source, [variant])}
+    updates['attributes']['_catalog'] = {**previous_catalog, **category_plan, 'variant_review': option_review(source, [variant])}
     if retail_rule:
         updates['attributes']['_retail_pricing'] = {
             **product.attributes.get('_retail_pricing', {}), str(variant.pk): retail_rule}
@@ -365,14 +441,17 @@ def apply_variant(source_id, row, media_ids):
     if not description_text(product.description):
         updates['description'] = preferred_description(source)
     Product.objects.using(DB).filter(pk=product.pk).update(**updates)
+    if not preserve_category and not previous_catalog.get('manual_category'):
+        for secondary in category_plan.get('secondary_paths', []):
+            product.secondary_categories.add(ensure_category(tuple(secondary)))
     for n, image in enumerate(images):
         listing_image, _ = ProductImage.objects.using(DB).get_or_create(product=product, url=image.stored_url,
             defaults={'source_media': image, 'position': n, 'alt_text': product.name})
-        ProductImage.objects.using(DB).filter(pk=listing_image.pk).update(source_media=image, position=n)
+        ProductImage.objects.using(DB).filter(pk=listing_image.pk).update(source_media=image, position=n,updated_at=timezone.now())
     # Never delete historical/manual photos. Public serializers select current,
     # provenanced source media only, so old wrong images cannot be the thumbnail.
-    orderable = category_plan['status'] == 'assigned' and variant.price > floor and purchasable_offers().filter(pk=offer.pk).exists()
-    Product.objects.using(DB).filter(pk=product.pk).update(status='active' if orderable else 'archived')
+    orderable = variant.price > floor and purchasable_offers().filter(pk=offer.pk).exists()
+    Product.objects.using(DB).filter(pk=product.pk).update(status='active' if orderable else 'archived',updated_at=timezone.now())
     audit('fresh_supplier_variant_applied', supplier=source.supplier, offer=offer, source_product_id=source.pk,
           source_variant_id=row['id'], source_run=str(source.last_run_id), quantity=row['quantity'],
           available_after_local_reservations=variant.stock, photos=len(images), published=orderable,
@@ -382,6 +461,8 @@ def apply_variant(source_id, row, media_ids):
 
 def publish_source(source_id):
     source = SupplierSourceProduct.objects.using(DB).get(pk=source_id)
+    if source.extra.get('manual_exclusion_review'):
+        raise ValueError('A matching manual supplier exclusion needs staff review before publication.')
     if not source.supplier.enabled or not source.supplier.terms_confirmed:
         raise ValueError('Supplier access is paused or not approved; no image requests or publication attempted.')
     if source.quality.get('missing'):

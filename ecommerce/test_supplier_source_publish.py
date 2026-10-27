@@ -336,7 +336,7 @@ class SourcePublicationTests(TestCase):
         self.source.extra={}
         with self.assertRaises(ValueError):source_variants(self.source)
 
-    def test_out_of_stock_unknown_variant_stock_and_stale_checks_never_become_orderable(self):
+    def test_old_content_cannot_override_newer_sold_out_observation(self):
         self.source.variants[0]['stockQuantity']=0;self.source.save()
         self.assertEqual(publish_source(self.source.pk),{'held':1})
         self.assertEqual(APIClient().get('/api/ecommerce/products/').data['count'],0)
@@ -344,7 +344,7 @@ class SourcePublicationTests(TestCase):
         with self.assertRaises(ValueError): source_variants(self.source)
         self.source.observed_at=timezone.now()-timedelta(hours=25);self.source.save()
         self.source.variants[0]['stockQuantity']=3;self.source.save()
-        with self.assertRaises(ValueError):publish_source(self.source.pk)
+        self.assertEqual(publish_source(self.source.pk), {'held': 1})
 
     def test_idempotent_refresh_preserves_staff_content_and_selling_price(self):
         publish_source(self.source.pk)
@@ -362,6 +362,27 @@ class SourcePublicationTests(TestCase):
             with self.assertRaises(ValueError):publish_source(self.source.pk)
         self.assertFalse(Product.objects.exists())
         self.photo.start()
+
+    def test_same_original_photo_reuses_proven_bytes_without_inventing_a_new_download_date(self):
+        import hashlib,io
+        from PIL import Image
+        from django.test import override_settings
+        self.photo.stop()
+        from .supplier_source_publish import verify_photo
+        blob=io.BytesIO();Image.new('RGB',(64,64),'blue').save(blob,format='PNG');data=blob.getvalue()
+        sha=hashlib.sha256(data).hexdigest();name='supplier_products/'+sha+'.png'
+        image=self.source.media.get();checked=(timezone.now()-timedelta(days=3)).isoformat()
+        image.metadata={'verified_image':True,'sha256':sha,'cached_name':name,'verified_run_id':str(self.run.pk),'verified_at':checked};image.save()
+        new_run=SupplierRecollectionRun.objects.create(supplier=self.supplier,mode='full',status='running')
+        save_record(new_run.pk,self.record);image.refresh_from_db()
+        with tempfile.TemporaryDirectory() as directory,override_settings(MEDIA_ROOT=directory):
+            path=Path(directory)/name;path.parent.mkdir();path.write_bytes(data)
+            with patch('ecommerce.supplier_source_publish.requests.Session',side_effect=AssertionError('No repeat download expected')):
+                verify_photo(image)
+        image.refresh_from_db()
+        self.assertEqual(image.metadata['verified_at'],checked)
+        self.assertEqual(image.metadata['verified_run_id'],str(self.run.pk))
+        self.assertEqual(image.metadata['reference_confirmed_run_id'],str(new_run.pk))
 
     def test_broken_additional_gallery_entry_is_retained_privately_not_a_logo_substitute(self):
         from .models import SupplierSourceMedia

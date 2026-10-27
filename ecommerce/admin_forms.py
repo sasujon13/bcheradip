@@ -1,9 +1,48 @@
 from django import forms
 from cheradip.models import WalletOperation
-from .models import Order, Payment, Shipment, DeliverySettings, ProductVariant
+from .models import Order, Payment, Shipment, DeliverySettings, ProductVariant, Product
 from .order_service import TRANSITIONS
 from .pricing import COST_FIELDS, calculate_price, normalize_costs, normalize_default_costs
 from .delivery_rates import listing_defaults, normalize_profiles
+
+
+class ProductAdminForm(forms.ModelForm):
+    color_mode = forms.ChoiceField(required=False, choices=[('', 'Use source; ambiguous colors remain mixed pending review'),
+        ('mixed', 'Confirmed: one mixed-color design'), ('separate', 'Confirmed: separate selectable colors')])
+    mixed_color_label = forms.CharField(required=False, max_length=200, help_text='For example: Pink & Blue')
+    selectable_colors = forms.CharField(required=False, help_text='Confirmed separate choices, comma separated. Does not create supplier stock quantities.')
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['secondary_categories'].queryset = self.fields['secondary_categories'].queryset.filter(
+            is_active=True, parent__isnull=False, parent__parent__isnull=True)
+        from .product_content import color_interpretation
+        if self.instance.pk:
+            policy = color_interpretation(self.instance)
+            self.initial.update(color_mode=policy['mode'] if policy['mode'] in ('mixed', 'separate') else '',
+                mixed_color_label=policy['label'], selectable_colors=', '.join(policy['choices']))
+
+    def clean(self):
+        data = super().clean()
+        choices = list(dict.fromkeys(x.strip() for x in data.get('selectable_colors', '').split(',') if x.strip()))
+        if data.get('color_mode') == 'separate' and not 2 <= len(choices) <= 20:
+            self.add_error('selectable_colors', 'Enter between 2 and 20 verified color choices.')
+        if data.get('color_mode') == 'mixed' and not data.get('mixed_color_label'):
+            self.add_error('mixed_color_label', 'Enter the mixed-color name.')
+        if 'attributes' in data:
+            attrs = dict(data['attributes'] or {})
+            marker = dict(attrs.get('_catalog', {}))
+            if data.get('color_mode'):
+                marker['color_decision'] = {'mode': data['color_mode'], 'label': data.get('mixed_color_label', ''), 'choices': choices}
+            else:
+                marker.pop('color_decision', None)
+            attrs['_catalog'] = marker
+            data['attributes'] = attrs
+        return data
 
 
 class ProductVariantAdminForm(forms.ModelForm):

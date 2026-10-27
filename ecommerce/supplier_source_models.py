@@ -35,7 +35,7 @@ class SupplierSourceProduct(TimeStampedModel):
     warehouse_id = models.CharField(max_length=255, blank=True)
     url = models.URLField(max_length=2000)
     title = models.TextField()
-    sku = models.CharField(max_length=500, blank=True)
+    sku = models.TextField(blank=True)
     short_description = models.TextField(blank=True)
     description = models.TextField(blank=True)
     # No supplier-specific information is forced into the small matching identity schema.

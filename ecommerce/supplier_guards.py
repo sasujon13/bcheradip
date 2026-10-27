@@ -21,7 +21,9 @@ def check_publication(product, status=None):
     from .models import SupplierOffer
     if (status or product.status) == 'active' and product.pk and SupplierOffer.objects.using('ecommerce').filter(imported_product_id=product.pk).exists():
         from .manual_catalogue import public_ids
-        if product.pk in public_ids():
+        # Check this listing in SQL instead of materializing every eligible
+        # product ID on each admin save. Publication requirements stay intact.
+        if public_ids().filter(imported_product_id=product.pk).exists():
             return
         from .supplier_pilot import current_release
         current_release(product)

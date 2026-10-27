@@ -1,5 +1,6 @@
 """Conservative public presentation of original supplier properties and descriptions."""
 import re
+import unicodedata
 from html import escape, unescape
 from urllib.parse import urljoin, urlsplit
 from lxml import html, etree
@@ -9,7 +10,12 @@ ALIASES = {
     'material': 'Material', 'main material': 'Material', 'fabric': 'Material', 'fabrics': 'Material',
     'ম্যাটেরিয়াল': 'Material', 'ম্যাটেরিয়াল': 'Material', 'মেটেরিয়াল': 'Material', 'কাপড়': 'Material',
     'size': 'Size', 'sizes': 'Size', 'available sizes': 'Size', 'সাইজ': 'Size',
+    't-shirt size': 'Size', 't shirt size': 'Size', 'size details': 'Size', 'available size': 'Size', 'body size': 'Size',
+    'ফেব্রিক': 'Material', 'ফেব্রিক্স': 'Material', 'জিএসএম': 'Fabric weight',
+    'fabrics type': 'Fabric type', 'fabric type': 'Fabric type', 'fit type': 'Fit',
     'color': 'Color', 'colour': 'Color', 'colors': 'Color', 'রং': 'Color', 'কালার': 'Color',
+    'রঙ': 'Color', 'available colors': 'Color', 'available colours': 'Color',
+    'দুইটি আকর্ষণীয় কালার': 'Color', 'দুইটি আকর্ষণীয় কালার': 'Color',
     'brand': 'Brand', 'ব্র্যান্ড': 'Brand', 'model': 'Model', 'model number': 'Model', 'মডেল': 'Model',
     'weight': 'Weight', 'ওজন': 'Weight', 'dimensions': 'Dimensions', 'dimension': 'Dimensions',
     'capacity': 'Capacity', 'storage': 'Capacity', 'volume': 'Volume', 'power': 'Power',
@@ -45,6 +51,15 @@ def plain(value):
     doc = document(value)
     for n in doc.xpath('.//script|.//style|.//iframe|.//form'): n.drop_tree()
     return clean(doc.text_content())
+
+
+def content_lines(value):
+    """Keep supplier line boundaries when interpreting labelled values/charts."""
+    doc = document(value)
+    for node in doc.xpath('.//script|.//style|.//iframe'): node.drop_tree()
+    for node in doc.xpath('.//br|.//p|.//li|.//div|.//h2|.//h3|.//h4'):
+        node.tail = '\n' + (node.tail or '')
+    return unicodedata.normalize('NFKC', doc.text_content()).splitlines()
 
 
 def safe_description(value, base_url=''):
@@ -83,7 +98,7 @@ def safe_description(value, base_url=''):
 def content_rows(source=None, attributes=None, variants=()):
     values, conflicts, evidence = {}, {}, {}
     def add(label, value, origin, structured=False):
-        label = clean(label).strip(' :：*-•')
+        label = re.sub(r'^[^\w]+', '', unicodedata.normalize('NFKC', clean(label))).strip(' :：ঃ*-•')
         canonical = ALIASES.get(label.casefold())
         if not canonical and structured and 1 < len(label) < 65 and not PRIVATE.search(label): canonical = label
         if not canonical or PRIVATE.search(label): return
@@ -126,10 +141,8 @@ def content_rows(source=None, attributes=None, variants=()):
         for node in doc.xpath('.//dt'):
             nxt = node.getnext()
             if nxt is not None and nxt.tag == 'dd': add(node.text_content(), nxt.text_content(), origin, True)
-        for br in doc.xpath('.//br'): br.tail = '\n' + (br.tail or '')
-        for node in doc.xpath('.//p|.//li|.//div'): node.tail = '\n' + (node.tail or '')
-        for line in doc.text_content().splitlines():
-            match = re.match(r'^\s*([^:：]{2,60})\s*[:：]\s*(.+)$', line)
+        for line in content_lines(value):
+            match = re.match(r'^\s*([^:：ঃ]{2,60})\s*[:：ঃ]\s*(.+)$', line)
             if match: add(match[1], match[2], origin)
             else:
                 match = re.match(r'^\s*(size|sizes|সাইজ)\s*[-–]\s*(.+)$', line, re.I)
@@ -168,8 +181,12 @@ def variant_family(product):
     source = source_for(product)
     qs = ProductVariant.objects.using('ecommerce').filter(is_active=True, product__status='active')
     if source:
-        from .supplier_pilot import public_product_ids
-        qs = qs.filter(product__supplier_offer__source_product_id=source.pk, product_id__in=public_product_ids())
+        from .supplier_pilot import public_product_ids_for
+        from .models import SupplierOffer
+        family_ids = list(SupplierOffer.objects.using('ecommerce').filter(
+            source_product_id=source.pk, imported_product_id__isnull=False,
+        ).values_list('imported_product_id', flat=True))
+        qs = qs.filter(product_id__in=[pk for pk in family_ids if public_product_ids_for(pk)])
     else: qs = qs.filter(product_id=product.pk)
     product._variant_family = list(qs.select_related('product').order_by('id'))
     return product._variant_family
@@ -192,18 +209,97 @@ def description_sizes(product, variants=None):
     if 'Size' in conflicts:
         return []
     value = next((r['value'] for r in rows if r['feature'] == 'Size'), '')
+    if not value:
+        for line in content_lines(source.description or ''):
+            labelled = re.match(r'^(?:body\s+)?size\s*=\s*(.+)$', line.strip(), re.I)
+            if labelled:
+                value = labelled[1]
+                break
     # Stop before a chart or other labelled fields; only explicit size tokens.
     value = re.split(r'size\s*measurement|size\s*chart|chest\s*[:=]|length\s*[:=]', value, flags=re.I)[0]
-    sizes = list(dict.fromkeys(m.upper() for m in re.findall(r'(?<!\w)(?:XXXXL|XXXL|XXL|XL|XXS|XS|S|M|L)(?!\w)', value, re.I)))
+    sizes = list(dict.fromkeys(m.upper() for m in re.findall(r'(?<!\w)(?:XXXXL|XXXL|XXL|XL|XXS|XS|S|M|L|[2-6]XL)(?!\w)', value, re.I)))
+    numeric_translation = str.maketrans('০১২৩৪৫৬৭৮৯', '0123456789')
+    if len(sizes) < 2:
+        for line in content_lines(source.description or ''):
+            normalized = line.strip().translate(numeric_translation)
+            match = re.fullmatch(r'(?:সাইজ|(?:available\s+)?size)\s*[:ঃ：]?\s*(\d{2}(?:\s*[/,|]\s*\d{2})+)', normalized, re.I)
+            if match:
+                explicit = list(dict.fromkeys(re.findall(r'\d{2}', match[1])))
+                if 2 <= len(explicit) <= 20:
+                    return explicit
     if len(sizes) < 2:
         contents = [source.description or '', *[str(f.get('html') or f.get('value') or '') if isinstance(f, dict) else str(f) for f in source.features or []]]
-        chart = '\n'.join(plain(text) for text in contents)
-        sizes = list(dict.fromkeys(m.upper() for m in re.findall(
-            r'(?<!\w)(XXXXL|XXXL|XXL|XL|XXS|XS|S|M|L)\s*(?:=|[-–—])\s*(?:Chest|Length|বুক|লম্বা)\s*[:=]?\s*\d', chart, re.I)))
+        sizes = []
+        size_token = r'(?:XXXXL|XXXL|XXL|XL|XXS|XS|S|M|L|[2-6]XL|\d{1,2}(?:-\d{1,2})?(?:Y|M)|\d{1,2}-\d{1,2})'
+        chart_row = re.compile(
+            r'^(' + size_token + r')\s*(?:Size\s*)?[=:•-]\s*\(?\s*(?:size\s+)?'
+            r'(?:(?:sweet[ -]?shirt|hoodie|pant|body)\s+)?'
+            r'(?:Chest|Length|Long|Waist|Body|বুক|লম্বা)\s*[:=>-]?\s*\d', re.I)
+        for text in contents:
+            has_size_heading = bool(re.search(r'size|সাইজ', plain(text), re.I))
+            for line in content_lines(text):
+                line = re.sub(r'^[^\w]+', '', line.strip()).replace('–', '-').replace('—', '-').replace('→', '=').replace('*', '')
+                match = chart_row.match(line)
+                if match and match[1].upper() not in sizes:
+                    sizes.append(match[1].upper())
+                elif has_size_heading:
+                    simple = re.fullmatch(r'(XXXL|XXL|XL|XS|S|M|L)\s*=\s*\d{2}(?:\s*-\s*\d{2})?', line, re.I)
+                    if simple and simple[1].upper() not in sizes:
+                        sizes.append(simple[1].upper())
     return sizes if len(sizes) > 1 else []
 
 
-def option_review(source, variants, allow_description_size=False):
+def color_interpretation(product):
+    """Conjunctions describe a mixed design until a staff member confirms choices."""
+    decision = (getattr(product, 'attributes', {}) or {}).get('_catalog', {}).get('color_decision', {})
+    source = source_for(product)
+    rows, _, _ = content_rows(source) if source else ([], {}, None)
+    original = next((r['value'] for r in rows if r['feature'] == 'Color'), '')
+    ambiguous = bool(re.search(r'\s+(?:and|ও|এবং)\s+|\s*&\s*', original, re.I))
+    translations = {'পিংক': 'Pink', 'গোলাপি': 'Pink', 'নীল': 'Blue', 'লাল': 'Red',
+                    'সাদা': 'White', 'কালো': 'Black', 'সবুজ': 'Green', 'হলুদ': 'Yellow'}
+    parts = re.split(r'\s+(?:and|ও|এবং)\s+|\s*&\s*', original, flags=re.I)
+    display = ' & '.join(translations.get(clean(part), clean(part)) for part in parts) if ambiguous else original
+    return {'mode': decision.get('mode', 'pending_mixed' if ambiguous else 'source'),
+            'label': decision.get('label') or display, 'choices': decision.get('choices', []),
+            'needs_review': ambiguous and not decision.get('mode'), 'original': original}
+
+
+def description_colors(product, variants=None):
+    """Only explicit supplier color lists become customer order instructions.
+
+    These are not claimed to be separately reserved supplier SKUs. A source
+    title naming one exact color takes precedence over a generic color chart.
+    """
+    variants = variant_family(product) if variants is None else variants
+    if any(re.search(r'colou?r|রঙ', getattr(v, f'option{n}_name', ''), re.I)
+           for v in variants for n in (1, 2, 3)):
+        return []
+    interpretation = color_interpretation(product)
+    if interpretation['mode'] == 'separate':
+        return interpretation['choices']
+    if interpretation['mode'] in ('mixed', 'pending_mixed'):
+        return []
+    source = source_for(product)
+    if not source:
+        return []
+    rows, conflicts, _ = content_rows(source)
+    if 'Color' in conflicts:
+        return []
+    value = next((r['value'] for r in rows if r['feature'] == 'Color'), '')
+    if not value or re.search(r'same as|as shown|random|assorted|multicolou?r|ছবির|যেকোন', value, re.I):
+        return []
+    colors = list(dict.fromkeys(clean(part) for part in re.split(r'\s*[,/|;]\s*|\s+(?:and|ও|এবং)\s+', value, flags=re.I)))
+    if not 2 <= len(colors) <= 8 or any(not part or len(part) > 30 or any(
+            unicodedata.category(char)[0] not in ('L', 'M') and char not in ' -' for char in part) for part in colors):
+        return []
+    title = clean(source.title or product.name)
+    if any(re.search(r'[-–]\s*' + re.escape(color) + r'\s*$', title, re.I) for color in colors):
+        return []
+    return colors
+
+
+def option_review(source, variants, allow_description_size=False, allow_description_color=False):
     """Descriptions can reveal missing choices but cannot create a sellable SKU."""
     rows, _, _ = content_rows(source)
     size = next((r['value'] for r in rows if r['feature'] == 'Size'), '')
@@ -214,6 +310,7 @@ def option_review(source, variants, allow_description_size=False):
     for label in ('Color','Capacity'):
         value=next((r['value'] for r in rows if r['feature']==label),'')
         if len([v for v in re.split(r'[,/|]',value) if v.strip()]) > 1:
+            if label == 'Color' and allow_description_color: continue
             if not any(label.casefold() in getattr(v,f'option{n}_name','').casefold() for v in variants for n in (1,2,3)):
                 return True
     if source.variants and not any(getattr(v,f'option{n}_value','') for v in variants for n in (1,2,3)):
@@ -239,28 +336,41 @@ def presentation(product):
             text = feature.get('html') or feature.get('value') or '' if isinstance(feature, dict) else feature
             if plain(text) and plain(text) != plain(original): features.append(safe_description(text, source.url))
     sizes = description_sizes(product, variants)
+    colors = description_colors(product, variants)
+    color_policy = color_interpretation(product)
+    if color_policy['mode'] in ('mixed', 'pending_mixed'):
+        for row in rows:
+            if row['feature'] == 'Color': row['value'] = color_policy['label']
+    for label, choices in (('Size', sizes), ('Color', colors)):
+        if choices and not any(row['feature'] == label for row in rows):
+            rows.append({'feature': label, 'value': ', '.join(choices)})
     review = bool((product.attributes or {}).get('_catalog', {}).get('variant_review'))
-    if source and (not review or sizes): review = option_review(source, variants, allow_description_size=bool(sizes))
+    if source and (not review or sizes or colors): review = option_review(source, variants, allow_description_size=bool(sizes), allow_description_color=bool(colors))
     result = {'specifications': rows, 'description_html': safe_description(original, source.url if source else ''),
               'features_html': features, 'purchasable': not review,
               'option_notice': 'Size or option choices are awaiting supplier verification.' if review else '',
-              'conflicts': conflicts, 'description_sizes': sizes}
+              'conflicts': conflicts, 'description_sizes': sizes, 'description_colors': colors}
     product._content_presentation = result
     return result
 
 
-def validate_variant_options(variant, requested_size=''):
+def validate_variant_options(variant, requested_size='', requested_color=''):
     marker = (variant.product.attributes or {}).get('_catalog', {})
     review = marker.get('variant_review')
     # A later source refresh can introduce choices after a previous catalog
     # check. Recheck false/absent flags; a saved review hold needs staff clearance.
     sizes = description_sizes(variant.product)
+    colors = description_colors(variant.product)
     if sizes and requested_size not in sizes:
         raise ValueError('Choose an available size before adding this product to Cart.')
     if requested_size and not sizes:
         raise ValueError('This size is no longer available. Please review the product options.')
-    if not review or sizes:
+    if colors and requested_color not in colors:
+        raise ValueError('Choose an available color before adding this product to Cart.')
+    if requested_color and not colors:
+        raise ValueError('This color is no longer available. Please review the product options.')
+    if not review or sizes or colors:
         source = source_for(variant.product)
-        review = bool(source and option_review(source, variant_family(variant.product), allow_description_size=bool(sizes)))
+        review = bool(source and option_review(source, variant_family(variant.product), allow_description_size=bool(sizes), allow_description_color=bool(colors)))
     if review:
         raise ValueError('This product’s size or option choices need supplier verification before ordering.')

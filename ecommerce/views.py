@@ -104,19 +104,23 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     def list(self, request, *args, **kwargs):
         categories = list(self.get_queryset())
         by_id = {c.pk: c for c in categories}
-        direct = {c.pk: c.product_count for c in categories}
+        from .supplier_pilot import public_product_ids
+        visible = Product.objects.using('ecommerce').filter(status='active').filter(
+            Q(supplier_offer__isnull=True) | Q(pk__in=public_product_ids()))
+        memberships = {pk: set() for pk in by_id}
+        for product_id, primary, secondary in visible.values_list('pk', 'category_id', 'secondary_categories__id'):
+            for category_id in (primary, secondary):
+                visited = set()
+                while category_id in by_id and category_id not in visited:
+                    visited.add(category_id)
+                    memberships[category_id].add(product_id)
+                    category_id = by_id[category_id].parent_id
         for category in categories:
-            parent = category.parent_id; visited = {category.pk}
-            while parent in by_id and parent not in visited:
-                visited.add(parent); by_id[parent].product_count += direct[category.pk]
-                parent = by_id[parent].parent_id
+            category.product_count = len(memberships[category.pk])
         return Response(self.get_serializer([c for c in categories if c.product_count > 0], many=True).data)
 
     def get_queryset(self):
-        from .supplier_pilot import public_product_ids
-        return Category.objects.using('ecommerce').filter(is_active=True).annotate(
-            product_count=Count('products', filter=Q(products__status='active') & (Q(products__supplier_offer__isnull=True)|Q(products__pk__in=public_product_ids())), distinct=True)
-        )
+        return Category.objects.using('ecommerce').filter(is_active=True)
 
 
 class BrandViewSet(viewsets.ReadOnlyModelViewSet):
@@ -131,6 +135,11 @@ class BrandViewSet(viewsets.ReadOnlyModelViewSet):
 class StorefrontProductPagination(LimitOffsetPagination):
     default_limit = 100
     max_limit = 100
+
+    def paginate_queryset(self, queryset, request, view=None):
+        # DRF otherwise assigns request only after get_count has run.
+        self.request=request
+        return super().paginate_queryset(queryset,request,view=view)
 
     def get_count(self, queryset):
         # Paginate/count only product IDs. The storefront list queryset also
@@ -149,8 +158,10 @@ class StorefrontProductPagination(LimitOffsetPagination):
             ordinary=Product.objects.using('ecommerce').filter(status='active').annotate(
                 _has_supplier_offer=Exists(offers),
             ).filter(_has_supplier_offer=False).count()
+            allowed=getattr(request,'_ecommerce_public_product_ids',None)
+            if allowed is None: allowed=public_product_ids()
             released=Product.objects.using('ecommerce').filter(
-                status='active',pk__in=public_product_ids(),
+                status='active',pk__in=allowed,
             ).count()
             return ordinary+released
         if hasattr(queryset, 'order_by') and hasattr(queryset, 'values'):
@@ -286,6 +297,13 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
                 public_ids=public_product_ids_for(product_id)
             else:
                 public_ids=[]
+        else:
+            from .supplier_pilot import public_product_ids
+            public_ids=public_product_ids()
+            # The rows and their database count must use the same eligibility
+            # snapshot. Bulk supplier updates can change the shared revision
+            # mid-request; do not rebuild the entire catalogue a second time.
+            self.request._ecommerce_public_product_ids=public_ids
         qs = _product_queryset(public_ids=public_ids)
         params = self.request.query_params
         search = (params.get('search') or '').strip()
@@ -293,13 +311,29 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             qs = qs.filter(Q(name__icontains=search) | Q(description__icontains=search) | Q(tags__icontains=search) | Q(brand__name__icontains=search) | Q(variants__sku__icontains=search)).distinct()
         if params.get('category'):
             slug = params['category']
-            categories = list(Category.objects.using('ecommerce').values_list('id','slug','parent_id'))
-            ids = {pk for pk, name, _ in categories if name == slug}
+            categories = list(Category.objects.using('ecommerce').values('id', 'name', 'slug', 'parent_id'))
+            by_id = {c['id']: c for c in categories}
+            ids = {c['id'] for c in categories if c['slug'] == slug}
+            resolved_synonym = False
+            # Bookmarks for a merged synonym should browse the whole canonical
+            # category, including products that were already classified there.
+            from .catalog_structure import category_slug
+            for pk in tuple(ids):
+                c = by_id[pk]
+                path = [by_id[c['parent_id']]['name'], c['name']] if c['parent_id'] else [c['name']]
+                canonical_slug = category_slug(path)
+                canonical_ids = {row['id'] for row in categories if row['slug'] == canonical_slug}
+                if canonical_slug != slug and canonical_ids:
+                    resolved_synonym = True
+                ids.update(canonical_ids)
             while True:
-                expanded = ids | {pk for pk, _, parent in categories if parent in ids}
+                expanded = ids | {c['id'] for c in categories if c['parent_id'] in ids}
                 if expanded == ids: break
                 ids = expanded
-            qs = qs.filter(Q(category_id__in=ids) | Q(attributes___catalog_legacy_categories__icontains='"'+slug+'"')).distinct()
+            membership = Q(category_id__in=ids) | Q(secondary_categories__id__in=ids)
+            if not resolved_synonym:
+                membership |= Q(attributes___catalog_legacy_categories__icontains='"'+slug+'"')
+            qs = qs.filter(membership).distinct()
         if params.get('brand'):
             qs = qs.filter(brand__slug=params['brand'])
         if params.get('in_stock') == 'true':
@@ -332,8 +366,16 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         else:
             # Put usable photographed listings first; incomplete catalogue
             # identities remain visible further down, never masquerading as free.
-            qs = qs.order_by('-featured', Case(When(price__isnull=True, then=1), default=0, output_field=IntegerField()),
-                Case(When(image_url__isnull=True, then=1), default=0, output_field=IntegerField()), '-created_at', 'pk')
+            # Released supplier listings already require a verified original
+            # photo and a positive price (or an explicit price-request marker).
+            # Do not re-run gallery/variant subqueries for every row just to
+            # sort a four-card page. Retain null handling for ordinary stock.
+            qs = qs.order_by('-featured', Case(
+                When(attributes___catalog_price_preview=True,then=1),
+                When(supplier_offer__isnull=False,then=0),
+                When(price__isnull=True, then=1), default=0, output_field=IntegerField()),
+                Case(When(supplier_offer__isnull=False,then=0),
+                    When(image_url__isnull=True, then=1),default=0,output_field=IntegerField()), '-created_at', 'pk')
         return qs
 
 
@@ -521,8 +563,9 @@ class CartView(APIView):
             return Response({'detail': 'Product variant not found.'}, status=status.HTTP_404_NOT_FOUND)
         from .product_content import validate_variant_options
         requested_size = serializers.CharField(max_length=40, allow_blank=True).run_validation(request.data.get('requested_size', ''))
+        requested_color = serializers.CharField(max_length=40, allow_blank=True).run_validation(request.data.get('requested_color', ''))
         try:
-            validate_variant_options(variant, requested_size)
+            validate_variant_options(variant, requested_size, requested_color)
         except ValueError as exc:
             return Response({'detail': str(exc)}, status=409)
         from .supplier_guards import is_supplier_staging, MESSAGE
@@ -538,7 +581,7 @@ class CartView(APIView):
             Cart.objects.using('ecommerce').select_for_update().get(pk=cart.pk)
             if Cart.objects.using('ecommerce').filter(pk=cart.pk, checked_out=True).exists():
                 return Response({'detail': 'This cart has already been checked out.'}, status=409)
-            item = CartItem.objects.using('ecommerce').filter(cart=cart, variant=variant, requested_size=requested_size).first()
+            item = CartItem.objects.using('ecommerce').filter(cart=cart, variant=variant, requested_size=requested_size, requested_color=requested_color).first()
             # Old clients use an explicit set operation for quantity controls;
             # ordinary Add to cart requests increment the existing quantity.
             target = quantity if request.data.get('operation') == 'set' else quantity + (item.quantity if item else 0)
@@ -549,7 +592,7 @@ class CartView(APIView):
                 item.quantity = target
                 item.save(using='ecommerce')
             else:
-                CartItem.objects.using('ecommerce').create(cart=cart, variant=variant, quantity=target, requested_size=requested_size)
+                CartItem.objects.using('ecommerce').create(cart=cart, variant=variant, quantity=target, requested_size=requested_size, requested_color=requested_color)
         cart._prefetched_objects_cache = {}
         return Response(CartSerializer(cart).data)
 
@@ -571,11 +614,12 @@ class CartView(APIView):
                 return Response({'detail': 'Choose an available option of this product.'}, status=400)
             target = ProductVariant.objects.using('ecommerce').select_for_update().select_related('product').get(pk=target_id)
             requested_size = serializers.CharField(max_length=40, allow_blank=True).run_validation(request.data.get('requested_size', item.requested_size))
+            requested_color = serializers.CharField(max_length=40, allow_blank=True).run_validation(request.data.get('requested_color', item.requested_color))
             try:
-                validate_variant_options(target, requested_size)
+                validate_variant_options(target, requested_size, requested_color)
             except ValueError as exc:
                 return Response({'detail': str(exc)}, status=409)
-            other = cart.items.filter(variant_id=target_id, requested_size=requested_size).exclude(pk=item.pk).first()
+            other = cart.items.filter(variant_id=target_id, requested_size=requested_size, requested_color=requested_color).exclude(pk=item.pk).first()
             quantity = item.quantity + (other.quantity if other else 0)
             shared_quantity = sum(cart.items.filter(variant_id=target_id).exclude(pk=item.pk).values_list('quantity',flat=True))
             if not target.allow_backorder and item.quantity + shared_quantity > target.stock:
@@ -584,8 +628,8 @@ class CartView(APIView):
                 other.quantity = quantity; other.save(using='ecommerce', update_fields=['quantity','updated_at'])
                 item.delete(using='ecommerce')
             else:
-                item.variant = target; item.requested_size = requested_size
-                item.save(using='ecommerce', update_fields=['variant','requested_size','updated_at'])
+                item.variant = target; item.requested_size = requested_size; item.requested_color = requested_color
+                item.save(using='ecommerce', update_fields=['variant','requested_size','requested_color','updated_at'])
         return Response(CartSerializer(cart).data)
 
     def delete(self, request, token=None):
@@ -661,7 +705,7 @@ class CheckoutView(APIView):
                         return Response({'detail': f'{variant.sku} has an invalid price.'}, status=409)
                     from .product_content import validate_variant_options
                     try:
-                        validate_variant_options(variant, cart_item.requested_size)
+                        validate_variant_options(variant, cart_item.requested_size, cart_item.requested_color)
                     except ValueError as exc:
                         return Response({'detail': str(exc)}, status=409)
                     if not variant.allow_backorder and requested_totals[variant.pk] > variant.stock:
@@ -736,7 +780,10 @@ class CheckoutView(APIView):
                     image = images.filter(variant_id=variant.pk).first() or images.first()
                     OrderItem.objects.using('ecommerce').create(
                         order=order, product_id=variant.product_id, variant_id=variant.id,
-                        product_name=variant.product.name, variant_title=(variant.title + ' · Size: ' + cart_item.requested_size) if cart_item.requested_size else variant.title, sku=variant.sku,
+                        product_name=variant.product.name,
+                        variant_title=' · '.join([variant.title] +
+                            ([f'Color: {cart_item.requested_color}'] if cart_item.requested_color else []) +
+                            ([f'Size: {cart_item.requested_size}'] if cart_item.requested_size else [])), sku=variant.sku,
                         image_url=image.url if image else '', quantity=cart_item.quantity,
                         unit_price=variant.price, line_total=variant.price * cart_item.quantity,
                     )

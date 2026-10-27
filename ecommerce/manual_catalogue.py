@@ -31,7 +31,7 @@ def eligible_offers(mode=None):
     return qs if mode == 'all' else qs.filter(approved_offers())
 
 
-def purchasable_offers(mode=None):
+def purchasable_offers(mode=None, *, include_equivalent_alternatives=False):
     """Use last known supplier availability without hiding a listing at 24 hours.
 
     Observation age is reported separately and triggers a background refresh.
@@ -50,6 +50,9 @@ def purchasable_offers(mode=None):
     variants = ProductVariant.objects.using(DB).filter(
         product_id=OuterRef('imported_product_id'), is_active=True, currency='BDT', price__gt=0,
         cost_price=OuterRef('source_price')).filter(exact | confirmation)
+    duplicates=Q(imported_product__attributes___catalog_duplicate_of_slug__isnull=True)
+    if include_equivalent_alternatives:
+        duplicates |= Q(imported_product__attributes___supplier_equivalence__previous_status='active')
     return eligible_offers(mode).filter(
         imported_product__attributes__supplier_publication_ready=True,
         supplier__terms_confirmed=True, excluded_reason='', source_price__gt=0, currency='BDT',
@@ -57,7 +60,7 @@ def purchasable_offers(mode=None):
         observed_at__isnull=False, observed_at__lte=now,
         source_product__observed_at__lte=now,
         source_product__quality__missing=[],
-    ).exclude(Q(observed_at__lte=F('source_product__observed_at')) & (
+    ).filter(duplicates).exclude(Q(observed_at__lte=F('source_product__observed_at')) & (
         (Q(source_product__stock__status__isnull=False) & Q(source_product__stock__status__in=('out_of_stock','missing','unconfirmed'))) |
         (Q(source_product__stock__quantity__isnull=False) & ~Q(source_product__stock__quantity=None) & Q(source_product__stock__quantity__lte=0)) |
         (Q(supplier_id=2) & Q(source_product__raw_data__product__status__isnull=False) & ~Q(source_product__raw_data__product__status='ACTIVE'))
@@ -68,6 +71,22 @@ def purchasable_offers(mode=None):
 
 def public_ids():
     return purchasable_offers().filter(imported_product__attributes__manual_supplier_catalogue=True).values_list('imported_product_id', flat=True)
+
+
+def price_preview_ids(include_inactive=False):
+    """Owner-authorised visible listings with real photos, without invented prices."""
+    from .models import SupplierSourceMedia
+    from .supplier_media import source_image_url_condition
+    photos = ProductImage.objects.using(DB).filter(product_id=OuterRef('pk'),
+        source_media__product_id=OuterRef('supplier_offer__source_product_id'),
+        source_media__last_run_id=OuterRef('supplier_offer__source_product__last_run_id'),
+        source_media__metadata__verified_image=True).filter(source_image_url_condition())
+    qs = Product.objects.using(DB).filter(attributes___catalog_price_preview=True,
+        supplier_offer__supplier__enabled=True, supplier_offer__excluded_reason='').exclude(
+        supplier_offer__availability__in=('out_of_stock','missing')).filter(attributes___catalog_duplicate_of_slug__isnull=True).exclude(description='').annotate(
+            preview_has_photo=Exists(photos)).filter(preview_has_photo=True)
+    if not include_inactive: qs = qs.filter(status='active')
+    return qs.values_list('pk',flat=True)
 
 
 def is_manual(product):

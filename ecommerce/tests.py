@@ -19,6 +19,30 @@ from .views import StorefrontProductPagination
 
 
 class EcommerceConfigurationTests(SimpleTestCase):
+    def test_collection_retries_transient_database_deadlocks_but_not_other_errors(self):
+        from unittest.mock import patch,Mock
+        from django.db import OperationalError
+        from .management.commands.recollect_supplier_catalogue import database_retry
+        operation=Mock(side_effect=[OperationalError(1213,'Deadlock'), 'saved'])
+        with patch('ecommerce.management.commands.recollect_supplier_catalogue.connections') as connection,patch('ecommerce.management.commands.recollect_supplier_catalogue.time.sleep'):
+            self.assertEqual(database_retry(operation),'saved')
+            self.assertEqual(operation.call_count,2)
+            connection['ecommerce'].close.assert_not_called()
+            lost=Mock(side_effect=[OperationalError(2013,'Connection lost'),'saved'])
+            self.assertEqual(database_retry(lost),'saved')
+            connection['ecommerce'].close.assert_called_once()
+            operation=Mock(side_effect=OperationalError(1054,'Invalid column'))
+            with self.assertRaises(OperationalError): database_retry(operation)
+            self.assertEqual(operation.call_count,1)
+
+    def test_live_batch_requests_reuse_the_same_brief_eligibility_snapshot(self):
+        from unittest.mock import patch,MagicMock
+        from .supplier_pilot import _public_product_ids
+        cache=MagicMock();cache.get.return_value=(19,23)
+        with patch('sys.argv',['manage.py','runserver']),patch('ecommerce.supplier_pilot._catalogue_cache',return_value=cache):
+            self.assertEqual(_public_product_ids(),[19,23])
+        cache.get.assert_called_once_with('ecommerce:public-product-ids:burst:v7:0:1')
+
     def test_storefront_batches_have_no_gaps_and_support_old_pages(self):
         factory = APIRequestFactory()
         catalog = list(range(65))
@@ -67,6 +91,15 @@ class StorefrontFlowTests(TransactionTestCase):
             product=product, title='Default', sku='TEST-001', price='1200.00', stock=5,
             low_stock_threshold=1, requires_shipping=True,
         )
+
+    def test_first_product_batch_reuses_eligibility_snapshot_for_database_count(self):
+        from unittest.mock import patch
+        with patch('ecommerce.supplier_pilot.public_product_ids',return_value=[]) as eligible:
+            response=self.client.get('/api/ecommerce/products/',{'limit':4})
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.data['count'],1)
+        self.assertEqual(len(response.data['results']),1)
+        eligible.assert_called_once_with()
 
     def test_cart_checkout_tracks_order_and_prices_shipping_on_server(self):
         cart_response = self.client.post('/api/ecommerce/cart/', {

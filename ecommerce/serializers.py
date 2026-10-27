@@ -55,10 +55,11 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
 
 class ProductListSerializer(serializers.ModelSerializer):
+    price_on_request = serializers.BooleanField(source='attributes._catalog_price_preview', read_only=True, default=False)
     purchasable = serializers.SerializerMethodField()
 
     def get_purchasable(self, obj):
-        return not (obj.attributes or {}).get('_catalog', {}).get('variant_review', False)
+        return not (obj.attributes or {}).get('_catalog_price_preview') and not (obj.attributes or {}).get('_catalog', {}).get('variant_review', False)
     stock_confirmation_required = serializers.SerializerMethodField()
     quantity_unspecified = serializers.BooleanField(source='attributes._stock_confirmation_required',read_only=True,default=False)
     def get_stock_confirmation_required(self,obj):return False
@@ -89,11 +90,15 @@ class ProductListSerializer(serializers.ModelSerializer):
             'id', 'name', 'slug', 'short_description', 'category_id', 'category_name',
             'brand_id', 'brand_name', 'status', 'featured', 'tags', 'price',
             'compare_at_price', 'stock', 'image_url', 'is_sample',
-            'default_variant_id', 'allow_backorder', 'stock_confirmation_required','quantity_unspecified','discount_percent','purchasable',
+            'default_variant_id', 'allow_backorder', 'stock_confirmation_required','quantity_unspecified','discount_percent','purchasable','price_on_request',
         )
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
+    def validate_secondary_categories(self, categories):
+        if any(not c.is_active or c.parent_id is None or c.parent.parent_id for c in categories):
+            raise serializers.ValidationError('Choose active second-level product types only.')
+        return categories
     supplier_reference = serializers.SerializerMethodField()
 
     def get_supplier_reference(self, obj):
@@ -163,9 +168,12 @@ class StorefrontVariantSerializer(serializers.ModelSerializer):
 
 
 class StorefrontProductSerializer(ProductDetailSerializer):
+    price_on_request = serializers.BooleanField(source='attributes._catalog_price_preview', read_only=True, default=False)
     description_sizes = serializers.SerializerMethodField()
+    description_colors = serializers.SerializerMethodField()
 
     def get_description_sizes(self, obj): return self._presentation(obj)['description_sizes']
+    def get_description_colors(self, obj): return self._presentation(obj)['description_colors']
     specifications = serializers.SerializerMethodField()
     description_html = serializers.SerializerMethodField()
     features_html = serializers.SerializerMethodField()
@@ -179,7 +187,7 @@ class StorefrontProductSerializer(ProductDetailSerializer):
     def get_specifications(self, obj): return self._presentation(obj)['specifications']
     def get_description_html(self, obj): return self._presentation(obj)['description_html']
     def get_features_html(self, obj): return self._presentation(obj)['features_html']
-    def get_purchasable(self, obj): return self._presentation(obj)['purchasable']
+    def get_purchasable(self, obj): return not (obj.attributes or {}).get('_catalog_price_preview') and self._presentation(obj)['purchasable']
     def get_option_notice(self, obj): return self._presentation(obj)['option_notice']
     stock_confirmation_required = serializers.SerializerMethodField()
     quantity_unspecified = serializers.BooleanField(source='attributes._stock_confirmation_required',read_only=True,default=False)
@@ -204,7 +212,7 @@ class StorefrontProductSerializer(ProductDetailSerializer):
         fields = ('id', 'name', 'slug', 'description', 'short_description', 'category_name',
                   'brand_name', 'variants', 'images', 'approved_reviews', 'attributes', 'tags',
                   'delivery_dhaka_charge', 'delivery_outside_dhaka_charge', 'cod_percent', 'fulfilment_mode','stock_confirmation_required','quantity_unspecified',
-                  'specifications','description_html','features_html','purchasable','option_notice','description_sizes')
+                  'specifications','description_html','features_html','purchasable','option_notice','description_sizes','description_colors','price_on_request')
 
     def get_variants(self, obj):
         from .product_content import variant_family
@@ -345,10 +353,14 @@ class BookBuildJobSerializer(serializers.ModelSerializer):
 
 class CartItemSerializer(serializers.ModelSerializer):
     description_sizes = serializers.SerializerMethodField()
+    description_colors = serializers.SerializerMethodField()
 
     def get_description_sizes(self, obj):
         from .product_content import description_sizes
         return description_sizes(obj.variant.product)
+    def get_description_colors(self, obj):
+        from .product_content import description_colors
+        return description_colors(obj.variant.product)
     product_id = serializers.IntegerField(source='variant.product_id', read_only=True)
     product_slug = serializers.CharField(source='variant.product.slug', read_only=True)
     available_variants = serializers.SerializerMethodField()
@@ -376,7 +388,7 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ('id', 'variant_id', 'quantity', 'product_name', 'variant_title', 'sku', 'unit_price', 'image_url', 'line_total','stock_confirmation_required','quantity_unspecified',
-                  'product_id','product_slug','available_variants','requested_size','description_sizes')
+                  'product_id','product_slug','available_variants','requested_size','requested_color','description_sizes','description_colors')
 
     def get_image_url(self, obj):
         from django.db.models import Q

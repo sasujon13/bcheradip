@@ -48,7 +48,7 @@ class Command(BaseCommand):
             coverage=SupplierRecollectionRun.objects.using('ecommerce').get(pk=run.pk).coverage
             coverage['publication']={'status':state,'last_source_id':last_source,
                 'counts_this_attempt':dict(counts),'updated_at':timezone.now().isoformat()}
-            SupplierRecollectionRun.objects.using('ecommerce').filter(pk=run.pk).update(coverage=coverage)
+            SupplierRecollectionRun.objects.using('ecommerce').filter(pk=run.pk).update(coverage=coverage,updated_at=timezone.now())
         from ecommerce.supplier_label_stock import SITES,read_stock,remember_stock,refresh_existing_offers,missing_stock
         from ecommerce.supplier_source_clients import SourceClient,SourceError
         from ecommerce.supplier_crypto import decrypt

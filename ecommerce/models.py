@@ -39,6 +39,18 @@ class Category(TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.clean()
+        return super().save(*args, **kwargs)
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if self.parent_id:
+            if self.parent_id == self.pk or self.parent.parent_id:
+                raise ValidationError({'parent': 'Categories support only Department > Product type.'})
+            if self.pk and self.children.exists():
+                raise ValidationError({'parent': 'Move child categories before changing this department into a product type.'})
+
 
 class Brand(TimeStampedModel):
     name = models.CharField(max_length=160, unique=True)
@@ -54,6 +66,17 @@ class Brand(TimeStampedModel):
         return self.name
 
 
+class CatalogSyncIdentity(models.Model):
+    """Stable transport identity, per-field baseline; no customer or order data."""
+    uid = models.UUIDField(primary_key=True)
+    model_name = models.CharField(max_length=60)
+    object_pk = models.CharField(max_length=60)
+    field_hashes = models.JSONField(default=dict)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=('model_name', 'object_pk'), name='catalog_sync_local_object')]
+
+
 class Product(TimeStampedModel):
     STATUS_CHOICES = [('draft', 'Draft'), ('active', 'Active'), ('archived', 'Archived')]
     TYPE_CHOICES = [('physical', 'Physical'), ('digital', 'Digital'), ('service', 'Service')]
@@ -63,6 +86,8 @@ class Product(TimeStampedModel):
     description = models.TextField(blank=True)
     short_description = models.CharField(max_length=500, blank=True)
     category = models.ForeignKey(Category, related_name='products', on_delete=models.PROTECT)
+    secondary_categories = models.ManyToManyField(Category, blank=True, related_name='secondary_products',
+        help_text='Additional genuine product-type categories. Does not duplicate inventory or orders.')
     brand = models.ForeignKey(Brand, null=True, blank=True, related_name='products', on_delete=models.SET_NULL)
     product_type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='physical')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft', db_index=True)
@@ -184,10 +209,11 @@ class CartItem(TimeStampedModel):
     variant = models.ForeignKey(ProductVariant, related_name='cart_items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     requested_size = models.CharField(max_length=40, blank=True, default='')
+    requested_color = models.CharField(max_length=40, blank=True, default='')
 
     class Meta:
         db_table = 'ecommerce_cart_item'
-        constraints = [models.UniqueConstraint(fields=['cart', 'variant', 'requested_size'], name='ecommerce_cart_variant_size_unique')]
+        constraints = [models.UniqueConstraint(fields=['cart', 'variant', 'requested_size', 'requested_color'], name='ecommerce_cart_variant_choices_unique')]
 
 
 class Coupon(TimeStampedModel):

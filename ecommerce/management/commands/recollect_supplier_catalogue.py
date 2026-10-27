@@ -10,6 +10,38 @@ from ecommerce.supplier_recollection import save_record, save_failure, source_ke
 from ecommerce.supplier_source_clients import SourceClient, SourceError, SUPPLIER_IDS
 
 
+def database_retry(operation):
+    """Retry only rolled-back transient database work, never supplier orders."""
+    for attempt in range(4):
+        try:
+            return operation()
+        except DatabaseError as exc:
+            if not exc.args or exc.args[0] not in (1205,1213,2006,2013) or attempt==3:
+                raise
+            if exc.args[0] in (2006,2013):
+                connections['ecommerce'].close()
+            time.sleep(.25*(attempt+1))
+
+
+def mark_missing_offer(offer_id):
+    from ecommerce.models import SupplierOffer
+    from ecommerce.supplier_source_publish import refresh_listing_stock
+    with transaction.atomic(using='ecommerce'):
+        offer=SupplierOffer.objects.using('ecommerce').select_for_update().get(pk=offer_id)
+        offer.availability='missing'
+        offer.save(using='ecommerce',update_fields=['availability','updated_at'])
+        if offer.source_price is not None and offer.source_price>0:
+            refresh_listing_stock(offer)
+
+
+def missing_sources(supplier,run):
+    # A product seen in the index but failing its detail request has NOT
+    # disappeared. Preserve its previous observation instead of marking it
+    # sold out/missing merely because a network/page check failed.
+    return supplier.source_products.exclude(last_run=run).exclude(
+        source_key__in=run.items.values('source_key')).exclude(extra__pending_identity_review__isnull=False)
+
+
 class Command(BaseCommand):
     help = 'Inspect or freshly recollect original supplier data, with persisted progress and safe resume.'
 
@@ -95,7 +127,7 @@ class Command(BaseCommand):
         try:
             for record in client.products():
                 if record.get('_error'):
-                    save_failure(run.pk, record)
+                    database_retry(lambda: save_failure(run.pk, record))
                     done += 1
                     run.refresh_from_db(using='ecommerce')
                     if run.mode == 'inspect' and run.processed >= 3:
@@ -111,13 +143,14 @@ class Command(BaseCommand):
                 key = source_key(record['external_id'], record.get('vendor_id', ''), record.get('warehouse_id', ''))
                 if SupplierRecollectionItem.objects.using('ecommerce').filter(run=run, source_key=key, status__in=('complete', 'incomplete')).exists():
                     continue
-                outcome = save_record(run.pk, record)
+                outcome = database_retry(lambda: save_record(run.pk, record))
                 done += 1
                 run.refresh_from_db(using='ecommerce')
                 if options['apply_missing_content'] and outcome == 'complete':
                     item = run.items.get(source_key=key)
-                    changes = apply_missing_content(item.source_product_id)
-                    self.stdout.write(json.dumps({'processed': run.processed, 'content_changes': changes}))
+                    changes = database_retry(lambda: apply_missing_content(item.source_product_id))
+                    if done == 1 or done % 25 == 0:
+                        self.stdout.write(json.dumps({'processed': run.processed, 'content_changes': changes}))
                 elif done == 1 or done % 10 == 0:
                     self.stdout.write(f'{supplier.name}: {run.processed} saved — {run.counts}')
                 self.stdout.flush()
@@ -136,20 +169,17 @@ class Command(BaseCommand):
                 if run.mode=='full':
                     from ecommerce.supplier_source_publish import refresh_listing_stock
                     from ecommerce.models import SupplierOffer
-                    absent=supplier.source_products.exclude(last_run=run).exclude(extra__pending_identity_review__isnull=False)
+                    absent=missing_sources(supplier,run)
                     missing_ids=[]
                     for source in absent.iterator():
                         # Catalogue absence is not a new price/quantity confirmation.
                         source.stock={**source.stock,'status':'missing'}
                         source.extra={**source.extra,'not_seen_in_catalogue':{'run_id':str(run.pk),'checked_at':timezone.now().isoformat()}}
-                        source.save(using='ecommerce',update_fields=['stock','extra','updated_at']);missing_ids.append(source.pk)
+                        database_retry(lambda: source.save(using='ecommerce',update_fields=['stock','extra','updated_at']))
+                        missing_ids.append(source.pk)
                     run.coverage['not_seen_in_current_catalogue']=len(missing_ids)
                     for offer in SupplierOffer.objects.using('ecommerce').filter(source_product_id__in=missing_ids):
-                        with transaction.atomic(using='ecommerce'):
-                            offer=SupplierOffer.objects.using('ecommerce').select_for_update().get(pk=offer.pk)
-                            offer.availability='missing';offer.save(using='ecommerce',update_fields=['availability','updated_at'])
-                            if offer.source_price is not None and offer.source_price>0:
-                                refresh_listing_stock(offer)
+                        database_retry(lambda: mark_missing_offer(offer.pk))
             run.expected_total = client.expected_total
             run.finished_at = timezone.now() if run.status != 'paused' else None
             run.activity = f'{run.status}: {run.processed} original-source products saved; missing content and access gaps are recorded'
@@ -164,6 +194,16 @@ class Command(BaseCommand):
             except DatabaseError:pass
             raise CommandError(f'Run {run.pk}: database connection interrupted; saved source observations are retained. Resume after recovery.') from None
         except (SourceError, ValueError, KeyError, TypeError) as exc:
+            # Private, structural diagnostics without response bodies, locals,
+            # credentials, request headers, or exception payloads.
+            import traceback
+            from pathlib import Path
+            from django.conf import settings
+            diagnostic=Path(settings.BASE_DIR)/'private_suppliers/recollection'/f'{run.pk}-error-context.json'
+            diagnostic.parent.mkdir(parents=True,exist_ok=True)
+            diagnostic.write_text(json.dumps({'type':type(exc).__name__,'frames':[
+                {'file':Path(frame.filename).name,'line':frame.lineno,'function':frame.name}
+                for frame in traceback.extract_tb(exc.__traceback__)]}),encoding='utf-8')
             run.refresh_from_db(using='ecommerce')
             run.status = 'cancelled' if run.status == 'cancel_requested' else 'failed'
             # Unexpected source schemas/errors never print raw responses, payloads, tokens or requests.

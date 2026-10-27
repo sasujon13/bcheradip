@@ -2,6 +2,7 @@
 from django.core import signing
 from django.db import transaction
 from django.db.models import Q
+from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -28,6 +29,8 @@ class CatalogueModeView(CommerceAdminAuthMixin,APIView):
         from .supplier_pilot import public_product_ids
         pilot_ids=public_product_ids(include_inactive=True,include_manual=False)
         valid=list(purchasable_offers(mode).values_list('imported_product_id',flat=True))+pilot_ids
+        from .manual_catalogue import price_preview_ids
+        if mode == 'all': valid += list(price_preview_ids(include_inactive=True))
         linked=Product.objects.using('ecommerce').filter(supplier_offer__isnull=False)
         restore=linked.filter(pk__in=valid).exclude(status='active')
         archive=linked.exclude(pk__in=valid).exclude(status='archived')
@@ -48,6 +51,7 @@ class CatalogueModeView(CommerceAdminAuthMixin,APIView):
                 raise ValidationError('Catalogue rules, mode or author changed. Preview again.')
             pilot_ids=public_product_ids(include_inactive=True,include_manual=False)
             valid=list(purchasable_offers(mode).values_list('imported_product_id',flat=True))+pilot_ids
+            if mode == 'all': valid += list(price_preview_ids(include_inactive=True))
             # Usually zero rows: do not rewrite 25,000 JSON fields every time
             # the owner switches visibility. Only adopt older draft imports.
             for product in linked.filter(pk__in=valid).exclude(pk__in=pilot_ids).filter(~Q(attributes__has_key='manual_supplier_catalogue') | Q(attributes__manual_supplier_catalogue=False)).only('pk','attributes'):
@@ -56,7 +60,7 @@ class CatalogueModeView(CommerceAdminAuthMixin,APIView):
             archive=linked.exclude(pk__in=valid).exclude(status='archived')
             if restore.exists() or archive.exists(): require(request.user,'change_product')
             if mode=='all': require(request.user,'change_product')
-            archived=archive.update(status='archived'); restored=restore.update(status='active')
+            archived=archive.update(status='archived',updated_at=timezone.now()); restored=restore.update(status='active',updated_at=timezone.now())
             config.catalogue_mode=mode; config.catalogue_revision+=1
             config.save(using='ecommerce',update_fields=['catalogue_mode','catalogue_revision','updated_at'])
             jobs=queue_imports(request.user.pk) if mode=='all' else []

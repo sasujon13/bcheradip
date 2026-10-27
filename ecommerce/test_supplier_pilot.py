@@ -56,6 +56,18 @@ class PilotTests(TransactionTestCase):
         SupplierPilotCheck.objects.using('ecommerce').filter(pk=check.pk).update(expires_at=timezone.now()-timedelta(seconds=1))
         self.assertTrue(is_supplier_staging(p.pk))
 
+    def test_admin_publication_checks_only_the_edited_product(self):
+        from unittest.mock import patch, MagicMock
+        from .supplier_guards import check_publication
+        _,product,_ = self.product()
+        product.status='active'
+        eligible=MagicMock()
+        eligible.filter.return_value.exists.return_value=True
+        with patch('ecommerce.manual_catalogue.public_ids',return_value=eligible):
+            check_publication(product)
+        eligible.filter.assert_called_once_with(imported_product_id=product.pk)
+        eligible.__iter__.assert_not_called()
+
     def test_all_checks_permissions_prices_and_quantity_required(self):
         _,p,v=self.product()
         row=self.check(p,v); row.checks['delivery']=False

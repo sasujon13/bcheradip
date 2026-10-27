@@ -103,7 +103,7 @@ class CheckoutQuoteView(APIView):
             return Response({'detail': 'Your cart is empty.'}, status=400)
         from .product_content import validate_variant_options
         try:
-            for item in items: validate_variant_options(item.variant, item.requested_size)
+            for item in items: validate_variant_options(item.variant, item.requested_size, item.requested_color)
         except ValueError as exc:
             return Response({'detail': str(exc)}, status=409)
         from .supplier_guards import is_supplier_staging, MESSAGE

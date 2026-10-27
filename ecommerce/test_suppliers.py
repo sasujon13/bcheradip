@@ -66,6 +66,7 @@ class SupplierTests(TransactionTestCase):
         return offer
 
     def evidence(self, offer, seller, price, **kwargs):
+        kwargs.setdefault('match_confidence', 100)
         return SupplierEvidence.objects.using('ecommerce').create(offer=offer, seller='Seller ' + seller,
             marketplace='Test market', url=f'https://market.example/listing/{seller}', price=price,
             observed_at=timezone.now() - timedelta(minutes=10), exact_match=True, match_key=offer.match_key,
@@ -455,7 +456,7 @@ class SupplierTests(TransactionTestCase):
         for n in range(3):
             response = self.client.post(base + '/evidence/', {'seller': f'Seller {n}', 'marketplace': 'Test marketplace',
                 'url': f'https://market.example/p/{n}', 'price': '150', 'observed_at': timezone.now().isoformat(),
-                'exact_match': True, 'available': True, 'note': 'All variant, condition, warranty and pack details verified'}, format='json')
+                'exact_match': True, 'match_confidence':100, 'available': True, 'note': 'All variant, condition, warranty and pack details verified'}, format='json')
             self.assertEqual(response.status_code, 201, response.data)
         queue_job(self.supplier.pk, 'filter', offer_ids=[offer.pk]); run_jobs()
         response = self.client.post(base + '/approval/', {'note': 'Test-only approval'}, format='json')

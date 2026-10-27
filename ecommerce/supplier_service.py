@@ -128,9 +128,15 @@ def screen(offer, actor=None):
                 continue
             sellers.add(seller); urls.add(url)
             # A newer unavailable/unconfirmed observation must invalidate the old valid advert.
-            if entry.exact_match and entry.available:
+            if entry.exact_match and entry.available and entry.match_confidence is not None and entry.match_confidence >= 80:
                 newest.append(entry)
         selected = sorted(newest, key=lambda x: (x.price, x.pk))[:3]
+        scored = [entry.match_confidence for entry in offers if entry.match_confidence is not None and entry.available]
+        score = max(scored) if scored else None
+        matching_status = ('unassessed' if score is None else 'filtered_candidate' if score >= 80
+                           else 'manual_review' if score >= 50 else 'unique')
+        result.update(match_score=str(score) if score is not None else None,
+                      matching_status=matching_status, matching_thresholds={'filtered_min':80,'manual_min':50})
         result.update(source_currency=offer.currency, cost_floor=str(floor) if comparable else None,
             suggested_price=str(suggested) if comparable else None, full_cost_after_delivery_recovery=str(fulfilled) if comparable else None,
             costs={k: str(v) for k, v in costs.items()}, evidence_ids=[x.pk for x in selected],
@@ -148,6 +154,10 @@ def screen(offer, actor=None):
             price_band_warning='Inclusive markup bands can create price drops at boundaries; smoothing is not enabled.')
         if offer.excluded_reason:
             state = 'excluded'; reasons.append(offer.excluded_reason)
+        elif matching_status == 'unique':
+            state = 'unique'; reasons.append('All assessed market candidates scored below 50. Unique means no sufficiently similar observed match; it is not a claim of market exclusivity.')
+        elif matching_status == 'manual_review':
+            state = 'needs_review'; reasons.append('Best assessed match scored 50–79; staff review is required before using its price.')
         elif offer.source_price is None:
             reasons.append('Source price is unconfirmed, not free. Obtain an actual supplier quote before screening or import.')
         elif not offer.match_key or offer.match_key != match_key(offer.identity) or not offer.match_confirmed:
@@ -325,6 +335,17 @@ def snapshot_row(supplier, row, update=False):
             observed = parse_datetime(row['observed_at'])
             if offer.observed_at and observed <= offer.observed_at:
                 return 'skipped'
+            proof=(offer.source_product.extra.get('browser_verification') or {}) if offer.source_product_id else {}
+            if proof.get('state') in ('verified','unavailable'):
+                expected=Decimal(str(proof.get('buying_price'))) if proof.get('buying_price') else offer.source_price
+                incoming_cost=Decimal(str(row['source_price'])) if row['source_price'] is not None else None
+                if (incoming_cost!=expected or row['availability']!=proof.get('stock_status') or
+                    (proof.get('quantity_verified') and row['quantity']!=proof.get('quantity'))):
+                    audit('api_disagrees_with_browser_quote',supplier=supplier,offer=offer,
+                        browser_checked_at=proof.get('checked_at'),action_required='Run browser collection; API differences do not override the visible account quote.')
+                    return 'conflict'
+                if proof.get('state')=='verified' and not proof.get('quantity_verified') and not offer.source_product.variants:
+                    row['quantity']=None  # A hidden API count is not a browser-confirmed quantity.
             from .supplier_source_publish import trusted_stock_identity, refresh_listing_stock
             verified_source = trusted_stock_identity(offer, row)
             if not verified_source and (offer.identity != row['identity'] or (not offer.match_key and offer.title != row['title'])):
