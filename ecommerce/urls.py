@@ -26,7 +26,7 @@ router.register('books', BookViewSet, basename='ecommerce-book')
 router.register('orders', OrderViewSet, basename='ecommerce-order')
 
 admin_router = DefaultRouter()
-from .supplier_api import SupplierViewSet, OfferViewSet, JobViewSet, ImportSelectionView, SupplierWorkspaceView
+from .supplier_api import SupplierViewSet, OfferViewSet, JobViewSet, ImportSelectionView, SupplierWorkspaceView, SupplierReportsView, SalesReportsView, EnsurePricesView, CatalogSyncView, UploadBuildView
 admin_router.register('suppliers', SupplierViewSet, basename='commerce-supplier')
 admin_router.register('supplier-offers', OfferViewSet, basename='commerce-supplier-offer')
 admin_router.register('supplier-jobs', JobViewSet, basename='commerce-supplier-job')
@@ -49,6 +49,11 @@ urlpatterns = [
     path('admin/supplier-catalogue-mode/', CatalogueModeView.as_view()),
     path('admin/supplier-research/', SupplierResearchView.as_view()),
     path('admin/supplier-workspace/', SupplierWorkspaceView.as_view()),
+    path('admin/supplier-reports/', SupplierReportsView.as_view()),
+    path('admin/sales-reports/', SalesReportsView.as_view()),
+    path('admin/ensure-prices/', EnsurePricesView.as_view()),
+    path('admin/catalog-sync/', CatalogSyncView.as_view()),
+    path('admin/upload-build/', UploadBuildView.as_view()),
     path('admin/supplier-import/', ImportSelectionView.as_view()),
     path('admin/pricing/preview/', PricingPreviewView.as_view()),
     path('store-policy/', StorePolicyView.as_view()),

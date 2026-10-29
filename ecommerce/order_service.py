@@ -114,6 +114,9 @@ def change_order(order_id, new_status, actor_id=None, note='', admin_note=None):
         order.refresh_from_db(using='ecommerce', fields=['payment_status'])
         if order.payment_status == 'refunded':
             raise ValueError('A refunded payment cannot complete an order.')
+    if new_status in {'cancelled', 'refunded'}:
+        from .referral_coupon import reverse_referral_coupon
+        reverse_referral_coupon(order)
     if new_status in {'cancelled', 'refunded'} and wallet:
         refund_wallet(order)
         order.payment_status = 'refunded'
@@ -126,6 +129,9 @@ def change_order(order_id, new_status, actor_id=None, note='', admin_note=None):
     elif new_status == 'completed':
         order.payment_status = 'paid'
         order.payments.filter(status='pending').update(status='confirmed', confirmed_by=actor_id, confirmed_at=timezone.now())
+        from django.db import transaction as db_txn
+        from .referral_coupon import credit_referral_coupon
+        db_txn.on_commit(lambda completed=order: credit_referral_coupon(completed), using='ecommerce')
     if new_status != old_status and new_status in {'cancelled', 'returned'}:
         for item in order.items.order_by('variant_id'):
             # Movement is an immutable once-only stock return under the order lock.

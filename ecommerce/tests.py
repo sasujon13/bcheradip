@@ -21,7 +21,7 @@ from .views import StorefrontProductPagination
 class EcommerceConfigurationTests(SimpleTestCase):
     def test_collection_retries_transient_database_deadlocks_but_not_other_errors(self):
         from unittest.mock import patch,Mock
-        from django.db import OperationalError
+        from django.db import OperationalError,InterfaceError
         from .management.commands.recollect_supplier_catalogue import database_retry
         operation=Mock(side_effect=[OperationalError(1213,'Deadlock'), 'saved'])
         with patch('ecommerce.management.commands.recollect_supplier_catalogue.connections') as connection,patch('ecommerce.management.commands.recollect_supplier_catalogue.time.sleep'):
@@ -31,6 +31,10 @@ class EcommerceConfigurationTests(SimpleTestCase):
             lost=Mock(side_effect=[OperationalError(2013,'Connection lost'),'saved'])
             self.assertEqual(database_retry(lost),'saved')
             connection['ecommerce'].close.assert_called_once()
+            dropped=Mock(side_effect=[InterfaceError(0,''),'saved'])
+            self.assertEqual(database_retry(dropped),'saved')
+            self.assertEqual(dropped.call_count,2)
+            self.assertEqual(connection['ecommerce'].close.call_count,2)
             operation=Mock(side_effect=OperationalError(1054,'Invalid column'))
             with self.assertRaises(OperationalError): database_retry(operation)
             self.assertEqual(operation.call_count,1)
@@ -54,6 +58,17 @@ class EcommerceConfigurationTests(SimpleTestCase):
         paginator = StorefrontProductPagination()
         request = Request(factory.get('/api/ecommerce/products/', {'page': 2}))
         self.assertEqual(paginator.paginate_queryset(list(range(250)), request), list(range(100, 200)))
+
+    def test_first_storefront_page_can_skip_catalogue_count(self):
+        from unittest.mock import patch
+        paginator = StorefrontProductPagination()
+        factory = APIRequestFactory()
+        request = Request(factory.get('/api/ecommerce/products/', {'limit': 12, 'offset': 0, 'omit_count': '1'}))
+        with patch.object(StorefrontProductPagination, 'get_count') as counted:
+            page = paginator.paginate_queryset(list(range(40)), request)
+        counted.assert_not_called()
+        self.assertEqual(page, list(range(12)))
+        self.assertEqual(paginator.count, 13)
 
     def test_storefront_batch_size_is_bounded(self):
         paginator = StorefrontProductPagination()
@@ -344,6 +359,36 @@ class WalletCommerceTests(TransactionTestCase):
         self.assertEqual(added.data['items'][0]['quantity'], 2)
         updated = self.client.post(url, {'variant_id': self.variant.pk, 'quantity': 3, 'operation': 'set'}, format='json')
         self.assertEqual(updated.data['items'][0]['quantity'], 3)
+
+    def test_welcome_signup_bonus_pays_shop_order_and_stays_non_withdrawable(self):
+        from cheradip.views import WELCOME_SIGNUP_BONUS_COINS
+        self.user.settings = {'balance': WELCOME_SIGNUP_BONUS_COINS}
+        self.user.save(update_fields=['settings'])
+        RewardsWallet.objects.get_or_create(customer=self.user, defaults={
+            'available_taka': '0.00', 'lifetime_earned_taka': '0.00',
+        })
+        self.variant.price = '50.00'
+        self.variant.save(using='ecommerce', update_fields=['price'])
+
+        response = self.client.post(
+            '/api/ecommerce/checkout/', self.checkout_payload(self.cart()['token']), format='json',
+        )
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(response.data['payment_status'], 'paid')
+        self.assertEqual(response.data['walletBalanceTaka'], 0.0)
+        self.assertEqual(response.data['referenceUsedTaka'], 0.0)
+        self.assertEqual(response.data['referenceBalanceTaka'], 0.0)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings['balance'], 0)
+        wallet = RewardsWallet.objects.get(customer=self.user)
+        self.assertEqual(wallet.available_taka, 0)
+        self.assertEqual(wallet.pending_taka, 0)
+
+        denied = self.client.post('/api/wallet/', {
+            'method': 'bkash', 'accountNumber': '01710000000', 'amountTaka': '100',
+        }, format='json', secure=True)
+        self.assertEqual(denied.status_code, 400)
+        self.assertEqual(RewardsWallet.objects.get(customer=self.user).available_taka, 0)
 
     def test_insufficient_wallet_does_not_create_order_or_deduct(self):
         self.user.settings = {'balance': 1000}

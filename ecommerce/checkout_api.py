@@ -123,7 +123,8 @@ class CheckoutQuoteView(APIView):
             return Response({'detail':str(exc)},status=409)
         totals, _ = quote_totals(subtotal, any(i.variant.requires_shipping for i in items),
                                  address.validated_data, str(request.data.get('coupon_code') or ''),
-                                 lines=[(i.variant, i.quantity) for i in items], payment_method=method)
+                                 lines=[(i.variant, i.quantity) for i in items], payment_method=method,
+                                 buyer_id=user_id, buyer_phone=str(request.data.get('phone') or ''))
         from .supplier_pilot import validate_checkout
         try:
             validate_checkout([(i.variant,i.quantity) for i in items],totals)

@@ -38,7 +38,7 @@ from .throttles import CommerceThrottle, TrackingThrottle, ReviewThrottle
 from .serializers import (
     BookAssetSerializer, BookBuildJobSerializer, BookSerializer, BrandSerializer, CartSerializer, CategorySerializer, InventoryMovementSerializer,
     NotificationSerializer, OrderSerializer, PaymentSerializer, ProductDetailSerializer,
-    ProductListSerializer, ReviewSerializer, StorefrontProductSerializer, CustomerOrderSerializer, CustomerPaymentSerializer,
+    ProductListSerializer, ReviewSerializer, StorefrontIndexSerializer, StorefrontProductSerializer, CustomerOrderSerializer, CustomerPaymentSerializer,
 )
 
 
@@ -102,22 +102,8 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = None
 
     def list(self, request, *args, **kwargs):
-        categories = list(self.get_queryset())
-        by_id = {c.pk: c for c in categories}
-        from .supplier_pilot import public_product_ids
-        visible = Product.objects.using('ecommerce').filter(status='active').filter(
-            Q(supplier_offer__isnull=True) | Q(pk__in=public_product_ids()))
-        memberships = {pk: set() for pk in by_id}
-        for product_id, primary, secondary in visible.values_list('pk', 'category_id', 'secondary_categories__id'):
-            for category_id in (primary, secondary):
-                visited = set()
-                while category_id in by_id and category_id not in visited:
-                    visited.add(category_id)
-                    memberships[category_id].add(product_id)
-                    category_id = by_id[category_id].parent_id
-        for category in categories:
-            category.product_count = len(memberships[category.pk])
-        return Response(self.get_serializer([c for c in categories if c.product_count > 0], many=True).data)
+        from .storefront_taxonomy import taxonomy_categories
+        return Response(taxonomy_categories())
 
     def get_queryset(self):
         return Category.objects.using('ecommerce').filter(is_active=True)
@@ -138,8 +124,18 @@ class StorefrontProductPagination(LimitOffsetPagination):
 
     def paginate_queryset(self, queryset, request, view=None):
         # DRF otherwise assigns request only after get_count has run.
-        self.request=request
-        return super().paginate_queryset(queryset,request,view=view)
+        self.request = request
+        self.limit = self.get_limit(request)
+        if self.limit is None:
+            return None
+        self.offset = self.get_offset(request)
+        skip_count = str(request.query_params.get('omit_count') or '').lower() in {'1', 'true'}
+        if skip_count:
+            # First storefront paint must not wait on COUNT(*) of ~15k listings.
+            self.count = self.offset + self.limit + 1
+            self.display_page_controls = True
+            return list(queryset[self.offset:self.offset + self.limit])
+        return super().paginate_queryset(queryset, request, view=view)
 
     def get_count(self, queryset):
         # Paginate/count only product IDs. The storefront list queryset also
@@ -190,7 +186,8 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     def price_range(self, request):
         # Use the complete public catalog, not a loaded batch or an already
         # price-filtered result. Supplier costs and drafts never set this bound.
-        maximum = _product_queryset().aggregate(maximum=Max('price'))['maximum']
+        from .storefront_index import listing_price_maximum
+        maximum = listing_price_maximum()
         return Response({'min_price': '0.00', 'max_price': str(maximum or Decimal('0.00'))})
 
     @action(detail=True, methods=['get', 'post'], url_path='source-refresh', throttle_classes=[CommerceThrottle])
@@ -259,17 +256,25 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data, status=202)
 
     def get_serializer_class(self):
-        return StorefrontProductSerializer if self.action == 'retrieve' else ProductListSerializer
+        if self.action == 'retrieve':
+            return StorefrontProductSerializer
+        if self.action == 'list':
+            return StorefrontIndexSerializer
+        return ProductListSerializer
 
     def list(self, request, *args, **kwargs):
+        slug = (request.query_params.get('category') or '').strip()
+        if slug:
+            from .storefront_taxonomy import remember_last_used
+            remember_last_used(slug)
         # Public product cards are identical for all visitors. Reuse a brief
         # shared response cache for repeat reloads; detail/checkout endpoints
-        # still perform live stock, price and supplier-release checks.
+        # still perform current stock, price and supplier-release checks.
         import sys
         if 'test' not in sys.argv:
             import hashlib
             from .supplier_pilot import _catalogue_cache
-            cache_key='ecommerce:storefront-page:v1:'+hashlib.sha256(
+            cache_key='ecommerce:storefront-page:v2:'+hashlib.sha256(
                 f'{request.get_host()}{request.get_full_path()}'.encode('utf-8')).hexdigest()
             cache=_catalogue_cache()
             try:
@@ -281,7 +286,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             response=super().list(request,*args,**kwargs)
             if response.status_code==200:
                 try:
-                    cache.set(cache_key,response.data,15)
+                    cache.set(cache_key,response.data,60)
                 except Exception:
                     pass
             return response
@@ -297,6 +302,19 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
                 public_ids=public_product_ids_for(product_id)
             else:
                 public_ids=[]
+        elif self.action == 'list':
+            from .models import StorefrontProductIndex
+            from .storefront_index import flush_index_refresh, listing_queryset, refresh_storefront_index
+            import sys
+            if 'test' in sys.argv:
+                # SQLite tests cannot share the product table with a rebuild thread.
+                refresh_storefront_index()
+                return listing_queryset(self.request)
+            flush_index_refresh()
+            if StorefrontProductIndex.objects.using('ecommerce').exists():
+                return listing_queryset(self.request)
+            import threading
+            threading.Thread(target=refresh_storefront_index, daemon=True).start()
         else:
             from .supplier_pilot import public_product_ids
             public_ids=public_product_ids()
@@ -721,7 +739,8 @@ class CheckoutView(APIView):
                     return Response({'detail':str(exc)},status=409)
                 requires_shipping = any(variant.requires_shipping for _, variant in locked)
                 totals, coupon = quote_totals(subtotal, requires_shipping, data['shipping_address'], data['coupon_code'], lock=True,
-                                            lines=[(variant, item.quantity) for item, variant in locked], payment_method=payment_method)
+                                            lines=[(variant, item.quantity) for item, variant in locked], payment_method=payment_method,
+                                            buyer_id=_user_id(request), buyer_phone=data.get('phone') or '')
                 shipping_total, discount_total, grand_total = (totals[k] for k in ('shipping_total', 'discount_total', 'grand_total'))
                 from .supplier_pilot import validate_checkout
                 try:
@@ -771,7 +790,8 @@ class CheckoutView(APIView):
                     confirmed_at=timezone.now() if initial_status=='confirmed' else None,
                     subtotal=subtotal, discount_total=discount_total, shipping_total=shipping_total, cod_total=totals['cod_total'], delivery_quote=totals['delivery_details'],
                     grand_total=grand_total, coupon_code=coupon_code,
-                    cost_snapshot={**capture_costs(locked, totals['delivery_details']), 'stock_confirmation':confirmation},
+                    cost_snapshot={**capture_costs(locked, totals['delivery_details']), 'stock_confirmation':confirmation,
+                        **({'referral_coupon': {'customer_id': totals['referral_customer_id'], 'taka': str(discount_total)}} if totals.get('referral_customer_id') else {})},
                     customer_note=data['customer_note'],
                 )
                 for cart_item, variant in locked:
@@ -837,6 +857,10 @@ class CheckoutView(APIView):
                 if _user_id(request) and not cart.customer_id:
                     cart.customer_id = _user_id(request)
                 cart.save(using='ecommerce', update_fields=['checked_out', 'customer_id', 'updated_at'])
+                if totals.get('referral_customer_id'):
+                    from django.db import transaction as db_txn
+                    from .referral_coupon import hold_referral_coupon
+                    db_txn.on_commit(lambda placed=order: hold_referral_coupon(placed), using='ecommerce')
 
         order.refresh_from_db(using='ecommerce')
         payload = CustomerOrderSerializer(order).data
@@ -939,6 +963,7 @@ class AccountHistoryView(APIView):
                 'coinBalance': coin_balance,
                 'balanceTaka': float(_coins_to_taka(coin_balance)),
                 'referenceBalanceTaka': float(rewards_wallet.available_taka),
+                'pendingTaka': float(rewards_wallet.pending_taka),
             },
             'packages': packages,
             'orders': orders,

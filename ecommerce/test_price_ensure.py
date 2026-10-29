@@ -1,0 +1,158 @@
+import json
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
+from django.test import SimpleTestCase, TransactionTestCase, override_settings
+from rest_framework.test import APIClient
+from cheradip.models import Customer, CustomerToken
+
+from .price_ensure import SAMPLES, check_gold_html, extract_buying_price
+from .supplier_source_parsers import html_product
+
+
+class GoldHtmlExtractionTests(SimpleTestCase):
+    def test_owner_html_snippets_extract_the_labelled_buying_prices(self):
+        rows = check_gold_html()
+        self.assertTrue(all(row['ok'] for row in rows), rows)
+        self.assertEqual([row['extracted'] for row in rows], [s['expected'] for s in SAMPLES])
+
+    def test_dropify_wholesale_is_not_the_suggested_figure(self):
+        html = '''<div class="pd-price-item"><div class="pd-price-item-label">Suggested Price</div>
+            <div class="pd-price-item-value suggested">৳1,850</div></div>
+            <div class="pd-price-item"><div class="pd-price-item-label">Wholesale Price</div>
+            <div class="pd-price-item-value wholesale">৳1,150</div></div>'''
+        self.assertEqual(extract_buying_price('dropify', html), ('1150.00', 'Wholesale Price'))
+
+    def test_resellkori_full_page_reads_the_reselling_price_button(self):
+        page = '''<html><body><h1>Silver Crest</h1><div class="single-product-content">
+            <div class="woocommerce-product-gallery__wrapper"></div>
+            <div class="summary"><a class="reselling-price-btn">Reseller Price: 692৳</a>
+            <div>Market Price: 999৳</div></div>
+            <select name="rating"><option value="5">Perfect</option></select>
+            <div id="tab-description">Original description</div></div></body></html>'''
+        record = html_product('resellkori', SAMPLES[0]['url'], page, title='Silver Crest')
+        self.assertEqual(record['prices']['reseller']['amount'], '692.00')
+        self.assertEqual(record['variants'], [])
+
+    def test_ensure_prices_gold_pass_without_live_logins(self):
+        rows = check_gold_html()
+        self.assertTrue(all(row['ok'] for row in rows), rows)
+
+
+class EnsurePricesApiTests(TransactionTestCase):
+    databases = {'default', 'ecommerce'}
+
+    def setUp(self):
+        self.user = Customer.objects.create_user(username='price-staff', password='test-only', fullName='Price Staff')
+        self.user.is_staff = self.user.is_superuser = True
+        self.user.save()
+        CustomerToken.objects.create(key='price-test-token', customer=self.user)
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer price-test-token', HTTP_X_FORWARDED_PROTO='https')
+
+    def test_staff_can_check_gold_html_without_calling_suppliers(self):
+        with patch('ecommerce.price_ensure.check_live') as live:
+            response = self.client.post('/api/ecommerce/admin/ensure-prices/', {'live': False}, format='json')
+        live.assert_not_called()
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data['gold_ok'])
+        self.assertEqual(len(response.data['rows']), 8)
+        saved = self.client.get('/api/ecommerce/admin/ensure-prices/')
+        self.assertEqual(saved.status_code, 200)
+        self.assertTrue(saved.data['gold_ok'])
+        self.assertEqual(len(saved.data['rows']), 8)
+
+    def test_guests_cannot_ensure_prices(self):
+        guest = APIClient()
+        self.assertIn(guest.post('/api/ecommerce/admin/ensure-prices/').status_code, (401, 403))
+
+
+class CatalogSyncApiTests(TransactionTestCase):
+    databases = {'default', 'ecommerce'}
+
+    def setUp(self):
+        self.user = Customer.objects.create_user(username='sync-staff', password='test-only', fullName='Sync Staff')
+        self.user.is_staff = self.user.is_superuser = True
+        self.user.save()
+        CustomerToken.objects.create(key='sync-test-token', customer=self.user)
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer sync-test-token', HTTP_X_FORWARDED_PROTO='https')
+
+    def test_staff_can_read_and_queue_catalog_sync(self):
+        with patch('ecommerce.catalog_sync_control.queue_or_run_sync', return_value={
+            'status': 'queued', 'queued': True, 'ran': False, 'records': 0,
+        }):
+            response = self.client.post('/api/ecommerce/admin/catalog-sync/', {}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data['queued'])
+        with patch('ecommerce.catalog_sync_control.last_catalog_report', return_value={
+            'status': 'completed', 'records': 2, 'created': 1, 'updated': 1,
+        }):
+            saved = self.client.get('/api/ecommerce/admin/catalog-sync/')
+        self.assertEqual(saved.status_code, 200)
+        self.assertEqual(saved.data['status'], 'completed')
+        self.assertEqual(saved.data['records'], 2)
+
+    def test_guests_cannot_sync_catalog(self):
+        guest = APIClient()
+        self.assertIn(guest.post('/api/ecommerce/admin/catalog-sync/').status_code, (401, 403))
+
+
+class UploadBuildApiTests(TransactionTestCase):
+    databases = {'default', 'ecommerce'}
+
+    def setUp(self):
+        self.user = Customer.objects.create_user(username='deploy-staff', password='test-only', fullName='Deploy Staff')
+        self.user.is_staff = self.user.is_superuser = True
+        self.user.save()
+        CustomerToken.objects.create(key='deploy-test-token', customer=self.user)
+        self.client = APIClient()
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer deploy-test-token', HTTP_X_FORWARDED_PROTO='https')
+
+    def test_superuser_can_queue_upload_and_build(self):
+        with patch('ecommerce.upload_build.queue_or_run_deploy', return_value={
+            'status': 'running', 'percent': 5, 'activity': 'Starting Upload & Build',
+        }):
+            response = self.client.post('/api/ecommerce/admin/upload-build/', {}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['status'], 'running')
+        with patch('ecommerce.upload_build.last_deploy_report', return_value={
+            'status': 'completed', 'percent': 100, 'activity': 'Live site uploaded and built',
+        }):
+            saved = self.client.get('/api/ecommerce/admin/upload-build/')
+        self.assertEqual(saved.status_code, 200)
+        self.assertEqual(saved.data['percent'], 100)
+
+    def test_staff_without_collect_permission_cannot_upload_and_build(self):
+        self.user.is_superuser = False
+        self.user.save(update_fields=['is_superuser'])
+        self.assertEqual(self.client.post('/api/ecommerce/admin/upload-build/', {}, format='json').status_code, 403)
+
+
+class CatalogSyncProgressTests(SimpleTestCase):
+    def test_running_status_exposes_percent_for_the_progress_bar(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with override_settings(BASE_DIR=tmp):
+                folder = Path(tmp) / 'private_suppliers' / 'catalog_sync'
+                folder.mkdir(parents=True)
+                (folder / 'status.json').write_text(json.dumps({
+                    'status': 'running',
+                    'activity': 'Synchronizing original product photos',
+                    'percent': 55,
+                    'updated_at': '2026-10-28T00:00:00+00:00',
+                    'run': 'progress-test',
+                }), encoding='utf-8')
+                from ecommerce.catalog_sync_control import last_catalog_report
+                report = last_catalog_report()
+                self.assertEqual(report['status'], 'running')
+                self.assertEqual(report['percent'], 55)
+                self.assertEqual(report['activity'], 'Synchronizing original product photos')
+
+
+class CatalogSyncScriptTests(SimpleTestCase):
+    def test_on_demand_status_lines_print_on_windows_console(self):
+        from pathlib import Path
+        script = Path(__file__).resolve().parents[2] / 'deploy' / 'sync-catalog.py'
+        text = script.read_text(encoding='utf-8')
+        self.assertNotIn('\u2192', text)
+        text.encode('cp1252')

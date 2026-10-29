@@ -46,7 +46,8 @@ class ManagementAccessView(CommerceAdminAuthMixin, APIView):
 
     def get(self, request):
         staff = bool(request.user.is_authenticated and request.user.is_active and request.user.is_staff)
-        return Response({'allowed': staff, 'authenticated': bool(request.user.is_authenticated), 'permissions': {
+        return Response({'allowed': staff, 'authenticated': bool(request.user.is_authenticated),
+            'superuser': bool(staff and request.user.is_superuser), 'permissions': {
             name: {action: permitted(request.user, model, action) for action in ('view', 'add', 'change', 'delete')}
             for name, model in MODELS.items()
         } if staff else {}})

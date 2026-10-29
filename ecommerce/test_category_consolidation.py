@@ -8,7 +8,11 @@ from django.test import SimpleTestCase, TestCase
 from rest_framework.test import APIClient
 
 from .category_normalization import canonical_path, specialized_path
+from .category_suggestion_rules import (
+    beauty_destination, clothing_destination, electronics_destination, kids_destination,
+)
 from .catalog_structure import ensure_category
+from .catalog_structure import classify
 from .models import Category, Product, ProductVariant
 
 
@@ -18,13 +22,62 @@ class CategoryMeaningTests(SimpleTestCase):
             'Q35 Android TV Box': ('Electronics', 'TV Streaming Boxes'),
             'JPE 32 Frameless Television': ('Electronics', 'Televisions'),
             'HY300 Android Projector': ('Electronics', 'Projectors'),
-            'Mini Projector Torch Kids Flashlight': ('Toys & Games', 'Drawing & Projection Toys'),
+            'Mini Projector Torch Kids Flashlight': ('Kids & Baby', 'Drawing & Projection Toys'),
             'Galaxy Projector Starry Sky Night Light': ('Home & Living', 'Projection Night Lights'),
             'TV Cover 65 inch': ('Home & Living', 'TV Covers'),
         }
         for title, expected in cases.items():
             self.assertEqual(specialized_path(('Electronics', 'TV & Streaming'), title), expected)
         self.assertEqual(canonical_path(('Electronics', 'Smart Watches')), ('Electronics', 'Smartwatches'))
+        self.assertEqual(canonical_path(('Computer & Accessories', 'Keyboards')), ('Electronics', 'Keyboards'))
+        self.assertEqual(canonical_path(('Automotive', 'Vehicle Accessories')), ('Tools & Home Improvement', 'Vehicle Accessories'))
+        self.assertEqual(canonical_path(('Office & Stationary', 'Notebooks')), ('Electronics', 'Notebooks'))
+        self.assertEqual(canonical_path(('Watches & Accessories', 'Wristwatches')), ('Watches & Jewelry', 'Wrist Watches'))
+        self.assertEqual(canonical_path(('Pet Supplies', 'Pet Care')), ('Home & Living', 'Aquarium Supplies'))
+        self.assertEqual(canonical_path(('Pet Supplies',)), ('Home & Living',))
+        self.assertEqual(canonical_path(('Kids & Toys',)), ('Kids & Baby',))
+        self.assertEqual(canonical_path(('Kids & Toys', 'Toys & Games')), ('Kids & Baby', 'Toys'))
+        self.assertEqual(canonical_path(('Toys & Games', 'Drawing & Projection Toys')),
+                         ('Kids & Baby', 'Drawing & Projection Toys'))
+        self.assertEqual(canonical_path(('Mobile & Accessories', 'Phone Chargers')),
+                         ('Electronics', 'Phone Chargers'))
+        self.assertEqual(canonical_path(('Mobile & Accessories', 'Phone Cases')),
+                         ('Electronics', 'Phone Cases & Accessories'))
+        self.assertEqual(canonical_path(('Digital Services', 'Software & Services')), ('Digital Services',))
+        self.assertEqual(canonical_path(('Food & Groceries', 'Food & Drinks')), ('Food & Groceries',))
+        self.assertEqual(canonical_path(('Food & Health', 'Food & Drinks')), ('Food & Groceries',))
+
+    def test_generic_dresses_do_not_reappear_on_import(self):
+        result = classify('Beautiful dress', categories=['Dresses'])
+        self.assertNotEqual(result.get('path'), ['Clothing', 'Dresses'])
+        self.assertIn(result['status'], ('assigned', 'needs_review'))
+
+    def test_suggestion_classifiers_use_existing_types_and_skip_jewelry(self):
+        self.assertEqual(kids_destination('বেবি ডায়াপার', assume_kids=True), ('Kids & Baby', 'Diapers'))
+        self.assertEqual(kids_destination('Super Soft Cotton Fleece Baby Hoodie'),
+                         ('Kids & Baby', "Children's Hoodies"))
+        self.assertEqual(kids_destination('Super Car Die-Cast Metal Set', assume_kids=True),
+                         ('Kids & Baby', 'Toys'))
+        self.assertEqual(kids_destination('Half Sleeve T-shirt and Pant Set. সাইজ ৬ মাস - ১৩ বছর'),
+                         ('Kids & Baby', "Children's Matching Sets"))
+        self.assertIsNone(kids_destination('Exclusive Baby Pink Cotton Embroidered Three Piece'))
+        self.assertEqual(electronics_destination('Joyroom JR-PBF12 10000mAh Power Bank'),
+                         ('Electronics', 'Power Banks'))
+        self.assertEqual(electronics_destination('Awei T230 ANC Pro True Wireless Earbuds'),
+                         ('Electronics', 'Wireless Earbuds'))
+        self.assertEqual(electronics_destination('V380 Pro Dual Lens WiFi Security Camera'),
+                         ('Electronics', 'Security Cameras'))
+        self.assertEqual(clothing_destination('Premium Aarong Cotton Readymade Three-Piece'),
+                         ("Women's Fashion", 'Three-Piece Sets'))
+        self.assertEqual(clothing_destination("Men's Stylish Premium Drop Shoulder"),
+                         ("Men's Fashion", 'T-Shirts'))
+        self.assertIsNone(clothing_destination('Exclusive Gorgeous Gold-Plated Kundan Necklace'))
+        self.assertIsNone(clothing_destination('vintage glasses men & Women'))
+        self.assertEqual(beauty_destination('Missha All Around Safe Block Aqua Sun Gel SPF50+/PA++++'),
+                         ('Beauty & Personal Care', 'Sunscreens'))
+        self.assertEqual(beauty_destination('Simple Kind to Skin Refreshing Facial Gel Wash'),
+                         ('Beauty & Personal Care', 'Face Washes'))
+        self.assertIsNone(beauty_destination('Adjustable Knee Brace'))
 
 
 class CategoryConsolidationTests(TestCase):

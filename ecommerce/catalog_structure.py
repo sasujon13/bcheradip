@@ -151,16 +151,25 @@ FALLBACKS = [
     ('Electronics', r'electronic|gadget|গ্যাজেট'),
     ('Home & Living', r'home|household|lifestyle|হোম'),
     ('Beauty & Personal Care', r'beauty|personal\s*care|পার্সোনাল'),
-    ('Kids & Toys', r'kids?|baby|বেবি'),
+    ('Kids & Baby', r'kids?|baby|বেবি'),
 ]
 
 
 def classify(title, categories=(), description=''):
+    def assignment(path, reason):
+        if path[-1:] == ('Dresses',):
+            from .taxonomy_proposal import normalized_classification
+            specific = normalized_classification(title, description=description)
+            if specific['status'] == 'assigned' and len(specific['path']) == 2:
+                return {**specific, 'reason': reason + ':specific_dress_type'}
+            return {'path': [], 'status': 'needs_review',
+                    'reason': 'Specific dress type needs review', 'version': VERSION}
+        return {'path': list(path), 'status': 'assigned', 'reason': reason, 'version': VERSION}
     labels = [c for c in category_names(categories) if c and not GENERIC.fullmatch(c)]
     for origin, text in [('title', clean(title)), ('supplier_category', ' | '.join(labels))]:
         for path, pattern in COMPILED:
             if pattern.search(text):
-                return {'path': list(path), 'status': 'assigned', 'reason': origin, 'version': VERSION}
+                return assignment(path, origin)
     if description:
         from lxml import html as markup
         try:
@@ -171,7 +180,7 @@ def classify(title, categories=(), description=''):
         except (ValueError,TypeError): intro=''
         matches={path for path,pattern in COMPILED if pattern.search(intro)}
         if len(matches)==1:
-            return {'path':list(matches.pop()),'status':'assigned','reason':'supplier_description','version':VERSION}
+            return assignment(matches.pop(), 'supplier_description')
     for root, pattern in FALLBACKS:
         if any(re.search(pattern, label, re.I) for label in labels):
             return {'path': [root], 'status': 'assigned', 'reason': 'supplier_department', 'version': VERSION}

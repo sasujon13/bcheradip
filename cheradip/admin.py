@@ -473,9 +473,9 @@ class ReferralCommissionAdmin(admin.ModelAdmin):
 
 @admin.register(RewardsWallet)
 class RewardsWalletAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'available_taka', 'lifetime_earned_taka', 'lifetime_withdrawn_taka', 'updated_at')
+    list_display = ('customer', 'available_taka', 'pending_taka', 'lifetime_earned_taka', 'lifetime_withdrawn_taka', 'updated_at')
     search_fields = ('customer__username', 'customer__fullName')
-    readonly_fields = ('customer', 'available_taka', 'lifetime_earned_taka', 'lifetime_withdrawn_taka', 'updated_at')
+    readonly_fields = ('customer', 'available_taka', 'pending_taka', 'lifetime_earned_taka', 'lifetime_withdrawn_taka', 'updated_at')
 
     def has_add_permission(self, request):
         return False

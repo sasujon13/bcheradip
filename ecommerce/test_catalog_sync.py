@@ -44,6 +44,16 @@ class CatalogSyncTests(TestCase):
         self.product.refresh_from_db()
         self.assertEqual(Codec().identity(self.product).uid, before)
 
+    def test_bounded_export_includes_required_parents_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'bounded.json.gz'
+            export_catalog(path, include_names={'Product'})
+            with gzip.open(path, 'rt', encoding='utf-8') as stream:
+                rows = [json.loads(line) for line in stream][1:]
+            self.assertEqual({row['model'] for row in rows}, {'Category', 'Product'})
+            with self.assertRaisesRegex(ValueError, 'unsupported'):
+                export_catalog(path, include_names={'Customer'})
+
     def test_old_inflight_snapshot_does_not_resurrect_a_later_deleted_attribute(self):
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'initial.gz';old=Path(directory)/'inflight.gz';probe=Path(directory)/'probe.gz'
@@ -90,6 +100,25 @@ class CatalogSyncTests(TestCase):
             export_catalog(path, since=timezone.now()+timedelta(days=1))
             with gzip.open(path, 'rt') as stream:
                 self.assertNotIn('SupplierRecollectionItem', stream.read())
+
+    def test_regular_sync_skips_old_collection_checks_but_includes_new_changes(self):
+        from datetime import timedelta
+        from .models import Supplier, SupplierRecollectionRun, SupplierRecollectionItem
+        supplier = Supplier.objects.create(name='Collection source', website='https://collection.example')
+        run = SupplierRecollectionRun.objects.create(supplier=supplier, mode='full')
+        item = SupplierRecollectionItem.objects.create(run=run, source_key='old-check',
+            external_id='old', url='https://collection.example/product', status='failed')
+        cutoff = timezone.now()
+        SupplierRecollectionItem.objects.filter(pk=item.pk).update(updated_at=cutoff-timedelta(days=2))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'recent.gz'
+            export_catalog(path, since=cutoff, backfill_collection_items=False)
+            with gzip.open(path, 'rt', encoding='utf-8') as stream:
+                self.assertNotIn('SupplierRecollectionItem', stream.read())
+            SupplierRecollectionItem.objects.filter(pk=item.pk).update(updated_at=timezone.now())
+            export_catalog(path, since=cutoff, backfill_collection_items=False)
+            with gzip.open(path, 'rt', encoding='utf-8') as stream:
+                self.assertIn('SupplierRecollectionItem', stream.read())
 
     def test_legacy_identity_alias_reuses_evidence_and_preserves_precise_dates(self):
         import uuid

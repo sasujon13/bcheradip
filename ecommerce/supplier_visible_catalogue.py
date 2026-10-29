@@ -2,9 +2,10 @@
 import re
 import hashlib
 import json
+from collections import defaultdict
 from decimal import Decimal
 from urllib.parse import urlsplit,urlunsplit,parse_qs
-from django.db import transaction
+from django.db import transaction,close_old_connections
 from django.db.models import Q
 from django.utils import timezone
 from selenium.webdriver.common.by import By
@@ -78,8 +79,10 @@ def record_browser_observation(source_id,proof):
     if old.get('checked_at','')>proof['checked_at']:return
     source.extra={**source.extra,'browser_preferred':True,'browser_verification':proof}
     fields=['extra','prices','updated_at']
-    if proof['state']=='unavailable':
-        source.stock={**source.stock,'status':'out_of_stock'}
+    if proof['state'] in ('verified','unavailable'):
+        source.stock={**source.stock,'status':proof['stock_status']}
+        if proof.get('quantity_verified'):
+            source.stock['quantity']=proof.get('quantity')
         fields.append('stock')
     if proof.get('buying_price'):
         source.prices={**source.prices,'browser_buying_price':{'amount':proof['buying_price'],
@@ -101,6 +104,56 @@ class VisibleCatalogueCollector(BrowserCollector):
     Already collected rich source records remain intact. Unmapped visible cards
     are logged for a mapper review, never turned into duplicate or fake offers.
     """
+    def resellkori(self):
+        if not getattr(self,'verify_unmapped',False):
+            return super().resellkori()
+        from .models import SupplierOffer
+        offers=SupplierOffer.objects.using(DB).filter(
+            supplier=self.job.supplier,source_product__isnull=True).order_by('pk').values(
+                'pk','external_id','title','url')
+        window=getattr(self,'verify_unmapped_window',None)
+        if window:
+            offers=offers.filter(created_at__gte=window[0],created_at__lte=window[1])
+        total=offers.count()
+        self.job.total=total
+        self.job.save(using=DB,update_fields=['total','updated_at'])
+        for offer in offers.iterator(chunk_size=100):
+            self.check()
+            url=offer['url']
+            if not url:
+                self.counts['invalid_skipped']+=1
+                continue
+            item={'id':offer['external_id'],'title':offer['title'],'url':url}
+            self.capture([item],url)
+
+    def source_for_visible_card(self,item):
+        # One bounded projection per supplier avoids a table scan for every
+        # card in a vendor/category page with hundreds of visible products.
+        if not hasattr(self,'_source_index'):
+            urls,identities,photos=defaultdict(set),defaultdict(set),defaultdict(set)
+            titles={}
+            for pk,url,external_id,title in SupplierSourceProduct.objects.using(DB).filter(
+                    supplier_id=self.job.supplier_id).values_list('pk','url','external_id','title').iterator(chunk_size=1000):
+                titles[pk]=normalized(title)
+                if url:urls[canonical_url(url)].add(pk)
+                if external_id:identities[str(external_id)].add(pk)
+            for pk,url in SupplierSourceMedia.objects.using(DB).filter(
+                    product__supplier_id=self.job.supplier_id,kind='image').values_list(
+                        'product_id','original_url').iterator(chunk_size=1000):
+                if pk in titles and url:photos[(titles[pk],url)].add(pk)
+            self._source_index=(urls,identities,photos)
+        urls,identities,photos=self._source_index
+        url=item.get('url') or ''
+        ident=str(item.get('id') or '')
+        candidates=urls.get(canonical_url(url),set()) if url else set()
+        if not candidates and ident:candidates=identities.get(ident,set())
+        if not candidates and item.get('image'):
+            picture=item['image'];parts=urlsplit(picture)
+            if parts.path=='/_next/image':picture=parse_qs(parts.query).get('url',[picture])[0]
+            candidates=photos.get((normalized(item.get('title')),picture),set())
+        if len(candidates)!=1:return None
+        return SupplierSourceProduct.objects.using(DB).get(pk=next(iter(candidates)),supplier_id=self.job.supplier_id)
+
     def run(self):
         super().run()
         self.job.refresh_from_db(using=DB)
@@ -114,6 +167,9 @@ class VisibleCatalogueCollector(BrowserCollector):
 
     def capture(self,items,page,category='',vendor='not-provided'):
         self.check()
+        # A supplier page can take minutes to render while the database is
+        # idle. Refresh the connection before each page's catalog writes.
+        close_old_connections()
         if self.pages>=self.max_pages:raise CollectionLimitReached('Browser page bound reached; partial verification only.')
         self.pages+=1
         for item in items:
@@ -123,13 +179,15 @@ class VisibleCatalogueCollector(BrowserCollector):
             self.seen.add(key)
             if item.get('access_required') or '/membership' in (item.get('url') or ''):
                 self.counts['membership_held']+=1;self.counts['existing']+=1;continue
-            source=source_for_card(self.job.supplier_id,item)
+            source=self.source_for_visible_card(item)
             if not source and self.site=='business_koro':source=self.discover_business_koro(item,page)
+            if not source and self.site=='resellkori':source=self.discover_resellkori(item,page)
             if not source:
                 self.counts['unmapped']+=1;self.counts['failed']+=1
                 self.warnings.append('Unmapped visible product: '+str(item.get('title') or '')[:150])
                 continue
             proof=self.inspect_visible_product(source,item,page)
+            close_old_connections()
             proof['checked_at']=timezone.now().isoformat()
             if proof.get('buying_price'):
                 previous=list(source.linked_offers.exclude(source_price=None).values_list('source_price',flat=True))
@@ -239,6 +297,50 @@ class VisibleCatalogueCollector(BrowserCollector):
         if not hasattr(self,'fresh_discoveries'):self.fresh_discoveries={}
         self.fresh_discoveries[source.pk]=proof
         return source
+
+    def discover_resellkori(self,item,page):
+        """Build a rich source record from this exact signed-in product page."""
+        url=item.get('url') or ''
+        if not url:
+            return None
+        original=self.driver.current_window_handle
+        try:
+            self.driver.switch_to.new_window('tab');self.goto(url)
+            if canonical_url(self.driver.current_url)!=canonical_url(url):
+                self.warnings.append('ResellKori redirected an unmapped product page; held for review.')
+                return None
+            WebDriverWait(self.driver,20).until(lambda d:d.find_elements(By.CSS_SELECTOR,'.single-product-content .summary'))
+            external=str(item.get('id') or 'browser-url-'+hashlib.sha256(canonical_url(url).encode()).hexdigest()[:48])
+            record=html_product('resellkori',self.driver.current_url,self.driver.page_source,
+                external_id=external,title=item.get('title') or '')
+            summary=self.driver.find_element(By.CSS_SELECTOR,'.single-product-content .summary').text
+            stock_status,quantity=visible_stock(summary)
+            record['stock']={**record.get('stock',{}),'status':stock_status}
+            if quantity is not None:
+                record['stock']['quantity']=quantity
+            if not record.get('media') or not record.get('description'):
+                self.warnings.append('ResellKori source page lacks a verified gallery or description; held for review.')
+                return None
+            record['extra']={**record.get('extra',{}),'identity_origin':'browser_url',
+                'browser_preferred':True,'catalogue_url':page}
+            if not getattr(self,'discovery_run',None):
+                from .supplier_recollection import MAPPING_VERSION
+                self.discovery_run=SupplierRecollectionRun.objects.using(DB).create(
+                    supplier=self.job.supplier,mode='inspect',status='running',mapping_version=MAPPING_VERSION,
+                    coverage={'method':'signed-in rendered ResellKori pages','new_sources_only':True,
+                              'browser_job_id':str(self.job.pk)})
+            from .supplier_recollection import save_record,source_key
+            save_record(self.discovery_run.pk,record)
+            source=SupplierSourceProduct.objects.using(DB).get(
+                supplier=self.job.supplier,source_key=source_key(external))
+            self.counts['new_browser_sources']+=1
+            return source
+        except ValueError as exc:
+            self.warnings.append('ResellKori product needs mapper review: '+str(exc)[:120])
+            return None
+        finally:
+            if self.driver.current_window_handle!=original:self.driver.close()
+            self.driver.switch_to.window(original)
 
     def inspect_visible_product(self,source,item,page):
         proof={'method':'rendered_browser_dom','checked_at':timezone.now().isoformat(),

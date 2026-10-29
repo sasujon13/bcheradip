@@ -2,7 +2,6 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Get the custom user model

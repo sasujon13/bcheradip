@@ -3,7 +3,7 @@ import json
 import sys
 import time
 from django.core.management.base import BaseCommand, CommandError
-from django.db import transaction,DatabaseError,connections
+from django.db import transaction,DatabaseError,InterfaceError,connections
 from django.utils import timezone
 from ecommerce.models import Supplier, SupplierRecollectionRun, SupplierRecollectionItem
 from ecommerce.supplier_recollection import save_record, save_failure, source_key, apply_missing_content,MAPPING_VERSION
@@ -15,10 +15,12 @@ def database_retry(operation):
     for attempt in range(4):
         try:
             return operation()
-        except DatabaseError as exc:
-            if not exc.args or exc.args[0] not in (1205,1213,2006,2013) or attempt==3:
+        except (DatabaseError,InterfaceError) as exc:
+            disconnected=isinstance(exc,InterfaceError)
+            code=exc.args[0] if exc.args else None
+            if (not disconnected and code not in (1205,1213,2006,2013)) or attempt==3:
                 raise
-            if exc.args[0] in (2006,2013):
+            if disconnected or code in (2006,2013):
                 connections['ecommerce'].close()
             time.sleep(.25*(attempt+1))
 

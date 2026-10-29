@@ -29,7 +29,10 @@ def _catalogue_cache():
         from django.core.cache.backends.filebased import FileBasedCache
         cache_dir = os.environ.get('ECOMMERCE_PUBLIC_CACHE_DIR') or os.path.join(
             tempfile.gettempdir(), 'cheradip-ecommerce-public-cache')
-        _public_ids_cache = FileBasedCache(cache_dir, {'OPTIONS': {'MAX_ENTRIES': 32, 'CULL_FREQUENCY': 2}})
+        # Storefront filters and page batches use distinct cache entries. The
+        # previous 32-entry limit evicted the shared eligibility snapshot while
+        # visitors were browsing, forcing a full catalogue check repeatedly.
+        _public_ids_cache = FileBasedCache(cache_dir, {'OPTIONS': {'MAX_ENTRIES': 512, 'CULL_FREQUENCY': 2}})
     return _public_ids_cache
 
 
@@ -155,7 +158,8 @@ def _public_product_ids(*,include_inactive=False,include_manual=True):
     avoids repeating expensive public-list eligibility fingerprints on every
     storefront reload; detail requests can use the single-product helper below.
     """
-    # The list endpoint already caches public responses for fifteen seconds.
+    # The list endpoint caches public responses briefly. Product details and
+    # checkout use their own current supplier/stock checks.
     # Share that same brief snapshot across batch/filter requests during bulk
     # updates instead of invalidating it on every single imported image/offer.
     # Details and checkout use uncached single-product eligibility checks.
@@ -182,7 +186,7 @@ def _public_product_ids(*,include_inactive=False,include_manual=True):
     cache_key=f'ecommerce:public-product-ids:v6:{int(include_inactive)}:{int(include_manual)}:{revision_key}'
     cached=cache.get(cache_key)
     if cached is not None:
-        if 'test' not in sys.argv:cache.set(burst_key,tuple(cached),15)
+        if 'test' not in sys.argv:cache.set(burst_key,tuple(cached),60)
         return list(cached)
     ids=SupplierPilotCheck.objects.using('ecommerce').filter(order__isnull=True,revoked_at__isnull=True,expires_at__gt=timezone.now()).values_list('product_id',flat=True).distinct()
     valid=[]
@@ -195,8 +199,8 @@ def _public_product_ids(*,include_inactive=False,include_manual=True):
     if include_manual:
         from .manual_catalogue import public_ids, price_preview_ids
         valid=list(set(valid) | set(public_ids()) | set(price_preview_ids()))
-    cache.set(cache_key,tuple(valid),15)
-    if 'test' not in sys.argv:cache.set(burst_key,tuple(valid),15)
+    cache.set(cache_key,tuple(valid),60)
+    if 'test' not in sys.argv:cache.set(burst_key,tuple(valid),60)
     return valid
 
 

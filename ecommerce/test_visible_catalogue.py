@@ -1,9 +1,10 @@
 from copy import deepcopy
+from types import SimpleNamespace
 from unittest.mock import patch
 from django.test import TestCase,SimpleTestCase,override_settings
 from django.utils import timezone
 from . import test_supplier_source_publish as source_fixtures
-from .supplier_visible_catalogue import labelled_card_quote,record_browser_observation,source_for_card,visible_labelled_price,visible_stock
+from .supplier_visible_catalogue import VisibleCatalogueCollector,labelled_card_quote,record_browser_observation,source_for_card,visible_labelled_price,visible_stock
 from .supplier_source_publish import source_variants,publish_source
 from .supplier_recollection import save_record
 from .models import SupplierSourceProduct,SupplierRecollectionRun,Product,SupplierOffer
@@ -26,6 +27,14 @@ class BrowserQuoteParsingTests(SimpleTestCase):
 class BrowserIntakeTests(TestCase):
     databases={'default','ecommerce'}
     setUp=source_fixtures.SourcePublicationTests.setUp
+    def test_indexed_visible_card_lookup_requires_a_unique_source_reference(self):
+        collector=object.__new__(VisibleCatalogueCollector)
+        collector.job=SimpleNamespace(supplier_id=self.supplier.pk)
+        self.assertEqual(collector.source_for_visible_card({'url':self.source.url,'title':'Changed marketing title'}).pk,self.source.pk)
+        self.assertEqual(collector.source_for_visible_card({'url':'https://www.businesskoro.com/unrelated',
+            'title':self.source.title,'image':self.source.media.get().original_url}).pk,self.source.pk)
+        self.assertIsNone(collector.source_for_visible_card({'url':'https://www.businesskoro.com/unrelated',
+            'title':self.source.title,'image':'https://cdn.businesskoro.com/unrelated.jpg'}))
     def proof(self,**kwargs):
         return {'state':'verified','method':'rendered_browser_dom','checked_at':timezone.now().isoformat(),
             'buying_price':'100.00','price_label':'Your wholesale price','product_url':self.source.url,

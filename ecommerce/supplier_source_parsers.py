@@ -272,6 +272,9 @@ def html_product(site, url, body, *, external_id=None, title='', categories=None
         overview = first(root, f'.//*[{classes("woocommerce-product-details__short-description")}]')
         summary = first(root, f'.//*[{classes("summary")}]')
         scope = text(summary if summary is not None else root)
+        reseller_btn = first(root, f'.//*[{classes("reselling-price-btn")}]')
+        if reseller_btn is not None:
+            scope = text(reseller_btn) + ' ' + scope
         for label, key in [('Market Price', 'market'), ('Reseller Price', 'reseller'), ('Wholesale Price', 'wholesale')]:
             value = re.search(re.escape(label) + r'\s*:\s*([\d,.]+)', scope)
             if value:
@@ -290,7 +293,11 @@ def html_product(site, url, body, *, external_id=None, title='', categories=None
         tables = [[text(cell) for cell in row.xpath('./th|./td')] for row in description.xpath('.//tr')]
     options = []
     if root is not None:
-        for select in root.xpath('.//select'):
+        selects = (root.xpath('.//form[contains(concat(" ",normalize-space(@class)," ")," cart ")]//select')
+                   if site == 'resellkori' else root.xpath('.//select'))
+        for select in selects:
+            if (select.get('name') or select.get('id') or '').casefold() in ('rating', 'quantity'):
+                continue
             options.append({'name': select.get('name') or select.get('id'), 'options':
                 [{'value': option.get('value'), 'label': text(option)} for option in select.xpath('.//option')]})
     record = {'external_id': str(external_id or url.rstrip('/').split('/')[-1]), 'url': url,

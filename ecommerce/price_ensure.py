@@ -1,0 +1,288 @@
+"""Owner gold HTML for buying-price extraction. Never stores credentials."""
+import json
+import re
+from decimal import Decimal
+from pathlib import Path
+from urllib.parse import urlsplit
+
+from lxml import html
+
+from .supplier_source_parsers import amount, classes, first, text
+
+SAMPLES = (
+    {
+        'site': 'resellkori', 'supplier_id': 8,
+        'url': 'https://resellkori.com/product/silver-crest-grinder-machine-10000-wt/',
+        'expected': '692.00', 'label': 'Reseller Price', 'price_property': 'prices.reseller',
+        'html': '<a href="#" class="reselling-price-btn rk-popup-trigger" data-msg="এই প্রাইস টি আপনার জন্য, এই প্রাইসের উপর জত বেশি টাকা সেল দিবেন তত টাকাই আপনার প্রফিট। (মার্কেট প্রাইস এ ধারনা দেয়া আছে কত দাম চলতেছে এই প্রডাক্ট এর)">Reseller Price: 692৳</a>',
+    },
+    {
+        'site': 'shopbase', 'supplier_id': 1,
+        'url': 'https://shopbasebd.com/store/products/details/25307',
+        'expected': '430.00', 'label': 'প্রাইস', 'price_property': 'prices.reseller_price',
+        'html': '''<td width="32%">
+											<button class="btn btn-sm btn-light w-100 pt-1 text-center pl-1 pr-1">
+												প্রাইসঃ 
+																									<span class="text-danger">৳৪৩০</span>
+																							</button>
+										</td>''',
+    },
+    {
+        'site': 'business_koro', 'supplier_id': 2,
+        'url': 'https://www.businesskoro.com/dashboard/products/black-paisley-hoodie-dropsoulder-combo',
+        'expected': '860.00', 'label': 'আপনার পাইকারি মূল্য', 'price_property': 'prices.baseCost',
+        'html': '<span class="rounded-xl bg-indigo-50 px-3 py-2 text-xs dark:bg-indigo-900/20"><span class="block text-indigo-500 dark:text-indigo-400">আপনার পাইকারি মূল্য</span><b class="text-base text-indigo-700 dark:text-indigo-300">৳860</b></span>',
+    },
+    {
+        'site': 'dropbazar', 'supplier_id': 6,
+        'url': 'https://dropbazarbd.com/admin/store/products/3559',
+        'expected': '430.00', 'label': 'প্রাইস', 'price_property': 'prices.reseller_price',
+        'html': '''<td width="32%">
+                                    <button class="btn btn-sm btn-light w-100 pt-1 text-center pl-1 pr-1">
+                                                                                    প্রাইস: <span class="text-danger">৳430</span>
+                                                                            </button>
+                                </td>''',
+    },
+    {
+        'site': 'dropify', 'supplier_id': 7,
+        'url': 'https://dropifybd.com/product/luxury-5-part-printed-nightwear-black',
+        'expected': '1150.00', 'label': 'Wholesale Price', 'price_property': 'prices.wholesale',
+        'html': '''<div class="pd-price-item">
+                            <div class="pd-price-item-label">Wholesale Price</div>
+                            <div class="pd-price-item-value wholesale">৳1,150</div>
+                        </div>''',
+    },
+    {
+        'site': 'uddoog', 'supplier_id': 3,
+        'url': 'https://dropshop.com.bd/products/hoco-esd22-cool-anc-bluetooth-headphone',
+        'expected': '1750.00', 'label': 'Base', 'price_property': 'prices.base_price',
+        'html': '<div class="flex items-center justify-between gap-2"><dt class="text-slate-500">Base</dt><dd class="font-bold text-brand-deep">৳1,750</dd></div>',
+    },
+    {
+        'site': 'selfshop', 'supplier_id': 4,
+        'url': 'https://selfshop.com.bd/product/japani-silk-sharee-with-blouse-piece-3',
+        'expected': '715.00', 'label': 'Price', 'price_property': 'prices.ProductWholesalePrice',
+        'html': '<div class="jsx-8b277976fcf884b text-gray-700 flex items-center text-sm gap-1"><div class="jsx-8b277976fcf884b flex items-center"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="14" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 15.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M7 7a2 2 0 1 1 4 0v9a3 3 0 0 0 6 0v-.5"></path><path d="M8 11h6"></path></svg>715.00</div></div>',
+    },
+    {
+        'site': 'dropshipping', 'supplier_id': 9,
+        'url': 'https://www.dropshipping.com.bd/product/premium-stainless-steel-bar-pendant-chain-13321',
+        'expected': '150.00', 'label': 'ড্রপশিপার প্রাইজ', 'price_property': 'prices.sale_price',
+        'html': '''<span class="single_product_new_price" id="variant_wise_price">ড্রপশিপার প্রাইজঃ
+                                            150
+                                         TK</span>''',
+    },
+)
+
+
+def parse_tree(markup):
+    raw = markup if isinstance(markup, str) else markup.decode('utf-8', 'replace')
+    wrapped = raw if '<html' in raw[:200].lower() else f'<div id="price-ensure-root">{raw}</div>'
+    return html.fromstring(wrapped)
+
+
+def extract_buying_price(site, markup):
+    """Read the labelled buying price only. Retail/suggested/market stay unused."""
+    doc = parse_tree(markup)
+    if site == 'resellkori':
+        node = first(doc, f'.//*[{classes("reselling-price-btn")}]')
+        if node is None:
+            node = first(doc, f'.//*[{classes("summary")}]')
+        match = re.search(r'Reseller Price\s*:\s*([\d,.]+)', text(node) if node is not None else '')
+        value = amount(match.group(1) if match else None)
+        if value:
+            return value, 'Reseller Price'
+    if site in ('shopbase', 'dropbazar'):
+        for button in doc.xpath('.//button'):
+            if 'প্রাইস' in text(button):
+                danger = first(button, f'.//*[{classes("text-danger")}]')
+                value = amount(text(danger) if danger is not None else text(button))
+                if value:
+                    return value, 'প্রাইস'
+    if site == 'business_koro':
+        for node in doc.xpath('.//span'):
+            if text(node).startswith('আপনার পাইকারি মূল্য'):
+                bold = first(node, './/b')
+                value = amount(text(bold) if bold is not None else text(node))
+                if value:
+                    return value, 'আপনার পাইকারি মূল্য'
+    if site == 'dropify':
+        node = first(doc, f'.//*[{classes("pd-price-item-value")} and {classes("wholesale")}]')
+        value = amount(text(node)) if node is not None else None
+        if value:
+            return value, 'Wholesale Price'
+    if site == 'uddoog':
+        for dt in doc.xpath('.//dt'):
+            if text(dt) == 'Base':
+                dd = dt.getnext()
+                value = amount(text(dd)) if dd is not None else None
+                if value:
+                    return value, 'Base'
+    if site == 'selfshop':
+        for node in doc.xpath(f'.//*[{classes("text-gray-700")}]'):
+            value = amount(text(node))
+            if value:
+                return value, 'Price'
+    if site == 'dropshipping':
+        node = first(doc, './/*[@id="variant_wise_price"]')
+        if node is None:
+            node = first(doc, f'.//*[{classes("single_product_new_price")}]')
+        value = amount(text(node)) if node is not None else None
+        if value:
+            return value, 'ড্রপশিপার প্রাইজ'
+    return None, ''
+
+
+def check_gold_html():
+    rows = []
+    for sample in SAMPLES:
+        extracted, label = extract_buying_price(sample['site'], sample['html'])
+        rows.append({
+            'site': sample['site'], 'url': sample['url'], 'label': sample['label'],
+            'price_property': sample['price_property'], 'expected': sample['expected'],
+            'extracted': extracted, 'ok': extracted == sample['expected'] and label == sample['label'],
+        })
+    return rows
+
+
+def collected_amount(url, price_property):
+    from .models import SupplierSourceProduct
+    key = price_property.split('.')[-1]
+    path = urlsplit(url).path.rstrip('/')
+    source = SupplierSourceProduct.objects.using('ecommerce').filter(url=url).first()
+    if source is None and path:
+        source = SupplierSourceProduct.objects.using('ecommerce').filter(url__endswith=path).first()
+    if source is None:
+        return None
+    blob = source.prices or {}
+    if key in blob and isinstance(blob[key], dict):
+        return blob[key].get('amount')
+    nested = blob.get('browser_buying_price') or {}
+    if key in ('baseCost', 'browser_buying_price'):
+        return (blob.get('baseCost') or nested or {}).get('amount')
+    return None
+
+
+def _client_for(sample):
+    from .models import Supplier
+    from .supplier_crypto import decrypt
+    from .supplier_source_clients import SourceClient
+    supplier = Supplier.objects.using('ecommerce').get(pk=sample['supplier_id'])
+    if not supplier.enabled or not supplier.terms_confirmed:
+        raise ValueError('Supplier access is paused or not approved.')
+    credentials = decrypt(supplier)
+    try:
+        return SourceClient(sample['site'], str(credentials.get('username') or ''),
+                            str(credentials.get('password') or ''))
+    finally:
+        credentials.clear()
+
+
+def page_url(sample):
+    from .supplier_source_clients import ORIGINS
+    return ORIGINS[sample['site']].rstrip('/') + urlsplit(sample['url']).path
+
+
+def _live_html_or_api(client, sample):
+    from .supplier_source_clients import SourceError
+    from .supplier_source_parsers import business_koro, selfshop, uddoog
+    slug = sample['url'].rstrip('/').split('/')[-1]
+    if sample['site'] == 'business_koro':
+        data = client.request('https://api.businesskoro.com/api/v1/products/slug/' + slug).json()
+        record = business_koro(data)
+        return (record.get('prices') or {}).get('baseCost', {}).get('amount'), 'api'
+    if sample['site'] == 'selfshop':
+        data = client.request('https://api-v1.selfshop.com.bd/api/product-details/' + slug).json()
+        record = selfshop(data)
+        prices = record.get('prices') or {}
+        visible = (prices.get('ProductSalePrice') or {}).get('amount') or amount(prices.get('storefront_price'))
+        wholesale = (prices.get('ProductWholesalePrice') or {}).get('amount')
+        # Owner gold is the single on-page Price widget (sale/storefront), not min_sell.
+        note = 'html-label Price / ProductSalePrice'
+        if wholesale and wholesale != visible:
+            note += f'; API wholesale {wholesale} differs'
+        return visible, note
+    if sample['site'] == 'uddoog':
+        data = client.request('https://dropshop.com.bd/api/v1/storefront/products/' + slug).json()
+        record = uddoog(data)
+        html_amount = None
+        try:
+            page = client.request(page_url(sample))
+            html_amount, _ = extract_buying_price('uddoog', page.content)
+        except SourceError:
+            html_amount = None
+        api_amount = (record.get('prices') or {}).get('base_price', {}).get('amount')
+        return html_amount or api_amount, 'html+api' if html_amount else 'api'
+    page = client.request(page_url(sample))
+    extracted, _ = extract_buying_price(sample['site'], page.content)
+    return extracted, 'html'
+
+
+def check_live():
+    from .supplier_source_clients import SourceError
+    rows = []
+    for sample in SAMPLES:
+        row = {'site': sample['site'], 'url': sample['url'], 'expected': sample['expected'],
+               'live': None, 'source': '', 'ok': False, 'error': ''}
+        client = None
+        try:
+            client = _client_for(sample)
+            client.login()
+            live, source = _live_html_or_api(client, sample)
+            row.update(live=live, source=source, ok=live == sample['expected'])
+        except (ValueError, SourceError, OSError) as exc:
+            row['error'] = str(exc)[:240]
+        finally:
+            if client:
+                client.close()
+        rows.append(row)
+    return rows
+
+
+def ensure_prices(*, live=False):
+    gold = check_gold_html()
+    for row in gold:
+        row['collected'] = collected_amount(row['url'], row['price_property'])
+    payload = {
+        'gold_ok': all(row['ok'] for row in gold),
+        'rows': gold,
+        'live': None,
+        'note': 'Gold HTML is the labelled buying-price contract. Live uses saved encrypted sign-in; no supplier orders.',
+    }
+    if live:
+        live_rows = check_live()
+        payload['live'] = {'ok': all(row['ok'] for row in live_rows), 'rows': live_rows}
+    payload['saved_at'] = timezone_now()
+    save_price_report(payload)
+    return payload
+
+
+def timezone_now():
+    from django.utils import timezone
+    return timezone.now().isoformat()
+
+
+def price_report_path():
+    from django.conf import settings
+    folder = Path(settings.BASE_DIR) / 'private_suppliers' / 'catalog_sync'
+    folder.mkdir(parents=True, exist_ok=True, mode=0o700)
+    return folder / 'ensure-prices-last.json'
+
+
+def save_price_report(payload):
+    path = price_report_path()
+    path.write_text(json.dumps(payload, ensure_ascii=False), encoding='utf-8')
+
+
+def last_price_report():
+    path = price_report_path()
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return None
+
+
+def money(value):
+    return Decimal(value) if value else None

@@ -544,6 +544,7 @@ class RewardsWallet(models.Model):
 
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='rewards_wallet')
     available_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)])
+    pending_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)])
     lifetime_earned_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)])
     lifetime_withdrawn_taka = models.DecimalField(max_digits=12, decimal_places=2, default=0, validators=[MinValueValidator(0)])
     updated_at = models.DateTimeField(auto_now=True)

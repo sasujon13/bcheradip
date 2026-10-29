@@ -180,6 +180,78 @@ class ProductImage(TimeStampedModel):
         ordering = ('position', 'id')
 
 
+class StorefrontProductIndex(TimeStampedModel):
+    """Denormalized public listing rows so homepage and category pages can paint text first."""
+    product = models.OneToOneField(Product, primary_key=True, related_name='storefront_index', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+    short_description = models.CharField(max_length=500, blank=True)
+    search_text = models.CharField(max_length=2000, blank=True)
+    category_id = models.IntegerField()
+    category_name = models.CharField(max_length=160, blank=True)
+    brand_id = models.IntegerField(null=True, blank=True)
+    brand_name = models.CharField(max_length=160, blank=True)
+    brand_slug = models.SlugField(max_length=180, blank=True)
+    featured = models.BooleanField(default=False)
+    is_sample = models.BooleanField(default=False)
+    tags = models.CharField(max_length=1000, blank=True)
+    price = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)
+    compare_at_price = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)
+    stock = models.IntegerField(default=0)
+    image_url = models.URLField(max_length=1000, blank=True)
+    default_variant_id = models.IntegerField(null=True, blank=True)
+    allow_backorder = models.BooleanField(default=False)
+    discount_percent = models.PositiveSmallIntegerField(default=0)
+    purchasable = models.BooleanField(default=True)
+    price_on_request = models.BooleanField(default=False)
+    quantity_unspecified = models.BooleanField(default=False)
+    listed_at = models.DateTimeField()
+    legacy_category_slugs = models.TextField(blank=True)
+
+    class Meta:
+        db_table = 'ecommerce_storefront_product_index'
+        ordering = ('-featured', '-listed_at')
+        indexes = [
+            models.Index(fields=['listed_at', 'product']),
+            models.Index(fields=['price', 'product']),
+            models.Index(fields=['name', 'product']),
+            models.Index(fields=['brand_slug']),
+            models.Index(fields=['featured', 'listed_at']),
+        ]
+
+
+class StorefrontIndexCategory(models.Model):
+    listing = models.ForeignKey(StorefrontProductIndex, related_name='browse_categories', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'ecommerce_storefront_index_category'
+        unique_together = ('listing', 'category')
+        indexes = [models.Index(fields=['category', 'listing'])]
+
+
+class StorefrontTaxonomySnapshot(TimeStampedModel):
+    """Denormalized shop nav JSON so category lists do not recount the catalogue."""
+    key = models.CharField(max_length=32, unique=True)
+    payload = models.JSONField(default=dict)
+
+    class Meta:
+        db_table = 'ecommerce_storefront_taxonomy_snapshot'
+
+
+class StorefrontLastUsedCategory(models.Model):
+    """Recently opened shop categories and the sibling/child subcategories they need."""
+    slug = models.SlugField(max_length=180, unique=True)
+    name = models.CharField(max_length=160)
+    parent_slug = models.SlugField(max_length=180, blank=True)
+    child_slugs = models.JSONField(default=list)
+    used_at = models.DateTimeField(db_index=True)
+
+    class Meta:
+        db_table = 'ecommerce_storefront_last_used_category'
+        ordering = ('-used_at',)
+
+
 class InventoryMovement(TimeStampedModel):
     REASONS = [('import', 'Import'), ('sale', 'Sale'), ('cancel', 'Cancellation'), ('return', 'Return'), ('adjustment', 'Adjustment')]
     variant = models.ForeignKey(ProductVariant, related_name='inventory_movements', on_delete=models.CASCADE)

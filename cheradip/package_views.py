@@ -48,6 +48,7 @@ def _rewards_wallet_payload(customer):
         'name': 'Cheradip Rewards Wallet',
         'coinBalance': coins,
         'availableTaka': float(wallet.available_taka),
+        'pendingTaka': float(wallet.pending_taka),
         'lifetimeEarnedTaka': float(wallet.lifetime_earned_taka),
         'lifetimeWithdrawnTaka': float(wallet.lifetime_withdrawn_taka),
         'minimumWithdrawalTaka': 100,

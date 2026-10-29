@@ -18,6 +18,10 @@ class Command(BaseCommand):
             if options['scheduler']:
                 nightly()
                 cleanup()
+            from ecommerce.catalog_sync_control import poll_requested_sync
+            from ecommerce.upload_build import poll_requested_deploy
+            poll_requested_sync()
+            poll_requested_deploy()
             count = run_jobs(max_items=max(1, min(options['limit'], 1000)))
             if options['once']:
                 self.stdout.write(f'Processed {count} sourcing items.')

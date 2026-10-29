@@ -53,6 +53,7 @@ class CommerceManagementTests(TransactionTestCase):
         self.staff()
         access = self.client.get('/api/ecommerce/admin/access/').json()
         self.assertTrue(access['allowed'])
+        self.assertFalse(access['superuser'])
         self.assertFalse(access['permissions']['product']['add'])
         self.assertEqual(self.client.get('/api/ecommerce/admin/products/').status_code, 403)
         self.assertEqual(self.client.post('/api/ecommerce/admin/products/', self.payload(), format='json').status_code, 403)

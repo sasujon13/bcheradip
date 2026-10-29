@@ -21,8 +21,14 @@ class Command(BaseCommand):
         parser.add_argument('--job-id')
         parser.add_argument('--input-json', action='store_true', help='Read a bounded one-run login from a private parent pipe; never store it.')
         parser.add_argument('--use-saved-credentials',action='store_true')
+        parser.add_argument('--use-browser-profile',action='store_true',
+            help='Use a dedicated local Chrome profile after its owner signs in there; never copy the personal Chrome profile.')
         parser.add_argument('--actor-id',type=int)
         parser.add_argument('--verify-visible',action='store_true',help='Verify visible catalogue/product buying prices and stock; do not create lightweight duplicate identities.')
+        parser.add_argument('--verify-unmapped',action='store_true',
+            help='ResellKori only: visit saved visible product links missing a full source record.')
+        parser.add_argument('--verify-unmapped-after-job',
+            help='Limit unmapped verification to identities first collected by this completed browser job.')
         parser.add_argument('--skip', nargs='*', choices=list(SITES), default=[])
 
     def handle(self, *args, **opts):
@@ -32,10 +38,28 @@ class Command(BaseCommand):
             raise CommandError('A non-default start page is supported only for a single Dropshipping.com.bd catalogue.')
         if opts['start_page'] != 1 and opts['fill_missing_categories']:
             raise CommandError('Category enrichment starts each visible category at page one; it cannot use a combined-catalogue resume page.')
-        self.stdout.write(('Using saved encrypted website sign-in; credentials are never logged.' if opts['use_saved_credentials'] else 'One-run password input is hidden and is not stored.')+' BDResellHUB remains on the owner waiting list.')
+        if opts['verify_unmapped'] and (sites != ['resellkori'] or not opts['verify_visible']):
+            raise CommandError('--verify-unmapped requires --supplier resellkori --verify-visible.')
+        if opts['verify_unmapped_after_job'] and not opts['verify_unmapped']:
+            raise CommandError('--verify-unmapped-after-job requires --verify-unmapped.')
+        verification_window=None
+        if opts['verify_unmapped_after_job']:
+            source_job=SupplierJob.objects.using(DB).filter(pk=opts['verify_unmapped_after_job'],
+                supplier_id=SITES['resellkori'][0],runner='browser',status__in=('completed','completed_with_errors')).first()
+            if not source_job:
+                raise CommandError('The specified completed ResellKori browser collection job was not found.')
+            verification_window=(source_job.created_at,source_job.updated_at)
+        login_note = ('Using a dedicated signed-in Chrome profile.' if opts['use_browser_profile'] else
+                      'Using saved encrypted website sign-in; credentials are never logged.' if opts['use_saved_credentials'] else
+                      'One-run password input is hidden and is not stored.')
+        self.stdout.write(login_note + ' BDResellHUB remains on the owner waiting list.')
         if opts['input_json'] and opts['use_saved_credentials']:
             raise CommandError('Choose either saved credentials or one-run input.')
-        if opts['use_saved_credentials']:
+        if opts['use_browser_profile'] and (opts['input_json'] or opts['use_saved_credentials'] or opts['supplier'] == 'all'):
+            raise CommandError('A signed-in browser profile accepts one supplier and no password input.')
+        if opts['use_browser_profile']:
+            username,password='',''
+        elif opts['use_saved_credentials']:
             username,password='',''
         elif opts['input_json']:
             try:
@@ -73,8 +97,12 @@ class Command(BaseCommand):
                 if opts['verify_visible']:
                     from ecommerce.supplier_visible_catalogue import VisibleCatalogueCollector
                     collector=VisibleCatalogueCollector
-                collector(site, job, username, password,
+                instance=collector(site, job, username, password,
                     headless=not opts['headed'], max_pages=max(1, min(opts['max_pages'], 1000)),
-                    fill_missing_prices=opts['fill_missing_prices'],fill_missing_categories=opts['fill_missing_categories'],start_page=opts['start_page']).run()
+                    fill_missing_prices=opts['fill_missing_prices'],fill_missing_categories=opts['fill_missing_categories'],start_page=opts['start_page'],
+                    use_browser_profile=opts['use_browser_profile'])
+                instance.verify_unmapped=opts['verify_unmapped']
+                instance.verify_unmapped_window=verification_window
+                instance.run()
         finally:
             password = ''

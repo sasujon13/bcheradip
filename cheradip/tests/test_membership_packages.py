@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django.test import TestCase
-from django.db import connection
+from django.db import connection, transaction
 from django.utils import timezone
 from rest_framework.test import APIClient
 from unittest.mock import Mock, patch
@@ -20,6 +20,8 @@ from cheradip.package_service import (
     subsource_allowed,
 )
 from cheradip.serializers import CustomerSignupSerializer
+from cheradip.views import WELCOME_SIGNUP_BONUS_COINS
+from cheradip.wallet_service import deduct_wallet_coins
 from backend.admin_app_list import _table_notification_count
 from cheradip.admin import approve_withdrawals, process_withdrawals, reject_withdrawals
 
@@ -165,6 +167,24 @@ class PackageApiTests(TestCase):
         self.assertEqual(tracked.data['kind'], 'package')
         self.assertEqual(tracked.data['status_label'], 'Order Completed')
         self.assertEqual(tracked.data['payment_status_label'], 'Paid')
+
+    def test_signup_bonus_in_main_wallet_applies_toward_package_purchase(self):
+        self.user.settings = {'balance': WELCOME_SIGNUP_BONUS_COINS + 10000}
+        self.user.save(update_fields=['settings'])
+        RewardsWallet.objects.create(customer=self.user, available_taka='0.00')
+
+        response = self.client.post(
+            '/api/packages/subscribe/',
+            {'planCode': 'starter-academic'},
+            format='json',
+            secure=True,
+        )
+
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(response.data['remainingBalance'], 0)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings['balance'], 0)
+        self.assertEqual(float(RewardsWallet.objects.get(customer=self.user).available_taka), 0)
 
     def test_paid_plan_consumes_reference_portion_before_other_wallet_value(self):
         RewardsWallet.objects.create(
@@ -717,6 +737,7 @@ class PackageApiTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['wallet']['coinBalance'], 50000)
         self.assertEqual(response.data['wallet']['availableTaka'], 120.5)
+        self.assertEqual(response.data['wallet']['pendingTaka'], 0.0)
         self.assertEqual(response.data['wallet']['minimumWithdrawalTaka'], 100)
         self.assertEqual({row['value'] for row in response.data['methods']}, {'bkash', 'nagad', 'dbbl', 'sonali'})
 
@@ -802,6 +823,34 @@ class ReferralSignupTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['reference'], '+880170000001')
         self.assertEqual(response.data['referencePath'], '/auth?reference=%2B880170000001')
+
+    @patch('cheradip.views.sync_customer_to_ext')
+    def test_signup_welcome_bonus_is_spendable_not_withdrawable(self, sync_mock):
+        response = APIClient().post('/api/signup/', self.payload('01700000009', ''), format='json', secure=True)
+        self.assertEqual(response.status_code, 200, response.data)
+        user = Customer.objects.get(username='01700000009')
+        self.assertEqual(user.settings['balance'], WELCOME_SIGNUP_BONUS_COINS)
+        wallet, created = RewardsWallet.objects.get_or_create(customer=user)
+        self.assertEqual(float(wallet.available_taka), 0)
+        self.assertEqual(float(wallet.pending_taka), 0)
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {response.data['authToken']}")
+        denied = client.post('/api/wallet/', {
+            'method': 'bkash', 'accountNumber': '01700000009', 'amountTaka': '100',
+        }, format='json', secure=True)
+        self.assertEqual(denied.status_code, 400)
+        self.assertIn('reference', str(denied.data.get('error', '')).lower())
+        wallet.refresh_from_db()
+        self.assertEqual(float(wallet.available_taka), 0)
+        with transaction.atomic():
+            locked = Customer.objects.select_for_update().get(pk=user.pk)
+            spent = deduct_wallet_coins(locked, 1000)
+        self.assertEqual(spent['remaining_coins'], WELCOME_SIGNUP_BONUS_COINS - 1000)
+        self.assertEqual(spent['reference_used_taka'], 0)
+        user.refresh_from_db()
+        self.assertEqual(user.settings['balance'], 4000)
+        wallet.refresh_from_db()
+        self.assertEqual(float(wallet.available_taka), 0)
 
     @patch('cheradip.views.sync_customer_to_ext')
     def test_signup_endpoint_passes_reference_to_serializer(self, sync_mock):

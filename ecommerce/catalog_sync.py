@@ -252,7 +252,11 @@ class Codec:
         return row.object_pk
 
 
-def export_catalog(path, since=None):
+def export_catalog(path, since=None, include_names=None, backfill_collection_items=True):
+    if include_names is not None:
+        include_names = set(include_names)
+        if not include_names or not include_names.issubset(NAMES):
+            raise ValueError('Catalogue export contains an unsupported or empty model selection.')
     codec, seen, count = Codec(), set(), 0
     item_pk_reference=db_models.functions.Cast(db_models.OuterRef('pk'), db_models.CharField())
     connection=connections[DB]
@@ -284,6 +288,8 @@ def export_catalog(path, since=None):
             if count % 500 == 0: codec.flush()
 
         for name in NAMES:
+            if include_names is not None and name not in include_names:
+                continue
             cls = getattr(models, name)
             after = None
             while True:
@@ -298,7 +304,7 @@ def export_catalog(path, since=None):
                 relations = [f.name for f in cls._meta.concrete_fields if f.is_relation and f.name not in SKIP]
                 if relations: qs = qs.prefetch_related(*relations)
                 if since:
-                    if name == 'SupplierRecollectionItem':
+                    if name == 'SupplierRecollectionItem' and backfill_collection_items:
                         # This allowlist addition must backfill older per-item
                         # failures/checkpoints even after the first full sync.
                         # An empty export-only baseline is not proof of delivery.

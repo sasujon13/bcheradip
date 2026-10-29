@@ -4,14 +4,15 @@ from decimal import Decimal
 from datetime import timedelta
 from django.core import signing
 from django.db import transaction, IntegrityError
-from django.db.models import Count, Q
+from django.db.models import Count, Exists, OuterRef, Q
 from django.utils import timezone
 from rest_framework import serializers, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Supplier, SupplierOffer, SupplierEvidence, SupplierDecision, SupplierJob, SupplierAudit, Product, ProductVariant
+from .models import (Supplier, SupplierOffer, SupplierEvidence, SupplierDecision, SupplierJob, SupplierAudit,
+                     Product, ProductVariant, SupplierSourceProduct, Order)
 from .permissions import IsCommerceAdmin
 from .views import CommerceAdminAuthMixin, StorefrontProductPagination
 from .supplier_service import (DB, ACTIVE, MONEY_COSTS, approve, assert_current, audit, import_draft,
@@ -594,6 +595,115 @@ class SupplierWorkspaceView(CommerceAdminAuthMixin, APIView):
             'permissions': {x: request.user.is_superuser or request.user.has_perm('ecommerce.' + x) for x in
                 ('collect_supplier', 'research_supplier', 'screen_supplier', 'approve_supplier', 'import_supplier', 'edit_supplier_credentials', 'add_supplier', 'change_supplier', 'publish_supplier_pilot', 'confirm_supplier_pilot','manage_supplier_catalogue')},
             'active_jobs': SupplierJob.objects.using(DB).filter(status__in=ACTIVE).count()})
+
+
+class SupplierReportsView(CommerceAdminAuthMixin, APIView):
+    permission_classes = [IsCommerceAdmin]
+    permission_model = Supplier
+
+    def get(self, request):
+        raw = (request.query_params.get('supplier') or '').strip()
+        suppliers = Supplier.objects.using(DB).order_by('name')
+        selected = None
+        if raw:
+            try:
+                selected = int(raw)
+            except (TypeError, ValueError):
+                raise ValidationError('Select a supplier by id.')
+            suppliers = suppliers.filter(pk=selected)
+            if not suppliers.exists():
+                raise ValidationError('Unknown supplier.')
+        supplier_rows = list(suppliers.values('id', 'name', 'enabled'))
+        ids = [row['id'] for row in supplier_rows]
+        collected = dict(SupplierSourceProduct.objects.using(DB).filter(supplier_id__in=ids).values('supplier_id').annotate(
+            n=Count('id')).values_list('supplier_id', 'n'))
+        hosted = dict(Product.objects.using(DB).filter(status='active', supplier_offer__supplier_id__in=ids).values(
+            'supplier_offer__supplier_id').annotate(n=Count('id')).values_list('supplier_offer__supplier_id', 'n'))
+        on_shop = SupplierOffer.objects.using(DB).filter(
+            source_product_id=OuterRef('pk'), imported_product__status='active')
+        unhosted = dict(SupplierSourceProduct.objects.using(DB).filter(supplier_id__in=ids).annotate(
+            on_shop=Exists(on_shop)).filter(on_shop=False).values('supplier_id').annotate(
+            n=Count('id')).values_list('supplier_id', 'n'))
+        blacklisted = dict(SupplierOffer.objects.using(DB).filter(supplier_id__in=ids, state='blacklist').values(
+            'supplier_id').annotate(n=Count('id')).values_list('supplier_id', 'n'))
+        rows = [{
+            'supplier_id': row['id'], 'supplier_name': row['name'], 'enabled': row['enabled'],
+            'collected': int(collected.get(row['id'], 0)), 'hosted': int(hosted.get(row['id'], 0)),
+            'unhosted': int(unhosted.get(row['id'], 0)), 'blacklisted': int(blacklisted.get(row['id'], 0)),
+        } for row in supplier_rows]
+        return Response({
+            'selected_supplier': selected,
+            'suppliers': list(Supplier.objects.using(DB).order_by('name').values('id', 'name', 'enabled')),
+            'rows': rows,
+            'totals': {
+                'suppliers': Supplier.objects.using(DB).count() if selected is None else 1,
+                'collected': sum(row['collected'] for row in rows),
+                'hosted': sum(row['hosted'] for row in rows),
+                'unhosted': sum(row['unhosted'] for row in rows),
+                'blacklisted': sum(row['blacklisted'] for row in rows),
+            },
+            'definitions': {
+                'collected': 'Source catalogue records stored from supplier recollection.',
+                'hosted': 'Imported products currently active on the shop.',
+                'unhosted': 'Collected source records with no active shop listing.',
+                'blacklisted': 'Supplier offers marked blacklist.',
+            },
+        })
+
+
+class SalesReportsView(CommerceAdminAuthMixin, APIView):
+    permission_classes = [IsCommerceAdmin]
+    permission_model = Order
+
+    def get(self, request):
+        from .sales_reporting import build_sales_report
+        return Response(build_sales_report(request.query_params))
+
+
+class EnsurePricesView(CommerceAdminAuthMixin, APIView):
+    permission_classes = [IsCommerceAdmin]
+    permission_model = Supplier
+
+    def get(self, request):
+        require(request.user, 'collect_supplier')
+        from .price_ensure import last_price_report
+        return Response(last_price_report() or {'saved': False, 'rows': []})
+
+    def post(self, request):
+        require(request.user, 'collect_supplier')
+        live = request.data.get('live') in (True, 'true', '1', 1)
+        from .price_ensure import ensure_prices
+        return Response(ensure_prices(live=live))
+
+
+class CatalogSyncView(CommerceAdminAuthMixin, APIView):
+    permission_classes = [IsCommerceAdmin]
+    permission_model = Supplier
+
+    def get(self, request):
+        require(request.user, 'collect_supplier')
+        from .catalog_sync_control import last_catalog_report
+        return Response(last_catalog_report() or {'saved': False, 'status': 'idle'})
+
+    def post(self, request):
+        require(request.user, 'collect_supplier')
+        from .catalog_sync_control import queue_or_run_sync
+        return Response(queue_or_run_sync())
+
+
+class UploadBuildView(CommerceAdminAuthMixin, APIView):
+    permission_classes = [IsCommerceAdmin]
+    permission_model = Supplier
+
+    def get(self, request):
+        require(request.user, 'collect_supplier')
+        from .upload_build import last_deploy_report
+        return Response(last_deploy_report() or {'saved': False, 'status': 'idle'})
+
+    def post(self, request):
+        require(request.user, 'collect_supplier')
+        from .upload_build import queue_or_run_deploy
+        return Response(queue_or_run_deploy())
 
 
 # Kept here to avoid introducing a public supplier endpoint or arbitrary fetch proxy.

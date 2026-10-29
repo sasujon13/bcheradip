@@ -366,16 +366,22 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'debug_file': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),  # Adjust the path accordingly
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+            'encoding': 'utf-8',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['debug_file'],
-            'level': 'DEBUG',
-            'propagate': False,  # Prevent other loggers from handling the message
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': [],
+            'level': 'ERROR',
+            'propagate': False,
         },
     }
 }

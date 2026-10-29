@@ -124,7 +124,6 @@ except ImportError:
     math2docx = None
     MATH2DOCX_AVAILABLE = False
 
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
@@ -463,18 +462,24 @@ class AllCountriesView(APIView):
 class LocationDivisionsView(APIView):
     """
     GET /api/locations/divisions/?country_code=BD
+    GET /api/locations/divisions/?country_code=BD&district=Cumilla
     Returns distinct division names from cheradip_location for the given country.
+    Optional district filters to the division(s) that contain that district.
     """
     permission_classes = [PublicAccess]
     authentication_classes = []
 
     def get(self, request):
         country_code = (request.query_params.get('country_code') or '').strip().upper()
+        district = (request.query_params.get('district') or '').strip()
         if not country_code:
             return Response([], status=status.HTTP_200_OK)
-        qs = Location.objects.filter(country_id=country_code).exclude(
-            division__isnull=True
-        ).exclude(division='').values_list('division', flat=True).distinct().order_by('division')
+        qs = Location.objects.filter(country_id=country_code)
+        if district:
+            qs = qs.filter(district__iexact=district)
+        qs = qs.exclude(division__isnull=True).exclude(division='').values_list(
+            'division', flat=True
+        ).distinct().order_by('division')
         return Response(list(qs))
 
 

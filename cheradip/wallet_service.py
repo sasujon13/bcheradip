@@ -19,10 +19,12 @@ def deduct_wallet_coins(customer, coins):
     """Deduct coins and consume the withdrawable reference portion first.
 
     Call this inside ``transaction.atomic()`` while the Customer row is locked.
-    Referral commission coins are part of the main balance, while
-    ``RewardsWallet.available_taka`` tracks the still-withdrawable part of that
-    same value. Reducing both here prevents spending and later withdrawing the
-    same referral earnings.
+    ``Customer.settings['balance']`` is the spendable main wallet, including the
+    welcome signup bonus. It pays shop orders, packages, and other Cheradip
+    services. ``RewardsWallet.available_taka`` tracks only the still-withdrawable
+    referral portion of that same value; signup bonus never lives there and
+    cannot be withdrawn. Reducing both here prevents spending and later
+    withdrawing the same referral earnings.
     """
     debit = max(0, int(coins or 0))
     before_coins = wallet_coins(customer)

@@ -1,8 +1,8 @@
 """Opt-in, normal-browser catalogue collection. No API bypass or supplier orders.
 
-Login passwords exist only in process memory. Never reuses/extracts an existing
-browser profile, cookies or hidden application state. DOM reads and ordinary
-navigation only; stop for authentication/security challenges.
+Password login remains in process memory. An explicitly selected, dedicated
+Chrome profile may retain an owner-created sign-in; never read/export cookies,
+copy a personal profile or bypass authentication challenges.
 """
 from collections import Counter, deque
 from datetime import timedelta
@@ -153,7 +153,7 @@ def launch_job(supplier, username, password, actor):
 
 
 class BrowserCollector:
-    def __init__(self, site, job, username, password, *, headless=True, max_pages=1000, fill_missing_prices=False, fill_missing_categories=False, start_page=1, report=print):
+    def __init__(self, site, job, username, password, *, headless=True, max_pages=1000, fill_missing_prices=False, fill_missing_categories=False, start_page=1, use_browser_profile=False, report=print):
         self.site, self.job, self.username, self.password = site, job, username, password
         self.origin, self.start = SITES[site][1:]
         self.allowed_host = urlparse(self.origin).hostname.removeprefix('www.')
@@ -166,6 +166,7 @@ class BrowserCollector:
         self.fill_missing_prices = fill_missing_prices
         self.start_page = start_page
         self.fill_missing_categories = fill_missing_categories
+        self.use_browser_profile = use_browser_profile
 
     def check(self):
         if time.monotonic() - self.last_db_refresh > 30:
@@ -207,6 +208,18 @@ class BrowserCollector:
 
     def login(self):
         self.phase = 'normal supplier sign-in'
+        if self.use_browser_profile:
+            # A visible, owner-signed-in profile is local to this machine. A
+            # profile alone is never proof of authentication.
+            if self.site == 'resellkori':
+                self.goto(self.origin + '/account/')
+                self.challenge()
+                if any(e.is_displayed() for e in self.driver.find_elements(By.CSS_SELECTOR, 'input[type="password"]')):
+                    raise CollectionStopped('ResellKori is not signed in in the dedicated Chrome profile. Sign in there and retry.')
+                if not self.driver.find_elements(By.CSS_SELECTOR, 'a[href*="logout"],a[href*="customer-logout"]'):
+                    raise CollectionStopped('ResellKori account state could not be verified in Chrome; collection stopped.')
+                return
+            raise CollectionStopped('Signed-in Chrome profile verification has only been mapped for ResellKori.')
         if self.site == 'selfshop':
             self.goto(self.origin)
             # The desktop sign-in trigger is a div, not a button. Use the
@@ -635,13 +648,18 @@ class BrowserCollector:
         for name in ('selenium', 'selenium.webdriver.remote.remote_connection',
                      'selenium.webdriver.common.selenium_manager', 'urllib3', 'urllib3.connectionpool'):
             logging.getLogger(name).setLevel(logging.WARNING)
-        options = Options() if os.name == 'nt' else ChromeOptions()
+        options = ChromeOptions() if self.use_browser_profile else Options() if os.name == 'nt' else ChromeOptions()
+        if self.use_browser_profile:
+            profile = Path(settings.BASE_DIR) / 'private_suppliers' / 'browser_profiles' / self.site
+            options.add_argument('--user-data-dir=' + str(profile))
         if self.headless:
             options.add_argument('--headless=new')
         options.add_argument('--window-size=1360,1000')
-        # No stealth, existing profile, certificate override, proxy or authentication bypass.
+        # No stealth, personal profile, certificate override, proxy or authentication bypass.
         try:
-            self.driver = webdriver.Edge(options=options) if os.name == 'nt' else webdriver.Chrome(options=options)
+            if self.use_browser_profile and not profile.is_dir():
+                raise CollectionStopped('Open the dedicated Chrome profile and sign in before collecting.')
+            self.driver = webdriver.Chrome(options=options) if self.use_browser_profile or os.name != 'nt' else webdriver.Edge(options=options)
             self.driver.set_page_load_timeout(40)
             self.login()
             self.password = ''

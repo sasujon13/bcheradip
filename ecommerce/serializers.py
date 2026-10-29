@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import (
     Book, BookAsset, BookBuildJob, Brand, Cart, CartItem, Category, CommerceNotification, InventoryMovement,
     Order, OrderItem, OrderStatusHistory, Payment, Product, ProductImage,
-    ProductVariant, Review, Shipment,
+    ProductVariant, Review, Shipment, StorefrontProductIndex,
 )
 from .book_catalog import book_variant_ids
 from .pricing import normalize_costs
@@ -91,6 +91,28 @@ class ProductListSerializer(serializers.ModelSerializer):
             'brand_id', 'brand_name', 'status', 'featured', 'tags', 'price',
             'compare_at_price', 'stock', 'image_url', 'is_sample',
             'default_variant_id', 'allow_backorder', 'stock_confirmation_required','quantity_unspecified','discount_percent','purchasable','price_on_request',
+        )
+
+
+class StorefrontIndexSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='pk', read_only=True)
+    status = serializers.SerializerMethodField()
+    stock_confirmation_required = serializers.SerializerMethodField()
+
+    def get_status(self, obj):
+        return 'active'
+
+    def get_stock_confirmation_required(self, obj):
+        return False
+
+    class Meta:
+        model = StorefrontProductIndex
+        fields = (
+            'id', 'name', 'slug', 'short_description', 'category_id', 'category_name',
+            'brand_id', 'brand_name', 'status', 'featured', 'tags', 'price',
+            'compare_at_price', 'stock', 'image_url', 'is_sample',
+            'default_variant_id', 'allow_backorder', 'stock_confirmation_required', 'quantity_unspecified',
+            'discount_percent', 'purchasable', 'price_on_request',
         )
 
 

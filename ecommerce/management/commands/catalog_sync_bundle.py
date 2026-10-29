@@ -22,6 +22,9 @@ class Command(BaseCommand):
         parser.add_argument('--exclude-assets')
         parser.add_argument('--bundle-input')
         parser.add_argument('--since')
+        parser.add_argument('--only-models', help='Comma-separated catalog model names for a bounded export; parent records are included automatically.')
+        parser.add_argument('--recent-collection-items-only', action='store_true',
+            help='With --since, transfer changed collection checks without retrying the historical item backfill.')
         parser.add_argument('--resume-import',action='store_true')
 
     def handle(self, *args, **options):
@@ -109,5 +112,9 @@ class Command(BaseCommand):
                     stat.st_mtime>parse_datetime(saved['updated_at']).timestamp()):
                     raise ValueError('The snapshot changed after its checkpoint; restart without resume.')
                 after=int(saved['records'])//200*200
-        result = export_catalog(options['export_path'], parse_datetime(options['since']) if options['since'] else None) if options['export_path'] else import_catalog(options['import_path'],after_record=after)
+        selected = [name.strip() for name in options['only_models'].split(',')] if options['only_models'] else None
+        if (selected or options['recent_collection_items_only']) and not options['export_path']:
+            raise ValueError('Export selection applies only to exports.')
+        result = export_catalog(options['export_path'], parse_datetime(options['since']) if options['since'] else None,
+            include_names=selected, backfill_collection_items=not options['recent_collection_items_only']) if options['export_path'] else import_catalog(options['import_path'],after_record=after)
         self.stdout.write(json.dumps(result))

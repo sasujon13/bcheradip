@@ -112,6 +112,103 @@ class CheckoutHardeningTests(TransactionTestCase):
         self.variant.refresh_from_db(using='ecommerce'); self.assertEqual(self.variant.stock, 10)
         self.assertEqual(Order.objects.using('ecommerce').count(), 0)
 
+    def test_registered_mobile_coupon_is_one_percent_and_credits_referrer(self):
+        referrer = Customer.objects.create_user(
+            username='01820000000', password='test', fullName='Referrer', acctype='Student', settings={'balance': 0})
+        data = self.payload(self.cart()); data['coupon_code'] = '01820000000'
+        quote = self.client.post('/api/ecommerce/checkout/quote/', data, format='json')
+        self.assertEqual(quote.status_code, 200, quote.data)
+        self.assertEqual(Decimal(quote.data['discount_total']), Decimal('10.00'))
+        self.assertEqual(quote.data['coupon_kind'], 'referral')
+        self.assertEqual(
+            quote.data['referral_notice'],
+            'Only a registered Cheradip mobile number is accepted. That account gets 1% of this subtotal; they can spend it on products or other Cheradip services, or withdraw it. Signup bonus ৳50 can be spent here but cannot be withdrawn.',
+        )
+        data['quoted_total'] = str(quote.data['grand_total'])
+        order = self.client.post('/api/ecommerce/checkout/', data, format='json')
+        self.assertEqual(order.status_code, 201, order.data)
+        from cheradip.models import RewardsWallet, WalletOperation
+        from .order_service import change_order
+        from .referral_coupon import credit_key, hold_key, refund_key
+        number = order.data['number']
+        referrer.refresh_from_db()
+        self.assertEqual(referrer.settings['balance'], 0)
+        wallet = RewardsWallet.objects.get(customer=referrer)
+        self.assertEqual(wallet.pending_taka, Decimal('10.00'))
+        self.assertEqual(wallet.available_taka, Decimal('0.00'))
+        self.assertTrue(WalletOperation.objects.filter(operation_key=hold_key(number)).exists())
+        self.assertFalse(WalletOperation.objects.filter(operation_key=credit_key(number)).exists())
+
+        placed = Order.objects.using('ecommerce').get(number=number)
+        change_order(placed.pk, 'completed')
+        change_order(placed.pk, 'completed')
+        referrer.refresh_from_db()
+        wallet.refresh_from_db()
+        self.assertEqual(referrer.settings['balance'], 1000)
+        self.assertEqual(wallet.pending_taka, Decimal('0.00'))
+        self.assertEqual(wallet.available_taka, Decimal('10.00'))
+        self.assertEqual(WalletOperation.objects.filter(operation_key=credit_key(number)).count(), 1)
+        self.assertFalse(WalletOperation.objects.filter(operation_key=refund_key(number)).exists())
+
+    def test_own_mobile_cannot_be_used_as_coupon(self):
+        data = self.payload(self.cart()); data['coupon_code'] = '01710000000'
+        response = self.client.post('/api/ecommerce/checkout/quote/', data, format='json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('coupon_code', response.data)
+
+    def test_unregistered_mobile_cannot_be_used_as_coupon(self):
+        data = self.payload(self.cart()); data['coupon_code'] = '01919919919'
+        response = self.client.post('/api/ecommerce/checkout/quote/', data, format='json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('not registered', str(response.data['coupon_code']).lower())
+        self.assertEqual(Order.objects.using('ecommerce').count(), 0)
+
+    def test_cancelled_order_reverses_referral_coupon_credit(self):
+        referrer = Customer.objects.create_user(
+            username='01830000000', password='test', fullName='Referrer Two', acctype='Student', settings={'balance': 0})
+        data = self.payload(self.cart()); data['coupon_code'] = '01830000000'
+        quote = self.client.post('/api/ecommerce/checkout/quote/', data, format='json')
+        data['quoted_total'] = str(quote.data['grand_total'])
+        placed = self.client.post('/api/ecommerce/checkout/', data, format='json')
+        self.assertEqual(placed.status_code, 201, placed.data)
+        from cheradip.models import RewardsWallet, WalletOperation
+        from .order_service import change_order
+        from .referral_coupon import credit_key, hold_key, refund_key
+        number = placed.data['number']
+        self.assertEqual(RewardsWallet.objects.get(customer=referrer).pending_taka, Decimal('10.00'))
+        change_order(Order.objects.using('ecommerce').get(number=number).pk, 'cancelled')
+        change_order(Order.objects.using('ecommerce').get(number=number).pk, 'cancelled')
+        referrer.refresh_from_db()
+        wallet = RewardsWallet.objects.get(customer=referrer)
+        self.assertEqual(referrer.settings['balance'], 0)
+        self.assertEqual(wallet.pending_taka, Decimal('0.00'))
+        self.assertEqual(wallet.available_taka, Decimal('0.00'))
+        self.assertTrue(WalletOperation.objects.filter(operation_key=hold_key(number)).exists())
+        self.assertFalse(WalletOperation.objects.filter(operation_key=credit_key(number)).exists())
+        self.assertEqual(WalletOperation.objects.filter(operation_key=refund_key(number)).count(), 1)
+
+    def test_refund_after_complete_reverses_released_referral_coupon(self):
+        referrer = Customer.objects.create_user(
+            username='01840000000', password='test', fullName='Referrer Three', acctype='Student', settings={'balance': 0})
+        data = self.payload(self.cart()); data['coupon_code'] = '01840000000'
+        quote = self.client.post('/api/ecommerce/checkout/quote/', data, format='json')
+        data['quoted_total'] = str(quote.data['grand_total'])
+        placed = self.client.post('/api/ecommerce/checkout/', data, format='json')
+        self.assertEqual(placed.status_code, 201, placed.data)
+        from cheradip.models import RewardsWallet
+        from .order_service import change_order
+        order_id = Order.objects.using('ecommerce').get(number=placed.data['number']).pk
+        change_order(order_id, 'completed')
+        referrer.refresh_from_db()
+        self.assertEqual(referrer.settings['balance'], 1000)
+        change_order(order_id, 'returned')
+        change_order(order_id, 'refunded')
+        referrer.refresh_from_db()
+        wallet = RewardsWallet.objects.get(customer=referrer)
+        self.assertEqual(referrer.settings['balance'], 0)
+        self.assertEqual(wallet.pending_taka, Decimal('0.00'))
+        self.assertEqual(wallet.available_taka, Decimal('0.00'))
+
     def test_invalid_coupon_does_not_silently_place_full_price_order(self):
         data = self.payload(self.cart()); data['coupon_code'] = 'MISSING'
         response = self.client.post('/api/ecommerce/checkout/', data, format='json')
@@ -251,3 +348,30 @@ class CheckoutHardeningTests(TransactionTestCase):
         self.assertEqual(connection.call_args.kwargs['host'], 'smtp.example.com')
         self.assertTrue(connection.call_args.kwargs['use_tls'])
         self.assertEqual(send.call_args.args[2], 'Cheradip <no-reply@example.com>')
+
+    def test_welcome_signup_bonus_in_main_wallet_pays_shop_checkout(self):
+        from cheradip.models import RewardsWallet
+        from cheradip.views import WELCOME_SIGNUP_BONUS_COINS
+        self.user.settings = {'balance': WELCOME_SIGNUP_BONUS_COINS}
+        self.user.save(update_fields=['settings'])
+        RewardsWallet.objects.get_or_create(customer=self.user)
+        bonus_product = Product.objects.using('ecommerce').create(
+            name='Welcome Bonus Item', slug='welcome-bonus-item', status='active', category=self.category,
+        )
+        bonus_variant = ProductVariant.objects.using('ecommerce').create(
+            product=bonus_product, sku='WELCOME-BONUS', title='Digital', price=50, stock=3,
+            requires_shipping=False,
+        )
+        cart = self.client.post(
+            '/api/ecommerce/cart/', {'variant_id': bonus_variant.pk, 'quantity': 1}, format='json',
+        ).json()
+        data = self.payload(cart)
+        data['payment_method'] = 'wallet'
+        response = self.client.post('/api/ecommerce/checkout/', data, format='json')
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(response.data['payment_status'], 'paid')
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.settings['balance'], 0)
+        wallet = RewardsWallet.objects.get(customer=self.user)
+        self.assertEqual(float(wallet.available_taka), 0)
+        self.assertEqual(float(wallet.pending_taka), 0)

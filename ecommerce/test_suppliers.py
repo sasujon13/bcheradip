@@ -548,6 +548,29 @@ class SupplierTests(TransactionTestCase):
         self.assertEqual(offer.state, 'needs_review')
         self.assertEqual(SupplierAudit.objects.using('ecommerce').get(action='identity_conflict').detail['incoming_identity']['model'], 'Another product')
 
+    def test_api_variant_mismatch_does_not_archive_browser_verified_listing(self):
+        from .models import SupplierSourceProduct, SupplierRecollectionRun
+        offer = self.ready()
+        run = SupplierRecollectionRun.objects.using('ecommerce').create(supplier=self.supplier, mode='inspect')
+        source = SupplierSourceProduct.objects.using('ecommerce').create(
+            supplier=self.supplier, source_key='browser-test', external_id='P1',
+            url='https://supplier.example/product1', title='Exact Product',
+            extra={'browser_verification': {'state': 'verified', 'buying_price': '100.00',
+                'stock_status': 'in_stock', 'quantity_verified': False}},
+        observed_at=timezone.now(), last_run=run)
+        offer.source_product = source
+        offer.save(using='ecommerce', update_fields=['source_product'])
+        row = self.row()
+        row['identity']['variant'] = 'Yellow'
+        row['observed_at'] = timezone.now().isoformat()
+        self.assertEqual(snapshot_row(self.supplier, row, update=True), 'conflict')
+        self.assertEqual(snapshot_row(self.supplier, row, update=False), 'conflict')
+        offer.refresh_from_db(using='ecommerce')
+        self.assertEqual(offer.source_price, Decimal('100'))
+        self.assertTrue(offer.match_confirmed)
+        self.assertFalse(SupplierAudit.objects.using('ecommerce').filter(action='identity_conflict').exists())
+        self.assertEqual(SupplierAudit.objects.using('ecommerce').filter(action='api_identity_disagrees_with_browser').count(), 2)
+
     def test_authenticity_and_specifications_do_not_merge(self):
         genuine = self.row()['identity']; replica = dict(genuine, authenticity='replica')
         self.assertNotEqual(match_key(genuine), match_key(replica))

@@ -64,7 +64,7 @@ class CheckoutInputSerializer(serializers.Serializer):
         return data
 
 
-def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=False, *, lines=None, payment_method='cod'):
+def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=False, *, lines=None, payment_method='cod', buyer_id=None, buyer_phone=''):
     subtotal = Decimal(str(subtotal))
     policy = DeliverySettings.current()
     if requires_shipping and not address.get('district'):
@@ -161,6 +161,7 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
     details['charged'] = str(shipping)
     discount = Decimal('0')
     coupon = None
+    referral = None
     code = coupon_code.strip().upper()
     if code:
         query = Coupon.objects.using('ecommerce')
@@ -168,9 +169,20 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
             query = query.select_for_update()
         coupon = query.filter(code__iexact=code, is_active=True).first()
         now = timezone.now()
-        if not coupon or (coupon.starts_at and coupon.starts_at > now) or (coupon.ends_at and coupon.ends_at < now) or subtotal < coupon.minimum_order or (coupon.usage_limit is not None and coupon.used_count >= coupon.usage_limit):
+        if coupon and ((coupon.starts_at and coupon.starts_at > now) or (coupon.ends_at and coupon.ends_at < now) or subtotal < coupon.minimum_order or (coupon.usage_limit is not None and coupon.used_count >= coupon.usage_limit)):
             raise serializers.ValidationError({'coupon_code': 'This coupon is invalid, expired, exhausted, or its minimum order has not been reached.'})
-        if coupon.discount_type == 'percent':
+        if not coupon:
+            from .referral_coupon import looks_like_mobile, registered_customer_for_coupon, referral_discount, same_account
+            if looks_like_mobile(coupon_code):
+                referral = registered_customer_for_coupon(coupon_code)
+                if not referral:
+                    raise serializers.ValidationError({'coupon_code': 'This mobile number is not registered on Cheradip. Only a registered account mobile can be used.'})
+                if same_account(referral, buyer_id, buyer_phone):
+                    raise serializers.ValidationError({'coupon_code': 'You cannot use your own mobile number as a coupon.'})
+                discount = referral_discount(subtotal)
+            else:
+                raise serializers.ValidationError({'coupon_code': 'This coupon is invalid, expired, exhausted, or its minimum order has not been reached.'})
+        if coupon and coupon.discount_type == 'percent':
             discount = subtotal * min(Decimal('100'), max(Decimal('0'), coupon.value)) / 100
             if coupon.value == Decimal('10') and lines is not None and sum(
                     (v.price * quantity for v, quantity in lines), Decimal('0')) == subtotal:
@@ -181,9 +193,9 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
                     reserved_discount = reserved_ten_percent_discount(variant)
                     if reserved_discount is not None:
                         discount += (reserved_discount - variant.price / 10) * quantity
-        elif coupon.discount_type == 'fixed':
+        elif coupon and coupon.discount_type == 'fixed':
             discount = min(subtotal, max(Decimal('0'), coupon.value))
-        elif coupon.discount_type == 'shipping':
+        elif coupon and coupon.discount_type == 'shipping':
             shipping = Decimal('0')
             details['charged'] = '0.00'; details['free_shipping_coupon'] = True
     discount = discount.quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
@@ -202,5 +214,14 @@ def quote_totals(subtotal, requires_shipping, address, coupon_code='', lock=Fals
     details['rounding_adjustment']=str(adjustment)
     if total > Decimal('999999999999.99'):
         raise serializers.ValidationError('The order total exceeds the supported amount. Please split the order.')
-    return {'subtotal': subtotal, 'shipping_total': shipping, 'discount_total': discount,
-            'cod_total': cod, 'grand_total': total, 'rounding_adjustment':adjustment,'coupon_code': code, 'delivery_details': details}, coupon
+    payload = {'subtotal': subtotal, 'shipping_total': shipping, 'discount_total': discount,
+            'cod_total': cod, 'grand_total': total, 'rounding_adjustment':adjustment,'coupon_code': code, 'delivery_details': details}
+    if referral:
+        payload.update(
+            coupon_kind='referral',
+            referral_customer_id=referral.pk,
+            referral_notice='Only a registered Cheradip mobile number is accepted. That account gets 1% of this subtotal; they can spend it on products or other Cheradip services, or withdraw it. Signup bonus ৳50 can be spent here but cannot be withdrawn.',
+        )
+    elif coupon:
+        payload['coupon_kind'] = coupon.discount_type
+    return payload, coupon

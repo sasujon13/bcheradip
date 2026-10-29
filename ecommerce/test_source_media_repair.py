@@ -45,7 +45,7 @@ class SourceMediaMembershipTests(TestCase):
             row=next(r for r in rows[1:] if r['model']=='SupplierSourceMedia')
             # A remote image-byte check happened later, but its source gallery
             # membership still refers to the old run.
-            row['fields']['updated_at']=(timezone.now()+timedelta(minutes=1)).isoformat()
+            row['updated_at']=(timezone.now()+timedelta(minutes=1)).isoformat()
             with gzip.open(path,'wt') as stream:
                 for entry in rows:stream.write(json.dumps(entry)+'\n')
             current=SupplierRecollectionRun.objects.create(supplier=self.supplier,mode='full',status='completed')

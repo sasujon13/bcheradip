@@ -337,6 +337,14 @@ def snapshot_row(supplier, row, update=False):
                 return 'skipped'
             proof=(offer.source_product.extra.get('browser_verification') or {}) if offer.source_product_id else {}
             if proof.get('state') in ('verified','unavailable'):
+                if offer.identity != row['identity'] or (not offer.match_key and offer.title != row['title']):
+                    # Some supplier APIs reuse a parent product ID for each colour while the
+                    # signed-in product page identifies distinct options. The API snapshot
+                    # cannot invalidate the independently verified browser listing.
+                    audit('api_identity_disagrees_with_browser',supplier=supplier,offer=offer,
+                        browser_checked_at=proof.get('checked_at'),
+                        action_required='Review the signed-in product page; keep its verified listing and quote.')
+                    return 'conflict'
                 expected=Decimal(str(proof.get('buying_price'))) if proof.get('buying_price') else offer.source_price
                 incoming_cost=Decimal(str(row['source_price'])) if row['source_price'] is not None else None
                 if (incoming_cost!=expected or row['availability']!=proof.get('stock_status') or
@@ -363,6 +371,12 @@ def snapshot_row(supplier, row, update=False):
             return 'updated'
         if offer:
             if offer.identity != row['identity'] or (not offer.match_key and offer.title != row['title']):
+                proof=(offer.source_product.extra.get('browser_verification') or {}) if offer.source_product_id else {}
+                if proof.get('state') in ('verified','unavailable'):
+                    audit('api_identity_disagrees_with_browser',supplier=supplier,offer=offer,
+                        browser_checked_at=proof.get('checked_at'),
+                        action_required='Review the signed-in product page; keep its verified listing and quote.')
+                    return 'conflict'
                 quarantine(offer, row['identity'], 'collect', row['title'])
                 return 'conflict'
             if images and not offer.preview_images:
