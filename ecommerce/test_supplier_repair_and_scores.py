@@ -13,6 +13,26 @@ class SupplierRepairTests(TestCase):
     databases = {'default', 'ecommerce'}
     setUp = SourcePublicationTests.setUp
 
+    def test_selfshop_browser_price_repair_preserves_stock_and_internal_quotes(self):
+        from .models import Supplier
+        from .supplier_price_probe import save_selfshop_price
+        supplier=Supplier.objects.create(pk=4,name='SelfShop',website='https://selfshop.com.bd',enabled=True,terms_confirmed=True)
+        self.source.supplier=supplier
+        self.source.prices={'ProductResellerPrice':{'amount':'650.00'},'storefront_price':{'amount':'715.00'}}
+        self.source.stock={'qty':99,'status':'Active'}
+        self.source.save()
+        offer=SupplierOffer.objects.create(supplier=supplier,source_product=self.source,external_id='self-price',
+            title='Shirt',url=self.source.url,source_price=650,quantity=99,availability='in_stock')
+        proof={'amount':'715.00','label':'Price','checked_at':timezone.now().isoformat(),'html':'<span>715.00</span>'}
+        result=save_selfshop_price(self.source.pk,proof)
+        offer.refresh_from_db();self.source.refresh_from_db()
+        self.assertEqual(offer.source_price,Decimal('715.00'))
+        self.assertEqual(offer.quantity,99)
+        self.assertEqual(self.source.prices['ProductResellerPrice']['amount'],'650.00')
+        self.assertEqual(self.source.stock,{'qty':99,'status':'Active'})
+        self.assertEqual(result['offers_changed'],1)
+        self.assertEqual(save_selfshop_price(self.source.pk,proof)['offers_changed'],0)
+
     def test_authenticated_selfshop_restores_payable_price_not_lower_internal_cost(self):
         from .supplier_source_repair import restore_observations
         from .models import Supplier

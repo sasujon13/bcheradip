@@ -671,9 +671,8 @@ class EnsurePricesView(CommerceAdminAuthMixin, APIView):
 
     def post(self, request):
         require(request.user, 'collect_supplier')
-        live = request.data.get('live') in (True, 'true', '1', 1)
-        from .price_ensure import ensure_prices
-        return Response(ensure_prices(live=live))
+        from .price_ensure import queue_price_check
+        return Response(queue_price_check())
 
 
 class CatalogSyncView(CommerceAdminAuthMixin, APIView):

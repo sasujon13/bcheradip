@@ -144,5 +144,11 @@
     </ol>
     <p>When something appears wrong, note the page, customer/order/EIIN ID, time, expected result, and actual result. Check the relevant database tab, status history, and ledger before changing any record. Contact support or a superuser for permission or payout disputes.</p>
   </section>
+  <section>
+    <h2>Verify supplier buying prices</h2>
+    <p>Open eCommerce Manage → Reports → Ensure Price. The single button opens the eight approved reference product pages through normal browser sign-in. Progress and results remain available after reloading. Expand Extraction evidence to inspect the price label, DOM selector, sanitized price HTML and actual check time. Historical example amounts are reference information; a legitimate supplier price change does not itself mean extraction failed. A current extracted price must match the stored source price to show Matches. Missing catalog records and inaccessible pages remain visible for review.</p>
+    <p>Buying labels: ResellKori — Reseller Price; ShopBase BD and DropBazarBD — প্রাইস; Business Koro — আপনার পাইকারি মূল্য; DropifyBD — Wholesale Price; Uddoog — Base; Dropshipping.com.bd — ড্রপশিপার প্রাইজ. SelfShop is different: use its visible Price / storefront_price, never the lower ProductResellerPrice or internal wholesale field. Suggested retail prices and estimated profit are not buying costs.</p>
+    <p>Run <code>python manage.py recollect_selfshop_prices</code> to revisit every stored SelfShop product page, or add <code>--resume</code> after interruption. Checkpoints and sanitized evidence are stored privately in <code>private_suppliers/catalog_sync/selfshop-price-recollection.json</code>. Correct source costs refresh unchanged generated selling prices through existing pricing rules. Manual selling prices, stock and accepted order values are preserved. Removed supplier pages retain their last known price and an explicit failure record. No supplier order is placed by either price check.</p>
+  </section>
 </main>
 {% endblock %}

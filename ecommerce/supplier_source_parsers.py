@@ -80,7 +80,7 @@ def selfshop(payload):
     prices = {key: {'amount': amount(p.get(key)), 'currency': 'BDT', 'source_field': key} for key in
         ('ProductWholesalePrice', 'ProductResellerPrice', 'min_sell_price', 'ProductRegularPrice', 'ProductSalePrice', 'minimum_selling_price', 'storefront_price') if key in p}
     prices.update(pricing_locked=bool(p.get('pricing_locked')), price_tiers=p.get('price_tiers') or [],
-                  buying_basis='Unconfirmed while pricing_locked; never substitute retail, minimum selling or a null price')
+                  buying_basis='SelfShop visible Price/storefront_price is payable buying cost; reseller/internal wholesale and minimum selling are not payable cost. Unconfirmed while pricing_locked.')
     shipping_fields = ('product_weight', 'weight', 'shipping_days', 'ex_pack', 'ex_dvc', 'extra_delivery_per_qty')
     return {'external_id': str(p['id']), 'vendor_id': str(p.get('vendor_id') or ''), 'warehouse_id': str(p.get('warehouse_id') or ''),
         'url': 'https://selfshop.com.bd/product/' + p['ProductSlug'], 'title': p['ProductName'], 'sku': p.get('ProductSku') or '',

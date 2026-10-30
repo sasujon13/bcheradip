@@ -38,6 +38,26 @@ class GoldHtmlExtractionTests(SimpleTestCase):
         rows = check_gold_html()
         self.assertTrue(all(row['ok'] for row in rows), rows)
 
+    def test_selfshop_reads_labelled_price_instead_of_reseller_or_related_prices(self):
+        page='''<h1>Shirt</h1><div class="text-gray-700">99</div>
+            <p>Reseller Price: 650</p><div><span>Price :</span><div>715.00</div></div>
+            <section><h3>Related item</h3><div class="text-gray-700">484.00</div></section>'''
+        self.assertEqual(extract_buying_price('selfshop',page),('715.00','Price'))
+        self.assertEqual(extract_buying_price('selfshop',page.replace('715.00','799.00')),('799.00','Price'))
+
+    def test_selfshop_ignores_struck_reference_price(self):
+        page='''<div><span>Price :</span><div>
+            <span class="text-gray-400 line-through">1,500.00</span>
+            <div class="text-pink-600 font-bold">1,392.00</div>
+        </div></div>'''
+        self.assertEqual(extract_buying_price('selfshop',page),('1392.00','Price'))
+
+    def test_dropshipping_duplicate_dom_ids_do_not_select_retail_or_profit(self):
+        page='''<span id="variant_wise_price">সম্ভাব্য বিক্রয় মূল্যঃ 390 TK</span>
+            <span id="variant_wise_price">আপনার প্রফিটঃ 240 TK</span>
+            <span id="variant_wise_price">ড্রপশিপার প্রাইজঃ 150 TK</span>'''
+        self.assertEqual(extract_buying_price('dropshipping',page),('150.00','ড্রপশিপার প্রাইজ'))
+
 
 class EnsurePricesApiTests(TransactionTestCase):
     databases = {'default', 'ecommerce'}
@@ -50,17 +70,17 @@ class EnsurePricesApiTests(TransactionTestCase):
         self.client = APIClient()
         self.client.credentials(HTTP_AUTHORIZATION='Bearer price-test-token', HTTP_X_FORWARDED_PROTO='https')
 
-    def test_staff_can_check_gold_html_without_calling_suppliers(self):
-        with patch('ecommerce.price_ensure.check_live') as live:
-            response = self.client.post('/api/ecommerce/admin/ensure-prices/', {'live': False}, format='json')
-        live.assert_not_called()
+    def test_staff_queues_current_browser_check_without_a_gold_mode(self):
+        with patch('ecommerce.price_ensure.queue_price_check',return_value={'status':'queued','rows':[],'total':8}) as queue:
+            response = self.client.post('/api/ecommerce/admin/ensure-prices/', {}, format='json')
+        queue.assert_called_once()
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.data['gold_ok'])
-        self.assertEqual(len(response.data['rows']), 8)
-        saved = self.client.get('/api/ecommerce/admin/ensure-prices/')
+        self.assertEqual(response.data['status'],'queued')
+        self.assertNotIn('gold_ok',response.data)
+        with patch('ecommerce.price_ensure.last_price_report',return_value={'status':'completed','rows':[]}) :
+            saved = self.client.get('/api/ecommerce/admin/ensure-prices/')
         self.assertEqual(saved.status_code, 200)
-        self.assertTrue(saved.data['gold_ok'])
-        self.assertEqual(len(saved.data['rows']), 8)
+        self.assertEqual(saved.data['status'],'completed')
 
     def test_guests_cannot_ensure_prices(self):
         guest = APIClient()

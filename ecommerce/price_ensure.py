@@ -1,4 +1,4 @@
-"""Owner gold HTML for buying-price extraction. Never stores credentials."""
+"""Owner-approved buying-price labels and persistent live verification reports."""
 import json
 import re
 from decimal import Decimal
@@ -61,7 +61,7 @@ SAMPLES = (
     {
         'site': 'selfshop', 'supplier_id': 4,
         'url': 'https://selfshop.com.bd/product/japani-silk-sharee-with-blouse-piece-3',
-        'expected': '715.00', 'label': 'Price', 'price_property': 'prices.ProductWholesalePrice',
+        'expected': '715.00', 'label': 'Price', 'price_property': 'prices.storefront_price',
         'html': '<div class="jsx-8b277976fcf884b text-gray-700 flex items-center text-sm gap-1"><div class="jsx-8b277976fcf884b flex items-center"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="14" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 15.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M7 7a2 2 0 1 1 4 0v9a3 3 0 0 0 6 0v-.5"></path><path d="M8 11h6"></path></svg>715.00</div></div>',
     },
     {
@@ -119,14 +119,29 @@ def extract_buying_price(site, markup):
                 if value:
                     return value, 'Base'
     if site == 'selfshop':
-        for node in doc.xpath(f'.//*[{classes("text-gray-700")}]'):
+        for label in doc.xpath('.//span|.//dt|.//label'):
+            if re.fullmatch(r'Price\s*:', text(label), re.I):
+                node = label.getparent()
+                # SelfShop may show a struck-through reference price before
+                # the actual payable Price. Read only text outside a
+                # ``line-through`` subtree so the old reference amount can
+                # never become Cheradip's buying cost.
+                current_text = ' '.join(str(part).strip() for part in node.xpath(
+                    './/text()[not(ancestor::*[contains(concat(" ", normalize-space(@class), " "), " line-through ")])]'
+                ) if str(part).strip())
+                value = amount(current_text)
+                if value and Decimal(value) > 0:
+                    return value, 'Price'
+        # Historical owner-provided isolated price fragment only. Never search
+        # every grey element of a full page (quantities/recommendations live there).
+        for node in ([] if doc.xpath('.//h1') else doc.xpath(f'.//*[{classes("text-gray-700")}]')):
             value = amount(text(node))
             if value:
                 return value, 'Price'
     if site == 'dropshipping':
-        node = first(doc, './/*[@id="variant_wise_price"]')
+        node = first(doc, './/*[@id="variant_wise_price" and contains(.,"ড্রপশিপার প্রাইজ")]')
         if node is None:
-            node = first(doc, f'.//*[{classes("single_product_new_price")}]')
+            node = first(doc, f'.//*[{classes("single_product_new_price")} and contains(.,"ড্রপশিপার প্রাইজ")]')
         value = amount(text(node)) if node is not None else None
         if value:
             return value, 'ড্রপশিপার প্রাইজ'
@@ -163,98 +178,65 @@ def collected_amount(url, price_property):
     return None
 
 
-def _client_for(sample):
-    from .models import Supplier
-    from .supplier_crypto import decrypt
-    from .supplier_source_clients import SourceClient
-    supplier = Supplier.objects.using('ecommerce').get(pk=sample['supplier_id'])
-    if not supplier.enabled or not supplier.terms_confirmed:
-        raise ValueError('Supplier access is paused or not approved.')
-    credentials = decrypt(supplier)
-    try:
-        return SourceClient(sample['site'], str(credentials.get('username') or ''),
-                            str(credentials.get('password') or ''))
-    finally:
-        credentials.clear()
-
-
-def page_url(sample):
-    from .supplier_source_clients import ORIGINS
-    return ORIGINS[sample['site']].rstrip('/') + urlsplit(sample['url']).path
-
-
-def _live_html_or_api(client, sample):
-    from .supplier_source_clients import SourceError
-    from .supplier_source_parsers import business_koro, selfshop, uddoog
-    slug = sample['url'].rstrip('/').split('/')[-1]
-    if sample['site'] == 'business_koro':
-        data = client.request('https://api.businesskoro.com/api/v1/products/slug/' + slug).json()
-        record = business_koro(data)
-        return (record.get('prices') or {}).get('baseCost', {}).get('amount'), 'api'
-    if sample['site'] == 'selfshop':
-        data = client.request('https://api-v1.selfshop.com.bd/api/product-details/' + slug).json()
-        record = selfshop(data)
-        prices = record.get('prices') or {}
-        visible = (prices.get('ProductSalePrice') or {}).get('amount') or amount(prices.get('storefront_price'))
-        wholesale = (prices.get('ProductWholesalePrice') or {}).get('amount')
-        # Owner gold is the single on-page Price widget (sale/storefront), not min_sell.
-        note = 'html-label Price / ProductSalePrice'
-        if wholesale and wholesale != visible:
-            note += f'; API wholesale {wholesale} differs'
-        return visible, note
-    if sample['site'] == 'uddoog':
-        data = client.request('https://dropshop.com.bd/api/v1/storefront/products/' + slug).json()
-        record = uddoog(data)
-        html_amount = None
-        try:
-            page = client.request(page_url(sample))
-            html_amount, _ = extract_buying_price('uddoog', page.content)
-        except SourceError:
-            html_amount = None
-        api_amount = (record.get('prices') or {}).get('base_price', {}).get('amount')
-        return html_amount or api_amount, 'html+api' if html_amount else 'api'
-    page = client.request(page_url(sample))
-    extracted, _ = extract_buying_price(sample['site'], page.content)
-    return extracted, 'html'
-
-
-def check_live():
-    from .supplier_source_clients import SourceError
-    rows = []
+def ensure_prices(*, live=True):
+    """Always visit current pages; old owner amounts are never pass/fail targets."""
+    from .supplier_price_probe import run_probe
+    payload = {'status':'running','rows':[],'processed':0,'total':len(SAMPLES),
+        'note':'Current browser buying prices compared with stored source records. No supplier orders.',
+        'started_at':timezone_now(),'saved_at':timezone_now()}
+    save_price_report(payload)
     for sample in SAMPLES:
-        row = {'site': sample['site'], 'url': sample['url'], 'expected': sample['expected'],
-               'live': None, 'source': '', 'ok': False, 'error': ''}
-        client = None
+        payload['activity']='Checking '+sample['site']
+        save_price_report(payload)
         try:
-            client = _client_for(sample)
-            client.login()
-            live, source = _live_html_or_api(client, sample)
-            row.update(live=live, source=source, ok=live == sample['expected'])
-        except (ValueError, SourceError, OSError) as exc:
-            row['error'] = str(exc)[:240]
-        finally:
-            if client:
-                client.close()
-        rows.append(row)
-    return rows
-
-
-def ensure_prices(*, live=False):
-    gold = check_gold_html()
-    for row in gold:
-        row['collected'] = collected_amount(row['url'], row['price_property'])
-    payload = {
-        'gold_ok': all(row['ok'] for row in gold),
-        'rows': gold,
-        'live': None,
-        'note': 'Gold HTML is the labelled buying-price contract. Live uses saved encrypted sign-in; no supplier orders.',
-    }
-    if live:
-        live_rows = check_live()
-        payload['live'] = {'ok': all(row['ok'] for row in live_rows), 'rows': live_rows}
-    payload['saved_at'] = timezone_now()
+            rows=run_probe(sample['site'],[sample])
+            payload['rows'].extend(rows)
+        except Exception as exc:
+            from .supplier_browser import CollectionStopped
+            payload['rows'].append({k:sample[k] for k in ('site','url','label','price_property')})
+            payload['rows'][-1].update(live=None,collected=collected_amount(sample['url'],sample['price_property']),
+                ok=False,extraction_ok=False,error=str(exc)[:240] if isinstance(exc,(ValueError,CollectionStopped)) else
+                type(exc).__name__+': supplier sign-in/browser access needs review.')
+        payload.update(processed=len(payload['rows']),saved_at=timezone_now())
+        save_price_report(payload)
+    payload.update(status='completed' if all(r['ok'] for r in payload['rows']) else 'completed_with_errors',
+                   activity='Eight supplier price checks finished',saved_at=timezone_now())
     save_price_report(payload)
     return payload
+
+
+def queue_price_check():
+    import os
+    import subprocess
+    import sys
+    from django.conf import settings
+    from django.utils import timezone
+    from django.utils.dateparse import parse_datetime
+    old=last_price_report() or {}
+    stamp=parse_datetime(old.get('saved_at') or '')
+    if old.get('status') in ('queued','running') and stamp and (timezone.now()-stamp).total_seconds()<1800:
+        return old
+    lock=price_report_path().with_suffix('.lock')
+    if lock.exists() and (not stamp or (timezone.now()-stamp).total_seconds()>=1800 or old.get('status') not in ('queued','running')):
+        lock.unlink(missing_ok=True)
+    try:
+        fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
+    except FileExistsError:
+        return old or {'status':'running','rows':[],'activity':'Price verification is already running'}
+    os.close(fd)
+    result={'status':'queued','rows':[],'processed':0,'total':8,'saved_at':timezone_now(),
+            'activity':'Starting browser verification'}
+    save_price_report(result)
+    try:
+        with open(price_report_path().with_suffix('.log'),'a',encoding='utf-8') as output:
+            subprocess.Popen([sys.executable,str(Path(settings.BASE_DIR)/'manage.py'),'ensure_supplier_prices','--live'],
+                cwd=settings.BASE_DIR,stdout=output,stderr=output,
+                creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+    except Exception:
+        lock.unlink(missing_ok=True)
+        result.update(status='failed',activity='Could not start browser verification')
+        save_price_report(result)
+    return result
 
 
 def timezone_now():
@@ -270,8 +252,12 @@ def price_report_path():
 
 
 def save_price_report(payload):
+    import os
+    import uuid
     path = price_report_path()
-    path.write_text(json.dumps(payload, ensure_ascii=False), encoding='utf-8')
+    tmp=path.with_name(path.name+'.'+uuid.uuid4().hex+'.tmp')
+    tmp.write_text(json.dumps(payload, ensure_ascii=False), encoding='utf-8')
+    os.replace(tmp,path)
 
 
 def last_price_report():
@@ -279,7 +265,14 @@ def last_price_report():
     if not path.exists():
         return None
     try:
-        return json.loads(path.read_text(encoding='utf-8'))
+        payload=json.loads(path.read_text(encoding='utf-8'))
+        if payload.get('status') in ('queued','running'):
+            from django.utils import timezone
+            from django.utils.dateparse import parse_datetime
+            stamp=parse_datetime(payload.get('saved_at') or '')
+            if stamp and (timezone.now()-stamp).total_seconds()>300:
+                payload.update(status='failed',activity='Price worker stopped reporting progress; retry to run a fresh check.')
+        return payload
     except (OSError, ValueError):
         return None
 

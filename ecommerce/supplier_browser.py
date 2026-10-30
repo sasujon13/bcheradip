@@ -13,8 +13,10 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from urllib.parse import urlparse, urljoin
 from django.db import close_old_connections, transaction, IntegrityError
@@ -27,7 +29,9 @@ from selenium.webdriver.edge.options import Options
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import TimeoutException, WebDriverException, StaleElementReferenceException
+from selenium.common.exceptions import (TimeoutException, WebDriverException,
+                                          StaleElementReferenceException,
+                                          SessionNotCreatedException)
 from .models import Supplier, SupplierJob
 from .supplier_service import DB, ACTIVE, snapshot_row, audit, finish
 from .supplier_api import SnapshotSerializer
@@ -649,17 +653,53 @@ class BrowserCollector:
                      'selenium.webdriver.common.selenium_manager', 'urllib3', 'urllib3.connectionpool'):
             logging.getLogger(name).setLevel(logging.WARNING)
         options = ChromeOptions() if self.use_browser_profile else Options() if os.name == 'nt' else ChromeOptions()
+        if getattr(self, 'price_only', False):
+            options.page_load_strategy = 'eager'
+            options.add_experimental_option('prefs', {'profile.managed_default_content_settings.images': 2})
         if self.use_browser_profile:
             profile = Path(settings.BASE_DIR) / 'private_suppliers' / 'browser_profiles' / self.site
             options.add_argument('--user-data-dir=' + str(profile))
         if self.headless:
             options.add_argument('--headless=new')
+        if os.name != 'nt':
+            # Production uses the confined Ubuntu Chromium package. These are
+            # standard headless-runtime flags (not an access-control bypass):
+            # without them Chromium exits before WebDriver can create a
+            # session under the service account.
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--window-size=1360,1000')
+        runtime_profiles = []
         # No stealth, personal profile, certificate override, proxy or authentication bypass.
         try:
             if self.use_browser_profile and not profile.is_dir():
                 raise CollectionStopped('Open the dedicated Chrome profile and sign in before collecting.')
-            self.driver = webdriver.Chrome(options=options) if self.use_browser_profile or os.name != 'nt' else webdriver.Edge(options=options)
+            for attempt in range(2):
+                try:
+                    launch_options = options
+                    if os.name != 'nt' and not self.use_browser_profile:
+                        # Snap Chromium has a private /tmp mount, so a
+                        # chromedriver-created /tmp profile is invisible to
+                        # the browser. Use a fresh directory in Chromium's
+                        # confined per-user common area for each attempt.
+                        common = Path.home() / 'snap' / 'chromium' / 'common' / 'cheradip-webdriver'
+                        common.mkdir(mode=0o700, parents=True, exist_ok=True)
+                        runtime_profile = Path(tempfile.mkdtemp(prefix='price-', dir=common))
+                        runtime_profiles.append(runtime_profile)
+                        launch_options = copy.deepcopy(options)
+                        launch_options.add_argument('--user-data-dir=' + str(runtime_profile))
+                    self.driver = (webdriver.Chrome(options=launch_options)
+                                   if self.use_browser_profile or os.name != 'nt'
+                                   else webdriver.Edge(options=launch_options))
+                    break
+                except SessionNotCreatedException:
+                    if attempt:
+                        raise
+                    # Snap Chromium can race its confined profile setup just
+                    # after a previous short-lived verification closes. One
+                    # bounded retry is enough; never loop around auth/access
+                    # failures.
+                    time.sleep(2)
             self.driver.set_page_load_timeout(40)
             self.login()
             self.password = ''
@@ -699,3 +739,5 @@ class BrowserCollector:
                     self.driver.quit()
                 except WebDriverException:
                     pass
+            for runtime_profile in runtime_profiles:
+                shutil.rmtree(runtime_profile, ignore_errors=True)

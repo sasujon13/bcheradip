@@ -36,6 +36,7 @@ SAFE_ADDITIONS = {
     ("default", "cheradip", "customer", "profile_image"),
     ("default", "cheradip", "customer", "referred_by"),
     ("default", "cheradip", "trxmanagement", "verified"),
+    ("default", "cheradip", "rewardswallet", "pending_taka"),
     ("childcare", "childcare", "parentaccount", "email"),
     ("childcare", "childcare", "parentaccount", "email_verified"),
     ("childcare", "childcare", "parentaccount", "full_name"),
